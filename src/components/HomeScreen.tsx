@@ -3,7 +3,7 @@ import type { Theme } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
 
-export type Activity = 'listen' | 'build' | 'count';
+export type Activity = 'listen' | 'build' | 'count' | 'match';
 
 interface Props {
   themes: Theme[];
@@ -20,6 +20,9 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
   const activeTheme = themes.find((t) => t.id === activeThemeId) ?? themes[0];
   const canBuild = activeTheme.constructions.length > 0;
   const canCount = activeTheme.countable === true;
+  // Adjective + noun agreement pairs the global adjectives with this theme's
+  // nouns, so it needs a countable noun topic (Animals), like Count & Say.
+  const canMatch = activeTheme.countable === true;
 
   function saveName() {
     setName(draft.trim());
@@ -147,6 +150,23 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
             Laske ja sano
             <span className="en">
               {canCount ? 'Count & Say' : 'Count & Say (animals only)'}
+            </span>
+          </span>
+        </button>
+
+        <button
+          className="activity-card"
+          onClick={() => onPlay('match')}
+          disabled={!canMatch}
+          title={canMatch ? undefined : 'Pick the Animals topic to match words'}
+        >
+          <span className="activity-card__emoji" aria-hidden="true">
+            🎨
+          </span>
+          <span className="activity-card__text">
+            Yhdistä sanat
+            <span className="en">
+              {canMatch ? 'Match the Words' : 'Match the Words (animals only)'}
             </span>
           </span>
         </button>
