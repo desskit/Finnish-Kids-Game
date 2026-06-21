@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { themes } from './content';
+import { themes, numbers } from './content';
 import HomeScreen, { type Activity } from './components/HomeScreen';
 import ListenAndTap from './components/ListenAndTap';
 import BuildAPhrase from './components/BuildAPhrase';
+import CountAndSay from './components/CountAndSay';
 
 type Screen = 'home' | Activity;
 
@@ -29,6 +30,9 @@ export default function App() {
           constructions={theme.constructions}
           onExit={goHome}
         />
+      )}
+      {screen === 'count' && (
+        <CountAndSay nouns={theme.items} numbers={numbers.items} onExit={goHome} />
       )}
     </main>
   );

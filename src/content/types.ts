@@ -47,6 +47,8 @@ export interface LexicalItem {
   kotusType?: number;
   group?: string;
   frequencyRank?: number;
+  /** Numeric value, for number words (used by counting scenes + grammar rule). */
+  value?: number;
   /** Sourced examples (not yet surfaced in the kids UI; pending kid-safety review). */
   examples?: Example[];
   /** Optional recorded-audio path (future). Falls back to TTS when absent. */
@@ -88,6 +90,8 @@ export interface Theme {
   items: LexicalItem[];
   /** Carrier phrases usable with this theme's vocabulary (may be empty). */
   constructions: Construction[];
+  /** True if these items are countable nouns (enables the Count & Say game). */
+  countable?: boolean;
 }
 
 export function inflectionKey(c: CaseId, n: GrammaticalNumber): string {
@@ -106,4 +110,21 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
     (p): p is string => typeof p === 'string' && p.length > 0,
   );
   return parts.join(' ') + (con.punct ?? '');
+}
+
+// --- Two-slot counting construction: number + counted noun ---------------
+//
+// Finnish counting rule: a noun counted by 1 stays in the nominative singular
+// (yksi kissa); counted by 2+ it takes the partitive singular (kolme kissaa).
+// Both forms come from the sourced inflection table — never generated.
+
+/** The counted-noun form for a given count, looked up by tag. */
+export function countingNounForm(noun: LexicalItem, count: number): string {
+  const key = count === 1 ? 'nominative_singular' : 'partitive_singular';
+  return noun.inflections[key] ?? noun.fi;
+}
+
+/** Assemble "kolme kissaa" from a number item + a noun item. */
+export function countingPhrase(number: LexicalItem, noun: LexicalItem): string {
+  return `${number.fi} ${countingNounForm(noun, number.value ?? 0)}`;
 }

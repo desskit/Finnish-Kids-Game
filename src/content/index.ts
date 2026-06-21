@@ -12,7 +12,13 @@ export type {
   Tier,
   Example,
 } from './types';
-export { formFor, sentenceFor, inflectionKey } from './types';
+export {
+  formFor,
+  sentenceFor,
+  inflectionKey,
+  countingNounForm,
+  countingPhrase,
+} from './types';
 
 interface SourcedWord {
   id: string;
@@ -23,6 +29,7 @@ interface SourcedWord {
   kotusType?: number;
   group?: string;
   frequencyRank?: number;
+  value?: number;
   examples?: Example[];
 }
 
@@ -44,11 +51,16 @@ function toItem(w: SourcedWord, tier: Tier): LexicalItem {
     kotusType: w.kotusType,
     group: w.group,
     frequencyRank: w.frequencyRank,
+    value: w.value,
     examples: w.examples,
   };
 }
 
-function toTheme(file: SourcedFile, constructions: Construction[]): Theme {
+function toTheme(
+  file: SourcedFile,
+  constructions: Construction[],
+  extra?: Partial<Pick<Theme, 'countable'>>,
+): Theme {
   return {
     id: file.theme.id,
     fi: file.theme.fi,
@@ -56,10 +68,13 @@ function toTheme(file: SourcedFile, constructions: Construction[]): Theme {
     emoji: file.theme.emoji,
     items: file.words.map((w) => toItem(w, 1)),
     constructions,
+    ...extra,
   };
 }
 
-export const animals = toTheme(animalsData as unknown as SourcedFile, animalConstructions);
+export const animals = toTheme(animalsData as unknown as SourcedFile, animalConstructions, {
+  countable: true,
+});
 export const numbers = toTheme(numbersData as unknown as SourcedFile, []);
 
 export const themes: Theme[] = [animals, numbers];

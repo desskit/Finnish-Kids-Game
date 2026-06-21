@@ -45,17 +45,19 @@ const ANIMALS = [
   ['frog', 'sammakko', 'frog', '🐸'],
 ];
 
+// Numbers carry a numeric `value` (5th field) used for counting scenes and the
+// counting grammar rule (1 -> nominative singular, >1 -> partitive singular).
 const NUMBERS = [
-  ['one', 'yksi', 'one', '1️⃣'],
-  ['two', 'kaksi', 'two', '2️⃣'],
-  ['three', 'kolme', 'three', '3️⃣'],
-  ['four', 'neljä', 'four', '4️⃣'],
-  ['five', 'viisi', 'five', '5️⃣'],
-  ['six', 'kuusi', 'six', '6️⃣'],
-  ['seven', 'seitsemän', 'seven', '7️⃣'],
-  ['eight', 'kahdeksan', 'eight', '8️⃣'],
-  ['nine', 'yhdeksän', 'nine', '9️⃣'],
-  ['ten', 'kymmenen', 'ten', '🔟'],
+  ['one', 'yksi', 'one', '1️⃣', 1],
+  ['two', 'kaksi', 'two', '2️⃣', 2],
+  ['three', 'kolme', 'three', '3️⃣', 3],
+  ['four', 'neljä', 'four', '4️⃣', 4],
+  ['five', 'viisi', 'five', '5️⃣', 5],
+  ['six', 'kuusi', 'six', '6️⃣', 6],
+  ['seven', 'seitsemän', 'seven', '7️⃣', 7],
+  ['eight', 'kahdeksan', 'eight', '8️⃣', 8],
+  ['nine', 'yhdeksän', 'nine', '9️⃣', 9],
+  ['ten', 'kymmenen', 'ten', '🔟', 10],
 ];
 
 function pickExamples(src) {
@@ -71,7 +73,7 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords }) {
   const byWord = new Map(sourceWords.map((w) => [w.word, w]));
   const words = [];
   const missing = [];
-  for (const [wid, finnish, english, emo] of curation) {
+  for (const [wid, finnish, english, emo, value] of curation) {
     const src = byWord.get(finnish);
     if (!src) {
       missing.push(finnish);
@@ -84,6 +86,7 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords }) {
       emoji: emo,
       inflections: src.inflections,
     };
+    if (typeof value === 'number') entry.value = value;
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
     if (src.group) entry.group = src.group;
     if (typeof src.frequency_rank === 'number') entry.frequencyRank = src.frequency_rank;

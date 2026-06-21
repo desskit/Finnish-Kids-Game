@@ -521,6 +521,47 @@ button:focus-visible,
   box-shadow: 0 0 0 4px var(--bad);
 }
 
+/* ---------- Count & Say ---------- */
+.count-scene {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(6px, 1.6vw, 12px);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 620px;
+  min-height: clamp(90px, 22vw, 150px);
+  padding: clamp(12px, 3vw, 22px);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.count-emoji {
+  font-size: clamp(2.2rem, 9vw, 3.4rem);
+  line-height: 1;
+  animation: pop 0.25s ease;
+}
+
+.phrase-line--count {
+  gap: 18px;
+}
+
+.phrase-line--count .phrase-slot {
+  min-width: 3em;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* ---------- Round complete ---------- */
 .complete .title {
   font-size: clamp(1.8rem, 6vw, 3rem);

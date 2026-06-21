@@ -12,15 +12,19 @@ Finnish** — the app never generates or inflects Finnish by rule.
 
 ## What's in this slice
 
-- **Two mini-games**
+- **Three mini-games**
   - **Kuuntele ja osoita / Listen & Tap** — hear a Finnish word, tap the picture.
   - **Rakenna lause / Build a Phrase** — hear a carrier phrase, pick the word that
     completes it (e.g. _Tämä on **kissa**_).
+  - **Laske ja sano / Count & Say** — count the animals, then build the two-slot
+    counting phrase: pick the number, then the noun in its correct form
+    (_yksi **kissa**_ → _kolme **kissaa**_, partitive after 2+).
 - **Two themes** — Animals / _Eläimet_ (12 words) and Numbers / _Numerot_ (1–10).
 - **Nine carrier phrases** built on **case-tagged, sourced inflections**:
   - Nominative — _Tämä on ___ / Missä on ___? / Minulla on ___._
   - Verb rection — _Pidän ___sta_ (elative) / _Näen ___n_ (accusative).
   - Locational postpositions (genitive) — ____ edessä / takana / vieressä / alla_.
+  - Two-slot counting — _number + noun_ (partitive after 2+), used by Count & Say.
 - **Verified Finnish from tagged data** — word forms come from Wiktionary (via
   [Finnish-Inflection-Drill](https://github.com/desskit/Finnish-Inflection-Drill)).
   The app looks up the correct inflected form by tag; it never generates Finnish.
@@ -98,8 +102,7 @@ scripts/
 
 ## Roadmap (planned follow-up sessions)
 
-- **Two-slot constructions** — e.g. counting (_kolme kissaa_: number + noun in
-  partitive singular), which the current single-slot model doesn't cover.
+- More **two-slot patterns** beyond counting (e.g. adjective + noun agreement).
 - More themes (colors, food, family) curated from the same tagged source.
 - A kid-safety review pass before surfacing the sourced example sentences in the UI.
 - Real artwork + a mascot character (dedicated art session).

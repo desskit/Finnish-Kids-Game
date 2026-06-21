@@ -3,7 +3,7 @@ import type { Theme } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
 
-export type Activity = 'listen' | 'build';
+export type Activity = 'listen' | 'build' | 'count';
 
 interface Props {
   themes: Theme[];
@@ -19,6 +19,7 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
 
   const activeTheme = themes.find((t) => t.id === activeThemeId) ?? themes[0];
   const canBuild = activeTheme.constructions.length > 0;
+  const canCount = activeTheme.countable === true;
 
   function saveName() {
     setName(draft.trim());
@@ -129,6 +130,23 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
             Rakenna lause
             <span className="en">
               {canBuild ? 'Build a Phrase' : 'Build a Phrase (animals only)'}
+            </span>
+          </span>
+        </button>
+
+        <button
+          className="activity-card"
+          onClick={() => onPlay('count')}
+          disabled={!canCount}
+          title={canCount ? undefined : 'Pick the Animals topic to count'}
+        >
+          <span className="activity-card__emoji" aria-hidden="true">
+            🔢
+          </span>
+          <span className="activity-card__text">
+            Laske ja sano
+            <span className="en">
+              {canCount ? 'Count & Say' : 'Count & Say (animals only)'}
             </span>
           </span>
         </button>

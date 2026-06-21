@@ -57,3 +57,48 @@ export function buildPhraseRound(
     return { construction, item, options: shuffle([item, ...distractors]) };
   });
 }
+
+// --- Two-slot counting: number + counted noun ---------------------------
+
+export interface CountingQuestion {
+  number: LexicalItem; // the target count word
+  noun: LexicalItem; // the target counted noun
+  numberOptions: LexicalItem[];
+  nounOptions: LexicalItem[];
+}
+
+export function buildCountingRound(
+  numbers: readonly LexicalItem[],
+  nouns: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  maxCount: number,
+): CountingQuestion[] {
+  const counts = numbers.filter((n) => {
+    const v = n.value ?? 0;
+    return v >= 1 && v <= maxCount;
+  });
+
+  const out: CountingQuestion[] = [];
+  for (let i = 0; i < questionCount; i++) {
+    const number = sample(counts, 1)[0];
+    const noun = sample(nouns, 1)[0];
+    if (!number || !noun) break;
+    const numberOptions = shuffle([
+      number,
+      ...sample(
+        counts.filter((n) => n.id !== number.id),
+        optionCount - 1,
+      ),
+    ]);
+    const nounOptions = shuffle([
+      noun,
+      ...sample(
+        nouns.filter((x) => x.id !== noun.id),
+        optionCount - 1,
+      ),
+    ]);
+    out.push({ number, noun, numberOptions, nounOptions });
+  }
+  return out;
+}
