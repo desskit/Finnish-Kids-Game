@@ -1,9 +1,11 @@
 # Builds the PWA and publishes it to GitHub Pages so the app can be tested on
 # real devices (tablets / phones / Chromebooks) without a local dev server.
 #
-# One-time setup in the repo: Settings → Pages → Build and deployment →
-# Source: "GitHub Actions". After that, every push to the branch below
-# redeploys https://desskit.github.io/finnish-kids-game/ automatically.
+# Pages is enabled automatically by the configure-pages step below
+# (enablement: true), so no manual repo setting is required. Every push to the
+# default branch redeploys https://desskit.github.io/finnish-kids-game/.
+# The deploy must run from the default branch — the github-pages environment
+# only permits deployments from it.
 #
 # Hosting at the domain root later (e.g. Netlify) needs no code change — just
 # build without BASE_PATH (it defaults to "/").
@@ -11,7 +13,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [claude/laughing-goodall-lbclwx]
+    branches: [claude/wizardly-ride-93ix2i]
   workflow_dispatch:
 
 permissions:
@@ -40,6 +42,10 @@ jobs:
         env:
           BASE_PATH: /finnish-kids-game/
       - uses: actions/configure-pages@v5
+        with:
+          # Enable Pages (Source: GitHub Actions) on first run, so no manual
+          # repo setting is needed.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
