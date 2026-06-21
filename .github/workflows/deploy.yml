@@ -1,0 +1,55 @@
+# Builds the PWA and publishes it to GitHub Pages so the app can be tested on
+# real devices (tablets / phones / Chromebooks) without a local dev server.
+#
+# One-time setup in the repo: Settings → Pages → Build and deployment →
+# Source: "GitHub Actions". After that, every push to the branch below
+# redeploys https://desskit.github.io/finnish-kids-game/ automatically.
+#
+# Hosting at the domain root later (e.g. Netlify) needs no code change — just
+# build without BASE_PATH (it defaults to "/").
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [claude/laughing-goodall-lbclwx]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one deploy at a time; let an in-progress run finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run icons
+      - name: Build (with GitHub Pages base path)
+        run: npm run build
+        env:
+          BASE_PATH: /finnish-kids-game/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

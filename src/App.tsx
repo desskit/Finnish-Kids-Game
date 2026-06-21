@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { themes, numbers } from './content';
+import { themes, numbers, adjectives } from './content';
 import HomeScreen, { type Activity } from './components/HomeScreen';
 import ListenAndTap from './components/ListenAndTap';
 import BuildAPhrase from './components/BuildAPhrase';
 import CountAndSay from './components/CountAndSay';
+import MatchTheWord from './components/MatchTheWord';
 
 type Screen = 'home' | Activity;
 
@@ -33,6 +34,9 @@ export default function App() {
       )}
       {screen === 'count' && (
         <CountAndSay nouns={theme.items} numbers={numbers.items} onExit={goHome} />
+      )}
+      {screen === 'match' && (
+        <MatchTheWord adjectives={adjectives.items} nouns={theme.items} onExit={goHome} />
       )}
     </main>
   );

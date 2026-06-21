@@ -12,13 +12,17 @@ Finnish** — the app never generates or inflects Finnish by rule.
 
 ## What's in this slice
 
-- **Three mini-games**
+- **Four mini-games**
   - **Kuuntele ja osoita / Listen & Tap** — hear a Finnish word, tap the picture.
   - **Rakenna lause / Build a Phrase** — hear a carrier phrase, pick the word that
     completes it (e.g. _Tämä on **kissa**_).
   - **Laske ja sano / Count & Say** — count the animals, then build the two-slot
     counting phrase: pick the number, then the noun in its correct form
     (_yksi **kissa**_ → _kolme **kissaa**_, partitive after 2+).
+  - **Yhdistä sanat / Match the Words** — an adjective is shown in some case
+    (_isossa_); pick the noun form that **agrees** with it (_isossa **kissassa**_).
+    Distractors are the same noun in other cases, so the skill drilled is the
+    agreement itself. (Pairs the adjectives with the Animals nouns.)
 - **Two themes** — Animals / _Eläimet_ (12 words) and Numbers / _Numerot_ (1–10).
 - **Nine carrier phrases** built on **case-tagged, sourced inflections**:
   - Nominative — _Tämä on ___ / Missä on ___? / Minulla on ___._
@@ -47,6 +51,22 @@ Build & preview the production PWA:
 npm run build
 npm run preview
 ```
+
+## Test it on a real device (GitHub Pages)
+
+The app is a static, backend-free PWA, so it deploys straight to GitHub Pages.
+A workflow (`.github/workflows/deploy.yml`) builds and publishes it on every push
+to the active branch.
+
+**One-time setup:** in the repo, go to **Settings → Pages → Build and deployment**
+and set **Source: GitHub Actions**. After the next push the app is live at
+**https://desskit.github.io/finnish-kids-game/** — open it on a tablet or phone
+and tap _Add to Home Screen_ to install it.
+
+The base path is configurable via the `BASE_PATH` env var (the workflow sets
+`/finnish-kids-game/` for the Pages subpath). It defaults to `/`, so local dev,
+`npm run preview`, and a future root-domain host (e.g. **Netlify**) need no
+change — point Netlify at `npm run build` / publish `dist`.
 
 > **Audio note:** placeholder pronunciation uses the operating system's Finnish
 > (`fi-FI`) speech voice. If a device has no Finnish voice installed, words still
@@ -84,9 +104,10 @@ exists. Three shapes exist today:
 - **Single-slot carrier** (`buildPhraseRound`) — e.g. _Tämä on **kissa**_.
 - **Counting** (`buildCountingRound`) — number + noun (partitive after 2+).
 - **Adjective + noun agreement** (`buildAgreementRound`) — both words share one
-  case (_isossa kissassa_, _punaisen koiran_). Built and verified as exercise
-  data; **not wired into the UI yet** (that's for the UI session). `adjectives`
-  is intentionally excluded from the home-screen `themes`.
+  case (_isossa kissassa_, _punaisen koiran_). Rendered by the **Match the Words**
+  mini-game (`MatchTheWord.tsx`), which pairs the global `adjectives` list with
+  the active theme's nouns. `adjectives` stays out of the home-screen `themes`
+  because agreement needs nouns to attach to — it isn't a standalone play topic.
 
 ### Regenerating / extending the data
 
@@ -120,8 +141,6 @@ scripts/
 
 ## Roadmap (planned follow-up sessions)
 
-- **UI for adjective + noun agreement** — the exercise generator + adjective data
-  exist (`buildAgreementRound`); a mini-game to render it is pending the UI session.
 - More themes (food, family) curated from the same tagged source.
 - A kid-safety review pass before surfacing the sourced example sentences in the UI.
 - Real artwork + a mascot character (dedicated art session).
