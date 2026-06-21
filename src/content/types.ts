@@ -39,8 +39,9 @@ export interface LexicalItem {
   fi: string;
   /** English gloss (human-curated, single word). */
   en: string;
-  /** Placeholder art — swapped for real artwork in a later session. */
-  emoji: string;
+  /** Placeholder art — swapped for real artwork in a later session.
+   *  Optional: abstract words (e.g. quality adjectives) have no single picture. */
+  emoji?: string;
   tier: Tier;
   /** Sourced inflection table, keyed `${case}_${number}` (e.g. "genitive_singular"). */
   inflections: Record<string, string>;
@@ -127,4 +128,44 @@ export function countingNounForm(noun: LexicalItem, count: number): string {
 /** Assemble "kolme kissaa" from a number item + a noun item. */
 export function countingPhrase(number: LexicalItem, noun: LexicalItem): string {
   return `${number.fi} ${countingNounForm(noun, number.value ?? 0)}`;
+}
+
+// --- Two-slot adjective + noun agreement ---------------------------------
+//
+// A Finnish attributive adjective AGREES with its noun in case AND number:
+// "iso kissa" (nom sg), "isossa kissassa" (iness sg), "punaisen koiran" (gen sg).
+// Both words inflect to the same case+number; each form is looked up from its
+// own sourced table — never generated. The shared tag is the agreement.
+
+/** Look up an item's form for an arbitrary case + number. */
+export function caseFormOf(
+  item: LexicalItem,
+  c: CaseId,
+  n: GrammaticalNumber,
+): string | undefined {
+  return item.inflections[inflectionKey(c, n)];
+}
+
+/** The agreeing adjective + noun forms for a case + number, if both exist. */
+export function agreementForms(
+  adjective: LexicalItem,
+  noun: LexicalItem,
+  c: CaseId,
+  n: GrammaticalNumber,
+): { adjective: string; noun: string } | undefined {
+  const a = caseFormOf(adjective, c, n);
+  const b = caseFormOf(noun, c, n);
+  if (!a || !b) return undefined;
+  return { adjective: a, noun: b };
+}
+
+/** Assemble e.g. "isossa kissassa" from an adjective + noun + case + number. */
+export function agreementPhrase(
+  adjective: LexicalItem,
+  noun: LexicalItem,
+  c: CaseId,
+  n: GrammaticalNumber,
+): string | undefined {
+  const forms = agreementForms(adjective, noun, c, n);
+  return forms && `${forms.adjective} ${forms.noun}`;
 }

@@ -1,5 +1,6 @@
 import animalsData from './data/animals.sourced.json';
 import numbersData from './data/numbers.sourced.json';
+import adjectivesData from './data/adjectives.sourced.json';
 import { animalConstructions } from './constructions';
 import type { Construction, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -18,6 +19,9 @@ export {
   inflectionKey,
   countingNounForm,
   countingPhrase,
+  caseFormOf,
+  agreementForms,
+  agreementPhrase,
 } from './types';
 
 interface SourcedWord {
@@ -76,6 +80,11 @@ export const animals = toTheme(animalsData as unknown as SourcedFile, animalCons
   countable: true,
 });
 export const numbers = toTheme(numbersData as unknown as SourcedFile, []);
+
+// Adjectives are content for the (later) adjective+noun agreement exercises.
+// Exported for use by the round builder, but intentionally NOT added to
+// `themes` — it is not a standalone play topic in the home UI.
+export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
 
 export const themes: Theme[] = [animals, numbers];
 

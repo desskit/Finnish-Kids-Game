@@ -60,6 +60,29 @@ const NUMBERS = [
   ['ten', 'kymmenen', 'ten', '🔟', 10],
 ];
 
+// Adjectives decline like nouns and AGREE with their noun in case + number, so
+// they're sourced from nouns.json too. Colors get a color-square placeholder;
+// quality/size adjectives have no single picture (emoji omitted).
+const ADJECTIVES = [
+  ['big', 'iso', 'big', ''],
+  ['small', 'pieni', 'small', ''],
+  ['fast', 'nopea', 'fast', ''],
+  ['slow', 'hidas', 'slow', ''],
+  ['old', 'vanha', 'old', ''],
+  ['happy', 'iloinen', 'happy', ''],
+  ['tired', 'väsynyt', 'tired', ''],
+  ['hungry', 'nälkäinen', 'hungry', ''],
+  ['cute', 'söpö', 'cute', ''],
+  ['kind', 'kiltti', 'kind', ''],
+  ['red', 'punainen', 'red', '🟥'],
+  ['blue', 'sininen', 'blue', '🟦'],
+  ['yellow', 'keltainen', 'yellow', '🟨'],
+  ['green', 'vihreä', 'green', '🟩'],
+  ['black', 'musta', 'black', '⬛'],
+  ['white', 'valkoinen', 'white', '⬜'],
+  ['brown', 'ruskea', 'brown', '🟫'],
+];
+
 function pickExamples(src) {
   // Keep up to 2 short examples. NOTE: not yet reviewed for kid-appropriateness;
   // stored as data only and not surfaced in the kids UI yet.
@@ -83,7 +106,7 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords }) {
       id: wid,
       word: finnish,
       en: english,
-      emoji: emo,
+      emoji: emo || undefined,
       inflections: src.inflections,
     };
     if (typeof value === 'number') entry.value = value;
@@ -126,9 +149,24 @@ const numbers = buildTheme({
   sourceWords: numeralWords,
 });
 
+// Adjectives are sourced from nouns.json (adjectives decline identically).
+const adjectives = buildTheme({
+  id: 'adjectives',
+  fi: 'Adjektiivit',
+  en: 'Adjectives',
+  emoji: '🎨',
+  curation: ADJECTIVES,
+  sourceWords: nounWords,
+});
+
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');
+writeFileSync(
+  join(OUT_DIR, 'adjectives.sourced.json'),
+  JSON.stringify(adjectives, null, 2) + '\n',
+);
 
 console.log(
-  `Wrote ${animals.words.length} animals and ${numbers.words.length} numbers to ${OUT_DIR}`,
+  `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
+    `${adjectives.words.length} adjectives to ${OUT_DIR}`,
 );

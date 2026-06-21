@@ -1,0 +1,801 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "adjectives",
+    "fi": "Adjektiivit",
+    "en": "Adjectives",
+    "emoji": "🎨"
+  },
+  "words": [
+    {
+      "id": "big",
+      "word": "iso",
+      "en": "big",
+      "inflections": {
+        "nominative_singular": "iso",
+        "nominative_plural": "isot",
+        "genitive_singular": "ison",
+        "genitive_plural": "isojen",
+        "partitive_singular": "isoa",
+        "partitive_plural": "isoja",
+        "inessive_singular": "isossa",
+        "inessive_plural": "isoissa",
+        "elative_singular": "isosta",
+        "elative_plural": "isoista",
+        "illative_singular": "isoon",
+        "illative_plural": "isoihin",
+        "adessive_singular": "isolla",
+        "adessive_plural": "isoilla",
+        "ablative_singular": "isolta",
+        "ablative_plural": "isoilta",
+        "allative_singular": "isolle",
+        "allative_plural": "isoille",
+        "essive_singular": "isona",
+        "essive_plural": "isoina",
+        "translative_singular": "isoksi",
+        "translative_plural": "isoiksi",
+        "abessive_singular": "isotta",
+        "abessive_plural": "isoitta",
+        "instructive_plural": "isoin",
+        "comitative_plural": "isoine"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 406,
+      "examples": [
+        {
+          "fi": "isoympyrä",
+          "en": "great circle"
+        },
+        {
+          "fi": "olet jo iso poika",
+          "en": "you're a big boy already"
+        }
+      ]
+    },
+    {
+      "id": "small",
+      "word": "pieni",
+      "en": "small",
+      "inflections": {
+        "nominative_singular": "pieni",
+        "nominative_plural": "pienet",
+        "genitive_singular": "pienen",
+        "genitive_plural": "pienten",
+        "partitive_singular": "pientä",
+        "partitive_plural": "pieniä",
+        "inessive_singular": "pienessä",
+        "inessive_plural": "pienissä",
+        "elative_singular": "pienestä",
+        "elative_plural": "pienistä",
+        "illative_singular": "pieneen",
+        "illative_plural": "pieniin",
+        "adessive_singular": "pienellä",
+        "adessive_plural": "pienillä",
+        "ablative_singular": "pieneltä",
+        "ablative_plural": "pieniltä",
+        "allative_singular": "pienelle",
+        "allative_plural": "pienille",
+        "essive_singular": "pienenä",
+        "essive_plural": "pieninä",
+        "translative_singular": "pieneksi",
+        "translative_plural": "pieniksi",
+        "abessive_singular": "pienettä",
+        "abessive_plural": "pienittä",
+        "instructive_plural": "pienin",
+        "comitative_plural": "pienine"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 367,
+      "examples": [
+        {
+          "fi": "pieni puu",
+          "en": "a small tree"
+        },
+        {
+          "fi": "Laitoin radiota pienemmälle.",
+          "en": "I turned down the radio."
+        }
+      ]
+    },
+    {
+      "id": "fast",
+      "word": "nopea",
+      "en": "fast",
+      "inflections": {
+        "nominative_singular": "nopea",
+        "nominative_plural": "nopeat",
+        "genitive_singular": "nopean",
+        "genitive_plural": "nopeiden",
+        "partitive_singular": "nopeaa",
+        "partitive_plural": "nopeita",
+        "inessive_singular": "nopeassa",
+        "inessive_plural": "nopeissa",
+        "elative_singular": "nopeasta",
+        "elative_plural": "nopeista",
+        "illative_singular": "nopeaan",
+        "illative_plural": "nopeisiin",
+        "adessive_singular": "nopealla",
+        "adessive_plural": "nopeilla",
+        "ablative_singular": "nopealta",
+        "ablative_plural": "nopeilta",
+        "allative_singular": "nopealle",
+        "allative_plural": "nopeille",
+        "essive_singular": "nopeana",
+        "essive_plural": "nopeina",
+        "translative_singular": "nopeaksi",
+        "translative_plural": "nopeiksi",
+        "abessive_singular": "nopeatta",
+        "abessive_plural": "nopeitta",
+        "instructive_plural": "nopein",
+        "comitative_plural": "nopeine"
+      },
+      "kotusType": 15,
+      "group": "a_ae",
+      "frequencyRank": 2256,
+      "examples": [
+        {
+          "fi": "nopea auto",
+          "en": "a fast car"
+        },
+        {
+          "fi": "nopea oppimaan",
+          "en": "quick to learn"
+        }
+      ]
+    },
+    {
+      "id": "slow",
+      "word": "hidas",
+      "en": "slow",
+      "inflections": {
+        "nominative_singular": "hidas",
+        "nominative_plural": "hitaat",
+        "genitive_singular": "hitaan",
+        "genitive_plural": "hitaiden",
+        "partitive_singular": "hidasta",
+        "partitive_plural": "hitaita",
+        "inessive_singular": "hitaassa",
+        "inessive_plural": "hitaissa",
+        "elative_singular": "hitaasta",
+        "elative_plural": "hitaista",
+        "illative_singular": "hitaaseen",
+        "illative_plural": "hitaisiin",
+        "adessive_singular": "hitaalla",
+        "adessive_plural": "hitailla",
+        "ablative_singular": "hitaalta",
+        "ablative_plural": "hitailta",
+        "allative_singular": "hitaalle",
+        "allative_plural": "hitaille",
+        "essive_singular": "hitaana",
+        "essive_plural": "hitaina",
+        "translative_singular": "hitaaksi",
+        "translative_plural": "hitaiksi",
+        "abessive_singular": "hitaatta",
+        "abessive_plural": "hitaitta",
+        "instructive_plural": "hitain",
+        "comitative_plural": "hitaine"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 3540,
+      "examples": [
+        {
+          "fi": "hidas oppimaan",
+          "en": "slow to learn"
+        },
+        {
+          "fi": "Pidän sen laulun hitaasta rytmistä.",
+          "en": "I like the slow rhythm of that song."
+        }
+      ]
+    },
+    {
+      "id": "old",
+      "word": "vanha",
+      "en": "old",
+      "inflections": {
+        "nominative_singular": "vanha",
+        "nominative_plural": "vanhat",
+        "genitive_singular": "vanhan",
+        "genitive_plural": "vanhojen",
+        "partitive_singular": "vanhaa",
+        "partitive_plural": "vanhoja",
+        "inessive_singular": "vanhassa",
+        "inessive_plural": "vanhoissa",
+        "elative_singular": "vanhasta",
+        "elative_plural": "vanhoista",
+        "illative_singular": "vanhaan",
+        "illative_plural": "vanhoihin",
+        "adessive_singular": "vanhalla",
+        "adessive_plural": "vanhoilla",
+        "ablative_singular": "vanhalta",
+        "ablative_plural": "vanhoilta",
+        "allative_singular": "vanhalle",
+        "allative_plural": "vanhoille",
+        "essive_singular": "vanhana",
+        "essive_plural": "vanhoina",
+        "translative_singular": "vanhaksi",
+        "translative_plural": "vanhoiksi",
+        "abessive_singular": "vanhatta",
+        "abessive_plural": "vanhoitta",
+        "instructive_plural": "vanhoin",
+        "comitative_plural": "vanhoine"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 381,
+      "examples": [
+        {
+          "fi": "Pekka ajaa vanhalla autonromulla.",
+          "en": "Pekka drives an old beater."
+        },
+        {
+          "fi": "Vanha asunto meni vaihdossa.",
+          "en": "I traded out my old apartment."
+        }
+      ]
+    },
+    {
+      "id": "happy",
+      "word": "iloinen",
+      "en": "happy",
+      "inflections": {
+        "nominative_singular": "iloinen",
+        "nominative_plural": "iloiset",
+        "genitive_singular": "iloisen",
+        "genitive_plural": "iloisten",
+        "partitive_singular": "iloista",
+        "partitive_plural": "iloisia",
+        "inessive_singular": "iloisessa",
+        "inessive_plural": "iloisissa",
+        "elative_singular": "iloisesta",
+        "elative_plural": "iloisista",
+        "illative_singular": "iloiseen",
+        "illative_plural": "iloisiin",
+        "adessive_singular": "iloisella",
+        "adessive_plural": "iloisilla",
+        "ablative_singular": "iloiselta",
+        "ablative_plural": "iloisilta",
+        "allative_singular": "iloiselle",
+        "allative_plural": "iloisille",
+        "essive_singular": "iloisena",
+        "essive_plural": "iloisina",
+        "translative_singular": "iloiseksi",
+        "translative_plural": "iloisiksi",
+        "abessive_singular": "iloisetta",
+        "abessive_plural": "iloisitta",
+        "instructive_plural": "iloisin",
+        "comitative_plural": "iloisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 792,
+      "examples": [
+        {
+          "fi": "Hän on iloinen uudesta työpaikastaan.",
+          "en": "She is happy about her new job."
+        },
+        {
+          "fi": "Näytät iloiselta.",
+          "en": "You look happy."
+        }
+      ]
+    },
+    {
+      "id": "tired",
+      "word": "väsynyt",
+      "en": "tired",
+      "inflections": {
+        "nominative_singular": "väsynyt",
+        "nominative_plural": "väsyneet",
+        "genitive_singular": "väsyneen",
+        "genitive_plural": "väsyneiden",
+        "partitive_singular": "väsynyttä",
+        "partitive_plural": "väsyneitä",
+        "inessive_singular": "väsyneessä",
+        "inessive_plural": "väsyneissä",
+        "elative_singular": "väsyneestä",
+        "elative_plural": "väsyneistä",
+        "illative_singular": "väsyneeseen",
+        "illative_plural": "väsyneisiin",
+        "adessive_singular": "väsyneellä",
+        "adessive_plural": "väsyneillä",
+        "ablative_singular": "väsyneeltä",
+        "ablative_plural": "väsyneiltä",
+        "allative_singular": "väsyneelle",
+        "allative_plural": "väsyneille",
+        "essive_singular": "väsyneenä",
+        "essive_plural": "väsyneinä",
+        "translative_singular": "väsyneeksi",
+        "translative_plural": "väsyneiksi",
+        "abessive_singular": "väsyneettä",
+        "abessive_plural": "väsyneittä",
+        "instructive_plural": "väsynein",
+        "comitative_plural": "väsyneine"
+      },
+      "kotusType": 47,
+      "group": "ut_yt",
+      "frequencyRank": 1591,
+      "examples": [
+        {
+          "fi": "Näytät väsyneeltä.",
+          "en": "You look tired."
+        },
+        {
+          "fi": "Kuulostat väsyneeltä.",
+          "en": "You sound tired."
+        }
+      ]
+    },
+    {
+      "id": "hungry",
+      "word": "nälkäinen",
+      "en": "hungry",
+      "inflections": {
+        "nominative_singular": "nälkäinen",
+        "nominative_plural": "nälkäiset",
+        "genitive_singular": "nälkäisen",
+        "genitive_plural": "nälkäisten",
+        "partitive_singular": "nälkäistä",
+        "partitive_plural": "nälkäisiä",
+        "inessive_singular": "nälkäisessä",
+        "inessive_plural": "nälkäisissä",
+        "elative_singular": "nälkäisestä",
+        "elative_plural": "nälkäisistä",
+        "illative_singular": "nälkäiseen",
+        "illative_plural": "nälkäisiin",
+        "adessive_singular": "nälkäisellä",
+        "adessive_plural": "nälkäisillä",
+        "ablative_singular": "nälkäiseltä",
+        "ablative_plural": "nälkäisiltä",
+        "allative_singular": "nälkäiselle",
+        "allative_plural": "nälkäisille",
+        "essive_singular": "nälkäisenä",
+        "essive_plural": "nälkäisinä",
+        "translative_singular": "nälkäiseksi",
+        "translative_plural": "nälkäisiksi",
+        "abessive_singular": "nälkäisettä",
+        "abessive_plural": "nälkäisittä",
+        "instructive_plural": "nälkäisin",
+        "comitative_plural": "nälkäisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 3304,
+      "examples": [
+        {
+          "fi": "Olin nälkäinen.",
+          "en": "I felt hungry."
+        },
+        {
+          "fi": "Olen nälkäinen.",
+          "en": "I feel hungry."
+        }
+      ]
+    },
+    {
+      "id": "cute",
+      "word": "söpö",
+      "en": "cute",
+      "inflections": {
+        "nominative_singular": "söpö",
+        "nominative_plural": "söpöt",
+        "genitive_singular": "söpön",
+        "genitive_plural": "söpöjen",
+        "partitive_singular": "söpöä",
+        "partitive_plural": "söpöjä",
+        "inessive_singular": "söpössä",
+        "inessive_plural": "söpöissä",
+        "elative_singular": "söpöstä",
+        "elative_plural": "söpöistä",
+        "illative_singular": "söpöön",
+        "illative_plural": "söpöihin",
+        "adessive_singular": "söpöllä",
+        "adessive_plural": "söpöillä",
+        "ablative_singular": "söpöltä",
+        "ablative_plural": "söpöiltä",
+        "allative_singular": "söpölle",
+        "allative_plural": "söpöille",
+        "essive_singular": "söpönä",
+        "essive_plural": "söpöinä",
+        "translative_singular": "söpöksi",
+        "translative_plural": "söpöiksi",
+        "abessive_singular": "söpöttä",
+        "abessive_plural": "söpöittä",
+        "instructive_plural": "söpöin",
+        "comitative_plural": "söpöine"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 2027,
+      "examples": [
+        {
+          "fi": "Pöllöt ovat söpöjä.",
+          "en": "Owls are cute."
+        },
+        {
+          "fi": "Koalat ovat söpöjä.",
+          "en": "Koalas are cute."
+        }
+      ]
+    },
+    {
+      "id": "kind",
+      "word": "kiltti",
+      "en": "kind",
+      "inflections": {
+        "nominative_singular": "kiltti",
+        "nominative_plural": "kiltit",
+        "genitive_singular": "kiltin",
+        "genitive_plural": "kilttien",
+        "partitive_singular": "kilttiä",
+        "partitive_plural": "kilttejä",
+        "inessive_singular": "kiltissä",
+        "inessive_plural": "kilteissä",
+        "elative_singular": "kiltistä",
+        "elative_plural": "kilteistä",
+        "illative_singular": "kilttiin",
+        "illative_plural": "kiltteihin",
+        "adessive_singular": "kiltillä",
+        "adessive_plural": "kilteillä",
+        "ablative_singular": "kiltiltä",
+        "ablative_plural": "kilteiltä",
+        "allative_singular": "kiltille",
+        "allative_plural": "kilteille",
+        "essive_singular": "kilttinä",
+        "essive_plural": "kiltteinä",
+        "translative_singular": "kiltiksi",
+        "translative_plural": "kilteiksi",
+        "abessive_singular": "kiltittä",
+        "abessive_plural": "kilteittä",
+        "instructive_plural": "kiltein",
+        "comitative_plural": "kiltteine"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 422,
+      "examples": [
+        {
+          "fi": "Olkaa kilttejä.",
+          "en": "Be kind."
+        },
+        {
+          "fi": "Olkaa kilttejä toisille.",
+          "en": "Be kind to others!"
+        }
+      ]
+    },
+    {
+      "id": "red",
+      "word": "punainen",
+      "en": "red",
+      "emoji": "🟥",
+      "inflections": {
+        "nominative_singular": "punainen",
+        "nominative_plural": "punaiset",
+        "genitive_singular": "punaisen",
+        "genitive_plural": "punaisten",
+        "partitive_singular": "punaista",
+        "partitive_plural": "punaisia",
+        "inessive_singular": "punaisessa",
+        "inessive_plural": "punaisissa",
+        "elative_singular": "punaisesta",
+        "elative_plural": "punaisista",
+        "illative_singular": "punaiseen",
+        "illative_plural": "punaisiin",
+        "adessive_singular": "punaisella",
+        "adessive_plural": "punaisilla",
+        "ablative_singular": "punaiselta",
+        "ablative_plural": "punaisilta",
+        "allative_singular": "punaiselle",
+        "allative_plural": "punaisille",
+        "essive_singular": "punaisena",
+        "essive_plural": "punaisina",
+        "translative_singular": "punaiseksi",
+        "translative_plural": "punaisiksi",
+        "abessive_singular": "punaisetta",
+        "abessive_plural": "punaisitta",
+        "instructive_plural": "punaisin",
+        "comitative_plural": "punaisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 1880,
+      "examples": [
+        {
+          "fi": "Pidän punaisesta enemmän.",
+          "en": "I prefer red."
+        },
+        {
+          "fi": "Pysähdyitkö punaisissa valoissa?",
+          "en": "Did you stop at the red traffic light?"
+        }
+      ]
+    },
+    {
+      "id": "blue",
+      "word": "sininen",
+      "en": "blue",
+      "emoji": "🟦",
+      "inflections": {
+        "nominative_singular": "sininen",
+        "nominative_plural": "siniset",
+        "genitive_singular": "sinisen",
+        "genitive_plural": "sinisten",
+        "partitive_singular": "sinistä",
+        "partitive_plural": "sinisiä",
+        "inessive_singular": "sinisessä",
+        "inessive_plural": "sinisissä",
+        "elative_singular": "sinisestä",
+        "elative_plural": "sinisistä",
+        "illative_singular": "siniseen",
+        "illative_plural": "sinisiin",
+        "adessive_singular": "sinisellä",
+        "adessive_plural": "sinisillä",
+        "ablative_singular": "siniseltä",
+        "ablative_plural": "sinisiltä",
+        "allative_singular": "siniselle",
+        "allative_plural": "sinisille",
+        "essive_singular": "sinisenä",
+        "essive_plural": "sinisinä",
+        "translative_singular": "siniseksi",
+        "translative_plural": "sinisiksi",
+        "abessive_singular": "sinisettä",
+        "abessive_plural": "sinisittä",
+        "instructive_plural": "sinisin",
+        "comitative_plural": "sinisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 2764,
+      "examples": [
+        {
+          "fi": "Pidän sinisestä väristä.",
+          "en": "I like the color blue."
+        },
+        {
+          "fi": "Mä tykkään sinisestä väristä.",
+          "en": "I like the color blue."
+        }
+      ]
+    },
+    {
+      "id": "yellow",
+      "word": "keltainen",
+      "en": "yellow",
+      "emoji": "🟨",
+      "inflections": {
+        "nominative_singular": "keltainen",
+        "nominative_plural": "keltaiset",
+        "genitive_singular": "keltaisen",
+        "genitive_plural": "keltaisten",
+        "partitive_singular": "keltaista",
+        "partitive_plural": "keltaisia",
+        "inessive_singular": "keltaisessa",
+        "inessive_plural": "keltaisissa",
+        "elative_singular": "keltaisesta",
+        "elative_plural": "keltaisista",
+        "illative_singular": "keltaiseen",
+        "illative_plural": "keltaisiin",
+        "adessive_singular": "keltaisella",
+        "adessive_plural": "keltaisilla",
+        "ablative_singular": "keltaiselta",
+        "ablative_plural": "keltaisilta",
+        "allative_singular": "keltaiselle",
+        "allative_plural": "keltaisille",
+        "essive_singular": "keltaisena",
+        "essive_plural": "keltaisina",
+        "translative_singular": "keltaiseksi",
+        "translative_plural": "keltaisiksi",
+        "abessive_singular": "keltaisetta",
+        "abessive_plural": "keltaisitta",
+        "instructive_plural": "keltaisin",
+        "comitative_plural": "keltaisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 6645,
+      "examples": [
+        {
+          "fi": "Auto on keltainen.",
+          "en": "The car is yellow."
+        },
+        {
+          "fi": "Se auto on keltainen.",
+          "en": "The car is yellow."
+        }
+      ]
+    },
+    {
+      "id": "green",
+      "word": "vihreä",
+      "en": "green",
+      "emoji": "🟩",
+      "inflections": {
+        "nominative_singular": "vihreä",
+        "nominative_plural": "vihreät",
+        "genitive_singular": "vihreän",
+        "genitive_plural": "vihreiden",
+        "partitive_singular": "vihreää",
+        "partitive_plural": "vihreitä",
+        "inessive_singular": "vihreässä",
+        "inessive_plural": "vihreissä",
+        "elative_singular": "vihreästä",
+        "elative_plural": "vihreistä",
+        "illative_singular": "vihreään",
+        "illative_plural": "vihreisiin",
+        "adessive_singular": "vihreällä",
+        "adessive_plural": "vihreillä",
+        "ablative_singular": "vihreältä",
+        "ablative_plural": "vihreiltä",
+        "allative_singular": "vihreälle",
+        "allative_plural": "vihreille",
+        "essive_singular": "vihreänä",
+        "essive_plural": "vihreinä",
+        "translative_singular": "vihreäksi",
+        "translative_plural": "vihreiksi",
+        "abessive_singular": "vihreättä",
+        "abessive_plural": "vihreittä",
+        "instructive_plural": "vihrein",
+        "comitative_plural": "vihreine"
+      },
+      "kotusType": 15,
+      "group": "a_ae",
+      "frequencyRank": 3345,
+      "examples": [
+        {
+          "fi": "Pidän vihreästä.",
+          "en": "I like the green colour."
+        },
+        {
+          "fi": "Minä pidän vihreästä teestä.",
+          "en": "I like green tea."
+        }
+      ]
+    },
+    {
+      "id": "black",
+      "word": "musta",
+      "en": "black",
+      "emoji": "⬛",
+      "inflections": {
+        "nominative_singular": "musta",
+        "nominative_plural": "mustat",
+        "genitive_singular": "mustan",
+        "genitive_plural": "mustien",
+        "partitive_singular": "mustaa",
+        "partitive_plural": "mustia",
+        "inessive_singular": "mustassa",
+        "inessive_plural": "mustissa",
+        "elative_singular": "mustasta",
+        "elative_plural": "mustista",
+        "illative_singular": "mustaan",
+        "illative_plural": "mustiin",
+        "adessive_singular": "mustalla",
+        "adessive_plural": "mustilla",
+        "ablative_singular": "mustalta",
+        "ablative_plural": "mustilta",
+        "allative_singular": "mustalle",
+        "allative_plural": "mustille",
+        "essive_singular": "mustana",
+        "essive_plural": "mustina",
+        "translative_singular": "mustaksi",
+        "translative_plural": "mustiksi",
+        "abessive_singular": "mustatta",
+        "abessive_plural": "mustitta",
+        "instructive_plural": "mustin",
+        "comitative_plural": "mustine"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1120,
+      "examples": [
+        {
+          "fi": "Pidän mustasta väristä.",
+          "en": "I like the color black."
+        },
+        {
+          "fi": "Näen erään naisen mustissa.",
+          "en": "I see a woman wearing black."
+        }
+      ]
+    },
+    {
+      "id": "white",
+      "word": "valkoinen",
+      "en": "white",
+      "emoji": "⬜",
+      "inflections": {
+        "nominative_singular": "valkoinen",
+        "nominative_plural": "valkoiset",
+        "genitive_singular": "valkoisen",
+        "genitive_plural": "valkoisten",
+        "partitive_singular": "valkoista",
+        "partitive_plural": "valkoisia",
+        "inessive_singular": "valkoisessa",
+        "inessive_plural": "valkoisissa",
+        "elative_singular": "valkoisesta",
+        "elative_plural": "valkoisista",
+        "illative_singular": "valkoiseen",
+        "illative_plural": "valkoisiin",
+        "adessive_singular": "valkoisella",
+        "adessive_plural": "valkoisilla",
+        "ablative_singular": "valkoiselta",
+        "ablative_plural": "valkoisilta",
+        "allative_singular": "valkoiselle",
+        "allative_plural": "valkoisille",
+        "essive_singular": "valkoisena",
+        "essive_plural": "valkoisina",
+        "translative_singular": "valkoiseksi",
+        "translative_plural": "valkoisiksi",
+        "abessive_singular": "valkoisetta",
+        "abessive_plural": "valkoisitta",
+        "instructive_plural": "valkoisin",
+        "comitative_plural": "valkoisine"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 1712,
+      "examples": [
+        {
+          "fi": "Tomi pitää valkoisesta riisistä.",
+          "en": "Tom likes white rice."
+        },
+        {
+          "fi": "Naoko asuu tuossa valkoisessa talossa.",
+          "en": "Naoko lives in that white house."
+        }
+      ]
+    },
+    {
+      "id": "brown",
+      "word": "ruskea",
+      "en": "brown",
+      "emoji": "🟫",
+      "inflections": {
+        "nominative_singular": "ruskea",
+        "nominative_plural": "ruskeat",
+        "genitive_singular": "ruskean",
+        "genitive_plural": "ruskeiden",
+        "partitive_singular": "ruskeaa",
+        "partitive_plural": "ruskeita",
+        "inessive_singular": "ruskeassa",
+        "inessive_plural": "ruskeissa",
+        "elative_singular": "ruskeasta",
+        "elative_plural": "ruskeista",
+        "illative_singular": "ruskeaan",
+        "illative_plural": "ruskeisiin",
+        "adessive_singular": "ruskealla",
+        "adessive_plural": "ruskeilla",
+        "ablative_singular": "ruskealta",
+        "ablative_plural": "ruskeilta",
+        "allative_singular": "ruskealle",
+        "allative_plural": "ruskeille",
+        "essive_singular": "ruskeana",
+        "essive_plural": "ruskeina",
+        "translative_singular": "ruskeaksi",
+        "translative_plural": "ruskeiksi",
+        "abessive_singular": "ruskeatta",
+        "abessive_plural": "ruskeitta",
+        "instructive_plural": "ruskein",
+        "comitative_plural": "ruskeine"
+      },
+      "kotusType": 15,
+      "group": "a_ae",
+      "frequencyRank": 8720,
+      "examples": [
+        {
+          "fi": "Tomilla on ruskeat silmät.",
+          "en": "Tom has brown eyes."
+        },
+        {
+          "fi": "Hänellä on ruskeat silmät.",
+          "en": "She has brown eyes."
+        }
+      ]
+    }
+  ]
+}
