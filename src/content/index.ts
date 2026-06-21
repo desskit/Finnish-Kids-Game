@@ -1,6 +1,7 @@
 import animalsData from './data/animals.sourced.json';
 import numbersData from './data/numbers.sourced.json';
 import adjectivesData from './data/adjectives.sourced.json';
+import verbsData from './data/verbs.sourced.json';
 import { animalConstructions } from './constructions';
 import type { Construction, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -22,7 +23,11 @@ export {
   caseFormOf,
   agreementForms,
   agreementPhrase,
+  verbForm,
+  conjugatedClause,
+  PERSONS,
 } from './types';
+export type { PersonId, VerbTense, Polarity, Person } from './types';
 
 interface SourcedWord {
   id: string;
@@ -85,6 +90,9 @@ export const numbers = toTheme(numbersData as unknown as SourcedFile, []);
 // Exported for use by the round builder, but intentionally NOT added to
 // `themes` — it is not a standalone play topic in the home UI.
 export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
+
+// Verbs power the (later) conjugation exercises. Also kept out of `themes`.
+export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
 
 export const themes: Theme[] = [animals, numbers];
 

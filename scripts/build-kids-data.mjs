@@ -83,6 +83,37 @@ const ADJECTIVES = [
   ['brown', 'ruskea', 'brown', '🟫'],
 ];
 
+// Kid-friendly verbs spanning all six KOTUS verb types.
+const VERBS = [
+  ['be', 'olla', 'be'],
+  ['eat', 'syödä', 'eat'],
+  ['drink', 'juoda', 'drink'],
+  ['sleep', 'nukkua', 'sleep'],
+  ['play', 'leikkiä', 'play'],
+  ['run', 'juosta', 'run'],
+  ['jump', 'hypätä', 'jump'],
+  ['go', 'mennä', 'go'],
+  ['come', 'tulla', 'come'],
+  ['see', 'nähdä', 'see'],
+  ['give', 'antaa', 'give'],
+  ['take', 'ottaa', 'take'],
+  ['look', 'katsoa', 'look'],
+  ['sing', 'laulaa', 'sing'],
+  ['read', 'lukea', 'read'],
+  ['swim', 'uida', 'swim'],
+];
+
+// Focused conjugation subset kept per verb: present (positive + negative) and
+// past (positive) across all persons, plus the two singular/plural commands.
+const VERB_PERSONS = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'];
+const VERB_INFLECTION_KEYS = [
+  ...VERB_PERSONS.map((p) => `present_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `present_active_negative_${p}`),
+  ...VERB_PERSONS.map((p) => `past_active_positive_${p}`),
+  'imperative_active_positive_2sg',
+  'imperative_active_positive_2pl',
+];
+
 function pickExamples(src) {
   // Keep up to 2 short examples. NOTE: not yet reviewed for kid-appropriateness;
   // stored as data only and not surfaced in the kids UI yet.
@@ -92,7 +123,7 @@ function pickExamples(src) {
     .map((e) => ({ fi: e.fi, en: e.en }));
 }
 
-function buildTheme({ id, fi, en, emoji, curation, sourceWords }) {
+function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }) {
   const byWord = new Map(sourceWords.map((w) => [w.word, w]));
   const words = [];
   const missing = [];
@@ -102,12 +133,20 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords }) {
       missing.push(finnish);
       continue;
     }
+    // Optionally keep only a focused subset of the (large) paradigm.
+    let inflections = src.inflections;
+    if (inflectionKeys) {
+      inflections = {};
+      for (const k of inflectionKeys) {
+        if (src.inflections[k]) inflections[k] = src.inflections[k];
+      }
+    }
     const entry = {
       id: wid,
       word: finnish,
       en: english,
       emoji: emo || undefined,
-      inflections: src.inflections,
+      inflections,
     };
     if (typeof value === 'number') entry.value = value;
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
@@ -159,14 +198,26 @@ const adjectives = buildTheme({
   sourceWords: nounWords,
 });
 
+const verbWords = load('verbs.json').words;
+const verbs = buildTheme({
+  id: 'verbs',
+  fi: 'Verbit',
+  en: 'Verbs',
+  emoji: '🏃',
+  curation: VERBS,
+  sourceWords: verbWords,
+  inflectionKeys: VERB_INFLECTION_KEYS,
+});
+
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');
 writeFileSync(
   join(OUT_DIR, 'adjectives.sourced.json'),
   JSON.stringify(adjectives, null, 2) + '\n',
 );
+writeFileSync(join(OUT_DIR, 'verbs.sourced.json'), JSON.stringify(verbs, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
-    `${adjectives.words.length} adjectives to ${OUT_DIR}`,
+    `${adjectives.words.length} adjectives, ${verbs.words.length} verbs to ${OUT_DIR}`,
 );

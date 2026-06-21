@@ -169,3 +169,52 @@ export function agreementPhrase(
   const forms = agreementForms(adjective, noun, c, n);
   return forms && `${forms.adjective} ${forms.noun}`;
 }
+
+// --- Verb conjugation -----------------------------------------------------
+//
+// Verb items reuse LexicalItem; their `inflections` are keyed
+// `${tense}_active_${polarity}_${person}` (e.g. present_active_positive_1sg →
+// "syön", present_active_negative_2sg → "et syö"). Forms are looked up, never
+// generated. `fi` holds the infinitive (e.g. "syödä").
+
+export type PersonId = '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl';
+export type VerbTense = 'present' | 'past';
+export type Polarity = 'positive' | 'negative';
+
+export interface Person {
+  id: PersonId;
+  fi: string;
+  en: string;
+}
+
+export const PERSONS: Person[] = [
+  { id: '1sg', fi: 'minä', en: 'I' },
+  { id: '2sg', fi: 'sinä', en: 'you' },
+  { id: '3sg', fi: 'hän', en: 'he/she' },
+  { id: '1pl', fi: 'me', en: 'we' },
+  { id: '2pl', fi: 'te', en: 'you (plural)' },
+  { id: '3pl', fi: 'he', en: 'they' },
+];
+
+/** The conjugated verb form for a tense/polarity/person, looked up by tag. */
+export function verbForm(
+  verb: LexicalItem,
+  tense: VerbTense,
+  polarity: Polarity,
+  person: PersonId,
+): string | undefined {
+  return verb.inflections[`${tense}_active_${polarity}_${person}`];
+}
+
+/** A full clause with pronoun, e.g. "minä syön" / "hän ei syö". */
+export function conjugatedClause(
+  verb: LexicalItem,
+  tense: VerbTense,
+  polarity: Polarity,
+  person: PersonId,
+): string | undefined {
+  const p = PERSONS.find((x) => x.id === person);
+  const form = verbForm(verb, tense, polarity, person);
+  if (!p || !form) return undefined;
+  return `${p.fi} ${form}`;
+}

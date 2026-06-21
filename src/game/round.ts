@@ -1,5 +1,13 @@
-import type { CaseId, Construction, GrammaticalNumber, LexicalItem } from '../content/types';
-import { caseFormOf, formFor } from '../content/types';
+import type {
+  CaseId,
+  Construction,
+  GrammaticalNumber,
+  LexicalItem,
+  PersonId,
+  Polarity,
+  VerbTense,
+} from '../content/types';
+import { caseFormOf, conjugatedClause, formFor, PERSONS, verbForm } from '../content/types';
 import { sample, shuffle } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -176,6 +184,87 @@ export function buildAgreementRound(
     ]);
 
     out.push({ adjective, noun, case: targetCase, number, adjForm, answer, options });
+  }
+  return out;
+}
+
+// --- Verb conjugation by person ------------------------------------------
+//
+// Drill: given a pronoun (e.g. "minä") and a verb, pick the correctly
+// conjugated form. Distractors are the same verb in other persons, so the skill
+// is the personal ending. Forms are looked up, never generated. (Not wired into
+// the UI yet.)
+
+export interface ConjugationOption {
+  person: PersonId;
+  form: string;
+  correct: boolean;
+}
+
+export interface ConjugationQuestion {
+  verb: LexicalItem;
+  tense: VerbTense;
+  polarity: Polarity;
+  person: PersonId;
+  /** Subject pronoun shown as the prompt, e.g. "minä". */
+  pronoun: string;
+  pronounEn: string;
+  /** Correct conjugated form, e.g. "syön". */
+  answer: string;
+  /** Full clause, e.g. "minä syön". */
+  clause: string;
+  /** Shuffled forms of the same verb in different persons; one is correct. */
+  options: ConjugationOption[];
+}
+
+export const DEFAULT_CONJUGATION_COMBOS: { tense: VerbTense; polarity: Polarity }[] = [
+  { tense: 'present', polarity: 'positive' },
+];
+
+export function buildConjugationRound(
+  verbs: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  combos: { tense: VerbTense; polarity: Polarity }[] = DEFAULT_CONJUGATION_COMBOS,
+): ConjugationQuestion[] {
+  const out: ConjugationQuestion[] = [];
+  let guard = 0;
+  while (out.length < questionCount && guard++ < questionCount * 8) {
+    const verb = sample(verbs, 1)[0];
+    const combo = sample(combos, 1)[0];
+    if (!verb || !combo) break;
+
+    const persons = PERSONS.filter((p) => verbForm(verb, combo.tense, combo.polarity, p.id));
+    if (persons.length < optionCount) continue;
+
+    const target = sample(persons, 1)[0];
+    const answer = verbForm(verb, combo.tense, combo.polarity, target.id)!;
+    const clause = conjugatedClause(verb, combo.tense, combo.polarity, target.id)!;
+    const distractors = sample(
+      persons.filter((p) => p.id !== target.id),
+      optionCount - 1,
+    );
+
+    const options = shuffle<ConjugationOption>([
+      { person: target.id, form: answer, correct: true },
+      ...distractors.map((p) => ({
+        person: p.id,
+        form: verbForm(verb, combo.tense, combo.polarity, p.id)!,
+        correct: false,
+      })),
+    ]);
+
+    out.push({
+      verb,
+      tense: combo.tense,
+      polarity: combo.polarity,
+      person: target.id,
+      pronoun: target.fi,
+      pronounEn: target.en,
+      answer,
+      clause,
+      options,
+    });
   }
   return out;
 }

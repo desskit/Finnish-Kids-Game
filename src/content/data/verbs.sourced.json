@@ -1,0 +1,652 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "verbs",
+    "fi": "Verbit",
+    "en": "Verbs",
+    "emoji": "🏃"
+  },
+  "words": [
+    {
+      "id": "be",
+      "word": "olla",
+      "en": "be",
+      "inflections": {
+        "present_active_positive_1sg": "olen",
+        "present_active_positive_2sg": "olet",
+        "present_active_positive_3sg": "on",
+        "present_active_positive_1pl": "olemme",
+        "present_active_positive_2pl": "olette",
+        "present_active_positive_3pl": "ovat",
+        "present_active_negative_1sg": "en ole",
+        "present_active_negative_2sg": "et ole",
+        "present_active_negative_3sg": "ei ole",
+        "present_active_negative_1pl": "emme ole",
+        "present_active_negative_2pl": "ette ole",
+        "present_active_negative_3pl": "eivät ole",
+        "past_active_positive_1sg": "olin",
+        "past_active_positive_2sg": "olit",
+        "past_active_positive_3sg": "oli",
+        "past_active_positive_1pl": "olimme",
+        "past_active_positive_2pl": "olitte",
+        "past_active_positive_3pl": "olivat",
+        "imperative_active_positive_2sg": "ole",
+        "imperative_active_positive_2pl": "olkaa"
+      },
+      "kotusType": 67,
+      "group": "type3",
+      "frequencyRank": 1,
+      "examples": [
+        {
+          "fi": "Olen onnellinen.",
+          "en": "I am happy."
+        },
+        {
+          "fi": "Minä olen lääkäri.",
+          "en": "I am a doctor."
+        }
+      ]
+    },
+    {
+      "id": "eat",
+      "word": "syödä",
+      "en": "eat",
+      "inflections": {
+        "present_active_positive_1sg": "syön",
+        "present_active_positive_2sg": "syöt",
+        "present_active_positive_3sg": "syö",
+        "present_active_positive_1pl": "syömme",
+        "present_active_positive_2pl": "syötte",
+        "present_active_positive_3pl": "syövät",
+        "present_active_negative_1sg": "en syö",
+        "present_active_negative_2sg": "et syö",
+        "present_active_negative_3sg": "ei syö",
+        "present_active_negative_1pl": "emme syö",
+        "present_active_negative_2pl": "ette syö",
+        "present_active_negative_3pl": "eivät syö",
+        "past_active_positive_1sg": "söin",
+        "past_active_positive_2sg": "söit",
+        "past_active_positive_3sg": "söi",
+        "past_active_positive_1pl": "söimme",
+        "past_active_positive_2pl": "söitte",
+        "past_active_positive_3pl": "söivät",
+        "imperative_active_positive_2sg": "syö",
+        "imperative_active_positive_2pl": "syökää"
+      },
+      "kotusType": 64,
+      "group": "type2",
+      "frequencyRank": 865,
+      "examples": [
+        {
+          "fi": "syödä ulkona",
+          "en": "to eat out"
+        },
+        {
+          "fi": "Haluaisitko jotakin syödäksesi?",
+          "en": "Would you want something to eat?"
+        }
+      ]
+    },
+    {
+      "id": "drink",
+      "word": "juoda",
+      "en": "drink",
+      "inflections": {
+        "present_active_positive_1sg": "juon",
+        "present_active_positive_2sg": "juot",
+        "present_active_positive_3sg": "juo",
+        "present_active_positive_1pl": "juomme",
+        "present_active_positive_2pl": "juotte",
+        "present_active_positive_3pl": "juovat",
+        "present_active_negative_1sg": "en juo",
+        "present_active_negative_2sg": "et juo",
+        "present_active_negative_3sg": "ei juo",
+        "present_active_negative_1pl": "emme juo",
+        "present_active_negative_2pl": "ette juo",
+        "present_active_negative_3pl": "eivät juo",
+        "past_active_positive_1sg": "join",
+        "past_active_positive_2sg": "joit",
+        "past_active_positive_3sg": "joi",
+        "past_active_positive_1pl": "joimme",
+        "past_active_positive_2pl": "joitte",
+        "past_active_positive_3pl": "joivat",
+        "imperative_active_positive_2sg": "juo",
+        "imperative_active_positive_2pl": "juokaa"
+      },
+      "kotusType": 64,
+      "group": "type2",
+      "frequencyRank": 1298,
+      "examples": [
+        {
+          "fi": "Kotieläimet juovat juottopaikalla.",
+          "en": "The farm animals are drinking at the watering place."
+        },
+        {
+          "fi": "Minä en juo.",
+          "en": "I don't drink (alcohol)."
+        }
+      ]
+    },
+    {
+      "id": "sleep",
+      "word": "nukkua",
+      "en": "sleep",
+      "inflections": {
+        "present_active_positive_1sg": "nukun",
+        "present_active_positive_2sg": "nukut",
+        "present_active_positive_3sg": "nukkuu",
+        "present_active_positive_1pl": "nukumme",
+        "present_active_positive_2pl": "nukutte",
+        "present_active_positive_3pl": "nukkuvat",
+        "present_active_negative_1sg": "en nuku",
+        "present_active_negative_2sg": "et nuku",
+        "present_active_negative_3sg": "ei nuku",
+        "present_active_negative_1pl": "emme nuku",
+        "present_active_negative_2pl": "ette nuku",
+        "present_active_negative_3pl": "eivät nuku",
+        "past_active_positive_1sg": "nukuin",
+        "past_active_positive_2sg": "nukuit",
+        "past_active_positive_3sg": "nukkui",
+        "past_active_positive_1pl": "nukuimme",
+        "past_active_positive_2pl": "nukuitte",
+        "past_active_positive_3pl": "nukkuivat",
+        "imperative_active_positive_2sg": "nuku",
+        "imperative_active_positive_2pl": "nukkukaa"
+      },
+      "kotusType": 52,
+      "group": "type1",
+      "frequencyRank": 1066,
+      "examples": [
+        {
+          "fi": "laittaa nukkumaan",
+          "en": "to put to bed, put to sleep"
+        },
+        {
+          "fi": "mennä nukkumaan",
+          "en": "to go to bed"
+        }
+      ]
+    },
+    {
+      "id": "play",
+      "word": "leikkiä",
+      "en": "play",
+      "inflections": {
+        "present_active_positive_1sg": "leikin",
+        "present_active_positive_2sg": "leikit",
+        "present_active_positive_3sg": "leikkii",
+        "present_active_positive_1pl": "leikimme",
+        "present_active_positive_2pl": "leikitte",
+        "present_active_positive_3pl": "leikkivät",
+        "present_active_negative_1sg": "en leiki",
+        "present_active_negative_2sg": "et leiki",
+        "present_active_negative_3sg": "ei leiki",
+        "present_active_negative_1pl": "emme leiki",
+        "present_active_negative_2pl": "ette leiki",
+        "present_active_negative_3pl": "eivät leiki",
+        "past_active_positive_1sg": "leikin",
+        "past_active_positive_2sg": "leikit",
+        "past_active_positive_3sg": "leikki",
+        "past_active_positive_1pl": "leikimme",
+        "past_active_positive_2pl": "leikitte",
+        "past_active_positive_3pl": "leikkivät",
+        "imperative_active_positive_2sg": "leiki",
+        "imperative_active_positive_2pl": "leikkikää"
+      },
+      "kotusType": 61,
+      "group": "type1",
+      "frequencyRank": 1258,
+      "examples": [
+        {
+          "fi": "Ruoalla ei saa leikkiä!",
+          "en": "No playing with food!"
+        },
+        {
+          "fi": "Hän vain leikkii viisasta.",
+          "en": "He's just playing wise."
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "word": "juosta",
+      "en": "run",
+      "inflections": {
+        "present_active_positive_1sg": "juoksen",
+        "present_active_positive_2sg": "juokset",
+        "present_active_positive_3sg": "juoksee",
+        "present_active_positive_1pl": "juoksemme",
+        "present_active_positive_2pl": "juoksette",
+        "present_active_positive_3pl": "juoksevat",
+        "present_active_negative_1sg": "en juokse",
+        "present_active_negative_2sg": "et juokse",
+        "present_active_negative_3sg": "ei juokse",
+        "present_active_negative_1pl": "emme juokse",
+        "present_active_negative_2pl": "ette juokse",
+        "present_active_negative_3pl": "eivät juokse",
+        "past_active_positive_1sg": "juoksin",
+        "past_active_positive_2sg": "juoksit",
+        "past_active_positive_3sg": "juoksi",
+        "past_active_positive_1pl": "juoksimme",
+        "past_active_positive_2pl": "juoksitte",
+        "past_active_positive_3pl": "juoksivat",
+        "imperative_active_positive_2sg": "juokse",
+        "imperative_active_positive_2pl": "juoskaa"
+      },
+      "kotusType": 70,
+      "group": "type3",
+      "frequencyRank": 1559,
+      "examples": [
+        {
+          "fi": "Juoksette.",
+          "en": "You run."
+        },
+        {
+          "fi": "Te juoksette.",
+          "en": "You run."
+        }
+      ]
+    },
+    {
+      "id": "jump",
+      "word": "hypätä",
+      "en": "jump",
+      "inflections": {
+        "present_active_positive_1sg": "hyppään",
+        "present_active_positive_2sg": "hyppäät",
+        "present_active_positive_3sg": "hyppää",
+        "present_active_positive_1pl": "hyppäämme",
+        "present_active_positive_2pl": "hyppäätte",
+        "present_active_positive_3pl": "hyppäävät",
+        "present_active_negative_1sg": "en hyppää",
+        "present_active_negative_2sg": "et hyppää",
+        "present_active_negative_3sg": "ei hyppää",
+        "present_active_negative_1pl": "emme hyppää",
+        "present_active_negative_2pl": "ette hyppää",
+        "present_active_negative_3pl": "eivät hyppää",
+        "past_active_positive_1sg": "hyppäsin",
+        "past_active_positive_2sg": "hyppäsit",
+        "past_active_positive_3sg": "hyppäsi",
+        "past_active_positive_1pl": "hyppäsimme",
+        "past_active_positive_2pl": "hyppäsitte",
+        "past_active_positive_3pl": "hyppäsivät",
+        "imperative_active_positive_2sg": "hyppää",
+        "imperative_active_positive_2pl": "hypätkää"
+      },
+      "kotusType": 73,
+      "group": "type4",
+      "frequencyRank": 2043,
+      "examples": [
+        {
+          "fi": "hypätä yli",
+          "en": "to jump over; (figuratively) to skip (disregard)"
+        },
+        {
+          "fi": "Etenimme hyppäämällä kiveltä toiselle.",
+          "en": "We advanced by jumping from one rock to the next."
+        }
+      ]
+    },
+    {
+      "id": "go",
+      "word": "mennä",
+      "en": "go",
+      "inflections": {
+        "present_active_positive_1sg": "menen",
+        "present_active_positive_2sg": "menet",
+        "present_active_positive_3sg": "menee",
+        "present_active_positive_1pl": "menemme",
+        "present_active_positive_2pl": "menette",
+        "present_active_positive_3pl": "menevät",
+        "present_active_negative_1sg": "en mene",
+        "present_active_negative_2sg": "et mene",
+        "present_active_negative_3sg": "ei mene",
+        "present_active_negative_1pl": "emme mene",
+        "present_active_negative_2pl": "ette mene",
+        "present_active_negative_3pl": "eivät mene",
+        "past_active_positive_1sg": "menin",
+        "past_active_positive_2sg": "menit",
+        "past_active_positive_3sg": "meni",
+        "past_active_positive_1pl": "menimme",
+        "past_active_positive_2pl": "menitte",
+        "past_active_positive_3pl": "menivät",
+        "imperative_active_positive_2sg": "mene",
+        "imperative_active_positive_2pl": "menkää"
+      },
+      "kotusType": 67,
+      "group": "type3",
+      "frequencyRank": 119,
+      "examples": [
+        {
+          "fi": "mennä nukkumaan",
+          "en": "to go to sleep, go to bed"
+        },
+        {
+          "fi": "mennä liian pitkälle",
+          "en": "to go too far"
+        }
+      ]
+    },
+    {
+      "id": "come",
+      "word": "tulla",
+      "en": "come",
+      "inflections": {
+        "present_active_positive_1sg": "tulen",
+        "present_active_positive_2sg": "tulet",
+        "present_active_positive_3sg": "tulee",
+        "present_active_positive_1pl": "tulemme",
+        "present_active_positive_2pl": "tulette",
+        "present_active_positive_3pl": "tulevat",
+        "present_active_negative_1sg": "en tule",
+        "present_active_negative_2sg": "et tule",
+        "present_active_negative_3sg": "ei tule",
+        "present_active_negative_1pl": "emme tule",
+        "present_active_negative_2pl": "ette tule",
+        "present_active_negative_3pl": "eivät tule",
+        "past_active_positive_1sg": "tulin",
+        "past_active_positive_2sg": "tulit",
+        "past_active_positive_3sg": "tuli",
+        "past_active_positive_1pl": "tulimme",
+        "past_active_positive_2pl": "tulitte",
+        "past_active_positive_3pl": "tulivat",
+        "imperative_active_positive_2sg": "tule",
+        "imperative_active_positive_2pl": "tulkaa"
+      },
+      "kotusType": 67,
+      "group": "type3",
+      "frequencyRank": 86,
+      "examples": [
+        {
+          "fi": "Milloin juna tulee?",
+          "en": "When is the train coming?"
+        },
+        {
+          "fi": "Juna tulee Turusta Helsinkiin.",
+          "en": "The train is coming from Turku to Helsinki."
+        }
+      ]
+    },
+    {
+      "id": "see",
+      "word": "nähdä",
+      "en": "see",
+      "inflections": {
+        "present_active_positive_1sg": "näen",
+        "present_active_positive_2sg": "näet",
+        "present_active_positive_3sg": "näkee",
+        "present_active_positive_1pl": "näemme",
+        "present_active_positive_2pl": "näette",
+        "present_active_positive_3pl": "näkevät",
+        "present_active_negative_1sg": "en näe",
+        "present_active_negative_2sg": "et näe",
+        "present_active_negative_3sg": "ei näe",
+        "present_active_negative_1pl": "emme näe",
+        "present_active_negative_2pl": "ette näe",
+        "present_active_negative_3pl": "eivät näe",
+        "past_active_positive_1sg": "näin",
+        "past_active_positive_2sg": "näit",
+        "past_active_positive_3sg": "näki",
+        "past_active_positive_1pl": "näimme",
+        "past_active_positive_2pl": "näitte",
+        "past_active_positive_3pl": "näkivät",
+        "imperative_active_positive_2sg": "näe",
+        "imperative_active_positive_2pl": "nähkää"
+      },
+      "kotusType": 71,
+      "group": "type2",
+      "frequencyRank": 108,
+      "examples": [
+        {
+          "fi": "Näetkö tuon rakennuksen?",
+          "en": "Do you see that building?"
+        },
+        {
+          "fi": "Näitkö sen matalalla lentäneen lentokoneen?",
+          "en": "Did you see that airplane flying low?"
+        }
+      ]
+    },
+    {
+      "id": "give",
+      "word": "antaa",
+      "en": "give",
+      "inflections": {
+        "present_active_positive_1sg": "annan",
+        "present_active_positive_2sg": "annat",
+        "present_active_positive_3sg": "antaa",
+        "present_active_positive_1pl": "annamme",
+        "present_active_positive_2pl": "annatte",
+        "present_active_positive_3pl": "antavat",
+        "present_active_negative_1sg": "en anna",
+        "present_active_negative_2sg": "et anna",
+        "present_active_negative_3sg": "ei anna",
+        "present_active_negative_1pl": "emme anna",
+        "present_active_negative_2pl": "ette anna",
+        "present_active_negative_3pl": "eivät anna",
+        "past_active_positive_1sg": "annoin",
+        "past_active_positive_2sg": "annoit",
+        "past_active_positive_3sg": "antoi",
+        "past_active_positive_1pl": "annoimme",
+        "past_active_positive_2pl": "annoitte",
+        "past_active_positive_3pl": "antoivat",
+        "imperative_active_positive_2sg": "anna",
+        "imperative_active_positive_2pl": "antakaa"
+      },
+      "kotusType": 56,
+      "group": "type1",
+      "frequencyRank": 89,
+      "examples": [
+        {
+          "fi": "Annoin Liisalle kukat.",
+          "en": "I gave Liisa flowers."
+        },
+        {
+          "fi": "Anna minulle mahdollisuus.",
+          "en": "Give me a chance."
+        }
+      ]
+    },
+    {
+      "id": "take",
+      "word": "ottaa",
+      "en": "take",
+      "inflections": {
+        "present_active_positive_1sg": "otan",
+        "present_active_positive_2sg": "otat",
+        "present_active_positive_3sg": "ottaa",
+        "present_active_positive_1pl": "otamme",
+        "present_active_positive_2pl": "otatte",
+        "present_active_positive_3pl": "ottavat",
+        "present_active_negative_1sg": "en ota",
+        "present_active_negative_2sg": "et ota",
+        "present_active_negative_3sg": "ei ota",
+        "present_active_negative_1pl": "emme ota",
+        "present_active_negative_2pl": "ette ota",
+        "present_active_negative_3pl": "eivät ota",
+        "past_active_positive_1sg": "otin",
+        "past_active_positive_2sg": "otit",
+        "past_active_positive_3sg": "otti",
+        "past_active_positive_1pl": "otimme",
+        "past_active_positive_2pl": "otitte",
+        "past_active_positive_3pl": "ottivat",
+        "imperative_active_positive_2sg": "ota",
+        "imperative_active_positive_2pl": "ottakaa"
+      },
+      "kotusType": 53,
+      "group": "type1",
+      "frequencyRank": 210,
+      "examples": [
+        {
+          "fi": "Ota lasi pöydältä.",
+          "en": "Take the glass from the table."
+        },
+        {
+          "fi": "Ota lasi kaapista.",
+          "en": "Take the glass from the cupboard."
+        }
+      ]
+    },
+    {
+      "id": "look",
+      "word": "katsoa",
+      "en": "look",
+      "inflections": {
+        "present_active_positive_1sg": "katson",
+        "present_active_positive_2sg": "katsot",
+        "present_active_positive_3sg": "katsoo",
+        "present_active_positive_1pl": "katsomme",
+        "present_active_positive_2pl": "katsotte",
+        "present_active_positive_3pl": "katsovat",
+        "present_active_negative_1sg": "en katso",
+        "present_active_negative_2sg": "et katso",
+        "present_active_negative_3sg": "ei katso",
+        "present_active_negative_1pl": "emme katso",
+        "present_active_negative_2pl": "ette katso",
+        "present_active_negative_3pl": "eivät katso",
+        "past_active_positive_1sg": "katsoin",
+        "past_active_positive_2sg": "katsoit",
+        "past_active_positive_3sg": "katsoi",
+        "past_active_positive_1pl": "katsoimme",
+        "past_active_positive_2pl": "katsoitte",
+        "past_active_positive_3pl": "katsoivat",
+        "imperative_active_positive_2sg": "katso",
+        "imperative_active_positive_2pl": "katsokaa"
+      },
+      "kotusType": 52,
+      "group": "type1",
+      "frequencyRank": 168,
+      "examples": [
+        {
+          "fi": "Katsoin sitä.",
+          "en": "I looked at it."
+        },
+        {
+          "fi": "Katsoin elokuvaa.",
+          "en": "I was watching a movie."
+        }
+      ]
+    },
+    {
+      "id": "sing",
+      "word": "laulaa",
+      "en": "sing",
+      "inflections": {
+        "present_active_positive_1sg": "laulan",
+        "present_active_positive_2sg": "laulat",
+        "present_active_positive_3sg": "laulaa",
+        "present_active_positive_1pl": "laulamme",
+        "present_active_positive_2pl": "laulatte",
+        "present_active_positive_3pl": "laulavat",
+        "present_active_negative_1sg": "en laula",
+        "present_active_negative_2sg": "et laula",
+        "present_active_negative_3sg": "ei laula",
+        "present_active_negative_1pl": "emme laula",
+        "present_active_negative_2pl": "ette laula",
+        "present_active_negative_3pl": "eivät laula",
+        "past_active_positive_1sg": "lauloin",
+        "past_active_positive_2sg": "lauloit",
+        "past_active_positive_3sg": "lauloi",
+        "past_active_positive_1pl": "lauloimme",
+        "past_active_positive_2pl": "lauloitte",
+        "past_active_positive_3pl": "lauloivat",
+        "imperative_active_positive_2sg": "laula",
+        "imperative_active_positive_2pl": "laulakaa"
+      },
+      "kotusType": 56,
+      "group": "type1",
+      "frequencyRank": 2053,
+      "examples": [
+        {
+          "fi": "Hän lauloi minulle laulun.",
+          "en": "He sang me a song."
+        },
+        {
+          "fi": "Lauletaan vielä yksi laulu.",
+          "en": "Let's sing one more song."
+        }
+      ]
+    },
+    {
+      "id": "read",
+      "word": "lukea",
+      "en": "read",
+      "inflections": {
+        "present_active_positive_1sg": "luen",
+        "present_active_positive_2sg": "luet",
+        "present_active_positive_3sg": "lukee",
+        "present_active_positive_1pl": "luemme",
+        "present_active_positive_2pl": "luette",
+        "present_active_positive_3pl": "lukevat",
+        "present_active_negative_1sg": "en lue",
+        "present_active_negative_2sg": "et lue",
+        "present_active_negative_3sg": "ei lue",
+        "present_active_negative_1pl": "emme lue",
+        "present_active_negative_2pl": "ette lue",
+        "present_active_negative_3pl": "eivät lue",
+        "past_active_positive_1sg": "luin",
+        "past_active_positive_2sg": "luit",
+        "past_active_positive_3sg": "luki",
+        "past_active_positive_1pl": "luimme",
+        "past_active_positive_2pl": "luitte",
+        "past_active_positive_3pl": "lukivat",
+        "imperative_active_positive_2sg": "lue",
+        "imperative_active_positive_2pl": "lukekaa"
+      },
+      "kotusType": 58,
+      "group": "type1",
+      "frequencyRank": 1190,
+      "examples": [
+        {
+          "fi": "Luen kirjaa.",
+          "en": "I am reading a book."
+        },
+        {
+          "fi": "Voitko lukea minulle sadun?",
+          "en": "Can you read me a story?"
+        }
+      ]
+    },
+    {
+      "id": "swim",
+      "word": "uida",
+      "en": "swim",
+      "inflections": {
+        "present_active_positive_1sg": "uin",
+        "present_active_positive_2sg": "uit",
+        "present_active_positive_3sg": "ui",
+        "present_active_positive_1pl": "uimme",
+        "present_active_positive_2pl": "uitte",
+        "present_active_positive_3pl": "uivat",
+        "present_active_negative_1sg": "en ui",
+        "present_active_negative_2sg": "et ui",
+        "present_active_negative_3sg": "ei ui",
+        "present_active_negative_1pl": "emme ui",
+        "present_active_negative_2pl": "ette ui",
+        "present_active_negative_3pl": "eivät ui",
+        "past_active_positive_1sg": "uin",
+        "past_active_positive_2sg": "uit",
+        "past_active_positive_3sg": "ui",
+        "past_active_positive_1pl": "uimme",
+        "past_active_positive_2pl": "uitte",
+        "past_active_positive_3pl": "uivat",
+        "imperative_active_positive_2sg": "ui",
+        "imperative_active_positive_2pl": "uikaa"
+      },
+      "kotusType": 62,
+      "group": "type2",
+      "frequencyRank": 5256,
+      "examples": [
+        {
+          "fi": "Meressä uimista pidetään terveellisenä.",
+          "en": "Bathing in the sea is considered healthy."
+        },
+        {
+          "fi": "Uimme meressä.",
+          "en": "We swam in the sea."
+        }
+      ]
+    }
+  ]
+}
