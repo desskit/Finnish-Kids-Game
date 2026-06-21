@@ -3,7 +3,7 @@
 #
 # Pages is enabled automatically by the configure-pages step below
 # (enablement: true), so no manual repo setting is required. Every push to the
-# default branch redeploys https://desskit.github.io/finnish-kids-game/.
+# default branch redeploys https://desskit.github.io/Finnish-Kids-Game/.
 # The deploy must run from the default branch — the github-pages environment
 # only permits deployments from it.
 #
@@ -40,7 +40,9 @@ jobs:
       - name: Build (with GitHub Pages base path)
         run: npm run build
         env:
-          BASE_PATH: /finnish-kids-game/
+          # Must match the repository name's exact casing — GitHub Pages serves
+          # the project site at /Finnish-Kids-Game/ and paths are case-sensitive.
+          BASE_PATH: /Finnish-Kids-Game/
       - uses: actions/configure-pages@v5
         with:
           # Enable Pages (Source: GitHub Actions) on first run, so no manual

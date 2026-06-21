@@ -62,11 +62,12 @@ from the default branch because the `github-pages` environment only permits
 deployments from it.
 
 Once the workflow has run, the app is live at
-**https://desskit.github.io/finnish-kids-game/** — open it on a tablet or phone
+**https://desskit.github.io/Finnish-Kids-Game/** — open it on a tablet or phone
 and tap _Add to Home Screen_ to install it.
 
 The base path is configurable via the `BASE_PATH` env var (the workflow sets
-`/finnish-kids-game/` for the Pages subpath). It defaults to `/`, so local dev,
+`/Finnish-Kids-Game/`, matching the repository name's casing — Pages paths are
+case-sensitive). It defaults to `/`, so local dev,
 `npm run preview`, and a future root-domain host (e.g. **Netlify**) need no
 change — point Netlify at `npm run build` / publish `dist`.
 
