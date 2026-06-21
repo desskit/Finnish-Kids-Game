@@ -39,7 +39,7 @@ const ANIMALS = [
   ['fish', 'kala', 'fish', '🐟'],
   ['horse', 'hevonen', 'horse', '🐴'],
   ['cow', 'lehmä', 'cow', '🐮'],
-  ['pig', 'possu', 'pig', '🐷'],
+  ['pig', 'sika', 'pig', '🐷'],
   ['fox', 'kettu', 'fox', '🦊'],
   ['duck', 'ankka', 'duck', '🦆'],
   ['frog', 'sammakko', 'frog', '🐸'],
