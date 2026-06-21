@@ -1,8 +1,10 @@
-import type { Construction, LexicalItem, PhraseFill } from '../content/types';
+import type { Construction, LexicalItem } from '../content/types';
+import { formFor } from '../content/types';
 import { sample, shuffle } from '../util/shuffle';
 
-// Round builders. These ONLY select, shuffle, and pair existing human-authored
-// content — they never create or modify Finnish text.
+// Round builders. These ONLY select, shuffle, and pair existing human-generated
+// content — the Finnish slot forms come from the sourced inflection tables via
+// formFor(); nothing here generates or inflects Finnish.
 
 export interface ListenQuestion {
   target: LexicalItem;
@@ -26,9 +28,10 @@ export function buildListenRound(
 
 export interface PhraseQuestion {
   construction: Construction;
+  /** The correct item; its slot form is formFor(item, construction). */
   item: LexicalItem;
-  answer: PhraseFill;
-  options: PhraseFill[];
+  /** Candidate items; each tile shows formFor(option, construction). */
+  options: LexicalItem[];
 }
 
 export function buildPhraseRound(
@@ -37,27 +40,20 @@ export function buildPhraseRound(
   questionCount: number,
   optionCount: number,
 ): PhraseQuestion[] {
-  const itemById = new Map(items.map((i) => [i.id, i]));
-
-  // Every (construction, fill) pair that we have both a form and a picture for.
-  const pool: { construction: Construction; fill: PhraseFill }[] = [];
+  // Only pair a construction with items that actually have the needed form.
+  const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of constructions) {
-    for (const fill of construction.fills) {
-      if (itemById.has(fill.itemId)) pool.push({ construction, fill });
+    for (const item of items) {
+      if (formFor(item, construction)) pool.push({ construction, item });
     }
   }
 
   const chosen = sample(pool, Math.min(questionCount, pool.length));
-  return chosen.map(({ construction, fill }) => {
+  return chosen.map(({ construction, item }) => {
     const distractors = sample(
-      construction.fills.filter((f) => f.itemId !== fill.itemId),
+      items.filter((i) => i.id !== item.id && formFor(i, construction)),
       optionCount - 1,
     );
-    return {
-      construction,
-      item: itemById.get(fill.itemId)!,
-      answer: fill,
-      options: shuffle([fill, ...distractors]),
-    };
+    return { construction, item, options: shuffle([item, ...distractors]) };
   });
 }

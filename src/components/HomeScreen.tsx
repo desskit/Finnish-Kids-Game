@@ -1,18 +1,24 @@
 import { useState } from 'react';
+import type { Theme } from '../content';
 import { useProfile } from '../state/profile';
-import { theme } from '../content';
 import { isSpeechAvailable } from '../audio/speak';
 
 export type Activity = 'listen' | 'build';
 
 interface Props {
+  themes: Theme[];
+  activeThemeId: string;
+  onSelectTheme: (id: string) => void;
   onPlay: (activity: Activity) => void;
 }
 
-export default function HomeScreen({ onPlay }: Props) {
+export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPlay }: Props) {
   const { name, setName, stars, level, setLevel } = useProfile();
   const [editing, setEditing] = useState(!name);
   const [draft, setDraft] = useState(name);
+
+  const activeTheme = themes.find((t) => t.id === activeThemeId) ?? themes[0];
+  const canBuild = activeTheme.constructions.length > 0;
 
   function saveName() {
     setName(draft.trim());
@@ -86,9 +92,17 @@ export default function HomeScreen({ onPlay }: Props) {
         </button>
       </div>
 
-      <div className="theme-banner">
-        <span aria-hidden="true">{theme.emoji}</span> {theme.fi}{' '}
-        <span className="en">{theme.en}</span>
+      <div className="theme-picker" role="group" aria-label="Topic">
+        {themes.map((t) => (
+          <button
+            key={t.id}
+            className={'theme-chip' + (t.id === activeTheme.id ? ' theme-chip--on' : '')}
+            onClick={() => onSelectTheme(t.id)}
+          >
+            <span aria-hidden="true">{t.emoji}</span> {t.fi}{' '}
+            <span className="en">{t.en}</span>
+          </button>
+        ))}
       </div>
 
       <div className="activity-list">
@@ -102,13 +116,20 @@ export default function HomeScreen({ onPlay }: Props) {
           </span>
         </button>
 
-        <button className="activity-card" onClick={() => onPlay('build')}>
+        <button
+          className="activity-card"
+          onClick={() => onPlay('build')}
+          disabled={!canBuild}
+          title={canBuild ? undefined : 'No phrases for this topic yet'}
+        >
           <span className="activity-card__emoji" aria-hidden="true">
             🧩
           </span>
           <span className="activity-card__text">
             Rakenna lause
-            <span className="en">Build a Phrase</span>
+            <span className="en">
+              {canBuild ? 'Build a Phrase' : 'Build a Phrase (animals only)'}
+            </span>
           </span>
         </button>
       </div>
@@ -118,6 +139,10 @@ export default function HomeScreen({ onPlay }: Props) {
           🔇 Audio isn't available in this browser. Words still show as pictures.
         </p>
       )}
+
+      <p className="data-credit">
+        Finnish word data from Wiktionary &amp; Tatoeba · CC BY-SA 4.0
+      </p>
     </section>
   );
 }

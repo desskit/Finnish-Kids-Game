@@ -1,57 +1,89 @@
 import type { Construction } from './types';
 
-// High-frequency carrier phrases for the Animals theme.
-// In all three of these, the animal noun stays in the nominative, so each
-// authored `form` matches the dictionary form — but it is still stored as data
-// (not computed) so that constructions needing other cases can hold their own
-// correct, hand-written forms without any code change.
-export const constructions: Construction[] = [
+// Carrier phrases for the Animals theme. These are human-authored; each slot's
+// Finnish form is looked up from the word's sourced inflection table by the
+// declared case + number (no rule-based inflection in code).
+export const animalConstructions: Construction[] = [
+  // --- Nominative subject/complement (Tier 2) ---
   {
     id: 'this-is',
-    prefix: 'Tämä on',
-    suffix: '.',
-    en: 'This is ___.',
+    before: 'Tämä on',
+    punct: '.',
+    en: 'This is a ___.',
     tier: 2,
-    fills: [
-      { itemId: 'cat', form: 'kissa' },
-      { itemId: 'dog', form: 'koira' },
-      { itemId: 'bear', form: 'karhu' },
-      { itemId: 'bunny', form: 'pupu' },
-      { itemId: 'bird', form: 'lintu' },
-      { itemId: 'fish', form: 'kala' },
-      { itemId: 'horse', form: 'hevonen' },
-      { itemId: 'cow', form: 'lehmä' },
-    ],
+    case: 'nominative',
+    number: 'singular',
   },
   {
     id: 'where-is',
-    prefix: 'Missä on',
-    suffix: '?',
+    before: 'Missä on',
+    punct: '?',
     en: 'Where is the ___?',
     tier: 2,
-    fills: [
-      { itemId: 'cat', form: 'kissa' },
-      { itemId: 'dog', form: 'koira' },
-      { itemId: 'bear', form: 'karhu' },
-      { itemId: 'bunny', form: 'pupu' },
-      { itemId: 'bird', form: 'lintu' },
-      { itemId: 'fish', form: 'kala' },
-      { itemId: 'horse', form: 'hevonen' },
-      { itemId: 'cow', form: 'lehmä' },
-    ],
+    case: 'nominative',
+    number: 'singular',
   },
   {
     id: 'i-have',
-    prefix: 'Minulla on',
-    suffix: '.',
+    before: 'Minulla on',
+    punct: '.',
     en: 'I have a ___.',
     tier: 2,
-    fills: [
-      { itemId: 'cat', form: 'kissa' },
-      { itemId: 'dog', form: 'koira' },
-      { itemId: 'bunny', form: 'pupu' },
-      { itemId: 'fish', form: 'kala' },
-      { itemId: 'horse', form: 'hevonen' },
-    ],
+    case: 'nominative',
+    number: 'singular',
+  },
+
+  // --- Verb rection: real cases unlocked by the tagged data (Tier 3) ---
+  {
+    id: 'i-like', // pitää + elative: "Pidän kissasta."
+    before: 'Pidän',
+    punct: '.',
+    en: 'I like the ___.',
+    tier: 3,
+    case: 'elative',
+    number: 'singular',
+  },
+  {
+    id: 'i-see', // total object = genitive (accusative) singular: "Näen kissan."
+    before: 'Näen',
+    punct: '.',
+    en: 'I see the ___.',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+  },
+
+  // --- Locational postpositions, all governing the genitive (Tier 3) ---
+  {
+    id: 'in-front-of',
+    after: 'edessä',
+    en: 'in front of the ___',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+  },
+  {
+    id: 'behind',
+    after: 'takana',
+    en: 'behind the ___',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+  },
+  {
+    id: 'next-to',
+    after: 'vieressä',
+    en: 'next to the ___',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+  },
+  {
+    id: 'under',
+    after: 'alla',
+    en: 'under the ___',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
   },
 ];

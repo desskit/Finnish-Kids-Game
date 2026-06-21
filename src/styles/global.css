@@ -219,13 +219,48 @@ button:focus-visible,
   color: rgba(255, 255, 255, 0.85);
 }
 
-.theme-banner {
-  font-weight: 800;
-  font-size: clamp(1.1rem, 3vw, 1.4rem);
+.theme-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.theme-chip {
+  min-height: 52px;
+  padding: 8px 18px;
+  border-radius: 999px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
-  padding: 10px 20px;
-  border-radius: 999px;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.6vw, 1.25rem);
+}
+
+.theme-chip .en {
+  font-size: 0.7em;
+}
+
+.theme-chip--on {
+  background: var(--brand);
+  color: #fff;
+}
+
+.theme-chip--on .en {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.data-credit {
+  margin-top: auto;
+  padding-top: 8px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.activity-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .activity-list {

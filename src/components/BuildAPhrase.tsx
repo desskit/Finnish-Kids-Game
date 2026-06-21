@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { Construction, LexicalItem, PhraseFill } from '../content/types';
-import { sentenceFor } from '../content';
+import type { Construction, LexicalItem } from '../content/types';
+import { formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
 import { buildPhraseRound } from '../game/round';
 import { speak } from '../audio/speak';
@@ -16,8 +16,8 @@ interface Props {
   onExit: () => void;
 }
 
-// Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the right
-// word to complete it. Choices are other human-authored forms (never generated).
+// Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the word
+// (in its correct sourced case form) that completes it.
 export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const { level, addStars } = useProfile();
   const optionCount = level >= 2 ? 4 : 3;
@@ -30,15 +30,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   const [index, setIndex] = useState(0);
   const [stars, setStars] = useState(0);
-  const [chosen, setChosen] = useState<PhraseFill | null>(null);
+  const [chosen, setChosen] = useState<LexicalItem | null>(null);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
 
   const question = round[index];
-  const fullSentence = question
-    ? sentenceFor(question.construction.prefix, question.answer.form, question.construction.suffix)
-    : '';
+  const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
 
   // Model the whole phrase out loud when a new question appears.
   useEffect(() => {
@@ -48,11 +46,11 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   }, [question, done, fullSentence]);
 
   const choose = useCallback(
-    (fill: PhraseFill) => {
+    (item: LexicalItem) => {
       if (!question || locked || done) return;
-      if (fill.itemId === question.answer.itemId) {
+      if (item.id === question.item.id) {
         setLocked(true);
-        setChosen(fill);
+        setChosen(item);
         playDing(true);
         speak(fullSentence);
         setStars((s) => s + 1);
@@ -69,8 +67,8 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         }, 1100);
       } else {
         playDing(false);
-        setWrongId(fill.itemId);
-        setTimeout(() => setWrongId((cur) => (cur === fill.itemId ? null : cur)), 600);
+        setWrongId(item.id);
+        setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
     [question, locked, done, index, round.length, addStars, fullSentence],
@@ -109,6 +107,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   }
   if (!question) return null;
 
+  const { construction, item } = question;
+  const chosenForm = chosen ? formFor(chosen, construction) : null;
+
   return (
     <section className="screen activity">
       <ActivityHeader
@@ -119,19 +120,20 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
       />
 
       <p className="prompt">
-        {question.construction.en} <span className="en">{question.item.en}</span>
+        {construction.en} <span className="en">{item.en}</span>
       </p>
 
       <div className="phrase-card">
         <span className="phrase-emoji" aria-hidden="true">
-          {question.item.emoji}
+          {item.emoji}
         </span>
         <div className="phrase-line">
-          <span className="phrase-fixed">{question.construction.prefix}</span>
-          <span className={'phrase-slot' + (chosen ? ' phrase-slot--filled' : '')}>
-            {chosen ? chosen.form : '​'}
+          {construction.before && <span className="phrase-fixed">{construction.before}</span>}
+          <span className={'phrase-slot' + (chosenForm ? ' phrase-slot--filled' : '')}>
+            {chosenForm ?? '​'}
           </span>
-          <span className="phrase-fixed">{question.construction.suffix}</span>
+          {construction.after && <span className="phrase-fixed">{construction.after}</span>}
+          {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
         <button
           className="speaker speaker--inline"
@@ -145,13 +147,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
       <div className="word-tiles">
         {question.options.map((opt, i) => (
           <button
-            key={opt.itemId}
-            className={'word-tile' + (wrongId === opt.itemId ? ' word-tile--wrong' : '')}
+            key={opt.id}
+            className={'word-tile' + (wrongId === opt.id ? ' word-tile--wrong' : '')}
             onClick={() => choose(opt)}
             disabled={locked}
           >
             <span className="word-tile__num">{i + 1}</span>
-            {opt.form}
+            {formFor(opt, construction)}
           </button>
         ))}
       </div>

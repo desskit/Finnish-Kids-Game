@@ -1,0 +1,576 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "animals",
+    "fi": "Eläimet",
+    "en": "Animals",
+    "emoji": "🐾"
+  },
+  "words": [
+    {
+      "id": "cat",
+      "word": "kissa",
+      "en": "cat",
+      "emoji": "🐱",
+      "inflections": {
+        "nominative_singular": "kissa",
+        "nominative_plural": "kissat",
+        "genitive_singular": "kissan",
+        "genitive_plural": "kissojen",
+        "partitive_singular": "kissaa",
+        "partitive_plural": "kissoja",
+        "inessive_singular": "kissassa",
+        "inessive_plural": "kissoissa",
+        "elative_singular": "kissasta",
+        "elative_plural": "kissoista",
+        "illative_singular": "kissaan",
+        "illative_plural": "kissoihin",
+        "adessive_singular": "kissalla",
+        "adessive_plural": "kissoilla",
+        "ablative_singular": "kissalta",
+        "ablative_plural": "kissoilta",
+        "allative_singular": "kissalle",
+        "allative_plural": "kissoille",
+        "essive_singular": "kissana",
+        "essive_plural": "kissoina",
+        "translative_singular": "kissaksi",
+        "translative_plural": "kissoiksi",
+        "abessive_singular": "kissatta",
+        "abessive_plural": "kissoitta",
+        "instructive_plural": "kissoin",
+        "comitative_plural": "kissoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 2545,
+      "examples": [
+        {
+          "fi": "Pidän kissoista.",
+          "en": "I like cats."
+        },
+        {
+          "fi": "Pidätkö kissoista?",
+          "en": "Do you like cats?"
+        }
+      ]
+    },
+    {
+      "id": "dog",
+      "word": "koira",
+      "en": "dog",
+      "emoji": "🐶",
+      "inflections": {
+        "nominative_singular": "koira",
+        "nominative_plural": "koirat",
+        "genitive_singular": "koiran",
+        "genitive_plural": "koirien",
+        "partitive_singular": "koiraa",
+        "partitive_plural": "koiria",
+        "inessive_singular": "koirassa",
+        "inessive_plural": "koirissa",
+        "elative_singular": "koirasta",
+        "elative_plural": "koirista",
+        "illative_singular": "koiraan",
+        "illative_plural": "koiriin",
+        "adessive_singular": "koiralla",
+        "adessive_plural": "koirilla",
+        "ablative_singular": "koiralta",
+        "ablative_plural": "koirilta",
+        "allative_singular": "koiralle",
+        "allative_plural": "koirille",
+        "essive_singular": "koirana",
+        "essive_plural": "koirina",
+        "translative_singular": "koiraksi",
+        "translative_plural": "koiriksi",
+        "abessive_singular": "koiratta",
+        "abessive_plural": "koiritta",
+        "instructive_plural": "koirin",
+        "comitative_plural": "koirineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1090,
+      "examples": [
+        {
+          "fi": "Cauattacat teitenne Coirilda",
+          "en": "Beware of dogs"
+        },
+        {
+          "fi": "Erotatko sutta koirasta?",
+          "en": "Can you tell wolves from dogs?"
+        }
+      ]
+    },
+    {
+      "id": "bear",
+      "word": "karhu",
+      "en": "bear",
+      "emoji": "🐻",
+      "inflections": {
+        "nominative_singular": "karhu",
+        "nominative_plural": "karhut",
+        "genitive_singular": "karhun",
+        "genitive_plural": "karhujen",
+        "partitive_singular": "karhua",
+        "partitive_plural": "karhuja",
+        "inessive_singular": "karhussa",
+        "inessive_plural": "karhuissa",
+        "elative_singular": "karhusta",
+        "elative_plural": "karhuista",
+        "illative_singular": "karhuun",
+        "illative_plural": "karhuihin",
+        "adessive_singular": "karhulla",
+        "adessive_plural": "karhuilla",
+        "ablative_singular": "karhulta",
+        "ablative_plural": "karhuilta",
+        "allative_singular": "karhulle",
+        "allative_plural": "karhuille",
+        "essive_singular": "karhuna",
+        "essive_plural": "karhuina",
+        "translative_singular": "karhuksi",
+        "translative_plural": "karhuiksi",
+        "abessive_singular": "karhutta",
+        "abessive_plural": "karhuitta",
+        "instructive_plural": "karhuin",
+        "comitative_plural": "karhuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 5125,
+      "examples": [
+        {
+          "fi": "Pidän karhuista.",
+          "en": "I like bears."
+        },
+        {
+          "fi": "Tykkään karhuista.",
+          "en": "I like bears."
+        }
+      ]
+    },
+    {
+      "id": "bunny",
+      "word": "pupu",
+      "en": "bunny",
+      "emoji": "🐰",
+      "inflections": {
+        "nominative_singular": "pupu",
+        "nominative_plural": "puput",
+        "genitive_singular": "pupun",
+        "genitive_plural": "pupujen",
+        "partitive_singular": "pupua",
+        "partitive_plural": "pupuja",
+        "inessive_singular": "pupussa",
+        "inessive_plural": "pupuissa",
+        "elative_singular": "pupusta",
+        "elative_plural": "pupuista",
+        "illative_singular": "pupuun",
+        "illative_plural": "pupuihin",
+        "adessive_singular": "pupulla",
+        "adessive_plural": "pupuilla",
+        "ablative_singular": "pupulta",
+        "ablative_plural": "pupuilta",
+        "allative_singular": "pupulle",
+        "allative_plural": "pupuille",
+        "essive_singular": "pupuna",
+        "essive_plural": "pupuina",
+        "translative_singular": "pupuksi",
+        "translative_plural": "pupuiksi",
+        "abessive_singular": "puputta",
+        "abessive_plural": "pupuitta",
+        "instructive_plural": "pupuin",
+        "comitative_plural": "pupuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 16638,
+      "examples": [
+        {
+          "fi": "Se oli paha pupu.",
+          "en": "That was an evil bunny."
+        },
+        {
+          "fi": "Se oli ilkeä pupu.",
+          "en": "That was an evil bunny."
+        }
+      ]
+    },
+    {
+      "id": "bird",
+      "word": "lintu",
+      "en": "bird",
+      "emoji": "🐦",
+      "inflections": {
+        "nominative_singular": "lintu",
+        "nominative_plural": "linnut",
+        "genitive_singular": "linnun",
+        "genitive_plural": "lintujen",
+        "partitive_singular": "lintua",
+        "partitive_plural": "lintuja",
+        "inessive_singular": "linnussa",
+        "inessive_plural": "linnuissa",
+        "elative_singular": "linnusta",
+        "elative_plural": "linnuista",
+        "illative_singular": "lintuun",
+        "illative_plural": "lintuihin",
+        "adessive_singular": "linnulla",
+        "adessive_plural": "linnuilla",
+        "ablative_singular": "linnulta",
+        "ablative_plural": "linnuilta",
+        "allative_singular": "linnulle",
+        "allative_plural": "linnuille",
+        "essive_singular": "lintuna",
+        "essive_plural": "lintuina",
+        "translative_singular": "linnuksi",
+        "translative_plural": "linnuiksi",
+        "abessive_singular": "linnutta",
+        "abessive_plural": "linnuitta",
+        "instructive_plural": "linnuin",
+        "comitative_plural": "lintuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 3661,
+      "examples": [
+        {
+          "fi": "Linnuilla on siivet.",
+          "en": "Birds have wings."
+        },
+        {
+          "fi": "Tom pitää linnuista hyvää huolta.",
+          "en": "Tom takes good care of the birds."
+        }
+      ]
+    },
+    {
+      "id": "fish",
+      "word": "kala",
+      "en": "fish",
+      "emoji": "🐟",
+      "inflections": {
+        "nominative_singular": "kala",
+        "nominative_plural": "kalat",
+        "genitive_singular": "kalan",
+        "genitive_plural": "kalojen",
+        "partitive_singular": "kalaa",
+        "partitive_plural": "kaloja",
+        "inessive_singular": "kalassa",
+        "inessive_plural": "kaloissa",
+        "elative_singular": "kalasta",
+        "elative_plural": "kaloista",
+        "illative_singular": "kalaan",
+        "illative_plural": "kaloihin",
+        "adessive_singular": "kalalla",
+        "adessive_plural": "kaloilla",
+        "ablative_singular": "kalalta",
+        "ablative_plural": "kaloilta",
+        "allative_singular": "kalalle",
+        "allative_plural": "kaloille",
+        "essive_singular": "kalana",
+        "essive_plural": "kaloina",
+        "translative_singular": "kalaksi",
+        "translative_plural": "kaloiksi",
+        "abessive_singular": "kalatta",
+        "abessive_plural": "kaloitta",
+        "instructive_plural": "kaloin",
+        "comitative_plural": "kaloineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 4252,
+      "examples": [
+        {
+          "fi": "Hauki on kala.",
+          "en": "A pike is a fish."
+        },
+        {
+          "fi": "Tässä järvessä on paljon kalaa.",
+          "en": "There's lots of fish in this lake."
+        }
+      ]
+    },
+    {
+      "id": "horse",
+      "word": "hevonen",
+      "en": "horse",
+      "emoji": "🐴",
+      "inflections": {
+        "nominative_singular": "hevonen",
+        "nominative_plural": "hevoset",
+        "genitive_singular": "hevosen",
+        "genitive_plural": "hevosten",
+        "partitive_singular": "hevosta",
+        "partitive_plural": "hevosia",
+        "inessive_singular": "hevosessa",
+        "inessive_plural": "hevosissa",
+        "elative_singular": "hevosesta",
+        "elative_plural": "hevosista",
+        "illative_singular": "hevoseen",
+        "illative_plural": "hevosiin",
+        "adessive_singular": "hevosella",
+        "adessive_plural": "hevosilla",
+        "ablative_singular": "hevoselta",
+        "ablative_plural": "hevosilta",
+        "allative_singular": "hevoselle",
+        "allative_plural": "hevosille",
+        "essive_singular": "hevosena",
+        "essive_plural": "hevosina",
+        "translative_singular": "hevoseksi",
+        "translative_plural": "hevosiksi",
+        "abessive_singular": "hevosetta",
+        "abessive_plural": "hevositta",
+        "instructive_plural": "hevosin",
+        "comitative_plural": "hevosineen"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 3123,
+      "examples": [
+        {
+          "fi": "Minä pidän hevosista.",
+          "en": "I like horses."
+        },
+        {
+          "fi": "Mä tykkään hevosista.",
+          "en": "I like horses."
+        }
+      ]
+    },
+    {
+      "id": "cow",
+      "word": "lehmä",
+      "en": "cow",
+      "emoji": "🐮",
+      "inflections": {
+        "nominative_singular": "lehmä",
+        "nominative_plural": "lehmät",
+        "genitive_singular": "lehmän",
+        "genitive_plural": "lehmien",
+        "partitive_singular": "lehmää",
+        "partitive_plural": "lehmiä",
+        "inessive_singular": "lehmässä",
+        "inessive_plural": "lehmissä",
+        "elative_singular": "lehmästä",
+        "elative_plural": "lehmistä",
+        "illative_singular": "lehmään",
+        "illative_plural": "lehmiin",
+        "adessive_singular": "lehmällä",
+        "adessive_plural": "lehmillä",
+        "ablative_singular": "lehmältä",
+        "ablative_plural": "lehmiltä",
+        "allative_singular": "lehmälle",
+        "allative_plural": "lehmille",
+        "essive_singular": "lehmänä",
+        "essive_plural": "lehminä",
+        "translative_singular": "lehmäksi",
+        "translative_plural": "lehmiksi",
+        "abessive_singular": "lehmättä",
+        "abessive_plural": "lehmittä",
+        "instructive_plural": "lehmin",
+        "comitative_plural": "lehmineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 5469,
+      "examples": [
+        {
+          "fi": "hirvilehmä",
+          "en": "doe"
+        },
+        {
+          "fi": "Lehmistä saadaan maitoa.",
+          "en": "Milk is obtained from cows."
+        }
+      ]
+    },
+    {
+      "id": "pig",
+      "word": "possu",
+      "en": "pig",
+      "emoji": "🐷",
+      "inflections": {
+        "nominative_singular": "possu",
+        "nominative_plural": "possut",
+        "genitive_singular": "possun",
+        "genitive_plural": "possujen",
+        "partitive_singular": "possua",
+        "partitive_plural": "possuja",
+        "inessive_singular": "possussa",
+        "inessive_plural": "possuissa",
+        "elative_singular": "possusta",
+        "elative_plural": "possuista",
+        "illative_singular": "possuun",
+        "illative_plural": "possuihin",
+        "adessive_singular": "possulla",
+        "adessive_plural": "possuilla",
+        "ablative_singular": "possulta",
+        "ablative_plural": "possuilta",
+        "allative_singular": "possulle",
+        "allative_plural": "possuille",
+        "essive_singular": "possuna",
+        "essive_plural": "possuina",
+        "translative_singular": "possuksi",
+        "translative_plural": "possuiksi",
+        "abessive_singular": "possutta",
+        "abessive_plural": "possuitta",
+        "instructive_plural": "possuin",
+        "comitative_plural": "possuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 11357,
+      "examples": [
+        {
+          "fi": "Syök sä possua?",
+          "en": "Do you eat pork?"
+        },
+        {
+          "fi": "Minä syön possua haarukalla.",
+          "en": "I eat pork with a fork."
+        }
+      ]
+    },
+    {
+      "id": "fox",
+      "word": "kettu",
+      "en": "fox",
+      "emoji": "🦊",
+      "inflections": {
+        "nominative_singular": "kettu",
+        "nominative_plural": "ketut",
+        "genitive_singular": "ketun",
+        "genitive_plural": "kettujen",
+        "partitive_singular": "kettua",
+        "partitive_plural": "kettuja",
+        "inessive_singular": "ketussa",
+        "inessive_plural": "ketuissa",
+        "elative_singular": "ketusta",
+        "elative_plural": "ketuista",
+        "illative_singular": "kettuun",
+        "illative_plural": "kettuihin",
+        "adessive_singular": "ketulla",
+        "adessive_plural": "ketuilla",
+        "ablative_singular": "ketulta",
+        "ablative_plural": "ketuilta",
+        "allative_singular": "ketulle",
+        "allative_plural": "ketuille",
+        "essive_singular": "kettuna",
+        "essive_plural": "kettuina",
+        "translative_singular": "ketuksi",
+        "translative_plural": "ketuiksi",
+        "abessive_singular": "ketutta",
+        "abessive_plural": "ketuitta",
+        "instructive_plural": "ketuin",
+        "comitative_plural": "kettuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 11876,
+      "examples": [
+        {
+          "fi": "He metsästivät kettuja.",
+          "en": "They hunted foxes."
+        },
+        {
+          "fi": "Näetkö sinä sitä kettua?",
+          "en": "Do you see that fox?"
+        }
+      ]
+    },
+    {
+      "id": "duck",
+      "word": "ankka",
+      "en": "duck",
+      "emoji": "🦆",
+      "inflections": {
+        "nominative_singular": "ankka",
+        "nominative_plural": "ankat",
+        "genitive_singular": "ankan",
+        "genitive_plural": "ankkojen",
+        "partitive_singular": "ankkaa",
+        "partitive_plural": "ankkoja",
+        "inessive_singular": "ankassa",
+        "inessive_plural": "ankoissa",
+        "elative_singular": "ankasta",
+        "elative_plural": "ankoista",
+        "illative_singular": "ankkaan",
+        "illative_plural": "ankkoihin",
+        "adessive_singular": "ankalla",
+        "adessive_plural": "ankoilla",
+        "ablative_singular": "ankalta",
+        "ablative_plural": "ankoilta",
+        "allative_singular": "ankalle",
+        "allative_plural": "ankoille",
+        "essive_singular": "ankkana",
+        "essive_plural": "ankkoina",
+        "translative_singular": "ankaksi",
+        "translative_plural": "ankoiksi",
+        "abessive_singular": "ankatta",
+        "abessive_plural": "ankoitta",
+        "instructive_plural": "ankoin",
+        "comitative_plural": "ankkoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 11974,
+      "examples": [
+        {
+          "fi": "Ankka katosi.",
+          "en": "The duck disappeared."
+        },
+        {
+          "fi": "Se ankka katosi.",
+          "en": "The duck disappeared."
+        }
+      ]
+    },
+    {
+      "id": "frog",
+      "word": "sammakko",
+      "en": "frog",
+      "emoji": "🐸",
+      "inflections": {
+        "nominative_singular": "sammakko",
+        "nominative_plural": "sammakot",
+        "genitive_singular": "sammakon",
+        "genitive_plural": "sammakkojen",
+        "partitive_singular": "sammakkoa",
+        "partitive_plural": "sammakkoja",
+        "inessive_singular": "sammakossa",
+        "inessive_plural": "sammakoissa",
+        "elative_singular": "sammakosta",
+        "elative_plural": "sammakoista",
+        "illative_singular": "sammakkoon",
+        "illative_plural": "sammakkoihin",
+        "adessive_singular": "sammakolla",
+        "adessive_plural": "sammakoilla",
+        "ablative_singular": "sammakolta",
+        "ablative_plural": "sammakoilta",
+        "allative_singular": "sammakolle",
+        "allative_plural": "sammakoille",
+        "essive_singular": "sammakkona",
+        "essive_plural": "sammakkoina",
+        "translative_singular": "sammakoksi",
+        "translative_plural": "sammakoiksi",
+        "abessive_singular": "sammakotta",
+        "abessive_plural": "sammakoitta",
+        "instructive_plural": "sammakoin",
+        "comitative_plural": "sammakkoineen"
+      },
+      "kotusType": 4,
+      "group": "o_oe",
+      "frequencyRank": 13187,
+      "examples": [
+        {
+          "fi": "Nutipäistä tulee sammakkoja.",
+          "en": "Tadpoles become frogs."
+        },
+        {
+          "fi": "Sammakko kaivossa ei tiedä mitään merestä.",
+          "en": "The frog in the well knows nothing of the ocean."
+        }
+      ]
+    }
+  ]
+}
