@@ -15,6 +15,12 @@ This data was curated and reduced for this project from
 using `scripts/build-kids-data.mjs`. Forms were selected and copied; they were
 not algorithmically generated or modified.
 
+The full upstream source dataset (`nouns.json`, `verbs.json`, `numerals.json`,
+`rection.json`, `possessives.json`) is vendored as-is under
+`data/finnish-inflection-drill/` so the curation script can run without a
+separate checkout — same source and license as above; see the README in that
+folder.
+
 The curated data files in `src/content/data/` are made available under
 **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**:
 https://creativecommons.org/licenses/by-sa/4.0/
