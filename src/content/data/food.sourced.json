@@ -1,0 +1,656 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "food",
+    "fi": "Ruoka",
+    "en": "Food",
+    "emoji": "🍎"
+  },
+  "words": [
+    {
+      "id": "bread",
+      "word": "leipä",
+      "en": "bread",
+      "emoji": "🍞",
+      "inflections": {
+        "nominative_singular": "leipä",
+        "nominative_plural": "leivät",
+        "genitive_singular": "leivän",
+        "genitive_plural": "leipien",
+        "partitive_singular": "leipää",
+        "partitive_plural": "leipiä",
+        "inessive_singular": "leivässä",
+        "inessive_plural": "leivissä",
+        "elative_singular": "leivästä",
+        "elative_plural": "leivistä",
+        "illative_singular": "leipään",
+        "illative_plural": "leipiin",
+        "adessive_singular": "leivällä",
+        "adessive_plural": "leivillä",
+        "ablative_singular": "leivältä",
+        "ablative_plural": "leiviltä",
+        "allative_singular": "leivälle",
+        "allative_plural": "leiville",
+        "essive_singular": "leipänä",
+        "essive_plural": "leipinä",
+        "translative_singular": "leiväksi",
+        "translative_plural": "leiviksi",
+        "abessive_singular": "leivättä",
+        "abessive_plural": "leivittä",
+        "instructive_plural": "leivin",
+        "comitative_plural": "leipineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 5022,
+      "examples": [
+        {
+          "fi": "ansaita leipänsä",
+          "en": "to earn one's living"
+        }
+      ]
+    },
+    {
+      "id": "milk",
+      "word": "maito",
+      "en": "milk",
+      "emoji": "🥛",
+      "inflections": {
+        "nominative_singular": "maito",
+        "nominative_plural": "maidot",
+        "genitive_singular": "maidon",
+        "genitive_plural": "maitojen",
+        "partitive_singular": "maitoa",
+        "partitive_plural": "maitoja",
+        "inessive_singular": "maidossa",
+        "inessive_plural": "maidoissa",
+        "elative_singular": "maidosta",
+        "elative_plural": "maidoista",
+        "illative_singular": "maitoon",
+        "illative_plural": "maitoihin",
+        "adessive_singular": "maidolla",
+        "adessive_plural": "maidoilla",
+        "ablative_singular": "maidolta",
+        "ablative_plural": "maidoilta",
+        "allative_singular": "maidolle",
+        "allative_plural": "maidoille",
+        "essive_singular": "maitona",
+        "essive_plural": "maitoina",
+        "translative_singular": "maidoksi",
+        "translative_plural": "maidoiksi",
+        "abessive_singular": "maidotta",
+        "abessive_plural": "maidoitta",
+        "instructive_plural": "maidoin",
+        "comitative_plural": "maitoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 3418,
+      "examples": [
+        {
+          "fi": "Mari pitää maidosta.",
+          "en": "Mary likes milk."
+        },
+        {
+          "fi": "Voi tehdään maidosta.",
+          "en": "Butter is made from milk."
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "word": "vesi",
+      "en": "water",
+      "emoji": "💧",
+      "inflections": {
+        "nominative_singular": "vesi",
+        "nominative_plural": "vedet",
+        "genitive_singular": "veden",
+        "genitive_plural": "vesien",
+        "partitive_singular": "vettä",
+        "partitive_plural": "vesiä",
+        "inessive_singular": "vedessä",
+        "inessive_plural": "vesissä",
+        "elative_singular": "vedestä",
+        "elative_plural": "vesistä",
+        "illative_singular": "veteen",
+        "illative_plural": "vesiin",
+        "adessive_singular": "vedellä",
+        "adessive_plural": "vesillä",
+        "ablative_singular": "vedeltä",
+        "ablative_plural": "vesiltä",
+        "allative_singular": "vedelle",
+        "allative_plural": "vesille",
+        "essive_singular": "vetenä",
+        "essive_plural": "vesinä",
+        "translative_singular": "vedeksi",
+        "translative_plural": "vesiksi",
+        "abessive_singular": "vedettä",
+        "abessive_plural": "vesittä",
+        "instructive_plural": "vesin",
+        "comitative_plural": "vesineen"
+      },
+      "kotusType": 27,
+      "group": "i_old",
+      "frequencyRank": 753,
+      "examples": [
+        {
+          "fi": "vesiliuos",
+          "en": "aqueous solution"
+        },
+        {
+          "fi": "vesitaso",
+          "en": "hydrofoil"
+        }
+      ]
+    },
+    {
+      "id": "apple",
+      "word": "omena",
+      "en": "apple",
+      "emoji": "🍎",
+      "inflections": {
+        "nominative_singular": "omena",
+        "nominative_plural": "omenat",
+        "genitive_singular": "omenan",
+        "genitive_plural": "omenien",
+        "partitive_singular": "omenaa",
+        "partitive_plural": "omenia",
+        "inessive_singular": "omenassa",
+        "inessive_plural": "omenoissa",
+        "elative_singular": "omenasta",
+        "elative_plural": "omenoista",
+        "illative_singular": "omenaan",
+        "illative_plural": "omeniin",
+        "adessive_singular": "omenalla",
+        "adessive_plural": "omenoilla",
+        "ablative_singular": "omenalta",
+        "ablative_plural": "omenoilta",
+        "allative_singular": "omenalle",
+        "allative_plural": "omenoille",
+        "essive_singular": "omenana",
+        "essive_plural": "omenoina",
+        "translative_singular": "omenaksi",
+        "translative_plural": "omenoiksi",
+        "abessive_singular": "omenatta",
+        "abessive_plural": "omenoitta",
+        "instructive_plural": "omenoin",
+        "comitative_plural": "omenoineen"
+      },
+      "kotusType": 11,
+      "group": "a_ae",
+      "frequencyRank": 10266,
+      "examples": [
+        {
+          "fi": "Pidän omenoista.",
+          "en": "I like apples."
+        },
+        {
+          "fi": "Tykkään omenoista.",
+          "en": "I like apples."
+        }
+      ]
+    },
+    {
+      "id": "banana",
+      "word": "banaani",
+      "en": "banana",
+      "emoji": "🍌",
+      "inflections": {
+        "nominative_singular": "banaani",
+        "nominative_plural": "banaanit",
+        "genitive_singular": "banaanin",
+        "genitive_plural": "banaanien",
+        "partitive_singular": "banaania",
+        "partitive_plural": "banaaneita",
+        "inessive_singular": "banaanissa",
+        "inessive_plural": "banaaneissa",
+        "elative_singular": "banaanista",
+        "elative_plural": "banaaneista",
+        "illative_singular": "banaaniin",
+        "illative_plural": "banaaneihin",
+        "adessive_singular": "banaanilla",
+        "adessive_plural": "banaaneilla",
+        "ablative_singular": "banaanilta",
+        "ablative_plural": "banaaneilta",
+        "allative_singular": "banaanille",
+        "allative_plural": "banaaneille",
+        "essive_singular": "banaanina",
+        "essive_plural": "banaaneina",
+        "translative_singular": "banaaniksi",
+        "translative_plural": "banaaneiksi",
+        "abessive_singular": "banaanitta",
+        "abessive_plural": "banaaneitta",
+        "instructive_plural": "banaanein",
+        "comitative_plural": "banaaneineen"
+      },
+      "kotusType": 6,
+      "group": "i_new",
+      "frequencyRank": 18618,
+      "examples": [
+        {
+          "fi": "Tomi ei syönyt muuta kuin banaaneita.",
+          "en": "All Tom ate was bananas."
+        },
+        {
+          "fi": "Pidätkö enemmän omenoista vai banaaneista?",
+          "en": "Which do you prefer, apples or bananas?"
+        }
+      ]
+    },
+    {
+      "id": "cheese",
+      "word": "juusto",
+      "en": "cheese",
+      "emoji": "🧀",
+      "inflections": {
+        "nominative_singular": "juusto",
+        "nominative_plural": "juustot",
+        "genitive_singular": "juuston",
+        "genitive_plural": "juustojen",
+        "partitive_singular": "juustoa",
+        "partitive_plural": "juustoja",
+        "inessive_singular": "juustossa",
+        "inessive_plural": "juustoissa",
+        "elative_singular": "juustosta",
+        "elative_plural": "juustoista",
+        "illative_singular": "juustoon",
+        "illative_plural": "juustoihin",
+        "adessive_singular": "juustolla",
+        "adessive_plural": "juustoilla",
+        "ablative_singular": "juustolta",
+        "ablative_plural": "juustoilta",
+        "allative_singular": "juustolle",
+        "allative_plural": "juustoille",
+        "essive_singular": "juustona",
+        "essive_plural": "juustoina",
+        "translative_singular": "juustoksi",
+        "translative_plural": "juustoiksi",
+        "abessive_singular": "juustotta",
+        "abessive_plural": "juustoitta",
+        "instructive_plural": "juustoin",
+        "comitative_plural": "juustoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 5641,
+      "examples": [
+        {
+          "fi": "Joitain juustoja kypsytetään jopa vuoden.",
+          "en": "Some cheeses are aged for up to a year."
+        },
+        {
+          "fi": "Pidän juustosta.",
+          "en": "I like cheese."
+        }
+      ]
+    },
+    {
+      "id": "cake",
+      "word": "kakku",
+      "en": "cake",
+      "emoji": "🍰",
+      "inflections": {
+        "nominative_singular": "kakku",
+        "nominative_plural": "kakut",
+        "genitive_singular": "kakun",
+        "genitive_plural": "kakkujen",
+        "partitive_singular": "kakkua",
+        "partitive_plural": "kakkuja",
+        "inessive_singular": "kakussa",
+        "inessive_plural": "kakuissa",
+        "elative_singular": "kakusta",
+        "elative_plural": "kakuista",
+        "illative_singular": "kakkuun",
+        "illative_plural": "kakkuihin",
+        "adessive_singular": "kakulla",
+        "adessive_plural": "kakuilla",
+        "ablative_singular": "kakulta",
+        "ablative_plural": "kakuilta",
+        "allative_singular": "kakulle",
+        "allative_plural": "kakuille",
+        "essive_singular": "kakkuna",
+        "essive_plural": "kakkuina",
+        "translative_singular": "kakuksi",
+        "translative_plural": "kakuiksi",
+        "abessive_singular": "kakutta",
+        "abessive_plural": "kakuitta",
+        "instructive_plural": "kakuin",
+        "comitative_plural": "kakkuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 4662,
+      "examples": [
+        {
+          "fi": "Leivon kakkuja melkein joka päivä.",
+          "en": "I bake cakes almost every day."
+        },
+        {
+          "fi": "Vehnäjauho on kakkujen pääraaka-aine.",
+          "en": "Flour is the main ingredient in cakes."
+        }
+      ]
+    },
+    {
+      "id": "cookie",
+      "word": "keksi",
+      "en": "cookie",
+      "emoji": "🍪",
+      "inflections": {
+        "nominative_singular": "keksi",
+        "nominative_plural": "keksit",
+        "genitive_singular": "keksin",
+        "genitive_plural": "keksien",
+        "partitive_singular": "keksiä",
+        "partitive_plural": "keksejä",
+        "inessive_singular": "keksissä",
+        "inessive_plural": "kekseissä",
+        "elative_singular": "keksistä",
+        "elative_plural": "kekseistä",
+        "illative_singular": "keksiin",
+        "illative_plural": "kekseihin",
+        "adessive_singular": "keksillä",
+        "adessive_plural": "kekseillä",
+        "ablative_singular": "keksiltä",
+        "ablative_plural": "kekseiltä",
+        "allative_singular": "keksille",
+        "allative_plural": "kekseille",
+        "essive_singular": "keksinä",
+        "essive_plural": "kekseinä",
+        "translative_singular": "keksiksi",
+        "translative_plural": "kekseiksi",
+        "abessive_singular": "keksittä",
+        "abessive_plural": "kekseittä",
+        "instructive_plural": "keksein",
+        "comitative_plural": "kekseineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 1462,
+      "examples": [
+        {
+          "fi": "Leivoin keksejä.",
+          "en": "I baked cookies."
+        },
+        {
+          "fi": "Tom teki keksejä.",
+          "en": "Tom made some cookies."
+        }
+      ]
+    },
+    {
+      "id": "juice",
+      "word": "mehu",
+      "en": "juice",
+      "emoji": "🧃",
+      "inflections": {
+        "nominative_singular": "mehu",
+        "nominative_plural": "mehut",
+        "genitive_singular": "mehun",
+        "genitive_plural": "mehujen",
+        "partitive_singular": "mehua",
+        "partitive_plural": "mehuja",
+        "inessive_singular": "mehussa",
+        "inessive_plural": "mehuissa",
+        "elative_singular": "mehusta",
+        "elative_plural": "mehuista",
+        "illative_singular": "mehuun",
+        "illative_plural": "mehuihin",
+        "adessive_singular": "mehulla",
+        "adessive_plural": "mehuilla",
+        "ablative_singular": "mehulta",
+        "ablative_plural": "mehuilta",
+        "allative_singular": "mehulle",
+        "allative_plural": "mehuille",
+        "essive_singular": "mehuna",
+        "essive_plural": "mehuina",
+        "translative_singular": "mehuksi",
+        "translative_plural": "mehuiksi",
+        "abessive_singular": "mehutta",
+        "abessive_plural": "mehuitta",
+        "instructive_plural": "mehuin",
+        "comitative_plural": "mehuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 8474,
+      "examples": [
+        {
+          "fi": "Ostitko mehua?",
+          "en": "Did you buy juice?"
+        },
+        {
+          "fi": "Tommi juo mehua.",
+          "en": "Tom is drinking juice."
+        }
+      ]
+    },
+    {
+      "id": "ice-cream",
+      "word": "jäätelö",
+      "en": "ice cream",
+      "emoji": "🍦",
+      "inflections": {
+        "nominative_singular": "jäätelö",
+        "nominative_plural": "jäätelöt",
+        "genitive_singular": "jäätelön",
+        "genitive_plural": "jäätelöjen",
+        "partitive_singular": "jäätelöä",
+        "partitive_plural": "jäätelöjä",
+        "inessive_singular": "jäätelössä",
+        "inessive_plural": "jäätelöissä",
+        "elative_singular": "jäätelöstä",
+        "elative_plural": "jäätelöistä",
+        "illative_singular": "jäätelöön",
+        "illative_plural": "jäätelöihin",
+        "adessive_singular": "jäätelöllä",
+        "adessive_plural": "jäätelöillä",
+        "ablative_singular": "jäätelöltä",
+        "ablative_plural": "jäätelöiltä",
+        "allative_singular": "jäätelölle",
+        "allative_plural": "jäätelöille",
+        "essive_singular": "jäätelönä",
+        "essive_plural": "jäätelöinä",
+        "translative_singular": "jäätelöksi",
+        "translative_plural": "jäätelöiksi",
+        "abessive_singular": "jäätelöttä",
+        "abessive_plural": "jäätelöittä",
+        "instructive_plural": "jäätelöin",
+        "comitative_plural": "jäätelöineen"
+      },
+      "kotusType": 2,
+      "group": "u_y",
+      "frequencyRank": 5029,
+      "examples": [
+        {
+          "fi": "Haluan jäätelön.",
+          "en": "I want an ice cream."
+        },
+        {
+          "fi": "Mä haluun jäätelön.",
+          "en": "I want an ice cream."
+        }
+      ]
+    },
+    {
+      "id": "chocolate",
+      "word": "suklaa",
+      "en": "chocolate",
+      "emoji": "🍫",
+      "inflections": {
+        "nominative_singular": "suklaa",
+        "nominative_plural": "suklaat",
+        "genitive_singular": "suklaan",
+        "genitive_plural": "suklaiden",
+        "partitive_singular": "suklaata",
+        "partitive_plural": "suklaita",
+        "inessive_singular": "suklaassa",
+        "inessive_plural": "suklaissa",
+        "elative_singular": "suklaasta",
+        "elative_plural": "suklaista",
+        "illative_singular": "suklaaseen",
+        "illative_plural": "suklaisiin",
+        "adessive_singular": "suklaalla",
+        "adessive_plural": "suklailla",
+        "ablative_singular": "suklaalta",
+        "ablative_plural": "suklailta",
+        "allative_singular": "suklaalle",
+        "allative_plural": "suklaille",
+        "essive_singular": "suklaana",
+        "essive_plural": "suklaina",
+        "translative_singular": "suklaaksi",
+        "translative_plural": "suklaiksi",
+        "abessive_singular": "suklaatta",
+        "abessive_plural": "suklaitta",
+        "instructive_plural": "suklain",
+        "comitative_plural": "suklaineen"
+      },
+      "kotusType": 17,
+      "group": "long_vowel",
+      "frequencyRank": 5902,
+      "examples": [
+        {
+          "fi": "Pidän suklaasta.",
+          "en": "I like chocolate."
+        },
+        {
+          "fi": "En pidä suklaasta.",
+          "en": "I don't like chocolate."
+        }
+      ]
+    },
+    {
+      "id": "potato",
+      "word": "peruna",
+      "en": "potato",
+      "emoji": "🥔",
+      "inflections": {
+        "nominative_singular": "peruna",
+        "nominative_plural": "perunat",
+        "genitive_singular": "perunan",
+        "genitive_plural": "perunoiden",
+        "partitive_singular": "perunaa",
+        "partitive_plural": "perunoita",
+        "inessive_singular": "perunassa",
+        "inessive_plural": "perunoissa",
+        "elative_singular": "perunasta",
+        "elative_plural": "perunoista",
+        "illative_singular": "perunaan",
+        "illative_plural": "perunoihin",
+        "adessive_singular": "perunalla",
+        "adessive_plural": "perunoilla",
+        "ablative_singular": "perunalta",
+        "ablative_plural": "perunoilta",
+        "allative_singular": "perunalle",
+        "allative_plural": "perunoille",
+        "essive_singular": "perunana",
+        "essive_plural": "perunoina",
+        "translative_singular": "perunaksi",
+        "translative_plural": "perunoiksi",
+        "abessive_singular": "perunatta",
+        "abessive_plural": "perunoitta",
+        "instructive_plural": "perunoin",
+        "comitative_plural": "perunoineen"
+      },
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 12104
+    },
+    {
+      "id": "strawberry",
+      "word": "mansikka",
+      "en": "strawberry",
+      "emoji": "🍓",
+      "inflections": {
+        "nominative_singular": "mansikka",
+        "nominative_plural": "mansikat",
+        "genitive_singular": "mansikan",
+        "genitive_plural": "mansikoiden",
+        "partitive_singular": "mansikkaa",
+        "partitive_plural": "mansikoita",
+        "inessive_singular": "mansikassa",
+        "inessive_plural": "mansikoissa",
+        "elative_singular": "mansikasta",
+        "elative_plural": "mansikoista",
+        "illative_singular": "mansikkaan",
+        "illative_plural": "mansikoihin",
+        "adessive_singular": "mansikalla",
+        "adessive_plural": "mansikoilla",
+        "ablative_singular": "mansikalta",
+        "ablative_plural": "mansikoilta",
+        "allative_singular": "mansikalle",
+        "allative_plural": "mansikoille",
+        "essive_singular": "mansikkana",
+        "essive_plural": "mansikkoina",
+        "translative_singular": "mansikaksi",
+        "translative_plural": "mansikoiksi",
+        "abessive_singular": "mansikatta",
+        "abessive_plural": "mansikoitta",
+        "instructive_plural": "mansikoin",
+        "comitative_plural": "mansikkoineen"
+      },
+      "kotusType": 14,
+      "group": "a_ae",
+      "frequencyRank": 23645,
+      "examples": [
+        {
+          "fi": "Mansikoista tehdään hilloa.",
+          "en": "Strawberries are made into jam."
+        },
+        {
+          "fi": "Pidän enemmän kirsikoista kuin mansikoista.",
+          "en": "I like cherries better than strawberries."
+        }
+      ]
+    },
+    {
+      "id": "carrot",
+      "word": "porkkana",
+      "en": "carrot",
+      "emoji": "🥕",
+      "inflections": {
+        "nominative_singular": "porkkana",
+        "nominative_plural": "porkkanat",
+        "genitive_singular": "porkkanan",
+        "genitive_plural": "porkkanoiden",
+        "partitive_singular": "porkkanaa",
+        "partitive_plural": "porkkanoita",
+        "inessive_singular": "porkkanassa",
+        "inessive_plural": "porkkanoissa",
+        "elative_singular": "porkkanasta",
+        "elative_plural": "porkkanoista",
+        "illative_singular": "porkkanaan",
+        "illative_plural": "porkkanoihin",
+        "adessive_singular": "porkkanalla",
+        "adessive_plural": "porkkanoilla",
+        "ablative_singular": "porkkanalta",
+        "ablative_plural": "porkkanoilta",
+        "allative_singular": "porkkanalle",
+        "allative_plural": "porkkanoille",
+        "essive_singular": "porkkanana",
+        "essive_plural": "porkkanoina",
+        "translative_singular": "porkkanaksi",
+        "translative_plural": "porkkanoiksi",
+        "abessive_singular": "porkkanatta",
+        "abessive_plural": "porkkanoitta",
+        "instructive_plural": "porkkanoin",
+        "comitative_plural": "porkkanoineen"
+      },
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 25810,
+      "examples": [
+        {
+          "fi": "Jänikset tykkäävät porkkanoista.",
+          "en": "Rabbits love carrots."
+        },
+        {
+          "fi": "\"En tykkää porkkanoista.\" \"En minäkään.\"",
+          "en": "\"I don't like carrots.\" \"Neither do I.\""
+        }
+      ]
+    }
+  ]
+}

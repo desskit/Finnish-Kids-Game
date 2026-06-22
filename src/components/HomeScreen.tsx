@@ -3,7 +3,7 @@ import type { Theme } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
 
-export type Activity = 'listen' | 'build' | 'count' | 'match';
+export type Activity = 'listen' | 'build' | 'count' | 'match' | 'conjugate' | 'order' | 'spell';
 
 interface Props {
   themes: Theme[];
@@ -21,7 +21,7 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
   const canBuild = activeTheme.constructions.length > 0;
   const canCount = activeTheme.countable === true;
   // Adjective + noun agreement pairs the global adjectives with this theme's
-  // nouns, so it needs a countable noun topic (Animals), like Count & Say.
+  // nouns, so it needs a countable noun topic, like Count & Say.
   const canMatch = activeTheme.countable === true;
 
   function saveName() {
@@ -131,9 +131,7 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
           </span>
           <span className="activity-card__text">
             Rakenna lause
-            <span className="en">
-              {canBuild ? 'Build a Phrase' : 'Build a Phrase (animals only)'}
-            </span>
+            <span className="en">Build a Phrase</span>
           </span>
         </button>
 
@@ -141,16 +139,14 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
           className="activity-card"
           onClick={() => onPlay('count')}
           disabled={!canCount}
-          title={canCount ? undefined : 'Pick the Animals topic to count'}
+          title={canCount ? undefined : 'Pick a countable topic to count'}
         >
           <span className="activity-card__emoji" aria-hidden="true">
             🔢
           </span>
           <span className="activity-card__text">
             Laske ja sano
-            <span className="en">
-              {canCount ? 'Count & Say' : 'Count & Say (animals only)'}
-            </span>
+            <span className="en">Count &amp; Say</span>
           </span>
         </button>
 
@@ -158,16 +154,49 @@ export default function HomeScreen({ themes, activeThemeId, onSelectTheme, onPla
           className="activity-card"
           onClick={() => onPlay('match')}
           disabled={!canMatch}
-          title={canMatch ? undefined : 'Pick the Animals topic to match words'}
+          title={canMatch ? undefined : 'Pick a countable topic to match words'}
         >
           <span className="activity-card__emoji" aria-hidden="true">
             🎨
           </span>
           <span className="activity-card__text">
             Yhdistä sanat
-            <span className="en">
-              {canMatch ? 'Match the Words' : 'Match the Words (animals only)'}
-            </span>
+            <span className="en">Match the Words</span>
+          </span>
+        </button>
+
+        <button className="activity-card" onClick={() => onPlay('conjugate')}>
+          <span className="activity-card__emoji" aria-hidden="true">
+            🏃
+          </span>
+          <span className="activity-card__text">
+            Taivuta verbi
+            <span className="en">Conjugate the Verb</span>
+          </span>
+        </button>
+
+        <button
+          className="activity-card"
+          onClick={() => onPlay('order')}
+          disabled={!canBuild}
+          title={canBuild ? undefined : 'No phrases for this topic yet'}
+        >
+          <span className="activity-card__emoji" aria-hidden="true">
+            🔀
+          </span>
+          <span className="activity-card__text">
+            Järjestä sanat
+            <span className="en">Word Order</span>
+          </span>
+        </button>
+
+        <button className="activity-card" onClick={() => onPlay('spell')}>
+          <span className="activity-card__emoji" aria-hidden="true">
+            ⌨️
+          </span>
+          <span className="activity-card__text">
+            Kirjoita sana
+            <span className="en">Spelling</span>
           </span>
         </button>
       </div>

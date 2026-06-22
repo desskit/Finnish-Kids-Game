@@ -66,6 +66,78 @@ export function buildPhraseRound(
   });
 }
 
+// --- Spelling --------------------------------------------------------------
+//
+// Drill: hear/see a word, type it. Just a selection of targets — no slot
+// lookup needed since the child types item.fi directly (already the
+// sourced nominative singular form).
+
+export function buildSpellingRound(
+  items: readonly LexicalItem[],
+  questionCount: number,
+): LexicalItem[] {
+  return sample(items, Math.min(questionCount, items.length));
+}
+
+// --- Word order ----------------------------------------------------------
+//
+// Drill: tokenize a full carrier-phrase sentence (before words + slot form +
+// after words, punctuation attached to the last token) into chips; the child
+// taps them back into order. The slot form is looked up via formFor() —
+// never generated. Reuses the same construction+item data as Build a Phrase.
+
+export interface WordOrderToken {
+  /** Position in the correct sentence order (0-based). */
+  id: number;
+  text: string;
+}
+
+export interface WordOrderQuestion {
+  construction: Construction;
+  item: LexicalItem;
+  /** Tokens in correct order. */
+  tokens: WordOrderToken[];
+  /** Same tokens, shuffled for display; the child taps them back into order. */
+  shuffled: WordOrderToken[];
+  /** The full sentence, for replay/speech. */
+  sentence: string;
+}
+
+export function buildWordOrderRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+): WordOrderQuestion[] {
+  const pool: { construction: Construction; item: LexicalItem }[] = [];
+  for (const construction of constructions) {
+    for (const item of items) {
+      if (formFor(item, construction)) pool.push({ construction, item });
+    }
+  }
+
+  const chosen = sample(pool, Math.min(questionCount, pool.length));
+  return chosen.map(({ construction, item }) => {
+    const form = formFor(item, construction)!;
+    const words = [
+      ...(construction.before?.split(' ') ?? []),
+      form,
+      ...(construction.after?.split(' ') ?? []),
+    ];
+    const sentence = words.join(' ') + (construction.punct ?? '');
+    const last = words.length - 1;
+    const tokens: WordOrderToken[] = words.map((text, id) => ({
+      id,
+      text: id === last ? text + (construction.punct ?? '') : text,
+    }));
+    let shuffled = shuffle(tokens);
+    // A shuffle that lands back in the original order isn't much of a puzzle.
+    while (tokens.length > 1 && shuffled.every((t, i) => t.id === tokens[i].id)) {
+      shuffled = shuffle(tokens);
+    }
+    return { construction, item, tokens, shuffled, sentence };
+  });
+}
+
 // --- Two-slot counting: number + counted noun ---------------------------
 
 export interface CountingQuestion {

@@ -83,6 +83,36 @@ const ADJECTIVES = [
   ['brown', 'ruskea', 'brown', '🟫'],
 ];
 
+const FOOD = [
+  ['bread', 'leipä', 'bread', '🍞'],
+  ['milk', 'maito', 'milk', '🥛'],
+  ['water', 'vesi', 'water', '💧'],
+  ['apple', 'omena', 'apple', '🍎'],
+  ['banana', 'banaani', 'banana', '🍌'],
+  ['cheese', 'juusto', 'cheese', '🧀'],
+  ['cake', 'kakku', 'cake', '🍰'],
+  ['cookie', 'keksi', 'cookie', '🍪'],
+  ['juice', 'mehu', 'juice', '🧃'],
+  ['ice-cream', 'jäätelö', 'ice cream', '🍦'],
+  ['chocolate', 'suklaa', 'chocolate', '🍫'],
+  ['potato', 'peruna', 'potato', '🥔'],
+  ['strawberry', 'mansikka', 'strawberry', '🍓'],
+  ['carrot', 'porkkana', 'carrot', '🥕'],
+];
+
+const FAMILY = [
+  ['mother', 'äiti', 'mom', '👩'],
+  ['father', 'isä', 'dad', '👨'],
+  ['brother', 'veli', 'brother', '🧑'],
+  ['sister', 'sisko', 'sister', '👧'],
+  ['baby', 'vauva', 'baby', '👶'],
+  ['son', 'poika', 'son', '👦'],
+  ['daughter', 'tyttö', 'daughter', '👧'],
+  ['grandmother', 'isoäiti', 'grandmother', '👵'],
+  ['grandfather', 'isoisä', 'grandfather', '👴'],
+  ['family', 'perhe', 'family', '👪'],
+];
+
 // Kid-friendly verbs spanning all six KOTUS verb types.
 const VERBS = [
   ['be', 'olla', 'be'],
@@ -209,6 +239,24 @@ const verbs = buildTheme({
   inflectionKeys: VERB_INFLECTION_KEYS,
 });
 
+const food = buildTheme({
+  id: 'food',
+  fi: 'Ruoka',
+  en: 'Food',
+  emoji: '🍎',
+  curation: FOOD,
+  sourceWords: nounWords,
+});
+
+const family = buildTheme({
+  id: 'family',
+  fi: 'Perhe',
+  en: 'Family',
+  emoji: '👪',
+  curation: FAMILY,
+  sourceWords: nounWords,
+});
+
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');
 writeFileSync(
@@ -216,8 +264,11 @@ writeFileSync(
   JSON.stringify(adjectives, null, 2) + '\n',
 );
 writeFileSync(join(OUT_DIR, 'verbs.sourced.json'), JSON.stringify(verbs, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'food.sourced.json'), JSON.stringify(food, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'family.sourced.json'), JSON.stringify(family, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
-    `${adjectives.words.length} adjectives, ${verbs.words.length} verbs to ${OUT_DIR}`,
+    `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ` +
+    `${food.words.length} food, ${family.words.length} family words to ${OUT_DIR}`,
 );

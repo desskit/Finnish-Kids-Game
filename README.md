@@ -12,7 +12,7 @@ Finnish** — the app never generates or inflects Finnish by rule.
 
 ## What's in this slice
 
-- **Four mini-games**
+- **Seven mini-games**
   - **Kuuntele ja osoita / Listen & Tap** — hear a Finnish word, tap the picture.
   - **Rakenna lause / Build a Phrase** — hear a carrier phrase, pick the word that
     completes it (e.g. _Tämä on **kissa**_).
@@ -22,8 +22,15 @@ Finnish** — the app never generates or inflects Finnish by rule.
   - **Yhdistä sanat / Match the Words** — an adjective is shown in some case
     (_isossa_); pick the noun form that **agrees** with it (_isossa **kissassa**_).
     Distractors are the same noun in other cases, so the skill drilled is the
-    agreement itself. (Pairs the adjectives with the Animals nouns.)
-- **Two themes** — Animals / _Eläimet_ (12 words) and Numbers / _Numerot_ (1–10).
+    agreement itself. (Pairs the adjectives with each theme's nouns.)
+  - **Taivuta verbi / Conjugate the Verb** — hear a pronoun, pick the verb form
+    that agrees with the person (_minä **syön**_ / _hän **syö**_).
+  - **Järjestä sanat / Word Order** — a full carrier-phrase sentence is shown as
+    shuffled word chips; tap them back into the correct order.
+  - **Kirjoita sana / Spelling** — see/hear a word, type it with an on-screen
+    keyboard (includes ä/ö, so it works the same on any device).
+- **Four themes** — Animals / _Eläimet_ (12 words), Numbers / _Numerot_ (1–10),
+  Food / _Ruoka_ (14 words), Family / _Perhe_ (10 words).
 - **Nine carrier phrases** built on **case-tagged, sourced inflections**:
   - Nominative — _Tämä on ___ / Missä on ___? / Minulla on ___._
   - Verb rection — _Pidän ___sta_ (elative) / _Näen ___n_ (accusative).
@@ -116,20 +123,29 @@ exists. Four shapes exist today:
   because agreement needs nouns to attach to — it isn't a standalone play topic.
 - **Verb conjugation** (`buildConjugationRound`) — pronoun + verb; pick the form
   for the person (_minä **syön** / hän **syö**_), with present positive/negative
-  and past supported. Built and verified as exercise data but **not wired into
-  the UI yet** (that's for a later session); `verbs` is intentionally excluded
-  from the home-screen `themes`.
+  and past supported. Rendered by **Conjugate the Verb** (`ConjugateVerb.tsx`);
+  `verbs` is intentionally excluded from the home-screen `themes` — it's its
+  own game, not a noun vocabulary topic.
+- **Word order** (`buildWordOrderRound`) — tokenizes a full carrier-phrase
+  sentence into shuffled chips; rendered by `WordOrder.tsx`. Reuses the same
+  construction + sourced slot-form data as Build a Phrase.
+- **Spelling** (`buildSpellingRound`) — picks target words for the child to
+  type; rendered by `SpellWord.tsx` with an on-screen ä/ö keyboard.
 
 ### Regenerating / extending the data
 
+The upstream Finnish-Inflection-Drill source dataset is vendored at
+`data/finnish-inflection-drill/` (see its `README.md`), so the curation script
+runs directly against this repo:
+
 ```bash
-# point at a local checkout of the Finnish-Inflection-Drill data/ folder
-node scripts/build-kids-data.mjs /path/to/Finnish-Inflection-Drill/data
+node scripts/build-kids-data.mjs data/finnish-inflection-drill
 ```
 
-Edit the curation lists (`ANIMALS`, `NUMBERS`, `ADJECTIVES`, `VERBS`) in `scripts/build-kids-data.mjs`
-to add words; the script copies verified forms + tags from the source. Adding a
-new construction is a few lines in `constructions.ts` — no code changes elsewhere.
+Edit the curation lists (`ANIMALS`, `NUMBERS`, `ADJECTIVES`, `VERBS`, `FOOD`, `FAMILY`)
+in `scripts/build-kids-data.mjs` to add words; the script copies verified forms + tags
+from the source. Adding a new construction is a few lines in `constructions.ts`
+(`nounConstructions`, used by every noun theme) — no code changes elsewhere.
 
 ## Project structure
 
@@ -152,12 +168,11 @@ scripts/
 
 ## Roadmap (planned follow-up sessions)
 
-- **UI for verb conjugation** — the generator and data exist
-  (`buildConjugationRound`); a mini-game to render it is pending the UI session.
-  (Adjective + noun agreement is now live as the **Match the Words** game.)
 - **More verb challenges** — rection (which case a verb governs, from
-  `rection.json`) and possessive suffixes (from `possessives.json`).
-- More themes (food, family) curated from the same tagged source.
+  `rection.json`) and possessive suffixes (from `possessives.json`); both are
+  vendored in `data/finnish-inflection-drill/` already.
+- More themes curated from the same tagged source (e.g. colors as a
+  standalone topic, clothing, weather).
 - A kid-safety review pass before surfacing the sourced example sentences in the UI.
 - Real artwork + a mascot character (dedicated art session).
 - Recorded native-speaker voiceover to replace TTS.

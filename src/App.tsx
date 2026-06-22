@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { themes, numbers, adjectives } from './content';
+import { themes, numbers, adjectives, verbs } from './content';
 import HomeScreen, { type Activity } from './components/HomeScreen';
 import ListenAndTap from './components/ListenAndTap';
 import BuildAPhrase from './components/BuildAPhrase';
 import CountAndSay from './components/CountAndSay';
 import MatchTheWord from './components/MatchTheWord';
+import ConjugateVerb from './components/ConjugateVerb';
+import WordOrder from './components/WordOrder';
+import SpellWord from './components/SpellWord';
 
 type Screen = 'home' | Activity;
 
@@ -38,6 +41,11 @@ export default function App() {
       {screen === 'match' && (
         <MatchTheWord adjectives={adjectives.items} nouns={theme.items} onExit={goHome} />
       )}
+      {screen === 'conjugate' && <ConjugateVerb verbs={verbs.items} onExit={goHome} />}
+      {screen === 'order' && (
+        <WordOrder items={theme.items} constructions={theme.constructions} onExit={goHome} />
+      )}
+      {screen === 'spell' && <SpellWord items={theme.items} onExit={goHome} />}
     </main>
   );
 }

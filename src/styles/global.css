@@ -526,6 +526,92 @@ button:focus-visible,
   box-shadow: 0 0 0 4px var(--bad);
 }
 
+/* ---------- Spelling ---------- */
+.spell-input {
+  min-width: 6em;
+  min-height: 1.6em;
+  padding: 6px 16px;
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--brand);
+}
+
+.spell-input--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.spell-input--correct {
+  color: var(--good);
+  box-shadow: 0 0 0 4px var(--good);
+}
+
+.kid-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  max-width: 620px;
+}
+
+.kid-keyboard__row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kid-key {
+  min-width: clamp(28px, 8vw, 40px);
+  min-height: var(--tap);
+  border-radius: 10px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.kid-key:active {
+  transform: scale(0.92);
+}
+
+.kid-key--wide {
+  min-width: clamp(80px, 20vw, 120px);
+}
+
+/* ---------- Word Order ---------- */
+.word-order-assembled {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  max-width: 620px;
+  font-size: clamp(1.2rem, 3.6vw, 1.7rem);
+  font-weight: 800;
+}
+
+.word-order-slot {
+  min-width: 2.5em;
+  min-height: 1.4em;
+  border-bottom: 4px dashed var(--brand-soft);
+  color: var(--brand);
+  padding: 0 6px;
+  text-align: center;
+}
+
+.word-order-slot--filled {
+  border-bottom-color: var(--good);
+  color: var(--good);
+}
+
 /* ---------- Count & Say ---------- */
 .count-scene {
   display: flex;

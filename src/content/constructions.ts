@@ -1,9 +1,10 @@
 import type { Construction } from './types';
 
-// Carrier phrases for the Animals theme. These are human-authored; each slot's
-// Finnish form is looked up from the word's sourced inflection table by the
-// declared case + number (no rule-based inflection in code).
-export const animalConstructions: Construction[] = [
+// Generic carrier phrases usable with any countable noun theme (animals, food,
+// family, ...). These are human-authored; each slot's Finnish form is looked
+// up from the word's sourced inflection table by the declared case + number
+// (no rule-based inflection in code).
+export const nounConstructions: Construction[] = [
   // --- Nominative subject/complement (Tier 2) ---
   {
     id: 'this-is',

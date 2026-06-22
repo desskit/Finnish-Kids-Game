@@ -1,0 +1,482 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "family",
+    "fi": "Perhe",
+    "en": "Family",
+    "emoji": "👪"
+  },
+  "words": [
+    {
+      "id": "mother",
+      "word": "äiti",
+      "en": "mom",
+      "emoji": "👩",
+      "inflections": {
+        "nominative_singular": "äiti",
+        "nominative_plural": "äidit",
+        "genitive_singular": "äidin",
+        "genitive_plural": "äitien",
+        "partitive_singular": "äitiä",
+        "partitive_plural": "äitejä",
+        "inessive_singular": "äidissä",
+        "inessive_plural": "äideissä",
+        "elative_singular": "äidistä",
+        "elative_plural": "äideistä",
+        "illative_singular": "äitiin",
+        "illative_plural": "äiteihin",
+        "adessive_singular": "äidillä",
+        "adessive_plural": "äideillä",
+        "ablative_singular": "äidiltä",
+        "ablative_plural": "äideiltä",
+        "allative_singular": "äidille",
+        "allative_plural": "äideille",
+        "essive_singular": "äitinä",
+        "essive_plural": "äiteinä",
+        "translative_singular": "äidiksi",
+        "translative_plural": "äideiksi",
+        "abessive_singular": "äidittä",
+        "abessive_plural": "äideittä",
+        "instructive_plural": "äidein",
+        "comitative_plural": "äiteineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 143,
+      "examples": [
+        {
+          "fi": "luontoäiti",
+          "en": "mother Nature"
+        },
+        {
+          "fi": "kaikkien taistelujen äiti",
+          "en": "mother of all battles"
+        }
+      ]
+    },
+    {
+      "id": "father",
+      "word": "isä",
+      "en": "dad",
+      "emoji": "👨",
+      "inflections": {
+        "nominative_singular": "isä",
+        "nominative_plural": "isät",
+        "genitive_singular": "isän",
+        "genitive_plural": "isien",
+        "partitive_singular": "isää",
+        "partitive_plural": "isiä",
+        "inessive_singular": "isässä",
+        "inessive_plural": "isissä",
+        "elative_singular": "isästä",
+        "elative_plural": "isistä",
+        "illative_singular": "isään",
+        "illative_plural": "isiin",
+        "adessive_singular": "isällä",
+        "adessive_plural": "isillä",
+        "ablative_singular": "isältä",
+        "ablative_plural": "isiltä",
+        "allative_singular": "isälle",
+        "allative_plural": "isille",
+        "essive_singular": "isänä",
+        "essive_plural": "isinä",
+        "translative_singular": "isäksi",
+        "translative_plural": "isiksi",
+        "abessive_singular": "isättä",
+        "abessive_plural": "isittä",
+        "instructive_plural": "isin",
+        "comitative_plural": "isineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 132,
+      "examples": [
+        {
+          "fi": "Sain sen isältä.",
+          "en": "I got it from my father."
+        },
+        {
+          "fi": "Ooksä ylpeä sun isästä?",
+          "en": "Are you proud of your father?"
+        }
+      ]
+    },
+    {
+      "id": "brother",
+      "word": "veli",
+      "en": "brother",
+      "emoji": "🧑",
+      "inflections": {
+        "nominative_singular": "veli",
+        "nominative_plural": "veljet",
+        "genitive_singular": "veljen",
+        "genitive_plural": "veljien",
+        "partitive_singular": "veljeä",
+        "partitive_plural": "veljiä",
+        "inessive_singular": "veljessä",
+        "inessive_plural": "veljissä",
+        "elative_singular": "veljestä",
+        "elative_plural": "veljistä",
+        "illative_singular": "veljeen",
+        "illative_plural": "veljiin",
+        "adessive_singular": "veljellä",
+        "adessive_plural": "veljillä",
+        "ablative_singular": "veljeltä",
+        "ablative_plural": "veljiltä",
+        "allative_singular": "veljelle",
+        "allative_plural": "veljille",
+        "essive_singular": "veljenä",
+        "essive_plural": "veljinä",
+        "translative_singular": "veljeksi",
+        "translative_plural": "veljiksi",
+        "abessive_singular": "veljettä",
+        "abessive_plural": "veljittä",
+        "instructive_plural": "veljin",
+        "comitative_plural": "veljineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 868,
+      "examples": [
+        {
+          "fi": "Olen yksi Tomin veljistä.",
+          "en": "I'm one of Tom's brothers."
+        },
+        {
+          "fi": "Sä näytät paljon sun veljeltä.",
+          "en": "You look a lot like your brother."
+        }
+      ]
+    },
+    {
+      "id": "sister",
+      "word": "sisko",
+      "en": "sister",
+      "emoji": "👧",
+      "inflections": {
+        "nominative_singular": "sisko",
+        "nominative_plural": "siskot",
+        "genitive_singular": "siskon",
+        "genitive_plural": "siskojen",
+        "partitive_singular": "siskoa",
+        "partitive_plural": "siskoja",
+        "inessive_singular": "siskossa",
+        "inessive_plural": "siskoissa",
+        "elative_singular": "siskosta",
+        "elative_plural": "siskoista",
+        "illative_singular": "siskoon",
+        "illative_plural": "siskoihin",
+        "adessive_singular": "siskolla",
+        "adessive_plural": "siskoilla",
+        "ablative_singular": "siskolta",
+        "ablative_plural": "siskoilta",
+        "allative_singular": "siskolle",
+        "allative_plural": "siskoille",
+        "essive_singular": "siskona",
+        "essive_plural": "siskoina",
+        "translative_singular": "siskoksi",
+        "translative_plural": "siskoiksi",
+        "abessive_singular": "siskotta",
+        "abessive_plural": "siskoitta",
+        "instructive_plural": "siskoin",
+        "comitative_plural": "siskoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 1888,
+      "examples": [
+        {
+          "fi": "Oletteko te siskoja?",
+          "en": "Are you sisters?"
+        },
+        {
+          "fi": "Minulla ei ole siskoja.",
+          "en": "I don't have any sisters."
+        }
+      ]
+    },
+    {
+      "id": "baby",
+      "word": "vauva",
+      "en": "baby",
+      "emoji": "👶",
+      "inflections": {
+        "nominative_singular": "vauva",
+        "nominative_plural": "vauvat",
+        "genitive_singular": "vauvan",
+        "genitive_plural": "vauvojen",
+        "partitive_singular": "vauvaa",
+        "partitive_plural": "vauvoja",
+        "inessive_singular": "vauvassa",
+        "inessive_plural": "vauvoissa",
+        "elative_singular": "vauvasta",
+        "elative_plural": "vauvoista",
+        "illative_singular": "vauvaan",
+        "illative_plural": "vauvoihin",
+        "adessive_singular": "vauvalla",
+        "adessive_plural": "vauvoilla",
+        "ablative_singular": "vauvalta",
+        "ablative_plural": "vauvoilta",
+        "allative_singular": "vauvalle",
+        "allative_plural": "vauvoille",
+        "essive_singular": "vauvana",
+        "essive_plural": "vauvoina",
+        "translative_singular": "vauvaksi",
+        "translative_plural": "vauvoiksi",
+        "abessive_singular": "vauvatta",
+        "abessive_plural": "vauvoitta",
+        "instructive_plural": "vauvoin",
+        "comitative_plural": "vauvoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 1421,
+      "examples": [
+        {
+          "fi": "Vauvoilla on herkkä iho.",
+          "en": "Babies have delicate skin."
+        },
+        {
+          "fi": "Kuka pitää huolta vauvasta?",
+          "en": "Who will take care of the baby?"
+        }
+      ]
+    },
+    {
+      "id": "son",
+      "word": "poika",
+      "en": "son",
+      "emoji": "👦",
+      "inflections": {
+        "nominative_singular": "poika",
+        "nominative_plural": "pojat",
+        "genitive_singular": "pojan",
+        "genitive_plural": "poikien",
+        "partitive_singular": "poikaa",
+        "partitive_plural": "poikia",
+        "inessive_singular": "pojassa",
+        "inessive_plural": "pojissa",
+        "elative_singular": "pojasta",
+        "elative_plural": "pojista",
+        "illative_singular": "poikaan",
+        "illative_plural": "poikiin",
+        "adessive_singular": "pojalla",
+        "adessive_plural": "pojilla",
+        "ablative_singular": "pojalta",
+        "ablative_plural": "pojilta",
+        "allative_singular": "pojalle",
+        "allative_plural": "pojille",
+        "essive_singular": "poikana",
+        "essive_plural": "poikina",
+        "translative_singular": "pojaksi",
+        "translative_plural": "pojiksi",
+        "abessive_singular": "pojatta",
+        "abessive_plural": "pojitta",
+        "instructive_plural": "pojin",
+        "comitative_plural": "poikineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 234,
+      "examples": [
+        {
+          "fi": "Poikien kerho, tytöt ULOS!",
+          "en": "Boys' club, girls OUT!"
+        },
+        {
+          "fi": "Pojasta kasvoi suuri valtiomies.",
+          "en": "The boy grew up to be a great statesman."
+        }
+      ]
+    },
+    {
+      "id": "daughter",
+      "word": "tyttö",
+      "en": "daughter",
+      "emoji": "👧",
+      "inflections": {
+        "nominative_singular": "tyttö",
+        "nominative_plural": "tytöt",
+        "genitive_singular": "tytön",
+        "genitive_plural": "tyttöjen",
+        "partitive_singular": "tyttöä",
+        "partitive_plural": "tyttöjä",
+        "inessive_singular": "tytössä",
+        "inessive_plural": "tytöissä",
+        "elative_singular": "tytöstä",
+        "elative_plural": "tytöistä",
+        "illative_singular": "tyttöön",
+        "illative_plural": "tyttöihin",
+        "adessive_singular": "tytöllä",
+        "adessive_plural": "tytöillä",
+        "ablative_singular": "tytöltä",
+        "ablative_plural": "tytöiltä",
+        "allative_singular": "tytölle",
+        "allative_plural": "tytöille",
+        "essive_singular": "tyttönä",
+        "essive_plural": "tyttöinä",
+        "translative_singular": "tytöksi",
+        "translative_plural": "tytöiksi",
+        "abessive_singular": "tytöttä",
+        "abessive_plural": "tytöittä",
+        "instructive_plural": "tytöin",
+        "comitative_plural": "tyttöineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 283,
+      "examples": [
+        {
+          "fi": "Pinkki on tyttöjen väri.",
+          "en": "Pink is for girls."
+        },
+        {
+          "fi": "Kuinka hän käyttäytyy tyttöjen kanssa?",
+          "en": "How does he act around girls?"
+        }
+      ]
+    },
+    {
+      "id": "grandmother",
+      "word": "isoäiti",
+      "en": "grandmother",
+      "emoji": "👵",
+      "inflections": {
+        "nominative_singular": "isoäiti",
+        "nominative_plural": "isoäidit",
+        "genitive_singular": "isoäidin",
+        "genitive_plural": "isoäitien",
+        "partitive_singular": "isoäitiä",
+        "partitive_plural": "isoäitejä",
+        "inessive_singular": "isoäidissä",
+        "inessive_plural": "isoäideissä",
+        "elative_singular": "isoäidistä",
+        "elative_plural": "isoäideistä",
+        "illative_singular": "isoäitiin",
+        "illative_plural": "isoäiteihin",
+        "adessive_singular": "isoäidillä",
+        "adessive_plural": "isoäideillä",
+        "ablative_singular": "isoäidiltä",
+        "ablative_plural": "isoäideiltä",
+        "allative_singular": "isoäidille",
+        "allative_plural": "isoäideille",
+        "essive_singular": "isoäitinä",
+        "essive_plural": "isoäiteinä",
+        "translative_singular": "isoäidiksi",
+        "translative_plural": "isoäideiksi",
+        "abessive_singular": "isoäidittä",
+        "abessive_plural": "isoäideittä",
+        "instructive_plural": "isoäidein",
+        "comitative_plural": "isoäiteineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 4001,
+      "examples": [
+        {
+          "fi": "Mari on Tomin isoäiti.",
+          "en": "Mary is Tom's grandmother."
+        },
+        {
+          "fi": "Tomin isoäiti näyttää terveeltä.",
+          "en": "Tom's grandmother looks healthy."
+        }
+      ]
+    },
+    {
+      "id": "grandfather",
+      "word": "isoisä",
+      "en": "grandfather",
+      "emoji": "👴",
+      "inflections": {
+        "nominative_singular": "isoisä",
+        "nominative_plural": "isoisät",
+        "genitive_singular": "isoisän",
+        "genitive_plural": "isoisien",
+        "partitive_singular": "isoisää",
+        "partitive_plural": "isoisiä",
+        "inessive_singular": "isoisässä",
+        "inessive_plural": "isoisissä",
+        "elative_singular": "isoisästä",
+        "elative_plural": "isoisistä",
+        "illative_singular": "isoisään",
+        "illative_plural": "isoisiin",
+        "adessive_singular": "isoisällä",
+        "adessive_plural": "isoisillä",
+        "ablative_singular": "isoisältä",
+        "ablative_plural": "isoisiltä",
+        "allative_singular": "isoisälle",
+        "allative_plural": "isoisille",
+        "essive_singular": "isoisänä",
+        "essive_plural": "isoisinä",
+        "translative_singular": "isoisäksi",
+        "translative_plural": "isoisiksi",
+        "abessive_singular": "isoisättä",
+        "abessive_plural": "isoisittä",
+        "instructive_plural": "isoisin",
+        "comitative_plural": "isoisineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3857,
+      "examples": [
+        {
+          "fi": "Hei, isoisä.",
+          "en": "Hello, Grandfather."
+        },
+        {
+          "fi": "Tom on Marin isoisä.",
+          "en": "Tom is Mary's grandfather."
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "word": "perhe",
+      "en": "family",
+      "emoji": "👪",
+      "inflections": {
+        "nominative_singular": "perhe",
+        "nominative_plural": "perheet",
+        "genitive_singular": "perheen",
+        "genitive_plural": "perheiden",
+        "partitive_singular": "perhettä",
+        "partitive_plural": "perheitä",
+        "inessive_singular": "perheessä",
+        "inessive_plural": "perheissä",
+        "elative_singular": "perheestä",
+        "elative_plural": "perheistä",
+        "illative_singular": "perheeseen",
+        "illative_plural": "perheisiin",
+        "adessive_singular": "perheellä",
+        "adessive_plural": "perheillä",
+        "ablative_singular": "perheeltä",
+        "ablative_plural": "perheiltä",
+        "allative_singular": "perheelle",
+        "allative_plural": "perheille",
+        "essive_singular": "perheenä",
+        "essive_plural": "perheinä",
+        "translative_singular": "perheeksi",
+        "translative_plural": "perheiksi",
+        "abessive_singular": "perheettä",
+        "abessive_plural": "perheittä",
+        "instructive_plural": "perhein",
+        "comitative_plural": "perheineen"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 965,
+      "examples": [
+        {
+          "fi": "Kasvoin köyhässä perheessä.",
+          "en": "I grew up in a poor family."
+        },
+        {
+          "fi": "Tomi asuu perheineen Bostonissa.",
+          "en": "Tom lives with his family in Boston."
+        }
+      ]
+    }
+  ]
+}
