@@ -7,6 +7,7 @@ import AppShell from './components/AppShell';
 import MapHome from './components/MapHome';
 import TopicHub from './components/TopicHub';
 import ProfilePicker from './components/ProfilePicker';
+import ReviewActivity from './components/ReviewActivity';
 import GrownUp from './components/GrownUp';
 import ProgressView from './components/ProgressView';
 import Profiles from './components/Profiles';
@@ -54,6 +55,14 @@ function ActivityRoute() {
   );
 }
 
+// Cross-topic spaced-repetition review. Runs full-screen like an activity, but
+// isn't tied to a topic; needs an active child to have an SRS history to draw on.
+function ReviewRoute() {
+  const { activeChild } = useProfile();
+  if (!activeChild) return <Navigate to="/profiles" replace />;
+  return <ReviewActivity />;
+}
+
 // Route tree, separated from the router so it can be mounted in a MemoryRouter
 // for tests (the Phase 4 smoke spec drives navigation through these routes).
 export function AppRoutes() {
@@ -65,6 +74,7 @@ export function AppRoutes() {
         <Route path="/topic/:topicId" element={<TopicHub />} />
       </Route>
       <Route path="/topic/:topicId/:activityId" element={<ActivityRoute />} />
+      <Route path="/review" element={<ReviewRoute />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />
         <Route path="progress" element={<ProgressView />} />

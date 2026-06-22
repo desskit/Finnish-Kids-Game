@@ -105,6 +105,17 @@ export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
 
 export const themes: Theme[] = [animals, numbers, food, family];
 
+// Every vocabulary item the Review activity can quiz, across all topics. These
+// are exactly the items the picture-tap activities record SRS attempts against,
+// each with an emoji so it renders as a card. Ids are globally unique (enforced
+// by the content-integrity test), so an item id alone keys a schedule.
+export const reviewItems: LexicalItem[] = themes.flatMap((t) => t.items);
+
+/** Look up any reviewable item by its (globally unique) id. */
+export const reviewItemById: Record<string, LexicalItem> = Object.fromEntries(
+  reviewItems.map((i) => [i.id, i]),
+);
+
 // Attribution for the Wiktionary/Tatoeba-derived word data (CC BY-SA 4.0).
 export const DATA_ATTRIBUTION = (animalsData as unknown as SourcedFile)._source;
 export const DATA_LICENSE = (animalsData as unknown as SourcedFile)._license;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { buildSpellingRound } from '../game/round';
 import { useProfile } from '../state/profile';
@@ -24,7 +24,10 @@ interface Props {
 // (including ä/ö, so it works the same on any device). The target is always
 // item.fi — the sourced nominative singular — never generated.
 export default function SpellWord({ items, onExit }: Props) {
-  const { addStars } = useProfile();
+  const { addStars, recordAttempt } = useProfile();
+
+  // A wrong guess on the current word means it wasn't a first-try success.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(() => buildSpellingRound(items, QUESTIONS), [items, runId]);
@@ -56,6 +59,7 @@ export default function SpellWord({ items, onExit }: Props) {
         speak(target.fi);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(target.id, !missed.current);
         const next = index + 1;
         setTimeout(() => {
           if (next >= round.length) setDone(true);
@@ -63,15 +67,17 @@ export default function SpellWord({ items, onExit }: Props) {
             setIndex(next);
             setInput('');
           }
+          missed.current = false;
           setLocked(false);
         }, 1200);
       } else {
+        missed.current = true;
         playDing(false);
         setShake(true);
         setTimeout(() => setShake(false), 400);
       }
     },
-    [target, locked, index, round.length, addStars],
+    [target, locked, index, round.length, addStars, recordAttempt],
   );
 
   function pressKey(letter: string) {
@@ -115,6 +121,7 @@ export default function SpellWord({ items, onExit }: Props) {
     setShake(false);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

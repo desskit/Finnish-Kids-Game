@@ -326,6 +326,11 @@ unit/component, Playwright for a headless-browser smoke test, GitHub Actions to 
 
 ## Phase 5 — Hosting / Deploy (Netlify; GitHub Pages fallback)
 
+**Status:** Done. `netlify.toml` added (build + SPA redirect + no-cache SW headers, Node 20); base
+path already portable (`BASE_PATH` env, asset refs via `import.meta.env.BASE_URL`); a non-root
+`BASE_PATH` build was verified to emit no hardcoded absolute asset paths. GitHub Pages fallback
+workflow (`deploy.yml`) retained. Remaining manual step: connect the repo in the Netlify dashboard.
+
 **Goal:** Continuously deploy the PWA to a public URL so it can be installed on the kids' actual tablets,
 with deploy previews per PR.
 
@@ -356,6 +361,14 @@ with deploy previews per PR.
 ---
 
 ## Phase 6 — Multi-child Profiles + Parent/Progress View (then SRS)
+
+**Status:** Done. Multi-child profiles, the `fkg.profiles.v2` schema + v1 migration, the profile
+picker, and the math-gated parent area (Progress / Profiles / Settings) were already in place. This
+phase added the **per-item attempts log + spaced-repetition engine**: `src/game/srs.ts` (pure,
+Leitner-lite, unit-tested), a `Child.srs` map backfilled on load, `recordAttempt` on the active
+child wired into all four picture/word activities (first-try = correct), a cross-topic **Review**
+activity (`/review`, reached from a map banner) with `buildReviewRound`, and an SRS mastery summary
+(practiced / mastered / due / first-try accuracy) in the parent dashboard.
 
 **Goal:** Support multiple children with separate progress, a parent/progress dashboard, and (later) a
 spaced-repetition review engine. Builds on the existing `src/state/profile.tsx` Context.

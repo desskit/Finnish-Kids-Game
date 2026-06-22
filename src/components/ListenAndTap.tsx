@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { buildListenRound } from '../game/round';
@@ -16,8 +16,12 @@ interface Props {
 
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
 export default function ListenAndTap({ items, onExit }: Props) {
-  const { level, addStars } = useProfile();
+  const { level, addStars, recordAttempt } = useProfile();
   const optionCount = level >= 2 ? 4 : 3;
+
+  // Whether the current question has had a wrong tap yet — so SRS only credits
+  // a "correct" review when the child gets it right on the first try.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
@@ -49,20 +53,23 @@ export default function ListenAndTap({ items, onExit }: Props) {
         speak(item.fi);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(question.target.id, !missed.current);
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
           if (next >= round.length) setDone(true);
           else setIndex(next);
+          missed.current = false;
           setLocked(false);
         }, 750);
       } else {
+        missed.current = true;
         playDing(false);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, index, round.length, addStars],
+    [question, locked, done, index, round.length, addStars, recordAttempt],
   );
 
   // Keyboard: number keys pick a card; Space/Enter replays the word.
@@ -87,6 +94,7 @@ export default function ListenAndTap({ items, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

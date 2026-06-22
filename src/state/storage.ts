@@ -6,6 +6,8 @@
 // likely async (Promise-returning), which would add a loading state in the
 // provider — without changing any UI call sites.
 
+import type { ItemSchedule } from '../game/srs';
+
 export interface ActivityProgress {
   /** How many rounds of this activity were completed. */
   plays: number;
@@ -22,6 +24,9 @@ export interface ActivityProgress {
 /** progress[topicId][activityId] — powers map rings, hub state, the dashboard. */
 export type Progress = Record<string, Record<string, ActivityProgress>>;
 
+/** srs[itemId] — per-item spaced-repetition state; the attempts log + scheduler. */
+export type SrsState = Record<string, ItemSchedule>;
+
 export interface Child {
   id: string;
   name: string;
@@ -33,6 +38,8 @@ export interface Child {
   stars: number;
   createdAt: number;
   progress: Progress;
+  /** Per-item spaced-repetition schedules (attempts + due dates). */
+  srs: SrsState;
 }
 
 export interface Settings {
@@ -91,13 +98,21 @@ function migrateV1(v1: Partial<ProfileV1>): ProfilesData {
     stars: typeof v1.stars === 'number' ? v1.stars : 0,
     createdAt: Date.now(),
     progress: {},
+    srs: {},
   };
   return { version: 2, children: [child], activeId: child.id, settings: { ...DEFAULT_SETTINGS } };
 }
 
 /** Repair anything inconsistent (e.g. an activeId pointing at a removed child). */
 function sanitize(data: ProfilesData): ProfilesData {
-  const children = Array.isArray(data.children) ? data.children : [];
+  const rawChildren = Array.isArray(data.children) ? data.children : [];
+  // Backfill fields added in later versions so older stored profiles keep
+  // working (per the graceful-migration convention).
+  const children = rawChildren.map((c) => ({
+    ...c,
+    progress: c.progress ?? {},
+    srs: c.srs ?? {},
+  }));
   const ids = new Set(children.map((c) => c.id));
   const activeId =
     data.activeId && ids.has(data.activeId) ? data.activeId : children[0]?.id ?? null;

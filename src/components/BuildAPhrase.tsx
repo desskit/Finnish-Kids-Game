@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
@@ -19,8 +19,12 @@ interface Props {
 // Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the word
 // (in its correct sourced case form) that completes it.
 export default function BuildAPhrase({ items, constructions, onExit }: Props) {
-  const { level, addStars } = useProfile();
+  const { level, addStars, recordAttempt } = useProfile();
   const optionCount = level >= 2 ? 4 : 3;
+
+  // Tracks a wrong tap on the current question, so SRS only credits a first-try
+  // correct answer.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
@@ -55,6 +59,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         speak(fullSentence);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(question.item.id, !missed.current);
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -63,15 +68,17 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
             setIndex(next);
             setChosen(null);
           }
+          missed.current = false;
           setLocked(false);
         }, 1100);
       } else {
+        missed.current = true;
         playDing(false);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, index, round.length, addStars, fullSentence],
+    [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
   );
 
   // Keyboard: number keys pick a word tile; Space/Enter replays the phrase.
@@ -97,6 +104,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 
