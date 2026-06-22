@@ -170,3 +170,15 @@ describe('buildConjugationRound', () => {
     expect(produced).toBeGreaterThan(0);
   });
 });
+
+describe('tier gating never empties a curated construction set', () => {
+  it('still plays a single higher-tier construction below its tier', () => {
+    const iLike = animals.constructions.filter((c) => c.id === 'i-like');
+    expect(iLike[0].tier).toBe(3);
+    // maxTier 2 would filter out the only (tier-3) construction — the builder
+    // must fall back to it rather than return an empty (blank-screen) round.
+    const round = buildPhraseRound(animals.items, iLike, 6, 3, 2);
+    expect(round.length).toBeGreaterThan(0);
+    for (const q of round) expect(q.construction.id).toBe('i-like');
+  });
+});

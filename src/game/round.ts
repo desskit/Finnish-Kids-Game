@@ -52,9 +52,11 @@ export function buildPhraseRound(
   optionCount: number,
   maxTier: Tier = 4,
 ): PhraseQuestion[] {
-  // Only pair a construction with items that actually have the needed form, and
-  // only use constructions within the allowed difficulty tier.
-  const allowed = constructions.filter((c) => c.tier <= maxTier);
+  // Only pair a construction with items that actually have the needed form.
+  // Gate by tier when a skill mixes tiers, but never gate a curated set down to
+  // nothing — a single higher-tier construction (its own skill) must still play.
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
@@ -141,7 +143,9 @@ export function buildWordOrderRound(
   questionCount: number,
   maxTier: Tier = 4,
 ): WordOrderQuestion[] {
-  const allowed = constructions.filter((c) => c.tier <= maxTier);
+  // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
@@ -522,7 +526,8 @@ export function buildSentenceRound(
   questionCount: number,
   maxTier: Tier = 4,
 ): SentenceQuestion[] {
-  const allowed = templates.filter((t) => t.tier <= maxTier);
+  const byTier = templates.filter((t) => t.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : templates;
   if (allowed.length === 0) return [];
 
   const out: SentenceQuestion[] = [];
