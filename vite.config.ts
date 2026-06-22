@@ -19,8 +19,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
-        name: 'Opi Suomea – Finnish for Kids',
-        short_name: 'Opi Suomea',
+        name: 'Kielipesä – Finnish for Kids',
+        short_name: 'Kielipesä',
         description: 'A playful game for kids learning everyday Finnish.',
         lang: 'en',
         theme_color: '#1d4ed8',

@@ -328,7 +328,7 @@ already backend-free and offline-capable, so this is mostly packaging.
 
 ### Setup
 - Add deps: `@capacitor/core`, `@capacitor/cli`, `@capacitor/android`, `@capacitor/ios`.
-- `npx cap init` → appId `com.desskit.opisuomea` (confirm), appName "Opi Suomea". `capacitor.config.ts`:
+- `npx cap init` → appId `com.desskit.kielipesa` (confirm), appName "Kielipesä". `capacitor.config.ts`:
   `webDir: 'dist'`. Build with **base `/`** (Netlify already uses `/`; relative paths via `BASE_URL` work in
   the webview). `npx cap add android` / `add ios`, then `npm run build && npx cap sync`.
 

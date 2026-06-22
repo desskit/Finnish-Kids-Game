@@ -1,4 +1,4 @@
-# Opi Suomea – Finnish for Kids
+# Kielipesä – Finnish for Kids
 
 A playful, installable web game (PWA) that teaches **everyday Finnish** to early
 readers (~ages 6–8), designed to scale up as the child grows. Built with
