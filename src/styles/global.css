@@ -538,19 +538,6 @@ button:focus-visible,
   width: min(260px, 70vw);
 }
 
-.level-toggle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.level-label {
-  font-weight: 800;
-  color: var(--ink-soft);
-}
-
 .chip {
   min-height: 52px;
   padding: 0 18px;
@@ -567,15 +554,6 @@ button:focus-visible,
 
 .chip .en {
   font-size: 0.65em;
-}
-
-.chip--on {
-  background: var(--brand);
-  color: #fff;
-}
-
-.chip--on .en {
-  color: rgba(255, 255, 255, 0.85);
 }
 
 .data-credit {

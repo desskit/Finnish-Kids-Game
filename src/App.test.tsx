@@ -48,15 +48,15 @@ beforeEach(() => {
 });
 
 describe('journey path + progression UI', () => {
-  it('renders the path home with chapters, a skill node, the difficulty toggle and badges', () => {
+  it('renders the path home with chapters, a skill node, and badges (no manual difficulty control)', () => {
     seedChild();
     renderAt('/');
     expect(screen.getByRole('heading', { name: /Hei, Aino/i })).toBeInTheDocument();
     // A chapter banner and a communicative skill node (not a vocab category).
     expect(screen.getByText('Naming & having')).toBeInTheDocument();
     expect(screen.getByText(/This is a/)).toBeInTheDocument();
-    // The Auto/Easy/Hard difficulty control + the badge strip.
-    expect(screen.getByText('Auto')).toBeInTheDocument();
+    // Difficulty is always adaptive now — no Easy/Hard chips for kids to tap.
+    expect(screen.queryByText('Auto')).not.toBeInTheDocument();
     expect(document.querySelector('.badge-strip')).not.toBeNull();
     // The advanced chapter shows a "coming soon" placeholder while empty.
     expect(screen.getByText(/More coming soon/i)).toBeInTheDocument();

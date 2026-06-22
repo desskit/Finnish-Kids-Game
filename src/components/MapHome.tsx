@@ -14,7 +14,7 @@ const ROUND_QUESTIONS = 6;
 // Data-driven and art-ready: nodes/chapters carry optional art + accent colors,
 // so dropping in illustrations later is a data/CSS change, not a rewrite.
 export default function MapHome() {
-  const { name, level, setLevel, adaptive, setAdaptive, activeChild } = useProfile();
+  const { name, activeChild } = useProfile();
 
   const srs = activeChild?.srs ?? {};
   const now = Date.now();
@@ -29,29 +29,6 @@ export default function MapHome() {
       <h1 className="greeting">
         Hei{name ? `, ${name}` : ''}! <span className="en">Your Finnish path</span>
       </h1>
-
-      <div className="level-toggle" role="group" aria-label="Difficulty">
-        <span className="level-label">Taso · Level:</span>
-        <button
-          className={'chip' + (adaptive ? ' chip--on' : '')}
-          onClick={() => setAdaptive(true)}
-          title="Difficulty adjusts to how you're doing"
-        >
-          Automaatti <span className="en">Auto</span>
-        </button>
-        <button
-          className={'chip' + (!adaptive && level === 1 ? ' chip--on' : '')}
-          onClick={() => setLevel(1)}
-        >
-          Helppo <span className="en">Easy</span>
-        </button>
-        <button
-          className={'chip' + (!adaptive && level === 2 ? ' chip--on' : '')}
-          onClick={() => setLevel(2)}
-        >
-          Vaikea <span className="en">Hard</span>
-        </button>
-      </div>
 
       <div className="badge-strip" aria-label="Badges">
         {BADGES.map((b) => {
