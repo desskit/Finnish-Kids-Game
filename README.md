@@ -39,8 +39,12 @@ Finnish** — the app never generates or inflects Finnish by rule.
 - **Verified Finnish from tagged data** — word forms come from Wiktionary (via
   [Finnish-Inflection-Drill](https://github.com/desskit/Finnish-Inflection-Drill)).
   The app looks up the correct inflected form by tag; it never generates Finnish.
-- **Local profile** (name, level, stars) saved on the device — no accounts, no ads,
-  no data collection.
+- **Local profiles** — multiple children, each with their own level, stars, and
+  per-topic progress, saved on the device (no accounts, no ads, no data
+  collection). A math-gated **grown-up area** holds a progress dashboard,
+  profile management, and settings (mute audio, reduce motion, reset). Profile
+  storage is funnelled through one module (`src/state/storage.ts`) so a cloud
+  backend can be added later without touching the UI.
 - **Placeholder audio** via the browser's Finnish text-to-speech voice.
 - **PWA**: installable, offline-capable, orientation unlocked.
 

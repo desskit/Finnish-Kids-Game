@@ -1,6 +1,8 @@
 // Tiny reward/feedback sounds synthesized with the Web Audio API.
 // No asset files needed, works offline.
 
+import { isMuted } from './mute';
+
 let ctx: AudioContext | null = null;
 
 function getCtx(): AudioContext | null {
@@ -28,6 +30,7 @@ function tone(ac: AudioContext, freq: number, startAt: number, duration: number)
 
 /** Happy rising arpeggio for correct, soft low pair for try-again. */
 export function playDing(success: boolean): void {
+  if (isMuted()) return;
   const ac = getCtx();
   if (!ac) return;
   const now = ac.currentTime;

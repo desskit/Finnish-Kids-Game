@@ -480,16 +480,28 @@ route-stack context — same screens, more custom code, weaker history. Prefer H
 
 ### Phased migration (each step independently shippable)
 
-> **Status (in progress):** the navigation shell has landed — `HashRouter`
-> routing (`/`, `/topic/:topicId`, `/topic/:topicId/:activityId`), an
-> `AppShell` + slim top bar, a roam-free `MapHome` topic map, per-topic
-> `TopicHub`s, and a declarative activity **registry**
-> (`src/game/activities.tsx`) that replaced the hardcoded
-> `canBuild`/`canCount`/`canMatch` gating scattered across `HomeScreen`/`App`.
-> The flat `Screen` state machine and `HomeScreen.tsx` are gone. **Deferred to
-> the next increments:** the `GameFrame` extraction (the seven games still own
-> their `ActivityHeader` + round loop — held back so it can land with the
-> Phase 4 test net), then Step 3 (Settings + grown-up gate).
+> **Status (in progress):** Steps 1–4 are largely in place.
+> - **Shell & routing:** `HashRouter` (`/`, `/topic/:topicId`,
+>   `/topic/:topicId/:activityId`, `/profiles`, `/grown-up/*`), an `AppShell`
+>   top bar, a roam-free `MapHome`, per-topic `TopicHub`s, and a declarative
+>   activity **registry** (`src/game/activities.tsx`) that replaced the
+>   hardcoded `canBuild`/`canCount`/`canMatch` gating. The flat `Screen` state
+>   machine and `HomeScreen.tsx` are gone.
+> - **Settings + grown-up gate (Step 3):** a math-gated `/grown-up` area with
+>   **Progress** (a per child/topic/activity dashboard), **Profiles**
+>   (add/rename/remove/switch), and **Settings** (mute audio, reduce motion,
+>   reset all data). Mute + reduced-motion are bridged to the audio modules and
+>   a root `data-reduced-motion` attribute.
+> - **Profiles + progress (Step 4, begun):** multi-child profiles with a
+>   `ProfilePicker` + top-bar avatar switch, and a per-topic/activity progress
+>   model recorded on every finished round (via an `ActivityContext` consumed by
+>   the shared `RoundComplete`). All persistence flows through
+>   `src/state/storage.ts` — localStorage today, with `fkg.profile.v1` →
+>   `fkg.profiles.v2` migration — which is the single seam a future cloud
+>   backend (e.g. **Supabase**) slots into (likely turning `ProfileStore` async).
+> - **Still deferred:** the `GameFrame` extraction (held for the Phase 4 test
+>   net), tier-gating *enforcement*, per-item SRS scheduling, the illustrated
+>   map, and Dialogues/Review.
 
 1. **Router + GameFrame extraction** — add HashRouter, move home + the 7 games under routes, extract
    `GameFrame`. Behavior identical; pure refactor (foundation).

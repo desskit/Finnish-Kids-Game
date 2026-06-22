@@ -3,6 +3,8 @@
 // In a later session this is swapped for recorded native voiceover, keyed off
 // the same content data — callers won't need to change.
 
+import { isMuted } from './mute';
+
 const FINNISH = 'fi-FI';
 
 function pickFinnishVoice(): SpeechSynthesisVoice | undefined {
@@ -36,7 +38,7 @@ if (isSpeechAvailable()) {
 }
 
 export function speak(text: string): void {
-  if (!isSpeechAvailable()) return;
+  if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
   synth.cancel(); // stop anything mid-utterance so prompts feel responsive
   const u = new SpeechSynthesisUtterance(text);

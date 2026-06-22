@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { themes } from '../content';
 import { useProfile } from '../state/profile';
@@ -7,59 +6,16 @@ import { activitiesForTheme } from '../game/activities';
 
 // Map home — a non-linear, roam-free grid of topic "places". Each node opens
 // that topic's hub. Starts as a styled responsive grid that reads as a map;
-// evolves into a fully illustrated map once Phase 1 art lands.
+// evolves into a fully illustrated map once Phase 1 art lands. Only rendered
+// for an active child (AppShell redirects to the picker otherwise).
 export default function MapHome() {
-  const { name, setName, level, setLevel } = useProfile();
-  const [editing, setEditing] = useState(!name);
-  const [draft, setDraft] = useState(name);
-
-  function saveName() {
-    setName(draft.trim());
-    setEditing(false);
-  }
+  const { name, level, setLevel } = useProfile();
 
   return (
     <section className="screen map-home">
-      {editing ? (
-        <form
-          className="name-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            saveName();
-          }}
-        >
-          <label htmlFor="name">
-            Mikä sinun nimesi on? <span className="en">What's your name?</span>
-          </label>
-          <div className="name-row">
-            <input
-              id="name"
-              className="name-input"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              maxLength={16}
-              autoFocus
-              autoComplete="off"
-            />
-            <button className="btn btn--primary" type="submit">
-              OK
-            </button>
-          </div>
-        </form>
-      ) : (
-        <h1 className="greeting">
-          Hei{name ? `, ${name}` : ''}! <span className="en">Choose a topic</span>
-          <button
-            className="text-btn"
-            onClick={() => {
-              setDraft(name);
-              setEditing(true);
-            }}
-          >
-            (change name)
-          </button>
-        </h1>
-      )}
+      <h1 className="greeting">
+        Hei{name ? `, ${name}` : ''}! <span className="en">Choose a topic</span>
+      </h1>
 
       <div className="level-toggle" role="group" aria-label="Difficulty">
         <span className="level-label">Taso · Level:</span>

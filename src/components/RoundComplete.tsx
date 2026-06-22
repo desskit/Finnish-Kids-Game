@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react';
+import { useActivityContext } from '../game/activityContext';
+
 interface Props {
   stars: number;
   total: number;
@@ -7,6 +10,16 @@ interface Props {
 
 export default function RoundComplete({ stars, total, onAgain, onHome }: Props) {
   const allCorrect = stars === total;
+
+  // Record this finished round once (a fresh RoundComplete mounts per round, so
+  // "Again" records again; the ref guards StrictMode's double-mount in dev).
+  const activity = useActivityContext();
+  const recorded = useRef(false);
+  useEffect(() => {
+    if (recorded.current) return;
+    recorded.current = true;
+    activity?.onRoundComplete(stars, total);
+  }, [activity, stars, total]);
   return (
     <section className="screen complete">
       <div className="mascot mascot--big" aria-hidden="true">
