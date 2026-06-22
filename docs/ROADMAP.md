@@ -554,6 +554,22 @@ route-stack context — same screens, more custom code, weaker history. Prefer H
   difficulty is only the runtime level 1/2 in `round.ts`). Builders already take counts — extend to accept a
   tier/level filter.
 
+> **Status — implemented as *adaptive* difficulty (owner's later call).** Instead of
+> locked tiles, difficulty now **adapts per (child, activity)** from measured
+> accuracy — a pure, unit-tested engine (`src/game/adapt.ts`): a rolling
+> accuracy window promotes (≥85%) / demotes (≤50%) the level with hysteresis.
+> A level expands into real levers the builders already accept — option count,
+> **construction `Tier` gate** (`buildPhraseRound`/`buildWordOrderRound` now take
+> `maxTier`), Count & Say `maxCount`, and **verb tense/polarity combos**
+> (present → +negative → +past, all sourced). `recordRound` updates the level
+> via the shared pure reducer `src/game/progress.ts`; the router hands each
+> activity its `difficulty` through `ActivityContext`. Progression is **visible**:
+> level pips on the topic hub, an achievement `BADGES` set
+> (`src/game/badges.ts`, derived purely from stats), and a level-up / new-badge
+> moment on `RoundComplete`. The kid-facing toggle is **Auto / Easy / Hard**
+> (Auto = adaptive; Easy/Hard pin the manual level). The parent dashboard shows
+> each activity's level + recent-window accuracy so the adaptation is auditable.
+
 ### Where each roadmap feature lives
 - **Phase 1 art** → mascot in TopBar + map guide; topic/activity illustrations via `<Illustration>`; map nodes.
 - **Phase 3 content/activities** → new themes appear as map nodes automatically (`themes[]`); new activities
@@ -590,9 +606,15 @@ route-stack context — same screens, more custom code, weaker history. Prefer H
 >   `src/state/storage.ts` — localStorage today, with `fkg.profile.v1` →
 >   `fkg.profiles.v2` migration — which is the single seam a future cloud
 >   backend (e.g. **Supabase**) slots into (likely turning `ProfileStore` async).
+> - **Adaptive difficulty + progression (done):** per-(child, activity) adaptive
+>   difficulty measured from accuracy (`src/game/adapt.ts` + `progress.ts`),
+>   `Tier`-gated carrier phrases, expanding verb tense/polarity combos, an
+>   achievement badge set (`src/game/badges.ts`), topic-hub level pips, and a
+>   level-up / new-badge celebration on `RoundComplete`. Difficulty is Auto by
+>   default with a manual Easy/Hard override; the parent dashboard surfaces each
+>   activity's level + recent accuracy.
 > - **Still deferred:** the `GameFrame` extraction (held for the Phase 4 test
->   net), tier-gating *enforcement*, per-item SRS scheduling, the illustrated
->   map, and Dialogues/Review.
+>   net), the illustrated map, Dialogues, and short-dialogue content.
 
 1. **Router + GameFrame extraction** — add HashRouter, move home + the 7 games under routes, extract
    `GameFrame`. Behavior identical; pure refactor (foundation).

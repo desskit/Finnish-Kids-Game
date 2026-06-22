@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useActivityContext } from '../game/activityContext';
+import { useEffect, useRef, useState } from 'react';
+import { useActivityContext, type RoundOutcome } from '../game/activityContext';
 
 interface Props {
   stars: number;
@@ -13,12 +13,15 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
 
   // Record this finished round once (a fresh RoundComplete mounts per round, so
   // "Again" records again; the ref guards StrictMode's double-mount in dev).
+  // The outcome (level-up, new badges) drives the celebration below.
   const activity = useActivityContext();
   const recorded = useRef(false);
+  const [outcome, setOutcome] = useState<RoundOutcome | null>(null);
   useEffect(() => {
     if (recorded.current) return;
     recorded.current = true;
-    activity?.onRoundComplete(stars, total);
+    const result = activity?.onRoundComplete(stars, total);
+    if (result) setOutcome(result);
   }, [activity, stars, total]);
   return (
     <section className="screen complete">
@@ -35,6 +38,33 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
       <p className="score-count">
         {stars} / {total}
       </p>
+
+      {outcome?.leveledUp && (
+        <p className="level-up" role="status">
+          🚀 Uusi taso {outcome.level}! <span className="en">Level up!</span>
+        </p>
+      )}
+
+      {outcome && outcome.newBadges.length > 0 && (
+        <div className="new-badges" role="status">
+          <p className="new-badges__title">
+            Uusi mitali! <span className="en">New badge!</span>
+          </p>
+          <ul className="new-badges__list">
+            {outcome.newBadges.map((b) => (
+              <li key={b.id} className="new-badge">
+                <span className="new-badge__emoji" aria-hidden="true">
+                  {b.emoji}
+                </span>
+                <span className="new-badge__label">
+                  {b.titleFi} <span className="en">{b.titleEn}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="button-row">
         <button className="btn btn--primary" onClick={onAgain} autoFocus>
           Uudestaan <span className="en">Again</span>

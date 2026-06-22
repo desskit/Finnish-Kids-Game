@@ -2,21 +2,26 @@ import { Link } from 'react-router-dom';
 import { themes, reviewItems } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
-import { activitiesForTheme } from '../game/activities';
+import { ACTIVITIES, activitiesForTheme } from '../game/activities';
 import { isDue } from '../game/srs';
+import { BADGES, earnedBadgeIds } from '../game/badges';
 
 // Map home — a non-linear, roam-free grid of topic "places". Each node opens
 // that topic's hub. Starts as a styled responsive grid that reads as a map;
 // evolves into a fully illustrated map once Phase 1 art lands. Only rendered
 // for an active child (AppShell redirects to the picker otherwise).
 export default function MapHome() {
-  const { name, level, setLevel, activeChild } = useProfile();
+  const { name, level, setLevel, adaptive, setAdaptive, activeChild } = useProfile();
 
   // How many learned words are due for review right now (drives the badge).
   const srs = activeChild?.srs ?? {};
   const now = Date.now();
   const seenCount = reviewItems.filter((i) => srs[i.id]).length;
   const dueCount = reviewItems.filter((i) => srs[i.id] && isDue(srs[i.id], now)).length;
+
+  // Earned achievement badges (locked ones shown greyed) — visible progression.
+  const badgeEnv = { topicCount: themes.length, activityIds: ACTIVITIES.map((a) => a.id) };
+  const earned = activeChild ? earnedBadgeIds(activeChild, badgeEnv) : new Set<string>();
 
   return (
     <section className="screen map-home">
@@ -43,17 +48,39 @@ export default function MapHome() {
       <div className="level-toggle" role="group" aria-label="Difficulty">
         <span className="level-label">Taso · Level:</span>
         <button
-          className={'chip' + (level === 1 ? ' chip--on' : '')}
+          className={'chip' + (adaptive ? ' chip--on' : '')}
+          onClick={() => setAdaptive(true)}
+          title="Difficulty adjusts to how you're doing"
+        >
+          Automaatti <span className="en">Auto</span>
+        </button>
+        <button
+          className={'chip' + (!adaptive && level === 1 ? ' chip--on' : '')}
           onClick={() => setLevel(1)}
         >
           Helppo <span className="en">Easy</span>
         </button>
         <button
-          className={'chip' + (level === 2 ? ' chip--on' : '')}
+          className={'chip' + (!adaptive && level === 2 ? ' chip--on' : '')}
           onClick={() => setLevel(2)}
         >
           Vaikea <span className="en">Hard</span>
         </button>
+      </div>
+
+      <div className="badge-strip" aria-label="Badges">
+        {BADGES.map((b) => {
+          const has = earned.has(b.id);
+          return (
+            <span
+              key={b.id}
+              className={'badge' + (has ? '' : ' badge--locked')}
+              title={has ? `${b.titleEn} — earned` : `${b.titleEn}: ${b.hintEn}`}
+            >
+              {b.emoji}
+            </span>
+          );
+        })}
       </div>
 
       <nav className="map" aria-label="Topics">

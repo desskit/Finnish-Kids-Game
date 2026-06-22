@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { buildWordOrderRound, type WordOrderToken } from '../game/round';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -21,15 +23,18 @@ interface Props {
 // generates or reorders Finnish by rule, the target order is the
 // human-authored construction itself.
 export default function WordOrder({ items, constructions, onExit }: Props) {
-  const { addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt } = useProfile();
+  const ctx = useActivityContext();
+  // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
+  const { maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
 
   // A mis-tap while assembling the sentence means it wasn't a first-try solve.
   const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildWordOrderRound(items, constructions, QUESTIONS),
-    [items, constructions, runId],
+    () => buildWordOrderRound(items, constructions, QUESTIONS, maxTier),
+    [items, constructions, maxTier, runId],
   );
 
   const [index, setIndex] = useState(0);

@@ -1,7 +1,11 @@
 import { themes, reviewItems } from '../content';
-import { activitiesForTheme } from '../game/activities';
+import { ACTIVITIES, activitiesForTheme } from '../game/activities';
 import { useProfile } from '../state/profile';
 import { isDue, isMastered } from '../game/srs';
+import { windowAccuracy } from '../game/adapt';
+import { BADGES, earnedBadgeIds } from '../game/badges';
+
+const BADGE_ENV = { topicCount: themes.length, activityIds: ACTIVITIES.map((a) => a.id) };
 
 // Parent dashboard: per child, per topic, per activity — plays, stars and an
 // accuracy %, read straight from the progress model the activities record.
@@ -31,12 +35,34 @@ export default function ProgressView() {
         const totCorrect = schedules.reduce((n, s) => n + s.correct, 0);
         const accuracy = totSeen ? Math.round((totCorrect / totSeen) * 100) : 0;
 
+        const earned = earnedBadgeIds(c, BADGE_ENV);
+        const mode = c.adaptive === false ? `Manual (level ${c.level})` : 'Auto (adaptive)';
+
         return (
           <article key={c.id} className="progress-child">
             <h2 className="progress-child__head">
               <span aria-hidden="true">{c.avatar}</span> {c.name}
               <span className="progress-child__stars">⭐ {c.stars}</span>
             </h2>
+
+            <p className="progress-mode muted">
+              Vaikeustaso · Difficulty: {mode}
+            </p>
+
+            <div className="progress-badges" aria-label="Badges earned">
+              {BADGES.map((b) => (
+                <span
+                  key={b.id}
+                  className={'badge badge--sm' + (earned.has(b.id) ? '' : ' badge--locked')}
+                  title={`${b.titleEn}: ${b.hintEn}`}
+                >
+                  {b.emoji}
+                </span>
+              ))}
+              <span className="progress-badges__count">
+                {earned.size}/{BADGES.length}
+              </span>
+            </div>
 
             <div className="progress-review">
               <span className="progress-review__stat">
@@ -71,13 +97,23 @@ export default function ProgressView() {
                         const acc = p.totalPossible
                           ? Math.round((p.totalStars / p.totalPossible) * 100)
                           : 0;
+                        const lvl = p.level ?? 1;
+                        const recent = p.recent ?? [];
+                        const recentPct = Math.round(windowAccuracy(recent) * 100);
                         return (
                           <li key={a.id} className="progress-row">
                             <span className="progress-row__name">
+                              <span className="progress-row__level" title="Adaptive level">
+                                Lv {lvl}
+                              </span>{' '}
                               <span aria-hidden="true">{a.emoji}</span> {a.titleEn}
                             </span>
-                            <span className="progress-row__stat">
+                            <span
+                              className="progress-row__stat"
+                              title="stars · rounds · all-time accuracy · recent-window accuracy"
+                            >
                               ⭐{p.totalStars} · {p.plays}× · {acc}%
+                              {recent.length > 0 && ` · ${recentPct}%↻`}
                             </span>
                           </li>
                         );

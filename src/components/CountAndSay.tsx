@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { countingNounForm, countingPhrase } from '../content';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { buildCountingRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -20,9 +22,13 @@ interface Props {
 // The noun's form (nominative for 1, partitive for 2+) is looked up from the
 // sourced inflection table — never generated.
 export default function CountAndSay({ nouns, numbers, onExit }: Props) {
-  const { level, addStars } = useProfile();
-  const optionCount = level >= 2 ? 4 : 3;
-  const maxCount = level >= 2 ? 10 : 5;
+  const { level, addStars, recordAttempt } = useProfile();
+  const ctx = useActivityContext();
+  // Harder levels offer more tiles AND count higher (5 → 8 → 10).
+  const { optionCount, maxCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+
+  // Any wrong tap (number or noun) means this item wasn't a first-try success.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
@@ -58,6 +64,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         setWrongId(null);
         setPhase('noun');
       } else {
+        missed.current = true;
         playDing(false);
         flashWrong(item.id);
       }
@@ -75,6 +82,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         speak(fullPhrase);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(q.noun.id, !missed.current);
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -85,14 +93,16 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
             setPickedNumber(null);
             setPickedNoun(null);
           }
+          missed.current = false;
           setLocked(false);
         }, 1200);
       } else {
+        missed.current = true;
         playDing(false);
         flashWrong(item.id);
       }
     },
-    [q, locked, done, phase, index, round.length, addStars, fullPhrase, flashWrong],
+    [q, locked, done, phase, index, round.length, addStars, recordAttempt, fullPhrase, flashWrong],
   );
 
   // Keyboard: number keys pick from the current step's tiles.
@@ -119,6 +129,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

@@ -11,13 +11,14 @@ import {
   emptyProfiles,
   localProfileStore,
   newId,
-  type ActivityProgress,
   type Child,
   type ProfilesData,
   type Settings,
 } from './storage';
 import { setMuted } from '../audio/mute';
 import { review } from '../game/srs';
+import { recordRoundOnChild } from '../game/progress';
+import { difficultyFor, type Difficulty } from '../game/adapt';
 
 // Multi-child local profiles + per-topic progress + device settings. No
 // accounts, no server — persisted to localStorage via `storage.ts` (the seam a
@@ -36,8 +37,17 @@ interface ProfileContextValue {
   stars: number;
   /** Rename the active child. */
   setName: (name: string) => void;
-  /** Set the active child's difficulty level. */
+  /** Set the active child's manual difficulty level (and switch off auto). */
   setLevel: (level: number) => void;
+  /** Whether the active child's difficulty adapts automatically (default true). */
+  adaptive: boolean;
+  /** Turn adaptive difficulty on (auto) or off (manual `level`). */
+  setAdaptive: (on: boolean) => void;
+  /**
+   * The difficulty levers an activity should use right now — adaptive per
+   * (topic, activity) when auto, or the pinned manual level otherwise.
+   */
+  activityDifficulty: (topicId: string, activityId: string) => Difficulty;
   /** Add stars to the active child. */
   addStars: (n: number) => void;
 
@@ -102,7 +112,17 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       level: active?.level ?? 1,
       stars: active?.stars ?? 0,
       setName: (name) => updateActive((c) => ({ ...c, name: name.trim() || c.name })),
-      setLevel: (level) => updateActive((c) => ({ ...c, level })),
+      // Picking a manual level pins difficulty (turns auto off).
+      setLevel: (level) => updateActive((c) => ({ ...c, level, adaptive: false })),
+      adaptive: active ? active.adaptive !== false : true,
+      setAdaptive: (on) => updateActive((c) => ({ ...c, adaptive: on })),
+      activityDifficulty: (topicId, activityId) => {
+        if (!active) return difficultyFor(1);
+        // Manual: Easy pins level 1, Hard pins the top level.
+        if (active.adaptive === false) return difficultyFor(active.level >= 2 ? 3 : 1);
+        // Auto: use the level measured for this specific activity.
+        return difficultyFor(active.progress[topicId]?.[activityId]?.level ?? 1);
+      },
       addStars: (n) => updateActive((c) => ({ ...c, stars: c.stars + n })),
 
       children: data.children,
@@ -116,6 +136,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
           name: name.trim() || 'Pelaaja',
           avatar: avatar || AVATARS[data.children.length % AVATARS.length],
           level: 1,
+          adaptive: true,
           stars: 0,
           createdAt: Date.now(),
           progress: {},
@@ -147,21 +168,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         })),
 
       recordRound: (topicId, activityId, stars, total) =>
-        updateActive((c) => {
-          const topic = c.progress[topicId] ?? {};
-          const prev = topic[activityId];
-          const entry: ActivityProgress = {
-            plays: (prev?.plays ?? 0) + 1,
-            bestStars: Math.max(prev?.bestStars ?? 0, stars),
-            totalStars: (prev?.totalStars ?? 0) + stars,
-            totalPossible: (prev?.totalPossible ?? 0) + total,
-            lastPlayed: Date.now(),
-          };
-          return {
-            ...c,
-            progress: { ...c.progress, [topicId]: { ...topic, [activityId]: entry } },
-          };
-        }),
+        updateActive((c) => recordRoundOnChild(c, topicId, activityId, stars, total)),
 
       settings: data.settings,
       updateSettings: (patch) =>

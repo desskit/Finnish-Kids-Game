@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { buildPhraseRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -20,7 +22,9 @@ interface Props {
 // (in its correct sourced case form) that completes it.
 export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const { level, addStars, recordAttempt } = useProfile();
-  const optionCount = level >= 2 ? 4 : 3;
+  const ctx = useActivityContext();
+  // Harder levels add more options AND unlock higher-tier carrier phrases.
+  const { optionCount, maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
 
   // Tracks a wrong tap on the current question, so SRS only credits a first-try
   // correct answer.
@@ -28,8 +32,8 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount),
-    [items, constructions, optionCount, runId],
+    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier),
+    [items, constructions, optionCount, maxTier, runId],
   );
 
   const [index, setIndex] = useState(0);

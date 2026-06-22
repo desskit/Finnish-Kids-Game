@@ -19,6 +19,14 @@ export interface ActivityProgress {
   totalPossible: number;
   /** Epoch ms of the last completed round. */
   lastPlayed: number;
+  /**
+   * Adaptive difficulty level (1..MAX_LEVEL) measured for this activity. Optional
+   * so progress written before adaptive difficulty existed still loads; readers
+   * default a missing value to level 1. See `src/game/adapt.ts`.
+   */
+  level?: number;
+  /** Rolling per-round accuracy window (0..1) that drives the adaptive level. */
+  recent?: number[];
 }
 
 /** progress[topicId][activityId] — powers map rings, hub state, the dashboard. */
@@ -32,8 +40,17 @@ export interface Child {
   name: string;
   /** Emoji avatar (a "mascot variant" until Phase 1 art lands). */
   avatar: string;
-  /** 1 = easier (fewer choices), 2 = harder (more choices). */
+  /**
+   * Manual difficulty when `adaptive` is off: 1 = easier, 2 = harder.
+   * (Kept for the legacy v1 migration and the manual Easy/Hard override.)
+   */
   level: number;
+  /**
+   * When unset or true, difficulty adapts per-activity from measured accuracy
+   * (the default). Set false to pin difficulty to `level`. Optional + unbackfilled
+   * so older stored profiles round-trip unchanged; readers treat missing as auto.
+   */
+  adaptive?: boolean;
   /** Running star total across all activities. */
   stars: number;
   createdAt: number;

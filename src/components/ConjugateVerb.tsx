@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { buildConjugationRound, type ConjugationOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -20,13 +22,19 @@ interface Props {
 // form is looked up from the sourced inflection tables via
 // buildConjugationRound — never generated.
 export default function ConjugateVerb({ verbs, onExit }: Props) {
-  const { level, addStars } = useProfile();
-  const optionCount = level >= 2 ? 4 : 3;
+  const { level, addStars, recordAttempt } = useProfile();
+  const ctx = useActivityContext();
+  // Higher levels add more tiles AND harder verb forms: present positive →
+  // + present negative → + past. All forms are sourced, never generated.
+  const { optionCount, verbCombos } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+
+  // A wrong tap means this verb wasn't a first-try success (for SRS).
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildConjugationRound(verbs, QUESTIONS, optionCount),
-    [verbs, optionCount, runId],
+    () => buildConjugationRound(verbs, QUESTIONS, optionCount, verbCombos),
+    [verbs, optionCount, verbCombos, runId],
   );
 
   const [index, setIndex] = useState(0);
@@ -55,6 +63,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         speak(q.clause);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(q.verb.id, !missed.current);
         setWrongForm(null);
         const next = index + 1;
         setTimeout(() => {
@@ -63,15 +72,17 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
             setIndex(next);
             setChosen(null);
           }
+          missed.current = false;
           setLocked(false);
         }, 1200);
       } else {
+        missed.current = true;
         playDing(false);
         setWrongForm(opt.form);
         setTimeout(() => setWrongForm((cur) => (cur === opt.form ? null : cur)), 600);
       }
     },
-    [q, locked, done, index, round.length, addStars],
+    [q, locked, done, index, round.length, addStars, recordAttempt],
   );
 
   // Keyboard: number keys pick a tile; Space/Enter replays the prompt.
@@ -97,6 +108,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
     setWrongForm(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

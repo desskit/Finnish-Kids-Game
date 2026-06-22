@@ -1,8 +1,16 @@
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { themes } from './content';
-import { activityById } from './game/activities';
-import { ActivityContext } from './game/activityContext';
+import { ACTIVITIES, activityById } from './game/activities';
+import { ActivityContext, type RoundOutcome } from './game/activityContext';
+import { recordRoundOnChild, activityLevel } from './game/progress';
+import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { useProfile } from './state/profile';
+
+// Content facts the badge rules measure against (stable for the app's lifetime).
+const BADGE_ENV = {
+  topicCount: themes.length,
+  activityIds: ACTIVITIES.map((a) => a.id),
+};
 import AppShell from './components/AppShell';
 import MapHome from './components/MapHome';
 import TopicHub from './components/TopicHub';
@@ -31,7 +39,7 @@ import Settings from './components/Settings';
 function ActivityRoute() {
   const { topicId, activityId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, recordRound } = useProfile();
+  const { activeChild, recordRound, activityDifficulty } = useProfile();
   const theme = themes.find((t) => t.id === topicId);
   const activity = activityId ? activityById(activityId) : undefined;
 
@@ -41,12 +49,28 @@ function ActivityRoute() {
     return <Navigate to={`/topic/${theme.id}`} replace />;
   }
 
+  // Record the round AND report what changed (level-up, new badges) so the
+  // shared RoundComplete can celebrate it. The look-ahead uses the same pure
+  // reducer as the persisted update, diffing the child before vs. after.
+  const onRoundComplete = (stars: number, total: number): RoundOutcome => {
+    const before = activeChild;
+    const after = recordRoundOnChild(before, theme.id, activity.id, stars, total);
+    const leveledUp =
+      before.adaptive !== false &&
+      activityLevel(after, theme.id, activity.id) >
+        activityLevel(before, theme.id, activity.id);
+    const had = earnedBadgeIds(before, BADGE_ENV);
+    const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
+    recordRound(theme.id, activity.id, stars, total);
+    return { leveledUp, level: activityLevel(after, theme.id, activity.id), newBadges };
+  };
+
   return (
     <main className="app">
       <ActivityContext.Provider
         value={{
-          onRoundComplete: (stars, total) =>
-            recordRound(theme.id, activity.id, stars, total),
+          onRoundComplete,
+          difficulty: activityDifficulty(theme.id, activity.id),
         }}
       >
         {activity.render(theme, () => navigate(`/topic/${theme.id}`))}

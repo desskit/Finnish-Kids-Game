@@ -259,6 +259,7 @@ body {
   box-shadow: var(--shadow);
   padding: clamp(16px, 3.5vw, 24px);
   min-height: 132px;
+  position: relative;
   transition: transform 0.1s ease;
 }
 
@@ -1208,4 +1209,128 @@ button:focus-visible,
   align-self: flex-start;
   color: var(--bad);
   background: #fee2e2;
+}
+
+/* ---------- Adaptive level pip (topic hub) ---------- */
+.activity-tile__level {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--brand);
+  border-radius: 999px;
+  padding: 2px 8px;
+  line-height: 1.4;
+}
+
+/* ---------- Achievement badges ---------- */
+.badge-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 4px 0 8px;
+}
+
+.badge {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.badge--sm {
+  font-size: 1.15rem;
+}
+
+.badge--locked {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+/* ---------- RoundComplete: level-up + new badges ---------- */
+.level-up {
+  font-weight: 800;
+  color: var(--brand);
+  font-size: 1.1rem;
+  margin: 4px 0;
+}
+
+.level-up .en {
+  display: block;
+  font-size: 0.7em;
+  color: var(--ink-soft);
+}
+
+.new-badges {
+  background: var(--brand-soft);
+  border-radius: 16px;
+  padding: 10px 14px;
+  margin: 4px auto;
+}
+
+.new-badges__title {
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.new-badges__title .en {
+  font-size: 0.7em;
+  color: var(--ink-soft);
+}
+
+.new-badges__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.new-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.new-badge__emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.new-badge__label .en {
+  font-size: 0.72em;
+  color: var(--ink-soft);
+}
+
+/* ---------- Progress dashboard additions ---------- */
+.progress-mode {
+  margin: 2px 0 8px;
+  font-weight: 700;
+}
+
+.progress-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.progress-badges__count {
+  font-weight: 800;
+  color: var(--ink-soft);
+  margin-left: 4px;
+}
+
+.progress-row__level {
+  display: inline-block;
+  font-size: 0.72em;
+  font-weight: 800;
+  color: var(--brand);
+  background: var(--brand-soft);
+  border-radius: 999px;
+  padding: 1px 7px;
 }

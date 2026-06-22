@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { agreementPhrase } from '../content';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { buildAgreementRound, type AgreementOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -22,8 +24,12 @@ interface Props {
 // skill practised is the agreement itself. Every form is looked up from the
 // sourced inflection tables via buildAgreementRound — never generated.
 export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
-  const { level, addStars } = useProfile();
-  const optionCount = level >= 2 ? 4 : 3;
+  const { level, addStars, recordAttempt } = useProfile();
+  const ctx = useActivityContext();
+  const { optionCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+
+  // A wrong tap means the noun's agreement wasn't a first-try success.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
@@ -60,6 +66,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         speak(fullPhrase);
         setStars((s) => s + 1);
         addStars(1);
+        recordAttempt(q.noun.id, !missed.current);
         setWrongForm(null);
         const next = index + 1;
         setTimeout(() => {
@@ -68,15 +75,17 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
             setIndex(next);
             setChosen(null);
           }
+          missed.current = false;
           setLocked(false);
         }, 1200);
       } else {
+        missed.current = true;
         playDing(false);
         setWrongForm(opt.form);
         setTimeout(() => setWrongForm((cur) => (cur === opt.form ? null : cur)), 600);
       }
     },
-    [q, locked, done, index, round.length, addStars, fullPhrase],
+    [q, locked, done, index, round.length, addStars, recordAttempt, fullPhrase],
   );
 
   // Keyboard: number keys pick a tile; Space/Enter replays the prompt.
@@ -102,6 +111,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
     setWrongForm(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

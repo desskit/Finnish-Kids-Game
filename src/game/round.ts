@@ -5,6 +5,7 @@ import type {
   LexicalItem,
   PersonId,
   Polarity,
+  Tier,
   VerbTense,
 } from '../content/types';
 import { caseFormOf, conjugatedClause, formFor, PERSONS, verbForm } from '../content/types';
@@ -47,10 +48,13 @@ export function buildPhraseRound(
   constructions: readonly Construction[],
   questionCount: number,
   optionCount: number,
+  maxTier: Tier = 4,
 ): PhraseQuestion[] {
-  // Only pair a construction with items that actually have the needed form.
+  // Only pair a construction with items that actually have the needed form, and
+  // only use constructions within the allowed difficulty tier.
+  const allowed = constructions.filter((c) => c.tier <= maxTier);
   const pool: { construction: Construction; item: LexicalItem }[] = [];
-  for (const construction of constructions) {
+  for (const construction of allowed) {
     for (const item of items) {
       if (formFor(item, construction)) pool.push({ construction, item });
     }
@@ -133,9 +137,11 @@ export function buildWordOrderRound(
   items: readonly LexicalItem[],
   constructions: readonly Construction[],
   questionCount: number,
+  maxTier: Tier = 4,
 ): WordOrderQuestion[] {
+  const allowed = constructions.filter((c) => c.tier <= maxTier);
   const pool: { construction: Construction; item: LexicalItem }[] = [];
-  for (const construction of constructions) {
+  for (const construction of allowed) {
     for (const item of items) {
       if (formFor(item, construction)) pool.push({ construction, item });
     }

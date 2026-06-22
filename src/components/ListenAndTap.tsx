@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -17,7 +19,9 @@ interface Props {
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
 export default function ListenAndTap({ items, onExit }: Props) {
   const { level, addStars, recordAttempt } = useProfile();
-  const optionCount = level >= 2 ? 4 : 3;
+  // Adaptive difficulty from the router when in a topic; manual level otherwise.
+  const ctx = useActivityContext();
+  const { optionCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
 
   // Whether the current question has had a wrong tap yet — so SRS only credits
   // a "correct" review when the child gets it right on the first try.
