@@ -479,6 +479,18 @@ route-stack context — same screens, more custom code, weaker history. Prefer H
   Persist in localStorage; migrate `fkg.profile.v1`.
 
 ### Phased migration (each step independently shippable)
+
+> **Status (in progress):** the navigation shell has landed — `HashRouter`
+> routing (`/`, `/topic/:topicId`, `/topic/:topicId/:activityId`), an
+> `AppShell` + slim top bar, a roam-free `MapHome` topic map, per-topic
+> `TopicHub`s, and a declarative activity **registry**
+> (`src/game/activities.tsx`) that replaced the hardcoded
+> `canBuild`/`canCount`/`canMatch` gating scattered across `HomeScreen`/`App`.
+> The flat `Screen` state machine and `HomeScreen.tsx` are gone. **Deferred to
+> the next increments:** the `GameFrame` extraction (the seven games still own
+> their `ActivityHeader` + round loop — held back so it can land with the
+> Phase 4 test net), then Step 3 (Settings + grown-up gate).
+
 1. **Router + GameFrame extraction** — add HashRouter, move home + the 7 games under routes, extract
    `GameFrame`. Behavior identical; pure refactor (foundation).
 2. **Activity registry + TopicHub** — replace the hardcoded gating with the registry; add per-topic hubs.

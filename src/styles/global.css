@@ -41,6 +41,201 @@ body {
   justify-content: center;
 }
 
+/* ---------- App shell / Top bar ---------- */
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px clamp(12px, 3vw, 24px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+}
+
+.top-bar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap);
+  background: none;
+  text-decoration: none;
+  color: var(--brand);
+}
+
+.top-bar__mascot {
+  font-size: 1.9rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.18));
+}
+
+.top-bar__name {
+  font-weight: 900;
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
+  line-height: 1.05;
+  text-align: left;
+}
+
+.top-bar__name .en {
+  display: block;
+  font-size: 0.6em;
+  font-weight: 700;
+}
+
+.top-bar__stars {
+  font-weight: 900;
+  color: var(--accent);
+  font-size: clamp(1.2rem, 3.4vw, 1.6rem);
+  white-space: nowrap;
+}
+
+.shell-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* ---------- Map home ---------- */
+.map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: clamp(14px, 3vw, 22px);
+  width: 100%;
+  max-width: 680px;
+}
+
+.map-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(16px, 4vw, 26px);
+  min-height: 140px;
+  transition: transform 0.1s ease;
+}
+
+.map-node:active {
+  transform: scale(0.97);
+}
+
+/* Gentle zig-zag so the grid reads as a wandering "path" of places. */
+@media (min-width: 640px) {
+  .map-node:nth-child(even) {
+    margin-top: 26px;
+  }
+}
+
+.map-node__emoji {
+  font-size: clamp(2.6rem, 10vw, 3.6rem);
+  line-height: 1;
+}
+
+.map-node__title {
+  font-weight: 900;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+}
+
+.map-node__title .en {
+  display: block;
+  font-size: 0.62em;
+}
+
+.map-node__meta {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.map-node__meta .en {
+  font-size: 0.85em;
+}
+
+/* ---------- Topic hub ---------- */
+.topic-hub__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topic-hub__title {
+  flex: 1;
+  margin: 0;
+  text-align: left;
+  font-size: clamp(1.4rem, 4.4vw, 2rem);
+}
+
+.topic-hub__title .en {
+  display: block;
+  font-size: 0.58em;
+}
+
+.topic-hub__emoji {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  line-height: 1;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: clamp(12px, 2.5vw, 18px);
+  width: 100%;
+  max-width: 680px;
+}
+
+.activity-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(16px, 3.5vw, 24px);
+  min-height: 132px;
+  transition: transform 0.1s ease;
+}
+
+.activity-tile:active {
+  transform: scale(0.97);
+}
+
+.activity-tile__emoji {
+  font-size: clamp(2.2rem, 8vw, 3rem);
+  line-height: 1;
+}
+
+.activity-tile__title {
+  font-weight: 800;
+  font-size: clamp(1rem, 2.8vw, 1.25rem);
+}
+
+.activity-tile__title .en {
+  display: block;
+  font-size: 0.72em;
+}
+
 .screen {
   width: 100%;
   max-width: 880px;
@@ -172,13 +367,6 @@ button:focus-visible,
   width: min(260px, 70vw);
 }
 
-.stars-total {
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 900;
-  color: var(--accent);
-  margin: 0;
-}
-
 .level-toggle {
   display: flex;
   align-items: center;
@@ -219,84 +407,12 @@ button:focus-visible,
   color: rgba(255, 255, 255, 0.85);
 }
 
-.theme-picker {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.theme-chip {
-  min-height: 52px;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
-  font-weight: 800;
-  font-size: clamp(1rem, 2.6vw, 1.25rem);
-}
-
-.theme-chip .en {
-  font-size: 0.7em;
-}
-
-.theme-chip--on {
-  background: var(--brand);
-  color: #fff;
-}
-
-.theme-chip--on .en {
-  color: rgba(255, 255, 255, 0.85);
-}
-
 .data-credit {
   margin-top: auto;
   padding-top: 8px;
   color: var(--ink-soft);
   font-size: 0.78rem;
   opacity: 0.85;
-}
-
-.activity-card:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.activity-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  width: 100%;
-  max-width: 620px;
-}
-
-.activity-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  text-align: left;
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  min-height: 92px;
-  transition: transform 0.08s ease;
-}
-
-.activity-card:active {
-  transform: scale(0.97);
-}
-
-.activity-card__emoji {
-  font-size: 2.6rem;
-}
-
-.activity-card__text {
-  display: flex;
-  flex-direction: column;
-  font-size: clamp(1.15rem, 3vw, 1.5rem);
-  font-weight: 800;
 }
 
 .audio-note {
