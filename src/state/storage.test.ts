@@ -53,6 +53,7 @@ describe('localProfileStore', () => {
           stars: 7,
           createdAt: 1,
           progress: {},
+          srs: {},
         },
       ],
       activeId: 'a',
@@ -60,6 +61,19 @@ describe('localProfileStore', () => {
     };
     localProfileStore.save(data);
     expect(localProfileStore.load()).toEqual(data);
+  });
+
+  it('backfills a missing per-child srs map for older v2 profiles', () => {
+    localStorage.setItem(
+      V2_KEY,
+      JSON.stringify({
+        version: 2,
+        children: [{ id: 'a', name: 'Aino', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {} }],
+        activeId: 'a',
+        settings: { muted: false, reducedMotion: false },
+      }),
+    );
+    expect(localProfileStore.load().children[0].srs).toEqual({});
   });
 
   it('migrates a legacy v1 profile into a single active child', () => {

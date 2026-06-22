@@ -69,3 +69,26 @@ test('full happy path: create profile, play Listen & Tap, finish the round', asy
   await page.goBack();
   await expect(page).toHaveURL(/#\/$/);
 });
+
+test('spaced-repetition Review is reachable from the map and completes', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel(/^Nimi/).fill('Otto');
+  await page.getByRole('button', { name: /Aloita/i }).click();
+  await expect(page).toHaveURL(/#\/$/);
+
+  // The review banner is always present (new words backfill an empty schedule).
+  await page.getByRole('link', { name: /Kertaus|Review/i }).click();
+  await expect(page).toHaveURL(/#\/review$/);
+  await expect(page.getByLabel(/Question 1 of \d+/)).toBeVisible();
+
+  // Answer questions until the round finishes (Review has more questions than a
+  // topic round, so loop until RoundComplete rather than a fixed count).
+  for (let guard = 0; guard < 20; guard++) {
+    if (await isRoundComplete(page)) break;
+    await answerUntilAdvance(page);
+  }
+
+  await expect(page.getByText(/Hienoa|Great job/i)).toBeVisible();
+  await page.getByRole('button', { name: /Koti|Home/i }).click();
+  await expect(page).toHaveURL(/#\/$/);
+});

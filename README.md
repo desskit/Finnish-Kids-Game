@@ -63,24 +63,50 @@ npm run build
 npm run preview
 ```
 
-## Test it on a real device (GitHub Pages)
+## Test it on a real device
 
-The app is a static, backend-free PWA, so it deploys straight to GitHub Pages.
-A workflow (`.github/workflows/deploy.yml`) builds and publishes it on every push
-to the default branch. The workflow enables Pages itself (`configure-pages` with
-`enablement: true`), so **no manual repo setting is needed**. The deploy runs
-from the default branch because the `github-pages` environment only permits
-deployments from it.
+The app is a static, backend-free PWA, so it deploys to any static host. Open
+the deployed URL on a tablet or phone and tap _Add to Home Screen_ to install
+it (it's offline-capable once installed).
 
-Once the workflow has run, the app is live at
-**https://desskit.github.io/Finnish-Kids-Game/** — open it on a tablet or phone
-and tap _Add to Home Screen_ to install it.
+### Netlify (primary)
 
-The base path is configurable via the `BASE_PATH` env var (the workflow sets
-`/Finnish-Kids-Game/`, matching the repository name's casing — Pages paths are
-case-sensitive). It defaults to `/`, so local dev,
-`npm run preview`, and a future root-domain host (e.g. **Netlify**) need no
-change — point Netlify at `npm run build` / publish `dist`.
+`netlify.toml` configures the build (`npm run icons && npm run build`, publish
+`dist`, Node 20), an SPA fallback redirect, and no-cache headers on the service
+worker so clients always pick up new deploys. Connect the GitHub repo in Netlify
+once and you get **production deploys on the default branch, a deploy preview on
+every PR, and branch deploys**. The PWA is served at the domain root (`/`), so
+the manifest scope/`start_url` need no changes.
+
+### GitHub Pages (fallback)
+
+A workflow (`.github/workflows/deploy.yml`) also builds and publishes to Pages on
+every push to the default branch, live at
+**https://desskit.github.io/Finnish-Kids-Game/**. It enables Pages itself
+(`configure-pages` with `enablement: true`), so **no manual repo setting is
+needed**, and must run from the default branch (the `github-pages` environment
+only permits that).
+
+The base path is configurable via the `BASE_PATH` env var — Pages sets
+`/Finnish-Kids-Game/` (matching the repo name's casing; Pages paths are
+case-sensitive), while Netlify and local dev/`npm run preview` use the default
+`/`. All runtime assets are referenced via `import.meta.env.BASE_URL`, so the
+same build is portable across both hosts.
+
+## Tests & CI
+
+```bash
+npm run test:unit      # Vitest unit + component tests (jsdom)
+npm run test:e2e       # Playwright headless smoke test (builds + previews)
+npm run typecheck      # production tsc
+npm run typecheck:test # tsc over test/e2e sources
+```
+
+`.github/workflows/ci.yml` runs the type checks, unit tests, and the Playwright
+smoke test on every push and PR. Unit tests cover the round builders, content
+data integrity, profile persistence/migration, the SRS scheduler, and the
+activities; the e2e spec drives the real routes (profile → map → topic →
+activity / review → RoundComplete).
 
 > **Audio note:** placeholder pronunciation uses the operating system's Finnish
 > (`fi-FI`) speech voice. If a device has no Finnish voice installed, words still
@@ -135,6 +161,12 @@ exists. Four shapes exist today:
   construction + sourced slot-form data as Build a Phrase.
 - **Spelling** (`buildSpellingRound`) — picks target words for the child to
   type; rendered by `SpellWord.tsx` with an on-screen ä/ö keyboard.
+- **Review** (`buildReviewRound`) — a cross-topic, picture-tap drill over the
+  words a child is due to review. The schedule comes from a Leitner-lite
+  spaced-repetition engine (`src/game/srs.ts`): every answer in the picture-tap
+  activities records a per-item attempt (`Child.srs`), correct answers promote a
+  word to a longer interval and misses send it back to the front. Reached from
+  the **Kertaus · Review** banner on the map; new words backfill when few are due.
 
 ### Regenerating / extending the data
 
@@ -161,8 +193,9 @@ src/
     constructions.ts  # human-authored carrier phrases (case-tagged)
     index.ts    # loads data into themes
   game/         # round builders (select/shuffle only — never generate Finnish)
+                #   + srs.ts (Leitner-lite spaced-repetition scheduler, pure)
   audio/        # TTS placeholder + Web Audio reward sounds
-  state/        # local profile (localStorage)
+  state/        # local profiles + per-item SRS state (localStorage)
   components/   # screens & mini-games
   styles/       # global responsive styles
 scripts/

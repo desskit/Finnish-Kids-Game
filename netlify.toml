@@ -1,0 +1,39 @@
+# Netlify build + hosting for the Finnish Kids Game PWA.
+#
+# Connect the GitHub repo in Netlify → production deploys on the default branch,
+# deploy previews on every PR, and branch deploys. The app is served at the
+# domain root ("/"), so the PWA manifest scope/start_url need no subpath surgery
+# (that's only for the GitHub Pages fallback in .github/workflows/deploy.yml).
+
+[build]
+  # Icons are committed, but regenerate them so a fresh checkout always has them.
+  command = "npm run icons && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback. HashRouter keeps deep links working without server rewrites, but
+# this makes a direct hit on any path (or a hard refresh) still serve the app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Never long-cache the service worker or its registration shim, or clients get
+# pinned to a stale SW and miss new deploys. vite-plugin-pwa already revisions
+# (content-hashes) the precached assets it controls.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/registerSW.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

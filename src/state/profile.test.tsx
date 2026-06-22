@@ -138,6 +138,26 @@ describe('ProfileProvider / useProfile', () => {
     });
   });
 
+  it('recordAttempt builds per-item SRS state on the active child', () => {
+    const { result } = renderProfile();
+    act(() => {
+      result.current.addChild('Aino');
+    });
+
+    act(() => {
+      result.current.recordAttempt('cat', true);
+    });
+    let cat = result.current.activeChild?.srs.cat;
+    expect(cat).toMatchObject({ seen: 1, correct: 1, box: 2 });
+
+    act(() => {
+      result.current.recordAttempt('cat', false);
+    });
+    cat = result.current.activeChild?.srs.cat;
+    // a miss drops it back to box 1 but the attempt counts are cumulative
+    expect(cat).toMatchObject({ seen: 2, correct: 1, box: 1 });
+  });
+
   it('updateSettings merges a partial patch', () => {
     const { result } = renderProfile();
     act(() => {

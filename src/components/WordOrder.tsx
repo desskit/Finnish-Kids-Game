@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { buildWordOrderRound, type WordOrderToken } from '../game/round';
 import { useProfile } from '../state/profile';
@@ -21,7 +21,10 @@ interface Props {
 // generates or reorders Finnish by rule, the target order is the
 // human-authored construction itself.
 export default function WordOrder({ items, constructions, onExit }: Props) {
-  const { addStars } = useProfile();
+  const { addStars, recordAttempt } = useProfile();
+
+  // A mis-tap while assembling the sentence means it wasn't a first-try solve.
+  const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
@@ -58,6 +61,7 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
           speak(q.sentence);
           setStars((s) => s + 1);
           addStars(1);
+          recordAttempt(q.item.id, !missed.current);
           const next = index + 1;
           setTimeout(() => {
             if (next >= round.length) setDone(true);
@@ -65,16 +69,18 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
               setIndex(next);
               setPlaced([]);
             }
+            missed.current = false;
             setLocked(false);
           }, 1300);
         }
       } else {
+        missed.current = true;
         playDing(false);
         setWrongId(tile.id);
         setTimeout(() => setWrongId((cur) => (cur === tile.id ? null : cur)), 500);
       }
     },
-    [q, locked, done, complete, placed, index, round.length, addStars],
+    [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt],
   );
 
   function restart() {
@@ -84,6 +90,7 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    missed.current = false;
     setRunId((r) => r + 1);
   }
 

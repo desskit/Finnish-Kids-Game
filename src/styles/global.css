@@ -167,6 +167,51 @@ body {
   font-size: 0.85em;
 }
 
+/* ---------- Review banner (spaced repetition) ---------- */
+.review-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 680px;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(14px, 3.5vw, 20px) clamp(18px, 4vw, 24px);
+  margin-bottom: clamp(14px, 3vw, 22px);
+  transition: transform 0.1s ease;
+}
+
+.review-banner:active {
+  transform: scale(0.98);
+}
+
+.review-banner__emoji {
+  font-size: clamp(2rem, 7vw, 2.6rem);
+  line-height: 1;
+}
+
+.review-banner__text {
+  font-weight: 900;
+  font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+}
+
+.review-banner__text .en {
+  display: block;
+  font-size: 0.62em;
+  opacity: 0.92;
+}
+
+.review-banner__meta {
+  margin-left: auto;
+  text-align: right;
+  font-weight: 800;
+  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+  opacity: 0.95;
+}
+
 /* ---------- Topic hub ---------- */
 .topic-hub__head {
   width: 100%;
@@ -1029,6 +1074,25 @@ button:focus-visible,
   margin-left: auto;
   color: var(--accent);
   font-weight: 900;
+}
+
+.progress-review {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--brand-soft);
+}
+
+.progress-review__stat {
+  font-weight: 800;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.progress-review__stat .en {
+  font-weight: 700;
+  font-size: 0.82em;
 }
 
 .progress-topic {

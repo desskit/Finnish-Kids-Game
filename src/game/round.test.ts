@@ -7,6 +7,7 @@ import {
   buildCountingRound,
   buildAgreementRound,
   buildConjugationRound,
+  buildReviewRound,
 } from './round';
 import { animals, numbers, adjectives, verbs } from '../content';
 import { formFor } from '../content/types';
@@ -126,6 +127,27 @@ describe('buildAgreementRound', () => {
       }
     }
     expect(produced).toBeGreaterThan(0);
+  });
+});
+
+describe('buildReviewRound', () => {
+  it('keeps the caller-chosen targets and order, with valid distinct options', () => {
+    const targets = [animals.items[0], animals.items[1], animals.items[2]];
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildReviewRound(targets, animals.items, 3);
+      // one question per target, in the same order (most-overdue-first preserved)
+      expect(round.map((q) => q.target.id)).toEqual(targets.map((t) => t.id));
+      for (const q of round) {
+        expect(q.options).toHaveLength(3);
+        expect(q.options.filter((o) => o.id === q.target.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(animals.items).toContain(o));
+      }
+    }
+  });
+
+  it('returns an empty round for no targets', () => {
+    expect(buildReviewRound([], animals.items, 3)).toEqual([]);
   });
 });
 

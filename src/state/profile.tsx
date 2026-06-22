@@ -17,6 +17,7 @@ import {
   type Settings,
 } from './storage';
 import { setMuted } from '../audio/mute';
+import { review } from '../game/srs';
 
 // Multi-child local profiles + per-topic progress + device settings. No
 // accounts, no server — persisted to localStorage via `storage.ts` (the seam a
@@ -53,6 +54,8 @@ interface ProfileContextValue {
   // --- Progress ---
   /** Record a finished round for the active child (per topic + activity). */
   recordRound: (topicId: string, activityId: string, stars: number, total: number) => void;
+  /** Record one answer to a single item for the active child (drives SRS). */
+  recordAttempt: (itemId: string, correct: boolean) => void;
 
   // --- Settings (device-wide) ---
   settings: Settings;
@@ -116,6 +119,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
           stars: 0,
           createdAt: Date.now(),
           progress: {},
+          srs: {},
         };
         setData((d) => ({ ...d, children: [...d.children, child], activeId: id }));
         return id;
@@ -135,6 +139,12 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
           const activeId = d.activeId === id ? remaining[0]?.id ?? null : d.activeId;
           return { ...d, children: remaining, activeId };
         }),
+
+      recordAttempt: (itemId, correct) =>
+        updateActive((c) => ({
+          ...c,
+          srs: { ...c.srs, [itemId]: review(c.srs[itemId], correct, Date.now()) },
+        })),
 
       recordRound: (topicId, activityId, stars, total) =>
         updateActive((c) => {

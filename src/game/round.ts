@@ -66,6 +66,32 @@ export function buildPhraseRound(
   });
 }
 
+// --- Review (spaced repetition) ------------------------------------------
+//
+// Listen-and-tap over a caller-chosen set of due items (see src/game/srs.ts).
+// The targets are already selected/ordered by the scheduler, so this only pairs
+// each with distractors drawn from the whole reviewable pool. Selection order is
+// preserved (not reshuffled) so the most-overdue items come first.
+
+export interface ReviewQuestion {
+  target: LexicalItem;
+  options: LexicalItem[];
+}
+
+export function buildReviewRound(
+  targets: readonly LexicalItem[],
+  pool: readonly LexicalItem[],
+  optionCount: number,
+): ReviewQuestion[] {
+  return targets.map((target) => {
+    const distractors = sample(
+      pool.filter((i) => i.id !== target.id),
+      optionCount - 1,
+    );
+    return { target, options: shuffle([target, ...distractors]) };
+  });
+}
+
 // --- Spelling --------------------------------------------------------------
 //
 // Drill: hear/see a word, type it. Just a selection of targets — no slot
