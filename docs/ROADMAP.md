@@ -240,6 +240,10 @@ unit/component, Playwright for a headless-browser smoke test, GitHub Actions to 
 ### Headless smoke (Playwright)
 - One spec: load home → enter a name → start Listen & Tap → answer the round → assert `RoundComplete`
   appears and stars rendered. Runs headless/Chromium in CI.
+- **Routing (after the UI / Navigation Strategy lands):** once `HashRouter` + map/topic-hub replace the flat
+  state machine (see "UI / Navigation Strategy" below), drive the smoke spec by navigation — profile picker →
+  map → topic → activity → `RoundComplete` — and assert the browser **back** button walks back up the stack.
+  Keep it a single happy-path through `GameFrame`.
 
 ### CI
 - `.github/workflows/ci.yml`: on push/PR → `npm ci`, `npm run typecheck`, `npm run test:unit`,
@@ -390,3 +394,107 @@ subject blends into grey, switch background to "soft teal".)
 `art/animals/{cat,dog,bear,bunny,bird,fish,horse,cow}.webp`, `art/mascot/owl-{idle,celebrate,wave}.webp` +
 `art/mascot/owl-icon-master.png`, `art/themes/animals.webp`, `art/ui/{listen,build}.webp`. Names match ids
 so Track B is a drop-in.
+
+---
+
+## UI / Navigation Strategy (cross-phase)
+
+### Context
+The app outgrew its flat state machine (`src/App.tsx`: a `Screen` union now juggling home + 7 games) and its
+single theme-first `HomeScreen` (4 themes, per-game availability hardcoded via `theme.countable` /
+`theme.constructions`). With more themes (colors…), dialogue activities, multi-child profiles, a parent/progress
+area, and spaced-repetition Review on the roadmap, navigation needs a real shell. **Locked product direction
+(owner):**
+- **Non-linear "map" home** — the journey-map *feel*, but roam-free (no locked topic sequence).
+- **Topic = unit** — each topic has a landing page with its activities + progress + Review.
+- **Light progression** — everything visible/pressure-free, BUT **difficulty tiers gate *within* a topic**:
+  harder activities/tiers unlock once a child reaches that section's start level.
+
+### Target experience (the shell)
+1. **Profile picker** (launch) → pick/add a child (mascot-variant avatars). [Phase 6]
+2. **Map home** — friendly, illustrated, *non-linear* map; each topic is a place-node showing a progress ring
+   (stars/mastery) + the mascot. All topics roam-free. Slim **top bar**: mascot avatar (→ switch child), star
+   total, ⚙ **grown-up** button (math-gated). A "⭐ Daily review" entry surfaces due SRS items across topics.
+   [art = Phase 1; SRS = Phase 6]
+3. **Topic hub** (unit page) — the topic's activities as cards (Listen, Build, Count, Match, Conjugate,
+   Word-order, Spelling, Dialogue…), each with stars + lock state; a **★ Review** for the topic; topic progress.
+   Cards render from a **registry** (below), not hardcoded.
+4. **Activity** — runs in a shared **GameFrame** (back + progress + round loop + `RoundComplete`); interaction
+   model unchanged.
+5. **Grown-up area** (gated) — **Progress** (per child/topic/activity), **Profiles** (add/edit/remove child),
+   **Settings** (audio mute, default difficulty, reduced-motion, UI-label language, reset data).
+
+### Navigation / routing architecture
+Replace the flat union with a route layer. **Recommended: `react-router-dom` `HashRouter`** — real
+back-button/history (critical for PWA + Capacitor hardware back), deep links (resume a topic), and it sidesteps
+base-path/redirect issues on GitHub Pages subpaths, Netlify, and Capacitor `file://` (no server rewrites). Routes:
+`/` → ProfilePicker (→ `/map` if a child is active) · `/map` → MapHome · `/topic/:topicId` → TopicHub ·
+`/topic/:topicId/:activityId` → Activity (GameFrame) · `/topic/:topicId/review` & `/review` → Review (SRS) ·
+`/grown-up` (gate) → `/grown-up/{progress,profiles,settings}`. (No-dep alternative: a small `NavigationProvider`
+route-stack context — same screens, more custom code, weaker history. Prefer HashRouter.)
+
+### Component architecture (new + refactors; reuse what exists)
+- **Reuse the CSS system as-is** (`src/styles/global.css`: tokens `--brand`/`--tap:64px`/`--radius`, BEM naming,
+  `clamp()` responsive, reduced-motion). New blocks: `.app-shell`, `.top-bar`, `.map`, `.map-node`, `.topic-hub`,
+  `.activity-tile`, `.lock`, `.grownup`.
+- **Extract `GameFrame`** from the pattern duplicated across the 7 games (`ActivityHeader` + round loop +
+  `RoundComplete`); each activity keeps only its question UI. Reuse existing `ActivityHeader.tsx`,
+  `RoundComplete.tsx`.
+- **Activity registry** (`src/game/activities.ts`, new) — declarative descriptors replacing the per-game gating
+  now scattered across `HomeScreen`/`App` for all 7 games. Each: `{ id, titleFi, titleEn, icon, component,
+  roundBuilder, requires:{ constructions?, countable?, globalContent?:'numbers'|'adjectives'|'verbs' },
+  unlock:{ metric:'stars'|'level', in?:activityId, amount }, tier }`. TopicHub renders supported activities by
+  checking `requires` against the theme; lock state from `unlock` vs progress; the router maps `:activityId` →
+  component + content via `roundBuilder`. **This is the seam new activities plug into with no router/App edits**
+  (round builders already live in `src/game/round.ts`).
+- **MapHome** (`src/components/MapHome.tsx`) — renders `themes` (from `src/content/index.ts`) as nodes; start as
+  a styled responsive grid that reads as a map, evolve to a full illustrated map once Phase 1 art lands. Shows
+  per-topic progress + Daily-review entry.
+- **TopicHub** (`TopicHub.tsx`), **AppShell/TopBar** (`AppShell.tsx`), grown-up (`ParentGate.tsx`,
+  `ProgressView.tsx`, `Profiles.tsx`, `Settings.tsx`), **ProfilePicker.tsx**. (Spelling's on-screen ä/ö keyboard
+  and the word-order chips already exist inside their game components — reuse them.)
+
+### Difficulty / tier-gating model (owner's rule)
+- Topics are **all open** (non-linear); gating applies to **difficulty within a topic**. Each activity/tier
+  carries an `unlock` rule; tier-1 open by default, harder ones locked until the child hits that section's start
+  level — e.g. *"Earn ⭐⭐ in Listen & Tap to open Build a Phrase,"* or unlock tier-2 content at level 2 / N
+  topic-stars. Locked tiles show a friendly lock + hint (never a dead end).
+- **Make `Tier` finally mean something**: filter content/option-count by unlocked tier (today tiers are unused;
+  difficulty is only the runtime level 1/2 in `round.ts`). Builders already take counts — extend to accept a
+  tier/level filter.
+
+### Where each roadmap feature lives
+- **Phase 1 art** → mascot in TopBar + map guide; topic/activity illustrations via `<Illustration>`; map nodes.
+- **Phase 3 content/activities** → new themes appear as map nodes automatically (`themes[]`); new activities
+  (e.g. Dialogues) are registry entries on TopicHub; consider promoting hidden `adjectives`/`verbs` into their
+  own units. (Conjugate / Word-order / Spelling + Food / Family already shipped.)
+- **Phase 6 profiles/progress/SRS** → ProfilePicker, grown-up Progress/Profiles, top-bar avatar switch; the
+  progress model below; Review entries on map + each TopicHub.
+- **Settings** (new, cheap first win) → audio mute (none today), default difficulty, reduced-motion, reset.
+
+### State / data additions
+- Extend the profile context (`src/state/profile.tsx`) to multi-child (Phase 6) and add a **progress model**:
+  `progress[topicId][activityId] = { stars, plays, bestTier, unlockedTier, lastPlayed }` + per-item SRS
+  scheduling. One structure powers map rings, topic-hub locks, tier-gating, the parent dashboard, and Review.
+  Persist in localStorage; migrate `fkg.profile.v1`.
+
+### Phased migration (each step independently shippable)
+1. **Router + GameFrame extraction** — add HashRouter, move home + the 7 games under routes, extract
+   `GameFrame`. Behavior identical; pure refactor (foundation).
+2. **Activity registry + TopicHub** — replace the hardcoded gating with the registry; add per-topic hubs.
+   Map = enhanced topic grid for now.
+3. **Settings + grown-up gate** — cheapest visible win (audio mute, difficulty, reduced-motion).
+4. **Profiles + progress model** (Phase 6) — ProfilePicker, progress tracking, top-bar avatar; enables
+   tier-gating once progress exists.
+5. **Map home** — swap the topic grid for the non-linear illustrated map (uses Phase 1 art).
+6. **Dialogues + Review** (Phase 3 + SRS) — drop remaining activities into the registry; wire Review.
+
+### Verification
+- After step 1: every current game still launches and returns home; browser/Android back works; `npm run
+  typecheck` clean; the Phase 4 smoke test updated for routes.
+- Registry: adding a dummy descriptor surfaces a card only on the right topics (gating honored) with no
+  `App.tsx`/router edits.
+- Tier-gating: a fresh profile sees only tier-1 unlocked; hitting the threshold unlocks the next tier and the
+  hint clears.
+- Responsive/a11y: map + hub usable at narrow-phone and wide-tablet widths; 64px tap targets; reduced-motion
+  respected; keyboard-navigable.
