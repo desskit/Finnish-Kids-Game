@@ -3,8 +3,10 @@ import type {
   Construction,
   GrammaticalNumber,
   LexicalItem,
+  Person,
   PersonId,
   Polarity,
+  SentenceConstruction,
   Tier,
   VerbTense,
 } from '../content/types';
@@ -368,6 +370,184 @@ export function buildConjugationRound(
       answer,
       clause,
       options,
+    });
+  }
+  return out;
+}
+
+// --- Multi-slot sentences (advanced; content authored later) -------------
+//
+// Build word-order rounds from `SentenceConstruction` templates that have two+
+// inflected slots (recipient + object, adjective+noun object, verb chains, …).
+// Every slot's form is looked up from the sourced tables (or PERSONS) — never
+// generated; agreement (adjective→noun, verb→subject person) is resolved by
+// copying tags, not by rule. Emits the SAME shape the Word Order game renders,
+// so no new UI is needed. The templates list is empty today (see
+// `src/content/sentences.ts`); this returns [] until content is authored.
+
+export interface SentencePools {
+  nouns: readonly LexicalItem[];
+  verbs: readonly LexicalItem[];
+  adjectives: readonly LexicalItem[];
+  numbers: readonly LexicalItem[];
+}
+
+/** A normalized "put the words in order" question (shared by phrases + sentences). */
+export interface SentenceQuestion {
+  /** English gloss shown as a hint. */
+  hintEn: string;
+  /** The full target sentence (for text-to-speech). */
+  sentence: string;
+  /** Tokens in correct order. */
+  tokens: WordOrderToken[];
+  /** Same tokens shuffled for display. */
+  shuffled: WordOrderToken[];
+  /** Optional item id for SRS crediting (sentences span several words, so none). */
+  attemptId?: string;
+}
+
+function sentencePool(
+  pool: SentencePools,
+  which: NonNullable<SentenceConstruction['slots'][number]['pool']>,
+): readonly LexicalItem[] {
+  switch (which) {
+    case 'verbs':
+      return pool.verbs;
+    case 'adjectives':
+      return pool.adjectives;
+    case 'numbers':
+      return pool.numbers;
+    default:
+      return pool.nouns;
+  }
+}
+
+interface SlotPick {
+  item?: LexicalItem;
+  person?: Person;
+  case?: CaseId;
+  number?: GrammaticalNumber;
+}
+
+/**
+ * Resolve one template into its ordered surface words, choosing a concrete word
+ * per slot and looking up every form. Returns null if any slot can't be filled
+ * (so the builder simply tries another template/sample).
+ */
+export function resolveSentenceWords(
+  template: SentenceConstruction,
+  pools: SentencePools,
+): string[] | null {
+  const picks: Record<string, SlotPick> = {};
+
+  // 1) Choose a concrete word/pronoun for each slot + its base case/number.
+  for (const slot of template.slots) {
+    if (slot.role === 'pronoun') {
+      const person = slot.fixedId
+        ? PERSONS.find((p) => p.id === slot.fixedId)
+        : sample(PERSONS, 1)[0];
+      if (!person) return null;
+      picks[slot.id] = { person };
+    } else if (slot.role === 'verb') {
+      const item = slot.fixedId
+        ? pools.verbs.find((i) => i.id === slot.fixedId)
+        : sample(pools.verbs, 1)[0];
+      if (!item) return null;
+      picks[slot.id] = { item };
+    } else {
+      const from = sentencePool(pools, slot.pool ?? 'nouns');
+      const item = slot.fixedId ? from.find((i) => i.id === slot.fixedId) : sample(from, 1)[0];
+      if (!item) return null;
+      picks[slot.id] = {
+        item,
+        case: slot.case ?? 'nominative',
+        number: slot.number ?? 'singular',
+      };
+    }
+  }
+
+  // 2) Adjectives copy their noun's case + number (agreement).
+  for (const slot of template.slots) {
+    if (slot.role === 'adjective' && slot.agreesWith) {
+      const ref = picks[slot.agreesWith];
+      if (ref) {
+        picks[slot.id].case = ref.case;
+        picks[slot.id].number = ref.number;
+      }
+    }
+  }
+
+  // 3) Compute each slot's surface form.
+  const surface: Record<string, string> = {};
+  for (const slot of template.slots) {
+    const pick = picks[slot.id];
+    if (slot.role === 'pronoun') {
+      surface[slot.id] = pick.person?.fi ?? '';
+    } else if (slot.role === 'verb') {
+      if (!pick.item) return null;
+      if (slot.verbSlotForm === 'infinitive') {
+        surface[slot.id] = pick.item.fi;
+      } else {
+        const subject = slot.agreesWith ? picks[slot.agreesWith] : undefined;
+        const personId = subject?.person?.id ?? '3sg';
+        const form = verbForm(
+          pick.item,
+          slot.tense ?? 'present',
+          slot.polarity ?? 'positive',
+          personId,
+        );
+        if (!form) return null;
+        surface[slot.id] = form;
+      }
+    } else {
+      if (!pick.item) return null;
+      const form = caseFormOf(pick.item, pick.case ?? 'nominative', pick.number ?? 'singular');
+      if (!form) return null;
+      surface[slot.id] = form;
+    }
+  }
+
+  // 4) Assemble ordered words; split on spaces so multi-word forms become chips.
+  const words: string[] = [];
+  for (const tok of template.tokens) {
+    const text = 'fixed' in tok ? tok.fixed : surface[tok.slot] ?? '';
+    for (const w of text.split(' ').filter(Boolean)) words.push(w);
+  }
+  return words.length > 0 ? words : null;
+}
+
+export function buildSentenceRound(
+  templates: readonly SentenceConstruction[],
+  pools: SentencePools,
+  questionCount: number,
+  maxTier: Tier = 4,
+): SentenceQuestion[] {
+  const allowed = templates.filter((t) => t.tier <= maxTier);
+  if (allowed.length === 0) return [];
+
+  const out: SentenceQuestion[] = [];
+  let guard = 0;
+  while (out.length < questionCount && guard++ < questionCount * 8) {
+    const template = sample(allowed, 1)[0];
+    if (!template) break;
+    const words = resolveSentenceWords(template, pools);
+    if (!words) continue;
+
+    const last = words.length - 1;
+    const tokens: WordOrderToken[] = words.map((text, id) => ({
+      id,
+      text: id === last ? text + (template.punct ?? '') : text,
+    }));
+    let shuffled = shuffle(tokens);
+    while (tokens.length > 1 && shuffled.every((t, i) => t.id === tokens[i].id)) {
+      shuffled = shuffle(tokens);
+    }
+
+    out.push({
+      hintEn: template.en,
+      sentence: words.join(' ') + (template.punct ?? ''),
+      tokens,
+      shuffled,
     });
   }
   return out;

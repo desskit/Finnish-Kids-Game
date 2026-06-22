@@ -1,49 +1,34 @@
 import { Link } from 'react-router-dom';
-import { themes, reviewItems } from '../content';
+import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
-import { ACTIVITIES, activitiesForTheme } from '../game/activities';
 import { isDue } from '../game/srs';
 import { BADGES, earnedBadgeIds } from '../game/badges';
+import { PATH, badgeEnv, nextSkillId } from '../game/path';
 
-// Map home — a non-linear, roam-free grid of topic "places". Each node opens
-// that topic's hub. Starts as a styled responsive grid that reads as a map;
-// evolves into a fully illustrated map once Phase 1 art lands. Only rendered
-// for an active child (AppShell redirects to the picker otherwise).
+const ROUND_QUESTIONS = 6;
+
+// Map home — a winding journey path of chapters (colored bands) and skill nodes.
+// Organized by usable Finnish, not vocab categories. Open & guided: every node
+// is tappable, with a pulsing "next" suggestion and a progress ring per node.
+// Data-driven and art-ready: nodes/chapters carry optional art + accent colors,
+// so dropping in illustrations later is a data/CSS change, not a rewrite.
 export default function MapHome() {
   const { name, level, setLevel, adaptive, setAdaptive, activeChild } = useProfile();
 
-  // How many learned words are due for review right now (drives the badge).
   const srs = activeChild?.srs ?? {};
   const now = Date.now();
-  const seenCount = reviewItems.filter((i) => srs[i.id]).length;
   const dueCount = reviewItems.filter((i) => srs[i.id] && isDue(srs[i.id], now)).length;
+  const seenCount = reviewItems.filter((i) => srs[i.id]).length;
 
-  // Earned achievement badges (locked ones shown greyed) — visible progression.
-  const badgeEnv = { topicCount: themes.length, activityIds: ACTIVITIES.map((a) => a.id) };
   const earned = activeChild ? earnedBadgeIds(activeChild, badgeEnv) : new Set<string>();
+  const nextId = nextSkillId(activeChild);
 
   return (
     <section className="screen map-home">
       <h1 className="greeting">
-        Hei{name ? `, ${name}` : ''}! <span className="en">Choose a topic</span>
+        Hei{name ? `, ${name}` : ''}! <span className="en">Your Finnish path</span>
       </h1>
-
-      <Link className="review-banner" to="/review">
-        <span className="review-banner__emoji" aria-hidden="true">
-          🔁
-        </span>
-        <span className="review-banner__text">
-          Kertaus <span className="en">Review</span>
-        </span>
-        <span className="review-banner__meta">
-          {seenCount === 0
-            ? 'Aloita tästä · Start here'
-            : dueCount > 0
-              ? `${dueCount} kerrattavaa · ${dueCount} due`
-              : 'Harjoittele · Practice'}
-        </span>
-      </Link>
 
       <div className="level-toggle" role="group" aria-label="Difficulty">
         <span className="level-label">Taso · Level:</span>
@@ -83,24 +68,91 @@ export default function MapHome() {
         })}
       </div>
 
-      <nav className="map" aria-label="Topics">
-        {themes.map((t) => {
-          const count = activitiesForTheme(t).length;
-          return (
-            <Link key={t.id} className="map-node" to={`/topic/${t.id}`}>
-              <span className="map-node__emoji" aria-hidden="true">
-                {t.emoji}
+      <ol className="path">
+        {PATH.map((chapter) => (
+          <li
+            key={chapter.id}
+            className="chapter"
+            style={{ '--accent': chapter.accent } as React.CSSProperties}
+          >
+            <div className="chapter__banner">
+              <span className="chapter__icon" aria-hidden="true">
+                {chapter.icon}
               </span>
-              <span className="map-node__title">
-                {t.fi} <span className="en">{t.en}</span>
+              <span className="chapter__title">
+                {chapter.titleFi} <span className="en">{chapter.titleEn}</span>
               </span>
-              <span className="map-node__meta">
-                {count} peliä <span className="en">{count} games</span>
-              </span>
-            </Link>
-          );
-        })}
-      </nav>
+            </div>
+
+            {chapter.comingSoon && chapter.skills.length === 0 ? (
+              <div className="map-node map-node--soon" aria-disabled="true">
+                <span className="map-node__ring">
+                  <span className="map-node__icon" aria-hidden="true">
+                    ✨
+                  </span>
+                </span>
+                <span className="map-node__label">
+                  <span className="map-node__title">
+                    Tulossa lisää <span className="en">More coming soon</span>
+                  </span>
+                  <span className="map-node__meta">Vaikeat lauseet · Full sentences</span>
+                </span>
+              </div>
+            ) : (
+              <div className="chapter__nodes">
+                {chapter.skills.map((skill, si) => {
+                  const to = skill.activity === 'review' ? '/review' : `/skill/${skill.id}`;
+                  const prog = activeChild?.progress?.[chapter.id]?.[skill.id];
+                  const best = prog?.bestStars ?? 0;
+                  const plays = prog?.plays ?? 0;
+                  const lvl = prog?.level ?? 1;
+                  const isNext = skill.id === nextId;
+                  const ringPct = Math.min(100, Math.round((best / ROUND_QUESTIONS) * 100));
+                  const meta =
+                    skill.activity === 'review'
+                      ? seenCount === 0
+                        ? 'Aloita tästä · Start'
+                        : dueCount > 0
+                          ? `${dueCount} kerrattavaa · due`
+                          : 'Harjoittele · Practice'
+                      : skill.exampleFi;
+                  const cls =
+                    'map-node map-node--' +
+                    (si % 2 ? 'right' : 'left') +
+                    (plays > 0 ? ' map-node--done' : '') +
+                    (isNext ? ' map-node--next' : '');
+                  return (
+                    <Link
+                      key={skill.id}
+                      to={to}
+                      className={cls}
+                      style={{ '--ring': `${ringPct}%` } as React.CSSProperties}
+                    >
+                      <span className="map-node__ring">
+                        <span className="map-node__icon" aria-hidden="true">
+                          {skill.icon}
+                        </span>
+                        {plays > 0 && (
+                          <span className="map-node__check" aria-hidden="true">
+                            ✓
+                          </span>
+                        )}
+                      </span>
+                      <span className="map-node__label">
+                        <span className="map-node__title">
+                          {skill.titleFi} <span className="en">{skill.titleEn}</span>
+                        </span>
+                        {lvl > 1 && <span className="map-node__level">Taso {lvl}</span>}
+                        {meta && <span className="map-node__meta">{meta}</span>}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
 
       {!isSpeechAvailable() && (
         <p className="audio-note">

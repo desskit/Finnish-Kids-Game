@@ -613,8 +613,21 @@ route-stack context — same screens, more custom code, weaker history. Prefer H
 >   level-up / new-badge celebration on `RoundComplete`. Difficulty is Auto by
 >   default with a manual Easy/Hard override; the parent dashboard surfaces each
 >   activity's level + recent accuracy.
+> - **Journey-path redesign (done):** the topic grid / `TopicHub` / activity
+>   registry were replaced by a winding **journey path** of chapters → skill
+>   nodes (`src/game/path.tsx`), organized by *usable Finnish* (carrier phrases,
+>   counting, conjugation) with vocabulary as a mixed pool — not by
+>   Animals/Numbers/Food/Family categories. Routes are now `/` (path) and
+>   `/skill/:skillId`; progress is keyed by (chapter, skill). The path is
+>   **art-ready** (per-node/chapter `art` + `accent`, optional `pos` coordinate
+>   placement) and styled with placeholder emoji + a serpentine + progress rings.
+>   A final **"Full sentences" chapter** is plumbed but **contentless**: a
+>   `SentenceConstruction` type + `buildSentenceRound` already support
+>   multi-object / adjective-agreement / verb-chain sentences, authored later in
+>   `src/content/sentences.ts`. See **`docs/CONTENT_GUIDE.md`**.
 > - **Still deferred:** the `GameFrame` extraction (held for the Phase 4 test
->   net), the illustrated map, Dialogues, and short-dialogue content.
+>   net), real illustration art, and the multi-slot sentence *content* +
+>   greetings/dialogue content.
 
 1. **Router + GameFrame extraction** — add HashRouter, move home + the 7 games under routes, extract
    `GameFrame`. Behavior identical; pure refactor (foundation).

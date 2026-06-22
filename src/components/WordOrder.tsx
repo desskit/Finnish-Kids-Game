@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { buildWordOrderRound, type WordOrderToken } from '../game/round';
+import {
+  buildWordOrderRound,
+  type SentenceQuestion,
+  type WordOrderToken,
+} from '../game/round';
 import { useProfile } from '../state/profile';
 import { useActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -12,17 +16,25 @@ import RoundComplete from './RoundComplete';
 const QUESTIONS = 6;
 
 interface Props {
-  items: LexicalItem[];
-  constructions: Construction[];
+  /** Phrase mode: build the round from a topic's items + carrier phrases. */
+  items?: LexicalItem[];
+  constructions?: Construction[];
+  /**
+   * Sentence mode: supply a pre-built round (e.g. multi-slot sentences). When
+   * given, `items`/`constructions` are ignored. Rebuilt on each round restart.
+   */
+  buildRound?: () => SentenceQuestion[];
+  /** Header title (defaults to the carrier-phrase wording). */
+  title?: string;
   onExit: () => void;
 }
 
-// Word Order (Tier 3): a full carrier-phrase sentence is shown as shuffled
-// word chips; tap them back into the correct order. Reuses the same
-// construction + sourced slot-form data as Build a Phrase — nothing here
-// generates or reorders Finnish by rule, the target order is the
-// human-authored construction itself.
-export default function WordOrder({ items, constructions, onExit }: Props) {
+// Word Order (Tier 3+): a full sentence is shown as shuffled word chips; tap
+// them back into the correct order. The target order is the human-authored
+// construction/sentence template itself — nothing here generates or reorders
+// Finnish by rule. Renders both single-slot carrier phrases and (when given a
+// `buildRound`) multi-slot sentences, since both reduce to ordered word chips.
+export default function WordOrder({ items, constructions, buildRound, title, onExit }: Props) {
   const { level, addStars, recordAttempt } = useProfile();
   const ctx = useActivityContext();
   // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
@@ -32,10 +44,18 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
   const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
-  const round = useMemo(
-    () => buildWordOrderRound(items, constructions, QUESTIONS, maxTier),
-    [items, constructions, maxTier, runId],
-  );
+  const round = useMemo<SentenceQuestion[]>(() => {
+    if (buildRound) return buildRound();
+    return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier).map((q) => ({
+      hintEn: q.construction.en,
+      sentence: q.sentence,
+      tokens: q.tokens,
+      shuffled: q.shuffled,
+      attemptId: q.item.id,
+    }));
+    // buildRound is an inline closure (new identity each render); restart via runId.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, constructions, maxTier, runId]);
 
   const [index, setIndex] = useState(0);
   const [stars, setStars] = useState(0);
@@ -66,7 +86,7 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
           speak(q.sentence);
           setStars((s) => s + 1);
           addStars(1);
-          recordAttempt(q.item.id, !missed.current);
+          if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
           const next = index + 1;
           setTimeout(() => {
             if (next >= round.length) setDone(true);
@@ -110,14 +130,19 @@ export default function WordOrder({ items, constructions, onExit }: Props) {
 
   return (
     <section className="screen activity">
-      <ActivityHeader title="Järjestä sanat" index={index} total={round.length} onExit={onExit} />
+      <ActivityHeader
+        title={title ?? 'Järjestä sanat'}
+        index={index}
+        total={round.length}
+        onExit={onExit}
+      />
 
       <p className="prompt">
         Laita sanat järjestykseen <span className="en">Put the words in order</span>
       </p>
 
       <div className="phrase-card">
-        <p className="en phrase-hint">{q.construction.en}</p>
+        <p className="en phrase-hint">{q.hintEn}</p>
         <button
           className="speaker speaker--inline"
           onClick={() => speak(q.sentence)}

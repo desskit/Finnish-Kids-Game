@@ -1,14 +1,13 @@
-import { themes, reviewItems } from '../content';
-import { ACTIVITIES, activitiesForTheme } from '../game/activities';
+import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
 import { isDue, isMastered } from '../game/srs';
 import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadgeIds } from '../game/badges';
+import { PATH, badgeEnv } from '../game/path';
 
-const BADGE_ENV = { topicCount: themes.length, activityIds: ACTIVITIES.map((a) => a.id) };
-
-// Parent dashboard: per child, per topic, per activity — plays, stars and an
-// accuracy %, read straight from the progress model the activities record.
+// Parent dashboard: per child, per chapter, per skill — adaptive level, stars,
+// plays and accuracy, read straight from the progress model the skills record,
+// plus the cross-topic spaced-repetition (vocabulary) summary and badges.
 export default function ProgressView() {
   const { children } = useProfile();
 
@@ -23,9 +22,7 @@ export default function ProgressView() {
   return (
     <div className="grownup__panel">
       {children.map((c) => {
-        const playedTopics = themes.filter((t) => c.progress[t.id]);
-
-        // Vocabulary review (SRS) summary across all topics.
+        // Vocabulary review (SRS) summary across everything.
         const now = Date.now();
         const schedules = Object.values(c.srs ?? {});
         const practiced = schedules.length;
@@ -35,8 +32,13 @@ export default function ProgressView() {
         const totCorrect = schedules.reduce((n, s) => n + s.correct, 0);
         const accuracy = totSeen ? Math.round((totCorrect / totSeen) * 100) : 0;
 
-        const earned = earnedBadgeIds(c, BADGE_ENV);
+        const earned = earnedBadgeIds(c, badgeEnv);
         const mode = c.adaptive === false ? `Manual (level ${c.level})` : 'Auto (adaptive)';
+
+        const playedChapters = PATH.map((chapter) => ({
+          chapter,
+          skills: chapter.skills.filter((s) => c.progress?.[chapter.id]?.[s.id]),
+        })).filter((x) => x.skills.length > 0);
 
         return (
           <article key={c.id} className="progress-child">
@@ -45,9 +47,7 @@ export default function ProgressView() {
               <span className="progress-child__stars">⭐ {c.stars}</span>
             </h2>
 
-            <p className="progress-mode muted">
-              Vaikeustaso · Difficulty: {mode}
-            </p>
+            <p className="progress-mode muted">Vaikeustaso · Difficulty: {mode}</p>
 
             <div className="progress-badges" aria-label="Badges earned">
               {BADGES.map((b) => (
@@ -79,49 +79,45 @@ export default function ProgressView() {
               </span>
             </div>
 
-            {playedTopics.length === 0 ? (
+            {playedChapters.length === 0 ? (
               <p className="muted">Ei vielä pelejä · No rounds played yet.</p>
             ) : (
-              playedTopics.map((t) => {
-                const tp = c.progress[t.id];
-                const played = activitiesForTheme(t).filter((a) => tp[a.id]);
-                return (
-                  <div key={t.id} className="progress-topic">
-                    <h3 className="progress-topic__head">
-                      <span aria-hidden="true">{t.emoji}</span> {t.fi}{' '}
-                      <span className="en">{t.en}</span>
-                    </h3>
-                    <ul className="progress-list">
-                      {played.map((a) => {
-                        const p = tp[a.id];
-                        const acc = p.totalPossible
-                          ? Math.round((p.totalStars / p.totalPossible) * 100)
-                          : 0;
-                        const lvl = p.level ?? 1;
-                        const recent = p.recent ?? [];
-                        const recentPct = Math.round(windowAccuracy(recent) * 100);
-                        return (
-                          <li key={a.id} className="progress-row">
-                            <span className="progress-row__name">
-                              <span className="progress-row__level" title="Adaptive level">
-                                Lv {lvl}
-                              </span>{' '}
-                              <span aria-hidden="true">{a.emoji}</span> {a.titleEn}
-                            </span>
-                            <span
-                              className="progress-row__stat"
-                              title="stars · rounds · all-time accuracy · recent-window accuracy"
-                            >
-                              ⭐{p.totalStars} · {p.plays}× · {acc}%
-                              {recent.length > 0 && ` · ${recentPct}%↻`}
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                );
-              })
+              playedChapters.map(({ chapter, skills }) => (
+                <div key={chapter.id} className="progress-topic">
+                  <h3 className="progress-topic__head">
+                    <span aria-hidden="true">{chapter.icon}</span> {chapter.titleFi}{' '}
+                    <span className="en">{chapter.titleEn}</span>
+                  </h3>
+                  <ul className="progress-list">
+                    {skills.map((skill) => {
+                      const p = c.progress[chapter.id][skill.id];
+                      const acc = p.totalPossible
+                        ? Math.round((p.totalStars / p.totalPossible) * 100)
+                        : 0;
+                      const lvl = p.level ?? 1;
+                      const recent = p.recent ?? [];
+                      const recentPct = Math.round(windowAccuracy(recent) * 100);
+                      return (
+                        <li key={skill.id} className="progress-row">
+                          <span className="progress-row__name">
+                            <span className="progress-row__level" title="Adaptive level">
+                              Lv {lvl}
+                            </span>{' '}
+                            <span aria-hidden="true">{skill.icon}</span> {skill.titleEn}
+                          </span>
+                          <span
+                            className="progress-row__stat"
+                            title="stars · rounds · all-time accuracy · recent-window accuracy"
+                          >
+                            ⭐{p.totalStars} · {p.plays}× · {acc}%
+                            {recent.length > 0 && ` · ${recentPct}%↻`}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))
             )}
           </article>
         );

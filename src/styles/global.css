@@ -26,7 +26,12 @@ body,
 }
 
 body {
-  background: radial-gradient(circle at 50% -10%, #ffffff, var(--bg) 60%);
+  background:
+    radial-gradient(55vw 38vw at 82% -4%, rgba(253, 230, 138, 0.45), transparent 60%),
+    radial-gradient(50vw 40vw at -8% 8%, rgba(191, 219, 254, 0.5), transparent 55%),
+    radial-gradient(45vw 35vw at 110% 70%, rgba(196, 181, 253, 0.35), transparent 55%),
+    radial-gradient(circle at 50% -10%, #ffffff, var(--bg) 60%);
+  background-attachment: fixed;
   color: var(--ink);
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
@@ -105,111 +110,231 @@ body {
   justify-content: center;
 }
 
-/* ---------- Map home ---------- */
-.map {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: clamp(14px, 3vw, 22px);
+/* ---------- Map home: the journey path ---------- */
+.map-home {
   width: 100%;
-  max-width: 680px;
 }
 
-.map-node {
+.path {
+  list-style: none;
+  margin: 4px auto 0;
+  padding: 0;
+  width: 100%;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
+  gap: clamp(22px, 5vw, 36px);
+}
+
+.chapter {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chapter__banner {
+  align-self: center;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  text-align: center;
-  text-decoration: none;
-  color: var(--ink);
-  background: var(--bg-card);
-  border-radius: var(--radius);
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-weight: 900;
+  color: #fff;
+  background: var(--accent, var(--brand));
   box-shadow: var(--shadow);
-  padding: clamp(16px, 4vw, 26px);
-  min-height: 140px;
-  transition: transform 0.1s ease;
 }
 
-.map-node:active {
-  transform: scale(0.97);
-}
-
-/* Gentle zig-zag so the grid reads as a wandering "path" of places. */
-@media (min-width: 640px) {
-  .map-node:nth-child(even) {
-    margin-top: 26px;
-  }
-}
-
-.map-node__emoji {
-  font-size: clamp(2.6rem, 10vw, 3.6rem);
+.chapter__icon {
+  font-size: 1.5rem;
   line-height: 1;
 }
 
-.map-node__title {
-  font-weight: 900;
-  font-size: clamp(1.1rem, 3vw, 1.4rem);
+.chapter__title {
+  line-height: 1.05;
 }
 
-.map-node__title .en {
+.chapter__title .en {
   display: block;
   font-size: 0.62em;
-}
-
-.map-node__meta {
-  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--ink-soft);
+  opacity: 0.92;
 }
 
-.map-node__meta .en {
-  font-size: 0.85em;
+/* the dashed "trail" the nodes sit along */
+.chapter__nodes {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 3.2vw, 22px);
 }
 
-/* ---------- Review banner (spaced repetition) ---------- */
-.review-banner {
+.chapter__nodes::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 50%;
+  border-left: 4px dashed #d7e0ec;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.map-node {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 14px;
   width: 100%;
-  max-width: 680px;
+  max-width: 340px;
   text-decoration: none;
-  color: #fff;
-  background: linear-gradient(135deg, var(--brand), var(--accent));
-  border-radius: var(--radius);
+  color: var(--ink);
+  background: var(--bg-card);
+  border-radius: 999px;
   box-shadow: var(--shadow);
-  padding: clamp(14px, 3.5vw, 20px) clamp(18px, 4vw, 24px);
-  margin-bottom: clamp(14px, 3vw, 22px);
-  transition: transform 0.1s ease;
+  padding: 10px 20px 10px 10px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-.review-banner:active {
-  transform: scale(0.98);
+.map-node--left {
+  align-self: flex-start;
 }
 
-.review-banner__emoji {
-  font-size: clamp(2rem, 7vw, 2.6rem);
+.map-node--right {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  text-align: right;
+  padding: 10px 10px 10px 20px;
+}
+
+.map-node:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) {
+  .map-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
+  }
+}
+
+/* circular icon holder with a conic progress ring */
+.map-node__ring {
+  position: relative;
+  flex: none;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--accent, var(--brand)) var(--ring, 0%), #e6eaf0 0);
+}
+
+.map-node__ring::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  z-index: 0;
+}
+
+.map-node__icon {
+  position: relative;
+  z-index: 1;
+  font-size: 1.9rem;
   line-height: 1;
 }
 
-.review-banner__text {
+.map-node__check {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--good);
+  color: #fff;
+  font-size: 0.8rem;
   font-weight: 900;
-  font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
 }
 
-.review-banner__text .en {
+.map-node__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.map-node__title {
+  font-weight: 900;
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+  line-height: 1.05;
+}
+
+.map-node__title .en {
   display: block;
-  font-size: 0.62em;
-  opacity: 0.92;
+  font-size: 0.66em;
+  font-weight: 800;
+  color: var(--ink-soft);
 }
 
-.review-banner__meta {
-  margin-left: auto;
-  text-align: right;
-  font-weight: 800;
-  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
-  opacity: 0.95;
+.map-node__level {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--accent, var(--brand));
+}
+
+.map-node--right .map-node__level {
+  align-self: flex-end;
+}
+
+.map-node__meta {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* the suggested "next" node: accent outline + gentle bob */
+.map-node--next {
+  outline: 3px solid var(--accent, var(--brand));
+  outline-offset: 3px;
+  animation: nodebob 1.7s ease-in-out infinite;
+}
+
+@keyframes nodebob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* "coming soon" capstone (advanced content authored later) */
+.map-node--soon {
+  align-self: center;
+  cursor: default;
+  opacity: 0.8;
+  background: repeating-linear-gradient(
+    45deg,
+    #f8fafc,
+    #f8fafc 10px,
+    #eef2f7 10px,
+    #eef2f7 20px
+  );
+}
+
+.map-node--soon .map-node__ring {
+  background: #e6eaf0;
 }
 
 /* ---------- Topic hub ---------- */

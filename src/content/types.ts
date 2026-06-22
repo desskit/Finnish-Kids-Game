@@ -218,3 +218,58 @@ export function conjugatedClause(
   if (!p || !form) return undefined;
   return `${p.fi} ${form}`;
 }
+
+// --- Multi-slot sentence templates (advanced; content authored later) -----
+//
+// A `Construction` has exactly ONE inflected slot. Real sentences often have
+// several: a recipient AND an object ("annan koiralle luun"), an adjective+noun
+// object that must agree ("näen ison koiran"), or a verb chain ("haluan syödä
+// omenan"). `SentenceConstruction` generalizes that: an ordered list of tokens,
+// each a fixed word or a slot, where each slot pulls a form from the sourced
+// tables (or PERSONS for pronouns) — still NEVER generated.
+//
+// This is the seam for the hardest chapter. The registry in
+// `src/content/sentences.ts` ships EMPTY; authoring templates (manual work) is
+// what lights up the chapter. The shape is expected to firm up once the first
+// real templates exist, so treat it as v1.
+
+export type SlotRole = 'noun' | 'adjective' | 'verb' | 'pronoun' | 'number';
+export type VerbSlotForm = 'conjugated' | 'infinitive';
+
+/** One inflected position in a sentence template. */
+export interface SentenceSlot {
+  /** Unique within the template, e.g. 'subject', 'object', 'recipient'. */
+  id: string;
+  role: SlotRole;
+  /** noun/adjective/number slots: the case to inflect to (default nominative). */
+  case?: CaseId;
+  /** noun/adjective/number slots: singular | plural (default singular). */
+  number?: GrammaticalNumber;
+  /** verb slots: a finite conjugated form, or the dictionary infinitive. */
+  verbSlotForm?: VerbSlotForm;
+  /** verb slots (conjugated): tense + polarity (person comes from the subject). */
+  tense?: VerbTense;
+  polarity?: Polarity;
+  /**
+   * Inflect to AGREE with another slot:
+   *  - adjective → its noun (copy case + number),
+   *  - conjugated verb → its subject (copy person).
+   */
+  agreesWith?: string;
+  /** Draw the word from this pool. */
+  pool?: 'nouns' | 'verbs' | 'adjectives' | 'numbers' | 'pronouns';
+  /** Or pin a specific word/pronoun by id (overrides `pool`). */
+  fixedId?: string;
+}
+
+/** A full sentence with two or more inflected slots. */
+export interface SentenceConstruction {
+  id: string;
+  /** English gloss of the whole sentence, e.g. "I give the dog a bone." */
+  en: string;
+  tier: Tier;
+  /** Ordered tokens: a fixed word, or a reference to one of `slots` by id. */
+  tokens: Array<{ fixed: string } | { slot: string }>;
+  slots: SentenceSlot[];
+  punct?: string;
+}

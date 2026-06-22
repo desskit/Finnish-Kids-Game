@@ -29,8 +29,13 @@ Finnish** — the app never generates or inflects Finnish by rule.
     shuffled word chips; tap them back into the correct order.
   - **Kirjoita sana / Spelling** — see/hear a word, type it with an on-screen
     keyboard (includes ä/ö, so it works the same on any device).
-- **Four themes** — Animals / _Eläimet_ (12 words), Numbers / _Numerot_ (1–10),
-  Food / _Ruoka_ (14 words), Family / _Perhe_ (10 words).
+- **A journey path, not categories** — the home is a winding path of _chapters →
+  skill nodes_ built around **usable Finnish** (naming, location, likes, counting,
+  describing, actions, and a plumbed "full sentences" chapter). Vocabulary —
+  Animals / _Eläimet_, Numbers / _Numerot_, Food / _Ruoka_, Family / _Perhe_ — is
+  the **word pool** that flows through the phrase skills, mixed across topics. See
+  [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) to add words, skills, or
+  multi-slot sentences.
 - **Nine carrier phrases** built on **case-tagged, sourced inflections**:
   - Nominative — _Tämä on ___ / Missä on ___? / Minulla on ___._
   - Verb rection — _Pidän ___sta_ (elative) / _Näen ___n_ (accusative).
