@@ -144,11 +144,16 @@ const baseChapters: Chapter[] = [
     titleEn: 'First words',
     accent: '#0ea5e9',
     icon: '🔊',
+    // Warm-ups: a single activity (listening), so depth comes only from the
+    // option-tile count — which the shared level table already flattens out
+    // by L3 (optionCount 3, 4, 4, ...). A short depth-3 ladder keeps these
+    // honest with the difficulty curve instead of grinding toward an L4 that
+    // plays identically to L3.
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', content: { pool: 'family' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', content: { pool: 'numbers' } },
+      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', maxLevel: 3, content: { pool: 'animals' } },
+      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', maxLevel: 3, content: { pool: 'food' } },
+      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', maxLevel: 3, content: { pool: 'family' } },
+      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', maxLevel: 3, content: { pool: 'numbers' } },
     ],
   },
   {
@@ -277,8 +282,15 @@ const baseChapters: Chapter[] = [
     accent: '#f59e0b',
     icon: '🔢',
     skills: [
-      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', content: { pool: 'nouns' } },
-      { id: 'match', titleFi: 'Yhdistä sanat', titleEn: 'Describe it', icon: '🎨', activity: 'match', content: { pool: 'nouns' } },
+      // Counting's own grammar subject is the number itself — the shared level
+      // table keeps raising maxCount all the way to 20 (5 → 8 → 10 → 12 → 14 →
+      // 16 → 18 → 20), so this node rides the FULL engine depth: bigger counts
+      // (and the nominative/partitive split they force) is genuine headroom.
+      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', maxLevel: 8, content: { pool: 'nouns' } },
+      // Adjective-noun agreement rotates across 7 cases at every level (not
+      // tier-gated), so there's no extra grammar to unlock past the default
+      // ceiling — depth stays 4 until the cases themselves get tiered.
+      { id: 'match', titleFi: 'Yhdistä sanat', titleEn: 'Describe it', icon: '🎨', activity: 'match', maxLevel: 4, content: { pool: 'nouns' } },
     ],
   },
   {
@@ -288,7 +300,10 @@ const baseChapters: Chapter[] = [
     accent: '#16a34a',
     icon: '🏃',
     skills: [
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', content: {} },
+      // Capped at the engine default: verbCombos hold flat at the level-4 set
+      // (present pos/neg + past positive) for L5-8 — past-negative isn't
+      // sourced for any verb, so there's no real grammar past L4 to climb to.
+      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', maxLevel: 4, content: {} },
     ],
   },
   {

@@ -74,6 +74,21 @@ describe('learning path', () => {
     expect(badgeEnv.activityIds).not.toContain('review');
   });
 
+  it('caps the listening warm-ups at depth 3 (the option-tile curve flattens by then)', () => {
+    for (const id of ['listen-animals', 'listen-food', 'listen-family', 'listen-numbers']) {
+      expect(findSkill(id)?.skill.maxLevel).toBe(3);
+    }
+  });
+
+  it('lets Count & Say ride the full engine depth (bigger counts all the way to 20)', () => {
+    expect(findSkill('count')?.skill.maxLevel).toBe(8);
+  });
+
+  it('caps Describe it and Conjugate the Verb at the default depth (no further sourced grammar)', () => {
+    expect(findSkill('match')?.skill.maxLevel).toBe(4);
+    expect(findSkill('conjugate')?.skill.maxLevel).toBe(4);
+  });
+
   it('ends with an empty, "coming soon" sentences chapter (plumbed, contentless)', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');
