@@ -19,12 +19,17 @@ describe('difficultyFor', () => {
   it('keeps option count tappable (<= 4) and ramps the real difficulty levers', () => {
     const l1 = difficultyFor(1);
     const l3 = difficultyFor(3);
+    const l4 = difficultyFor(4);
     expect(l1.optionCount).toBeLessThanOrEqual(4);
     expect(l3.optionCount).toBeLessThanOrEqual(4);
+    expect(l4.optionCount).toBeLessThanOrEqual(4);
     // Harder level => allows higher-tier phrases, larger counts, more verb forms.
     expect(l3.maxTier).toBeGreaterThanOrEqual(l1.maxTier);
     expect(l3.maxCount).toBeGreaterThan(l1.maxCount);
     expect(l3.verbCombos.length).toBeGreaterThan(l1.verbCombos.length);
+    expect(l4.maxTier).toBeGreaterThan(l3.maxTier);
+    expect(l4.maxCount).toBeGreaterThan(l3.maxCount);
+    expect(l4.verbCombos.length).toBeGreaterThan(l3.verbCombos.length);
   });
 
   it('introduces negative then past verb forms as the level rises', () => {
@@ -33,6 +38,16 @@ describe('difficultyFor', () => {
     ]);
     expect(difficultyFor(2).verbCombos.map((c) => c.polarity)).toContain('negative');
     expect(difficultyFor(3).verbCombos.some((c) => c.tense === 'past')).toBe(true);
+    expect(difficultyFor(4).verbCombos.some((c) => c.tense === 'past' && c.polarity === 'negative')).toBe(
+      true,
+    );
+  });
+
+  it('only unlocks tier-4 content (the partitive-plural apex) at the top level', () => {
+    expect(difficultyFor(1).maxTier).toBeLessThan(4);
+    expect(difficultyFor(2).maxTier).toBeLessThan(4);
+    expect(difficultyFor(3).maxTier).toBeLessThan(4);
+    expect(difficultyFor(4).maxTier).toBe(4);
   });
 });
 

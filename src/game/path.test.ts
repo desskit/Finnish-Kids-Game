@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { PATH, allSkills, findSkill, nextSkillId, renderSkill, badgeEnv } from './path';
+import {
+  PATH,
+  allSkills,
+  findSkill,
+  nextSkillId,
+  renderSkill,
+  activityForLevel,
+  badgeEnv,
+} from './path';
 
 describe('learning path', () => {
   it('has unique skill ids across every chapter', () => {
@@ -16,12 +24,29 @@ describe('learning path', () => {
     expect(nextSkillId(null)).toBe('listen-animals');
   });
 
-  it('renders a game element for every non-review skill', () => {
+  it('renders a game element for every non-review skill at every level', () => {
     for (const { skill } of allSkills()) {
-      const el = renderSkill(skill, () => {});
-      if (skill.activity === 'review') expect(el).toBeNull();
-      else expect(el).not.toBeNull();
+      for (const level of [1, 2, 3, 4]) {
+        const el = renderSkill(skill, level, () => {});
+        if (skill.activity === 'review') expect(el).toBeNull();
+        else expect(el).not.toBeNull();
+      }
     }
+  });
+
+  it('ramps the possession skill through input methods as the level rises', () => {
+    const { skill } = findSkill('i-have')!;
+    expect(activityForLevel(skill, 1)).toBe('build');
+    expect(activityForLevel(skill, 2)).toBe('build');
+    expect(activityForLevel(skill, 3)).toBe('order');
+    expect(activityForLevel(skill, 4)).toBe('spell');
+    expect(activityForLevel(skill, 99)).toBe('spell'); // holds at the last entry
+  });
+
+  it('falls back to the single fixed activity when a skill has no ramp', () => {
+    const { skill } = findSkill('this-is')!;
+    expect(activityForLevel(skill, 1)).toBe('build');
+    expect(activityForLevel(skill, 4)).toBe('build');
   });
 
   it('derives the badge env from the path, excluding review', () => {

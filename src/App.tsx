@@ -41,7 +41,8 @@ function SkillRoute() {
   const { chapter, skill } = found;
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
-  const element = renderSkill(skill, () => navigate('/'));
+  const difficulty = activityDifficulty(chapter.id, skill.id);
+  const element = renderSkill(skill, difficulty.level, () => navigate('/'));
   if (!element) return <Navigate to="/" replace />;
 
   const onRoundComplete = (stars: number, total: number): RoundOutcome => {
@@ -58,9 +59,7 @@ function SkillRoute() {
 
   return (
     <main className="app">
-      <ActivityContext.Provider
-        value={{ onRoundComplete, difficulty: activityDifficulty(chapter.id, skill.id) }}
-      >
+      <ActivityContext.Provider value={{ onRoundComplete, difficulty }}>
         {element}
       </ActivityContext.Provider>
     </main>

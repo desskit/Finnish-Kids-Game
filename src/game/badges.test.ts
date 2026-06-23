@@ -70,7 +70,7 @@ describe('earnedBadgeIds', () => {
 
   it('awards level-up when any activity reaches the top level', () => {
     const c = child({
-      progress: { animals: { listen: progress({ plays: 3, level: 3 }) } },
+      progress: { animals: { listen: progress({ plays: 3, level: 4 }) } },
     });
     expect(earnedBadgeIds(c, ENV).has('level-up')).toBe(true);
   });

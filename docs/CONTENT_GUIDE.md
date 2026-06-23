@@ -53,6 +53,10 @@ inflected slot, e.g. `Tämä on ___`. Add an entry with the fixed words + the
 Then expose it as a skill (step 4). Make sure the chosen case exists for the words
 you'll use (the integrity test will catch gaps for the noun topics).
 
+See `docs/FINNISH_GRAMMAR.md` for which case/number a construction needs for
+possession, negation, partitive-government verbs and counting — it's the
+authoring contract behind the `case`/`number` tags above.
+
 ## 3. Add a skill node / chapter (the path)
 
 The path is data in `src/game/path.tsx`. A **skill node** picks an existing game

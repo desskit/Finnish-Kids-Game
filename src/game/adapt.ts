@@ -18,7 +18,7 @@
 import type { Polarity, Tier, VerbTense } from '../content/types';
 
 export const MIN_LEVEL = 1;
-export const MAX_LEVEL = 3;
+export const MAX_LEVEL = 4;
 
 /** Promote once the recent window averages at/above this first-pass accuracy. */
 export const PROMOTE_AT = 0.85;
@@ -37,6 +37,7 @@ export interface VerbCombo {
 const PRESENT_POSITIVE: VerbCombo = { tense: 'present', polarity: 'positive' };
 const PRESENT_NEGATIVE: VerbCombo = { tense: 'present', polarity: 'negative' };
 const PAST_POSITIVE: VerbCombo = { tense: 'past', polarity: 'positive' };
+const PAST_NEGATIVE: VerbCombo = { tense: 'past', polarity: 'negative' };
 
 /** The concrete difficulty knobs a level expands into. */
 export interface Difficulty {
@@ -80,13 +81,21 @@ export function difficultyFor(level: number): Difficulty {
         maxCount: 8,
         verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE],
       };
-    default:
+    case 3:
       return {
         level: 3,
         optionCount: 4,
         maxTier: 3,
         maxCount: 10,
         verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE],
+      };
+    default:
+      return {
+        level: 4,
+        optionCount: 4,
+        maxTier: 4,
+        maxCount: 12,
+        verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
       };
   }
 }

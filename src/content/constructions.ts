@@ -34,6 +34,58 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
   },
 
+  // --- Possession by other persons (Tier 2, nominative singular) — see
+  // docs/FINNISH_GRAMMAR.md "Possession". Same case/number as i-have; only the
+  // adessive possessor pronoun (fixed carrier text) varies. ---
+  {
+    id: 'you-have',
+    before: 'Sinulla on',
+    punct: '.',
+    en: 'You have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'she-has',
+    before: 'Hänellä on',
+    punct: '.',
+    en: 'She/He has a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'we-have',
+    before: 'Meillä on',
+    punct: '.',
+    en: 'We have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'they-have',
+    before: 'Heillä on',
+    punct: '.',
+    en: 'They have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+
+  // --- Negated possession → partitive singular (Tier 3) — negation always
+  // forces the partitive on the thing whose existence is denied. ---
+  {
+    id: 'i-havent',
+    before: 'Minulla ei ole',
+    punct: '.',
+    en: "I don't have a ___.",
+    tier: 3,
+    case: 'partitive',
+    number: 'singular',
+  },
+
   // --- Verb rection: real cases unlocked by the tagged data (Tier 3) ---
   {
     id: 'i-like', // pitää + elative: "Pidän kissasta."
@@ -51,6 +103,24 @@ export const nounConstructions: Construction[] = [
     en: 'I see the ___.',
     tier: 3,
     case: 'genitive',
+    number: 'singular',
+  },
+  {
+    id: 'i-love', // rakastaa always governs the partitive: "Rakastan kissaa."
+    before: 'Rakastan',
+    punct: '.',
+    en: 'I love the ___.',
+    tier: 3,
+    case: 'partitive',
+    number: 'singular',
+  },
+  {
+    id: 'i-watch', // katsoa always governs the partitive: "Katson kissaa."
+    before: 'Katson',
+    punct: '.',
+    en: 'I watch the ___.',
+    tier: 3,
+    case: 'partitive',
     number: 'singular',
   },
 
@@ -86,5 +156,26 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+  },
+
+  // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
+  // docs/FINNISH_GRAMMAR.md "Possession" + "partitive plural" rule. ---
+  {
+    id: 'i-have-some',
+    before: 'Minulla on',
+    punct: '.',
+    en: 'I have some ___.',
+    tier: 4,
+    case: 'partitive',
+    number: 'plural',
+  },
+  {
+    id: 'i-havent-any',
+    before: 'Minulla ei ole',
+    punct: '.',
+    en: "I don't have any ___.",
+    tier: 4,
+    case: 'partitive',
+    number: 'plural',
   },
 ];

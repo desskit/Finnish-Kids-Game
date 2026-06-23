@@ -55,7 +55,17 @@ export interface SkillNode {
   titleEn: string;
   /** Emoji placeholder; replaced by `art` when present. */
   icon: string;
+  /** The activity rendered when `activities` is unset, or past its last entry. */
   activity: ActivityKind;
+  /**
+   * Optional input-method ramp: the activity to render at level 1, 2, 3, ...
+   * (index `level - 1`; the last entry holds for any level beyond the array).
+   * Lets ONE skill (one progress key) move from multiple-choice recognition
+   * toward assembling/typing as the child's measured level rises, instead of
+   * splitting recognition vs. production into separate nodes. Most skills don't
+   * set this — they keep a single fixed `activity` for their whole life.
+   */
+  activities?: ActivityKind[];
   content: SkillContent;
   /** Optional teaching example shown under the node, e.g. "Tämä on kissa." */
   exampleFi?: string;
@@ -139,7 +149,27 @@ const baseChapters: Chapter[] = [
     skills: [
       { id: 'this-is', titleFi: 'Tämä on…', titleEn: 'This is a…', icon: '🧩', activity: 'build', content: { constructionIds: ['this-is'] }, exampleFi: 'Tämä on kissa.' },
       { id: 'where-is', titleFi: 'Missä on…?', titleEn: 'Where is…?', icon: '❓', activity: 'build', content: { constructionIds: ['where-is'] }, exampleFi: 'Missä on koira?' },
-      { id: 'i-have', titleFi: 'Minulla on…', titleEn: 'I have a…', icon: '🎒', activity: 'build', content: { constructionIds: ['i-have'] }, exampleFi: 'Minulla on kala.' },
+      {
+        id: 'i-have',
+        titleFi: 'Minulla on… / Kenellä on…',
+        titleEn: 'I have… / Who has…',
+        icon: '🎒',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        content: {
+          constructionIds: [
+            'i-have',
+            'you-have',
+            'she-has',
+            'we-have',
+            'they-have',
+            'i-havent',
+            'i-have-some',
+            'i-havent-any',
+          ],
+        },
+        exampleFi: 'Minulla on kala.',
+      },
     ],
   },
   {
@@ -161,6 +191,8 @@ const baseChapters: Chapter[] = [
     skills: [
       { id: 'i-like', titleFi: 'Pidän …sta', titleEn: 'I like…', icon: '❤️', activity: 'build', content: { constructionIds: ['i-like'] }, exampleFi: 'Pidän kissasta.' },
       { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
+      { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
+      { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
     ],
   },
   {
@@ -238,6 +270,13 @@ export function findSkill(id: string): FoundSkill | undefined {
   return undefined;
 }
 
+/** Which activity a skill renders at a given measured level (see `activities`). */
+export function activityForLevel(skill: SkillNode, level: number): ActivityKind {
+  if (!skill.activities || skill.activities.length === 0) return skill.activity;
+  const index = Math.min(Math.max(1, level), skill.activities.length) - 1;
+  return skill.activities[index];
+}
+
 /** Every (chapter, skill) pair in path order. */
 export function allSkills(): FoundSkill[] {
   return PATH.flatMap((chapter) => chapter.skills.map((skill) => ({ chapter, skill })));
@@ -265,11 +304,17 @@ export const badgeEnv = {
 
 const SENTENCE_QUESTIONS = 6;
 
-/** Render a skill's game wired to its content scope. (ActivityRoute supplies the
- *  ActivityContext that hands down adaptive difficulty + round recording.) */
-export function renderSkill(skill: SkillNode, onExit: () => void): ReactElement | null {
+/** Render a skill's game wired to its content scope at the given measured level
+ *  (which may pick a different activity — see `SkillNode.activities`). The caller
+ *  (ActivityRoute) supplies the ActivityContext that hands down adaptive
+ *  difficulty + round recording. */
+export function renderSkill(
+  skill: SkillNode,
+  level: number,
+  onExit: () => void,
+): ReactElement | null {
   const items = itemsForPool(skill.content.pool);
-  switch (skill.activity) {
+  switch (activityForLevel(skill, level)) {
     case 'listen':
       return <ListenAndTap items={items} onExit={onExit} />;
     case 'build':
