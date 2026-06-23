@@ -35,6 +35,25 @@ describe('learning path', () => {
     }
   });
 
+  it('hands every game referentially-stable content props across re-renders', () => {
+    // renderSkill runs on EVERY ActivityRoute render (e.g. each star-earning
+    // tap). The activities memoize their round on the `items`/`constructions`
+    // props, so a fresh array each render would silently rebuild the round
+    // mid-question — a different word/emoji + its TTS flashing before reverting.
+    // Two calls for the same (skill, level) must return identical references.
+    for (const { skill } of allSkills()) {
+      if (skill.activity === 'review') continue;
+      for (const level of [1, 4, 8]) {
+        const a = renderSkill(skill, level, () => {});
+        const b = renderSkill(skill, level, () => {});
+        const pa = a!.props as { items?: unknown; constructions?: unknown };
+        const pb = b!.props as { items?: unknown; constructions?: unknown };
+        expect(pa.items, `${skill.id} items unstable`).toBe(pb.items);
+        expect(pa.constructions, `${skill.id} constructions unstable`).toBe(pb.constructions);
+      }
+    }
+  });
+
   it('ramps the possession skill through input methods across its depth-6 ladder', () => {
     const { skill } = findSkill('i-have')!;
     expect(skill.maxLevel).toBe(6);

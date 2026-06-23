@@ -140,9 +140,22 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
   }
 }
 
+// Resolve a node's curated construction list. The result is CACHED by the
+// (stable) `constructionIds` array so repeated calls return the SAME array
+// reference. renderSkill runs on every ActivityRoute render (e.g. each time a
+// tap updates the child's stars), and the activities memoize their round on the
+// `constructions` prop — so handing back a fresh `.filter()` array every render
+// would silently rebuild the round mid-question (a different word/emoji + its
+// TTS would flash before reverting). A stable reference keeps the round put.
+const constructionCache = new WeakMap<string[], Construction[]>();
 function constructionsFor(ids?: string[]): Construction[] {
   if (!ids) return nounConstructions;
-  return nounConstructions.filter((c) => ids.includes(c.id));
+  let cached = constructionCache.get(ids);
+  if (!cached) {
+    cached = nounConstructions.filter((c) => ids.includes(c.id));
+    constructionCache.set(ids, cached);
+  }
+  return cached;
 }
 
 const SENTENCE_POOLS: SentencePools = {
