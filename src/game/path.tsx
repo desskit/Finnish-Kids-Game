@@ -155,7 +155,14 @@ const baseChapters: Chapter[] = [
         titleEn: 'I have… / Who has…',
         icon: '🎒',
         activity: 'build',
-        activities: ['build', 'build', 'order', 'spell'],
+        // Input-method ramp. L1–L2 recognize the phrase (tap a tile into the
+        // blank); L3 types the now-familiar noun (SpellWord drills item.fi — it
+        // can't render a carrier phrase); L4 PRODUCES the apex partitive-plural
+        // phrase from chips (WordOrder — the only top-level activity that renders
+        // constructions, so the tier-4 grammar actually reaches the player, with
+        // scaffolding instead of brutal blank-keyboard typing of an inflected
+        // plural). Grammar still peaks at L4 via maxTier gating.
+        activities: ['build', 'build', 'spell', 'order'],
         content: {
           constructionIds: [
             'i-have',

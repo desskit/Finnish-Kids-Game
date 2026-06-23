@@ -38,9 +38,12 @@ describe('learning path', () => {
     const { skill } = findSkill('i-have')!;
     expect(activityForLevel(skill, 1)).toBe('build');
     expect(activityForLevel(skill, 2)).toBe('build');
-    expect(activityForLevel(skill, 3)).toBe('order');
-    expect(activityForLevel(skill, 4)).toBe('spell');
-    expect(activityForLevel(skill, 99)).toBe('spell'); // holds at the last entry
+    expect(activityForLevel(skill, 3)).toBe('spell');
+    // L4 produces the apex partitive-plural phrase from chips — WordOrder is the
+    // only top-level activity that renders constructions, so the tier-4 grammar
+    // actually reaches the player (SpellWord only types the bare noun).
+    expect(activityForLevel(skill, 4)).toBe('order');
+    expect(activityForLevel(skill, 99)).toBe('order'); // holds at the last entry
   });
 
   it('falls back to the single fixed activity when a skill has no ramp', () => {
