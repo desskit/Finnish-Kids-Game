@@ -75,6 +75,26 @@ describe('content integrity', () => {
     }
   });
 
+  it('sources all four tense×polarity sets for every verb (incl. past negative)', () => {
+    // The Conjugate node climbs one rung per level through these four; the L4
+    // past-negative rung is only real because the form is sourced for every verb.
+    const combos = [
+      ['present', 'positive'],
+      ['present', 'negative'],
+      ['past', 'positive'],
+      ['past', 'negative'],
+    ] as const;
+    for (const verb of verbs.items) {
+      for (const [tense, polarity] of combos) {
+        const persons = PERSONS.filter((p) => verbForm(verb, tense, polarity, p.id));
+        expect(
+          persons.length,
+          `${verb.id} lacks ${tense} ${polarity} forms`,
+        ).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
+
   it('gives every adjective a nominative singular form for agreement', () => {
     for (const adj of adjectives.items) {
       expect(caseFormOf(adj, 'nominative', 'singular'), adj.id).toBeTruthy();

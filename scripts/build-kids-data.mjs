@@ -151,13 +151,16 @@ const VERBS = [
   ['swim', 'uida', 'swim'],
 ];
 
-// Focused conjugation subset kept per verb: present (positive + negative) and
-// past (positive) across all persons, plus the two singular/plural commands.
+// Focused conjugation subset kept per verb: present and past, each in BOTH
+// polarities, across all persons, plus the two singular/plural commands. The
+// four tense×polarity sets are what the Conjugate node climbs one rung per
+// level (present+ → present- → past+ → past-); every form is sourced here.
 const VERB_PERSONS = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'];
 const VERB_INFLECTION_KEYS = [
   ...VERB_PERSONS.map((p) => `present_active_positive_${p}`),
   ...VERB_PERSONS.map((p) => `present_active_negative_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `past_active_negative_${p}`),
   'imperative_active_positive_2sg',
   'imperative_active_positive_2pl',
 ];

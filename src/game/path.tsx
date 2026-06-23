@@ -42,10 +42,18 @@ export type ActivityKind =
 export type Pool = 'nouns' | 'animals' | 'food' | 'family' | 'numbers' | 'places';
 
 export interface SkillContent {
-  /** Vocab pool (default 'nouns' = all noun topics mixed). */
+  /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
   pool?: Pool;
   /** For build/order: which carrier phrases to drill (default = all). */
   constructionIds?: string[];
+  /**
+   * For `spell`: type the sourced INFLECTED form (drawn from carrier phrases,
+   * tier-gated by the adaptive level) instead of the bare nominative noun.
+   * Lets the generic Spelling node become a production capstone over ALL
+   * constructions; deep nodes that already pass `constructionIds` get this
+   * behavior implicitly.
+   */
+  inflected?: boolean;
 }
 
 export interface SkillNode {
@@ -104,7 +112,16 @@ export interface Chapter {
 
 // --- Content resolution ---------------------------------------------------
 
-const NOUNS: LexicalItem[] = [...animals.items, ...food.items, ...family.items];
+// "All noun topics mixed" (the default pool). Includes places, so the generic
+// capstones (Word Order / Spelling) and the mixed-pool drills draw on every
+// noun the game teaches — every item carries the full sourced case paradigm,
+// so any construction resolves for any of them.
+const NOUNS: LexicalItem[] = [
+  ...animals.items,
+  ...food.items,
+  ...family.items,
+  ...places.items,
+];
 
 function itemsForPool(pool?: Pool): LexicalItem[] {
   switch (pool) {
@@ -300,9 +317,12 @@ const baseChapters: Chapter[] = [
     accent: '#16a34a',
     icon: '🏃',
     skills: [
-      // Capped at the engine default: verbCombos hold flat at the level-4 set
-      // (present pos/neg + past positive) for L5-8 — past-negative isn't
-      // sourced for any verb, so there's no real grammar past L4 to climb to.
+      // Depth 4 = the verb's real grammar ceiling: one new sourced tense×polarity
+      // set unlocks per level (present+ L1 → present- L2 → past+ L3 → past- L4),
+      // each drilled across all six persons. Those four combos are the whole of
+      // what the data carries (imperative is 2nd-person-only and doesn't fit the
+      // "pick the person's form" drill), so 4 is the honest cap — the grind comes
+      // from the steepening promotion needing a sustained streak to crack it.
       { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', maxLevel: 4, content: {} },
     ],
   },
@@ -313,8 +333,15 @@ const baseChapters: Chapter[] = [
     accent: '#7c3aed',
     icon: '🔀',
     skills: [
-      { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', content: {} },
-      { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', content: { pool: 'nouns' } },
+      // The cross-cutting capstones (depth 8): they mix EVERY carrier phrase the
+      // game teaches over the full noun pool, tier-gated by level — so they
+      // self-ramp from nominative (L1) all the way to the inessive-plural apex
+      // (L8) without an explicit `activities` array. `order` is the assembly
+      // capstone (reorder the chips of a correct Finnish sentence); `spell` is
+      // the production capstone (type the sourced inflected form). Together they
+      // are "put everything you've learned together", and a genuine grind to top.
+      { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', maxLevel: 8, content: {} },
+      { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -434,20 +461,23 @@ export function renderSkill(
           onExit={onExit}
         />
       );
-    case 'spell':
-      // When the node carries carrier phrases, the spelling apex types the
-      // sourced INFLECTED form (e.g. "laatikoissa") instead of the bare noun.
+    case 'spell': {
+      // The spelling apex types the sourced INFLECTED form (e.g. "laatikoissa")
+      // instead of the bare noun when the node opts in — either with its own
+      // curated `constructionIds` (a deep node's apex) or `inflected: true` (the
+      // generic capstone, which then draws from ALL carrier phrases). Otherwise
+      // it stays a bare-nominative vocabulary speller.
+      const useConstructions = skill.content.inflected || !!skill.content.constructionIds;
       return (
         <SpellWord
           items={items}
           constructions={
-            skill.content.constructionIds
-              ? constructionsFor(skill.content.constructionIds)
-              : undefined
+            useConstructions ? constructionsFor(skill.content.constructionIds) : undefined
           }
           onExit={onExit}
         />
       );
+    }
     case 'sentence':
       return (
         <WordOrder

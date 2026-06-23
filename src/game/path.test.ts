@@ -68,6 +68,29 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
+  it('caps the conjugation node at depth 4 — its four sourced verb-form sets', () => {
+    const { skill } = findSkill('conjugate')!;
+    expect(skill.maxLevel).toBe(4);
+    // No challenge ramp: the kid keyboard has no space key, so multi-word
+    // negatives ("en syö") can't be a typing apex — it stays recognition.
+    expect(activityForLevel(skill, 1)).toBe('conjugate');
+    expect(activityForLevel(skill, 8)).toBe('conjugate');
+  });
+
+  it('makes the "put it together" nodes full-depth cross-cutting capstones', () => {
+    const order = findSkill('order')!.skill;
+    const spell = findSkill('spell')!.skill;
+    // Both ride the full engine depth, tier-gated within one activity (no ramp).
+    expect(order.maxLevel).toBe(8);
+    expect(activityForLevel(order, 1)).toBe('order');
+    expect(activityForLevel(order, 8)).toBe('order');
+    // Spelling is the production capstone: it types sourced inflected forms.
+    expect(spell.maxLevel).toBe(8);
+    expect(spell.content.inflected).toBe(true);
+    expect(activityForLevel(spell, 1)).toBe('spell');
+    expect(activityForLevel(spell, 8)).toBe('spell');
+  });
+
   it('derives the badge env from the path, excluding review', () => {
     expect(badgeEnv.topicCount).toBeGreaterThan(0);
     expect(badgeEnv.activityIds).toContain('this-is');

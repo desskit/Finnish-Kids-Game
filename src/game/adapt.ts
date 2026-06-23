@@ -55,10 +55,12 @@ export interface Difficulty {
  * The shared level → levers table. A data-driven array (not a switch) so
  * extending the engine's depth later is a one-row edit. Levels 1–4 preserve
  * the original curve exactly; 5–8 extend it (deeper tiers, larger counts).
- * `verbCombos` holds at the level-4 set for 5–8 — past-negative isn't sourced
- * for any verb, and the `conjugate` skill caps its own node at depth 4 anyway.
- * Option count stays ≤ 4 (the card grid only styles 3- and 4-up); harder
- * levels add difficulty through tiers, larger counts, and richer verb forms.
+ * `verbCombos` grows one real, sourced tense×polarity set per level through
+ * L4 (present+ → present- → past+ → past-); it then holds at that full set for
+ * 5–8 (those are the only four combos that exist, and the `conjugate` node caps
+ * itself at depth 4 anyway). Option count stays ≤ 4 (the card grid only styles
+ * 3- and 4-up); harder levels add difficulty through tiers, larger counts, and
+ * richer verb forms.
  */
 const LEVEL_SPECS: Difficulty[] = [
   { level: 1, optionCount: 3, maxTier: 2, maxCount: 5, verbCombos: [PRESENT_POSITIVE] },
