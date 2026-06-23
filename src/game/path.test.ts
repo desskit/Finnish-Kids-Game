@@ -112,10 +112,16 @@ describe('learning path', () => {
     expect(findSkill('conjugate')?.skill.maxLevel).toBe(4);
   });
 
-  it('ends with an empty, "coming soon" sentences chapter (plumbed, contentless)', () => {
+  it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');
-    expect(last.comingSoon).toBe(true);
-    expect(last.skills).toHaveLength(0);
+    // Now that templates are authored, the chapter is live (not "coming soon")
+    // and collapses to a SINGLE cross-cutting node, not one node per template.
+    expect(last.comingSoon).toBeFalsy();
+    expect(last.skills).toHaveLength(1);
+    const node = last.skills[0];
+    expect(node.id).toBe('full-sentences');
+    expect(node.activity).toBe('sentence');
+    expect(node.maxLevel).toBe(8);
   });
 });

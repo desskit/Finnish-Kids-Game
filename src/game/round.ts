@@ -466,18 +466,35 @@ interface SlotPick {
   number?: GrammaticalNumber;
 }
 
+/** Narrow a slot's pool to its curated candidate ids, when `pickFrom` is set. */
+function candidates(
+  from: readonly LexicalItem[],
+  pickFrom?: string[],
+): readonly LexicalItem[] {
+  if (!pickFrom || pickFrom.length === 0) return from;
+  const allowed = from.filter((i) => pickFrom.includes(i.id));
+  return allowed.length > 0 ? allowed : from;
+}
+
+interface ResolvedSentence {
+  words: string[];
+  picks: Record<string, SlotPick>;
+}
+
 /**
- * Resolve one template into its ordered surface words, choosing a concrete word
- * per slot and looking up every form. Returns null if any slot can't be filled
- * (so the builder simply tries another template/sample).
+ * Resolve one template into its ordered surface words + the concrete picks
+ * behind them, choosing a word per slot and looking up every form. Returns null
+ * if any slot can't be filled (so the builder simply tries another sample).
  */
-export function resolveSentenceWords(
+function resolveSentenceInternal(
   template: SentenceConstruction,
   pools: SentencePools,
-): string[] | null {
+): ResolvedSentence | null {
   const picks: Record<string, SlotPick> = {};
 
   // 1) Choose a concrete word/pronoun for each slot + its base case/number.
+  //    A slot may pin one word (`fixedId`), swap among a curated set
+  //    (`pickFrom`), or draw from its whole pool.
   for (const slot of template.slots) {
     if (slot.role === 'pronoun') {
       const person = slot.fixedId
@@ -488,12 +505,14 @@ export function resolveSentenceWords(
     } else if (slot.role === 'verb') {
       const item = slot.fixedId
         ? pools.verbs.find((i) => i.id === slot.fixedId)
-        : sample(pools.verbs, 1)[0];
+        : sample(candidates(pools.verbs, slot.pickFrom), 1)[0];
       if (!item) return null;
       picks[slot.id] = { item };
     } else {
       const from = sentencePool(pools, slot.pool ?? 'nouns');
-      const item = slot.fixedId ? from.find((i) => i.id === slot.fixedId) : sample(from, 1)[0];
+      const item = slot.fixedId
+        ? from.find((i) => i.id === slot.fixedId)
+        : sample(candidates(from, slot.pickFrom), 1)[0];
       if (!item) return null;
       picks[slot.id] = {
         item,
@@ -550,7 +569,41 @@ export function resolveSentenceWords(
     const text = 'fixed' in tok ? tok.fixed : surface[tok.slot] ?? '';
     for (const w of text.split(' ').filter(Boolean)) words.push(w);
   }
-  return words.length > 0 ? words : null;
+  return words.length > 0 ? { words, picks } : null;
+}
+
+/** Fill `{slotId}` placeholders in the gloss from each pick's English gloss. */
+function glossFor(template: SentenceConstruction, picks: Record<string, SlotPick>): string {
+  return template.en.replace(/\{(\w+)\}/g, (whole, id: string) => {
+    const pick = picks[id];
+    if (!pick) return whole;
+    return pick.person?.en ?? pick.item?.en ?? whole;
+  });
+}
+
+/**
+ * Resolve one template into its ordered surface words, looking up every form.
+ * Returns null if any slot can't be filled.
+ */
+export function resolveSentenceWords(
+  template: SentenceConstruction,
+  pools: SentencePools,
+): string[] | null {
+  return resolveSentenceInternal(template, pools)?.words ?? null;
+}
+
+/**
+ * Like `resolveSentenceWords`, but also returns the English gloss with any
+ * `{slot}` placeholders filled from the words actually picked — so a swapped
+ * noun updates the hint shown to the child.
+ */
+export function resolveSentence(
+  template: SentenceConstruction,
+  pools: SentencePools,
+): { words: string[]; gloss: string } | null {
+  const resolved = resolveSentenceInternal(template, pools);
+  if (!resolved) return null;
+  return { words: resolved.words, gloss: glossFor(template, resolved.picks) };
 }
 
 export function buildSentenceRound(
@@ -568,8 +621,9 @@ export function buildSentenceRound(
   while (out.length < questionCount && guard++ < questionCount * 8) {
     const template = sample(allowed, 1)[0];
     if (!template) break;
-    const words = resolveSentenceWords(template, pools);
-    if (!words) continue;
+    const resolved = resolveSentence(template, pools);
+    if (!resolved) continue;
+    const { words, gloss } = resolved;
 
     const last = words.length - 1;
     const tokens: WordOrderToken[] = words.map((text, id) => ({
@@ -582,7 +636,7 @@ export function buildSentenceRound(
     }
 
     out.push({
-      hintEn: template.en,
+      hintEn: gloss,
       sentence: words.join(' ') + (template.punct ?? ''),
       tokens,
       shuffled,

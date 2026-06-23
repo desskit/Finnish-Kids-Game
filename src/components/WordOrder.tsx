@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
+import type { Construction, LexicalItem, Tier } from '../content/types';
 import {
   buildWordOrderRound,
   type SentenceQuestion,
@@ -21,9 +21,11 @@ interface Props {
   constructions?: Construction[];
   /**
    * Sentence mode: supply a pre-built round (e.g. multi-slot sentences). When
-   * given, `items`/`constructions` are ignored. Rebuilt on each round restart.
+   * given, `items`/`constructions` are ignored. Receives the level's `maxTier`
+   * so it can tier-gate templates the same way phrase mode gates carrier
+   * phrases. Rebuilt on each round restart (and when the level changes).
    */
-  buildRound?: () => SentenceQuestion[];
+  buildRound?: (maxTier: Tier) => SentenceQuestion[];
   /** Header title (defaults to the carrier-phrase wording). */
   title?: string;
   onExit: () => void;
@@ -45,7 +47,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SentenceQuestion[]>(() => {
-    if (buildRound) return buildRound();
+    if (buildRound) return buildRound(maxTier);
     return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier).map((q) => ({
       hintEn: q.construction.en,
       sentence: q.sentence,

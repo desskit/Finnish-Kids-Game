@@ -347,18 +347,27 @@ const baseChapters: Chapter[] = [
   },
 ];
 
-// Advanced final chapter — its nodes are GENERATED from the sentence registry,
-// which ships empty (see src/content/sentences.ts). Authoring a template there
-// makes a playable node appear here automatically; until then it shows a
-// friendly "coming soon" placeholder on the map.
-const sentenceSkills: SkillNode[] = sentenceConstructions.map((t) => ({
-  id: `sentence-${t.id}`,
-  titleFi: t.en,
-  titleEn: t.en,
-  icon: '📝',
-  activity: 'sentence',
-  content: {},
-}));
+// Advanced final chapter — ONE cross-cutting "build a whole sentence" node (like
+// the chapter-7 capstones), not one node per template: every authored
+// SentenceConstruction is a sample inside this single activity, tier-gated by the
+// node's measured level so harder multi-slot patterns unlock as the child climbs.
+// The registry (src/content/sentences.ts) drives whether the chapter is live: an
+// empty registry keeps the friendly "coming soon" placeholder and no playable node.
+const HAS_SENTENCES = sentenceConstructions.length > 0;
+
+const sentenceSkills: SkillNode[] = HAS_SENTENCES
+  ? [
+      {
+        id: 'full-sentences',
+        titleFi: 'Rakenna lauseita',
+        titleEn: 'Build sentences',
+        icon: '📝',
+        activity: 'sentence',
+        maxLevel: 8,
+        content: {},
+      },
+    ]
+  : [];
 
 const sentencesChapter: Chapter = {
   id: 'sentences',
@@ -366,7 +375,7 @@ const sentencesChapter: Chapter = {
   titleEn: 'Full sentences',
   accent: '#64748b',
   icon: '📝',
-  comingSoon: true,
+  comingSoon: !HAS_SENTENCES,
   skills: sentenceSkills,
 };
 
@@ -482,8 +491,8 @@ export function renderSkill(
       return (
         <WordOrder
           title="Lauseet · Sentences"
-          buildRound={() =>
-            buildSentenceRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS)
+          buildRound={(maxTier) =>
+            buildSentenceRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS, maxTier)
           }
           onExit={onExit}
         />
