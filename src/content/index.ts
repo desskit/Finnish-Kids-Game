@@ -4,6 +4,7 @@ import adjectivesData from './data/adjectives.sourced.json';
 import verbsData from './data/verbs.sourced.json';
 import foodData from './data/food.sourced.json';
 import familyData from './data/family.sourced.json';
+import placesData from './data/places.sourced.json';
 import { nounConstructions } from './constructions';
 import type { Construction, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -93,6 +94,13 @@ export const food = toTheme(foodData as unknown as SourcedFile, nounConstruction
 export const family = toTheme(familyData as unknown as SourcedFile, nounConstructions, {
   countable: true,
 });
+// Place nouns power the locative-case node ("where things are"). They carry the
+// full sourced locative paradigm, so the in/on/into/out-of/onto/off/plural
+// constructions all resolve. Included in `themes` so the words a child meets in
+// that node are reviewable in the cross-topic SRS, like every other noun topic.
+export const places = toTheme(placesData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
 
 // Adjectives are content for the (later) adjective+noun agreement exercises.
 // Exported for use by the round builder, but intentionally NOT added to
@@ -103,7 +111,7 @@ export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
 // out of `themes` — it isn't a noun vocabulary topic, it has its own game.
 export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
 
-export const themes: Theme[] = [animals, numbers, food, family];
+export const themes: Theme[] = [animals, numbers, food, family, places];
 
 // Every vocabulary item the Review activity can quiz, across all topics. These
 // are exactly the items the picture-tap activities record SRS attempts against,

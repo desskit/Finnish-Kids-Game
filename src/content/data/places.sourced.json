@@ -1,0 +1,576 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "places",
+    "fi": "Paikat",
+    "en": "Places",
+    "emoji": "📍"
+  },
+  "words": [
+    {
+      "id": "box",
+      "word": "laatikko",
+      "en": "box",
+      "emoji": "📦",
+      "inflections": {
+        "nominative_singular": "laatikko",
+        "nominative_plural": "laatikot",
+        "genitive_singular": "laatikon",
+        "genitive_plural": "laatikkojen",
+        "partitive_singular": "laatikkoa",
+        "partitive_plural": "laatikkoja",
+        "inessive_singular": "laatikossa",
+        "inessive_plural": "laatikoissa",
+        "elative_singular": "laatikosta",
+        "elative_plural": "laatikoista",
+        "illative_singular": "laatikkoon",
+        "illative_plural": "laatikkoihin",
+        "adessive_singular": "laatikolla",
+        "adessive_plural": "laatikoilla",
+        "ablative_singular": "laatikolta",
+        "ablative_plural": "laatikoilta",
+        "allative_singular": "laatikolle",
+        "allative_plural": "laatikoille",
+        "essive_singular": "laatikkona",
+        "essive_plural": "laatikkoina",
+        "translative_singular": "laatikoksi",
+        "translative_plural": "laatikoiksi",
+        "abessive_singular": "laatikotta",
+        "abessive_plural": "laatikoitta",
+        "instructive_plural": "laatikoin",
+        "comitative_plural": "laatikkoineen"
+      },
+      "kotusType": 4,
+      "group": "o_oe",
+      "frequencyRank": 4326,
+      "examples": [
+        {
+          "fi": "Mitä laatikossa oli?",
+          "en": "What was inside the box?"
+        },
+        {
+          "fi": "No, mitä laatikossa on?",
+          "en": "Well, what's in the box?"
+        }
+      ]
+    },
+    {
+      "id": "table",
+      "word": "pöytä",
+      "en": "table",
+      "emoji": "🍽️",
+      "inflections": {
+        "nominative_singular": "pöytä",
+        "nominative_plural": "pöydät",
+        "genitive_singular": "pöydän",
+        "genitive_plural": "pöytien",
+        "partitive_singular": "pöytää",
+        "partitive_plural": "pöytiä",
+        "inessive_singular": "pöydässä",
+        "inessive_plural": "pöydissä",
+        "elative_singular": "pöydästä",
+        "elative_plural": "pöydistä",
+        "illative_singular": "pöytään",
+        "illative_plural": "pöytiin",
+        "adessive_singular": "pöydällä",
+        "adessive_plural": "pöydillä",
+        "ablative_singular": "pöydältä",
+        "ablative_plural": "pöydiltä",
+        "allative_singular": "pöydälle",
+        "allative_plural": "pöydille",
+        "essive_singular": "pöytänä",
+        "essive_plural": "pöytinä",
+        "translative_singular": "pöydäksi",
+        "translative_plural": "pöydiksi",
+        "abessive_singular": "pöydättä",
+        "abessive_plural": "pöydittä",
+        "instructive_plural": "pöydin",
+        "comitative_plural": "pöytineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3030,
+      "examples": [
+        {
+          "fi": "Pötyä pöytään!",
+          "en": "Food onto the table!"
+        },
+        {
+          "fi": "Pöydässä on runsaasti tuoreita kananmunia.",
+          "en": "There are plenty of fresh eggs on the table."
+        }
+      ]
+    },
+    {
+      "id": "house",
+      "word": "talo",
+      "en": "house",
+      "emoji": "🏠",
+      "inflections": {
+        "nominative_singular": "talo",
+        "nominative_plural": "talot",
+        "genitive_singular": "talon",
+        "genitive_plural": "talojen",
+        "partitive_singular": "taloa",
+        "partitive_plural": "taloja",
+        "inessive_singular": "talossa",
+        "inessive_plural": "taloissa",
+        "elative_singular": "talosta",
+        "elative_plural": "taloista",
+        "illative_singular": "taloon",
+        "illative_plural": "taloihin",
+        "adessive_singular": "talolla",
+        "adessive_plural": "taloilla",
+        "ablative_singular": "talolta",
+        "ablative_plural": "taloilta",
+        "allative_singular": "talolle",
+        "allative_plural": "taloille",
+        "essive_singular": "talona",
+        "essive_plural": "taloina",
+        "translative_singular": "taloksi",
+        "translative_plural": "taloiksi",
+        "abessive_singular": "talotta",
+        "abessive_plural": "taloitta",
+        "instructive_plural": "taloin",
+        "comitative_plural": "taloineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 896,
+      "examples": [
+        {
+          "fi": "lihatalo",
+          "en": "meat company"
+        },
+        {
+          "fi": "Teen talojen korjauksia.",
+          "en": "I'm making house repairs."
+        }
+      ]
+    },
+    {
+      "id": "room",
+      "word": "huone",
+      "en": "room",
+      "emoji": "🚪",
+      "inflections": {
+        "nominative_singular": "huone",
+        "nominative_plural": "huoneet",
+        "genitive_singular": "huoneen",
+        "genitive_plural": "huoneiden",
+        "partitive_singular": "huonetta",
+        "partitive_plural": "huoneita",
+        "inessive_singular": "huoneessa",
+        "inessive_plural": "huoneissa",
+        "elative_singular": "huoneesta",
+        "elative_plural": "huoneista",
+        "illative_singular": "huoneeseen",
+        "illative_plural": "huoneisiin",
+        "adessive_singular": "huoneella",
+        "adessive_plural": "huoneilla",
+        "ablative_singular": "huoneelta",
+        "ablative_plural": "huoneilta",
+        "allative_singular": "huoneelle",
+        "allative_plural": "huoneille",
+        "essive_singular": "huoneena",
+        "essive_plural": "huoneina",
+        "translative_singular": "huoneeksi",
+        "translative_plural": "huoneiksi",
+        "abessive_singular": "huoneetta",
+        "abessive_plural": "huoneitta",
+        "instructive_plural": "huonein",
+        "comitative_plural": "huoneineen"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 1420,
+      "examples": [
+        {
+          "fi": "Tom käveli huoneeseen.",
+          "en": "Tom walked into the room."
+        },
+        {
+          "fi": "Jätin avaimen huoneeseen.",
+          "en": "I left the key in the room."
+        }
+      ]
+    },
+    {
+      "id": "car",
+      "word": "auto",
+      "en": "car",
+      "emoji": "🚗",
+      "inflections": {
+        "nominative_singular": "auto",
+        "nominative_plural": "autot",
+        "genitive_singular": "auton",
+        "genitive_plural": "autojen",
+        "partitive_singular": "autoa",
+        "partitive_plural": "autoja",
+        "inessive_singular": "autossa",
+        "inessive_plural": "autoissa",
+        "elative_singular": "autosta",
+        "elative_plural": "autoista",
+        "illative_singular": "autoon",
+        "illative_plural": "autoihin",
+        "adessive_singular": "autolla",
+        "adessive_plural": "autoilla",
+        "ablative_singular": "autolta",
+        "ablative_plural": "autoilta",
+        "allative_singular": "autolle",
+        "allative_plural": "autoille",
+        "essive_singular": "autona",
+        "essive_plural": "autoina",
+        "translative_singular": "autoksi",
+        "translative_plural": "autoiksi",
+        "abessive_singular": "autotta",
+        "abessive_plural": "autoitta",
+        "instructive_plural": "autoin",
+        "comitative_plural": "autoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 526,
+      "examples": [
+        {
+          "fi": "Veljeni tykkää autoista.",
+          "en": "My brother likes cars."
+        },
+        {
+          "fi": "Tom tietää kaiken autoista.",
+          "en": "Tom knows everything about cars."
+        }
+      ]
+    },
+    {
+      "id": "bed",
+      "word": "sänky",
+      "en": "bed",
+      "emoji": "🛏️",
+      "inflections": {
+        "nominative_singular": "sänky",
+        "nominative_plural": "sängyt",
+        "genitive_singular": "sängyn",
+        "genitive_plural": "sänkyjen",
+        "partitive_singular": "sänkyä",
+        "partitive_plural": "sänkyjä",
+        "inessive_singular": "sängyssä",
+        "inessive_plural": "sängyissä",
+        "elative_singular": "sängystä",
+        "elative_plural": "sängyistä",
+        "illative_singular": "sänkyyn",
+        "illative_plural": "sänkyihin",
+        "adessive_singular": "sängyllä",
+        "adessive_plural": "sängyillä",
+        "ablative_singular": "sängyltä",
+        "ablative_plural": "sängyiltä",
+        "allative_singular": "sängylle",
+        "allative_plural": "sängyille",
+        "essive_singular": "sänkynä",
+        "essive_plural": "sänkyinä",
+        "translative_singular": "sängyksi",
+        "translative_plural": "sängyiksi",
+        "abessive_singular": "sängyttä",
+        "abessive_plural": "sängyittä",
+        "instructive_plural": "sängyin",
+        "comitative_plural": "sänkyineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 1927,
+      "examples": [
+        {
+          "fi": "Tom on sängyssä.",
+          "en": "Tom is in bed."
+        },
+        {
+          "fi": "Tom makaa sängyssä.",
+          "en": "Tom is lying in bed."
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "word": "tuoli",
+      "en": "chair",
+      "emoji": "🪑",
+      "inflections": {
+        "nominative_singular": "tuoli",
+        "nominative_plural": "tuolit",
+        "genitive_singular": "tuolin",
+        "genitive_plural": "tuolien",
+        "partitive_singular": "tuolia",
+        "partitive_plural": "tuoleja",
+        "inessive_singular": "tuolissa",
+        "inessive_plural": "tuoleissa",
+        "elative_singular": "tuolista",
+        "elative_plural": "tuoleista",
+        "illative_singular": "tuoliin",
+        "illative_plural": "tuoleihin",
+        "adessive_singular": "tuolilla",
+        "adessive_plural": "tuoleilla",
+        "ablative_singular": "tuolilta",
+        "ablative_plural": "tuoleilta",
+        "allative_singular": "tuolille",
+        "allative_plural": "tuoleille",
+        "essive_singular": "tuolina",
+        "essive_plural": "tuoleina",
+        "translative_singular": "tuoliksi",
+        "translative_plural": "tuoleiksi",
+        "abessive_singular": "tuolitta",
+        "abessive_plural": "tuoleitta",
+        "instructive_plural": "tuolein",
+        "comitative_plural": "tuoleineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 6562,
+      "examples": [
+        {
+          "fi": "Koira on tuolilla.",
+          "en": "The dog is on the chair."
+        },
+        {
+          "fi": "Tuolilla istui kissa.",
+          "en": "A cat was sitting on the chair."
+        }
+      ]
+    },
+    {
+      "id": "school",
+      "word": "koulu",
+      "en": "school",
+      "emoji": "🏫",
+      "inflections": {
+        "nominative_singular": "koulu",
+        "nominative_plural": "koulut",
+        "genitive_singular": "koulun",
+        "genitive_plural": "koulujen",
+        "partitive_singular": "koulua",
+        "partitive_plural": "kouluja",
+        "inessive_singular": "koulussa",
+        "inessive_plural": "kouluissa",
+        "elative_singular": "koulusta",
+        "elative_plural": "kouluista",
+        "illative_singular": "kouluun",
+        "illative_plural": "kouluihin",
+        "adessive_singular": "koululla",
+        "adessive_plural": "kouluilla",
+        "ablative_singular": "koululta",
+        "ablative_plural": "kouluilta",
+        "allative_singular": "koululle",
+        "allative_plural": "kouluille",
+        "essive_singular": "kouluna",
+        "essive_plural": "kouluina",
+        "translative_singular": "kouluksi",
+        "translative_plural": "kouluiksi",
+        "abessive_singular": "koulutta",
+        "abessive_plural": "kouluitta",
+        "instructive_plural": "kouluin",
+        "comitative_plural": "kouluineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 1395,
+      "examples": [
+        {
+          "fi": "Tom on koulussa.",
+          "en": "Tom is at school."
+        },
+        {
+          "fi": "Onko Tom koulussa?",
+          "en": "Is Tom at school?"
+        }
+      ]
+    },
+    {
+      "id": "tree",
+      "word": "puu",
+      "en": "tree",
+      "emoji": "🌳",
+      "inflections": {
+        "nominative_singular": "puu",
+        "nominative_plural": "puut",
+        "genitive_singular": "puun",
+        "genitive_plural": "puiden",
+        "partitive_singular": "puuta",
+        "partitive_plural": "puita",
+        "inessive_singular": "puussa",
+        "inessive_plural": "puissa",
+        "elative_singular": "puusta",
+        "elative_plural": "puista",
+        "illative_singular": "puuhun",
+        "illative_plural": "puihin",
+        "adessive_singular": "puulla",
+        "adessive_plural": "puilla",
+        "ablative_singular": "puulta",
+        "ablative_plural": "puilta",
+        "allative_singular": "puulle",
+        "allative_plural": "puille",
+        "essive_singular": "puuna",
+        "essive_plural": "puina",
+        "translative_singular": "puuksi",
+        "translative_plural": "puiksi",
+        "abessive_singular": "puutta",
+        "abessive_plural": "puitta",
+        "instructive_plural": "puin",
+        "comitative_plural": "puineen"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 4502,
+      "examples": [
+        {
+          "fi": "kasvava puu",
+          "en": "growing tree"
+        },
+        {
+          "fi": "puu materiaalina",
+          "en": "wood as a material"
+        }
+      ]
+    },
+    {
+      "id": "forest",
+      "word": "metsä",
+      "en": "forest",
+      "emoji": "🌲",
+      "inflections": {
+        "nominative_singular": "metsä",
+        "nominative_plural": "metsät",
+        "genitive_singular": "metsän",
+        "genitive_plural": "metsien",
+        "partitive_singular": "metsää",
+        "partitive_plural": "metsiä",
+        "inessive_singular": "metsässä",
+        "inessive_plural": "metsissä",
+        "elative_singular": "metsästä",
+        "elative_plural": "metsistä",
+        "illative_singular": "metsään",
+        "illative_plural": "metsiin",
+        "adessive_singular": "metsällä",
+        "adessive_plural": "metsillä",
+        "ablative_singular": "metsältä",
+        "ablative_plural": "metsiltä",
+        "allative_singular": "metsälle",
+        "allative_plural": "metsille",
+        "essive_singular": "metsänä",
+        "essive_plural": "metsinä",
+        "translative_singular": "metsäksi",
+        "translative_plural": "metsiksi",
+        "abessive_singular": "metsättä",
+        "abessive_plural": "metsittä",
+        "instructive_plural": "metsin",
+        "comitative_plural": "metsineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3093,
+      "examples": [
+        {
+          "fi": "Yli puolet Suomen maapinta-alasta on metsää.",
+          "en": "Forests cover more than half of Finland's land area."
+        },
+        {
+          "fi": "Käytkö koskaan metsällä?",
+          "en": "Do you ever go hunting?"
+        }
+      ]
+    },
+    {
+      "id": "basket",
+      "word": "kori",
+      "en": "basket",
+      "emoji": "🧺",
+      "inflections": {
+        "nominative_singular": "kori",
+        "nominative_plural": "korit",
+        "genitive_singular": "korin",
+        "genitive_plural": "korien",
+        "partitive_singular": "koria",
+        "partitive_plural": "koreja",
+        "inessive_singular": "korissa",
+        "inessive_plural": "koreissa",
+        "elative_singular": "korista",
+        "elative_plural": "koreista",
+        "illative_singular": "koriin",
+        "illative_plural": "koreihin",
+        "adessive_singular": "korilla",
+        "adessive_plural": "koreilla",
+        "ablative_singular": "korilta",
+        "ablative_plural": "koreilta",
+        "allative_singular": "korille",
+        "allative_plural": "koreille",
+        "essive_singular": "korina",
+        "essive_plural": "koreina",
+        "translative_singular": "koriksi",
+        "translative_plural": "koreiksi",
+        "abessive_singular": "koritta",
+        "abessive_plural": "koreitta",
+        "instructive_plural": "korein",
+        "comitative_plural": "koreineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 18444,
+      "examples": [
+        {
+          "fi": "korityö",
+          "en": "wickerwork"
+        },
+        {
+          "fi": "Korissa on joitakin omenoita.",
+          "en": "There are some apples in the basket."
+        }
+      ]
+    },
+    {
+      "id": "bag",
+      "word": "laukku",
+      "en": "bag",
+      "emoji": "👜",
+      "inflections": {
+        "nominative_singular": "laukku",
+        "nominative_plural": "laukut",
+        "genitive_singular": "laukun",
+        "genitive_plural": "laukkujen",
+        "partitive_singular": "laukkua",
+        "partitive_plural": "laukkuja",
+        "inessive_singular": "laukussa",
+        "inessive_plural": "laukuissa",
+        "elative_singular": "laukusta",
+        "elative_plural": "laukuista",
+        "illative_singular": "laukkuun",
+        "illative_plural": "laukkuihin",
+        "adessive_singular": "laukulla",
+        "adessive_plural": "laukuilla",
+        "ablative_singular": "laukulta",
+        "ablative_plural": "laukuilta",
+        "allative_singular": "laukulle",
+        "allative_plural": "laukuille",
+        "essive_singular": "laukkuna",
+        "essive_plural": "laukkuina",
+        "translative_singular": "laukuksi",
+        "translative_plural": "laukuiksi",
+        "abessive_singular": "laukutta",
+        "abessive_plural": "laukuitta",
+        "instructive_plural": "laukuin",
+        "comitative_plural": "laukkuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 4882,
+      "examples": [
+        {
+          "fi": "Se on Ginan laukku.",
+          "en": "It's Gina's bag."
+        },
+        {
+          "fi": "Mikä painava laukku!",
+          "en": "What a heavy bag!"
+        }
+      ]
+    }
+  ]
+}

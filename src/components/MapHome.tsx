@@ -83,6 +83,8 @@ export default function MapHome() {
                   const best = prog?.bestStars ?? 0;
                   const plays = prog?.plays ?? 0;
                   const lvl = prog?.level ?? 1;
+                  const maxLevel = skill.maxLevel ?? 4;
+                  const mastered = lvl >= maxLevel;
                   const isNext = skill.id === nextId;
                   const ringPct = Math.min(100, Math.round((best / ROUND_QUESTIONS) * 100));
                   const meta =
@@ -119,7 +121,11 @@ export default function MapHome() {
                         <span className="map-node__title">
                           {skill.titleFi} <span className="en">{skill.titleEn}</span>
                         </span>
-                        {lvl > 1 && <span className="map-node__level">Taso {lvl}</span>}
+                        {skill.activity !== 'review' && (lvl > 1 || maxLevel > 4) && (
+                          <span className="map-node__level">
+                            {mastered ? `👑 Taso ${lvl}/${maxLevel}` : `Taso ${lvl}/${maxLevel}`}
+                          </span>
+                        )}
                         {meta && <span className="map-node__meta">{meta}</span>}
                       </span>
                     </Link>

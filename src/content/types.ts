@@ -6,7 +6,7 @@
 // generates or inflects Finnish by rule. Carrier phrases below are
 // human-authored; only the slot form is filled from the tagged data.
 
-export type Tier = 1 | 2 | 3 | 4;
+export type Tier = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type GrammaticalNumber = 'singular' | 'plural';
 
@@ -258,14 +258,27 @@ export interface SentenceSlot {
   agreesWith?: string;
   /** Draw the word from this pool. */
   pool?: 'nouns' | 'verbs' | 'adjectives' | 'numbers' | 'pronouns';
-  /** Or pin a specific word/pronoun by id (overrides `pool`). */
+  /**
+   * Curated candidate ids this slot may swap among — a subset of `pool`,
+   * chosen so every option is grammatically AND semantically sensible (e.g. the
+   * object of "eat" only varies over foods). The form for whichever word is
+   * picked is still looked up from the sourced tables, so the grammar is correct
+   * for the whole set. `fixedId` (one pinned word) still takes precedence.
+   */
+  pickFrom?: string[];
+  /** Or pin a specific word/pronoun by id (overrides `pool`/`pickFrom`). */
   fixedId?: string;
 }
 
 /** A full sentence with two or more inflected slots. */
 export interface SentenceConstruction {
   id: string;
-  /** English gloss of the whole sentence, e.g. "I give the dog a bone." */
+  /**
+   * English gloss of the whole sentence, e.g. "I give the dog a bone." May
+   * contain `{slotId}` placeholders, substituted with the picked word's English
+   * gloss so the hint tracks a swapped noun (e.g. "I see the big {obj}" →
+   * "I see the big bear" when `obj` resolves to the bear).
+   */
   en: string;
   tier: Tier;
   /** Ordered tokens: a fixed word, or a reference to one of `slots` by id. */

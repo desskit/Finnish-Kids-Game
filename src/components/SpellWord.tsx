@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { LexicalItem } from '../content/types';
-import { buildSpellingRound } from '../game/round';
+import type { Construction, LexicalItem } from '../content/types';
+import { buildSpellingRound, buildSpellingPhraseRound } from '../game/round';
 import { useProfile } from '../state/profile';
+import { useActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -17,20 +19,59 @@ const KEY_ROWS = [
 
 interface Props {
   items: LexicalItem[];
+  /**
+   * Grammar apex: when carrier phrases are given, the child types the INFLECTED
+   * slot form (e.g. "laatikoissa"), shown with the phrase's English gloss,
+   * instead of the bare nominative. Forms are sourced via formFor — never
+   * generated. The tier gate comes from the adaptive difficulty (ActivityContext).
+   */
+  constructions?: Construction[];
   onExit: () => void;
 }
 
-// Spelling (Tier 4): see/hear a word, type it with an on-screen keyboard
-// (including ä/ö, so it works the same on any device). The target is always
-// item.fi — the sourced nominative singular — never generated.
-export default function SpellWord({ items, onExit }: Props) {
+/** One spelling prompt, normalized across bare-word and inflected-phrase modes. */
+interface SpellTarget {
+  /** SRS id (the item). */
+  id: string;
+  /** The Finnish string to type + hear (bare noun, or the inflected slot form). */
+  text: string;
+  emoji?: string;
+  /** English hint: the word, or the carrier-phrase gloss ("The cat is on the ___."). */
+  gloss: string;
+}
+
+// Spelling: see/hear a Finnish word, type it with an on-screen keyboard
+// (including ä/ö, so it works the same on any device). By default the target is
+// item.fi — the sourced nominative singular. As the grammar apex of a deeper
+// node's ramp, passing `constructions` makes the child type the sourced
+// INFLECTED form instead (e.g. "pöydällä"). Either way the target is looked up,
+// never generated.
+export default function SpellWord({ items, constructions, onExit }: Props) {
   const { addStars, recordAttempt } = useProfile();
+  const ctx = useActivityContext();
+  const { maxTier } = ctx?.difficulty ?? difficultyFor(1);
 
   // A wrong guess on the current word means it wasn't a first-try success.
   const missed = useRef(false);
 
   const [runId, setRunId] = useState(0);
-  const round = useMemo(() => buildSpellingRound(items, QUESTIONS), [items, runId]);
+  const round = useMemo<SpellTarget[]>(() => {
+    if (constructions && constructions.length > 0) {
+      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier).map((q) => ({
+        id: q.item.id,
+        text: q.target,
+        emoji: q.item.emoji,
+        gloss: q.construction.en,
+      }));
+    }
+    return buildSpellingRound(items, QUESTIONS).map((it) => ({
+      id: it.id,
+      text: it.fi,
+      emoji: it.emoji,
+      gloss: it.en,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, constructions, maxTier, runId]);
 
   const [index, setIndex] = useState(0);
   const [stars, setStars] = useState(0);
@@ -40,23 +81,23 @@ export default function SpellWord({ items, onExit }: Props) {
   const [done, setDone] = useState(false);
 
   const target = round[index];
-  const correct = !!target && input.toLowerCase() === target.fi.toLowerCase();
+  const correct = !!target && input.toLowerCase() === target.text.toLowerCase();
 
   // Say the target word when a new question appears.
   useEffect(() => {
     if (!target || done) return;
-    const t = setTimeout(() => speak(target.fi), 400);
+    const t = setTimeout(() => speak(target.text), 400);
     return () => clearTimeout(t);
   }, [target, done]);
 
   const checkIfComplete = useCallback(
     (value: string) => {
       if (!target || locked) return;
-      if (value.length < target.fi.length) return;
-      if (value.toLowerCase() === target.fi.toLowerCase()) {
+      if (value.length < target.text.length) return;
+      if (value.toLowerCase() === target.text.toLowerCase()) {
         setLocked(true);
         playDing(true);
-        speak(target.fi);
+        speak(target.text);
         setStars((s) => s + 1);
         addStars(1);
         recordAttempt(target.id, !missed.current);
@@ -100,7 +141,7 @@ export default function SpellWord({ items, onExit }: Props) {
       if (!target || done) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        speak(target.fi);
+        speak(target.text);
         return;
       }
       if (e.key === 'Backspace') {
@@ -144,10 +185,10 @@ export default function SpellWord({ items, onExit }: Props) {
         <span className="phrase-emoji" aria-hidden="true">
           {target.emoji}
         </span>
-        <p className="en phrase-hint">{target.en}</p>
+        <p className="en phrase-hint">{target.gloss}</p>
         <button
           className="speaker speaker--inline"
-          onClick={() => speak(target.fi)}
+          onClick={() => speak(target.text)}
           aria-label="Hear the word again"
         >
           🔊 <span className="en">Listen</span>
@@ -155,7 +196,7 @@ export default function SpellWord({ items, onExit }: Props) {
       </div>
 
       <div className={'spell-input' + (shake ? ' spell-input--wrong' : '') + (correct ? ' spell-input--correct' : '')}>
-        {input || ' '}
+        {input || ' '}
       </div>
 
       <div className="kid-keyboard">

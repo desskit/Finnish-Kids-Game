@@ -58,8 +58,11 @@ describe('journey path + progression UI', () => {
     // Difficulty is always adaptive now — no Easy/Hard chips for kids to tap.
     expect(screen.queryByText('Auto')).not.toBeInTheDocument();
     expect(document.querySelector('.badge-strip')).not.toBeNull();
-    // The advanced chapter shows a "coming soon" placeholder while empty.
-    expect(screen.getByText(/More coming soon/i)).toBeInTheDocument();
+    // The advanced chapter is now live: its capstone node renders, not a
+    // "coming soon" placeholder.
+    expect(screen.getByText('Full sentences')).toBeInTheDocument();
+    expect(screen.getByText('Build sentences')).toBeInTheDocument();
+    expect(screen.queryByText(/More coming soon/i)).not.toBeInTheDocument();
   });
 
   it('shows a level pip on a node once a level is reached', () => {
@@ -69,7 +72,8 @@ describe('journey path + progression UI', () => {
       },
     });
     renderAt('/');
-    expect(screen.getByText('Taso 2')).toBeInTheDocument();
+    // Node depth shows as "level / maxLevel"; this-is is a depth-4 node.
+    expect(screen.getByText('Taso 2/4')).toBeInTheDocument();
   });
 
   it('renders the parent dashboard with difficulty mode and per-skill level', () => {
@@ -87,6 +91,6 @@ describe('journey path + progression UI', () => {
     );
     expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
     expect(screen.getByText(/This is a/)).toBeInTheDocument();
-    expect(screen.getByText('Lv 2')).toBeInTheDocument();
+    expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
   });
 });

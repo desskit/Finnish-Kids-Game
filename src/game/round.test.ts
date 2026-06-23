@@ -169,6 +169,24 @@ describe('buildConjugationRound', () => {
     }
     expect(produced).toBeGreaterThan(0);
   });
+
+  it('builds past-negative rounds now that the form is sourced (the L4 rung)', () => {
+    const combo = [{ tense: 'past', polarity: 'negative' }] as const;
+    let produced = 0;
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildConjugationRound(verbs.items, 6, 3, [...combo]);
+      for (const q of round) {
+        produced++;
+        expect(q.tense).toBe('past');
+        expect(q.polarity).toBe('negative');
+        // Negative forms are multi-word ("en syönyt") — confirm a real clause.
+        expect(q.clause).toBe(`${q.pronoun} ${q.answer}`);
+        expect(q.answer).toContain(' ');
+      }
+    }
+    // The whole point of the chapter-6 build: this rung is no longer empty.
+    expect(produced).toBeGreaterThan(0);
+  });
 });
 
 describe('tier gating never empties a curated construction set', () => {

@@ -41,26 +41,27 @@ function SkillRoute() {
   const { chapter, skill } = found;
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
-  const element = renderSkill(skill, () => navigate('/'));
+  const difficulty = activityDifficulty(chapter.id, skill.id);
+  const element = renderSkill(skill, difficulty.level, () => navigate('/'));
   if (!element) return <Navigate to="/" replace />;
 
   const onRoundComplete = (stars: number, total: number): RoundOutcome => {
     const before = activeChild;
-    const after = recordRoundOnChild(before, chapter.id, skill.id, stars, total);
+    // This node's own ladder depth caps the adaptive climb (default 4).
+    const maxLevel = skill.maxLevel ?? 4;
+    const after = recordRoundOnChild(before, chapter.id, skill.id, stars, total, maxLevel);
     const leveledUp =
       before.adaptive !== false &&
       activityLevel(after, chapter.id, skill.id) > activityLevel(before, chapter.id, skill.id);
     const had = earnedBadgeIds(before, BADGE_ENV);
     const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
-    recordRound(chapter.id, skill.id, stars, total);
+    recordRound(chapter.id, skill.id, stars, total, maxLevel);
     return { leveledUp, level: activityLevel(after, chapter.id, skill.id), newBadges };
   };
 
   return (
     <main className="app">
-      <ActivityContext.Provider
-        value={{ onRoundComplete, difficulty: activityDifficulty(chapter.id, skill.id) }}
-      >
+      <ActivityContext.Provider value={{ onRoundComplete, difficulty }}>
         {element}
       </ActivityContext.Provider>
     </main>

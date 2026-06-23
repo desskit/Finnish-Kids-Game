@@ -4,7 +4,12 @@ import type { ItemSchedule } from './srs';
 import { BADGES, earnedBadgeIds } from './badges';
 import { MAX_BOX } from './srs';
 
-const ENV = { topicCount: 2, activityIds: ['listen', 'build'] };
+const ENV = {
+  topicCount: 2,
+  activityIds: ['listen', 'build'],
+  // `listen`/`build` are depth-4 nodes; `locatives` is a deep depth-8 node.
+  skillMaxLevels: { listen: 4, build: 4, locatives: 8 },
+};
 
 function child(patch: Partial<Child> = {}): Child {
   return {
@@ -68,11 +73,19 @@ describe('earnedBadgeIds', () => {
     expect(earnedBadgeIds(child({ srs: sharp }), ENV).has('sharp')).toBe(true);
   });
 
-  it('awards level-up when any activity reaches the top level', () => {
+  it("awards level-up when any node reaches its OWN ceiling", () => {
     const c = child({
-      progress: { animals: { listen: progress({ plays: 3, level: 3 }) } },
+      progress: { animals: { listen: progress({ plays: 3, level: 4 }) } },
     });
     expect(earnedBadgeIds(c, ENV).has('level-up')).toBe(true);
+  });
+
+  it('does not award level-up for a deep node still below its ceiling', () => {
+    // locatives caps at 8; level 4 is mid-climb, not mastered.
+    const c = child({
+      progress: { where: { locatives: progress({ plays: 3, level: 4 }) } },
+    });
+    expect(earnedBadgeIds(c, ENV).has('level-up')).toBe(false);
   });
 
   it('awards explorer for playing every topic and all-games for every game', () => {

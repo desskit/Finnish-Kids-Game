@@ -14,19 +14,22 @@
 //   - verbCombos   : which verb tense/polarity sets Conjugate the Verb may draw
 //                    (present positive → + negative → + past), all from sourced
 //                    data — never generated.
+//
+// The engine's ladder goes up to MAX_LEVEL, but most skill nodes cap below it
+// (`SkillNode.maxLevel`, see path.tsx) — depth is per-node, sized to how much
+// real Finnish grammar that node's subject supports. Promotion also STEEPENS
+// with level (see `promoteThreshold`/`minRoundsToPromote`): early levels climb
+// fast, the top levels demand a longer, more accurate streak — a genuine grind.
 
 import type { Polarity, Tier, VerbTense } from '../content/types';
 
 export const MIN_LEVEL = 1;
-export const MAX_LEVEL = 3;
 
-/** Promote once the recent window averages at/above this first-pass accuracy. */
-export const PROMOTE_AT = 0.85;
-/** Demote once the recent window averages at/below this. */
+/** Demote once the recent window averages at/below this, at any level. */
 export const DEMOTE_BELOW = 0.5;
 /** Rounds kept in the rolling window that drives promotion/demotion. */
-export const RECENT_WINDOW = 5;
-/** Need at least this many rounds at a level before it can change (stability). */
+export const RECENT_WINDOW = 8;
+/** Need at least this many rounds at a level before DEMOTION can fire (stability). */
 export const MIN_ROUNDS = 2;
 
 export interface VerbCombo {
@@ -37,6 +40,7 @@ export interface VerbCombo {
 const PRESENT_POSITIVE: VerbCombo = { tense: 'present', polarity: 'positive' };
 const PRESENT_NEGATIVE: VerbCombo = { tense: 'present', polarity: 'negative' };
 const PAST_POSITIVE: VerbCombo = { tense: 'past', polarity: 'positive' };
+const PAST_NEGATIVE: VerbCombo = { tense: 'past', polarity: 'negative' };
 
 /** The concrete difficulty knobs a level expands into. */
 export interface Difficulty {
@@ -47,9 +51,76 @@ export interface Difficulty {
   verbCombos: VerbCombo[];
 }
 
-function clampLevel(level: number): number {
+/**
+ * The shared level → levers table. A data-driven array (not a switch) so
+ * extending the engine's depth later is a one-row edit. Levels 1–4 preserve
+ * the original curve exactly; 5–8 extend it (deeper tiers, larger counts).
+ * `verbCombos` grows one real, sourced tense×polarity set per level through
+ * L4 (present+ → present- → past+ → past-); it then holds at that full set for
+ * 5–8 (those are the only four combos that exist, and the `conjugate` node caps
+ * itself at depth 4 anyway). Option count stays ≤ 4 (the card grid only styles
+ * 3- and 4-up); harder levels add difficulty through tiers, larger counts, and
+ * richer verb forms.
+ */
+const LEVEL_SPECS: Difficulty[] = [
+  { level: 1, optionCount: 3, maxTier: 2, maxCount: 5, verbCombos: [PRESENT_POSITIVE] },
+  {
+    level: 2,
+    optionCount: 4,
+    maxTier: 3,
+    maxCount: 8,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE],
+  },
+  {
+    level: 3,
+    optionCount: 4,
+    maxTier: 3,
+    maxCount: 10,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE],
+  },
+  {
+    level: 4,
+    optionCount: 4,
+    maxTier: 4,
+    maxCount: 12,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+  },
+  {
+    level: 5,
+    optionCount: 4,
+    maxTier: 5,
+    maxCount: 14,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+  },
+  {
+    level: 6,
+    optionCount: 4,
+    maxTier: 6,
+    maxCount: 16,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+  },
+  {
+    level: 7,
+    optionCount: 4,
+    maxTier: 7,
+    maxCount: 18,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+  },
+  {
+    level: 8,
+    optionCount: 4,
+    maxTier: 8,
+    maxCount: 20,
+    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+  },
+];
+
+/** The engine's absolute ceiling — the level-table size. Node depth (`maxLevel`) is ≤ this. */
+export const MAX_LEVEL = LEVEL_SPECS.length;
+
+function clampLevel(level: number, cap: number = MAX_LEVEL): number {
   if (!Number.isFinite(level)) return MIN_LEVEL;
-  return Math.max(MIN_LEVEL, Math.min(MAX_LEVEL, Math.round(level)));
+  return Math.max(MIN_LEVEL, Math.min(cap, Math.round(level)));
 }
 
 function clamp01(n: number): number {
@@ -57,38 +128,26 @@ function clamp01(n: number): number {
   return Math.max(0, Math.min(1, n));
 }
 
-/**
- * Expand a difficulty level into the levers the activities + round builders use.
- * Option count stays ≤ 4 (the card grid only styles 3- and 4-up); harder levels
- * add difficulty through tiers, larger counts, and richer verb forms instead.
- */
+/** Expand a difficulty level into the levers the activities + round builders use. */
 export function difficultyFor(level: number): Difficulty {
-  switch (clampLevel(level)) {
-    case 1:
-      return {
-        level: 1,
-        optionCount: 3,
-        maxTier: 2,
-        maxCount: 5,
-        verbCombos: [PRESENT_POSITIVE],
-      };
-    case 2:
-      return {
-        level: 2,
-        optionCount: 4,
-        maxTier: 3,
-        maxCount: 8,
-        verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE],
-      };
-    default:
-      return {
-        level: 3,
-        optionCount: 4,
-        maxTier: 3,
-        maxCount: 10,
-        verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE],
-      };
-  }
+  return LEVEL_SPECS[clampLevel(level) - 1];
+}
+
+/**
+ * Promotion threshold steepens with level: 0.85 at L1, +0.02/level, capped at
+ * 0.95 — a grind at the top, fast climbing early.
+ */
+export function promoteThreshold(level: number): number {
+  return Math.min(0.85 + 0.02 * (clampLevel(level) - 1), 0.95);
+}
+
+/**
+ * Rounds required (at this level) before promotion can fire: 2 at L1–2,
+ * stepping up to 5 by the top levels — sustaining accuracy over more rounds
+ * is what makes the climb a genuine grind near the ceiling.
+ */
+export function minRoundsToPromote(level: number): number {
+  return Math.min(2 + Math.floor((clampLevel(level) - 1) / 2), 5);
 }
 
 export interface AdaptOutcome {
@@ -102,18 +161,30 @@ export interface AdaptOutcome {
  * Fold one finished round's accuracy (stars / total, 0..1) into the adaptive
  * state and return the next level + window. A level change clears the window so
  * the child must re-prove themselves at the new level before moving again — this
- * hysteresis stops oscillation around a threshold.
+ * hysteresis stops oscillation around a threshold. `maxLevel` is the node's own
+ * ladder depth (see `SkillNode.maxLevel`) — a node never climbs past it, even
+ * though the engine's shared level table (and `recent` window sizing) goes to
+ * `MAX_LEVEL`. Demotion is a fast, level-independent safety net; promotion
+ * steepens with level (see `promoteThreshold`/`minRoundsToPromote`).
  */
-export function applyRound(level: number, recent: number[], accuracy: number): AdaptOutcome {
-  const lvl = clampLevel(level);
+export function applyRound(
+  level: number,
+  recent: number[],
+  accuracy: number,
+  maxLevel: number = MAX_LEVEL,
+): AdaptOutcome {
+  const cap = clampLevel(maxLevel);
+  const lvl = clampLevel(level, cap);
   const window = [...(Array.isArray(recent) ? recent : []), clamp01(accuracy)].slice(
     -RECENT_WINDOW,
   );
+  const avg = window.reduce((a, b) => a + b, 0) / window.length;
 
-  if (window.length >= MIN_ROUNDS) {
-    const avg = window.reduce((a, b) => a + b, 0) / window.length;
-    if (avg >= PROMOTE_AT && lvl < MAX_LEVEL) return { level: lvl + 1, recent: [] };
-    if (avg <= DEMOTE_BELOW && lvl > MIN_LEVEL) return { level: lvl - 1, recent: [] };
+  if (window.length >= minRoundsToPromote(lvl) && avg >= promoteThreshold(lvl) && lvl < cap) {
+    return { level: lvl + 1, recent: [] };
+  }
+  if (window.length >= MIN_ROUNDS && avg <= DEMOTE_BELOW && lvl > MIN_LEVEL) {
+    return { level: lvl - 1, recent: [] };
   }
   return { level: lvl, recent: window };
 }

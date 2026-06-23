@@ -100,6 +100,24 @@ const FOOD = [
   ['carrot', 'porkkana', 'carrot', '🥕'],
 ];
 
+// Place nouns for the locative-case node ("where things are" — in/on/into/
+// out-of/onto/off + plural). Sourced the same way as every other theme; no
+// hand-typed Finnish.
+const PLACES = [
+  ['box', 'laatikko', 'box', '📦'],
+  ['table', 'pöytä', 'table', '🍽️'],
+  ['house', 'talo', 'house', '🏠'],
+  ['room', 'huone', 'room', '🚪'],
+  ['car', 'auto', 'car', '🚗'],
+  ['bed', 'sänky', 'bed', '🛏️'],
+  ['chair', 'tuoli', 'chair', '🪑'],
+  ['school', 'koulu', 'school', '🏫'],
+  ['tree', 'puu', 'tree', '🌳'],
+  ['forest', 'metsä', 'forest', '🌲'],
+  ['basket', 'kori', 'basket', '🧺'],
+  ['bag', 'laukku', 'bag', '👜'],
+];
+
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
   ['father', 'isä', 'dad', '👨'],
@@ -133,13 +151,16 @@ const VERBS = [
   ['swim', 'uida', 'swim'],
 ];
 
-// Focused conjugation subset kept per verb: present (positive + negative) and
-// past (positive) across all persons, plus the two singular/plural commands.
+// Focused conjugation subset kept per verb: present and past, each in BOTH
+// polarities, across all persons, plus the two singular/plural commands. The
+// four tense×polarity sets are what the Conjugate node climbs one rung per
+// level (present+ → present- → past+ → past-); every form is sourced here.
 const VERB_PERSONS = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'];
 const VERB_INFLECTION_KEYS = [
   ...VERB_PERSONS.map((p) => `present_active_positive_${p}`),
   ...VERB_PERSONS.map((p) => `present_active_negative_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `past_active_negative_${p}`),
   'imperative_active_positive_2sg',
   'imperative_active_positive_2pl',
 ];
@@ -257,6 +278,15 @@ const family = buildTheme({
   sourceWords: nounWords,
 });
 
+const places = buildTheme({
+  id: 'places',
+  fi: 'Paikat',
+  en: 'Places',
+  emoji: '📍',
+  curation: PLACES,
+  sourceWords: nounWords,
+});
+
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');
 writeFileSync(
@@ -266,9 +296,11 @@ writeFileSync(
 writeFileSync(join(OUT_DIR, 'verbs.sourced.json'), JSON.stringify(verbs, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'food.sourced.json'), JSON.stringify(food, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'family.sourced.json'), JSON.stringify(family, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'places.sourced.json'), JSON.stringify(places, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
     `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ` +
-    `${food.words.length} food, ${family.words.length} family words to ${OUT_DIR}`,
+    `${food.words.length} food, ${family.words.length} family, ` +
+    `${places.words.length} places words to ${OUT_DIR}`,
 );

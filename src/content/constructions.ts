@@ -34,6 +34,58 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
   },
 
+  // --- Possession by other persons (Tier 2, nominative singular) — see
+  // docs/FINNISH_GRAMMAR.md "Possession". Same case/number as i-have; only the
+  // adessive possessor pronoun (fixed carrier text) varies. ---
+  {
+    id: 'you-have',
+    before: 'Sinulla on',
+    punct: '.',
+    en: 'You have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'she-has',
+    before: 'Hänellä on',
+    punct: '.',
+    en: 'She/He has a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'we-have',
+    before: 'Meillä on',
+    punct: '.',
+    en: 'We have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
+    id: 'they-have',
+    before: 'Heillä on',
+    punct: '.',
+    en: 'They have a ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+
+  // --- Negated possession → partitive singular (Tier 3) — negation always
+  // forces the partitive on the thing whose existence is denied. ---
+  {
+    id: 'i-havent',
+    before: 'Minulla ei ole',
+    punct: '.',
+    en: "I don't have a ___.",
+    tier: 3,
+    case: 'partitive',
+    number: 'singular',
+  },
+
   // --- Verb rection: real cases unlocked by the tagged data (Tier 3) ---
   {
     id: 'i-like', // pitää + elative: "Pidän kissasta."
@@ -51,6 +103,24 @@ export const nounConstructions: Construction[] = [
     en: 'I see the ___.',
     tier: 3,
     case: 'genitive',
+    number: 'singular',
+  },
+  {
+    id: 'i-love', // rakastaa always governs the partitive: "Rakastan kissaa."
+    before: 'Rakastan',
+    punct: '.',
+    en: 'I love the ___.',
+    tier: 3,
+    case: 'partitive',
+    number: 'singular',
+  },
+  {
+    id: 'i-watch', // katsoa always governs the partitive: "Katson kissaa."
+    before: 'Katson',
+    punct: '.',
+    en: 'I watch the ___.',
+    tier: 3,
+    case: 'partitive',
     number: 'singular',
   },
 
@@ -86,5 +156,99 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+  },
+
+  // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
+  // docs/FINNISH_GRAMMAR.md "Possession" + "partitive plural" rule. ---
+  {
+    id: 'i-have-some',
+    before: 'Minulla on',
+    punct: '.',
+    en: 'I have some ___.',
+    tier: 4,
+    case: 'partitive',
+    number: 'plural',
+  },
+  {
+    id: 'i-havent-any',
+    before: 'Minulla ei ole',
+    punct: '.',
+    en: "I don't have any ___.",
+    // Tier 5: negative partitive-plural is the possession node's own top step,
+    // one rung above the positive partitive-plural (i-have-some, tier 4).
+    tier: 5,
+    case: 'partitive',
+    number: 'plural',
+  },
+
+  // --- Locative cases: WHERE things are (the `places` pool, "where" chapter).
+  // Six "where" cases form a graded ladder (one new case per tier, t2→t7),
+  // ending in a plural apex (t8). Each carrier verb MATCHES the case so every
+  // sentence is correct Finnish: olla "be" for static in/on; mennä "go" for
+  // the goal cases (into/onto); tulla "come" for the source cases (out-of/off).
+  // The place noun is the slot; its form is looked up from the sourced
+  // locative paradigm — never generated. See docs/FINNISH_GRAMMAR.md.
+  {
+    id: 'on-it', // adessive: on a surface — "Kissa on pöydällä."
+    before: 'Kissa on',
+    punct: '.',
+    en: 'The cat is on the ___.',
+    tier: 2,
+    case: 'adessive',
+    number: 'singular',
+  },
+  {
+    id: 'in-it', // inessive: inside — "Kissa on laatikossa."
+    before: 'Kissa on',
+    punct: '.',
+    en: 'The cat is in the ___.',
+    tier: 3,
+    case: 'inessive',
+    number: 'singular',
+  },
+  {
+    id: 'into-it', // illative: motion into — "Kissa menee laatikkoon."
+    before: 'Kissa menee',
+    punct: '.',
+    en: 'The cat goes into the ___.',
+    tier: 4,
+    case: 'illative',
+    number: 'singular',
+  },
+  {
+    id: 'onto-it', // allative: motion onto — "Kissa menee pöydälle."
+    before: 'Kissa menee',
+    punct: '.',
+    en: 'The cat goes onto the ___.',
+    tier: 5,
+    case: 'allative',
+    number: 'singular',
+  },
+  {
+    id: 'out-of-it', // elative: motion out of — "Kissa tulee laatikosta."
+    before: 'Kissa tulee',
+    punct: '.',
+    en: 'The cat comes out of the ___.',
+    tier: 6,
+    case: 'elative',
+    number: 'singular',
+  },
+  {
+    id: 'off-it', // ablative: motion off a surface — "Kissa tulee pöydältä."
+    before: 'Kissa tulee',
+    punct: '.',
+    en: 'The cat comes off the ___.',
+    tier: 7,
+    case: 'ablative',
+    number: 'singular',
+  },
+  {
+    id: 'in-them', // inessive PLURAL apex — "Kissat ovat laatikoissa."
+    before: 'Kissat ovat',
+    punct: '.',
+    en: 'The cats are in the ___.',
+    tier: 8,
+    case: 'inessive',
+    number: 'plural',
   },
 ];
