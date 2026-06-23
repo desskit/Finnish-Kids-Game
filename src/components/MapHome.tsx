@@ -121,7 +121,7 @@ export default function MapHome() {
                         <span className="map-node__title">
                           {skill.titleFi} <span className="en">{skill.titleEn}</span>
                         </span>
-                        {skill.activity !== 'review' && (lvl > 1 || maxLevel > 4) && (
+                        {skill.activity !== 'review' && (
                           <span className="map-node__level">
                             {mastered ? `👑 Taso ${lvl}/${maxLevel}` : `Taso ${lvl}/${maxLevel}`}
                           </span>

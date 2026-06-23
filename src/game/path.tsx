@@ -140,9 +140,22 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
   }
 }
 
+// Resolve a node's curated construction list. The result is CACHED by the
+// (stable) `constructionIds` array so repeated calls return the SAME array
+// reference. renderSkill runs on every ActivityRoute render (e.g. each time a
+// tap updates the child's stars), and the activities memoize their round on the
+// `constructions` prop — so handing back a fresh `.filter()` array every render
+// would silently rebuild the round mid-question (a different word/emoji + its
+// TTS would flash before reverting). A stable reference keeps the round put.
+const constructionCache = new WeakMap<string[], Construction[]>();
 function constructionsFor(ids?: string[]): Construction[] {
   if (!ids) return nounConstructions;
-  return nounConstructions.filter((c) => ids.includes(c.id));
+  let cached = constructionCache.get(ids);
+  if (!cached) {
+    cached = nounConstructions.filter((c) => ids.includes(c.id));
+    constructionCache.set(ids, cached);
+  }
+  return cached;
 }
 
 const SENTENCE_POOLS: SentencePools = {
@@ -161,16 +174,16 @@ const baseChapters: Chapter[] = [
     titleEn: 'First words',
     accent: '#0ea5e9',
     icon: '🔊',
-    // Warm-ups: a single activity (listening), so depth comes only from the
-    // option-tile count — which the shared level table already flattens out
-    // by L3 (optionCount 3, 4, 4, ...). A short depth-3 ladder keeps these
-    // honest with the difficulty curve instead of grinding toward an L4 that
-    // plays identically to L3.
+    // Warm-ups: depth comes from the option-tile count, which the shared
+    // level table already flattens out by L3 (optionCount 3, 4, 4, ...), so
+    // a short depth-3 ladder is the honest cap. L3 swaps to `match` (the same
+    // vocab, judged by adjective agreement instead of listening) so the climb
+    // ends in a different game rather than a 3rd identical listening round.
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', maxLevel: 3, content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', maxLevel: 3, content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', maxLevel: 3, content: { pool: 'family' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', maxLevel: 3, content: { pool: 'numbers' } },
+      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'animals' } },
+      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'food' } },
+      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'family' } },
+      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'numbers' } },
     ],
   },
   {
@@ -243,7 +256,7 @@ const baseChapters: Chapter[] = [
     accent: '#0d9488',
     icon: '📍',
     skills: [
-      { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under'] }, exampleFi: 'kissan edessä' },
+      { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under'] }, exampleFi: 'kissan edessä' },
       {
         // The flagship deep node (depth 8): the Finnish locative case system.
         // One new case unlocks per level via maxTier — adessive (on) → inessive
@@ -302,12 +315,16 @@ const baseChapters: Chapter[] = [
       // Counting's own grammar subject is the number itself — the shared level
       // table keeps raising maxCount all the way to 20 (5 → 8 → 10 → 12 → 14 →
       // 16 → 18 → 20), so this node rides the FULL engine depth: bigger counts
-      // (and the nominative/partitive split they force) is genuine headroom.
-      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', maxLevel: 8, content: { pool: 'nouns' } },
+      // (and the nominative/partitive split they force) is genuine headroom for
+      // L1-5. Once the counts have grown, L6-8 shift into build/order/spell
+      // over the same noun pool so the back half of the grind isn't just
+      // "the same game with bigger numbers" forever.
+      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', activities: ['count', 'count', 'count', 'count', 'count', 'build', 'order', 'spell'], maxLevel: 8, content: { pool: 'nouns' } },
       // Adjective-noun agreement rotates across 7 cases at every level (not
       // tier-gated), so there's no extra grammar to unlock past the default
-      // ceiling — depth stays 4 until the cases themselves get tiered.
-      { id: 'match', titleFi: 'Yhdistä sanat', titleEn: 'Describe it', icon: '🎨', activity: 'match', maxLevel: 4, content: { pool: 'nouns' } },
+      // ceiling — depth stays 4 until the cases themselves get tiered. L3-4
+      // shift into build/order over the same noun pool for a second game.
+      { id: 'match', titleFi: 'Yhdistä sanat', titleEn: 'Describe it', icon: '🎨', activity: 'match', activities: ['match', 'match', 'build', 'order'], maxLevel: 4, content: { pool: 'nouns' } },
     ],
   },
   {
@@ -318,12 +335,13 @@ const baseChapters: Chapter[] = [
     icon: '🏃',
     skills: [
       // Depth 4 = the verb's real grammar ceiling: one new sourced tense×polarity
-      // set unlocks per level (present+ L1 → present- L2 → past+ L3 → past- L4),
-      // each drilled across all six persons. Those four combos are the whole of
-      // what the data carries (imperative is 2nd-person-only and doesn't fit the
-      // "pick the person's form" drill), so 4 is the honest cap — the grind comes
-      // from the steepening promotion needing a sustained streak to crack it.
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', maxLevel: 4, content: {} },
+      // set unlocks per level (present+ L1 → present- L2 → past+ L3), each
+      // drilled across all six persons. Those combos are the whole of what the
+      // data carries (imperative is 2nd-person-only and doesn't fit the "pick
+      // the person's form" drill), so the climb comes from the steepening
+      // promotion needing a sustained streak. L4 swaps to `match` (the global
+      // mixed-noun pool, not a verb drill) as this node's "different game" step.
+      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match'], maxLevel: 4, content: {} },
     ],
   },
   {
@@ -340,7 +358,12 @@ const baseChapters: Chapter[] = [
       // capstone (reorder the chips of a correct Finnish sentence); `spell` is
       // the production capstone (type the sourced inflected form). Together they
       // are "put everything you've learned together", and a genuine grind to top.
+      // No second game type here on purpose: progression is already visible
+      // every level via new grammar (maxTier), and no other round builder
+      // consumes a generic noun pool the way order/spell already do.
       { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', maxLevel: 8, content: {} },
+      // Same reasoning as `order` above — self-ramps via the inflected-form
+      // grammar, no second game.
       { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
@@ -353,6 +376,8 @@ const baseChapters: Chapter[] = [
 // node's measured level so harder multi-slot patterns unlock as the child climbs.
 // The registry (src/content/sentences.ts) drives whether the chapter is live: an
 // empty registry keeps the friendly "coming soon" placeholder and no playable node.
+// No second game type: no other round builder consumes `SentenceConstruction[]`,
+// so this node stays single-activity (progression is the tier-gated templates).
 const HAS_SENTENCES = sentenceConstructions.length > 0;
 
 const sentenceSkills: SkillNode[] = HAS_SENTENCES
