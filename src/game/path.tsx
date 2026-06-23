@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { animals, food, family, numbers, adjectives, verbs } from '../content';
+import { animals, food, family, numbers, places, adjectives, verbs } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import { buildSentenceRound, type SentencePools } from './round';
@@ -39,7 +39,7 @@ export type ActivityKind =
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
-export type Pool = 'nouns' | 'animals' | 'food' | 'family' | 'numbers';
+export type Pool = 'nouns' | 'animals' | 'food' | 'family' | 'numbers' | 'places';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed). */
@@ -69,6 +69,15 @@ export interface SkillNode {
   content: SkillContent;
   /** Optional teaching example shown under the node, e.g. "Tämä on kissa." */
   exampleFi?: string;
+  /**
+   * This node's own mastery-ladder depth (default 4 = the original ceiling).
+   * Depth is per-node, sized to how much real Finnish grammar the node's
+   * subject supports — e.g. a single-case skill stays shallow, while the
+   * locative-case node climbs to 8. The adaptive engine never promotes a
+   * node past its own `maxLevel`, even though the shared level table goes
+   * up to the engine's `MAX_LEVEL` (see `src/game/adapt.ts`).
+   */
+  maxLevel?: number;
   // --- art-ready (Phase 1) ---
   /** Node image path under BASE_URL; the emoji `icon` is the fallback. */
   art?: string;
@@ -107,6 +116,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return family.items;
     case 'numbers':
       return numbers.items;
+    case 'places':
+      return places.items;
     default:
       return NOUNS;
   }
@@ -147,22 +158,46 @@ const baseChapters: Chapter[] = [
     accent: '#6366f1',
     icon: '🧩',
     skills: [
-      { id: 'this-is', titleFi: 'Tämä on…', titleEn: 'This is a…', icon: '🧩', activity: 'build', content: { constructionIds: ['this-is'] }, exampleFi: 'Tämä on kissa.' },
-      { id: 'where-is', titleFi: 'Missä on…?', titleEn: 'Where is…?', icon: '❓', activity: 'build', content: { constructionIds: ['where-is'] }, exampleFi: 'Missä on koira?' },
+      // One grammar tier (nominative); depth comes from the challenge ramp
+      // recognize → assemble → type. The spell apex types the nominative (= the
+      // bare noun), so it stays a fair single-word drill.
+      {
+        id: 'this-is',
+        titleFi: 'Tämä on…',
+        titleEn: 'This is a…',
+        icon: '🧩',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        maxLevel: 4,
+        content: { constructionIds: ['this-is'] },
+        exampleFi: 'Tämä on kissa.',
+      },
+      {
+        id: 'where-is',
+        titleFi: 'Missä on…?',
+        titleEn: 'Where is…?',
+        icon: '❓',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        maxLevel: 4,
+        content: { constructionIds: ['where-is'] },
+        exampleFi: 'Missä on koira?',
+      },
       {
         id: 'i-have',
         titleFi: 'Minulla on… / Kenellä on…',
         titleEn: 'I have… / Who has…',
         icon: '🎒',
         activity: 'build',
-        // Input-method ramp. L1–L2 recognize the phrase (tap a tile into the
-        // blank); L3 types the now-familiar noun (SpellWord drills item.fi — it
-        // can't render a carrier phrase); L4 PRODUCES the apex partitive-plural
-        // phrase from chips (WordOrder — the only top-level activity that renders
-        // constructions, so the tier-4 grammar actually reaches the player, with
-        // scaffolding instead of brutal blank-keyboard typing of an inflected
-        // plural). Grammar still peaks at L4 via maxTier gating.
-        activities: ['build', 'build', 'spell', 'order'],
+        // A deeper node (depth 6): possession grows by person, then negation,
+        // then plural quantity. The ramp recognizes (build) → assembles
+        // (order — the activity that renders the tier-4/5 partitive-plural
+        // phrases as chips) → types the inflected form (spell, e.g. "kissoja").
+        // Grammar unlocks one rung per level via maxTier: nominative possession
+        // (t2) → negative singular (t3) → partitive-plural positive (t4) →
+        // partitive-plural negative (t5), its own top step.
+        activities: ['build', 'build', 'build', 'order', 'order', 'spell'],
+        maxLevel: 6,
         content: {
           constructionIds: [
             'i-have',
@@ -187,6 +222,35 @@ const baseChapters: Chapter[] = [
     icon: '📍',
     skills: [
       { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under'] }, exampleFi: 'kissan edessä' },
+      {
+        // The flagship deep node (depth 8): the Finnish locative case system.
+        // One new case unlocks per level via maxTier — adessive (on) → inessive
+        // (in) → illative (into) → allative (onto) → elative (out of) → ablative
+        // (off) → inessive PLURAL (apex). The ramp shifts recognize (build) →
+        // assemble (order) → type the inflected place form (spell, e.g.
+        // "laatikoissa"). Place vocabulary carries the full sourced locative
+        // paradigm, so every step resolves — no generated Finnish.
+        id: 'locatives',
+        titleFi: 'Missä, mihin, mistä',
+        titleEn: 'In, on, into, out of…',
+        icon: '🧭',
+        activity: 'build',
+        activities: ['build', 'build', 'build', 'order', 'order', 'order', 'spell', 'spell'],
+        maxLevel: 8,
+        content: {
+          pool: 'places',
+          constructionIds: [
+            'on-it',
+            'in-it',
+            'into-it',
+            'onto-it',
+            'out-of-it',
+            'off-it',
+            'in-them',
+          ],
+        },
+        exampleFi: 'Kissa on laatikossa.',
+      },
     ],
   },
   {
@@ -195,11 +259,15 @@ const baseChapters: Chapter[] = [
     titleEn: 'Likes & seeing',
     accent: '#db2777',
     icon: '❤️',
+    // Each verb governs a single case (the subject's natural cap = depth 4):
+    // depth comes from the challenge ramp, and the spell apex types the inflected
+    // object form (e.g. "kissasta", "koiran"). Demonstrates the "varying degrees"
+    // — shallow nodes alongside the deep locative/possession ones.
     skills: [
-      { id: 'i-like', titleFi: 'Pidän …sta', titleEn: 'I like…', icon: '❤️', activity: 'build', content: { constructionIds: ['i-like'] }, exampleFi: 'Pidän kissasta.' },
-      { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
-      { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
-      { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
+      { id: 'i-like', titleFi: 'Pidän …sta', titleEn: 'I like…', icon: '❤️', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-like'] }, exampleFi: 'Pidän kissasta.' },
+      { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
+      { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
+      { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
     ],
   },
   {
@@ -305,6 +373,11 @@ export const badgeEnv = {
   activityIds: allSkills()
     .filter(({ skill }) => skill.activity !== 'review')
     .map(({ skill }) => skill.id),
+  // Each node's own ladder depth (default 4), so the "top level" badge can be
+  // earned by reaching ANY node's own ceiling — depths vary per node.
+  skillMaxLevels: Object.fromEntries(
+    allSkills().map(({ skill }) => [skill.id, skill.maxLevel ?? 4]),
+  ) as Record<string, number>,
 };
 
 // --- Rendering ------------------------------------------------------------
@@ -347,7 +420,19 @@ export function renderSkill(
         />
       );
     case 'spell':
-      return <SpellWord items={items} onExit={onExit} />;
+      // When the node carries carrier phrases, the spelling apex types the
+      // sourced INFLECTED form (e.g. "laatikoissa") instead of the bare noun.
+      return (
+        <SpellWord
+          items={items}
+          constructions={
+            skill.content.constructionIds
+              ? constructionsFor(skill.content.constructionIds)
+              : undefined
+          }
+          onExit={onExit}
+        />
+      );
     case 'sentence':
       return (
         <WordOrder

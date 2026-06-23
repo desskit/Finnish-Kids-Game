@@ -6,7 +6,9 @@
 
 import type { Child } from '../state/storage';
 import { isMastered } from './srs';
-import { MAX_LEVEL } from './adapt';
+
+/** A node's ladder depth when it doesn't set one (mirrors path.tsx's default). */
+const DEFAULT_NODE_MAX = 4;
 
 export interface Badge {
   id: string;
@@ -23,6 +25,12 @@ export interface BadgeEnv {
   topicCount: number;
   /** Every activity id in the registry (for the "played every game" badge). */
   activityIds: string[];
+  /**
+   * skillId → that node's ladder depth (`SkillNode.maxLevel`). The "top level"
+   * badge is earned by reaching ANY node's OWN ceiling — depths vary per node,
+   * so a shallow node could never reach a single global max.
+   */
+  skillMaxLevels: Record<string, number>;
 }
 
 export const BADGES: Badge[] = [
@@ -119,7 +127,12 @@ export function earnedBadgeIds(child: Child, env: BadgeEnv): Set<string> {
   const totalCorrect = schedules.reduce((n, s) => n + s.correct, 0);
   if (totalSeen >= 20 && totalCorrect / totalSeen >= 0.9) earned.add('sharp');
 
-  if (progressEntries.some((p) => (p?.level ?? 1) >= MAX_LEVEL)) earned.add('level-up');
+  const reachedNodeMax = Object.values(child.progress ?? {}).some((topic) =>
+    Object.entries(topic).some(
+      ([skillId, p]) => (p?.level ?? 1) >= (env.skillMaxLevels[skillId] ?? DEFAULT_NODE_MAX),
+    ),
+  );
+  if (reachedNodeMax) earned.add('level-up');
 
   const playedTopics = Object.values(child.progress ?? {}).filter((topic) =>
     Object.values(topic).some((p) => (p?.plays ?? 0) > 0),

@@ -6,7 +6,7 @@
 // generates or inflects Finnish by rule. Carrier phrases below are
 // human-authored; only the slot form is filled from the tagged data.
 
-export type Tier = 1 | 2 | 3 | 4;
+export type Tier = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type GrammaticalNumber = 'singular' | 'plural';
 

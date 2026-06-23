@@ -1,17 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { themes, animals, numbers, food, family, adjectives, verbs } from '../content';
+import { themes, animals, numbers, food, family, places, adjectives, verbs } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { formFor, verbForm, caseFormOf, PERSONS } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
 // CI here rather than surfacing as a broken round on a child's tablet.
-const allPools = [animals, numbers, food, family, adjectives, verbs];
-const nounTopics = [animals, food, family];
+const allPools = [animals, numbers, food, family, places, adjectives, verbs];
+const nounTopics = [animals, food, family, places];
 
 describe('content integrity', () => {
-  it('registers exactly the four playable topics', () => {
-    expect(themes.map((t) => t.id)).toEqual(['animals', 'numbers', 'food', 'family']);
+  it('registers exactly the playable topics', () => {
+    expect(themes.map((t) => t.id)).toEqual(['animals', 'numbers', 'food', 'family', 'places']);
   });
 
   it('gives every theme an id, names and an emoji', () => {
@@ -32,7 +32,7 @@ describe('content integrity', () => {
         expect(item.id).toBeTruthy();
         expect(item.fi, `${item.id} missing fi`).toBeTruthy();
         expect(item.en, `${item.id} missing en`).toBeTruthy();
-        expect([1, 2, 3, 4]).toContain(item.tier);
+        expect([1, 2, 3, 4, 5, 6, 7, 8]).toContain(item.tier);
         expect(item.inflections).toBeTypeOf('object');
       }
     }

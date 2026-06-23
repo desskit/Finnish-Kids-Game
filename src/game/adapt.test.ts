@@ -3,10 +3,40 @@ import {
   applyRound,
   difficultyFor,
   windowAccuracy,
+  promoteThreshold,
+  minRoundsToPromote,
   MAX_LEVEL,
   MIN_LEVEL,
   RECENT_WINDOW,
 } from './adapt';
+
+/** Fold a streak of identical-accuracy rounds, stopping at the FIRST level move. */
+function runStreak(start: number, accuracy: number, rounds: number, maxLevel?: number) {
+  let level = start;
+  let recent: number[] = [];
+  let used = 0;
+  for (let i = 0; i < rounds; i++) {
+    const out = applyRound(level, recent, accuracy, maxLevel);
+    used++;
+    const changed = out.level !== level;
+    level = out.level;
+    recent = out.recent;
+    if (changed) return { level, recent, roundsToChange: used };
+  }
+  return { level, recent, roundsToChange: used };
+}
+
+/** Fold a long streak through ALL rounds (multiple promotions), return the end level. */
+function finalLevel(start: number, accuracy: number, rounds: number, maxLevel?: number): number {
+  let level = start;
+  let recent: number[] = [];
+  for (let i = 0; i < rounds; i++) {
+    const out = applyRound(level, recent, accuracy, maxLevel);
+    level = out.level;
+    recent = out.recent;
+  }
+  return level;
+}
 
 describe('difficultyFor', () => {
   it('clamps out-of-range levels into 1..MAX_LEVEL', () => {
@@ -43,11 +73,83 @@ describe('difficultyFor', () => {
     );
   });
 
-  it('only unlocks tier-4 content (the partitive-plural apex) at the top level', () => {
+  it('only unlocks tier-4 content (the partitive-plural apex) by level 4', () => {
     expect(difficultyFor(1).maxTier).toBeLessThan(4);
     expect(difficultyFor(2).maxTier).toBeLessThan(4);
     expect(difficultyFor(3).maxTier).toBeLessThan(4);
     expect(difficultyFor(4).maxTier).toBe(4);
+  });
+
+  it('extends the table to 8 levels, one new tier + bigger counts per step', () => {
+    expect(MAX_LEVEL).toBe(8);
+    // L1–L4 preserved exactly.
+    expect(difficultyFor(1)).toMatchObject({ maxTier: 2, maxCount: 5, optionCount: 3 });
+    expect(difficultyFor(4)).toMatchObject({ maxTier: 4, maxCount: 12 });
+    // L5–L8 unlock one locative case per level (maxTier 5..8) with larger counts.
+    expect(difficultyFor(5).maxTier).toBe(5);
+    expect(difficultyFor(6).maxTier).toBe(6);
+    expect(difficultyFor(7).maxTier).toBe(7);
+    expect(difficultyFor(8).maxTier).toBe(8);
+    const counts = [5, 6, 7, 8].map((l) => difficultyFor(l).maxCount);
+    expect(counts).toEqual([14, 16, 18, 20]);
+    // Option count stays tappable at every level.
+    for (let l = 1; l <= MAX_LEVEL; l++) expect(difficultyFor(l).optionCount).toBeLessThanOrEqual(4);
+  });
+});
+
+describe('steepening promotion', () => {
+  it('raises the promotion bar with level (0.85 early → 0.95 at the top)', () => {
+    expect(promoteThreshold(1)).toBeCloseTo(0.85);
+    expect(promoteThreshold(4)).toBeCloseTo(0.91);
+    expect(promoteThreshold(8)).toBeCloseTo(0.95);
+    // Never above the cap.
+    expect(promoteThreshold(99)).toBeCloseTo(0.95);
+  });
+
+  it('needs more sustained rounds to promote near the top (2 early → 5 at the top)', () => {
+    expect(minRoundsToPromote(1)).toBe(2);
+    expect(minRoundsToPromote(2)).toBe(2);
+    expect(minRoundsToPromote(7)).toBe(5);
+    expect(minRoundsToPromote(8)).toBe(5);
+  });
+
+  it('lets a strong kid promote in ~2 rounds at the bottom', () => {
+    const r = runStreak(1, 1, 10);
+    expect(r.level).toBe(2);
+    expect(r.roundsToChange).toBe(2);
+  });
+
+  it('makes the top rungs a grind: needs ~5 sustained near-perfect rounds at L7', () => {
+    // Four perfect rounds is not enough at L7 (needs 5).
+    expect(runStreak(7, 1, 4, 8).level).toBe(7);
+    // The fifth perfect round finally cracks it.
+    expect(runStreak(7, 1, 5, 8).level).toBe(8);
+    // 0.9 accuracy is below the 0.95 top bar — it never promotes off L7.
+    expect(runStreak(7, 0.9, 8, 8).level).toBe(7);
+  });
+
+  it('keeps demotion a fast, level-independent safety net', () => {
+    // A weak streak drops within 2 rounds at the bottom of the ladder…
+    expect(runStreak(2, 0.4, 10).roundsToChange).toBe(2);
+    expect(runStreak(2, 0.4, 10).level).toBe(1);
+    // …and just as fast at the top.
+    expect(runStreak(8, 0.4, 10, 8).roundsToChange).toBe(2);
+    expect(runStreak(8, 0.4, 10, 8).level).toBe(7);
+  });
+});
+
+describe('per-node maxLevel cap', () => {
+  it('never promotes a node past its own ceiling, even on a perfect streak', () => {
+    // A depth-4 node caps at 4 no matter how long the kid aces it.
+    expect(finalLevel(1, 1, 40, 4)).toBe(4);
+  });
+
+  it('clamps a level above the cap back down to the cap', () => {
+    expect(applyRound(7, [], 0.7, 4).level).toBe(4);
+  });
+
+  it('lets a deep node climb past the old ceiling of 4 up to its own depth', () => {
+    expect(finalLevel(1, 1, 40, 8)).toBe(8);
   });
 });
 

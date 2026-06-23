@@ -26,7 +26,8 @@ describe('learning path', () => {
 
   it('renders a game element for every non-review skill at every level', () => {
     for (const { skill } of allSkills()) {
-      for (const level of [1, 2, 3, 4]) {
+      // Cover the engine's full depth so deep nodes (up to maxLevel 8) render too.
+      for (const level of [1, 2, 3, 4, 5, 6, 7, 8]) {
         const el = renderSkill(skill, level, () => {});
         if (skill.activity === 'review') expect(el).toBeNull();
         else expect(el).not.toBeNull();
@@ -34,22 +35,37 @@ describe('learning path', () => {
     }
   });
 
-  it('ramps the possession skill through input methods as the level rises', () => {
+  it('ramps the possession skill through input methods across its depth-6 ladder', () => {
     const { skill } = findSkill('i-have')!;
+    expect(skill.maxLevel).toBe(6);
+    // recognize (build) → assemble the partitive-plural phrases (order) → type
+    // the inflected form (spell). The apex grammar reaches the player via order.
     expect(activityForLevel(skill, 1)).toBe('build');
     expect(activityForLevel(skill, 2)).toBe('build');
-    expect(activityForLevel(skill, 3)).toBe('spell');
-    // L4 produces the apex partitive-plural phrase from chips — WordOrder is the
-    // only top-level activity that renders constructions, so the tier-4 grammar
-    // actually reaches the player (SpellWord only types the bare noun).
+    expect(activityForLevel(skill, 3)).toBe('build');
     expect(activityForLevel(skill, 4)).toBe('order');
-    expect(activityForLevel(skill, 99)).toBe('order'); // holds at the last entry
+    expect(activityForLevel(skill, 5)).toBe('order');
+    expect(activityForLevel(skill, 6)).toBe('spell');
+    expect(activityForLevel(skill, 99)).toBe('spell'); // holds at the last entry
   });
 
-  it('falls back to the single fixed activity when a skill has no ramp', () => {
-    const { skill } = findSkill('this-is')!;
+  it('gives the locative node a depth-8 ramp ending in typing the inflected form', () => {
+    const { skill } = findSkill('locatives')!;
+    expect(skill.maxLevel).toBe(8);
+    expect(skill.content.pool).toBe('places');
     expect(activityForLevel(skill, 1)).toBe('build');
-    expect(activityForLevel(skill, 4)).toBe('build');
+    expect(activityForLevel(skill, 4)).toBe('order');
+    expect(activityForLevel(skill, 7)).toBe('spell');
+    expect(activityForLevel(skill, 8)).toBe('spell');
+  });
+
+  it('ramps the shallow single-case nodes recognize → assemble → type at depth 4', () => {
+    const { skill } = findSkill('this-is')!;
+    expect(skill.maxLevel).toBe(4);
+    expect(activityForLevel(skill, 1)).toBe('build');
+    expect(activityForLevel(skill, 3)).toBe('order');
+    expect(activityForLevel(skill, 4)).toBe('spell');
+    expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
   it('derives the badge env from the path, excluding review', () => {

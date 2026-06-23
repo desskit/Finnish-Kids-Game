@@ -69,7 +69,8 @@ describe('journey path + progression UI', () => {
       },
     });
     renderAt('/');
-    expect(screen.getByText('Taso 2')).toBeInTheDocument();
+    // Node depth shows as "level / maxLevel"; this-is is a depth-4 node.
+    expect(screen.getByText('Taso 2/4')).toBeInTheDocument();
   });
 
   it('renders the parent dashboard with difficulty mode and per-skill level', () => {
@@ -87,6 +88,6 @@ describe('journey path + progression UI', () => {
     );
     expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
     expect(screen.getByText(/This is a/)).toBeInTheDocument();
-    expect(screen.getByText('Lv 2')).toBeInTheDocument();
+    expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
   });
 });

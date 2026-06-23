@@ -113,6 +113,39 @@ export function buildSpellingRound(
   return sample(items, Math.min(questionCount, items.length));
 }
 
+// Spelling, grammar apex: type the INFLECTED slot form, not the bare noun. Each
+// question pairs an item with a (tier-gated) carrier phrase; the typed target is
+// formFor(item, construction) — the sourced case form (e.g. "laatikoissa"),
+// never generated. Only single-word forms are used (no spaced counted phrases),
+// so the on-screen keyboard stays a single-token drill.
+
+export interface SpellingPhraseQuestion {
+  construction: Construction;
+  item: LexicalItem;
+  /** The sourced inflected form the child types, e.g. "pöydällä". */
+  target: string;
+}
+
+export function buildSpellingPhraseRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  maxTier: Tier = 4,
+): SpellingPhraseQuestion[] {
+  // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
+  const pool: SpellingPhraseQuestion[] = [];
+  for (const construction of allowed) {
+    for (const item of items) {
+      const target = formFor(item, construction);
+      // Single-token forms only — skip any multi-word slot form.
+      if (target && !target.includes(' ')) pool.push({ construction, item, target });
+    }
+  }
+  return sample(pool, Math.min(questionCount, pool.length));
+}
+
 // --- Word order ----------------------------------------------------------
 //
 // Drill: tokenize a full carrier-phrase sentence (before words + slot form +

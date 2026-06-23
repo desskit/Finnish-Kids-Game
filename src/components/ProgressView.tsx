@@ -95,13 +95,17 @@ export default function ProgressView() {
                         ? Math.round((p.totalStars / p.totalPossible) * 100)
                         : 0;
                       const lvl = p.level ?? 1;
+                      const maxLevel = skill.maxLevel ?? 4;
                       const recent = p.recent ?? [];
                       const recentPct = Math.round(windowAccuracy(recent) * 100);
                       return (
                         <li key={skill.id} className="progress-row">
                           <span className="progress-row__name">
-                            <span className="progress-row__level" title="Adaptive level">
-                              Lv {lvl}
+                            <span
+                              className="progress-row__level"
+                              title="Adaptive level / node depth"
+                            >
+                              Lv {lvl}/{maxLevel}
                             </span>{' '}
                             <span aria-hidden="true">{skill.icon}</span> {skill.titleEn}
                           </span>
