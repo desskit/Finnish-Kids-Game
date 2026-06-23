@@ -30,7 +30,8 @@ const ANIMALS = [
 ];
 // Animals other than the cat (so "the cat is behind the ___" never repeats it).
 const ANIMALS_NOT_CAT = ANIMALS.filter((id) => id !== 'cat');
-// Foods you EAT (no drinks) — keeps "I eat the big ___" sensible.
+// Foods you EAT (no drinks) — keeps "I eat the big ___" sensible. (No 'cheese':
+// "I eat the big cheese" collides with the English idiom for a VIP.)
 const EDIBLE = [
   'apple',
   'banana',
@@ -41,11 +42,12 @@ const EDIBLE = [
   'strawberry',
   'carrot',
   'chocolate',
-  'cheese',
   'ice-cream',
 ];
-// Someone you could hand a fish to.
-const RECIPIENTS = ['cat', 'dog', 'bear', 'bunny', 'fox', 'mother', 'father', 'brother', 'sister', 'baby'];
+// Someone you could hand a fish to. Animals + 'baby' (which take a natural
+// English "the ___"); kinship terms are omitted because "give the brother a
+// fish" reads oddly in English even though the Finnish allative is correct.
+const RECIPIENTS = ['cat', 'dog', 'bear', 'bunny', 'fox', 'baby'];
 // Places you can run INTO.
 const ENTERABLE = ['house', 'room', 'forest', 'school', 'car', 'box'];
 
