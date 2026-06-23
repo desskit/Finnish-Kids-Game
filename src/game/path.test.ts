@@ -87,13 +87,52 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
-  it('caps the conjugation node at depth 4 — its four sourced verb-form sets', () => {
+  it('caps the conjugation node at depth 4, swapping into a second game at the apex', () => {
     const { skill } = findSkill('conjugate')!;
     expect(skill.maxLevel).toBe(4);
-    // No challenge ramp: the kid keyboard has no space key, so multi-word
-    // negatives ("en syö") can't be a typing apex — it stays recognition.
+    // The kid keyboard has no space key, so multi-word negatives ("en syö")
+    // can't be a typing apex — verb conjugation stays recognition through
+    // L1-3, then L4 swaps to `match` as this node's "different game" step.
     expect(activityForLevel(skill, 1)).toBe('conjugate');
-    expect(activityForLevel(skill, 8)).toBe('conjugate');
+    expect(activityForLevel(skill, 3)).toBe('conjugate');
+    expect(activityForLevel(skill, 4)).toBe('match');
+    expect(activityForLevel(skill, 8)).toBe('match');
+  });
+
+  it('gives every listening warm-up a third-level swap into Describe it', () => {
+    for (const id of ['listen-animals', 'listen-food', 'listen-family', 'listen-numbers']) {
+      const { skill } = findSkill(id)!;
+      expect(activityForLevel(skill, 1)).toBe('listen');
+      expect(activityForLevel(skill, 2)).toBe('listen');
+      expect(activityForLevel(skill, 3)).toBe('match');
+    }
+  });
+
+  it('ramps postpositions recognize → assemble → type, same as the other shallow nodes', () => {
+    const { skill } = findSkill('postpositions')!;
+    expect(skill.maxLevel).toBe(4);
+    expect(activityForLevel(skill, 1)).toBe('build');
+    expect(activityForLevel(skill, 3)).toBe('order');
+    expect(activityForLevel(skill, 4)).toBe('spell');
+  });
+
+  it('lets Count & Say diversify into build/order/spell once the counts have grown', () => {
+    const { skill } = findSkill('count')!;
+    expect(skill.maxLevel).toBe(8);
+    expect(activityForLevel(skill, 1)).toBe('count');
+    expect(activityForLevel(skill, 5)).toBe('count');
+    expect(activityForLevel(skill, 6)).toBe('build');
+    expect(activityForLevel(skill, 7)).toBe('order');
+    expect(activityForLevel(skill, 8)).toBe('spell');
+  });
+
+  it('lets Describe it diversify into build/order at the top of its depth-4 ladder', () => {
+    const { skill } = findSkill('match')!;
+    expect(skill.maxLevel).toBe(4);
+    expect(activityForLevel(skill, 1)).toBe('match');
+    expect(activityForLevel(skill, 2)).toBe('match');
+    expect(activityForLevel(skill, 3)).toBe('build');
+    expect(activityForLevel(skill, 4)).toBe('order');
   });
 
   it('makes the "put it together" nodes full-depth cross-cutting capstones', () => {
