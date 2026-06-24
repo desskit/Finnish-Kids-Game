@@ -421,11 +421,46 @@ export function findSkill(id: string): FoundSkill | undefined {
   return undefined;
 }
 
-/** Which activity a skill renders at a given measured level (see `activities`). */
+/** Which activity a skill's ramp introduces AT a given level (its `activities`
+ *  entry for that level). The "apex so far" — kept for tests/inspection; the
+ *  live session uses the broader UNLOCKED set below, not just this one type. */
 export function activityForLevel(skill: SkillNode, level: number): ActivityKind {
   if (!skill.activities || skill.activities.length === 0) return skill.activity;
   const index = Math.min(Math.max(1, level), skill.activities.length) - 1;
   return skill.activities[index];
+}
+
+/**
+ * The distinct game types a node has UNLOCKED by a given measured level — the
+ * prefix of its `activities` ramp up to `level`, de-duplicated in ramp order.
+ *
+ * This is the crux of in-session variety: a node's ramp is read as the ORDER in
+ * which game types unlock, not as one fixed type per level. So level 1 plays the
+ * first type only (gentle), each level can add a new type to the mix ("visible
+ * early"), and a mastered node mixes its whole set — recognize, assemble, type —
+ * rather than locking the child into the single hardest game forever. A node
+ * with no ramp simply has its one `activity`.
+ */
+export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] {
+  if (!skill.activities || skill.activities.length === 0) return [skill.activity];
+  const count = Math.min(Math.max(1, Math.round(level)), skill.activities.length);
+  const unlocked: ActivityKind[] = [];
+  for (const a of skill.activities.slice(0, count)) {
+    if (!unlocked.includes(a)) unlocked.push(a);
+  }
+  return unlocked;
+}
+
+/**
+ * The game type to serve for round `roundNo` of a continuous session. Rounds
+ * round-robin through the unlocked set so consecutive rounds VARY (a sitting
+ * mixes game types) instead of repeating the single type the measured level maps
+ * to. Deterministic — no randomness, so it stays unit-testable.
+ */
+export function activityForRound(skill: SkillNode, level: number, roundNo: number): ActivityKind {
+  const unlocked = activitiesUpTo(skill, level);
+  const i = ((Math.trunc(roundNo) % unlocked.length) + unlocked.length) % unlocked.length;
+  return unlocked[i];
 }
 
 /** Every (chapter, skill) pair in path order. */
@@ -460,17 +495,18 @@ export const badgeEnv = {
 
 const SENTENCE_QUESTIONS = 6;
 
-/** Render a skill's game wired to its content scope at the given measured level
- *  (which may pick a different activity — see `SkillNode.activities`). The caller
- *  (ActivityRoute) supplies the ActivityContext that hands down adaptive
+/** Render one specific activity for a skill, wired to the skill's content scope.
+ *  The caller decides WHICH activity (per round, for in-session variety — see
+ *  `activityForRound`); this just maps an activity kind to its game component.
+ *  The caller (SkillRoute) supplies the ActivityContext that hands down adaptive
  *  difficulty + round recording. */
-export function renderSkill(
+export function renderActivity(
   skill: SkillNode,
-  level: number,
+  activity: ActivityKind,
   onExit: () => void,
 ): ReactElement | null {
   const items = itemsForPool(skill.content.pool);
-  switch (activityForLevel(skill, level)) {
+  switch (activity) {
     case 'listen':
       return <ListenAndTap items={items} onExit={onExit} />;
     case 'build':
@@ -525,4 +561,16 @@ export function renderSkill(
     case 'review':
       return null; // review has its own route (/review)
   }
+}
+
+/** Render a skill's game for round `roundNo` at the given measured level. Thin
+ *  wrapper over `renderActivity` that picks the round's game type (so a session
+ *  mixes games — see `activityForRound`). `roundNo` defaults to the first round. */
+export function renderSkill(
+  skill: SkillNode,
+  level: number,
+  onExit: () => void,
+  roundNo = 0,
+): ReactElement | null {
+  return renderActivity(skill, activityForRound(skill, level, roundNo), onExit);
 }

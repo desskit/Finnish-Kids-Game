@@ -1,5 +1,7 @@
+import { cloneElement, useRef, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import { badgeEnv, findSkill, renderSkill } from './game/path';
+import { badgeEnv, findSkill, renderActivity, activityForRound } from './game/path';
+import { difficultyFor } from './game/adapt';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
@@ -27,6 +29,14 @@ const BADGE_ENV = badgeEnv;
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
 //   /grown-up/*         → math-gated Progress / Profiles / Settings
 
+// Remounts the session per skill: React Router reuses the element across
+// :skillId changes, which would otherwise carry one skill's round counter/level
+// into the next. Keying by skillId gives each skill a fresh session.
+function SkillRouteHost() {
+  const { skillId } = useParams();
+  return <SkillRoute key={skillId} />;
+}
+
 // Resolves a skill from the URL and runs its game full-screen. Progress is keyed
 // by (chapter, skill); the ActivityContext hands down adaptive difficulty and
 // lets the shared RoundComplete record the round + celebrate a level-up / badge.
@@ -36,13 +46,24 @@ function SkillRoute() {
   const { activeChild, recordRound, activityDifficulty } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
+  // The continuous session lives HERE, not inside the game component, so each
+  // round can serve a DIFFERENT game type (in-session variety). `round.no`
+  // counts rounds; `round.level` is the level FROZEN at the round's start, so a
+  // level-up recorded during the celebration doesn't hot-swap the game out from
+  // under RoundComplete — the next round (Jatka) re-reads the live level.
+  const liveLevel = activityDifficulty(found?.chapter.id ?? '', found?.skill.id ?? '').level;
+  const liveLevelRef = useRef(liveLevel);
+  liveLevelRef.current = liveLevel;
+  const [round, setRound] = useState({ no: 0, level: liveLevel });
+
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!found) return <Navigate to="/" replace />;
   const { chapter, skill } = found;
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
-  const difficulty = activityDifficulty(chapter.id, skill.id);
-  const element = renderSkill(skill, difficulty.level, () => navigate('/'));
+  const difficulty = difficultyFor(round.level);
+  const activity = activityForRound(skill, round.level, round.no);
+  const element = renderActivity(skill, activity, () => navigate('/'));
   if (!element) return <Navigate to="/" replace />;
 
   const onRoundComplete = (stars: number, total: number): RoundOutcome => {
@@ -59,10 +80,14 @@ function SkillRoute() {
     return { leveledUp, level: activityLevel(after, chapter.id, skill.id), newBadges };
   };
 
+  // Next round: bump the counter and re-read the (possibly just-leveled) level.
+  const onAdvance = () => setRound((r) => ({ no: r.no + 1, level: liveLevelRef.current }));
+
   return (
     <main className="app">
-      <ActivityContext.Provider value={{ onRoundComplete, difficulty }}>
-        {element}
+      <ActivityContext.Provider value={{ onRoundComplete, difficulty, onAdvance }}>
+        {/* Key by round so each round mounts fresh — switching game type cleanly. */}
+        {cloneElement(element, { key: round.no })}
       </ActivityContext.Provider>
     </main>
   );
@@ -85,7 +110,7 @@ export function AppRoutes() {
       <Route element={<AppShell />}>
         <Route path="/" element={<MapHome />} />
       </Route>
-      <Route path="/skill/:skillId" element={<SkillRoute />} />
+      <Route path="/skill/:skillId" element={<SkillRouteHost />} />
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />

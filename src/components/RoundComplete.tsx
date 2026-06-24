@@ -36,6 +36,10 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
   // so the celebration is never skipped.
   const hasReward = !!outcome && (outcome.leveledUp || outcome.newBadges.length > 0);
   const autoAdvance = outcome !== null && !hasReward && !settings.reducedMotion;
+  // "Keep going" advances the SESSION (owned by SkillRoute), so the next round
+  // can switch to a different game type — that's the in-session variety. Falls
+  // back to the component's own restart when there's no session context.
+  const advance = activity?.onAdvance ?? onAgain;
   const [secondsLeft, setSecondsLeft] = useState(AUTO_ADVANCE_SECONDS);
   useEffect(() => {
     if (!autoAdvance) return;
@@ -46,8 +50,8 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
     return () => clearInterval(interval);
   }, [autoAdvance]);
   useEffect(() => {
-    if (autoAdvance && secondsLeft <= 0) onAgain();
-  }, [autoAdvance, secondsLeft, onAgain]);
+    if (autoAdvance && secondsLeft <= 0) advance();
+  }, [autoAdvance, secondsLeft, advance]);
 
   return (
     <section className="screen complete">
@@ -98,7 +102,7 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
       )}
 
       <div className="button-row">
-        <button className="btn btn--primary" onClick={onAgain} autoFocus>
+        <button className="btn btn--primary" onClick={advance} autoFocus>
           Jatka <span className="en">Keep going</span>
         </button>
         <button className="btn" onClick={onHome}>

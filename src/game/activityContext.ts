@@ -23,6 +23,13 @@ export interface ActivityContextValue {
   onRoundComplete: (stars: number, total: number) => RoundOutcome;
   /** Difficulty levers for this (topic, activity), from the active child's level. */
   difficulty: Difficulty;
+  /**
+   * Advance the continuous session to the next round. Owned by SkillRoute (not
+   * the game component) so the NEXT round can switch to a different game type —
+   * the source of in-session variety. RoundComplete's "Jatka" / auto-advance
+   * calls this; the current component then unmounts and the next one mounts.
+   */
+  onAdvance: () => void;
 }
 
 export const ActivityContext = createContext<ActivityContextValue | null>(null);

@@ -5,7 +5,10 @@ import {
   findSkill,
   nextSkillId,
   renderSkill,
+  renderActivity,
   activityForLevel,
+  activitiesUpTo,
+  activityForRound,
   badgeEnv,
 } from './path';
 
@@ -168,6 +171,55 @@ describe('learning path', () => {
   it('caps Describe it and Conjugate the Verb at the default depth (no further sourced grammar)', () => {
     expect(findSkill('match')?.skill.maxLevel).toBe(4);
     expect(findSkill('conjugate')?.skill.maxLevel).toBe(4);
+  });
+
+  it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
+    const { skill } = findSkill('this-is')!; // ramp: build, build, order, spell
+    // Level 1 is gentle — a single game type.
+    expect(activitiesUpTo(skill, 1)).toEqual(['build']);
+    // Climbing ADDS types to the mix (deduped in ramp order), it doesn't replace.
+    expect(activitiesUpTo(skill, 3)).toEqual(['build', 'order']);
+    expect(activitiesUpTo(skill, 4)).toEqual(['build', 'order', 'spell']);
+    // Past the cap it holds at the full set.
+    expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order', 'spell']);
+  });
+
+  it('a single-activity node always serves that one game', () => {
+    const order = findSkill('order')!.skill; // no `activities` ramp
+    expect(activitiesUpTo(order, 8)).toEqual(['order']);
+    for (const n of [0, 1, 2, 5]) expect(activityForRound(order, 8, n)).toBe('order');
+  });
+
+  it('serves a VARIED mix of games across a session instead of repeating one', () => {
+    // The bug this fixes: a mastered node served only its hardest game (e.g.
+    // `spell`) for the whole continuous session. Now consecutive rounds rotate
+    // through every unlocked type — a mastered `where-is` mixes build/order/spell.
+    const { skill } = findSkill('where-is')!;
+    const types = new Set([0, 1, 2, 3, 4, 5].map((n) => activityForRound(skill, 4, n)));
+    expect(types).toEqual(new Set(['build', 'order', 'spell']));
+    // Round-robin is deterministic, so the rotation is stable/testable.
+    expect(activityForRound(skill, 4, 0)).toBe('build');
+    expect(activityForRound(skill, 4, 1)).toBe('order');
+    expect(activityForRound(skill, 4, 2)).toBe('spell');
+    expect(activityForRound(skill, 4, 3)).toBe('build');
+  });
+
+  it('keeps a low-level node gentle — variety appears only as the child climbs', () => {
+    const { skill } = findSkill('listen-animals')!; // listen, listen, match
+    // Level 1: still just listening (no variety yet — "visible early" not "instant").
+    expect(activityForRound(skill, 1, 0)).toBe('listen');
+    expect(activityForRound(skill, 1, 1)).toBe('listen');
+    // Level 3 unlocks the second game; the session now alternates.
+    expect(new Set([0, 1].map((n) => activityForRound(skill, 3, n)))).toEqual(
+      new Set(['listen', 'match']),
+    );
+  });
+
+  it('renderActivity maps a concrete activity kind to a game element', () => {
+    const { skill } = findSkill('this-is')!;
+    expect(renderActivity(skill, 'build', () => {})).not.toBeNull();
+    expect(renderActivity(skill, 'spell', () => {})).not.toBeNull();
+    expect(renderActivity(findSkill('review')!.skill, 'review', () => {})).toBeNull();
   });
 
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
