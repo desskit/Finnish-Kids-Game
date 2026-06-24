@@ -131,6 +131,61 @@ const FAMILY = [
   ['family', 'perhe', 'family', '👪'],
 ];
 
+// Body parts. All decline as ordinary singular nouns (full case paradigm), so
+// they flow into the same build/order/spell/count exercises as the other noun
+// themes. No plurale-tantum words (those lack the singular forms the carrier
+// phrases need).
+const BODY = [
+  ['eye', 'silmä', 'eye', '👁️'],
+  ['ear', 'korva', 'ear', '👂'],
+  ['nose', 'nenä', 'nose', '👃'],
+  ['mouth', 'suu', 'mouth', '👄'],
+  ['hand', 'käsi', 'hand', '✋'],
+  ['foot', 'jalka', 'foot', '🦶'],
+  ['head', 'pää', 'head', '🙂'],
+  ['tooth', 'hammas', 'tooth', '🦷'],
+  ['hair', 'tukka', 'hair', '💇'],
+  ['tummy', 'vatsa', 'tummy', '🤰'],
+  ['finger', 'sormi', 'finger', '👆'],
+  ['knee', 'polvi', 'knee', '🦵'],
+];
+
+// Nature words — sky, weather and landscape things a child can point at.
+const NATURE = [
+  ['sun', 'aurinko', 'sun', '☀️'],
+  ['moon', 'kuu', 'moon', '🌙'],
+  ['star', 'tähti', 'star', '⭐'],
+  ['cloud', 'pilvi', 'cloud', '☁️'],
+  ['rain', 'sade', 'rain', '🌧️'],
+  ['snow', 'lumi', 'snow', '❄️'],
+  ['flower', 'kukka', 'flower', '🌸'],
+  // `puu` (tree) already lives in the Places theme; use a distinct nature word
+  // so ids stay globally unique (enforced by the content-integrity test).
+  ['mountain', 'vuori', 'mountain', '⛰️'],
+  ['stone', 'kivi', 'stone', '🪨'],
+  ['lake', 'järvi', 'lake', '🏞️'],
+  ['sea', 'meri', 'sea', '🌊'],
+  ['sky', 'taivas', 'sky', '🌌'],
+];
+
+// Clothes. NOTE: `housut` (pants) is deliberately excluded — it's a plurale
+// tantum (no singular forms), so the singular carrier phrases can't fill it;
+// `pusero` (blouse) stands in as a singular-declining garment.
+const CLOTHES = [
+  ['shirt', 'paita', 'shirt', '👕'],
+  ['blouse', 'pusero', 'blouse', '👚'],
+  ['coat', 'takki', 'coat', '🧥'],
+  ['shoe', 'kenkä', 'shoe', '👟'],
+  ['sock', 'sukka', 'sock', '🧦'],
+  ['hat', 'hattu', 'hat', '👒'],
+  ['dress', 'mekko', 'dress', '👗'],
+  ['skirt', 'hame', 'skirt', '👗'],
+  ['glove', 'käsine', 'glove', '🧤'],
+  ['scarf', 'huivi', 'scarf', '🧣'],
+  ['cap', 'lakki', 'cap', '🧢'],
+  ['boot', 'saapas', 'boot', '🥾'],
+];
+
 // Kid-friendly verbs spanning all six KOTUS verb types.
 const VERBS = [
   ['be', 'olla', 'be'],
@@ -287,6 +342,33 @@ const places = buildTheme({
   sourceWords: nounWords,
 });
 
+const body = buildTheme({
+  id: 'body',
+  fi: 'Keho',
+  en: 'Body',
+  emoji: '🧍',
+  curation: BODY,
+  sourceWords: nounWords,
+});
+
+const nature = buildTheme({
+  id: 'nature',
+  fi: 'Luonto',
+  en: 'Nature',
+  emoji: '🌳',
+  curation: NATURE,
+  sourceWords: nounWords,
+});
+
+const clothes = buildTheme({
+  id: 'clothes',
+  fi: 'Vaatteet',
+  en: 'Clothes',
+  emoji: '👕',
+  curation: CLOTHES,
+  sourceWords: nounWords,
+});
+
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');
 writeFileSync(
@@ -297,10 +379,14 @@ writeFileSync(join(OUT_DIR, 'verbs.sourced.json'), JSON.stringify(verbs, null, 2
 writeFileSync(join(OUT_DIR, 'food.sourced.json'), JSON.stringify(food, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'family.sourced.json'), JSON.stringify(family, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'places.sourced.json'), JSON.stringify(places, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'body.sourced.json'), JSON.stringify(body, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'nature.sourced.json'), JSON.stringify(nature, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
     `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ` +
     `${food.words.length} food, ${family.words.length} family, ` +
-    `${places.words.length} places words to ${OUT_DIR}`,
+    `${places.words.length} places, ${body.words.length} body, ` +
+    `${nature.words.length} nature, ${clothes.words.length} clothes words to ${OUT_DIR}`,
 );

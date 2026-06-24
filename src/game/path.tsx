@@ -1,6 +1,17 @@
 import type { ReactElement } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { animals, food, family, numbers, places, adjectives, verbs } from '../content';
+import {
+  animals,
+  food,
+  family,
+  numbers,
+  places,
+  body,
+  nature,
+  clothes,
+  adjectives,
+  verbs,
+} from '../content';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import { buildSentenceRound, type SentencePools } from './round';
@@ -39,7 +50,16 @@ export type ActivityKind =
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
-export type Pool = 'nouns' | 'animals' | 'food' | 'family' | 'numbers' | 'places';
+export type Pool =
+  | 'nouns'
+  | 'animals'
+  | 'food'
+  | 'family'
+  | 'numbers'
+  | 'places'
+  | 'body'
+  | 'nature'
+  | 'clothes';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -121,6 +141,9 @@ const NOUNS: LexicalItem[] = [
   ...food.items,
   ...family.items,
   ...places.items,
+  ...body.items,
+  ...nature.items,
+  ...clothes.items,
 ];
 
 function itemsForPool(pool?: Pool): LexicalItem[] {
@@ -135,6 +158,12 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return numbers.items;
     case 'places':
       return places.items;
+    case 'body':
+      return body.items;
+    case 'nature':
+      return nature.items;
+    case 'clothes':
+      return clothes.items;
     default:
       return NOUNS;
   }
@@ -183,6 +212,9 @@ const baseChapters: Chapter[] = [
       { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'animals' } },
       { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'food' } },
       { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'family' } },
+      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'body' } },
+      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'nature' } },
+      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'clothes' } },
       { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'numbers' } },
     ],
   },

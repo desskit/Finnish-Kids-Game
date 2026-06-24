@@ -103,7 +103,15 @@ describe('learning path', () => {
   });
 
   it('gives every listening warm-up a third-level swap into Describe it', () => {
-    for (const id of ['listen-animals', 'listen-food', 'listen-family', 'listen-numbers']) {
+    for (const id of [
+      'listen-animals',
+      'listen-food',
+      'listen-family',
+      'listen-body',
+      'listen-nature',
+      'listen-clothes',
+      'listen-numbers',
+    ]) {
       const { skill } = findSkill(id)!;
       expect(activityForLevel(skill, 1)).toBe('listen');
       expect(activityForLevel(skill, 2)).toBe('listen');
@@ -159,7 +167,15 @@ describe('learning path', () => {
   });
 
   it('caps the listening warm-ups at depth 3 (the option-tile curve flattens by then)', () => {
-    for (const id of ['listen-animals', 'listen-food', 'listen-family', 'listen-numbers']) {
+    for (const id of [
+      'listen-animals',
+      'listen-food',
+      'listen-family',
+      'listen-body',
+      'listen-nature',
+      'listen-clothes',
+      'listen-numbers',
+    ]) {
       expect(findSkill(id)?.skill.maxLevel).toBe(3);
     }
   });
@@ -213,6 +229,32 @@ describe('learning path', () => {
     expect(new Set([0, 1].map((n) => activityForRound(skill, 3, n)))).toEqual(
       new Set(['listen', 'match']),
     );
+  });
+
+  it('adds Body/Nature/Clothes as chapter-1 warm-ups with their own non-empty pools', () => {
+    for (const id of ['listen-body', 'listen-nature', 'listen-clothes']) {
+      const found = findSkill(id)!;
+      expect(found.chapter.id).toBe('first-words');
+      expect(found.skill.maxLevel).toBe(3);
+      // The node renders a real listening round (its pool resolved to items).
+      const el = renderSkill(found.skill, 1, () => {});
+      const items = (el!.props as { items?: unknown[] }).items;
+      expect(items, `${id} round has no items`).toBeTruthy();
+      expect(items!.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('folds the new themes into the mixed noun pool the capstones draw on', () => {
+    // Word Order / Spelling use the default 'nouns' pool. A body/nature/clothes
+    // word should now be reachable there — confirm via a known new item id.
+    const { skill } = findSkill('spell')!; // default 'nouns' pool, inflected
+    const el = renderSkill(skill, 1, () => {});
+    const items = (el!.props as { items?: { id: string }[] }).items ?? [];
+    const ids = new Set(items.map((i) => i.id));
+    // The new themes each contribute their items to the mixed pool.
+    expect(ids.has('eye')).toBe(true); // body
+    expect(ids.has('sun')).toBe(true); // nature
+    expect(ids.has('shirt')).toBe(true); // clothes
   });
 
   it('renderActivity maps a concrete activity kind to a game element', () => {
