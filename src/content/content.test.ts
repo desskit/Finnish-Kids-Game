@@ -1,17 +1,38 @@
 import { describe, it, expect } from 'vitest';
-import { themes, animals, numbers, food, family, places, adjectives, verbs } from '../content';
+import {
+  themes,
+  animals,
+  numbers,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+  adjectives,
+  verbs,
+} from '../content';
 import { nounConstructions } from '../content/constructions';
 import { formFor, verbForm, caseFormOf, PERSONS } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
 // CI here rather than surfacing as a broken round on a child's tablet.
-const allPools = [animals, numbers, food, family, places, adjectives, verbs];
-const nounTopics = [animals, food, family, places];
+const allPools = [animals, numbers, food, family, places, body, nature, clothes, adjectives, verbs];
+const nounTopics = [animals, food, family, places, body, nature, clothes];
 
 describe('content integrity', () => {
   it('registers exactly the playable topics', () => {
-    expect(themes.map((t) => t.id)).toEqual(['animals', 'numbers', 'food', 'family', 'places']);
+    expect(themes.map((t) => t.id)).toEqual([
+      'animals',
+      'numbers',
+      'food',
+      'family',
+      'places',
+      'body',
+      'nature',
+      'clothes',
+    ]);
   });
 
   it('gives every theme an id, names and an emoji', () => {

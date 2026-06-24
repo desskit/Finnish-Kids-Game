@@ -1,0 +1,577 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "body",
+    "fi": "Keho",
+    "en": "Body",
+    "emoji": "🧍"
+  },
+  "words": [
+    {
+      "id": "eye",
+      "word": "silmä",
+      "en": "eye",
+      "emoji": "👁️",
+      "inflections": {
+        "nominative_singular": "silmä",
+        "nominative_plural": "silmät",
+        "genitive_singular": "silmän",
+        "genitive_plural": "silmien",
+        "partitive_singular": "silmää",
+        "partitive_plural": "silmiä",
+        "inessive_singular": "silmässä",
+        "inessive_plural": "silmissä",
+        "elative_singular": "silmästä",
+        "elative_plural": "silmistä",
+        "illative_singular": "silmään",
+        "illative_plural": "silmiin",
+        "adessive_singular": "silmällä",
+        "adessive_plural": "silmillä",
+        "ablative_singular": "silmältä",
+        "ablative_plural": "silmiltä",
+        "allative_singular": "silmälle",
+        "allative_plural": "silmille",
+        "essive_singular": "silmänä",
+        "essive_plural": "silminä",
+        "translative_singular": "silmäksi",
+        "translative_plural": "silmiksi",
+        "abessive_singular": "silmättä",
+        "abessive_plural": "silmittä",
+        "instructive_plural": "silmin",
+        "comitative_plural": "silmineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1307,
+      "examples": [
+        {
+          "fi": "omin silmin",
+          "en": "with one's own eyes"
+        },
+        {
+          "fi": "Silmä silmästä.",
+          "en": "An eye for an eye."
+        }
+      ]
+    },
+    {
+      "id": "ear",
+      "word": "korva",
+      "en": "ear",
+      "emoji": "👂",
+      "inflections": {
+        "nominative_singular": "korva",
+        "nominative_plural": "korvat",
+        "genitive_singular": "korvan",
+        "genitive_plural": "korvien",
+        "partitive_singular": "korvaa",
+        "partitive_plural": "korvia",
+        "inessive_singular": "korvassa",
+        "inessive_plural": "korvissa",
+        "elative_singular": "korvasta",
+        "elative_plural": "korvista",
+        "illative_singular": "korvaan",
+        "illative_plural": "korviin",
+        "adessive_singular": "korvalla",
+        "adessive_plural": "korvilla",
+        "ablative_singular": "korvalta",
+        "ablative_plural": "korvilta",
+        "allative_singular": "korvalle",
+        "allative_plural": "korville",
+        "essive_singular": "korvana",
+        "essive_plural": "korvina",
+        "translative_singular": "korvaksi",
+        "translative_plural": "korviksi",
+        "abessive_singular": "korvatta",
+        "abessive_plural": "korvitta",
+        "instructive_plural": "korvin",
+        "comitative_plural": "korvineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 6000,
+      "examples": [
+        {
+          "fi": "kevään korvalla / kevään korvilla",
+          "en": "on the brink of spring, in early spring"
+        },
+        {
+          "fi": "Hän virnisti korvasta korvaa.",
+          "en": "He grinned from ear to ear."
+        }
+      ]
+    },
+    {
+      "id": "nose",
+      "word": "nenä",
+      "en": "nose",
+      "emoji": "👃",
+      "inflections": {
+        "nominative_singular": "nenä",
+        "nominative_plural": "nenät",
+        "genitive_singular": "nenän",
+        "genitive_plural": "nenien",
+        "partitive_singular": "nenää",
+        "partitive_plural": "neniä",
+        "inessive_singular": "nenässä",
+        "inessive_plural": "nenissä",
+        "elative_singular": "nenästä",
+        "elative_plural": "nenistä",
+        "illative_singular": "nenään",
+        "illative_plural": "neniin",
+        "adessive_singular": "nenällä",
+        "adessive_plural": "nenillä",
+        "ablative_singular": "nenältä",
+        "ablative_plural": "neniltä",
+        "allative_singular": "nenälle",
+        "allative_plural": "nenille",
+        "essive_singular": "nenänä",
+        "essive_plural": "neninä",
+        "translative_singular": "nenäksi",
+        "translative_plural": "neniksi",
+        "abessive_singular": "nenättä",
+        "abessive_plural": "nenittä",
+        "instructive_plural": "nenin",
+        "comitative_plural": "nenineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 6016,
+      "examples": [
+        {
+          "fi": "työntää nenänsä toisten asioihin",
+          "en": "to stick one's nose into other people's business"
+        },
+        {
+          "fi": "nyrpistää nenänsä",
+          "en": "to turn up one's nose"
+        }
+      ]
+    },
+    {
+      "id": "mouth",
+      "word": "suu",
+      "en": "mouth",
+      "emoji": "👄",
+      "inflections": {
+        "nominative_singular": "suu",
+        "nominative_plural": "suut",
+        "genitive_singular": "suun",
+        "genitive_plural": "suiden",
+        "partitive_singular": "suuta",
+        "partitive_plural": "suita",
+        "inessive_singular": "suussa",
+        "inessive_plural": "suissa",
+        "elative_singular": "suusta",
+        "elative_plural": "suista",
+        "illative_singular": "suuhun",
+        "illative_plural": "suihin",
+        "adessive_singular": "suulla",
+        "adessive_plural": "suilla",
+        "ablative_singular": "suulta",
+        "ablative_plural": "suilta",
+        "allative_singular": "suulle",
+        "allative_plural": "suille",
+        "essive_singular": "suuna",
+        "essive_plural": "suina",
+        "translative_singular": "suuksi",
+        "translative_plural": "suiksi",
+        "abessive_singular": "suutta",
+        "abessive_plural": "suitta",
+        "instructive_plural": "suin",
+        "comitative_plural": "suineen"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 1693,
+      "examples": [
+        {
+          "fi": "illan suu",
+          "en": "early evening"
+        },
+        {
+          "fi": "Älä puhu ruoka suussa.",
+          "en": "Don't talk while you have food in your mouth."
+        }
+      ]
+    },
+    {
+      "id": "hand",
+      "word": "käsi",
+      "en": "hand",
+      "emoji": "✋",
+      "inflections": {
+        "nominative_singular": "käsi",
+        "nominative_plural": "kädet",
+        "genitive_singular": "käden",
+        "genitive_plural": "käsien",
+        "partitive_singular": "kättä",
+        "partitive_plural": "käsiä",
+        "inessive_singular": "kädessä",
+        "inessive_plural": "käsissä",
+        "elative_singular": "kädestä",
+        "elative_plural": "käsistä",
+        "illative_singular": "käteen",
+        "illative_plural": "käsiin",
+        "adessive_singular": "kädellä",
+        "adessive_plural": "käsillä",
+        "ablative_singular": "kädeltä",
+        "ablative_plural": "käsiltä",
+        "allative_singular": "kädelle",
+        "allative_plural": "käsille",
+        "essive_singular": "kätenä",
+        "essive_plural": "käsinä",
+        "translative_singular": "kädeksi",
+        "translative_plural": "käsiksi",
+        "abessive_singular": "kädettä",
+        "abessive_plural": "käsittä",
+        "instructive_plural": "käsin",
+        "comitative_plural": "käsineen"
+      },
+      "kotusType": 27,
+      "group": "i_old",
+      "frequencyRank": 909,
+      "examples": [
+        {
+          "fi": "käsistään taitava",
+          "en": "skilled with one's hands"
+        },
+        {
+          "fi": "ankaralla kädellä",
+          "en": "with a firm hand, with an iron fist"
+        }
+      ]
+    },
+    {
+      "id": "foot",
+      "word": "jalka",
+      "en": "foot",
+      "emoji": "🦶",
+      "inflections": {
+        "nominative_singular": "jalka",
+        "nominative_plural": "jalat",
+        "genitive_singular": "jalan",
+        "genitive_plural": "jalkojen",
+        "partitive_singular": "jalkaa",
+        "partitive_plural": "jalkoja",
+        "inessive_singular": "jalassa",
+        "inessive_plural": "jaloissa",
+        "elative_singular": "jalasta",
+        "elative_plural": "jaloista",
+        "illative_singular": "jalkaan",
+        "illative_plural": "jalkoihin",
+        "adessive_singular": "jalalla",
+        "adessive_plural": "jaloilla",
+        "ablative_singular": "jalalta",
+        "ablative_plural": "jaloilta",
+        "allative_singular": "jalalle",
+        "allative_plural": "jaloille",
+        "essive_singular": "jalkana",
+        "essive_plural": "jalkoina",
+        "translative_singular": "jalaksi",
+        "translative_plural": "jaloiksi",
+        "abessive_singular": "jalatta",
+        "abessive_plural": "jaloitta",
+        "instructive_singular": "jalan",
+        "instructive_plural": "jaloin",
+        "comitative_plural": "jalkoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 2452,
+      "examples": [
+        {
+          "fi": "Menin sinne jalan.",
+          "en": "I went there by foot / on foot / afoot."
+        },
+        {
+          "fi": "jalankulkija",
+          "en": "pedestrian"
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "word": "pää",
+      "en": "head",
+      "emoji": "🙂",
+      "inflections": {
+        "nominative_singular": "pää",
+        "nominative_plural": "päät",
+        "genitive_singular": "pään",
+        "genitive_plural": "päiden",
+        "partitive_singular": "päätä",
+        "partitive_plural": "päitä",
+        "inessive_singular": "päässä",
+        "inessive_plural": "päissä",
+        "elative_singular": "päästä",
+        "elative_plural": "päistä",
+        "illative_singular": "päähän",
+        "illative_plural": "päihin",
+        "adessive_singular": "päällä",
+        "adessive_plural": "päillä",
+        "ablative_singular": "päältä",
+        "ablative_plural": "päiltä",
+        "allative_singular": "päälle",
+        "allative_plural": "päille",
+        "essive_singular": "päänä",
+        "essive_plural": "päinä",
+        "translative_singular": "pääksi",
+        "translative_plural": "päiksi",
+        "abessive_singular": "päättä",
+        "abessive_plural": "päittä",
+        "instructive_plural": "päin",
+        "comitative_plural": "päineen"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 171,
+      "examples": [
+        {
+          "fi": "ahtaa päähänsä",
+          "en": "to cram (information) into one's head, to study hard"
+        },
+        {
+          "fi": "hyvällä päällä",
+          "en": "in a good mood"
+        }
+      ]
+    },
+    {
+      "id": "tooth",
+      "word": "hammas",
+      "en": "tooth",
+      "emoji": "🦷",
+      "inflections": {
+        "nominative_singular": "hammas",
+        "nominative_plural": "hampaat",
+        "genitive_singular": "hampaan",
+        "genitive_plural": "hampaiden",
+        "partitive_singular": "hammasta",
+        "partitive_plural": "hampaita",
+        "inessive_singular": "hampaassa",
+        "inessive_plural": "hampaissa",
+        "elative_singular": "hampaasta",
+        "elative_plural": "hampaista",
+        "illative_singular": "hampaaseen",
+        "illative_plural": "hampaisiin",
+        "adessive_singular": "hampaalla",
+        "adessive_plural": "hampailla",
+        "ablative_singular": "hampaalta",
+        "ablative_plural": "hampailta",
+        "allative_singular": "hampaalle",
+        "allative_plural": "hampaille",
+        "essive_singular": "hampaana",
+        "essive_plural": "hampaina",
+        "translative_singular": "hampaaksi",
+        "translative_plural": "hampaiksi",
+        "abessive_singular": "hampaatta",
+        "abessive_plural": "hampaitta",
+        "instructive_plural": "hampain",
+        "comitative_plural": "hampaineen"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 4132,
+      "examples": [
+        {
+          "fi": "hampaisiin saakka aseistettu",
+          "en": "armed to the teeth"
+        },
+        {
+          "fi": "kiristellä hampaitaan",
+          "en": "to grit one's teeth"
+        }
+      ]
+    },
+    {
+      "id": "hair",
+      "word": "tukka",
+      "en": "hair",
+      "emoji": "💇",
+      "inflections": {
+        "nominative_singular": "tukka",
+        "nominative_plural": "tukat",
+        "genitive_singular": "tukan",
+        "genitive_plural": "tukkien",
+        "partitive_singular": "tukkaa",
+        "partitive_plural": "tukkia",
+        "inessive_singular": "tukassa",
+        "inessive_plural": "tukissa",
+        "elative_singular": "tukasta",
+        "elative_plural": "tukista",
+        "illative_singular": "tukkaan",
+        "illative_plural": "tukkiin",
+        "adessive_singular": "tukalla",
+        "adessive_plural": "tukilla",
+        "ablative_singular": "tukalta",
+        "ablative_plural": "tukilta",
+        "allative_singular": "tukalle",
+        "allative_plural": "tukille",
+        "essive_singular": "tukkana",
+        "essive_plural": "tukkina",
+        "translative_singular": "tukaksi",
+        "translative_plural": "tukiksi",
+        "abessive_singular": "tukatta",
+        "abessive_plural": "tukitta",
+        "instructive_plural": "tukin",
+        "comitative_plural": "tukkineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 4705,
+      "examples": [
+        {
+          "fi": "Tom istui tukilla.",
+          "en": "Tom sat on a log."
+        },
+        {
+          "fi": "Tom veti Maria tukasta.",
+          "en": "Tom pulled Mary's hair."
+        }
+      ]
+    },
+    {
+      "id": "tummy",
+      "word": "vatsa",
+      "en": "tummy",
+      "emoji": "🤰",
+      "inflections": {
+        "nominative_singular": "vatsa",
+        "nominative_plural": "vatsat",
+        "genitive_singular": "vatsan",
+        "genitive_plural": "vatsojen",
+        "partitive_singular": "vatsaa",
+        "partitive_plural": "vatsoja",
+        "inessive_singular": "vatsassa",
+        "inessive_plural": "vatsoissa",
+        "elative_singular": "vatsasta",
+        "elative_plural": "vatsoista",
+        "illative_singular": "vatsaan",
+        "illative_plural": "vatsoihin",
+        "adessive_singular": "vatsalla",
+        "adessive_plural": "vatsoilla",
+        "ablative_singular": "vatsalta",
+        "ablative_plural": "vatsoilta",
+        "allative_singular": "vatsalle",
+        "allative_plural": "vatsoille",
+        "essive_singular": "vatsana",
+        "essive_plural": "vatsoina",
+        "translative_singular": "vatsaksi",
+        "translative_plural": "vatsoiksi",
+        "abessive_singular": "vatsatta",
+        "abessive_plural": "vatsoitta",
+        "instructive_plural": "vatsoin",
+        "comitative_plural": "vatsoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 10368,
+      "examples": [
+        {
+          "fi": "Löin häntä vatsaan.",
+          "en": "I hit him in the belly."
+        },
+        {
+          "fi": "Tomilla on heikko vatsa.",
+          "en": "Tom has a weak stomach."
+        }
+      ]
+    },
+    {
+      "id": "finger",
+      "word": "sormi",
+      "en": "finger",
+      "emoji": "👆",
+      "inflections": {
+        "nominative_singular": "sormi",
+        "nominative_plural": "sormet",
+        "genitive_singular": "sormen",
+        "genitive_plural": "sormien",
+        "partitive_singular": "sormea",
+        "partitive_plural": "sormia",
+        "inessive_singular": "sormessa",
+        "inessive_plural": "sormissa",
+        "elative_singular": "sormesta",
+        "elative_plural": "sormista",
+        "illative_singular": "sormeen",
+        "illative_plural": "sormiin",
+        "adessive_singular": "sormella",
+        "adessive_plural": "sormilla",
+        "ablative_singular": "sormelta",
+        "ablative_plural": "sormilta",
+        "allative_singular": "sormelle",
+        "allative_plural": "sormille",
+        "essive_singular": "sormena",
+        "essive_plural": "sormina",
+        "translative_singular": "sormeksi",
+        "translative_plural": "sormiksi",
+        "abessive_singular": "sormetta",
+        "abessive_plural": "sormitta",
+        "instructive_plural": "sormin",
+        "comitative_plural": "sormineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 7779,
+      "examples": [
+        {
+          "fi": "kohtalon sormi",
+          "en": "the hand of fate"
+        },
+        {
+          "fi": "Tom ei saa sormustaan pois sormesta.",
+          "en": "Tom can't get his ring off his finger."
+        }
+      ]
+    },
+    {
+      "id": "knee",
+      "word": "polvi",
+      "en": "knee",
+      "emoji": "🦵",
+      "inflections": {
+        "nominative_singular": "polvi",
+        "nominative_plural": "polvet",
+        "genitive_singular": "polven",
+        "genitive_plural": "polvien",
+        "partitive_singular": "polvea",
+        "partitive_plural": "polvia",
+        "inessive_singular": "polvessa",
+        "inessive_plural": "polvissa",
+        "elative_singular": "polvesta",
+        "elative_plural": "polvista",
+        "illative_singular": "polveen",
+        "illative_plural": "polviin",
+        "adessive_singular": "polvella",
+        "adessive_plural": "polvilla",
+        "ablative_singular": "polvelta",
+        "ablative_plural": "polvilta",
+        "allative_singular": "polvelle",
+        "allative_plural": "polville",
+        "essive_singular": "polvena",
+        "essive_plural": "polvina",
+        "translative_singular": "polveksi",
+        "translative_plural": "polviksi",
+        "abessive_singular": "polvetta",
+        "abessive_plural": "polvitta",
+        "instructive_plural": "polvin",
+        "comitative_plural": "polvineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 7891,
+      "examples": [
+        {
+          "fi": "seuraava polvi",
+          "en": "next generation"
+        },
+        {
+          "fi": "nelipolvinen trokee",
+          "en": "trochaic tetrameter"
+        }
+      ]
+    }
+  ]
+}

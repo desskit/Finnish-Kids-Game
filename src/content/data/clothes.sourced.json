@@ -1,0 +1,566 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "clothes",
+    "fi": "Vaatteet",
+    "en": "Clothes",
+    "emoji": "👕"
+  },
+  "words": [
+    {
+      "id": "shirt",
+      "word": "paita",
+      "en": "shirt",
+      "emoji": "👕",
+      "inflections": {
+        "nominative_singular": "paita",
+        "nominative_plural": "paidat",
+        "genitive_singular": "paidan",
+        "genitive_plural": "paitojen",
+        "partitive_singular": "paitaa",
+        "partitive_plural": "paitoja",
+        "inessive_singular": "paidassa",
+        "inessive_plural": "paidoissa",
+        "elative_singular": "paidasta",
+        "elative_plural": "paidoista",
+        "illative_singular": "paitaan",
+        "illative_plural": "paitoihin",
+        "adessive_singular": "paidalla",
+        "adessive_plural": "paidoilla",
+        "ablative_singular": "paidalta",
+        "ablative_plural": "paidoilta",
+        "allative_singular": "paidalle",
+        "allative_plural": "paidoille",
+        "essive_singular": "paitana",
+        "essive_plural": "paitoina",
+        "translative_singular": "paidaksi",
+        "translative_plural": "paidoiksi",
+        "abessive_singular": "paidatta",
+        "abessive_plural": "paidoitta",
+        "instructive_plural": "paidoin",
+        "comitative_plural": "paitoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 3541,
+      "examples": [
+        {
+          "fi": "Tomin paidassa oli verta.",
+          "en": "There was blood on Tom's shirt."
+        },
+        {
+          "fi": "Mitä tykkäät tästä paidasta?",
+          "en": "What do you think of this shirt?"
+        }
+      ]
+    },
+    {
+      "id": "blouse",
+      "word": "pusero",
+      "en": "blouse",
+      "emoji": "👚",
+      "inflections": {
+        "nominative_singular": "pusero",
+        "nominative_plural": "puserot",
+        "genitive_singular": "puseron",
+        "genitive_plural": "puserojen",
+        "partitive_singular": "puseroa",
+        "partitive_plural": "puseroja",
+        "inessive_singular": "puserossa",
+        "inessive_plural": "puseroissa",
+        "elative_singular": "puserosta",
+        "elative_plural": "puseroista",
+        "illative_singular": "puseroon",
+        "illative_plural": "puseroihin",
+        "adessive_singular": "puserolla",
+        "adessive_plural": "puseroilla",
+        "ablative_singular": "puserolta",
+        "ablative_plural": "puseroilta",
+        "allative_singular": "puserolle",
+        "allative_plural": "puseroille",
+        "essive_singular": "puserona",
+        "essive_plural": "puseroina",
+        "translative_singular": "puseroksi",
+        "translative_plural": "puseroiksi",
+        "abessive_singular": "puserotta",
+        "abessive_plural": "puseroitta",
+        "instructive_plural": "puseroin",
+        "comitative_plural": "puseroineen"
+      },
+      "kotusType": 2,
+      "group": "u_y",
+      "frequencyRank": 16902,
+      "examples": [
+        {
+          "fi": "Mari osti hameen ja puseron.",
+          "en": "Mary bought a skirt and a blouse."
+        },
+        {
+          "fi": "Mary oli pukeutunut silkkiseen puseroon.",
+          "en": "Mary wore a silk blouse."
+        }
+      ]
+    },
+    {
+      "id": "coat",
+      "word": "takki",
+      "en": "coat",
+      "emoji": "🧥",
+      "inflections": {
+        "nominative_singular": "takki",
+        "nominative_plural": "takit",
+        "genitive_singular": "takin",
+        "genitive_plural": "takkien",
+        "partitive_singular": "takkia",
+        "partitive_plural": "takkeja",
+        "inessive_singular": "takissa",
+        "inessive_plural": "takeissa",
+        "elative_singular": "takista",
+        "elative_plural": "takeista",
+        "illative_singular": "takkiin",
+        "illative_plural": "takkeihin",
+        "adessive_singular": "takilla",
+        "adessive_plural": "takeilla",
+        "ablative_singular": "takilta",
+        "ablative_plural": "takeilta",
+        "allative_singular": "takille",
+        "allative_plural": "takeille",
+        "essive_singular": "takkina",
+        "essive_plural": "takkeina",
+        "translative_singular": "takiksi",
+        "translative_plural": "takeiksi",
+        "abessive_singular": "takitta",
+        "abessive_plural": "takeitta",
+        "instructive_plural": "takein",
+        "comitative_plural": "takkeineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 3935,
+      "examples": [
+        {
+          "fi": "Tässä takissa et palele.",
+          "en": "With this jacket you will not freeze."
+        },
+        {
+          "fi": "Hän ompeli napin takkiin.",
+          "en": "She sewed a button on the coat."
+        }
+      ]
+    },
+    {
+      "id": "shoe",
+      "word": "kenkä",
+      "en": "shoe",
+      "emoji": "👟",
+      "inflections": {
+        "nominative_singular": "kenkä",
+        "nominative_plural": "kengät",
+        "genitive_singular": "kengän",
+        "genitive_plural": "kenkien",
+        "partitive_singular": "kenkää",
+        "partitive_plural": "kenkiä",
+        "inessive_singular": "kengässä",
+        "inessive_plural": "kengissä",
+        "elative_singular": "kengästä",
+        "elative_plural": "kengistä",
+        "illative_singular": "kenkään",
+        "illative_plural": "kenkiin",
+        "adessive_singular": "kengällä",
+        "adessive_plural": "kengillä",
+        "ablative_singular": "kengältä",
+        "ablative_plural": "kengiltä",
+        "allative_singular": "kengälle",
+        "allative_plural": "kengille",
+        "essive_singular": "kenkänä",
+        "essive_plural": "kenkinä",
+        "translative_singular": "kengäksi",
+        "translative_plural": "kengiksi",
+        "abessive_singular": "kengättä",
+        "abessive_plural": "kengittä",
+        "instructive_plural": "kengin",
+        "comitative_plural": "kenkineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 2352,
+      "examples": [
+        {
+          "fi": "Minulla on kivi kengässä.",
+          "en": "I have a rock in my shoe."
+        },
+        {
+          "fi": "Valitsin nämä kenkien sijaan.",
+          "en": "I chose these over the shoes."
+        }
+      ]
+    },
+    {
+      "id": "sock",
+      "word": "sukka",
+      "en": "sock",
+      "emoji": "🧦",
+      "inflections": {
+        "nominative_singular": "sukka",
+        "nominative_plural": "sukat",
+        "genitive_singular": "sukan",
+        "genitive_plural": "sukkien",
+        "partitive_singular": "sukkaa",
+        "partitive_plural": "sukkia",
+        "inessive_singular": "sukassa",
+        "inessive_plural": "sukissa",
+        "elative_singular": "sukasta",
+        "elative_plural": "sukista",
+        "illative_singular": "sukkaan",
+        "illative_plural": "sukkiin",
+        "adessive_singular": "sukalla",
+        "adessive_plural": "sukilla",
+        "ablative_singular": "sukalta",
+        "ablative_plural": "sukilta",
+        "allative_singular": "sukalle",
+        "allative_plural": "sukille",
+        "essive_singular": "sukkana",
+        "essive_plural": "sukkina",
+        "translative_singular": "sukaksi",
+        "translative_plural": "sukiksi",
+        "abessive_singular": "sukatta",
+        "abessive_plural": "sukitta",
+        "instructive_plural": "sukin",
+        "comitative_plural": "sukkineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 10526,
+      "examples": [
+        {
+          "fi": "Tässä sukassa on reikä.",
+          "en": "There's a hole in this sock."
+        },
+        {
+          "fi": "Sun sukassa on iso reikä.",
+          "en": "There's a big hole in your sock."
+        }
+      ]
+    },
+    {
+      "id": "hat",
+      "word": "hattu",
+      "en": "hat",
+      "emoji": "👒",
+      "inflections": {
+        "nominative_singular": "hattu",
+        "nominative_plural": "hatut",
+        "genitive_singular": "hatun",
+        "genitive_plural": "hattujen",
+        "partitive_singular": "hattua",
+        "partitive_plural": "hattuja",
+        "inessive_singular": "hatussa",
+        "inessive_plural": "hatuissa",
+        "elative_singular": "hatusta",
+        "elative_plural": "hatuista",
+        "illative_singular": "hattuun",
+        "illative_plural": "hattuihin",
+        "adessive_singular": "hatulla",
+        "adessive_plural": "hatuilla",
+        "ablative_singular": "hatulta",
+        "ablative_plural": "hatuilta",
+        "allative_singular": "hatulle",
+        "allative_plural": "hatuille",
+        "essive_singular": "hattuna",
+        "essive_plural": "hattuina",
+        "translative_singular": "hatuksi",
+        "translative_plural": "hatuiksi",
+        "abessive_singular": "hatutta",
+        "abessive_plural": "hatuitta",
+        "instructive_plural": "hatuin",
+        "comitative_plural": "hattuineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 4273,
+      "examples": [
+        {
+          "fi": "venttiilin hattu",
+          "en": "valve cap"
+        },
+        {
+          "fi": "Heitin sen vain hatusta.",
+          "en": "I just made that up."
+        }
+      ]
+    },
+    {
+      "id": "dress",
+      "word": "mekko",
+      "en": "dress",
+      "emoji": "👗",
+      "inflections": {
+        "nominative_singular": "mekko",
+        "nominative_plural": "mekot",
+        "genitive_singular": "mekon",
+        "genitive_plural": "mekkojen",
+        "partitive_singular": "mekkoa",
+        "partitive_plural": "mekkoja",
+        "inessive_singular": "mekossa",
+        "inessive_plural": "mekoissa",
+        "elative_singular": "mekosta",
+        "elative_plural": "mekoista",
+        "illative_singular": "mekkoon",
+        "illative_plural": "mekkoihin",
+        "adessive_singular": "mekolla",
+        "adessive_plural": "mekoilla",
+        "ablative_singular": "mekolta",
+        "ablative_plural": "mekoilta",
+        "allative_singular": "mekolle",
+        "allative_plural": "mekoille",
+        "essive_singular": "mekkona",
+        "essive_plural": "mekkoina",
+        "translative_singular": "mekoksi",
+        "translative_plural": "mekoiksi",
+        "abessive_singular": "mekotta",
+        "abessive_plural": "mekoitta",
+        "instructive_plural": "mekoin",
+        "comitative_plural": "mekkoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 5596,
+      "examples": [
+        {
+          "fi": "Pidän tuosta mekosta.",
+          "en": "I like that dress."
+        },
+        {
+          "fi": "Näytänkö minä kauniilta tässä mekossa?",
+          "en": "Do I look beautiful in this dress?"
+        }
+      ]
+    },
+    {
+      "id": "skirt",
+      "word": "hame",
+      "en": "skirt",
+      "emoji": "👗",
+      "inflections": {
+        "nominative_singular": "hame",
+        "nominative_plural": "hameet",
+        "genitive_singular": "hameen",
+        "genitive_plural": "hameiden",
+        "partitive_singular": "hametta",
+        "partitive_plural": "hameita",
+        "inessive_singular": "hameessa",
+        "inessive_plural": "hameissa",
+        "elative_singular": "hameesta",
+        "elative_plural": "hameista",
+        "illative_singular": "hameeseen",
+        "illative_plural": "hameisiin",
+        "adessive_singular": "hameella",
+        "adessive_plural": "hameilla",
+        "ablative_singular": "hameelta",
+        "ablative_plural": "hameilta",
+        "allative_singular": "hameelle",
+        "allative_plural": "hameille",
+        "essive_singular": "hameena",
+        "essive_plural": "hameina",
+        "translative_singular": "hameeksi",
+        "translative_plural": "hameiksi",
+        "abessive_singular": "hameetta",
+        "abessive_plural": "hameitta",
+        "instructive_plural": "hamein",
+        "comitative_plural": "hameineen"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 17353,
+      "examples": [
+        {
+          "fi": "Pidän tuosta hameesta.",
+          "en": "I like that skirt."
+        },
+        {
+          "fi": "Hän pitää lyhyistä hameista.",
+          "en": "She likes short skirts."
+        }
+      ]
+    },
+    {
+      "id": "glove",
+      "word": "käsine",
+      "en": "glove",
+      "emoji": "🧤",
+      "inflections": {
+        "nominative_singular": "käsine",
+        "nominative_plural": "käsineet",
+        "genitive_singular": "käsineen",
+        "genitive_plural": "käsineiden",
+        "partitive_singular": "käsinettä",
+        "partitive_plural": "käsineitä",
+        "inessive_singular": "käsineessä",
+        "inessive_plural": "käsineissä",
+        "elative_singular": "käsineestä",
+        "elative_plural": "käsineistä",
+        "illative_singular": "käsineeseen",
+        "illative_plural": "käsineisiin",
+        "adessive_singular": "käsineellä",
+        "adessive_plural": "käsineillä",
+        "ablative_singular": "käsineeltä",
+        "ablative_plural": "käsineiltä",
+        "allative_singular": "käsineelle",
+        "allative_plural": "käsineille",
+        "essive_singular": "käsineenä",
+        "essive_plural": "käsineinä",
+        "translative_singular": "käsineeksi",
+        "translative_plural": "käsineiksi",
+        "abessive_singular": "käsineettä",
+        "abessive_plural": "käsineittä",
+        "instructive_plural": "käsinein",
+        "comitative_plural": "käsineineen"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 29344,
+      "examples": [
+        {
+          "fi": "Hän osti uudet käsineet.",
+          "en": "He bought a new pair of gloves."
+        },
+        {
+          "fi": "Eikö sinun kannattaisi käyttää käsineitä?",
+          "en": "Shouldn't you wear gloves?"
+        }
+      ]
+    },
+    {
+      "id": "scarf",
+      "word": "huivi",
+      "en": "scarf",
+      "emoji": "🧣",
+      "inflections": {
+        "nominative_singular": "huivi",
+        "nominative_plural": "huivit",
+        "genitive_singular": "huivin",
+        "genitive_plural": "huivien",
+        "partitive_singular": "huivia",
+        "partitive_plural": "huiveja",
+        "inessive_singular": "huivissa",
+        "inessive_plural": "huiveissa",
+        "elative_singular": "huivista",
+        "elative_plural": "huiveista",
+        "illative_singular": "huiviin",
+        "illative_plural": "huiveihin",
+        "adessive_singular": "huivilla",
+        "adessive_plural": "huiveilla",
+        "ablative_singular": "huivilta",
+        "ablative_plural": "huiveilta",
+        "allative_singular": "huiville",
+        "allative_plural": "huiveille",
+        "essive_singular": "huivina",
+        "essive_plural": "huiveina",
+        "translative_singular": "huiviksi",
+        "translative_plural": "huiveiksi",
+        "abessive_singular": "huivitta",
+        "abessive_plural": "huiveitta",
+        "instructive_plural": "huivein",
+        "comitative_plural": "huiveineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 17457,
+      "examples": [
+        {
+          "fi": "Tom tahtoi ostaa Marille uuden huivin.",
+          "en": "Tom wanted to buy Mary a new scarf."
+        },
+        {
+          "fi": "Tuo tyttö joka pitää huivia on neitsyt.",
+          "en": "That girl who's wearing a scarf is a virgin."
+        }
+      ]
+    },
+    {
+      "id": "cap",
+      "word": "lakki",
+      "en": "cap",
+      "emoji": "🧢",
+      "inflections": {
+        "nominative_singular": "lakki",
+        "nominative_plural": "lakit",
+        "genitive_singular": "lakin",
+        "genitive_plural": "lakkien",
+        "partitive_singular": "lakkia",
+        "partitive_plural": "lakkeja",
+        "inessive_singular": "lakissa",
+        "inessive_plural": "lakeissa",
+        "elative_singular": "lakista",
+        "elative_plural": "lakeista",
+        "illative_singular": "lakkiin",
+        "illative_plural": "lakkeihin",
+        "adessive_singular": "lakilla",
+        "adessive_plural": "lakeilla",
+        "ablative_singular": "lakilta",
+        "ablative_plural": "lakeilta",
+        "allative_singular": "lakille",
+        "allative_plural": "lakeille",
+        "essive_singular": "lakkina",
+        "essive_plural": "lakkeina",
+        "translative_singular": "lakiksi",
+        "translative_plural": "lakeiksi",
+        "abessive_singular": "lakitta",
+        "abessive_plural": "lakeitta",
+        "instructive_plural": "lakein",
+        "comitative_plural": "lakkeineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 24868
+    },
+    {
+      "id": "boot",
+      "word": "saapas",
+      "en": "boot",
+      "emoji": "🥾",
+      "inflections": {
+        "nominative_singular": "saapas",
+        "nominative_plural": "saappaat",
+        "genitive_singular": "saappaan",
+        "genitive_plural": "saappaiden",
+        "partitive_singular": "saapasta",
+        "partitive_plural": "saappaita",
+        "inessive_singular": "saappaassa",
+        "inessive_plural": "saappaissa",
+        "elative_singular": "saappaasta",
+        "elative_plural": "saappaista",
+        "illative_singular": "saappaaseen",
+        "illative_plural": "saappaisiin",
+        "adessive_singular": "saappaalla",
+        "adessive_plural": "saappailla",
+        "ablative_singular": "saappaalta",
+        "ablative_plural": "saappailta",
+        "allative_singular": "saappaalle",
+        "allative_plural": "saappaille",
+        "essive_singular": "saappaana",
+        "essive_plural": "saappaina",
+        "translative_singular": "saappaaksi",
+        "translative_plural": "saappaiksi",
+        "abessive_singular": "saappaatta",
+        "abessive_plural": "saappaitta",
+        "instructive_plural": "saappain",
+        "comitative_plural": "saappaineen"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 10656,
+      "examples": [
+        {
+          "fi": "Tarvitsen uudet saappaat.",
+          "en": "I need new boots."
+        },
+        {
+          "fi": "Tom tahtoi ostaa uudet saappaat.",
+          "en": "Tom wanted to buy a new pair of boots."
+        }
+      ]
+    }
+  ]
+}

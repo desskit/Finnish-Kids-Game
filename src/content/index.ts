@@ -5,6 +5,9 @@ import verbsData from './data/verbs.sourced.json';
 import foodData from './data/food.sourced.json';
 import familyData from './data/family.sourced.json';
 import placesData from './data/places.sourced.json';
+import bodyData from './data/body.sourced.json';
+import natureData from './data/nature.sourced.json';
+import clothesData from './data/clothes.sourced.json';
 import { nounConstructions } from './constructions';
 import type { Construction, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -101,6 +104,18 @@ export const family = toTheme(familyData as unknown as SourcedFile, nounConstruc
 export const places = toTheme(placesData as unknown as SourcedFile, nounConstructions, {
   countable: true,
 });
+// Body / nature / clothes — three more everyday noun themes. Each item carries
+// the full sourced case paradigm, so they slot into the same carrier phrases as
+// the other noun topics and join the mixed noun pool + the cross-topic Review.
+export const body = toTheme(bodyData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
+export const nature = toTheme(natureData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
+export const clothes = toTheme(clothesData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
 
 // Adjectives are content for the (later) adjective+noun agreement exercises.
 // Exported for use by the round builder, but intentionally NOT added to
@@ -111,7 +126,7 @@ export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
 // out of `themes` — it isn't a noun vocabulary topic, it has its own game.
 export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
 
-export const themes: Theme[] = [animals, numbers, food, family, places];
+export const themes: Theme[] = [animals, numbers, food, family, places, body, nature, clothes];
 
 // Every vocabulary item the Review activity can quiz, across all topics. These
 // are exactly the items the picture-tap activities record SRS attempts against,

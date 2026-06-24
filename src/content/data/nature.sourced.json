@@ -1,0 +1,572 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "nature",
+    "fi": "Luonto",
+    "en": "Nature",
+    "emoji": "🌳"
+  },
+  "words": [
+    {
+      "id": "sun",
+      "word": "aurinko",
+      "en": "sun",
+      "emoji": "☀️",
+      "inflections": {
+        "nominative_singular": "aurinko",
+        "nominative_plural": "auringot",
+        "genitive_singular": "auringon",
+        "genitive_plural": "aurinkojen",
+        "partitive_singular": "aurinkoa",
+        "partitive_plural": "aurinkoja",
+        "inessive_singular": "auringossa",
+        "inessive_plural": "auringoissa",
+        "elative_singular": "auringosta",
+        "elative_plural": "auringoista",
+        "illative_singular": "aurinkoon",
+        "illative_plural": "aurinkoihin",
+        "adessive_singular": "auringolla",
+        "adessive_plural": "auringoilla",
+        "ablative_singular": "auringolta",
+        "ablative_plural": "auringoilta",
+        "allative_singular": "auringolle",
+        "allative_plural": "auringoille",
+        "essive_singular": "aurinkona",
+        "essive_plural": "aurinkoina",
+        "translative_singular": "auringoksi",
+        "translative_plural": "auringoiksi",
+        "abessive_singular": "auringotta",
+        "abessive_plural": "auringoitta",
+        "instructive_plural": "auringoin",
+        "comitative_plural": "aurinkoineen"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 2223,
+      "examples": [
+        {
+          "fi": "Lumi suli auringossa.",
+          "en": "The snow melted in the sun."
+        },
+        {
+          "fi": "Kissa makaa auringossa.",
+          "en": "A cat is lying in the sun."
+        }
+      ]
+    },
+    {
+      "id": "moon",
+      "word": "kuu",
+      "en": "moon",
+      "emoji": "🌙",
+      "inflections": {
+        "nominative_singular": "kuu",
+        "nominative_plural": "kuut",
+        "genitive_singular": "kuun",
+        "genitive_plural": "kuiden",
+        "partitive_singular": "kuuta",
+        "partitive_plural": "kuita",
+        "inessive_singular": "kuussa",
+        "inessive_plural": "kuissa",
+        "elative_singular": "kuusta",
+        "elative_plural": "kuista",
+        "illative_singular": "kuuhun",
+        "illative_plural": "kuihin",
+        "adessive_singular": "kuulla",
+        "adessive_plural": "kuilla",
+        "ablative_singular": "kuulta",
+        "ablative_plural": "kuilta",
+        "allative_singular": "kuulle",
+        "allative_plural": "kuille",
+        "essive_singular": "kuuna",
+        "essive_plural": "kuina",
+        "translative_singular": "kuuksi",
+        "translative_plural": "kuiksi",
+        "abessive_singular": "kuutta",
+        "abessive_plural": "kuitta",
+        "instructive_plural": "kuin",
+        "comitative_plural": "kuineen"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 25,
+      "examples": [
+        {
+          "fi": "Missä kuussa olet syntynyt?",
+          "en": "What month were you born in?"
+        },
+        {
+          "fi": "Muutan ensi kuussa.",
+          "en": "I am moving next month."
+        }
+      ]
+    },
+    {
+      "id": "star",
+      "word": "tähti",
+      "en": "star",
+      "emoji": "⭐",
+      "inflections": {
+        "nominative_singular": "tähti",
+        "nominative_plural": "tähdet",
+        "genitive_singular": "tähden",
+        "genitive_plural": "tähtien",
+        "partitive_singular": "tähteä",
+        "partitive_plural": "tähtiä",
+        "inessive_singular": "tähdessä",
+        "inessive_plural": "tähdissä",
+        "elative_singular": "tähdestä",
+        "elative_plural": "tähdistä",
+        "illative_singular": "tähteen",
+        "illative_plural": "tähtiin",
+        "adessive_singular": "tähdellä",
+        "adessive_plural": "tähdillä",
+        "ablative_singular": "tähdeltä",
+        "ablative_plural": "tähdiltä",
+        "allative_singular": "tähdelle",
+        "allative_plural": "tähdille",
+        "essive_singular": "tähtenä",
+        "essive_plural": "tähtinä",
+        "translative_singular": "tähdeksi",
+        "translative_plural": "tähdiksi",
+        "abessive_singular": "tähdettä",
+        "abessive_plural": "tähdittä",
+        "instructive_plural": "tähdin",
+        "comitative_plural": "tähtineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 1282,
+      "examples": [
+        {
+          "fi": "Tähdet ovat kaukana.",
+          "en": "The stars are far away."
+        },
+        {
+          "fi": "Hänestä tuli tähti.",
+          "en": "She became a star."
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "word": "pilvi",
+      "en": "cloud",
+      "emoji": "☁️",
+      "inflections": {
+        "nominative_singular": "pilvi",
+        "nominative_plural": "pilvet",
+        "genitive_singular": "pilven",
+        "genitive_plural": "pilvien",
+        "partitive_singular": "pilveä",
+        "partitive_plural": "pilviä",
+        "inessive_singular": "pilvessä",
+        "inessive_plural": "pilvissä",
+        "elative_singular": "pilvestä",
+        "elative_plural": "pilvistä",
+        "illative_singular": "pilveen",
+        "illative_plural": "pilviin",
+        "adessive_singular": "pilvellä",
+        "adessive_plural": "pilvillä",
+        "ablative_singular": "pilveltä",
+        "ablative_plural": "pilviltä",
+        "allative_singular": "pilvelle",
+        "allative_plural": "pilville",
+        "essive_singular": "pilvenä",
+        "essive_plural": "pilvinä",
+        "translative_singular": "pilveksi",
+        "translative_plural": "pilviksi",
+        "abessive_singular": "pilvettä",
+        "abessive_plural": "pilvittä",
+        "instructive_plural": "pilvin",
+        "comitative_plural": "pilvineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 4864,
+      "examples": [
+        {
+          "fi": "polttaa pilveä",
+          "en": "to smoke marijuana"
+        },
+        {
+          "fi": "olla pilvessä",
+          "en": "to be high"
+        }
+      ]
+    },
+    {
+      "id": "rain",
+      "word": "sade",
+      "en": "rain",
+      "emoji": "🌧️",
+      "inflections": {
+        "nominative_singular": "sade",
+        "nominative_plural": "sateet",
+        "genitive_singular": "sateen",
+        "genitive_plural": "sateiden",
+        "partitive_singular": "sadetta",
+        "partitive_plural": "sateita",
+        "inessive_singular": "sateessa",
+        "inessive_plural": "sateissa",
+        "elative_singular": "sateesta",
+        "elative_plural": "sateista",
+        "illative_singular": "sateeseen",
+        "illative_plural": "sateisiin",
+        "adessive_singular": "sateella",
+        "adessive_plural": "sateilla",
+        "ablative_singular": "sateelta",
+        "ablative_plural": "sateilta",
+        "allative_singular": "sateelle",
+        "allative_plural": "sateille",
+        "essive_singular": "sateena",
+        "essive_plural": "sateina",
+        "translative_singular": "sateeksi",
+        "translative_plural": "sateiksi",
+        "abessive_singular": "sateetta",
+        "abessive_plural": "sateitta",
+        "instructive_plural": "satein",
+        "comitative_plural": "sateineen"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 6786,
+      "examples": [
+        {
+          "fi": "Sateet tulivat tänä vuonna myöhään.",
+          "en": "The rains came late that year."
+        },
+        {
+          "fi": "Kranaattisade putosi asemiimme.",
+          "en": "A rain of mortar fire fell on our positions."
+        }
+      ]
+    },
+    {
+      "id": "snow",
+      "word": "lumi",
+      "en": "snow",
+      "emoji": "❄️",
+      "inflections": {
+        "nominative_singular": "lumi",
+        "nominative_plural": "lumet",
+        "genitive_singular": "lumen",
+        "genitive_plural": "lumien",
+        "partitive_singular": "lunta",
+        "partitive_plural": "lumia",
+        "inessive_singular": "lumessa",
+        "inessive_plural": "lumissa",
+        "elative_singular": "lumesta",
+        "elative_plural": "lumista",
+        "illative_singular": "lumeen",
+        "illative_plural": "lumiin",
+        "adessive_singular": "lumella",
+        "adessive_plural": "lumilla",
+        "ablative_singular": "lumelta",
+        "ablative_plural": "lumilta",
+        "allative_singular": "lumelle",
+        "allative_plural": "lumille",
+        "essive_singular": "lumena",
+        "essive_plural": "lumina",
+        "translative_singular": "lumeksi",
+        "translative_plural": "lumiksi",
+        "abessive_singular": "lumetta",
+        "abessive_plural": "lumitta",
+        "instructive_plural": "lumin",
+        "comitative_plural": "lumineen"
+      },
+      "kotusType": 25,
+      "group": "i_old",
+      "frequencyRank": 5804,
+      "examples": [
+        {
+          "fi": "sataa lunta",
+          "en": "to snow, be snowing"
+        },
+        {
+          "fi": "maa on lumessa",
+          "en": "the ground is covered in snow"
+        }
+      ]
+    },
+    {
+      "id": "flower",
+      "word": "kukka",
+      "en": "flower",
+      "emoji": "🌸",
+      "inflections": {
+        "nominative_singular": "kukka",
+        "nominative_plural": "kukat",
+        "genitive_singular": "kukan",
+        "genitive_plural": "kukkien",
+        "partitive_singular": "kukkaa",
+        "partitive_plural": "kukkia",
+        "inessive_singular": "kukassa",
+        "inessive_plural": "kukissa",
+        "elative_singular": "kukasta",
+        "elative_plural": "kukista",
+        "illative_singular": "kukkaan",
+        "illative_plural": "kukkiin",
+        "adessive_singular": "kukalla",
+        "adessive_plural": "kukilla",
+        "ablative_singular": "kukalta",
+        "ablative_plural": "kukilta",
+        "allative_singular": "kukalle",
+        "allative_plural": "kukille",
+        "essive_singular": "kukkana",
+        "essive_plural": "kukkina",
+        "translative_singular": "kukaksi",
+        "translative_plural": "kukiksi",
+        "abessive_singular": "kukatta",
+        "abessive_plural": "kukitta",
+        "instructive_plural": "kukin",
+        "comitative_plural": "kukkineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 2878,
+      "examples": [
+        {
+          "fi": "Istutin kukat toukokuun viimeisellä viikolla.",
+          "en": "I planted the flowers on the last week of May."
+        },
+        {
+          "fi": "Kirsikat ovat kukassa.",
+          "en": "The cherry trees are in bloom."
+        }
+      ]
+    },
+    {
+      "id": "mountain",
+      "word": "vuori",
+      "en": "mountain",
+      "emoji": "⛰️",
+      "inflections": {
+        "nominative_singular": "vuori",
+        "nominative_plural": "vuoret",
+        "genitive_singular": "vuoren",
+        "genitive_plural": "vuorten",
+        "partitive_singular": "vuorta",
+        "partitive_plural": "vuoria",
+        "inessive_singular": "vuoressa",
+        "inessive_plural": "vuorissa",
+        "elative_singular": "vuoresta",
+        "elative_plural": "vuorista",
+        "illative_singular": "vuoreen",
+        "illative_plural": "vuoriin",
+        "adessive_singular": "vuorella",
+        "adessive_plural": "vuorilla",
+        "ablative_singular": "vuorelta",
+        "ablative_plural": "vuorilta",
+        "allative_singular": "vuorelle",
+        "allative_plural": "vuorille",
+        "essive_singular": "vuorena",
+        "essive_plural": "vuorina",
+        "translative_singular": "vuoreksi",
+        "translative_plural": "vuoriksi",
+        "abessive_singular": "vuoretta",
+        "abessive_plural": "vuoritta",
+        "instructive_plural": "vuorin",
+        "comitative_plural": "vuorineen"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 8234,
+      "examples": [
+        {
+          "fi": "Japani on tunnettu Fuji-vuoresta.",
+          "en": "Japan is famous for Mt. Fuji."
+        },
+        {
+          "fi": "Kohtasin joitakin vaeltajia vuorella.",
+          "en": "I met some hikers on the mountain."
+        }
+      ]
+    },
+    {
+      "id": "stone",
+      "word": "kivi",
+      "en": "stone",
+      "emoji": "🪨",
+      "inflections": {
+        "nominative_singular": "kivi",
+        "nominative_plural": "kivet",
+        "genitive_singular": "kiven",
+        "genitive_plural": "kivien",
+        "partitive_singular": "kiveä",
+        "partitive_plural": "kiviä",
+        "inessive_singular": "kivessä",
+        "inessive_plural": "kivissä",
+        "elative_singular": "kivestä",
+        "elative_plural": "kivistä",
+        "illative_singular": "kiveen",
+        "illative_plural": "kiviin",
+        "adessive_singular": "kivellä",
+        "adessive_plural": "kivillä",
+        "ablative_singular": "kiveltä",
+        "ablative_plural": "kiviltä",
+        "allative_singular": "kivelle",
+        "allative_plural": "kiville",
+        "essive_singular": "kivenä",
+        "essive_plural": "kivinä",
+        "translative_singular": "kiveksi",
+        "translative_plural": "kiviksi",
+        "abessive_singular": "kivettä",
+        "abessive_plural": "kivittä",
+        "instructive_plural": "kivin",
+        "comitative_plural": "kivineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 3524,
+      "examples": [
+        {
+          "fi": "Tässä kellossa on 17 kiveä.",
+          "en": "This clockwork mechanism is made with 17 jewels."
+        }
+      ]
+    },
+    {
+      "id": "lake",
+      "word": "järvi",
+      "en": "lake",
+      "emoji": "🏞️",
+      "inflections": {
+        "nominative_singular": "järvi",
+        "nominative_plural": "järvet",
+        "genitive_singular": "järven",
+        "genitive_plural": "järvien",
+        "partitive_singular": "järveä",
+        "partitive_plural": "järviä",
+        "inessive_singular": "järvessä",
+        "inessive_plural": "järvissä",
+        "elative_singular": "järvestä",
+        "elative_plural": "järvistä",
+        "illative_singular": "järveen",
+        "illative_plural": "järviin",
+        "adessive_singular": "järvellä",
+        "adessive_plural": "järvillä",
+        "ablative_singular": "järveltä",
+        "ablative_plural": "järviltä",
+        "allative_singular": "järvelle",
+        "allative_plural": "järville",
+        "essive_singular": "järvenä",
+        "essive_plural": "järvinä",
+        "translative_singular": "järveksi",
+        "translative_plural": "järviksi",
+        "abessive_singular": "järvettä",
+        "abessive_plural": "järvittä",
+        "instructive_plural": "järvin",
+        "comitative_plural": "järvineen"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 9279,
+      "examples": [
+        {
+          "fi": "Uimme järvessä.",
+          "en": "We swam in the lake."
+        },
+        {
+          "fi": "Saanko uida tässä järvessä?",
+          "en": "May I swim in this lake?"
+        }
+      ]
+    },
+    {
+      "id": "sea",
+      "word": "meri",
+      "en": "sea",
+      "emoji": "🌊",
+      "inflections": {
+        "nominative_singular": "meri",
+        "nominative_plural": "meret",
+        "genitive_singular": "meren",
+        "genitive_plural": "merien",
+        "partitive_singular": "merta",
+        "partitive_plural": "meriä",
+        "inessive_singular": "meressä",
+        "inessive_plural": "merissä",
+        "elative_singular": "merestä",
+        "elative_plural": "meristä",
+        "illative_singular": "mereen",
+        "illative_plural": "meriin",
+        "adessive_singular": "merellä",
+        "adessive_plural": "merillä",
+        "ablative_singular": "mereltä",
+        "ablative_plural": "meriltä",
+        "allative_singular": "merelle",
+        "allative_plural": "merille",
+        "essive_singular": "merenä",
+        "essive_plural": "merinä",
+        "translative_singular": "mereksi",
+        "translative_plural": "meriksi",
+        "abessive_singular": "merettä",
+        "abessive_plural": "merittä",
+        "instructive_plural": "merin",
+        "comitative_plural": "merineen"
+      },
+      "kotusType": 24,
+      "group": "i_old",
+      "frequencyRank": 4040,
+      "examples": [
+        {
+          "fi": "Uimme meressä.",
+          "en": "We swam in the sea."
+        },
+        {
+          "fi": "Meressä on saaria.",
+          "en": "There are islands in the sea."
+        }
+      ]
+    },
+    {
+      "id": "sky",
+      "word": "taivas",
+      "en": "sky",
+      "emoji": "🌌",
+      "inflections": {
+        "nominative_singular": "taivas",
+        "nominative_plural": "taivaat",
+        "genitive_singular": "taivaan",
+        "genitive_plural": "taivaiden",
+        "partitive_singular": "taivasta",
+        "partitive_plural": "taivaita",
+        "inessive_singular": "taivaassa",
+        "inessive_plural": "taivaissa",
+        "elative_singular": "taivaasta",
+        "elative_plural": "taivaista",
+        "illative_singular": "taivaaseen",
+        "illative_plural": "taivaisiin",
+        "adessive_singular": "taivaalla",
+        "adessive_plural": "taivailla",
+        "ablative_singular": "taivaalta",
+        "ablative_plural": "taivailta",
+        "allative_singular": "taivaalle",
+        "allative_plural": "taivaille",
+        "essive_singular": "taivaana",
+        "essive_plural": "taivaina",
+        "translative_singular": "taivaaksi",
+        "translative_plural": "taivaiksi",
+        "abessive_singular": "taivaatta",
+        "abessive_plural": "taivaitta",
+        "instructive_plural": "taivain",
+        "comitative_plural": "taivaineen"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 1870,
+      "examples": [
+        {
+          "fi": "Linnut lentävät taivaalla.",
+          "en": "Birds fly in the sky."
+        },
+        {
+          "fi": "Ylösnousseet ovat kuin enkelit taivaassa.",
+          "en": "The resurrected are like the angels in heaven."
+        }
+      ]
+    }
+  ]
+}
