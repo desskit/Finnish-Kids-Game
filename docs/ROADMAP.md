@@ -50,7 +50,9 @@ Each plan still stands alone if you prefer the original order.
 
 ## Phase 1 — Real Artwork + Mascot (replace emoji)
 
-**Status:** Decisions locked — ready to hand to a breakout session.
+**Status:** Decisions locked — ready to hand to a breakout session. **Canonical, always-current asset
+checklist + live status: `docs/art/art-tracker.csv`** (regenerate with `npm run art:manifest`; human-readable
+mirror `docs/art/art-tracker.md`).
 
 **Goal:** Replace all placeholder emoji with a cohesive flat-and-rounded illustration set + an owl
 mascot, keeping the data-driven model and the emoji fallback intact.
@@ -89,30 +91,35 @@ as Track A produces them.
    ear, ties to the 🔊 prompt), `reading` (book; Spelling/Word-order), `pointing`, `sleeping` (idle/attract).
    Confirm `icon-master` is a **high-res transparent PNG** (feeds the Track-B icon generator).
 3. **Item illustrations** — one per id, raster **WebP**, named by id (match the `*.sourced.json` ids). The
-   app now has **4 themes / 7 games**, so the full set is:
+   app now has **8 themes / 9 activities**. **Canonical, always-current list: `docs/art/art-tracker.csv`**
+   (run `npm run art:manifest` — item rows are derived straight from `src/content/data/*.sourced.json`, so
+   the list never drifts as themes grow). Summary — **84 required illustrations**:
    - **Animals (12):** `cat, dog, bear, bunny, bird, fish, horse, cow` *(8 already drawn — re-cut to
-     transparent)* **+ still needed:** `pig, fox, duck, frog`. (`fox` 🦊 is also today's placeholder
-     mascot; the owl replaces the mascot, so `fox` is just a normal animal card — both assets are needed.)
-   - **Food (14):** `bread, milk, water, apple, banana, cheese, cake, cookie, juice, ice-cream, chocolate,
-     potato, strawberry, carrot`.
-   - **Family (10):** `mother, father, brother, sister, baby, son, daughter, grandmother, grandfather,
-     family` — **kawaii humans**, consistency-critical.
+     transparent)* **+** `pig, fox, duck, frog`. (`fox` 🦊 is also today's placeholder mascot/avatar; the
+     owl replaces the mascot, so `fox` is just a normal animal card — both assets are needed.)
+   - **Food (14)**, **Places (12)**, **Body (12)**, **Nature (12)**, **Clothes (12)** — everyday objects.
+   - **Family (10):** **kawaii humans**, consistency-critical.
    - **Numbers (10):** `one…ten` as **styled numerals** (SVG) — or skip and render in CSS.
-   - **No art for `adjectives` or `verbs`:** never rendered as pictures (Match shows the *noun*; Conjugate
-     is text-only). Colors *could* get optional swatches; quality adjectives + verbs stay text-only.
+   - **Optional:** 7 color swatches (`red, blue, …`). **No art for the other `adjectives` or any `verbs`** —
+     never rendered as pictures (Match shows the *noun*; Conjugate is text-only).
 4. **Icons — SVG** (vector, recolorable):
-   - **Theme icons (4):** `animals` (paw), `numbers`, `food`, `family`.
-   - **Activity icons (7):** `listen, build, count, match, conjugate, order, spell`. Make `count` visually
-     distinct from the `numbers` theme icon (both render 🔢 today).
-   - **Optional speaker/replay icon** — used in all six games; highest-impact optional asset.
-5. **Polish / engagement art (optional, tiered):**
-   - **Mascot avatars** — owl colour/accessory variants for the Phase-6 profile picker.
-   - **Rewards** — star tiers (empty/filled or bronze/silver/gold), a **sticker/badge** set (one per theme
-     mastered + milestones), confetti/sparkle pieces as separate transparent elements.
+   - **Theme icons (8):** `animals` (paw), `numbers`, `food`, `family`, `places`, `body`, `nature`, `clothes`.
+   - **Chapter banner icons (8):** the journey-path chapters — `first-words, naming, where, likes,
+     numbers-describe, actions, together, sentences` (`src/game/path.tsx`).
+   - **Activity icons (9):** `listen, build, count, match, conjugate, order, spell, review, sentence`. Make
+     `count` visually distinct from the `numbers` theme icon (both render 🔢 today).
+   - **Optional UI glyphs** — speaker/replay (every game), back, gear, lock, add, check, crown, sparkle,
+     star, mute.
+5. **Polish / engagement art (optional/future, tiered):**
+   - **Player avatars (12)** — the profile-picker set `🦊🦉🐻🐱🐶🐰🐸🐼🦁🐯🐨🐧` (`src/state/storage.ts`);
+     6 reuse animal/mascot art, net-new: `panda, lion, tiger, koala, penguin`.
+   - **Achievement badges (9)** — `first-steps, stars-25, stars-100, words-10, mastered-10, sharp, level-up,
+     explorer, all-games` (`src/game/badges.ts`); shown on the path, RoundComplete, and parent dashboard.
    - **Backgrounds** — a subtle Home scene (the owl's treehouse classroom) + low-contrast per-theme tints;
      keep them from competing with card legibility.
-   - **Map art (forward-looking, per "UI / Navigation Strategy"):** a map base + per-theme **place-nodes**
-     (animal meadow, food market, family house, number garden) + progress-ring decorations.
+   - **Journey-path / map art** — the home is a winding **path** of chapters → skill nodes
+     (`src/game/path.tsx`, already art-ready via per-node/chapter `art`+`accent`): node/chapter art, the
+     serpentine, progress rings, crown (mastered), coming-soon sparkle.
 6. **Generate-for-animation (while producing static art):** keep mascot expression **frames on an identical
    canvas** (eyes open/closed, wings up/down, mouth states) so they register; export anything meant to move
    (a wing, ripple, the owl's book) and each confetti/sparkle piece on its **own transparent layer** so it
@@ -122,14 +129,13 @@ as Track A produces them.
 8. **License note:** record in `README.md` that art was made on a paid **Recraft** plan (commercial use) —
    matters for the Phase 7 store wrap.
 
-**Naming = ids, so wiring is trivial:**
-- `public/art/animals/<id>.webp`, `public/art/food/<id>.webp`, `public/art/family/<id>.webp`
-- `public/art/numbers/<id>.svg` *(optional — or render numerals in CSS)*
+**Naming = ids, so wiring is trivial** (full per-asset paths + live status live in `docs/art/art-tracker.csv`):
+- `public/art/{animals,food,family,places,body,nature,clothes}/<id>.webp` · `public/art/numbers/<id>.svg`
+  *(or CSS)* · `public/art/colors/<id>.svg` *(optional)*
 - `public/art/mascot/owl-{idle,celebrate,wave,happy,encourage,listening,reading,pointing,sleeping}.webp`
   + `public/art/mascot/owl-icon-master.png`
-- `public/art/themes/{animals,numbers,food,family}.svg`
-- `public/art/ui/{listen,build,count,match,conjugate,order,spell}.svg` (+ optional `speaker.svg`)
-- *(later)* `public/art/avatars/`, `public/art/stickers/`, `public/art/backgrounds/`, `public/art/map/`
+- `public/art/themes/<themeId>.svg` · `public/art/chapters/<chapterId>.svg` · `public/art/ui/<activity>.svg`
+- `public/art/avatars/<id>.webp` · `public/art/badges/<id>.svg` · *(later)* `backgrounds/`, `map/`
 
 #### Animation (plan now, layer in later)
 Recraft is image-only — animation is done **downstream** from its static/vector output. Three tiers:
@@ -184,11 +190,12 @@ RoundComplete celebration · listen/speaker pulse · Count & Say counting · scr
    numerals in CSS. Keep the emoji fallback everywhere.
 
 ### Sequencing note
-The app already has **4 themes (animals, numbers, food, family) + 7 games**, so this phase now covers the
-mascot + all theme/activity icons + the Animals/Food/Family/Numbers item art (see Track A). Suggested
-production order: re-cut existing animals → remaining animals (`pig, fox, duck, frog`) → Food → Family
-(humans, hardest) → icons → numerals/CSS → optional polish (avatars/stickers/backgrounds/map) → animation.
-Each future theme adds its art via the same id-based naming checklist.
+The app already has **8 themes (animals, numbers, food, family, places, body, nature, clothes) + 9
+activities**, so this phase covers the mascot + all theme/chapter/activity icons + the item art for all 8
+themes (full live list in `docs/art/art-tracker.csv`). Suggested production order: re-cut existing animals
+→ remaining animals (`pig, fox, duck, frog`) → Food/Places/Body/Nature/Clothes → Family (humans, hardest)
+→ icons → numerals/CSS → optional polish (avatars/badges/backgrounds/path) → animation. Each new theme
+adds its rows to the tracker automatically via the same id-based naming checklist.
 
 ### Verification
 - `npm run dev`: every screen shows real art; blank one `image` value → emoji fallback appears (no layout shift).
@@ -476,10 +483,20 @@ potato, strawberry, carrot` — each a single rounded appetising object. + share
 grandmother, grandfather, family (group)` — chibi/rounded people, consistent proportions, same Style and
 outline weight. + shared tail.
 
-**Icons (SVG):** theme → paw (`animals`), counting digits (`numbers`), apple/fork (`food`), house
-(`family`); activity → speaker (`listen`), jigsaw (`build`), 1-2-3 counter (`count`, distinct from the
-numbers theme icon), palette/agreement (`match`), running figure (`conjugate`), shuffle arrows (`order`),
-keyboard (`spell`); optional `speaker.svg` replay icon.
+**Places** (match ids): `box, table, house, room, car, bed, chair, school, tree, forest, basket, bag`. + shared tail.
+
+**Body** (match ids): `eye, ear, nose, mouth, hand, foot, head, tooth, hair, tummy, finger, knee` — friendly + simple. + shared tail.
+
+**Nature** (match ids): `sun, moon, star, cloud, rain, snow, flower, mountain, stone, lake, sea, sky`. + shared tail.
+
+**Clothes** (match ids): `shirt, blouse, coat, shoe, sock, hat, dress, skirt, glove, scarf, cap, boot`. + shared tail.
+
+**Icons (SVG):** **theme (8)** → paw (`animals`), digits (`numbers`), apple (`food`), people (`family`),
+pin (`places`), body (`body`), tree (`nature`), shirt (`clothes`); **chapter (8)** → `first-words, naming,
+where, likes, numbers-describe, actions, together, sentences`; **activity (9)** → speaker (`listen`),
+jigsaw (`build`), 1-2-3 counter (`count`, distinct from the numbers theme icon), palette (`match`), running
+figure (`conjugate`), shuffle arrows (`order`), keyboard (`spell`), loop (`review`), sentence (`sentence`);
+plus optional UI glyphs (speaker / back / gear / lock / add / check / crown / sparkle / star / mute).
 
 **Numbers:** styled numerals `1…10` (SVG) — or render in CSS (Baloo 2 digit on a brand card).
 
