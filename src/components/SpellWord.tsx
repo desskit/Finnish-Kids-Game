@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
+import type { Construction, LexicalItem, Tier } from '../content/types';
 import { buildSpellingRound, buildSpellingPhraseRound } from '../game/round';
 import { familiarityWeigher } from '../game/srs';
 import { useProfile } from '../state/profile';
@@ -12,7 +12,7 @@ import ActivityHeader from './ActivityHeader';
 const QUESTIONS = 6;
 
 interface Props {
-  items: LexicalItem[];
+  items?: LexicalItem[];
   /**
    * Grammar apex: when carrier phrases are given, the child types the INFLECTED
    * slot form (e.g. "laatikoissa"), shown with the phrase's English gloss,
@@ -20,17 +20,32 @@ interface Props {
    * generated. The tier gate comes from the adaptive difficulty (ActivityContext).
    */
   constructions?: Construction[];
+  /**
+   * Sentence-typing mode: supply a pre-built round (e.g. full sentences) instead
+   * of deriving one from `items`/`constructions`. Receives the level's `maxTier`
+   * like WordOrder's `buildRound`, for the same tier-gating reasons.
+   */
+  buildRound?: (maxTier: Tier) => SpellTarget[];
+  /** Header title (defaults to the vocabulary-speller wording). */
+  title?: string;
+  /**
+   * Whether the target is spoken aloud (auto-play + the manual Listen button).
+   * Default true. Set false for sentence typing: hearing the full sentence
+   * would turn "produce it from the English gloss" into plain dictation.
+   */
+  speakTarget?: boolean;
   onExit: () => void;
 }
 
-/** One spelling prompt, normalized across bare-word and inflected-phrase modes. */
+/** One spelling prompt, normalized across bare-word, inflected-phrase, and
+ *  sentence modes. */
 interface SpellTarget {
-  /** SRS id (the item). */
-  id: string;
-  /** The Finnish string to type + hear (bare noun, or the inflected slot form). */
+  /** SRS id (the item). Sentences span several words, so none. */
+  id?: string;
+  /** The Finnish string to type (+ hear, unless speakTarget is false). */
   text: string;
   emoji?: string;
-  /** English hint: the word, or the carrier-phrase gloss ("The cat is on the ___."). */
+  /** English hint: the word, the carrier-phrase gloss, or the sentence gloss. */
   gloss: string;
 }
 
@@ -41,7 +56,14 @@ interface SpellTarget {
 // grammar apex of a deeper node's ramp, passing `constructions` makes the child
 // type the sourced INFLECTED form instead (e.g. "pöydällä"). Either way the
 // target is looked up, never generated.
-export default function SpellWord({ items, constructions, onExit }: Props) {
+export default function SpellWord({
+  items,
+  constructions,
+  buildRound,
+  title,
+  speakTarget = true,
+  onExit,
+}: Props) {
   const { addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   const { maxTier } = ctx?.difficulty ?? difficultyFor(1);
@@ -55,20 +77,24 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SpellTarget[]>(() => {
+    if (buildRound) return buildRound(maxTier);
     if (constructions && constructions.length > 0) {
-      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier, weigh).map((q) => ({
-        id: q.item.id,
-        text: q.target,
-        emoji: q.item.emoji,
-        gloss: q.construction.en,
-      }));
+      return buildSpellingPhraseRound(items ?? [], constructions, QUESTIONS, maxTier, weigh).map(
+        (q) => ({
+          id: q.item.id,
+          text: q.target,
+          emoji: q.item.emoji,
+          gloss: q.construction.en,
+        }),
+      );
     }
-    return buildSpellingRound(items, QUESTIONS, weigh).map((it) => ({
+    return buildSpellingRound(items ?? [], QUESTIONS, weigh).map((it) => ({
       id: it.id,
       text: it.fi,
       emoji: it.emoji,
       gloss: it.en,
     }));
+    // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, constructions, maxTier, runId]);
 
@@ -80,27 +106,33 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const target = round[index];
-  const correct = !!target && input.toLowerCase() === target.text.toLowerCase();
+  // A forgotten trailing period/! /? shouldn't fail an otherwise-correct
+  // sentence — strip it from both sides before comparing (bare-word targets
+  // never have trailing punctuation, so this is a no-op there).
+  const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
+  const correct = !!target && norm(input) === norm(target.text);
 
   // Say the target word when a new question appears, and keep focus on the
-  // input so the device keyboard stays up between words.
+  // input so the device keyboard stays up between words. Skipped for
+  // sentence typing (speakTarget=false) — hearing the sentence would turn
+  // "produce it from the gloss" into dictation.
   useEffect(() => {
-    if (!target || done) return;
+    if (!target || done || !speakTarget) return;
     inputRef.current?.focus();
     const t = setTimeout(() => speak(target.text), 400);
     return () => clearTimeout(t);
-  }, [target, done, index]);
+  }, [target, done, index, speakTarget]);
 
   const checkIfComplete = useCallback(
     (value: string) => {
       if (!target || locked) return;
-      if (value.length < target.text.length) return;
-      if (value.toLowerCase() === target.text.toLowerCase()) {
+      if (value.length < norm(target.text).length) return;
+      if (norm(value) === norm(target.text)) {
         setLocked(true);
         playDing(true);
-        speak(target.text);
+        if (speakTarget) speak(target.text);
         addStars(1);
-        recordAttempt(target.id, !missed.current);
+        if (target.id) recordAttempt(target.id, !missed.current);
         if (!missed.current) firstTries.current += 1;
         const next = index + 1;
         setTimeout(() => {
@@ -119,7 +151,7 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
         setTimeout(() => setShake(false), 400);
       }
     },
-    [target, locked, index, round.length, addStars, recordAttempt],
+    [target, locked, index, round.length, addStars, recordAttempt, speakTarget],
   );
 
   // The device keyboard drives the input directly; we just mirror its value
@@ -150,7 +182,7 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
   return (
     <section className="screen activity">
       <ActivityHeader
-        title="Kirjoita sana"
+        title={title ?? 'Kirjoita sana'}
         index={index}
         total={round.length}
         stars={ctx?.sessionStars}
@@ -158,21 +190,33 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
       />
 
       <p className="prompt">
-        Kirjoita mitä kuulet <span className="en">Type what you hear</span>
+        {speakTarget ? (
+          <>
+            Kirjoita mitä kuulet <span className="en">Type what you hear</span>
+          </>
+        ) : (
+          <>
+            Kirjoita suomeksi <span className="en">Write it in Finnish</span>
+          </>
+        )}
       </p>
 
       <div className="phrase-card">
-        <span className="phrase-emoji" aria-hidden="true">
-          {target.emoji}
-        </span>
+        {target.emoji && (
+          <span className="phrase-emoji" aria-hidden="true">
+            {target.emoji}
+          </span>
+        )}
         <p className="en phrase-hint">{target.gloss}</p>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(target.text)}
-          aria-label="Hear the word again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {speakTarget && (
+          <button
+            className="speaker speaker--inline"
+            onClick={() => speak(target.text)}
+            aria-label="Hear the word again"
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
       <input

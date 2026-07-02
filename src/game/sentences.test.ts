@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildSentenceRound,
+  buildSentenceSpellingRound,
   resolveSentence,
   resolveSentenceWords,
   type SentencePools,
@@ -92,6 +93,18 @@ describe('multi-slot sentences (plumbed)', () => {
     expect(q.tokens.map((t) => t.text)).toEqual(['minä', 'annan', 'koiralle', 'luun.']);
     expect(q.shuffled).toHaveLength(4);
   });
+
+  it('builds a typeable sentence-spelling round from the same templates', () => {
+    const round = buildSentenceSpellingRound([giveTemplate], pools, 3);
+    expect(round.length).toBeGreaterThan(0);
+    const q = round[0];
+    expect(q.text).toBe('minä annan koiralle luun.');
+    expect(q.gloss).toBe('I give the dog a bone.');
+  });
+
+  it('produces no sentence-spelling rounds from an empty template set', () => {
+    expect(buildSentenceSpellingRound([], pools, 6)).toEqual([]);
+  });
 });
 
 // The real authored content, resolved against the real sourced data. Every swap
@@ -171,6 +184,15 @@ describe('authored sentence templates (real sourced data)', () => {
       for (const q of round) {
         expect(q.sentence).not.toMatch(/juoksee/);
       }
+    }
+  });
+
+  it('resolves the typing apex round from the real authored templates too', () => {
+    const round = buildSentenceSpellingRound(sentenceConstructions, realPools, 6, 8);
+    expect(round.length).toBeGreaterThan(0);
+    for (const q of round) {
+      expect(q.text.length).toBeGreaterThan(0);
+      expect(q.gloss).not.toMatch(/[{}]/);
     }
   });
 });

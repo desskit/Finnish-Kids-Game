@@ -776,3 +776,34 @@ export function buildSentenceRound(
   }
   return out;
 }
+
+/** A full sentence to type out from its English gloss (the sentence typing apex). */
+export interface SentenceSpellingQuestion {
+  /** English gloss shown as the prompt (the child produces the Finnish from this). */
+  gloss: string;
+  /** The full Finnish sentence to type, trailing punctuation included. */
+  text: string;
+}
+
+export function buildSentenceSpellingRound(
+  templates: readonly SentenceConstruction[],
+  pools: SentencePools,
+  questionCount: number,
+  maxTier: Tier = 4,
+): SentenceSpellingQuestion[] {
+  const byTier = templates.filter((t) => t.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : templates;
+  if (allowed.length === 0) return [];
+
+  const out: SentenceSpellingQuestion[] = [];
+  let guard = 0;
+  while (out.length < questionCount && guard++ < questionCount * 8) {
+    const template = sample(allowed, 1)[0];
+    if (!template) break;
+    const resolved = resolveSentence(template, pools);
+    if (!resolved) continue;
+    const { words, gloss } = resolved;
+    out.push({ gloss, text: words.join(' ') + (template.punct ?? '') });
+  }
+  return out;
+}

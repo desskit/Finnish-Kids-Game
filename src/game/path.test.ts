@@ -292,4 +292,17 @@ describe('learning path', () => {
     expect(node.activity).toBe('sentence');
     expect(node.maxLevel).toBe(8);
   });
+
+  it('adds a typing apex to Full sentences at the top levels, mixed with tile assembly', () => {
+    const { skill } = findSkill('full-sentences')!;
+    // Early levels stay tile-only (assembling is already hard at this tier).
+    expect(activitiesUpTo(skill, 1)).toEqual(['sentence']);
+    expect(activitiesUpTo(skill, 6)).toEqual(['sentence']);
+    // Level 7+ adds typing to the mix — it doesn't replace tile assembly.
+    expect(activitiesUpTo(skill, 7)).toEqual(['sentence', 'sentence-type']);
+    expect(activitiesUpTo(skill, 8)).toEqual(['sentence', 'sentence-type']);
+    // A session at max level rotates between the two rather than typing only.
+    expect(activityForRound(skill, 8, 0)).toBe('sentence');
+    expect(activityForRound(skill, 8, 1)).toBe('sentence-type');
+  });
 });

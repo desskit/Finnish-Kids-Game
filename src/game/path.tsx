@@ -14,7 +14,7 @@ import {
 } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
-import { buildSentenceRound, type SentencePools } from './round';
+import { buildSentenceRound, buildSentenceSpellingRound, type SentencePools } from './round';
 import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
 import BuildAPhrase from '../components/BuildAPhrase';
@@ -47,6 +47,7 @@ export type ActivityKind =
   | 'order'
   | 'spell'
   | 'sentence'
+  | 'sentence-type'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -421,8 +422,8 @@ const baseChapters: Chapter[] = [
 // node's measured level so harder multi-slot patterns unlock as the child climbs.
 // The registry (src/content/sentences.ts) drives whether the chapter is live: an
 // empty registry keeps the friendly "coming soon" placeholder and no playable node.
-// No second game type: no other round builder consumes `SentenceConstruction[]`,
-// so this node stays single-activity (progression is the tier-gated templates).
+// The top levels add a typing apex ('sentence-type') on top of tile assembly
+// ('sentence') — see the node's `activities` ramp below.
 const HAS_SENTENCES = sentenceConstructions.length > 0;
 
 const sentenceSkills: SkillNode[] = HAS_SENTENCES
@@ -433,6 +434,21 @@ const sentenceSkills: SkillNode[] = HAS_SENTENCES
         titleEn: 'Build sentences',
         icon: '📝',
         activity: 'sentence',
+        // The top levels add a typing apex: once the child can assemble a
+        // sentence from tiles, typing it out from the English gloss (no
+        // Finnish shown, no TTS) is the harder production test. Sessions
+        // round-robin the whole unlocked set, so 7-8 mix tile + typing
+        // rounds rather than switching over entirely.
+        activities: [
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence-type',
+          'sentence-type',
+        ],
         maxLevel: 8,
         content: {},
       },
@@ -600,6 +616,24 @@ export function renderActivity(
           buildRound={(maxTier) =>
             buildSentenceRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS, maxTier)
           }
+          // A couple of misses on the current word nudges the correct next
+          // tile — sentences are harder than the single-slot Word Order
+          // capstone, which stays hint-free.
+          hintAfterMisses={2}
+          onExit={onExit}
+        />
+      );
+    case 'sentence-type':
+      // The typing apex: same sourced sentences, no tiles — type the whole
+      // thing from the English gloss. No TTS (speakTarget={false}) so this
+      // stays a production test, not dictation.
+      return (
+        <SpellWord
+          title="Kirjoita lause · Write the sentence"
+          buildRound={(maxTier) =>
+            buildSentenceSpellingRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS, maxTier)
+          }
+          speakTarget={false}
           onExit={onExit}
         />
       );

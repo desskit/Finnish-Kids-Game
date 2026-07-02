@@ -27,6 +27,13 @@ interface Props {
   buildRound?: (maxTier: Tier) => SentenceQuestion[];
   /** Header title (defaults to the carrier-phrase wording). */
   title?: string;
+  /**
+   * After this many wrong taps on the CURRENT word, nudge the child by
+   * highlighting the correct next tile. Unset = no hints (the default, and
+   * the Word Order capstone's existing behavior — only opted into for the
+   * harder multi-slot sentence node so far).
+   */
+  hintAfterMisses?: number;
   onExit: () => void;
 }
 
@@ -35,7 +42,14 @@ interface Props {
 // construction/sentence template itself — nothing here generates or reorders
 // Finnish by rule. Renders both single-slot carrier phrases and (when given a
 // `buildRound`) multi-slot sentences, since both reduce to ordered word chips.
-export default function WordOrder({ items, constructions, buildRound, title, onExit }: Props) {
+export default function WordOrder({
+  items,
+  constructions,
+  buildRound,
+  title,
+  hintAfterMisses,
+  onExit,
+}: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
@@ -67,9 +81,13 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   const [wrongId, setWrongId] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // Wrong taps toward the CURRENT tile (resets each time a tile lands
+  // correctly, or a new question starts) — drives the hint nudge.
+  const [wrongTaps, setWrongTaps] = useState(0);
 
   const q = round[index];
   const complete = !!q && placed.length === q.tokens.length;
+  const showHint = hintAfterMisses !== undefined && wrongTaps >= hintAfterMisses;
 
   // No TTS here on purpose: hearing the sentence read aloud would hand the
   // child the word order for free. Word Order is a READING/assembly puzzle —
@@ -82,6 +100,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         playDing(true);
         setPlaced((p) => [...p, tile]);
         setWrongId(null);
+        setWrongTaps(0);
         if (placed.length + 1 === q.tokens.length) {
           setLocked(true);
           addStars(1);
@@ -102,6 +121,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         missed.current = true;
         playDing(false);
         setWrongId(tile.id);
+        setWrongTaps((n) => n + 1);
         setTimeout(() => setWrongId((cur) => (cur === tile.id ? null : cur)), 500);
       }
     },
@@ -114,6 +134,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    setWrongTaps(0);
     missed.current = false;
     firstTries.current = 0;
     setRunId((r) => r + 1);
@@ -162,7 +183,11 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
           .map((tile) => (
             <button
               key={tile.id}
-              className={'word-tile' + (wrongId === tile.id ? ' word-tile--wrong' : '')}
+              className={
+                'word-tile' +
+                (wrongId === tile.id ? ' word-tile--wrong' : '') +
+                (showHint && tile.id === placed.length ? ' word-tile--hint' : '')
+              }
               onClick={() => tap(tile)}
               disabled={locked}
             >
