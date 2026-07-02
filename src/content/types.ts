@@ -56,6 +56,13 @@ export interface LexicalItem {
   audio?: string;
   /** Theme id the word belongs to (e.g. 'animals') — drives semantic gating. */
   topic?: string;
+  /**
+   * Hand-curated semantic tags — properties a word has that decide which
+   * carrier phrases make SENSE for it, beyond grammar. Today: a place's
+   * locative shape, 'surface' (you sit ON it) and/or 'container' (you go IN
+   * it) — many places are both. See scripts/build-kids-data.mjs and suitsSlot.
+   */
+  tags?: string[];
 }
 
 /**
@@ -91,6 +98,13 @@ export interface Construction {
   topics?: string[];
   /** Semantic gate, finer grain: specific item ids that read oddly here. */
   excludeIds?: string[];
+  /**
+   * Semantic gate by word tag: the item must carry ALL of these tags. Used by
+   * the locative carriers to match the case to a place's shape — the "on"
+   * cases require 'surface', the "in" cases require 'container' (see
+   * LexicalItem.tags). Omitted = no tag requirement.
+   */
+  requiresTags?: string[];
 }
 
 export interface Theme {
@@ -123,6 +137,7 @@ export function formFor(item: LexicalItem, con: Construction): string | undefine
 export function suitsSlot(item: LexicalItem, con: Construction): boolean {
   if (con.topics && (!item.topic || !con.topics.includes(item.topic))) return false;
   if (con.excludeIds?.includes(item.id)) return false;
+  if (con.requiresTags && !con.requiresTags.every((t) => item.tags?.includes(t))) return false;
   return true;
 }
 

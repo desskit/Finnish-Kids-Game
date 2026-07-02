@@ -1,5 +1,5 @@
 import type { Construction } from './types';
-import { NON_SURFACE_PLACES, NON_CONTAINER_PLACES } from './semantics';
+import { SURFACE_TAG, CONTAINER_TAG } from './semantics';
 
 // Generic carrier phrases usable with any countable noun theme (animals, food,
 // family, ...). These are human-authored; each slot's Finnish form is looked
@@ -296,8 +296,9 @@ export const nounConstructions: Construction[] = [
     case: 'adessive',
     number: 'singular',
     topics: ['places'],
-    // Surface case: a room/house isn't a surface you sit ON ("on the room").
-    excludeIds: NON_SURFACE_PLACES,
+    // Surface case: only places tagged a surface you can sit ON (a table, a
+    // car roof) — never "on the room".
+    requiresTags: [SURFACE_TAG],
   },
   {
     id: 'in-it', // inessive: inside — "Kissa on laatikossa."
@@ -308,8 +309,9 @@ export const nounConstructions: Construction[] = [
     case: 'inessive',
     number: 'singular',
     topics: ['places'],
-    // Container case: you aren't "in" a flat table or chair.
-    excludeIds: NON_CONTAINER_PLACES,
+    // Container case: only places tagged something you can be IN — not a flat
+    // table or chair.
+    requiresTags: [CONTAINER_TAG],
   },
   {
     id: 'into-it', // illative: motion into — "Kissa menee laatikkoon."
@@ -320,7 +322,7 @@ export const nounConstructions: Construction[] = [
     case: 'illative',
     number: 'singular',
     topics: ['places'],
-    excludeIds: NON_CONTAINER_PLACES,
+    requiresTags: [CONTAINER_TAG],
   },
   {
     id: 'onto-it', // allative: motion onto — "Kissa menee pöydälle."
@@ -331,7 +333,7 @@ export const nounConstructions: Construction[] = [
     case: 'allative',
     number: 'singular',
     topics: ['places'],
-    excludeIds: NON_SURFACE_PLACES,
+    requiresTags: [SURFACE_TAG],
   },
   {
     id: 'out-of-it', // elative: motion out of — "Kissa tulee laatikosta."
@@ -342,7 +344,7 @@ export const nounConstructions: Construction[] = [
     case: 'elative',
     number: 'singular',
     topics: ['places'],
-    excludeIds: NON_CONTAINER_PLACES,
+    requiresTags: [CONTAINER_TAG],
   },
   {
     id: 'off-it', // ablative: motion off a surface — "Kissa tulee pöydältä."
@@ -353,7 +355,7 @@ export const nounConstructions: Construction[] = [
     case: 'ablative',
     number: 'singular',
     topics: ['places'],
-    excludeIds: NON_SURFACE_PLACES,
+    requiresTags: [SURFACE_TAG],
   },
   {
     id: 'in-them', // inessive PLURAL apex — "Kissat ovat laatikoissa."
@@ -364,6 +366,6 @@ export const nounConstructions: Construction[] = [
     case: 'inessive',
     number: 'plural',
     topics: ['places'],
-    excludeIds: NON_CONTAINER_PLACES,
+    requiresTags: [CONTAINER_TAG],
   },
 ];

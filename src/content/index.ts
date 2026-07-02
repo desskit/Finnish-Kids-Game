@@ -47,6 +47,7 @@ interface SourcedWord {
   frequencyRank?: number;
   value?: number;
   examples?: Example[];
+  tags?: string[];
 }
 
 interface SourcedFile {
@@ -70,6 +71,7 @@ function toItem(w: SourcedWord, tier: Tier, topic: string): LexicalItem {
     value: w.value,
     examples: w.examples,
     topic,
+    tags: w.tags,
   };
 }
 

@@ -105,6 +105,16 @@ describe('content integrity', () => {
     }
   });
 
+  it('gives every place a valid locative shape tag (surface and/or container)', () => {
+    // The locative carriers gate on these; a place with neither could never
+    // appear in any "where" question. Only 'surface'/'container' are valid.
+    for (const place of places.items) {
+      const tags = place.tags ?? [];
+      expect(tags.length, `${place.id} has no shape tag`).toBeGreaterThan(0);
+      for (const t of tags) expect(['surface', 'container']).toContain(t);
+    }
+  });
+
   it('conjugates every verb for enough persons to build a round', () => {
     for (const verb of verbs.items) {
       const persons = PERSONS.filter((p) => verbForm(verb, 'present', 'positive', p.id));

@@ -11,15 +11,16 @@
 // The locative cases split a place into two shapes:
 //   • a SURFACE you sit ON / move ONTO / OFF  (adessive / allative / ablative)
 //   • a CONTAINER you are IN / go INTO / OUT-OF (inessive / illative / elative)
-// Most place words are naturally one or the other (a table is a surface, a
-// room is a container); a few are both (a box, a basket, a bed). The locative
-// carrier phrases exclude the ids that don't fit their case group.
+// Which shape(s) each place supports is now a per-WORD tag ('surface' /
+// 'container', many words carry both) — see PLACE_TAGS in
+// scripts/build-kids-data.mjs and LexicalItem.tags. The locative carriers gate
+// on these via `requiresTags` (constructions.ts), so a place like `car` that's
+// tagged BOTH plays in every locative case, while `table` (surface only) never
+// gets an "in the table" question.
 
-/** Place ids you canNOT sensibly be "on" — exclude from adessive/allative/ablative. */
-export const NON_SURFACE_PLACES = ['house', 'room', 'car', 'school', 'tree', 'forest', 'bag'];
-
-/** Place ids you canNOT sensibly be "in" — exclude from inessive/illative/elative. */
-export const NON_CONTAINER_PLACES = ['table', 'chair'];
+/** The locative-shape tags a place word may carry. */
+export const SURFACE_TAG = 'surface';
+export const CONTAINER_TAG = 'container';
 
 // --- Adjectives: animate-only -------------------------------------------
 //

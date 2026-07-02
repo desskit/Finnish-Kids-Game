@@ -1672,15 +1672,16 @@ Gated out: baby, bag, basket, bed, box, brother, car, chair, chocolate, cloud, d
 
 Gated out: apple, bag, banana, basket, bed, blouse, boot, box, bread, cake, cap, car, carrot, chair, cheese, chocolate, cloud, coat, cookie, dress, ear, eye, finger, flower, foot, forest, glove, hair, hand, hat, head, house, ice-cream, juice, knee, lake, milk, moon, mountain, mouth, nose, potato, rain, room, scarf, school, sea, shirt, shoe, skirt, sky, snow, sock, star, stone, strawberry, sun, table, tooth, tree, tummy, water
 
-### `on-it` — “The cat is on the ___.” (tier 2, adessive singular, 5 words)
+### `on-it` — “The cat is on the ___.” (tier 2, adessive singular, 6 words)
 
 - Kissa on korilla. _(basket)_
 - Kissa on sängyllä. _(bed)_
 - Kissa on laatikolla. _(box)_
+- Kissa on autolla. _(car)_
 - Kissa on tuolilla. _(chair)_
 - Kissa on pöydällä. _(table)_
 
-Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, car, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
+Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
 
 ### `in-it` — “The cat is in the ___.” (tier 3, inessive singular, 10 words)
 
@@ -1712,15 +1713,16 @@ Gated out: apple, baby, banana, bear, bird, blouse, boot, bread, brother, bunny,
 
 Gated out: apple, baby, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, carrot, cat, chair, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, scarf, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, table, tooth, tummy, water
 
-### `onto-it` — “The cat goes onto the ___.” (tier 5, allative singular, 5 words)
+### `onto-it` — “The cat goes onto the ___.” (tier 5, allative singular, 6 words)
 
 - Kissa menee korille. _(basket)_
 - Kissa menee sängylle. _(bed)_
 - Kissa menee laatikolle. _(box)_
+- Kissa menee autolle. _(car)_
 - Kissa menee tuolille. _(chair)_
 - Kissa menee pöydälle. _(table)_
 
-Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, car, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
+Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
 
 ### `out-of-it` — “The cat comes out of the ___.” (tier 6, elative singular, 10 words)
 
@@ -1737,15 +1739,16 @@ Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, b
 
 Gated out: apple, baby, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, carrot, cat, chair, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, scarf, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, table, tooth, tummy, water
 
-### `off-it` — “The cat comes off the ___.” (tier 7, ablative singular, 5 words)
+### `off-it` — “The cat comes off the ___.” (tier 7, ablative singular, 6 words)
 
 - Kissa tulee korilta. _(basket)_
 - Kissa tulee sängyltä. _(bed)_
 - Kissa tulee laatikolta. _(box)_
+- Kissa tulee autolta. _(car)_
 - Kissa tulee tuolilta. _(chair)_
 - Kissa tulee pöydältä. _(table)_
 
-Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, car, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
+Gated out: apple, baby, bag, banana, bear, bird, blouse, boot, bread, brother, bunny, cake, cap, carrot, cat, cheese, chocolate, cloud, coat, cookie, cow, daughter, dog, dress, duck, ear, eye, family, father, finger, fish, flower, foot, forest, fox, frog, glove, grandfather, grandmother, hair, hand, hat, head, horse, house, ice-cream, juice, knee, lake, milk, moon, mother, mountain, mouth, nose, pig, potato, rain, room, scarf, school, sea, shirt, shoe, sister, skirt, sky, snow, sock, son, star, stone, strawberry, sun, tooth, tree, tummy, water
 
 ### `in-them` — “The cats are in the ___.” (tier 8, inessive plural, 10 words)
 

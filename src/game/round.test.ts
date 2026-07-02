@@ -256,13 +256,12 @@ describe('semantic gating (suitsSlot) in the pairing builders', () => {
     }
   });
 
-  it('matches the locative CASE to the place shape (no "on the room")', () => {
-    // Surface cases (on/onto/off) only take surfaces; container cases
-    // (in/into/out-of) only take containers. Checked over build + order.
+  it('matches the locative CASE to the place’s shape TAG (no "on the room")', () => {
+    // Surface cases (on/onto/off) only take words tagged 'surface'; container
+    // cases (in/into/out-of) only take words tagged 'container'. A place tagged
+    // BOTH (box, bed, car, basket) is allowed in either. Checked over build+order.
     const SURFACE_CASES = ['on-it', 'onto-it', 'off-it'];
     const CONTAINER_CASES = ['in-it', 'into-it', 'out-of-it', 'in-them'];
-    const NON_SURFACE = ['house', 'room', 'car', 'school', 'tree', 'forest', 'bag'];
-    const NON_CONTAINER = ['table', 'chair'];
     for (let r = 0; r < RUNS; r++) {
       const rounds = [
         ...buildPhraseRound(MIXED, nounConstructions, 6, 4, 8),
@@ -270,13 +269,19 @@ describe('semantic gating (suitsSlot) in the pairing builders', () => {
       ];
       for (const q of rounds) {
         if (SURFACE_CASES.includes(q.construction.id)) {
-          expect(NON_SURFACE).not.toContain(q.item.id);
+          expect(q.item.tags, `${q.item.id} in ${q.construction.id}`).toContain('surface');
         }
         if (CONTAINER_CASES.includes(q.construction.id)) {
-          expect(NON_CONTAINER).not.toContain(q.item.id);
+          expect(q.item.tags, `${q.item.id} in ${q.construction.id}`).toContain('container');
         }
       }
     }
+  });
+
+  it('lets a BOTH-tagged place (car) play in surface AND container cases', () => {
+    // The point of tags over exclude-lists: car is on-top-able and in-able.
+    const car = places.items.find((i) => i.id === 'car')!;
+    expect(car.tags).toEqual(expect.arrayContaining(['surface', 'container']));
   });
 });
 

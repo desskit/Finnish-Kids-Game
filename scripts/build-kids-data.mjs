@@ -118,6 +118,28 @@ const PLACES = [
   ['bag', 'laukku', 'bag', '👜'],
 ];
 
+// Locative SHAPE tags for places — which "where" cases each one makes sense in:
+//   'surface'   → you can be ON / ONTO / OFF it   (adessive/allative/ablative)
+//   'container' → you can be IN / INTO / OUT-OF it (inessive/illative/elative)
+// Many are BOTH (a box, a bed, a car — a cat sits on top OR climbs inside).
+// A flat table/chair is a surface only; a room/forest is a container only.
+// The locative carrier phrases require the matching tag (see constructions.ts),
+// so "the cat is on the room" can never be generated.
+const PLACE_TAGS = {
+  box: ['surface', 'container'],
+  table: ['surface'],
+  house: ['container'],
+  room: ['container'],
+  car: ['surface', 'container'],
+  bed: ['surface', 'container'],
+  chair: ['surface'],
+  school: ['container'],
+  tree: ['container'],
+  forest: ['container'],
+  basket: ['surface', 'container'],
+  bag: ['container'],
+};
+
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
   ['father', 'isä', 'dad', '👨'],
@@ -277,7 +299,7 @@ function pickExamples(src) {
     .map((e) => ({ fi: e.fi, en: e.en }));
 }
 
-function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }) {
+function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, tagsById }) {
   const byWord = new Map(sourceWords.map((w) => [w.word, w]));
   const words = [];
   const missing = [];
@@ -303,6 +325,8 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }
       inflections,
     };
     if (typeof value === 'number') entry.value = value;
+    // Semantic tags (hand-curated, per word) — e.g. a place's locative shape.
+    if (tagsById && tagsById[wid]) entry.tags = tagsById[wid];
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
     if (src.group) entry.group = src.group;
     if (typeof src.frequency_rank === 'number') entry.frequencyRank = src.frequency_rank;
@@ -388,6 +412,7 @@ const places = buildTheme({
   emoji: '📍',
   curation: PLACES,
   sourceWords: nounWords,
+  tagsById: PLACE_TAGS,
 });
 
 const body = buildTheme({

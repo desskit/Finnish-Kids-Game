@@ -42,6 +42,15 @@ script from the vendored dataset.
 New words automatically join the mixed noun pool the path's skills draw from, and
 the spaced-repetition Review.
 
+**Semantic tags.** A word can carry hand-curated `tags` that decide which
+carrier phrases make *sense* for it (beyond grammar). Today places carry a
+locative-shape tag — `'surface'` (you sit ON it), `'container'` (you go IN it),
+or both — set in the `PLACE_TAGS` map in `scripts/build-kids-data.mjs`. The
+locative carriers require the matching tag (`requiresTags` in
+`src/content/constructions.ts`), so a flat `table` never gets an "in the table"
+question and a `car` (tagged both) plays in every "where" case. Add a new place
+to `PLACE_TAGS` when you add it, or the content-integrity test will flag it.
+
 ## 2. Add a carrier phrase (single-slot construction)
 
 A `Construction` (`src/content/constructions.ts`) is a phrase with **one**
