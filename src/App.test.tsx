@@ -1,6 +1,36 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import type { LexicalItem } from './content/types';
+
+// Deterministic listen round for the continuous-session test: the same target
+// every question so the test always knows which card is correct.
+const fx = vi.hoisted(() => {
+  const mk = (id: string, fi: string, emoji: string): LexicalItem => ({
+    id,
+    fi,
+    en: id,
+    emoji,
+    tier: 1,
+    inflections: { nominative_singular: fi },
+  });
+  return { TARGET: mk('cat', 'kissa', '🐱'), WRONG: mk('dog', 'koira', '🐶') };
+});
+
+vi.mock('./game/round', async (importOriginal) => {
+  const real = await importOriginal<typeof import('./game/round')>();
+  return {
+    ...real,
+    buildListenRound: () =>
+      Array.from({ length: 6 }, () => ({
+        target: fx.TARGET,
+        options: [fx.TARGET, fx.WRONG],
+      })),
+  };
+});
+vi.mock('./audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('./audio/sfx', () => ({ playDing: vi.fn() }));
+
 import { AppRoutes } from './App';
 import ProgressView from './components/ProgressView';
 import { ProfileProvider } from './state/profile';
@@ -74,6 +104,39 @@ describe('journey path + progression UI', () => {
     renderAt('/');
     // Node depth shows as "level / maxLevel"; this-is is a depth-4 node.
     expect(screen.getByText('Taso 2/4')).toBeInTheDocument();
+  });
+
+  it('plays a skill node as one unbroken stream — no interstitial, silent recording', async () => {
+    seedChild();
+    vi.useFakeTimers();
+    try {
+      renderAt('/skill/listen-animals');
+
+      // In-session header shows the running star count, not question dots.
+      expect(screen.getByLabelText('0 tähteä')).toBeInTheDocument();
+
+      const tapCorrect = async () => {
+        fireEvent.click(screen.getByText('🐱').closest('button') as HTMLButtonElement);
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(800);
+        });
+      };
+      for (let q = 0; q < 6; q++) await tapCorrect();
+
+      // Segment finished: no "Hienoa!" stop — a 7th question is just there,
+      // and the star counter kept counting.
+      expect(screen.queryByText(/Great job/i)).not.toBeInTheDocument();
+      expect(document.querySelectorAll('.pic-card').length).toBeGreaterThan(0);
+      expect(screen.getByLabelText('6 tähteä')).toBeInTheDocument();
+
+      // The segment was recorded exactly once, quietly, in the background.
+      const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
+      const entry = saved.children[0].progress['first-words']['listen-animals'];
+      expect(entry.plays).toBe(1);
+      expect(entry.totalPossible).toBe(6);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('renders the parent dashboard with difficulty mode and per-skill level', () => {

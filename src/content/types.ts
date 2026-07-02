@@ -54,6 +54,15 @@ export interface LexicalItem {
   examples?: Example[];
   /** Optional recorded-audio path (future). Falls back to TTS when absent. */
   audio?: string;
+  /** Theme id the word belongs to (e.g. 'animals') — drives semantic gating. */
+  topic?: string;
+  /**
+   * Hand-curated semantic tags — properties a word has that decide which
+   * carrier phrases make SENSE for it, beyond grammar. Today: a place's
+   * locative shape, 'surface' (you sit ON it) and/or 'container' (you go IN
+   * it) — many places are both. See scripts/build-kids-data.mjs and suitsSlot.
+   */
+  tags?: string[];
 }
 
 /**
@@ -81,6 +90,21 @@ export interface Construction {
   case: CaseId;
   /** Grammatical number the slot must take. */
   number: GrammaticalNumber;
+  /**
+   * Semantic gate: theme ids whose words make SENSE in this slot (e.g. the
+   * locative carriers only work with places — "Kissa menee äitiin" is
+   * grammatical nonsense). Omitted = any noun topic.
+   */
+  topics?: string[];
+  /** Semantic gate, finer grain: specific item ids that read oddly here. */
+  excludeIds?: string[];
+  /**
+   * Semantic gate by word tag: the item must carry ALL of these tags. Used by
+   * the locative carriers to match the case to a place's shape — the "on"
+   * cases require 'surface', the "in" cases require 'container' (see
+   * LexicalItem.tags). Omitted = no tag requirement.
+   */
+  requiresTags?: string[];
 }
 
 export interface Theme {
@@ -102,6 +126,19 @@ export function inflectionKey(c: CaseId, n: GrammaticalNumber): string {
 /** The correct sourced form for an item in a construction's slot, if available. */
 export function formFor(item: LexicalItem, con: Construction): string | undefined {
   return item.inflections[inflectionKey(con.case, con.number)];
+}
+
+/**
+ * Whether a word makes SENSE in a construction's slot (the semantic gate on
+ * top of the grammatical one). Round builders pair (construction, item) only
+ * when this passes, so the capstones can't produce grammatical nonsense like
+ * "Minulla on taivas".
+ */
+export function suitsSlot(item: LexicalItem, con: Construction): boolean {
+  if (con.topics && (!item.topic || !con.topics.includes(item.topic))) return false;
+  if (con.excludeIds?.includes(item.id)) return false;
+  if (con.requiresTags && !con.requiresTags.every((t) => item.tags?.includes(t))) return false;
+  return true;
 }
 
 /** Assemble the full human-authored sentence using only the sourced slot form. */

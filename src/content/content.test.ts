@@ -89,6 +89,32 @@ describe('content integrity', () => {
     ]);
   });
 
+  it('carries the expanded verb pool: 60+ verbs, most with an action emoji', () => {
+    // The verbs expansion: enough vocabulary that the conjugation drill's
+    // tricky foreign-verb distractors and the listen-verbs warm-up both have
+    // real depth. Picturable verbs (with emoji) power the picture-card games.
+    expect(verbs.items.length).toBeGreaterThanOrEqual(50);
+    expect(verbs.items.filter((v) => v.emoji).length).toBeGreaterThanOrEqual(40);
+  });
+
+  it('tags every word with its theme (the semantic-gating hook)', () => {
+    for (const pool of allPools) {
+      for (const item of pool.items) {
+        expect(item.topic, `${item.id} missing topic`).toBe(pool.id);
+      }
+    }
+  });
+
+  it('gives every place a valid locative shape tag (surface and/or container)', () => {
+    // The locative carriers gate on these; a place with neither could never
+    // appear in any "where" question. Only 'surface'/'container' are valid.
+    for (const place of places.items) {
+      const tags = place.tags ?? [];
+      expect(tags.length, `${place.id} has no shape tag`).toBeGreaterThan(0);
+      for (const t of tags) expect(['surface', 'container']).toContain(t);
+    }
+  });
+
   it('conjugates every verb for enough persons to build a round', () => {
     for (const verb of verbs.items) {
       const persons = PERSONS.filter((p) => verbForm(verb, 'present', 'positive', p.id));

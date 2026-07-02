@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -18,23 +18,28 @@ interface Props {
 
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
 export default function ListenAndTap({ items, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
-  const { optionCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount: the SRS map updates after
+  // every answer, and re-deriving it mid-round would rebuild the live round.
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // Whether the current question has had a wrong tap yet — so SRS only credits
   // a "correct" review when the child gets it right on the first try.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy the adaptive engine
+  // sees (a star for the eventual right answer would always read 100%).
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildListenRound(items, QUESTIONS, optionCount),
-    [items, optionCount, runId],
+    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh),
+    [items, optionCount, tricky, weigh, runId],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
@@ -55,9 +60,9 @@ export default function ListenAndTap({ items, onExit }: Props) {
         setLocked(true);
         playDing(true);
         speak(item.fi);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(question.target.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -94,19 +99,19 @@ export default function ListenAndTap({ items, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setWrongId(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: a finished segment is recorded silently and the next one
+  // (maybe a different game) mounts immediately — no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!question) return null;
 
   return (
@@ -115,6 +120,7 @@ export default function ListenAndTap({ items, onExit }: Props) {
         title="Kuuntele ja osoita"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 

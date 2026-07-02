@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
 import {
   buildWordOrderRound,
@@ -6,12 +6,11 @@ import {
   type WordOrderToken,
 } from '../game/round';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
-import { speak } from '../audio/speak';
+import { familiarityWeigher } from '../game/srs';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -37,18 +36,22 @@ interface Props {
 // Finnish by rule. Renders both single-slot carrier phrases and (when given a
 // `buildRound`) multi-slot sentences, since both reduce to ordered word chips.
 export default function WordOrder({ items, constructions, buildRound, title, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
   const { maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // A mis-tap while assembling the sentence means it wasn't a first-try solve.
   const missed = useRef(false);
+  // First-try solves this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SentenceQuestion[]>(() => {
     if (buildRound) return buildRound(maxTier);
-    return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier).map((q) => ({
+    return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier, weigh).map((q) => ({
       hintEn: q.construction.en,
       sentence: q.sentence,
       tokens: q.tokens,
@@ -60,7 +63,6 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   }, [items, constructions, maxTier, runId]);
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [placed, setPlaced] = useState<WordOrderToken[]>([]);
   const [wrongId, setWrongId] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
@@ -69,12 +71,9 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   const q = round[index];
   const complete = !!q && placed.length === q.tokens.length;
 
-  // Say the target sentence when a new question appears.
-  useEffect(() => {
-    if (!q || done) return;
-    const t = setTimeout(() => speak(q.sentence), 400);
-    return () => clearTimeout(t);
-  }, [q, done]);
+  // No TTS here on purpose: hearing the sentence read aloud would hand the
+  // child the word order for free. Word Order is a READING/assembly puzzle —
+  // the only audio is the correct/wrong tap ding.
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
@@ -85,10 +84,9 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         setWrongId(null);
         if (placed.length + 1 === q.tokens.length) {
           setLocked(true);
-          speak(q.sentence);
-          setStars((s) => s + 1);
           addStars(1);
           if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
+          if (!missed.current) firstTries.current += 1;
           const next = index + 1;
           setTimeout(() => {
             if (next >= round.length) setDone(true);
@@ -112,20 +110,19 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setPlaced([]);
     setWrongId(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!q) return null;
 
   const placedIds = new Set(placed.map((t) => t.id));
@@ -136,6 +133,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         title={title ?? 'Järjestä sanat'}
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 
@@ -145,13 +143,6 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
 
       <div className="phrase-card">
         <p className="en phrase-hint">{q.hintEn}</p>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(q.sentence)}
-          aria-label="Hear the sentence again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
       </div>
 
       <div className="word-order-assembled" aria-label="Your sentence so far">

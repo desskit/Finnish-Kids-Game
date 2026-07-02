@@ -2,13 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { countingNounForm, countingPhrase } from '../content';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildCountingRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -22,22 +22,25 @@ interface Props {
 // The noun's form (nominative for 1, partitive for 2+) is looked up from the
 // sourced inflection table — never generated.
 export default function CountAndSay({ nouns, numbers, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Harder levels offer more tiles AND count higher (5 → 8 → 10).
-  const { optionCount, maxCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, maxCount, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // Any wrong tap (number or noun) means this item wasn't a first-try success.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildCountingRound(numbers, nouns, QUESTIONS, optionCount, maxCount),
-    [numbers, nouns, optionCount, maxCount, runId],
+    () => buildCountingRound(numbers, nouns, QUESTIONS, optionCount, maxCount, tricky, weigh),
+    [numbers, nouns, optionCount, maxCount, tricky, weigh, runId],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [phase, setPhase] = useState<'number' | 'noun'>('number');
   const [pickedNumber, setPickedNumber] = useState<LexicalItem | null>(null);
   const [pickedNoun, setPickedNoun] = useState<LexicalItem | null>(null);
@@ -80,9 +83,9 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         setPickedNoun(item);
         playDing(true);
         speak(fullPhrase);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(q.noun.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -122,7 +125,6 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setPhase('number');
     setPickedNumber(null);
     setPickedNoun(null);
@@ -130,14 +132,14 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!q) return null;
 
   const options = phase === 'number' ? q.numberOptions : q.nounOptions;
@@ -148,6 +150,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         title="Laske ja sano"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 

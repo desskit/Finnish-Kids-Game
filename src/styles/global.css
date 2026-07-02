@@ -593,6 +593,16 @@ button:focus-visible,
   gap: 6px;
 }
 
+/* Endless-stream header: the sitting's running star count (no round to dot). */
+.session-stars {
+  font-weight: 800;
+  font-size: 1.1rem;
+  background: var(--brand-soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
 .dot {
   width: 14px;
   height: 14px;
@@ -792,10 +802,13 @@ button:focus-visible,
 }
 
 /* ---------- Spelling ---------- */
+/* The child types into this directly with the device keyboard. */
 .spell-input {
   min-width: 6em;
+  max-width: 90%;
   min-height: 1.6em;
-  padding: 6px 16px;
+  padding: 10px 16px;
+  border: 3px solid var(--brand-soft);
   border-radius: 14px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
@@ -804,51 +817,23 @@ button:focus-visible,
   letter-spacing: 0.04em;
   text-align: center;
   color: var(--brand);
+  outline: none;
+}
+
+.spell-input:focus {
+  border-color: var(--brand);
 }
 
 .spell-input--wrong {
   animation: wiggle 0.4s ease;
+  border-color: var(--bad);
   box-shadow: 0 0 0 4px var(--bad);
 }
 
 .spell-input--correct {
   color: var(--good);
+  border-color: var(--good);
   box-shadow: 0 0 0 4px var(--good);
-}
-
-.kid-keyboard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  width: 100%;
-  max-width: 620px;
-}
-
-.kid-keyboard__row {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.kid-key {
-  min-width: clamp(28px, 8vw, 40px);
-  min-height: var(--tap);
-  border-radius: 10px;
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  font-weight: 700;
-  text-transform: lowercase;
-}
-
-.kid-key:active {
-  transform: scale(0.92);
-}
-
-.kid-key--wide {
-  min-width: clamp(80px, 20vw, 120px);
 }
 
 /* ---------- Word Order ---------- */
@@ -947,16 +932,6 @@ button:focus-visible,
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.auto-advance {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.auto-advance .en {
-  display: block;
-  font-size: 0.7em;
 }
 
 /* ---------- Animations ---------- */
@@ -1361,61 +1336,44 @@ button:focus-visible,
   opacity: 0.35;
 }
 
-/* ---------- RoundComplete: level-up + new badges ---------- */
-.level-up {
-  font-weight: 800;
-  color: var(--brand);
-  font-size: 1.1rem;
-  margin: 4px 0;
+/* ---------- Reward toast: quiet level-up / badge pill over the stream ---------- */
+.reward-toast {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  animation: toastin 0.35s ease-out;
 }
 
-.level-up .en {
+.reward-toast__line {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.reward-toast__line .en {
   display: block;
   font-size: 0.7em;
-  color: var(--ink-soft);
+  opacity: 0.85;
 }
 
-.new-badges {
-  background: var(--brand-soft);
-  border-radius: 16px;
-  padding: 10px 14px;
-  margin: 4px auto;
-}
-
-.new-badges__title {
-  font-weight: 800;
-  margin: 0 0 6px;
-}
-
-.new-badges__title .en {
-  font-size: 0.7em;
-  color: var(--ink-soft);
-}
-
-.new-badges__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.new-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-}
-
-.new-badge__emoji {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-.new-badge__label .en {
-  font-size: 0.72em;
-  color: var(--ink-soft);
+@keyframes toastin {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* ---------- Progress dashboard additions ---------- */

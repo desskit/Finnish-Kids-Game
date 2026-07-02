@@ -90,16 +90,19 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
-  it('caps the conjugation node at depth 4, swapping into a second game at the apex', () => {
+  it('deepens the conjugation node to 6, swapping in a second game mid-ladder', () => {
     const { skill } = findSkill('conjugate')!;
-    expect(skill.maxLevel).toBe(4);
+    expect(skill.maxLevel).toBe(6);
     // The kid keyboard has no space key, so multi-word negatives ("en syö")
     // can't be a typing apex — verb conjugation stays recognition through
-    // L1-3, then L4 swaps to `match` as this node's "different game" step.
+    // L1-3, L4 mixes in `match` as the "different game" step, and L5–6 return
+    // to conjugation hardened by tricky foreign-verb distractors over the
+    // full ~50-verb pool.
     expect(activityForLevel(skill, 1)).toBe('conjugate');
     expect(activityForLevel(skill, 3)).toBe('conjugate');
     expect(activityForLevel(skill, 4)).toBe('match');
-    expect(activityForLevel(skill, 8)).toBe('match');
+    expect(activityForLevel(skill, 5)).toBe('conjugate');
+    expect(activityForLevel(skill, 8)).toBe('conjugate');
   });
 
   it('gives every listening warm-up a third-level swap into Describe it', () => {
@@ -184,9 +187,9 @@ describe('learning path', () => {
     expect(findSkill('count')?.skill.maxLevel).toBe(8);
   });
 
-  it('caps Describe it and Conjugate the Verb at the default depth (no further sourced grammar)', () => {
+  it('caps Describe it at the default depth; Conjugate rides tricky distractors to 6', () => {
     expect(findSkill('match')?.skill.maxLevel).toBe(4);
-    expect(findSkill('conjugate')?.skill.maxLevel).toBe(4);
+    expect(findSkill('conjugate')?.skill.maxLevel).toBe(6);
   });
 
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
@@ -255,6 +258,19 @@ describe('learning path', () => {
     expect(ids.has('eye')).toBe(true); // body
     expect(ids.has('sun')).toBe(true); // nature
     expect(ids.has('shirt')).toBe(true); // clothes
+  });
+
+  it('adds the listen-verbs warm-up to the Actions chapter over picturable verbs', () => {
+    const found = findSkill('listen-verbs')!;
+    expect(found.chapter.id).toBe('actions');
+    expect(found.skill.maxLevel).toBe(3);
+    // Renders a real round: the pool resolved to (emoji-bearing) verbs.
+    const el = renderSkill(found.skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string }[] }).items ?? [];
+    expect(items.length).toBeGreaterThan(0);
+    for (const i of items) expect(i.emoji).toBeTruthy();
+    // Its L3 swap is a conjugation taste (verbs can't play the agreement game).
+    expect(activityForLevel(found.skill, 3)).toBe('conjugate');
   });
 
   it('renderActivity maps a concrete activity kind to a game element', () => {

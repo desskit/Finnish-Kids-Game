@@ -118,6 +118,28 @@ const PLACES = [
   ['bag', 'laukku', 'bag', '👜'],
 ];
 
+// Locative SHAPE tags for places — which "where" cases each one makes sense in:
+//   'surface'   → you can be ON / ONTO / OFF it   (adessive/allative/ablative)
+//   'container' → you can be IN / INTO / OUT-OF it (inessive/illative/elative)
+// Many are BOTH (a box, a bed, a car — a cat sits on top OR climbs inside).
+// A flat table/chair is a surface only; a room/forest is a container only.
+// The locative carrier phrases require the matching tag (see constructions.ts),
+// so "the cat is on the room" can never be generated.
+const PLACE_TAGS = {
+  box: ['surface', 'container'],
+  table: ['surface'],
+  house: ['container'],
+  room: ['container'],
+  car: ['surface', 'container'],
+  bed: ['surface', 'container'],
+  chair: ['surface'],
+  school: ['container'],
+  tree: ['container'],
+  forest: ['container'],
+  basket: ['surface', 'container'],
+  bag: ['container'],
+};
+
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
   ['father', 'isä', 'dad', '👨'],
@@ -186,24 +208,72 @@ const CLOTHES = [
   ['boot', 'saapas', 'boot', '🥾'],
 ];
 
-// Kid-friendly verbs spanning all six KOTUS verb types.
+// Kid-friendly verbs spanning all six KOTUS verb types. The 4th field is an
+// action emoji: verbs that have one can appear as picture cards (the
+// listen-verbs warm-up + Review); abstract verbs (olla, saada, muistaa…) stay
+// emoji-less and are served only by the conjugation drill and sentences.
 const VERBS = [
   ['be', 'olla', 'be'],
-  ['eat', 'syödä', 'eat'],
-  ['drink', 'juoda', 'drink'],
-  ['sleep', 'nukkua', 'sleep'],
-  ['play', 'leikkiä', 'play'],
-  ['run', 'juosta', 'run'],
-  ['jump', 'hypätä', 'jump'],
+  ['eat', 'syödä', 'eat', '🍽️'],
+  ['drink', 'juoda', 'drink', '🥤'],
+  ['sleep', 'nukkua', 'sleep', '😴'],
+  ['play', 'leikkiä', 'play', '🧸'],
+  ['run', 'juosta', 'run', '🏃'],
+  ['jump', 'hypätä', 'jump', '🦘'],
   ['go', 'mennä', 'go'],
   ['come', 'tulla', 'come'],
-  ['see', 'nähdä', 'see'],
-  ['give', 'antaa', 'give'],
+  ['see', 'nähdä', 'see', '👀'],
+  ['give', 'antaa', 'give', '🎁'],
   ['take', 'ottaa', 'take'],
-  ['look', 'katsoa', 'look'],
-  ['sing', 'laulaa', 'sing'],
-  ['read', 'lukea', 'read'],
-  ['swim', 'uida', 'swim'],
+  ['look', 'katsoa', 'look', '📺'],
+  ['sing', 'laulaa', 'sing', '🎤'],
+  ['read', 'lukea', 'read', '📖'],
+  ['swim', 'uida', 'swim', '🏊'],
+  ['want', 'haluta', 'want'],
+  ['love', 'rakastaa', 'love', '❤️'],
+  ['help', 'auttaa', 'help', '🤝'],
+  ['sit', 'istua', 'sit', '🪑'],
+  ['stand', 'seisoa', 'stand', '🧍'],
+  ['walk', 'kävellä', 'walk', '🚶'],
+  ['dance', 'tanssia', 'dance', '💃'],
+  ['draw', 'piirtää', 'draw', '✏️'],
+  ['write', 'kirjoittaa', 'write', '✍️'],
+  ['open', 'avata', 'open', '🔓'],
+  ['close', 'sulkea', 'close', '🔒'],
+  ['buy', 'ostaa', 'buy', '🛒'],
+  ['hear', 'kuulla', 'hear'],
+  ['listen', 'kuunnella', 'listen', '🎧'],
+  ['speak', 'puhua', 'speak', '🗣️'],
+  ['say', 'sanoa', 'say', '💬'],
+  ['ask', 'kysyä', 'ask', '❓'],
+  ['answer', 'vastata', 'answer', '🙋'],
+  ['search', 'etsiä', 'search', '🔍'],
+  ['find', 'löytää', 'find'],
+  ['make', 'tehdä', 'make', '🔨'],
+  ['get', 'saada', 'get'],
+  ['bring', 'tuoda', 'bring'],
+  ['carry', 'viedä', 'take away'],
+  ['fly', 'lentää', 'fly', '✈️'],
+  ['drive', 'ajaa', 'drive', '🚗'],
+  ['wash', 'pestä', 'wash', '🧼'],
+  ['clean', 'siivota', 'clean', '🧹'],
+  ['cook', 'keittää', 'cook', '🍳'],
+  ['paint', 'maalata', 'paint', '🎨'],
+  ['smile', 'hymyillä', 'smile', '😊'],
+  ['cry', 'itkeä', 'cry', '😢'],
+  ['laugh', 'nauraa', 'laugh', '😂'],
+  ['hug', 'halata', 'hug', '🤗'],
+  ['throw', 'heittää', 'throw', '🥏'],
+  ['climb', 'kiivetä', 'climb', '🧗'],
+  ['remember', 'muistaa', 'remember'],
+  ['forget', 'unohtaa', 'forget'],
+  ['learn', 'oppia', 'learn', '🎓'],
+  ['teach', 'opettaa', 'teach', '👩‍🏫'],
+  ['wait', 'odottaa', 'wait', '⏳'],
+  ['live', 'asua', 'live'],
+  ['build', 'rakentaa', 'build', '🧱'],
+  ['fix', 'korjata', 'fix', '🔧'],
+  ['wake-up', 'herätä', 'wake up', '⏰'],
 ];
 
 // Focused conjugation subset kept per verb: present and past, each in BOTH
@@ -229,7 +299,7 @@ function pickExamples(src) {
     .map((e) => ({ fi: e.fi, en: e.en }));
 }
 
-function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }) {
+function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, tagsById }) {
   const byWord = new Map(sourceWords.map((w) => [w.word, w]));
   const words = [];
   const missing = [];
@@ -255,6 +325,8 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }
       inflections,
     };
     if (typeof value === 'number') entry.value = value;
+    // Semantic tags (hand-curated, per word) — e.g. a place's locative shape.
+    if (tagsById && tagsById[wid]) entry.tags = tagsById[wid];
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
     if (src.group) entry.group = src.group;
     if (typeof src.frequency_rank === 'number') entry.frequencyRank = src.frequency_rank;
@@ -340,6 +412,7 @@ const places = buildTheme({
   emoji: '📍',
   curation: PLACES,
   sourceWords: nounWords,
+  tagsById: PLACE_TAGS,
 });
 
 const body = buildTheme({

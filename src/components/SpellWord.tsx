@@ -1,21 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { buildSpellingRound, buildSpellingPhraseRound } from '../game/round';
+import { familiarityWeigher } from '../game/srs';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
-
-const KEY_ROWS = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö'],
-  ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'ä'],
-];
 
 interface Props {
   items: LexicalItem[];
@@ -40,31 +34,36 @@ interface SpellTarget {
   gloss: string;
 }
 
-// Spelling: see/hear a Finnish word, type it with an on-screen keyboard
-// (including ä/ö, so it works the same on any device). By default the target is
-// item.fi — the sourced nominative singular. As the grammar apex of a deeper
-// node's ramp, passing `constructions` makes the child type the sourced
-// INFLECTED form instead (e.g. "pöydällä"). Either way the target is looked up,
-// never generated.
+// Spelling: see/hear a Finnish word, type it on the DEVICE keyboard (a real
+// focused <input>, so phones raise their native keyboard — with the child's
+// Finnish/locale layout and its ä/ö — and physical keyboards just work). By
+// default the target is item.fi — the sourced nominative singular. As the
+// grammar apex of a deeper node's ramp, passing `constructions` makes the child
+// type the sourced INFLECTED form instead (e.g. "pöydällä"). Either way the
+// target is looked up, never generated.
 export default function SpellWord({ items, constructions, onExit }: Props) {
-  const { addStars, recordAttempt } = useProfile();
+  const { addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   const { maxTier } = ctx?.difficulty ?? difficultyFor(1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // A wrong guess on the current word means it wasn't a first-try success.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SpellTarget[]>(() => {
     if (constructions && constructions.length > 0) {
-      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier).map((q) => ({
+      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier, weigh).map((q) => ({
         id: q.item.id,
         text: q.target,
         emoji: q.item.emoji,
         gloss: q.construction.en,
       }));
     }
-    return buildSpellingRound(items, QUESTIONS).map((it) => ({
+    return buildSpellingRound(items, QUESTIONS, weigh).map((it) => ({
       id: it.id,
       text: it.fi,
       emoji: it.emoji,
@@ -74,21 +73,23 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
   }, [items, constructions, maxTier, runId]);
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [input, setInput] = useState('');
   const [shake, setShake] = useState(false);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const target = round[index];
   const correct = !!target && input.toLowerCase() === target.text.toLowerCase();
 
-  // Say the target word when a new question appears.
+  // Say the target word when a new question appears, and keep focus on the
+  // input so the device keyboard stays up between words.
   useEffect(() => {
     if (!target || done) return;
+    inputRef.current?.focus();
     const t = setTimeout(() => speak(target.text), 400);
     return () => clearTimeout(t);
-  }, [target, done]);
+  }, [target, done, index]);
 
   const checkIfComplete = useCallback(
     (value: string) => {
@@ -98,9 +99,9 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
         setLocked(true);
         playDing(true);
         speak(target.text);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(target.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         const next = index + 1;
         setTimeout(() => {
           if (next >= round.length) setDone(true);
@@ -121,61 +122,40 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
     [target, locked, index, round.length, addStars, recordAttempt],
   );
 
-  function pressKey(letter: string) {
+  // The device keyboard drives the input directly; we just mirror its value
+  // and check for completion on every change.
+  function onInputChange(value: string) {
     if (!target || locked || done) return;
-    setInput((prev) => {
-      const next = prev + letter;
-      checkIfComplete(next);
-      return next;
-    });
+    setInput(value);
+    checkIfComplete(value);
   }
-
-  function backspace() {
-    if (locked || done) return;
-    setInput((prev) => prev.slice(0, -1));
-  }
-
-  // Physical keyboard support: letters, backspace, Space/Enter replays.
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (!target || done) return;
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        speak(target.text);
-        return;
-      }
-      if (e.key === 'Backspace') {
-        backspace();
-        return;
-      }
-      if (/^[a-zäöA-ZÄÖ]$/.test(e.key)) pressKey(e.key.toLowerCase());
-    }
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, done, locked]);
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setInput('');
     setShake(false);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!target) return null;
 
   return (
     <section className="screen activity">
-      <ActivityHeader title="Kirjoita sana" index={index} total={round.length} onExit={onExit} />
+      <ActivityHeader
+        title="Kirjoita sana"
+        index={index}
+        total={round.length}
+        stars={ctx?.sessionStars}
+        onExit={onExit}
+      />
 
       <p className="prompt">
         Kirjoita mitä kuulet <span className="en">Type what you hear</span>
@@ -195,31 +175,29 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
         </button>
       </div>
 
-      <div className={'spell-input' + (shake ? ' spell-input--wrong' : '') + (correct ? ' spell-input--correct' : '')}>
-        {input || ' '}
-      </div>
-
-      <div className="kid-keyboard">
-        {KEY_ROWS.map((row, i) => (
-          <div className="kid-keyboard__row" key={i}>
-            {row.map((letter) => (
-              <button
-                key={letter}
-                className="kid-key"
-                onClick={() => pressKey(letter)}
-                disabled={locked}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
-        ))}
-        <div className="kid-keyboard__row">
-          <button className="kid-key kid-key--wide" onClick={backspace} disabled={locked}>
-            ⌫
-          </button>
-        </div>
-      </div>
+      <input
+        ref={inputRef}
+        className={
+          'spell-input' +
+          (shake ? ' spell-input--wrong' : '') +
+          (correct ? ' spell-input--correct' : '')
+        }
+        value={input}
+        onChange={(e) => onInputChange(e.target.value)}
+        readOnly={locked}
+        autoFocus
+        // Give the child a clean typing surface (no autocorrect fighting the
+        // Finnish word) while still using their own device keyboard.
+        type="text"
+        inputMode="text"
+        lang="fi"
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
+        enterKeyHint="done"
+        aria-label="Type the word you hear"
+      />
     </section>
   );
 }

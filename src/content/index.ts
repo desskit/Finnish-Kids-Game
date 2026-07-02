@@ -22,6 +22,7 @@ export type {
 } from './types';
 export {
   formFor,
+  suitsSlot,
   sentenceFor,
   inflectionKey,
   countingNounForm,
@@ -46,6 +47,7 @@ interface SourcedWord {
   frequencyRank?: number;
   value?: number;
   examples?: Example[];
+  tags?: string[];
 }
 
 interface SourcedFile {
@@ -55,7 +57,7 @@ interface SourcedFile {
   words: SourcedWord[];
 }
 
-function toItem(w: SourcedWord, tier: Tier): LexicalItem {
+function toItem(w: SourcedWord, tier: Tier, topic: string): LexicalItem {
   return {
     id: w.id,
     fi: w.inflections.nominative_singular ?? w.word,
@@ -68,6 +70,8 @@ function toItem(w: SourcedWord, tier: Tier): LexicalItem {
     frequencyRank: w.frequencyRank,
     value: w.value,
     examples: w.examples,
+    topic,
+    tags: w.tags,
   };
 }
 
@@ -81,7 +85,7 @@ function toTheme(
     fi: file.theme.fi,
     en: file.theme.en,
     emoji: file.theme.emoji,
-    items: file.words.map((w) => toItem(w, 1)),
+    items: file.words.map((w) => toItem(w, 1, file.theme.id)),
     constructions,
     ...extra,
   };
@@ -132,7 +136,13 @@ export const themes: Theme[] = [animals, numbers, food, family, places, body, na
 // are exactly the items the picture-tap activities record SRS attempts against,
 // each with an emoji so it renders as a card. Ids are globally unique (enforced
 // by the content-integrity test), so an item id alone keys a schedule.
-export const reviewItems: LexicalItem[] = themes.flatMap((t) => t.items);
+// Verbs join the rotation too — but only the picturable ones (with an action
+// emoji); abstract verbs still earn SRS credit in the conjugation drill, they
+// just can't be shown as a picture card here.
+export const reviewItems: LexicalItem[] = [
+  ...themes.flatMap((t) => t.items),
+  ...verbs.items.filter((i) => i.emoji),
+];
 
 /** Look up any reviewable item by its (globally unique) id. */
 export const reviewItemById: Record<string, LexicalItem> = Object.fromEntries(

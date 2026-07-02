@@ -2,13 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildPhraseRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -21,23 +21,26 @@ interface Props {
 // Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the word
 // (in its correct sourced case form) that completes it.
 export default function BuildAPhrase({ items, constructions, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Harder levels add more options AND unlock higher-tier carrier phrases.
-  const { optionCount, maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, maxTier, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // Tracks a wrong tap on the current question, so SRS only credits a first-try
   // correct answer.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier),
-    [items, constructions, optionCount, maxTier, runId],
+    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh),
+    [items, constructions, optionCount, maxTier, tricky, weigh, runId],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [chosen, setChosen] = useState<LexicalItem | null>(null);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
@@ -61,9 +64,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         setChosen(item);
         playDing(true);
         speak(fullSentence);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(question.item.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -103,20 +106,19 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setChosen(null);
     setWrongId(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!question) return null;
 
   const { construction, item } = question;
@@ -128,6 +130,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         title="Rakenna lause"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 

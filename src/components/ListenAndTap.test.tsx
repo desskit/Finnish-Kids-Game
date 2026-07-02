@@ -113,14 +113,17 @@ describe('ListenAndTap', () => {
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
   });
 
-  it('reaches RoundComplete with full marks after the whole round', async () => {
+  it('rolls straight into a fresh round after the last question — no interstitial', async () => {
     renderActivity();
     for (let q = 0; q < 6; q++) {
       fireEvent.click(correctCard());
       await advance(800);
     }
-    expect(screen.getByText(/Great job/i)).toBeInTheDocument();
-    expect(screen.getByText(/6\s*\/\s*6/)).toBeInTheDocument();
+    // Endless play: no celebration screen, the next question is just there
+    // (standalone fallback restarts the component's own round).
+    expect(screen.queryByText(/Great job/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
     expect(screen.getByTestId('stars')).toHaveTextContent('6');
   });
 });
