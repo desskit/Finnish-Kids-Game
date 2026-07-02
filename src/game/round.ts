@@ -11,6 +11,7 @@ import type {
   VerbTense,
 } from '../content/types';
 import { caseFormOf, conjugatedClause, formFor, PERSONS, suitsSlot, verbForm } from '../content/types';
+import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -374,9 +375,17 @@ export function buildAgreementRound(
   const out: AgreementQuestion[] = [];
   let guard = 0;
   while (out.length < questionCount && guard++ < questionCount * 8) {
-    const adjective = sample(adjectives, 1)[0];
+    // Pick the noun first, then draw an adjective that makes SENSE for it:
+    // animate-only adjectives (happy, tired, kind…) go only with living things,
+    // so "kiltti sänky" (a kind bed) never happens. Size/colour/age apply to
+    // anything. Falls back to the full set if a topic somehow has none.
     const noun = weightedSample(nouns, 1, weigh)[0];
-    if (!adjective || !noun) break;
+    if (!noun) break;
+    const adjPool = isAnimateTopic(noun.topic)
+      ? adjectives
+      : adjectives.filter((a) => !isAnimateOnlyAdjective(a.id));
+    const adjective = sample(adjPool.length > 0 ? adjPool : adjectives, 1)[0];
+    if (!adjective) break;
 
     const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
     const targetCandidates = nounCases.filter((c) => caseFormOf(adjective, c, number));

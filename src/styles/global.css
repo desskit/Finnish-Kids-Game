@@ -802,10 +802,13 @@ button:focus-visible,
 }
 
 /* ---------- Spelling ---------- */
+/* The child types into this directly with the device keyboard. */
 .spell-input {
   min-width: 6em;
+  max-width: 90%;
   min-height: 1.6em;
-  padding: 6px 16px;
+  padding: 10px 16px;
+  border: 3px solid var(--brand-soft);
   border-radius: 14px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
@@ -814,51 +817,23 @@ button:focus-visible,
   letter-spacing: 0.04em;
   text-align: center;
   color: var(--brand);
+  outline: none;
+}
+
+.spell-input:focus {
+  border-color: var(--brand);
 }
 
 .spell-input--wrong {
   animation: wiggle 0.4s ease;
+  border-color: var(--bad);
   box-shadow: 0 0 0 4px var(--bad);
 }
 
 .spell-input--correct {
   color: var(--good);
+  border-color: var(--good);
   box-shadow: 0 0 0 4px var(--good);
-}
-
-.kid-keyboard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  width: 100%;
-  max-width: 620px;
-}
-
-.kid-keyboard__row {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.kid-key {
-  min-width: clamp(28px, 8vw, 40px);
-  min-height: var(--tap);
-  border-radius: 10px;
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  font-weight: 700;
-  text-transform: lowercase;
-}
-
-.kid-key:active {
-  transform: scale(0.92);
-}
-
-.kid-key--wide {
-  min-width: clamp(80px, 20vw, 120px);
 }
 
 /* ---------- Word Order ---------- */

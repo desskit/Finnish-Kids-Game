@@ -255,6 +255,49 @@ describe('semantic gating (suitsSlot) in the pairing builders', () => {
       }
     }
   });
+
+  it('matches the locative CASE to the place shape (no "on the room")', () => {
+    // Surface cases (on/onto/off) only take surfaces; container cases
+    // (in/into/out-of) only take containers. Checked over build + order.
+    const SURFACE_CASES = ['on-it', 'onto-it', 'off-it'];
+    const CONTAINER_CASES = ['in-it', 'into-it', 'out-of-it', 'in-them'];
+    const NON_SURFACE = ['house', 'room', 'car', 'school', 'tree', 'forest', 'bag'];
+    const NON_CONTAINER = ['table', 'chair'];
+    for (let r = 0; r < RUNS; r++) {
+      const rounds = [
+        ...buildPhraseRound(MIXED, nounConstructions, 6, 4, 8),
+        ...buildWordOrderRound(MIXED, nounConstructions, 6, 8),
+      ];
+      for (const q of rounds) {
+        if (SURFACE_CASES.includes(q.construction.id)) {
+          expect(NON_SURFACE).not.toContain(q.item.id);
+        }
+        if (CONTAINER_CASES.includes(q.construction.id)) {
+          expect(NON_CONTAINER).not.toContain(q.item.id);
+        }
+      }
+    }
+  });
+});
+
+describe('adjective + noun pairings make sense (agreement game)', () => {
+  it('only pairs animate-only adjectives with living things', () => {
+    const ANIMATE_ONLY = ['happy', 'tired', 'hungry', 'cute', 'kind'];
+    // Non-animate nouns (clothes) must never draw an animate-only adjective.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, clothes.items, 6, 3)) {
+        expect(ANIMATE_ONLY).not.toContain(q.adjective.id);
+      }
+    }
+    // Animals CAN (so the animate adjectives still get used somewhere).
+    const usedOnAnimals = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 3)) {
+        usedOnAnimals.add(q.adjective.id);
+      }
+    }
+    expect(ANIMATE_ONLY.some((id) => usedOnAnimals.has(id))).toBe(true);
+  });
 });
 
 describe('tricky distractors (the L4+ near-miss lever)', () => {

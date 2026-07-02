@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
 import {
   buildWordOrderRound,
@@ -9,7 +9,6 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
-import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -72,12 +71,9 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   const q = round[index];
   const complete = !!q && placed.length === q.tokens.length;
 
-  // Say the target sentence when a new question appears.
-  useEffect(() => {
-    if (!q || done) return;
-    const t = setTimeout(() => speak(q.sentence), 400);
-    return () => clearTimeout(t);
-  }, [q, done]);
+  // No TTS here on purpose: hearing the sentence read aloud would hand the
+  // child the word order for free. Word Order is a READING/assembly puzzle —
+  // the only audio is the correct/wrong tap ding.
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
@@ -88,7 +84,6 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         setWrongId(null);
         if (placed.length + 1 === q.tokens.length) {
           setLocked(true);
-          speak(q.sentence);
           addStars(1);
           if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
           if (!missed.current) firstTries.current += 1;
@@ -148,13 +143,6 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
 
       <div className="phrase-card">
         <p className="en phrase-hint">{q.hintEn}</p>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(q.sentence)}
-          aria-label="Hear the sentence again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
       </div>
 
       <div className="word-order-assembled" aria-label="Your sentence so far">
