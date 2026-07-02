@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { RoundOutcome } from '../game/activityContext';
 
 interface Props {
@@ -14,10 +14,19 @@ const TOAST_MS = 4000;
 // celebration. `role="status"` announces it politely; pointer-events stay off
 // so it can't block a tap on the game underneath.
 export default function RewardToast({ outcome, onDismiss }: Props) {
+  // The parent (SkillRoute) re-renders on every star earned during continuous
+  // play, handing down a NEW `onDismiss` closure each time. The timer must
+  // only restart when a genuinely NEW toast mounts (the caller already keys
+  // by `toast.id` for that) — not on every unrelated re-render. So the effect
+  // depends on nothing (runs once per mount) and reads the latest callback
+  // via a ref, instead of depending on `onDismiss` directly.
+  const onDismissRef = useRef(onDismiss);
+  onDismissRef.current = onDismiss;
+
   useEffect(() => {
-    const t = setTimeout(onDismiss, TOAST_MS);
+    const t = setTimeout(() => onDismissRef.current(), TOAST_MS);
     return () => clearTimeout(t);
-  }, [onDismiss]);
+  }, []);
 
   return (
     <div className="reward-toast" role="status">
