@@ -49,12 +49,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const question = round[index];
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
 
-  // Model the whole phrase out loud when a new question appears.
-  useEffect(() => {
-    if (!question || done) return;
-    const t = setTimeout(() => speak(fullSentence), 400);
-    return () => clearTimeout(t);
-  }, [question, done, fullSentence]);
+  // No TTS before an answer: reading the phrase aloud would hand the child
+  // the completing word for free (they'd just be transcribing what they
+  // heard). It's spoken once they choose correctly, below.
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -88,13 +85,14 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
   );
 
-  // Keyboard: number keys pick a word tile; Space/Enter replays the phrase.
+  // Keyboard: number keys pick a word tile; Space/Enter replays the phrase —
+  // but only once it's been answered (chosen), never as a pre-answer hint.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!question || done) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        speak(fullSentence);
+        if (chosen) speak(fullSentence);
         return;
       }
       const n = Number.parseInt(e.key, 10);
@@ -102,7 +100,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, fullSentence]);
+  }, [question, done, choose, fullSentence, chosen]);
 
   function restart() {
     setIndex(0);
@@ -150,13 +148,15 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(fullSentence)}
-          aria-label="Hear the sentence again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {chosen && (
+          <button
+            className="speaker speaker--inline"
+            onClick={() => speak(fullSentence)}
+            aria-label="Hear the sentence again"
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
       <div className="word-tiles">

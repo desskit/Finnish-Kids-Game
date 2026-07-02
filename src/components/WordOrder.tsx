@@ -9,6 +9,7 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
+import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -71,6 +72,7 @@ export default function WordOrder({
       tokens: q.tokens,
       shuffled: q.shuffled,
       attemptId: q.item.id,
+      emoji: q.item.emoji,
     }));
     // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,9 +91,12 @@ export default function WordOrder({
   const complete = !!q && placed.length === q.tokens.length;
   const showHint = hintAfterMisses !== undefined && wrongTaps >= hintAfterMisses;
 
-  // No TTS here on purpose: hearing the sentence read aloud would hand the
-  // child the word order for free. Word Order is a READING/assembly puzzle —
-  // the only audio is the correct/wrong tap ding.
+  // Never TTS before an answer — hearing the sentence read aloud would hand
+  // the child the word order for free. A single-slot carrier phrase DOES get
+  // spoken once assembled correctly (confirms the pronunciation); a
+  // multi-slot sentence (buildRound) stays silent even after a correct
+  // answer, since it has no single settled reading the way one carrier
+  // phrase does.
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
@@ -104,6 +109,7 @@ export default function WordOrder({
         if (placed.length + 1 === q.tokens.length) {
           setLocked(true);
           addStars(1);
+          if (!buildRound) speak(q.sentence);
           if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
           if (!missed.current) firstTries.current += 1;
           const next = index + 1;
@@ -125,7 +131,7 @@ export default function WordOrder({
         setTimeout(() => setWrongId((cur) => (cur === tile.id ? null : cur)), 500);
       }
     },
-    [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt],
+    [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt, buildRound],
   );
 
   function restart() {
@@ -163,6 +169,11 @@ export default function WordOrder({
       </p>
 
       <div className="phrase-card">
+        {q.emoji && (
+          <span className="phrase-emoji" aria-hidden="true">
+            {q.emoji}
+          </span>
+        )}
         <p className="en phrase-hint">{q.hintEn}</p>
       </div>
 

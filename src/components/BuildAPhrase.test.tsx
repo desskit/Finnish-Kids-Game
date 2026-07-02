@@ -43,6 +43,7 @@ vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import BuildAPhrase from './BuildAPhrase';
+import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 function seedChild() {
@@ -106,14 +107,24 @@ describe('BuildAPhrase', () => {
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
   });
 
-  it('fills the slot, awards a star and advances on a correct tap', async () => {
+  it('never speaks the phrase (or offers a Listen button) before an answer', async () => {
+    renderActivity();
+    await advance(1000); // past the old auto-speak delay, just in case
+    expect(speak).not.toHaveBeenCalled();
+    expect(screen.queryByRole('button', { name: /hear the sentence again/i })).toBeNull();
+  });
+
+  it('fills the slot, awards a star, speaks the phrase, and advances on a correct tap', async () => {
     renderActivity();
     fireEvent.click(correctTile());
 
     expect(playDing).toHaveBeenCalledWith(true);
+    expect(speak).toHaveBeenCalledWith('Tämä on kissa.');
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
     expect(document.querySelector('.phrase-slot--filled')).not.toBeNull();
     expect(correctTile().className).toContain('word-tile--correct');
+    // TTS is available for replay now that it's answered.
+    expect(screen.getByRole('button', { name: /hear the sentence again/i })).toBeInTheDocument();
 
     await advance(1200);
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();

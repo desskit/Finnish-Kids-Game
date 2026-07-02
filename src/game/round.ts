@@ -573,6 +573,11 @@ export interface SentenceQuestion {
   shuffled: WordOrderToken[];
   /** Optional item id for SRS crediting (sentences span several words, so none). */
   attemptId?: string;
+  /**
+   * A picture of the sentence's main object (carrier-phrase mode only — a
+   * multi-slot sentence has no single item to depict, so this stays unset there).
+   */
+  emoji?: string;
 }
 
 function sentencePool(
