@@ -80,6 +80,25 @@ export function isMastered(s: ItemSchedule): boolean {
   return s.box >= MAX_BOX;
 }
 
+/** How much likelier an already-met word is per draw than an unseen one. */
+export const FAMILIAR_WEIGHT = 3;
+
+/**
+ * Word-selection bias for the skill games: words the child has already met
+ * surface ~3× as often as unseen ones (repetition builds retention), but
+ * unseen words keep flowing in — nothing is excluded, so the vocabulary still
+ * grows. Feed the result to `weightedSample` as its weight function. Pure:
+ * takes the child's schedule map, returns a per-item weight.
+ */
+export function familiarityWeigher(
+  schedules: Record<string, ItemSchedule> | undefined,
+): (item: { id: string }) => number {
+  return (item) => {
+    const s = schedules?.[item.id];
+    return s && s.seen > 0 ? FAMILIAR_WEIGHT : 1;
+  };
+}
+
 export interface ReviewSelection {
   /** Schedules keyed by item id (the active child's `srs` map). */
   schedules: Readonly<Record<string, ItemSchedule>>;

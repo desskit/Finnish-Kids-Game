@@ -89,6 +89,22 @@ describe('content integrity', () => {
     ]);
   });
 
+  it('carries the expanded verb pool: 60+ verbs, most with an action emoji', () => {
+    // The verbs expansion: enough vocabulary that the conjugation drill's
+    // tricky foreign-verb distractors and the listen-verbs warm-up both have
+    // real depth. Picturable verbs (with emoji) power the picture-card games.
+    expect(verbs.items.length).toBeGreaterThanOrEqual(50);
+    expect(verbs.items.filter((v) => v.emoji).length).toBeGreaterThanOrEqual(40);
+  });
+
+  it('tags every word with its theme (the semantic-gating hook)', () => {
+    for (const pool of allPools) {
+      for (const item of pool.items) {
+        expect(item.topic, `${item.id} missing topic`).toBe(pool.id);
+      }
+    }
+  });
+
   it('conjugates every verb for enough persons to build a round', () => {
     for (const verb of verbs.items) {
       const persons = PERSONS.filter((p) => verbForm(verb, 'present', 'positive', p.id));

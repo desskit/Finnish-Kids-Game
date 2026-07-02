@@ -7,6 +7,7 @@ import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { useProfile } from './state/profile';
 import AppShell from './components/AppShell';
+import RewardToast from './components/RewardToast';
 import MapHome from './components/MapHome';
 import ProfilePicker from './components/ProfilePicker';
 import ReviewActivity from './components/ReviewActivity';
@@ -37,24 +38,29 @@ function SkillRouteHost() {
   return <SkillRoute key={skillId} />;
 }
 
-// Resolves a skill from the URL and runs its game full-screen. Progress is keyed
-// by (chapter, skill); the ActivityContext hands down adaptive difficulty and
-// lets the shared RoundComplete record the round + celebrate a level-up / badge.
+// Resolves a skill from the URL and runs its game full-screen as ONE unbroken
+// stream of challenges: the games report each finished question segment
+// silently, the level adapts in the background, and the next segment (possibly
+// a different game type) mounts with no interstitial. Level-ups/badges surface
+// as a small self-dismissing toast; the only stop is the child tapping Koti.
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, recordRound, activityDifficulty } = useProfile();
+  const { activeChild, recordRound, activityDifficulty, stars } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
-  // The continuous session lives HERE, not inside the game component, so each
-  // round can serve a DIFFERENT game type (in-session variety). `round.no`
-  // counts rounds; `round.level` is the level FROZEN at the round's start, so a
-  // level-up recorded during the celebration doesn't hot-swap the game out from
-  // under RoundComplete — the next round (Jatka) re-reads the live level.
+  // `round.no` counts segments (drives game-type rotation); `round.level` is
+  // the level FROZEN at the segment's start, so a mid-segment level change
+  // never hot-swaps the game underneath the child.
   const liveLevel = activityDifficulty(found?.chapter.id ?? '', found?.skill.id ?? '').level;
-  const liveLevelRef = useRef(liveLevel);
-  liveLevelRef.current = liveLevel;
   const [round, setRound] = useState({ no: 0, level: liveLevel });
+  const [toast, setToast] = useState<{ outcome: RoundOutcome; id: number } | null>(null);
+
+  // Stars earned this sitting: the games call addStars per correct answer, so
+  // the profile total ticks live; the ref pins the count at entry. (SkillRoute
+  // is keyed per skillId — survives segment remounts, resets per skill.)
+  const startStars = useRef(stars);
+  const sessionStars = stars - startStars.current;
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!found) return <Navigate to="/" replace />;
@@ -66,29 +72,44 @@ function SkillRoute() {
   const element = renderActivity(skill, activity, () => navigate('/'));
   if (!element) return <Navigate to="/" replace />;
 
-  const onRoundComplete = (stars: number, total: number): RoundOutcome => {
+  // Silent segment recording + advance, in one commit: fold the segment's
+  // first-try accuracy into the adaptive level, queue a toast if something was
+  // earned, and bump the segment counter — the key change below swaps the
+  // finished game for the next one instantly.
+  const onSegmentComplete = (segStars: number, total: number) => {
     const before = activeChild;
     // This node's own ladder depth caps the adaptive climb (default 4).
     const maxLevel = skill.maxLevel ?? 4;
-    const after = recordRoundOnChild(before, chapter.id, skill.id, stars, total, maxLevel);
+    const after = recordRoundOnChild(before, chapter.id, skill.id, segStars, total, maxLevel);
+    const afterLevel = activityLevel(after, chapter.id, skill.id);
     const leveledUp =
-      before.adaptive !== false &&
-      activityLevel(after, chapter.id, skill.id) > activityLevel(before, chapter.id, skill.id);
+      before.adaptive !== false && afterLevel > activityLevel(before, chapter.id, skill.id);
     const had = earnedBadgeIds(before, BADGE_ENV);
     const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
-    recordRound(chapter.id, skill.id, stars, total, maxLevel);
-    return { leveledUp, level: activityLevel(after, chapter.id, skill.id), newBadges };
+    recordRound(chapter.id, skill.id, segStars, total, maxLevel);
+    if (leveledUp || newBadges.length > 0) {
+      setToast((t) => ({
+        outcome: { leveledUp, level: afterLevel, newBadges },
+        id: (t?.id ?? 0) + 1,
+      }));
+    }
+    // Manual mode keeps its pinned level; adaptive uses the just-recorded one
+    // (the pure look-ahead — the context re-render lands after this commit).
+    const nextLevel = before.adaptive === false ? round.level : afterLevel;
+    setRound((r) => ({ no: r.no + 1, level: nextLevel }));
   };
-
-  // Next round: bump the counter and re-read the (possibly just-leveled) level.
-  const onAdvance = () => setRound((r) => ({ no: r.no + 1, level: liveLevelRef.current }));
 
   return (
     <main className="app">
-      <ActivityContext.Provider value={{ onRoundComplete, difficulty, onAdvance }}>
-        {/* Key by round so each round mounts fresh — switching game type cleanly. */}
+      <ActivityContext.Provider value={{ onSegmentComplete, difficulty, sessionStars }}>
+        {/* Key by segment so each one mounts fresh — switching game type cleanly. */}
         {cloneElement(element, { key: round.no })}
       </ActivityContext.Provider>
+      {/* Outside the keyed child so it survives the segment swap; keyed per
+          reward so back-to-back rewards restart the timer. */}
+      {toast && (
+        <RewardToast key={toast.id} outcome={toast.outcome} onDismiss={() => setToast(null)} />
+      )}
     </main>
   );
 }

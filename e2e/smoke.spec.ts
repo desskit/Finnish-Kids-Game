@@ -1,16 +1,44 @@
 import { test, expect, type Page } from '@playwright/test';
 
 // Headless smoke test against the real production build: profile creation →
-// journey path → a First-words skill (Listen & Tap) → finish the round →
-// RoundComplete with stars. The round content/options are randomized, so each
-// question is answered by trying pic-cards in order until the progress indicator
-// advances (a wrong tap just flashes red and stays put).
+// journey path → a First-words skill (Listen & Tap) → an unbroken stream of
+// challenges (no round-complete interstitial) → Review, which still ends in a
+// celebration. Round content/options are randomized, so each question is
+// answered by trying pic-cards in order until the app reacts (a wrong tap
+// just flashes red and stays put).
 
 async function isRoundComplete(page: Page) {
   return page.getByText(/Hienoa|Great job/i).isVisible().catch(() => false);
 }
 
-async function answerUntilAdvance(page: Page) {
+/**
+ * Answer one question in the endless skill stream by watching the header's
+ * session-star counter (`N tähteä`): a correct tap bumps it by one.
+ */
+async function answerUntilStarAdvance(page: Page) {
+  const counter = page.getByLabel(/\d+ tähteä/);
+  const before = await counter.getAttribute('aria-label');
+
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const cards = page.locator('.pic-card');
+    const count = await cards.count();
+    for (let i = 0; i < count; i++) {
+      await cards.nth(i).click();
+
+      // Poll briefly: a correct tap bumps the star counter; a wrong tap just
+      // flashes red and stays put, so move on to the next card.
+      for (let ms = 0; ms < 900; ms += 100) {
+        await page.waitForTimeout(100);
+        const after = await counter.getAttribute('aria-label').catch(() => null);
+        if (after && after !== before) return;
+      }
+    }
+  }
+  throw new Error('Could not advance past the question');
+}
+
+/** Answer one Review question by watching the question dots advance. */
+async function answerUntilDotAdvance(page: Page) {
   const header = page.getByLabel(/Question \d+ of \d+/);
   const before = await header.getAttribute('aria-label');
 
@@ -20,8 +48,6 @@ async function answerUntilAdvance(page: Page) {
     for (let i = 0; i < count; i++) {
       await cards.nth(i).click();
 
-      // Poll briefly: a correct tap advances the question (or finishes the
-      // round); a wrong tap just flashes red and stays put, so move on.
       for (let ms = 0; ms < 900; ms += 100) {
         await page.waitForTimeout(100);
         if (await isRoundComplete(page)) return;
@@ -33,7 +59,7 @@ async function answerUntilAdvance(page: Page) {
   throw new Error('Could not advance past the question');
 }
 
-test('full happy path: create profile, play a skill, finish the round', async ({ page }) => {
+test('full happy path: create profile, play a skill as one unbroken stream', async ({ page }) => {
   await page.goto('/');
 
   // Fresh data with no profile bounces to the picker.
@@ -45,21 +71,24 @@ test('full happy path: create profile, play a skill, finish the round', async ({
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
 
-  // Open the first "First words" skill (Listen & Tap over animals).
-  await page.getByRole('link', { name: /Eläimet|Animals/i }).click();
+  // Open the first "First words" skill (Listen & Tap over animals). Force:
+  // the suggested-next node bobs forever, so it never reads as "stable".
+  await page.getByRole('link', { name: /Eläimet|Animals/i }).click({ force: true });
   await expect(page).toHaveURL(/#\/skill\/listen-animals$/);
 
-  await expect(page.getByLabel('Question 1 of 6')).toBeVisible();
+  // In-session header counts stars, not questions — there is no round to count.
+  await expect(page.getByLabel('0 tähteä')).toBeVisible();
 
-  for (let q = 0; q < 6; q++) {
-    await answerUntilAdvance(page);
+  // Play PAST the old 6-question boundary: the stream never stops.
+  for (let q = 0; q < 7; q++) {
+    await answerUntilStarAdvance(page);
+    expect(await isRoundComplete(page)).toBe(false);
   }
+  await expect(page.getByLabel('7 tähteä')).toBeVisible();
+  await expect(page.locator('.pic-card').first()).toBeVisible();
 
-  await expect(page.getByText(/Hienoa|Great job/i)).toBeVisible();
-  await expect(page.getByText(/\d\s*\/\s*6/)).toBeVisible();
-
-  // "Home" returns to the path; the browser back button also works from there.
-  await page.getByRole('button', { name: /Koti|Home/i }).click();
+  // The only exit is the header's home button; back button works from the path.
+  await page.getByRole('button', { name: 'Back to home' }).click();
   await expect(page).toHaveURL(/#\/$/);
 
   await page.goto(`${page.url()}`.replace(/#.*$/, '#/skill/listen-animals'));
@@ -79,11 +108,10 @@ test('spaced-repetition Review is reachable from the path and completes', async 
   await expect(page).toHaveURL(/#\/review$/);
   await expect(page.getByLabel(/Question 1 of \d+/)).toBeVisible();
 
-  // Answer until the round finishes (Review has more questions than a topic
-  // round, so loop until RoundComplete rather than a fixed count).
+  // Review keeps its finite round + celebration (the "due today" set is real).
   for (let guard = 0; guard < 20; guard++) {
     if (await isRoundComplete(page)) break;
-    await answerUntilAdvance(page);
+    await answerUntilDotAdvance(page);
   }
 
   await expect(page.getByText(/Hienoa|Great job/i)).toBeVisible();

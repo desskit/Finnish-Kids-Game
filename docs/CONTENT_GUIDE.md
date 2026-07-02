@@ -72,7 +72,8 @@ The path is data in `src/game/path.tsx`. A **skill node** picks an existing game
 
 - `activity`: `listen | build | count | match | conjugate | order | spell | sentence | review`
 - `content.pool`: which words — `'nouns'` (all noun topics mixed, default),
-  `'animals' | 'food' | 'family' | 'numbers' | 'places' | 'body' | 'nature' | 'clothes'`.
+  `'animals' | 'food' | 'family' | 'numbers' | 'places' | 'body' | 'nature' | 'clothes'`,
+  or `'verbs'` (the emoji-bearing action verbs, for picture-card games).
 - `content.constructionIds`: for `build`/`order`, which carrier phrases to drill
   (omit = all).
 

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { buildSpellingRound, buildSpellingPhraseRound } from '../game/round';
+import { familiarityWeigher } from '../game/srs';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -47,24 +47,28 @@ interface SpellTarget {
 // INFLECTED form instead (e.g. "pöydällä"). Either way the target is looked up,
 // never generated.
 export default function SpellWord({ items, constructions, onExit }: Props) {
-  const { addStars, recordAttempt } = useProfile();
+  const { addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   const { maxTier } = ctx?.difficulty ?? difficultyFor(1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // A wrong guess on the current word means it wasn't a first-try success.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SpellTarget[]>(() => {
     if (constructions && constructions.length > 0) {
-      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier).map((q) => ({
+      return buildSpellingPhraseRound(items, constructions, QUESTIONS, maxTier, weigh).map((q) => ({
         id: q.item.id,
         text: q.target,
         emoji: q.item.emoji,
         gloss: q.construction.en,
       }));
     }
-    return buildSpellingRound(items, QUESTIONS).map((it) => ({
+    return buildSpellingRound(items, QUESTIONS, weigh).map((it) => ({
       id: it.id,
       text: it.fi,
       emoji: it.emoji,
@@ -74,7 +78,6 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
   }, [items, constructions, maxTier, runId]);
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [input, setInput] = useState('');
   const [shake, setShake] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -98,9 +101,9 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
         setLocked(true);
         playDing(true);
         speak(target.text);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(target.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         const next = index + 1;
         setTimeout(() => {
           if (next >= round.length) setDone(true);
@@ -157,25 +160,30 @@ export default function SpellWord({ items, constructions, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setInput('');
     setShake(false);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!target) return null;
 
   return (
     <section className="screen activity">
-      <ActivityHeader title="Kirjoita sana" index={index} total={round.length} onExit={onExit} />
+      <ActivityHeader
+        title="Kirjoita sana"
+        index={index}
+        total={round.length}
+        stars={ctx?.sessionStars}
+        onExit={onExit}
+      />
 
       <p className="prompt">
         Kirjoita mitä kuulet <span className="en">Type what you hear</span>

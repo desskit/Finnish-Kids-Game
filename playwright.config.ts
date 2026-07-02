@@ -16,6 +16,11 @@ export default defineConfig({
   use: {
     baseURL: BASE_URL,
     trace: 'on-first-retry',
+    // Sandboxed/CI-like environments can pin a pre-installed Chromium instead
+    // of downloading one (PW_CHROMIUM_PATH=/path/to/chrome).
+    ...(process.env.PW_CHROMIUM_PATH
+      ? { launchOptions: { executablePath: process.env.PW_CHROMIUM_PATH } }
+      : {}),
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {

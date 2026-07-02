@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildConjugationRound, type ConjugationOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
@@ -22,23 +22,28 @@ interface Props {
 // form is looked up from the sourced inflection tables via
 // buildConjugationRound — never generated.
 export default function ConjugateVerb({ verbs, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Higher levels add more tiles AND harder verb forms: present positive →
   // + present negative → + past. All forms are sourced, never generated.
-  const { optionCount, verbCombos } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Tricky rounds slip in ANOTHER verb's form for the same person, so the verb
+  // itself must be recognized, not just the ending.
+  const { optionCount, verbCombos, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // A wrong tap means this verb wasn't a first-try success (for SRS).
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildConjugationRound(verbs, QUESTIONS, optionCount, verbCombos),
-    [verbs, optionCount, verbCombos, runId],
+    () => buildConjugationRound(verbs, QUESTIONS, optionCount, verbCombos, tricky, weigh),
+    [verbs, optionCount, verbCombos, tricky, weigh, runId],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [chosen, setChosen] = useState<ConjugationOption | null>(null);
   const [wrongForm, setWrongForm] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
@@ -61,9 +66,9 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         setChosen(opt);
         playDing(true);
         speak(q.clause);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(q.verb.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongForm(null);
         const next = index + 1;
         setTimeout(() => {
@@ -103,20 +108,19 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setChosen(null);
     setWrongForm(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!q) return null;
 
   return (
@@ -125,6 +129,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         title="Taivuta verbi"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 
@@ -152,9 +157,11 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
       </div>
 
       <div className="word-tiles">
+        {/* Keyed by form: a tricky round's foreign-verb tile shares the
+            target's person, so person alone wouldn't be unique. */}
         {q.options.map((opt, i) => (
           <button
-            key={opt.person}
+            key={opt.form}
             className={'word-tile' + (wrongForm === opt.form ? ' word-tile--wrong' : '')}
             onClick={() => choose(opt)}
             disabled={locked}

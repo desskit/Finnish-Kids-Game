@@ -50,6 +50,16 @@ const EDIBLE = [
 const RECIPIENTS = ['cat', 'dog', 'bear', 'bunny', 'fox', 'baby'];
 // Places you can run INTO.
 const ENTERABLE = ['house', 'room', 'forest', 'school', 'car', 'box'];
+// Family members who can be a sentence's doer (all take 3sg agreement).
+const FAMILY_DOERS = ['mother', 'father', 'brother', 'sister', 'grandmother', 'grandfather'];
+// Quiet solo activities the doer sentence swaps between (all conjugate 3sg).
+const SOLO_VERBS = ['sing', 'dance', 'sleep', 'read'];
+// Rooms/places the doer sentence can happen in (inessive).
+const DOING_PLACES = ['room', 'house', 'school', 'forest'];
+// Someone/something a child could plausibly HELP ("I help the horse").
+const HELPABLE = ['cat', 'dog', 'bunny', 'bird', 'baby', 'horse'];
+// Things a child draws (all picturable, all with clean genitive forms).
+const DRAWABLE = ['flower', 'house', 'car', 'cat', 'dog', 'sun', 'star', 'tree'];
 
 export const sentenceConstructions: SentenceConstruction[] = [
   // t5 — adjective+noun object in the genitive (total object of a bounded verb).
@@ -238,6 +248,94 @@ export const sentenceConstructions: SentenceConstruction[] = [
         fixedId: 'run',
       },
       { id: 'obj', role: 'noun', case: 'illative', number: 'singular', pickFrom: ENTERABLE },
+    ],
+  },
+  // t5 — verb chain: a conjugated modal + a bare infinitive ("haluan syödä"),
+  // with the chain's object in the genitive (total object).
+  {
+    id: 'want-to-eat-food',
+    en: 'I want to eat the {obj}.',
+    tier: 5,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'verb2' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'want',
+      },
+      { id: 'verb2', role: 'verb', verbSlotForm: 'infinitive', fixedId: 'eat' },
+      { id: 'obj', role: 'noun', case: 'genitive', number: 'singular', pickFrom: EDIBLE },
+    ],
+  },
+  // t6 — a noun subject (3sg agreement) + a swappable verb + an inessive place:
+  // "äiti laulaa huoneessa". BOTH the doer and the doing swap.
+  {
+    id: 'family-does-somewhere',
+    en: 'The {subj} {verb}s in the {loc}.',
+    tier: 6,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'loc' }],
+    slots: [
+      { id: 'subj', role: 'noun', case: 'nominative', number: 'singular', pickFrom: FAMILY_DOERS },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        pickFrom: SOLO_VERBS,
+      },
+      { id: 'loc', role: 'noun', case: 'inessive', number: 'singular', pickFrom: DOING_PLACES },
+    ],
+  },
+  // t7 — auttaa ("help") always governs the partitive: "autan hevosta".
+  {
+    id: 'i-help-someone',
+    en: 'I help the {obj}.',
+    tier: 7,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'help',
+      },
+      { id: 'obj', role: 'noun', case: 'partitive', number: 'singular', pickFrom: HELPABLE },
+    ],
+  },
+  // t8 — the top of the ladder: piirtää with a genitive total object
+  // ("piirrän kukan"), swapping over everyday drawable things.
+  {
+    id: 'i-draw-thing',
+    en: 'I draw the {obj}.',
+    tier: 8,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'draw',
+      },
+      { id: 'obj', role: 'noun', case: 'genitive', number: 'singular', pickFrom: DRAWABLE },
     ],
   },
 ];

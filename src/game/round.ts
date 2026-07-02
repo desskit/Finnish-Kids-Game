@@ -10,29 +10,56 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, conjugatedClause, formFor, PERSONS, verbForm } from '../content/types';
-import { sample, shuffle } from '../util/shuffle';
+import { caseFormOf, conjugatedClause, formFor, PERSONS, suitsSlot, verbForm } from '../content/types';
+import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
 // content — the Finnish slot forms come from the sourced inflection tables via
 // formFor(); nothing here generates or inflects Finnish.
+
+/**
+ * Optional word-selection bias for a builder's TARGET draws (distractors stay
+ * uniform/tricky). The games pass `familiarityWeigher(child.srs)` here so
+ * already-met words come around more often without ever excluding new ones.
+ * Builders stay pure — the weights arrive as an argument.
+ */
+export type WeighFn = (item: LexicalItem) => number;
 
 export interface ListenQuestion {
   target: LexicalItem;
   options: LexicalItem[];
 }
 
+/**
+ * `n` distractors, preferring the confusable `near` subset and backfilling
+ * from the rest — the "tricky" lever's engine. `near` must be a subset of
+ * `others`.
+ */
+function pickPreferring<T extends { id: string }>(
+  others: readonly T[],
+  near: readonly T[],
+  n: number,
+): T[] {
+  const fromNear = sample(near, n);
+  if (fromNear.length >= n) return fromNear;
+  const taken = new Set(fromNear.map((i) => i.id));
+  return [...fromNear, ...sample(others.filter((i) => !taken.has(i.id)), n - fromNear.length)];
+}
+
 export function buildListenRound(
   items: readonly LexicalItem[],
   questionCount: number,
   optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
 ): ListenQuestion[] {
-  const targets = sample(items, Math.min(questionCount, items.length));
+  const targets = weightedSample(items, Math.min(questionCount, items.length), weigh);
   return targets.map((target) => {
-    const distractors = sample(
-      items.filter((i) => i.id !== target.id),
-      optionCount - 1,
-    );
+    const others = items.filter((i) => i.id !== target.id);
+    // Tricky: prefer same-topic distractors (cat vs dog, not cat vs sock) so
+    // the wrong answers are actually confusable.
+    const near = tricky ? others.filter((i) => i.topic && i.topic === target.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
     return { target, options: shuffle([target, ...distractors]) };
   });
 }
@@ -51,25 +78,45 @@ export function buildPhraseRound(
   questionCount: number,
   optionCount: number,
   maxTier: Tier = 4,
+  tricky = false,
+  weigh?: WeighFn,
 ): PhraseQuestion[] {
-  // Only pair a construction with items that actually have the needed form.
-  // Gate by tier when a skill mixes tiers, but never gate a curated set down to
-  // nothing — a single higher-tier construction (its own skill) must still play.
+  // Only pair a construction with items that have the needed form AND make
+  // sense in the slot (semantic gate). Gate by tier when a skill mixes tiers,
+  // but never gate a curated set down to nothing — a single higher-tier
+  // construction (its own skill) must still play.
   const byTier = constructions.filter((c) => c.tier <= maxTier);
   const allowed = byTier.length > 0 ? byTier : constructions;
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
-      if (formFor(item, construction)) pool.push({ construction, item });
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
     }
   }
 
-  const chosen = sample(pool, Math.min(questionCount, pool.length));
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
   return chosen.map(({ construction, item }) => {
-    const distractors = sample(
-      items.filter((i) => i.id !== item.id && formFor(i, construction)),
-      optionCount - 1,
+    // Distractors pass the same gate, so every tile plausibly fits the phrase
+    // and the challenge stays about the grammar, not spotting the absurd word.
+    const others = items.filter(
+      (i) => i.id !== item.id && formFor(i, construction) && suitsSlot(i, construction),
     );
+    // Tricky: prefer confusable tiles — same topic, or a similar word shape
+    // (the slot form's length within ±2 of the answer's).
+    const answerLen = formFor(item, construction)!.length;
+    const near = tricky
+      ? others.filter(
+          (i) =>
+            (i.topic && i.topic === item.topic) ||
+            Math.abs(formFor(i, construction)!.length - answerLen) <= 2,
+        )
+      : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
     return { construction, item, options: shuffle([item, ...distractors]) };
   });
 }
@@ -109,8 +156,9 @@ export function buildReviewRound(
 export function buildSpellingRound(
   items: readonly LexicalItem[],
   questionCount: number,
+  weigh?: WeighFn,
 ): LexicalItem[] {
-  return sample(items, Math.min(questionCount, items.length));
+  return weightedSample(items, Math.min(questionCount, items.length), weigh);
 }
 
 // Spelling, grammar apex: type the INFLECTED slot form, not the bare noun. Each
@@ -131,6 +179,7 @@ export function buildSpellingPhraseRound(
   constructions: readonly Construction[],
   questionCount: number,
   maxTier: Tier = 4,
+  weigh?: WeighFn,
 ): SpellingPhraseQuestion[] {
   // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
   const byTier = constructions.filter((c) => c.tier <= maxTier);
@@ -138,12 +187,17 @@ export function buildSpellingPhraseRound(
   const pool: SpellingPhraseQuestion[] = [];
   for (const construction of allowed) {
     for (const item of items) {
+      if (!suitsSlot(item, construction)) continue;
       const target = formFor(item, construction);
       // Single-token forms only — skip any multi-word slot form.
       if (target && !target.includes(' ')) pool.push({ construction, item, target });
     }
   }
-  return sample(pool, Math.min(questionCount, pool.length));
+  return weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((q) => weigh(q.item)),
+  );
 }
 
 // --- Word order ----------------------------------------------------------
@@ -175,6 +229,7 @@ export function buildWordOrderRound(
   constructions: readonly Construction[],
   questionCount: number,
   maxTier: Tier = 4,
+  weigh?: WeighFn,
 ): WordOrderQuestion[] {
   // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
   const byTier = constructions.filter((c) => c.tier <= maxTier);
@@ -182,11 +237,16 @@ export function buildWordOrderRound(
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
-      if (formFor(item, construction)) pool.push({ construction, item });
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
     }
   }
 
-  const chosen = sample(pool, Math.min(questionCount, pool.length));
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
   return chosen.map(({ construction, item }) => {
     const form = formFor(item, construction)!;
     const words = [
@@ -224,6 +284,8 @@ export function buildCountingRound(
   questionCount: number,
   optionCount: number,
   maxCount: number,
+  tricky = false,
+  weigh?: WeighFn,
 ): CountingQuestion[] {
   const counts = numbers.filter((n) => {
     const v = n.value ?? 0;
@@ -233,22 +295,23 @@ export function buildCountingRound(
   const out: CountingQuestion[] = [];
   for (let i = 0; i < questionCount; i++) {
     const number = sample(counts, 1)[0];
-    const noun = sample(nouns, 1)[0];
+    const noun = weightedSample(nouns, 1, weigh)[0];
     if (!number || !noun) break;
+    const otherCounts = counts.filter((n) => n.id !== number.id);
+    // Tricky: the wrong counts cluster around the true one (±2), so the child
+    // must actually count — 3 vs 4, not 3 vs 9.
+    const nearCounts = tricky
+      ? otherCounts.filter(
+          (n) => Math.abs((n.value ?? 0) - (number.value ?? 0)) <= 2,
+        )
+      : [];
     const numberOptions = shuffle([
       number,
-      ...sample(
-        counts.filter((n) => n.id !== number.id),
-        optionCount - 1,
-      ),
+      ...pickPreferring(otherCounts, nearCounts, optionCount - 1),
     ]);
-    const nounOptions = shuffle([
-      noun,
-      ...sample(
-        nouns.filter((x) => x.id !== noun.id),
-        optionCount - 1,
-      ),
-    ]);
+    const otherNouns = nouns.filter((x) => x.id !== noun.id);
+    const nearNouns = tricky ? otherNouns.filter((x) => x.topic && x.topic === noun.topic) : [];
+    const nounOptions = shuffle([noun, ...pickPreferring(otherNouns, nearNouns, optionCount - 1)]);
     out.push({ number, noun, numberOptions, nounOptions });
   }
   return out;
@@ -274,6 +337,8 @@ const AGREEMENT_CASES: CaseId[] = [
 
 export interface AgreementOption {
   caseId: CaseId;
+  /** The option's grammatical number — tricky rounds mix in wrong-NUMBER forms. */
+  num: GrammaticalNumber;
   form: string;
   correct: boolean;
 }
@@ -297,33 +362,60 @@ export function buildAgreementRound(
   questionCount: number,
   optionCount: number,
   number: GrammaticalNumber = 'singular',
+  maxCases: number = AGREEMENT_CASES.length,
+  tricky = false,
+  weigh?: WeighFn,
 ): AgreementQuestion[] {
+  // The case ramp: rotate through only the FIRST `maxCases` of the ordered
+  // list — three cases at level 1, the full seven by the top of the ladder.
+  // Floor at optionCount: a question needs (optionCount - 1) case distractors.
+  const allowedCases = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+
   const out: AgreementQuestion[] = [];
   let guard = 0;
   while (out.length < questionCount && guard++ < questionCount * 8) {
     const adjective = sample(adjectives, 1)[0];
-    const noun = sample(nouns, 1)[0];
+    const noun = weightedSample(nouns, 1, weigh)[0];
     if (!adjective || !noun) break;
 
-    const nounCases = AGREEMENT_CASES.filter((c) => caseFormOf(noun, c, number));
+    const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
     const targetCandidates = nounCases.filter((c) => caseFormOf(adjective, c, number));
-    if (!targetCandidates.length || nounCases.length < optionCount) continue;
+    if (!targetCandidates.length) continue;
 
     const targetCase = sample(targetCandidates, 1)[0];
     const adjForm = caseFormOf(adjective, targetCase, number)!;
     const answer = caseFormOf(noun, targetCase, number)!;
-    const distractorCases = sample(
-      nounCases.filter((c) => c !== targetCase),
-      optionCount - 1,
-    );
+
+    // Distractors: the same noun in OTHER cases (the agreement skill itself)…
+    const caseCandidates: AgreementOption[] = nounCases
+      .filter((c) => c !== targetCase)
+      .map((c) => ({ caseId: c, num: number, form: caseFormOf(noun, c, number)!, correct: false }));
+    // …and, when tricky, the same CASE in the wrong NUMBER ("kissassa" vs
+    // "kissoissa") — the sharpest near-miss the paradigm offers.
+    const otherNumber: GrammaticalNumber = number === 'singular' ? 'plural' : 'singular';
+    const wrongNumberForm = tricky ? caseFormOf(noun, targetCase, otherNumber) : undefined;
+    if (wrongNumberForm && wrongNumberForm !== answer) {
+      caseCandidates.push({
+        caseId: targetCase,
+        num: otherNumber,
+        form: wrongNumberForm,
+        correct: false,
+      });
+    }
+    // No duplicate surface forms (a paradigm can spell two cells identically),
+    // and never a tile that spells exactly like the answer.
+    const seen = new Set([answer]);
+    const distinct = caseCandidates.filter((o) => {
+      if (seen.has(o.form)) return false;
+      seen.add(o.form);
+      return true;
+    });
+    if (distinct.length < optionCount - 1) continue;
+    const distractors = sample(distinct, optionCount - 1);
 
     const options = shuffle<AgreementOption>([
-      { caseId: targetCase, form: answer, correct: true },
-      ...distractorCases.map((c) => ({
-        caseId: c,
-        form: caseFormOf(noun, c, number)!,
-        correct: false,
-      })),
+      { caseId: targetCase, num: number, form: answer, correct: true },
+      ...distractors,
     ]);
 
     out.push({ adjective, noun, case: targetCase, number, adjForm, answer, options });
@@ -369,11 +461,13 @@ export function buildConjugationRound(
   questionCount: number,
   optionCount: number,
   combos: { tense: VerbTense; polarity: Polarity }[] = DEFAULT_CONJUGATION_COMBOS,
+  tricky = false,
+  weigh?: WeighFn,
 ): ConjugationQuestion[] {
   const out: ConjugationQuestion[] = [];
   let guard = 0;
   while (out.length < questionCount && guard++ < questionCount * 8) {
-    const verb = sample(verbs, 1)[0];
+    const verb = weightedSample(verbs, 1, weigh)[0];
     const combo = sample(combos, 1)[0];
     if (!verb || !combo) break;
 
@@ -383,9 +477,37 @@ export function buildConjugationRound(
     const target = sample(persons, 1)[0];
     const answer = verbForm(verb, combo.tense, combo.polarity, target.id)!;
     const clause = conjugatedClause(verb, combo.tense, combo.polarity, target.id)!;
+
+    // Tricky: one distractor is a DIFFERENT verb conjugated for the SAME
+    // person — the ending matches the pronoun, so the child must recognize
+    // the verb itself, not just the ending.
+    let foreign: ConjugationOption | undefined;
+    if (tricky) {
+      // Never collide with ANY of this verb's person forms — every tile must
+      // stay visually distinct and unambiguous.
+      const verbForms = new Set(
+        persons.map((p) => verbForm(verb, combo.tense, combo.polarity, p.id)),
+      );
+      const otherVerb = sample(
+        verbs.filter((v) => {
+          if (v.id === verb.id) return false;
+          const f = verbForm(v, combo.tense, combo.polarity, target.id);
+          return !!f && !verbForms.has(f);
+        }),
+        1,
+      )[0];
+      if (otherVerb) {
+        foreign = {
+          person: target.id,
+          form: verbForm(otherVerb, combo.tense, combo.polarity, target.id)!,
+          correct: false,
+        };
+      }
+    }
+    const sameVerbCount = optionCount - 1 - (foreign ? 1 : 0);
     const distractors = sample(
       persons.filter((p) => p.id !== target.id),
-      optionCount - 1,
+      sameVerbCount,
     );
 
     const options = shuffle<ConjugationOption>([
@@ -395,6 +517,7 @@ export function buildConjugationRound(
         form: verbForm(verb, combo.tense, combo.polarity, p.id)!,
         correct: false,
       })),
+      ...(foreign ? [foreign] : []),
     ]);
 
     out.push({

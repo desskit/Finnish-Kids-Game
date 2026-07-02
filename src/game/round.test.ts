@@ -3,13 +3,26 @@ import {
   buildListenRound,
   buildPhraseRound,
   buildSpellingRound,
+  buildSpellingPhraseRound,
   buildWordOrderRound,
   buildCountingRound,
   buildAgreementRound,
   buildConjugationRound,
   buildReviewRound,
 } from './round';
-import { animals, numbers, adjectives, verbs } from '../content';
+import {
+  animals,
+  numbers,
+  adjectives,
+  verbs,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+} from '../content';
+import { nounConstructions } from '../content/constructions';
 import { formFor } from '../content/types';
 
 // Round builders are random, so each invariant is checked over many runs. They
@@ -198,5 +211,124 @@ describe('tier gating never empties a curated construction set', () => {
     const round = buildPhraseRound(animals.items, iLike, 6, 3, 2);
     expect(round.length).toBeGreaterThan(0);
     for (const q of round) expect(q.construction.id).toBe('i-like');
+  });
+});
+
+describe('semantic gating (suitsSlot) in the pairing builders', () => {
+  // The capstones mix ALL topics into ALL constructions — the gate is what
+  // stops "Kissa menee äitiin" (the cat goes into mom). Locative carriers are
+  // topics:['places']; possession excludes the unownables (sky, sea, …).
+  const LOCATIVES = ['on-it', 'in-it', 'into-it', 'onto-it', 'out-of-it', 'off-it', 'in-them'];
+  const MIXED = [
+    ...animals.items,
+    ...food.items,
+    ...family.items,
+    ...places.items,
+    ...body.items,
+    ...nature.items,
+    ...clothes.items,
+  ];
+
+  it('never pairs a locative carrier with a non-place word (order + build + spell)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildWordOrderRound(MIXED, nounConstructions, 6, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) expect(q.item.topic).toBe('places');
+      }
+      for (const q of buildPhraseRound(MIXED, nounConstructions, 6, 4, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) {
+          expect(q.item.topic).toBe('places');
+          for (const o of q.options) expect(o.topic).toBe('places');
+        }
+      }
+      for (const q of buildSpellingPhraseRound(MIXED, nounConstructions, 6, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) expect(q.item.topic).toBe('places');
+      }
+    }
+  });
+
+  it('never claims to own the sky (possession excludes unownables)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildPhraseRound(MIXED, nounConstructions, 6, 4, 8)) {
+        if (q.construction.id.includes('have')) {
+          expect(['sky', 'sea', 'rain', 'sun', 'moon']).not.toContain(q.item.id);
+        }
+      }
+    }
+  });
+});
+
+describe('tricky distractors (the L4+ near-miss lever)', () => {
+  it('clusters counting distractors within ±2 of the true count', () => {
+    for (let r = 0; r < RUNS; r++) {
+      // maxCount 10 keeps plenty of counts available on both sides.
+      for (const q of buildCountingRound(numbers.items, animals.items, 6, 3, 10, true)) {
+        for (const opt of q.numberOptions) {
+          if (opt.id === q.number.id) continue;
+          expect(
+            Math.abs((opt.value ?? 0) - (q.number.value ?? 0)),
+            `count ${opt.value} too far from ${q.number.value}`,
+          ).toBeLessThanOrEqual(2);
+        }
+      }
+    }
+  });
+
+  it('slips a DIFFERENT verb of the same person into conjugation rounds', () => {
+    let foreignSeen = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildConjugationRound(verbs.items, 6, 4, undefined, true)) {
+        // Exactly one correct answer, all forms distinct.
+        expect(q.options.filter((o) => o.correct)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.form)).size).toBe(q.options.length);
+        // The foreign tile shares the target's person but not its form.
+        const foreign = q.options.filter((o) => o.person === q.person && !o.correct);
+        foreignSeen += foreign.length;
+        expect(foreign.length).toBeLessThanOrEqual(1);
+      }
+    }
+    expect(foreignSeen).toBeGreaterThan(0);
+  });
+
+  it('mixes a wrong-NUMBER form of the target case into agreement rounds', () => {
+    let wrongNumberSeen = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 4, 'singular', 7, true)) {
+        expect(q.options.filter((o) => o.correct)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.form)).size).toBe(q.options.length);
+        wrongNumberSeen += q.options.filter((o) => o.num === 'plural').length;
+      }
+    }
+    expect(wrongNumberSeen).toBeGreaterThan(0);
+  });
+});
+
+describe('the MatchTheWord case ramp (maxCases)', () => {
+  it('confines low-level questions to the first cases of the ordered list', () => {
+    // maxCases 3 (floored at optionCount 3) = nominative/genitive/partitive.
+    const EARLY = ['nominative', 'genitive', 'partitive'];
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 3, 'singular', 3)) {
+        expect(EARLY).toContain(q.case);
+        for (const o of q.options) expect(EARLY).toContain(o.caseId);
+      }
+    }
+  });
+});
+
+describe('familiarity weighting (weigh) in target selection', () => {
+  it('biases listen targets toward seen words without excluding unseen ones', () => {
+    // Weigh one specific animal very heavily: it should appear as a target in
+    // nearly every round, while other words still show up too.
+    const heavy = animals.items[0].id;
+    const weigh = (i: { id: string }) => (i.id === heavy ? 1000 : 1);
+    let heavyRounds = 0;
+    const others = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildListenRound(animals.items, 3, 3, false, weigh);
+      if (round.some((q) => q.target.id === heavy)) heavyRounds++;
+      for (const q of round) if (q.target.id !== heavy) others.add(q.target.id);
+    }
+    expect(heavyRounds).toBeGreaterThan(RUNS * 0.9); // ~always drawn
+    expect(others.size).toBeGreaterThan(0); // nothing is ever excluded
   });
 });

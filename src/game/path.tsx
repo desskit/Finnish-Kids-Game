@@ -59,7 +59,8 @@ export type Pool =
   | 'places'
   | 'body'
   | 'nature'
-  | 'clothes';
+  | 'clothes'
+  | 'verbs';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -146,6 +147,11 @@ const NOUNS: LexicalItem[] = [
   ...clothes.items,
 ];
 
+// The verbs pool for PICTURE-CARD games (the listen-verbs warm-up): only verbs
+// with an action emoji render as cards; abstract ones (olla, saada, muistaa…)
+// live in the conjugation drill and sentences instead.
+const PICTURED_VERBS: LexicalItem[] = verbs.items.filter((i) => i.emoji);
+
 function itemsForPool(pool?: Pool): LexicalItem[] {
   switch (pool) {
     case 'animals':
@@ -164,6 +170,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return nature.items;
     case 'clothes':
       return clothes.items;
+    case 'verbs':
+      return PICTURED_VERBS;
     default:
       return NOUNS;
   }
@@ -366,14 +374,19 @@ const baseChapters: Chapter[] = [
     accent: '#16a34a',
     icon: '🏃',
     skills: [
-      // Depth 4 = the verb's real grammar ceiling: one new sourced tense×polarity
-      // set unlocks per level (present+ L1 → present- L2 → past+ L3), each
-      // drilled across all six persons. Those combos are the whole of what the
-      // data carries (imperative is 2nd-person-only and doesn't fit the "pick
-      // the person's form" drill), so the climb comes from the steepening
-      // promotion needing a sustained streak. L4 swaps to `match` (the global
-      // mixed-noun pool, not a verb drill) as this node's "different game" step.
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match'], maxLevel: 4, content: {} },
+      // The verbs warm-up: hear an action verb (the infinitive), tap its
+      // picture — same format as the chapter-1 noun warm-ups, over the verbs
+      // pool (only picturable verbs render; see itemsForPool). L3 swaps to a
+      // conjugation taste, not `match` (verbs don't decline by case).
+      { id: 'listen-verbs', titleFi: 'Verbit', titleEn: 'Action words', icon: '🎬', activity: 'listen', activities: ['listen', 'listen', 'conjugate'], maxLevel: 3, content: { pool: 'verbs' } },
+      // Depth 6: one new sourced tense×polarity set unlocks per level through
+      // L4 (present+ → present- → past+ → past-), each drilled across all six
+      // persons; L4 also swaps in `match` as the "different game" step. L5–6
+      // ride the `tricky` lever — a distractor tile is a DIFFERENT verb
+      // conjugated for the same person, so the verb itself must be recognized
+      // across the (now ~50-verb) pool, not just the ending. (Imperative is
+      // 2nd-person-only and doesn't fit the "pick the person's form" drill.)
+      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate'], maxLevel: 6, content: {} },
     ],
   },
   {

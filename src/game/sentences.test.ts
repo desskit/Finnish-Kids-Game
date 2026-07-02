@@ -7,7 +7,17 @@ import {
 } from './round';
 import type { LexicalItem, SentenceConstruction } from '../content/types';
 import { sentenceConstructions } from '../content/sentences';
-import { animals, food, family, places, adjectives, verbs } from '../content';
+import {
+  animals,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+  adjectives,
+  verbs,
+} from '../content';
 
 // The multi-slot sentence system. These fixtures (fake words, isolated from the
 // real data) prove the plumbing: every slot form is looked up, agreement is
@@ -88,7 +98,15 @@ describe('multi-slot sentences (plumbed)', () => {
 // candidate must produce a fully-resolvable, correctly-inflected sentence whose
 // English hint tracks the picked noun — that's the whole human-vetted contract.
 const realPools: SentencePools = {
-  nouns: [...animals.items, ...food.items, ...family.items, ...places.items],
+  nouns: [
+    ...animals.items,
+    ...food.items,
+    ...family.items,
+    ...places.items,
+    ...body.items,
+    ...nature.items,
+    ...clothes.items,
+  ],
   verbs: verbs.items,
   adjectives: adjectives.items,
   numbers: [],
@@ -106,12 +124,12 @@ function pin(template: SentenceConstruction, id: string): SentenceConstruction {
 }
 
 describe('authored sentence templates (real sourced data)', () => {
-  it('ships a non-empty, uniquely-id’d registry covering tiers 5–7', () => {
+  it('ships a non-empty, uniquely-id’d registry covering tiers 5–8', () => {
     expect(sentenceConstructions.length).toBeGreaterThan(0);
     const ids = sentenceConstructions.map((t) => t.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const t of sentenceConstructions) {
-      expect([5, 6, 7]).toContain(t.tier);
+      expect([5, 6, 7, 8]).toContain(t.tier);
     }
   });
 

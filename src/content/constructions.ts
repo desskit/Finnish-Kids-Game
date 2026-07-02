@@ -4,6 +4,39 @@ import type { Construction } from './types';
 // family, ...). These are human-authored; each slot's Finnish form is looked
 // up from the word's sourced inflection table by the declared case + number
 // (no rule-based inflection in code).
+//
+// Semantic gates (`topics` / `excludeIds`, see suitsSlot) keep every generated
+// pairing sensible as well as grammatical — the capstones mix ALL topics into
+// ALL constructions, so without gates they'd serve lines like "Minulla on
+// taivas" or "Kissa menee äitiin".
+
+// Words nobody (least of all a child) can own or deny owning ("Minulla on
+// taivas" is nonsense; flower and stone stay — those fit in a pocket).
+const UNOWNABLE = [
+  'sun',
+  'moon',
+  'star',
+  'cloud',
+  'rain',
+  'snow',
+  'sky',
+  'sea',
+  'lake',
+  'mountain',
+  'school',
+];
+
+// Things it makes sense to LIKE/LOVE — everything except body parts
+// ("Rakastan polvea", I love the knee, is nobody's flashcard).
+const LIKABLE_TOPICS = ['animals', 'food', 'family', 'places', 'nature', 'clothes'];
+
+// Things one WATCHES — living beings and scenery, not food or socks.
+const WATCHABLE_TOPICS = ['animals', 'family', 'places', 'nature'];
+
+// Nature words that make no concrete reference point for a postposition
+// ("sateen edessä" reads as poetry, not a place).
+const NO_LANDMARK = ['rain', 'snow', 'sky', 'sea'];
+
 export const nounConstructions: Construction[] = [
   // --- Nominative subject/complement (Tier 2) ---
   {
@@ -32,6 +65,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'nominative',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
 
   // --- Possession by other persons (Tier 2, nominative singular) — see
@@ -45,6 +79,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'nominative',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
   {
     id: 'she-has',
@@ -54,6 +89,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'nominative',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
   {
     id: 'we-have',
@@ -63,6 +99,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'nominative',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
   {
     id: 'they-have',
@@ -72,6 +109,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'nominative',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
 
   // --- Negated possession → partitive singular (Tier 3) — negation always
@@ -84,6 +122,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'partitive',
     number: 'singular',
+    excludeIds: UNOWNABLE,
   },
 
   // --- Verb rection: real cases unlocked by the tagged data (Tier 3) ---
@@ -95,6 +134,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'elative',
     number: 'singular',
+    topics: LIKABLE_TOPICS,
   },
   {
     id: 'i-see', // total object = genitive (accusative) singular: "Näen kissan."
@@ -113,6 +153,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'partitive',
     number: 'singular',
+    topics: LIKABLE_TOPICS,
   },
   {
     id: 'i-watch', // katsoa always governs the partitive: "Katson kissaa."
@@ -122,6 +163,9 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'partitive',
     number: 'singular',
+    topics: WATCHABLE_TOPICS,
+    // Furniture/containers from `places` aren't things one watches.
+    excludeIds: ['bag', 'basket', 'box', 'chair', 'table', 'bed'],
   },
 
   // --- Locational postpositions, all governing the genitive (Tier 3) ---
@@ -132,6 +176,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+    excludeIds: NO_LANDMARK,
   },
   {
     id: 'behind',
@@ -140,6 +185,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+    excludeIds: NO_LANDMARK,
   },
   {
     id: 'next-to',
@@ -148,6 +194,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+    excludeIds: NO_LANDMARK,
   },
   {
     id: 'under',
@@ -156,6 +203,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+    excludeIds: NO_LANDMARK,
   },
 
   // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
@@ -168,6 +216,7 @@ export const nounConstructions: Construction[] = [
     tier: 4,
     case: 'partitive',
     number: 'plural',
+    excludeIds: UNOWNABLE,
   },
   {
     id: 'i-havent-any',
@@ -179,6 +228,55 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: 'partitive',
     number: 'plural',
+    excludeIds: UNOWNABLE,
+  },
+
+  // --- Plural predicatives (Tier 5) — the "many things" mirror of this-is/
+  // where-is: an indefinite plural predicative takes the PARTITIVE plural
+  // ("Nämä ovat kissoja"); a definite plural subject stays NOMINATIVE plural
+  // ("Missä ovat kissat?"). Both stretch the capstones' top levels.
+  {
+    id: 'these-are',
+    before: 'Nämä ovat',
+    punct: '.',
+    en: 'These are ___s.',
+    tier: 5,
+    case: 'partitive',
+    number: 'plural',
+  },
+  {
+    id: 'where-are',
+    before: 'Missä ovat',
+    punct: '?',
+    en: 'Where are the ___s?',
+    tier: 5,
+    case: 'nominative',
+    number: 'plural',
+  },
+
+  // --- More verb rection at the top (Tier 6) ---
+  {
+    id: 'i-buy', // total object = genitive: "Ostan omenan."
+    before: 'Ostan',
+    punct: '.',
+    en: 'I buy the ___.',
+    tier: 6,
+    case: 'genitive',
+    number: 'singular',
+    topics: ['animals', 'food', 'clothes'],
+    // Mass nouns take the partitive when bought ("Ostan maitoa"), so keep them
+    // out of this genitive total-object frame.
+    excludeIds: ['water', 'milk', 'juice', 'chocolate'],
+  },
+  {
+    id: 'i-wait-for', // odottaa always governs the partitive: "Odotan äitiä."
+    before: 'Odotan',
+    punct: '.',
+    en: 'I wait for the ___.',
+    tier: 6,
+    case: 'partitive',
+    number: 'singular',
+    topics: ['animals', 'family'],
   },
 
   // --- Locative cases: WHERE things are (the `places` pool, "where" chapter).
@@ -196,6 +294,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: 'adessive',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'in-it', // inessive: inside — "Kissa on laatikossa."
@@ -205,6 +304,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'inessive',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'into-it', // illative: motion into — "Kissa menee laatikkoon."
@@ -214,6 +314,7 @@ export const nounConstructions: Construction[] = [
     tier: 4,
     case: 'illative',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'onto-it', // allative: motion onto — "Kissa menee pöydälle."
@@ -223,6 +324,7 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: 'allative',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'out-of-it', // elative: motion out of — "Kissa tulee laatikosta."
@@ -232,6 +334,7 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: 'elative',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'off-it', // ablative: motion off a surface — "Kissa tulee pöydältä."
@@ -241,6 +344,7 @@ export const nounConstructions: Construction[] = [
     tier: 7,
     case: 'ablative',
     number: 'singular',
+    topics: ['places'],
   },
   {
     id: 'in-them', // inessive PLURAL apex — "Kissat ovat laatikoissa."
@@ -250,5 +354,6 @@ export const nounConstructions: Construction[] = [
     tier: 8,
     case: 'inessive',
     number: 'plural',
+    topics: ['places'],
   },
 ];
