@@ -162,7 +162,11 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         {q.options.map((opt, i) => (
           <button
             key={opt.form}
-            className={'word-tile' + (wrongForm === opt.form ? ' word-tile--wrong' : '')}
+            className={
+              'word-tile' +
+              (wrongForm === opt.form ? ' word-tile--wrong' : '') +
+              (locked && opt.form === chosen?.form ? ' word-tile--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >

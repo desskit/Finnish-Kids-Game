@@ -77,7 +77,10 @@ function renderActivity() {
   );
 }
 
-const correctTile = () => screen.getByText('kissa').closest('button') as HTMLButtonElement;
+// 'kissa' can also appear in the filled phrase-slot once chosen, so scope
+// the lookup to the tile tray.
+const correctTile = () =>
+  screen.getByText('kissa', { selector: '.word-tiles *' }).closest('button') as HTMLButtonElement;
 const wrongTile = () => screen.getByText('koira').closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
@@ -110,6 +113,7 @@ describe('BuildAPhrase', () => {
     expect(playDing).toHaveBeenCalledWith(true);
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
     expect(document.querySelector('.phrase-slot--filled')).not.toBeNull();
+    expect(correctTile().className).toContain('word-tile--correct');
 
     await advance(1200);
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();

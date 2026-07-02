@@ -180,7 +180,11 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         {options.map((opt, i) => (
           <button
             key={opt.id}
-            className={'word-tile' + (wrongId === opt.id ? ' word-tile--wrong' : '')}
+            className={
+              'word-tile' +
+              (wrongId === opt.id ? ' word-tile--wrong' : '') +
+              (locked && phase === 'noun' && opt.id === q.noun.id ? ' word-tile--correct' : '')
+            }
             onClick={() => (phase === 'number' ? chooseNumber(opt) : chooseNoun(opt))}
             disabled={locked}
           >

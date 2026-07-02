@@ -163,7 +163,11 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         {question.options.map((opt, i) => (
           <button
             key={opt.id}
-            className={'word-tile' + (wrongId === opt.id ? ' word-tile--wrong' : '')}
+            className={
+              'word-tile' +
+              (wrongId === opt.id ? ' word-tile--wrong' : '') +
+              (locked && opt.id === question.item.id ? ' word-tile--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >

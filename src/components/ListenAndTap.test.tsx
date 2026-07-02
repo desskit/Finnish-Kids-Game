@@ -96,6 +96,9 @@ describe('ListenAndTap', () => {
 
     expect(playDing).toHaveBeenCalledWith(true);
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
+    // Obvious positive feedback: a distinct pop, not just the wrong card's
+    // absence of a wiggle.
+    expect(correctCard().className).toContain('pic-card--correct');
 
     await advance(800);
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();
@@ -111,6 +114,14 @@ describe('ListenAndTap', () => {
     await advance(100);
     expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
+  });
+
+  it('names the picture the child actually tapped, even when it is wrong', () => {
+    renderActivity();
+    // The auto-speak-on-new-question effect is a pending setTimeout (fake
+    // timers, not yet advanced) — the tap below is the only speak() call so far.
+    fireEvent.click(wrongCard());
+    expect(speak).toHaveBeenCalledWith('koira'); // the WRONG item's own word, not the target
   });
 
   it('rolls straight into a fresh round after the last question — no interstitial', async () => {

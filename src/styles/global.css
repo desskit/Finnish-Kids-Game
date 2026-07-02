@@ -720,6 +720,28 @@ button:focus-visible,
   box-shadow: 0 0 0 4px var(--bad);
 }
 
+/* A big, unmissable pop for a correct answer — the positive-feedback
+   counterpart to the wrong wiggle above. One-shot: the class is applied
+   once the choice locks in and stays, so the animation plays once on that
+   transition and holds its end state (no looping, doesn't distract during
+   the pause before the next question). */
+@keyframes correctpop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pic-card--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
 /* ---------- Build a Phrase ---------- */
 .phrase-card {
   background: var(--bg-card);
@@ -758,6 +780,7 @@ button:focus-visible,
 .phrase-slot--filled {
   border-bottom-color: var(--good);
   color: var(--good);
+  animation: correctpop 0.45s ease-out;
 }
 
 .phrase-hint {
@@ -799,6 +822,11 @@ button:focus-visible,
 .word-tile--wrong {
   animation: wiggle 0.4s ease;
   box-shadow: 0 0 0 4px var(--bad);
+}
+
+.word-tile--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
 }
 
 /* A gentle nudge toward the correct next tile after a few misses (sentence
@@ -852,6 +880,7 @@ button:focus-visible,
   color: var(--good);
   border-color: var(--good);
   box-shadow: 0 0 0 4px var(--good);
+  animation: correctpop 0.45s ease-out;
 }
 
 /* ---------- Word Order ---------- */
@@ -878,6 +907,7 @@ button:focus-visible,
 .word-order-slot--filled {
   border-bottom-color: var(--good);
   color: var(--good);
+  animation: correctpop 0.45s ease-out;
 }
 
 /* ---------- Count & Say ---------- */

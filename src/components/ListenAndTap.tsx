@@ -74,6 +74,9 @@ export default function ListenAndTap({ items, onExit }: Props) {
       } else {
         missed.current = true;
         playDing(false);
+        // Name the picture the child actually tapped — a wrong guess still
+        // teaches a word, instead of just being a dead end.
+        speak(item.fi);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
@@ -141,7 +144,11 @@ export default function ListenAndTap({ items, onExit }: Props) {
         {question.options.map((opt, i) => (
           <button
             key={opt.id}
-            className={'pic-card' + (wrongId === opt.id ? ' pic-card--wrong' : '')}
+            className={
+              'pic-card' +
+              (wrongId === opt.id ? ' pic-card--wrong' : '') +
+              (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >
