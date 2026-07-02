@@ -39,11 +39,15 @@ vi.mock('../game/round', () => ({
       options: [fx.ITEM, fx.OTHER, fx.FILLER],
     })),
 }));
-vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('../audio/speak', () => ({
+  speak: vi.fn(),
+  speakEnglish: vi.fn(),
+  isSpeechAvailable: () => true,
+}));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import BuildAPhrase from './BuildAPhrase';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 function seedChild() {
@@ -107,10 +111,11 @@ describe('BuildAPhrase', () => {
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
   });
 
-  it('never speaks the phrase (or offers a Listen button) before an answer', async () => {
+  it('narrates the English prompt (not Finnish) before an answer, and offers no Listen button yet', async () => {
     renderActivity();
-    await advance(1000); // past the old auto-speak delay, just in case
+    await advance(1000); // past the auto-speak delay
     expect(speak).not.toHaveBeenCalled();
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
     expect(screen.queryByRole('button', { name: /hear the sentence again/i })).toBeNull();
   });
 

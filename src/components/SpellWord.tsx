@@ -5,7 +5,7 @@ import { familiarityWeigher } from '../game/srs';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -112,14 +112,19 @@ export default function SpellWord({
   const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
   const correct = !!target && norm(input) === norm(target.text);
 
-  // Say the target word when a new question appears, and keep focus on the
-  // input so the device keyboard stays up between words. Skipped for
-  // sentence typing (speakTarget=false) — hearing the sentence would turn
-  // "produce it from the gloss" into dictation.
+  // Say the target word (Finnish) when a new question appears, and keep focus
+  // on the input so the device keyboard stays up between words. Finnish is
+  // skipped for sentence typing (speakTarget=false) — hearing the sentence
+  // would turn "produce it from the gloss" into dictation. That mode instead
+  // narrates the ENGLISH gloss, which is otherwise silent text a pre-reader
+  // can't access, and never previews the Finnish answer.
   useEffect(() => {
-    if (!target || done || !speakTarget) return;
+    if (!target || done) return;
     inputRef.current?.focus();
-    const t = setTimeout(() => speak(target.text), 400);
+    const t = setTimeout(() => {
+      if (speakTarget) speak(target.text);
+      else speakEnglish(target.gloss);
+    }, 400);
     return () => clearTimeout(t);
   }, [target, done, index, speakTarget]);
 

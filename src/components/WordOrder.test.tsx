@@ -20,7 +20,11 @@ const phraseFx = vi.hoisted(() => {
   };
 });
 
-vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('../audio/speak', () => ({
+  speak: vi.fn(),
+  speakEnglish: vi.fn(),
+  isSpeechAvailable: () => true,
+}));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 vi.mock('../game/round', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../game/round')>();
@@ -38,7 +42,7 @@ vi.mock('../game/round', async (importOriginal) => {
 });
 
 import WordOrder from './WordOrder';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 // Two words: "minä" (id 0, correct-first) and "menen." (id 1). Shuffled so the
@@ -144,12 +148,18 @@ describe('WordOrder hint', () => {
 });
 
 describe('WordOrder TTS + picture', () => {
-  it('multi-slot sentence mode (buildRound) never speaks, even after a correct finish', async () => {
+  it('multi-slot sentence mode (buildRound) never speaks FINNISH, even after a correct finish', async () => {
     renderActivity(undefined);
     fireEvent.click(correctTile()); // "minä" — 1 of 2 tokens
     fireEvent.click(screen.getByText('menen.').closest('button') as HTMLButtonElement);
     await act(async () => vi.advanceTimersByTimeAsync(1400));
     expect(speak).not.toHaveBeenCalled();
+  });
+
+  it('multi-slot sentence mode DOES narrate the English hint up front', async () => {
+    renderActivity(undefined);
+    await act(async () => vi.advanceTimersByTimeAsync(500));
+    expect(speakEnglish).toHaveBeenCalledWith('I go.');
   });
 
   it('multi-slot sentence mode shows no picture (no single main object)', () => {
@@ -166,7 +176,20 @@ describe('WordOrder TTS + picture', () => {
     expect(screen.getByText('🐱')).toBeInTheDocument();
   });
 
-  it('single-slot carrier-phrase mode never speaks before the phrase is complete', async () => {
+  it('single-slot carrier-phrase mode narrates the filled-in English hint up front', async () => {
+    render(
+      <ProfileProvider>
+        <WordOrder items={[phraseFx.ITEM]} constructions={[phraseFx.CONSTRUCTION]} onExit={vi.fn()} />
+      </ProfileProvider>,
+    );
+    await act(async () => vi.advanceTimersByTimeAsync(500));
+    // The raw template has a "___" blank; the spoken/shown hint fills it
+    // with the item, same as Build a Phrase.
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
+    expect(screen.getByText('This is a cat.')).toBeInTheDocument();
+  });
+
+  it('single-slot carrier-phrase mode never speaks Finnish before the phrase is complete', async () => {
     render(
       <ProfileProvider>
         <WordOrder items={[phraseFx.ITEM]} constructions={[phraseFx.CONSTRUCTION]} onExit={vi.fn()} />

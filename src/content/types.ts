@@ -150,6 +150,16 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
   return parts.join(' ') + (con.punct ?? '');
 }
 
+/**
+ * The English side of a carrier phrase with its blank filled in (e.g.
+ * "This is a ___." + the "dog" item -> "This is a dog."), for narrating the
+ * prompt aloud. Never reveals the Finnish form — this is the same English
+ * gloss already shown as on-screen text.
+ */
+export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  return con.en.replace('___', item.en);
+}
+
 // --- Two-slot counting construction: number + counted noun ---------------
 //
 // Finnish counting rule: a noun counted by 1 stays in the nominative singular

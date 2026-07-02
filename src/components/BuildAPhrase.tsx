@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { formFor, sentenceFor } from '../content';
+import { englishSentenceFor, formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildPhraseRound } from '../game/round';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -48,10 +48,18 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   const question = round[index];
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
+  const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
-  // No TTS before an answer: reading the phrase aloud would hand the child
-  // the completing word for free (they'd just be transcribing what they
-  // heard). It's spoken once they choose correctly, below.
+  // No FINNISH before an answer: reading the target phrase aloud would hand
+  // the child the completing word for free. The ENGLISH prompt, though, is
+  // narrated up front — it's just the on-screen gloss read aloud for a
+  // pre-reader, and never previews the Finnish. Finnish is spoken once they
+  // choose correctly, below.
+  useEffect(() => {
+    if (!question || done) return;
+    const t = setTimeout(() => speakEnglish(englishPrompt), 350);
+    return () => clearTimeout(t);
+  }, [question, done, englishPrompt]);
 
   const choose = useCallback(
     (item: LexicalItem) => {

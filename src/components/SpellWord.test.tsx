@@ -2,11 +2,15 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { ProfileProvider, useProfile } from '../state/profile';
 
-vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('../audio/speak', () => ({
+  speak: vi.fn(),
+  speakEnglish: vi.fn(),
+  isSpeechAvailable: () => true,
+}));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import SpellWord from './SpellWord';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 function seedChild() {
@@ -61,10 +65,11 @@ describe('SpellWord sentence-typing apex', () => {
     expect(screen.getByText(/write it in finnish/i)).toBeInTheDocument();
   });
 
-  it('never auto-plays or lets the child hear the target sentence', async () => {
+  it('never auto-plays or lets the child hear the target sentence, but does narrate the English gloss', async () => {
     renderSentenceTyping();
     await act(async () => vi.advanceTimersByTimeAsync(500));
     expect(speak).not.toHaveBeenCalled();
+    expect(speakEnglish).toHaveBeenCalledWith('I go home.');
   });
 
   it('accepts the sentence even without the trailing period', async () => {

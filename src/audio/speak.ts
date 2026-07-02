@@ -6,11 +6,16 @@
 import { isMuted } from './mute';
 
 const FINNISH = 'fi-FI';
+const ENGLISH = 'en-US';
 
-function pickFinnishVoice(): SpeechSynthesisVoice | undefined {
+function pickVoice(langPrefix: string): SpeechSynthesisVoice | undefined {
   if (!('speechSynthesis' in window)) return undefined;
   const voices = window.speechSynthesis.getVoices();
-  return voices.find((v) => v.lang?.toLowerCase().startsWith('fi'));
+  return voices.find((v) => v.lang?.toLowerCase().startsWith(langPrefix));
+}
+
+function pickFinnishVoice(): SpeechSynthesisVoice | undefined {
+  return pickVoice('fi');
 }
 
 export function isSpeechAvailable(): boolean {
@@ -37,15 +42,29 @@ if (isSpeechAvailable()) {
   };
 }
 
-export function speak(text: string): void {
+function speakIn(text: string, lang: string, langPrefix: string): void {
   if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
   synth.cancel(); // stop anything mid-utterance so prompts feel responsive
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = FINNISH;
-  const voice = pickFinnishVoice();
+  u.lang = lang;
+  const voice = pickVoice(langPrefix);
   if (voice) u.voice = voice;
   u.rate = 0.85; // a touch slower for young learners
   u.pitch = 1.05;
   synth.speak(u);
+}
+
+/** Speak Finnish — the target language, so this is what's being learned. */
+export function speak(text: string): void {
+  speakIn(text, FINNISH, 'fi');
+}
+
+/**
+ * Speak an ENGLISH prompt/gloss aloud — for a pre-reader, the English hint
+ * text is otherwise silent. Safe to auto-play before an answer: it narrates
+ * text already shown on screen and never previews the Finnish target.
+ */
+export function speakEnglish(text: string): void {
+  speakIn(text, ENGLISH, 'en');
 }

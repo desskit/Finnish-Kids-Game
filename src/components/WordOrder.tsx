@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
+import { englishSentenceFor } from '../content';
 import {
   buildWordOrderRound,
   type SentenceQuestion,
@@ -9,7 +10,7 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -67,7 +68,7 @@ export default function WordOrder({
   const round = useMemo<SentenceQuestion[]>(() => {
     if (buildRound) return buildRound(maxTier);
     return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier, weigh).map((q) => ({
-      hintEn: q.construction.en,
+      hintEn: englishSentenceFor(q.item, q.construction),
       sentence: q.sentence,
       tokens: q.tokens,
       shuffled: q.shuffled,
@@ -91,12 +92,19 @@ export default function WordOrder({
   const complete = !!q && placed.length === q.tokens.length;
   const showHint = hintAfterMisses !== undefined && wrongTaps >= hintAfterMisses;
 
-  // Never TTS before an answer — hearing the sentence read aloud would hand
-  // the child the word order for free. A single-slot carrier phrase DOES get
-  // spoken once assembled correctly (confirms the pronunciation); a
-  // multi-slot sentence (buildRound) stays silent even after a correct
-  // answer, since it has no single settled reading the way one carrier
-  // phrase does.
+  // Never FINNISH before an answer — hearing the sentence read aloud would
+  // hand the child the word order for free. The ENGLISH hint, though, is
+  // narrated up front (it's just the on-screen gloss read aloud, never a
+  // preview of the Finnish). A single-slot carrier phrase also gets the
+  // Finnish spoken once assembled correctly (confirms the pronunciation); a
+  // multi-slot sentence (buildRound) stays Finnish-silent even after a
+  // correct answer, since it has no single settled reading the way one
+  // carrier phrase does.
+  useEffect(() => {
+    if (!q || done) return;
+    const t = setTimeout(() => speakEnglish(q.hintEn), 350);
+    return () => clearTimeout(t);
+  }, [q, done]);
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
