@@ -150,13 +150,34 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
   return parts.join(' ') + (con.punct ?? '');
 }
 
+// Article overrides for the "a ___" carrier templates. Most nouns just need
+// "a"/"an" (picked by first letter, below); a small, hand-maintained set
+// needs something else in plain English: mass nouns take no article at all
+// ("This is rain.", not "a rain"), and a few nature words are conventionally
+// unique referents ("This is the sun.", not "a sun").
+const NO_ARTICLE_IDS = new Set(['rain', 'snow']);
+const DEFINITE_ARTICLE_IDS = new Set(['sun', 'moon', 'sky', 'sea']);
+
+function englishArticleFor(item: LexicalItem): string {
+  if (NO_ARTICLE_IDS.has(item.id)) return '';
+  if (DEFINITE_ARTICLE_IDS.has(item.id)) return 'the';
+  return /^[aeiou]/i.test(item.en) ? 'an' : 'a';
+}
+
 /**
  * The English side of a carrier phrase with its blank filled in (e.g.
  * "This is a ___." + the "dog" item -> "This is a dog."), for narrating the
  * prompt aloud. Never reveals the Finnish form — this is the same English
- * gloss already shown as on-screen text.
+ * gloss already shown as on-screen text. Templates with a baked-in "a ___"
+ * get the item's own article substituted in (see `englishArticleFor`) so
+ * "This is a ___." + rain doesn't come out as "This is a rain."; any other
+ * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
 export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  if (con.en.includes('a ___')) {
+    const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');
+    return con.en.replace('a ___', filled);
+  }
   return con.en.replace('___', item.en);
 }
 
