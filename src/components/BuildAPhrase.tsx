@@ -93,14 +93,20 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
   );
 
-  // Keyboard: number keys pick a word tile; Space/Enter replays the phrase —
-  // but only once it's been answered (chosen), never as a pre-answer hint.
+  // Replay: English before an answer (a missed auto-play shouldn't be a dead
+  // end), Finnish once answered correctly. Never Finnish before that.
+  const replay = useCallback(() => {
+    if (chosen) speak(fullSentence);
+    else speakEnglish(englishPrompt);
+  }, [chosen, fullSentence, englishPrompt]);
+
+  // Keyboard: number keys pick a word tile; Space/Enter replays (see `replay`).
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!question || done) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        if (chosen) speak(fullSentence);
+        replay();
         return;
       }
       const n = Number.parseInt(e.key, 10);
@@ -108,7 +114,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, fullSentence, chosen]);
+  }, [question, done, choose, replay]);
 
   function restart() {
     setIndex(0);
@@ -156,15 +162,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
-        {chosen && (
-          <button
-            className="speaker speaker--inline"
-            onClick={() => speak(fullSentence)}
-            aria-label="Hear the sentence again"
-          >
-            🔊 <span className="en">Listen</span>
-          </button>
-        )}
+        <button
+          className="speaker speaker--inline"
+          onClick={replay}
+          aria-label={chosen ? 'Hear the sentence again' : 'Hear the prompt again'}
+        >
+          🔊 <span className="en">Listen</span>
+        </button>
       </div>
 
       <div className="word-tiles">

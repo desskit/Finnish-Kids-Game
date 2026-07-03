@@ -106,6 +106,14 @@ export default function WordOrder({
     return () => clearTimeout(t);
   }, [q, done]);
 
+  // Manual replay, in case a distracted child misses the auto-play: English
+  // any time, or Finnish once a single-slot phrase is freshly, correctly
+  // assembled (never for a multi-slot sentence — see the note above).
+  const replay = useCallback(() => {
+    if (complete && !buildRound) speak(q!.sentence);
+    else speakEnglish(q!.hintEn);
+  }, [complete, buildRound, q]);
+
   const tap = useCallback(
     (tile: WordOrderToken) => {
       if (!q || locked || done || complete) return;
@@ -183,6 +191,13 @@ export default function WordOrder({
           </span>
         )}
         <p className="en phrase-hint">{q.hintEn}</p>
+        <button
+          className="speaker speaker--inline"
+          onClick={replay}
+          aria-label={complete && !buildRound ? 'Hear the sentence again' : 'Hear the prompt again'}
+        >
+          🔊 <span className="en">Listen</span>
+        </button>
       </div>
 
       <div className="word-order-assembled" aria-label="Your sentence so far">

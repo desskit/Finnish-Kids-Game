@@ -164,6 +164,12 @@ describe('englishSentenceFor (article cleanup on "a ___" templates)', () => {
   it('drops the article entirely for mass nouns', () => {
     expect(englishSentenceFor(find('rain'), thisIs)).toBe('This is rain.');
     expect(englishSentenceFor(find('snow'), thisIs)).toBe('This is snow.');
+    expect(englishSentenceFor(find('water'), thisIs)).toBe('This is water.');
+    expect(englishSentenceFor(find('milk'), thisIs)).toBe('This is milk.');
+    expect(englishSentenceFor(find('bread'), thisIs)).toBe('This is bread.');
+    expect(englishSentenceFor(find('cheese'), thisIs)).toBe('This is cheese.');
+    expect(englishSentenceFor(find('juice'), thisIs)).toBe('This is juice.');
+    expect(englishSentenceFor(find('hair'), thisIs)).toBe('This is hair.');
   });
 
   it('uses "the" for unique nature referents', () => {
