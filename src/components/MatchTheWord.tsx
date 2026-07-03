@@ -177,7 +177,11 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         {q.options.map((opt, i) => (
           <button
             key={`${opt.caseId}-${opt.num}`}
-            className={'word-tile' + (wrongForm === opt.form ? ' word-tile--wrong' : '')}
+            className={
+              'word-tile' +
+              (wrongForm === opt.form ? ' word-tile--wrong' : '') +
+              (locked && opt.form === chosen?.form ? ' word-tile--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >

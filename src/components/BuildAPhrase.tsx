@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { formFor, sentenceFor } from '../content';
+import { englishSentenceFor, formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildPhraseRound } from '../game/round';
-import { speak } from '../audio/speak';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -48,13 +48,18 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   const question = round[index];
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
+  const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
-  // Model the whole phrase out loud when a new question appears.
+  // No FINNISH before an answer: reading the target phrase aloud would hand
+  // the child the completing word for free. The ENGLISH prompt, though, is
+  // narrated up front — it's just the on-screen gloss read aloud for a
+  // pre-reader, and never previews the Finnish. Finnish is spoken once they
+  // choose correctly, below.
   useEffect(() => {
     if (!question || done) return;
-    const t = setTimeout(() => speak(fullSentence), 400);
+    const t = setTimeout(() => speakEnglish(englishPrompt), 350);
     return () => clearTimeout(t);
-  }, [question, done, fullSentence]);
+  }, [question, done, englishPrompt]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -88,13 +93,14 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
   );
 
-  // Keyboard: number keys pick a word tile; Space/Enter replays the phrase.
+  // Keyboard: number keys pick a word tile; Space/Enter replays the phrase —
+  // but only once it's been answered (chosen), never as a pre-answer hint.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!question || done) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        speak(fullSentence);
+        if (chosen) speak(fullSentence);
         return;
       }
       const n = Number.parseInt(e.key, 10);
@@ -102,7 +108,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, fullSentence]);
+  }, [question, done, choose, fullSentence, chosen]);
 
   function restart() {
     setIndex(0);
@@ -150,20 +156,26 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(fullSentence)}
-          aria-label="Hear the sentence again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {chosen && (
+          <button
+            className="speaker speaker--inline"
+            onClick={() => speak(fullSentence)}
+            aria-label="Hear the sentence again"
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
       <div className="word-tiles">
         {question.options.map((opt, i) => (
           <button
             key={opt.id}
-            className={'word-tile' + (wrongId === opt.id ? ' word-tile--wrong' : '')}
+            className={
+              'word-tile' +
+              (wrongId === opt.id ? ' word-tile--wrong' : '') +
+              (locked && opt.id === question.item.id ? ' word-tile--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >

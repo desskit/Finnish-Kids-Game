@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
+import { englishSentenceFor } from '../content';
 import {
   buildWordOrderRound,
   type SentenceQuestion,
@@ -9,6 +10,7 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 
@@ -27,6 +29,13 @@ interface Props {
   buildRound?: (maxTier: Tier) => SentenceQuestion[];
   /** Header title (defaults to the carrier-phrase wording). */
   title?: string;
+  /**
+   * After this many wrong taps on the CURRENT word, nudge the child by
+   * highlighting the correct next tile. Unset = no hints (the default, and
+   * the Word Order capstone's existing behavior — only opted into for the
+   * harder multi-slot sentence node so far).
+   */
+  hintAfterMisses?: number;
   onExit: () => void;
 }
 
@@ -35,7 +44,14 @@ interface Props {
 // construction/sentence template itself — nothing here generates or reorders
 // Finnish by rule. Renders both single-slot carrier phrases and (when given a
 // `buildRound`) multi-slot sentences, since both reduce to ordered word chips.
-export default function WordOrder({ items, constructions, buildRound, title, onExit }: Props) {
+export default function WordOrder({
+  items,
+  constructions,
+  buildRound,
+  title,
+  hintAfterMisses,
+  onExit,
+}: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
@@ -52,11 +68,12 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   const round = useMemo<SentenceQuestion[]>(() => {
     if (buildRound) return buildRound(maxTier);
     return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier, weigh).map((q) => ({
-      hintEn: q.construction.en,
+      hintEn: englishSentenceFor(q.item, q.construction),
       sentence: q.sentence,
       tokens: q.tokens,
       shuffled: q.shuffled,
       attemptId: q.item.id,
+      emoji: q.item.emoji,
     }));
     // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,13 +84,27 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
   const [wrongId, setWrongId] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // Wrong taps toward the CURRENT tile (resets each time a tile lands
+  // correctly, or a new question starts) — drives the hint nudge.
+  const [wrongTaps, setWrongTaps] = useState(0);
 
   const q = round[index];
   const complete = !!q && placed.length === q.tokens.length;
+  const showHint = hintAfterMisses !== undefined && wrongTaps >= hintAfterMisses;
 
-  // No TTS here on purpose: hearing the sentence read aloud would hand the
-  // child the word order for free. Word Order is a READING/assembly puzzle —
-  // the only audio is the correct/wrong tap ding.
+  // Never FINNISH before an answer — hearing the sentence read aloud would
+  // hand the child the word order for free. The ENGLISH hint, though, is
+  // narrated up front (it's just the on-screen gloss read aloud, never a
+  // preview of the Finnish). A single-slot carrier phrase also gets the
+  // Finnish spoken once assembled correctly (confirms the pronunciation); a
+  // multi-slot sentence (buildRound) stays Finnish-silent even after a
+  // correct answer, since it has no single settled reading the way one
+  // carrier phrase does.
+  useEffect(() => {
+    if (!q || done) return;
+    const t = setTimeout(() => speakEnglish(q.hintEn), 350);
+    return () => clearTimeout(t);
+  }, [q, done]);
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
@@ -82,9 +113,11 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         playDing(true);
         setPlaced((p) => [...p, tile]);
         setWrongId(null);
+        setWrongTaps(0);
         if (placed.length + 1 === q.tokens.length) {
           setLocked(true);
           addStars(1);
+          if (!buildRound) speak(q.sentence);
           if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
           if (!missed.current) firstTries.current += 1;
           const next = index + 1;
@@ -102,10 +135,11 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
         missed.current = true;
         playDing(false);
         setWrongId(tile.id);
+        setWrongTaps((n) => n + 1);
         setTimeout(() => setWrongId((cur) => (cur === tile.id ? null : cur)), 500);
       }
     },
-    [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt],
+    [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt, buildRound],
   );
 
   function restart() {
@@ -114,6 +148,7 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    setWrongTaps(0);
     missed.current = false;
     firstTries.current = 0;
     setRunId((r) => r + 1);
@@ -142,6 +177,11 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
       </p>
 
       <div className="phrase-card">
+        {q.emoji && (
+          <span className="phrase-emoji" aria-hidden="true">
+            {q.emoji}
+          </span>
+        )}
         <p className="en phrase-hint">{q.hintEn}</p>
       </div>
 
@@ -162,7 +202,11 @@ export default function WordOrder({ items, constructions, buildRound, title, onE
           .map((tile) => (
             <button
               key={tile.id}
-              className={'word-tile' + (wrongId === tile.id ? ' word-tile--wrong' : '')}
+              className={
+                'word-tile' +
+                (wrongId === tile.id ? ' word-tile--wrong' : '') +
+                (showHint && tile.id === placed.length ? ' word-tile--hint' : '')
+              }
               onClick={() => tap(tile)}
               disabled={locked}
             >

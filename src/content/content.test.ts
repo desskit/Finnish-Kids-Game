@@ -13,7 +13,7 @@ import {
   verbs,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
-import { formFor, verbForm, caseFormOf, PERSONS } from '../content/types';
+import { formFor, verbForm, caseFormOf, englishSentenceFor, PERSONS } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -146,5 +146,35 @@ describe('content integrity', () => {
     for (const adj of adjectives.items) {
       expect(caseFormOf(adj, 'nominative', 'singular'), adj.id).toBeTruthy();
     }
+  });
+});
+
+describe('englishSentenceFor (article cleanup on "a ___" templates)', () => {
+  const thisIs = nounConstructions.find((c) => c.id === 'this-is')!;
+  const find = (id: string) =>
+    [...nature.items, ...body.items, ...food.items, ...animals.items].find((i) => i.id === id)!;
+
+  it('uses "a"/"an" by default, picking "an" for a vowel-initial word', () => {
+    expect(englishSentenceFor(find('dog'), thisIs)).toBe('This is a dog.');
+    expect(englishSentenceFor(find('eye'), thisIs)).toBe('This is an eye.');
+    expect(englishSentenceFor(find('ear'), thisIs)).toBe('This is an ear.');
+    expect(englishSentenceFor(find('apple'), thisIs)).toBe('This is an apple.');
+  });
+
+  it('drops the article entirely for mass nouns', () => {
+    expect(englishSentenceFor(find('rain'), thisIs)).toBe('This is rain.');
+    expect(englishSentenceFor(find('snow'), thisIs)).toBe('This is snow.');
+  });
+
+  it('uses "the" for unique nature referents', () => {
+    expect(englishSentenceFor(find('sun'), thisIs)).toBe('This is the sun.');
+    expect(englishSentenceFor(find('moon'), thisIs)).toBe('This is the moon.');
+    expect(englishSentenceFor(find('sky'), thisIs)).toBe('This is the sky.');
+    expect(englishSentenceFor(find('sea'), thisIs)).toBe('This is the sea.');
+  });
+
+  it('leaves non-"a ___" templates (already using "the", or plural) untouched', () => {
+    const whereIs = nounConstructions.find((c) => c.id === 'where-is')!;
+    expect(englishSentenceFor(find('rain'), whereIs)).toBe('Where is the rain?');
   });
 });
