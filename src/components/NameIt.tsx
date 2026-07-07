@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
-import { englishSentenceFor, formFor, sentenceFor } from '../content';
+import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
-import { buildPhraseRound } from '../game/round';
+import { buildListenRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -14,75 +13,65 @@ const QUESTIONS = 6;
 
 interface Props {
   items: LexicalItem[];
-  constructions: Construction[];
   onExit: () => void;
 }
 
-// Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the word
-// (in its correct sourced case form) that completes it.
-export default function BuildAPhrase({ items, constructions, onExit }: Props) {
+// Name it (production recall): the INVERSE of Listen & Tap — see a picture,
+// produce the Finnish. The English word is narrated as a cue (harmless: recall
+// in the L1→English → L2→Finnish direction is exactly the point), and the child
+// picks the Finnish word from tiles. Reuses buildListenRound (same question
+// shape) since only the render inverts. Only picturable items can be prompts.
+export default function NameIt({ items, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  // Harder levels add more options AND unlock higher-tier carrier phrases.
-  const { optionCount, maxTier, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
-  // Tracks a wrong tap on the current question, so SRS only credits a first-try
-  // correct answer.
+  // A wrong tap means it wasn't a first-try success (for SRS + the adaptive engine).
   const missed = useRef(false);
-  // First-try successes this segment — the real accuracy for the adaptive engine.
   const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh),
-    [items, constructions, optionCount, maxTier, tricky, weigh, runId],
+    () => buildListenRound(items.filter((i) => i.emoji), QUESTIONS, optionCount, tricky, weigh),
+    [items, optionCount, tricky, weigh, runId],
   );
 
   const [index, setIndex] = useState(0);
-  const [chosen, setChosen] = useState<LexicalItem | null>(null);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
 
   const question = round[index];
-  const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
-  const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
-  // No FINNISH before an answer: reading the target phrase aloud would hand
-  // the child the completing word for free. The ENGLISH prompt, though, is
-  // narrated up front — it's just the on-screen gloss read aloud for a
-  // pre-reader, and never previews the Finnish. Finnish is spoken once they
-  // choose correctly, below.
+  // Narrate the English cue when a new picture appears — a pre-reader can't
+  // read the gloss, and the Finnish is what they must PRODUCE, never a preview.
   useEffect(() => {
     if (!question || done) return;
-    const t = setTimeout(() => speakEnglish(englishPrompt), 350);
+    const t = setTimeout(() => speakEnglish(question.target.en), 350);
     return () => clearTimeout(t);
-  }, [question, done, englishPrompt]);
+  }, [question, done]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
       if (!question || locked || done) return;
-      if (item.id === question.item.id) {
+      if (item.id === question.target.id) {
         setLocked(true);
-        setChosen(item);
         playDing(true);
-        speak(fullSentence);
+        // Say the Finnish they just produced — reinforces the target form.
+        speak(item.fi);
         addStars(1);
-        recordAttempt(question.item.id, !missed.current);
+        recordAttempt(question.target.id, !missed.current);
         if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
           if (next >= round.length) setDone(true);
-          else {
-            setIndex(next);
-            setChosen(null);
-          }
+          else setIndex(next);
           missed.current = false;
           setLocked(false);
-        }, 1100);
+        }, 750);
       } else {
         missed.current = true;
         playDing(false);
@@ -90,23 +79,16 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
+    [question, locked, done, index, round.length, addStars, recordAttempt],
   );
 
-  // Replay: English before an answer (a missed auto-play shouldn't be a dead
-  // end), Finnish once answered correctly. Never Finnish before that.
-  const replay = useCallback(() => {
-    if (chosen) speak(fullSentence);
-    else speakEnglish(englishPrompt);
-  }, [chosen, fullSentence, englishPrompt]);
-
-  // Keyboard: number keys pick a word tile; Space/Enter replays (see `replay`).
+  // Keyboard: number keys pick a word tile; Space/Enter replays the English cue.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!question || done) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        replay();
+        speakEnglish(question.target.en);
         return;
       }
       const n = Number.parseInt(e.key, 10);
@@ -114,11 +96,10 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, replay]);
+  }, [question, done, choose]);
 
   function restart() {
     setIndex(0);
-    setChosen(null);
     setWrongId(null);
     setLocked(false);
     setDone(false);
@@ -127,19 +108,15 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
     setRunId((r) => r + 1);
   }
 
-  // Endless stream: silent segment handoff, no interstitial.
   useSegmentComplete(done, firstTries.current, round.length, restart);
 
   if (done) return null;
   if (!question) return null;
 
-  const { construction, item } = question;
-  const chosenForm = chosen ? formFor(chosen, construction) : null;
-
   return (
     <section className="screen activity">
       <ActivityHeader
-        title="Rakenna lause"
+        title="Nimeä · Name it"
         index={index}
         total={round.length}
         stars={ctx?.sessionStars}
@@ -147,25 +124,18 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
       />
 
       <p className="prompt">
-        {construction.en} <span className="en">{item.en}</span>
+        Mikä tämä on suomeksi? <span className="en">What is this in Finnish?</span>
       </p>
 
       <div className="phrase-card">
         <span className="phrase-emoji" aria-hidden="true">
-          {item.emoji}
+          {question.target.emoji}
         </span>
-        <div className="phrase-line">
-          {construction.before && <span className="phrase-fixed">{construction.before}</span>}
-          <span className={'phrase-slot' + (chosenForm ? ' phrase-slot--filled' : '')}>
-            {chosenForm ?? '​'}
-          </span>
-          {construction.after && <span className="phrase-fixed">{construction.after}</span>}
-          {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
-        </div>
+        <p className="en phrase-hint">{question.target.en}</p>
         <button
           className="speaker speaker--inline"
-          onClick={replay}
-          aria-label={chosen ? 'Hear the sentence again' : 'Hear the prompt again'}
+          onClick={() => speakEnglish(question.target.en)}
+          aria-label="Hear the prompt again"
         >
           🔊 <span className="en">Listen</span>
         </button>
@@ -178,13 +148,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
             className={
               'word-tile' +
               (wrongId === opt.id ? ' word-tile--wrong' : '') +
-              (locked && opt.id === question.item.id ? ' word-tile--correct' : '')
+              (locked && opt.id === question.target.id ? ' word-tile--correct' : '')
             }
             onClick={() => choose(opt)}
             disabled={locked}
           >
             <span className="word-tile__num">{i + 1}</span>
-            {formFor(opt, construction)}
+            {opt.fi}
           </button>
         ))}
       </div>

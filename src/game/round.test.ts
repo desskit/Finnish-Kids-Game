@@ -9,6 +9,7 @@ import {
   buildAgreementRound,
   buildConjugationRound,
   buildReviewRound,
+  buildComprehensionRound,
 } from './round';
 import {
   animals,
@@ -161,6 +162,44 @@ describe('buildReviewRound', () => {
 
   it('returns an empty round for no targets', () => {
     expect(buildReviewRound([], animals.items, 3)).toEqual([]);
+  });
+});
+
+describe('buildComprehensionRound', () => {
+  it('produces a full sentence, the answer item, and distinct picture options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildComprehensionRound(animals.items, nounConstructions, 6, 3, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // A real multi-word carrier sentence (a random eligible construction
+        // filled with the answer item).
+        expect(q.sentence.split(' ').length).toBeGreaterThan(1);
+        expect(q.sentence.length).toBeGreaterThan(0);
+        // The answer is present exactly once; options are distinct + picturable.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('never uses an emoji-less item as a tile', () => {
+    // verbs include emoji-less abstract ones (olla, saada…); they must be filtered.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildComprehensionRound(verbs.items, nounConstructions, 6, 4, 8)) {
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('tier-gates the constructions it draws from', () => {
+    // At maxTier 2 only tier-2 carriers (this-is, where-is, i-have, …) are
+    // eligible, so the tier-3 partitive negation "en näe" can never appear.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildComprehensionRound(animals.items, nounConstructions, 6, 3, 2)) {
+        expect(q.sentence).not.toMatch(/\bei\b/);
+      }
+    }
   });
 });
 

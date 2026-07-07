@@ -10,7 +10,7 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, conjugatedClause, formFor, PERSONS, suitsSlot, verbForm } from '../content/types';
+import { caseFormOf, conjugatedClause, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
@@ -62,6 +62,66 @@ export function buildListenRound(
     const near = tricky ? others.filter((i) => i.topic && i.topic === target.topic) : [];
     const distractors = pickPreferring(others, near, optionCount - 1);
     return { target, options: shuffle([target, ...distractors]) };
+  });
+}
+
+// "Name it" (production recall) reuses buildListenRound verbatim: the question
+// shape { target, options } is identical, only the render inverts — the picture
+// becomes the prompt and the words become the options. See NameIt.tsx.
+
+// --- Sentence listening comprehension ------------------------------------
+//
+// Hear a full carrier sentence ("Tämä on kissa."), tap the picture it's about.
+// Unlike buildListenRound (one word), this trains parsing a whole utterance for
+// its key noun. Options are picturable items; distractors prefer the same topic
+// when tricky, so the child must hear the noun, not guess from the pictures.
+
+export interface ComprehensionQuestion {
+  /** The full Finnish carrier sentence to play (e.g. "Tämä on kissa."). */
+  sentence: string;
+  /** The item whose PICTURE is the correct answer. */
+  item: LexicalItem;
+  /** Picture options (item + distractors); the child taps the matching one. */
+  options: LexicalItem[];
+}
+
+export function buildComprehensionRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  optionCount: number,
+  maxTier: Tier = 4,
+  tricky = false,
+  weigh?: WeighFn,
+): ComprehensionQuestion[] {
+  // Only picturable items can be tiles; only (construction, item) pairs that
+  // resolve AND make sense (semantic gate) become questions — tier-gated like
+  // the phrase builder so simple patterns come first.
+  const picturable = items.filter((i) => i.emoji);
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
+  const pool: { construction: Construction; item: LexicalItem }[] = [];
+  for (const construction of allowed) {
+    for (const item of picturable) {
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
+    }
+  }
+
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
+  return chosen.map(({ construction, item }) => {
+    const others = picturable.filter((i) => i.id !== item.id);
+    const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return {
+      sentence: sentenceFor(item, construction),
+      item,
+      options: shuffle([item, ...distractors]),
+    };
   });
 }
 

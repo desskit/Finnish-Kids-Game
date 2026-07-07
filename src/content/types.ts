@@ -153,9 +153,9 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
 // Article overrides for the "a ___" carrier templates. Most nouns just need
 // "a"/"an" (picked by first letter, below); a small, hand-maintained set
 // needs something else in plain English: mass nouns take no article at all
-// ("This is rain.", not "a rain"), and a few nature words are conventionally
+// ("This is water.", not "a water"), and a few nature words are conventionally
 // unique referents ("This is the sun.", not "a sun").
-const NO_ARTICLE_IDS = new Set(['rain', 'snow']);
+const NO_ARTICLE_IDS = new Set(['rain', 'snow', 'water', 'milk', 'bread', 'cheese', 'juice', 'hair']);
 const DEFINITE_ARTICLE_IDS = new Set(['sun', 'moon', 'sky', 'sea']);
 
 function englishArticleFor(item: LexicalItem): string {

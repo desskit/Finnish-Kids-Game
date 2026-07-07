@@ -17,6 +17,8 @@ import { sentenceConstructions } from '../content/sentences';
 import { buildSentenceRound, buildSentenceSpellingRound, type SentencePools } from './round';
 import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
+import NameIt from '../components/NameIt';
+import ListenSentence from '../components/ListenSentence';
 import BuildAPhrase from '../components/BuildAPhrase';
 import CountAndSay from '../components/CountAndSay';
 import MatchTheWord from '../components/MatchTheWord';
@@ -40,6 +42,8 @@ import SpellWord from '../components/SpellWord';
 
 export type ActivityKind =
   | 'listen'
+  | 'name'
+  | 'listen-sentence'
   | 'build'
   | 'count'
   | 'match'
@@ -212,19 +216,21 @@ const baseChapters: Chapter[] = [
     titleEn: 'First words',
     accent: '#0ea5e9',
     icon: '🔊',
-    // Warm-ups: depth comes from the option-tile count, which the shared
-    // level table already flattens out by L3 (optionCount 3, 4, 4, ...), so
-    // a short depth-3 ladder is the honest cap. L3 swaps to `match` (the same
-    // vocab, judged by adjective agreement instead of listening) so the climb
-    // ends in a different game rather than a 3rd identical listening round.
+    // Warm-ups ramp through the whole retrieval spectrum on ONE vocab set:
+    // hear→picture (recognition), see picture→pick the Finnish word
+    // (production recall, the generation effect), hear a full sentence→picture
+    // (sentence-level comprehension), then adjective agreement (`match`). New
+    // game TYPES — not just more option tiles — are what earn the added depth.
+    // Numbers skip `listen-sentence` ("Tämä on kolme" is an awkward carrier),
+    // capping one rung shorter.
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'family' } },
-      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'body' } },
-      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'nature' } },
-      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'clothes' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'numbers' } },
+      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'animals' } },
+      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'food' } },
+      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'family' } },
+      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'body' } },
+      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'nature' } },
+      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'clothes' } },
+      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, content: { pool: 'numbers' } },
     ],
   },
   {
@@ -570,6 +576,21 @@ export function renderActivity(
   switch (activity) {
     case 'listen':
       return <ListenAndTap items={items} onExit={onExit} />;
+    case 'name':
+      // Production recall: see the picture, pick the Finnish word (inverse of
+      // Listen & Tap over the same pool).
+      return <NameIt items={items} onExit={onExit} />;
+    case 'listen-sentence':
+      // Sentence-level comprehension: hear a full carrier phrase, tap the
+      // picture. Uses the node's constructions (default = all noun carriers),
+      // tier-gated by the adaptive level.
+      return (
+        <ListenSentence
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
+          onExit={onExit}
+        />
+      );
     case 'build':
       return (
         <BuildAPhrase

@@ -57,7 +57,7 @@ afterEach(() => {
 });
 
 describe('SpellWord sentence-typing apex', () => {
-  it('shows the English gloss, no emoji, and no way to hear the answer', () => {
+  it('shows the English gloss, no emoji, and no way to hear the Finnish answer', () => {
     renderSentenceTyping();
     expect(screen.getByText('I go home.')).toBeInTheDocument();
     expect(document.querySelector('.phrase-emoji')).toBeNull();
@@ -70,6 +70,15 @@ describe('SpellWord sentence-typing apex', () => {
     await act(async () => vi.advanceTimersByTimeAsync(500));
     expect(speak).not.toHaveBeenCalled();
     expect(speakEnglish).toHaveBeenCalledWith('I go home.');
+  });
+
+  it('offers a Listen button that replays the English gloss, never Finnish', () => {
+    renderSentenceTyping();
+    const btn = screen.getByRole('button', { name: /hear the prompt again/i });
+    vi.clearAllMocks();
+    fireEvent.click(btn);
+    expect(speakEnglish).toHaveBeenCalledWith('I go home.');
+    expect(speak).not.toHaveBeenCalled();
   });
 
   it('accepts the sentence even without the trailing period', async () => {

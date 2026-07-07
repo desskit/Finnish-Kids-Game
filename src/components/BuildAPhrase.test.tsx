@@ -111,12 +111,20 @@ describe('BuildAPhrase', () => {
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
   });
 
-  it('narrates the English prompt (not Finnish) before an answer, and offers no Listen button yet', async () => {
+  it('narrates the English prompt (not Finnish) before an answer', async () => {
     renderActivity();
     await advance(1000); // past the auto-speak delay
     expect(speak).not.toHaveBeenCalled();
     expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
-    expect(screen.queryByRole('button', { name: /hear the sentence again/i })).toBeNull();
+  });
+
+  it('offers a Listen button before an answer that replays English, not Finnish', () => {
+    renderActivity();
+    const btn = screen.getByRole('button', { name: /hear the prompt again/i });
+    vi.clearAllMocks();
+    fireEvent.click(btn);
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
+    expect(speak).not.toHaveBeenCalled();
   });
 
   it('fills the slot, awards a star, speaks the phrase, and advances on a correct tap', async () => {

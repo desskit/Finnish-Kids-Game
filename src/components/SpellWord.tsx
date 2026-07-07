@@ -213,15 +213,13 @@ export default function SpellWord({
           </span>
         )}
         <p className="en phrase-hint">{target.gloss}</p>
-        {speakTarget && (
-          <button
-            className="speaker speaker--inline"
-            onClick={() => speak(target.text)}
-            aria-label="Hear the word again"
-          >
-            🔊 <span className="en">Listen</span>
-          </button>
-        )}
+        <button
+          className="speaker speaker--inline"
+          onClick={() => (speakTarget ? speak(target.text) : speakEnglish(target.gloss))}
+          aria-label={speakTarget ? 'Hear the word again' : 'Hear the prompt again'}
+        >
+          🔊 <span className="en">Listen</span>
+        </button>
       </div>
 
       <input

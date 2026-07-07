@@ -3,19 +3,43 @@ import { useNavigate } from 'react-router-dom';
 import type { LexicalItem } from '../content/types';
 import { reviewItems, reviewItemById } from '../content';
 import { useProfile } from '../state/profile';
-import { buildReviewRound } from '../game/round';
-import { selectReviewItems } from '../game/srs';
-import { speak } from '../audio/speak';
+import { MAX_BOX, selectReviewItems } from '../game/srs';
+import { sample, shuffle } from '../util/shuffle';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 8;
 
-// Review (spaced repetition): a cross-topic listen-and-tap drill over the items
-// the scheduler says are due, backfilled with new words. Reuses the picture-tap
-// format so any vocabulary item works. Records each answer back into SRS, which
-// is what schedules the next review. Reachable from the map at /review.
+/**
+ * The retrieval format escalates with the item's SRS box, so a mastered word
+ * gets a harder test than a day-one word (desirable difficulties):
+ *   box 1-2 → recognition (hear Finnish, tap the picture)
+ *   box 3-4 → production pick (see picture, pick the Finnish word)
+ *   box 5   → spelling (see picture, TYPE the Finnish)
+ */
+type ReviewFormat = 'recognition' | 'production' | 'spelling';
+
+function formatForBox(box: number): ReviewFormat {
+  if (box >= MAX_BOX) return 'spelling';
+  if (box >= 3) return 'production';
+  return 'recognition';
+}
+
+interface ReviewQ {
+  target: LexicalItem;
+  format: ReviewFormat;
+  /** Picture/word options (recognition + production); empty for spelling. */
+  options: LexicalItem[];
+}
+
+const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
+
+// Review (spaced repetition): a cross-topic drill over the items the scheduler
+// says are due, backfilled with new words. The FORMAT of each question scales
+// with how well the child knows that item (see ReviewFormat). Records each
+// answer back into SRS, which schedules the next review. Reachable at /review.
 export default function ReviewActivity() {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const navigate = useNavigate();
@@ -26,71 +50,127 @@ export default function ReviewActivity() {
 
   // Select due/new items once per run (snapshot at start, so answering during
   // the round doesn't reshuffle the questions underneath the child).
-  const round = useMemo(() => {
+  const round = useMemo<ReviewQ[]>(() => {
+    const schedules = activeChild?.srs ?? {};
     const ids = selectReviewItems({
-      schedules: activeChild?.srs ?? {},
+      schedules,
       allIds: reviewItems.map((i) => i.id),
       now: Date.now(),
       count: QUESTIONS,
     });
-    const targets = ids
+    return ids
       .map((id) => reviewItemById[id])
-      .filter((i): i is LexicalItem => Boolean(i));
-    return buildReviewRound(targets, reviewItems, optionCount);
+      .filter((i): i is LexicalItem => Boolean(i))
+      .map((target) => {
+        const format = formatForBox(schedules[target.id]?.box ?? 1);
+        const options =
+          format === 'spelling'
+            ? []
+            : shuffle([
+                target,
+                ...sample(
+                  reviewItems.filter((i) => i.id !== target.id && i.emoji),
+                  optionCount - 1,
+                ),
+              ]);
+        return { target, format, options };
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionCount, runId]);
 
   const [index, setIndex] = useState(0);
   const [stars, setStars] = useState(0);
+  const [input, setInput] = useState('');
   const [wrongId, setWrongId] = useState<string | null>(null);
+  const [shake, setShake] = useState(false);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const question = round[index];
+  const spellingCorrect =
+    !!question && question.format === 'spelling' && norm(input) === norm(question.target.fi);
 
+  // Cue a new question: hear the Finnish (recognition), or the English prompt
+  // for the production/spelling formats (which must be produced, not heard).
   useEffect(() => {
     if (!question || done) return;
-    const t = setTimeout(() => speak(question.target.fi), 350);
+    const t = setTimeout(() => {
+      if (question.format === 'recognition') speak(question.target.fi);
+      else speakEnglish(question.target.en);
+      if (question.format === 'spelling') inputRef.current?.focus();
+    }, 350);
     return () => clearTimeout(t);
-  }, [question, done]);
+  }, [question, done, index]);
 
+  // Shared success path: ding, confirm the Finnish, credit SRS, advance.
+  const succeed = useCallback(() => {
+    if (!question) return;
+    setLocked(true);
+    playDing(true);
+    speak(question.target.fi);
+    setStars((s) => s + 1);
+    addStars(1);
+    recordAttempt(question.target.id, !missed.current);
+    const next = index + 1;
+    setTimeout(() => {
+      if (next >= round.length) setDone(true);
+      else {
+        setIndex(next);
+        setInput('');
+      }
+      missed.current = false;
+      setLocked(false);
+    }, 900);
+  }, [question, index, round.length, addStars, recordAttempt]);
+
+  // Recognition + production: tap an option tile.
   const choose = useCallback(
     (item: LexicalItem) => {
       if (!question || locked || done) return;
       if (item.id === question.target.id) {
-        setLocked(true);
-        playDing(true);
-        speak(item.fi);
-        setStars((s) => s + 1);
-        addStars(1);
-        recordAttempt(question.target.id, !missed.current);
         setWrongId(null);
-        const next = index + 1;
-        setTimeout(() => {
-          if (next >= round.length) setDone(true);
-          else setIndex(next);
-          missed.current = false;
-          setLocked(false);
-        }, 750);
+        succeed();
       } else {
         missed.current = true;
         playDing(false);
-        // Name the picture the child actually tapped — a wrong guess still
-        // teaches a word, instead of just being a dead end.
-        speak(item.fi);
+        // Recognition names the tapped picture (a wrong guess still teaches);
+        // production's tiles are already words, so just flash.
+        if (question.format === 'recognition') speak(item.fi);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, index, round.length, addStars, recordAttempt],
+    [question, locked, done, succeed],
   );
+
+  // Spelling: the device keyboard drives the input; check on every change.
+  function onInputChange(value: string) {
+    if (!question || locked || done) return;
+    setInput(value);
+    if (value.length < norm(question.target.fi).length) return;
+    if (norm(value) === norm(question.target.fi)) {
+      succeed();
+    } else {
+      missed.current = true;
+      playDing(false);
+      setShake(true);
+      setTimeout(() => setShake(false), 400);
+    }
+  }
+
+  const replay = useCallback(() => {
+    if (!question) return;
+    if (question.format === 'recognition') speak(question.target.fi);
+    else speakEnglish(question.target.en);
+  }, [question]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (!question || done) return;
+      if (!question || done || question.format === 'spelling') return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
-        speak(question.target.fi);
+        replay();
         return;
       }
       const n = Number.parseInt(e.key, 10);
@@ -98,12 +178,14 @@ export default function ReviewActivity() {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose]);
+  }, [question, done, choose, replay]);
 
   function restart() {
     setIndex(0);
     setStars(0);
+    setInput('');
     setWrongId(null);
+    setShake(false);
     setLocked(false);
     setDone(false);
     missed.current = false;
@@ -123,48 +205,118 @@ export default function ReviewActivity() {
   }
   if (!question) return null;
 
+  const prompt =
+    question.format === 'recognition' ? (
+      <>
+        Mikä tämä on? <span className="en">Which one did you hear?</span>
+      </>
+    ) : question.format === 'production' ? (
+      <>
+        Mikä tämä on suomeksi? <span className="en">What is this in Finnish?</span>
+      </>
+    ) : (
+      <>
+        Kirjoita suomeksi <span className="en">Write it in Finnish</span>
+      </>
+    );
+
   return (
     <main className="app">
       <section className="screen activity">
-        <ActivityHeader
-          title="Kertaus · Review"
-          index={index}
-          total={round.length}
-          onExit={goHome}
-        />
+        <ActivityHeader title="Kertaus · Review" index={index} total={round.length} onExit={goHome} />
 
-        <p className="prompt">
-          Mikä tämä on? <span className="en">Which one did you hear?</span>
-        </p>
+        <p className="prompt">{prompt}</p>
 
-        <button
-          className="speaker speaker--hero"
-          onClick={() => speak(question.target.fi)}
-          aria-label="Hear the word again"
-        >
-          🔊
-          <span className="speaker__hint">Kuuntele · Listen</span>
-        </button>
-
-        <div className={`card-grid card-grid--${question.options.length}`}>
-          {question.options.map((opt, i) => (
+        {question.format === 'recognition' ? (
+          <>
             <button
-              key={opt.id}
-              className={
-                'pic-card' +
-                (wrongId === opt.id ? ' pic-card--wrong' : '') +
-                (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
-              }
-              onClick={() => choose(opt)}
-              disabled={locked}
+              className="speaker speaker--hero"
+              onClick={replay}
+              aria-label="Hear the word again"
             >
-              <span className="pic-card__num">{i + 1}</span>
-              <span className="pic-card__emoji" aria-hidden="true">
-                {opt.emoji}
-              </span>
+              🔊
+              <span className="speaker__hint">Kuuntele · Listen</span>
             </button>
-          ))}
-        </div>
+
+            <div className={`card-grid card-grid--${question.options.length}`}>
+              {question.options.map((opt, i) => (
+                <button
+                  key={opt.id}
+                  className={
+                    'pic-card' +
+                    (wrongId === opt.id ? ' pic-card--wrong' : '') +
+                    (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
+                  }
+                  onClick={() => choose(opt)}
+                  disabled={locked}
+                >
+                  <span className="pic-card__num">{i + 1}</span>
+                  <span className="pic-card__emoji" aria-hidden="true">
+                    {opt.emoji}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="phrase-card">
+              <span className="phrase-emoji" aria-hidden="true">
+                {question.target.emoji}
+              </span>
+              <p className="en phrase-hint">{question.target.en}</p>
+              <button
+                className="speaker speaker--inline"
+                onClick={replay}
+                aria-label="Hear the prompt again"
+              >
+                🔊 <span className="en">Listen</span>
+              </button>
+            </div>
+
+            {question.format === 'production' ? (
+              <div className="word-tiles">
+                {question.options.map((opt, i) => (
+                  <button
+                    key={opt.id}
+                    className={
+                      'word-tile' +
+                      (wrongId === opt.id ? ' word-tile--wrong' : '') +
+                      (locked && opt.id === question.target.id ? ' word-tile--correct' : '')
+                    }
+                    onClick={() => choose(opt)}
+                    disabled={locked}
+                  >
+                    <span className="word-tile__num">{i + 1}</span>
+                    {opt.fi}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <input
+                ref={inputRef}
+                className={
+                  'spell-input' +
+                  (shake ? ' spell-input--wrong' : '') +
+                  (spellingCorrect ? ' spell-input--correct' : '')
+                }
+                value={input}
+                onChange={(e) => onInputChange(e.target.value)}
+                readOnly={locked}
+                autoFocus
+                type="text"
+                inputMode="text"
+                lang="fi"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+                enterKeyHint="done"
+                aria-label="Type the word in Finnish"
+              />
+            )}
+          </>
+        )}
       </section>
     </main>
   );

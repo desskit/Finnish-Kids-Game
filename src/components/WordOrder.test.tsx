@@ -213,4 +213,32 @@ describe('WordOrder TTS + picture', () => {
     fireEvent.click(screen.getByText('kissa.').closest('button') as HTMLButtonElement);
     expect(speak).toHaveBeenCalledWith('Tämä on kissa.');
   });
+
+  it('offers a Listen button that replays English before an answer (multi-slot)', () => {
+    renderActivity(undefined);
+    const btn = screen.getByRole('button', { name: /hear the prompt again/i });
+    vi.clearAllMocks();
+    fireEvent.click(btn);
+    expect(speakEnglish).toHaveBeenCalledWith('I go.');
+    expect(speak).not.toHaveBeenCalled();
+  });
+
+  it('single-slot Listen button replays English before completion, Finnish once complete', () => {
+    render(
+      <ProfileProvider>
+        <WordOrder items={[phraseFx.ITEM]} constructions={[phraseFx.CONSTRUCTION]} onExit={vi.fn()} />
+      </ProfileProvider>,
+    );
+    vi.clearAllMocks();
+    fireEvent.click(screen.getByRole('button', { name: /hear the prompt again/i }));
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
+    expect(speak).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByText('Tämä').closest('button') as HTMLButtonElement);
+    fireEvent.click(screen.getByText('on').closest('button') as HTMLButtonElement);
+    fireEvent.click(screen.getByText('kissa.').closest('button') as HTMLButtonElement);
+    vi.clearAllMocks();
+    fireEvent.click(screen.getByRole('button', { name: /hear the sentence again/i }));
+    expect(speak).toHaveBeenCalledWith('Tämä on kissa.');
+  });
 });

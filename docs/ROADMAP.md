@@ -13,6 +13,9 @@ its own future session, so each section restates its own prerequisites, files, a
 The codebase was deliberately scaffolded for these phases — notably `LexicalItem.audio?` (recorded
 audio hook) and `LexicalItem.emoji` (art hook) already exist in `src/content/types.ts`.
 
+> **See also:** [docs/LEARNING_AUDIT.md](LEARNING_AUDIT.md) — the pedagogy audit and prioritized
+> learning roadmap (new drill types, review escalation, habit loop, and the "Sano se" speaking spec).
+
 ### Decisions baked into these plans (from user)
 - **Hosting = Netlify** (most feature-rich/scalable; deploy previews, branch deploys, room for
   serverless later). Keep Vite `base` configurable so **GitHub Pages remains a documented fallback**.
