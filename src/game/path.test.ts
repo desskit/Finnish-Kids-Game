@@ -105,7 +105,9 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 8)).toBe('conjugate');
   });
 
-  it('gives every listening warm-up a third-level swap into Describe it', () => {
+  it('ramps every listening warm-up through the full retrieval spectrum', () => {
+    // Recognition (listen) → production recall (name) → sentence comprehension
+    // (listen-sentence) → agreement (match). Numbers skip listen-sentence.
     for (const id of [
       'listen-animals',
       'listen-food',
@@ -113,13 +115,17 @@ describe('learning path', () => {
       'listen-body',
       'listen-nature',
       'listen-clothes',
-      'listen-numbers',
     ]) {
       const { skill } = findSkill(id)!;
       expect(activityForLevel(skill, 1)).toBe('listen');
       expect(activityForLevel(skill, 2)).toBe('listen');
-      expect(activityForLevel(skill, 3)).toBe('match');
+      expect(activityForLevel(skill, 3)).toBe('name');
+      expect(activityForLevel(skill, 4)).toBe('listen-sentence');
+      expect(activityForLevel(skill, 5)).toBe('match');
     }
+    const numbers = findSkill('listen-numbers')!.skill;
+    expect(activityForLevel(numbers, 3)).toBe('name');
+    expect(activityForLevel(numbers, 4)).toBe('match');
   });
 
   it('ramps postpositions recognize → assemble → type, same as the other shallow nodes', () => {
@@ -169,7 +175,9 @@ describe('learning path', () => {
     expect(badgeEnv.activityIds).not.toContain('review');
   });
 
-  it('caps the listening warm-ups at depth 3 (the option-tile curve flattens by then)', () => {
+  it('gives the listening warm-ups depth from their retrieval-spectrum ramps', () => {
+    // Noun warm-ups climb through 5 game types; numbers stop one rung shorter
+    // (no listen-sentence). Depth here is new game TYPES, not more option tiles.
     for (const id of [
       'listen-animals',
       'listen-food',
@@ -177,10 +185,10 @@ describe('learning path', () => {
       'listen-body',
       'listen-nature',
       'listen-clothes',
-      'listen-numbers',
     ]) {
-      expect(findSkill(id)?.skill.maxLevel).toBe(3);
+      expect(findSkill(id)?.skill.maxLevel).toBe(5);
     }
+    expect(findSkill('listen-numbers')?.skill.maxLevel).toBe(4);
   });
 
   it('lets Count & Say ride the full engine depth (bigger counts all the way to 20)', () => {
@@ -224,13 +232,13 @@ describe('learning path', () => {
   });
 
   it('keeps a low-level node gentle — variety appears only as the child climbs', () => {
-    const { skill } = findSkill('listen-animals')!; // listen, listen, match
+    const { skill } = findSkill('listen-animals')!; // listen, listen, name, listen-sentence, match
     // Level 1: still just listening (no variety yet — "visible early" not "instant").
     expect(activityForRound(skill, 1, 0)).toBe('listen');
     expect(activityForRound(skill, 1, 1)).toBe('listen');
-    // Level 3 unlocks the second game; the session now alternates.
+    // Level 3 unlocks the second game (name); the session now alternates.
     expect(new Set([0, 1].map((n) => activityForRound(skill, 3, n)))).toEqual(
-      new Set(['listen', 'match']),
+      new Set(['listen', 'name']),
     );
   });
 
@@ -238,7 +246,7 @@ describe('learning path', () => {
     for (const id of ['listen-body', 'listen-nature', 'listen-clothes']) {
       const found = findSkill(id)!;
       expect(found.chapter.id).toBe('first-words');
-      expect(found.skill.maxLevel).toBe(3);
+      expect(found.skill.maxLevel).toBe(5);
       // The node renders a real listening round (its pool resolved to items).
       const el = renderSkill(found.skill, 1, () => {});
       const items = (el!.props as { items?: unknown[] }).items;
@@ -278,6 +286,14 @@ describe('learning path', () => {
     expect(renderActivity(skill, 'build', () => {})).not.toBeNull();
     expect(renderActivity(skill, 'spell', () => {})).not.toBeNull();
     expect(renderActivity(findSkill('review')!.skill, 'review', () => {})).toBeNull();
+  });
+
+  it('renders the new production/comprehension warm-up activities', () => {
+    // renderSkill only ever picks round 0 (= listen), so exercise the new kinds
+    // directly — both must map to a real game element over a warm-up pool.
+    const { skill } = findSkill('listen-animals')!;
+    expect(renderActivity(skill, 'name', () => {})).not.toBeNull();
+    expect(renderActivity(skill, 'listen-sentence', () => {})).not.toBeNull();
   });
 
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
