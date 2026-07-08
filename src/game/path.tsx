@@ -19,6 +19,7 @@ import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
 import NameIt from '../components/NameIt';
 import ListenSentence from '../components/ListenSentence';
+import SayIt from '../components/SayIt';
 import BuildAPhrase from '../components/BuildAPhrase';
 import CountAndSay from '../components/CountAndSay';
 import MatchTheWord from '../components/MatchTheWord';
@@ -44,6 +45,7 @@ export type ActivityKind =
   | 'listen'
   | 'name'
   | 'listen-sentence'
+  | 'say'
   | 'build'
   | 'count'
   | 'match'
@@ -518,14 +520,37 @@ export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] 
   return unlocked;
 }
 
+// Nodes whose content has a clean spoken target: vocab words (listen) and
+// carrier phrases (build/order). Speaking is woven into these automatically
+// (see `activityForRound`) rather than hand-added to each ramp — so it reaches
+// essentially every content node, incl. vocab, without bloating the ramps.
+const SPEAKABLE_BASE: ReadonlySet<ActivityKind> = new Set(['listen', 'build', 'order']);
+
+/** Does this node have a spoken target the `say` game can drill? */
+export function isSpeakable(skill: SkillNode): boolean {
+  return SPEAKABLE_BASE.has(skill.activity);
+}
+
 /**
  * The game type to serve for round `roundNo` of a continuous session. Rounds
  * round-robin through the unlocked set so consecutive rounds VARY (a sitting
  * mixes game types) instead of repeating the single type the measured level maps
  * to. Deterministic — no randomness, so it stays unit-testable.
+ *
+ * When speech recognition is available, a `say` round is folded into the mix on
+ * every speakable node from level 2 up (level 1 stays gentle). The flag defaults
+ * false, so pure callers/tests see the base rotation unchanged.
  */
-export function activityForRound(skill: SkillNode, level: number, roundNo: number): ActivityKind {
-  const unlocked = activitiesUpTo(skill, level);
+export function activityForRound(
+  skill: SkillNode,
+  level: number,
+  roundNo: number,
+  speechAvailable = false,
+): ActivityKind {
+  let unlocked = activitiesUpTo(skill, level);
+  if (speechAvailable && level >= 2 && isSpeakable(skill) && !unlocked.includes('say')) {
+    unlocked = [...unlocked, 'say'];
+  }
   const i = ((Math.trunc(roundNo) % unlocked.length) + unlocked.length) % unlocked.length;
   return unlocked[i];
 }
@@ -591,6 +616,19 @@ export function renderActivity(
           onExit={onExit}
         />
       );
+    case 'say': {
+      // Speaking: say the SAME content the node teaches — bare words for a
+      // vocab pool, full carrier phrases for a phrase/order node.
+      const phraseNode =
+        skill.activity === 'build' || skill.activity === 'order' || !!skill.content.constructionIds;
+      return (
+        <SayIt
+          items={items}
+          constructions={phraseNode ? constructionsFor(skill.content.constructionIds) : []}
+          onExit={onExit}
+        />
+      );
+    }
     case 'build':
       return (
         <BuildAPhrase
@@ -671,6 +709,7 @@ export function renderSkill(
   level: number,
   onExit: () => void,
   roundNo = 0,
+  speechAvailable = false,
 ): ReactElement | null {
-  return renderActivity(skill, activityForRound(skill, level, roundNo), onExit);
+  return renderActivity(skill, activityForRound(skill, level, roundNo, speechAvailable), onExit);
 }

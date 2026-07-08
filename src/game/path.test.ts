@@ -9,6 +9,7 @@ import {
   activityForLevel,
   activitiesUpTo,
   activityForRound,
+  isSpeakable,
   badgeEnv,
 } from './path';
 
@@ -294,6 +295,33 @@ describe('learning path', () => {
     const { skill } = findSkill('listen-animals')!;
     expect(renderActivity(skill, 'name', () => {})).not.toBeNull();
     expect(renderActivity(skill, 'listen-sentence', () => {})).not.toBeNull();
+    expect(renderActivity(skill, 'say', () => {})).not.toBeNull();
+    // A phrase node's `say` renders too (says the carrier phrase).
+    expect(renderActivity(findSkill('this-is')!.skill, 'say', () => {})).not.toBeNull();
+  });
+
+  it('marks vocab + phrase nodes speakable, not the grammar/typing games', () => {
+    expect(isSpeakable(findSkill('listen-animals')!.skill)).toBe(true); // vocab words
+    expect(isSpeakable(findSkill('this-is')!.skill)).toBe(true); // carrier phrases (build)
+    expect(isSpeakable(findSkill('order')!.skill)).toBe(true); // phrase order capstone
+    expect(isSpeakable(findSkill('match')!.skill)).toBe(false);
+    expect(isSpeakable(findSkill('conjugate')!.skill)).toBe(false);
+    expect(isSpeakable(findSkill('spell')!.skill)).toBe(false);
+  });
+
+  it('folds `say` into every speakable node from level 2 up — only when speech is available', () => {
+    const listen = findSkill('listen-animals')!.skill;
+    // Pure default (no speech): rotation unchanged, never `say`.
+    expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(listen, 3, n))).not.toContain('say');
+    // Speech available: `say` joins the mix at level ≥ 2...
+    const withSpeech = new Set([0, 1, 2, 3, 4, 5, 6].map((n) => activityForRound(listen, 3, n, true)));
+    expect(withSpeech.has('say')).toBe(true);
+    // ...but level 1 stays gentle (single game, no speaking yet).
+    expect(activityForRound(listen, 1, 0, true)).toBe('listen');
+    expect([0, 1, 2].map((n) => activityForRound(listen, 1, n, true))).not.toContain('say');
+    // A non-speakable node never gets it, even with speech on.
+    const conj = findSkill('conjugate')!.skill;
+    expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(conj, 4, n, true))).not.toContain('say');
   });
 
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {

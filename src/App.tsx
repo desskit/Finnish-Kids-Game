@@ -2,6 +2,7 @@ import { cloneElement, useRef, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { badgeEnv, findSkill, renderActivity, activityForRound } from './game/path';
 import { difficultyFor } from './game/adapt';
+import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
@@ -46,7 +47,7 @@ function SkillRouteHost() {
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, recordRound, activityDifficulty, stars } = useProfile();
+  const { activeChild, recordRound, activityDifficulty, stars, settings } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
   // `round.no` counts segments (drives game-type rotation); `round.level` is
@@ -68,7 +69,10 @@ function SkillRoute() {
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
   const difficulty = difficultyFor(round.level);
-  const activity = activityForRound(skill, round.level, round.no);
+  // Speaking is folded into the rotation only where the browser can hear it AND
+  // a grown-up hasn't switched it off.
+  const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
+  const activity = activityForRound(skill, round.level, round.no, speechOn);
   const element = renderActivity(skill, activity, () => navigate('/'));
   if (!element) return <Navigate to="/" replace />;
 

@@ -10,7 +10,7 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, conjugatedClause, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
+import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
@@ -68,6 +68,62 @@ export function buildListenRound(
 // "Name it" (production recall) reuses buildListenRound verbatim: the question
 // shape { target, options } is identical, only the render inverts — the picture
 // becomes the prompt and the words become the options. See NameIt.tsx.
+
+// --- Speaking ("Sano se") -------------------------------------------------
+//
+// Say-it targets: a Finnish string to pronounce, shown with a picture + gloss
+// and modeled by TTS. Words for a vocab pool (no constructions), or full carrier
+// phrases when constructions are given — so the SAME node content the child is
+// learning is what they practice saying. Reuses the phrase-pairing + semantic
+// gate from buildPhraseRound; nothing here generates Finnish.
+
+export interface SayTarget {
+  /** The Finnish word or phrase to pronounce. */
+  say: string;
+  /** English gloss shown/narrated for context. */
+  gloss: string;
+  emoji?: string;
+  /** SRS id (the item), when there's a single one to credit. */
+  attemptId?: string;
+}
+
+export function buildSayRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  maxTier: Tier = 4,
+  weigh?: WeighFn,
+): SayTarget[] {
+  if (constructions.length > 0) {
+    const byTier = constructions.filter((c) => c.tier <= maxTier);
+    const allowed = byTier.length > 0 ? byTier : constructions;
+    const pool: { construction: Construction; item: LexicalItem }[] = [];
+    for (const construction of allowed) {
+      for (const item of items) {
+        if (formFor(item, construction) && suitsSlot(item, construction))
+          pool.push({ construction, item });
+      }
+    }
+    return weightedSample(
+      pool,
+      Math.min(questionCount, pool.length),
+      weigh && ((p) => weigh(p.item)),
+    ).map(({ construction, item }) => ({
+      say: sentenceFor(item, construction),
+      gloss: englishSentenceFor(item, construction),
+      emoji: item.emoji,
+      attemptId: item.id,
+    }));
+  }
+
+  // Bare-word mode: say the sourced nominative for each picked item.
+  return weightedSample(items, Math.min(questionCount, items.length), weigh).map((it) => ({
+    say: it.fi,
+    gloss: it.en,
+    emoji: it.emoji,
+    attemptId: it.id,
+  }));
+}
 
 // --- Sentence listening comprehension ------------------------------------
 //
