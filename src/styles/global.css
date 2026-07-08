@@ -972,6 +972,51 @@ button:focus-visible,
   text-align: center;
 }
 
+.say-hint {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #b45309; /* amber-700, matching the length highlight */
+  text-align: center;
+}
+
+/* Per-sound pronunciation feedback: the target word tinted by how each Finnish
+   sound was said. */
+.pron-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  justify-content: center;
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.pron-word {
+  display: inline-flex;
+}
+
+.sound--good {
+  color: var(--good);
+}
+
+.sound--length {
+  color: #f59e0b; /* right sound, wrong length — the Finnish focus */
+  text-decoration: underline wavy;
+  text-underline-offset: 3px;
+}
+
+.sound--off {
+  color: var(--bad);
+}
+
+.sound--missing {
+  color: var(--bad);
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
 .say-intro {
   gap: 12px;
   text-align: center;

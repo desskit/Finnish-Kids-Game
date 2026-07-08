@@ -6,6 +6,7 @@ import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildSayRound } from '../game/round';
 import { matchSpeech } from '../game/speechMatch';
+import { scorePronunciation, type PronunciationScore } from '../game/phonemes';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { isSpeechRecognitionAvailable, listenOnce, type ListenSession } from '../audio/speech';
@@ -49,6 +50,8 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
   const [attempts, setAttempts] = useState(0);
   const [listening, setListening] = useState(false);
   const [result, setResult] = useState<'none' | 'tryagain' | 'good' | 'giveup' | 'denied'>('none');
+  // Per-sound pronunciation feedback for the latest attempt (null before any).
+  const [score, setScore] = useState<PronunciationScore | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
   // One-time parent-facing mic notice (per device).
@@ -86,6 +89,7 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
             setIndex(next);
             setAttempts(0);
             setResult('none');
+            setScore(null);
           }
           missed.current = false;
           setLocked(false);
@@ -130,11 +134,15 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
       return;
     }
     setResult('none');
+    setScore(null);
     setListening(true);
     session.current = listenOnce({
       onResult: (transcripts) => {
         setListening(false);
-        if (target && matchSpeech(transcripts, target.say)) {
+        if (!target) return;
+        // Rich per-sound feedback either way; matchSpeech stays the (kind) gate.
+        setScore(scorePronunciation(target.say, transcripts));
+        if (matchSpeech(transcripts, target.say)) {
           setResult('good');
           advance(true);
         } else {
@@ -158,6 +166,7 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
     setAttempts(0);
     setListening(false);
     setResult('none');
+    setScore(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
@@ -239,7 +248,13 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
             {target.emoji}
           </span>
         )}
-        <p className="say-target">{target.say}</p>
+        {/* After an attempt, map the per-sound feedback onto the word; before,
+            just show the plain target to say. */}
+        {score ? (
+          <PronunciationStrip score={score} />
+        ) : (
+          <p className="say-target">{target.say}</p>
+        )}
         <p className="en phrase-hint">{target.gloss}</p>
         <button
           className="speaker speaker--inline"
@@ -265,6 +280,31 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
       <p className="say-status" role="status" aria-live="polite">
         {status}
       </p>
+      {score?.hasLengthError && (
+        <p className="say-hint en">Mind the long sound — say the doubled letter longer.</p>
+      )}
     </section>
+  );
+}
+
+/** The target word with each sound tinted by how it was pronounced. */
+function PronunciationStrip({ score }: { score: PronunciationScore }) {
+  // Group the scored target sounds back into their words for spacing.
+  const words: { text: string; status: string }[][] = [];
+  for (const { sound, status } of score.sounds) {
+    (words[sound.word] ??= []).push({ text: sound.text, status });
+  }
+  return (
+    <p className="pron-strip" aria-label={`Pronunciation of ${score.heard || 'your attempt'}`}>
+      {words.map((word, wi) => (
+        <span className="pron-word" key={wi}>
+          {word.map((s, si) => (
+            <span key={si} className={`sound sound--${s.status}`}>
+              {s.text}
+            </span>
+          ))}
+        </span>
+      ))}
+    </p>
   );
 }

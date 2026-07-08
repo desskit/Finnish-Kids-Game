@@ -93,7 +93,31 @@ describe('SayIt (speaking)', () => {
     expect(playDing).toHaveBeenCalledWith(true);
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
     expect(screen.getByText(/great/i)).toBeInTheDocument();
+    // Per-sound feedback strip, all sounds good on an exact match.
+    expect(document.querySelector('.pron-strip')).toBeInTheDocument();
+    expect(document.querySelectorAll('.sound--good').length).toBe(4); // k·i·ss·a
     await advance(1000);
+  });
+
+  it('flags a vowel/consonant LENGTH slip while still passing kindly', () => {
+    renderActivity();
+    vi.clearAllMocks();
+    fireEvent.click(mic());
+    // Said the long "ss" short — a real word to the recognizer, but the length
+    // is wrong. matchSpeech is generous enough to pass; the strip flags the slip.
+    act(() => fx.speech.handlers!.onResult(['kisa']));
+    expect(screen.getByTestId('stars')).toHaveTextContent('1'); // kind pass
+    expect(document.querySelector('.sound--length')).toBeInTheDocument();
+    expect(screen.getByText(/mind the long sound/i)).toBeInTheDocument();
+  });
+
+  it('shows the feedback strip even on a miss, so the child sees what to fix', () => {
+    renderActivity();
+    vi.clearAllMocks();
+    fireEvent.click(mic());
+    act(() => fx.speech.handlers!.onResult(['talo'])); // mostly wrong sounds
+    expect(document.querySelector('.pron-strip')).toBeInTheDocument();
+    expect(document.querySelectorAll('.sound--off, .sound--missing').length).toBeGreaterThan(0);
   });
 
   it('never blocks: two unrecognized tries advance anyway, no star', async () => {
