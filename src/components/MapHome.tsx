@@ -3,6 +3,7 @@ import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
 import { isSpeechAvailable } from '../audio/speak';
 import { isDue } from '../game/srs';
+import { dayKey, displayStreak, playedToday } from '../game/streak';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { PATH, badgeEnv, nextSkillId } from '../game/path';
 
@@ -21,6 +22,10 @@ export default function MapHome() {
   const dueCount = reviewItems.filter((i) => srs[i.id] && isDue(srs[i.id], now)).length;
   const seenCount = reviewItems.filter((i) => srs[i.id]).length;
 
+  const today = dayKey(now);
+  const streak = displayStreak(activeChild?.lastPlayedDay, activeChild?.streakDays, today);
+  const doneToday = playedToday(activeChild?.lastPlayedDay, today);
+
   const earned = activeChild ? earnedBadgeIds(activeChild, badgeEnv) : new Set<string>();
   const nextId = nextSkillId(activeChild);
 
@@ -29,6 +34,27 @@ export default function MapHome() {
       <h1 className="greeting">
         Hei{name ? `, ${name}` : ''}! <span className="en">Your Finnish path</span>
       </h1>
+
+      <div className={'streak' + (doneToday ? ' streak--today' : '')} aria-label="Practice streak">
+        <span className="streak__flame" aria-hidden="true">
+          {streak >= 2 ? '🔥' : doneToday ? '🌟' : '👋'}
+        </span>
+        <span className="streak__text">
+          {streak >= 2 ? (
+            <>
+              {streak} päivää putkeen! <span className="en">{streak}-day streak</span>
+            </>
+          ) : doneToday ? (
+            <>
+              Hienoa työtä tänään! <span className="en">Great work today</span>
+            </>
+          ) : (
+            <>
+              Pelataan tänään! <span className="en">Let's practice today</span>
+            </>
+          )}
+        </span>
+      </div>
 
       <div className="badge-strip" aria-label="Badges">
         {BADGES.map((b) => {

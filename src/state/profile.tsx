@@ -18,6 +18,7 @@ import {
 import { setMuted } from '../audio/mute';
 import { review } from '../game/srs';
 import { recordRoundOnChild } from '../game/progress';
+import { bumpStreak, dayKey } from '../game/streak';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
 
@@ -182,7 +183,10 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         })),
 
       recordRound: (topicId, activityId, stars, total, maxLevel) =>
-        updateActive((c) => recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel)),
+        updateActive((c) => ({
+          ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel),
+          ...bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now())),
+        })),
 
       settings: data.settings,
       updateSettings: (patch) =>

@@ -57,6 +57,14 @@ export interface Child {
   progress: Progress;
   /** Per-item spaced-repetition schedules (attempts + due dates). */
   srs: SrsState;
+  /**
+   * Local calendar day of the most recent finished round, e.g. "2026-07-09".
+   * Optional + unbackfilled so older stored profiles round-trip unchanged
+   * (readers treat missing as "never played"). See `src/game/streak.ts`.
+   */
+  lastPlayedDay?: string;
+  /** Consecutive days practiced, including today. Optional (see lastPlayedDay). */
+  streakDays?: number;
 }
 
 export interface Settings {

@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { ProfileProvider, useProfile } from './profile';
 import { localProfileStore } from './storage';
+import { dayKey } from '../game/streak';
 
 function renderProfile() {
   return renderHook(() => useProfile(), { wrapper: ProfileProvider });
@@ -136,6 +137,27 @@ describe('ProfileProvider / useProfile', () => {
       totalStars: 10,
       totalPossible: 12,
     });
+  });
+
+  it('recordRound starts a daily-practice streak on the active child', () => {
+    const { result } = renderProfile();
+    act(() => {
+      result.current.addChild('Aino');
+    });
+    expect(result.current.activeChild?.streakDays).toBeUndefined();
+
+    act(() => {
+      result.current.recordRound('animals', 'listen', 6, 6);
+    });
+    // First play today: streak of 1, dated to today.
+    expect(result.current.activeChild?.streakDays).toBe(1);
+    expect(result.current.activeChild?.lastPlayedDay).toBe(dayKey(Date.now()));
+
+    // Another round the same day doesn't inflate the count.
+    act(() => {
+      result.current.recordRound('animals', 'listen', 6, 6);
+    });
+    expect(result.current.activeChild?.streakDays).toBe(1);
   });
 
   it('recordAttempt builds per-item SRS state on the active child', () => {
