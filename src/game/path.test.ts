@@ -324,6 +324,16 @@ describe('learning path', () => {
     expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(conj, 4, n, true))).not.toContain('say');
   });
 
+  it('adds a "Read a sentence" authentic-reading node to the capstone chapter', () => {
+    const found = findSkill('reading')!;
+    expect(found.skill.activity).toBe('reading');
+    const el = renderActivity(found.skill, 'reading', () => {});
+    expect(el).not.toBeNull();
+    // Draws from the mixed noun pool (default) — real items to picture.
+    const items = (el!.props as { items?: unknown[] }).items ?? [];
+    expect(items.length).toBeGreaterThan(0);
+  });
+
   it('adds a Conversations chapter with a greetings dialogue node', () => {
     const found = findSkill('greetings')!;
     expect(found.chapter.id).toBe('conversations');

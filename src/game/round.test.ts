@@ -12,8 +12,10 @@ import {
   buildComprehensionRound,
   buildSayRound,
   buildDialogueRound,
+  buildReadingRound,
 } from './round';
 import { dialogues } from '../content/dialogues';
+import { kidSafeExamples } from '../content/examples';
 import {
   animals,
   numbers,
@@ -238,6 +240,32 @@ describe('buildSayRound', () => {
     for (let r = 0; r < RUNS; r++) {
       for (const q of buildSayRound(animals.items, nounConstructions, 6, 2)) {
         expect(q.say).not.toMatch(/\bei\b/); // no tier-3 negation at maxTier 2
+      }
+    }
+  });
+});
+
+describe('buildReadingRound', () => {
+  it('pairs a real kid-safe example with the pictured item + distinct options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildReadingRound(animals.items, 6, 3);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // The sentence is one of the item's own kid-safe examples.
+        expect(kidSafeExamples(q.item).map((e) => e.fi)).toContain(q.sentence.fi);
+        expect(q.sentence.en).toBeTruthy();
+        // Answer present once; options distinct + picturable.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('only ever asks about items that actually have a safe example', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildReadingRound(animals.items, 6, 3)) {
+        expect(kidSafeExamples(q.item).length).toBeGreaterThan(0);
       }
     }
   });

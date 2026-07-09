@@ -27,6 +27,7 @@ import ConjugateVerb from '../components/ConjugateVerb';
 import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
 import DialogueGame from '../components/DialogueGame';
+import ReadAndListen from '../components/ReadAndListen';
 
 // The learning PATH — the single source of truth for the journey-map home.
 //
@@ -56,6 +57,7 @@ export type ActivityKind =
   | 'sentence'
   | 'sentence-type'
   | 'dialogue'
+  | 'reading'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -421,6 +423,10 @@ const baseChapters: Chapter[] = [
       // Same reasoning as `order` above — self-ramps via the inflected-form
       // grammar, no second game.
       { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
+      // Authentic reading: real sourced example sentences (kid-safety filtered),
+      // read + heard, tap the picture they're about. Comprehensible input over
+      // the mixed noun pool. Depth comes from the option count + tricky lever.
+      { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -724,6 +730,9 @@ export function renderActivity(
       // Choose the right reply to a Finnish greeting/courtesy. Draws from the
       // hand-authored dialogue registry; tier-gated by the adaptive level.
       return <DialogueGame onExit={onExit} />;
+    case 'reading':
+      // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
+      return <ReadAndListen items={items} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

@@ -13,6 +13,8 @@ import type {
 import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
+import { kidSafeExamples } from '../content/examples';
+import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -124,6 +126,41 @@ export function buildSayRound(
     emoji: it.emoji,
     attemptId: it.id,
   }));
+}
+
+// --- Authentic reading (real example sentences) --------------------------
+//
+// Read/hear a REAL sourced example sentence and tap the picture it's about —
+// comprehensible input with genuine Finnish, not a generated carrier phrase.
+// Only kid-safe examples are used (see content/examples.ts); the English is
+// revealed by the UI after the answer, so the child parses the Finnish first.
+
+export interface ReadingQuestion {
+  /** A real, kid-safe example sentence ({ fi, en }). */
+  sentence: Example;
+  /** The item the sentence features — its picture is the answer. */
+  item: LexicalItem;
+  /** Picture options (item + distractors). */
+  options: LexicalItem[];
+}
+
+export function buildReadingRound(
+  items: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
+): ReadingQuestion[] {
+  const picturable = items.filter((i) => i.emoji);
+  const withExamples = picturable.filter((i) => kidSafeExamples(i).length > 0);
+  const chosen = weightedSample(withExamples, Math.min(questionCount, withExamples.length), weigh);
+  return chosen.map((item) => {
+    const sentence = sample(kidSafeExamples(item), 1)[0];
+    const others = picturable.filter((i) => i.id !== item.id);
+    const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return { sentence, item, options: shuffle([item, ...distractors]) };
+  });
 }
 
 // --- Conversations (choose the right reply) ------------------------------
