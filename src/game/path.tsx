@@ -26,6 +26,7 @@ import MatchTheWord from '../components/MatchTheWord';
 import ConjugateVerb from '../components/ConjugateVerb';
 import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
+import DialogueGame from '../components/DialogueGame';
 
 // The learning PATH — the single source of truth for the journey-map home.
 //
@@ -54,6 +55,7 @@ export type ActivityKind =
   | 'spell'
   | 'sentence'
   | 'sentence-type'
+  | 'dialogue'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -473,7 +475,29 @@ const sentencesChapter: Chapter = {
   skills: sentenceSkills,
 };
 
-export const PATH: Chapter[] = [...baseChapters, sentencesChapter];
+// Conversations — everyday greetings/courtesies as a "choose the right reply"
+// game. Communicative Finnish the drill formats can't teach; content is the
+// hand-authored dialogue registry (src/content/dialogues.ts).
+const conversationsChapter: Chapter = {
+  id: 'conversations',
+  titleFi: 'Keskustelut',
+  titleEn: 'Conversations',
+  accent: '#ec4899',
+  icon: '💬',
+  skills: [
+    {
+      id: 'greetings',
+      titleFi: 'Tervehdykset',
+      titleEn: 'Greetings',
+      icon: '👋',
+      activity: 'dialogue',
+      maxLevel: 3,
+      content: {},
+    },
+  ],
+};
+
+export const PATH: Chapter[] = [...baseChapters, conversationsChapter, sentencesChapter];
 
 // --- Lookups + progression helpers ---------------------------------------
 
@@ -696,6 +720,10 @@ export function renderActivity(
           onExit={onExit}
         />
       );
+    case 'dialogue':
+      // Choose the right reply to a Finnish greeting/courtesy. Draws from the
+      // hand-authored dialogue registry; tier-gated by the adaptive level.
+      return <DialogueGame onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

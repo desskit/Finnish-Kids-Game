@@ -324,6 +324,15 @@ describe('learning path', () => {
     expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(conj, 4, n, true))).not.toContain('say');
   });
 
+  it('adds a Conversations chapter with a greetings dialogue node', () => {
+    const found = findSkill('greetings')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('dialogue');
+    // Renders a real dialogue game (no items/constructions props — draws from
+    // the dialogue registry internally).
+    expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();
+  });
+
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');

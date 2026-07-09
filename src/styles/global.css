@@ -910,6 +910,72 @@ button:focus-visible,
   animation: correctpop 0.45s ease-out;
 }
 
+/* ---------- Conversations ---------- */
+.dialogue-said {
+  margin: 0;
+  font-size: clamp(1.4rem, 4.6vw, 2.2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+}
+
+.reply-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.reply-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: var(--tap);
+  padding: clamp(10px, 2.4vw, 16px) clamp(16px, 4vw, 24px);
+  padding-left: clamp(40px, 9vw, 52px);
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: transform 0.08s ease;
+}
+
+.reply-tile:active {
+  transform: scale(0.98);
+}
+
+.reply-tile__num {
+  position: absolute;
+  left: clamp(14px, 3.5vw, 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--ink-soft);
+}
+
+.reply-tile__fi {
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+}
+
+.reply-tile__en {
+  font-size: clamp(0.8rem, 2.4vw, 1rem);
+}
+
+.reply-tile--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.reply-tile--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
 /* ---------- Say it (speaking) ---------- */
 .say-target {
   margin: 0;

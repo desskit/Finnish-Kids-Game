@@ -11,7 +11,9 @@ import {
   buildReviewRound,
   buildComprehensionRound,
   buildSayRound,
+  buildDialogueRound,
 } from './round';
+import { dialogues } from '../content/dialogues';
 import {
   animals,
   numbers,
@@ -236,6 +238,35 @@ describe('buildSayRound', () => {
     for (let r = 0; r < RUNS; r++) {
       for (const q of buildSayRound(animals.items, nounConstructions, 6, 2)) {
         expect(q.say).not.toMatch(/\bei\b/); // no tier-3 negation at maxTier 2
+      }
+    }
+  });
+});
+
+describe('buildDialogueRound', () => {
+  it('keeps the right reply present with distinct, real options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildDialogueRound(dialogues, 6, 3, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.options).toHaveLength(3);
+        expect(q.options.filter((o) => o.fi === q.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(q.options.map((o) => o.fi)).size).toBe(q.options.length); // distinct
+        // Every option is a real authored reply/distractor (has fi + en).
+        q.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('tier-gates harder exchanges out of a low-tier round', () => {
+    // At maxTier 1 only the simplest greetings play — the tier-2 "name/age"
+    // exchanges must never appear.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, 6, 3, 1)) {
+        expect(q.prompt.fi).not.toMatch(/nimesi|vanha/);
       }
     }
   });

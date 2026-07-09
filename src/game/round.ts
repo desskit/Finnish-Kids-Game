@@ -12,6 +12,7 @@ import type {
 } from '../content/types';
 import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
+import type { DialogueExchange, DialogueLine } from '../content/dialogues';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -123,6 +124,45 @@ export function buildSayRound(
     emoji: it.emoji,
     attemptId: it.id,
   }));
+}
+
+// --- Conversations (choose the right reply) ------------------------------
+//
+// Hear/read the other speaker's line, pick the appropriate reply. Distractors
+// are real Finnish for OTHER moments, so the skill is pragmatic ("what do you
+// say back?"), not spotting broken Finnish. Content is human-authored.
+
+export interface DialogueQuestion {
+  prompt: DialogueLine;
+  /** The correct reply. */
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export function buildDialogueRound(
+  exchanges: readonly DialogueExchange[],
+  questionCount: number,
+  optionCount: number,
+  maxTier: Tier = 4,
+): DialogueQuestion[] {
+  const byTier = exchanges.filter((e) => e.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : exchanges;
+  const chosen = sample(allowed, Math.min(questionCount, allowed.length));
+  return chosen.map((ex) => {
+    // The exchange's own wrong replies, backfilled with other exchanges' correct
+    // replies (real Finnish, just wrong for THIS prompt). Deduped by text.
+    const seen = new Set([ex.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const r of [...ex.distractors, ...allowed.filter((e) => e.id !== ex.id).map((e) => e.reply)]) {
+      if (!seen.has(r.fi)) {
+        seen.add(r.fi);
+        pool.push(r);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { prompt: ex.prompt, reply: ex.reply, options: shuffle([ex.reply, ...distractors]) };
+  });
 }
 
 // --- Sentence listening comprehension ------------------------------------
