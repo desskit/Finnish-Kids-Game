@@ -81,11 +81,11 @@ describe('content integrity', () => {
     }
   });
 
-  it('gives number words the values 1..10', () => {
+  it('gives number words the values 1..20', () => {
     const values = numbers.items.map((n) => n.value);
     values.forEach((v) => expect(typeof v).toBe('number'));
     expect([...(values as number[])].sort((a, b) => a - b)).toEqual([
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     ]);
   });
 
