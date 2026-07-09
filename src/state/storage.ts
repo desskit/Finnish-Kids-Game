@@ -64,6 +64,13 @@ export interface Settings {
   muted: boolean;
   /** Force reduced motion even if the OS doesn't request it. */
   reducedMotion: boolean;
+  /**
+   * Allow the microphone-based speaking game ("Sano se"). Default on where the
+   * browser supports recognition; a grown-up can switch it off here. Optional +
+   * unbackfilled so older stored settings round-trip (readers treat missing as
+   * enabled — see DEFAULT_SETTINGS).
+   */
+  speakingEnabled?: boolean;
 }
 
 export interface ProfilesData {
@@ -73,7 +80,11 @@ export interface ProfilesData {
   settings: Settings;
 }
 
-export const DEFAULT_SETTINGS: Settings = { muted: false, reducedMotion: false };
+export const DEFAULT_SETTINGS: Settings = {
+  muted: false,
+  reducedMotion: false,
+  speakingEnabled: true,
+};
 
 /** Avatar palette offered when adding a child. */
 export const AVATARS = [

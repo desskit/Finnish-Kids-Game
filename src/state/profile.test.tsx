@@ -163,7 +163,11 @@ describe('ProfileProvider / useProfile', () => {
     act(() => {
       result.current.updateSettings({ muted: true });
     });
-    expect(result.current.settings).toEqual({ muted: true, reducedMotion: false });
+    expect(result.current.settings).toEqual({
+      muted: true,
+      reducedMotion: false,
+      speakingEnabled: true,
+    });
   });
 
   it('resetAll clears every child and settings back to defaults', () => {
@@ -177,6 +181,10 @@ describe('ProfileProvider / useProfile', () => {
     });
     expect(result.current.children).toEqual([]);
     expect(result.current.activeId).toBeNull();
-    expect(result.current.settings).toEqual({ muted: false, reducedMotion: false });
+    expect(result.current.settings).toEqual({
+      muted: false,
+      reducedMotion: false,
+      speakingEnabled: true,
+    });
   });
 });

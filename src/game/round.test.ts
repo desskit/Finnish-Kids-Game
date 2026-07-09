@@ -10,6 +10,7 @@ import {
   buildConjugationRound,
   buildReviewRound,
   buildComprehensionRound,
+  buildSayRound,
 } from './round';
 import {
   animals,
@@ -198,6 +199,43 @@ describe('buildComprehensionRound', () => {
     for (let r = 0; r < RUNS; r++) {
       for (const q of buildComprehensionRound(animals.items, nounConstructions, 6, 3, 2)) {
         expect(q.sentence).not.toMatch(/\bei\b/);
+      }
+    }
+  });
+});
+
+describe('buildSayRound', () => {
+  it('says bare words when no constructions are given', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildSayRound(animals.items, [], 6, 4);
+      expect(round.length).toBe(Math.min(6, animals.items.length));
+      for (const q of round) {
+        // The target is a single sourced word matching a real item.
+        const item = animals.items.find((i) => i.id === q.attemptId)!;
+        expect(item).toBeTruthy();
+        expect(q.say).toBe(item.fi);
+        expect(q.gloss).toBe(item.en);
+        expect(q.emoji).toBe(item.emoji);
+      }
+    }
+  });
+
+  it('says full carrier phrases when constructions are given', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildSayRound(animals.items, nounConstructions, 6, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.say.split(' ').length).toBeGreaterThan(1); // a phrase, not a word
+        expect(q.gloss.length).toBeGreaterThan(0);
+        expect(q.attemptId).toBeTruthy();
+      }
+    }
+  });
+
+  it('tier-gates the phrases it draws from', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildSayRound(animals.items, nounConstructions, 6, 2)) {
+        expect(q.say).not.toMatch(/\bei\b/); // no tier-3 negation at maxTier 2
       }
     }
   });
