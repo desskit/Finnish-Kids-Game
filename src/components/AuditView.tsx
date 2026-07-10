@@ -110,7 +110,7 @@ export default function AuditView() {
   // The game element for the active entry (built outside the sandbox providers;
   // its hooks run once mounted inside them).
   const gameEl = useMemo(() => {
-    if (entry.kind === 'review') return <ReviewActivity />;
+    if (entry.kind === 'review') return <ReviewActivity embedded />;
     const skill = entry.skillId ? findSkill(entry.skillId)?.skill : undefined;
     if (!skill) return null;
     return renderActivity(skill, entry.kind, noop);

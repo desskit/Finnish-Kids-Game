@@ -490,6 +490,14 @@ button:focus-visible,
   font-size: 1.6rem;
 }
 
+/* Holds the back-button's space in an activity header that has no back action
+   (e.g. an embedded audit game), so the title stays put. */
+.icon-btn--placeholder {
+  display: inline-block;
+  background: none;
+  box-shadow: none;
+}
+
 .en {
   display: inline-block;
   color: var(--ink-soft);
@@ -1951,6 +1959,13 @@ button:focus-visible,
 .audit-game .screen {
   min-height: 420px;
   padding: 14px;
+}
+
+/* Embedded games keep their header layout but drop the app "back to the map"
+   arrow — navigation out of a game belongs to the audit chrome, not the game.
+   (Review is handled properly via its `embedded` prop; this covers the rest.) */
+.audit-game .activity-header .icon-btn {
+  visibility: hidden;
 }
 
 .audit-roundcomplete,

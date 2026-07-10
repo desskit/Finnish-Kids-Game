@@ -2,7 +2,9 @@ interface Props {
   stars: number;
   total: number;
   onAgain: () => void;
-  onHome: () => void;
+  /** Go back to the map. Omitted (e.g. in the audit harness) hides the button
+   *  so the round can't navigate out of an embedding context. */
+  onHome?: () => void;
 }
 
 // End-of-round celebration — used only by Review now. A Review round is a
@@ -32,9 +34,11 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
         <button className="btn btn--primary" onClick={onAgain} autoFocus>
           Jatka <span className="en">Keep going</span>
         </button>
-        <button className="btn" onClick={onHome}>
-          Koti <span className="en">Home</span>
-        </button>
+        {onHome && (
+          <button className="btn" onClick={onHome}>
+            Koti <span className="en">Home</span>
+          </button>
+        )}
       </div>
     </section>
   );
