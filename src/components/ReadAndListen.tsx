@@ -31,8 +31,9 @@ export default function ReadAndListen({ items, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildReadingRound(items, QUESTIONS, optionCount, tricky, weigh),
-    [items, optionCount, tricky, weigh, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () => buildReadingRound(items, QUESTIONS, optionCount, tricky, weigh).slice(0, ctx?.roundQuestions),
+    [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

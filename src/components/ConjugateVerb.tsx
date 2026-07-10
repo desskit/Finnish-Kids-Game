@@ -39,8 +39,13 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildConjugationRound(verbs, QUESTIONS, optionCount, verbCombos, tricky, weigh),
-    [verbs, optionCount, verbCombos, tricky, weigh, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () =>
+      buildConjugationRound(verbs, QUESTIONS, optionCount, verbCombos, tricky, weigh).slice(
+        0,
+        ctx?.roundQuestions,
+      ),
+    [verbs, optionCount, verbCombos, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

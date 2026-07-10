@@ -36,8 +36,13 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildCountingRound(numbers, nouns, QUESTIONS, optionCount, maxCount, tricky, weigh),
-    [numbers, nouns, optionCount, maxCount, tricky, weigh, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () =>
+      buildCountingRound(numbers, nouns, QUESTIONS, optionCount, maxCount, tricky, weigh).slice(
+        0,
+        ctx?.roundQuestions,
+      ),
+    [numbers, nouns, optionCount, maxCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

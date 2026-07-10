@@ -39,6 +39,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
       buildAgreementRound(
         adjectives,
@@ -49,8 +50,8 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         maxCases,
         tricky,
         weigh,
-      ),
-    [adjectives, nouns, optionCount, maxCases, tricky, weigh, runId],
+      ).slice(0, ctx?.roundQuestions),
+    [adjectives, nouns, optionCount, maxCases, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

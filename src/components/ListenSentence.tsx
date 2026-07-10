@@ -34,9 +34,13 @@ export default function ListenSentence({ items, constructions, onExit }: Props) 
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildComprehensionRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh),
-    [items, constructions, optionCount, maxTier, tricky, weigh, runId],
+      buildComprehensionRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh).slice(
+        0,
+        ctx?.roundQuestions,
+      ),
+    [items, constructions, optionCount, maxTier, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

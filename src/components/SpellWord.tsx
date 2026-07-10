@@ -77,9 +77,11 @@ export default function SpellWord({
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SpellTarget[]>(() => {
-    if (buildRound) return buildRound(maxTier);
-    if (constructions && constructions.length > 0) {
-      return buildSpellingPhraseRound(items ?? [], constructions, QUESTIONS, maxTier, weigh).map(
+    let full: SpellTarget[];
+    if (buildRound) {
+      full = buildRound(maxTier);
+    } else if (constructions && constructions.length > 0) {
+      full = buildSpellingPhraseRound(items ?? [], constructions, QUESTIONS, maxTier, weigh).map(
         (q) => ({
           id: q.item.id,
           text: q.target,
@@ -87,16 +89,19 @@ export default function SpellWord({
           gloss: q.construction.en,
         }),
       );
+    } else {
+      full = buildSpellingRound(items ?? [], QUESTIONS, weigh).map((it) => ({
+        id: it.id,
+        text: it.fi,
+        emoji: it.emoji,
+        gloss: it.en,
+      }));
     }
-    return buildSpellingRound(items ?? [], QUESTIONS, weigh).map((it) => ({
-      id: it.id,
-      text: it.fi,
-      emoji: it.emoji,
-      gloss: it.en,
-    }));
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    return full.slice(0, ctx?.roundQuestions);
     // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, constructions, maxTier, runId]);
+  }, [items, constructions, maxTier, runId, ctx?.roundQuestions]);
 
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState('');

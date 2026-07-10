@@ -35,8 +35,10 @@ export default function ListenAndTap({ items, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh),
-    [items, optionCount, tricky, weigh, runId],
+    // `roundQuestions` (set by the Audit harness) caps the round so the game
+    // stops after each answer for grading; unset in normal play = full round.
+    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(0, ctx?.roundQuestions),
+    [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

@@ -123,6 +123,9 @@ export default function AuditView() {
       onSegmentComplete: () => setRoundComplete(true),
       difficulty: difficultyFor(level),
       sessionStars: 0,
+      // One question per round: the game stops after each answer for grading,
+      // instead of auto-advancing through a whole round.
+      roundQuestions: 1,
     }),
     [level],
   );
@@ -258,7 +261,7 @@ export default function AuditView() {
             <p>{entry.desc}</p>
             <p className="audit-label__meta">
               Test #{attempts}
-              {roundComplete && ' · round complete — grade it or Next'}
+              {roundComplete && ' · answered — grade it or Next'}
             </p>
           </div>
 
@@ -267,8 +270,8 @@ export default function AuditView() {
               <ActivityContext.Provider value={ctxValue}>
                 {roundComplete ? (
                   <div className="audit-roundcomplete">
-                    <p>✓ Round complete</p>
-                    <p className="en">Grade it, or press Next to try again.</p>
+                    <p>✓ Answered</p>
+                    <p className="en">Grade it, or press Next for another.</p>
                   </div>
                 ) : gameEl ? (
                   cloneElement(gameEl, { key: `${entry.id}-${level}-${gameKey}` })

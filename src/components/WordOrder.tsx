@@ -66,18 +66,21 @@ export default function WordOrder({
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<SentenceQuestion[]>(() => {
-    if (buildRound) return buildRound(maxTier);
-    return buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier, weigh).map((q) => ({
-      hintEn: englishSentenceFor(q.item, q.construction),
-      sentence: q.sentence,
-      tokens: q.tokens,
-      shuffled: q.shuffled,
-      attemptId: q.item.id,
-      emoji: q.item.emoji,
-    }));
+    const full = buildRound
+      ? buildRound(maxTier)
+      : buildWordOrderRound(items ?? [], constructions ?? [], QUESTIONS, maxTier, weigh).map((q) => ({
+          hintEn: englishSentenceFor(q.item, q.construction),
+          sentence: q.sentence,
+          tokens: q.tokens,
+          shuffled: q.shuffled,
+          attemptId: q.item.id,
+          emoji: q.item.emoji,
+        }));
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    return full.slice(0, ctx?.roundQuestions);
     // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, constructions, maxTier, runId]);
+  }, [items, constructions, maxTier, runId, ctx?.roundQuestions]);
 
   const [index, setIndex] = useState(0);
   const [placed, setPlaced] = useState<WordOrderToken[]>([]);
