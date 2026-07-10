@@ -12,6 +12,10 @@ import type {
 } from '../content/types';
 import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
+import type { DialogueExchange, DialogueLine } from '../content/dialogues';
+import type { Conversation } from '../content/conversations';
+import { kidSafeExamples } from '../content/examples';
+import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -87,6 +91,15 @@ export interface SayTarget {
   attemptId?: string;
 }
 
+/**
+ * Speaking lags production: even on a high-level node, the child is only asked
+ * to SAY the simple frames ("Tämä on kissa", "Pidän kissasta"), never the
+ * advanced case gymnastics a WRITTEN capstone reaches ("Kissat ovat
+ * laatikoissa"). Capping the spoken tier keeps every target pronounceable —
+ * and keeps child-voice ASR (already unreliable) from being handed a mouthful.
+ */
+export const SAY_MAX_TIER = 3;
+
 export function buildSayRound(
   items: readonly LexicalItem[],
   constructions: readonly Construction[],
@@ -95,7 +108,8 @@ export function buildSayRound(
   weigh?: WeighFn,
 ): SayTarget[] {
   if (constructions.length > 0) {
-    const byTier = constructions.filter((c) => c.tier <= maxTier);
+    const spokenTier = Math.min(maxTier, SAY_MAX_TIER) as Tier;
+    const byTier = constructions.filter((c) => c.tier <= spokenTier);
     const allowed = byTier.length > 0 ? byTier : constructions;
     const pool: { construction: Construction; item: LexicalItem }[] = [];
     for (const construction of allowed) {
@@ -123,6 +137,152 @@ export function buildSayRound(
     emoji: it.emoji,
     attemptId: it.id,
   }));
+}
+
+// --- Authentic reading (real example sentences) --------------------------
+//
+// Read/hear a REAL sourced example sentence and tap the picture it's about —
+// comprehensible input with genuine Finnish, not a generated carrier phrase.
+// Only kid-safe examples are used (see content/examples.ts); the English is
+// revealed by the UI after the answer, so the child parses the Finnish first.
+
+export interface ReadingQuestion {
+  /** A real, kid-safe example sentence ({ fi, en }). */
+  sentence: Example;
+  /** The item the sentence features — its picture is the answer. */
+  item: LexicalItem;
+  /** Picture options (item + distractors). */
+  options: LexicalItem[];
+}
+
+export function buildReadingRound(
+  items: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
+): ReadingQuestion[] {
+  const picturable = items.filter((i) => i.emoji);
+  const withExamples = picturable.filter((i) => kidSafeExamples(i).length > 0);
+  const chosen = weightedSample(withExamples, Math.min(questionCount, withExamples.length), weigh);
+  return chosen.map((item) => {
+    const sentence = sample(kidSafeExamples(item), 1)[0];
+    const others = picturable.filter((i) => i.id !== item.id);
+    const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return { sentence, item, options: shuffle([item, ...distractors]) };
+  });
+}
+
+// --- Conversations (choose the right reply) ------------------------------
+//
+// Hear/read the other speaker's line, pick the appropriate reply. Distractors
+// are real Finnish for OTHER moments, so the skill is pragmatic ("what do you
+// say back?"), not spotting broken Finnish. Content is human-authored.
+
+export interface DialogueQuestion {
+  prompt: DialogueLine;
+  /** The correct reply. */
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export function buildDialogueRound(
+  exchanges: readonly DialogueExchange[],
+  questionCount: number,
+  optionCount: number,
+  maxTier: Tier = 4,
+): DialogueQuestion[] {
+  const byTier = exchanges.filter((e) => e.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : exchanges;
+  const chosen = sample(allowed, Math.min(questionCount, allowed.length));
+  return chosen.map((ex) => {
+    // The exchange's own wrong replies, backfilled with other exchanges' correct
+    // replies (real Finnish, just wrong for THIS prompt). Deduped by text.
+    const seen = new Set([ex.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const r of [...ex.distractors, ...allowed.filter((e) => e.id !== ex.id).map((e) => e.reply)]) {
+      if (!seen.has(r.fi)) {
+        seen.add(r.fi);
+        pool.push(r);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { prompt: ex.prompt, reply: ex.reply, options: shuffle([ex.reply, ...distractors]) };
+  });
+}
+
+// --- Small talk (hold a multi-turn conversation) -------------------------
+//
+// One tier-gated scene per segment; the child steers it turn by turn. Each turn
+// presents the partner's line + reply tiles (the fitting reply plus real
+// wrong-move distractors, backfilled from the scene's other lines to fill the
+// tiles). A fixed golden path — no branching — so every scene is one vetted
+// script. Content is the hand-authored conversation registry.
+
+export interface ConversationTurnQuestion {
+  partner: DialogueLine;
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export interface ConversationRound {
+  id: string;
+  titleFi: string;
+  titleEn: string;
+  icon: string;
+  partnerIcon: string;
+  turns: ConversationTurnQuestion[];
+}
+
+export function buildConversation(
+  scenes: readonly Conversation[],
+  optionCount: number,
+  maxTier: Tier = 4,
+): ConversationRound | null {
+  const byTier = scenes.filter((s) => s.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : scenes;
+  if (allowed.length === 0) return null;
+  const scene = sample(allowed, 1)[0];
+
+  // A scene-wide pool of plausible wrong lines (every reply + authored
+  // distractor in the scene) to backfill each turn's tiles beyond its own two.
+  const scenePool: DialogueLine[] = [];
+  const poolSeen = new Set<string>();
+  for (const t of scene.turns) {
+    for (const line of [t.reply, ...t.distractors]) {
+      if (!poolSeen.has(line.fi)) {
+        poolSeen.add(line.fi);
+        scenePool.push(line);
+      }
+    }
+  }
+
+  const turns = scene.turns.map((t) => {
+    // Prefer the turn's own distractors, then backfill from the scene pool —
+    // never the correct reply, deduped by text.
+    const seen = new Set([t.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const line of [...t.distractors, ...scenePool]) {
+      if (!seen.has(line.fi)) {
+        seen.add(line.fi);
+        pool.push(line);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { partner: t.partner, reply: t.reply, options: shuffle([t.reply, ...distractors]) };
+  });
+
+  return {
+    id: scene.id,
+    titleFi: scene.titleFi,
+    titleEn: scene.titleEn,
+    icon: scene.icon,
+    partnerIcon: scene.partnerIcon,
+    turns,
+  };
 }
 
 // --- Sentence listening comprehension ------------------------------------

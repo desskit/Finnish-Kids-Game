@@ -324,6 +324,39 @@ describe('learning path', () => {
     expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(conj, 4, n, true))).not.toContain('say');
   });
 
+  it('adds a "Read a sentence" authentic-reading node to the capstone chapter', () => {
+    const found = findSkill('reading')!;
+    expect(found.skill.activity).toBe('reading');
+    const el = renderActivity(found.skill, 'reading', () => {});
+    expect(el).not.toBeNull();
+    // Draws from the mixed noun pool (default) — real items to picture.
+    const items = (el!.props as { items?: unknown[] }).items ?? [];
+    expect(items.length).toBeGreaterThan(0);
+  });
+
+  it('adds a Conversations chapter with a greetings dialogue node', () => {
+    const found = findSkill('greetings')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('dialogue');
+    // Four rungs so the tier-3/4 exchanges (difficultyFor L4 → maxTier 4) can
+    // surface as the node climbs — not just the tier-1/2 greetings.
+    expect(found.skill.maxLevel).toBe(4);
+    // Renders a real dialogue game (no items/constructions props — draws from
+    // the dialogue registry internally).
+    expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();
+  });
+
+  it('adds a Small talk node — the greetings pieces strung into a scene', () => {
+    const found = findSkill('small-talk')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('conversation');
+    // Greetings (the pairs) come before Small talk (the connected discourse).
+    const nodeIds = found.chapter.skills.map((s) => s.id);
+    expect(nodeIds).toEqual(['greetings', 'small-talk']);
+    // Renders a real conversation scene (draws from the conversation registry).
+    expect(renderActivity(found.skill, 'conversation', () => {})).not.toBeNull();
+  });
+
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');

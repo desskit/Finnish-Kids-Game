@@ -16,7 +16,7 @@ export default function GrownUp() {
     <main className="app">
       <section className="screen grownup">
         <header className="grownup__head">
-          <Link className="icon-btn" to="/" aria-label="Back to app">
+          <Link className="icon-btn" to="/" aria-label="Back to the map">
             ⬅︎
           </Link>
           <h1 className="grownup__title">
@@ -33,6 +33,9 @@ export default function GrownUp() {
           </NavLink>
           <NavLink to="/grown-up/settings" className={tabClass}>
             Asetukset <span className="en">Settings</span>
+          </NavLink>
+          <NavLink to="/grown-up/audit" className={tabClass}>
+            Auditointi <span className="en">Audit</span>
           </NavLink>
         </nav>
 

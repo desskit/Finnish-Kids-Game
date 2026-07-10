@@ -26,6 +26,9 @@ import MatchTheWord from '../components/MatchTheWord';
 import ConjugateVerb from '../components/ConjugateVerb';
 import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
+import DialogueGame from '../components/DialogueGame';
+import ConversationScene from '../components/ConversationScene';
+import ReadAndListen from '../components/ReadAndListen';
 
 // The learning PATH — the single source of truth for the journey-map home.
 //
@@ -54,6 +57,9 @@ export type ActivityKind =
   | 'spell'
   | 'sentence'
   | 'sentence-type'
+  | 'dialogue'
+  | 'conversation'
+  | 'reading'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -419,6 +425,10 @@ const baseChapters: Chapter[] = [
       // Same reasoning as `order` above — self-ramps via the inflected-form
       // grammar, no second game.
       { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
+      // Authentic reading: real sourced example sentences (kid-safety filtered),
+      // read + heard, tap the picture they're about. Comprehensible input over
+      // the mixed noun pool. Depth comes from the option count + tricky lever.
+      { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -473,7 +483,42 @@ const sentencesChapter: Chapter = {
   skills: sentenceSkills,
 };
 
-export const PATH: Chapter[] = [...baseChapters, sentencesChapter];
+// Conversations — everyday greetings/courtesies as a "choose the right reply"
+// game. Communicative Finnish the drill formats can't teach; content is the
+// hand-authored dialogue registry (src/content/dialogues.ts).
+const conversationsChapter: Chapter = {
+  id: 'conversations',
+  titleFi: 'Keskustelut',
+  titleEn: 'Conversations',
+  accent: '#ec4899',
+  icon: '💬',
+  skills: [
+    {
+      id: 'greetings',
+      titleFi: 'Tervehdykset',
+      titleEn: 'Greetings',
+      icon: '👋',
+      activity: 'dialogue',
+      // Four rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
+      // (favourites, turn-taking). difficultyFor maps L4 → maxTier 4.
+      maxLevel: 4,
+      content: {},
+    },
+    {
+      // The pieces strung together: hold a whole short scene, turn by turn.
+      // Greetings (the adjacency pairs) → Small talk (connected discourse).
+      id: 'small-talk',
+      titleFi: 'Jutellaan',
+      titleEn: 'Small talk',
+      icon: '🗣️',
+      activity: 'conversation',
+      maxLevel: 4,
+      content: {},
+    },
+  ],
+};
+
+export const PATH: Chapter[] = [...baseChapters, conversationsChapter, sentencesChapter];
 
 // --- Lookups + progression helpers ---------------------------------------
 
@@ -696,6 +741,17 @@ export function renderActivity(
           onExit={onExit}
         />
       );
+    case 'dialogue':
+      // Choose the right reply to a Finnish greeting/courtesy. Draws from the
+      // hand-authored dialogue registry; tier-gated by the adaptive level.
+      return <DialogueGame onExit={onExit} />;
+    case 'conversation':
+      // Hold a short multi-turn scene (the greetings pieces, strung together).
+      // Draws from the hand-authored conversation registry; tier-gated.
+      return <ConversationScene onExit={onExit} />;
+    case 'reading':
+      // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
+      return <ReadAndListen items={items} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

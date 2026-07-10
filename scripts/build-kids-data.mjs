@@ -58,6 +58,20 @@ const NUMBERS = [
   ['eight', 'kahdeksan', 'eight', '8️⃣', 8],
   ['nine', 'yhdeksän', 'nine', '9️⃣', 9],
   ['ten', 'kymmenen', 'ten', '🔟', 10],
+  // 11-20: no keycap emoji exists past ten, so the "emoji" is the numeral
+  // itself (renders as big digits on a card). Counting only ever uses the
+  // nominative word + value, so these unlock the higher counting rungs (the
+  // count node scales to 20) that stopped dead at ten before.
+  ['eleven', 'yksitoista', 'eleven', '11', 11],
+  ['twelve', 'kaksitoista', 'twelve', '12', 12],
+  ['thirteen', 'kolmetoista', 'thirteen', '13', 13],
+  ['fourteen', 'neljätoista', 'fourteen', '14', 14],
+  ['fifteen', 'viisitoista', 'fifteen', '15', 15],
+  ['sixteen', 'kuusitoista', 'sixteen', '16', 16],
+  ['seventeen', 'seitsemäntoista', 'seventeen', '17', 17],
+  ['eighteen', 'kahdeksantoista', 'eighteen', '18', 18],
+  ['nineteen', 'yhdeksäntoista', 'nineteen', '19', 19],
+  ['twenty', 'kaksikymmentä', 'twenty', '20', 20],
 ];
 
 // Adjectives decline like nouns and AGREE with their noun in case + number, so

@@ -40,7 +40,7 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
 // says are due, backfilled with new words. The FORMAT of each question scales
 // with how well the child knows that item (see ReviewFormat). Records each
 // answer back into SRS, which schedules the next review. Reachable at /review.
-export default function ReviewActivity() {
+export default function ReviewActivity({ embedded = false }: { embedded?: boolean } = {}) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const navigate = useNavigate();
   const optionCount = level >= 2 ? 4 : 3;
@@ -192,7 +192,9 @@ export default function ReviewActivity() {
     setRunId((r) => r + 1);
   }
 
-  const goHome = () => navigate('/');
+  // Embedded (in the grown-up Audit harness) it must NOT navigate the app away,
+  // so "home" is disabled — only replaying the round is offered.
+  const goHome = embedded ? undefined : () => navigate('/');
 
   if (!activeChild) return null;
 

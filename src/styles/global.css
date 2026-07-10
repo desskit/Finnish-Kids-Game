@@ -456,6 +456,17 @@ button:focus-visible,
   color: #fff;
 }
 
+.btn--sm {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+}
+
+.btn--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+}
+
 .btn .en {
   font-size: 0.7em;
   font-weight: 700;
@@ -477,6 +488,14 @@ button:focus-visible,
   background: var(--bg-card);
   box-shadow: var(--shadow);
   font-size: 1.6rem;
+}
+
+/* Holds the back-button's space in an activity header that has no back action
+   (e.g. an embedded audit game), so the title stays put. */
+.icon-btn--placeholder {
+  display: inline-block;
+  background: none;
+  box-shadow: none;
 }
 
 .en {
@@ -908,6 +927,194 @@ button:focus-visible,
   border-bottom-color: var(--good);
   color: var(--good);
   animation: correctpop 0.45s ease-out;
+}
+
+/* ---------- Read a sentence (authentic input) ---------- */
+.reading-sentence {
+  margin: 0;
+  font-size: clamp(1.3rem, 4.4vw, 2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.reading-gloss {
+  min-height: 1.4em;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.reading-gloss--shown {
+  opacity: 1;
+}
+
+/* ---------- Conversations ---------- */
+.dialogue-said {
+  margin: 0;
+  font-size: clamp(1.4rem, 4.6vw, 2.2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+}
+
+.reply-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.reply-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: var(--tap);
+  padding: clamp(10px, 2.4vw, 16px) clamp(16px, 4vw, 24px);
+  padding-left: clamp(40px, 9vw, 52px);
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: transform 0.08s ease;
+}
+
+.reply-tile:active {
+  transform: scale(0.98);
+}
+
+.reply-tile__num {
+  position: absolute;
+  left: clamp(14px, 3.5vw, 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--ink-soft);
+}
+
+.reply-tile__fi {
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+}
+
+.reply-tile__en {
+  font-size: clamp(0.8rem, 2.4vw, 1rem);
+}
+
+.reply-tile--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.reply-tile--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
+/* ---------- Small talk: a building chat transcript ---------- */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.chat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-bubble {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 88%;
+  animation: bubblein 0.28s ease-out;
+}
+
+.chat-bubble--partner {
+  align-self: flex-start;
+}
+
+.chat-bubble--child {
+  align-self: flex-end;
+  flex-direction: row; /* lines then avatar */
+}
+
+.chat-avatar {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.chat-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: clamp(9px, 2vw, 13px) clamp(12px, 3vw, 16px);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.chat-bubble--partner .chat-lines {
+  background: var(--bg-card);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble--child .chat-lines {
+  background: color-mix(in srgb, var(--brand) 20%, var(--bg-card));
+  border-bottom-right-radius: 4px;
+  text-align: right;
+}
+
+.chat-fi {
+  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+  font-weight: 800;
+}
+
+.chat-en {
+  font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+  opacity: 0.75;
+}
+
+.chat-speaker {
+  align-self: center;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+
+.chat-done {
+  margin: 6px 0 0;
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+  animation: correctpop 0.5s ease-out;
+}
+
+.chat-done .en {
+  display: block;
+  font-size: 0.62em;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+@keyframes bubblein {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------- Say it (speaking) ---------- */
@@ -1486,6 +1693,36 @@ button:focus-visible,
 }
 
 /* ---------- Achievement badges ---------- */
+/* ---------- Daily-practice streak: gentle, no loss-aversion ---------- */
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  margin: 6px auto 2px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+}
+
+.streak--today {
+  background: color-mix(in srgb, var(--brand) 22%, transparent);
+}
+
+.streak__flame {
+  font-size: 1.35em;
+  line-height: 1;
+}
+
+.streak__text .en {
+  display: block;
+  font-size: 0.62em;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
 .badge-strip {
   display: flex;
   flex-wrap: wrap;
@@ -1576,4 +1813,220 @@ button:focus-visible,
   background: var(--brand-soft);
   border-radius: 999px;
   padding: 1px 7px;
+}
+
+/* ---------- Grown-up → Audit (QA harness) ---------- */
+.audit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.audit-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.audit-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.audit-level__val {
+  min-width: 1.2em;
+  text-align: center;
+  color: var(--brand);
+}
+
+.audit-summary {
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-right: auto;
+}
+
+.audit-body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.audit-list {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.audit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+.audit-row--active {
+  box-shadow: 0 0 0 3px var(--brand);
+}
+
+.audit-row__label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: transparent;
+  min-width: 0;
+}
+
+.audit-row__en {
+  font-weight: 800;
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.audit-row__fi {
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.audit-chip {
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.audit-chip--pass {
+  background: color-mix(in srgb, var(--good) 25%, transparent);
+}
+
+.audit-chip--needs-work {
+  background: color-mix(in srgb, var(--bad) 25%, transparent);
+}
+
+.audit-stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audit-label h2 {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+.audit-label__fi {
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.audit-label p {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.audit-label__meta {
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.audit-game {
+  position: relative;
+  min-height: 420px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--brand) 4%, transparent);
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  overflow: hidden;
+}
+
+/* The nested game renders its own full-screen .screen; keep it contained. */
+.audit-game .screen {
+  min-height: 420px;
+  padding: 14px;
+}
+
+/* Embedded games keep their header layout but drop the app "back to the map"
+   arrow — navigation out of a game belongs to the audit chrome, not the game.
+   (Review is handled properly via its `embedded` prop; this covers the rest.) */
+.audit-game .activity-header .icon-btn {
+  visibility: hidden;
+}
+
+.audit-roundcomplete,
+.audit-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--brand);
+}
+
+.audit-roundcomplete .en {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.audit-grade-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audit-note {
+  width: 100%;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.9rem;
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  resize: vertical;
+}
+
+.audit-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.audit-btn--pass {
+  background: var(--good);
+  color: #063;
+}
+
+.audit-btn--needs {
+  background: var(--bad);
+  color: #611;
+}
+
+@media (max-width: 640px) {
+  .audit-body {
+    flex-direction: column;
+  }
+  .audit-list {
+    flex-basis: auto;
+    width: 100%;
+    max-height: 30vh;
+  }
 }

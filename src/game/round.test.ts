@@ -11,7 +11,13 @@ import {
   buildReviewRound,
   buildComprehensionRound,
   buildSayRound,
+  buildDialogueRound,
+  buildConversation,
+  buildReadingRound,
 } from './round';
+import { dialogues } from '../content/dialogues';
+import { conversations } from '../content/conversations';
+import { kidSafeExamples } from '../content/examples';
 import {
   animals,
   numbers,
@@ -238,6 +244,104 @@ describe('buildSayRound', () => {
         expect(q.say).not.toMatch(/\bei\b/); // no tier-3 negation at maxTier 2
       }
     }
+  });
+
+  it('caps the spoken tier so speaking never asks for the written apexes', () => {
+    // Sanity: the pool DOES contain harder carriers, so the cap is meaningful.
+    expect(nounConstructions.some((c) => c.tier > 3 && c.before === 'Ostan')).toBe(true);
+    for (let r = 0; r < RUNS; r++) {
+      // Even at the engine's top tier, the child only says simple frames —
+      // the tier-5/6 carriers (buy, wait-for, plural predicatives) never surface.
+      for (const q of buildSayRound(animals.items, nounConstructions, 6, 8)) {
+        expect(q.say).not.toMatch(/^(Ostan|Odotan|Nämä ovat|Missä ovat)\b/);
+      }
+    }
+  });
+});
+
+describe('buildReadingRound', () => {
+  it('pairs a real kid-safe example with the pictured item + distinct options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildReadingRound(animals.items, 6, 3);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // The sentence is one of the item's own kid-safe examples.
+        expect(kidSafeExamples(q.item).map((e) => e.fi)).toContain(q.sentence.fi);
+        expect(q.sentence.en).toBeTruthy();
+        // Answer present once; options distinct + picturable.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('only ever asks about items that actually have a safe example', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildReadingRound(animals.items, 6, 3)) {
+        expect(kidSafeExamples(q.item).length).toBeGreaterThan(0);
+      }
+    }
+  });
+});
+
+describe('buildDialogueRound', () => {
+  it('keeps the right reply present with distinct, real options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildDialogueRound(dialogues, 6, 3, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.options).toHaveLength(3);
+        expect(q.options.filter((o) => o.fi === q.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(q.options.map((o) => o.fi)).size).toBe(q.options.length); // distinct
+        // Every option is a real authored reply/distractor (has fi + en).
+        q.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('tier-gates harder exchanges out of a low-tier round', () => {
+    // At maxTier 1 only the simplest greetings play — the tier-2 "name/age"
+    // exchanges must never appear.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, 6, 3, 1)) {
+        expect(q.prompt.fi).not.toMatch(/nimesi|vanha/);
+      }
+    }
+  });
+});
+
+describe('buildConversation', () => {
+  it('returns one tier-gated scene with per-turn distinct options and the reply present', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const scene = buildConversation(conversations, 3, 4)!;
+      expect(scene).not.toBeNull();
+      expect(scene.turns.length).toBeGreaterThanOrEqual(2);
+      expect(scene.titleFi).toBeTruthy();
+      expect(scene.partnerIcon).toBeTruthy();
+      for (const t of scene.turns) {
+        expect(t.options).toHaveLength(3);
+        expect(t.options.filter((o) => o.fi === t.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(t.options.map((o) => o.fi)).size).toBe(t.options.length); // distinct
+        t.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('falls back to a scene even when no tier qualifies (a low-level child still plays)', () => {
+    // Both authored scenes are tier 3–4; at maxTier 2 it still hands one back.
+    const scene = buildConversation(conversations, 3, 2);
+    expect(scene).not.toBeNull();
+  });
+
+  it('returns null only when there are no scenes at all', () => {
+    expect(buildConversation([], 3, 4)).toBeNull();
   });
 });
 
