@@ -153,7 +153,9 @@ export default function DialogueGame({ onExit }: Props) {
           >
             <span className="reply-tile__num">{i + 1}</span>
             <span className="reply-tile__fi">{opt.fi}</span>
-            <span className="en reply-tile__en">{opt.en}</span>
+            {/* No English on the reply tiles: the child chooses from the Finnish
+                itself (the prompt is still glossed), so it's a real comprehension
+                choice, not translation-matching. */}
           </button>
         ))}
       </div>

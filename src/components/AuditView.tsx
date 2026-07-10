@@ -83,6 +83,9 @@ export default function AuditView() {
   const [roundComplete, setRoundComplete] = useState(false);
   const [gameKey, setGameKey] = useState(0); // bump to remount a fresh round
   const [note, setNote] = useState('');
+  // True while actively testing a function. Cleared when the whole in-scope list
+  // is graded, so the stage shows a "done" summary instead of a stuck game.
+  const [reviewing, setReviewing] = useState(false);
 
   // Persist grades + scope.
   useEffect(() => {
@@ -101,6 +104,7 @@ export default function AuditView() {
       setActiveId(id);
       setAttempts(1);
       setRoundComplete(false);
+      setReviewing(true); // picking a function means we're testing it
       setGameKey((k) => k + 1);
       setNote(loadAudit().grades[id]?.note ?? '');
     },
@@ -138,30 +142,20 @@ export default function AuditView() {
 
   const grade = useCallback(
     (g: Grade) => {
-      setAudit((prev) => {
-        const scope = prev.scope.includes(entry.id) ? prev.scope : [...prev.scope, entry.id];
-        return {
-          ...prev,
-          scope,
-          grades: {
-            ...prev.grades,
-            [entry.id]: { grade: g, at: Date.now(), tests: attempts, note: note.trim() || undefined },
-          },
-        };
-      });
-      // Advance the SELECTION to the next in-scope, not-yet-graded entry.
-      const inScope = AUDIT_ENTRIES.filter((e) => audit.scope.includes(e.id) || e.id === entry.id);
-      const graded = new Set(Object.keys(audit.grades));
-      graded.add(entry.id);
-      const nextEntry = inScope.find((e) => !graded.has(e.id));
+      // Build the next state explicitly, so the "what's left?" decision below
+      // reads the SAME fresh grades we just recorded (no stale-closure bounce).
+      const record = { grade: g, at: Date.now(), tests: attempts, note: note.trim() || undefined };
+      const scope = audit.scope.includes(entry.id) ? audit.scope : [...audit.scope, entry.id];
+      const grades = { ...audit.grades, [entry.id]: record };
+      setAudit({ ...audit, scope, grades });
+
+      // Move to the next in-scope, not-yet-graded function; if none remain, end
+      // in the completion summary instead of leaving a game running.
+      const nextEntry = AUDIT_ENTRIES.find((e) => scope.includes(e.id) && !grades[e.id]);
       if (nextEntry) selectEntry(nextEntry.id);
-      else {
-        setAttempts(1);
-        setRoundComplete(false);
-        setGameKey((k) => k + 1);
-      }
+      else setReviewing(false);
     },
-    [entry, attempts, note, audit.scope, audit.grades, selectEntry],
+    [entry, attempts, note, audit, selectEntry],
   );
 
   const toggleScope = useCallback((id: string) => {
@@ -201,6 +195,11 @@ export default function AuditView() {
     needs: AUDIT_ENTRIES.filter((e) => audit.grades[e.id]?.grade === 'needs-work').length,
     total: AUDIT_ENTRIES.length,
   };
+
+  // Every in-scope function graded → show a "done" summary rather than a game.
+  const scoped = AUDIT_ENTRIES.filter((e) => audit.scope.includes(e.id));
+  const allGraded = scoped.length > 0 && scoped.every((e) => audit.grades[e.id]);
+  const showComplete = allGraded && !reviewing;
 
   return (
     <div className="audit">
@@ -254,54 +253,77 @@ export default function AuditView() {
         </aside>
 
         <div className="audit-stage">
-          <div className="audit-label">
-            <h2>
-              {entry.titleEn} <span className="audit-label__fi">· {entry.titleFi}</span>
-            </h2>
-            <p>{entry.desc}</p>
-            <p className="audit-label__meta">
-              Test #{attempts}
-              {roundComplete && ' · answered — grade it or Next'}
-            </p>
-          </div>
-
-          <div className="audit-game">
-            <ProfileProvider ephemeral seed={seed}>
-              <ActivityContext.Provider value={ctxValue}>
-                {roundComplete ? (
-                  <div className="audit-roundcomplete">
-                    <p>✓ Answered</p>
-                    <p className="en">Grade it, or press Next for another.</p>
-                  </div>
-                ) : gameEl ? (
-                  cloneElement(gameEl, { key: `${entry.id}-${level}-${gameKey}` })
-                ) : (
-                  <p className="audit-missing">No representative node for “{entry.titleEn}”.</p>
-                )}
-              </ActivityContext.Provider>
-            </ProfileProvider>
-          </div>
-
-          <div className="audit-grade-bar">
-            <textarea
-              className="audit-note"
-              placeholder="Notes (optional — especially for Needs work)…"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              rows={2}
-            />
-            <div className="audit-buttons">
-              <button className="btn audit-btn--needs" onClick={() => grade('needs-work')}>
-                Needs work
-              </button>
-              <button className="btn btn--ghost" onClick={nextRound}>
-                Next
-              </button>
-              <button className="btn audit-btn--pass" onClick={() => grade('pass')}>
-                Pass
-              </button>
+          {showComplete ? (
+            <div className="audit-complete">
+              <p className="audit-complete__title">✅ Audit complete</p>
+              <p>
+                All {scoped.length} in-scope function{scoped.length === 1 ? '' : 's'} graded.
+              </p>
+              <p className="audit-complete__stats">
+                ✅ {summary.pass} Pass · ⚠️ {summary.needs} Needs work
+              </p>
+              <div className="audit-buttons">
+                <button className="btn btn--sm" onClick={doDownload}>
+                  ⬇︎ Download report
+                </button>
+                <button className="btn btn--sm btn--ghost" onClick={clearAll}>
+                  🗑 Clear &amp; restart
+                </button>
+              </div>
+              <p className="en">Pick a function on the left to re-test it.</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="audit-label">
+                <h2>
+                  {entry.titleEn} <span className="audit-label__fi">· {entry.titleFi}</span>
+                </h2>
+                <p>{entry.desc}</p>
+                <p className="audit-label__meta">
+                  Test #{attempts}
+                  {roundComplete && ' · answered — grade it or Next'}
+                </p>
+              </div>
+
+              <div className="audit-game">
+                <ProfileProvider ephemeral seed={seed}>
+                  <ActivityContext.Provider value={ctxValue}>
+                    {roundComplete ? (
+                      <div className="audit-roundcomplete">
+                        <p>✓ Answered</p>
+                        <p className="en">Grade it, or press Next for another.</p>
+                      </div>
+                    ) : gameEl ? (
+                      cloneElement(gameEl, { key: `${entry.id}-${level}-${gameKey}` })
+                    ) : (
+                      <p className="audit-missing">No representative node for “{entry.titleEn}”.</p>
+                    )}
+                  </ActivityContext.Provider>
+                </ProfileProvider>
+              </div>
+
+              <div className="audit-grade-bar">
+                <textarea
+                  className="audit-note"
+                  placeholder="Notes (optional — especially for Needs work)…"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  rows={2}
+                />
+                <div className="audit-buttons">
+                  <button className="btn audit-btn--needs" onClick={() => grade('needs-work')}>
+                    Needs work
+                  </button>
+                  <button className="btn btn--ghost" onClick={nextRound}>
+                    Next
+                  </button>
+                  <button className="btn audit-btn--pass" onClick={() => grade('pass')}>
+                    Pass
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

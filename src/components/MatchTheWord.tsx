@@ -12,6 +12,23 @@ import ActivityHeader from './ActivityHeader';
 
 const QUESTIONS = 6;
 
+// English framing per Finnish case, so the gloss reflects WHY the noun is
+// inflected: an inessive phrase reads "in the brown sun", not a bare "brown
+// sun". Keyed by the cases the agreement game actually rotates through.
+const CASE_FRAME: Record<string, string> = {
+  nominative: 'the',
+  genitive: 'of the',
+  partitive: 'the',
+  inessive: 'in the',
+  illative: 'into the',
+  adessive: 'on the',
+  allative: 'onto the',
+};
+
+function agreementGloss(caseId: string, adjEn: string, nounEn: string): string {
+  return `${CASE_FRAME[caseId] ?? 'the'} ${adjEn} ${nounEn}`;
+}
+
 interface Props {
   adjectives: LexicalItem[];
   nouns: LexicalItem[];
@@ -162,9 +179,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
             {chosen ? chosen.form : '​'}
           </span>
         </div>
-        <p className="en phrase-hint">
-          {q.adjective.en} {q.noun.en}
-        </p>
+        <p className="en phrase-hint">{agreementGloss(q.case, q.adjective.en, q.noun.en)}</p>
         <button
           className="speaker speaker--inline"
           onClick={() => speak(chosen ? fullPhrase : q.adjForm)}

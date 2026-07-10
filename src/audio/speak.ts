@@ -42,10 +42,13 @@ if (isSpeechAvailable()) {
   };
 }
 
-function speakIn(text: string, lang: string, langPrefix: string): void {
+function speakIn(text: string, lang: string, langPrefix: string, queue = false): void {
   if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
-  synth.cancel(); // stop anything mid-utterance so prompts feel responsive
+  // Default: cut off anything mid-utterance so a fresh prompt feels responsive.
+  // Queued: let the current line finish first, so a SEQUENCE of lines (a
+  // conversation) plays one after another instead of clobbering each other.
+  if (!queue) synth.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
   const voice = pickVoice(langPrefix);
@@ -55,9 +58,13 @@ function speakIn(text: string, lang: string, langPrefix: string): void {
   synth.speak(u);
 }
 
-/** Speak Finnish — the target language, so this is what's being learned. */
-export function speak(text: string): void {
-  speakIn(text, FINNISH, 'fi');
+/**
+ * Speak Finnish — the target language, so this is what's being learned. Pass
+ * `{ queue: true }` to append after any line still playing (back-to-back
+ * conversation turns) instead of interrupting it.
+ */
+export function speak(text: string, opts?: { queue?: boolean }): void {
+  speakIn(text, FINNISH, 'fi', opts?.queue);
 }
 
 /**
