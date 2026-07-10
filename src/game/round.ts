@@ -90,6 +90,15 @@ export interface SayTarget {
   attemptId?: string;
 }
 
+/**
+ * Speaking lags production: even on a high-level node, the child is only asked
+ * to SAY the simple frames ("Tämä on kissa", "Pidän kissasta"), never the
+ * advanced case gymnastics a WRITTEN capstone reaches ("Kissat ovat
+ * laatikoissa"). Capping the spoken tier keeps every target pronounceable —
+ * and keeps child-voice ASR (already unreliable) from being handed a mouthful.
+ */
+export const SAY_MAX_TIER = 3;
+
 export function buildSayRound(
   items: readonly LexicalItem[],
   constructions: readonly Construction[],
@@ -98,7 +107,8 @@ export function buildSayRound(
   weigh?: WeighFn,
 ): SayTarget[] {
   if (constructions.length > 0) {
-    const byTier = constructions.filter((c) => c.tier <= maxTier);
+    const spokenTier = Math.min(maxTier, SAY_MAX_TIER) as Tier;
+    const byTier = constructions.filter((c) => c.tier <= spokenTier);
     const allowed = byTier.length > 0 ? byTier : constructions;
     const pool: { construction: Construction; item: LexicalItem }[] = [];
     for (const construction of allowed) {

@@ -281,7 +281,9 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
         {status}
       </p>
       {score?.hasLengthError && (
-        <p className="say-hint en">Mind the long sound — say the doubled letter longer.</p>
+        <p className="say-hint">
+          Pidennä pitkää ääntä <span className="en">— mind the long sound, hold the doubled letter</span>
+        </p>
       )}
     </section>
   );

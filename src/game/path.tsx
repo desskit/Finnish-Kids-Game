@@ -497,7 +497,9 @@ const conversationsChapter: Chapter = {
       titleEn: 'Greetings',
       icon: '👋',
       activity: 'dialogue',
-      maxLevel: 3,
+      // Four rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
+      // (favourites, turn-taking). difficultyFor maps L4 → maxTier 4.
+      maxLevel: 4,
       content: {},
     },
   ],

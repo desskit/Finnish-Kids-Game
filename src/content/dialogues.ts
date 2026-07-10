@@ -10,7 +10,13 @@
 // are real, correct Finnish for OTHER situations — so the skill practiced is
 // pragmatic appropriateness ("what do you say back?"), not spotting broken
 // Finnish. Tiers gate difficulty like everywhere else (t1 = the simplest
-// greetings, t2 = names/age/courtesies).
+// greetings, t2 = names/age/courtesies, t3 = everyday wh-questions +
+// leave-taking, t4 = favourites / turn-taking / birthday).
+//
+// AUTHORING RULE: every prompt must have exactly ONE pragmatically fitting
+// reply. Distractors are backfilled from OTHER exchanges' replies, so a second
+// valid answer (e.g. a bare "yes"/"no" to a polar question) could slip into the
+// options — hence only wh-questions and ritual adjacency pairs live here.
 
 export interface DialogueLine {
   fi: string;
@@ -128,5 +134,102 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Hyvää yötä.', en: 'Good night.' },
     ],
     tier: 2,
+  },
+
+  // --- Tier 3: everyday wh-questions + leave-taking (each has ONE fitting
+  // reply, so the pooled distractors never accidentally become a second right
+  // answer). ---
+  {
+    id: 'where-going',
+    prompt: { fi: 'Minne menet?', en: 'Where are you going?' },
+    reply: { fi: 'Menen kotiin.', en: "I'm going home." },
+    distractors: [
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+      { fi: 'Ole hyvä.', en: "You're welcome." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'what-is-this',
+    prompt: { fi: 'Mikä tämä on?', en: 'What is this?' },
+    reply: { fi: 'Se on kirja.', en: "It's a book." },
+    distractors: [
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+      { fi: 'Anteeksi.', en: 'Sorry.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'good-day',
+    prompt: { fi: 'Hyvää päivää!', en: 'Good day!' },
+    reply: { fi: 'Hyvää päivää!', en: 'Good day!' },
+    distractors: [
+      { fi: 'Hyvää yötä!', en: 'Good night!' },
+      { fi: 'Kiitos!', en: 'Thank you!' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'see-tomorrow',
+    prompt: { fi: 'Nähdään huomenna!', en: 'See you tomorrow!' },
+    reply: { fi: 'Nähdään!', en: 'See you!' },
+    distractors: [
+      { fi: 'Ei se mitään.', en: "It's okay." },
+      { fi: 'Ole hyvä.', en: "You're welcome." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'where-live',
+    prompt: { fi: 'Missä sinä asut?', en: 'Where do you live?' },
+    reply: { fi: 'Asun Suomessa.', en: 'I live in Finland.' },
+    distractors: [
+      { fi: 'Olen viisi vuotta.', en: "I'm five years old." },
+      { fi: 'Hyvää, kiitos.', en: 'Good, thanks.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'welcome',
+    prompt: { fi: 'Tervetuloa!', en: 'Welcome!' },
+    reply: { fi: 'Kiitos!', en: 'Thank you!' },
+    distractors: [
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+      { fi: 'Anteeksi.', en: 'Sorry.' },
+    ],
+    tier: 3,
+  },
+
+  // --- Tier 4: a little more to hold in mind (favourite, turn-taking, a
+  // birthday wish). ---
+  {
+    id: 'fav-color',
+    prompt: { fi: 'Mikä on lempivärisi?', en: "What's your favorite color?" },
+    reply: { fi: 'Sininen.', en: 'Blue.' },
+    distractors: [
+      { fi: 'Se on kirja.', en: "It's a book." },
+      { fi: 'Nimeni on Aino.', en: 'My name is Aino.' },
+    ],
+    tier: 4,
+  },
+  {
+    id: 'whose-turn',
+    prompt: { fi: 'Kenen vuoro on?', en: 'Whose turn is it?' },
+    reply: { fi: 'Minun vuoroni!', en: 'My turn!' },
+    distractors: [
+      { fi: 'Se on kirja.', en: "It's a book." },
+      { fi: 'Samoin!', en: 'You too!' },
+    ],
+    tier: 4,
+  },
+  {
+    id: 'happy-birthday',
+    prompt: { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+    reply: { fi: 'Kiitos!', en: 'Thank you!' },
+    distractors: [
+      { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+    ],
+    tier: 4,
   },
 ];

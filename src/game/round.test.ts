@@ -243,6 +243,18 @@ describe('buildSayRound', () => {
       }
     }
   });
+
+  it('caps the spoken tier so speaking never asks for the written apexes', () => {
+    // Sanity: the pool DOES contain harder carriers, so the cap is meaningful.
+    expect(nounConstructions.some((c) => c.tier > 3 && c.before === 'Ostan')).toBe(true);
+    for (let r = 0; r < RUNS; r++) {
+      // Even at the engine's top tier, the child only says simple frames —
+      // the tier-5/6 carriers (buy, wait-for, plural predicatives) never surface.
+      for (const q of buildSayRound(animals.items, nounConstructions, 6, 8)) {
+        expect(q.say).not.toMatch(/^(Ostan|Odotan|Nämä ovat|Missä ovat)\b/);
+      }
+    }
+  });
 });
 
 describe('buildReadingRound', () => {
