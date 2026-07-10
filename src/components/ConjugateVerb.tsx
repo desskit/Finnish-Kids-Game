@@ -3,6 +3,7 @@ import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { englishVerbClause } from '../content/englishVerb';
 import { familiarityWeigher } from '../game/srs';
 import { buildConjugationRound, type ConjugationOption } from '../game/round';
 import { speak } from '../audio/speak';
@@ -150,7 +151,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
           </span>
         </div>
         <p className="en phrase-hint">
-          {q.pronounEn} {q.verb.en}
+          {englishVerbClause(q.pronounEn, q.verb.en, q.tense, q.polarity, q.person)}
         </p>
         <button
           className="speaker speaker--inline"
