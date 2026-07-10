@@ -11,6 +11,7 @@ import {
   emptyProfiles,
   localProfileStore,
   newId,
+  sandboxProfiles,
   type Child,
   type ProfilesData,
   type Settings,
@@ -88,25 +89,43 @@ interface ProfileContextValue {
 
 const ProfileContext = createContext<ProfileContextValue | null>(null);
 
-export function ProfileProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<ProfilesData>(() => localProfileStore.load());
+export function ProfileProvider({
+  children,
+  ephemeral = false,
+  seed,
+}: {
+  children: ReactNode;
+  /**
+   * Sandbox mode: start from `seed` (or a throwaway child) and NEVER persist or
+   * touch the global mute/motion state. The grown-up Audit harness wraps the
+   * real games in one of these so auditing never mutates the family's profiles.
+   */
+  ephemeral?: boolean;
+  /** Initial data (used mainly with `ephemeral` to pre-seed a sandbox child). */
+  seed?: ProfilesData;
+}) {
+  const [data, setData] = useState<ProfilesData>(() =>
+    seed ?? (ephemeral ? sandboxProfiles() : localProfileStore.load()),
+  );
 
-  // Persist on every change.
+  // Persist on every change — except in the ephemeral sandbox, which must not
+  // reach localStorage (it would clobber the real profiles).
   useEffect(() => {
-    localProfileStore.save(data);
-  }, [data]);
+    if (!ephemeral) localProfileStore.save(data);
+  }, [data, ephemeral]);
 
   // Bridge settings into the imperative world (audio modules + a root class).
+  // Skipped in the sandbox so an audit never flips the app's real mute/motion.
   useEffect(() => {
-    setMuted(data.settings.muted);
-  }, [data.settings.muted]);
+    if (!ephemeral) setMuted(data.settings.muted);
+  }, [data.settings.muted, ephemeral]);
   useEffect(() => {
-    if (typeof document !== 'undefined') {
+    if (!ephemeral && typeof document !== 'undefined') {
       document.documentElement.dataset.reducedMotion = data.settings.reducedMotion
         ? 'true'
         : 'false';
     }
-  }, [data.settings.reducedMotion]);
+  }, [data.settings.reducedMotion, ephemeral]);
 
   const value = useMemo<ProfileContextValue>(() => {
     const active = data.children.find((c) => c.id === data.activeId) ?? null;

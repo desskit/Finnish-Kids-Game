@@ -34,6 +34,9 @@ export default function GrownUp() {
           <NavLink to="/grown-up/settings" className={tabClass}>
             Asetukset <span className="en">Settings</span>
           </NavLink>
+          <NavLink to="/grown-up/audit" className={tabClass}>
+            Auditointi <span className="en">Audit</span>
+          </NavLink>
         </nav>
 
         <Outlet />

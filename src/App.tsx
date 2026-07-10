@@ -16,6 +16,7 @@ import GrownUp from './components/GrownUp';
 import ProgressView from './components/ProgressView';
 import Profiles from './components/Profiles';
 import Settings from './components/Settings';
+import AuditView from './components/AuditView';
 
 // Content facts the badge rules measure against (derived from the path).
 const BADGE_ENV = badgeEnv;
@@ -142,6 +143,7 @@ export function AppRoutes() {
         <Route path="progress" element={<ProgressView />} />
         <Route path="profiles" element={<Profiles />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="audit" element={<AuditView />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -104,6 +104,33 @@ export function emptyProfiles(): ProfilesData {
   return { version: 2, children: [], activeId: null, settings: { ...DEFAULT_SETTINGS } };
 }
 
+/**
+ * A throwaway in-memory profile for the grown-up Audit harness: one dummy child
+ * so the real games can run and record stars/SRS WITHOUT ever touching the
+ * family's saved profiles. Used with `<ProfileProvider ephemeral>` (which never
+ * persists), so nothing here reaches localStorage.
+ */
+export function sandboxProfiles(): ProfilesData {
+  return {
+    version: 2,
+    children: [
+      {
+        id: 'audit-sandbox',
+        name: 'Audit',
+        avatar: '🧪',
+        level: 1,
+        adaptive: true,
+        stars: 0,
+        createdAt: 0,
+        progress: {},
+        srs: {},
+      },
+    ],
+    activeId: 'audit-sandbox',
+    settings: { ...DEFAULT_SETTINGS },
+  };
+}
+
 export function newId(): string {
   try {
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
