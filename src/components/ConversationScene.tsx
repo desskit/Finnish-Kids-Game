@@ -50,7 +50,9 @@ export default function ConversationScene({ onExit }: Props) {
     if (!turn || done || finished) return;
     if (spokenFor.current === turnIndex) return;
     spokenFor.current = turnIndex;
-    const t = setTimeout(() => speak(turn.partner.fi), 400);
+    // Queue so a still-playing reply from the previous turn finishes first
+    // (each TTS line completes before the next begins).
+    const t = setTimeout(() => speak(turn.partner.fi, { queue: true }), 400);
     return () => clearTimeout(t);
   }, [turn, turnIndex, done, finished]);
 
@@ -66,7 +68,9 @@ export default function ConversationScene({ onExit }: Props) {
       }
       setLocked(true);
       playDing(true);
-      speak(turn.reply.fi);
+      // Queue after the partner line, then the next turn's partner queues after
+      // this — so the exchange is heard in order, not overlapping.
+      speak(turn.reply.fi, { queue: true });
       addStars(1);
       if (!missedTurn.current) firstTries.current += 1;
       setAnswered((prev) => [...prev, turn.reply]);

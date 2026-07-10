@@ -90,7 +90,8 @@ describe('ConversationScene (small talk)', () => {
     expect(screen.getByText('Moi! Mitä kuuluu?')).toBeInTheDocument();
     expect(document.querySelectorAll('.reply-tile')).toHaveLength(3);
     await advance(500);
-    expect(speak).toHaveBeenCalledWith('Moi! Mitä kuuluu?');
+    // Queued so back-to-back conversation lines don't clobber each other.
+    expect(speak).toHaveBeenCalledWith('Moi! Mitä kuuluu?', { queue: true });
   });
 
   it('advances turn by turn on the right reply, building the chat', async () => {
@@ -98,7 +99,7 @@ describe('ConversationScene (small talk)', () => {
     vi.clearAllMocks();
     fireEvent.click(reply('Hyvää, kiitos! Entä sinulle?'));
     expect(playDing).toHaveBeenCalledWith(true);
-    expect(speak).toHaveBeenCalledWith('Hyvää, kiitos! Entä sinulle?');
+    expect(speak).toHaveBeenCalledWith('Hyvää, kiitos! Entä sinulle?', { queue: true });
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
     // The child's answered line is now a chat bubble.
     expect(document.querySelector('.chat-bubble--child')).not.toBeNull();
@@ -106,7 +107,7 @@ describe('ConversationScene (small talk)', () => {
     await advance(900);
     expect(screen.getByText('Kiitos, hyvää! Leikitäänkö?')).toBeInTheDocument();
     await advance(500);
-    expect(speak).toHaveBeenCalledWith('Kiitos, hyvää! Leikitäänkö?');
+    expect(speak).toHaveBeenCalledWith('Kiitos, hyvää! Leikitäänkö?', { queue: true });
   });
 
   it('flags a wrong reply without a star or advancing', async () => {
