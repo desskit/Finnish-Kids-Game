@@ -36,8 +36,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh),
-    [items, constructions, optionCount, maxTier, tricky, weigh, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () =>
+      buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh).slice(
+        0,
+        ctx?.roundQuestions,
+      ),
+    [items, constructions, optionCount, maxTier, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

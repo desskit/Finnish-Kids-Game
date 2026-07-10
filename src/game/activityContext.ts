@@ -33,6 +33,13 @@ export interface ActivityContextValue {
   difficulty: Difficulty;
   /** Stars earned so far in this sitting (drives the header counter). */
   sessionStars: number;
+  /**
+   * Cap a game's round to this many questions. Unset in normal play (games use
+   * their own full round). The grown-up Audit harness sets it to 1 so a game
+   * stops after each single answer for grading, instead of auto-advancing
+   * through a whole round. Games apply it by slicing their built round.
+   */
+  roundQuestions?: number;
 }
 
 export const ActivityContext = createContext<ActivityContextValue | null>(null);

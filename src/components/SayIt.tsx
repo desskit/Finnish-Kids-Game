@@ -42,8 +42,9 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildSayRound(items, constructions, QUESTIONS, maxTier, weigh),
-    [items, constructions, maxTier, weigh, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () => buildSayRound(items, constructions, QUESTIONS, maxTier, weigh).slice(0, ctx?.roundQuestions),
+    [items, constructions, maxTier, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

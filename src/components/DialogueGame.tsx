@@ -30,8 +30,9 @@ export default function DialogueGame({ onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<DialogueQuestion[]>(
-    () => buildDialogueRound(dialogues, QUESTIONS, optionCount, maxTier),
-    [optionCount, maxTier, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () => buildDialogueRound(dialogues, QUESTIONS, optionCount, maxTier).slice(0, ctx?.roundQuestions),
+    [optionCount, maxTier, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
