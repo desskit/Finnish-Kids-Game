@@ -346,6 +346,17 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();
   });
 
+  it('adds a Small talk node — the greetings pieces strung into a scene', () => {
+    const found = findSkill('small-talk')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('conversation');
+    // Greetings (the pairs) come before Small talk (the connected discourse).
+    const nodeIds = found.chapter.skills.map((s) => s.id);
+    expect(nodeIds).toEqual(['greetings', 'small-talk']);
+    // Renders a real conversation scene (draws from the conversation registry).
+    expect(renderActivity(found.skill, 'conversation', () => {})).not.toBeNull();
+  });
+
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');

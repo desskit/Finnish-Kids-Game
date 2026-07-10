@@ -13,6 +13,7 @@ import type {
 import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
+import type { Conversation } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
@@ -210,6 +211,78 @@ export function buildDialogueRound(
     const distractors = sample(pool, Math.max(0, optionCount - 1));
     return { prompt: ex.prompt, reply: ex.reply, options: shuffle([ex.reply, ...distractors]) };
   });
+}
+
+// --- Small talk (hold a multi-turn conversation) -------------------------
+//
+// One tier-gated scene per segment; the child steers it turn by turn. Each turn
+// presents the partner's line + reply tiles (the fitting reply plus real
+// wrong-move distractors, backfilled from the scene's other lines to fill the
+// tiles). A fixed golden path — no branching — so every scene is one vetted
+// script. Content is the hand-authored conversation registry.
+
+export interface ConversationTurnQuestion {
+  partner: DialogueLine;
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export interface ConversationRound {
+  id: string;
+  titleFi: string;
+  titleEn: string;
+  icon: string;
+  partnerIcon: string;
+  turns: ConversationTurnQuestion[];
+}
+
+export function buildConversation(
+  scenes: readonly Conversation[],
+  optionCount: number,
+  maxTier: Tier = 4,
+): ConversationRound | null {
+  const byTier = scenes.filter((s) => s.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : scenes;
+  if (allowed.length === 0) return null;
+  const scene = sample(allowed, 1)[0];
+
+  // A scene-wide pool of plausible wrong lines (every reply + authored
+  // distractor in the scene) to backfill each turn's tiles beyond its own two.
+  const scenePool: DialogueLine[] = [];
+  const poolSeen = new Set<string>();
+  for (const t of scene.turns) {
+    for (const line of [t.reply, ...t.distractors]) {
+      if (!poolSeen.has(line.fi)) {
+        poolSeen.add(line.fi);
+        scenePool.push(line);
+      }
+    }
+  }
+
+  const turns = scene.turns.map((t) => {
+    // Prefer the turn's own distractors, then backfill from the scene pool —
+    // never the correct reply, deduped by text.
+    const seen = new Set([t.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const line of [...t.distractors, ...scenePool]) {
+      if (!seen.has(line.fi)) {
+        seen.add(line.fi);
+        pool.push(line);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { partner: t.partner, reply: t.reply, options: shuffle([t.reply, ...distractors]) };
+  });
+
+  return {
+    id: scene.id,
+    titleFi: scene.titleFi,
+    titleEn: scene.titleEn,
+    icon: scene.icon,
+    partnerIcon: scene.partnerIcon,
+    turns,
+  };
 }
 
 // --- Sentence listening comprehension ------------------------------------

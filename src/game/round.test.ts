@@ -12,9 +12,11 @@ import {
   buildComprehensionRound,
   buildSayRound,
   buildDialogueRound,
+  buildConversation,
   buildReadingRound,
 } from './round';
 import { dialogues } from '../content/dialogues';
+import { conversations } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import {
   animals,
@@ -309,6 +311,37 @@ describe('buildDialogueRound', () => {
         expect(q.prompt.fi).not.toMatch(/nimesi|vanha/);
       }
     }
+  });
+});
+
+describe('buildConversation', () => {
+  it('returns one tier-gated scene with per-turn distinct options and the reply present', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const scene = buildConversation(conversations, 3, 4)!;
+      expect(scene).not.toBeNull();
+      expect(scene.turns.length).toBeGreaterThanOrEqual(2);
+      expect(scene.titleFi).toBeTruthy();
+      expect(scene.partnerIcon).toBeTruthy();
+      for (const t of scene.turns) {
+        expect(t.options).toHaveLength(3);
+        expect(t.options.filter((o) => o.fi === t.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(t.options.map((o) => o.fi)).size).toBe(t.options.length); // distinct
+        t.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('falls back to a scene even when no tier qualifies (a low-level child still plays)', () => {
+    // Both authored scenes are tier 3–4; at maxTier 2 it still hands one back.
+    const scene = buildConversation(conversations, 3, 2);
+    expect(scene).not.toBeNull();
+  });
+
+  it('returns null only when there are no scenes at all', () => {
+    expect(buildConversation([], 3, 4)).toBeNull();
   });
 });
 

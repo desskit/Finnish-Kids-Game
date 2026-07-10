@@ -27,6 +27,7 @@ import ConjugateVerb from '../components/ConjugateVerb';
 import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
 import DialogueGame from '../components/DialogueGame';
+import ConversationScene from '../components/ConversationScene';
 import ReadAndListen from '../components/ReadAndListen';
 
 // The learning PATH — the single source of truth for the journey-map home.
@@ -57,6 +58,7 @@ export type ActivityKind =
   | 'sentence'
   | 'sentence-type'
   | 'dialogue'
+  | 'conversation'
   | 'reading'
   | 'review';
 
@@ -502,6 +504,17 @@ const conversationsChapter: Chapter = {
       maxLevel: 4,
       content: {},
     },
+    {
+      // The pieces strung together: hold a whole short scene, turn by turn.
+      // Greetings (the adjacency pairs) → Small talk (connected discourse).
+      id: 'small-talk',
+      titleFi: 'Jutellaan',
+      titleEn: 'Small talk',
+      icon: '🗣️',
+      activity: 'conversation',
+      maxLevel: 4,
+      content: {},
+    },
   ],
 };
 
@@ -732,6 +745,10 @@ export function renderActivity(
       // Choose the right reply to a Finnish greeting/courtesy. Draws from the
       // hand-authored dialogue registry; tier-gated by the adaptive level.
       return <DialogueGame onExit={onExit} />;
+    case 'conversation':
+      // Hold a short multi-turn scene (the greetings pieces, strung together).
+      // Draws from the hand-authored conversation registry; tier-gated.
+      return <ConversationScene onExit={onExit} />;
     case 'reading':
       // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
       return <ReadAndListen items={items} onExit={onExit} />;

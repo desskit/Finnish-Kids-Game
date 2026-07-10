@@ -997,6 +997,107 @@ button:focus-visible,
   box-shadow: 0 0 0 5px var(--good);
 }
 
+/* ---------- Small talk: a building chat transcript ---------- */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.chat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-bubble {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 88%;
+  animation: bubblein 0.28s ease-out;
+}
+
+.chat-bubble--partner {
+  align-self: flex-start;
+}
+
+.chat-bubble--child {
+  align-self: flex-end;
+  flex-direction: row; /* lines then avatar */
+}
+
+.chat-avatar {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.chat-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: clamp(9px, 2vw, 13px) clamp(12px, 3vw, 16px);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.chat-bubble--partner .chat-lines {
+  background: var(--bg-card);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble--child .chat-lines {
+  background: color-mix(in srgb, var(--brand) 20%, var(--bg-card));
+  border-bottom-right-radius: 4px;
+  text-align: right;
+}
+
+.chat-fi {
+  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+  font-weight: 800;
+}
+
+.chat-en {
+  font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+  opacity: 0.75;
+}
+
+.chat-speaker {
+  align-self: center;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+
+.chat-done {
+  margin: 6px 0 0;
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+  animation: correctpop 0.5s ease-out;
+}
+
+.chat-done .en {
+  display: block;
+  font-size: 0.62em;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+@keyframes bubblein {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ---------- Say it (speaking) ---------- */
 .say-target {
   margin: 0;
