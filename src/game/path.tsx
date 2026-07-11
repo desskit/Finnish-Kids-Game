@@ -28,6 +28,7 @@ import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
 import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
+import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
 // The learning PATH — the single source of truth for the journey-map home.
@@ -565,15 +566,17 @@ export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] 
   return unlocked;
 }
 
-// Nodes whose content has a clean spoken target: vocab words (listen) and
-// carrier phrases (build/order). Speaking is woven into these automatically
-// (see `activityForRound`) rather than hand-added to each ramp — so it reaches
-// essentially every content node, incl. vocab, without bloating the ramps.
-const SPEAKABLE_BASE: ReadonlySet<ActivityKind> = new Set(['listen', 'build', 'order']);
+// Speaking is woven into EVERY content node automatically (see `activityForRound`
+// + `speakableTargetsFor`): each node's own Finnish — a word, a carrier phrase, a
+// counting/agreement/verb phrase, a read example, a dialogue reply — becomes
+// something the child says. Only `review` is excluded (cross-topic, no single
+// spoken target). Injected rather than hand-added to each ramp, so it never
+// bloats the ramps.
+const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review']);
 
 /** Does this node have a spoken target the `say` game can drill? */
 export function isSpeakable(skill: SkillNode): boolean {
-  return SPEAKABLE_BASE.has(skill.activity);
+  return !NON_SPEAKABLE.has(skill.activity);
 }
 
 /**
@@ -661,19 +664,19 @@ export function renderActivity(
           onExit={onExit}
         />
       );
-    case 'say': {
-      // Speaking: say the SAME content the node teaches — bare words for a
-      // vocab pool, full carrier phrases for a phrase/order node.
-      const phraseNode =
-        skill.activity === 'build' || skill.activity === 'order' || !!skill.content.constructionIds;
+    case 'say':
+      // Speaking: say the SAME content the node teaches — routed per node by
+      // `speakableTargetsFor` (words, carrier phrases, counting/agreement/verb
+      // phrases, read examples, dialogue replies), tier-/length-capped for a
+      // young child. Weigh (familiarity) is supplied by SayIt from the child's SRS.
       return (
         <SayIt
           items={items}
-          constructions={phraseNode ? constructionsFor(skill.content.constructionIds) : []}
+          constructions={[]}
+          buildRound={(maxTier, weigh) => speakableTargetsFor(skill, items, maxTier, weigh)}
           onExit={onExit}
         />
       );
-    }
     case 'build':
       return (
         <BuildAPhrase

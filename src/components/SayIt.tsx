@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
+import type { Construction, LexicalItem, Tier } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
-import { buildSayRound } from '../game/round';
+import { buildSayRound, type SayTarget, type WeighFn } from '../game/round';
 import { matchSpeech } from '../game/speechMatch';
 import { scorePronunciation, type PronunciationScore } from '../game/phonemes';
 import { speak } from '../audio/speak';
@@ -19,6 +19,12 @@ interface Props {
   items: LexicalItem[];
   /** When non-empty, say full carrier phrases; otherwise say the bare words. */
   constructions: Construction[];
+  /**
+   * Node-specific spoken targets (e.g. `speakableTargetsFor`) — when given, this
+   * replaces the default items/constructions round, so any skill can supply its
+   * own Finnish to say ("kolme kissaa", "minä syön", …).
+   */
+  buildRound?: (maxTier: Tier, weigh: WeighFn) => SayTarget[];
   title?: string;
   onExit: () => void;
 }
@@ -29,7 +35,7 @@ interface Props {
 // child (or an unreliable recognizer) is never stuck. When speech recognition
 // isn't available the mic becomes a self-paced "I said it" — the repeat-after-me
 // still happens; it just isn't scored.
-export default function SayIt({ items, constructions, title, onExit }: Props) {
+export default function SayIt({ items, constructions, buildRound, title, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   const { maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -42,8 +48,16 @@ export default function SayIt({ items, constructions, title, onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
-    () => buildSayRound(items, constructions, QUESTIONS, maxTier, weigh).slice(0, ctx?.roundQuestions),
+    // A node-specific `buildRound` (any skill's own spoken content) takes over
+    // when given; otherwise the default items/constructions round. `roundQuestions`
+    // (Audit harness) caps the round to stop after each answer.
+    () =>
+      (buildRound
+        ? buildRound(maxTier, weigh)
+        : buildSayRound(items, constructions, QUESTIONS, maxTier, weigh)
+      ).slice(0, ctx?.roundQuestions),
+    // buildRound is an inline closure (new identity each render); restart via runId.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [items, constructions, maxTier, weigh, runId, ctx?.roundQuestions],
   );
 
