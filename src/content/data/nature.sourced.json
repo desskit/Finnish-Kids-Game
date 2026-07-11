@@ -41,6 +41,9 @@
         "instructive_plural": "auringoin",
         "comitative_plural": "aurinkoineen"
       },
+      "english": {
+        "plural": "suns"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 2223,
@@ -87,6 +90,9 @@
         "abessive_plural": "kuitta",
         "instructive_plural": "kuin",
         "comitative_plural": "kuineen"
+      },
+      "english": {
+        "plural": "moons"
       },
       "kotusType": 18,
       "group": "long_vowel",
@@ -135,6 +141,9 @@
         "instructive_plural": "tähdin",
         "comitative_plural": "tähtineen"
       },
+      "english": {
+        "plural": "stars"
+      },
       "kotusType": 7,
       "group": "i_old",
       "frequencyRank": 1282,
@@ -181,6 +190,9 @@
         "abessive_plural": "pilvittä",
         "instructive_plural": "pilvin",
         "comitative_plural": "pilvineen"
+      },
+      "english": {
+        "plural": "clouds"
       },
       "kotusType": 7,
       "group": "i_old",
@@ -229,6 +241,9 @@
         "instructive_plural": "satein",
         "comitative_plural": "sateineen"
       },
+      "english": {
+        "plural": "rains"
+      },
       "kotusType": 48,
       "group": "other_cons",
       "frequencyRank": 6786,
@@ -275,6 +290,9 @@
         "abessive_plural": "lumitta",
         "instructive_plural": "lumin",
         "comitative_plural": "lumineen"
+      },
+      "english": {
+        "plural": "snows"
       },
       "kotusType": 25,
       "group": "i_old",
@@ -323,6 +341,9 @@
         "instructive_plural": "kukin",
         "comitative_plural": "kukkineen"
       },
+      "english": {
+        "plural": "flowers"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 2878,
@@ -369,6 +390,9 @@
         "abessive_plural": "vuoritta",
         "instructive_plural": "vuorin",
         "comitative_plural": "vuorineen"
+      },
+      "english": {
+        "plural": "mountains"
       },
       "kotusType": 26,
       "group": "i_old",
@@ -417,6 +441,9 @@
         "instructive_plural": "kivin",
         "comitative_plural": "kivineen"
       },
+      "english": {
+        "plural": "stones"
+      },
       "kotusType": 7,
       "group": "i_old",
       "frequencyRank": 3524,
@@ -459,6 +486,9 @@
         "abessive_plural": "järvittä",
         "instructive_plural": "järvin",
         "comitative_plural": "järvineen"
+      },
+      "english": {
+        "plural": "lakes"
       },
       "kotusType": 7,
       "group": "i_old",
@@ -507,6 +537,9 @@
         "instructive_plural": "merin",
         "comitative_plural": "merineen"
       },
+      "english": {
+        "plural": "seas"
+      },
       "kotusType": 24,
       "group": "i_old",
       "frequencyRank": 4040,
@@ -553,6 +586,9 @@
         "abessive_plural": "taivaitta",
         "instructive_plural": "taivain",
         "comitative_plural": "taivaineen"
+      },
+      "english": {
+        "plural": "skies"
       },
       "kotusType": 41,
       "group": "s",

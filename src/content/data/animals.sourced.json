@@ -41,6 +41,9 @@
         "instructive_plural": "kissoin",
         "comitative_plural": "kissoineen"
       },
+      "english": {
+        "plural": "cats"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 2545,
@@ -87,6 +90,9 @@
         "abessive_plural": "koiritta",
         "instructive_plural": "koirin",
         "comitative_plural": "koirineen"
+      },
+      "english": {
+        "plural": "dogs"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -135,6 +141,9 @@
         "instructive_plural": "karhuin",
         "comitative_plural": "karhuineen"
       },
+      "english": {
+        "plural": "bears"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 5125,
@@ -181,6 +190,9 @@
         "abessive_plural": "pupuitta",
         "instructive_plural": "pupuin",
         "comitative_plural": "pupuineen"
+      },
+      "english": {
+        "plural": "bunnies"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -229,6 +241,9 @@
         "instructive_plural": "linnuin",
         "comitative_plural": "lintuineen"
       },
+      "english": {
+        "plural": "birds"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 3661,
@@ -275,6 +290,9 @@
         "abessive_plural": "kaloitta",
         "instructive_plural": "kaloin",
         "comitative_plural": "kaloineen"
+      },
+      "english": {
+        "plural": "fish"
       },
       "kotusType": 9,
       "group": "a_ae",
@@ -323,6 +341,9 @@
         "instructive_plural": "hevosin",
         "comitative_plural": "hevosineen"
       },
+      "english": {
+        "plural": "horses"
+      },
       "kotusType": 38,
       "group": "nen",
       "frequencyRank": 3123,
@@ -369,6 +390,9 @@
         "abessive_plural": "lehmittä",
         "instructive_plural": "lehmin",
         "comitative_plural": "lehmineen"
+      },
+      "english": {
+        "plural": "cows"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -417,6 +441,9 @@
         "instructive_plural": "sioin",
         "comitative_plural": "sikoineen"
       },
+      "english": {
+        "plural": "pigs"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 2921,
@@ -463,6 +490,9 @@
         "abessive_plural": "ketuitta",
         "instructive_plural": "ketuin",
         "comitative_plural": "kettuineen"
+      },
+      "english": {
+        "plural": "foxes"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -511,6 +541,9 @@
         "instructive_plural": "ankoin",
         "comitative_plural": "ankkoineen"
       },
+      "english": {
+        "plural": "ducks"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 11974,
@@ -557,6 +590,9 @@
         "abessive_plural": "sammakoitta",
         "instructive_plural": "sammakoin",
         "comitative_plural": "sammakkoineen"
+      },
+      "english": {
+        "plural": "frogs"
       },
       "kotusType": 4,
       "group": "o_oe",

@@ -9,7 +9,7 @@ import bodyData from './data/body.sourced.json';
 import natureData from './data/nature.sourced.json';
 import clothesData from './data/clothes.sourced.json';
 import { nounConstructions } from './constructions';
-import type { Construction, Example, LexicalItem, Theme, Tier } from './types';
+import type { Construction, EnglishMorph, Example, LexicalItem, Theme, Tier } from './types';
 
 export type {
   LexicalItem,
@@ -49,6 +49,7 @@ interface SourcedWord {
   value?: number;
   examples?: Example[];
   tags?: string[];
+  english?: EnglishMorph;
 }
 
 interface SourcedFile {
@@ -71,6 +72,7 @@ function toItem(w: SourcedWord, tier: Tier, topic: string): LexicalItem {
     frequencyRank: w.frequencyRank,
     value: w.value,
     examples: w.examples,
+    english: w.english,
     topic,
     tags: w.tags,
   };

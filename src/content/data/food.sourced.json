@@ -41,6 +41,9 @@
         "instructive_plural": "leivin",
         "comitative_plural": "leipineen"
       },
+      "english": {
+        "plural": "breads"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 5022,
@@ -83,6 +86,9 @@
         "abessive_plural": "maidoitta",
         "instructive_plural": "maidoin",
         "comitative_plural": "maitoineen"
+      },
+      "english": {
+        "plural": "milks"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -131,6 +137,9 @@
         "instructive_plural": "vesin",
         "comitative_plural": "vesineen"
       },
+      "english": {
+        "plural": "waters"
+      },
       "kotusType": 27,
       "group": "i_old",
       "frequencyRank": 753,
@@ -177,6 +186,9 @@
         "abessive_plural": "omenoitta",
         "instructive_plural": "omenoin",
         "comitative_plural": "omenoineen"
+      },
+      "english": {
+        "plural": "apples"
       },
       "kotusType": 11,
       "group": "a_ae",
@@ -225,6 +237,9 @@
         "instructive_plural": "banaanein",
         "comitative_plural": "banaaneineen"
       },
+      "english": {
+        "plural": "bananas"
+      },
       "kotusType": 6,
       "group": "i_new",
       "frequencyRank": 18618,
@@ -271,6 +286,9 @@
         "abessive_plural": "juustoitta",
         "instructive_plural": "juustoin",
         "comitative_plural": "juustoineen"
+      },
+      "english": {
+        "plural": "cheeses"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -319,6 +337,9 @@
         "instructive_plural": "kakuin",
         "comitative_plural": "kakkuineen"
       },
+      "english": {
+        "plural": "cakes"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 4662,
@@ -365,6 +386,9 @@
         "abessive_plural": "kekseittä",
         "instructive_plural": "keksein",
         "comitative_plural": "kekseineen"
+      },
+      "english": {
+        "plural": "cookies"
       },
       "kotusType": 5,
       "group": "i_new",
@@ -413,6 +437,9 @@
         "instructive_plural": "mehuin",
         "comitative_plural": "mehuineen"
       },
+      "english": {
+        "plural": "juices"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 8474,
@@ -459,6 +486,9 @@
         "abessive_plural": "jäätelöittä",
         "instructive_plural": "jäätelöin",
         "comitative_plural": "jäätelöineen"
+      },
+      "english": {
+        "plural": "ice creams"
       },
       "kotusType": 2,
       "group": "u_y",
@@ -507,6 +537,9 @@
         "instructive_plural": "suklain",
         "comitative_plural": "suklaineen"
       },
+      "english": {
+        "plural": "chocolates"
+      },
       "kotusType": 17,
       "group": "long_vowel",
       "frequencyRank": 5902,
@@ -554,6 +587,9 @@
         "instructive_plural": "perunoin",
         "comitative_plural": "perunoineen"
       },
+      "english": {
+        "plural": "potatoes"
+      },
       "kotusType": 12,
       "group": "a_ae",
       "frequencyRank": 12104
@@ -590,6 +626,9 @@
         "abessive_plural": "mansikoitta",
         "instructive_plural": "mansikoin",
         "comitative_plural": "mansikkoineen"
+      },
+      "english": {
+        "plural": "strawberries"
       },
       "kotusType": 14,
       "group": "a_ae",
@@ -637,6 +676,9 @@
         "abessive_plural": "porkkanoitta",
         "instructive_plural": "porkkanoin",
         "comitative_plural": "porkkanoineen"
+      },
+      "english": {
+        "plural": "carrots"
       },
       "kotusType": 12,
       "group": "a_ae",

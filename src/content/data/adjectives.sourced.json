@@ -40,6 +40,10 @@
         "instructive_plural": "isoin",
         "comitative_plural": "isoine"
       },
+      "english": {
+        "comparative": "bigger",
+        "superlative": "biggest"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 406,
@@ -85,6 +89,10 @@
         "abessive_plural": "pienittä",
         "instructive_plural": "pienin",
         "comitative_plural": "pienine"
+      },
+      "english": {
+        "comparative": "smaller",
+        "superlative": "smallest"
       },
       "kotusType": 26,
       "group": "i_old",
@@ -132,6 +140,10 @@
         "instructive_plural": "nopein",
         "comitative_plural": "nopeine"
       },
+      "english": {
+        "comparative": "faster",
+        "superlative": "fastest"
+      },
       "kotusType": 15,
       "group": "a_ae",
       "frequencyRank": 2256,
@@ -177,6 +189,10 @@
         "abessive_plural": "hitaitta",
         "instructive_plural": "hitain",
         "comitative_plural": "hitaine"
+      },
+      "english": {
+        "comparative": "slower",
+        "superlative": "slowest"
       },
       "kotusType": 41,
       "group": "s",
@@ -224,6 +240,10 @@
         "instructive_plural": "vanhoin",
         "comitative_plural": "vanhoine"
       },
+      "english": {
+        "comparative": "older",
+        "superlative": "oldest"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 381,
@@ -269,6 +289,10 @@
         "abessive_plural": "iloisitta",
         "instructive_plural": "iloisin",
         "comitative_plural": "iloisine"
+      },
+      "english": {
+        "comparative": "happier",
+        "superlative": "happiest"
       },
       "kotusType": 38,
       "group": "nen",
@@ -316,6 +340,10 @@
         "instructive_plural": "väsynein",
         "comitative_plural": "väsyneine"
       },
+      "english": {
+        "comparative": "tireder",
+        "superlative": "tiredest"
+      },
       "kotusType": 47,
       "group": "ut_yt",
       "frequencyRank": 1591,
@@ -361,6 +389,10 @@
         "abessive_plural": "nälkäisittä",
         "instructive_plural": "nälkäisin",
         "comitative_plural": "nälkäisine"
+      },
+      "english": {
+        "comparative": "hungrier",
+        "superlative": "hungriest"
       },
       "kotusType": 38,
       "group": "nen",
@@ -408,6 +440,10 @@
         "instructive_plural": "söpöin",
         "comitative_plural": "söpöine"
       },
+      "english": {
+        "comparative": "cuter",
+        "superlative": "cutest"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 2027,
@@ -453,6 +489,10 @@
         "abessive_plural": "kilteittä",
         "instructive_plural": "kiltein",
         "comitative_plural": "kiltteine"
+      },
+      "english": {
+        "comparative": "kinder",
+        "superlative": "kindest"
       },
       "kotusType": 5,
       "group": "i_new",
@@ -501,6 +541,10 @@
         "instructive_plural": "punaisin",
         "comitative_plural": "punaisine"
       },
+      "english": {
+        "comparative": "redder",
+        "superlative": "reddest"
+      },
       "kotusType": 38,
       "group": "nen",
       "frequencyRank": 1880,
@@ -547,6 +591,10 @@
         "abessive_plural": "sinisittä",
         "instructive_plural": "sinisin",
         "comitative_plural": "sinisine"
+      },
+      "english": {
+        "comparative": "bluer",
+        "superlative": "bluest"
       },
       "kotusType": 38,
       "group": "nen",
@@ -595,6 +643,10 @@
         "instructive_plural": "keltaisin",
         "comitative_plural": "keltaisine"
       },
+      "english": {
+        "comparative": "yellower",
+        "superlative": "yellowest"
+      },
       "kotusType": 38,
       "group": "nen",
       "frequencyRank": 6645,
@@ -641,6 +693,10 @@
         "abessive_plural": "vihreittä",
         "instructive_plural": "vihrein",
         "comitative_plural": "vihreine"
+      },
+      "english": {
+        "comparative": "greener",
+        "superlative": "greenest"
       },
       "kotusType": 15,
       "group": "a_ae",
@@ -689,6 +745,10 @@
         "instructive_plural": "mustin",
         "comitative_plural": "mustine"
       },
+      "english": {
+        "comparative": "blacker",
+        "superlative": "blackest"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 1120,
@@ -736,6 +796,10 @@
         "instructive_plural": "valkoisin",
         "comitative_plural": "valkoisine"
       },
+      "english": {
+        "comparative": "whiter",
+        "superlative": "whitest"
+      },
       "kotusType": 38,
       "group": "nen",
       "frequencyRank": 1712,
@@ -782,6 +846,10 @@
         "abessive_plural": "ruskeitta",
         "instructive_plural": "ruskein",
         "comitative_plural": "ruskeine"
+      },
+      "english": {
+        "comparative": "browner",
+        "superlative": "brownest"
       },
       "kotusType": 15,
       "group": "a_ae",

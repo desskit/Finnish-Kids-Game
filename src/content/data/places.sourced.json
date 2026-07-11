@@ -41,6 +41,9 @@
         "instructive_plural": "laatikoin",
         "comitative_plural": "laatikkoineen"
       },
+      "english": {
+        "plural": "boxes"
+      },
       "tags": [
         "surface",
         "container"
@@ -92,6 +95,9 @@
         "instructive_plural": "pöydin",
         "comitative_plural": "pöytineen"
       },
+      "english": {
+        "plural": "tables"
+      },
       "tags": [
         "surface"
       ],
@@ -141,6 +147,9 @@
         "abessive_plural": "taloitta",
         "instructive_plural": "taloin",
         "comitative_plural": "taloineen"
+      },
+      "english": {
+        "plural": "houses"
       },
       "tags": [
         "container"
@@ -192,6 +201,9 @@
         "instructive_plural": "huonein",
         "comitative_plural": "huoneineen"
       },
+      "english": {
+        "plural": "rooms"
+      },
       "tags": [
         "container"
       ],
@@ -241,6 +253,9 @@
         "abessive_plural": "autoitta",
         "instructive_plural": "autoin",
         "comitative_plural": "autoineen"
+      },
+      "english": {
+        "plural": "cars"
       },
       "tags": [
         "surface",
@@ -293,6 +308,9 @@
         "instructive_plural": "sängyin",
         "comitative_plural": "sänkyineen"
       },
+      "english": {
+        "plural": "beds"
+      },
       "tags": [
         "surface",
         "container"
@@ -344,6 +362,9 @@
         "instructive_plural": "tuolein",
         "comitative_plural": "tuoleineen"
       },
+      "english": {
+        "plural": "chairs"
+      },
       "tags": [
         "surface"
       ],
@@ -393,6 +414,9 @@
         "abessive_plural": "kouluitta",
         "instructive_plural": "kouluin",
         "comitative_plural": "kouluineen"
+      },
+      "english": {
+        "plural": "schools"
       },
       "tags": [
         "container"
@@ -444,6 +468,9 @@
         "instructive_plural": "puin",
         "comitative_plural": "puineen"
       },
+      "english": {
+        "plural": "trees"
+      },
       "tags": [
         "container"
       ],
@@ -493,6 +520,9 @@
         "abessive_plural": "metsittä",
         "instructive_plural": "metsin",
         "comitative_plural": "metsineen"
+      },
+      "english": {
+        "plural": "forests"
       },
       "tags": [
         "container"
@@ -544,6 +574,9 @@
         "instructive_plural": "korein",
         "comitative_plural": "koreineen"
       },
+      "english": {
+        "plural": "baskets"
+      },
       "tags": [
         "surface",
         "container"
@@ -594,6 +627,9 @@
         "abessive_plural": "laukuitta",
         "instructive_plural": "laukuin",
         "comitative_plural": "laukkuineen"
+      },
+      "english": {
+        "plural": "bags"
       },
       "tags": [
         "container"
