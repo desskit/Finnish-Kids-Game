@@ -40,6 +40,12 @@
         "imperative_active_positive_2sg": "ole",
         "imperative_active_positive_2pl": "olkaa"
       },
+      "english": {
+        "thirdSg": "is",
+        "past": "was",
+        "pastParticiple": "been",
+        "gerund": "being"
+      },
       "kotusType": 67,
       "group": "type3",
       "frequencyRank": 1,
@@ -86,6 +92,12 @@
         "past_active_negative_3pl": "eivät syöneet",
         "imperative_active_positive_2sg": "syö",
         "imperative_active_positive_2pl": "syökää"
+      },
+      "english": {
+        "past": "ate",
+        "pastParticiple": "eaten",
+        "gerund": "eating",
+        "thirdSg": "eats"
       },
       "kotusType": 64,
       "group": "type2",
@@ -134,6 +146,12 @@
         "imperative_active_positive_2sg": "juo",
         "imperative_active_positive_2pl": "juokaa"
       },
+      "english": {
+        "past": "drank",
+        "pastParticiple": "drunk",
+        "gerund": "drinking",
+        "thirdSg": "drinks"
+      },
       "kotusType": 64,
       "group": "type2",
       "frequencyRank": 1298,
@@ -180,6 +198,12 @@
         "past_active_negative_3pl": "eivät nukkuneet",
         "imperative_active_positive_2sg": "nuku",
         "imperative_active_positive_2pl": "nukkukaa"
+      },
+      "english": {
+        "past": "slept",
+        "pastParticiple": "slept",
+        "gerund": "sleeping",
+        "thirdSg": "sleeps"
       },
       "kotusType": 52,
       "group": "type1",
@@ -228,6 +252,12 @@
         "imperative_active_positive_2sg": "leiki",
         "imperative_active_positive_2pl": "leikkikää"
       },
+      "english": {
+        "past": "played",
+        "pastParticiple": "played",
+        "gerund": "playing",
+        "thirdSg": "plays"
+      },
       "kotusType": 61,
       "group": "type1",
       "frequencyRank": 1258,
@@ -274,6 +304,12 @@
         "past_active_negative_3pl": "eivät juosseet",
         "imperative_active_positive_2sg": "juokse",
         "imperative_active_positive_2pl": "juoskaa"
+      },
+      "english": {
+        "past": "ran",
+        "pastParticiple": "run",
+        "gerund": "running",
+        "thirdSg": "runs"
       },
       "kotusType": 70,
       "group": "type3",
@@ -322,6 +358,12 @@
         "imperative_active_positive_2sg": "hyppää",
         "imperative_active_positive_2pl": "hypätkää"
       },
+      "english": {
+        "past": "jumped",
+        "pastParticiple": "jumped",
+        "gerund": "jumping",
+        "thirdSg": "jumps"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 2043,
@@ -368,6 +410,12 @@
         "imperative_active_positive_2sg": "mene",
         "imperative_active_positive_2pl": "menkää"
       },
+      "english": {
+        "past": "went",
+        "pastParticiple": "gone",
+        "gerund": "going",
+        "thirdSg": "goes"
+      },
       "kotusType": 67,
       "group": "type3",
       "frequencyRank": 119,
@@ -413,6 +461,12 @@
         "past_active_negative_3pl": "eivät tulleet",
         "imperative_active_positive_2sg": "tule",
         "imperative_active_positive_2pl": "tulkaa"
+      },
+      "english": {
+        "past": "came",
+        "pastParticiple": "come",
+        "gerund": "coming",
+        "thirdSg": "comes"
       },
       "kotusType": 67,
       "group": "type3",
@@ -461,6 +515,12 @@
         "imperative_active_positive_2sg": "näe",
         "imperative_active_positive_2pl": "nähkää"
       },
+      "english": {
+        "past": "saw",
+        "pastParticiple": "seen",
+        "gerund": "seeing",
+        "thirdSg": "sees"
+      },
       "kotusType": 71,
       "group": "type2",
       "frequencyRank": 108,
@@ -508,6 +568,12 @@
         "imperative_active_positive_2sg": "anna",
         "imperative_active_positive_2pl": "antakaa"
       },
+      "english": {
+        "past": "gave",
+        "pastParticiple": "given",
+        "gerund": "giving",
+        "thirdSg": "gives"
+      },
       "kotusType": 56,
       "group": "type1",
       "frequencyRank": 89,
@@ -553,6 +619,12 @@
         "past_active_negative_3pl": "eivät ottaneet",
         "imperative_active_positive_2sg": "ota",
         "imperative_active_positive_2pl": "ottakaa"
+      },
+      "english": {
+        "past": "took",
+        "pastParticiple": "taken",
+        "gerund": "taking",
+        "thirdSg": "takes"
       },
       "kotusType": 53,
       "group": "type1",
@@ -601,6 +673,12 @@
         "imperative_active_positive_2sg": "katso",
         "imperative_active_positive_2pl": "katsokaa"
       },
+      "english": {
+        "past": "looked",
+        "pastParticiple": "looked",
+        "gerund": "looking",
+        "thirdSg": "looks"
+      },
       "kotusType": 52,
       "group": "type1",
       "frequencyRank": 168,
@@ -647,6 +725,12 @@
         "past_active_negative_3pl": "eivät laulaneet",
         "imperative_active_positive_2sg": "laula",
         "imperative_active_positive_2pl": "laulakaa"
+      },
+      "english": {
+        "past": "sang",
+        "pastParticiple": "sung",
+        "gerund": "singing",
+        "thirdSg": "sings"
       },
       "kotusType": 56,
       "group": "type1",
@@ -695,6 +779,12 @@
         "imperative_active_positive_2sg": "lue",
         "imperative_active_positive_2pl": "lukekaa"
       },
+      "english": {
+        "past": "read",
+        "pastParticiple": "read",
+        "gerund": "reading",
+        "thirdSg": "reads"
+      },
       "kotusType": 58,
       "group": "type1",
       "frequencyRank": 1190,
@@ -742,6 +832,12 @@
         "imperative_active_positive_2sg": "ui",
         "imperative_active_positive_2pl": "uikaa"
       },
+      "english": {
+        "past": "swam",
+        "pastParticiple": "swum",
+        "gerund": "swimming",
+        "thirdSg": "swims"
+      },
       "kotusType": 62,
       "group": "type2",
       "frequencyRank": 5256,
@@ -787,6 +883,12 @@
         "past_active_negative_3pl": "eivät halunneet",
         "imperative_active_positive_2sg": "halua",
         "imperative_active_positive_2pl": "halutkaa"
+      },
+      "english": {
+        "past": "wanted",
+        "pastParticiple": "wanted",
+        "gerund": "wanting",
+        "thirdSg": "wants"
       },
       "kotusType": 75,
       "group": "type5",
@@ -835,6 +937,12 @@
         "imperative_active_positive_2sg": "rakasta",
         "imperative_active_positive_2pl": "rakastakaa"
       },
+      "english": {
+        "past": "loved",
+        "pastParticiple": "loved",
+        "gerund": "loving",
+        "thirdSg": "loves"
+      },
       "kotusType": 53,
       "group": "type1",
       "frequencyRank": 256,
@@ -881,6 +989,12 @@
         "past_active_negative_3pl": "eivät auttaneet",
         "imperative_active_positive_2sg": "auta",
         "imperative_active_positive_2pl": "auttakaa"
+      },
+      "english": {
+        "past": "helped",
+        "pastParticiple": "helped",
+        "gerund": "helping",
+        "thirdSg": "helps"
       },
       "kotusType": 56,
       "group": "type1",
@@ -929,6 +1043,12 @@
         "imperative_active_positive_2sg": "istu",
         "imperative_active_positive_2pl": "istukaa"
       },
+      "english": {
+        "past": "sat",
+        "pastParticiple": "sat",
+        "gerund": "sitting",
+        "thirdSg": "sits"
+      },
       "kotusType": 52,
       "group": "type1",
       "frequencyRank": 744,
@@ -975,6 +1095,12 @@
         "past_active_negative_3pl": "eivät seisoneet",
         "imperative_active_positive_2sg": "seiso",
         "imperative_active_positive_2pl": "seisokaa"
+      },
+      "english": {
+        "past": "stood",
+        "pastParticiple": "stood",
+        "gerund": "standing",
+        "thirdSg": "stands"
       },
       "kotusType": 52,
       "group": "type1",
@@ -1023,6 +1149,12 @@
         "imperative_active_positive_2sg": "kävele",
         "imperative_active_positive_2pl": "kävelkää"
       },
+      "english": {
+        "past": "walked",
+        "pastParticiple": "walked",
+        "gerund": "walking",
+        "thirdSg": "walks"
+      },
       "kotusType": 67,
       "group": "type3",
       "frequencyRank": 2042,
@@ -1069,6 +1201,12 @@
         "past_active_negative_3pl": "eivät tanssineet",
         "imperative_active_positive_2sg": "tanssi",
         "imperative_active_positive_2pl": "tanssikaa"
+      },
+      "english": {
+        "past": "danced",
+        "pastParticiple": "danced",
+        "gerund": "dancing",
+        "thirdSg": "dances"
       },
       "kotusType": 61,
       "group": "type1",
@@ -1117,6 +1255,12 @@
         "imperative_active_positive_2sg": "piirrä",
         "imperative_active_positive_2pl": "piirtäkää"
       },
+      "english": {
+        "past": "drew",
+        "pastParticiple": "drawn",
+        "gerund": "drawing",
+        "thirdSg": "draws"
+      },
       "kotusType": 54,
       "group": "type1",
       "frequencyRank": 8666,
@@ -1163,6 +1307,12 @@
         "past_active_negative_3pl": "eivät kirjoittaneet",
         "imperative_active_positive_2sg": "kirjoita",
         "imperative_active_positive_2pl": "kirjoittakaa"
+      },
+      "english": {
+        "past": "wrote",
+        "pastParticiple": "written",
+        "gerund": "writing",
+        "thirdSg": "writes"
       },
       "kotusType": 53,
       "group": "type1",
@@ -1211,6 +1361,12 @@
         "imperative_active_positive_2sg": "avaa",
         "imperative_active_positive_2pl": "avatkaa"
       },
+      "english": {
+        "past": "opened",
+        "pastParticiple": "opened",
+        "gerund": "opening",
+        "thirdSg": "opens"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 713,
@@ -1257,6 +1413,12 @@
         "past_active_negative_3pl": "eivät sulkeneet",
         "imperative_active_positive_2sg": "sulje",
         "imperative_active_positive_2pl": "sulkekaa"
+      },
+      "english": {
+        "past": "closed",
+        "pastParticiple": "closed",
+        "gerund": "closing",
+        "thirdSg": "closes"
       },
       "kotusType": 58,
       "group": "type1",
@@ -1305,6 +1467,12 @@
         "imperative_active_positive_2sg": "osta",
         "imperative_active_positive_2pl": "ostakaa"
       },
+      "english": {
+        "past": "bought",
+        "pastParticiple": "bought",
+        "gerund": "buying",
+        "thirdSg": "buys"
+      },
       "kotusType": 53,
       "group": "type1",
       "frequencyRank": 897,
@@ -1350,6 +1518,12 @@
         "past_active_negative_3pl": "eivät kuulleet",
         "imperative_active_positive_2sg": "kuule",
         "imperative_active_positive_2pl": "kuulkaa"
+      },
+      "english": {
+        "past": "heard",
+        "pastParticiple": "heard",
+        "gerund": "hearing",
+        "thirdSg": "hears"
       },
       "kotusType": 67,
       "group": "type3",
@@ -1398,6 +1572,12 @@
         "imperative_active_positive_2sg": "kuuntele",
         "imperative_active_positive_2pl": "kuunnelkaa"
       },
+      "english": {
+        "past": "listened",
+        "pastParticiple": "listened",
+        "gerund": "listening",
+        "thirdSg": "listens"
+      },
       "kotusType": 67,
       "group": "type3",
       "frequencyRank": 363,
@@ -1444,6 +1624,12 @@
         "past_active_negative_3pl": "eivät puhuneet",
         "imperative_active_positive_2sg": "puhu",
         "imperative_active_positive_2pl": "puhukaa"
+      },
+      "english": {
+        "past": "spoke",
+        "pastParticiple": "spoken",
+        "gerund": "speaking",
+        "thirdSg": "speaks"
       },
       "kotusType": 52,
       "group": "type1",
@@ -1492,6 +1678,12 @@
         "imperative_active_positive_2sg": "sano",
         "imperative_active_positive_2pl": "sanokaa"
       },
+      "english": {
+        "past": "said",
+        "pastParticiple": "said",
+        "gerund": "saying",
+        "thirdSg": "says"
+      },
       "kotusType": 52,
       "group": "type1",
       "frequencyRank": 157,
@@ -1538,6 +1730,12 @@
         "past_active_negative_3pl": "eivät kysyneet",
         "imperative_active_positive_2sg": "kysy",
         "imperative_active_positive_2pl": "kysykää"
+      },
+      "english": {
+        "past": "asked",
+        "pastParticiple": "asked",
+        "gerund": "asking",
+        "thirdSg": "asks"
       },
       "kotusType": 52,
       "group": "type1",
@@ -1586,6 +1784,12 @@
         "imperative_active_positive_2sg": "vastaa",
         "imperative_active_positive_2pl": "vastatkaa"
       },
+      "english": {
+        "past": "answered",
+        "pastParticiple": "answered",
+        "gerund": "answering",
+        "thirdSg": "answers"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 226,
@@ -1633,6 +1837,12 @@
         "imperative_active_positive_2sg": "etsi",
         "imperative_active_positive_2pl": "etsikää"
       },
+      "english": {
+        "past": "searched",
+        "pastParticiple": "searched",
+        "gerund": "searching",
+        "thirdSg": "searches"
+      },
       "kotusType": 61,
       "group": "type1",
       "frequencyRank": 686,
@@ -1678,6 +1888,12 @@
         "past_active_negative_3pl": "eivät löytäneet",
         "imperative_active_positive_2sg": "löydä",
         "imperative_active_positive_2pl": "löytäkää"
+      },
+      "english": {
+        "past": "found",
+        "pastParticiple": "found",
+        "gerund": "finding",
+        "thirdSg": "finds"
       },
       "kotusType": 54,
       "group": "type1",
@@ -1726,6 +1942,12 @@
         "imperative_active_positive_2sg": "tee",
         "imperative_active_positive_2pl": "tehkää"
       },
+      "english": {
+        "past": "made",
+        "pastParticiple": "made",
+        "gerund": "making",
+        "thirdSg": "makes"
+      },
       "kotusType": 71,
       "group": "type2",
       "frequencyRank": 81,
@@ -1771,6 +1993,12 @@
         "past_active_negative_3pl": "eivät saaneet",
         "imperative_active_positive_2sg": "saa",
         "imperative_active_positive_2pl": "saakaa"
+      },
+      "english": {
+        "past": "got",
+        "pastParticiple": "got",
+        "gerund": "getting",
+        "thirdSg": "gets"
       },
       "kotusType": 63,
       "group": "type2",
@@ -1818,6 +2046,12 @@
         "imperative_active_positive_2sg": "tuo",
         "imperative_active_positive_2pl": "tuokaa"
       },
+      "english": {
+        "past": "brought",
+        "pastParticiple": "brought",
+        "gerund": "bringing",
+        "thirdSg": "brings"
+      },
       "kotusType": 64,
       "group": "type2",
       "frequencyRank": 65,
@@ -1864,6 +2098,12 @@
         "imperative_active_positive_2sg": "vie",
         "imperative_active_positive_2pl": "viekää"
       },
+      "english": {
+        "past": "took away",
+        "pastParticiple": "taken away",
+        "gerund": "taking away",
+        "thirdSg": "takes away"
+      },
       "kotusType": 64,
       "group": "type2",
       "frequencyRank": 336,
@@ -1906,6 +2146,12 @@
         "past_active_negative_3pl": "eivät lentäneet",
         "imperative_active_positive_2sg": "lennä",
         "imperative_active_positive_2pl": "lentäkää"
+      },
+      "english": {
+        "past": "flew",
+        "pastParticiple": "flown",
+        "gerund": "flying",
+        "thirdSg": "flies"
       },
       "kotusType": 54,
       "group": "type1",
@@ -1954,6 +2200,12 @@
         "imperative_active_positive_2sg": "aja",
         "imperative_active_positive_2pl": "ajakaa"
       },
+      "english": {
+        "past": "drove",
+        "pastParticiple": "driven",
+        "gerund": "driving",
+        "thirdSg": "drives"
+      },
       "kotusType": 56,
       "group": "type1",
       "frequencyRank": 265,
@@ -2000,6 +2252,12 @@
         "past_active_negative_3pl": "eivät pesseet",
         "imperative_active_positive_2sg": "pese",
         "imperative_active_positive_2pl": "peskää"
+      },
+      "english": {
+        "past": "washed",
+        "pastParticiple": "washed",
+        "gerund": "washing",
+        "thirdSg": "washes"
       },
       "kotusType": 66,
       "group": "type3",
@@ -2048,6 +2306,12 @@
         "imperative_active_positive_2sg": "siivoa",
         "imperative_active_positive_2pl": "siivotkaa"
       },
+      "english": {
+        "past": "cleaned",
+        "pastParticiple": "cleaned",
+        "gerund": "cleaning",
+        "thirdSg": "cleans"
+      },
       "kotusType": 75,
       "group": "type5",
       "frequencyRank": 4400,
@@ -2094,6 +2358,12 @@
         "past_active_negative_3pl": "eivät keittäneet",
         "imperative_active_positive_2sg": "keitä",
         "imperative_active_positive_2pl": "keittäkää"
+      },
+      "english": {
+        "past": "cooked",
+        "pastParticiple": "cooked",
+        "gerund": "cooking",
+        "thirdSg": "cooks"
       },
       "kotusType": 53,
       "group": "type1",
@@ -2142,6 +2412,12 @@
         "imperative_active_positive_2sg": "maalaa",
         "imperative_active_positive_2pl": "maalatkaa"
       },
+      "english": {
+        "past": "painted",
+        "pastParticiple": "painted",
+        "gerund": "painting",
+        "thirdSg": "paints"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 7478,
@@ -2188,6 +2464,12 @@
         "past_active_negative_3pl": "eivät hymyilleet",
         "imperative_active_positive_2sg": "hymyile",
         "imperative_active_positive_2pl": "hymyilkää"
+      },
+      "english": {
+        "past": "smiled",
+        "pastParticiple": "smiled",
+        "gerund": "smiling",
+        "thirdSg": "smiles"
       },
       "kotusType": 67,
       "group": "type3",
@@ -2236,6 +2518,12 @@
         "imperative_active_positive_2sg": "itke",
         "imperative_active_positive_2pl": "itkekää"
       },
+      "english": {
+        "past": "cried",
+        "pastParticiple": "cried",
+        "gerund": "crying",
+        "thirdSg": "cries"
+      },
       "kotusType": 58,
       "group": "type1",
       "frequencyRank": 3684,
@@ -2282,6 +2570,12 @@
         "past_active_negative_3pl": "eivät nauraneet",
         "imperative_active_positive_2sg": "naura",
         "imperative_active_positive_2pl": "naurakaa"
+      },
+      "english": {
+        "past": "laughed",
+        "pastParticiple": "laughed",
+        "gerund": "laughing",
+        "thirdSg": "laughs"
       },
       "kotusType": 56,
       "group": "type1",
@@ -2330,6 +2624,12 @@
         "imperative_active_positive_2sg": "halaa",
         "imperative_active_positive_2pl": "halatkaa"
       },
+      "english": {
+        "past": "hugged",
+        "pastParticiple": "hugged",
+        "gerund": "hugging",
+        "thirdSg": "hugs"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 10014,
@@ -2376,6 +2676,12 @@
         "past_active_negative_3pl": "eivät heittäneet",
         "imperative_active_positive_2sg": "heitä",
         "imperative_active_positive_2pl": "heittäkää"
+      },
+      "english": {
+        "past": "threw",
+        "pastParticiple": "thrown",
+        "gerund": "throwing",
+        "thirdSg": "throws"
       },
       "kotusType": 53,
       "group": "type1",
@@ -2424,6 +2730,12 @@
         "imperative_active_positive_2sg": "kiipeä",
         "imperative_active_positive_2pl": "kiivetkää"
       },
+      "english": {
+        "past": "climbed",
+        "pastParticiple": "climbed",
+        "gerund": "climbing",
+        "thirdSg": "climbs"
+      },
       "kotusType": 74,
       "group": "type4",
       "frequencyRank": 8521,
@@ -2470,6 +2782,12 @@
         "imperative_active_positive_2sg": "muista",
         "imperative_active_positive_2pl": "muistakaa"
       },
+      "english": {
+        "past": "remembered",
+        "pastParticiple": "remembered",
+        "gerund": "remembering",
+        "thirdSg": "remembers"
+      },
       "kotusType": 53,
       "group": "type1",
       "frequencyRank": 361,
@@ -2515,6 +2833,12 @@
         "past_active_negative_3pl": "eivät unohtaneet",
         "imperative_active_positive_2sg": "unohda",
         "imperative_active_positive_2pl": "unohtakaa"
+      },
+      "english": {
+        "past": "forgot",
+        "pastParticiple": "forgotten",
+        "gerund": "forgetting",
+        "thirdSg": "forgets"
       },
       "kotusType": 53,
       "group": "type1",
@@ -2563,6 +2887,12 @@
         "imperative_active_positive_2sg": "opi",
         "imperative_active_positive_2pl": "oppikaa"
       },
+      "english": {
+        "past": "learned",
+        "pastParticiple": "learned",
+        "gerund": "learning",
+        "thirdSg": "learns"
+      },
       "kotusType": 61,
       "group": "type1",
       "frequencyRank": 1669,
@@ -2609,6 +2939,12 @@
         "past_active_negative_3pl": "eivät opettaneet",
         "imperative_active_positive_2sg": "opeta",
         "imperative_active_positive_2pl": "opettakaa"
+      },
+      "english": {
+        "past": "taught",
+        "pastParticiple": "taught",
+        "gerund": "teaching",
+        "thirdSg": "teaches"
       },
       "kotusType": 53,
       "group": "type1",
@@ -2657,6 +2993,12 @@
         "imperative_active_positive_2sg": "odota",
         "imperative_active_positive_2pl": "odottakaa"
       },
+      "english": {
+        "past": "waited",
+        "pastParticiple": "waited",
+        "gerund": "waiting",
+        "thirdSg": "waits"
+      },
       "kotusType": 53,
       "group": "type1",
       "frequencyRank": 213,
@@ -2702,6 +3044,12 @@
         "past_active_negative_3pl": "eivät asuneet",
         "imperative_active_positive_2sg": "asu",
         "imperative_active_positive_2pl": "asukaa"
+      },
+      "english": {
+        "past": "lived",
+        "pastParticiple": "lived",
+        "gerund": "living",
+        "thirdSg": "lives"
       },
       "kotusType": 52,
       "group": "type1",
@@ -2750,6 +3098,12 @@
         "imperative_active_positive_2sg": "rakenna",
         "imperative_active_positive_2pl": "rakentakaa"
       },
+      "english": {
+        "past": "built",
+        "pastParticiple": "built",
+        "gerund": "building",
+        "thirdSg": "builds"
+      },
       "kotusType": 54,
       "group": "type1",
       "frequencyRank": 2363,
@@ -2797,6 +3151,12 @@
         "imperative_active_positive_2sg": "korjaa",
         "imperative_active_positive_2pl": "korjatkaa"
       },
+      "english": {
+        "past": "fixed",
+        "pastParticiple": "fixed",
+        "gerund": "fixing",
+        "thirdSg": "fixes"
+      },
       "kotusType": 73,
       "group": "type4",
       "frequencyRank": 1528,
@@ -2843,6 +3203,12 @@
         "past_active_negative_3pl": "eivät heränneet",
         "imperative_active_positive_2sg": "herää",
         "imperative_active_positive_2pl": "herätkää"
+      },
+      "english": {
+        "past": "woke up",
+        "pastParticiple": "waked up",
+        "gerund": "waking up",
+        "thirdSg": "wakes up"
       },
       "kotusType": 73,
       "group": "type4",

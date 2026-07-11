@@ -41,6 +41,9 @@
         "instructive_plural": "paidoin",
         "comitative_plural": "paitoineen"
       },
+      "english": {
+        "plural": "shirts"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 3541,
@@ -87,6 +90,9 @@
         "abessive_plural": "puseroitta",
         "instructive_plural": "puseroin",
         "comitative_plural": "puseroineen"
+      },
+      "english": {
+        "plural": "blouses"
       },
       "kotusType": 2,
       "group": "u_y",
@@ -135,6 +141,9 @@
         "instructive_plural": "takein",
         "comitative_plural": "takkeineen"
       },
+      "english": {
+        "plural": "coats"
+      },
       "kotusType": 5,
       "group": "i_new",
       "frequencyRank": 3935,
@@ -181,6 +190,9 @@
         "abessive_plural": "kengittä",
         "instructive_plural": "kengin",
         "comitative_plural": "kenkineen"
+      },
+      "english": {
+        "plural": "shoes"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -229,6 +241,9 @@
         "instructive_plural": "sukin",
         "comitative_plural": "sukkineen"
       },
+      "english": {
+        "plural": "socks"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 10526,
@@ -275,6 +290,9 @@
         "abessive_plural": "hatuitta",
         "instructive_plural": "hatuin",
         "comitative_plural": "hattuineen"
+      },
+      "english": {
+        "plural": "hats"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -323,6 +341,9 @@
         "instructive_plural": "mekoin",
         "comitative_plural": "mekkoineen"
       },
+      "english": {
+        "plural": "dresses"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 5596,
@@ -369,6 +390,9 @@
         "abessive_plural": "hameitta",
         "instructive_plural": "hamein",
         "comitative_plural": "hameineen"
+      },
+      "english": {
+        "plural": "skirts"
       },
       "kotusType": 48,
       "group": "other_cons",
@@ -417,6 +441,9 @@
         "instructive_plural": "käsinein",
         "comitative_plural": "käsineineen"
       },
+      "english": {
+        "plural": "gloves"
+      },
       "kotusType": 48,
       "group": "other_cons",
       "frequencyRank": 29344,
@@ -463,6 +490,9 @@
         "abessive_plural": "huiveitta",
         "instructive_plural": "huivein",
         "comitative_plural": "huiveineen"
+      },
+      "english": {
+        "plural": "scarves"
       },
       "kotusType": 5,
       "group": "i_new",
@@ -511,6 +541,9 @@
         "instructive_plural": "lakein",
         "comitative_plural": "lakkeineen"
       },
+      "english": {
+        "plural": "caps"
+      },
       "kotusType": 5,
       "group": "i_new",
       "frequencyRank": 24868
@@ -547,6 +580,9 @@
         "abessive_plural": "saappaitta",
         "instructive_plural": "saappain",
         "comitative_plural": "saappaineen"
+      },
+      "english": {
+        "plural": "boots"
       },
       "kotusType": 41,
       "group": "s",

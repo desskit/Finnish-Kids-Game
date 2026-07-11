@@ -41,6 +41,9 @@
         "instructive_plural": "silmin",
         "comitative_plural": "silmineen"
       },
+      "english": {
+        "plural": "eyes"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 1307,
@@ -87,6 +90,9 @@
         "abessive_plural": "korvitta",
         "instructive_plural": "korvin",
         "comitative_plural": "korvineen"
+      },
+      "english": {
+        "plural": "ears"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -135,6 +141,9 @@
         "instructive_plural": "nenin",
         "comitative_plural": "nenineen"
       },
+      "english": {
+        "plural": "noses"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 6016,
@@ -182,6 +191,9 @@
         "instructive_plural": "suin",
         "comitative_plural": "suineen"
       },
+      "english": {
+        "plural": "mouths"
+      },
       "kotusType": 18,
       "group": "long_vowel",
       "frequencyRank": 1693,
@@ -228,6 +240,9 @@
         "abessive_plural": "käsittä",
         "instructive_plural": "käsin",
         "comitative_plural": "käsineen"
+      },
+      "english": {
+        "plural": "hands"
       },
       "kotusType": 27,
       "group": "i_old",
@@ -277,6 +292,9 @@
         "instructive_plural": "jaloin",
         "comitative_plural": "jalkoineen"
       },
+      "english": {
+        "plural": "feet"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 2452,
@@ -323,6 +341,9 @@
         "abessive_plural": "päittä",
         "instructive_plural": "päin",
         "comitative_plural": "päineen"
+      },
+      "english": {
+        "plural": "heads"
       },
       "kotusType": 18,
       "group": "long_vowel",
@@ -371,6 +392,9 @@
         "instructive_plural": "hampain",
         "comitative_plural": "hampaineen"
       },
+      "english": {
+        "plural": "teeth"
+      },
       "kotusType": 41,
       "group": "s",
       "frequencyRank": 4132,
@@ -417,6 +441,9 @@
         "abessive_plural": "tukitta",
         "instructive_plural": "tukin",
         "comitative_plural": "tukkineen"
+      },
+      "english": {
+        "plural": "hairs"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -465,6 +492,9 @@
         "instructive_plural": "vatsoin",
         "comitative_plural": "vatsoineen"
       },
+      "english": {
+        "plural": "tummies"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 10368,
@@ -512,6 +542,9 @@
         "instructive_plural": "sormin",
         "comitative_plural": "sormineen"
       },
+      "english": {
+        "plural": "fingers"
+      },
       "kotusType": 7,
       "group": "i_old",
       "frequencyRank": 7779,
@@ -558,6 +591,9 @@
         "abessive_plural": "polvitta",
         "instructive_plural": "polvin",
         "comitative_plural": "polvineen"
+      },
+      "english": {
+        "plural": "knees"
       },
       "kotusType": 7,
       "group": "i_old",

@@ -170,7 +170,8 @@ export default function MapHome() {
       )}
 
       <p className="data-credit">
-        Finnish word data from Wiktionary &amp; Tatoeba · CC BY-SA 4.0
+        Finnish word data from Wiktionary &amp; Tatoeba · CC BY-SA 4.0. English
+        inflections from AGID (K. Atkinson).
       </p>
     </section>
   );

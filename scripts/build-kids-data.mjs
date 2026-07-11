@@ -12,8 +12,18 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
+import { loadAgid, englishFormsFor } from './agid.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// English morphology (plurals / verb forms / comparatives) is SOURCED, not
+// rule-generated — the English counterpart of the Finnish sourcing rule. Every
+// word's forms are looked up from the vendored AGID database and attached to
+// its item; a word we can't resolve fails the build (see ENGLISH_MISSING).
+const AGID = loadAgid(resolve(__dirname, '..', 'data', 'english-agid', 'infl.txt'));
+const ENGLISH_MISSING = [];
+/** AGID part-of-speech for a theme (numbers carry no inflected English). */
+const posForTheme = (id) => (id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' ? null : 'N');
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -339,6 +349,13 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, 
       inflections,
     };
     if (typeof value === 'number') entry.value = value;
+    // Sourced English morphology (plural / verb forms / comparatives) from AGID.
+    const pos = posForTheme(id);
+    if (pos) {
+      const eng = englishFormsFor(AGID, english, pos);
+      if (eng) entry.english = eng;
+      else ENGLISH_MISSING.push(`${id}:${english} (${pos})`);
+    }
     // Semantic tags (hand-curated, per word) — e.g. a place's locative shape.
     if (tagsById && tagsById[wid]) entry.tags = tagsById[wid];
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
@@ -455,6 +472,16 @@ const clothes = buildTheme({
   curation: CLOTHES,
   sourceWords: nounWords,
 });
+
+// Sourced-English guarantee: no word may ship without its AGID-derived forms.
+if (ENGLISH_MISSING.length) {
+  console.error(
+    `\nERROR: ${ENGLISH_MISSING.length} word(s) have no English morphology in AGID:\n  ` +
+      ENGLISH_MISSING.join('\n  ') +
+      `\nAdd them to data/english-agid or handle them in scripts/agid.mjs.`,
+  );
+  process.exit(1);
+}
 
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');

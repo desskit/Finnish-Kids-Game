@@ -32,6 +32,27 @@ export interface Example {
 }
 
 /** A vocabulary word with its full, sourced inflection table and tags. */
+/**
+ * Sourced English inflected forms for a word (from AGID; see scripts/agid.mjs).
+ * Only the fields relevant to the word's part of speech are present.
+ */
+export interface EnglishMorph {
+  /** Noun plural, e.g. "cats", "children", "fish". */
+  plural?: string;
+  /** Verb 3rd-person-singular present, e.g. "eats", "goes", "is". */
+  thirdSg?: string;
+  /** Verb simple past, e.g. "ate", "went", "loved". */
+  past?: string;
+  /** Verb past participle, e.g. "eaten", "gone", "loved". */
+  pastParticiple?: string;
+  /** Verb present participle / gerund, e.g. "eating", "going". */
+  gerund?: string;
+  /** Adjective comparative, e.g. "bigger", "better". */
+  comparative?: string;
+  /** Adjective superlative, e.g. "biggest", "best". */
+  superlative?: string;
+}
+
 export interface LexicalItem {
   /** Stable id used to link constructions to vocabulary. */
   id: string;
@@ -45,6 +66,13 @@ export interface LexicalItem {
   tier: Tier;
   /** Sourced inflection table, keyed `${case}_${number}` (e.g. "genitive_singular"). */
   inflections: Record<string, string>;
+  /**
+   * Sourced ENGLISH morphology (from the vendored AGID database via the build) —
+   * so English glosses are looked up, never rule-generated. Nouns carry `plural`;
+   * verbs carry `past/pastParticiple/gerund/thirdSg`; adjectives carry
+   * `comparative/superlative`. Numbers have none.
+   */
+  english?: EnglishMorph;
   kotusType?: number;
   group?: string;
   frequencyRank?: number;
@@ -174,6 +202,11 @@ function englishArticleFor(item: LexicalItem): string {
  * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
 export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
+  // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
+  if (con.en.includes('___s')) {
+    return con.en.replace('___s', item.english?.plural ?? `${item.en}s`);
+  }
   if (con.en.includes('a ___')) {
     const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');
     return con.en.replace('a ___', filled);

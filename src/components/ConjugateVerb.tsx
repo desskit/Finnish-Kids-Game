@@ -151,7 +151,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
           </span>
         </div>
         <p className="en phrase-hint">
-          {englishVerbClause(q.pronounEn, q.verb.en, q.tense, q.polarity, q.person)}
+          {englishVerbClause(q.pronounEn, q.verb.en, q.verb.english, q.tense, q.polarity, q.person)}
         </p>
         <button
           className="speaker speaker--inline"
