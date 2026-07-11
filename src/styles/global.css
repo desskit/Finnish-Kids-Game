@@ -473,6 +473,37 @@ button:focus-visible,
   opacity: 0.8;
 }
 
+/* Stuck-child helpers under a typing challenge: reveal-a-letter (with a
+   remaining-uses count) + skip. Smaller, quieter than a primary action. */
+.stuck-help {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.stuck-help .btn {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+}
+.stuck-help .btn:disabled {
+  opacity: 0.4;
+}
+.stuck-help__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.3em;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 0.8em;
+  font-weight: 800;
+}
+
 .text-btn {
   background: none;
   color: var(--ink-soft);
@@ -759,6 +790,45 @@ button:focus-visible,
 .pic-card--correct {
   animation: correctpop 0.45s ease-out;
   box-shadow: 0 0 0 5px var(--good);
+}
+
+/* The L5+ gentle-timer nudge: when the countdown lapses without an answer,
+   the correct tile pulses (reusing the hint amber) so the child is helped, not
+   penalised. */
+.pic-card--hint {
+  /* Static highlight so the nudge still reads with reduced motion (which zeroes
+     animation durations); the pulse is the enhancement on top. */
+  box-shadow: 0 0 0 4px #f59e0b;
+  animation: hintpulse 0.9s ease-in-out infinite;
+}
+
+/* ---------- Gentle question timer (Listen & Tap, L5+) ---------- */
+.q-timer {
+  width: min(90%, 420px);
+  height: 8px;
+  margin: 4px auto 0;
+  background: var(--brand-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.q-timer__bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--brand);
+  transform-origin: left center;
+  animation: qtimer linear forwards;
+}
+.q-timer__bar--paused {
+  animation-play-state: paused;
+}
+@keyframes qtimer {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 
 /* ---------- Build a Phrase ---------- */

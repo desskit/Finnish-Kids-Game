@@ -108,7 +108,12 @@ export default function SpellWord({
   const [shake, setShake] = useState(false);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // How many leading letters the child has revealed for THIS word (max 3), so a
+  // stuck child gets un-stuck without being handed the whole answer.
+  const [revealed, setRevealed] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const MAX_REVEALS = 3;
 
   const target = round[index];
   // A forgotten trailing period/! /? shouldn't fail an otherwise-correct
@@ -150,6 +155,7 @@ export default function SpellWord({
           else {
             setIndex(next);
             setInput('');
+            setRevealed(0);
           }
           missed.current = false;
           setLocked(false);
@@ -172,12 +178,41 @@ export default function SpellWord({
     checkIfComplete(value);
   }
 
+  // Reveal the next leading letter (max 3 per word), stopping one short of the
+  // full answer so there's always something left to type. Using a hint counts
+  // the word as not-first-try (no clean SRS credit), so it stays a nudge, not a
+  // freebie. The revealed prefix is placed in the input; the child types on.
+  function revealNext() {
+    if (!target || locked || done || revealed >= MAX_REVEALS) return;
+    const n = Math.min(revealed + 1, MAX_REVEALS, Math.max(0, target.text.length - 1));
+    if (n <= revealed) return;
+    missed.current = true;
+    setRevealed(n);
+    setInput(target.text.slice(0, n));
+    inputRef.current?.focus();
+  }
+
+  const advanceUnsolved = useCallback(() => {
+    if (!target || locked || done) return;
+    // Getting stuck records the item as not-recalled so the SRS brings it back
+    // sooner — but it's never a punishment (no wrong buzz), just a way forward.
+    if (target.id) recordAttempt(target.id, false);
+    const next = index + 1;
+    missed.current = false;
+    setInput('');
+    setRevealed(0);
+    setShake(false);
+    if (next >= round.length) setDone(true);
+    else setIndex(next);
+  }, [target, locked, done, index, round.length, recordAttempt]);
+
   function restart() {
     setIndex(0);
     setInput('');
     setShake(false);
     setLocked(false);
     setDone(false);
+    setRevealed(0);
     missed.current = false;
     firstTries.current = 0;
     setRunId((r) => r + 1);
@@ -250,6 +285,22 @@ export default function SpellWord({
         enterKeyHint="done"
         aria-label="Type the word you hear"
       />
+
+      {/* Stuck-child helpers: reveal up to 3 leading letters, or move on. Both
+          keep the round from ever being a dead end. */}
+      <div className="stuck-help">
+        <button
+          className="btn btn--ghost"
+          onClick={revealNext}
+          disabled={locked || revealed >= MAX_REVEALS}
+        >
+          💡 Kirjain <span className="en">Letter</span>
+          <span className="stuck-help__count">{MAX_REVEALS - revealed}</span>
+        </button>
+        <button className="btn btn--ghost" onClick={advanceUnsolved} disabled={locked}>
+          Ohita <span className="en">Skip</span> →
+        </button>
+      </div>
     </section>
   );
 }

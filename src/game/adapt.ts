@@ -66,6 +66,15 @@ export interface Difficulty {
    * from level 1 — brutal for a starter, flat at the top.
    */
   maxCases: number;
+  /**
+   * A gentle per-question countdown (ms) for the picture-recognition game
+   * (Listen & Tap), whose only other levers — tile count + tricky distractors —
+   * both max out by L4, so it would otherwise be flat at the top. Undefined
+   * through L4 (no clock for young players); L5–8 tighten it. NEVER punishing:
+   * on expiry the game just nudges the correct tile and re-says the word — no
+   * star lost, no auto-fail — so it adds visible pace without pressure.
+   */
+  timerMs?: number;
 }
 
 /**
@@ -124,6 +133,7 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 6,
+    timerMs: 8000,
   },
   {
     level: 6,
@@ -133,6 +143,7 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
+    timerMs: 7000,
   },
   {
     level: 7,
@@ -142,6 +153,7 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
+    timerMs: 6000,
   },
   {
     level: 8,
@@ -151,6 +163,7 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
+    timerMs: 5000,
   },
 ];
 

@@ -115,6 +115,63 @@ describe('SpellWord sentence-typing apex', () => {
   });
 });
 
+describe('SpellWord stuck-child helpers (reveal a letter + skip)', () => {
+  const CAT = {
+    id: 'cat',
+    fi: 'kissa',
+    en: 'cat',
+    emoji: '🐱',
+    tier: 1 as const,
+    inflections: { nominative_singular: 'kissa' },
+  };
+  function renderSpeller() {
+    return render(
+      <ProfileProvider>
+        <SpellWord items={[CAT]} onExit={vi.fn()} />
+        <StarsProbe />
+      </ProfileProvider>,
+    );
+  }
+  const reveal = () => screen.getByRole('button', { name: /letter/i });
+  const skip = () => screen.getByRole('button', { name: /skip/i });
+  const input = () => screen.getByLabelText(/type the word you hear/i) as HTMLInputElement;
+
+  it('reveals leading letters into the input, one per press, max 3', () => {
+    renderSpeller();
+    expect(reveal()).toHaveTextContent('3'); // remaining uses
+    fireEvent.click(reveal());
+    expect(input().value).toBe('k');
+    fireEvent.click(reveal());
+    expect(input().value).toBe('ki');
+    fireEvent.click(reveal());
+    expect(input().value).toBe('kis'); // never the whole 5-letter word
+    expect(reveal()).toBeDisabled(); // 3 used up
+  });
+
+  it('a revealed word can still be completed by typing the rest (star still given)', async () => {
+    renderSpeller();
+    fireEvent.click(reveal()); // "k"
+    fireEvent.change(input(), { target: { value: 'kissa' } });
+    expect(playDing).toHaveBeenCalledWith(true);
+    expect(screen.getByTestId('stars')).toHaveTextContent('1');
+  });
+
+  it('Skip moves on without a star and without a wrong buzz', () => {
+    render(
+      <ProfileProvider>
+        <SpellWord items={[CAT, { ...CAT, id: 'dog', fi: 'koira', en: 'dog', emoji: '🐶' }]} onExit={vi.fn()} />
+        <StarsProbe />
+      </ProfileProvider>,
+    );
+    vi.clearAllMocks();
+    fireEvent.click(skip());
+    expect(playDing).not.toHaveBeenCalledWith(false); // no penalty buzz
+    expect(screen.getByTestId('stars')).toHaveTextContent('0');
+    // Advanced to a fresh question (input cleared).
+    expect((screen.getByLabelText(/type the word you hear/i) as HTMLInputElement).value).toBe('');
+  });
+});
+
 describe('SpellWord default (bare-word) mode is unaffected', () => {
   it('still auto-speaks and shows the Listen button', async () => {
     render(

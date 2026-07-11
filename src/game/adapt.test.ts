@@ -62,6 +62,15 @@ describe('difficultyFor', () => {
     expect(l4.verbCombos.length).toBeGreaterThan(l3.verbCombos.length);
   });
 
+  it('adds a gentle Listen & Tap timer only at L5+, tightening as it climbs', () => {
+    // No clock for young players; the top levels get a real pace lever (the
+    // game's only other levers — tiles + tricky — both max out by L4).
+    expect(difficultyFor(1).timerMs).toBeUndefined();
+    expect(difficultyFor(4).timerMs).toBeUndefined();
+    expect(difficultyFor(5).timerMs).toBeGreaterThan(0);
+    expect(difficultyFor(8).timerMs!).toBeLessThan(difficultyFor(5).timerMs!);
+  });
+
   it('introduces negative then past verb forms as the level rises', () => {
     expect(difficultyFor(1).verbCombos).toEqual([
       { tense: 'present', polarity: 'positive' },

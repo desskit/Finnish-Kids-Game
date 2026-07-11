@@ -34,6 +34,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import ListenAndTap from './ListenAndTap';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 // A child must exist for addStars() to land on someone.
 function seedChild() {
@@ -122,6 +124,37 @@ describe('ListenAndTap', () => {
     // timers, not yet advanced) — the tap below is the only speak() call so far.
     fireEvent.click(wrongCard());
     expect(speak).toHaveBeenCalledWith('koira'); // the WRONG item's own word, not the target
+  });
+
+  it('no gentle timer below level 5 (default fallback difficulty)', () => {
+    renderActivity();
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('shows a gentle timer at L5+ and, on lapse, nudges the correct card without penalty', async () => {
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(6), sessionStars: 0 }}
+        >
+          <ListenAndTap items={[fx.TARGET, fx.WRONG, fx.FILLER]} onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    // A timer bar appears (difficultyFor(6).timerMs === 7000).
+    expect(document.querySelector('.q-timer')).not.toBeNull();
+    // Before lapse, no hint on the correct card.
+    expect(correctCard().className).not.toContain('pic-card--hint');
+    // Let the countdown lapse: the correct card pulses as a nudge, still no
+    // wrong-buzz and no auto-advance (question 1 stays put).
+    vi.clearAllMocks();
+    await advance(7000);
+    expect(correctCard().className).toContain('pic-card--hint');
+    expect(playDing).not.toHaveBeenCalledWith(false); // no penalty buzz
+    // No auto-advance: the same question stays, unanswered (not locked/correct).
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
+    expect(correctCard().className).not.toContain('pic-card--correct');
+    expect(speak).toHaveBeenCalledWith('kissa'); // re-said the word as the hint
   });
 
   it('rolls straight into a fresh round after the last question — no interstitial', async () => {
