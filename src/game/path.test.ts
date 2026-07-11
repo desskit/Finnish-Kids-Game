@@ -300,13 +300,30 @@ describe('learning path', () => {
     expect(renderActivity(findSkill('this-is')!.skill, 'say', () => {})).not.toBeNull();
   });
 
-  it('marks vocab + phrase nodes speakable, not the grammar/typing games', () => {
-    expect(isSpeakable(findSkill('listen-animals')!.skill)).toBe(true); // vocab words
-    expect(isSpeakable(findSkill('this-is')!.skill)).toBe(true); // carrier phrases (build)
-    expect(isSpeakable(findSkill('order')!.skill)).toBe(true); // phrase order capstone
-    expect(isSpeakable(findSkill('match')!.skill)).toBe(false);
-    expect(isSpeakable(findSkill('conjugate')!.skill)).toBe(false);
-    expect(isSpeakable(findSkill('spell')!.skill)).toBe(false);
+  it('marks EVERY content node speakable — only review is excluded', () => {
+    for (const id of [
+      'listen-animals', // vocab words
+      'this-is', // carrier phrases
+      'order', // phrase order capstone
+      'match', // agreement phrases ("iso kissa")
+      'conjugate', // verb clauses ("minä syön")
+      'count', // counting phrases ("kolme kissaa")
+      'reading', // read example sentences
+      'spell', // spelled words
+      'full-sentences', // full sentences (short ones)
+      'greetings', // dialogue replies
+      'small-talk', // conversation replies
+    ]) {
+      expect(isSpeakable(findSkill(id)!.skill), id).toBe(true);
+    }
+    // Review is cross-topic with no single spoken target.
+    expect(isSpeakable(findSkill('review')!.skill)).toBe(false);
+  });
+
+  it('renders a `say` game for grammar/phrase nodes too (each supplies its own targets)', () => {
+    for (const id of ['count', 'match', 'conjugate', 'this-is', 'reading', 'greetings', 'small-talk']) {
+      expect(renderActivity(findSkill(id)!.skill, 'say', () => {}), id).not.toBeNull();
+    }
   });
 
   it('folds `say` into every speakable node from level 2 up — only when speech is available', () => {
@@ -319,9 +336,12 @@ describe('learning path', () => {
     // ...but level 1 stays gentle (single game, no speaking yet).
     expect(activityForRound(listen, 1, 0, true)).toBe('listen');
     expect([0, 1, 2].map((n) => activityForRound(listen, 1, n, true))).not.toContain('say');
-    // A non-speakable node never gets it, even with speech on.
+    // Now the GRAMMAR nodes get speaking too (conjugate: say "minä syön").
     const conj = findSkill('conjugate')!.skill;
-    expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(conj, 4, n, true))).not.toContain('say');
+    expect(new Set([0, 1, 2, 3, 4, 5, 6].map((n) => activityForRound(conj, 4, n, true))).has('say')).toBe(true);
+    // Review still never gets it.
+    const review = findSkill('review')!.skill;
+    expect([0, 1, 2, 3].map((n) => activityForRound(review, 4, n, true))).not.toContain('say');
   });
 
   it('adds a "Read a sentence" authentic-reading node to the capstone chapter', () => {

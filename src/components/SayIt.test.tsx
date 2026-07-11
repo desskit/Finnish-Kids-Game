@@ -152,4 +152,19 @@ describe('SayIt (speaking)', () => {
     fireEvent.click(btn);
     expect(screen.getByTestId('stars')).toHaveTextContent('1'); // kind: still rewards practice
   });
+
+  it('uses a node-specific buildRound (any skill can supply its own spoken phrase)', () => {
+    render(
+      <ProfileProvider>
+        <SayIt
+          items={[]}
+          constructions={[]}
+          buildRound={() => [{ say: 'kolme kissaa', gloss: 'three cats' }]}
+          onExit={vi.fn()}
+        />
+      </ProfileProvider>,
+    );
+    expect(screen.getByText('kolme kissaa', { selector: '.say-target' })).toBeInTheDocument();
+    expect(screen.getByText('three cats')).toBeInTheDocument();
+  });
 });
