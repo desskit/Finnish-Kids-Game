@@ -21,7 +21,7 @@ export default function ListenAndTap({ items, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
-  const { optionCount, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky, timerMs } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   // Familiarity bias, snapshotted once per mount: the SRS map updates after
   // every answer, and re-deriving it mid-round would rebuild the live round.
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
@@ -45,6 +45,8 @@ export default function ListenAndTap({ items, onExit }: Props) {
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
+  const [hint, setHint] = useState(false);
 
   const question = round[index];
 
@@ -54,6 +56,20 @@ export default function ListenAndTap({ items, onExit }: Props) {
     const t = setTimeout(() => speak(question.target.fi), 350);
     return () => clearTimeout(t);
   }, [question, done]);
+
+  // Gentle countdown (L5+ only): if the child hasn't answered by the time it
+  // lapses, reveal the answer as a hint and re-say the word — no star lost, no
+  // auto-advance. Cancelled the moment they answer (`locked`) or the question
+  // changes. Reset per question so each starts fresh.
+  useEffect(() => {
+    setHint(false);
+    if (!timerMs || !question || done || locked) return;
+    const t = setTimeout(() => {
+      setHint(true);
+      speak(question.target.fi);
+    }, timerMs);
+    return () => clearTimeout(t);
+  }, [timerMs, question, done, locked]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -142,6 +158,18 @@ export default function ListenAndTap({ items, onExit }: Props) {
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
 
+      {timerMs && (
+        // A shrinking bar (pure CSS), restarted per question via key. Frozen
+        // once answered. Purely cosmetic pace — the hint logic lives above.
+        <div className="q-timer" aria-hidden="true">
+          <div
+            key={index}
+            className={'q-timer__bar' + (locked ? ' q-timer__bar--paused' : '')}
+            style={{ animationDuration: `${timerMs}ms` }}
+          />
+        </div>
+      )}
+
       <div className={`card-grid card-grid--${question.options.length}`}>
         {question.options.map((opt, i) => (
           <button
@@ -149,6 +177,7 @@ export default function ListenAndTap({ items, onExit }: Props) {
             className={
               'pic-card' +
               (wrongId === opt.id ? ' pic-card--wrong' : '') +
+              (hint && !locked && opt.id === question.target.id ? ' pic-card--hint' : '') +
               (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
             }
             onClick={() => choose(opt)}

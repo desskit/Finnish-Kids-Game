@@ -118,4 +118,27 @@ describe('ReviewActivity — format escalates with SRS box', () => {
     fireEvent.change(input, { target: { value: 'karhu' } });
     expect(playDing).toHaveBeenCalledWith(true); // 'karhu' accepted
   });
+
+  it('box 5 spelling offers reveal-a-letter (max 3) + skip for a stuck child', async () => {
+    renderReview();
+    fireEvent.click(screen.getByText('🐱').closest('button')!);
+    await advance(1000);
+    fireEvent.click(screen.getByText('koira').closest('button')!);
+    await advance(1000);
+    await advance(400);
+
+    const input = () => screen.getByLabelText(/type the word in finnish/i) as HTMLInputElement;
+    const reveal = () => screen.getByRole('button', { name: /letter/i });
+    expect(reveal()).toHaveTextContent('3'); // three uses to start
+    fireEvent.click(reveal());
+    expect(input().value).toBe('k'); // karhu → "k"
+    fireEvent.click(reveal());
+    fireEvent.click(reveal());
+    expect(input().value).toBe('kar'); // stops one short of the whole word
+    expect(reveal()).toBeDisabled();
+
+    // Skip advances past the (last) question → round completes without a crash.
+    fireEvent.click(screen.getByRole('button', { name: /skip/i }));
+    expect(screen.getByText(/great job/i)).toBeInTheDocument(); // RoundComplete
+  });
 });

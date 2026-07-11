@@ -85,7 +85,11 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
   const [shake, setShake] = useState(false);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // Leading letters revealed for the current spelling question (max 3).
+  const [revealed, setRevealed] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const MAX_REVEALS = 3;
 
   const question = round[index];
   const spellingCorrect =
@@ -118,6 +122,7 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
       else {
         setIndex(next);
         setInput('');
+        setRevealed(0);
       }
       missed.current = false;
       setLocked(false);
@@ -159,6 +164,36 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
     }
   }
 
+  // Reveal the next leading letter of the Finnish answer (max 3, never the whole
+  // word), for the spelling format where a child can get truly stuck. Using a
+  // hint marks the item not-recalled so the SRS revisits it sooner.
+  function revealNext() {
+    if (!question || locked || done || question.format !== 'spelling') return;
+    if (revealed >= MAX_REVEALS) return;
+    const answer = question.target.fi;
+    const n = Math.min(revealed + 1, MAX_REVEALS, Math.max(0, answer.length - 1));
+    if (n <= revealed) return;
+    missed.current = true;
+    setRevealed(n);
+    setInput(answer.slice(0, n));
+    inputRef.current?.focus();
+  }
+
+  // Move past a question the child is stuck on: record it not-recalled (so it
+  // comes back) and advance. Never a buzz/penalty — just a way forward.
+  const skip = useCallback(() => {
+    if (!question || locked || done) return;
+    recordAttempt(question.target.id, false);
+    const next = index + 1;
+    missed.current = false;
+    setInput('');
+    setRevealed(0);
+    setWrongId(null);
+    setShake(false);
+    if (next >= round.length) setDone(true);
+    else setIndex(next);
+  }, [question, locked, done, index, round.length, recordAttempt]);
+
   const replay = useCallback(() => {
     if (!question) return;
     if (question.format === 'recognition') speak(question.target.fi);
@@ -188,6 +223,7 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
     setShake(false);
     setLocked(false);
     setDone(false);
+    setRevealed(0);
     missed.current = false;
     setRunId((r) => r + 1);
   }
@@ -295,27 +331,43 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
                 ))}
               </div>
             ) : (
-              <input
-                ref={inputRef}
-                className={
-                  'spell-input' +
-                  (shake ? ' spell-input--wrong' : '') +
-                  (spellingCorrect ? ' spell-input--correct' : '')
-                }
-                value={input}
-                onChange={(e) => onInputChange(e.target.value)}
-                readOnly={locked}
-                autoFocus
-                type="text"
-                inputMode="text"
-                lang="fi"
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect="off"
-                spellCheck={false}
-                enterKeyHint="done"
-                aria-label="Type the word in Finnish"
-              />
+              <>
+                <input
+                  ref={inputRef}
+                  className={
+                    'spell-input' +
+                    (shake ? ' spell-input--wrong' : '') +
+                    (spellingCorrect ? ' spell-input--correct' : '')
+                  }
+                  value={input}
+                  onChange={(e) => onInputChange(e.target.value)}
+                  readOnly={locked}
+                  autoFocus
+                  type="text"
+                  inputMode="text"
+                  lang="fi"
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  enterKeyHint="done"
+                  aria-label="Type the word in Finnish"
+                />
+                {/* Stuck-child helpers: reveal up to 3 leading letters, or skip. */}
+                <div className="stuck-help">
+                  <button
+                    className="btn btn--ghost"
+                    onClick={revealNext}
+                    disabled={locked || revealed >= MAX_REVEALS}
+                  >
+                    💡 Kirjain <span className="en">Letter</span>
+                    <span className="stuck-help__count">{MAX_REVEALS - revealed}</span>
+                  </button>
+                  <button className="btn btn--ghost" onClick={skip} disabled={locked}>
+                    Ohita <span className="en">Skip</span> →
+                  </button>
+                </div>
+              </>
             )}
           </>
         )}
