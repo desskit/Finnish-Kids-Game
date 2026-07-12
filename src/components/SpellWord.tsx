@@ -178,17 +178,22 @@ export default function SpellWord({
     checkIfComplete(value);
   }
 
-  // Reveal the next leading letter (max 3 per word), stopping one short of the
-  // full answer so there's always something left to type. Using a hint counts
-  // the word as not-first-try (no clean SRS credit), so it stays a nudge, not a
-  // freebie. The revealed prefix is placed in the input; the child types on.
+  // Reveal the next needed letter (max 3 per word), stopping one short of the
+  // full answer so there's always something left to type. It respects what the
+  // child has already typed: one letter is appended past their correct prefix
+  // (a wrong prefix is corrected to the right letters). Using a hint counts the
+  // word as not-first-try (no clean SRS credit), so it stays a nudge, not a
+  // freebie.
   function revealNext() {
     if (!target || locked || done || revealed >= MAX_REVEALS) return;
-    const n = Math.min(revealed + 1, MAX_REVEALS, Math.max(0, target.text.length - 1));
-    if (n <= revealed) return;
+    const answer = target.text;
+    let p = 0; // length of the child's correct (case-insensitive) leading prefix
+    while (p < input.length && p < answer.length && input[p].toLowerCase() === answer[p].toLowerCase()) p++;
+    const n = Math.min(p + 1, Math.max(0, answer.length - 1));
+    if (n <= p) return; // already at the last letter — nothing new to show
     missed.current = true;
-    setRevealed(n);
-    setInput(target.text.slice(0, n));
+    setRevealed(revealed + 1);
+    setInput(answer.slice(0, n));
     inputRef.current?.focus();
   }
 

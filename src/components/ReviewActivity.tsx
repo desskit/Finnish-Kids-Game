@@ -164,17 +164,20 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
     }
   }
 
-  // Reveal the next leading letter of the Finnish answer (max 3, never the whole
-  // word), for the spelling format where a child can get truly stuck. Using a
+  // Reveal the next needed letter of the Finnish answer (max 3, never the whole
+  // word), for the spelling format where a child can get truly stuck. Respects
+  // what they've typed — appends one letter past their correct prefix. Using a
   // hint marks the item not-recalled so the SRS revisits it sooner.
   function revealNext() {
     if (!question || locked || done || question.format !== 'spelling') return;
     if (revealed >= MAX_REVEALS) return;
     const answer = question.target.fi;
-    const n = Math.min(revealed + 1, MAX_REVEALS, Math.max(0, answer.length - 1));
-    if (n <= revealed) return;
+    let p = 0;
+    while (p < input.length && p < answer.length && input[p].toLowerCase() === answer[p].toLowerCase()) p++;
+    const n = Math.min(p + 1, Math.max(0, answer.length - 1));
+    if (n <= p) return;
     missed.current = true;
-    setRevealed(n);
+    setRevealed(revealed + 1);
     setInput(answer.slice(0, n));
     inputRef.current?.focus();
   }

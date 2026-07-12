@@ -137,6 +137,19 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [q, done, chosen, fullPhrase, choose]);
 
+  // Move past a phrase the child is stuck on: record it not-recalled (so it
+  // comes back) and advance. Never a buzz/penalty — just a way forward.
+  const skip = useCallback(() => {
+    if (!q || locked || done) return;
+    recordAttempt(q.noun.id, false);
+    const next = index + 1;
+    missed.current = false;
+    setChosen(null);
+    setWrongForm(null);
+    if (next >= round.length) setDone(true);
+    else setIndex(next);
+  }, [q, locked, done, index, round.length, recordAttempt]);
+
   function restart() {
     setIndex(0);
     setChosen(null);
@@ -205,6 +218,12 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
             {opt.form}
           </button>
         ))}
+      </div>
+
+      <div className="stuck-help">
+        <button className="btn btn--ghost" onClick={skip} disabled={locked}>
+          Ohita <span className="en">Skip</span> →
+        </button>
       </div>
     </section>
   );

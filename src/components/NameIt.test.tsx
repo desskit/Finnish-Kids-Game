@@ -29,6 +29,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import NameIt from './NameIt';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -116,5 +118,30 @@ describe('NameIt (production recall)', () => {
     fireEvent.click(screen.getByRole('button', { name: /hear the prompt again/i }));
     expect(speakEnglish).toHaveBeenCalledWith('cat');
     expect(speak).not.toHaveBeenCalled();
+  });
+
+  it('no gentle timer below level 5', () => {
+    renderActivity();
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('shows a gentle timer at L5+ and, on lapse, nudges the correct tile without penalty', async () => {
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(6), sessionStars: 0 }}
+        >
+          <NameIt items={[fx.TARGET, fx.OTHER, fx.FILLER]} onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    expect(document.querySelector('.q-timer')).not.toBeNull();
+    expect(wordTile('kissa').className).not.toContain('word-tile--hint');
+    vi.clearAllMocks();
+    await advance(7000); // difficultyFor(6).timerMs
+    expect(wordTile('kissa').className).toContain('word-tile--hint');
+    expect(playDing).not.toHaveBeenCalledWith(false); // no penalty buzz
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(3); // no auto-advance
+    expect(speakEnglish).toHaveBeenCalledWith('cat'); // re-cued
   });
 });

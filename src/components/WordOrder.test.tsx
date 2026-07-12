@@ -101,6 +101,18 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
+describe('WordOrder stuck-help (skip)', () => {
+  it('Skip advances to the next sentence without a star or a wrong buzz', () => {
+    renderActivity();
+    expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
+    vi.clearAllMocks();
+    fireEvent.click(screen.getByRole('button', { name: /skip/i }));
+    expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();
+    expect(screen.getByTestId('stars')).toHaveTextContent('0');
+    expect(playDing).not.toHaveBeenCalledWith(false);
+  });
+});
+
 describe('WordOrder hint', () => {
   it('never hints when hintAfterMisses is unset (Word Order capstone default)', async () => {
     renderActivity(undefined);

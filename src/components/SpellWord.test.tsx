@@ -156,6 +156,20 @@ describe('SpellWord stuck-child helpers (reveal a letter + skip)', () => {
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
   });
 
+  it('reveal respects what the child typed: it appends past a correct prefix, not clobbers', () => {
+    renderSpeller();
+    fireEvent.change(input(), { target: { value: 'ki' } }); // correct so far (kissa)
+    fireEvent.click(reveal());
+    expect(input().value).toBe('kis'); // appended the next letter, kept "ki"
+  });
+
+  it('reveal corrects a wrong prefix to the right letters', () => {
+    renderSpeller();
+    fireEvent.change(input(), { target: { value: 'xx' } }); // wrong
+    fireEvent.click(reveal());
+    expect(input().value).toBe('k'); // reset to the correct leading letter
+  });
+
   it('Skip moves on without a star and without a wrong buzz', () => {
     render(
       <ProfileProvider>
