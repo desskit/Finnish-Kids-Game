@@ -71,29 +71,46 @@ function constructionsForNode(skill: SkillNode) {
   return ids ? nounConstructions.filter((c) => ids.includes(c.id)) : nounConstructions;
 }
 
+// Speaking climbs with the child's level, like every other game: at the starter
+// band a phrase node is downshifted to its bare WORDS ("kissa"), the core band
+// speaks the node's own phrase ("kolme kissaa"), and the stretch band adds the
+// hardest reach — for a dialogue node, saying BOTH sides of the exchange.
+type SayBand = 'starter' | 'core' | 'stretch';
+function sayBand(level: number): SayBand {
+  if (level <= 3) return 'starter';
+  if (level <= 5) return 'core';
+  return 'stretch';
+}
+
 /**
  * The spoken targets for a node — routed by its activity to the node's own
- * sourced Finnish. Returns up to `N` sayable `SayTarget`s (the game slices to
- * its round length). `items` is the node's resolved pool.
+ * sourced Finnish, and ramped by `level` (word → phrase → whole exchange).
+ * Returns up to `N` sayable `SayTarget`s (the game slices to its round length).
+ * `items` is the node's resolved pool.
  */
 export function speakableTargetsFor(
   skill: SkillNode,
   items: readonly LexicalItem[],
   maxTier: Tier,
+  level = 5,
   weigh?: WeighFn,
 ): SayTarget[] {
   const tier = Math.min(maxTier, SAY_MAX_TIER) as Tier;
+  const band = sayBand(level);
   // Scope noun-driven speaking (counting, agreement) to the node's OWN pool when
   // it has one, so "Count & say" speaks its vocabulary — not every noun in the
   // game. Falls back to the full mix for nodes without a resolved pool.
   const nouns = items.length > 0 ? items : NOUNS;
-  const routed = routeTargets(skill, items, nouns, tier, weigh);
+  // Starter band: everything is just the bare word, the gentlest thing to say.
+  const routed =
+    band === 'starter'
+      ? keep(buildSayRound(items, [], N, tier, weigh))
+      : routeTargets(skill, items, nouns, tier, band, weigh);
   // Never hand SayIt an empty round (it would render nothing and stall the
   // rotation): if the routed targets all failed the sayability guard, fall back
   // to the node's bare words, which are always short enough to say.
   if (routed.length > 0) return routed;
-  const bare = keep(buildSayRound(items, [], N, tier, weigh));
-  return bare;
+  return keep(buildSayRound(items, [], N, tier, weigh));
 }
 
 function routeTargets(
@@ -101,6 +118,7 @@ function routeTargets(
   items: readonly LexicalItem[],
   nouns: readonly LexicalItem[],
   tier: Tier,
+  band: SayBand,
   weigh?: WeighFn,
 ): SayTarget[] {
   switch (skill.activity) {
@@ -166,22 +184,32 @@ function routeTargets(
     }
 
     // Full sentences (only the ones short enough to say survive the guard).
+    // The sentence's main noun (now surfaced by buildSentenceRound) credits SRS,
+    // so saying a sentence reinforces that word's schedule.
     case 'sentence':
       return keep(
         buildSentenceRound(sentenceConstructions, SENTENCE_POOLS, N, tier).map((q) => ({
           say: q.sentence,
           gloss: q.hintEn,
+          attemptId: q.attemptId,
         })),
       );
 
-    // Communicative: say the fitting reply.
-    case 'dialogue':
-      return keep(
-        sample(
-          dialogues.filter((d) => d.tier <= tier),
-          N,
-        ).map((d) => ({ say: d.reply.fi, gloss: d.reply.en })),
-      );
+    // Communicative: say the fitting reply — and at the stretch band, say BOTH
+    // sides of the exchange (the greeting, then the reply), so the child speaks
+    // the whole turn, not just the answer.
+    case 'dialogue': {
+      const inTier = dialogues.filter((d) => d.tier <= tier);
+      if (band === 'stretch') {
+        return keep(
+          sample(inTier, Math.ceil(N / 2)).flatMap((d) => [
+            { say: d.prompt.fi, gloss: d.prompt.en },
+            { say: d.reply.fi, gloss: d.reply.en },
+          ]),
+        );
+      }
+      return keep(sample(inTier, N).map((d) => ({ say: d.reply.fi, gloss: d.reply.en })));
+    }
     case 'conversation':
       return keep(
         sample(

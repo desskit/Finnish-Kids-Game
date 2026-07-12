@@ -22,9 +22,10 @@ interface Props {
   /**
    * Node-specific spoken targets (e.g. `speakableTargetsFor`) — when given, this
    * replaces the default items/constructions round, so any skill can supply its
-   * own Finnish to say ("kolme kissaa", "minä syön", …).
+   * own Finnish to say ("kolme kissaa", "minä syön", …). Receives the measured
+   * `level` too, so speaking can ramp (word → phrase → whole exchange).
    */
-  buildRound?: (maxTier: Tier, weigh: WeighFn) => SayTarget[];
+  buildRound?: (maxTier: Tier, level: number, weigh: WeighFn) => SayTarget[];
   title?: string;
   onExit: () => void;
 }
@@ -38,7 +39,8 @@ interface Props {
 export default function SayIt({ items, constructions, buildRound, title, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  const { maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { maxTier } = difficulty;
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
   const available = isSpeechRecognitionAvailable();
 
@@ -53,12 +55,12 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
     // (Audit harness) caps the round to stop after each answer.
     () =>
       (buildRound
-        ? buildRound(maxTier, weigh)
+        ? buildRound(maxTier, difficulty.level, weigh)
         : buildSayRound(items, constructions, QUESTIONS, maxTier, weigh)
       ).slice(0, ctx?.roundQuestions),
     // buildRound is an inline closure (new identity each render); restart via runId.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [items, constructions, maxTier, weigh, runId, ctx?.roundQuestions],
+    [items, constructions, maxTier, difficulty.level, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

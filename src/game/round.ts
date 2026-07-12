@@ -1034,9 +1034,19 @@ export function buildSentenceRound(
   while (out.length < questionCount && guard++ < questionCount * 8) {
     const template = sample(allowed, 1)[0];
     if (!template) break;
-    const resolved = resolveSentence(template, pools);
+    const resolved = resolveSentenceInternal(template, pools);
     if (!resolved) continue;
-    const { words, gloss } = resolved;
+    const { words, picks } = resolved;
+    const gloss = glossFor(template, picks);
+
+    // A sentence has no single item, but crediting its main NOUN back to SRS
+    // (so speaking/ordering a sentence reinforces that word's schedule) is more
+    // useful than crediting nothing. Prefer a noun slot; fall back to any slot
+    // that resolved to a lexical item.
+    const nounSlot =
+      template.slots.find((s) => s.role === 'noun') ??
+      template.slots.find((s) => picks[s.id]?.item);
+    const attemptId = nounSlot ? picks[nounSlot.id]?.item?.id : undefined;
 
     const last = words.length - 1;
     const tokens: WordOrderToken[] = words.map((text, id) => ({
@@ -1053,6 +1063,7 @@ export function buildSentenceRound(
       sentence: words.join(' ') + (template.punct ?? ''),
       tokens,
       shuffled,
+      attemptId,
     });
   }
   return out;
