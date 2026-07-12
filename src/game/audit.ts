@@ -162,6 +162,13 @@ export interface GradeRecord {
   tests: number;
   /** Optional free-text note (esp. useful for "needs work"). */
   note?: string;
+  /**
+   * The EFFECTIVE difficulty this function was graded at — the slider value
+   * clamped to the game's own `maxLevel` (a node never reaches past its cap in
+   * real play, so the audit shouldn't test above it). Optional for back-compat
+   * with grades recorded before this was tracked.
+   */
+  level?: number;
 }
 
 /** Persisted audit state (localStorage `fkg.audit.v1`). */
@@ -191,19 +198,25 @@ export function auditReportMarkdown(state: AuditState, level: number): string {
   lines.push('');
   lines.push(`- Generated: ${new Date().toISOString()}`);
   lines.push(`- Started: ${new Date(state.startedAt).toISOString()}`);
-  lines.push(`- Difficulty level tested: ${level}`);
+  // The slider value at export time — informational only. The level each
+  // function was ACTUALLY graded at is per-row in the table below (it can differ
+  // between functions, and is capped at each game's own max).
+  lines.push(`- Difficulty slider at export: ${level}`);
   lines.push(`- In scope: ${inScope.length} of ${AUDIT_ENTRIES.length} game functions`);
   lines.push(`- **Pass: ${passed} · Needs work: ${needs} · Ungraded: ${ungraded}**`);
   lines.push('');
-  lines.push('| Game function | Grade | Times tested | Last graded | Notes |');
-  lines.push('| --- | --- | --- | --- | --- |');
+  lines.push('| Game function | Grade | Level | Times tested | Last graded | Notes |');
+  lines.push('| --- | --- | --- | --- | --- | --- |');
   for (const e of inScope) {
     const g = state.grades[e.id];
     const grade = g ? (g.grade === 'pass' ? '✅ Pass' : '⚠️ Needs work') : '—';
+    const gradedLevel = g?.level != null ? `L${g.level}` : '—';
     const tested = g ? String(g.tests) : '—';
     const when = g ? new Date(g.at).toISOString() : '—';
     const note = g?.note ? g.note.replace(/\|/g, '\\|').replace(/\n/g, ' ') : '';
-    lines.push(`| ${e.titleEn} (${e.titleFi}) | ${grade} | ${tested} | ${when} | ${note} |`);
+    lines.push(
+      `| ${e.titleEn} (${e.titleFi}) | ${grade} | ${gradedLevel} | ${tested} | ${when} | ${note} |`,
+    );
   }
   // Also list anything left out of scope, for completeness.
   const out = AUDIT_ENTRIES.filter((e) => !state.scope.includes(e.id));
