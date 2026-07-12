@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { difficultyFor, questionTimerMs } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
@@ -13,6 +13,11 @@ const QUESTIONS = 6;
 
 interface Props {
   items: LexicalItem[];
+  /**
+   * From this measured level up, run a gentle per-question countdown (set per
+   * node — see `SkillNode.timerFromLevel`). Unset = no timer.
+   */
+  timerFromLevel?: number;
   onExit: () => void;
 }
 
@@ -21,10 +26,17 @@ interface Props {
 // in the L1→English → L2→Finnish direction is exactly the point), and the child
 // picks the Finnish word from tiles. Reuses buildListenRound (same question
 // shape) since only the render inverts. Only picturable items can be prompts.
-export default function NameIt({ items, onExit }: Props) {
+export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  const { optionCount, tricky, timerMs } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky } = difficulty;
+  // Per-node gentle timer: only when this node opts in AND the measured level
+  // has reached its threshold.
+  const timerMs =
+    timerFromLevel != null && difficulty.level >= timerFromLevel
+      ? questionTimerMs(difficulty.level)
+      : undefined;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -68,6 +80,7 @@ export default function NameIt({ items, onExit }: Props) {
     setHint(false);
     if (!timerMs || !question || done || locked) return;
     const t = setTimeout(() => {
+      missed.current = true; // forfeits the first-try bonus (not "free" mastery)
       setHint(true);
       speakEnglish(question.target.en);
     }, timerMs);

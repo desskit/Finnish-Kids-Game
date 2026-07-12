@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { difficultyFor, questionTimerMs } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
@@ -13,15 +13,27 @@ const QUESTIONS = 6;
 
 interface Props {
   items: LexicalItem[];
+  /**
+   * From this measured level up, run a gentle per-question countdown (set per
+   * node — see `SkillNode.timerFromLevel`). Unset = no timer.
+   */
+  timerFromLevel?: number;
   onExit: () => void;
 }
 
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
-export default function ListenAndTap({ items, onExit }: Props) {
+export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
-  const { optionCount, tricky, timerMs } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky } = difficulty;
+  // Per-node gentle timer: only when this node opts in AND the measured level
+  // has reached its threshold.
+  const timerMs =
+    timerFromLevel != null && difficulty.level >= timerFromLevel
+      ? questionTimerMs(difficulty.level)
+      : undefined;
   // Familiarity bias, snapshotted once per mount: the SRS map updates after
   // every answer, and re-deriving it mid-round would rebuild the live round.
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
@@ -57,14 +69,16 @@ export default function ListenAndTap({ items, onExit }: Props) {
     return () => clearTimeout(t);
   }, [question, done]);
 
-  // Gentle countdown (L5+ only): if the child hasn't answered by the time it
-  // lapses, reveal the answer as a hint and re-say the word — no star lost, no
-  // auto-advance. Cancelled the moment they answer (`locked`) or the question
-  // changes. Reset per question so each starts fresh.
+  // Gentle countdown: if the child hasn't answered by the time it lapses, reveal
+  // the answer as a hint and re-say the word — no star lost, no auto-advance.
+  // It DOES forfeit the first-try bonus (`missed`), so waiting out the clock for
+  // the giveaway isn't counted as clean mastery. Cancelled the moment they answer
+  // (`locked`) or the question changes. Reset per question so each starts fresh.
   useEffect(() => {
     setHint(false);
     if (!timerMs || !question || done || locked) return;
     const t = setTimeout(() => {
+      missed.current = true;
       setHint(true);
       speak(question.target.fi);
     }, timerMs);
