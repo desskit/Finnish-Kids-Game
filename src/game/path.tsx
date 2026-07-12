@@ -644,6 +644,13 @@ export const badgeEnv = {
 
 const SENTENCE_QUESTIONS = 6;
 
+// A STABLE empty constructions array for the speaking game (which drives its own
+// round via `buildRound`). A fresh `[]` literal each render would be a new
+// identity in SayIt's round memo deps, regenerating a different random round on
+// every parent re-render (e.g. after each answer updates stars/SRS) — a visible
+// "flash of another challenge" before advancing.
+const NO_CONSTRUCTIONS: Construction[] = [];
+
 /** Render one specific activity for a skill, wired to the skill's content scope.
  *  The caller decides WHICH activity (per round, for in-session variety — see
  *  `activityForRound`); this just maps an activity kind to its game component.
@@ -681,7 +688,7 @@ export function renderActivity(
       return (
         <SayIt
           items={items}
-          constructions={[]}
+          constructions={NO_CONSTRUCTIONS}
           buildRound={(maxTier, level, weigh) => speakableTargetsFor(skill, items, maxTier, level, weigh)}
           onExit={onExit}
         />

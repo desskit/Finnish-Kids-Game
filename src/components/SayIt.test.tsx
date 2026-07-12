@@ -28,6 +28,7 @@ import SayIt from './SayIt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -169,6 +170,43 @@ describe('SayIt (speaking)', () => {
     // …and the (empty) segment is reported so the rotation advances.
     await act(async () => {});
     expect(onSegmentComplete).toHaveBeenCalled();
+  });
+
+  function renderAtLevel(level: number) {
+    return render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
+        >
+          <SayIt items={[fx.ITEM]} constructions={[]} onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+  }
+
+  it('model band (low level): shows the Finnish, models it aloud, offers Listen', async () => {
+    renderAtLevel(3);
+    expect(screen.getByText('kissa', { selector: '.say-target' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /hear it again/i })).toBeInTheDocument();
+    await advance(500);
+    expect(speak).toHaveBeenCalledWith('kissa'); // modeled
+  });
+
+  it('read band (L4): shows the Finnish but does NOT speak it, and drops Listen', async () => {
+    renderAtLevel(4);
+    expect(screen.getByText('kissa', { selector: '.say-target' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /hear it again/i })).toBeNull();
+    await advance(500);
+    expect(speak).not.toHaveBeenCalled(); // no TTS
+  });
+
+  it('recall band (L5): shows only the ENGLISH, no Finnish, no TTS', async () => {
+    renderAtLevel(5);
+    expect(screen.getByText('cat', { selector: '.say-target' })).toBeInTheDocument();
+    expect(screen.queryByText('kissa', { selector: '.say-target' })).toBeNull();
+    expect(screen.queryByRole('button', { name: /hear it again/i })).toBeNull();
+    await advance(500);
+    expect(speak).not.toHaveBeenCalled();
   });
 
   it('uses a node-specific buildRound (any skill can supply its own spoken phrase)', () => {

@@ -300,6 +300,15 @@ describe('learning path', () => {
     expect(renderActivity(findSkill('this-is')!.skill, 'say', () => {})).not.toBeNull();
   });
 
+  it('the say game gets a STABLE constructions array across renders (no round-flash)', () => {
+    // A fresh `[]` each render would churn SayIt's round-memo deps and
+    // regenerate a different random round on every parent re-render (the flash).
+    const { skill } = findSkill('listen-animals')!;
+    const a = renderActivity(skill, 'say', () => {}) as { props: { constructions: unknown } };
+    const b = renderActivity(skill, 'say', () => {}) as { props: { constructions: unknown } };
+    expect(a.props.constructions).toBe(b.props.constructions);
+  });
+
   it('marks EVERY content node speakable — only review is excluded', () => {
     for (const id of [
       'listen-animals', // vocab words
