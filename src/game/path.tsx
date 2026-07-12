@@ -673,7 +673,7 @@ export function renderActivity(
         <SayIt
           items={items}
           constructions={[]}
-          buildRound={(maxTier, weigh) => speakableTargetsFor(skill, items, maxTier, weigh)}
+          buildRound={(maxTier, level, weigh) => speakableTargetsFor(skill, items, maxTier, level, weigh)}
           onExit={onExit}
         />
       );

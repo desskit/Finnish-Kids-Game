@@ -2,9 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { speakableTargetsFor, saySafe } from './speakable';
 import { findSkill } from './path';
 import { animals, food } from '../content';
+import { dialogues } from '../content/dialogues';
 
 const nouns = [...animals.items, ...food.items];
-const targets = (id: string, items = nouns) => speakableTargetsFor(findSkill(id)!.skill, items, 8);
+const targets = (id: string, items = nouns, level = 5) =>
+  speakableTargetsFor(findSkill(id)!.skill, items, 8, level);
 
 describe('speakableTargetsFor', () => {
   it('carrier-phrase node speaks "Tämä on ___"', () => {
@@ -66,6 +68,27 @@ describe('speakableTargetsFor', () => {
     const t1 = speakableTargetsFor(smallTalk.skill, nouns, 1);
     // Nothing surfaced from the (tier 3+) scenes; whatever shows is the fallback.
     expect(t1.every((t) => saySafe(t.say))).toBe(true);
+  });
+
+  it('ramps by level: a count node says a bare word at the starter band, a phrase at core', () => {
+    const starter = targets('count', nouns, 2); // level ≤ 3 → bare words
+    expect(starter.length).toBeGreaterThan(0);
+    starter.forEach((t) => expect(t.say.split(' ')).toHaveLength(1));
+    const core = targets('count', nouns, 5); // level 4-5 → the counting phrase
+    core.forEach((t) => expect(t.say.split(' ')).toHaveLength(2));
+  });
+
+  it('stretch band: a dialogue node speaks BOTH sides of the exchange', () => {
+    const stretch = targets('greetings', nouns, 7); // level ≥ 6
+    // The whole exchange means the prompts show up too, not only replies.
+    const dialoguePrompts = dialogues.map((d) => d.prompt.fi);
+    expect(stretch.some((t) => dialoguePrompts.includes(t.say))).toBe(true);
+  });
+
+  it('a full-sentence target credits its main noun to SRS (attemptId set)', () => {
+    const ts = targets('full-sentences', nouns, 5);
+    expect(ts.length).toBeGreaterThan(0);
+    expect(ts.some((t) => !!t.attemptId)).toBe(true);
   });
 
   it('every surfaced target is sayable (≤ 5 words) across all speakable node types', () => {
