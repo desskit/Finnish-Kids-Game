@@ -83,6 +83,26 @@ export function speakableTargetsFor(
   weigh?: WeighFn,
 ): SayTarget[] {
   const tier = Math.min(maxTier, SAY_MAX_TIER) as Tier;
+  // Scope noun-driven speaking (counting, agreement) to the node's OWN pool when
+  // it has one, so "Count & say" speaks its vocabulary — not every noun in the
+  // game. Falls back to the full mix for nodes without a resolved pool.
+  const nouns = items.length > 0 ? items : NOUNS;
+  const routed = routeTargets(skill, items, nouns, tier, weigh);
+  // Never hand SayIt an empty round (it would render nothing and stall the
+  // rotation): if the routed targets all failed the sayability guard, fall back
+  // to the node's bare words, which are always short enough to say.
+  if (routed.length > 0) return routed;
+  const bare = keep(buildSayRound(items, [], N, tier, weigh));
+  return bare;
+}
+
+function routeTargets(
+  skill: SkillNode,
+  items: readonly LexicalItem[],
+  nouns: readonly LexicalItem[],
+  tier: Tier,
+  weigh?: WeighFn,
+): SayTarget[] {
   switch (skill.activity) {
     // Carrier-phrase nodes: "Tämä on lintu", "Minulla on kissa", "Pidän kissasta".
     case 'build':
@@ -92,7 +112,7 @@ export function speakableTargetsFor(
     // Counting: "kolme kissaa" (small counts stay sayable).
     case 'count':
       return keep(
-        buildCountingRound(numbers.items, NOUNS, N, 3, 5, false, weigh).map((q) => ({
+        buildCountingRound(numbers.items, nouns, N, 3, 5, false, weigh).map((q) => ({
           say: countingPhrase(q.number, q.noun),
           gloss:
             (q.number.value ?? 0) === 1
@@ -106,7 +126,7 @@ export function speakableTargetsFor(
     // Agreement: "iso kissa" (nominative only, for a clean gloss + sayability).
     case 'match':
       return keep(
-        buildAgreementRound(adjectives.items, NOUNS, N * 4, 3, 'singular', 1, false, weigh)
+        buildAgreementRound(adjectives.items, nouns, N * 4, 3, 'singular', 1, false, weigh)
           .filter((q) => q.case === 'nominative')
           .slice(0, N)
           .map((q) => ({
@@ -165,7 +185,9 @@ export function speakableTargetsFor(
     case 'conversation':
       return keep(
         sample(
-          conversations.flatMap((c) => c.turns.map((t) => t.reply)),
+          // Tier-gate like `dialogue` above, so a beginner isn't handed a reply
+          // from a harder scene.
+          conversations.filter((c) => c.tier <= tier).flatMap((c) => c.turns.map((t) => t.reply)),
           N,
         ).map((r) => ({ say: r.fi, gloss: r.en })),
       );

@@ -27,6 +27,7 @@ vi.mock('../audio/speech', () => ({
 import SayIt from './SayIt';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
 
 function seedChild() {
   localStorage.setItem(
@@ -151,6 +152,23 @@ describe('SayIt (speaking)', () => {
     expect(btn).toBeInTheDocument();
     fireEvent.click(btn);
     expect(screen.getByTestId('stars')).toHaveTextContent('1'); // kind: still rewards practice
+  });
+
+  it('an empty round never stalls: it completes the segment instead of blanking', async () => {
+    const onSegmentComplete = vi.fn();
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider value={{ onSegmentComplete, sessionStars: 0 }}>
+          <SayIt items={[]} constructions={[]} buildRound={() => []} onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    // Nothing to say is rendered…
+    expect(document.querySelector('.say-target')).toBeNull();
+    expect(document.querySelector('.mic-button')).toBeNull();
+    // …and the (empty) segment is reported so the rotation advances.
+    await act(async () => {});
+    expect(onSegmentComplete).toHaveBeenCalled();
   });
 
   it('uses a node-specific buildRound (any skill can supply its own spoken phrase)', () => {

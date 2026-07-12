@@ -87,6 +87,14 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   // Stop any live recognition if the component unmounts (segment swap).
   useEffect(() => () => session.current?.stop(), []);
 
+  // Safety net: never stall the rotation on an empty round. `speakableTargetsFor`
+  // already falls back to the node's bare words, so this is only reachable with a
+  // genuinely empty pool — complete the (empty) segment so the next game mounts
+  // instead of the child staring at a blank screen.
+  useEffect(() => {
+    if (round.length === 0) setDone(true);
+  }, [round.length]);
+
   const advance = useCallback(
     (success: boolean) => {
       setLocked(true);
