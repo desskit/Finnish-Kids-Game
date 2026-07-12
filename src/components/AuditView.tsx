@@ -1,7 +1,7 @@
 import { cloneElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { ProfileProvider } from '../state/profile';
 import { ActivityContext, type ActivityContextValue } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { difficultyFor, MAX_LEVEL } from '../game/adapt';
 import { findSkill, renderActivity } from '../game/path';
 import { reviewItems } from '../content';
 import type { ItemSchedule } from '../game/srs';
@@ -98,6 +98,14 @@ export default function AuditView() {
 
   const entry = AUDIT_ENTRIES.find((e) => e.id === activeId) ?? AUDIT_ENTRIES[0];
 
+  // Clamp the slider to THIS game's own ceiling: a node never climbs past its
+  // `maxLevel` in real play, so testing above it would exercise a difficulty a
+  // child can't actually reach here. review (no path node) has no cap.
+  const entrySkill = entry.skillId ? findSkill(entry.skillId)?.skill : undefined;
+  const entryCap = entrySkill?.maxLevel ?? MAX_LEVEL;
+  const effectiveLevel = Math.min(level, entryCap);
+  const clamped = effectiveLevel < level;
+
   // When the active entry changes, reset the cycle + preload any saved note.
   const selectEntry = useCallback(
     (id: string) => {
@@ -125,13 +133,13 @@ export default function AuditView() {
   const ctxValue = useMemo<ActivityContextValue>(
     () => ({
       onSegmentComplete: () => setRoundComplete(true),
-      difficulty: difficultyFor(level),
+      difficulty: difficultyFor(effectiveLevel),
       sessionStars: 0,
       // One question per round: the game stops after each answer for grading,
       // instead of auto-advancing through a whole round.
       roundQuestions: 1,
     }),
-    [level],
+    [effectiveLevel],
   );
 
   const nextRound = useCallback(() => {
@@ -142,20 +150,25 @@ export default function AuditView() {
 
   const grade = useCallback(
     (g: Grade) => {
-      // Build the next state explicitly, so the "what's left?" decision below
-      // reads the SAME fresh grades we just recorded (no stale-closure bounce).
-      const record = { grade: g, at: Date.now(), tests: attempts, note: note.trim() || undefined };
+      const record = {
+        grade: g,
+        at: Date.now(),
+        tests: attempts,
+        note: note.trim() || undefined,
+        level: effectiveLevel,
+      };
       const scope = audit.scope.includes(entry.id) ? audit.scope : [...audit.scope, entry.id];
       const grades = { ...audit.grades, [entry.id]: record };
       setAudit({ ...audit, scope, grades });
 
-      // Move to the next in-scope, not-yet-graded function; if none remain, end
-      // in the completion summary instead of leaving a game running.
-      const nextEntry = AUDIT_ENTRIES.find((e) => scope.includes(e.id) && !grades[e.id]);
-      if (nextEntry) selectEntry(nextEntry.id);
-      else setReviewing(false);
+      // STAY on this function — the auditor changes game type manually via the
+      // left list. Just reset for another test of the same function so the
+      // stage is ready (grade chip on the left reflects what was recorded).
+      setAttempts(1);
+      setRoundComplete(false);
+      setGameKey((k) => k + 1);
     },
-    [entry, attempts, note, audit, selectEntry],
+    [entry, attempts, note, audit, effectiveLevel],
   );
 
   const toggleScope = useCallback((id: string) => {
@@ -280,7 +293,9 @@ export default function AuditView() {
                 </h2>
                 <p>{entry.desc}</p>
                 <p className="audit-label__meta">
-                  Test #{attempts}
+                  Difficulty L{effectiveLevel}
+                  {clamped && ` (slider L${level} · capped at this game’s max L${entryCap})`}
+                  {' · '}Test #{attempts}
                   {roundComplete && ' · answered — grade it or Next'}
                 </p>
               </div>
@@ -294,7 +309,7 @@ export default function AuditView() {
                         <p className="en">Grade it, or press Next for another.</p>
                       </div>
                     ) : gameEl ? (
-                      cloneElement(gameEl, { key: `${entry.id}-${level}-${gameKey}` })
+                      cloneElement(gameEl, { key: `${entry.id}-${effectiveLevel}-${gameKey}` })
                     ) : (
                       <p className="audit-missing">No representative node for “{entry.titleEn}”.</p>
                     )}

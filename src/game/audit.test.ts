@@ -46,17 +46,21 @@ describe('auditReportMarkdown', () => {
       startedAt: 0,
       scope: ['listen', 'say', 'dialogue'],
       grades: {
-        listen: { grade: 'pass', at: 1, tests: 2 },
-        say: { grade: 'needs-work', at: 2, tests: 3, note: 'mic flaky' },
+        listen: { grade: 'pass', at: 1, tests: 2, level: 5 },
+        say: { grade: 'needs-work', at: 2, tests: 3, note: 'mic flaky', level: 3 },
       },
     };
     const md = auditReportMarkdown(state, 4);
     expect(md).toContain('# Finnish Kids Game — Audit report');
-    expect(md).toContain('Difficulty level tested: 4');
+    expect(md).toContain('Difficulty slider at export: 4');
     expect(md).toContain('Pass: 1 · Needs work: 1 · Ungraded: 1');
     expect(md).toContain('✅ Pass');
     expect(md).toContain('⚠️ Needs work');
     expect(md).toContain('mic flaky');
+    // Each function records the level it was actually graded at (not one global).
+    expect(md).toContain('| Game function | Grade | Level |');
+    expect(md).toContain('| L5 |');
+    expect(md).toContain('| L3 |');
     // Out-of-scope functions are noted, not graded in the table.
     expect(md).toContain('Out of scope this run');
   });
