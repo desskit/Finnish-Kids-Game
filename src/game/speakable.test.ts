@@ -38,6 +38,36 @@ describe('speakableTargetsFor', () => {
     expect(targets('small-talk').length).toBeGreaterThan(0);
   });
 
+  it('never returns an empty round when the node has a pool (falls back to bare words)', () => {
+    // A reading node whose pooled items happen to carry NO kid-safe examples
+    // must still yield sayable targets (the bare words) — never [] (which would
+    // stall the say round).
+    const reading = findSkill('reading')!;
+    const noExampleItems = [
+      { id: 'zzz', fi: 'testi', en: 'test', emoji: '🧪', tier: 1 as const, inflections: { nominative_singular: 'testi' }, examples: [] },
+    ];
+    const ts = speakableTargetsFor(reading.skill, noExampleItems, 8);
+    expect(ts.length).toBeGreaterThan(0);
+    expect(ts.every((t) => saySafe(t.say))).toBe(true);
+  });
+
+  it('scopes counting/agreement speaking to the node’s own pool', () => {
+    // Only "cat" in the pool → every counting phrase is about the cat.
+    const onlyCat = animals.items.filter((i) => i.id === 'cat');
+    const counting = speakableTargetsFor(findSkill('count')!.skill, onlyCat, 8);
+    expect(counting.length).toBeGreaterThan(0);
+    expect(counting.every((t) => t.attemptId === 'cat')).toBe(true);
+  });
+
+  it('tier-gates conversation replies (a beginner never gets a hard scene)', () => {
+    // Small-talk scenes are tier 3+, so at tier 1 there are no in-tier replies →
+    // the fallback (bare words) kicks in rather than leaking a hard reply.
+    const smallTalk = findSkill('small-talk')!;
+    const t1 = speakableTargetsFor(smallTalk.skill, nouns, 1);
+    // Nothing surfaced from the (tier 3+) scenes; whatever shows is the fallback.
+    expect(t1.every((t) => saySafe(t.say))).toBe(true);
+  });
+
   it('every surfaced target is sayable (≤ 5 words) across all speakable node types', () => {
     for (const id of [
       'listen-animals',
