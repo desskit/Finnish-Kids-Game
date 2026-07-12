@@ -121,6 +121,15 @@ export interface SkillNode {
    * up to the engine's `MAX_LEVEL` (see `src/game/adapt.ts`).
    */
   maxLevel?: number;
+  /**
+   * From this measured level up, the node's picture-recognition games (Listen &
+   * Tap, Name it) run a gentle per-question countdown (see `questionTimerMs`).
+   * Set PER NODE so the clock engages where it makes sense — at the top of a
+   * node's own (usually low) ladder, where tile count + tricky distractors have
+   * already maxed out — instead of a blanket level threshold that most of these
+   * starter nodes never reach. Unset = no timer.
+   */
+  timerFromLevel?: number;
   // --- art-ready (Phase 1) ---
   /** Node image path under BASE_URL; the emoji `icon` is the fallback. */
   art?: string;
@@ -233,13 +242,13 @@ const baseChapters: Chapter[] = [
     // Numbers skip `listen-sentence` ("Tämä on kolme" is an awkward carrier),
     // capping one rung shorter.
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'family' } },
-      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'body' } },
-      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'nature' } },
-      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, content: { pool: 'clothes' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, content: { pool: 'numbers' } },
+      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'animals' } },
+      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'food' } },
+      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'family' } },
+      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'body' } },
+      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'nature' } },
+      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'clothes' } },
+      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'numbers' } },
     ],
   },
   {
@@ -648,11 +657,11 @@ export function renderActivity(
   const items = itemsForPool(skill.content.pool);
   switch (activity) {
     case 'listen':
-      return <ListenAndTap items={items} onExit={onExit} />;
+      return <ListenAndTap items={items} timerFromLevel={skill.timerFromLevel} onExit={onExit} />;
     case 'name':
       // Production recall: see the picture, pick the Finnish word (inverse of
       // Listen & Tap over the same pool).
-      return <NameIt items={items} onExit={onExit} />;
+      return <NameIt items={items} timerFromLevel={skill.timerFromLevel} onExit={onExit} />;
     case 'listen-sentence':
       // Sentence-level comprehension: hear a full carrier phrase, tap the
       // picture. Uses the node's constructions (default = all noun carriers),

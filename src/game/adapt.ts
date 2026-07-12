@@ -66,15 +66,22 @@ export interface Difficulty {
    * from level 1 — brutal for a starter, flat at the top.
    */
   maxCases: number;
-  /**
-   * A gentle per-question countdown (ms) for the picture-recognition game
-   * (Listen & Tap), whose only other levers — tile count + tricky distractors —
-   * both max out by L4, so it would otherwise be flat at the top. Undefined
-   * through L4 (no clock for young players); L5–8 tighten it. NEVER punishing:
-   * on expiry the game just nudges the correct tile and re-says the word — no
-   * star lost, no auto-fail — so it adds visible pace without pressure.
-   */
-  timerMs?: number;
+}
+
+/**
+ * The gentle per-question countdown DURATION (ms) for the picture-recognition
+ * games (Listen & Tap, Name it), tightening as the level climbs but clamped so
+ * it never gets frantic for a young child. This is only the duration — WHICH
+ * nodes get a timer, and from which level, is decided per node
+ * (`SkillNode.timerFromLevel`), since those starter games only reach the top of
+ * their own (low) ladders. NEVER punishing: on expiry the game nudges the
+ * correct tile and re-says the word (no star lost, no auto-fail); it only
+ * forfeits the first-try bonus, so waiting out the clock isn't "free" mastery.
+ */
+export function questionTimerMs(level: number): number {
+  const table: Record<number, number> = { 4: 9000, 5: 8000, 6: 7000, 7: 6000, 8: 5000 };
+  const l = Math.max(4, Math.min(8, clampLevel(level)));
+  return table[l];
 }
 
 /**
@@ -133,7 +140,6 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 6,
-    timerMs: 8000,
   },
   {
     level: 6,
@@ -143,7 +149,6 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
-    timerMs: 7000,
   },
   {
     level: 7,
@@ -153,7 +158,6 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
-    timerMs: 6000,
   },
   {
     level: 8,
@@ -163,7 +167,6 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
     tricky: true,
     maxCases: 7,
-    timerMs: 5000,
   },
 ];
 

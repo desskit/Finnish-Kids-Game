@@ -120,21 +120,34 @@ describe('NameIt (production recall)', () => {
     expect(speak).not.toHaveBeenCalled();
   });
 
-  it('no gentle timer below level 5', () => {
-    renderActivity();
-    expect(document.querySelector('.q-timer')).toBeNull();
-  });
-
-  it('shows a gentle timer at L5+ and, on lapse, nudges the correct tile without penalty', async () => {
-    render(
+  function renderTimed(level: number, timerFromLevel?: number) {
+    return render(
       <ProfileProvider>
         <ActivityContext.Provider
-          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(6), sessionStars: 0 }}
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
         >
-          <NameIt items={[fx.TARGET, fx.OTHER, fx.FILLER]} onExit={vi.fn()} />
+          <NameIt
+            items={[fx.TARGET, fx.OTHER, fx.FILLER]}
+            timerFromLevel={timerFromLevel}
+            onExit={vi.fn()}
+          />
         </ActivityContext.Provider>
       </ProfileProvider>,
     );
+  }
+
+  it('no timer when the node has not opted in, even at a high level', () => {
+    renderTimed(8, undefined);
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('no timer below the node’s threshold, even when opted in', () => {
+    renderTimed(3, 4);
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('shows a gentle timer at/above the threshold and, on lapse, nudges the correct tile without penalty', async () => {
+    renderTimed(6, 4);
     expect(document.querySelector('.q-timer')).not.toBeNull();
     expect(wordTile('kissa').className).not.toContain('word-tile--hint');
     vi.clearAllMocks();

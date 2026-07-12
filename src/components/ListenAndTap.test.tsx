@@ -126,22 +126,35 @@ describe('ListenAndTap', () => {
     expect(speak).toHaveBeenCalledWith('koira'); // the WRONG item's own word, not the target
   });
 
-  it('no gentle timer below level 5 (default fallback difficulty)', () => {
-    renderActivity();
-    expect(document.querySelector('.q-timer')).toBeNull();
-  });
-
-  it('shows a gentle timer at L5+ and, on lapse, nudges the correct card without penalty', async () => {
-    render(
+  function renderTimed(level: number, timerFromLevel?: number) {
+    return render(
       <ProfileProvider>
         <ActivityContext.Provider
-          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(6), sessionStars: 0 }}
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
         >
-          <ListenAndTap items={[fx.TARGET, fx.WRONG, fx.FILLER]} onExit={vi.fn()} />
+          <ListenAndTap
+            items={[fx.TARGET, fx.WRONG, fx.FILLER]}
+            timerFromLevel={timerFromLevel}
+            onExit={vi.fn()}
+          />
         </ActivityContext.Provider>
       </ProfileProvider>,
     );
-    // A timer bar appears (difficultyFor(6).timerMs === 7000).
+  }
+
+  it('no timer when the node has not opted in (timerFromLevel unset), even at a high level', () => {
+    renderTimed(8, undefined);
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('no timer below the node’s threshold, even when opted in', () => {
+    renderTimed(3, 4); // opted in from L4, but measured level is 3
+    expect(document.querySelector('.q-timer')).toBeNull();
+  });
+
+  it('shows a gentle timer at/above the threshold and, on lapse, nudges the correct card without penalty', async () => {
+    renderTimed(6, 4); // opted in from L4, measured level 6 → questionTimerMs(6) = 7000
+    // A timer bar appears.
     expect(document.querySelector('.q-timer')).not.toBeNull();
     // Before lapse, no hint on the correct card.
     expect(correctCard().className).not.toContain('pic-card--hint');
@@ -155,6 +168,26 @@ describe('ListenAndTap', () => {
     expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
     expect(correctCard().className).not.toContain('pic-card--correct');
     expect(speak).toHaveBeenCalledWith('kissa'); // re-said the word as the hint
+  });
+
+  it('lapsing forfeits the first-try bonus — waiting out the clock is not free mastery', async () => {
+    const onSegmentComplete = vi.fn();
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete, difficulty: difficultyFor(6), sessionStars: 0, roundQuestions: 1 }}
+        >
+          <ListenAndTap items={[fx.TARGET, fx.WRONG, fx.FILLER]} timerFromLevel={4} onExit={vi.fn()} />
+          <StarsProbe />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    await advance(7000); // lapse → the nudge fires, first-try bonus forfeited
+    fireEvent.click(correctCard()); // still correct → still a star, but not first-try
+    expect(screen.getByTestId('stars')).toHaveTextContent('1'); // star still awarded
+    await advance(800);
+    // Segment reports 0 first-tries of 1 — the round did NOT count as clean mastery.
+    expect(onSegmentComplete).toHaveBeenCalledWith(0, 1);
   });
 
   it('rolls straight into a fresh round after the last question — no interstitial', async () => {
