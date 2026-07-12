@@ -87,8 +87,8 @@ test('full happy path: create profile, play a skill as one unbroken stream', asy
   await expect(page.getByLabel('7 tähteä')).toBeVisible();
   await expect(page.locator('.pic-card').first()).toBeVisible();
 
-  // The only exit is the header's home button; back button works from the path.
-  await page.getByRole('button', { name: 'Back to home' }).click();
+  // The only exit is the header's back button; back button works from the path.
+  await page.getByRole('button', { name: 'Back to the map' }).click();
   await expect(page).toHaveURL(/#\/$/);
 
   await page.goto(`${page.url()}`.replace(/#.*$/, '#/skill/listen-animals'));
