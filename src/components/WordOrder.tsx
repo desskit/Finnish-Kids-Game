@@ -153,6 +153,20 @@ export default function WordOrder({
     [q, locked, done, complete, placed, index, round.length, addStars, recordAttempt, buildRound],
   );
 
+  // Move past a sentence the child is stuck on: record it not-recalled (so it
+  // comes back) and advance. Never a buzz/penalty — just a way forward.
+  const skip = useCallback(() => {
+    if (!q || locked || done) return;
+    if (q.attemptId) recordAttempt(q.attemptId, false);
+    const next = index + 1;
+    missed.current = false;
+    setPlaced([]);
+    setWrongId(null);
+    setWrongTaps(0);
+    if (next >= round.length) setDone(true);
+    else setIndex(next);
+  }, [q, locked, done, index, round.length, recordAttempt]);
+
   function restart() {
     setIndex(0);
     setPlaced([]);
@@ -231,6 +245,12 @@ export default function WordOrder({
               {tile.text}
             </button>
           ))}
+      </div>
+
+      <div className="stuck-help">
+        <button className="btn btn--ghost" onClick={skip} disabled={locked}>
+          Ohita <span className="en">Skip</span> →
+        </button>
       </div>
     </section>
   );

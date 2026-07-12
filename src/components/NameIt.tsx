@@ -24,7 +24,7 @@ interface Props {
 export default function NameIt({ items, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  const { optionCount, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky, timerMs } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -47,6 +47,8 @@ export default function NameIt({ items, onExit }: Props) {
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
+  const [hint, setHint] = useState(false);
 
   const question = round[index];
 
@@ -57,6 +59,20 @@ export default function NameIt({ items, onExit }: Props) {
     const t = setTimeout(() => speakEnglish(question.target.en), 350);
     return () => clearTimeout(t);
   }, [question, done]);
+
+  // Gentle countdown (L5+ only): the isolated production game's other levers
+  // (tile count, tricky distractors) both max out by L4, so a timed pace keeps
+  // it climbing. Never punishing — on lapse the correct tile pulses and the cue
+  // is re-said; no star lost, no auto-advance. Reset per question.
+  useEffect(() => {
+    setHint(false);
+    if (!timerMs || !question || done || locked) return;
+    const t = setTimeout(() => {
+      setHint(true);
+      speakEnglish(question.target.en);
+    }, timerMs);
+    return () => clearTimeout(t);
+  }, [timerMs, question, done, locked]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -146,6 +162,16 @@ export default function NameIt({ items, onExit }: Props) {
         </button>
       </div>
 
+      {timerMs && (
+        <div className="q-timer" aria-hidden="true">
+          <div
+            key={index}
+            className={'q-timer__bar' + (locked ? ' q-timer__bar--paused' : '')}
+            style={{ animationDuration: `${timerMs}ms` }}
+          />
+        </div>
+      )}
+
       <div className="word-tiles">
         {question.options.map((opt, i) => (
           <button
@@ -153,6 +179,7 @@ export default function NameIt({ items, onExit }: Props) {
             className={
               'word-tile' +
               (wrongId === opt.id ? ' word-tile--wrong' : '') +
+              (hint && !locked && opt.id === question.target.id ? ' word-tile--hint' : '') +
               (locked && opt.id === question.target.id ? ' word-tile--correct' : '')
             }
             onClick={() => choose(opt)}
