@@ -78,6 +78,15 @@ describe('speakableTargetsFor', () => {
     core.forEach((t) => expect(t.say.split(' ')).toHaveLength(2));
   });
 
+  it('starter band keeps a dialogue node on its REPLIES, never bare nouns', () => {
+    // Communicative nodes have no vocab pool, so a "bare word" would be a random
+    // noun ("kissa") on a Greetings node — they must stay on their replies.
+    const ts = targets('greetings', nouns, 2); // starter band (level ≤ 3)
+    expect(ts.length).toBeGreaterThan(0);
+    const replies = dialogues.map((d) => d.reply.fi);
+    expect(ts.every((t) => replies.includes(t.say))).toBe(true);
+  });
+
   it('stretch band: a dialogue node speaks BOTH sides of the exchange', () => {
     const stretch = targets('greetings', nouns, 7); // level ≥ 6
     // The whole exchange means the prompts show up too, not only replies.

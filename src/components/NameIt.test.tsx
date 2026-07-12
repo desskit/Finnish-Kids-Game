@@ -151,7 +151,7 @@ describe('NameIt (production recall)', () => {
     expect(document.querySelector('.q-timer')).not.toBeNull();
     expect(wordTile('kissa').className).not.toContain('word-tile--hint');
     vi.clearAllMocks();
-    await advance(7000); // difficultyFor(6).timerMs
+    await advance(7000); // questionTimerMs(6)
     expect(wordTile('kissa').className).toContain('word-tile--hint');
     expect(playDing).not.toHaveBeenCalledWith(false); // no penalty buzz
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3); // no auto-advance

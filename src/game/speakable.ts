@@ -101,9 +101,13 @@ export function speakableTargetsFor(
   // it has one, so "Count & say" speaks its vocabulary — not every noun in the
   // game. Falls back to the full mix for nodes without a resolved pool.
   const nouns = items.length > 0 ? items : NOUNS;
-  // Starter band: everything is just the bare word, the gentlest thing to say.
+  // Communicative nodes (dialogue / small talk) have no vocab pool of their own,
+  // so a "bare word" would be a random NOUN — off-topic on a Greetings node.
+  // They always route to their replies; the starter downshift is only for the
+  // word-based games, where saying the single word is the gentlest step.
+  const communicative = skill.activity === 'dialogue' || skill.activity === 'conversation';
   const routed =
-    band === 'starter'
+    band === 'starter' && !communicative
       ? keep(buildSayRound(items, [], N, tier, weigh))
       : routeTargets(skill, items, nouns, tier, band, weigh);
   // Never hand SayIt an empty round (it would render nothing and stall the
