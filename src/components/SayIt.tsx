@@ -15,6 +15,18 @@ import ActivityHeader from './ActivityHeader';
 const QUESTIONS = 6;
 const INTRO_KEY = 'fkg.speak.introSeen';
 
+// Speaking presentation ramps with the measured level, like every other game:
+//   model  (≤3): the Finnish is shown AND modeled aloud (TTS) — repeat-after-me.
+//   read   (=4): the Finnish is shown but NOT spoken — read it and say it.
+//   recall (≥5): only the ENGLISH is shown, no TTS — produce the Finnish from
+//                memory (the per-sound feedback reveals it after the attempt).
+type SayPresentation = 'model' | 'read' | 'recall';
+function sayPresentation(level: number): SayPresentation {
+  if (level >= 5) return 'recall';
+  if (level >= 4) return 'read';
+  return 'model';
+}
+
 interface Props {
   items: LexicalItem[];
   /** When non-empty, say full carrier phrases; otherwise say the bare words. */
@@ -41,6 +53,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { maxTier } = difficulty;
+  const presentation = sayPresentation(difficulty.level);
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
   const available = isSpeechRecognitionAvailable();
 
@@ -78,13 +91,14 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
 
   const target = round[index];
 
-  // Model the pronunciation when a new question appears (this game SHOWS the
-  // Finnish — it's repeat-after-me, not recall).
+  // Model the pronunciation when a new question appears — but only in the
+  // `model` band (repeat-after-me). Higher levels drop the TTS so the child
+  // produces the word themselves.
   useEffect(() => {
-    if (!target || done || !introSeen) return;
+    if (!target || done || !introSeen || presentation !== 'model') return;
     const t = setTimeout(() => speak(target.say), 400);
     return () => clearTimeout(t);
-  }, [target, done, introSeen, index]);
+  }, [target, done, introSeen, index, presentation]);
 
   // Stop any live recognition if the component unmounts (segment swap).
   useEffect(() => () => session.current?.stop(), []);
@@ -264,7 +278,15 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
       />
 
       <p className="prompt">
-        Sano tämä ääneen <span className="en">Say this out loud</span>
+        {presentation === 'recall' ? (
+          <>
+            Sano suomeksi <span className="en">Say it in Finnish</span>
+          </>
+        ) : (
+          <>
+            Sano tämä ääneen <span className="en">Say this out loud</span>
+          </>
+        )}
       </p>
 
       <div className="phrase-card">
@@ -273,21 +295,29 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
             {target.emoji}
           </span>
         )}
-        {/* After an attempt, map the per-sound feedback onto the word; before,
-            just show the plain target to say. */}
+        {/* After an attempt, map the per-sound feedback onto the word (revealing
+            the Finnish even in the recall band). Before: the Finnish to say
+            (model/read), or — at the highest levels — only the ENGLISH prompt. */}
         {score ? (
           <PronunciationStrip score={score} />
         ) : (
-          <p className="say-target">{target.say}</p>
+          <p className="say-target">{presentation === 'recall' ? target.gloss : target.say}</p>
         )}
-        <p className="en phrase-hint">{target.gloss}</p>
-        <button
-          className="speaker speaker--inline"
-          onClick={() => speak(target.say)}
-          aria-label="Hear it again"
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {/* The English gloss stays a hint when the Finnish is shown; in recall it
+            IS the prompt above, so only re-show it (as meaning) after the attempt. */}
+        {(presentation !== 'recall' || score) && (
+          <p className="en phrase-hint">{target.gloss}</p>
+        )}
+        {/* Listen (manual TTS) only in the model band — higher levels are TTS-free. */}
+        {presentation === 'model' && (
+          <button
+            className="speaker speaker--inline"
+            onClick={() => speak(target.say)}
+            aria-label="Hear it again"
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
       <button
