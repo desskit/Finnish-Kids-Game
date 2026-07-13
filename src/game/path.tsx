@@ -509,9 +509,11 @@ const conversationsChapter: Chapter = {
       titleEn: 'Greetings',
       icon: '👋',
       activity: 'dialogue',
-      // Four rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
-      // (favourites, turn-taking). difficultyFor maps L4 → maxTier 4.
-      maxLevel: 4,
+      // Five rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
+      // (favourites, turn-taking) → L5 the SAME content Finnish-only (the English
+      // gloss drops away — comprehension is the top rung). difficultyFor maps
+      // L4 → maxTier 4; L5 keeps that content but hides the gloss (see showsGloss).
+      maxLevel: 5,
       content: {},
     },
     {
@@ -522,7 +524,9 @@ const conversationsChapter: Chapter = {
       titleEn: 'Small talk',
       icon: '🗣️',
       activity: 'conversation',
-      maxLevel: 4,
+      // L5 is the Finnish-only rung: the English glosses on the bubbles + reply
+      // tiles drop away, so the child holds the whole scene in Finnish.
+      maxLevel: 5,
       content: {},
     },
   ],
