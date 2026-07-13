@@ -256,6 +256,31 @@ describe('learning path', () => {
     }
   });
 
+  it('adds a Places vocab node in chapter 1, with every place emoji-backed', () => {
+    const found = findSkill('listen-places')!;
+    expect(found.chapter.id).toBe('first-words');
+    expect(found.skill.activity).toBe('listen');
+    const el = renderSkill(found.skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string }[] }).items!;
+    expect(items.length).toBeGreaterThan(0);
+    // Picture-recognition needs every place to have an emoji card.
+    expect(items.every((i) => !!i.emoji)).toBe(true);
+  });
+
+  it('adds a plural These-are/Where-are node in the naming chapter', () => {
+    const found = findSkill('plurals')!;
+    expect(found.chapter.id).toBe('naming');
+    expect(found.skill.content.constructionIds).toEqual(['these-are', 'where-are']);
+    expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
+  });
+
+  it('adds an I-wait-for node (partitive rection) in the likes chapter', () => {
+    const found = findSkill('i-wait-for')!;
+    expect(found.chapter.id).toBe('likes');
+    expect(found.skill.content.constructionIds).toEqual(['i-wait-for']);
+    expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
+  });
+
   it('folds the new themes into the mixed noun pool the capstones draw on', () => {
     // Word Order / Spelling use the default 'nouns' pool. A body/nature/clothes
     // word should now be reachable there — confirm via a known new item id.

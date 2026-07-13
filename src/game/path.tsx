@@ -248,6 +248,7 @@ const baseChapters: Chapter[] = [
       { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'body' } },
       { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'nature' } },
       { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'clothes' } },
+      { id: 'listen-places', titleFi: 'Paikat', titleEn: 'Places', icon: '🏠', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'places' } },
       { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'numbers' } },
     ],
   },
@@ -312,6 +313,22 @@ const baseChapters: Chapter[] = [
         },
         exampleFi: 'Minulla on kala.',
       },
+      {
+        // The PLURAL mirror of This-is / Where-is, using the (already-vetted)
+        // plural-predicative constructions: an indefinite plural takes the
+        // partitive plural ("Nämä ovat kissoja"), a definite plural subject the
+        // nominative plural ("Missä ovat kissat?"). Sits after I-have, which
+        // introduces the partitive plural, so the form is already familiar.
+        id: 'plurals',
+        titleFi: 'Nämä ovat… / Missä ovat…',
+        titleEn: 'These are… / Where are…',
+        icon: '👐',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        maxLevel: 4,
+        content: { constructionIds: ['these-are', 'where-are'] },
+        exampleFi: 'Nämä ovat kissoja.',
+      },
     ],
   },
   {
@@ -368,6 +385,9 @@ const baseChapters: Chapter[] = [
       { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
       { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
       { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
+      // odottaa always governs the partitive object ("Odotan äitiä"), a
+      // different rection from the genitive/partitive verbs above.
+      { id: 'i-wait-for', titleFi: 'Odotan …a', titleEn: 'I wait for…', icon: '⏳', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-wait-for'] }, exampleFi: 'Odotan äitiä.' },
     ],
   },
   {
