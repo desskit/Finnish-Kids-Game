@@ -129,8 +129,13 @@ body {
   background-color: var(--sky);
   background-image: var(--map-bg);
   background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
+  background-position: center;
+  /* Portrait art is mostly sky, so show it at full height, centred, and let the
+     matching --sky fill the side margins. On wide/short screens (iPad landscape,
+     Fold unfolded) this reads as a centred landscape framing the path — instead
+     of `cover`, which would zoom in and crop the corner scenery away. When a
+     dedicated wide variant exists, swap it in behind a `min-aspect-ratio` query. */
+  background-size: auto 100%;
 }
 
 .path {
