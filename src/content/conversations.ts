@@ -108,4 +108,76 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+
+  // --- NEW scenes: school + evening-at-home. Built from the already-vetted set
+  // phrases plus a few canonical additions (opettaja, Aloitetaan, Hyvää iltaa,
+  // Mitä haluat syödä). ⚠️ NEEDS NATIVE FINNISH VETTING. ---
+  {
+    id: 'at-school',
+    titleFi: 'Koulussa',
+    titleEn: 'At school',
+    icon: '🏫',
+    partnerIcon: '👩‍🏫',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+        reply: { fi: 'Hyvää huomenta, opettaja!', en: 'Good morning, teacher!' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä kuuluu?', en: 'How are you?' },
+        reply: { fi: 'Hyvää, kiitos!', en: 'Good, thanks!' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Aloitetaan.', en: "Nice! Let's begin." },
+        reply: { fi: 'Aloitetaan!', en: "Let's begin!" },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'evening-home',
+    titleFi: 'Illalla kotona',
+    titleEn: 'Evening at home',
+    icon: '🌙',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Hyvää iltaa!', en: 'Good evening!' },
+        reply: { fi: 'Hyvää iltaa!', en: 'Good evening!' },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä haluat syödä?', en: 'What do you want to eat?' },
+        reply: { fi: 'Omena, kiitos!', en: 'An apple, please!' },
+        distractors: [
+          { fi: 'Se on kirja.', en: "It's a book." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvää yötä!', en: 'Good night!' },
+        reply: { fi: 'Hyvää yötä!', en: 'Good night!' },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+    ],
+  },
 ];

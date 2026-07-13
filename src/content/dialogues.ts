@@ -232,4 +232,68 @@ export const dialogues: DialogueExchange[] = [
     ],
     tier: 4,
   },
+
+  // --- NEW: school / mealtime / feelings & weather. Every prompt is a
+  // wh-question or a ritual pair (one fitting reply); distractors reuse the
+  // already-vetted set phrases above. ⚠️ NEEDS NATIVE FINNISH VETTING. ---
+  {
+    id: 'who-wants',
+    prompt: { fi: 'Kuka haluaa vastata?', en: 'Who wants to answer?' },
+    reply: { fi: 'Minä!', en: 'Me!' },
+    distractors: [
+      { fi: 'Ole hyvä.', en: "You're welcome." },
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'thanks-food',
+    prompt: { fi: 'Kiitos ruoasta!', en: 'Thanks for the food!' },
+    reply: { fi: 'Ole hyvä!', en: "You're welcome!" },
+    distractors: [
+      { fi: 'Anteeksi.', en: 'Sorry.' },
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+    ],
+    tier: 2,
+  },
+  {
+    id: 'enjoy-meal',
+    prompt: { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+    reply: { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+    distractors: [
+      { fi: 'Anteeksi.', en: 'Sorry.' },
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'feeling',
+    prompt: { fi: 'Miltä sinusta tuntuu?', en: 'How do you feel?' },
+    reply: { fi: 'Olen iloinen!', en: 'I feel happy!' },
+    distractors: [
+      { fi: 'Se on kirja.', en: "It's a book." },
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+    ],
+    tier: 4,
+  },
+  {
+    id: 'weather',
+    prompt: { fi: 'Millainen sää on?', en: "What's the weather like?" },
+    reply: { fi: 'Aurinko paistaa.', en: 'The sun is shining.' },
+    distractors: [
+      { fi: 'Olen viisi vuotta.', en: "I'm five years old." },
+      { fi: 'Se on kirja.', en: "It's a book." },
+    ],
+    tier: 4,
+  },
+  {
+    id: 'favorite-food',
+    prompt: { fi: 'Mikä on lempiruokasi?', en: "What's your favorite food?" },
+    reply: { fi: 'Pitsa.', en: 'Pizza.' },
+    distractors: [
+      { fi: 'Sininen.', en: 'Blue.' },
+      { fi: 'Se on kirja.', en: "It's a book." },
+    ],
+    tier: 4,
+  },
 ];
