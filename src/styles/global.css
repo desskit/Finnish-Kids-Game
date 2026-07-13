@@ -1,5 +1,6 @@
 :root {
   --bg: #eff6ff;
+  --sky: #cfe8f5; /* journey-map backdrop sky — sample the exact hex from the art export */
   --bg-card: #ffffff;
   --ink: #0f172a;
   --ink-soft: #475569;
@@ -115,6 +116,23 @@ body {
   width: 100%;
 }
 
+/* Fixed illustrated backdrop: frames the viewport (trees in the corners) while
+   the path scrolls through the calm centre. Falls back to the flat sky colour
+   until the WebP is dropped into public/art/backgrounds/. Scoped to the map so
+   activity screens keep the default body gradient. */
+.map-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--sky);
+  background-image: var(--map-bg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+
 .path {
   list-style: none;
   margin: 4px auto 0;
@@ -176,7 +194,7 @@ body {
   top: 6px;
   bottom: 6px;
   left: 50%;
-  border-left: 4px dashed #d7e0ec;
+  border-left: 5px dashed rgba(245, 158, 11, 0.5);
   transform: translateX(-50%);
   z-index: 0;
 }
