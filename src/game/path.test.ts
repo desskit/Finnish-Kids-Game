@@ -411,6 +411,20 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'conversation', () => {})).not.toBeNull();
   });
 
+  it('sequences chapters easy→hard, greetings front-loaded, locatives late', () => {
+    expect(PATH.map((c) => c.id)).toEqual([
+      'first-words',
+      'conversations',
+      'naming',
+      'likes',
+      'numbers-describe',
+      'actions',
+      'where',
+      'together',
+      'sentences',
+    ]);
+  });
+
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');
