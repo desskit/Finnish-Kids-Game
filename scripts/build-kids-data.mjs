@@ -82,6 +82,19 @@ const NUMBERS = [
   ['eighteen', 'kahdeksantoista', 'eighteen', '18', 18],
   ['nineteen', 'yhdeksäntoista', 'nineteen', '19', 19],
   ['twenty', 'kaksikymmentä', 'twenty', '20', 20],
+  // Counting by tens to a hundred. Only the round tens + sata are real,
+  // single-word sourced numerals (21-99 are compounds NOT in the source, and
+  // rule-building them would break the golden rule). These extend the number-
+  // RECOGNITION node past 20; counting stays ≤ 20 (buildCountingRound filters
+  // by value ≤ maxCount, so no card ever tries to show 60 objects).
+  ['thirty', 'kolmekymmentä', 'thirty', '30', 30],
+  ['forty', 'neljäkymmentä', 'forty', '40', 40],
+  ['fifty', 'viisikymmentä', 'fifty', '50', 50],
+  ['sixty', 'kuusikymmentä', 'sixty', '60', 60],
+  ['seventy', 'seitsemänkymmentä', 'seventy', '70', 70],
+  ['eighty', 'kahdeksankymmentä', 'eighty', '80', 80],
+  ['ninety', 'yhdeksänkymmentä', 'ninety', '90', 90],
+  ['hundred', 'sata', 'a hundred', '100', 100],
 ];
 
 // Adjectives decline like nouns and AGREE with their noun in case + number, so
