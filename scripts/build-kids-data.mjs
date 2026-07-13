@@ -53,6 +53,16 @@ const ANIMALS = [
   ['fox', 'kettu', 'fox', '🦊'],
   ['duck', 'ankka', 'duck', '🦆'],
   ['frog', 'sammakko', 'frog', '🐸'],
+  ['sheep', 'lammas', 'sheep', '🐑'],
+  ['mouse', 'hiiri', 'mouse', '🐭'],
+  ['elephant', 'norsu', 'elephant', '🐘'],
+  ['lion', 'leijona', 'lion', '🦁'],
+  ['monkey', 'apina', 'monkey', '🐵'],
+  ['chicken', 'kana', 'chicken', '🐔'],
+  ['wolf', 'susi', 'wolf', '🐺'],
+  ['snake', 'käärme', 'snake', '🐍'],
+  ['butterfly', 'perhonen', 'butterfly', '🦋'],
+  ['bee', 'mehiläinen', 'bee', '🐝'],
 ];
 
 // Numbers carry a numeric `value` (5th field) used for counting scenes and the
@@ -135,6 +145,15 @@ const FOOD = [
   ['potato', 'peruna', 'potato', '🥔'],
   ['strawberry', 'mansikka', 'strawberry', '🍓'],
   ['carrot', 'porkkana', 'carrot', '🥕'],
+  ['egg', 'muna', 'egg', '🥚'],
+  ['rice', 'riisi', 'rice', '🍚'],
+  ['soup', 'keitto', 'soup', '🍲'],
+  ['sausage', 'makkara', 'sausage', '🌭'],
+  ['tomato', 'tomaatti', 'tomato', '🍅'],
+  ['candy', 'karkki', 'candy', '🍬'],
+  ['porridge', 'puuro', 'porridge', '🥣'],
+  ['butter', 'voi', 'butter', '🧈'],
+  ['pizza', 'pitsa', 'pizza', '🍕'],
 ];
 
 // Place nouns for the locative-case node ("where things are" — in/on/into/
@@ -188,6 +207,9 @@ const FAMILY = [
   ['grandmother', 'isoäiti', 'grandmother', '👵'],
   ['grandfather', 'isoisä', 'grandfather', '👴'],
   ['family', 'perhe', 'family', '👪'],
+  // (Family is emoji-capped — most relatives share the same person glyph, which
+  // the picture game can't tell apart, so it stays small on purpose.)
+  ['child', 'lapsi', 'child', '🧒'],
 ];
 
 // Body parts. All decline as ordinary singular nouns (full case paradigm), so
@@ -207,6 +229,10 @@ const BODY = [
   ['tummy', 'vatsa', 'tummy', '🤰'],
   ['finger', 'sormi', 'finger', '👆'],
   ['knee', 'polvi', 'knee', '🦵'],
+  ['tongue', 'kieli', 'tongue', '👅'],
+  ['heart', 'sydän', 'heart', '❤️'],
+  ['bone', 'luu', 'bone', '🦴'],
+  ['muscle', 'lihas', 'muscle', '💪'],
 ];
 
 // Nature words — sky, weather and landscape things a child can point at.
@@ -225,6 +251,12 @@ const NATURE = [
   ['lake', 'järvi', 'lake', '🏞️'],
   ['sea', 'meri', 'sea', '🌊'],
   ['sky', 'taivas', 'sky', '🌌'],
+  ['wind', 'tuuli', 'wind', '💨'],
+  ['ice', 'jää', 'ice', '🧊'],
+  ['leaf', 'lehti', 'leaf', '🍃'],
+  ['fire', 'tuli', 'fire', '🔥'],
+  ['grass', 'ruoho', 'grass', '🌿'],
+  ['island', 'saari', 'island', '🏝️'],
 ];
 
 // Clothes. NOTE: `housut` (pants) is deliberately excluded — it's a plurale
@@ -243,6 +275,9 @@ const CLOTHES = [
   ['scarf', 'huivi', 'scarf', '🧣'],
   ['cap', 'lakki', 'cap', '🧢'],
   ['boot', 'saapas', 'boot', '🥾'],
+  ['ring', 'sormus', 'ring', '💍'],
+  ['tie', 'solmio', 'tie', '👔'],
+  ['vest', 'liivi', 'vest', '🦺'],
 ];
 
 // Kid-friendly verbs spanning all six KOTUS verb types. The 4th field is an

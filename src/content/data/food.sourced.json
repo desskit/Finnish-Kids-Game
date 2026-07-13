@@ -693,6 +693,448 @@
           "en": "\"I don't like carrots.\" \"Neither do I.\""
         }
       ]
+    },
+    {
+      "id": "egg",
+      "word": "muna",
+      "en": "egg",
+      "emoji": "🥚",
+      "inflections": {
+        "nominative_singular": "muna",
+        "nominative_plural": "munat",
+        "genitive_singular": "munan",
+        "genitive_plural": "munien",
+        "partitive_singular": "munaa",
+        "partitive_plural": "munia",
+        "inessive_singular": "munassa",
+        "inessive_plural": "munissa",
+        "elative_singular": "munasta",
+        "elative_plural": "munista",
+        "illative_singular": "munaan",
+        "illative_plural": "muniin",
+        "adessive_singular": "munalla",
+        "adessive_plural": "munilla",
+        "ablative_singular": "munalta",
+        "ablative_plural": "munilta",
+        "allative_singular": "munalle",
+        "allative_plural": "munille",
+        "essive_singular": "munana",
+        "essive_plural": "munina",
+        "translative_singular": "munaksi",
+        "translative_plural": "muniksi",
+        "abessive_singular": "munatta",
+        "abessive_plural": "munitta",
+        "instructive_plural": "munin",
+        "comitative_plural": "munineen"
+      },
+      "english": {
+        "plural": "eggs"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3583,
+      "examples": [
+        {
+          "fi": "kovaksi keitetty muna",
+          "en": "hard-boiled egg"
+        },
+        {
+          "fi": "pehmeäksi keitetty muna",
+          "en": "soft-boiled egg"
+        }
+      ]
+    },
+    {
+      "id": "rice",
+      "word": "riisi",
+      "en": "rice",
+      "emoji": "🍚",
+      "inflections": {
+        "nominative_singular": "riisi",
+        "nominative_plural": "riisit",
+        "genitive_singular": "riisin",
+        "genitive_plural": "riisien",
+        "partitive_singular": "riisiä",
+        "partitive_plural": "riisejä",
+        "inessive_singular": "riisissä",
+        "inessive_plural": "riiseissä",
+        "elative_singular": "riisistä",
+        "elative_plural": "riiseistä",
+        "illative_singular": "riisiin",
+        "illative_plural": "riiseihin",
+        "adessive_singular": "riisillä",
+        "adessive_plural": "riiseillä",
+        "ablative_singular": "riisiltä",
+        "ablative_plural": "riiseiltä",
+        "allative_singular": "riisille",
+        "allative_plural": "riiseille",
+        "essive_singular": "riisinä",
+        "essive_plural": "riiseinä",
+        "translative_singular": "riisiksi",
+        "translative_plural": "riiseiksi",
+        "abessive_singular": "riisittä",
+        "abessive_plural": "riiseittä",
+        "instructive_plural": "riisein",
+        "comitative_plural": "riiseineen"
+      },
+      "english": {
+        "plural": "rices"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 12463,
+      "examples": [
+        {
+          "fi": "riisin kuori",
+          "en": "rice hull, rice husk"
+        },
+        {
+          "fi": "valkoinen riisi",
+          "en": "white rice"
+        }
+      ]
+    },
+    {
+      "id": "soup",
+      "word": "keitto",
+      "en": "soup",
+      "emoji": "🍲",
+      "inflections": {
+        "nominative_singular": "keitto",
+        "nominative_plural": "keitot",
+        "genitive_singular": "keiton",
+        "genitive_plural": "keittojen",
+        "partitive_singular": "keittoa",
+        "partitive_plural": "keittoja",
+        "inessive_singular": "keitossa",
+        "inessive_plural": "keitoissa",
+        "elative_singular": "keitosta",
+        "elative_plural": "keitoista",
+        "illative_singular": "keittoon",
+        "illative_plural": "keittoihin",
+        "adessive_singular": "keitolla",
+        "adessive_plural": "keitoilla",
+        "ablative_singular": "keitolta",
+        "ablative_plural": "keitoilta",
+        "allative_singular": "keitolle",
+        "allative_plural": "keitoille",
+        "essive_singular": "keittona",
+        "essive_plural": "keittoina",
+        "translative_singular": "keitoksi",
+        "translative_plural": "keitoiksi",
+        "abessive_singular": "keitotta",
+        "abessive_plural": "keitoitta",
+        "instructive_plural": "keitoin",
+        "comitative_plural": "keittoineen"
+      },
+      "english": {
+        "plural": "soups"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 7506,
+      "examples": [
+        {
+          "fi": "päivän keitto",
+          "en": "soup du jour, soup of the day"
+        },
+        {
+          "fi": "Koristele keitto tuoreella tillillä.",
+          "en": "Garnish the soup with some fresh dill."
+        }
+      ]
+    },
+    {
+      "id": "sausage",
+      "word": "makkara",
+      "en": "sausage",
+      "emoji": "🌭",
+      "inflections": {
+        "nominative_singular": "makkara",
+        "nominative_plural": "makkarat",
+        "genitive_singular": "makkaran",
+        "genitive_plural": "makkaroiden",
+        "partitive_singular": "makkaraa",
+        "partitive_plural": "makkaroita",
+        "inessive_singular": "makkarassa",
+        "inessive_plural": "makkaroissa",
+        "elative_singular": "makkarasta",
+        "elative_plural": "makkaroista",
+        "illative_singular": "makkaraan",
+        "illative_plural": "makkaroihin",
+        "adessive_singular": "makkaralla",
+        "adessive_plural": "makkaroilla",
+        "ablative_singular": "makkaralta",
+        "ablative_plural": "makkaroilta",
+        "allative_singular": "makkaralle",
+        "allative_plural": "makkaroille",
+        "essive_singular": "makkarana",
+        "essive_plural": "makkaroina",
+        "translative_singular": "makkaraksi",
+        "translative_plural": "makkaroiksi",
+        "abessive_singular": "makkaratta",
+        "abessive_plural": "makkaroitta",
+        "instructive_plural": "makkaroin",
+        "comitative_plural": "makkaroineen"
+      },
+      "english": {
+        "plural": "sausages"
+      },
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 10741,
+      "examples": [
+        {
+          "fi": "Nämä makkarat ovat Northumbriasta.",
+          "en": "These sausages are from Northumbria."
+        },
+        {
+          "fi": "Tomi tekee parhaat vegaaniset makkarat.",
+          "en": "Tom makes the best vegan sausage."
+        }
+      ]
+    },
+    {
+      "id": "tomato",
+      "word": "tomaatti",
+      "en": "tomato",
+      "emoji": "🍅",
+      "inflections": {
+        "nominative_singular": "tomaatti",
+        "nominative_plural": "tomaatit",
+        "genitive_singular": "tomaatin",
+        "genitive_plural": "tomaattien",
+        "partitive_singular": "tomaattia",
+        "partitive_plural": "tomaatteja",
+        "inessive_singular": "tomaatissa",
+        "inessive_plural": "tomaateissa",
+        "elative_singular": "tomaatista",
+        "elative_plural": "tomaateista",
+        "illative_singular": "tomaattiin",
+        "illative_plural": "tomaatteihin",
+        "adessive_singular": "tomaatilla",
+        "adessive_plural": "tomaateilla",
+        "ablative_singular": "tomaatilta",
+        "ablative_plural": "tomaateilta",
+        "allative_singular": "tomaatille",
+        "allative_plural": "tomaateille",
+        "essive_singular": "tomaattina",
+        "essive_plural": "tomaatteina",
+        "translative_singular": "tomaatiksi",
+        "translative_plural": "tomaateiksi",
+        "abessive_singular": "tomaatitta",
+        "abessive_plural": "tomaateitta",
+        "instructive_plural": "tomaatein",
+        "comitative_plural": "tomaatteineen"
+      },
+      "english": {
+        "plural": "tomatoes"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 23308,
+      "examples": [
+        {
+          "fi": "Tykkääkö Tom tomaateista?",
+          "en": "Does Tom like tomatoes?"
+        }
+      ]
+    },
+    {
+      "id": "candy",
+      "word": "karkki",
+      "en": "candy",
+      "emoji": "🍬",
+      "inflections": {
+        "nominative_singular": "karkki",
+        "nominative_plural": "karkit",
+        "genitive_singular": "karkin",
+        "genitive_plural": "karkkien",
+        "partitive_singular": "karkkia",
+        "partitive_plural": "karkkeja",
+        "inessive_singular": "karkissa",
+        "inessive_plural": "karkeissa",
+        "elative_singular": "karkista",
+        "elative_plural": "karkeista",
+        "illative_singular": "karkkiin",
+        "illative_plural": "karkkeihin",
+        "adessive_singular": "karkilla",
+        "adessive_plural": "karkeilla",
+        "ablative_singular": "karkilta",
+        "ablative_plural": "karkeilta",
+        "allative_singular": "karkille",
+        "allative_plural": "karkeille",
+        "essive_singular": "karkkina",
+        "essive_plural": "karkkeina",
+        "translative_singular": "karkiksi",
+        "translative_plural": "karkeiksi",
+        "abessive_singular": "karkitta",
+        "abessive_plural": "karkeitta",
+        "instructive_plural": "karkein",
+        "comitative_plural": "karkkeineen"
+      },
+      "english": {
+        "plural": "candies"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 5928,
+      "examples": [
+        {
+          "fi": "Pidän myös karkista.",
+          "en": "I also like candy."
+        },
+        {
+          "fi": "Ota karkkeja, jos maistuu.",
+          "en": "Please help yourself to the sweets."
+        }
+      ]
+    },
+    {
+      "id": "porridge",
+      "word": "puuro",
+      "en": "porridge",
+      "emoji": "🥣",
+      "inflections": {
+        "nominative_singular": "puuro",
+        "nominative_plural": "puurot",
+        "genitive_singular": "puuron",
+        "genitive_plural": "puurojen",
+        "partitive_singular": "puuroa",
+        "partitive_plural": "puuroja",
+        "inessive_singular": "puurossa",
+        "inessive_plural": "puuroissa",
+        "elative_singular": "puurosta",
+        "elative_plural": "puuroista",
+        "illative_singular": "puuroon",
+        "illative_plural": "puuroihin",
+        "adessive_singular": "puurolla",
+        "adessive_plural": "puuroilla",
+        "ablative_singular": "puurolta",
+        "ablative_plural": "puuroilta",
+        "allative_singular": "puurolle",
+        "allative_plural": "puuroille",
+        "essive_singular": "puurona",
+        "essive_plural": "puuroina",
+        "translative_singular": "puuroksi",
+        "translative_plural": "puuroiksi",
+        "abessive_singular": "puurotta",
+        "abessive_plural": "puuroitta",
+        "instructive_plural": "puuroin",
+        "comitative_plural": "puuroineen"
+      },
+      "english": {
+        "plural": "porridges"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 28882,
+      "examples": [
+        {
+          "fi": "Puuro on yleinen aamiaisruoka Suomessa.",
+          "en": "Porridge is a common breakfast food in Finland."
+        },
+        {
+          "fi": "Oletko koskenut tähän puuroon?",
+          "en": "Have you touched this porridge?"
+        }
+      ]
+    },
+    {
+      "id": "butter",
+      "word": "voi",
+      "en": "butter",
+      "emoji": "🧈",
+      "inflections": {
+        "nominative_singular": "voi",
+        "nominative_plural": "voit",
+        "genitive_singular": "voin",
+        "genitive_plural": "voiden",
+        "partitive_singular": "voita",
+        "partitive_plural": "voita",
+        "inessive_singular": "voissa",
+        "inessive_plural": "voissa",
+        "elative_singular": "voista",
+        "elative_plural": "voista",
+        "illative_singular": "voihin",
+        "illative_plural": "voihin",
+        "adessive_singular": "voilla",
+        "adessive_plural": "voilla",
+        "ablative_singular": "voilta",
+        "ablative_plural": "voilta",
+        "allative_singular": "voille",
+        "allative_plural": "voille",
+        "essive_singular": "voina",
+        "essive_plural": "voina",
+        "translative_singular": "voiksi",
+        "translative_plural": "voiksi",
+        "abessive_singular": "voitta",
+        "abessive_plural": "voitta",
+        "instructive_plural": "voin",
+        "comitative_plural": "voineen"
+      },
+      "english": {
+        "plural": "butters"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 20,
+      "examples": [
+        {
+          "fi": "voi on aina voita",
+          "en": "butter is always butter"
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "word": "pitsa",
+      "en": "pizza",
+      "emoji": "🍕",
+      "inflections": {
+        "nominative_singular": "pitsa",
+        "nominative_plural": "pitsat",
+        "genitive_singular": "pitsan",
+        "genitive_plural": "pitsojen",
+        "partitive_singular": "pitsaa",
+        "partitive_plural": "pitsoja",
+        "inessive_singular": "pitsassa",
+        "inessive_plural": "pitsoissa",
+        "elative_singular": "pitsasta",
+        "elative_plural": "pitsoista",
+        "illative_singular": "pitsaan",
+        "illative_plural": "pitsoihin",
+        "adessive_singular": "pitsalla",
+        "adessive_plural": "pitsoilla",
+        "ablative_singular": "pitsalta",
+        "ablative_plural": "pitsoilta",
+        "allative_singular": "pitsalle",
+        "allative_plural": "pitsoille",
+        "essive_singular": "pitsana",
+        "essive_plural": "pitsoina",
+        "translative_singular": "pitsaksi",
+        "translative_plural": "pitsoiksi",
+        "abessive_singular": "pitsatta",
+        "abessive_plural": "pitsoitta",
+        "instructive_plural": "pitsoin",
+        "comitative_plural": "pitsoineen"
+      },
+      "english": {
+        "plural": "pizzas"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 15313,
+      "examples": [
+        {
+          "fi": "Tilasin pitsan.",
+          "en": "I ordered a pizza."
+        },
+        {
+          "fi": "Jääkaapissa on pitsan jämät.",
+          "en": "There's some leftover pizza in the fridge."
+        }
+      ]
     }
   ]
 }
