@@ -597,6 +597,156 @@
           "en": "Tom wanted to buy a new pair of boots."
         }
       ]
+    },
+    {
+      "id": "ring",
+      "word": "sormus",
+      "en": "ring",
+      "emoji": "💍",
+      "inflections": {
+        "nominative_singular": "sormus",
+        "nominative_plural": "sormukset",
+        "genitive_singular": "sormuksen",
+        "genitive_plural": "sormusten",
+        "partitive_singular": "sormusta",
+        "partitive_plural": "sormuksia",
+        "inessive_singular": "sormuksessa",
+        "inessive_plural": "sormuksissa",
+        "elative_singular": "sormuksesta",
+        "elative_plural": "sormuksista",
+        "illative_singular": "sormukseen",
+        "illative_plural": "sormuksiin",
+        "adessive_singular": "sormuksella",
+        "adessive_plural": "sormuksilla",
+        "ablative_singular": "sormukselta",
+        "ablative_plural": "sormuksilta",
+        "allative_singular": "sormukselle",
+        "allative_plural": "sormuksille",
+        "essive_singular": "sormuksena",
+        "essive_plural": "sormuksina",
+        "translative_singular": "sormukseksi",
+        "translative_plural": "sormuksiksi",
+        "abessive_singular": "sormuksetta",
+        "abessive_plural": "sormuksitta",
+        "instructive_plural": "sormuksin",
+        "comitative_plural": "sormuksineen"
+      },
+      "english": {
+        "plural": "rings"
+      },
+      "kotusType": 39,
+      "group": "us_ys",
+      "frequencyRank": 4045,
+      "examples": [
+        {
+          "fi": "En halua sormusta.",
+          "en": "I don't want the ring."
+        },
+        {
+          "fi": "He pitävät kalliita sormuksia.",
+          "en": "They are wearing expensive rings."
+        }
+      ]
+    },
+    {
+      "id": "tie",
+      "word": "solmio",
+      "en": "tie",
+      "emoji": "👔",
+      "inflections": {
+        "nominative_singular": "solmio",
+        "nominative_plural": "solmiot",
+        "genitive_singular": "solmion",
+        "genitive_plural": "solmioiden",
+        "partitive_singular": "solmiota",
+        "partitive_plural": "solmioita",
+        "inessive_singular": "solmiossa",
+        "inessive_plural": "solmioissa",
+        "elative_singular": "solmiosta",
+        "elative_plural": "solmioista",
+        "illative_singular": "solmioon",
+        "illative_plural": "solmioihin",
+        "adessive_singular": "solmiolla",
+        "adessive_plural": "solmioilla",
+        "ablative_singular": "solmiolta",
+        "ablative_plural": "solmioilta",
+        "allative_singular": "solmiolle",
+        "allative_plural": "solmioille",
+        "essive_singular": "solmiona",
+        "essive_plural": "solmioina",
+        "translative_singular": "solmioksi",
+        "translative_plural": "solmioiksi",
+        "abessive_singular": "solmiotta",
+        "abessive_plural": "solmioitta",
+        "instructive_plural": "solmioin",
+        "comitative_plural": "solmioineen"
+      },
+      "english": {
+        "plural": "ties"
+      },
+      "kotusType": 3,
+      "group": "o_oe",
+      "frequencyRank": 12934,
+      "examples": [
+        {
+          "fi": "Pidätkö tästä solmiosta?",
+          "en": "Do you like this tie?"
+        },
+        {
+          "fi": "Käytätkö koskaan solmiota?",
+          "en": "Do you ever wear a tie?"
+        }
+      ]
+    },
+    {
+      "id": "vest",
+      "word": "liivi",
+      "en": "vest",
+      "emoji": "🦺",
+      "inflections": {
+        "nominative_singular": "liivi",
+        "nominative_plural": "liivit",
+        "genitive_singular": "liivin",
+        "genitive_plural": "liivien",
+        "partitive_singular": "liiviä",
+        "partitive_plural": "liivejä",
+        "inessive_singular": "liivissä",
+        "inessive_plural": "liiveissä",
+        "elative_singular": "liivistä",
+        "elative_plural": "liiveistä",
+        "illative_singular": "liiviin",
+        "illative_plural": "liiveihin",
+        "adessive_singular": "liivillä",
+        "adessive_plural": "liiveillä",
+        "ablative_singular": "liiviltä",
+        "ablative_plural": "liiveiltä",
+        "allative_singular": "liiville",
+        "allative_plural": "liiveille",
+        "essive_singular": "liivinä",
+        "essive_plural": "liiveinä",
+        "translative_singular": "liiviksi",
+        "translative_plural": "liiveiksi",
+        "abessive_singular": "liivittä",
+        "abessive_plural": "liiveittä",
+        "instructive_plural": "liivein",
+        "comitative_plural": "liiveineen"
+      },
+      "english": {
+        "plural": "vests"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 23490,
+      "examples": [
+        {
+          "fi": "nahkaliivi",
+          "en": "leather vest"
+        },
+        {
+          "fi": "Hänellä on yllään keltainen liivi.",
+          "en": "He has a yellow vest on."
+        }
+      ]
     }
   ]
 }

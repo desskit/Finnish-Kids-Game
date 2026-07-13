@@ -603,6 +603,306 @@
           "en": "The resurrected are like the angels in heaven."
         }
       ]
+    },
+    {
+      "id": "wind",
+      "word": "tuuli",
+      "en": "wind",
+      "emoji": "💨",
+      "inflections": {
+        "nominative_singular": "tuuli",
+        "nominative_plural": "tuulet",
+        "genitive_singular": "tuulen",
+        "genitive_plural": "tuulten",
+        "partitive_singular": "tuulta",
+        "partitive_plural": "tuulia",
+        "inessive_singular": "tuulessa",
+        "inessive_plural": "tuulissa",
+        "elative_singular": "tuulesta",
+        "elative_plural": "tuulista",
+        "illative_singular": "tuuleen",
+        "illative_plural": "tuuliin",
+        "adessive_singular": "tuulella",
+        "adessive_plural": "tuulilla",
+        "ablative_singular": "tuulelta",
+        "ablative_plural": "tuulilta",
+        "allative_singular": "tuulelle",
+        "allative_plural": "tuulille",
+        "essive_singular": "tuulena",
+        "essive_plural": "tuulina",
+        "translative_singular": "tuuleksi",
+        "translative_plural": "tuuliksi",
+        "abessive_singular": "tuuletta",
+        "abessive_plural": "tuulitta",
+        "instructive_plural": "tuulin",
+        "comitative_plural": "tuulineen"
+      },
+      "english": {
+        "plural": "winds"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 3453,
+      "examples": [
+        {
+          "fi": "tuulivoima",
+          "en": "wind power, eolic power"
+        },
+        {
+          "fi": "tuulipuisto",
+          "en": "wind park, eolic park"
+        }
+      ]
+    },
+    {
+      "id": "ice",
+      "word": "jää",
+      "en": "ice",
+      "emoji": "🧊",
+      "inflections": {
+        "nominative_singular": "jää",
+        "nominative_plural": "jäät",
+        "genitive_singular": "jään",
+        "genitive_plural": "jäiden",
+        "partitive_singular": "jäätä",
+        "partitive_plural": "jäitä",
+        "inessive_singular": "jäässä",
+        "inessive_plural": "jäissä",
+        "elative_singular": "jäästä",
+        "elative_plural": "jäistä",
+        "illative_singular": "jäähän",
+        "illative_plural": "jäihin",
+        "adessive_singular": "jäällä",
+        "adessive_plural": "jäillä",
+        "ablative_singular": "jäältä",
+        "ablative_plural": "jäiltä",
+        "allative_singular": "jäälle",
+        "allative_plural": "jäille",
+        "essive_singular": "jäänä",
+        "essive_plural": "jäinä",
+        "translative_singular": "jääksi",
+        "translative_plural": "jäiksi",
+        "abessive_singular": "jäättä",
+        "abessive_plural": "jäittä",
+        "instructive_plural": "jäin",
+        "comitative_plural": "jäineen"
+      },
+      "english": {
+        "plural": "ices"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 534,
+      "examples": [
+        {
+          "fi": "olla jäässä",
+          "en": "to be frozen"
+        },
+        {
+          "fi": "jää kelluu veden pinnalla",
+          "en": "ice floats on water"
+        }
+      ]
+    },
+    {
+      "id": "leaf",
+      "word": "lehti",
+      "en": "leaf",
+      "emoji": "🍃",
+      "inflections": {
+        "nominative_singular": "lehti",
+        "nominative_plural": "lehdet",
+        "genitive_singular": "lehden",
+        "genitive_plural": "lehtien",
+        "partitive_singular": "lehteä",
+        "partitive_plural": "lehtiä",
+        "inessive_singular": "lehdessä",
+        "inessive_plural": "lehdissä",
+        "elative_singular": "lehdestä",
+        "elative_plural": "lehdistä",
+        "illative_singular": "lehteen",
+        "illative_plural": "lehtiin",
+        "adessive_singular": "lehdellä",
+        "adessive_plural": "lehdillä",
+        "ablative_singular": "lehdeltä",
+        "ablative_plural": "lehdiltä",
+        "allative_singular": "lehdelle",
+        "allative_plural": "lehdille",
+        "essive_singular": "lehtenä",
+        "essive_plural": "lehtinä",
+        "translative_singular": "lehdeksi",
+        "translative_plural": "lehdiksi",
+        "abessive_singular": "lehdettä",
+        "abessive_plural": "lehdittä",
+        "instructive_plural": "lehdin",
+        "comitative_plural": "lehtineen"
+      },
+      "english": {
+        "plural": "leaves"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 4770,
+      "examples": [
+        {
+          "fi": "Näin sen lehdessä.",
+          "en": "I saw it in a magazine."
+        },
+        {
+          "fi": "Hänen kuvansa oli lehdessä.",
+          "en": "His picture was in the newspaper."
+        }
+      ]
+    },
+    {
+      "id": "fire",
+      "word": "tuli",
+      "en": "fire",
+      "emoji": "🔥",
+      "inflections": {
+        "nominative_singular": "tuli",
+        "nominative_plural": "tulet",
+        "genitive_singular": "tulen",
+        "genitive_plural": "tulien",
+        "partitive_singular": "tulta",
+        "partitive_plural": "tulia",
+        "inessive_singular": "tulessa",
+        "inessive_plural": "tulissa",
+        "elative_singular": "tulesta",
+        "elative_plural": "tulista",
+        "illative_singular": "tuleen",
+        "illative_plural": "tuliin",
+        "adessive_singular": "tulella",
+        "adessive_plural": "tulilla",
+        "ablative_singular": "tulelta",
+        "ablative_plural": "tulilta",
+        "allative_singular": "tulelle",
+        "allative_plural": "tulille",
+        "essive_singular": "tulena",
+        "essive_plural": "tulina",
+        "translative_singular": "tuleksi",
+        "translative_plural": "tuliksi",
+        "abessive_singular": "tuletta",
+        "abessive_plural": "tulitta",
+        "instructive_plural": "tulin",
+        "comitative_plural": "tulineen"
+      },
+      "english": {
+        "plural": "fires"
+      },
+      "kotusType": 24,
+      "group": "i_old",
+      "frequencyRank": 177,
+      "examples": [
+        {
+          "fi": "olla tulessa",
+          "en": "to be on fire"
+        },
+        {
+          "fi": "leikkiä tulella",
+          "en": "to play with fire"
+        }
+      ]
+    },
+    {
+      "id": "grass",
+      "word": "ruoho",
+      "en": "grass",
+      "emoji": "🌿",
+      "inflections": {
+        "nominative_singular": "ruoho",
+        "nominative_plural": "ruohot",
+        "genitive_singular": "ruohon",
+        "genitive_plural": "ruohojen",
+        "partitive_singular": "ruohoa",
+        "partitive_plural": "ruohoja",
+        "inessive_singular": "ruohossa",
+        "inessive_plural": "ruohoissa",
+        "elative_singular": "ruohosta",
+        "elative_plural": "ruohoista",
+        "illative_singular": "ruohoon",
+        "illative_plural": "ruohoihin",
+        "adessive_singular": "ruoholla",
+        "adessive_plural": "ruohoilla",
+        "ablative_singular": "ruoholta",
+        "ablative_plural": "ruohoilta",
+        "allative_singular": "ruoholle",
+        "allative_plural": "ruohoille",
+        "essive_singular": "ruohona",
+        "essive_plural": "ruohoina",
+        "translative_singular": "ruohoksi",
+        "translative_plural": "ruohoiksi",
+        "abessive_singular": "ruohotta",
+        "abessive_plural": "ruohoitta",
+        "instructive_plural": "ruohoin",
+        "comitative_plural": "ruohoineen"
+      },
+      "english": {
+        "plural": "grasses"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 4661,
+      "examples": [
+        {
+          "fi": "Lammas syö ruohoa.",
+          "en": "Sheep eat grass."
+        },
+        {
+          "fi": "Lehmät syö ruohoa.",
+          "en": "Cows eat grass."
+        }
+      ]
+    },
+    {
+      "id": "island",
+      "word": "saari",
+      "en": "island",
+      "emoji": "🏝️",
+      "inflections": {
+        "nominative_singular": "saari",
+        "nominative_plural": "saaret",
+        "genitive_singular": "saaren",
+        "genitive_plural": "saarten",
+        "partitive_singular": "saarta",
+        "partitive_plural": "saaria",
+        "inessive_singular": "saaressa",
+        "inessive_plural": "saarissa",
+        "elative_singular": "saaresta",
+        "elative_plural": "saarista",
+        "illative_singular": "saareen",
+        "illative_plural": "saariin",
+        "adessive_singular": "saarella",
+        "adessive_plural": "saarilla",
+        "ablative_singular": "saarelta",
+        "ablative_plural": "saarilta",
+        "allative_singular": "saarelle",
+        "allative_plural": "saarille",
+        "essive_singular": "saarena",
+        "essive_plural": "saarina",
+        "translative_singular": "saareksi",
+        "translative_plural": "saariksi",
+        "abessive_singular": "saaretta",
+        "abessive_plural": "saaritta",
+        "instructive_plural": "saarin",
+        "comitative_plural": "saarineen"
+      },
+      "english": {
+        "plural": "islands"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 4973,
+      "examples": [
+        {
+          "fi": "Tomi asuu saaressa.",
+          "en": "Tom lives on an island."
+        },
+        {
+          "fi": "Kuin kauan sä asuit sillä saarella?",
+          "en": "How long did you live on the island?"
+        }
+      ]
     }
   ]
 }

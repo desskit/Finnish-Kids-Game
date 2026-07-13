@@ -608,6 +608,206 @@
           "en": "trochaic tetrameter"
         }
       ]
+    },
+    {
+      "id": "tongue",
+      "word": "kieli",
+      "en": "tongue",
+      "emoji": "👅",
+      "inflections": {
+        "nominative_singular": "kieli",
+        "nominative_plural": "kielet",
+        "genitive_singular": "kielen",
+        "genitive_plural": "kielten",
+        "partitive_singular": "kieltä",
+        "partitive_plural": "kieliä",
+        "inessive_singular": "kielessä",
+        "inessive_plural": "kielissä",
+        "elative_singular": "kielestä",
+        "elative_plural": "kielistä",
+        "illative_singular": "kieleen",
+        "illative_plural": "kieliin",
+        "adessive_singular": "kielellä",
+        "adessive_plural": "kielillä",
+        "ablative_singular": "kieleltä",
+        "ablative_plural": "kieliltä",
+        "allative_singular": "kielelle",
+        "allative_plural": "kielille",
+        "essive_singular": "kielenä",
+        "essive_plural": "kielinä",
+        "translative_singular": "kieleksi",
+        "translative_plural": "kieliksi",
+        "abessive_singular": "kielettä",
+        "abessive_plural": "kielittä",
+        "instructive_plural": "kielin",
+        "comitative_plural": "kielineen"
+      },
+      "english": {
+        "plural": "tongues"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 4048,
+      "examples": [
+        {
+          "fi": "Tässä kielessä on vain yksi lause.",
+          "en": "This language has only one sentence."
+        },
+        {
+          "fi": "Ranskan kielessä on runsaasti synonyymeja.",
+          "en": "The French language is rich in synonyms."
+        }
+      ]
+    },
+    {
+      "id": "heart",
+      "word": "sydän",
+      "en": "heart",
+      "emoji": "❤️",
+      "inflections": {
+        "nominative_singular": "sydän",
+        "nominative_plural": "sydämet",
+        "genitive_singular": "sydämen",
+        "genitive_plural": "sydämien",
+        "partitive_singular": "sydäntä",
+        "partitive_plural": "sydämiä",
+        "inessive_singular": "sydämessä",
+        "inessive_plural": "sydämissä",
+        "elative_singular": "sydämestä",
+        "elative_plural": "sydämistä",
+        "illative_singular": "sydämeen",
+        "illative_plural": "sydämiin",
+        "adessive_singular": "sydämellä",
+        "adessive_plural": "sydämillä",
+        "ablative_singular": "sydämeltä",
+        "ablative_plural": "sydämiltä",
+        "allative_singular": "sydämelle",
+        "allative_plural": "sydämille",
+        "essive_singular": "sydämenä",
+        "essive_plural": "sydäminä",
+        "translative_singular": "sydämeksi",
+        "translative_plural": "sydämiksi",
+        "abessive_singular": "sydämettä",
+        "abessive_plural": "sydämittä",
+        "instructive_plural": "sydämin",
+        "comitative_plural": "sydämineen"
+      },
+      "english": {
+        "plural": "hearts"
+      },
+      "kotusType": 33,
+      "group": "in",
+      "frequencyRank": 1776,
+      "examples": [
+        {
+          "fi": "reaktorisydän",
+          "en": "(nuclear) reactor core"
+        },
+        {
+          "fi": "Metsän sydämessä on karhuja.",
+          "en": "In the heart of the forest are bears."
+        }
+      ]
+    },
+    {
+      "id": "bone",
+      "word": "luu",
+      "en": "bone",
+      "emoji": "🦴",
+      "inflections": {
+        "nominative_singular": "luu",
+        "nominative_plural": "luut",
+        "genitive_singular": "luun",
+        "genitive_plural": "luiden",
+        "partitive_singular": "luuta",
+        "partitive_plural": "luita",
+        "inessive_singular": "luussa",
+        "inessive_plural": "luissa",
+        "elative_singular": "luusta",
+        "elative_plural": "luista",
+        "illative_singular": "luuhun",
+        "illative_plural": "luihin",
+        "adessive_singular": "luulla",
+        "adessive_plural": "luilla",
+        "ablative_singular": "luulta",
+        "ablative_plural": "luilta",
+        "allative_singular": "luulle",
+        "allative_plural": "luille",
+        "essive_singular": "luuna",
+        "essive_plural": "luina",
+        "translative_singular": "luuksi",
+        "translative_plural": "luiksi",
+        "abessive_singular": "luutta",
+        "abessive_plural": "luitta",
+        "instructive_plural": "luin",
+        "comitative_plural": "luineen"
+      },
+      "english": {
+        "plural": "bones"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 1768,
+      "examples": [
+        {
+          "fi": "Taidat luulla minua isoveljekseni.",
+          "en": "You seem to have mistaken me for my elder brother."
+        },
+        {
+          "fi": "Hän on luihin ja ytimiin saakka mätä.",
+          "en": "He is rotten to the core."
+        }
+      ]
+    },
+    {
+      "id": "muscle",
+      "word": "lihas",
+      "en": "muscle",
+      "emoji": "💪",
+      "inflections": {
+        "nominative_singular": "lihas",
+        "nominative_plural": "lihakset",
+        "genitive_singular": "lihaksen",
+        "genitive_plural": "lihasten",
+        "partitive_singular": "lihasta",
+        "partitive_plural": "lihaksia",
+        "inessive_singular": "lihaksessa",
+        "inessive_plural": "lihaksissa",
+        "elative_singular": "lihaksesta",
+        "elative_plural": "lihaksista",
+        "illative_singular": "lihakseen",
+        "illative_plural": "lihaksiin",
+        "adessive_singular": "lihaksella",
+        "adessive_plural": "lihaksilla",
+        "ablative_singular": "lihakselta",
+        "ablative_plural": "lihaksilta",
+        "allative_singular": "lihakselle",
+        "allative_plural": "lihaksille",
+        "essive_singular": "lihaksena",
+        "essive_plural": "lihaksina",
+        "translative_singular": "lihakseksi",
+        "translative_plural": "lihaksiksi",
+        "abessive_singular": "lihaksetta",
+        "abessive_plural": "lihaksitta",
+        "instructive_plural": "lihaksin",
+        "comitative_plural": "lihaksineen"
+      },
+      "english": {
+        "plural": "muscles"
+      },
+      "kotusType": 39,
+      "group": "us_ys",
+      "frequencyRank": 14567,
+      "examples": [
+        {
+          "fi": "Venäytin lihaksen.",
+          "en": "I pulled a muscle."
+        },
+        {
+          "fi": "Mistä lihasta sinä pidät eniten?",
+          "en": "What's your favorite kind of meat?"
+        }
+      ]
     }
   ]
 }

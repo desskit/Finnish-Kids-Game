@@ -507,6 +507,56 @@
           "en": "Tom lives with his family in Boston."
         }
       ]
+    },
+    {
+      "id": "child",
+      "word": "lapsi",
+      "en": "child",
+      "emoji": "🧒",
+      "inflections": {
+        "nominative_singular": "lapsi",
+        "nominative_plural": "lapset",
+        "genitive_singular": "lapsen",
+        "genitive_plural": "lapsien",
+        "partitive_singular": "lasta",
+        "partitive_plural": "lapsia",
+        "inessive_singular": "lapsessa",
+        "inessive_plural": "lapsissa",
+        "elative_singular": "lapsesta",
+        "elative_plural": "lapsista",
+        "illative_singular": "lapseen",
+        "illative_plural": "lapsiin",
+        "adessive_singular": "lapsella",
+        "adessive_plural": "lapsilla",
+        "ablative_singular": "lapselta",
+        "ablative_plural": "lapsilta",
+        "allative_singular": "lapselle",
+        "allative_plural": "lapsille",
+        "essive_singular": "lapsena",
+        "essive_plural": "lapsina",
+        "translative_singular": "lapseksi",
+        "translative_plural": "lapsiksi",
+        "abessive_singular": "lapsetta",
+        "abessive_plural": "lapsitta",
+        "instructive_plural": "lapsin",
+        "comitative_plural": "lapsineen"
+      },
+      "english": {
+        "plural": "children"
+      },
+      "kotusType": 29,
+      "group": "i_old",
+      "frequencyRank": 559,
+      "examples": [
+        {
+          "fi": "Nuorin lapseni on neljänkymmenenkolmen.",
+          "en": "My youngest child is forty-three."
+        },
+        {
+          "fi": "Jumalan lapsi",
+          "en": "child of God"
+        }
+      ]
     }
   ]
 }
