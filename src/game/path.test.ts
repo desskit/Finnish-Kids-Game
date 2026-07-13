@@ -367,9 +367,9 @@ describe('learning path', () => {
     const found = findSkill('greetings')!;
     expect(found.chapter.id).toBe('conversations');
     expect(found.skill.activity).toBe('dialogue');
-    // Four rungs so the tier-3/4 exchanges (difficultyFor L4 → maxTier 4) can
-    // surface as the node climbs — not just the tier-1/2 greetings.
-    expect(found.skill.maxLevel).toBe(4);
+    // Five rungs: L1-4 climb the tiers (difficultyFor L4 → maxTier 4), then L5
+    // is the same content Finnish-only (the English gloss drops — see showsGloss).
+    expect(found.skill.maxLevel).toBe(5);
     // Renders a real dialogue game (no items/constructions props — draws from
     // the dialogue registry internally).
     expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();

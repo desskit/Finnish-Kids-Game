@@ -39,6 +39,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import ConversationScene from './ConversationScene';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -130,5 +132,31 @@ describe('ConversationScene (small talk)', () => {
     await advance(900);
     expect(screen.getByText(/juttelit suomeksi/i)).toBeInTheDocument();
     expect(screen.getByTestId('stars')).toHaveTextContent('2');
+  });
+
+  function renderAtLevel(level: number) {
+    return render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
+        >
+          <ConversationScene onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+  }
+
+  it('shows English glosses on bubbles + reply tiles below the top rung', () => {
+    renderAtLevel(3);
+    expect(screen.getByText('Hi! How are you?', { selector: '.chat-en' })).toBeInTheDocument();
+    expect(document.querySelector('.reply-tile__en')).not.toBeNull();
+  });
+
+  it('goes Finnish-only at the top rung (L5): no English on bubbles or tiles', () => {
+    renderAtLevel(5);
+    expect(screen.getByText('Moi! Mitä kuuluu?')).toBeInTheDocument(); // Finnish stays
+    expect(document.querySelector('.chat-en')).toBeNull();
+    expect(document.querySelector('.reply-tile__en')).toBeNull();
+    expect(screen.queryByText('Hi! How are you?')).toBeNull();
   });
 });

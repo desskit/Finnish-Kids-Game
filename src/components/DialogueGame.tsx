@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { difficultyFor, showsGloss } from '../game/adapt';
 import { buildDialogueRound, type DialogueQuestion } from '../game/round';
 import { dialogues } from '../content/dialogues';
 import { speak } from '../audio/speak';
@@ -23,7 +23,10 @@ interface Props {
 export default function DialogueGame({ onExit }: Props) {
   const { level, addStars } = useProfile();
   const ctx = useActivityContext();
-  const { optionCount, maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, maxTier } = difficulty;
+  // Top rung: drop the English so it's Finnish-only comprehension.
+  const glossed = showsGloss(difficulty.level);
 
   const missed = useRef(false);
   const firstTries = useRef(0);
@@ -129,7 +132,7 @@ export default function DialogueGame({ onExit }: Props) {
 
       <div className="phrase-card dialogue-prompt">
         <p className="dialogue-said">{q.prompt.fi}</p>
-        <p className="en phrase-hint">{q.prompt.en}</p>
+        {glossed && <p className="en phrase-hint">{q.prompt.en}</p>}
         <button
           className="speaker speaker--inline"
           onClick={() => speak(q.prompt.fi)}

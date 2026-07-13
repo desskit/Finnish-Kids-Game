@@ -84,6 +84,16 @@ export function questionTimerMs(level: number): number {
   return table[l];
 }
 
+/** From this level up, the communicative games (Greetings, Small talk) drop the
+ *  English gloss — Finnish-only comprehension is the top rung of their ladder. */
+export const FINNISH_ONLY_FROM_LEVEL = 5;
+
+/** Whether the communicative games should still show the English gloss at this
+ *  level (true below the Finnish-only rung). */
+export function showsGloss(level: number): boolean {
+  return level < FINNISH_ONLY_FROM_LEVEL;
+}
+
 /**
  * The shared level → levers table. A data-driven array (not a switch) so
  * extending the engine's depth later is a one-row edit. Levels 1–4 preserve

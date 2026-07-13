@@ -23,6 +23,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import DialogueGame from './DialogueGame';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -96,5 +98,28 @@ describe('DialogueGame (choose the right reply)', () => {
     await advance(100);
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
     expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
+  });
+
+  function renderAtLevel(level: number) {
+    return render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
+        >
+          <DialogueGame onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+  }
+
+  it('shows the English prompt gloss below the top rung', () => {
+    renderAtLevel(3);
+    expect(screen.getByText('Thank you!', { selector: '.phrase-hint' })).toBeInTheDocument();
+  });
+
+  it('goes Finnish-only at the top rung (L5): the prompt gloss is gone', () => {
+    renderAtLevel(5);
+    expect(screen.getByText('Kiitos!', { selector: '.dialogue-said' })).toBeInTheDocument();
+    expect(screen.queryByText('Thank you!')).toBeNull();
   });
 });

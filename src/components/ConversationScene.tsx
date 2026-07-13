@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { difficultyFor, showsGloss } from '../game/adapt';
 import { buildConversation, type ConversationRound } from '../game/round';
 import { conversations } from '../content/conversations';
 import type { DialogueLine } from '../content/dialogues';
@@ -23,7 +23,10 @@ export default function ConversationScene({ onExit }: Props) {
   const { level, activeChild, addStars } = useProfile();
   const avatar = activeChild?.avatar;
   const ctx = useActivityContext();
-  const { optionCount, maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, maxTier } = difficulty;
+  // Top rung: Finnish-only — drop the English glosses on the bubbles + tiles.
+  const glossed = showsGloss(difficulty.level);
 
   const missedTurn = useRef(false);
   const firstTries = useRef(0);
@@ -141,7 +144,7 @@ export default function ConversationScene({ onExit }: Props) {
               </span>
               <span className="chat-lines">
                 <span className="chat-fi">{t.partner.fi}</span>
-                <span className="en chat-en">{t.partner.en}</span>
+                {glossed && <span className="en chat-en">{t.partner.en}</span>}
               </span>
               {i === turnIndex && !finished && (
                 <button
@@ -157,7 +160,7 @@ export default function ConversationScene({ onExit }: Props) {
               <div className="chat-bubble chat-bubble--child">
                 <span className="chat-lines">
                   <span className="chat-fi">{answered[i].fi}</span>
-                  <span className="en chat-en">{answered[i].en}</span>
+                  {glossed && <span className="en chat-en">{answered[i].en}</span>}
                 </span>
                 <span className="chat-avatar" aria-hidden="true">
                   {avatar || '🙂'}
@@ -188,7 +191,7 @@ export default function ConversationScene({ onExit }: Props) {
                 >
                   <span className="reply-tile__num">{i + 1}</span>
                   <span className="reply-tile__fi">{opt.fi}</span>
-                  <span className="en reply-tile__en">{opt.en}</span>
+                  {glossed && <span className="en reply-tile__en">{opt.en}</span>}
                 </button>
               ))}
             </div>
