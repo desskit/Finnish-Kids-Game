@@ -552,7 +552,29 @@ const conversationsChapter: Chapter = {
   ],
 };
 
-export const PATH: Chapter[] = [...baseChapters, conversationsChapter, sentencesChapter];
+// The learner journey, sequenced easy → hard and front-loading communication:
+// vocab first, then greetings (the most immediately usable Finnish), then
+// grammar climbing from the simplest cases (naming / having) up through the
+// full 7-case locative system, and finally the sentence + typing capstones.
+// Chapters are DEFINED above in author-groups; this list is the single source
+// of their PLAY order (reordering here never touches progress, which is keyed
+// by chapter+node id, not position).
+const CHAPTER_ORDER = [
+  'first-words', // noun vocab recognition
+  'conversations', // greetings + small talk — early communicative win
+  'naming', // this-is / these-are / where-is / I-have (simplest cases)
+  'likes', // verb-object carriers (partitive / genitive objects)
+  'numbers-describe', // counting + adjective agreement
+  'actions', // verb vocab + conjugation
+  'where', // the 7 locative cases (the hardest grammar) — belongs late
+  'together', // word-order / spelling capstones, reading, review
+  'sentences', // full multi-slot sentence assembly — the summit
+] as const;
+
+const allChapters = [...baseChapters, conversationsChapter, sentencesChapter];
+export const PATH: Chapter[] = CHAPTER_ORDER.map(
+  (id) => allChapters.find((c) => c.id === id)!,
+);
 
 // --- Lookups + progression helpers ---------------------------------------
 
