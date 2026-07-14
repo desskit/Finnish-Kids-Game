@@ -12,8 +12,18 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
+import { loadAgid, englishFormsFor } from './agid.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// English morphology (plurals / verb forms / comparatives) is SOURCED, not
+// rule-generated — the English counterpart of the Finnish sourcing rule. Every
+// word's forms are looked up from the vendored AGID database and attached to
+// its item; a word we can't resolve fails the build (see ENGLISH_MISSING).
+const AGID = loadAgid(resolve(__dirname, '..', 'data', 'english-agid', 'infl.txt'));
+const ENGLISH_MISSING = [];
+/** AGID part-of-speech for a theme (numbers carry no inflected English). */
+const posForTheme = (id) => (id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' ? null : 'N');
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -43,6 +53,16 @@ const ANIMALS = [
   ['fox', 'kettu', 'fox', '🦊'],
   ['duck', 'ankka', 'duck', '🦆'],
   ['frog', 'sammakko', 'frog', '🐸'],
+  ['sheep', 'lammas', 'sheep', '🐑'],
+  ['mouse', 'hiiri', 'mouse', '🐭'],
+  ['elephant', 'norsu', 'elephant', '🐘'],
+  ['lion', 'leijona', 'lion', '🦁'],
+  ['monkey', 'apina', 'monkey', '🐵'],
+  ['chicken', 'kana', 'chicken', '🐔'],
+  ['wolf', 'susi', 'wolf', '🐺'],
+  ['snake', 'käärme', 'snake', '🐍'],
+  ['butterfly', 'perhonen', 'butterfly', '🦋'],
+  ['bee', 'mehiläinen', 'bee', '🐝'],
 ];
 
 // Numbers carry a numeric `value` (5th field) used for counting scenes and the
@@ -58,6 +78,33 @@ const NUMBERS = [
   ['eight', 'kahdeksan', 'eight', '8️⃣', 8],
   ['nine', 'yhdeksän', 'nine', '9️⃣', 9],
   ['ten', 'kymmenen', 'ten', '🔟', 10],
+  // 11-20: no keycap emoji exists past ten, so the "emoji" is the numeral
+  // itself (renders as big digits on a card). Counting only ever uses the
+  // nominative word + value, so these unlock the higher counting rungs (the
+  // count node scales to 20) that stopped dead at ten before.
+  ['eleven', 'yksitoista', 'eleven', '11', 11],
+  ['twelve', 'kaksitoista', 'twelve', '12', 12],
+  ['thirteen', 'kolmetoista', 'thirteen', '13', 13],
+  ['fourteen', 'neljätoista', 'fourteen', '14', 14],
+  ['fifteen', 'viisitoista', 'fifteen', '15', 15],
+  ['sixteen', 'kuusitoista', 'sixteen', '16', 16],
+  ['seventeen', 'seitsemäntoista', 'seventeen', '17', 17],
+  ['eighteen', 'kahdeksantoista', 'eighteen', '18', 18],
+  ['nineteen', 'yhdeksäntoista', 'nineteen', '19', 19],
+  ['twenty', 'kaksikymmentä', 'twenty', '20', 20],
+  // Counting by tens to a hundred. Only the round tens + sata are real,
+  // single-word sourced numerals (21-99 are compounds NOT in the source, and
+  // rule-building them would break the golden rule). These extend the number-
+  // RECOGNITION node past 20; counting stays ≤ 20 (buildCountingRound filters
+  // by value ≤ maxCount, so no card ever tries to show 60 objects).
+  ['thirty', 'kolmekymmentä', 'thirty', '30', 30],
+  ['forty', 'neljäkymmentä', 'forty', '40', 40],
+  ['fifty', 'viisikymmentä', 'fifty', '50', 50],
+  ['sixty', 'kuusikymmentä', 'sixty', '60', 60],
+  ['seventy', 'seitsemänkymmentä', 'seventy', '70', 70],
+  ['eighty', 'kahdeksankymmentä', 'eighty', '80', 80],
+  ['ninety', 'yhdeksänkymmentä', 'ninety', '90', 90],
+  ['hundred', 'sata', 'a hundred', '100', 100],
 ];
 
 // Adjectives decline like nouns and AGREE with their noun in case + number, so
@@ -98,6 +145,15 @@ const FOOD = [
   ['potato', 'peruna', 'potato', '🥔'],
   ['strawberry', 'mansikka', 'strawberry', '🍓'],
   ['carrot', 'porkkana', 'carrot', '🥕'],
+  ['egg', 'muna', 'egg', '🥚'],
+  ['rice', 'riisi', 'rice', '🍚'],
+  ['soup', 'keitto', 'soup', '🍲'],
+  ['sausage', 'makkara', 'sausage', '🌭'],
+  ['tomato', 'tomaatti', 'tomato', '🍅'],
+  ['candy', 'karkki', 'candy', '🍬'],
+  ['porridge', 'puuro', 'porridge', '🥣'],
+  ['butter', 'voi', 'butter', '🧈'],
+  ['pizza', 'pitsa', 'pizza', '🍕'],
 ];
 
 // Place nouns for the locative-case node ("where things are" — in/on/into/
@@ -118,6 +174,28 @@ const PLACES = [
   ['bag', 'laukku', 'bag', '👜'],
 ];
 
+// Locative SHAPE tags for places — which "where" cases each one makes sense in:
+//   'surface'   → you can be ON / ONTO / OFF it   (adessive/allative/ablative)
+//   'container' → you can be IN / INTO / OUT-OF it (inessive/illative/elative)
+// Many are BOTH (a box, a bed, a car — a cat sits on top OR climbs inside).
+// A flat table/chair is a surface only; a room/forest is a container only.
+// The locative carrier phrases require the matching tag (see constructions.ts),
+// so "the cat is on the room" can never be generated.
+const PLACE_TAGS = {
+  box: ['surface', 'container'],
+  table: ['surface'],
+  house: ['container'],
+  room: ['container'],
+  car: ['surface', 'container'],
+  bed: ['surface', 'container'],
+  chair: ['surface'],
+  school: ['container'],
+  tree: ['container'],
+  forest: ['container'],
+  basket: ['surface', 'container'],
+  bag: ['container'],
+};
+
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
   ['father', 'isä', 'dad', '👨'],
@@ -129,6 +207,9 @@ const FAMILY = [
   ['grandmother', 'isoäiti', 'grandmother', '👵'],
   ['grandfather', 'isoisä', 'grandfather', '👴'],
   ['family', 'perhe', 'family', '👪'],
+  // (Family is emoji-capped — most relatives share the same person glyph, which
+  // the picture game can't tell apart, so it stays small on purpose.)
+  ['child', 'lapsi', 'child', '🧒'],
 ];
 
 // Body parts. All decline as ordinary singular nouns (full case paradigm), so
@@ -148,6 +229,10 @@ const BODY = [
   ['tummy', 'vatsa', 'tummy', '🤰'],
   ['finger', 'sormi', 'finger', '👆'],
   ['knee', 'polvi', 'knee', '🦵'],
+  ['tongue', 'kieli', 'tongue', '👅'],
+  ['heart', 'sydän', 'heart', '❤️'],
+  ['bone', 'luu', 'bone', '🦴'],
+  ['muscle', 'lihas', 'muscle', '💪'],
 ];
 
 // Nature words — sky, weather and landscape things a child can point at.
@@ -166,6 +251,12 @@ const NATURE = [
   ['lake', 'järvi', 'lake', '🏞️'],
   ['sea', 'meri', 'sea', '🌊'],
   ['sky', 'taivas', 'sky', '🌌'],
+  ['wind', 'tuuli', 'wind', '💨'],
+  ['ice', 'jää', 'ice', '🧊'],
+  ['leaf', 'lehti', 'leaf', '🍃'],
+  ['fire', 'tuli', 'fire', '🔥'],
+  ['grass', 'ruoho', 'grass', '🌿'],
+  ['island', 'saari', 'island', '🏝️'],
 ];
 
 // Clothes. NOTE: `housut` (pants) is deliberately excluded — it's a plurale
@@ -184,26 +275,77 @@ const CLOTHES = [
   ['scarf', 'huivi', 'scarf', '🧣'],
   ['cap', 'lakki', 'cap', '🧢'],
   ['boot', 'saapas', 'boot', '🥾'],
+  ['ring', 'sormus', 'ring', '💍'],
+  ['tie', 'solmio', 'tie', '👔'],
+  ['vest', 'liivi', 'vest', '🦺'],
 ];
 
-// Kid-friendly verbs spanning all six KOTUS verb types.
+// Kid-friendly verbs spanning all six KOTUS verb types. The 4th field is an
+// action emoji: verbs that have one can appear as picture cards (the
+// listen-verbs warm-up + Review); abstract verbs (olla, saada, muistaa…) stay
+// emoji-less and are served only by the conjugation drill and sentences.
 const VERBS = [
   ['be', 'olla', 'be'],
-  ['eat', 'syödä', 'eat'],
-  ['drink', 'juoda', 'drink'],
-  ['sleep', 'nukkua', 'sleep'],
-  ['play', 'leikkiä', 'play'],
-  ['run', 'juosta', 'run'],
-  ['jump', 'hypätä', 'jump'],
+  ['eat', 'syödä', 'eat', '🍽️'],
+  ['drink', 'juoda', 'drink', '🥤'],
+  ['sleep', 'nukkua', 'sleep', '😴'],
+  ['play', 'leikkiä', 'play', '🧸'],
+  ['run', 'juosta', 'run', '🏃'],
+  ['jump', 'hypätä', 'jump', '🦘'],
   ['go', 'mennä', 'go'],
   ['come', 'tulla', 'come'],
-  ['see', 'nähdä', 'see'],
-  ['give', 'antaa', 'give'],
+  ['see', 'nähdä', 'see', '👀'],
+  ['give', 'antaa', 'give', '🎁'],
   ['take', 'ottaa', 'take'],
-  ['look', 'katsoa', 'look'],
-  ['sing', 'laulaa', 'sing'],
-  ['read', 'lukea', 'read'],
-  ['swim', 'uida', 'swim'],
+  ['look', 'katsoa', 'look', '📺'],
+  ['sing', 'laulaa', 'sing', '🎤'],
+  ['read', 'lukea', 'read', '📖'],
+  ['swim', 'uida', 'swim', '🏊'],
+  ['want', 'haluta', 'want'],
+  ['love', 'rakastaa', 'love', '❤️'],
+  ['help', 'auttaa', 'help', '🤝'],
+  ['sit', 'istua', 'sit', '🪑'],
+  ['stand', 'seisoa', 'stand', '🧍'],
+  ['walk', 'kävellä', 'walk', '🚶'],
+  ['dance', 'tanssia', 'dance', '💃'],
+  ['draw', 'piirtää', 'draw', '✏️'],
+  ['write', 'kirjoittaa', 'write', '✍️'],
+  ['open', 'avata', 'open', '🔓'],
+  ['close', 'sulkea', 'close', '🔒'],
+  ['buy', 'ostaa', 'buy', '🛒'],
+  ['hear', 'kuulla', 'hear'],
+  ['listen', 'kuunnella', 'listen', '🎧'],
+  ['speak', 'puhua', 'speak', '🗣️'],
+  ['say', 'sanoa', 'say', '💬'],
+  ['ask', 'kysyä', 'ask', '❓'],
+  ['answer', 'vastata', 'answer', '🙋'],
+  ['search', 'etsiä', 'search', '🔍'],
+  ['find', 'löytää', 'find'],
+  ['make', 'tehdä', 'make', '🔨'],
+  ['get', 'saada', 'get'],
+  ['bring', 'tuoda', 'bring'],
+  ['carry', 'viedä', 'take away'],
+  ['fly', 'lentää', 'fly', '✈️'],
+  ['drive', 'ajaa', 'drive', '🚗'],
+  ['wash', 'pestä', 'wash', '🧼'],
+  ['clean', 'siivota', 'clean', '🧹'],
+  ['cook', 'keittää', 'cook', '🍳'],
+  ['paint', 'maalata', 'paint', '🎨'],
+  ['smile', 'hymyillä', 'smile', '😊'],
+  ['cry', 'itkeä', 'cry', '😢'],
+  ['laugh', 'nauraa', 'laugh', '😂'],
+  ['hug', 'halata', 'hug', '🤗'],
+  ['throw', 'heittää', 'throw', '🥏'],
+  ['climb', 'kiivetä', 'climb', '🧗'],
+  ['remember', 'muistaa', 'remember'],
+  ['forget', 'unohtaa', 'forget'],
+  ['learn', 'oppia', 'learn', '🎓'],
+  ['teach', 'opettaa', 'teach', '👩‍🏫'],
+  ['wait', 'odottaa', 'wait', '⏳'],
+  ['live', 'asua', 'live'],
+  ['build', 'rakentaa', 'build', '🧱'],
+  ['fix', 'korjata', 'fix', '🔧'],
+  ['wake-up', 'herätä', 'wake up', '⏰'],
 ];
 
 // Focused conjugation subset kept per verb: present and past, each in BOTH
@@ -229,7 +371,7 @@ function pickExamples(src) {
     .map((e) => ({ fi: e.fi, en: e.en }));
 }
 
-function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }) {
+function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, tagsById }) {
   const byWord = new Map(sourceWords.map((w) => [w.word, w]));
   const words = [];
   const missing = [];
@@ -255,6 +397,15 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys }
       inflections,
     };
     if (typeof value === 'number') entry.value = value;
+    // Sourced English morphology (plural / verb forms / comparatives) from AGID.
+    const pos = posForTheme(id);
+    if (pos) {
+      const eng = englishFormsFor(AGID, english, pos);
+      if (eng) entry.english = eng;
+      else ENGLISH_MISSING.push(`${id}:${english} (${pos})`);
+    }
+    // Semantic tags (hand-curated, per word) — e.g. a place's locative shape.
+    if (tagsById && tagsById[wid]) entry.tags = tagsById[wid];
     if (typeof src.kotus_type === 'number') entry.kotusType = src.kotus_type;
     if (src.group) entry.group = src.group;
     if (typeof src.frequency_rank === 'number') entry.frequencyRank = src.frequency_rank;
@@ -340,6 +491,7 @@ const places = buildTheme({
   emoji: '📍',
   curation: PLACES,
   sourceWords: nounWords,
+  tagsById: PLACE_TAGS,
 });
 
 const body = buildTheme({
@@ -368,6 +520,16 @@ const clothes = buildTheme({
   curation: CLOTHES,
   sourceWords: nounWords,
 });
+
+// Sourced-English guarantee: no word may ship without its AGID-derived forms.
+if (ENGLISH_MISSING.length) {
+  console.error(
+    `\nERROR: ${ENGLISH_MISSING.length} word(s) have no English morphology in AGID:\n  ` +
+      ENGLISH_MISSING.join('\n  ') +
+      `\nAdd them to data/english-agid or handle them in scripts/agid.mjs.`,
+  );
+  process.exit(1);
+}
 
 writeFileSync(join(OUT_DIR, 'animals.sourced.json'), JSON.stringify(animals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'numbers.sourced.json'), JSON.stringify(numbers, null, 2) + '\n');

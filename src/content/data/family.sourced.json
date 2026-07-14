@@ -41,6 +41,9 @@
         "instructive_plural": "äidein",
         "comitative_plural": "äiteineen"
       },
+      "english": {
+        "plural": "moms"
+      },
       "kotusType": 5,
       "group": "i_new",
       "frequencyRank": 143,
@@ -87,6 +90,9 @@
         "abessive_plural": "isittä",
         "instructive_plural": "isin",
         "comitative_plural": "isineen"
+      },
+      "english": {
+        "plural": "dads"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -135,6 +141,9 @@
         "instructive_plural": "veljin",
         "comitative_plural": "veljineen"
       },
+      "english": {
+        "plural": "brothers"
+      },
       "kotusType": 7,
       "group": "i_old",
       "frequencyRank": 868,
@@ -181,6 +190,9 @@
         "abessive_plural": "siskoitta",
         "instructive_plural": "siskoin",
         "comitative_plural": "siskoineen"
+      },
+      "english": {
+        "plural": "sisters"
       },
       "kotusType": 1,
       "group": "o_oe",
@@ -229,6 +241,9 @@
         "instructive_plural": "vauvoin",
         "comitative_plural": "vauvoineen"
       },
+      "english": {
+        "plural": "babies"
+      },
       "kotusType": 9,
       "group": "a_ae",
       "frequencyRank": 1421,
@@ -275,6 +290,9 @@
         "abessive_plural": "pojitta",
         "instructive_plural": "pojin",
         "comitative_plural": "poikineen"
+      },
+      "english": {
+        "plural": "sons"
       },
       "kotusType": 10,
       "group": "a_ae",
@@ -323,6 +341,9 @@
         "instructive_plural": "tytöin",
         "comitative_plural": "tyttöineen"
       },
+      "english": {
+        "plural": "daughters"
+      },
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 283,
@@ -369,6 +390,9 @@
         "abessive_plural": "isoäideittä",
         "instructive_plural": "isoäidein",
         "comitative_plural": "isoäiteineen"
+      },
+      "english": {
+        "plural": "grandmothers"
       },
       "kotusType": 5,
       "group": "i_new",
@@ -417,6 +441,9 @@
         "instructive_plural": "isoisin",
         "comitative_plural": "isoisineen"
       },
+      "english": {
+        "plural": "grandfathers"
+      },
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 3857,
@@ -464,6 +491,9 @@
         "instructive_plural": "perhein",
         "comitative_plural": "perheineen"
       },
+      "english": {
+        "plural": "families"
+      },
       "kotusType": 48,
       "group": "other_cons",
       "frequencyRank": 965,
@@ -475,6 +505,56 @@
         {
           "fi": "Tomi asuu perheineen Bostonissa.",
           "en": "Tom lives with his family in Boston."
+        }
+      ]
+    },
+    {
+      "id": "child",
+      "word": "lapsi",
+      "en": "child",
+      "emoji": "🧒",
+      "inflections": {
+        "nominative_singular": "lapsi",
+        "nominative_plural": "lapset",
+        "genitive_singular": "lapsen",
+        "genitive_plural": "lapsien",
+        "partitive_singular": "lasta",
+        "partitive_plural": "lapsia",
+        "inessive_singular": "lapsessa",
+        "inessive_plural": "lapsissa",
+        "elative_singular": "lapsesta",
+        "elative_plural": "lapsista",
+        "illative_singular": "lapseen",
+        "illative_plural": "lapsiin",
+        "adessive_singular": "lapsella",
+        "adessive_plural": "lapsilla",
+        "ablative_singular": "lapselta",
+        "ablative_plural": "lapsilta",
+        "allative_singular": "lapselle",
+        "allative_plural": "lapsille",
+        "essive_singular": "lapsena",
+        "essive_plural": "lapsina",
+        "translative_singular": "lapseksi",
+        "translative_plural": "lapsiksi",
+        "abessive_singular": "lapsetta",
+        "abessive_plural": "lapsitta",
+        "instructive_plural": "lapsin",
+        "comitative_plural": "lapsineen"
+      },
+      "english": {
+        "plural": "children"
+      },
+      "kotusType": 29,
+      "group": "i_old",
+      "frequencyRank": 559,
+      "examples": [
+        {
+          "fi": "Nuorin lapseni on neljänkymmenenkolmen.",
+          "en": "My youngest child is forty-three."
+        },
+        {
+          "fi": "Jumalan lapsi",
+          "en": "child of God"
         }
       ]
     }

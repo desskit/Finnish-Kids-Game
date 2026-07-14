@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   applyRound,
   difficultyFor,
+  questionTimerMs,
+  showsGloss,
   windowAccuracy,
   promoteThreshold,
   minRoundsToPromote,
@@ -60,6 +62,22 @@ describe('difficultyFor', () => {
     expect(l4.maxTier).toBeGreaterThan(l3.maxTier);
     expect(l4.maxCount).toBeGreaterThan(l3.maxCount);
     expect(l4.verbCombos.length).toBeGreaterThan(l3.verbCombos.length);
+  });
+
+  it('showsGloss drops the English only at the top (Finnish-only) rung', () => {
+    expect(showsGloss(1)).toBe(true);
+    expect(showsGloss(4)).toBe(true);
+    expect(showsGloss(5)).toBe(false); // Finnish-only from L5
+  });
+
+  it('questionTimerMs tightens as the level climbs, clamped for young children', () => {
+    // The duration only — WHICH nodes get a timer (and from which level) is a
+    // per-node decision (SkillNode.timerFromLevel), not a global lever.
+    expect(questionTimerMs(4)).toBeGreaterThan(questionTimerMs(5));
+    expect(questionTimerMs(5)).toBeGreaterThan(questionTimerMs(8));
+    // Clamped: never faster than the L8 floor, never slower than the L4 ceiling.
+    expect(questionTimerMs(1)).toBe(questionTimerMs(4));
+    expect(questionTimerMs(99)).toBe(questionTimerMs(8));
   });
 
   it('introduces negative then past verb forms as the level rises', () => {

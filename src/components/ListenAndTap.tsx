@@ -1,43 +1,64 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
-import { difficultyFor } from '../game/adapt';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
+import { difficultyFor, questionTimerMs } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
 
 interface Props {
   items: LexicalItem[];
+  /**
+   * From this measured level up, run a gentle per-question countdown (set per
+   * node — see `SkillNode.timerFromLevel`). Unset = no timer.
+   */
+  timerFromLevel?: number;
   onExit: () => void;
 }
 
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
-export default function ListenAndTap({ items, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
-  const { optionCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  const { optionCount, tricky } = difficulty;
+  // Per-node gentle timer: only when this node opts in AND the measured level
+  // has reached its threshold.
+  const timerMs =
+    timerFromLevel != null && difficulty.level >= timerFromLevel
+      ? questionTimerMs(difficulty.level)
+      : undefined;
+  // Familiarity bias, snapshotted once per mount: the SRS map updates after
+  // every answer, and re-deriving it mid-round would rebuild the live round.
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // Whether the current question has had a wrong tap yet — so SRS only credits
   // a "correct" review when the child gets it right on the first try.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy the adaptive engine
+  // sees (a star for the eventual right answer would always read 100%).
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildListenRound(items, QUESTIONS, optionCount),
-    [items, optionCount, runId],
+    // `roundQuestions` (set by the Audit harness) caps the round so the game
+    // stops after each answer for grading; unset in normal play = full round.
+    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(0, ctx?.roundQuestions),
+    [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
+  // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
+  const [hint, setHint] = useState(false);
 
   const question = round[index];
 
@@ -48,6 +69,22 @@ export default function ListenAndTap({ items, onExit }: Props) {
     return () => clearTimeout(t);
   }, [question, done]);
 
+  // Gentle countdown: if the child hasn't answered by the time it lapses, reveal
+  // the answer as a hint and re-say the word — no star lost, no auto-advance.
+  // It DOES forfeit the first-try bonus (`missed`), so waiting out the clock for
+  // the giveaway isn't counted as clean mastery. Cancelled the moment they answer
+  // (`locked`) or the question changes. Reset per question so each starts fresh.
+  useEffect(() => {
+    setHint(false);
+    if (!timerMs || !question || done || locked) return;
+    const t = setTimeout(() => {
+      missed.current = true;
+      setHint(true);
+      speak(question.target.fi);
+    }, timerMs);
+    return () => clearTimeout(t);
+  }, [timerMs, question, done, locked]);
+
   const choose = useCallback(
     (item: LexicalItem) => {
       if (!question || locked || done) return;
@@ -55,9 +92,9 @@ export default function ListenAndTap({ items, onExit }: Props) {
         setLocked(true);
         playDing(true);
         speak(item.fi);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(question.target.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;
         setTimeout(() => {
@@ -69,6 +106,9 @@ export default function ListenAndTap({ items, onExit }: Props) {
       } else {
         missed.current = true;
         playDing(false);
+        // Name the picture the child actually tapped — a wrong guess still
+        // teaches a word, instead of just being a dead end.
+        speak(item.fi);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
@@ -94,19 +134,19 @@ export default function ListenAndTap({ items, onExit }: Props) {
 
   function restart() {
     setIndex(0);
-    setStars(0);
     setWrongId(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: a finished segment is recorded silently and the next one
+  // (maybe a different game) mounts immediately — no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!question) return null;
 
   return (
@@ -115,6 +155,7 @@ export default function ListenAndTap({ items, onExit }: Props) {
         title="Kuuntele ja osoita"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 
@@ -131,11 +172,28 @@ export default function ListenAndTap({ items, onExit }: Props) {
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
 
+      {timerMs && (
+        // A shrinking bar (pure CSS), restarted per question via key. Frozen
+        // once answered. Purely cosmetic pace — the hint logic lives above.
+        <div className="q-timer" aria-hidden="true">
+          <div
+            key={index}
+            className={'q-timer__bar' + (locked ? ' q-timer__bar--paused' : '')}
+            style={{ animationDuration: `${timerMs}ms` }}
+          />
+        </div>
+      )}
+
       <div className={`card-grid card-grid--${question.options.length}`}>
         {question.options.map((opt, i) => (
           <button
             key={opt.id}
-            className={'pic-card' + (wrongId === opt.id ? ' pic-card--wrong' : '')}
+            className={
+              'pic-card' +
+              (wrongId === opt.id ? ' pic-card--wrong' : '') +
+              (hint && !locked && opt.id === question.target.id ? ' pic-card--hint' : '') +
+              (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >

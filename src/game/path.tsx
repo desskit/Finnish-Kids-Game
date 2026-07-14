@@ -14,15 +14,22 @@ import {
 } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
-import { buildSentenceRound, type SentencePools } from './round';
+import { buildSentenceRound, buildSentenceSpellingRound, type SentencePools } from './round';
 import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
+import NameIt from '../components/NameIt';
+import ListenSentence from '../components/ListenSentence';
+import SayIt from '../components/SayIt';
 import BuildAPhrase from '../components/BuildAPhrase';
 import CountAndSay from '../components/CountAndSay';
 import MatchTheWord from '../components/MatchTheWord';
 import ConjugateVerb from '../components/ConjugateVerb';
 import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
+import DialogueGame from '../components/DialogueGame';
+import ConversationScene from '../components/ConversationScene';
+import { speakableTargetsFor } from './speakable';
+import ReadAndListen from '../components/ReadAndListen';
 
 // The learning PATH — the single source of truth for the journey-map home.
 //
@@ -40,6 +47,9 @@ import SpellWord from '../components/SpellWord';
 
 export type ActivityKind =
   | 'listen'
+  | 'name'
+  | 'listen-sentence'
+  | 'say'
   | 'build'
   | 'count'
   | 'match'
@@ -47,6 +57,10 @@ export type ActivityKind =
   | 'order'
   | 'spell'
   | 'sentence'
+  | 'sentence-type'
+  | 'dialogue'
+  | 'conversation'
+  | 'reading'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -59,7 +73,8 @@ export type Pool =
   | 'places'
   | 'body'
   | 'nature'
-  | 'clothes';
+  | 'clothes'
+  | 'verbs';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -106,6 +121,15 @@ export interface SkillNode {
    * up to the engine's `MAX_LEVEL` (see `src/game/adapt.ts`).
    */
   maxLevel?: number;
+  /**
+   * From this measured level up, the node's picture-recognition games (Listen &
+   * Tap, Name it) run a gentle per-question countdown (see `questionTimerMs`).
+   * Set PER NODE so the clock engages where it makes sense — at the top of a
+   * node's own (usually low) ladder, where tile count + tricky distractors have
+   * already maxed out — instead of a blanket level threshold that most of these
+   * starter nodes never reach. Unset = no timer.
+   */
+  timerFromLevel?: number;
   // --- art-ready (Phase 1) ---
   /** Node image path under BASE_URL; the emoji `icon` is the fallback. */
   art?: string;
@@ -146,6 +170,11 @@ const NOUNS: LexicalItem[] = [
   ...clothes.items,
 ];
 
+// The verbs pool for PICTURE-CARD games (the listen-verbs warm-up): only verbs
+// with an action emoji render as cards; abstract ones (olla, saada, muistaa…)
+// live in the conjugation drill and sentences instead.
+const PICTURED_VERBS: LexicalItem[] = verbs.items.filter((i) => i.emoji);
+
 function itemsForPool(pool?: Pool): LexicalItem[] {
   switch (pool) {
     case 'animals':
@@ -164,6 +193,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return nature.items;
     case 'clothes':
       return clothes.items;
+    case 'verbs':
+      return PICTURED_VERBS;
     default:
       return NOUNS;
   }
@@ -203,19 +234,22 @@ const baseChapters: Chapter[] = [
     titleEn: 'First words',
     accent: '#0ea5e9',
     icon: '🔊',
-    // Warm-ups: depth comes from the option-tile count, which the shared
-    // level table already flattens out by L3 (optionCount 3, 4, 4, ...), so
-    // a short depth-3 ladder is the honest cap. L3 swaps to `match` (the same
-    // vocab, judged by adjective agreement instead of listening) so the climb
-    // ends in a different game rather than a 3rd identical listening round.
+    // Warm-ups ramp through the whole retrieval spectrum on ONE vocab set:
+    // hear→picture (recognition), see picture→pick the Finnish word
+    // (production recall, the generation effect), hear a full sentence→picture
+    // (sentence-level comprehension), then adjective agreement (`match`). New
+    // game TYPES — not just more option tiles — are what earn the added depth.
+    // Numbers skip `listen-sentence` ("Tämä on kolme" is an awkward carrier),
+    // capping one rung shorter.
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'family' } },
-      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'body' } },
-      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'nature' } },
-      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'clothes' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'match'], maxLevel: 3, content: { pool: 'numbers' } },
+      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'animals' } },
+      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'food' } },
+      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'family' } },
+      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'body' } },
+      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'nature' } },
+      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'clothes' } },
+      { id: 'listen-places', titleFi: 'Paikat', titleEn: 'Places', icon: '🏠', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'places' } },
+      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'numbers' } },
     ],
   },
   {
@@ -279,6 +313,22 @@ const baseChapters: Chapter[] = [
         },
         exampleFi: 'Minulla on kala.',
       },
+      {
+        // The PLURAL mirror of This-is / Where-is, using the (already-vetted)
+        // plural-predicative constructions: an indefinite plural takes the
+        // partitive plural ("Nämä ovat kissoja"), a definite plural subject the
+        // nominative plural ("Missä ovat kissat?"). Sits after I-have, which
+        // introduces the partitive plural, so the form is already familiar.
+        id: 'plurals',
+        titleFi: 'Nämä ovat… / Missä ovat…',
+        titleEn: 'These are… / Where are…',
+        icon: '👐',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        maxLevel: 4,
+        content: { constructionIds: ['these-are', 'where-are'] },
+        exampleFi: 'Nämä ovat kissoja.',
+      },
     ],
   },
   {
@@ -335,6 +385,9 @@ const baseChapters: Chapter[] = [
       { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
       { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
       { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
+      // odottaa always governs the partitive object ("Odotan äitiä"), a
+      // different rection from the genitive/partitive verbs above.
+      { id: 'i-wait-for', titleFi: 'Odotan …a', titleEn: 'I wait for…', icon: '⏳', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-wait-for'] }, exampleFi: 'Odotan äitiä.' },
     ],
   },
   {
@@ -366,14 +419,19 @@ const baseChapters: Chapter[] = [
     accent: '#16a34a',
     icon: '🏃',
     skills: [
-      // Depth 4 = the verb's real grammar ceiling: one new sourced tense×polarity
-      // set unlocks per level (present+ L1 → present- L2 → past+ L3), each
-      // drilled across all six persons. Those combos are the whole of what the
-      // data carries (imperative is 2nd-person-only and doesn't fit the "pick
-      // the person's form" drill), so the climb comes from the steepening
-      // promotion needing a sustained streak. L4 swaps to `match` (the global
-      // mixed-noun pool, not a verb drill) as this node's "different game" step.
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match'], maxLevel: 4, content: {} },
+      // The verbs warm-up: hear an action verb (the infinitive), tap its
+      // picture — same format as the chapter-1 noun warm-ups, over the verbs
+      // pool (only picturable verbs render; see itemsForPool). L3 swaps to a
+      // conjugation taste, not `match` (verbs don't decline by case).
+      { id: 'listen-verbs', titleFi: 'Verbit', titleEn: 'Action words', icon: '🎬', activity: 'listen', activities: ['listen', 'listen', 'conjugate'], maxLevel: 3, content: { pool: 'verbs' } },
+      // Depth 6: one new sourced tense×polarity set unlocks per level through
+      // L4 (present+ → present- → past+ → past-), each drilled across all six
+      // persons; L4 also swaps in `match` as the "different game" step. L5–6
+      // ride the `tricky` lever — a distractor tile is a DIFFERENT verb
+      // conjugated for the same person, so the verb itself must be recognized
+      // across the (now ~50-verb) pool, not just the ending. (Imperative is
+      // 2nd-person-only and doesn't fit the "pick the person's form" drill.)
+      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate'], maxLevel: 6, content: {} },
     ],
   },
   {
@@ -397,6 +455,10 @@ const baseChapters: Chapter[] = [
       // Same reasoning as `order` above — self-ramps via the inflected-form
       // grammar, no second game.
       { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
+      // Authentic reading: real sourced example sentences (kid-safety filtered),
+      // read + heard, tap the picture they're about. Comprehensible input over
+      // the mixed noun pool. Depth comes from the option count + tricky lever.
+      { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -408,8 +470,8 @@ const baseChapters: Chapter[] = [
 // node's measured level so harder multi-slot patterns unlock as the child climbs.
 // The registry (src/content/sentences.ts) drives whether the chapter is live: an
 // empty registry keeps the friendly "coming soon" placeholder and no playable node.
-// No second game type: no other round builder consumes `SentenceConstruction[]`,
-// so this node stays single-activity (progression is the tier-gated templates).
+// The top levels add a typing apex ('sentence-type') on top of tile assembly
+// ('sentence') — see the node's `activities` ramp below.
 const HAS_SENTENCES = sentenceConstructions.length > 0;
 
 const sentenceSkills: SkillNode[] = HAS_SENTENCES
@@ -420,6 +482,21 @@ const sentenceSkills: SkillNode[] = HAS_SENTENCES
         titleEn: 'Build sentences',
         icon: '📝',
         activity: 'sentence',
+        // The top levels add a typing apex: once the child can assemble a
+        // sentence from tiles, typing it out from the English gloss (no
+        // Finnish shown, no TTS) is the harder production test. Sessions
+        // round-robin the whole unlocked set, so 7-8 mix tile + typing
+        // rounds rather than switching over entirely.
+        activities: [
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence',
+          'sentence-type',
+          'sentence-type',
+        ],
         maxLevel: 8,
         content: {},
       },
@@ -436,7 +513,68 @@ const sentencesChapter: Chapter = {
   skills: sentenceSkills,
 };
 
-export const PATH: Chapter[] = [...baseChapters, sentencesChapter];
+// Conversations — everyday greetings/courtesies as a "choose the right reply"
+// game. Communicative Finnish the drill formats can't teach; content is the
+// hand-authored dialogue registry (src/content/dialogues.ts).
+const conversationsChapter: Chapter = {
+  id: 'conversations',
+  titleFi: 'Keskustelut',
+  titleEn: 'Conversations',
+  accent: '#ec4899',
+  icon: '💬',
+  skills: [
+    {
+      id: 'greetings',
+      titleFi: 'Tervehdykset',
+      titleEn: 'Greetings',
+      icon: '👋',
+      activity: 'dialogue',
+      // Five rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
+      // (favourites, turn-taking) → L5 the SAME content Finnish-only (the English
+      // gloss drops away — comprehension is the top rung). difficultyFor maps
+      // L4 → maxTier 4; L5 keeps that content but hides the gloss (see showsGloss).
+      maxLevel: 5,
+      content: {},
+    },
+    {
+      // The pieces strung together: hold a whole short scene, turn by turn.
+      // Greetings (the adjacency pairs) → Small talk (connected discourse).
+      id: 'small-talk',
+      titleFi: 'Jutellaan',
+      titleEn: 'Small talk',
+      icon: '🗣️',
+      activity: 'conversation',
+      // L5 is the Finnish-only rung: the English glosses on the bubbles + reply
+      // tiles drop away, so the child holds the whole scene in Finnish.
+      maxLevel: 5,
+      content: {},
+    },
+  ],
+};
+
+// The learner journey, sequenced easy → hard and front-loading communication:
+// vocab first, then greetings (the most immediately usable Finnish), then
+// grammar climbing from the simplest cases (naming / having) up through the
+// full 7-case locative system, and finally the sentence + typing capstones.
+// Chapters are DEFINED above in author-groups; this list is the single source
+// of their PLAY order (reordering here never touches progress, which is keyed
+// by chapter+node id, not position).
+const CHAPTER_ORDER = [
+  'first-words', // noun vocab recognition
+  'conversations', // greetings + small talk — early communicative win
+  'naming', // this-is / these-are / where-is / I-have (simplest cases)
+  'likes', // verb-object carriers (partitive / genitive objects)
+  'numbers-describe', // counting + adjective agreement
+  'actions', // verb vocab + conjugation
+  'where', // the 7 locative cases (the hardest grammar) — belongs late
+  'together', // word-order / spelling capstones, reading, review
+  'sentences', // full multi-slot sentence assembly — the summit
+] as const;
+
+const allChapters = [...baseChapters, conversationsChapter, sentencesChapter];
+export const PATH: Chapter[] = CHAPTER_ORDER.map(
+  (id) => allChapters.find((c) => c.id === id)!,
+);
 
 // --- Lookups + progression helpers ---------------------------------------
 
@@ -483,14 +621,39 @@ export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] 
   return unlocked;
 }
 
+// Speaking is woven into EVERY content node automatically (see `activityForRound`
+// + `speakableTargetsFor`): each node's own Finnish — a word, a carrier phrase, a
+// counting/agreement/verb phrase, a read example, a dialogue reply — becomes
+// something the child says. Only `review` is excluded (cross-topic, no single
+// spoken target). Injected rather than hand-added to each ramp, so it never
+// bloats the ramps.
+const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review']);
+
+/** Does this node have a spoken target the `say` game can drill? */
+export function isSpeakable(skill: SkillNode): boolean {
+  return !NON_SPEAKABLE.has(skill.activity);
+}
+
 /**
  * The game type to serve for round `roundNo` of a continuous session. Rounds
  * round-robin through the unlocked set so consecutive rounds VARY (a sitting
  * mixes game types) instead of repeating the single type the measured level maps
  * to. Deterministic — no randomness, so it stays unit-testable.
+ *
+ * When speech recognition is available, a `say` round is folded into the mix on
+ * every speakable node from level 2 up (level 1 stays gentle). The flag defaults
+ * false, so pure callers/tests see the base rotation unchanged.
  */
-export function activityForRound(skill: SkillNode, level: number, roundNo: number): ActivityKind {
-  const unlocked = activitiesUpTo(skill, level);
+export function activityForRound(
+  skill: SkillNode,
+  level: number,
+  roundNo: number,
+  speechAvailable = false,
+): ActivityKind {
+  let unlocked = activitiesUpTo(skill, level);
+  if (speechAvailable && level >= 2 && isSpeakable(skill) && !unlocked.includes('say')) {
+    unlocked = [...unlocked, 'say'];
+  }
   const i = ((Math.trunc(roundNo) % unlocked.length) + unlocked.length) % unlocked.length;
   return unlocked[i];
 }
@@ -527,6 +690,13 @@ export const badgeEnv = {
 
 const SENTENCE_QUESTIONS = 6;
 
+// A STABLE empty constructions array for the speaking game (which drives its own
+// round via `buildRound`). A fresh `[]` literal each render would be a new
+// identity in SayIt's round memo deps, regenerating a different random round on
+// every parent re-render (e.g. after each answer updates stars/SRS) — a visible
+// "flash of another challenge" before advancing.
+const NO_CONSTRUCTIONS: Construction[] = [];
+
 /** Render one specific activity for a skill, wired to the skill's content scope.
  *  The caller decides WHICH activity (per round, for in-session variety — see
  *  `activityForRound`); this just maps an activity kind to its game component.
@@ -540,7 +710,35 @@ export function renderActivity(
   const items = itemsForPool(skill.content.pool);
   switch (activity) {
     case 'listen':
-      return <ListenAndTap items={items} onExit={onExit} />;
+      return <ListenAndTap items={items} timerFromLevel={skill.timerFromLevel} onExit={onExit} />;
+    case 'name':
+      // Production recall: see the picture, pick the Finnish word (inverse of
+      // Listen & Tap over the same pool).
+      return <NameIt items={items} timerFromLevel={skill.timerFromLevel} onExit={onExit} />;
+    case 'listen-sentence':
+      // Sentence-level comprehension: hear a full carrier phrase, tap the
+      // picture. Uses the node's constructions (default = all noun carriers),
+      // tier-gated by the adaptive level.
+      return (
+        <ListenSentence
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
+          onExit={onExit}
+        />
+      );
+    case 'say':
+      // Speaking: say the SAME content the node teaches — routed per node by
+      // `speakableTargetsFor` (words, carrier phrases, counting/agreement/verb
+      // phrases, read examples, dialogue replies), tier-/length-capped for a
+      // young child. Weigh (familiarity) is supplied by SayIt from the child's SRS.
+      return (
+        <SayIt
+          items={items}
+          constructions={NO_CONSTRUCTIONS}
+          buildRound={(maxTier, level, weigh) => speakableTargetsFor(skill, items, maxTier, level, weigh)}
+          onExit={onExit}
+        />
+      );
     case 'build':
       return (
         <BuildAPhrase
@@ -587,9 +785,38 @@ export function renderActivity(
           buildRound={(maxTier) =>
             buildSentenceRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS, maxTier)
           }
+          // A couple of misses on the current word nudges the correct next
+          // tile — sentences are harder than the single-slot Word Order
+          // capstone, which stays hint-free.
+          hintAfterMisses={2}
           onExit={onExit}
         />
       );
+    case 'sentence-type':
+      // The typing apex: same sourced sentences, no tiles — type the whole
+      // thing from the English gloss. No TTS (speakTarget={false}) so this
+      // stays a production test, not dictation.
+      return (
+        <SpellWord
+          title="Kirjoita lause · Write the sentence"
+          buildRound={(maxTier) =>
+            buildSentenceSpellingRound(sentenceConstructions, SENTENCE_POOLS, SENTENCE_QUESTIONS, maxTier)
+          }
+          speakTarget={false}
+          onExit={onExit}
+        />
+      );
+    case 'dialogue':
+      // Choose the right reply to a Finnish greeting/courtesy. Draws from the
+      // hand-authored dialogue registry; tier-gated by the adaptive level.
+      return <DialogueGame onExit={onExit} />;
+    case 'conversation':
+      // Hold a short multi-turn scene (the greetings pieces, strung together).
+      // Draws from the hand-authored conversation registry; tier-gated.
+      return <ConversationScene onExit={onExit} />;
+    case 'reading':
+      // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
+      return <ReadAndListen items={items} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }
@@ -603,6 +830,7 @@ export function renderSkill(
   level: number,
   onExit: () => void,
   roundNo = 0,
+  speechAvailable = false,
 ): ReactElement | null {
-  return renderActivity(skill, activityForRound(skill, level, roundNo), onExit);
+  return renderActivity(skill, activityForRound(skill, level, roundNo, speechAvailable), onExit);
 }

@@ -32,6 +32,27 @@ export interface Example {
 }
 
 /** A vocabulary word with its full, sourced inflection table and tags. */
+/**
+ * Sourced English inflected forms for a word (from AGID; see scripts/agid.mjs).
+ * Only the fields relevant to the word's part of speech are present.
+ */
+export interface EnglishMorph {
+  /** Noun plural, e.g. "cats", "children", "fish". */
+  plural?: string;
+  /** Verb 3rd-person-singular present, e.g. "eats", "goes", "is". */
+  thirdSg?: string;
+  /** Verb simple past, e.g. "ate", "went", "loved". */
+  past?: string;
+  /** Verb past participle, e.g. "eaten", "gone", "loved". */
+  pastParticiple?: string;
+  /** Verb present participle / gerund, e.g. "eating", "going". */
+  gerund?: string;
+  /** Adjective comparative, e.g. "bigger", "better". */
+  comparative?: string;
+  /** Adjective superlative, e.g. "biggest", "best". */
+  superlative?: string;
+}
+
 export interface LexicalItem {
   /** Stable id used to link constructions to vocabulary. */
   id: string;
@@ -45,6 +66,13 @@ export interface LexicalItem {
   tier: Tier;
   /** Sourced inflection table, keyed `${case}_${number}` (e.g. "genitive_singular"). */
   inflections: Record<string, string>;
+  /**
+   * Sourced ENGLISH morphology (from the vendored AGID database via the build) —
+   * so English glosses are looked up, never rule-generated. Nouns carry `plural`;
+   * verbs carry `past/pastParticiple/gerund/thirdSg`; adjectives carry
+   * `comparative/superlative`. Numbers have none.
+   */
+  english?: EnglishMorph;
   kotusType?: number;
   group?: string;
   frequencyRank?: number;
@@ -54,6 +82,15 @@ export interface LexicalItem {
   examples?: Example[];
   /** Optional recorded-audio path (future). Falls back to TTS when absent. */
   audio?: string;
+  /** Theme id the word belongs to (e.g. 'animals') — drives semantic gating. */
+  topic?: string;
+  /**
+   * Hand-curated semantic tags — properties a word has that decide which
+   * carrier phrases make SENSE for it, beyond grammar. Today: a place's
+   * locative shape, 'surface' (you sit ON it) and/or 'container' (you go IN
+   * it) — many places are both. See scripts/build-kids-data.mjs and suitsSlot.
+   */
+  tags?: string[];
 }
 
 /**
@@ -81,6 +118,21 @@ export interface Construction {
   case: CaseId;
   /** Grammatical number the slot must take. */
   number: GrammaticalNumber;
+  /**
+   * Semantic gate: theme ids whose words make SENSE in this slot (e.g. the
+   * locative carriers only work with places — "Kissa menee äitiin" is
+   * grammatical nonsense). Omitted = any noun topic.
+   */
+  topics?: string[];
+  /** Semantic gate, finer grain: specific item ids that read oddly here. */
+  excludeIds?: string[];
+  /**
+   * Semantic gate by word tag: the item must carry ALL of these tags. Used by
+   * the locative carriers to match the case to a place's shape — the "on"
+   * cases require 'surface', the "in" cases require 'container' (see
+   * LexicalItem.tags). Omitted = no tag requirement.
+   */
+  requiresTags?: string[];
 }
 
 export interface Theme {
@@ -104,6 +156,19 @@ export function formFor(item: LexicalItem, con: Construction): string | undefine
   return item.inflections[inflectionKey(con.case, con.number)];
 }
 
+/**
+ * Whether a word makes SENSE in a construction's slot (the semantic gate on
+ * top of the grammatical one). Round builders pair (construction, item) only
+ * when this passes, so the capstones can't produce grammatical nonsense like
+ * "Minulla on taivas".
+ */
+export function suitsSlot(item: LexicalItem, con: Construction): boolean {
+  if (con.topics && (!item.topic || !con.topics.includes(item.topic))) return false;
+  if (con.excludeIds?.includes(item.id)) return false;
+  if (con.requiresTags && !con.requiresTags.every((t) => item.tags?.includes(t))) return false;
+  return true;
+}
+
 /** Assemble the full human-authored sentence using only the sourced slot form. */
 export function sentenceFor(item: LexicalItem, con: Construction): string {
   const form = formFor(item, con) ?? item.fi;
@@ -111,6 +176,42 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
     (p): p is string => typeof p === 'string' && p.length > 0,
   );
   return parts.join(' ') + (con.punct ?? '');
+}
+
+// Article overrides for the "a ___" carrier templates. Most nouns just need
+// "a"/"an" (picked by first letter, below); a small, hand-maintained set
+// needs something else in plain English: mass nouns take no article at all
+// ("This is water.", not "a water"), and a few nature words are conventionally
+// unique referents ("This is the sun.", not "a sun").
+const NO_ARTICLE_IDS = new Set(['rain', 'snow', 'water', 'milk', 'bread', 'cheese', 'juice', 'hair']);
+const DEFINITE_ARTICLE_IDS = new Set(['sun', 'moon', 'sky', 'sea']);
+
+function englishArticleFor(item: LexicalItem): string {
+  if (NO_ARTICLE_IDS.has(item.id)) return '';
+  if (DEFINITE_ARTICLE_IDS.has(item.id)) return 'the';
+  return /^[aeiou]/i.test(item.en) ? 'an' : 'a';
+}
+
+/**
+ * The English side of a carrier phrase with its blank filled in (e.g.
+ * "This is a ___." + the "dog" item -> "This is a dog."), for narrating the
+ * prompt aloud. Never reveals the Finnish form — this is the same English
+ * gloss already shown as on-screen text. Templates with a baked-in "a ___"
+ * get the item's own article substituted in (see `englishArticleFor`) so
+ * "This is a ___." + rain doesn't come out as "This is a rain."; any other
+ * placeholder (e.g. "the ___", "___s") is filled in as-is.
+ */
+export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
+  // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
+  if (con.en.includes('___s')) {
+    return con.en.replace('___s', item.english?.plural ?? `${item.en}s`);
+  }
+  if (con.en.includes('a ___')) {
+    const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');
+    return con.en.replace('a ___', filled);
+  }
+  return con.en.replace('___', item.en);
 }
 
 // --- Two-slot counting construction: number + counted noun ---------------

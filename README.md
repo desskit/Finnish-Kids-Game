@@ -110,8 +110,8 @@ npm run typecheck:test # tsc over test/e2e sources
 `.github/workflows/ci.yml` runs the type checks, unit tests, and the Playwright
 smoke test on every push and PR. Unit tests cover the round builders, content
 data integrity, profile persistence/migration, the SRS scheduler, and the
-activities; the e2e spec drives the real routes (profile → map → topic →
-activity / review → RoundComplete).
+activities; the e2e spec drives the real routes (profile → map → a skill's
+unbroken challenge stream → review's finite round).
 
 > **Audio note:** placeholder pronunciation uses the operating system's Finnish
 > (`fi-FI`) speech voice. If a device has no Finnish voice installed, words still

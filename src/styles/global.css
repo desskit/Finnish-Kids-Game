@@ -489,10 +489,52 @@ button:focus-visible,
   color: #fff;
 }
 
+.btn--sm {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+}
+
+.btn--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+}
+
 .btn .en {
   font-size: 0.7em;
   font-weight: 700;
   opacity: 0.8;
+}
+
+/* Stuck-child helpers under a typing challenge: reveal-a-letter (with a
+   remaining-uses count) + skip. Smaller, quieter than a primary action. */
+.stuck-help {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.stuck-help .btn {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+}
+.stuck-help .btn:disabled {
+  opacity: 0.4;
+}
+.stuck-help__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.3em;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 0.8em;
+  font-weight: 800;
 }
 
 .text-btn {
@@ -510,6 +552,14 @@ button:focus-visible,
   background: var(--bg-card);
   box-shadow: var(--shadow);
   font-size: 1.6rem;
+}
+
+/* Holds the back-button's space in an activity header that has no back action
+   (e.g. an embedded audit game), so the title stays put. */
+.icon-btn--placeholder {
+  display: inline-block;
+  background: none;
+  box-shadow: none;
 }
 
 .en {
@@ -624,6 +674,16 @@ button:focus-visible,
 .progress-dots {
   display: flex;
   gap: 6px;
+}
+
+/* Endless-stream header: the sitting's running star count (no round to dot). */
+.session-stars {
+  font-weight: 800;
+  font-size: 1.1rem;
+  background: var(--brand-soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
 }
 
 .dot {
@@ -743,6 +803,67 @@ button:focus-visible,
   box-shadow: 0 0 0 4px var(--bad);
 }
 
+/* A big, unmissable pop for a correct answer — the positive-feedback
+   counterpart to the wrong wiggle above. One-shot: the class is applied
+   once the choice locks in and stays, so the animation plays once on that
+   transition and holds its end state (no looping, doesn't distract during
+   the pause before the next question). */
+@keyframes correctpop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pic-card--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
+/* The L5+ gentle-timer nudge: when the countdown lapses without an answer,
+   the correct tile pulses (reusing the hint amber) so the child is helped, not
+   penalised. */
+.pic-card--hint {
+  /* Static highlight so the nudge still reads with reduced motion (which zeroes
+     animation durations); the pulse is the enhancement on top. */
+  box-shadow: 0 0 0 4px #f59e0b;
+  animation: hintpulse 0.9s ease-in-out infinite;
+}
+
+/* ---------- Gentle question timer (Listen & Tap, L5+) ---------- */
+.q-timer {
+  width: min(90%, 420px);
+  height: 8px;
+  margin: 4px auto 0;
+  background: var(--brand-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.q-timer__bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--brand);
+  transform-origin: left center;
+  animation: qtimer linear forwards;
+}
+.q-timer__bar--paused {
+  animation-play-state: paused;
+}
+@keyframes qtimer {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
 /* ---------- Build a Phrase ---------- */
 .phrase-card {
   background: var(--bg-card);
@@ -781,6 +902,7 @@ button:focus-visible,
 .phrase-slot--filled {
   border-bottom-color: var(--good);
   color: var(--good);
+  animation: correctpop 0.45s ease-out;
 }
 
 .phrase-hint {
@@ -824,11 +946,37 @@ button:focus-visible,
   box-shadow: 0 0 0 4px var(--bad);
 }
 
+.word-tile--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
+/* A gentle nudge toward the correct next tile after a few misses (sentence
+   building's hint — see WordOrder's `hintAfterMisses`). Distinct gold from
+   the red "wrong" flash so it never reads as an error. */
+.word-tile--hint {
+  animation: hintpulse 1.1s ease-in-out infinite;
+  box-shadow: 0 0 0 4px #f59e0b;
+}
+
+@keyframes hintpulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px #f59e0b;
+  }
+  50% {
+    box-shadow: 0 0 0 8px #fcd34d;
+  }
+}
+
 /* ---------- Spelling ---------- */
+/* The child types into this directly with the device keyboard. */
 .spell-input {
   min-width: 6em;
+  max-width: 90%;
   min-height: 1.6em;
-  padding: 6px 16px;
+  padding: 10px 16px;
+  border: 3px solid var(--brand-soft);
   border-radius: 14px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
@@ -837,51 +985,24 @@ button:focus-visible,
   letter-spacing: 0.04em;
   text-align: center;
   color: var(--brand);
+  outline: none;
+}
+
+.spell-input:focus {
+  border-color: var(--brand);
 }
 
 .spell-input--wrong {
   animation: wiggle 0.4s ease;
+  border-color: var(--bad);
   box-shadow: 0 0 0 4px var(--bad);
 }
 
 .spell-input--correct {
   color: var(--good);
+  border-color: var(--good);
   box-shadow: 0 0 0 4px var(--good);
-}
-
-.kid-keyboard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  width: 100%;
-  max-width: 620px;
-}
-
-.kid-keyboard__row {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.kid-key {
-  min-width: clamp(28px, 8vw, 40px);
-  min-height: var(--tap);
-  border-radius: 10px;
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  font-weight: 700;
-  text-transform: lowercase;
-}
-
-.kid-key:active {
-  transform: scale(0.92);
-}
-
-.kid-key--wide {
-  min-width: clamp(80px, 20vw, 120px);
+  animation: correctpop 0.45s ease-out;
 }
 
 /* ---------- Word Order ---------- */
@@ -908,6 +1029,312 @@ button:focus-visible,
 .word-order-slot--filled {
   border-bottom-color: var(--good);
   color: var(--good);
+  animation: correctpop 0.45s ease-out;
+}
+
+/* ---------- Read a sentence (authentic input) ---------- */
+.reading-sentence {
+  margin: 0;
+  font-size: clamp(1.3rem, 4.4vw, 2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+  line-height: 1.35;
+}
+
+.reading-gloss {
+  min-height: 1.4em;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.reading-gloss--shown {
+  opacity: 1;
+}
+
+/* ---------- Conversations ---------- */
+.dialogue-said {
+  margin: 0;
+  font-size: clamp(1.4rem, 4.6vw, 2.2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+}
+
+.reply-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.reply-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: var(--tap);
+  padding: clamp(10px, 2.4vw, 16px) clamp(16px, 4vw, 24px);
+  padding-left: clamp(40px, 9vw, 52px);
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: transform 0.08s ease;
+}
+
+.reply-tile:active {
+  transform: scale(0.98);
+}
+
+.reply-tile__num {
+  position: absolute;
+  left: clamp(14px, 3.5vw, 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--ink-soft);
+}
+
+.reply-tile__fi {
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+}
+
+.reply-tile__en {
+  font-size: clamp(0.8rem, 2.4vw, 1rem);
+}
+
+.reply-tile--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.reply-tile--correct {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+}
+
+/* ---------- Small talk: a building chat transcript ---------- */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 620px;
+}
+
+.chat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-bubble {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 88%;
+  animation: bubblein 0.28s ease-out;
+}
+
+.chat-bubble--partner {
+  align-self: flex-start;
+}
+
+.chat-bubble--child {
+  align-self: flex-end;
+  flex-direction: row; /* lines then avatar */
+}
+
+.chat-avatar {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.chat-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: clamp(9px, 2vw, 13px) clamp(12px, 3vw, 16px);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.chat-bubble--partner .chat-lines {
+  background: var(--bg-card);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble--child .chat-lines {
+  background: color-mix(in srgb, var(--brand) 20%, var(--bg-card));
+  border-bottom-right-radius: 4px;
+  text-align: right;
+}
+
+.chat-fi {
+  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+  font-weight: 800;
+}
+
+.chat-en {
+  font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+  opacity: 0.75;
+}
+
+.chat-speaker {
+  align-self: center;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+
+.chat-done {
+  margin: 6px 0 0;
+  font-size: clamp(1.1rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+  animation: correctpop 0.5s ease-out;
+}
+
+.chat-done .en {
+  display: block;
+  font-size: 0.62em;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+@keyframes bubblein {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Say it (speaking) ---------- */
+.say-target {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  font-weight: 900;
+  color: var(--brand);
+  text-align: center;
+}
+
+.mic-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 8px auto 0;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: clamp(14px, 3vw, 22px) clamp(22px, 6vw, 40px);
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  box-shadow: var(--shadow);
+  font-size: clamp(2rem, 8vw, 3rem);
+  transition: transform 0.08s ease;
+}
+
+.mic-button:active {
+  transform: scale(0.95);
+}
+
+.mic-button:disabled {
+  opacity: 0.6;
+}
+
+.mic-button__hint {
+  font-size: clamp(0.8rem, 2.4vw, 1rem);
+  font-weight: 800;
+}
+
+.mic-button--listening {
+  animation: micpulse 1s ease-in-out infinite;
+}
+
+@keyframes micpulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--brand-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+.say-status {
+  min-height: 1.6em;
+  margin: 4px 0 0;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 800;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.say-hint {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #b45309; /* amber-700, matching the length highlight */
+  text-align: center;
+}
+
+/* Per-sound pronunciation feedback: the target word tinted by how each Finnish
+   sound was said. */
+.pron-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  justify-content: center;
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.pron-word {
+  display: inline-flex;
+}
+
+.sound--good {
+  color: var(--good);
+}
+
+.sound--length {
+  color: #f59e0b; /* right sound, wrong length — the Finnish focus */
+  text-decoration: underline wavy;
+  text-underline-offset: 3px;
+}
+
+.sound--off {
+  color: var(--bad);
+}
+
+.sound--missing {
+  color: var(--bad);
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.say-intro {
+  gap: 12px;
+  text-align: center;
+}
+
+.say-intro .en {
+  max-width: 34ch;
+  line-height: 1.5;
 }
 
 /* ---------- Count & Say ---------- */
@@ -980,16 +1407,6 @@ button:focus-visible,
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.auto-advance {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.auto-advance .en {
-  display: block;
-  font-size: 0.7em;
 }
 
 /* ---------- Animations ---------- */
@@ -1351,6 +1768,13 @@ button:focus-visible,
   accent-color: var(--brand);
 }
 
+.setting-note {
+  margin: -4px 0 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
 .setting-danger {
   align-self: flex-start;
   color: var(--bad);
@@ -1372,6 +1796,36 @@ button:focus-visible,
 }
 
 /* ---------- Achievement badges ---------- */
+/* ---------- Daily-practice streak: gentle, no loss-aversion ---------- */
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  margin: 6px auto 2px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+}
+
+.streak--today {
+  background: color-mix(in srgb, var(--brand) 22%, transparent);
+}
+
+.streak__flame {
+  font-size: 1.35em;
+  line-height: 1;
+}
+
+.streak__text .en {
+  display: block;
+  font-size: 0.62em;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
 .badge-strip {
   display: flex;
   flex-wrap: wrap;
@@ -1394,61 +1848,44 @@ button:focus-visible,
   opacity: 0.35;
 }
 
-/* ---------- RoundComplete: level-up + new badges ---------- */
-.level-up {
-  font-weight: 800;
-  color: var(--brand);
-  font-size: 1.1rem;
-  margin: 4px 0;
+/* ---------- Reward toast: quiet level-up / badge pill over the stream ---------- */
+.reward-toast {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  animation: toastin 0.35s ease-out;
 }
 
-.level-up .en {
+.reward-toast__line {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.reward-toast__line .en {
   display: block;
   font-size: 0.7em;
-  color: var(--ink-soft);
+  opacity: 0.85;
 }
 
-.new-badges {
-  background: var(--brand-soft);
-  border-radius: 16px;
-  padding: 10px 14px;
-  margin: 4px auto;
-}
-
-.new-badges__title {
-  font-weight: 800;
-  margin: 0 0 6px;
-}
-
-.new-badges__title .en {
-  font-size: 0.7em;
-  color: var(--ink-soft);
-}
-
-.new-badges__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.new-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-}
-
-.new-badge__emoji {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-.new-badge__label .en {
-  font-size: 0.72em;
-  color: var(--ink-soft);
+@keyframes toastin {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* ---------- Progress dashboard additions ---------- */
@@ -1479,4 +1916,245 @@ button:focus-visible,
   background: var(--brand-soft);
   border-radius: 999px;
   padding: 1px 7px;
+}
+
+/* ---------- Grown-up → Audit (QA harness) ---------- */
+.audit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.audit-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.audit-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.audit-level__val {
+  min-width: 1.2em;
+  text-align: center;
+  color: var(--brand);
+}
+
+.audit-summary {
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-right: auto;
+}
+
+.audit-body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.audit-list {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.audit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+.audit-row--active {
+  box-shadow: 0 0 0 3px var(--brand);
+}
+
+.audit-row__label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: transparent;
+  min-width: 0;
+}
+
+.audit-row__en {
+  font-weight: 800;
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.audit-row__fi {
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.audit-chip {
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.audit-chip--pass {
+  background: color-mix(in srgb, var(--good) 25%, transparent);
+}
+
+.audit-chip--needs-work {
+  background: color-mix(in srgb, var(--bad) 25%, transparent);
+}
+
+.audit-stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audit-label h2 {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+.audit-label__fi {
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.audit-label p {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.audit-label__meta {
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.audit-game {
+  position: relative;
+  min-height: 420px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--brand) 4%, transparent);
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  overflow: hidden;
+}
+
+/* The nested game renders its own full-screen .screen; keep it contained. */
+.audit-game .screen {
+  min-height: 420px;
+  padding: 14px;
+}
+
+/* Embedded games keep their header layout but drop the app "back to the map"
+   arrow — navigation out of a game belongs to the audit chrome, not the game.
+   (Review is handled properly via its `embedded` prop; this covers the rest.) */
+.audit-game .activity-header .icon-btn {
+  visibility: hidden;
+}
+
+.audit-roundcomplete,
+.audit-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--brand);
+}
+
+.audit-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 420px;
+  padding: 24px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--good) 10%, transparent);
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--good) 40%, transparent);
+  text-align: center;
+}
+
+.audit-complete__title {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 900;
+  color: var(--brand);
+  margin: 0;
+}
+
+.audit-complete__stats {
+  font-weight: 800;
+}
+
+.audit-roundcomplete .en {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.audit-grade-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audit-note {
+  width: 100%;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.9rem;
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  resize: vertical;
+}
+
+.audit-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.audit-btn--pass {
+  background: var(--good);
+  color: #063;
+}
+
+.audit-btn--needs {
+  background: var(--bad);
+  color: #611;
+}
+
+@media (max-width: 640px) {
+  .audit-body {
+    flex-direction: column;
+  }
+  .audit-list {
+    flex-basis: auto;
+    width: 100%;
+    max-height: 30vh;
+  }
 }

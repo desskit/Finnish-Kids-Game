@@ -2,15 +2,32 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { agreementPhrase } from '../content';
 import { useProfile } from '../state/profile';
-import { useActivityContext } from '../game/activityContext';
+import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { familiarityWeigher } from '../game/srs';
 import { buildAgreementRound, type AgreementOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
-import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 6;
+
+// English framing per Finnish case, so the gloss reflects WHY the noun is
+// inflected: an inessive phrase reads "in the brown sun", not a bare "brown
+// sun". Keyed by the cases the agreement game actually rotates through.
+const CASE_FRAME: Record<string, string> = {
+  nominative: 'the',
+  genitive: 'of the',
+  partitive: 'the',
+  inessive: 'in the',
+  illative: 'into the',
+  adessive: 'on the',
+  allative: 'onto the',
+};
+
+function agreementGloss(caseId: string, adjEn: string, nounEn: string): string {
+  return `${CASE_FRAME[caseId] ?? 'the'} ${adjEn} ${nounEn}`;
+}
 
 interface Props {
   adjectives: LexicalItem[];
@@ -24,21 +41,37 @@ interface Props {
 // skill practised is the agreement itself. Every form is looked up from the
 // sourced inflection tables via buildAgreementRound — never generated.
 export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
-  const { level, addStars, recordAttempt } = useProfile();
+  const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  const { optionCount } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // The case ramp (maxCases) is this game's main depth lever; tricky rounds
+  // also mix wrong-NUMBER forms of the target case into the tiles.
+  const { optionCount, maxCases, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Familiarity bias, snapshotted once per mount (see ListenAndTap).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
   // A wrong tap means the noun's agreement wasn't a first-try success.
   const missed = useRef(false);
+  // First-try successes this segment — the real accuracy for the adaptive engine.
+  const firstTries = useRef(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildAgreementRound(adjectives, nouns, QUESTIONS, optionCount),
-    [adjectives, nouns, optionCount, runId],
+    // `roundQuestions` (Audit harness) caps the round to stop after each answer.
+    () =>
+      buildAgreementRound(
+        adjectives,
+        nouns,
+        QUESTIONS,
+        optionCount,
+        'singular',
+        maxCases,
+        tricky,
+        weigh,
+      ).slice(0, ctx?.roundQuestions),
+    [adjectives, nouns, optionCount, maxCases, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
-  const [stars, setStars] = useState(0);
   const [chosen, setChosen] = useState<AgreementOption | null>(null);
   const [wrongForm, setWrongForm] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
@@ -64,9 +97,9 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         setChosen(opt);
         playDing(true);
         speak(fullPhrase);
-        setStars((s) => s + 1);
         addStars(1);
         recordAttempt(q.noun.id, !missed.current);
+        if (!missed.current) firstTries.current += 1;
         setWrongForm(null);
         const next = index + 1;
         setTimeout(() => {
@@ -104,22 +137,34 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [q, done, chosen, fullPhrase, choose]);
 
+  // Move past a phrase the child is stuck on: record it not-recalled (so it
+  // comes back) and advance. Never a buzz/penalty — just a way forward.
+  const skip = useCallback(() => {
+    if (!q || locked || done) return;
+    recordAttempt(q.noun.id, false);
+    const next = index + 1;
+    missed.current = false;
+    setChosen(null);
+    setWrongForm(null);
+    if (next >= round.length) setDone(true);
+    else setIndex(next);
+  }, [q, locked, done, index, round.length, recordAttempt]);
+
   function restart() {
     setIndex(0);
-    setStars(0);
     setChosen(null);
     setWrongForm(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
+    firstTries.current = 0;
     setRunId((r) => r + 1);
   }
 
-  if (done) {
-    return (
-      <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={onExit} />
-    );
-  }
+  // Endless stream: silent segment handoff, no interstitial.
+  useSegmentComplete(done, firstTries.current, round.length, restart);
+
+  if (done) return null;
   if (!q) return null;
 
   return (
@@ -128,6 +173,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         title="Yhdistä sanat"
         index={index}
         total={round.length}
+        stars={ctx?.sessionStars}
         onExit={onExit}
       />
 
@@ -146,9 +192,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
             {chosen ? chosen.form : '​'}
           </span>
         </div>
-        <p className="en phrase-hint">
-          {q.adjective.en} {q.noun.en}
-        </p>
+        <p className="en phrase-hint">{agreementGloss(q.case, q.adjective.en, q.noun.en)}</p>
         <button
           className="speaker speaker--inline"
           onClick={() => speak(chosen ? fullPhrase : q.adjForm)}
@@ -161,8 +205,12 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
       <div className="word-tiles">
         {q.options.map((opt, i) => (
           <button
-            key={opt.caseId}
-            className={'word-tile' + (wrongForm === opt.form ? ' word-tile--wrong' : '')}
+            key={`${opt.caseId}-${opt.num}`}
+            className={
+              'word-tile' +
+              (wrongForm === opt.form ? ' word-tile--wrong' : '') +
+              (locked && opt.form === chosen?.form ? ' word-tile--correct' : '')
+            }
             onClick={() => choose(opt)}
             disabled={locked}
           >
@@ -170,6 +218,12 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
             {opt.form}
           </button>
         ))}
+      </div>
+
+      <div className="stuck-help">
+        <button className="btn btn--ghost" onClick={skip} disabled={locked}>
+          Ohita <span className="en">Skip</span> →
+        </button>
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ import {
   verbs,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
-import { formFor, verbForm, caseFormOf, PERSONS } from '../content/types';
+import { formFor, verbForm, caseFormOf, englishSentenceFor, PERSONS } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -81,12 +81,67 @@ describe('content integrity', () => {
     }
   });
 
-  it('gives number words the values 1..10', () => {
+  it('gives number words the values 1..20 plus the round tens to 100', () => {
     const values = numbers.items.map((n) => n.value);
     values.forEach((v) => expect(typeof v).toBe('number'));
     expect([...(values as number[])].sort((a, b) => a - b)).toEqual([
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      30, 40, 50, 60, 70, 80, 90, 100,
     ]);
+  });
+
+  // The sourced-English guarantee: English glosses are looked up (from AGID via
+  // the build), never rule-generated — the English mirror of the Finnish rule.
+  // A future word added without its forms fails HERE, before it ships.
+  it('sources English plurals for every noun', () => {
+    for (const topic of nounTopics) {
+      for (const it of topic.items) {
+        expect(it.english?.plural, `${topic.id}:${it.en}`).toBeTruthy();
+      }
+    }
+  });
+
+  it('sources all four English verb forms for every verb', () => {
+    for (const v of verbs.items) {
+      const e = v.english;
+      expect(e?.thirdSg, v.en).toBeTruthy();
+      expect(e?.past, v.en).toBeTruthy();
+      expect(e?.pastParticiple, v.en).toBeTruthy();
+      expect(e?.gerund, v.en).toBeTruthy();
+    }
+  });
+
+  it('sources English comparative + superlative for every adjective', () => {
+    for (const a of adjectives.items) {
+      expect(a.english?.comparative, a.en).toBeTruthy();
+      expect(a.english?.superlative, a.en).toBeTruthy();
+    }
+  });
+
+  it('carries the expanded verb pool: 60+ verbs, most with an action emoji', () => {
+    // The verbs expansion: enough vocabulary that the conjugation drill's
+    // tricky foreign-verb distractors and the listen-verbs warm-up both have
+    // real depth. Picturable verbs (with emoji) power the picture-card games.
+    expect(verbs.items.length).toBeGreaterThanOrEqual(50);
+    expect(verbs.items.filter((v) => v.emoji).length).toBeGreaterThanOrEqual(40);
+  });
+
+  it('tags every word with its theme (the semantic-gating hook)', () => {
+    for (const pool of allPools) {
+      for (const item of pool.items) {
+        expect(item.topic, `${item.id} missing topic`).toBe(pool.id);
+      }
+    }
+  });
+
+  it('gives every place a valid locative shape tag (surface and/or container)', () => {
+    // The locative carriers gate on these; a place with neither could never
+    // appear in any "where" question. Only 'surface'/'container' are valid.
+    for (const place of places.items) {
+      const tags = place.tags ?? [];
+      expect(tags.length, `${place.id} has no shape tag`).toBeGreaterThan(0);
+      for (const t of tags) expect(['surface', 'container']).toContain(t);
+    }
   });
 
   it('conjugates every verb for enough persons to build a round', () => {
@@ -120,5 +175,49 @@ describe('content integrity', () => {
     for (const adj of adjectives.items) {
       expect(caseFormOf(adj, 'nominative', 'singular'), adj.id).toBeTruthy();
     }
+  });
+});
+
+describe('englishSentenceFor (article cleanup on "a ___" templates)', () => {
+  const thisIs = nounConstructions.find((c) => c.id === 'this-is')!;
+  const find = (id: string) =>
+    [...nature.items, ...body.items, ...food.items, ...animals.items].find((i) => i.id === id)!;
+
+  it('uses "a"/"an" by default, picking "an" for a vowel-initial word', () => {
+    expect(englishSentenceFor(find('dog'), thisIs)).toBe('This is a dog.');
+    expect(englishSentenceFor(find('eye'), thisIs)).toBe('This is an eye.');
+    expect(englishSentenceFor(find('ear'), thisIs)).toBe('This is an ear.');
+    expect(englishSentenceFor(find('apple'), thisIs)).toBe('This is an apple.');
+  });
+
+  it('drops the article entirely for mass nouns', () => {
+    expect(englishSentenceFor(find('rain'), thisIs)).toBe('This is rain.');
+    expect(englishSentenceFor(find('snow'), thisIs)).toBe('This is snow.');
+    expect(englishSentenceFor(find('water'), thisIs)).toBe('This is water.');
+    expect(englishSentenceFor(find('milk'), thisIs)).toBe('This is milk.');
+    expect(englishSentenceFor(find('bread'), thisIs)).toBe('This is bread.');
+    expect(englishSentenceFor(find('cheese'), thisIs)).toBe('This is cheese.');
+    expect(englishSentenceFor(find('juice'), thisIs)).toBe('This is juice.');
+    expect(englishSentenceFor(find('hair'), thisIs)).toBe('This is hair.');
+  });
+
+  it('uses "the" for unique nature referents', () => {
+    expect(englishSentenceFor(find('sun'), thisIs)).toBe('This is the sun.');
+    expect(englishSentenceFor(find('moon'), thisIs)).toBe('This is the moon.');
+    expect(englishSentenceFor(find('sky'), thisIs)).toBe('This is the sky.');
+    expect(englishSentenceFor(find('sea'), thisIs)).toBe('This is the sea.');
+  });
+
+  it('leaves non-"a ___" templates (already using "the", or plural) untouched', () => {
+    const whereIs = nounConstructions.find((c) => c.id === 'where-is')!;
+    expect(englishSentenceFor(find('rain'), whereIs)).toBe('Where is the rain?');
+  });
+
+  it('fills plural predicatives with the SOURCED plural (fish/feet, not fishs/foots)', () => {
+    const theseAre = nounConstructions.find((c) => c.id === 'these-are')!;
+    const whereAre = nounConstructions.find((c) => c.id === 'where-are')!;
+    expect(englishSentenceFor(find('fish'), theseAre)).toBe('These are fish.');
+    expect(englishSentenceFor(find('foot'), theseAre)).toBe('These are feet.');
+    expect(englishSentenceFor(find('cat'), whereAre)).toBe('Where are the cats?');
   });
 });

@@ -10,30 +10,334 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, conjugatedClause, formFor, PERSONS, verbForm } from '../content/types';
-import { sample, shuffle } from '../util/shuffle';
+import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
+import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
+import type { DialogueExchange, DialogueLine } from '../content/dialogues';
+import type { Conversation } from '../content/conversations';
+import { kidSafeExamples } from '../content/examples';
+import type { Example } from '../content/types';
+import { sample, shuffle, weightedSample } from '../util/shuffle';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
 // content — the Finnish slot forms come from the sourced inflection tables via
 // formFor(); nothing here generates or inflects Finnish.
+
+/**
+ * Optional word-selection bias for a builder's TARGET draws (distractors stay
+ * uniform/tricky). The games pass `familiarityWeigher(child.srs)` here so
+ * already-met words come around more often without ever excluding new ones.
+ * Builders stay pure — the weights arrive as an argument.
+ */
+export type WeighFn = (item: LexicalItem) => number;
 
 export interface ListenQuestion {
   target: LexicalItem;
   options: LexicalItem[];
 }
 
+/**
+ * `n` distractors, preferring the confusable `near` subset and backfilling
+ * from the rest — the "tricky" lever's engine. `near` must be a subset of
+ * `others`.
+ */
+function pickPreferring<T extends { id: string }>(
+  others: readonly T[],
+  near: readonly T[],
+  n: number,
+): T[] {
+  const fromNear = sample(near, n);
+  if (fromNear.length >= n) return fromNear;
+  const taken = new Set(fromNear.map((i) => i.id));
+  return [...fromNear, ...sample(others.filter((i) => !taken.has(i.id)), n - fromNear.length)];
+}
+
 export function buildListenRound(
   items: readonly LexicalItem[],
   questionCount: number,
   optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
 ): ListenQuestion[] {
-  const targets = sample(items, Math.min(questionCount, items.length));
+  const targets = weightedSample(items, Math.min(questionCount, items.length), weigh);
   return targets.map((target) => {
-    const distractors = sample(
-      items.filter((i) => i.id !== target.id),
-      optionCount - 1,
-    );
+    const others = items.filter((i) => i.id !== target.id);
+    // Tricky: prefer same-topic distractors (cat vs dog, not cat vs sock) so
+    // the wrong answers are actually confusable.
+    const near = tricky ? others.filter((i) => i.topic && i.topic === target.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
     return { target, options: shuffle([target, ...distractors]) };
+  });
+}
+
+// "Name it" (production recall) reuses buildListenRound verbatim: the question
+// shape { target, options } is identical, only the render inverts — the picture
+// becomes the prompt and the words become the options. See NameIt.tsx.
+
+// --- Speaking ("Sano se") -------------------------------------------------
+//
+// Say-it targets: a Finnish string to pronounce, shown with a picture + gloss
+// and modeled by TTS. Words for a vocab pool (no constructions), or full carrier
+// phrases when constructions are given — so the SAME node content the child is
+// learning is what they practice saying. Reuses the phrase-pairing + semantic
+// gate from buildPhraseRound; nothing here generates Finnish.
+
+export interface SayTarget {
+  /** The Finnish word or phrase to pronounce. */
+  say: string;
+  /** English gloss shown/narrated for context. */
+  gloss: string;
+  emoji?: string;
+  /** SRS id (the item), when there's a single one to credit. */
+  attemptId?: string;
+}
+
+/**
+ * Speaking lags production: even on a high-level node, the child is only asked
+ * to SAY the simple frames ("Tämä on kissa", "Pidän kissasta"), never the
+ * advanced case gymnastics a WRITTEN capstone reaches ("Kissat ovat
+ * laatikoissa"). Capping the spoken tier keeps every target pronounceable —
+ * and keeps child-voice ASR (already unreliable) from being handed a mouthful.
+ */
+export const SAY_MAX_TIER = 3;
+
+export function buildSayRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  maxTier: Tier = 4,
+  weigh?: WeighFn,
+): SayTarget[] {
+  if (constructions.length > 0) {
+    const spokenTier = Math.min(maxTier, SAY_MAX_TIER) as Tier;
+    const byTier = constructions.filter((c) => c.tier <= spokenTier);
+    const allowed = byTier.length > 0 ? byTier : constructions;
+    const pool: { construction: Construction; item: LexicalItem }[] = [];
+    for (const construction of allowed) {
+      for (const item of items) {
+        if (formFor(item, construction) && suitsSlot(item, construction))
+          pool.push({ construction, item });
+      }
+    }
+    return weightedSample(
+      pool,
+      Math.min(questionCount, pool.length),
+      weigh && ((p) => weigh(p.item)),
+    ).map(({ construction, item }) => ({
+      say: sentenceFor(item, construction),
+      gloss: englishSentenceFor(item, construction),
+      emoji: item.emoji,
+      attemptId: item.id,
+    }));
+  }
+
+  // Bare-word mode: say the sourced nominative for each picked item.
+  return weightedSample(items, Math.min(questionCount, items.length), weigh).map((it) => ({
+    say: it.fi,
+    gloss: it.en,
+    emoji: it.emoji,
+    attemptId: it.id,
+  }));
+}
+
+// --- Authentic reading (real example sentences) --------------------------
+//
+// Read/hear a REAL sourced example sentence and tap the picture it's about —
+// comprehensible input with genuine Finnish, not a generated carrier phrase.
+// Only kid-safe examples are used (see content/examples.ts); the English is
+// revealed by the UI after the answer, so the child parses the Finnish first.
+
+export interface ReadingQuestion {
+  /** A real, kid-safe example sentence ({ fi, en }). */
+  sentence: Example;
+  /** The item the sentence features — its picture is the answer. */
+  item: LexicalItem;
+  /** Picture options (item + distractors). */
+  options: LexicalItem[];
+}
+
+export function buildReadingRound(
+  items: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
+): ReadingQuestion[] {
+  const picturable = items.filter((i) => i.emoji);
+  const withExamples = picturable.filter((i) => kidSafeExamples(i).length > 0);
+  const chosen = weightedSample(withExamples, Math.min(questionCount, withExamples.length), weigh);
+  return chosen.map((item) => {
+    const sentence = sample(kidSafeExamples(item), 1)[0];
+    const others = picturable.filter((i) => i.id !== item.id);
+    const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return { sentence, item, options: shuffle([item, ...distractors]) };
+  });
+}
+
+// --- Conversations (choose the right reply) ------------------------------
+//
+// Hear/read the other speaker's line, pick the appropriate reply. Distractors
+// are real Finnish for OTHER moments, so the skill is pragmatic ("what do you
+// say back?"), not spotting broken Finnish. Content is human-authored.
+
+export interface DialogueQuestion {
+  prompt: DialogueLine;
+  /** The correct reply. */
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export function buildDialogueRound(
+  exchanges: readonly DialogueExchange[],
+  questionCount: number,
+  optionCount: number,
+  maxTier: Tier = 4,
+): DialogueQuestion[] {
+  const byTier = exchanges.filter((e) => e.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : exchanges;
+  const chosen = sample(allowed, Math.min(questionCount, allowed.length));
+  return chosen.map((ex) => {
+    // The exchange's own wrong replies, backfilled with other exchanges' correct
+    // replies (real Finnish, just wrong for THIS prompt). Deduped by text.
+    const seen = new Set([ex.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const r of [...ex.distractors, ...allowed.filter((e) => e.id !== ex.id).map((e) => e.reply)]) {
+      if (!seen.has(r.fi)) {
+        seen.add(r.fi);
+        pool.push(r);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { prompt: ex.prompt, reply: ex.reply, options: shuffle([ex.reply, ...distractors]) };
+  });
+}
+
+// --- Small talk (hold a multi-turn conversation) -------------------------
+//
+// One tier-gated scene per segment; the child steers it turn by turn. Each turn
+// presents the partner's line + reply tiles (the fitting reply plus real
+// wrong-move distractors, backfilled from the scene's other lines to fill the
+// tiles). A fixed golden path — no branching — so every scene is one vetted
+// script. Content is the hand-authored conversation registry.
+
+export interface ConversationTurnQuestion {
+  partner: DialogueLine;
+  reply: DialogueLine;
+  /** Reply + distractors, shuffled. */
+  options: DialogueLine[];
+}
+
+export interface ConversationRound {
+  id: string;
+  titleFi: string;
+  titleEn: string;
+  icon: string;
+  partnerIcon: string;
+  turns: ConversationTurnQuestion[];
+}
+
+export function buildConversation(
+  scenes: readonly Conversation[],
+  optionCount: number,
+  maxTier: Tier = 4,
+): ConversationRound | null {
+  const byTier = scenes.filter((s) => s.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : scenes;
+  if (allowed.length === 0) return null;
+  const scene = sample(allowed, 1)[0];
+
+  // A scene-wide pool of plausible wrong lines (every reply + authored
+  // distractor in the scene) to backfill each turn's tiles beyond its own two.
+  const scenePool: DialogueLine[] = [];
+  const poolSeen = new Set<string>();
+  for (const t of scene.turns) {
+    for (const line of [t.reply, ...t.distractors]) {
+      if (!poolSeen.has(line.fi)) {
+        poolSeen.add(line.fi);
+        scenePool.push(line);
+      }
+    }
+  }
+
+  const turns = scene.turns.map((t) => {
+    // Prefer the turn's own distractors, then backfill from the scene pool —
+    // never the correct reply, deduped by text.
+    const seen = new Set([t.reply.fi]);
+    const pool: DialogueLine[] = [];
+    for (const line of [...t.distractors, ...scenePool]) {
+      if (!seen.has(line.fi)) {
+        seen.add(line.fi);
+        pool.push(line);
+      }
+    }
+    const distractors = sample(pool, Math.max(0, optionCount - 1));
+    return { partner: t.partner, reply: t.reply, options: shuffle([t.reply, ...distractors]) };
+  });
+
+  return {
+    id: scene.id,
+    titleFi: scene.titleFi,
+    titleEn: scene.titleEn,
+    icon: scene.icon,
+    partnerIcon: scene.partnerIcon,
+    turns,
+  };
+}
+
+// --- Sentence listening comprehension ------------------------------------
+//
+// Hear a full carrier sentence ("Tämä on kissa."), tap the picture it's about.
+// Unlike buildListenRound (one word), this trains parsing a whole utterance for
+// its key noun. Options are picturable items; distractors prefer the same topic
+// when tricky, so the child must hear the noun, not guess from the pictures.
+
+export interface ComprehensionQuestion {
+  /** The full Finnish carrier sentence to play (e.g. "Tämä on kissa."). */
+  sentence: string;
+  /** The item whose PICTURE is the correct answer. */
+  item: LexicalItem;
+  /** Picture options (item + distractors); the child taps the matching one. */
+  options: LexicalItem[];
+}
+
+export function buildComprehensionRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  optionCount: number,
+  maxTier: Tier = 4,
+  tricky = false,
+  weigh?: WeighFn,
+): ComprehensionQuestion[] {
+  // Only picturable items can be tiles; only (construction, item) pairs that
+  // resolve AND make sense (semantic gate) become questions — tier-gated like
+  // the phrase builder so simple patterns come first.
+  const picturable = items.filter((i) => i.emoji);
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
+  const pool: { construction: Construction; item: LexicalItem }[] = [];
+  for (const construction of allowed) {
+    for (const item of picturable) {
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
+    }
+  }
+
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
+  return chosen.map(({ construction, item }) => {
+    const others = picturable.filter((i) => i.id !== item.id);
+    const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return {
+      sentence: sentenceFor(item, construction),
+      item,
+      options: shuffle([item, ...distractors]),
+    };
   });
 }
 
@@ -51,25 +355,45 @@ export function buildPhraseRound(
   questionCount: number,
   optionCount: number,
   maxTier: Tier = 4,
+  tricky = false,
+  weigh?: WeighFn,
 ): PhraseQuestion[] {
-  // Only pair a construction with items that actually have the needed form.
-  // Gate by tier when a skill mixes tiers, but never gate a curated set down to
-  // nothing — a single higher-tier construction (its own skill) must still play.
+  // Only pair a construction with items that have the needed form AND make
+  // sense in the slot (semantic gate). Gate by tier when a skill mixes tiers,
+  // but never gate a curated set down to nothing — a single higher-tier
+  // construction (its own skill) must still play.
   const byTier = constructions.filter((c) => c.tier <= maxTier);
   const allowed = byTier.length > 0 ? byTier : constructions;
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
-      if (formFor(item, construction)) pool.push({ construction, item });
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
     }
   }
 
-  const chosen = sample(pool, Math.min(questionCount, pool.length));
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
   return chosen.map(({ construction, item }) => {
-    const distractors = sample(
-      items.filter((i) => i.id !== item.id && formFor(i, construction)),
-      optionCount - 1,
+    // Distractors pass the same gate, so every tile plausibly fits the phrase
+    // and the challenge stays about the grammar, not spotting the absurd word.
+    const others = items.filter(
+      (i) => i.id !== item.id && formFor(i, construction) && suitsSlot(i, construction),
     );
+    // Tricky: prefer confusable tiles — same topic, or a similar word shape
+    // (the slot form's length within ±2 of the answer's).
+    const answerLen = formFor(item, construction)!.length;
+    const near = tricky
+      ? others.filter(
+          (i) =>
+            (i.topic && i.topic === item.topic) ||
+            Math.abs(formFor(i, construction)!.length - answerLen) <= 2,
+        )
+      : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
     return { construction, item, options: shuffle([item, ...distractors]) };
   });
 }
@@ -109,8 +433,9 @@ export function buildReviewRound(
 export function buildSpellingRound(
   items: readonly LexicalItem[],
   questionCount: number,
+  weigh?: WeighFn,
 ): LexicalItem[] {
-  return sample(items, Math.min(questionCount, items.length));
+  return weightedSample(items, Math.min(questionCount, items.length), weigh);
 }
 
 // Spelling, grammar apex: type the INFLECTED slot form, not the bare noun. Each
@@ -131,6 +456,7 @@ export function buildSpellingPhraseRound(
   constructions: readonly Construction[],
   questionCount: number,
   maxTier: Tier = 4,
+  weigh?: WeighFn,
 ): SpellingPhraseQuestion[] {
   // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
   const byTier = constructions.filter((c) => c.tier <= maxTier);
@@ -138,12 +464,17 @@ export function buildSpellingPhraseRound(
   const pool: SpellingPhraseQuestion[] = [];
   for (const construction of allowed) {
     for (const item of items) {
+      if (!suitsSlot(item, construction)) continue;
       const target = formFor(item, construction);
       // Single-token forms only — skip any multi-word slot form.
       if (target && !target.includes(' ')) pool.push({ construction, item, target });
     }
   }
-  return sample(pool, Math.min(questionCount, pool.length));
+  return weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((q) => weigh(q.item)),
+  );
 }
 
 // --- Word order ----------------------------------------------------------
@@ -175,6 +506,7 @@ export function buildWordOrderRound(
   constructions: readonly Construction[],
   questionCount: number,
   maxTier: Tier = 4,
+  weigh?: WeighFn,
 ): WordOrderQuestion[] {
   // Tier-gate a mixed set, but never down to nothing (see buildPhraseRound).
   const byTier = constructions.filter((c) => c.tier <= maxTier);
@@ -182,11 +514,16 @@ export function buildWordOrderRound(
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
-      if (formFor(item, construction)) pool.push({ construction, item });
+      if (formFor(item, construction) && suitsSlot(item, construction))
+        pool.push({ construction, item });
     }
   }
 
-  const chosen = sample(pool, Math.min(questionCount, pool.length));
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
   return chosen.map(({ construction, item }) => {
     const form = formFor(item, construction)!;
     const words = [
@@ -224,6 +561,8 @@ export function buildCountingRound(
   questionCount: number,
   optionCount: number,
   maxCount: number,
+  tricky = false,
+  weigh?: WeighFn,
 ): CountingQuestion[] {
   const counts = numbers.filter((n) => {
     const v = n.value ?? 0;
@@ -233,22 +572,23 @@ export function buildCountingRound(
   const out: CountingQuestion[] = [];
   for (let i = 0; i < questionCount; i++) {
     const number = sample(counts, 1)[0];
-    const noun = sample(nouns, 1)[0];
+    const noun = weightedSample(nouns, 1, weigh)[0];
     if (!number || !noun) break;
+    const otherCounts = counts.filter((n) => n.id !== number.id);
+    // Tricky: the wrong counts cluster around the true one (±2), so the child
+    // must actually count — 3 vs 4, not 3 vs 9.
+    const nearCounts = tricky
+      ? otherCounts.filter(
+          (n) => Math.abs((n.value ?? 0) - (number.value ?? 0)) <= 2,
+        )
+      : [];
     const numberOptions = shuffle([
       number,
-      ...sample(
-        counts.filter((n) => n.id !== number.id),
-        optionCount - 1,
-      ),
+      ...pickPreferring(otherCounts, nearCounts, optionCount - 1),
     ]);
-    const nounOptions = shuffle([
-      noun,
-      ...sample(
-        nouns.filter((x) => x.id !== noun.id),
-        optionCount - 1,
-      ),
-    ]);
+    const otherNouns = nouns.filter((x) => x.id !== noun.id);
+    const nearNouns = tricky ? otherNouns.filter((x) => x.topic && x.topic === noun.topic) : [];
+    const nounOptions = shuffle([noun, ...pickPreferring(otherNouns, nearNouns, optionCount - 1)]);
     out.push({ number, noun, numberOptions, nounOptions });
   }
   return out;
@@ -274,6 +614,8 @@ const AGREEMENT_CASES: CaseId[] = [
 
 export interface AgreementOption {
   caseId: CaseId;
+  /** The option's grammatical number — tricky rounds mix in wrong-NUMBER forms. */
+  num: GrammaticalNumber;
   form: string;
   correct: boolean;
 }
@@ -297,33 +639,68 @@ export function buildAgreementRound(
   questionCount: number,
   optionCount: number,
   number: GrammaticalNumber = 'singular',
+  maxCases: number = AGREEMENT_CASES.length,
+  tricky = false,
+  weigh?: WeighFn,
 ): AgreementQuestion[] {
+  // The case ramp: rotate through only the FIRST `maxCases` of the ordered
+  // list — three cases at level 1, the full seven by the top of the ladder.
+  // Floor at optionCount: a question needs (optionCount - 1) case distractors.
+  const allowedCases = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+
   const out: AgreementQuestion[] = [];
   let guard = 0;
   while (out.length < questionCount && guard++ < questionCount * 8) {
-    const adjective = sample(adjectives, 1)[0];
-    const noun = sample(nouns, 1)[0];
-    if (!adjective || !noun) break;
+    // Pick the noun first, then draw an adjective that makes SENSE for it:
+    // animate-only adjectives (happy, tired, kind…) go only with living things,
+    // so "kiltti sänky" (a kind bed) never happens. Size/colour/age apply to
+    // anything. Falls back to the full set if a topic somehow has none.
+    const noun = weightedSample(nouns, 1, weigh)[0];
+    if (!noun) break;
+    const adjPool = isAnimateTopic(noun.topic)
+      ? adjectives
+      : adjectives.filter((a) => !isAnimateOnlyAdjective(a.id));
+    const adjective = sample(adjPool.length > 0 ? adjPool : adjectives, 1)[0];
+    if (!adjective) break;
 
-    const nounCases = AGREEMENT_CASES.filter((c) => caseFormOf(noun, c, number));
+    const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
     const targetCandidates = nounCases.filter((c) => caseFormOf(adjective, c, number));
-    if (!targetCandidates.length || nounCases.length < optionCount) continue;
+    if (!targetCandidates.length) continue;
 
     const targetCase = sample(targetCandidates, 1)[0];
     const adjForm = caseFormOf(adjective, targetCase, number)!;
     const answer = caseFormOf(noun, targetCase, number)!;
-    const distractorCases = sample(
-      nounCases.filter((c) => c !== targetCase),
-      optionCount - 1,
-    );
+
+    // Distractors: the same noun in OTHER cases (the agreement skill itself)…
+    const caseCandidates: AgreementOption[] = nounCases
+      .filter((c) => c !== targetCase)
+      .map((c) => ({ caseId: c, num: number, form: caseFormOf(noun, c, number)!, correct: false }));
+    // …and, when tricky, the same CASE in the wrong NUMBER ("kissassa" vs
+    // "kissoissa") — the sharpest near-miss the paradigm offers.
+    const otherNumber: GrammaticalNumber = number === 'singular' ? 'plural' : 'singular';
+    const wrongNumberForm = tricky ? caseFormOf(noun, targetCase, otherNumber) : undefined;
+    if (wrongNumberForm && wrongNumberForm !== answer) {
+      caseCandidates.push({
+        caseId: targetCase,
+        num: otherNumber,
+        form: wrongNumberForm,
+        correct: false,
+      });
+    }
+    // No duplicate surface forms (a paradigm can spell two cells identically),
+    // and never a tile that spells exactly like the answer.
+    const seen = new Set([answer]);
+    const distinct = caseCandidates.filter((o) => {
+      if (seen.has(o.form)) return false;
+      seen.add(o.form);
+      return true;
+    });
+    if (distinct.length < optionCount - 1) continue;
+    const distractors = sample(distinct, optionCount - 1);
 
     const options = shuffle<AgreementOption>([
-      { caseId: targetCase, form: answer, correct: true },
-      ...distractorCases.map((c) => ({
-        caseId: c,
-        form: caseFormOf(noun, c, number)!,
-        correct: false,
-      })),
+      { caseId: targetCase, num: number, form: answer, correct: true },
+      ...distractors,
     ]);
 
     out.push({ adjective, noun, case: targetCase, number, adjForm, answer, options });
@@ -369,11 +746,13 @@ export function buildConjugationRound(
   questionCount: number,
   optionCount: number,
   combos: { tense: VerbTense; polarity: Polarity }[] = DEFAULT_CONJUGATION_COMBOS,
+  tricky = false,
+  weigh?: WeighFn,
 ): ConjugationQuestion[] {
   const out: ConjugationQuestion[] = [];
   let guard = 0;
   while (out.length < questionCount && guard++ < questionCount * 8) {
-    const verb = sample(verbs, 1)[0];
+    const verb = weightedSample(verbs, 1, weigh)[0];
     const combo = sample(combos, 1)[0];
     if (!verb || !combo) break;
 
@@ -383,9 +762,37 @@ export function buildConjugationRound(
     const target = sample(persons, 1)[0];
     const answer = verbForm(verb, combo.tense, combo.polarity, target.id)!;
     const clause = conjugatedClause(verb, combo.tense, combo.polarity, target.id)!;
+
+    // Tricky: one distractor is a DIFFERENT verb conjugated for the SAME
+    // person — the ending matches the pronoun, so the child must recognize
+    // the verb itself, not just the ending.
+    let foreign: ConjugationOption | undefined;
+    if (tricky) {
+      // Never collide with ANY of this verb's person forms — every tile must
+      // stay visually distinct and unambiguous.
+      const verbForms = new Set(
+        persons.map((p) => verbForm(verb, combo.tense, combo.polarity, p.id)),
+      );
+      const otherVerb = sample(
+        verbs.filter((v) => {
+          if (v.id === verb.id) return false;
+          const f = verbForm(v, combo.tense, combo.polarity, target.id);
+          return !!f && !verbForms.has(f);
+        }),
+        1,
+      )[0];
+      if (otherVerb) {
+        foreign = {
+          person: target.id,
+          form: verbForm(otherVerb, combo.tense, combo.polarity, target.id)!,
+          correct: false,
+        };
+      }
+    }
+    const sameVerbCount = optionCount - 1 - (foreign ? 1 : 0);
     const distractors = sample(
       persons.filter((p) => p.id !== target.id),
-      optionCount - 1,
+      sameVerbCount,
     );
 
     const options = shuffle<ConjugationOption>([
@@ -395,6 +802,7 @@ export function buildConjugationRound(
         form: verbForm(verb, combo.tense, combo.polarity, p.id)!,
         correct: false,
       })),
+      ...(foreign ? [foreign] : []),
     ]);
 
     out.push({
@@ -441,6 +849,11 @@ export interface SentenceQuestion {
   shuffled: WordOrderToken[];
   /** Optional item id for SRS crediting (sentences span several words, so none). */
   attemptId?: string;
+  /**
+   * A picture of the sentence's main object (carrier-phrase mode only — a
+   * multi-slot sentence has no single item to depict, so this stays unset there).
+   */
+  emoji?: string;
 }
 
 function sentencePool(
@@ -621,9 +1034,19 @@ export function buildSentenceRound(
   while (out.length < questionCount && guard++ < questionCount * 8) {
     const template = sample(allowed, 1)[0];
     if (!template) break;
-    const resolved = resolveSentence(template, pools);
+    const resolved = resolveSentenceInternal(template, pools);
     if (!resolved) continue;
-    const { words, gloss } = resolved;
+    const { words, picks } = resolved;
+    const gloss = glossFor(template, picks);
+
+    // A sentence has no single item, but crediting its main NOUN back to SRS
+    // (so speaking/ordering a sentence reinforces that word's schedule) is more
+    // useful than crediting nothing. Prefer a noun slot; fall back to any slot
+    // that resolved to a lexical item.
+    const nounSlot =
+      template.slots.find((s) => s.role === 'noun') ??
+      template.slots.find((s) => picks[s.id]?.item);
+    const attemptId = nounSlot ? picks[nounSlot.id]?.item?.id : undefined;
 
     const last = words.length - 1;
     const tokens: WordOrderToken[] = words.map((text, id) => ({
@@ -640,7 +1063,39 @@ export function buildSentenceRound(
       sentence: words.join(' ') + (template.punct ?? ''),
       tokens,
       shuffled,
+      attemptId,
     });
+  }
+  return out;
+}
+
+/** A full sentence to type out from its English gloss (the sentence typing apex). */
+export interface SentenceSpellingQuestion {
+  /** English gloss shown as the prompt (the child produces the Finnish from this). */
+  gloss: string;
+  /** The full Finnish sentence to type, trailing punctuation included. */
+  text: string;
+}
+
+export function buildSentenceSpellingRound(
+  templates: readonly SentenceConstruction[],
+  pools: SentencePools,
+  questionCount: number,
+  maxTier: Tier = 4,
+): SentenceSpellingQuestion[] {
+  const byTier = templates.filter((t) => t.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : templates;
+  if (allowed.length === 0) return [];
+
+  const out: SentenceSpellingQuestion[] = [];
+  let guard = 0;
+  while (out.length < questionCount && guard++ < questionCount * 8) {
+    const template = sample(allowed, 1)[0];
+    if (!template) break;
+    const resolved = resolveSentence(template, pools);
+    if (!resolved) continue;
+    const { words, gloss } = resolved;
+    out.push({ gloss, text: words.join(' ') + (template.punct ?? '') });
   }
   return out;
 }

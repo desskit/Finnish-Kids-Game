@@ -41,6 +41,13 @@
         "instructive_plural": "laatikoin",
         "comitative_plural": "laatikkoineen"
       },
+      "english": {
+        "plural": "boxes"
+      },
+      "tags": [
+        "surface",
+        "container"
+      ],
       "kotusType": 4,
       "group": "o_oe",
       "frequencyRank": 4326,
@@ -88,6 +95,12 @@
         "instructive_plural": "pöydin",
         "comitative_plural": "pöytineen"
       },
+      "english": {
+        "plural": "tables"
+      },
+      "tags": [
+        "surface"
+      ],
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 3030,
@@ -135,6 +148,12 @@
         "instructive_plural": "taloin",
         "comitative_plural": "taloineen"
       },
+      "english": {
+        "plural": "houses"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 896,
@@ -182,6 +201,12 @@
         "instructive_plural": "huonein",
         "comitative_plural": "huoneineen"
       },
+      "english": {
+        "plural": "rooms"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 48,
       "group": "other_cons",
       "frequencyRank": 1420,
@@ -229,6 +254,13 @@
         "instructive_plural": "autoin",
         "comitative_plural": "autoineen"
       },
+      "english": {
+        "plural": "cars"
+      },
+      "tags": [
+        "surface",
+        "container"
+      ],
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 526,
@@ -276,6 +308,13 @@
         "instructive_plural": "sängyin",
         "comitative_plural": "sänkyineen"
       },
+      "english": {
+        "plural": "beds"
+      },
+      "tags": [
+        "surface",
+        "container"
+      ],
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 1927,
@@ -323,6 +362,12 @@
         "instructive_plural": "tuolein",
         "comitative_plural": "tuoleineen"
       },
+      "english": {
+        "plural": "chairs"
+      },
+      "tags": [
+        "surface"
+      ],
       "kotusType": 5,
       "group": "i_new",
       "frequencyRank": 6562,
@@ -370,6 +415,12 @@
         "instructive_plural": "kouluin",
         "comitative_plural": "kouluineen"
       },
+      "english": {
+        "plural": "schools"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 1395,
@@ -417,6 +468,12 @@
         "instructive_plural": "puin",
         "comitative_plural": "puineen"
       },
+      "english": {
+        "plural": "trees"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 18,
       "group": "long_vowel",
       "frequencyRank": 4502,
@@ -464,6 +521,12 @@
         "instructive_plural": "metsin",
         "comitative_plural": "metsineen"
       },
+      "english": {
+        "plural": "forests"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 10,
       "group": "a_ae",
       "frequencyRank": 3093,
@@ -511,6 +574,13 @@
         "instructive_plural": "korein",
         "comitative_plural": "koreineen"
       },
+      "english": {
+        "plural": "baskets"
+      },
+      "tags": [
+        "surface",
+        "container"
+      ],
       "kotusType": 5,
       "group": "i_new",
       "frequencyRank": 18444,
@@ -558,6 +628,12 @@
         "instructive_plural": "laukuin",
         "comitative_plural": "laukkuineen"
       },
+      "english": {
+        "plural": "bags"
+      },
+      "tags": [
+        "container"
+      ],
       "kotusType": 1,
       "group": "o_oe",
       "frequencyRank": 4882,

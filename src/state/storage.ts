@@ -57,6 +57,14 @@ export interface Child {
   progress: Progress;
   /** Per-item spaced-repetition schedules (attempts + due dates). */
   srs: SrsState;
+  /**
+   * Local calendar day of the most recent finished round, e.g. "2026-07-09".
+   * Optional + unbackfilled so older stored profiles round-trip unchanged
+   * (readers treat missing as "never played"). See `src/game/streak.ts`.
+   */
+  lastPlayedDay?: string;
+  /** Consecutive days practiced, including today. Optional (see lastPlayedDay). */
+  streakDays?: number;
 }
 
 export interface Settings {
@@ -64,6 +72,13 @@ export interface Settings {
   muted: boolean;
   /** Force reduced motion even if the OS doesn't request it. */
   reducedMotion: boolean;
+  /**
+   * Allow the microphone-based speaking game ("Sano se"). Default on where the
+   * browser supports recognition; a grown-up can switch it off here. Optional +
+   * unbackfilled so older stored settings round-trip (readers treat missing as
+   * enabled — see DEFAULT_SETTINGS).
+   */
+  speakingEnabled?: boolean;
 }
 
 export interface ProfilesData {
@@ -73,7 +88,11 @@ export interface ProfilesData {
   settings: Settings;
 }
 
-export const DEFAULT_SETTINGS: Settings = { muted: false, reducedMotion: false };
+export const DEFAULT_SETTINGS: Settings = {
+  muted: false,
+  reducedMotion: false,
+  speakingEnabled: true,
+};
 
 /** Avatar palette offered when adding a child. */
 export const AVATARS = [
@@ -83,6 +102,33 @@ export const AVATARS = [
 
 export function emptyProfiles(): ProfilesData {
   return { version: 2, children: [], activeId: null, settings: { ...DEFAULT_SETTINGS } };
+}
+
+/**
+ * A throwaway in-memory profile for the grown-up Audit harness: one dummy child
+ * so the real games can run and record stars/SRS WITHOUT ever touching the
+ * family's saved profiles. Used with `<ProfileProvider ephemeral>` (which never
+ * persists), so nothing here reaches localStorage.
+ */
+export function sandboxProfiles(): ProfilesData {
+  return {
+    version: 2,
+    children: [
+      {
+        id: 'audit-sandbox',
+        name: 'Audit',
+        avatar: '🧪',
+        level: 1,
+        adaptive: true,
+        stars: 0,
+        createdAt: 0,
+        progress: {},
+        srs: {},
+      },
+    ],
+    activeId: 'audit-sandbox',
+    settings: { ...DEFAULT_SETTINGS },
+  };
 }
 
 export function newId(): string {

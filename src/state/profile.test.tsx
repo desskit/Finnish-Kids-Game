@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { ProfileProvider, useProfile } from './profile';
 import { localProfileStore } from './storage';
+import { dayKey } from '../game/streak';
 
 function renderProfile() {
   return renderHook(() => useProfile(), { wrapper: ProfileProvider });
@@ -138,6 +139,27 @@ describe('ProfileProvider / useProfile', () => {
     });
   });
 
+  it('recordRound starts a daily-practice streak on the active child', () => {
+    const { result } = renderProfile();
+    act(() => {
+      result.current.addChild('Aino');
+    });
+    expect(result.current.activeChild?.streakDays).toBeUndefined();
+
+    act(() => {
+      result.current.recordRound('animals', 'listen', 6, 6);
+    });
+    // First play today: streak of 1, dated to today.
+    expect(result.current.activeChild?.streakDays).toBe(1);
+    expect(result.current.activeChild?.lastPlayedDay).toBe(dayKey(Date.now()));
+
+    // Another round the same day doesn't inflate the count.
+    act(() => {
+      result.current.recordRound('animals', 'listen', 6, 6);
+    });
+    expect(result.current.activeChild?.streakDays).toBe(1);
+  });
+
   it('recordAttempt builds per-item SRS state on the active child', () => {
     const { result } = renderProfile();
     act(() => {
@@ -163,7 +185,11 @@ describe('ProfileProvider / useProfile', () => {
     act(() => {
       result.current.updateSettings({ muted: true });
     });
-    expect(result.current.settings).toEqual({ muted: true, reducedMotion: false });
+    expect(result.current.settings).toEqual({
+      muted: true,
+      reducedMotion: false,
+      speakingEnabled: true,
+    });
   });
 
   it('resetAll clears every child and settings back to defaults', () => {
@@ -177,6 +203,10 @@ describe('ProfileProvider / useProfile', () => {
     });
     expect(result.current.children).toEqual([]);
     expect(result.current.activeId).toBeNull();
-    expect(result.current.settings).toEqual({ muted: false, reducedMotion: false });
+    expect(result.current.settings).toEqual({
+      muted: false,
+      reducedMotion: false,
+      speakingEnabled: true,
+    });
   });
 });

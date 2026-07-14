@@ -39,10 +39,15 @@ vi.mock('../game/round', () => ({
       options: [fx.ITEM, fx.OTHER, fx.FILLER],
     })),
 }));
-vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('../audio/speak', () => ({
+  speak: vi.fn(),
+  speakEnglish: vi.fn(),
+  isSpeechAvailable: () => true,
+}));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import BuildAPhrase from './BuildAPhrase';
+import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 function seedChild() {
@@ -77,7 +82,10 @@ function renderActivity() {
   );
 }
 
-const correctTile = () => screen.getByText('kissa').closest('button') as HTMLButtonElement;
+// 'kissa' can also appear in the filled phrase-slot once chosen, so scope
+// the lookup to the tile tray.
+const correctTile = () =>
+  screen.getByText('kissa', { selector: '.word-tiles *' }).closest('button') as HTMLButtonElement;
 const wrongTile = () => screen.getByText('koira').closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
@@ -103,13 +111,33 @@ describe('BuildAPhrase', () => {
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
   });
 
-  it('fills the slot, awards a star and advances on a correct tap', async () => {
+  it('narrates the English prompt (not Finnish) before an answer', async () => {
+    renderActivity();
+    await advance(1000); // past the auto-speak delay
+    expect(speak).not.toHaveBeenCalled();
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
+  });
+
+  it('offers a Listen button before an answer that replays English, not Finnish', () => {
+    renderActivity();
+    const btn = screen.getByRole('button', { name: /hear the prompt again/i });
+    vi.clearAllMocks();
+    fireEvent.click(btn);
+    expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
+    expect(speak).not.toHaveBeenCalled();
+  });
+
+  it('fills the slot, awards a star, speaks the phrase, and advances on a correct tap', async () => {
     renderActivity();
     fireEvent.click(correctTile());
 
     expect(playDing).toHaveBeenCalledWith(true);
+    expect(speak).toHaveBeenCalledWith('Tämä on kissa.');
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
     expect(document.querySelector('.phrase-slot--filled')).not.toBeNull();
+    expect(correctTile().className).toContain('word-tile--correct');
+    // TTS is available for replay now that it's answered.
+    expect(screen.getByRole('button', { name: /hear the sentence again/i })).toBeInTheDocument();
 
     await advance(1200);
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();
@@ -127,14 +155,17 @@ describe('BuildAPhrase', () => {
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
   });
 
-  it('reaches RoundComplete with full marks after the whole round', async () => {
+  it('rolls straight into a fresh round after the last question — no interstitial', async () => {
     renderActivity();
     for (let q = 0; q < 6; q++) {
       fireEvent.click(correctTile());
       await advance(1200);
     }
-    expect(screen.getByText(/Great job/i)).toBeInTheDocument();
-    expect(screen.getByText(/6\s*\/\s*6/)).toBeInTheDocument();
+    // Endless play: no celebration screen, the next question is just there
+    // (standalone fallback restarts the component's own round).
+    expect(screen.queryByText(/Great job/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
     expect(screen.getByTestId('stars')).toHaveTextContent('6');
   });
 });

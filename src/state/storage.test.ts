@@ -20,7 +20,7 @@ describe('emptyProfiles', () => {
     expect(e.version).toBe(2);
     expect(e.children).toEqual([]);
     expect(e.activeId).toBeNull();
-    expect(e.settings).toEqual({ muted: false, reducedMotion: false });
+    expect(e.settings).toEqual({ muted: false, reducedMotion: false, speakingEnabled: true });
   });
 
   it('returns a fresh settings object each call (no shared mutation)', () => {
@@ -57,7 +57,7 @@ describe('localProfileStore', () => {
         },
       ],
       activeId: 'a',
-      settings: { muted: true, reducedMotion: false },
+      settings: { muted: true, reducedMotion: false, speakingEnabled: true },
     };
     localProfileStore.save(data);
     expect(localProfileStore.load()).toEqual(data);
@@ -134,6 +134,7 @@ describe('localProfileStore', () => {
     expect(localProfileStore.load().settings).toEqual({
       muted: false,
       reducedMotion: false,
+      speakingEnabled: true,
     });
   });
 });

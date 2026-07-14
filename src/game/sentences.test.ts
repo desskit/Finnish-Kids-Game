@@ -1,13 +1,24 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildSentenceRound,
+  buildSentenceSpellingRound,
   resolveSentence,
   resolveSentenceWords,
   type SentencePools,
 } from './round';
 import type { LexicalItem, SentenceConstruction } from '../content/types';
 import { sentenceConstructions } from '../content/sentences';
-import { animals, food, family, places, adjectives, verbs } from '../content';
+import {
+  animals,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+  adjectives,
+  verbs,
+} from '../content';
 
 // The multi-slot sentence system. These fixtures (fake words, isolated from the
 // real data) prove the plumbing: every slot form is looked up, agreement is
@@ -82,13 +93,33 @@ describe('multi-slot sentences (plumbed)', () => {
     expect(q.tokens.map((t) => t.text)).toEqual(['minä', 'annan', 'koiralle', 'luun.']);
     expect(q.shuffled).toHaveLength(4);
   });
+
+  it('builds a typeable sentence-spelling round from the same templates', () => {
+    const round = buildSentenceSpellingRound([giveTemplate], pools, 3);
+    expect(round.length).toBeGreaterThan(0);
+    const q = round[0];
+    expect(q.text).toBe('minä annan koiralle luun.');
+    expect(q.gloss).toBe('I give the dog a bone.');
+  });
+
+  it('produces no sentence-spelling rounds from an empty template set', () => {
+    expect(buildSentenceSpellingRound([], pools, 6)).toEqual([]);
+  });
 });
 
 // The real authored content, resolved against the real sourced data. Every swap
 // candidate must produce a fully-resolvable, correctly-inflected sentence whose
 // English hint tracks the picked noun — that's the whole human-vetted contract.
 const realPools: SentencePools = {
-  nouns: [...animals.items, ...food.items, ...family.items, ...places.items],
+  nouns: [
+    ...animals.items,
+    ...food.items,
+    ...family.items,
+    ...places.items,
+    ...body.items,
+    ...nature.items,
+    ...clothes.items,
+  ],
   verbs: verbs.items,
   adjectives: adjectives.items,
   numbers: [],
@@ -106,12 +137,12 @@ function pin(template: SentenceConstruction, id: string): SentenceConstruction {
 }
 
 describe('authored sentence templates (real sourced data)', () => {
-  it('ships a non-empty, uniquely-id’d registry covering tiers 5–7', () => {
+  it('ships a non-empty, uniquely-id’d registry covering tiers 5–8', () => {
     expect(sentenceConstructions.length).toBeGreaterThan(0);
     const ids = sentenceConstructions.map((t) => t.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const t of sentenceConstructions) {
-      expect([5, 6, 7]).toContain(t.tier);
+      expect([5, 6, 7, 8]).toContain(t.tier);
     }
   });
 
@@ -153,6 +184,15 @@ describe('authored sentence templates (real sourced data)', () => {
       for (const q of round) {
         expect(q.sentence).not.toMatch(/juoksee/);
       }
+    }
+  });
+
+  it('resolves the typing apex round from the real authored templates too', () => {
+    const round = buildSentenceSpellingRound(sentenceConstructions, realPools, 6, 8);
+    expect(round.length).toBeGreaterThan(0);
+    for (const q of round) {
+      expect(q.text.length).toBeGreaterThan(0);
+      expect(q.gloss).not.toMatch(/[{}]/);
     }
   });
 });

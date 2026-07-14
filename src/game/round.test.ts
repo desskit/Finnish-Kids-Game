@@ -3,13 +3,34 @@ import {
   buildListenRound,
   buildPhraseRound,
   buildSpellingRound,
+  buildSpellingPhraseRound,
   buildWordOrderRound,
   buildCountingRound,
   buildAgreementRound,
   buildConjugationRound,
   buildReviewRound,
+  buildComprehensionRound,
+  buildSayRound,
+  buildDialogueRound,
+  buildConversation,
+  buildReadingRound,
 } from './round';
-import { animals, numbers, adjectives, verbs } from '../content';
+import { dialogues } from '../content/dialogues';
+import { conversations } from '../content/conversations';
+import { kidSafeExamples } from '../content/examples';
+import {
+  animals,
+  numbers,
+  adjectives,
+  verbs,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+} from '../content';
+import { nounConstructions } from '../content/constructions';
 import { formFor } from '../content/types';
 
 // Round builders are random, so each invariant is checked over many runs. They
@@ -151,6 +172,179 @@ describe('buildReviewRound', () => {
   });
 });
 
+describe('buildComprehensionRound', () => {
+  it('produces a full sentence, the answer item, and distinct picture options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildComprehensionRound(animals.items, nounConstructions, 6, 3, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // A real multi-word carrier sentence (a random eligible construction
+        // filled with the answer item).
+        expect(q.sentence.split(' ').length).toBeGreaterThan(1);
+        expect(q.sentence.length).toBeGreaterThan(0);
+        // The answer is present exactly once; options are distinct + picturable.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('never uses an emoji-less item as a tile', () => {
+    // verbs include emoji-less abstract ones (olla, saada…); they must be filtered.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildComprehensionRound(verbs.items, nounConstructions, 6, 4, 8)) {
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('tier-gates the constructions it draws from', () => {
+    // At maxTier 2 only tier-2 carriers (this-is, where-is, i-have, …) are
+    // eligible, so the tier-3 partitive negation "en näe" can never appear.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildComprehensionRound(animals.items, nounConstructions, 6, 3, 2)) {
+        expect(q.sentence).not.toMatch(/\bei\b/);
+      }
+    }
+  });
+});
+
+describe('buildSayRound', () => {
+  it('says bare words when no constructions are given', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildSayRound(animals.items, [], 6, 4);
+      expect(round.length).toBe(Math.min(6, animals.items.length));
+      for (const q of round) {
+        // The target is a single sourced word matching a real item.
+        const item = animals.items.find((i) => i.id === q.attemptId)!;
+        expect(item).toBeTruthy();
+        expect(q.say).toBe(item.fi);
+        expect(q.gloss).toBe(item.en);
+        expect(q.emoji).toBe(item.emoji);
+      }
+    }
+  });
+
+  it('says full carrier phrases when constructions are given', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildSayRound(animals.items, nounConstructions, 6, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.say.split(' ').length).toBeGreaterThan(1); // a phrase, not a word
+        expect(q.gloss.length).toBeGreaterThan(0);
+        expect(q.attemptId).toBeTruthy();
+      }
+    }
+  });
+
+  it('tier-gates the phrases it draws from', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildSayRound(animals.items, nounConstructions, 6, 2)) {
+        expect(q.say).not.toMatch(/\bei\b/); // no tier-3 negation at maxTier 2
+      }
+    }
+  });
+
+  it('caps the spoken tier so speaking never asks for the written apexes', () => {
+    // Sanity: the pool DOES contain harder carriers, so the cap is meaningful.
+    expect(nounConstructions.some((c) => c.tier > 3 && c.before === 'Ostan')).toBe(true);
+    for (let r = 0; r < RUNS; r++) {
+      // Even at the engine's top tier, the child only says simple frames —
+      // the tier-5/6 carriers (buy, wait-for, plural predicatives) never surface.
+      for (const q of buildSayRound(animals.items, nounConstructions, 6, 8)) {
+        expect(q.say).not.toMatch(/^(Ostan|Odotan|Nämä ovat|Missä ovat)\b/);
+      }
+    }
+  });
+});
+
+describe('buildReadingRound', () => {
+  it('pairs a real kid-safe example with the pictured item + distinct options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildReadingRound(animals.items, 6, 3);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // The sentence is one of the item's own kid-safe examples.
+        expect(kidSafeExamples(q.item).map((e) => e.fi)).toContain(q.sentence.fi);
+        expect(q.sentence.en).toBeTruthy();
+        // Answer present once; options distinct + picturable.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+  });
+
+  it('only ever asks about items that actually have a safe example', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildReadingRound(animals.items, 6, 3)) {
+        expect(kidSafeExamples(q.item).length).toBeGreaterThan(0);
+      }
+    }
+  });
+});
+
+describe('buildDialogueRound', () => {
+  it('keeps the right reply present with distinct, real options', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildDialogueRound(dialogues, 6, 3, 8);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.options).toHaveLength(3);
+        expect(q.options.filter((o) => o.fi === q.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(q.options.map((o) => o.fi)).size).toBe(q.options.length); // distinct
+        // Every option is a real authored reply/distractor (has fi + en).
+        q.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('tier-gates harder exchanges out of a low-tier round', () => {
+    // At maxTier 1 only the simplest greetings play — the tier-2 "name/age"
+    // exchanges must never appear.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, 6, 3, 1)) {
+        expect(q.prompt.fi).not.toMatch(/nimesi|vanha/);
+      }
+    }
+  });
+});
+
+describe('buildConversation', () => {
+  it('returns one tier-gated scene with per-turn distinct options and the reply present', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const scene = buildConversation(conversations, 3, 4)!;
+      expect(scene).not.toBeNull();
+      expect(scene.turns.length).toBeGreaterThanOrEqual(2);
+      expect(scene.titleFi).toBeTruthy();
+      expect(scene.partnerIcon).toBeTruthy();
+      for (const t of scene.turns) {
+        expect(t.options).toHaveLength(3);
+        expect(t.options.filter((o) => o.fi === t.reply.fi)).toHaveLength(1); // answer present once
+        expect(new Set(t.options.map((o) => o.fi)).size).toBe(t.options.length); // distinct
+        t.options.forEach((o) => {
+          expect(o.fi).toBeTruthy();
+          expect(o.en).toBeTruthy();
+        });
+      }
+    }
+  });
+
+  it('falls back to a scene even when no tier qualifies (a low-level child still plays)', () => {
+    // Both authored scenes are tier 3–4; at maxTier 2 it still hands one back.
+    const scene = buildConversation(conversations, 3, 2);
+    expect(scene).not.toBeNull();
+  });
+
+  it('returns null only when there are no scenes at all', () => {
+    expect(buildConversation([], 3, 4)).toBeNull();
+  });
+});
+
 describe('buildConjugationRound', () => {
   it('offers one correct conjugation with a matching clause', () => {
     let produced = 0;
@@ -198,5 +392,172 @@ describe('tier gating never empties a curated construction set', () => {
     const round = buildPhraseRound(animals.items, iLike, 6, 3, 2);
     expect(round.length).toBeGreaterThan(0);
     for (const q of round) expect(q.construction.id).toBe('i-like');
+  });
+});
+
+describe('semantic gating (suitsSlot) in the pairing builders', () => {
+  // The capstones mix ALL topics into ALL constructions — the gate is what
+  // stops "Kissa menee äitiin" (the cat goes into mom). Locative carriers are
+  // topics:['places']; possession excludes the unownables (sky, sea, …).
+  const LOCATIVES = ['on-it', 'in-it', 'into-it', 'onto-it', 'out-of-it', 'off-it', 'in-them'];
+  const MIXED = [
+    ...animals.items,
+    ...food.items,
+    ...family.items,
+    ...places.items,
+    ...body.items,
+    ...nature.items,
+    ...clothes.items,
+  ];
+
+  it('never pairs a locative carrier with a non-place word (order + build + spell)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildWordOrderRound(MIXED, nounConstructions, 6, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) expect(q.item.topic).toBe('places');
+      }
+      for (const q of buildPhraseRound(MIXED, nounConstructions, 6, 4, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) {
+          expect(q.item.topic).toBe('places');
+          for (const o of q.options) expect(o.topic).toBe('places');
+        }
+      }
+      for (const q of buildSpellingPhraseRound(MIXED, nounConstructions, 6, 8)) {
+        if (LOCATIVES.includes(q.construction.id)) expect(q.item.topic).toBe('places');
+      }
+    }
+  });
+
+  it('never claims to own the sky (possession excludes unownables)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildPhraseRound(MIXED, nounConstructions, 6, 4, 8)) {
+        if (q.construction.id.includes('have')) {
+          expect(['sky', 'sea', 'rain', 'sun', 'moon']).not.toContain(q.item.id);
+        }
+      }
+    }
+  });
+
+  it('matches the locative CASE to the place’s shape TAG (no "on the room")', () => {
+    // Surface cases (on/onto/off) only take words tagged 'surface'; container
+    // cases (in/into/out-of) only take words tagged 'container'. A place tagged
+    // BOTH (box, bed, car, basket) is allowed in either. Checked over build+order.
+    const SURFACE_CASES = ['on-it', 'onto-it', 'off-it'];
+    const CONTAINER_CASES = ['in-it', 'into-it', 'out-of-it', 'in-them'];
+    for (let r = 0; r < RUNS; r++) {
+      const rounds = [
+        ...buildPhraseRound(MIXED, nounConstructions, 6, 4, 8),
+        ...buildWordOrderRound(MIXED, nounConstructions, 6, 8),
+      ];
+      for (const q of rounds) {
+        if (SURFACE_CASES.includes(q.construction.id)) {
+          expect(q.item.tags, `${q.item.id} in ${q.construction.id}`).toContain('surface');
+        }
+        if (CONTAINER_CASES.includes(q.construction.id)) {
+          expect(q.item.tags, `${q.item.id} in ${q.construction.id}`).toContain('container');
+        }
+      }
+    }
+  });
+
+  it('lets a BOTH-tagged place (car) play in surface AND container cases', () => {
+    // The point of tags over exclude-lists: car is on-top-able and in-able.
+    const car = places.items.find((i) => i.id === 'car')!;
+    expect(car.tags).toEqual(expect.arrayContaining(['surface', 'container']));
+  });
+});
+
+describe('adjective + noun pairings make sense (agreement game)', () => {
+  it('only pairs animate-only adjectives with living things', () => {
+    const ANIMATE_ONLY = ['happy', 'tired', 'hungry', 'cute', 'kind'];
+    // Non-animate nouns (clothes) must never draw an animate-only adjective.
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, clothes.items, 6, 3)) {
+        expect(ANIMATE_ONLY).not.toContain(q.adjective.id);
+      }
+    }
+    // Animals CAN (so the animate adjectives still get used somewhere).
+    const usedOnAnimals = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 3)) {
+        usedOnAnimals.add(q.adjective.id);
+      }
+    }
+    expect(ANIMATE_ONLY.some((id) => usedOnAnimals.has(id))).toBe(true);
+  });
+});
+
+describe('tricky distractors (the L4+ near-miss lever)', () => {
+  it('clusters counting distractors within ±2 of the true count', () => {
+    for (let r = 0; r < RUNS; r++) {
+      // maxCount 10 keeps plenty of counts available on both sides.
+      for (const q of buildCountingRound(numbers.items, animals.items, 6, 3, 10, true)) {
+        for (const opt of q.numberOptions) {
+          if (opt.id === q.number.id) continue;
+          expect(
+            Math.abs((opt.value ?? 0) - (q.number.value ?? 0)),
+            `count ${opt.value} too far from ${q.number.value}`,
+          ).toBeLessThanOrEqual(2);
+        }
+      }
+    }
+  });
+
+  it('slips a DIFFERENT verb of the same person into conjugation rounds', () => {
+    let foreignSeen = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildConjugationRound(verbs.items, 6, 4, undefined, true)) {
+        // Exactly one correct answer, all forms distinct.
+        expect(q.options.filter((o) => o.correct)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.form)).size).toBe(q.options.length);
+        // The foreign tile shares the target's person but not its form.
+        const foreign = q.options.filter((o) => o.person === q.person && !o.correct);
+        foreignSeen += foreign.length;
+        expect(foreign.length).toBeLessThanOrEqual(1);
+      }
+    }
+    expect(foreignSeen).toBeGreaterThan(0);
+  });
+
+  it('mixes a wrong-NUMBER form of the target case into agreement rounds', () => {
+    let wrongNumberSeen = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 4, 'singular', 7, true)) {
+        expect(q.options.filter((o) => o.correct)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.form)).size).toBe(q.options.length);
+        wrongNumberSeen += q.options.filter((o) => o.num === 'plural').length;
+      }
+    }
+    expect(wrongNumberSeen).toBeGreaterThan(0);
+  });
+});
+
+describe('the MatchTheWord case ramp (maxCases)', () => {
+  it('confines low-level questions to the first cases of the ordered list', () => {
+    // maxCases 3 (floored at optionCount 3) = nominative/genitive/partitive.
+    const EARLY = ['nominative', 'genitive', 'partitive'];
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 3, 'singular', 3)) {
+        expect(EARLY).toContain(q.case);
+        for (const o of q.options) expect(EARLY).toContain(o.caseId);
+      }
+    }
+  });
+});
+
+describe('familiarity weighting (weigh) in target selection', () => {
+  it('biases listen targets toward seen words without excluding unseen ones', () => {
+    // Weigh one specific animal very heavily: it should appear as a target in
+    // nearly every round, while other words still show up too.
+    const heavy = animals.items[0].id;
+    const weigh = (i: { id: string }) => (i.id === heavy ? 1000 : 1);
+    let heavyRounds = 0;
+    const others = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildListenRound(animals.items, 3, 3, false, weigh);
+      if (round.some((q) => q.target.id === heavy)) heavyRounds++;
+      for (const q of round) if (q.target.id !== heavy) others.add(q.target.id);
+    }
+    expect(heavyRounds).toBeGreaterThan(RUNS * 0.9); // ~always drawn
+    expect(others.size).toBeGreaterThan(0); // nothing is ever excluded
   });
 });

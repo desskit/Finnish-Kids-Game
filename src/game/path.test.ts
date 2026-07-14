@@ -9,6 +9,7 @@ import {
   activityForLevel,
   activitiesUpTo,
   activityForRound,
+  isSpeakable,
   badgeEnv,
 } from './path';
 
@@ -90,19 +91,24 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
-  it('caps the conjugation node at depth 4, swapping into a second game at the apex', () => {
+  it('deepens the conjugation node to 6, swapping in a second game mid-ladder', () => {
     const { skill } = findSkill('conjugate')!;
-    expect(skill.maxLevel).toBe(4);
+    expect(skill.maxLevel).toBe(6);
     // The kid keyboard has no space key, so multi-word negatives ("en syö")
     // can't be a typing apex — verb conjugation stays recognition through
-    // L1-3, then L4 swaps to `match` as this node's "different game" step.
+    // L1-3, L4 mixes in `match` as the "different game" step, and L5–6 return
+    // to conjugation hardened by tricky foreign-verb distractors over the
+    // full ~50-verb pool.
     expect(activityForLevel(skill, 1)).toBe('conjugate');
     expect(activityForLevel(skill, 3)).toBe('conjugate');
     expect(activityForLevel(skill, 4)).toBe('match');
-    expect(activityForLevel(skill, 8)).toBe('match');
+    expect(activityForLevel(skill, 5)).toBe('conjugate');
+    expect(activityForLevel(skill, 8)).toBe('conjugate');
   });
 
-  it('gives every listening warm-up a third-level swap into Describe it', () => {
+  it('ramps every listening warm-up through the full retrieval spectrum', () => {
+    // Recognition (listen) → production recall (name) → sentence comprehension
+    // (listen-sentence) → agreement (match). Numbers skip listen-sentence.
     for (const id of [
       'listen-animals',
       'listen-food',
@@ -110,13 +116,17 @@ describe('learning path', () => {
       'listen-body',
       'listen-nature',
       'listen-clothes',
-      'listen-numbers',
     ]) {
       const { skill } = findSkill(id)!;
       expect(activityForLevel(skill, 1)).toBe('listen');
       expect(activityForLevel(skill, 2)).toBe('listen');
-      expect(activityForLevel(skill, 3)).toBe('match');
+      expect(activityForLevel(skill, 3)).toBe('name');
+      expect(activityForLevel(skill, 4)).toBe('listen-sentence');
+      expect(activityForLevel(skill, 5)).toBe('match');
     }
+    const numbers = findSkill('listen-numbers')!.skill;
+    expect(activityForLevel(numbers, 3)).toBe('name');
+    expect(activityForLevel(numbers, 4)).toBe('match');
   });
 
   it('ramps postpositions recognize → assemble → type, same as the other shallow nodes', () => {
@@ -166,7 +176,9 @@ describe('learning path', () => {
     expect(badgeEnv.activityIds).not.toContain('review');
   });
 
-  it('caps the listening warm-ups at depth 3 (the option-tile curve flattens by then)', () => {
+  it('gives the listening warm-ups depth from their retrieval-spectrum ramps', () => {
+    // Noun warm-ups climb through 5 game types; numbers stop one rung shorter
+    // (no listen-sentence). Depth here is new game TYPES, not more option tiles.
     for (const id of [
       'listen-animals',
       'listen-food',
@@ -174,19 +186,19 @@ describe('learning path', () => {
       'listen-body',
       'listen-nature',
       'listen-clothes',
-      'listen-numbers',
     ]) {
-      expect(findSkill(id)?.skill.maxLevel).toBe(3);
+      expect(findSkill(id)?.skill.maxLevel).toBe(5);
     }
+    expect(findSkill('listen-numbers')?.skill.maxLevel).toBe(4);
   });
 
   it('lets Count & Say ride the full engine depth (bigger counts all the way to 20)', () => {
     expect(findSkill('count')?.skill.maxLevel).toBe(8);
   });
 
-  it('caps Describe it and Conjugate the Verb at the default depth (no further sourced grammar)', () => {
+  it('caps Describe it at the default depth; Conjugate rides tricky distractors to 6', () => {
     expect(findSkill('match')?.skill.maxLevel).toBe(4);
-    expect(findSkill('conjugate')?.skill.maxLevel).toBe(4);
+    expect(findSkill('conjugate')?.skill.maxLevel).toBe(6);
   });
 
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
@@ -221,13 +233,13 @@ describe('learning path', () => {
   });
 
   it('keeps a low-level node gentle — variety appears only as the child climbs', () => {
-    const { skill } = findSkill('listen-animals')!; // listen, listen, match
+    const { skill } = findSkill('listen-animals')!; // listen, listen, name, listen-sentence, match
     // Level 1: still just listening (no variety yet — "visible early" not "instant").
     expect(activityForRound(skill, 1, 0)).toBe('listen');
     expect(activityForRound(skill, 1, 1)).toBe('listen');
-    // Level 3 unlocks the second game; the session now alternates.
+    // Level 3 unlocks the second game (name); the session now alternates.
     expect(new Set([0, 1].map((n) => activityForRound(skill, 3, n)))).toEqual(
-      new Set(['listen', 'match']),
+      new Set(['listen', 'name']),
     );
   });
 
@@ -235,13 +247,38 @@ describe('learning path', () => {
     for (const id of ['listen-body', 'listen-nature', 'listen-clothes']) {
       const found = findSkill(id)!;
       expect(found.chapter.id).toBe('first-words');
-      expect(found.skill.maxLevel).toBe(3);
+      expect(found.skill.maxLevel).toBe(5);
       // The node renders a real listening round (its pool resolved to items).
       const el = renderSkill(found.skill, 1, () => {});
       const items = (el!.props as { items?: unknown[] }).items;
       expect(items, `${id} round has no items`).toBeTruthy();
       expect(items!.length).toBeGreaterThan(0);
     }
+  });
+
+  it('adds a Places vocab node in chapter 1, with every place emoji-backed', () => {
+    const found = findSkill('listen-places')!;
+    expect(found.chapter.id).toBe('first-words');
+    expect(found.skill.activity).toBe('listen');
+    const el = renderSkill(found.skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string }[] }).items!;
+    expect(items.length).toBeGreaterThan(0);
+    // Picture-recognition needs every place to have an emoji card.
+    expect(items.every((i) => !!i.emoji)).toBe(true);
+  });
+
+  it('adds a plural These-are/Where-are node in the naming chapter', () => {
+    const found = findSkill('plurals')!;
+    expect(found.chapter.id).toBe('naming');
+    expect(found.skill.content.constructionIds).toEqual(['these-are', 'where-are']);
+    expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
+  });
+
+  it('adds an I-wait-for node (partitive rection) in the likes chapter', () => {
+    const found = findSkill('i-wait-for')!;
+    expect(found.chapter.id).toBe('likes');
+    expect(found.skill.content.constructionIds).toEqual(['i-wait-for']);
+    expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
   });
 
   it('folds the new themes into the mixed noun pool the capstones draw on', () => {
@@ -257,11 +294,135 @@ describe('learning path', () => {
     expect(ids.has('shirt')).toBe(true); // clothes
   });
 
+  it('adds the listen-verbs warm-up to the Actions chapter over picturable verbs', () => {
+    const found = findSkill('listen-verbs')!;
+    expect(found.chapter.id).toBe('actions');
+    expect(found.skill.maxLevel).toBe(3);
+    // Renders a real round: the pool resolved to (emoji-bearing) verbs.
+    const el = renderSkill(found.skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string }[] }).items ?? [];
+    expect(items.length).toBeGreaterThan(0);
+    for (const i of items) expect(i.emoji).toBeTruthy();
+    // Its L3 swap is a conjugation taste (verbs can't play the agreement game).
+    expect(activityForLevel(found.skill, 3)).toBe('conjugate');
+  });
+
   it('renderActivity maps a concrete activity kind to a game element', () => {
     const { skill } = findSkill('this-is')!;
     expect(renderActivity(skill, 'build', () => {})).not.toBeNull();
     expect(renderActivity(skill, 'spell', () => {})).not.toBeNull();
     expect(renderActivity(findSkill('review')!.skill, 'review', () => {})).toBeNull();
+  });
+
+  it('renders the new production/comprehension warm-up activities', () => {
+    // renderSkill only ever picks round 0 (= listen), so exercise the new kinds
+    // directly — both must map to a real game element over a warm-up pool.
+    const { skill } = findSkill('listen-animals')!;
+    expect(renderActivity(skill, 'name', () => {})).not.toBeNull();
+    expect(renderActivity(skill, 'listen-sentence', () => {})).not.toBeNull();
+    expect(renderActivity(skill, 'say', () => {})).not.toBeNull();
+    // A phrase node's `say` renders too (says the carrier phrase).
+    expect(renderActivity(findSkill('this-is')!.skill, 'say', () => {})).not.toBeNull();
+  });
+
+  it('the say game gets a STABLE constructions array across renders (no round-flash)', () => {
+    // A fresh `[]` each render would churn SayIt's round-memo deps and
+    // regenerate a different random round on every parent re-render (the flash).
+    const { skill } = findSkill('listen-animals')!;
+    const a = renderActivity(skill, 'say', () => {}) as { props: { constructions: unknown } };
+    const b = renderActivity(skill, 'say', () => {}) as { props: { constructions: unknown } };
+    expect(a.props.constructions).toBe(b.props.constructions);
+  });
+
+  it('marks EVERY content node speakable — only review is excluded', () => {
+    for (const id of [
+      'listen-animals', // vocab words
+      'this-is', // carrier phrases
+      'order', // phrase order capstone
+      'match', // agreement phrases ("iso kissa")
+      'conjugate', // verb clauses ("minä syön")
+      'count', // counting phrases ("kolme kissaa")
+      'reading', // read example sentences
+      'spell', // spelled words
+      'full-sentences', // full sentences (short ones)
+      'greetings', // dialogue replies
+      'small-talk', // conversation replies
+    ]) {
+      expect(isSpeakable(findSkill(id)!.skill), id).toBe(true);
+    }
+    // Review is cross-topic with no single spoken target.
+    expect(isSpeakable(findSkill('review')!.skill)).toBe(false);
+  });
+
+  it('renders a `say` game for grammar/phrase nodes too (each supplies its own targets)', () => {
+    for (const id of ['count', 'match', 'conjugate', 'this-is', 'reading', 'greetings', 'small-talk']) {
+      expect(renderActivity(findSkill(id)!.skill, 'say', () => {}), id).not.toBeNull();
+    }
+  });
+
+  it('folds `say` into every speakable node from level 2 up — only when speech is available', () => {
+    const listen = findSkill('listen-animals')!.skill;
+    // Pure default (no speech): rotation unchanged, never `say`.
+    expect([0, 1, 2, 3, 4, 5].map((n) => activityForRound(listen, 3, n))).not.toContain('say');
+    // Speech available: `say` joins the mix at level ≥ 2...
+    const withSpeech = new Set([0, 1, 2, 3, 4, 5, 6].map((n) => activityForRound(listen, 3, n, true)));
+    expect(withSpeech.has('say')).toBe(true);
+    // ...but level 1 stays gentle (single game, no speaking yet).
+    expect(activityForRound(listen, 1, 0, true)).toBe('listen');
+    expect([0, 1, 2].map((n) => activityForRound(listen, 1, n, true))).not.toContain('say');
+    // Now the GRAMMAR nodes get speaking too (conjugate: say "minä syön").
+    const conj = findSkill('conjugate')!.skill;
+    expect(new Set([0, 1, 2, 3, 4, 5, 6].map((n) => activityForRound(conj, 4, n, true))).has('say')).toBe(true);
+    // Review still never gets it.
+    const review = findSkill('review')!.skill;
+    expect([0, 1, 2, 3].map((n) => activityForRound(review, 4, n, true))).not.toContain('say');
+  });
+
+  it('adds a "Read a sentence" authentic-reading node to the capstone chapter', () => {
+    const found = findSkill('reading')!;
+    expect(found.skill.activity).toBe('reading');
+    const el = renderActivity(found.skill, 'reading', () => {});
+    expect(el).not.toBeNull();
+    // Draws from the mixed noun pool (default) — real items to picture.
+    const items = (el!.props as { items?: unknown[] }).items ?? [];
+    expect(items.length).toBeGreaterThan(0);
+  });
+
+  it('adds a Conversations chapter with a greetings dialogue node', () => {
+    const found = findSkill('greetings')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('dialogue');
+    // Five rungs: L1-4 climb the tiers (difficultyFor L4 → maxTier 4), then L5
+    // is the same content Finnish-only (the English gloss drops — see showsGloss).
+    expect(found.skill.maxLevel).toBe(5);
+    // Renders a real dialogue game (no items/constructions props — draws from
+    // the dialogue registry internally).
+    expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();
+  });
+
+  it('adds a Small talk node — the greetings pieces strung into a scene', () => {
+    const found = findSkill('small-talk')!;
+    expect(found.chapter.id).toBe('conversations');
+    expect(found.skill.activity).toBe('conversation');
+    // Greetings (the pairs) come before Small talk (the connected discourse).
+    const nodeIds = found.chapter.skills.map((s) => s.id);
+    expect(nodeIds).toEqual(['greetings', 'small-talk']);
+    // Renders a real conversation scene (draws from the conversation registry).
+    expect(renderActivity(found.skill, 'conversation', () => {})).not.toBeNull();
+  });
+
+  it('sequences chapters easy→hard, greetings front-loaded, locatives late', () => {
+    expect(PATH.map((c) => c.id)).toEqual([
+      'first-words',
+      'conversations',
+      'naming',
+      'likes',
+      'numbers-describe',
+      'actions',
+      'where',
+      'together',
+      'sentences',
+    ]);
   });
 
   it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
@@ -275,5 +436,18 @@ describe('learning path', () => {
     expect(node.id).toBe('full-sentences');
     expect(node.activity).toBe('sentence');
     expect(node.maxLevel).toBe(8);
+  });
+
+  it('adds a typing apex to Full sentences at the top levels, mixed with tile assembly', () => {
+    const { skill } = findSkill('full-sentences')!;
+    // Early levels stay tile-only (assembling is already hard at this tier).
+    expect(activitiesUpTo(skill, 1)).toEqual(['sentence']);
+    expect(activitiesUpTo(skill, 6)).toEqual(['sentence']);
+    // Level 7+ adds typing to the mix — it doesn't replace tile assembly.
+    expect(activitiesUpTo(skill, 7)).toEqual(['sentence', 'sentence-type']);
+    expect(activitiesUpTo(skill, 8)).toEqual(['sentence', 'sentence-type']);
+    // A session at max level rotates between the two rather than typing only.
+    expect(activityForRound(skill, 8, 0)).toBe('sentence');
+    expect(activityForRound(skill, 8, 1)).toBe('sentence-type');
   });
 });

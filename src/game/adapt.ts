@@ -14,6 +14,8 @@
 //   - verbCombos   : which verb tense/polarity sets Conjugate the Verb may draw
 //                    (present positive → + negative → + past), all from sourced
 //                    data — never generated.
+//   - tricky       : near-miss distractors instead of random unrelated words
+//   - maxCases     : how many agreement cases MatchTheWord rotates through
 //
 // The engine's ladder goes up to MAX_LEVEL, but most skill nodes cap below it
 // (`SkillNode.maxLevel`, see path.tsx) — depth is per-node, sized to how much
@@ -49,6 +51,47 @@ export interface Difficulty {
   maxTier: Tier;
   maxCount: number;
   verbCombos: VerbCombo[];
+  /**
+   * Near-miss distractors: wrong answers stop being random unrelated words and
+   * become confusable ones — same topic in the picture games, similar word
+   * shape in the phrase games, ±1/±2 in counting, another VERB's form in
+   * conjugation. Off through L3 (a young player needs winnable guesses),
+   * on from L4 up.
+   */
+  tricky: boolean;
+  /**
+   * How many agreement cases MatchTheWord rotates through (a prefix of its
+   * ordered case list): 3 at L1 → all 7 by L6+ (floored at optionCount so a
+   * question can always fill its tiles). The old behavior rotated all seven
+   * from level 1 — brutal for a starter, flat at the top.
+   */
+  maxCases: number;
+}
+
+/**
+ * The gentle per-question countdown DURATION (ms) for the picture-recognition
+ * games (Listen & Tap, Name it), tightening as the level climbs but clamped so
+ * it never gets frantic for a young child. This is only the duration — WHICH
+ * nodes get a timer, and from which level, is decided per node
+ * (`SkillNode.timerFromLevel`), since those starter games only reach the top of
+ * their own (low) ladders. NEVER punishing: on expiry the game nudges the
+ * correct tile and re-says the word (no star lost, no auto-fail); it only
+ * forfeits the first-try bonus, so waiting out the clock isn't "free" mastery.
+ */
+export function questionTimerMs(level: number): number {
+  const table: Record<number, number> = { 4: 9000, 5: 8000, 6: 7000, 7: 6000, 8: 5000 };
+  const l = Math.max(4, Math.min(8, clampLevel(level)));
+  return table[l];
+}
+
+/** From this level up, the communicative games (Greetings, Small talk) drop the
+ *  English gloss — Finnish-only comprehension is the top rung of their ladder. */
+export const FINNISH_ONLY_FROM_LEVEL = 5;
+
+/** Whether the communicative games should still show the English gloss at this
+ *  level (true below the Finnish-only rung). */
+export function showsGloss(level: number): boolean {
+  return level < FINNISH_ONLY_FROM_LEVEL;
 }
 
 /**
@@ -63,13 +106,23 @@ export interface Difficulty {
  * richer verb forms.
  */
 const LEVEL_SPECS: Difficulty[] = [
-  { level: 1, optionCount: 3, maxTier: 2, maxCount: 5, verbCombos: [PRESENT_POSITIVE] },
+  {
+    level: 1,
+    optionCount: 3,
+    maxTier: 2,
+    maxCount: 5,
+    verbCombos: [PRESENT_POSITIVE],
+    tricky: false,
+    maxCases: 3,
+  },
   {
     level: 2,
     optionCount: 4,
     maxTier: 3,
     maxCount: 8,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE],
+    tricky: false,
+    maxCases: 4,
   },
   {
     level: 3,
@@ -77,6 +130,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 3,
     maxCount: 10,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE],
+    tricky: false,
+    maxCases: 4,
   },
   {
     level: 4,
@@ -84,6 +139,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 4,
     maxCount: 12,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    tricky: true,
+    maxCases: 5,
   },
   {
     level: 5,
@@ -91,6 +148,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 5,
     maxCount: 14,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    tricky: true,
+    maxCases: 6,
   },
   {
     level: 6,
@@ -98,6 +157,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 6,
     maxCount: 16,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    tricky: true,
+    maxCases: 7,
   },
   {
     level: 7,
@@ -105,6 +166,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 7,
     maxCount: 18,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    tricky: true,
+    maxCases: 7,
   },
   {
     level: 8,
@@ -112,6 +175,8 @@ const LEVEL_SPECS: Difficulty[] = [
     maxTier: 8,
     maxCount: 20,
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    tricky: true,
+    maxCases: 7,
   },
 ];
 
