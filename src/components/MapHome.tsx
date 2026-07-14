@@ -30,6 +30,7 @@ export default function MapHome() {
       style={
         {
           '--map-bg': `url(${import.meta.env.BASE_URL}art/backgrounds/path.webp)`,
+          '--map-bg-wide': `url(${import.meta.env.BASE_URL}art/backgrounds/path-wide.webp)`,
         } as React.CSSProperties
       }
     >
