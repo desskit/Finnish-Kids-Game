@@ -1,5 +1,6 @@
 :root {
   --bg: #eff6ff;
+  --sky: #d3e8f3; /* journey-map backdrop sky — sampled from public/art/backgrounds/path.webp */
   --bg-card: #ffffff;
   --ink: #0f172a;
   --ink-soft: #475569;
@@ -115,6 +116,38 @@ body {
   width: 100%;
 }
 
+/* Fixed illustrated backdrop: frames the viewport (trees in the corners) while
+   the path scrolls through the calm centre. Falls back to the flat sky colour
+   until the WebP is dropped into public/art/backgrounds/. Scoped to the map so
+   activity screens keep the default body gradient. */
+.map-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--sky);
+  background-image: var(--map-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Portrait art is mostly sky, so show it at full height, centred, and let the
+     matching --sky fill the side margins. On wide/short screens (iPad landscape,
+     Fold unfolded) this reads as a centred landscape framing the path — instead
+     of `cover`, which would zoom in and crop the corner scenery away. When a
+     dedicated wide variant exists, swap it in behind a `min-aspect-ratio` query. */
+  background-size: auto 100%;
+}
+
+/* Wide/landscape screens (iPad landscape, Fold unfolded): use the dedicated wide
+   backdrop — scenery in the corners, empty centre — so `cover` fills the viewport
+   without cropping the framing away. Portrait screens keep the tall image above. */
+@media (min-aspect-ratio: 1 / 1) {
+  .map-home::before {
+    background-image: var(--map-bg-wide, var(--map-bg));
+    background-size: cover;
+  }
+}
+
 .path {
   list-style: none;
   margin: 4px auto 0;
@@ -176,7 +209,7 @@ body {
   top: 6px;
   bottom: 6px;
   left: 50%;
-  border-left: 4px dashed #d7e0ec;
+  border-left: 5px dashed rgba(245, 158, 11, 0.5);
   transform: translateX(-50%);
   z-index: 0;
 }

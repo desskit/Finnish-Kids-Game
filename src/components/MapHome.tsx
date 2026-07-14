@@ -30,7 +30,15 @@ export default function MapHome() {
   const nextId = nextSkillId(activeChild);
 
   return (
-    <section className="screen map-home">
+    <section
+      className="screen map-home"
+      style={
+        {
+          '--map-bg': `url(${import.meta.env.BASE_URL}art/backgrounds/path.webp)`,
+          '--map-bg-wide': `url(${import.meta.env.BASE_URL}art/backgrounds/path-wide.webp)`,
+        } as React.CSSProperties
+      }
+    >
       <h1 className="greeting">
         Hei{name ? `, ${name}` : ''}! <span className="en">Your Finnish path</span>
       </h1>
