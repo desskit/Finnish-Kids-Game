@@ -697,6 +697,22 @@ const SENTENCE_QUESTIONS = 6;
 // "flash of another challenge" before advancing.
 const NO_CONSTRUCTIONS: Construction[] = [];
 
+// Same referential-stability concern for the picture-safe item subset (see
+// above): `itemsForPool` already returns a stable per-pool array reference, but
+// a fresh `.filter()` on it every render would still be a NEW array identity —
+// regenerating a different random round on every parent re-render. Cache by
+// the (stable) source array so the same pool always yields the same filtered
+// array reference.
+const pictureItemsCache = new WeakMap<LexicalItem[], LexicalItem[]>();
+function pictureSafe(items: LexicalItem[]): LexicalItem[] {
+  let cached = pictureItemsCache.get(items);
+  if (!cached) {
+    cached = items.filter((i) => i.emoji);
+    pictureItemsCache.set(items, cached);
+  }
+  return cached;
+}
+
 /** Render one specific activity for a skill, wired to the skill's content scope.
  *  The caller decides WHICH activity (per round, for in-session variety — see
  *  `activityForRound`); this just maps an activity kind to its game component.
@@ -708,9 +724,17 @@ export function renderActivity(
   onExit: () => void,
 ): ReactElement | null {
   const items = itemsForPool(skill.content.pool);
+  // A pool may include a few emoji-less words (text-only depth for family/
+  // places/clothes — see build-kids-data.mjs); safe for the games that render
+  // without a picture (name/listen-sentence/reading/say already filter or
+  // guard internally; order/spell render the emoji conditionally) but NOT for
+  // the picture-card games below, which need every option to have one.
+  const pictureItems = pictureSafe(items);
   switch (activity) {
     case 'listen':
-      return <ListenAndTap items={items} timerFromLevel={skill.timerFromLevel} onExit={onExit} />;
+      return (
+        <ListenAndTap items={pictureItems} timerFromLevel={skill.timerFromLevel} onExit={onExit} />
+      );
     case 'name':
       // Production recall: see the picture, pick the Finnish word (inverse of
       // Listen & Tap over the same pool).
@@ -742,15 +766,15 @@ export function renderActivity(
     case 'build':
       return (
         <BuildAPhrase
-          items={items}
+          items={pictureItems}
           constructions={constructionsFor(skill.content.constructionIds)}
           onExit={onExit}
         />
       );
     case 'count':
-      return <CountAndSay nouns={items} numbers={numbers.items} onExit={onExit} />;
+      return <CountAndSay nouns={pictureItems} numbers={numbers.items} onExit={onExit} />;
     case 'match':
-      return <MatchTheWord adjectives={adjectives.items} nouns={items} onExit={onExit} />;
+      return <MatchTheWord adjectives={adjectives.items} nouns={pictureItems} onExit={onExit} />;
     case 'conjugate':
       return <ConjugateVerb verbs={verbs.items} onExit={onExit} />;
     case 'order':

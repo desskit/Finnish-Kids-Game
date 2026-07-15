@@ -747,6 +747,104 @@
           "en": "He has a yellow vest on."
         }
       ]
+    },
+    {
+      "id": "belt",
+      "word": "vyö",
+      "en": "belt",
+      "inflections": {
+        "nominative_singular": "vyö",
+        "nominative_plural": "vyöt",
+        "genitive_singular": "vyön",
+        "genitive_plural": "vöiden",
+        "partitive_singular": "vyötä",
+        "partitive_plural": "vöitä",
+        "inessive_singular": "vyössä",
+        "inessive_plural": "vöissä",
+        "elative_singular": "vyöstä",
+        "elative_plural": "vöistä",
+        "illative_singular": "vyöhön",
+        "illative_plural": "vöihin",
+        "adessive_singular": "vyöllä",
+        "adessive_plural": "vöillä",
+        "ablative_singular": "vyöltä",
+        "ablative_plural": "vöiltä",
+        "allative_singular": "vyölle",
+        "allative_plural": "vöille",
+        "essive_singular": "vyönä",
+        "essive_plural": "vöinä",
+        "translative_singular": "vyöksi",
+        "translative_plural": "vöiksi",
+        "abessive_singular": "vyöttä",
+        "abessive_plural": "vöittä",
+        "instructive_plural": "vöin",
+        "comitative_plural": "vöineen"
+      },
+      "english": {
+        "plural": "belts"
+      },
+      "kotusType": 19,
+      "group": "long_vowel",
+      "frequencyRank": 11961,
+      "examples": [
+        {
+          "fi": "Se on isku vyön alle.",
+          "en": "That's a low blow."
+        },
+        {
+          "fi": "Tomilla ei ollut vyötä.",
+          "en": "Tom wasn't wearing a belt."
+        }
+      ]
+    },
+    {
+      "id": "earring",
+      "word": "korvakoru",
+      "en": "earring",
+      "inflections": {
+        "nominative_singular": "korvakoru",
+        "nominative_plural": "korvakorut",
+        "genitive_singular": "korvakorun",
+        "genitive_plural": "korvakorujen",
+        "partitive_singular": "korvakorua",
+        "partitive_plural": "korvakoruja",
+        "inessive_singular": "korvakorussa",
+        "inessive_plural": "korvakoruissa",
+        "elative_singular": "korvakorusta",
+        "elative_plural": "korvakoruista",
+        "illative_singular": "korvakoruun",
+        "illative_plural": "korvakoruihin",
+        "adessive_singular": "korvakorulla",
+        "adessive_plural": "korvakoruilla",
+        "ablative_singular": "korvakorulta",
+        "ablative_plural": "korvakoruilta",
+        "allative_singular": "korvakorulle",
+        "allative_plural": "korvakoruille",
+        "essive_singular": "korvakoruna",
+        "essive_plural": "korvakoruina",
+        "translative_singular": "korvakoruksi",
+        "translative_plural": "korvakoruiksi",
+        "abessive_singular": "korvakorutta",
+        "abessive_plural": "korvakoruitta",
+        "instructive_plural": "korvakoruin",
+        "comitative_plural": "korvakoruineen"
+      },
+      "english": {
+        "plural": "earrings"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 24257,
+      "examples": [
+        {
+          "fi": "Sinulta on hävinnyt korvakoru.",
+          "en": "You lost an earring."
+        },
+        {
+          "fi": "Korvakorut ovat hänelle kiva lahja.",
+          "en": "A pair of earrings is a nice present for her."
+        }
+      ]
     }
   ]
 }

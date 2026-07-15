@@ -557,6 +557,198 @@
           "en": "child of God"
         }
       ]
+    },
+    {
+      "id": "aunt",
+      "word": "täti",
+      "en": "aunt",
+      "inflections": {
+        "nominative_singular": "täti",
+        "nominative_plural": "tädit",
+        "genitive_singular": "tädin",
+        "genitive_plural": "tätien",
+        "partitive_singular": "tätiä",
+        "partitive_plural": "tätejä",
+        "inessive_singular": "tädissä",
+        "inessive_plural": "tädeissä",
+        "elative_singular": "tädistä",
+        "elative_plural": "tädeistä",
+        "illative_singular": "tätiin",
+        "illative_plural": "täteihin",
+        "adessive_singular": "tädillä",
+        "adessive_plural": "tädeillä",
+        "ablative_singular": "tädiltä",
+        "ablative_plural": "tädeiltä",
+        "allative_singular": "tädille",
+        "allative_plural": "tädeille",
+        "essive_singular": "tätinä",
+        "essive_plural": "täteinä",
+        "translative_singular": "tädiksi",
+        "translative_plural": "tädeiksi",
+        "abessive_singular": "tädittä",
+        "abessive_plural": "tädeittä",
+        "instructive_plural": "tädein",
+        "comitative_plural": "täteineen"
+      },
+      "english": {
+        "plural": "aunts"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 4790,
+      "examples": [
+        {
+          "fi": "Wang-täti, minä se olen.",
+          "en": "Auntie Wang, it's me."
+        }
+      ]
+    },
+    {
+      "id": "uncle",
+      "word": "setä",
+      "en": "uncle",
+      "inflections": {
+        "nominative_singular": "setä",
+        "nominative_plural": "sedät",
+        "genitive_singular": "sedän",
+        "genitive_plural": "setien",
+        "partitive_singular": "setää",
+        "partitive_plural": "setiä",
+        "inessive_singular": "sedässä",
+        "inessive_plural": "sedissä",
+        "elative_singular": "sedästä",
+        "elative_plural": "sedistä",
+        "illative_singular": "setään",
+        "illative_plural": "setiin",
+        "adessive_singular": "sedällä",
+        "adessive_plural": "sedillä",
+        "ablative_singular": "sedältä",
+        "ablative_plural": "sediltä",
+        "allative_singular": "sedälle",
+        "allative_plural": "sedille",
+        "essive_singular": "setänä",
+        "essive_plural": "setinä",
+        "translative_singular": "sedäksi",
+        "translative_plural": "sediksi",
+        "abessive_singular": "sedättä",
+        "abessive_plural": "sedittä",
+        "instructive_plural": "sedin",
+        "comitative_plural": "setineen"
+      },
+      "english": {
+        "plural": "uncles"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3354,
+      "examples": [
+        {
+          "fi": "Tom on Marin setä.",
+          "en": "Tom is Mary's uncle."
+        },
+        {
+          "fi": "Tämä on Tom-sedän maatila.",
+          "en": "This is Uncle Tom's farm."
+        }
+      ]
+    },
+    {
+      "id": "cousin",
+      "word": "serkku",
+      "en": "cousin",
+      "inflections": {
+        "nominative_singular": "serkku",
+        "nominative_plural": "serkut",
+        "genitive_singular": "serkun",
+        "genitive_plural": "serkkujen",
+        "partitive_singular": "serkkua",
+        "partitive_plural": "serkkuja",
+        "inessive_singular": "serkussa",
+        "inessive_plural": "serkuissa",
+        "elative_singular": "serkusta",
+        "elative_plural": "serkuista",
+        "illative_singular": "serkkuun",
+        "illative_plural": "serkkuihin",
+        "adessive_singular": "serkulla",
+        "adessive_plural": "serkuilla",
+        "ablative_singular": "serkulta",
+        "ablative_plural": "serkuilta",
+        "allative_singular": "serkulle",
+        "allative_plural": "serkuille",
+        "essive_singular": "serkkuna",
+        "essive_plural": "serkkuina",
+        "translative_singular": "serkuksi",
+        "translative_plural": "serkuiksi",
+        "abessive_singular": "serkutta",
+        "abessive_plural": "serkuitta",
+        "instructive_plural": "serkuin",
+        "comitative_plural": "serkkuineen"
+      },
+      "english": {
+        "plural": "cousins"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 3983,
+      "examples": [
+        {
+          "fi": "Olemme serkkuja.",
+          "en": "We are cousins."
+        },
+        {
+          "fi": "Olen Tomin serkku.",
+          "en": "I'm Tom's cousin."
+        }
+      ]
+    },
+    {
+      "id": "grandchild",
+      "word": "lapsenlapsi",
+      "en": "grandchild",
+      "inflections": {
+        "nominative_singular": "lapsenlapsi",
+        "nominative_plural": "lapsenlapset",
+        "genitive_singular": "lapsenlapsen",
+        "genitive_plural": "lapsenlapsien",
+        "partitive_singular": "lapsenlasta",
+        "partitive_plural": "lapsenlapsia",
+        "inessive_singular": "lapsenlapsessa",
+        "inessive_plural": "lapsenlapsissa",
+        "elative_singular": "lapsenlapsesta",
+        "elative_plural": "lapsenlapsista",
+        "illative_singular": "lapsenlapseen",
+        "illative_plural": "lapsenlapsiin",
+        "adessive_singular": "lapsenlapsella",
+        "adessive_plural": "lapsenlapsilla",
+        "ablative_singular": "lapsenlapselta",
+        "ablative_plural": "lapsenlapsilta",
+        "allative_singular": "lapsenlapselle",
+        "allative_plural": "lapsenlapsille",
+        "essive_singular": "lapsenlapsena",
+        "essive_plural": "lapsenlapsina",
+        "translative_singular": "lapsenlapseksi",
+        "translative_plural": "lapsenlapsiksi",
+        "abessive_singular": "lapsenlapsetta",
+        "abessive_plural": "lapsenlapsitta",
+        "instructive_plural": "lapsenlapsin",
+        "comitative_plural": "lapsenlapsineen"
+      },
+      "english": {
+        "plural": "grandchildren"
+      },
+      "kotusType": 29,
+      "group": "i_old",
+      "frequencyRank": 15348,
+      "examples": [
+        {
+          "fi": "Tom on Marin lapsenlapsi.",
+          "en": "Tom is Mary's grandson."
+        },
+        {
+          "fi": "Romulus oli Numitorin lapsenlapsi.",
+          "en": "Romulus was the grandson of Numitor."
+        }
+      ]
     }
   ]
 }

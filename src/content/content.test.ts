@@ -11,6 +11,7 @@ import {
   clothes,
   adjectives,
   verbs,
+  reviewItems,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { formFor, verbForm, caseFormOf, englishSentenceFor, PERSONS } from '../content/types';
@@ -131,6 +132,28 @@ describe('content integrity', () => {
       for (const item of pool.items) {
         expect(item.topic, `${item.id} missing topic`).toBe(pool.id);
       }
+    }
+  });
+
+  it('deepens the emoji-capped themes with text-only (emoji-less) words', () => {
+    // family/places/clothes are capped for the PICTURE games (too few distinct
+    // glyphs) but can still grow for build/order/spell — see build-kids-data.mjs.
+    for (const theme of [family, places, clothes]) {
+      const textOnly = theme.items.filter((i) => !i.emoji);
+      expect(textOnly.length, `${theme.id} has no emoji-less depth words`).toBeGreaterThan(0);
+      // Still fully sourced, real Finnish nouns — same guarantees as every word.
+      for (const i of textOnly) {
+        expect(i.inflections.nominative_singular, i.id).toBeTruthy();
+        expect(i.english?.plural, i.id).toBeTruthy();
+      }
+    }
+  });
+
+  it('keeps emoji-less words out of the Review picture-card pool', () => {
+    // Review's box 1-4 formats are all picture-based; an emoji-less item would
+    // render a blank card, so it must never be a reviewable id.
+    for (const item of reviewItems) {
+      expect(item.emoji, `${item.id} has no emoji but is in reviewItems`).toBeTruthy();
     }
   });
 

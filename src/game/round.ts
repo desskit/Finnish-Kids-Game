@@ -11,8 +11,14 @@ import type {
   VerbTense,
 } from '../content/types';
 import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
-import { isAnimateOnlyAdjective, isAnimateTopic } from '../content/semantics';
+import {
+  isAnimateOnlyAdjective,
+  isAnimateTopic,
+  isMovementOnlyAdjective,
+  canDescribeMovement,
+} from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
+import { personalizeLine } from '../content/dialogues';
 import type { Conversation } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
@@ -193,6 +199,9 @@ export function buildDialogueRound(
   questionCount: number,
   optionCount: number,
   maxTier: Tier = 4,
+  // The active child's name — fills any {name} placeholder ("Nimeni on ___")
+  // via personalizeLine. Falls back to the original vetted name when empty.
+  childName = '',
 ): DialogueQuestion[] {
   const byTier = exchanges.filter((e) => e.tier <= maxTier);
   const allowed = byTier.length > 0 ? byTier : exchanges;
@@ -209,7 +218,12 @@ export function buildDialogueRound(
       }
     }
     const distractors = sample(pool, Math.max(0, optionCount - 1));
-    return { prompt: ex.prompt, reply: ex.reply, options: shuffle([ex.reply, ...distractors]) };
+    const options = shuffle([ex.reply, ...distractors]).map((l) => personalizeLine(l, childName));
+    return {
+      prompt: personalizeLine(ex.prompt, childName),
+      reply: personalizeLine(ex.reply, childName),
+      options,
+    };
   });
 }
 
@@ -241,6 +255,8 @@ export function buildConversation(
   scenes: readonly Conversation[],
   optionCount: number,
   maxTier: Tier = 4,
+  // See buildDialogueRound — same {name} personalization.
+  childName = '',
 ): ConversationRound | null {
   const byTier = scenes.filter((s) => s.tier <= maxTier);
   const allowed = byTier.length > 0 ? byTier : scenes;
@@ -272,7 +288,12 @@ export function buildConversation(
       }
     }
     const distractors = sample(pool, Math.max(0, optionCount - 1));
-    return { partner: t.partner, reply: t.reply, options: shuffle([t.reply, ...distractors]) };
+    const options = shuffle([t.reply, ...distractors]).map((l) => personalizeLine(l, childName));
+    return {
+      partner: personalizeLine(t.partner, childName),
+      reply: personalizeLine(t.reply, childName),
+      options,
+    };
   });
 
   return {
@@ -653,13 +674,17 @@ export function buildAgreementRound(
   while (out.length < questionCount && guard++ < questionCount * 8) {
     // Pick the noun first, then draw an adjective that makes SENSE for it:
     // animate-only adjectives (happy, tired, kind…) go only with living things,
-    // so "kiltti sänky" (a kind bed) never happens. Size/colour/age apply to
-    // anything. Falls back to the full set if a topic somehow has none.
+    // so "kiltti sänky" (a kind bed) never happens; movement-only adjectives
+    // (fast, slow) go only with things that move, so "nopea luu" (a fast bone)
+    // never happens either. Size/colour/age apply to anything. Falls back to
+    // the full set if a noun somehow rules out every adjective.
     const noun = weightedSample(nouns, 1, weigh)[0];
     if (!noun) break;
-    const adjPool = isAnimateTopic(noun.topic)
-      ? adjectives
-      : adjectives.filter((a) => !isAnimateOnlyAdjective(a.id));
+    const adjPool = adjectives.filter((a) => {
+      if (isAnimateOnlyAdjective(a.id) && !isAnimateTopic(noun.topic)) return false;
+      if (isMovementOnlyAdjective(a.id) && !canDescribeMovement(noun.topic, noun.id)) return false;
+      return true;
+    });
     const adjective = sample(adjPool.length > 0 ? adjPool : adjectives, 1)[0];
     if (!adjective) break;
 

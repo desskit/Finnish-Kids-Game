@@ -307,6 +307,31 @@ describe('learning path', () => {
     expect(activityForLevel(found.skill, 3)).toBe('conjugate');
   });
 
+  it('keeps emoji-less words (family/places/clothes text-only depth) out of every picture game', () => {
+    const { skill } = findSkill('this-is')!; // pool 'nouns' (mixed, incl. family/places/clothes)
+    for (const activity of ['listen', 'build', 'count', 'match'] as const) {
+      const el = renderActivity(skill, activity, () => {});
+      const props = el!.props as { items?: { emoji?: string }[]; nouns?: { emoji?: string }[] };
+      const items = props.items ?? props.nouns ?? [];
+      expect(items.length).toBeGreaterThan(0);
+      for (const i of items) expect(i.emoji).toBeTruthy();
+    }
+  });
+
+  it('still hands the emoji-less depth words to the text-only capstones (order/spell)', () => {
+    const { skill } = findSkill('spell')!; // default 'nouns' pool, inflected
+    const el = renderSkill(skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string }[] }).items ?? [];
+    expect(items.some((i) => !i.emoji)).toBe(true);
+  });
+
+  it('gives the picture-safe item filter a STABLE array reference across renders (no round-flash)', () => {
+    const { skill } = findSkill('this-is')!;
+    const a = renderActivity(skill, 'build', () => {}) as { props: { items: unknown } };
+    const b = renderActivity(skill, 'build', () => {}) as { props: { items: unknown } };
+    expect(a.props.items).toBe(b.props.items);
+  });
+
   it('renderActivity maps a concrete activity kind to a game element', () => {
     const { skill } = findSkill('this-is')!;
     expect(renderActivity(skill, 'build', () => {})).not.toBeNull();

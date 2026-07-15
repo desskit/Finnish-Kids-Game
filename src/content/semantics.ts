@@ -42,3 +42,25 @@ export function isAnimateOnlyAdjective(id: string): boolean {
 export function isAnimateTopic(topic: string | undefined): boolean {
   return !!topic && ANIMATE_TOPICS.includes(topic);
 }
+
+// --- Adjectives: movement-only -------------------------------------------
+//
+// "nopea"/"hidas" (fast/slow) describe something that moves under its own
+// power or by design — a fast dog or a fast car makes sense, a fast bone
+// ("nopea luu") does not. Living things (animals/family) always qualify;
+// among inanimate objects only actual vehicles do, so this is a short,
+// explicit id allow-list rather than a whole topic.
+export const MOVEMENT_ONLY_ADJECTIVES = ['fast', 'slow'];
+
+/** Non-living item ids that can still plausibly be fast/slow (vehicles). */
+const MOVEMENT_ITEM_IDS = ['car'];
+
+/** True if an adjective (by id) only makes sense describing something that moves. */
+export function isMovementOnlyAdjective(id: string): boolean {
+  return MOVEMENT_ONLY_ADJECTIVES.includes(id);
+}
+
+/** True if this specific word (living, or a curated vehicle) can be fast/slow. */
+export function canDescribeMovement(topic: string | undefined, itemId: string): boolean {
+  return isAnimateTopic(topic) || MOVEMENT_ITEM_IDS.includes(itemId);
+}

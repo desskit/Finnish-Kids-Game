@@ -21,12 +21,13 @@ interface Props {
 // spotting broken grammar. No SRS crediting — replies are set phrases, not
 // single lexical items (like the multi-slot sentence game).
 export default function DialogueGame({ onExit }: Props) {
-  const { level, addStars } = useProfile();
+  const { level, addStars, activeChild } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, maxTier } = difficulty;
   // Top rung: drop the English so it's Finnish-only comprehension.
   const glossed = showsGloss(difficulty.level);
+  const childName = activeChild?.name ?? '';
 
   const missed = useRef(false);
   const firstTries = useRef(0);
@@ -34,8 +35,12 @@ export default function DialogueGame({ onExit }: Props) {
   const [runId, setRunId] = useState(0);
   const round = useMemo<DialogueQuestion[]>(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
-    () => buildDialogueRound(dialogues, QUESTIONS, optionCount, maxTier).slice(0, ctx?.roundQuestions),
-    [optionCount, maxTier, runId, ctx?.roundQuestions],
+    () =>
+      buildDialogueRound(dialogues, QUESTIONS, optionCount, maxTier, childName).slice(
+        0,
+        ctx?.roundQuestions,
+      ),
+    [optionCount, maxTier, childName, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

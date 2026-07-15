@@ -312,6 +312,33 @@ describe('buildDialogueRound', () => {
       }
     }
   });
+
+  it('fills the {name} placeholder with the child\'s own name everywhere it appears', () => {
+    // "your-name"'s reply, plus its backfilled copies as OTHER exchanges'
+    // distractors, all carry {name} — every one must come back personalized,
+    // and the reply must still match one of its own options (fi equality).
+    let sawName = false;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, dialogues.length, 3, 4, 'Liam')) {
+        expect(q.prompt.fi).not.toContain('{name}');
+        expect(q.reply.fi).not.toContain('{name}');
+        for (const o of q.options) expect(o.fi).not.toContain('{name}');
+        if (q.reply.fi.includes('Liam')) {
+          sawName = true;
+          expect(q.options.some((o) => o.fi === q.reply.fi)).toBe(true);
+        }
+      }
+    }
+    expect(sawName).toBe(true);
+  });
+
+  it('falls back to the original vetted name when no child name is given', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, dialogues.length, 3, 4)) {
+        expect(q.reply.fi).not.toContain('{name}');
+      }
+    }
+  });
 });
 
 describe('buildConversation', () => {
@@ -342,6 +369,23 @@ describe('buildConversation', () => {
 
   it('returns null only when there are no scenes at all', () => {
     expect(buildConversation([], 3, 4)).toBeNull();
+  });
+
+  it('fills the {name} placeholder with the child\'s own name (new-friend scene)', () => {
+    let sawName = false;
+    for (let r = 0; r < RUNS; r++) {
+      const scene = buildConversation(conversations, 3, 4, 'Liam')!;
+      for (const t of scene.turns) {
+        expect(t.partner.fi).not.toContain('{name}');
+        expect(t.reply.fi).not.toContain('{name}');
+        for (const o of t.options) expect(o.fi).not.toContain('{name}');
+        if (t.reply.fi.includes('Liam')) {
+          sawName = true;
+          expect(t.options.some((o) => o.fi === t.reply.fi)).toBe(true);
+        }
+      }
+    }
+    expect(sawName).toBe(true);
   });
 });
 
@@ -483,6 +527,24 @@ describe('adjective + noun pairings make sense (agreement game)', () => {
       }
     }
     expect(ANIMATE_ONLY.some((id) => usedOnAnimals.has(id))).toBe(true);
+  });
+
+  it('only pairs fast/slow with things that move (living things, or a vehicle)', () => {
+    const MOVEMENT_ONLY = ['fast', 'slow'];
+    // Body parts (bone, muscle, tooth…) can't be fast/slow — "nopea luu".
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, body.items, 6, 3)) {
+        expect(MOVEMENT_ONLY).not.toContain(q.adjective.id);
+      }
+    }
+    // Animals CAN (so fast/slow still gets used somewhere).
+    const usedOnAnimals = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildAgreementRound(adjectives.items, animals.items, 6, 3)) {
+        usedOnAnimals.add(q.adjective.id);
+      }
+    }
+    expect(MOVEMENT_ONLY.some((id) => usedOnAnimals.has(id))).toBe(true);
   });
 });
 
