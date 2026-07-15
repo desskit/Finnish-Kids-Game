@@ -3,11 +3,12 @@ import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, questionTimerMs } from '../game/adapt';
-import { familiarityWeigher } from '../game/srs';
+import { familiarityWeigher, introIndices } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WordIntro from './WordIntro';
 
 const QUESTIONS = 6;
 
@@ -39,6 +40,8 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
       : undefined;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
+  // Same snapshot discipline for "meet the word" (see ListenAndTap).
+  const srsSnapshot = useRef(activeChild?.srs).current;
 
   // A wrong tap means it wasn't a first-try success (for SRS + the adaptive engine).
   const missed = useRef(false);
@@ -54,6 +57,12 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
       ),
     [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
+  // Which question indices meet a brand-new word first (see ListenAndTap).
+  const introSet = useMemo(
+    () => introIndices(round.map((q) => q.target.id), srsSnapshot),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [round],
+  );
 
   const [index, setIndex] = useState(0);
   const [wrongId, setWrongId] = useState<string | null>(null);
@@ -61,16 +70,19 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   const [done, setDone] = useState(false);
   // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
   const [hint, setHint] = useState(false);
+  const [introduced, setIntroduced] = useState<Set<number>>(() => new Set());
+  const showIntro = introSet.has(index) && !introduced.has(index);
 
   const question = round[index];
 
   // Narrate the English cue when a new picture appears — a pre-reader can't
   // read the gloss, and the Finnish is what they must PRODUCE, never a preview.
+  // Skipped during the intro card, which already speaks the Finnish itself.
   useEffect(() => {
-    if (!question || done) return;
+    if (!question || done || showIntro) return;
     const t = setTimeout(() => speakEnglish(question.target.en), 350);
     return () => clearTimeout(t);
-  }, [question, done]);
+  }, [question, done, showIntro]);
 
   // Gentle countdown (L5+ only): the isolated production game's other levers
   // (tile count, tricky distractors) both max out by L4, so a timed pace keeps
@@ -78,14 +90,14 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   // is re-said; no star lost, no auto-advance. Reset per question.
   useEffect(() => {
     setHint(false);
-    if (!timerMs || !question || done || locked) return;
+    if (!timerMs || !question || done || locked || showIntro) return;
     const t = setTimeout(() => {
       missed.current = true; // forfeits the first-try bonus (not "free" mastery)
       setHint(true);
       speakEnglish(question.target.en);
     }, timerMs);
     return () => clearTimeout(t);
-  }, [timerMs, question, done, locked]);
+  }, [timerMs, question, done, locked, showIntro]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -137,6 +149,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    setIntroduced(new Set());
     missed.current = false;
     firstTries.current = 0;
     setRunId((r) => r + 1);
@@ -146,6 +159,14 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
 
   if (done) return null;
   if (!question) return null;
+  if (showIntro) {
+    return (
+      <WordIntro
+        item={question.target}
+        onContinue={() => setIntroduced((prev) => new Set(prev).add(index))}
+      />
+    );
+  }
 
   return (
     <section className="screen activity">

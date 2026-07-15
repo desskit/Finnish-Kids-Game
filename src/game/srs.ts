@@ -99,6 +99,37 @@ export function familiarityWeigher(
   };
 }
 
+/** How many "meet the word" intro cards a single round may show — enough to
+ *  greet what's new without turning a round into a slideshow. */
+export const MAX_NEW_WORD_INTROS = 2;
+
+/**
+ * Which question INDICES in an already-built round introduce a brand-new
+ * (never-attempted) item, in round order, capped at `cap`. Pure: takes a
+ * snapshot of the child's schedules (the caller should snapshot it once per
+ * round the same way `familiarityWeigher` does, so the set doesn't shift
+ * mid-round as answers write new schedules). "Unseen" = no schedule yet, or
+ * `seen === 0` (defensive — every real schedule from `review()` has seen ≥ 1).
+ */
+export function introIndices(
+  targetIds: readonly string[],
+  schedules: Record<string, ItemSchedule> | undefined,
+  cap: number = MAX_NEW_WORD_INTROS,
+): Set<number> {
+  const out = new Set<number>();
+  const introducedIds = new Set<string>();
+  for (let i = 0; i < targetIds.length && out.size < cap; i++) {
+    const id = targetIds[i];
+    if (introducedIds.has(id)) continue; // the same word already got its intro this round
+    const s = schedules?.[id];
+    if (!s || s.seen === 0) {
+      out.add(i);
+      introducedIds.add(id);
+    }
+  }
+  return out;
+}
+
 export interface ReviewSelection {
   /** Schedules keyed by item id (the active child's `srs` map). */
   schedules: Readonly<Record<string, ItemSchedule>>;

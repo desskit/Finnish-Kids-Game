@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
+import { useAdventure } from '../state/adventure';
 import { isSpeechAvailable } from '../audio/speak';
 import { isDue } from '../game/srs';
 import { dayKey, displayStreak, playedToday } from '../game/streak';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { PATH, badgeEnv, nextSkillId } from '../game/path';
+import { buildAdventure } from '../game/adventure';
 
 const ROUND_QUESTIONS = 6;
 
@@ -16,11 +18,13 @@ const ROUND_QUESTIONS = 6;
 // so dropping in illustrations later is a data/CSS change, not a rewrite.
 export default function MapHome() {
   const { name, activeChild } = useProfile();
+  const adventure = useAdventure();
 
   const srs = activeChild?.srs ?? {};
   const now = Date.now();
   const dueCount = reviewItems.filter((i) => srs[i.id] && isDue(srs[i.id], now)).length;
   const seenCount = reviewItems.filter((i) => srs[i.id]).length;
+  const adventureStops = activeChild ? buildAdventure(activeChild, now) : [];
 
   const today = dayKey(now);
   const streak = displayStreak(activeChild?.lastPlayedDay, activeChild?.streakDays, today);
@@ -63,6 +67,30 @@ export default function MapHome() {
           )}
         </span>
       </div>
+
+      {adventureStops.length > 0 && (
+        <button
+          className="adventure-cta"
+          onClick={() => adventure.start(adventureStops)}
+        >
+          <span className="adventure-cta__icon" aria-hidden="true">
+            🎯
+          </span>
+          <span className="adventure-cta__label">
+            <span className="adventure-cta__title">
+              Tänään sopivaa harjoittelua <span className="en">Today's adventure</span>
+            </span>
+            <span className="adventure-cta__stops">
+              {adventureStops.map((s) => s.icon).join(' → ')} · {adventureStops.length}{' '}
+              {adventureStops.length === 1 ? (
+                <span className="en">stop</span>
+              ) : (
+                <span className="en">stops</span>
+              )}
+            </span>
+          </span>
+        </button>
+      )}
 
       <div className="badge-strip" aria-label="Badges">
         {BADGES.map((b) => {

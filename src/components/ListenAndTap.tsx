@@ -3,11 +3,12 @@ import type { LexicalItem } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, questionTimerMs } from '../game/adapt';
-import { familiarityWeigher } from '../game/srs';
+import { familiarityWeigher, introIndices } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WordIntro from './WordIntro';
 
 const QUESTIONS = 6;
 
@@ -37,6 +38,9 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   // Familiarity bias, snapshotted once per mount: the SRS map updates after
   // every answer, and re-deriving it mid-round would rebuild the live round.
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
+  // Same snapshot discipline for "meet the word": which schedules existed at
+  // mount time decides which targets are brand-new, frozen for the session.
+  const srsSnapshot = useRef(activeChild?.srs).current;
 
   // Whether the current question has had a wrong tap yet — so SRS only credits
   // a "correct" review when the child gets it right on the first try.
@@ -52,6 +56,14 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
     () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(0, ctx?.roundQuestions),
     [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
+  // Which question indices meet a brand-new word first — capped, so a round
+  // stays mostly a round, not a slideshow. Recomputed only when the round
+  // itself changes (a fresh restart), never mid-round.
+  const introSet = useMemo(
+    () => introIndices(round.map((q) => q.target.id), srsSnapshot),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [round],
+  );
 
   const [index, setIndex] = useState(0);
   const [wrongId, setWrongId] = useState<string | null>(null);
@@ -59,15 +71,20 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   const [done, setDone] = useState(false);
   // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
   const [hint, setHint] = useState(false);
+  // Intro cards already dismissed this segment — one per index, so the SAME
+  // question's real quiz shows right after "Continue", never re-shown.
+  const [introduced, setIntroduced] = useState<Set<number>>(() => new Set());
+  const showIntro = introSet.has(index) && !introduced.has(index);
 
   const question = round[index];
 
-  // Say the target word when a new question appears.
+  // Say the target word when a new question appears. Skipped while the intro
+  // card is showing — WordIntro speaks it itself, so it isn't said twice.
   useEffect(() => {
-    if (!question || done) return;
+    if (!question || done || showIntro) return;
     const t = setTimeout(() => speak(question.target.fi), 350);
     return () => clearTimeout(t);
-  }, [question, done]);
+  }, [question, done, showIntro]);
 
   // Gentle countdown: if the child hasn't answered by the time it lapses, reveal
   // the answer as a hint and re-say the word — no star lost, no auto-advance.
@@ -76,14 +93,14 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   // (`locked`) or the question changes. Reset per question so each starts fresh.
   useEffect(() => {
     setHint(false);
-    if (!timerMs || !question || done || locked) return;
+    if (!timerMs || !question || done || locked || showIntro) return;
     const t = setTimeout(() => {
       missed.current = true;
       setHint(true);
       speak(question.target.fi);
     }, timerMs);
     return () => clearTimeout(t);
-  }, [timerMs, question, done, locked]);
+  }, [timerMs, question, done, locked, showIntro]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
@@ -137,6 +154,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
     setWrongId(null);
     setLocked(false);
     setDone(false);
+    setIntroduced(new Set());
     missed.current = false;
     firstTries.current = 0;
     setRunId((r) => r + 1);
@@ -148,6 +166,14 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
 
   if (done) return null;
   if (!question) return null;
+  if (showIntro) {
+    return (
+      <WordIntro
+        item={question.target}
+        onContinue={() => setIntroduced((prev) => new Set(prev).add(index))}
+      />
+    );
+  }
 
   return (
     <section className="screen activity">

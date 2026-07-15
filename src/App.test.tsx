@@ -39,7 +39,7 @@ import { ProfileProvider } from './state/profile';
 // of it (badge strip, level pips, the dashboard). jsdom has no Web Speech/Audio,
 // but the map / dashboard screens don't play audio, so they render as-is.
 
-function seedChild(progress: Record<string, unknown> = {}) {
+function seedChild(progress: Record<string, unknown> = {}, srs: Record<string, unknown> = {}) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
@@ -54,7 +54,7 @@ function seedChild(progress: Record<string, unknown> = {}) {
           stars: 30,
           createdAt: 1,
           progress,
-          srs: {},
+          srs,
         },
       ],
       activeId: 'k',
@@ -107,7 +107,9 @@ describe('journey path + progression UI', () => {
   });
 
   it('plays a skill node as one unbroken stream — no interstitial, silent recording', async () => {
-    seedChild();
+    // Cat pre-seeded as already-seen so the "meet the word" intro (a separate
+    // feature) never intercepts this deterministic-round play-through test.
+    seedChild({}, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } });
     vi.useFakeTimers();
     try {
       renderAt('/skill/listen-animals');
@@ -155,5 +157,64 @@ describe('journey path + progression UI', () => {
     expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
     expect(screen.getByText(/This is a/)).toBeInTheDocument();
     expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
+  });
+});
+
+describe("Today's adventure (guided session)", () => {
+  it('offers a one-tap adventure card built from the weak node + the next unplayed one', () => {
+    seedChild({
+      naming: {
+        'this-is': {
+          plays: 3,
+          bestStars: 2,
+          totalStars: 4,
+          totalPossible: 12,
+          lastPlayed: 1,
+          level: 2,
+          recent: [0.3, 0.4, 0.2], // well under the practice-more bar
+        },
+      },
+    });
+    renderAt('/');
+    expect(screen.getByRole('button', { name: /today's adventure/i })).toBeInTheDocument();
+  });
+
+  it('chains stop to stop on exit — back button moves on instead of going home, then finally home', async () => {
+    // Pre-seed 'cat' as already-seen so stop 2 (listen-animals) shows its
+    // normal quiz, not the unrelated "meet the word" intro card.
+    seedChild(
+      {
+        naming: {
+          'this-is': {
+            plays: 3,
+            bestStars: 2,
+            totalStars: 4,
+            totalPossible: 12,
+            lastPlayed: 1,
+            level: 2,
+            recent: [0.3, 0.4, 0.2],
+          },
+        },
+      },
+      // due far in the future — seen, but NOT due, so no review stop sneaks in.
+      { cat: { box: 5, due: Date.now() + 30 * 86_400_000, seen: 3, correct: 3, lastSeenAt: 1 } },
+    );
+    renderAt('/');
+
+    fireEvent.click(screen.getByRole('button', { name: /today's adventure/i }));
+
+    // Stop 1: the weak node ("this-is"), banner shows 1/2.
+    expect(screen.getByText(/This is a/)).toBeInTheDocument();
+    expect(document.querySelector('.adventure-banner')?.textContent).toContain('1/2');
+
+    // Exit stop 1 — advances to stop 2 ("listen-animals"), not home.
+    fireEvent.click(screen.getByLabelText('Back to the map'));
+    expect(screen.queryByText(/Hei,/)).not.toBeInTheDocument(); // still not on the map
+    expect(document.querySelector('.adventure-banner')?.textContent).toContain('2/2');
+
+    // Exit the LAST stop — now it really does go home, banner gone.
+    fireEvent.click(screen.getByLabelText('Back to the map'));
+    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
+    expect(document.querySelector('.adventure-banner')).toBeNull();
   });
 });

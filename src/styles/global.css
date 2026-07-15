@@ -1220,6 +1220,15 @@ button:focus-visible,
   }
 }
 
+/* ---------- Word intro ("meet the word") ---------- */
+.word-intro__fi {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  font-weight: 900;
+  color: var(--brand);
+  text-align: center;
+}
+
 /* ---------- Say it (speaking) ---------- */
 .say-target {
   margin: 0;
@@ -1846,6 +1855,73 @@ button:focus-visible,
 .badge--locked {
   filter: grayscale(1);
   opacity: 0.35;
+}
+
+/* ---------- Today's adventure: guided 1-tap session entry ---------- */
+.adventure-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+  margin: 4px auto 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--brand);
+  color: #fff;
+  box-shadow: var(--shadow);
+  text-align: left;
+  cursor: pointer;
+}
+
+.adventure-cta__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.adventure-cta__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.adventure-cta__title {
+  font-weight: 800;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+}
+
+.adventure-cta__title .en {
+  display: block;
+  font-size: 0.68em;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.adventure-cta__stops {
+  font-size: 0.85em;
+  opacity: 0.9;
+}
+
+.adventure-banner {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 40;
+  background: color-mix(in srgb, var(--brand) 85%, black 15%);
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.adventure-banner__next {
+  margin-left: 6px;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 /* ---------- Reward toast: quiet level-up / badge pill over the stream ---------- */
