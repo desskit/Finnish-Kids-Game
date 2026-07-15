@@ -141,9 +141,12 @@ export const themes: Theme[] = [animals, numbers, food, family, places, body, na
 // by the content-integrity test), so an item id alone keys a schedule.
 // Verbs join the rotation too — but only the picturable ones (with an action
 // emoji); abstract verbs still earn SRS credit in the conjugation drill, they
-// just can't be shown as a picture card here.
+// just can't be shown as a picture card here. A handful of noun-theme words
+// (mostly family/places/clothes) are ALSO emoji-less — a text-only depth
+// booster for the build/order/spell games — and are excluded here for the
+// same reason: Review's box 1-4 formats are picture-based.
 export const reviewItems: LexicalItem[] = [
-  ...themes.flatMap((t) => t.items),
+  ...themes.flatMap((t) => t.items.filter((i) => i.emoji)),
   ...verbs.items.filter((i) => i.emoji),
 ];
 

@@ -23,6 +23,23 @@ export interface DialogueLine {
   en: string;
 }
 
+// Every line that states "my name is ___" carries this placeholder instead of
+// a hardcoded name, so the round builder can fill in the CHILD'S OWN name
+// (see personalizeLine, used by buildDialogueRound/buildConversation in
+// src/game/round.ts) — a nominative name slot, so nothing is inflected/generated.
+export const NAME_PLACEHOLDER = '{name}';
+
+/** Fill a line's {name} placeholder with the child's own name (falls back to
+ *  the original vetted name when none is set yet, e.g. a brand-new profile). */
+export function personalizeLine(line: DialogueLine, name: string): DialogueLine {
+  if (!line.fi.includes(NAME_PLACEHOLDER)) return line;
+  const safeName = name.trim() || 'Aino';
+  return {
+    fi: line.fi.split(NAME_PLACEHOLDER).join(safeName),
+    en: line.en.split(NAME_PLACEHOLDER).join(safeName),
+  };
+}
+
 export interface DialogueExchange {
   id: string;
   /** The line the child hears/reads (the other person speaks first). */
@@ -108,7 +125,7 @@ export const dialogues: DialogueExchange[] = [
   {
     id: 'your-name',
     prompt: { fi: 'Mikä sinun nimesi on?', en: "What's your name?" },
-    reply: { fi: 'Nimeni on Aino.', en: 'My name is Aino.' },
+    reply: { fi: 'Nimeni on {name}.', en: 'My name is {name}.' },
     distractors: [
       { fi: 'Hyvää, kiitos.', en: 'Good, thanks.' },
       { fi: 'Näkemiin!', en: 'Goodbye!' },
@@ -120,7 +137,7 @@ export const dialogues: DialogueExchange[] = [
     prompt: { fi: 'Kuinka vanha olet?', en: 'How old are you?' },
     reply: { fi: 'Olen viisi vuotta.', en: "I'm five years old." },
     distractors: [
-      { fi: 'Nimeni on Aino.', en: 'My name is Aino.' },
+      { fi: 'Nimeni on {name}.', en: 'My name is {name}.' },
       { fi: 'Kiitos hyvää.', en: 'Fine, thanks.' },
     ],
     tier: 2,
@@ -208,7 +225,7 @@ export const dialogues: DialogueExchange[] = [
     reply: { fi: 'Sininen.', en: 'Blue.' },
     distractors: [
       { fi: 'Se on kirja.', en: "It's a book." },
-      { fi: 'Nimeni on Aino.', en: 'My name is Aino.' },
+      { fi: 'Nimeni on {name}.', en: 'My name is {name}.' },
     ],
     tier: 4,
   },

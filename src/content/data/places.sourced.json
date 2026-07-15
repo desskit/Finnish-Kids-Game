@@ -647,6 +647,214 @@
           "en": "What a heavy bag!"
         }
       ]
+    },
+    {
+      "id": "window",
+      "word": "ikkuna",
+      "en": "window",
+      "inflections": {
+        "nominative_singular": "ikkuna",
+        "nominative_plural": "ikkunat",
+        "genitive_singular": "ikkunan",
+        "genitive_plural": "ikkunoiden",
+        "partitive_singular": "ikkunaa",
+        "partitive_plural": "ikkunoita",
+        "inessive_singular": "ikkunassa",
+        "inessive_plural": "ikkunoissa",
+        "elative_singular": "ikkunasta",
+        "elative_plural": "ikkunoista",
+        "illative_singular": "ikkunaan",
+        "illative_plural": "ikkunoihin",
+        "adessive_singular": "ikkunalla",
+        "adessive_plural": "ikkunoilla",
+        "ablative_singular": "ikkunalta",
+        "ablative_plural": "ikkunoilta",
+        "allative_singular": "ikkunalle",
+        "allative_plural": "ikkunoille",
+        "essive_singular": "ikkunana",
+        "essive_plural": "ikkunoina",
+        "translative_singular": "ikkunaksi",
+        "translative_plural": "ikkunoiksi",
+        "abessive_singular": "ikkunatta",
+        "abessive_plural": "ikkunoitta",
+        "instructive_plural": "ikkunoin",
+        "comitative_plural": "ikkunoineen"
+      },
+      "english": {
+        "plural": "windows"
+      },
+      "tags": [
+        "surface"
+      ],
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 2645,
+      "examples": [
+        {
+          "fi": "Hän siinä on ikkunassa.",
+          "en": "That's him at the window."
+        },
+        {
+          "fi": "Osa ikkunoista on yhä auki.",
+          "en": "Some of the windows are still open."
+        }
+      ]
+    },
+    {
+      "id": "door",
+      "word": "ovi",
+      "en": "door",
+      "inflections": {
+        "nominative_singular": "ovi",
+        "nominative_plural": "ovet",
+        "genitive_singular": "oven",
+        "genitive_plural": "ovien",
+        "partitive_singular": "ovea",
+        "partitive_plural": "ovia",
+        "inessive_singular": "ovessa",
+        "inessive_plural": "ovissa",
+        "elative_singular": "ovesta",
+        "elative_plural": "ovista",
+        "illative_singular": "oveen",
+        "illative_plural": "oviin",
+        "adessive_singular": "ovella",
+        "adessive_plural": "ovilla",
+        "ablative_singular": "ovelta",
+        "ablative_plural": "ovilta",
+        "allative_singular": "ovelle",
+        "allative_plural": "oville",
+        "essive_singular": "ovena",
+        "essive_plural": "ovina",
+        "translative_singular": "oveksi",
+        "translative_plural": "oviksi",
+        "abessive_singular": "ovetta",
+        "abessive_plural": "ovitta",
+        "instructive_plural": "ovin",
+        "comitative_plural": "ovineen"
+      },
+      "english": {
+        "plural": "doors"
+      },
+      "tags": [
+        "surface"
+      ],
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 676,
+      "examples": [
+        {
+          "fi": "ovelta ovelle",
+          "en": "door-to-door, door to door"
+        },
+        {
+          "fi": "suljettujen ovien takana",
+          "en": "behind closed doors"
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "word": "keittiö",
+      "en": "kitchen",
+      "inflections": {
+        "nominative_singular": "keittiö",
+        "nominative_plural": "keittiöt",
+        "genitive_singular": "keittiön",
+        "genitive_plural": "keittiöiden",
+        "partitive_singular": "keittiötä",
+        "partitive_plural": "keittiöitä",
+        "inessive_singular": "keittiössä",
+        "inessive_plural": "keittiöissä",
+        "elative_singular": "keittiöstä",
+        "elative_plural": "keittiöistä",
+        "illative_singular": "keittiöön",
+        "illative_plural": "keittiöihin",
+        "adessive_singular": "keittiöllä",
+        "adessive_plural": "keittiöillä",
+        "ablative_singular": "keittiöltä",
+        "ablative_plural": "keittiöiltä",
+        "allative_singular": "keittiölle",
+        "allative_plural": "keittiöille",
+        "essive_singular": "keittiönä",
+        "essive_plural": "keittiöinä",
+        "translative_singular": "keittiöksi",
+        "translative_plural": "keittiöiksi",
+        "abessive_singular": "keittiöttä",
+        "abessive_plural": "keittiöittä",
+        "instructive_plural": "keittiöin",
+        "comitative_plural": "keittiöineen"
+      },
+      "english": {
+        "plural": "kitchens"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 3,
+      "group": "o_oe",
+      "frequencyRank": 3551,
+      "examples": [
+        {
+          "fi": "Olen keittiössä.",
+          "en": "I'm in the kitchen."
+        },
+        {
+          "fi": "Se on keittiössä.",
+          "en": "It's in the kitchen."
+        }
+      ]
+    },
+    {
+      "id": "garden",
+      "word": "puutarha",
+      "en": "garden",
+      "inflections": {
+        "nominative_singular": "puutarha",
+        "nominative_plural": "puutarhat",
+        "genitive_singular": "puutarhan",
+        "genitive_plural": "puutarhojen",
+        "partitive_singular": "puutarhaa",
+        "partitive_plural": "puutarhoja",
+        "inessive_singular": "puutarhassa",
+        "inessive_plural": "puutarhoissa",
+        "elative_singular": "puutarhasta",
+        "elative_plural": "puutarhoista",
+        "illative_singular": "puutarhaan",
+        "illative_plural": "puutarhoihin",
+        "adessive_singular": "puutarhalla",
+        "adessive_plural": "puutarhoilla",
+        "ablative_singular": "puutarhalta",
+        "ablative_plural": "puutarhoilta",
+        "allative_singular": "puutarhalle",
+        "allative_plural": "puutarhoille",
+        "essive_singular": "puutarhana",
+        "essive_plural": "puutarhoina",
+        "translative_singular": "puutarhaksi",
+        "translative_plural": "puutarhoiksi",
+        "abessive_singular": "puutarhatta",
+        "abessive_plural": "puutarhoitta",
+        "instructive_plural": "puutarhoin",
+        "comitative_plural": "puutarhoineen"
+      },
+      "english": {
+        "plural": "gardens"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 11089,
+      "examples": [
+        {
+          "fi": "Leikin puutarhassa.",
+          "en": "I'm playing in the garden."
+        },
+        {
+          "fi": "Minä olen puutarhassa.",
+          "en": "I am in the garden."
+        }
+      ]
     }
   ]
 }

@@ -83,7 +83,7 @@ export const conversations: Conversation[] = [
     turns: [
       {
         partner: { fi: 'Hei! Mikä sinun nimesi on?', en: "Hi! What's your name?" },
-        reply: { fi: 'Nimeni on Aino. Entä sinun?', en: 'My name is Aino. And yours?' },
+        reply: { fi: 'Nimeni on {name}. Entä sinun?', en: 'My name is {name}. And yours?' },
         distractors: [
           { fi: 'Kiitos, hyvää.', en: 'Fine, thanks.' },
           { fi: 'Näkemiin!', en: 'Goodbye!' },

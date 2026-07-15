@@ -172,6 +172,13 @@ const PLACES = [
   ['forest', 'metsä', 'forest', '🌲'],
   ['basket', 'kori', 'basket', '🧺'],
   ['bag', 'laukku', 'bag', '👜'],
+  // No 4th field on purpose (emoji-less, see the FAMILY comment above) — text-
+  // only depth for build/order/spell. No PLACE_TAGS entry either, so they
+  // simply never fill a locative ("where") carrier, only the plain ones.
+  ['window', 'ikkuna', 'window'],
+  ['door', 'ovi', 'door'],
+  ['kitchen', 'keittiö', 'kitchen'],
+  ['garden', 'puutarha', 'garden'],
 ];
 
 // Locative SHAPE tags for places — which "where" cases each one makes sense in:
@@ -194,6 +201,14 @@ const PLACE_TAGS = {
   forest: ['container'],
   basket: ['surface', 'container'],
   bag: ['container'],
+  // The 4 emoji-less places (see PLACES above) — "ikkunalla"/"ovella" (at the
+  // window/door) is idiomatic adessive, so surface; "keittiössä"/"puutarhassa"
+  // (in the kitchen/garden) is inessive, so container — same pattern as the
+  // room/house/school/forest entries above.
+  window: ['surface'],
+  door: ['surface'],
+  kitchen: ['container'],
+  garden: ['container'],
 };
 
 const FAMILY = [
@@ -207,9 +222,17 @@ const FAMILY = [
   ['grandmother', 'isoäiti', 'grandmother', '👵'],
   ['grandfather', 'isoisä', 'grandfather', '👴'],
   ['family', 'perhe', 'family', '👪'],
-  // (Family is emoji-capped — most relatives share the same person glyph, which
-  // the picture game can't tell apart, so it stays small on purpose.)
+  // (Family is emoji-capped for the PICTURE games — most relatives share the
+  // same person glyph, which the picture game can't tell apart. The four
+  // words below have NO 4th field (emoji stays undefined on purpose): they
+  // still play in the text-only games (build/order/spell), just never as a
+  // picture card. 'setä' stands in for "uncle" in general (Finnish also has
+  // 'eno' for a maternal uncle specifically; kept out for simplicity).
   ['child', 'lapsi', 'child', '🧒'],
+  ['aunt', 'täti', 'aunt'],
+  ['uncle', 'setä', 'uncle'],
+  ['cousin', 'serkku', 'cousin'],
+  ['grandchild', 'lapsenlapsi', 'grandchild'],
 ];
 
 // Body parts. All decline as ordinary singular nouns (full case paradigm), so
@@ -278,6 +301,9 @@ const CLOTHES = [
   ['ring', 'sormus', 'ring', '💍'],
   ['tie', 'solmio', 'tie', '👔'],
   ['vest', 'liivi', 'vest', '🦺'],
+  // Emoji-less (see the FAMILY comment above) — text-only depth.
+  ['belt', 'vyö', 'belt'],
+  ['earring', 'korvakoru', 'earring'],
 ];
 
 // Kid-friendly verbs spanning all six KOTUS verb types. The 4th field is an

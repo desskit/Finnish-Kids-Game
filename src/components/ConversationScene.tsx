@@ -22,6 +22,7 @@ interface Props {
 export default function ConversationScene({ onExit }: Props) {
   const { level, activeChild, addStars } = useProfile();
   const avatar = activeChild?.avatar;
+  const childName = activeChild?.name ?? '';
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, maxTier } = difficulty;
@@ -34,8 +35,8 @@ export default function ConversationScene({ onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const scene = useMemo<ConversationRound | null>(
-    () => buildConversation(conversations, optionCount, maxTier),
-    [optionCount, maxTier, runId],
+    () => buildConversation(conversations, optionCount, maxTier, childName),
+    [optionCount, maxTier, childName, runId],
   );
 
   const [turnIndex, setTurnIndex] = useState(0);
