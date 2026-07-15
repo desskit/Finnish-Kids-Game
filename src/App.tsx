@@ -7,8 +7,10 @@ import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { useProfile } from './state/profile';
+import { AdventureProvider, useAdventure } from './state/adventure';
 import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
+import AdventureBanner from './components/AdventureBanner';
 import MapHome from './components/MapHome';
 import ProfilePicker from './components/ProfilePicker';
 import ReviewActivity from './components/ReviewActivity';
@@ -48,6 +50,7 @@ function SkillRouteHost() {
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
+  const adventure = useAdventure();
   const { activeChild, recordRound, activityDifficulty, stars, settings } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
@@ -74,7 +77,10 @@ function SkillRoute() {
   // a grown-up hasn't switched it off.
   const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
   const activity = activityForRound(skill, round.level, round.no, speechOn);
-  const element = renderActivity(skill, activity, () => navigate('/'));
+  // On an active "Today's adventure" run, the back button moves to the next
+  // suggested stop instead of the map; free play (no adventure) is unchanged.
+  const onExit = adventure.active ? adventure.advance : () => navigate('/');
+  const element = renderActivity(skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
 
   // Silent segment recording + advance, in one commit: fold the segment's
@@ -106,6 +112,7 @@ function SkillRoute() {
 
   return (
     <main className="app">
+      {adventure.active && <AdventureBanner adventure={adventure} />}
       <ActivityContext.Provider value={{ onSegmentComplete, difficulty, sessionStars }}>
         {/* Key by segment so each one mounts fresh — switching game type cleanly. */}
         {cloneElement(element, { key: round.no })}
@@ -123,13 +130,29 @@ function SkillRoute() {
 // isn't a path step; needs an active child to have an SRS history to draw on.
 function ReviewRoute() {
   const { activeChild } = useProfile();
+  const adventure = useAdventure();
   if (!activeChild) return <Navigate to="/profiles" replace />;
-  return <ReviewActivity />;
+  return (
+    <>
+      {adventure.active && <AdventureBanner adventure={adventure} />}
+      <ReviewActivity onExit={adventure.active ? adventure.advance : undefined} />
+    </>
+  );
 }
 
 // Route tree, separated from the router so it can be mounted in a MemoryRouter
-// for tests (the smoke spec drives navigation through these routes).
+// for tests (the smoke spec drives navigation through these routes). Wrapped
+// in AdventureProvider (needs a Router for useNavigate, and must live ABOVE
+// the individual routes so its state survives moving from stop to stop).
 export function AppRoutes() {
+  return (
+    <AdventureProvider>
+      <AppRoutesInner />
+    </AdventureProvider>
+  );
+}
+
+function AppRoutesInner() {
   return (
     <Routes>
       <Route path="/profiles" element={<ProfilePicker />} />

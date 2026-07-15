@@ -40,7 +40,14 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
 // says are due, backfilled with new words. The FORMAT of each question scales
 // with how well the child knows that item (see ReviewFormat). Records each
 // answer back into SRS, which schedules the next review. Reachable at /review.
-export default function ReviewActivity({ embedded = false }: { embedded?: boolean } = {}) {
+interface Props {
+  embedded?: boolean;
+  /** Overrides the default "go home" destination (e.g. a "Today's adventure"
+   *  run advancing to its next stop instead of the map). Ignored when embedded. */
+  onExit?: () => void;
+}
+
+export default function ReviewActivity({ embedded = false, onExit }: Props = {}) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const navigate = useNavigate();
   const optionCount = level >= 2 ? 4 : 3;
@@ -232,8 +239,10 @@ export default function ReviewActivity({ embedded = false }: { embedded?: boolea
   }
 
   // Embedded (in the grown-up Audit harness) it must NOT navigate the app away,
-  // so "home" is disabled — only replaying the round is offered.
-  const goHome = embedded ? undefined : () => navigate('/');
+  // so "home" is disabled — only replaying the round is offered. Otherwise,
+  // an active "Today's adventure" run's onExit takes over (advances to the
+  // next stop); plain free play falls back to the map, as before.
+  const goHome = embedded ? undefined : (onExit ?? (() => navigate('/')));
 
   if (!activeChild) return null;
 

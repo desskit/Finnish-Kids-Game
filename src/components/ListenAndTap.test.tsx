@@ -37,14 +37,19 @@ import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 
-// A child must exist for addStars() to land on someone.
-function seedChild() {
+// A child must exist for addStars() to land on someone. All three fixture
+// words pre-seeded as already-seen by default, so ordinary quiz-flow tests
+// never hit the "meet the word" intro card — that flow has its own dedicated
+// tests below, with a genuinely fresh (unseeded) child.
+const SEEN_SCHEDULE = { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 };
+
+function seedChild(srs: Record<string, unknown> = {}) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
       children: [
-        { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {} },
+        { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs },
       ],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
@@ -77,7 +82,7 @@ async function advance(ms: number) {
 
 beforeEach(() => {
   localStorage.clear();
-  seedChild();
+  seedChild({ cat: SEEN_SCHEDULE, dog: SEEN_SCHEDULE, cow: SEEN_SCHEDULE });
   vi.clearAllMocks();
   vi.useFakeTimers();
 });
@@ -202,5 +207,31 @@ describe('ListenAndTap', () => {
     expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
     expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
     expect(screen.getByTestId('stars')).toHaveTextContent('6');
+  });
+});
+
+describe('ListenAndTap — "meet the word" intro', () => {
+  it('shows a no-stakes intro card (Finnish + English + TTS) before quizzing a brand-new word', () => {
+    seedChild(); // no schedules at all — every word is unseen
+    renderActivity();
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(0);
+    expect(screen.getByText('Uusi sana!')).toBeInTheDocument();
+    expect(document.querySelector('.word-intro__fi')).toHaveTextContent('kissa');
+    expect(screen.getByText('cat')).toBeInTheDocument();
+  });
+
+  it('advances into the real quiz question after "Continue"', () => {
+    seedChild();
+    renderActivity();
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }));
+    expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
+    expect(screen.getByTestId('stars')).toHaveTextContent('0'); // intro never awards a star
+  });
+
+  it('never shows the intro when the word already has an SRS schedule', () => {
+    seedChild({ cat: SEEN_SCHEDULE });
+    renderActivity();
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(3); // straight to the quiz
   });
 });

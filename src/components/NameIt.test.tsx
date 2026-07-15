@@ -32,12 +32,17 @@ import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 
-function seedChild() {
+// All three fixture words pre-seeded as already-seen, so ordinary quiz-flow
+// tests never hit the "meet the word" intro card — that flow has its own
+// dedicated tests below, with a genuinely fresh (unseeded) child.
+const SEEN_SCHEDULE = { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 };
+
+function seedChild(srs: Record<string, unknown> = {}) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
-      children: [{ id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {} }],
+      children: [{ id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs }],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
     }),
@@ -68,7 +73,7 @@ async function advance(ms: number) {
 
 beforeEach(() => {
   localStorage.clear();
-  seedChild();
+  seedChild({ cat: SEEN_SCHEDULE, dog: SEEN_SCHEDULE, cow: SEEN_SCHEDULE });
   vi.clearAllMocks();
   vi.useFakeTimers();
 });
@@ -156,5 +161,33 @@ describe('NameIt (production recall)', () => {
     expect(playDing).not.toHaveBeenCalledWith(false); // no penalty buzz
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3); // no auto-advance
     expect(speakEnglish).toHaveBeenCalledWith('cat'); // re-cued
+  });
+});
+
+describe('NameIt — "meet the word" intro', () => {
+  it('shows a no-stakes intro card (Finnish + English + TTS) before quizzing a brand-new word', () => {
+    seedChild(); // no schedules at all — every word is unseen
+    renderActivity();
+    // The intro, not the quiz: no word tiles yet, but the answer is right there.
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(0);
+    expect(screen.getByText('Uusi sana!')).toBeInTheDocument();
+    expect(document.querySelector('.word-intro__fi')).toHaveTextContent('kissa');
+    expect(screen.getByText('cat')).toBeInTheDocument();
+  });
+
+  it('advances into the real quiz question after "Continue", without double-crediting SRS', () => {
+    seedChild();
+    renderActivity();
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }));
+    // Now the normal NameIt quiz for the SAME word — same index, no question skipped.
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
+    expect(wordTile('kissa')).toBeInTheDocument();
+    expect(screen.getByTestId('stars')).toHaveTextContent('0'); // intro never awards a star
+  });
+
+  it('never shows the intro when the word already has an SRS schedule', () => {
+    seedChild({ cat: SEEN_SCHEDULE });
+    renderActivity();
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(3); // straight to the quiz
   });
 });

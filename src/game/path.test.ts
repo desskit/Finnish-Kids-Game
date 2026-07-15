@@ -267,6 +267,23 @@ describe('learning path', () => {
     expect(items.every((i) => !!i.emoji)).toBe(true);
   });
 
+  it('adds a Colors vocab node (adjectives, not nouns) with 7 emoji-swatch words', () => {
+    const found = findSkill('listen-colors')!;
+    expect(found.chapter.id).toBe('first-words');
+    expect(found.skill.activity).toBe('listen');
+    const el = renderSkill(found.skill, 1, () => {});
+    const items = (el!.props as { items?: { emoji?: string; id: string }[] }).items!;
+    expect(items).toHaveLength(7);
+    expect(items.every((i) => !!i.emoji)).toBe(true);
+    expect(new Set(items.map((i) => i.id))).toEqual(
+      new Set(['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown']),
+    );
+    // No `match` (colors are adjectives, not a noun pool to pair against);
+    // `listen-sentence` DOES play, gated to just the this-is carrier.
+    expect(found.skill.activities).not.toContain('match');
+    expect(renderActivity(found.skill, 'listen-sentence', () => {})).not.toBeNull();
+  });
+
   it('adds a plural These-are/Where-are node in the naming chapter', () => {
     const found = findSkill('plurals')!;
     expect(found.chapter.id).toBe('naming');

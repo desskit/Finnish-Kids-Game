@@ -190,6 +190,22 @@ describe('buildComprehensionRound', () => {
     }
   });
 
+  it('builds natural predicate-adjective sentences for the colors node ("Tämä on punainen.")', () => {
+    const thisIs = nounConstructions.filter((c) => c.id === 'this-is');
+    const colors = adjectives.items.filter((i) =>
+      ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown'].includes(i.id),
+    );
+    let produced = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildComprehensionRound(colors, thisIs, 6, 3, 4)) {
+        produced++;
+        expect(q.sentence).toMatch(/^Tämä on \S+\.$/);
+        q.options.forEach((o) => expect(o.emoji).toBeTruthy());
+      }
+    }
+    expect(produced).toBeGreaterThan(0);
+  });
+
   it('never uses an emoji-less item as a tile', () => {
     // verbs include emoji-less abstract ones (olla, saada…); they must be filtered.
     for (let r = 0; r < RUNS; r++) {

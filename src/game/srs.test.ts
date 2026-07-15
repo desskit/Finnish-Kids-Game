@@ -6,6 +6,8 @@ import {
   accuracy,
   isMastered,
   selectReviewItems,
+  introIndices,
+  MAX_NEW_WORD_INTROS,
   BOX_INTERVALS_MS,
   MAX_BOX,
   type ItemSchedule,
@@ -126,5 +128,39 @@ describe('selectReviewItems', () => {
   it('never returns more than count', () => {
     expect(selectReviewItems({ schedules: {}, allIds: ids, now: T0, count: 2 })).toHaveLength(2);
     expect(selectReviewItems({ schedules: {}, allIds: ids, now: T0, count: 0 })).toHaveLength(0);
+  });
+});
+
+describe('introIndices ("meet the word")', () => {
+  it('flags every unseen target, in order, when there is no cap issue', () => {
+    const out = introIndices(['a', 'b'], {}, 5);
+    expect(out).toEqual(new Set([0, 1]));
+  });
+
+  it('skips a target that already has a schedule with seen > 0', () => {
+    const schedules: Record<string, ItemSchedule> = {
+      a: { box: 2, due: T0, seen: 1, correct: 1, lastSeenAt: T0 },
+    };
+    expect(introIndices(['a', 'b'], schedules, 5)).toEqual(new Set([1]));
+  });
+
+  it('treats a schedule with seen === 0 as still unseen (defensive)', () => {
+    const schedules: Record<string, ItemSchedule> = {
+      a: { box: 1, due: T0, seen: 0, correct: 0, lastSeenAt: 0 },
+    };
+    expect(introIndices(['a'], schedules, 5)).toEqual(new Set([0]));
+  });
+
+  it('caps at the given limit, defaulting to MAX_NEW_WORD_INTROS', () => {
+    expect(introIndices(['a', 'b', 'c'], {}, 2)).toEqual(new Set([0, 1]));
+    expect(introIndices(['a', 'b', 'c'], {})).toEqual(new Set([...Array(MAX_NEW_WORD_INTROS).keys()]));
+  });
+
+  it('never flags the SAME word twice within one round, even if it repeats', () => {
+    // A degenerate/mocked round with a repeated target: only its first
+    // occurrence gets an intro, so the child never sees the same "New word!"
+    // card twice in one sitting.
+    const out = introIndices(['a', 'a', 'a', 'b'], {}, 5);
+    expect(out).toEqual(new Set([0, 3]));
   });
 });

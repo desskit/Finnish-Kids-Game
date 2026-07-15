@@ -74,7 +74,8 @@ export type Pool =
   | 'body'
   | 'nature'
   | 'clothes'
-  | 'verbs';
+  | 'verbs'
+  | 'colors';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -175,6 +176,15 @@ const NOUNS: LexicalItem[] = [
 // live in the conjugation drill and sentences instead.
 const PICTURED_VERBS: LexicalItem[] = verbs.items.filter((i) => i.emoji);
 
+// The 7 color adjectives, each already sourced with a color-swatch emoji
+// (🟥🟦🟨🟩⬛⬜🟫) — real vocabulary art with no illustration dependency. Kept
+// separate from `adjectives.items` (which stays the full agreement-game set,
+// including non-color adjectives with no picture) and out of `NOUNS`/`themes`,
+// same as adjectives generally — colors are their own small warm-up, not a
+// noun topic the capstones or cross-topic Review draw on.
+const COLOR_IDS = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown'];
+const COLORS: LexicalItem[] = adjectives.items.filter((i) => COLOR_IDS.includes(i.id));
+
 function itemsForPool(pool?: Pool): LexicalItem[] {
   switch (pool) {
     case 'animals':
@@ -195,6 +205,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return clothes.items;
     case 'verbs':
       return PICTURED_VERBS;
+    case 'colors':
+      return COLORS;
     default:
       return NOUNS;
   }
@@ -250,6 +262,12 @@ const baseChapters: Chapter[] = [
       { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'clothes' } },
       { id: 'listen-places', titleFi: 'Paikat', titleEn: 'Places', icon: '🏠', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'places' } },
       { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'numbers' } },
+      // Colors: adjectives, not nouns, so no `match` (they don't pair with a
+      // noun here — they'd have to BE the noun pool, which they aren't).
+      // `listen-sentence` still works: "Tämä on punainen." ("This is red.")
+      // is a natural Finnish predicate-adjective sentence, gated to just the
+      // `this-is` carrier (no "Minulla on punainen" nonsense).
+      { id: 'listen-colors', titleFi: 'Värit', titleEn: 'Colors', icon: '🌈', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'colors', constructionIds: ['this-is'] } },
     ],
   },
   {
