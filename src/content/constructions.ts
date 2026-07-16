@@ -59,6 +59,19 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
   },
   {
+    // The -ko yes/no question form of this-is: "Onko tämä kissa?" — the child's
+    // first interrogative. Drilled by the Onko tämä…? node (YesNoGame) and, like
+    // every carrier, playable in the mixed comprehension/capstone games.
+    // ⚠️ NEEDS NATIVE FINNISH VETTING (new authored carrier text).
+    id: 'is-this',
+    before: 'Onko tämä',
+    punct: '?',
+    en: 'Is this a ___?',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+  },
+  {
     id: 'i-have',
     before: 'Minulla on',
     punct: '.',
@@ -266,8 +279,38 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
     topics: ['animals', 'food', 'clothes'],
     // Mass nouns take the partitive when bought ("Ostan maitoa"), so keep them
-    // out of this genitive total-object frame.
+    // out of this genitive total-object frame — they get their own carrier
+    // below (i-buy-some), making the pair the Shopping node's real lesson.
     excludeIds: ['water', 'milk', 'juice', 'chocolate'],
+  },
+  {
+    // The partitive half of the buying contrast: a mass/divisible thing bought
+    // in some quantity takes the PARTITIVE ("Ostan maitoa" — I buy some milk),
+    // where a whole countable thing takes the genitive (i-buy above). Same
+    // already-vetted carrier text "Ostan"; only the case + the curated
+    // mass-noun allow-list are new. See docs/FINNISH_GRAMMAR.md (partitive).
+    id: 'i-buy-some',
+    before: 'Ostan',
+    punct: '.',
+    en: 'I buy some ___.',
+    tier: 6,
+    case: 'partitive',
+    number: 'singular',
+    topics: ['food'],
+    // Divisible foods a child buys "some of" — a hand-curated allow-list, since
+    // the sensible set is these specific words, not a whole topic.
+    onlyIds: [
+      'water',
+      'milk',
+      'juice',
+      'chocolate',
+      'bread',
+      'cheese',
+      'rice',
+      'ice-cream',
+      'candy',
+      'butter',
+    ],
   },
   {
     id: 'i-wait-for', // odottaa always governs the partitive: "Odotan äitiä."

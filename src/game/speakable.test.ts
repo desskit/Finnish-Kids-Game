@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { speakableTargetsFor, saySafe } from './speakable';
 import { findSkill } from './path';
-import { animals, food } from '../content';
+import { animals, food, verbs } from '../content';
 import { dialogues } from '../content/dialogues';
 
 const nouns = [...animals.items, ...food.items];
@@ -38,6 +38,22 @@ describe('speakableTargetsFor', () => {
   it('greetings/small-talk speak a reply phrase', () => {
     expect(targets('greetings').length).toBeGreaterThan(0);
     expect(targets('small-talk').length).toBeGreaterThan(0);
+  });
+
+  it('commands node speaks the imperative itself ("Hyppää!")', () => {
+    const ts = speakableTargetsFor(findSkill('commands')!.skill, verbs.items, 8, 5);
+    expect(ts.length).toBeGreaterThan(0);
+    ts.forEach((t) => {
+      expect(t.say).toMatch(/^[A-ZÄÖÅ].*!$/);
+      expect(t.gloss).toMatch(/!$/); // "Jump!" — the English command
+      expect(t.attemptId).toBeTruthy(); // the verb still earns SRS credit
+    });
+  });
+
+  it('yes/no node speaks the question ("Onko tämä kissa?")', () => {
+    const ts = targets('is-this', animals.items);
+    expect(ts.length).toBeGreaterThan(0);
+    expect(ts.some((t) => /^Onko tämä .*\?$/.test(t.say))).toBe(true);
   });
 
   it('never returns an empty round when the node has a pool (falls back to bare words)', () => {

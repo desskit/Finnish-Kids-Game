@@ -2,6 +2,7 @@ import type { LexicalItem, Tier } from '../content/types';
 import type { SkillNode } from './path';
 import {
   buildSayRound,
+  buildCommandRound,
   buildCountingRound,
   buildAgreementRound,
   buildConjugationRound,
@@ -158,6 +159,24 @@ function routeTargets(
             attemptId: q.noun.id,
           })),
       );
+
+    // Commands: say the imperative itself ("Hyppää!") — one short, punchy
+    // word, ideal speaking material. The English imperative is the base verb
+    // (a lookup, not morphology): "Jump!".
+    case 'command':
+      return keep(
+        buildCommandRound(items, N, 3, false, weigh).map((q) => ({
+          say: q.sentence,
+          gloss: q.item.en.charAt(0).toUpperCase() + q.item.en.slice(1) + '!',
+          emoji: q.item.emoji,
+          attemptId: q.item.id,
+        })),
+      );
+
+    // Yes/no questions: say the question itself ("Onko tämä kissa?") — asking
+    // is production too. Routed through the node's own is-this carrier.
+    case 'yesno':
+      return keep(buildSayRound(items, constructionsForNode(skill), N, tier, weigh));
 
     // Conjugation: "minä syön" (present positive — the easy frames to say).
     case 'conjugate':

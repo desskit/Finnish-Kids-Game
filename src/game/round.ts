@@ -10,12 +10,13 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
+import { caseFormOf, commandFor, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import {
   isAnimateOnlyAdjective,
   isAnimateTopic,
   isMovementOnlyAdjective,
   canDescribeMovement,
+  isCommandVerb,
 } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
 import { personalizeLine } from '../content/dialogues';
@@ -362,6 +363,94 @@ export function buildComprehensionRound(
   });
 }
 
+// --- TPR commands ("Tee näin!") -------------------------------------------
+//
+// Hear an imperative ("Hyppää!"), tap the action picture — Total Physical
+// Response, the classic listening format for this age, over the sourced
+// imperative paradigm. Same question shape as sentence comprehension (a spoken
+// Finnish utterance → picture options), so it reuses the ListenSentence game.
+// Only curated, kid-actable verbs qualify (see COMMAND_VERB_IDS in
+// semantics.ts) — never states or feelings.
+
+export function buildCommandRound(
+  verbs: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
+): ComprehensionQuestion[] {
+  // Commandable + picturable + the sourced imperative actually present.
+  const pool = verbs.filter((v) => v.emoji && isCommandVerb(v.id) && commandFor(v));
+  const targets = weightedSample(pool, Math.min(questionCount, pool.length), weigh);
+  return targets.map((target) => {
+    const others = pool.filter((v) => v.id !== target.id);
+    // Tricky: prefer commands that SOUND confusable — imperatives sharing the
+    // first letter ("juokse" vs "juo"), so the child must hear the whole word.
+    const initial = commandFor(target)!.charAt(0).toLowerCase();
+    const near = tricky
+      ? others.filter((v) => commandFor(v)!.charAt(0).toLowerCase() === initial)
+      : [];
+    const distractors = pickPreferring(others, near, optionCount - 1);
+    return {
+      sentence: commandFor(target)!,
+      item: target,
+      options: shuffle([target, ...distractors]),
+    };
+  });
+}
+
+// --- Yes/no questions ("Onko tämä kissa?") --------------------------------
+//
+// The child's first interrogative: a picture is shown, a -ko question is
+// spoken/read ("Onko tämä kissa?"), and the child answers Kyllä/Ei. Half the
+// questions ask about the shown thing (yes), half about a different word (no)
+// — so the skill is understanding the ASKED word, not pattern-matching. The
+// question text comes from the is-this carrier via sentenceFor (sourced
+// nominative slot); nothing is generated.
+
+export interface YesNoQuestion {
+  /** The item whose PICTURE is shown. */
+  shown: LexicalItem;
+  /** The item the question asks about (may or may not be `shown`). */
+  asked: LexicalItem;
+  /** True when asked === shown (the correct answer is Kyllä). */
+  isMatch: boolean;
+  /** The full spoken/read question, e.g. "Onko tämä kissa?". */
+  question: string;
+}
+
+export function buildYesNoRound(
+  items: readonly LexicalItem[],
+  construction: Construction,
+  questionCount: number,
+  tricky = false,
+  weigh?: WeighFn,
+): YesNoQuestion[] {
+  // Only picturable items with the needed (nominative) form can be shown/asked.
+  const pool = items.filter((i) => i.emoji && formFor(i, construction));
+  if (pool.length < 2) return [];
+  const shownPicks = weightedSample(pool, Math.min(questionCount, pool.length), weigh);
+  return shownPicks.map((shown, i) => {
+    // Alternate yes/no deterministically-ish (shuffle order already randomizes
+    // which item lands where), so a round is never all-yes or all-no.
+    const isMatch = i % 2 === 0;
+    let asked = shown;
+    if (!isMatch) {
+      const others = pool.filter((it) => it.id !== shown.id);
+      // Tricky: the asked word shares the shown item's topic (cat shown, "Onko
+      // tämä koira?") — same-neighborhood, so the word must really be parsed.
+      const near = tricky ? others.filter((it) => it.topic && it.topic === shown.topic) : [];
+      asked = pickPreferring(others, near, 1)[0] ?? shown;
+    }
+    return {
+      shown,
+      asked,
+      isMatch: asked.id === shown.id,
+      question: sentenceFor(asked, construction),
+    };
+  });
+}
+
 export interface PhraseQuestion {
   construction: Construction;
   /** The correct item; its slot form is formFor(item, construction). */
@@ -443,6 +532,67 @@ export function buildReviewRound(
     );
     return { target, options: shuffle([target, ...distractors]) };
   });
+}
+
+// --- Grammar review (a due construction's spaced-repetition question) ------
+//
+// A construction met in play earns its own SRS schedule (`con:<id>`, written by
+// the carrier-phrase games). When it comes due, Review tests THE GRAMMAR: the
+// carrier is shown with its slot blank, and the child picks the item form that
+// completes it correctly — the same word across different sourced cases, so
+// exactly one option carries the case ending the carrier requires. All forms
+// are looked up (caseFormOf); nothing is generated.
+
+/** The case pool grammar-review distractors draw from (the everyday cases). */
+const GRAMMAR_REVIEW_CASES: CaseId[] = [
+  'nominative',
+  'genitive',
+  'partitive',
+  'elative',
+  'inessive',
+  'illative',
+  'adessive',
+  'allative',
+  'ablative',
+];
+
+export interface GrammarReviewQuestion {
+  construction: Construction;
+  /** The item filling the slot (its emoji/gloss anchor the meaning). */
+  item: LexicalItem;
+  /** The correct sourced slot form, e.g. "kissasta". */
+  answer: string;
+  /** Form options (the same item across cases), shuffled; one is `answer`. */
+  options: string[];
+}
+
+export function buildGrammarReviewQuestion(
+  construction: Construction,
+  items: readonly LexicalItem[],
+  optionCount: number,
+  weigh?: WeighFn,
+): GrammarReviewQuestion | null {
+  // Any suitable item works — the grammar, not the word, is under review.
+  const usable = items.filter((i) => formFor(i, construction) && suitsSlot(i, construction));
+  // A few draws: some items' paradigms spell several cells identically, which
+  // can leave too few DISTINCT distractor forms — try another item.
+  const candidates = weightedSample(usable, Math.min(usable.length, 8), weigh);
+  for (const item of candidates) {
+    const answer = formFor(item, construction)!;
+    const seen = new Set([answer]);
+    const distractorForms: string[] = [];
+    for (const c of GRAMMAR_REVIEW_CASES) {
+      const form = caseFormOf(item, c, construction.number);
+      if (form && !seen.has(form)) {
+        seen.add(form);
+        distractorForms.push(form);
+      }
+    }
+    if (distractorForms.length < optionCount - 1) continue;
+    const options = shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
+    return { construction, item, answer, options };
+  }
+  return null;
 }
 
 // --- Spelling --------------------------------------------------------------
@@ -576,6 +726,10 @@ export interface CountingQuestion {
   nounOptions: LexicalItem[];
 }
 
+/** From this maxCount up (L6+ in the level table), the round tens join the
+ *  draw — see the note inside buildCountingRound. */
+export const TENS_FROM_MAX_COUNT = 16;
+
 export function buildCountingRound(
   numbers: readonly LexicalItem[],
   nouns: readonly LexicalItem[],
@@ -585,9 +739,15 @@ export function buildCountingRound(
   tricky = false,
   weigh?: WeighFn,
 ): CountingQuestion[] {
+  // The countable range 1..maxCount — plus, at the top of the ladder
+  // (maxCount ≥ 16, i.e. L6+), the round tens (30, 40, … 100). Their noun
+  // grammar is the same sourced partitive singular ("kolmekymmentä kissaa"),
+  // so the tens taught by the Numbers warm-up become usable counting
+  // grammar; the game shows them as a numeral (nobody counts 70 emoji).
   const counts = numbers.filter((n) => {
     const v = n.value ?? 0;
-    return v >= 1 && v <= maxCount;
+    if (v >= 1 && v <= maxCount) return true;
+    return maxCount >= TENS_FROM_MAX_COUNT && v > 20 && v <= 100 && v % 10 === 0;
   });
 
   const out: CountingQuestion[] = [];
@@ -874,6 +1034,12 @@ export interface SentenceQuestion {
   shuffled: WordOrderToken[];
   /** Optional item id for SRS crediting (sentences span several words, so none). */
   attemptId?: string;
+  /**
+   * Optional GRAMMAR SRS id (`con:<constructionId>`, carrier-phrase mode only)
+   * — schedules the construction itself for spaced review, in parallel with
+   * the word's own schedule. See the grammar format in ReviewActivity.
+   */
+  grammarId?: string;
   /**
    * A picture of the sentence's main object (carrier-phrase mode only — a
    * multi-slot sentence has no single item to depict, so this stays unset there).

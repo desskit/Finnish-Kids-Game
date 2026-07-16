@@ -9,7 +9,7 @@ import {
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
-import { familiarityWeigher } from '../game/srs';
+import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -74,6 +74,7 @@ export default function WordOrder({
           tokens: q.tokens,
           shuffled: q.shuffled,
           attemptId: q.item.id,
+          grammarId: grammarSrsId(q.construction.id),
           emoji: q.item.emoji,
         }));
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
@@ -130,6 +131,8 @@ export default function WordOrder({
           addStars(1);
           if (!buildRound) speak(q.sentence);
           if (q.attemptId) recordAttempt(q.attemptId, !missed.current);
+          // Carrier-phrase mode also schedules the GRAMMAR for spaced review.
+          if (q.grammarId) recordAttempt(q.grammarId, !missed.current);
           if (!missed.current) firstTries.current += 1;
           const next = index + 1;
           setTimeout(() => {
@@ -158,6 +161,7 @@ export default function WordOrder({
   const skip = useCallback(() => {
     if (!q || locked || done) return;
     if (q.attemptId) recordAttempt(q.attemptId, false);
+    if (q.grammarId) recordAttempt(q.grammarId, false);
     const next = index + 1;
     missed.current = false;
     setPlaced([]);

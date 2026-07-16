@@ -14,7 +14,15 @@ import {
   reviewItems,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
-import { formFor, verbForm, caseFormOf, englishSentenceFor, PERSONS } from '../content/types';
+import {
+  formFor,
+  verbForm,
+  caseFormOf,
+  englishSentenceFor,
+  imperativeForm,
+  suitsSlot,
+  PERSONS,
+} from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -197,6 +205,43 @@ describe('content integrity', () => {
   it('gives every adjective a nominative singular form for agreement', () => {
     for (const adj of adjectives.items) {
       expect(caseFormOf(adj, 'nominative', 'singular'), adj.id).toBeTruthy();
+    }
+  });
+
+  it('splits buying into genitive (whole thing) vs partitive (mass) carriers', () => {
+    // The Shopping node's whole lesson: "Ostan omenan" (genitive total object)
+    // vs "Ostan maitoa" (partitive mass) — each word fits exactly one frame.
+    const iBuy = nounConstructions.find((c) => c.id === 'i-buy')!;
+    const iBuySome = nounConstructions.find((c) => c.id === 'i-buy-some')!;
+    const milk = food.items.find((i) => i.id === 'milk')!;
+    const apple = food.items.find((i) => i.id === 'apple')!;
+    expect(suitsSlot(milk, iBuy)).toBe(false);
+    expect(suitsSlot(milk, iBuySome)).toBe(true);
+    expect(suitsSlot(apple, iBuy)).toBe(true);
+    expect(suitsSlot(apple, iBuySome)).toBe(false);
+    // Every allow-listed mass noun is a real food item with the partitive form.
+    for (const id of iBuySome.onlyIds!) {
+      const item = food.items.find((i) => i.id === id);
+      expect(item, `${id} not in food`).toBeTruthy();
+      expect(formFor(item!, iBuySome), id).toBeTruthy();
+    }
+  });
+
+  it('adds the -ko question carrier (is-this: nominative, tier 2, "?" punctuation)', () => {
+    const isThis = nounConstructions.find((c) => c.id === 'is-this')!;
+    expect(isThis.case).toBe('nominative');
+    expect(isThis.tier).toBe(2);
+    expect(isThis.punct).toBe('?');
+    // The English side gets the article treatment: "Is this an apple?".
+    const apple = food.items.find((i) => i.id === 'apple')!;
+    expect(englishSentenceFor(apple, isThis)).toBe('Is this an apple?');
+  });
+
+  it('sources the imperative for every kid-actable command verb', () => {
+    // The TPR game's guarantee: a curated command verb always has its sourced
+    // imperative 2sg (the build keeps those keys — see VERB_INFLECTION_KEYS).
+    for (const v of verbs.items) {
+      expect(imperativeForm(v, '2sg'), v.id).toBeTruthy();
     }
   });
 });

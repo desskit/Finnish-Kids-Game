@@ -8,6 +8,9 @@ import {
   buildCountingRound,
   buildAgreementRound,
   buildConjugationRound,
+  buildCommandRound,
+  buildYesNoRound,
+  buildGrammarReviewQuestion,
   buildReviewRound,
   buildComprehensionRound,
   buildSayRound,
@@ -15,6 +18,8 @@ import {
   buildConversation,
   buildReadingRound,
 } from './round';
+import { COMMAND_VERB_IDS } from '../content/semantics';
+import { commandFor, suitsSlot } from '../content/types';
 import { dialogues } from '../content/dialogues';
 import { conversations } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
@@ -128,6 +133,112 @@ describe('buildCountingRound', () => {
         expect(v).toBeLessThanOrEqual(5);
       }
     }
+  });
+
+  it('keeps the tens out below the top of the ladder (maxCount 12)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildCountingRound(numbers.items, animals.items, 6, 3, 12)) {
+        expect(q.number.value ?? 0).toBeLessThanOrEqual(12);
+      }
+    }
+  });
+
+  it('draws the round tens (30…100) at the top of the ladder (maxCount 20)', () => {
+    let tensSeen = 0;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildCountingRound(numbers.items, animals.items, 6, 3, 20)) {
+        const v = q.number.value ?? 0;
+        // Everything drawn is either a countable 1..20 or a round ten ≤ 100.
+        expect(v <= 20 || (v % 10 === 0 && v <= 100)).toBe(true);
+        if (v > 20) tensSeen++;
+      }
+    }
+    // With 9 tens among 29 eligible numbers, 600 draws must hit some.
+    expect(tensSeen).toBeGreaterThan(0);
+  });
+});
+
+describe('buildCommandRound (TPR commands)', () => {
+  it('speaks a sourced imperative ("Hyppää!") with the answer among actable pictures', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildCommandRound(verbs.items, 6, 3);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // The utterance is exactly the sourced imperative, capitalized + "!".
+        expect(q.sentence).toBe(commandFor(q.item));
+        expect(q.sentence).toMatch(/^[A-ZÄÖÅ].*!$/);
+        // Every option: picturable AND on the kid-actable allow-list.
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(new Set(q.options.map((o) => o.id)).size).toBe(q.options.length);
+        for (const o of q.options) {
+          expect(o.emoji).toBeTruthy();
+          expect(COMMAND_VERB_IDS).toContain(o.id);
+        }
+      }
+    }
+  });
+
+  it('never commands a state or feeling (love, cry, remember are not actable)', () => {
+    for (const banned of ['love', 'cry', 'remember', 'forget', 'want']) {
+      expect(COMMAND_VERB_IDS).not.toContain(banned);
+    }
+  });
+});
+
+describe('buildYesNoRound (Onko tämä…?)', () => {
+  const isThis = nounConstructions.find((c) => c.id === 'is-this')!;
+
+  it('asks the is-this question over the ASKED word, mixing yes and no', () => {
+    let yes = 0;
+    let no = 0;
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildYesNoRound(animals.items, isThis, 6);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.question).toMatch(/^Onko tämä \S+\?$/);
+        // The question is about the ASKED word (never silently the shown one).
+        expect(q.question).toContain(formFor(q.asked, isThis)!);
+        expect(q.isMatch).toBe(q.asked.id === q.shown.id);
+        expect(q.shown.emoji).toBeTruthy();
+        if (q.isMatch) yes++;
+        else no++;
+      }
+    }
+    // Both answers genuinely occur — never an all-yes (or all-no) game.
+    expect(yes).toBeGreaterThan(0);
+    expect(no).toBeGreaterThan(0);
+  });
+
+  it('tricky no-questions ask about a same-topic word (cat shown, "Onko tämä koira?")', () => {
+    // Mixed pool so a cross-topic asked word WOULD be possible without the gate.
+    const mixed = [...animals.items, ...food.items];
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildYesNoRound(mixed, isThis, 6, true)) {
+        if (!q.isMatch) expect(q.asked.topic).toBe(q.shown.topic);
+      }
+    }
+  });
+});
+
+describe('buildGrammarReviewQuestion (a due carrier in Review)', () => {
+  const iLike = nounConstructions.find((c) => c.id === 'i-like')!;
+
+  it('tests the carrier’s case: the answer is the sourced slot form among the same word’s other cases', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const q = buildGrammarReviewQuestion(iLike, animals.items, 4);
+      expect(q).not.toBeNull();
+      // The paired item makes sense in the slot, and the answer is ITS form.
+      expect(suitsSlot(q!.item, iLike)).toBe(true);
+      expect(q!.answer).toBe(formFor(q!.item, iLike));
+      // Options: distinct forms, the answer present exactly once.
+      expect(q!.options).toHaveLength(4);
+      expect(new Set(q!.options).size).toBe(4);
+      expect(q!.options.filter((f) => f === q!.answer)).toHaveLength(1);
+    }
+  });
+
+  it('returns null when no item can fill the slot', () => {
+    expect(buildGrammarReviewQuestion(iLike, [], 4)).toBeNull();
   });
 });
 

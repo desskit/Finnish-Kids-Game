@@ -80,6 +80,35 @@ export function isMastered(s: ItemSchedule): boolean {
   return s.box >= MAX_BOX;
 }
 
+// --- Grammar schedules ------------------------------------------------------
+//
+// Constructions (carrier phrases) get spaced review too: the carrier games
+// write a parallel schedule under `con:<constructionId>` in the same srs map,
+// and Review serves a due one as a grammar-format question. These helpers keep
+// the two id namespaces from bleeding into each other — word statistics
+// (badges, the dashboard) must count WORDS, not grammar keys.
+
+export const GRAMMAR_PREFIX = 'con:';
+
+/** The srs key for a construction's schedule. */
+export function grammarSrsId(constructionId: string): string {
+  return GRAMMAR_PREFIX + constructionId;
+}
+
+/** Is this srs key a grammar (construction) schedule rather than a word's? */
+export function isGrammarId(id: string): boolean {
+  return id.startsWith(GRAMMAR_PREFIX);
+}
+
+/** Only the WORD schedules from a child's srs map (for word-count statistics). */
+export function wordSchedules(
+  srs: Record<string, ItemSchedule> | undefined,
+): ItemSchedule[] {
+  return Object.entries(srs ?? {})
+    .filter(([id]) => !isGrammarId(id))
+    .map(([, s]) => s);
+}
+
 /** How much likelier an already-met word is per draw than an unseen one. */
 export const FAMILIAR_WEIGHT = 3;
 

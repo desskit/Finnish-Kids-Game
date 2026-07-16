@@ -164,13 +164,28 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
         <span className="en">{phase === 'number' ? 'How many?' : 'Which animal?'}</span>
       </p>
 
-      <div className="count-scene" aria-label={`${count} ${q.noun.en}`}>
-        {Array.from({ length: count }, (_, i) => (
-          <span key={i} className="count-emoji" aria-hidden="true">
+      {count > 20 ? (
+        // The tens (30, 40, … 100): nobody counts 70 emoji, so the scene shows
+        // the NUMERAL — the skill shifts from counting to reading a big number
+        // and still producing the same partitive noun grammar.
+        <div className="count-scene count-scene--numeral" aria-label={`${count} ${q.noun.en}`}>
+          <span className="count-numeral">{count}</span>
+          <span className="count-numeral__times" aria-hidden="true">
+            ×
+          </span>
+          <span className="count-emoji" aria-hidden="true">
             {q.noun.emoji}
           </span>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="count-scene" aria-label={`${count} ${q.noun.en}`}>
+          {Array.from({ length: count }, (_, i) => (
+            <span key={i} className="count-emoji" aria-hidden="true">
+              {q.noun.emoji}
+            </span>
+          ))}
+        </div>
+      )}
 
       <div className="phrase-line phrase-line--count">
         <span className={'phrase-slot' + (pickedNumber ? ' phrase-slot--filled' : '')}>

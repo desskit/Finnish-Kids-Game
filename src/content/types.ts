@@ -133,6 +133,13 @@ export interface Construction {
    * LexicalItem.tags). Omitted = no tag requirement.
    */
   requiresTags?: string[];
+  /**
+   * Semantic gate, tightest grain: ONLY these item ids fit the slot. Used
+   * where the sensible set is a short curated list rather than a topic — e.g.
+   * the mass-noun partitive "Ostan maitoa" only works for divisible foods.
+   * Omitted = no allow-list (the other gates still apply).
+   */
+  onlyIds?: string[];
 }
 
 export interface Theme {
@@ -166,6 +173,7 @@ export function suitsSlot(item: LexicalItem, con: Construction): boolean {
   if (con.topics && (!item.topic || !con.topics.includes(item.topic))) return false;
   if (con.excludeIds?.includes(item.id)) return false;
   if (con.requiresTags && !con.requiresTags.every((t) => item.tags?.includes(t))) return false;
+  if (con.onlyIds && !con.onlyIds.includes(item.id)) return false;
   return true;
 }
 
@@ -318,6 +326,22 @@ export function conjugatedClause(
   const form = verbForm(verb, tense, polarity, person);
   if (!p || !form) return undefined;
   return `${p.fi} ${form}`;
+}
+
+/** The sourced imperative form ("hyppää" / "hypätkää"), looked up by tag. */
+export function imperativeForm(verb: LexicalItem, person: '2sg' | '2pl'): string | undefined {
+  return verb.inflections[`imperative_active_positive_${person}`];
+}
+
+/**
+ * A command as spoken/shown: the sourced imperative, capitalized, with an
+ * exclamation mark — "Hyppää!". Capitalization + punctuation are presentation
+ * (like a carrier's authored punctuation), never a generated form.
+ */
+export function commandFor(verb: LexicalItem, person: '2sg' | '2pl' = '2sg'): string | undefined {
+  const form = imperativeForm(verb, person);
+  if (!form) return undefined;
+  return form.charAt(0).toUpperCase() + form.slice(1) + '!';
 }
 
 // --- Multi-slot sentence templates (advanced; content authored later) -----

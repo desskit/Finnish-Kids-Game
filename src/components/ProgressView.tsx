@@ -1,6 +1,6 @@
 import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
-import { isDue, isMastered } from '../game/srs';
+import { isDue, isMastered, wordSchedules } from '../game/srs';
 import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { PATH, badgeEnv } from '../game/path';
@@ -22,9 +22,10 @@ export default function ProgressView() {
   return (
     <div className="grownup__panel">
       {children.map((c) => {
-        // Vocabulary review (SRS) summary across everything.
+        // Vocabulary review (SRS) summary across everything — WORD schedules
+        // only (grammar `con:` schedules don't count as words practiced).
         const now = Date.now();
-        const schedules = Object.values(c.srs ?? {});
+        const schedules = wordSchedules(c.srs);
         const practiced = schedules.length;
         const mastered = schedules.filter(isMastered).length;
         const due = reviewItems.filter((i) => c.srs?.[i.id] && isDue(c.srs[i.id], now)).length;

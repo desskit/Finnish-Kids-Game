@@ -4,7 +4,7 @@ import { englishSentenceFor, formFor, sentenceFor } from '../content';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
-import { familiarityWeigher } from '../game/srs';
+import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { buildPhraseRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -76,6 +76,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         speak(fullSentence);
         addStars(1);
         recordAttempt(question.item.id, !missed.current);
+        // The GRAMMAR gets its own spaced schedule too: the construction just
+        // exercised comes due for review like a word does (see ReviewActivity).
+        recordAttempt(grammarSrsId(question.construction.id), !missed.current);
         if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;

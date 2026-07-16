@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { LexicalItem } from '../content/types';
+import { englishSentenceFor, sentenceFor } from '../content/types';
 import { reviewItems, reviewItemById } from '../content';
+import { nounConstructions } from '../content/constructions';
 import { useProfile } from '../state/profile';
-import { MAX_BOX, selectReviewItems } from '../game/srs';
+import { MAX_BOX, selectReviewItems, grammarSrsId, isGrammarId } from '../game/srs';
+import { buildGrammarReviewQuestion, type GrammarReviewQuestion } from '../game/round';
 import { sample, shuffle } from '../util/shuffle';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -18,8 +21,10 @@ const QUESTIONS = 8;
  *   box 1-2 → recognition (hear Finnish, tap the picture)
  *   box 3-4 → production pick (see picture, pick the Finnish word)
  *   box 5   → spelling (see picture, TYPE the Finnish)
+ * A due GRAMMAR schedule (`con:` — a carrier phrase met in play) always uses
+ * the grammar format: complete the carrier with the correctly-inflected form.
  */
-type ReviewFormat = 'recognition' | 'production' | 'spelling';
+type ReviewFormat = 'recognition' | 'production' | 'spelling' | 'grammar';
 
 function formatForBox(box: number): ReviewFormat {
   if (box >= MAX_BOX) return 'spelling';
@@ -30,8 +35,12 @@ function formatForBox(box: number): ReviewFormat {
 interface ReviewQ {
   target: LexicalItem;
   format: ReviewFormat;
-  /** Picture/word options (recognition + production); empty for spelling. */
+  /** The schedule this question credits: the word id, or `con:<id>` (grammar). */
+  srsId: string;
+  /** Picture/word options (recognition + production); empty for spelling/grammar. */
   options: LexicalItem[];
+  /** The grammar question (format 'grammar' only). */
+  grammar?: GrammarReviewQuestion;
 }
 
 const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
@@ -56,19 +65,31 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   const [runId, setRunId] = useState(0);
 
   // Select due/new items once per run (snapshot at start, so answering during
-  // the round doesn't reshuffle the questions underneath the child).
+  // the round doesn't reshuffle the questions underneath the child). GRAMMAR
+  // schedules join the pool too — but only constructions the child has already
+  // MET in play (a schedule exists): grammar is reviewed, never introduced here.
   const round = useMemo<ReviewQ[]>(() => {
     const schedules = activeChild?.srs ?? {};
+    const grammarIds = nounConstructions
+      .map((c) => grammarSrsId(c.id))
+      .filter((id) => schedules[id]);
     const ids = selectReviewItems({
       schedules,
-      allIds: reviewItems.map((i) => i.id),
+      allIds: [...reviewItems.map((i) => i.id), ...grammarIds],
       now: Date.now(),
       count: QUESTIONS,
     });
     return ids
-      .map((id) => reviewItemById[id])
-      .filter((i): i is LexicalItem => Boolean(i))
-      .map((target) => {
+      .map((id): ReviewQ | undefined => {
+        if (isGrammarId(id)) {
+          const con = nounConstructions.find((c) => grammarSrsId(c.id) === id);
+          if (!con) return undefined;
+          const grammar = buildGrammarReviewQuestion(con, reviewItems, optionCount);
+          if (!grammar) return undefined;
+          return { target: grammar.item, format: 'grammar', srsId: id, options: [], grammar };
+        }
+        const target = reviewItemById[id];
+        if (!target) return undefined;
         const format = formatForBox(schedules[target.id]?.box ?? 1);
         const options =
           format === 'spelling'
@@ -80,8 +101,9 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                   optionCount - 1,
                 ),
               ]);
-        return { target, format, options };
-      });
+        return { target, format, srsId: target.id, options };
+      })
+      .filter((q): q is ReviewQ => Boolean(q));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionCount, runId]);
 
@@ -103,26 +125,32 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     !!question && question.format === 'spelling' && norm(input) === norm(question.target.fi);
 
   // Cue a new question: hear the Finnish (recognition), or the English prompt
-  // for the production/spelling formats (which must be produced, not heard).
+  // for the production/spelling/grammar formats (which must be produced, not
+  // heard — hearing the Finnish would give the grammar answer away).
   useEffect(() => {
     if (!question || done) return;
     const t = setTimeout(() => {
       if (question.format === 'recognition') speak(question.target.fi);
+      else if (question.format === 'grammar' && question.grammar)
+        speakEnglish(englishSentenceFor(question.grammar.item, question.grammar.construction));
       else speakEnglish(question.target.en);
       if (question.format === 'spelling') inputRef.current?.focus();
     }, 350);
     return () => clearTimeout(t);
   }, [question, done, index]);
 
-  // Shared success path: ding, confirm the Finnish, credit SRS, advance.
+  // Shared success path: ding, confirm the Finnish (the whole carrier sentence
+  // for a grammar question), credit the question's schedule, advance.
   const succeed = useCallback(() => {
     if (!question) return;
     setLocked(true);
     playDing(true);
-    speak(question.target.fi);
+    if (question.format === 'grammar' && question.grammar)
+      speak(sentenceFor(question.grammar.item, question.grammar.construction));
+    else speak(question.target.fi);
     setStars((s) => s + 1);
     addStars(1);
-    recordAttempt(question.target.id, !missed.current);
+    recordAttempt(question.srsId, !missed.current);
     const next = index + 1;
     setTimeout(() => {
       if (next >= round.length) setDone(true);
@@ -151,6 +179,23 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         if (question.format === 'recognition') speak(item.fi);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
+      }
+    },
+    [question, locked, done, succeed],
+  );
+
+  // Grammar: tap a FORM tile (the same word across cases; one fits the carrier).
+  const chooseForm = useCallback(
+    (form: string) => {
+      if (!question?.grammar || locked || done) return;
+      if (form === question.grammar.answer) {
+        setWrongId(null);
+        succeed();
+      } else {
+        missed.current = true;
+        playDing(false);
+        setWrongId(form);
+        setTimeout(() => setWrongId((cur) => (cur === form ? null : cur)), 600);
       }
     },
     [question, locked, done, succeed],
@@ -193,7 +238,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   // comes back) and advance. Never a buzz/penalty — just a way forward.
   const skip = useCallback(() => {
     if (!question || locked || done) return;
-    recordAttempt(question.target.id, false);
+    recordAttempt(question.srsId, false);
     const next = index + 1;
     missed.current = false;
     setInput('');
@@ -207,6 +252,8 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   const replay = useCallback(() => {
     if (!question) return;
     if (question.format === 'recognition') speak(question.target.fi);
+    else if (question.format === 'grammar' && question.grammar)
+      speakEnglish(englishSentenceFor(question.grammar.item, question.grammar.construction));
     else speakEnglish(question.target.en);
   }, [question]);
 
@@ -219,11 +266,16 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         return;
       }
       const n = Number.parseInt(e.key, 10);
+      if (question.format === 'grammar' && question.grammar) {
+        if (n >= 1 && n <= question.grammar.options.length)
+          chooseForm(question.grammar.options[n - 1]);
+        return;
+      }
       if (n >= 1 && n <= question.options.length) choose(question.options[n - 1]);
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, replay]);
+  }, [question, done, choose, chooseForm, replay]);
 
   function restart() {
     setIndex(0);
@@ -263,6 +315,10 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     ) : question.format === 'production' ? (
       <>
         Mikä tämä on suomeksi? <span className="en">What is this in Finnish?</span>
+      </>
+    ) : question.format === 'grammar' ? (
+      <>
+        Täydennä lause <span className="en">Complete the sentence</span>
       </>
     ) : (
       <>
@@ -304,6 +360,57 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                   <span className="pic-card__emoji" aria-hidden="true">
                     {opt.emoji}
                   </span>
+                </button>
+              ))}
+            </div>
+          </>
+        ) : question.format === 'grammar' && question.grammar ? (
+          <>
+            {/* The carrier with its slot blank + the item to fill it with. */}
+            <div className="phrase-card">
+              <span className="phrase-emoji" aria-hidden="true">
+                {question.grammar.item.emoji}
+              </span>
+              <div className="phrase-line">
+                {question.grammar.construction.before && (
+                  <span className="phrase-fixed">{question.grammar.construction.before}</span>
+                )}
+                <span className={'phrase-slot' + (locked ? ' phrase-slot--filled' : '')}>
+                  {locked ? question.grammar.answer : '​'}
+                </span>
+                {question.grammar.construction.after && (
+                  <span className="phrase-fixed">{question.grammar.construction.after}</span>
+                )}
+                {question.grammar.construction.punct && (
+                  <span className="phrase-fixed">{question.grammar.construction.punct}</span>
+                )}
+              </div>
+              <p className="en phrase-hint">
+                {englishSentenceFor(question.grammar.item, question.grammar.construction)}
+              </p>
+              <button
+                className="speaker speaker--inline"
+                onClick={replay}
+                aria-label="Hear the prompt again"
+              >
+                🔊 <span className="en">Listen</span>
+              </button>
+            </div>
+
+            <div className="word-tiles">
+              {question.grammar.options.map((form, i) => (
+                <button
+                  key={form}
+                  className={
+                    'word-tile' +
+                    (wrongId === form ? ' word-tile--wrong' : '') +
+                    (locked && form === question.grammar!.answer ? ' word-tile--correct' : '')
+                  }
+                  onClick={() => chooseForm(form)}
+                  disabled={locked}
+                >
+                  <span className="word-tile__num">{i + 1}</span>
+                  {form}
                 </button>
               ))}
             </div>
