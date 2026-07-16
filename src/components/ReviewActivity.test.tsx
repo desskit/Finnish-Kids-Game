@@ -6,9 +6,11 @@ import { ProfileProvider } from '../state/profile';
 // Keep the real SRS (MAX_BOX, formatForBox depends on it) but pin exactly which
 // items the round contains and in what order: a box-1, a box-3, and a box-5
 // item, so we can watch the format escalate recognition → production → spelling.
+// `fx.ids` lets individual tests swap the round (e.g. a due GRAMMAR schedule).
+const fx = vi.hoisted(() => ({ ids: ['cat', 'dog', 'bear'] as string[] }));
 vi.mock('../game/srs', async (orig) => ({
   ...(await orig<typeof import('../game/srs')>()),
-  selectReviewItems: () => ['cat', 'dog', 'bear'],
+  selectReviewItems: () => fx.ids,
 }));
 vi.mock('../audio/speak', () => ({
   speak: vi.fn(),
@@ -22,7 +24,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 
 // cat/dog/bear are real animals items; their sourced Finnish forms are stable.
-function seedChild() {
+function seedChild(extraSrs: Record<string, unknown> = {}) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
@@ -40,6 +42,7 @@ function seedChild() {
             cat: { box: 1, due: 0, seen: 2, correct: 1, lastSeenAt: 1 },
             dog: { box: 3, due: 0, seen: 6, correct: 5, lastSeenAt: 1 },
             bear: { box: 5, due: 0, seen: 9, correct: 9, lastSeenAt: 1 },
+            ...extraSrs,
           },
         },
       ],
@@ -68,6 +71,7 @@ async function advance(ms: number) {
 beforeEach(() => {
   localStorage.clear();
   seedChild();
+  fx.ids = ['cat', 'dog', 'bear'];
   vi.clearAllMocks();
   vi.useFakeTimers();
 });
@@ -140,5 +144,50 @@ describe('ReviewActivity — format escalates with SRS box', () => {
     // Skip advances past the (last) question → round completes without a crash.
     fireEvent.click(screen.getByRole('button', { name: /skip/i }));
     expect(screen.getByText(/great job/i)).toBeInTheDocument(); // RoundComplete
+  });
+});
+
+describe('ReviewActivity — grammar format (a due carrier phrase)', () => {
+  // i-like governs the elative: "Pidän kissasta." — the answer form ends -sta/-stä.
+  beforeEach(() => {
+    seedChild({ 'con:i-like': { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } });
+    fx.ids = ['con:i-like'];
+  });
+
+  it('shows the carrier with a blank + form tiles, cued in English (never the Finnish answer)', async () => {
+    renderReview();
+    // The carrier's fixed text with the slot blank, and word-form tiles.
+    expect(screen.getByText('Pidän')).toBeInTheDocument();
+    expect(screen.getByText(/Complete the sentence/i)).toBeInTheDocument();
+    const tiles = Array.from(document.querySelectorAll('.word-tile'));
+    expect(tiles.length).toBeGreaterThan(1);
+    await advance(400);
+    expect(speakEnglish).toHaveBeenCalledWith(expect.stringMatching(/^I like the /));
+    expect(speak).not.toHaveBeenCalled();
+  });
+
+  it('a correct form pick speaks the WHOLE sentence and credits the con: schedule', async () => {
+    renderReview();
+    // Exactly one tile carries the elative ending the carrier requires.
+    const tiles = Array.from(document.querySelectorAll('.word-tile'));
+    const answer = tiles.find((t) => /st[aä]$/.test(t.textContent!.replace(/^\d+/, '')))!;
+    expect(answer).toBeTruthy();
+    fireEvent.click(answer);
+    expect(playDing).toHaveBeenCalledWith(true);
+    expect(speak).toHaveBeenCalledWith(expect.stringMatching(/^Pidän .*\.$/));
+    // The grammar schedule (not a word's) got the credit.
+    const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    expect(saved.children[0].srs['con:i-like'].seen).toBe(2);
+    await advance(1000);
+  });
+
+  it('a wrong form flashes without advancing', () => {
+    renderReview();
+    const tiles = Array.from(document.querySelectorAll('.word-tile'));
+    const wrong = tiles.find((t) => !/st[aä]$/.test(t.textContent!.replace(/^\d+/, '')))!;
+    fireEvent.click(wrong);
+    expect(playDing).toHaveBeenCalledWith(false);
+    // Still on the same question (the carrier is still on screen).
+    expect(screen.getByText('Pidän')).toBeInTheDocument();
   });
 });

@@ -64,6 +64,13 @@ describe('earnedBadgeIds', () => {
     expect(earnedBadgeIds(child({ srs: mastered }), ENV).has('mastered-10')).toBe(true);
   });
 
+  it('grammar (con:) schedules never count toward the WORD badges', () => {
+    // Ten practiced GRAMMAR schedules are not ten practiced words.
+    const grammarOnly: Record<string, ItemSchedule> = {};
+    for (let i = 0; i < 10; i++) grammarOnly['con:c' + i] = schedule(1, 1, 1);
+    expect(earnedBadgeIds(child({ srs: grammarOnly }), ENV).has('words-10')).toBe(false);
+  });
+
   it('awards sharp only with enough volume and high accuracy', () => {
     const lowVolume: Record<string, ItemSchedule> = { a: schedule(5, 5) };
     expect(earnedBadgeIds(child({ srs: lowVolume }), ENV).has('sharp')).toBe(false);

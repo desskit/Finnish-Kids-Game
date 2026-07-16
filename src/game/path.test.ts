@@ -284,6 +284,30 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'listen-sentence', () => {})).not.toBeNull();
   });
 
+  it('adds a TPR commands node ("Tee näin!") in Actions over the pictured verbs', () => {
+    const found = findSkill('commands')!;
+    expect(found.chapter.id).toBe('actions');
+    expect(found.skill.activity).toBe('command');
+    expect(found.skill.maxLevel).toBe(4);
+    expect(renderActivity(found.skill, 'command', () => {})).not.toBeNull();
+  });
+
+  it('adds an Onko tämä…? yes/no node in the naming chapter', () => {
+    const found = findSkill('is-this')!;
+    expect(found.chapter.id).toBe('naming');
+    expect(found.skill.activity).toBe('yesno');
+    expect(found.skill.content.constructionIds).toEqual(['is-this']);
+    expect(renderActivity(found.skill, 'yesno', () => {})).not.toBeNull();
+  });
+
+  it('adds a Kaupassa shopping node drilling the buying-case contrast', () => {
+    const found = findSkill('shopping')!;
+    expect(found.chapter.id).toBe('likes');
+    expect(found.skill.content.pool).toBe('food');
+    expect(found.skill.content.constructionIds).toEqual(['i-buy', 'i-buy-some']);
+    expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
+  });
+
   it('adds a plural These-are/Where-are node in the naming chapter', () => {
     const found = findSkill('plurals')!;
     expect(found.chapter.id).toBe('naming');
@@ -389,6 +413,8 @@ describe('learning path', () => {
       'full-sentences', // full sentences (short ones)
       'greetings', // dialogue replies
       'small-talk', // conversation replies
+      'commands', // imperatives ("Hyppää!")
+      'is-this', // the -ko question ("Onko tämä kissa?")
     ]) {
       expect(isSpeakable(findSkill(id)!.skill), id).toBe(true);
     }
@@ -397,7 +423,7 @@ describe('learning path', () => {
   });
 
   it('renders a `say` game for grammar/phrase nodes too (each supplies its own targets)', () => {
-    for (const id of ['count', 'match', 'conjugate', 'this-is', 'reading', 'greetings', 'small-talk']) {
+    for (const id of ['count', 'match', 'conjugate', 'this-is', 'reading', 'greetings', 'small-talk', 'commands', 'is-this']) {
       expect(renderActivity(findSkill(id)!.skill, 'say', () => {}), id).not.toBeNull();
     }
   });

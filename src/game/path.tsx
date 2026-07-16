@@ -14,7 +14,12 @@ import {
 } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
-import { buildSentenceRound, buildSentenceSpellingRound, type SentencePools } from './round';
+import {
+  buildCommandRound,
+  buildSentenceRound,
+  buildSentenceSpellingRound,
+  type SentencePools,
+} from './round';
 import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
 import NameIt from '../components/NameIt';
@@ -28,6 +33,7 @@ import WordOrder from '../components/WordOrder';
 import SpellWord from '../components/SpellWord';
 import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
+import YesNoGame from '../components/YesNoGame';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
@@ -54,6 +60,8 @@ export type ActivityKind =
   | 'count'
   | 'match'
   | 'conjugate'
+  | 'command'
+  | 'yesno'
   | 'order'
   | 'spell'
   | 'sentence'
@@ -303,6 +311,22 @@ const baseChapters: Chapter[] = [
         exampleFi: 'Missä on koira?',
       },
       {
+        // The child's first INTERROGATIVE: the -ko yes/no question. A picture
+        // is shown, "Onko tämä kissa?" is asked, and the child answers Kyllä
+        // or Ei — comprehension of the ASKED word, since half the questions
+        // genuinely don't match. Sits right after this-is/where-is (the same
+        // nominative naming frame, now as a question). Depth 4: tricky (L4)
+        // makes the asked word share the picture's topic (cat vs dog).
+        id: 'is-this',
+        titleFi: 'Onko tämä…?',
+        titleEn: 'Is this…?',
+        icon: '🤔',
+        activity: 'yesno',
+        maxLevel: 4,
+        content: { pool: 'nouns', constructionIds: ['is-this'] },
+        exampleFi: 'Onko tämä kissa?',
+      },
+      {
         id: 'i-have',
         titleFi: 'Minulla on… / Kenellä on…',
         titleEn: 'I have… / Who has…',
@@ -406,6 +430,23 @@ const baseChapters: Chapter[] = [
       // odottaa always governs the partitive object ("Odotan äitiä"), a
       // different rection from the genitive/partitive verbs above.
       { id: 'i-wait-for', titleFi: 'Odotan …a', titleEn: 'I wait for…', icon: '⏳', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-wait-for'] }, exampleFi: 'Odotan äitiä.' },
+      {
+        // Shopping — the object-case CONTRAST in one functional scene: a whole
+        // countable thing takes the genitive ("Ostan omenan"), a mass/divisible
+        // thing takes the partitive ("Ostan maitoa"). Both carriers share the
+        // same verb, so the case difference IS the lesson. Food pool (the
+        // contrast only exists there); clothes/animals still meet i-buy in the
+        // mixed capstones.
+        id: 'shopping',
+        titleFi: 'Kaupassa',
+        titleEn: 'Shopping',
+        icon: '🛒',
+        activity: 'build',
+        activities: ['build', 'build', 'order', 'spell'],
+        maxLevel: 4,
+        content: { pool: 'food', constructionIds: ['i-buy', 'i-buy-some'] },
+        exampleFi: 'Ostan omenan.',
+      },
     ],
   },
   {
@@ -442,6 +483,12 @@ const baseChapters: Chapter[] = [
       // pool (only picturable verbs render; see itemsForPool). L3 swaps to a
       // conjugation taste, not `match` (verbs don't decline by case).
       { id: 'listen-verbs', titleFi: 'Verbit', titleEn: 'Action words', icon: '🎬', activity: 'listen', activities: ['listen', 'listen', 'conjugate'], maxLevel: 3, content: { pool: 'verbs' } },
+      // TPR commands: hear a real imperative ("Hyppää!"), tap the action —
+      // Total Physical Response, the classic listening format for this age.
+      // Imperative 2sg forms are sourced (see VERB_INFLECTION_KEYS in the data
+      // build); only curated kid-actable verbs play (COMMAND_VERB_IDS). Depth
+      // 4: option count then sound-confusable distractors (same first letter).
+      { id: 'commands', titleFi: 'Tee näin!', titleEn: 'Do this!', icon: '🤸', activity: 'command', maxLevel: 4, content: { pool: 'verbs' }, exampleFi: 'Hyppää!' },
       // Depth 6: one new sourced tense×polarity set unlocks per level through
       // L4 (present+ → present- → past+ → past-), each drilled across all six
       // persons; L4 also swaps in `match` as the "different game" step. L5–6
@@ -795,6 +842,32 @@ export function renderActivity(
       return <MatchTheWord adjectives={adjectives.items} nouns={pictureItems} onExit={onExit} />;
     case 'conjugate':
       return <ConjugateVerb verbs={verbs.items} onExit={onExit} />;
+    case 'command':
+      // TPR: hear an imperative, tap the action picture. Same utterance→picture
+      // mechanic as sentence listening, so it reuses that game with a command
+      // round (curated kid-actable verbs, sourced imperatives).
+      return (
+        <ListenSentence
+          items={pictureItems}
+          constructions={NO_CONSTRUCTIONS}
+          buildRound={(questionCount, optionCount, tricky, weigh) =>
+            buildCommandRound(pictureItems, questionCount, optionCount, tricky, weigh)
+          }
+          title="Tee näin! · Do this!"
+          promptFi="Mitä pitää tehdä?"
+          promptEn="Tap what the command says"
+          onExit={onExit}
+        />
+      );
+    case 'yesno':
+      // Yes/no questions: see a picture, hear "Onko tämä ___?", answer Kyllä/Ei.
+      return (
+        <YesNoGame
+          items={pictureItems}
+          construction={constructionsFor(skill.content.constructionIds)[0]}
+          onExit={onExit}
+        />
+      );
     case 'order':
       return (
         <WordOrder

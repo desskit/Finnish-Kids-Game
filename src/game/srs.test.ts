@@ -7,6 +7,9 @@ import {
   isMastered,
   selectReviewItems,
   introIndices,
+  grammarSrsId,
+  isGrammarId,
+  wordSchedules,
   MAX_NEW_WORD_INTROS,
   BOX_INTERVALS_MS,
   MAX_BOX,
@@ -162,5 +165,22 @@ describe('introIndices ("meet the word")', () => {
     // card twice in one sitting.
     const out = introIndices(['a', 'a', 'a', 'b'], {}, 5);
     expect(out).toEqual(new Set([0, 3]));
+  });
+});
+
+describe('grammar schedules (con: namespace)', () => {
+  const s: ItemSchedule = { box: 2, due: T0, seen: 1, correct: 1, lastSeenAt: T0 };
+
+  it('builds + recognizes the con: key namespace', () => {
+    expect(grammarSrsId('i-like')).toBe('con:i-like');
+    expect(isGrammarId('con:i-like')).toBe(true);
+    expect(isGrammarId('cat')).toBe(false);
+  });
+
+  it('wordSchedules filters grammar keys out of word statistics', () => {
+    const schedules = wordSchedules({ cat: s, 'con:i-like': { ...s, seen: 9 } });
+    expect(schedules).toHaveLength(1);
+    expect(schedules[0].seen).toBe(1); // the cat schedule, not the grammar one
+    expect(wordSchedules(undefined)).toEqual([]);
   });
 });

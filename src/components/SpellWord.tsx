@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
 import { buildSpellingRound, buildSpellingPhraseRound } from '../game/round';
-import { familiarityWeigher } from '../game/srs';
+import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -42,6 +42,8 @@ interface Props {
 interface SpellTarget {
   /** SRS id (the item). Sentences span several words, so none. */
   id?: string;
+  /** GRAMMAR SRS id (`con:<id>`, inflected-phrase mode only). */
+  grammarId?: string;
   /** The Finnish string to type (+ hear, unless speakTarget is false). */
   text: string;
   emoji?: string;
@@ -84,6 +86,7 @@ export default function SpellWord({
       full = buildSpellingPhraseRound(items ?? [], constructions, QUESTIONS, maxTier, weigh).map(
         (q) => ({
           id: q.item.id,
+          grammarId: grammarSrsId(q.construction.id),
           text: q.target,
           emoji: q.item.emoji,
           gloss: q.construction.en,
@@ -148,6 +151,8 @@ export default function SpellWord({
         if (speakTarget) speak(target.text);
         addStars(1);
         if (target.id) recordAttempt(target.id, !missed.current);
+        // Inflected-phrase mode also schedules the GRAMMAR for spaced review.
+        if (target.grammarId) recordAttempt(target.grammarId, !missed.current);
         if (!missed.current) firstTries.current += 1;
         const next = index + 1;
         setTimeout(() => {
@@ -202,6 +207,7 @@ export default function SpellWord({
     // Getting stuck records the item as not-recalled so the SRS brings it back
     // sooner — but it's never a punishment (no wrong buzz), just a way forward.
     if (target.id) recordAttempt(target.id, false);
+    if (target.grammarId) recordAttempt(target.grammarId, false);
     const next = index + 1;
     missed.current = false;
     setInput('');

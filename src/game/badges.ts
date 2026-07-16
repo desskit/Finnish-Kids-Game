@@ -5,7 +5,7 @@
 // and the parent dashboard can show exactly which milestones were hit and why.
 
 import type { Child } from '../state/storage';
-import { isMastered } from './srs';
+import { isMastered, wordSchedules } from './srs';
 
 /** A node's ladder depth when it doesn't set one (mirrors path.tsx's default). */
 const DEFAULT_NODE_MAX = 4;
@@ -116,7 +116,9 @@ export function earnedBadgeIds(child: Child, env: BadgeEnv): Set<string> {
   if (child.stars >= 25) earned.add('stars-25');
   if (child.stars >= 100) earned.add('stars-100');
 
-  const schedules = Object.values(child.srs ?? {});
+  // WORD schedules only — grammar (`con:`) schedules are their own thing and
+  // must not count toward the word milestones.
+  const schedules = wordSchedules(child.srs);
   const practiced = schedules.filter((s) => s.seen > 0).length;
   if (practiced >= 10) earned.add('words-10');
 

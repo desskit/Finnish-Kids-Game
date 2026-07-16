@@ -1368,8 +1368,50 @@ button:focus-visible,
   animation: pop 0.25s ease;
 }
 
+/* The tens (30+): a big numeral × one emoji, instead of an emoji flood. */
+.count-scene--numeral {
+  flex-wrap: nowrap;
+  gap: clamp(10px, 3vw, 20px);
+}
+
+.count-numeral {
+  font-size: clamp(3rem, 13vw, 5rem);
+  font-weight: 900;
+  color: var(--brand);
+  line-height: 1;
+}
+
+.count-numeral__times {
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 700;
+  opacity: 0.5;
+}
+
 .phrase-line--count {
   gap: 18px;
+}
+
+/* ---------- Yes/no questions (Onko tämä…?) ---------- */
+.yesno-question {
+  margin: 0;
+  font-size: clamp(1.3rem, 4.5vw, 2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+}
+
+.yesno-tiles {
+  justify-content: center;
+}
+
+.yesno-tile {
+  min-width: clamp(120px, 30vw, 180px);
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: 800;
+}
+
+.yesno-en {
+  margin-left: 6px;
 }
 
 .phrase-line--count .phrase-slot {

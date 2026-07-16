@@ -4,7 +4,11 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
-import { buildComprehensionRound } from '../game/round';
+import {
+  buildComprehensionRound,
+  type ComprehensionQuestion,
+  type WeighFn,
+} from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -14,6 +18,22 @@ const QUESTIONS = 6;
 interface Props {
   items: LexicalItem[];
   constructions: Construction[];
+  /**
+   * Custom round: supply pre-built comprehension questions (e.g. the TPR
+   * commands node's imperatives). When given, `constructions` are ignored —
+   * the utterance→picture mechanic is identical, only the content differs.
+   */
+  buildRound?: (
+    questionCount: number,
+    optionCount: number,
+    tricky: boolean,
+    weigh?: WeighFn,
+  ) => ComprehensionQuestion[];
+  /** Header title (defaults to the sentence-listening wording). */
+  title?: string;
+  /** Prompt line (defaults to the sentence-listening wording). */
+  promptFi?: string;
+  promptEn?: string;
   onExit: () => void;
 }
 
@@ -21,8 +41,17 @@ interface Props {
 // carrier sentence, tap the picture it's about. Pure Finnish→meaning — NO
 // English, on purpose: an English gloss would turn "understand the Finnish"
 // into "match English to picture". Trains parsing a whole utterance for its key
-// noun, a step past the single-word Listen & Tap.
-export default function ListenSentence({ items, constructions, onExit }: Props) {
+// noun, a step past the single-word Listen & Tap. With a `buildRound`, the same
+// mechanic serves other spoken-utterance content (the TPR commands game).
+export default function ListenSentence({
+  items,
+  constructions,
+  buildRound,
+  title,
+  promptFi,
+  promptEn,
+  onExit,
+}: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   const { optionCount, maxTier, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -36,10 +65,12 @@ export default function ListenSentence({ items, constructions, onExit }: Props) 
   const round = useMemo(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildComprehensionRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh).slice(
-        0,
-        ctx?.roundQuestions,
-      ),
+      (buildRound
+        ? buildRound(QUESTIONS, optionCount, tricky, weigh)
+        : buildComprehensionRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh)
+      ).slice(0, ctx?.roundQuestions),
+    // buildRound is an inline closure (new identity each render); restart via runId.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [items, constructions, optionCount, maxTier, tricky, weigh, runId, ctx?.roundQuestions],
   );
 
@@ -122,7 +153,7 @@ export default function ListenSentence({ items, constructions, onExit }: Props) 
   return (
     <section className="screen activity">
       <ActivityHeader
-        title="Kuuntele lause · Listen"
+        title={title ?? 'Kuuntele lause · Listen'}
         index={index}
         total={round.length}
         stars={ctx?.sessionStars}
@@ -130,7 +161,8 @@ export default function ListenSentence({ items, constructions, onExit }: Props) 
       />
 
       <p className="prompt">
-        Mistä puhutaan? <span className="en">Which picture is it about?</span>
+        {promptFi ?? 'Mistä puhutaan?'}{' '}
+        <span className="en">{promptEn ?? 'Which picture is it about?'}</span>
       </p>
 
       <button

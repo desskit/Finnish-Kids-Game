@@ -64,3 +64,47 @@ export function isMovementOnlyAdjective(id: string): boolean {
 export function canDescribeMovement(topic: string | undefined, itemId: string): boolean {
   return isAnimateTopic(topic) || MOVEMENT_ITEM_IDS.includes(itemId);
 }
+
+// --- Verbs: kid-commandable actions ---------------------------------------
+//
+// The TPR commands game ("Tee näin!") speaks an imperative and the child taps
+// the matching action picture. Only actions a child could actually do or mime
+// on the spot belong here — never states or feelings ("Rakasta!", "Itke!" are
+// grammatical but wrong to command a child), and nothing needing equipment or
+// an adult (drive, cook, fly). Curated by id; every listed verb has an action
+// emoji so it renders as a picture card.
+export const COMMAND_VERB_IDS = [
+  'jump',
+  'run',
+  'sit',
+  'stand',
+  'walk',
+  'dance',
+  'sing',
+  'read',
+  'draw',
+  'write',
+  'swim',
+  'smile',
+  'laugh',
+  'hug',
+  'eat',
+  'drink',
+  'sleep',
+  'play',
+  'open',
+  'close',
+  'wash',
+  'climb',
+  'throw',
+  'listen',
+  'look',
+  'paint',
+  'wait',
+  'wake-up',
+];
+
+/** True if a verb (by id) is a safe, actable command for the TPR game. */
+export function isCommandVerb(id: string): boolean {
+  return COMMAND_VERB_IDS.includes(id);
+}

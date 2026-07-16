@@ -79,6 +79,22 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
     desc: 'Pick the right verb form for I / you / he.',
   },
   {
+    id: 'command',
+    kind: 'command',
+    skillId: 'commands',
+    titleFi: 'Tee näin!',
+    titleEn: 'Commands (TPR)',
+    desc: 'Hear an imperative ("Hyppää!"), tap the matching action picture.',
+  },
+  {
+    id: 'yesno',
+    kind: 'yesno',
+    skillId: 'is-this',
+    titleFi: 'Onko tämä…?',
+    titleEn: 'Yes/no questions',
+    desc: 'See a picture, hear a -ko question, answer Kyllä or Ei.',
+  },
+  {
     id: 'build',
     kind: 'build',
     skillId: 'i-have',
