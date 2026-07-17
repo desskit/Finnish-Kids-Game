@@ -159,6 +159,14 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
     desc: 'Hold a short multi-turn conversation, turn by turn.',
   },
   {
+    id: 'story',
+    kind: 'story',
+    skillId: 'stories',
+    titleFi: 'Satuhetki',
+    titleEn: 'Story time',
+    desc: 'Read a tiny illustrated story page by page, then answer comprehension taps.',
+  },
+  {
     id: 'review',
     kind: 'review',
     skillId: null,

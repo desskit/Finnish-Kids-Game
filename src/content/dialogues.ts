@@ -313,4 +313,38 @@ export const dialogues: DialogueExchange[] = [
     ],
     tier: 4,
   },
+
+  // --- NEW (Phase D): the shop/help register — asking for things, offering
+  // help, and the price question. Wh-questions and ritual pairs only (one
+  // fitting reply each). ⚠️ NEEDS NATIVE FINNISH VETTING. ---
+  {
+    id: 'may-i-have',
+    prompt: { fi: 'Saanko omenan?', en: 'May I have an apple?' },
+    reply: { fi: 'Ole hyvä!', en: 'Here you go!' },
+    distractors: [
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'can-you-help',
+    prompt: { fi: 'Voitko auttaa minua?', en: 'Can you help me?' },
+    reply: { fi: 'Joo, minä autan!', en: "Yes, I'll help!" },
+    distractors: [
+      { fi: 'Hyvää päivää.', en: 'Good day.' },
+      { fi: 'Nähdään!', en: 'See you!' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'how-much',
+    prompt: { fi: 'Paljonko se maksaa?', en: 'How much does it cost?' },
+    reply: { fi: 'Kolme euroa.', en: 'Three euros.' },
+    distractors: [
+      { fi: 'Se on kirja.', en: "It's a book." },
+      { fi: 'Olen viisi vuotta.', en: "I'm five years old." },
+    ],
+    tier: 4,
+  },
 ];

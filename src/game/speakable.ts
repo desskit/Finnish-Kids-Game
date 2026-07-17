@@ -28,6 +28,7 @@ import { sentenceConstructions } from '../content/sentences';
 import { kidSafeExamples } from '../content/examples';
 import { dialogues } from '../content/dialogues';
 import { conversations } from '../content/conversations';
+import { stories } from '../content/stories';
 import { countingPhrase } from '../content/types';
 import { englishVerbClause } from '../content/englishVerb';
 import { sample } from '../util/shuffle';
@@ -102,11 +103,15 @@ export function speakableTargetsFor(
   // it has one, so "Count & say" speaks its vocabulary — not every noun in the
   // game. Falls back to the full mix for nodes without a resolved pool.
   const nouns = items.length > 0 ? items : NOUNS;
-  // Communicative nodes (dialogue / small talk) have no vocab pool of their own,
-  // so a "bare word" would be a random NOUN — off-topic on a Greetings node.
-  // They always route to their replies; the starter downshift is only for the
-  // word-based games, where saying the single word is the gentlest step.
-  const communicative = skill.activity === 'dialogue' || skill.activity === 'conversation';
+  // Communicative nodes (dialogue / small talk / stories) have no vocab pool of
+  // their own, so a "bare word" would be a random NOUN — off-topic on a
+  // Greetings or Story node. They always route to their replies/pages; the
+  // starter downshift is only for the word-based games, where saying the single
+  // word is the gentlest step.
+  const communicative =
+    skill.activity === 'dialogue' ||
+    skill.activity === 'conversation' ||
+    skill.activity === 'story';
   const routed =
     band === 'starter' && !communicative
       ? keep(buildSayRound(items, [], N, tier, weigh))
@@ -241,6 +246,16 @@ function routeTargets(
           conversations.filter((c) => c.tier <= tier).flatMap((c) => c.turns.map((t) => t.reply)),
           N,
         ).map((r) => ({ say: r.fi, gloss: r.en })),
+      );
+
+    // Story time: say the story's own lines — short authored sentences the
+    // child just followed for meaning, ideal to then produce aloud.
+    case 'story':
+      return keep(
+        sample(
+          stories.filter((s) => s.tier <= tier).flatMap((s) => s.pages),
+          N,
+        ).map((p) => ({ say: p.fi, gloss: p.en, emoji: p.emoji })),
       );
 
     // Vocab (listen / name / spell): say the bare word.

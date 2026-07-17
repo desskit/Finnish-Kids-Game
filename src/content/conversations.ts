@@ -180,4 +180,121 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+
+  // --- NEW scenes (Phase D): shop, asking for help, playdate. Built from the
+  // vetted set phrases plus a few first-person forms that were CHECKED against
+  // the sourced inflection tables before authoring (haluan, autan, tulen,
+  // omenan, autoilla). ⚠️ NEEDS NATIVE FINNISH VETTING. ---
+  {
+    // Pairs with the Kaupassa skill node: the same buying Finnish, now as a
+    // live exchange with a shopkeeper.
+    id: 'shop',
+    titleFi: 'Kaupassa',
+    titleEn: 'At the shop',
+    icon: '🛍️',
+    partnerIcon: '🧑‍💼',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Hei! Mitä sinä haluat?', en: 'Hi! What would you like?' },
+        reply: { fi: 'Haluan omenan, kiitos!', en: 'I want an apple, please!' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ole hyvä!', en: 'Here you go!' },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Näkemiin!', en: 'Goodbye!' },
+        reply: { fi: 'Hei hei!', en: 'Bye bye!' },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Ei se mitään.', en: "It's okay." },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'helping',
+    titleFi: 'Autetaan!',
+    titleEn: "Let's help!",
+    icon: '🤝',
+    partnerIcon: '🧒',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Apua! Voitko auttaa?', en: 'Help! Can you help?' },
+        reply: { fi: 'Joo, minä autan!', en: "Yes, I'll help!" },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos paljon!', en: 'Thanks a lot!' },
+        reply: { fi: 'Ole hyvä!', en: "You're welcome!" },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Hyvää päivää.', en: 'Good day.' },
+        ],
+      },
+      {
+        partner: { fi: 'Olet kiltti!', en: 'You are kind!' },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Ei se mitään.', en: "It's okay." },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'playdate',
+    titleFi: 'Leikitään yhdessä',
+    titleEn: 'Playing together',
+    icon: '🧸',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Tuletko leikkimään?', en: 'Will you come and play?' },
+        reply: { fi: 'Joo, tulen!', en: "Yes, I'll come!" },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä leikitään?', en: 'What shall we play?' },
+        reply: { fi: 'Leikitään autoilla!', en: "Let's play with the cars!" },
+        distractors: [
+          { fi: 'Se on kirja.', en: "It's a book." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Mennään ulos.', en: "Nice! Let's go outside." },
+        reply: { fi: 'Mennään!', en: "Let's go!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Nähdään huomenna!', en: 'See you tomorrow!' },
+        reply: { fi: 'Nähdään!', en: 'See you!' },
+        distractors: [
+          { fi: 'Ei se mitään.', en: "It's okay." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
 ];

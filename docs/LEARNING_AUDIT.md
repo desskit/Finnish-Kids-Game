@@ -173,24 +173,24 @@ roughly one build session.
     sourced).
 
 ### Phase D — Input flood (the ceiling raiser)
-12. **Story time ("Satuhetki")**: authored 3–6 sentence illustrated mini-stories
-    read page by page (reuse the ConversationScene UI patterns), with a
-    comprehension tap at the end. The single biggest input upgrade; content
-    gated on the Phase E vetting workflow.
-13. **Minimal-pair ear training**: phonemic-length discrimination built ONLY
-    from real sourced word pairs; honest only with recorded audio → gated on
-    Phase E item 15.
-14. **More scenes/dialogues** (shop, asking for help, playdate) as the vetting
-    loop runs.
+12. ✅ **Story time ("Satuhetki")**: authored 3–6 sentence illustrated
+    mini-stories read page by page, with comprehension taps at the end
+    (`src/content/stories.ts`, `StoryTime.tsx`; Finnish-only at L5).
+13. ⏳ **Minimal-pair ear training**: phonemic-length discrimination built ONLY
+    from real sourced word pairs; honest only with recorded audio → still
+    gated on Phase E item 15 (recorded native audio, user-owned).
+14. ✅ **More scenes/dialogues**: shop, asking-for-help, and playdate scenes +
+    the shop register (Saanko…?, Voitko auttaa?, Paljonko se maksaa?).
 
 ### Phase E — Quality infrastructure (parallel, ongoing)
 15. **Recorded native audio** (user-owned; pipeline per ROADMAP Phase 2).
     Priority: dialogue/conversation lines first (fixed set, highest pragmatic
     value), then words.
-16. **`scripts/content-review.mjs`**: export ALL authored Finnish (dialogues,
-    conversations, carriers, sentence templates, in-use examples) as a
-    Markdown/CSV proofing sheet with per-entry vetted status — replacing the
-    ⚠️ comments as the vetting workflow.
+16. ✅ **`scripts/content-review.ts`** (`npm run review:content`): exports ALL
+    authored Finnish (dialogues, scenes, stories, carrier texts, sentence
+    templates) to `docs/FINNISH_REVIEW.md` with per-entry vetted status from
+    the reviewer-owned `data/finnish-vetted.json` — the vetting workflow that
+    replaces the ⚠️ code comments.
 17. **Parent "can-do" statements** on the dashboard ("Can greet and reply",
     "Can count to 20", "Can say where things are") derived from node levels —
     makes learning legible to the parent.

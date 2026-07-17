@@ -16,8 +16,10 @@ import {
   buildSayRound,
   buildDialogueRound,
   buildConversation,
+  buildStory,
   buildReadingRound,
 } from './round';
+import { stories } from '../content/stories';
 import { COMMAND_VERB_IDS } from '../content/semantics';
 import { commandFor, suitsSlot } from '../content/types';
 import { dialogues } from '../content/dialogues';
@@ -496,6 +498,32 @@ describe('buildConversation', () => {
 
   it('returns null only when there are no scenes at all', () => {
     expect(buildConversation([], 3, 4)).toBeNull();
+  });
+
+  it('buildStory picks a tier-gated story and shuffles options keeping one correct', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildStory(stories, 8)!;
+      expect(round).not.toBeNull();
+      expect(round.story.pages.length).toBeGreaterThan(0);
+      for (const q of round.questions) {
+        expect(q.options.filter((o) => o.correct)).toHaveLength(1);
+        // The shuffle keeps exactly the authored option set.
+        expect(new Set(q.options.map((o) => o.fi))).toEqual(
+          new Set(q.question.options.map((o) => o.fi)),
+        );
+      }
+    }
+  });
+
+  it('buildStory never gates down to nothing (a low-level child still gets a story)', () => {
+    for (let r = 0; r < RUNS; r++) {
+      expect(buildStory(stories, 1)).not.toBeNull();
+    }
+    // At tier 2 only the t2 story qualifies — the gate actually filters.
+    for (let r = 0; r < RUNS; r++) {
+      expect(buildStory(stories, 2)!.story.tier).toBeLessThanOrEqual(2);
+    }
+    expect(buildStory([], 8)).toBeNull();
   });
 
   it('fills the {name} placeholder with the child\'s own name (new-friend scene)', () => {

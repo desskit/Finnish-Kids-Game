@@ -284,6 +284,14 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'listen-sentence', () => {})).not.toBeNull();
   });
 
+  it('adds a Story time node in the capstone chapter, with a Finnish-only top rung', () => {
+    const found = findSkill('stories')!;
+    expect(found.chapter.id).toBe('together');
+    expect(found.skill.activity).toBe('story');
+    expect(found.skill.maxLevel).toBe(5); // L5 = the glosses drop away
+    expect(renderActivity(found.skill, 'story', () => {})).not.toBeNull();
+  });
+
   it('adds a TPR commands node ("Tee näin!") in Actions over the pictured verbs', () => {
     const found = findSkill('commands')!;
     expect(found.chapter.id).toBe('actions');
