@@ -1,0 +1,4 @@
+{
+  "_readme": "The native reviewer's ledger. Run `npm run review:content` to regenerate docs/FINNISH_REVIEW.md — every authored-Finnish entry in that sheet has a Key; once a native speaker has approved an entry, add its Key to the `vetted` list below and re-run the export. Entries NOT listed here show as ⚠️ needing review. This file is owned by the reviewer — the build never reads it.",
+  "vetted": []
+}

@@ -1391,6 +1391,29 @@ button:focus-visible,
   gap: 18px;
 }
 
+/* ---------- Story time (Satuhetki) ---------- */
+.story-page__fi {
+  margin: 0;
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--brand);
+  text-align: center;
+}
+
+.story-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* A picture option with its Finnish label under the emoji (the comprehension
+   taps: the child just READ these words in the story). */
+.pic-card__label {
+  display: block;
+  font-size: clamp(0.9rem, 2.6vw, 1.1rem);
+  font-weight: 700;
+}
+
 /* ---------- Yes/no questions (Onko tämä…?) ---------- */
 .yesno-question {
   margin: 0;

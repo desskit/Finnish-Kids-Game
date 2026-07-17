@@ -34,6 +34,7 @@ import SpellWord from '../components/SpellWord';
 import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
 import YesNoGame from '../components/YesNoGame';
+import StoryTime from '../components/StoryTime';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
@@ -69,6 +70,7 @@ export type ActivityKind =
   | 'dialogue'
   | 'conversation'
   | 'reading'
+  | 'story'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -524,6 +526,11 @@ const baseChapters: Chapter[] = [
       // read + heard, tap the picture they're about. Comprehensible input over
       // the mixed noun pool. Depth comes from the option count + tricky lever.
       { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
+      // Story time: a tiny illustrated story read page by page, then a couple
+      // of comprehension taps — the app's CONNECTED input (following a little
+      // narrative for meaning). Tier-gates which stories play; L5 is the
+      // Finnish-only rung (the glosses drop away, see showsGloss).
+      { id: 'stories', titleFi: 'Satuhetki', titleEn: 'Story time', icon: '📚', activity: 'story', maxLevel: 5, content: {} },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -932,6 +939,9 @@ export function renderActivity(
     case 'reading':
       // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
       return <ReadAndListen items={items} onExit={onExit} />;
+    case 'story':
+      // A tiny illustrated story, page by page, then comprehension taps.
+      return <StoryTime onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

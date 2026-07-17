@@ -21,6 +21,7 @@ import {
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
 import { personalizeLine } from '../content/dialogues';
 import type { Conversation } from '../content/conversations';
+import type { Story, StoryOption, StoryQuestion } from '../content/stories';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
@@ -304,6 +305,33 @@ export function buildConversation(
     icon: scene.icon,
     partnerIcon: scene.partnerIcon,
     turns,
+  };
+}
+
+// --- Story time (Satuhetki) ------------------------------------------------
+//
+// One tier-gated story per segment: the child reads/hears it page by page,
+// then answers its authored comprehension questions. Selection + option
+// shuffling only — the content is the hand-authored story registry.
+
+export interface StoryRound {
+  story: Story;
+  /** The story's questions with their options shuffled for display. */
+  questions: { question: StoryQuestion; options: StoryOption[] }[];
+}
+
+export function buildStory(stories: readonly Story[], maxTier: Tier = 4): StoryRound | null {
+  const byTier = stories.filter((s) => s.tier <= maxTier);
+  // Never gate down to nothing — a low-level child still gets a story.
+  const allowed = byTier.length > 0 ? byTier : stories;
+  if (allowed.length === 0) return null;
+  const story = sample(allowed, 1)[0];
+  return {
+    story,
+    questions: story.questions.map((question) => ({
+      question,
+      options: shuffle(question.options),
+    })),
   };
 }
 

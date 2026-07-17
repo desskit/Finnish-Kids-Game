@@ -8,6 +8,7 @@
     "icons": "node scripts/make-icons.mjs",
     "art:manifest": "node scripts/art-manifest.mjs",
     "audit:sentences": "vite-node scripts/audit-sentences.ts",
+    "review:content": "vite-node scripts/content-review.ts",
     "dev": "vite",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && vite build",
     "preview": "vite preview",

@@ -56,6 +56,16 @@ describe('speakableTargetsFor', () => {
     expect(ts.some((t) => /^Onko tämä .*\?$/.test(t.say))).toBe(true);
   });
 
+  it('story node speaks the story pages themselves', () => {
+    const ts = targets('stories', []);
+    expect(ts.length).toBeGreaterThan(0);
+    // Every target is a real story page line, glossed.
+    ts.forEach((t) => {
+      expect(t.say).toMatch(/\.$/);
+      expect(t.gloss).toBeTruthy();
+    });
+  });
+
   it('never returns an empty round when the node has a pool (falls back to bare words)', () => {
     // A reading node whose pooled items happen to carry NO kid-safe examples
     // must still yield sayable targets (the bare words) — never [] (which would
