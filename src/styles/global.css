@@ -1733,6 +1733,52 @@ button:focus-visible,
   font-size: 0.82em;
 }
 
+/* Can-do statements (parent dashboard) */
+.progress-cando {
+  padding: 10px 0;
+  border-top: 1px solid var(--brand-soft);
+}
+
+.progress-cando__head,
+.progress-cando__next {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.progress-cando__head .en,
+.progress-cando__next .en {
+  font-size: 0.8em;
+}
+
+.progress-cando__next {
+  margin-top: 10px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+.cando-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+
+.cando-row {
+  font-weight: 700;
+  background: var(--brand-soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.cando-row--next {
+  background: none;
+  border: 1.5px dashed var(--brand-soft);
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
 .progress-topic {
   margin-top: 12px;
 }

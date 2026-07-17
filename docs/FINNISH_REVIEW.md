@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-07-17T05:43:35.700Z · regenerate with `npm run review:content`
+- Generated: 2026-07-17T19:43:27.099Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 0 of 126 entries.**
+- **Approved: 28 of 127 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -11,34 +11,34 @@
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
-| ⚠️ | `dialogue:how-are-you` | Mitä kuuluu? → Hyvää, kiitos! | How are you? → Good, thanks! |
-| ⚠️ | `dialogue:thanks` | Kiitos! → Ole hyvä! | Thank you! → You're welcome! |
-| ⚠️ | `dialogue:good-morning` | Hyvää huomenta! → Hyvää huomenta! | Good morning! → Good morning! |
-| ⚠️ | `dialogue:goodbye` | Näkemiin! → Hei hei! | Goodbye! → Bye bye! |
-| ⚠️ | `dialogue:good-night` | Hyvää yötä! → Hyvää yötä! | Good night! → Good night! |
-| ⚠️ | `dialogue:here-you-go` | Ole hyvä! → Kiitos! | Here you go! → Thank you! |
-| ⚠️ | `dialogue:sorry` | Anteeksi! → Ei se mitään. | Sorry! → It's okay. |
-| ⚠️ | `dialogue:your-name` | Mikä sinun nimesi on? → Nimeni on {name}. | What's your name? → My name is {name}. |
-| ⚠️ | `dialogue:how-old` | Kuinka vanha olet? → Olen viisi vuotta. | How old are you? → I'm five years old. |
-| ⚠️ | `dialogue:nice-to-meet` | Hauska tutustua! → Samoin! | Nice to meet you! → You too! |
-| ⚠️ | `dialogue:where-going` | Minne menet? → Menen kotiin. | Where are you going? → I'm going home. |
-| ⚠️ | `dialogue:what-is-this` | Mikä tämä on? → Se on kirja. | What is this? → It's a book. |
-| ⚠️ | `dialogue:good-day` | Hyvää päivää! → Hyvää päivää! | Good day! → Good day! |
-| ⚠️ | `dialogue:see-tomorrow` | Nähdään huomenna! → Nähdään! | See you tomorrow! → See you! |
-| ⚠️ | `dialogue:where-live` | Missä sinä asut? → Asun Suomessa. | Where do you live? → I live in Finland. |
-| ⚠️ | `dialogue:welcome` | Tervetuloa! → Kiitos! | Welcome! → Thank you! |
-| ⚠️ | `dialogue:fav-color` | Mikä on lempivärisi? → Sininen. | What's your favorite color? → Blue. |
-| ⚠️ | `dialogue:whose-turn` | Kenen vuoro on? → Minun vuoroni! | Whose turn is it? → My turn! |
-| ⚠️ | `dialogue:happy-birthday` | Hyvää syntymäpäivää! → Kiitos! | Happy birthday! → Thank you! |
-| ⚠️ | `dialogue:who-wants` | Kuka haluaa vastata? → Minä! | Who wants to answer? → Me! |
-| ⚠️ | `dialogue:thanks-food` | Kiitos ruoasta! → Ole hyvä! | Thanks for the food! → You're welcome! |
-| ⚠️ | `dialogue:enjoy-meal` | Hyvää ruokahalua! → Kiitos samoin! | Enjoy your meal! → Thanks, you too! |
-| ⚠️ | `dialogue:feeling` | Miltä sinusta tuntuu? → Olen iloinen! | How do you feel? → I feel happy! |
-| ⚠️ | `dialogue:weather` | Millainen sää on? → Aurinko paistaa. | What's the weather like? → The sun is shining. |
-| ⚠️ | `dialogue:favorite-food` | Mikä on lempiruokasi? → Pitsa. | What's your favorite food? → Pizza. |
-| ⚠️ | `dialogue:may-i-have` | Saanko omenan? → Ole hyvä! | May I have an apple? → Here you go! |
-| ⚠️ | `dialogue:can-you-help` | Voitko auttaa minua? → Joo, minä autan! | Can you help me? → Yes, I'll help! |
-| ⚠️ | `dialogue:how-much` | Paljonko se maksaa? → Kolme euroa. | How much does it cost? → Three euros. |
+| ✅ | `dialogue:how-are-you` | Mitä kuuluu? → Hyvää, kiitos! | How are you? → Good, thanks! |
+| ✅ | `dialogue:thanks` | Kiitos! → Ole hyvä! | Thank you! → You're welcome! |
+| ✅ | `dialogue:good-morning` | Hyvää huomenta! → Hyvää huomenta! | Good morning! → Good morning! |
+| ✅ | `dialogue:goodbye` | Näkemiin! → Hei hei! | Goodbye! → Bye bye! |
+| ✅ | `dialogue:good-night` | Hyvää yötä! → Hyvää yötä! | Good night! → Good night! |
+| ✅ | `dialogue:here-you-go` | Ole hyvä! → Kiitos! | Here you go! → Thank you! |
+| ✅ | `dialogue:sorry` | Anteeksi! → Ei se mitään. | Sorry! → It's okay. |
+| ✅ | `dialogue:your-name` | Mikä sinun nimesi on? → Nimeni on {name}. | What's your name? → My name is {name}. |
+| ✅ | `dialogue:how-old` | Kuinka vanha olet? → Olen viisivuotias. | How old are you? → I'm five years old. |
+| ✅ | `dialogue:nice-to-meet` | Hauska tutustua! → Niin sinuunkin! | Nice to meet you! → You too! |
+| ✅ | `dialogue:where-going` | Minne menet? → Menen kotiin. | Where are you going? → I'm going home. |
+| ✅ | `dialogue:what-is-this` | Mikä tämä on? → Se on kirja. | What is this? → It's a book. |
+| ✅ | `dialogue:good-day` | Hyvää päivää! → Hyvää päivää! | Good day! → Good day! |
+| ✅ | `dialogue:see-tomorrow` | Nähdään huomenna! → Nähdään! | See you tomorrow! → See you! |
+| ✅ | `dialogue:where-live` | Missä sinä asut? → Asun Suomessa. | Where do you live? → I live in Finland. |
+| ✅ | `dialogue:welcome` | Tervetuloa! → Kiitos! | Welcome! → Thank you! |
+| ✅ | `dialogue:fav-color` | Mikä on lempivärisi? → Sininen. | What's your favorite color? → Blue. |
+| ✅ | `dialogue:whose-turn` | Kenen vuoro on? → Minun vuoroni! | Whose turn is it? → My turn! |
+| ✅ | `dialogue:happy-birthday` | Hyvää syntymäpäivää! → Kiitos! | Happy birthday! → Thank you! |
+| ✅ | `dialogue:who-wants` | Kuka haluaa vastata? → Minä! | Who wants to answer? → Me! |
+| ✅ | `dialogue:thanks-food` | Kiitos ruoasta! → Ole hyvä! | Thanks for the food! → You're welcome! |
+| ✅ | `dialogue:enjoy-meal` | Hyvää ruokahalua! → Kiitos samoin! | Enjoy your meal! → Thanks, you too! |
+| ✅ | `dialogue:feeling` | Miltä sinusta tuntuu? → Olen iloinen! | How do you feel? → I feel happy! |
+| ✅ | `dialogue:weather` | Millainen sää on? → Aurinko paistaa. | What's the weather like? → The sun is shining. |
+| ✅ | `dialogue:favorite-food` | Mikä on lempiruokasi? → Pitsa. | What's your favorite food? → Pizza. |
+| ✅ | `dialogue:may-i-have` | Saanko omenan? → Ole hyvä! | May I have an apple? → Here you go! |
+| ✅ | `dialogue:can-you-help` | Voitko auttaa minua? → Joo, minä autan! | Can you help me? → Yes, I'll help! |
+| ✅ | `dialogue:how-much` | Paljonko se maksaa? → Kolme euroa. | How much does it cost? → Three euros. |
 
 ## Small-talk scenes, turn by turn (22)
 
@@ -48,8 +48,8 @@
 | ⚠️ | `conversation:playground:2` | Kiitos, hyvää! Leikitäänkö? → Joo, leikitään! | Thanks, good! Shall we play? → Yeah, let's play! |
 | ⚠️ | `conversation:playground:3` | Kiva! Mennään. → Mennään! | Nice! Let's go. → Let's go! |
 | ⚠️ | `conversation:new-friend:1` | Hei! Mikä sinun nimesi on? → Nimeni on {name}. Entä sinun? | Hi! What's your name? → My name is {name}. And yours? |
-| ⚠️ | `conversation:new-friend:2` | Minun nimeni on Eero. Kuinka vanha olet? → Olen kuusi vuotta. Entä sinä? | My name is Eero. How old are you? → I'm six years old. And you? |
-| ⚠️ | `conversation:new-friend:3` | Olen myös kuusi. Hauska tutustua! → Samoin! | I'm six too. Nice to meet you! → You too! |
+| ⚠️ | `conversation:new-friend:2` | Minun nimeni on Eero. Kuinka vanha olet? → Olen kuusivuotias. Entä sinä? | My name is Eero. How old are you? → I'm six years old. And you? |
+| ⚠️ | `conversation:new-friend:3` | Olen myös kuusi. Hauska tutustua! → Niin sinuunkin! | I'm six too. Nice to meet you! → You too! |
 | ⚠️ | `conversation:at-school:1` | Hyvää huomenta! → Hyvää huomenta, opettaja! | Good morning! → Good morning, teacher! |
 | ⚠️ | `conversation:at-school:2` | Mitä kuuluu? → Hyvää, kiitos! | How are you? → Good, thanks! |
 | ⚠️ | `conversation:at-school:3` | Kiva! Aloitetaan. → Aloitetaan! | Nice! Let's begin. → Let's begin! |
@@ -147,7 +147,7 @@
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
 
-## Other authored lines (distractor-only) (11)
+## Other authored lines (distractor-only) (12)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -162,3 +162,4 @@
 | ⚠️ | `line:9-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
 | ⚠️ | `line:10-näkemiin-` | Näkemiin. | Goodbye. |
 | ⚠️ | `line:11-ole-hyvä-` | Ole hyvä. | You're welcome. |
+| ⚠️ | `line:12-samoin-` | Samoin! | You too! |
