@@ -234,4 +234,29 @@ describe('ListenAndTap — "meet the word" intro', () => {
     renderActivity();
     expect(document.querySelectorAll('.pic-card')).toHaveLength(3); // straight to the quiz
   });
+
+  it('keeps the activity header (and its exit button) visible during the intro', () => {
+    seedChild();
+    renderActivity();
+    // The session chrome never blinks out: the child can still leave mid-intro,
+    // and the star counter stays on screen.
+    expect(screen.getByText('Uusi sana!')).toBeInTheDocument();
+    expect(document.querySelector('.activity-header')).not.toBeNull();
+    expect(screen.getByRole('button', { name: /takaisin|back/i })).toBeInTheDocument();
+  });
+
+  it('does not re-introduce the same word when the round restarts within a mount', async () => {
+    seedChild(); // brand-new child: "cat" gets an intro on round one
+    renderActivity();
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }));
+    for (let q = 0; q < 6; q++) {
+      fireEvent.click(correctCard());
+      await advance(800);
+    }
+    // Standalone restart built a fresh round from the same mount-time SRS
+    // snapshot — but "cat" was already introduced, so it goes straight to
+    // the quiz instead of repeating the intro card.
+    expect(screen.queryByText('Uusi sana!')).not.toBeInTheDocument();
+    expect(document.querySelectorAll('.pic-card')).toHaveLength(3);
+  });
 });

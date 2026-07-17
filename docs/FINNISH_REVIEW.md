@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-07-17T05:22:25.578Z · regenerate with `npm run review:content`
+- Generated: 2026-07-17T05:43:35.700Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
 - **Approved: 0 of 126 entries.**

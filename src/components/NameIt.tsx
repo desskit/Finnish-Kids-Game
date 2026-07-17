@@ -42,6 +42,9 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
   // Same snapshot discipline for "meet the word" (see ListenAndTap).
   const srsSnapshot = useRef(activeChild?.srs).current;
+  // Ids already introduced this mount, so restarts don't repeat an intro
+  // (see ListenAndTap).
+  const introducedIds = useRef(new Set<string>());
 
   // A wrong tap means it wasn't a first-try success (for SRS + the adaptive engine).
   const missed = useRef(false);
@@ -71,9 +74,13 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   // When the L5+ countdown lapses, nudge the correct tile (never a penalty).
   const [hint, setHint] = useState(false);
   const [introduced, setIntroduced] = useState<Set<number>>(() => new Set());
-  const showIntro = introSet.has(index) && !introduced.has(index);
 
   const question = round[index];
+  const showIntro =
+    introSet.has(index) &&
+    !introduced.has(index) &&
+    !!question &&
+    !introducedIds.current.has(question.target.id);
 
   // Narrate the English cue when a new picture appears — a pre-reader can't
   // read the gloss, and the Finnish is what they must PRODUCE, never a preview.
@@ -161,10 +168,22 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   if (!question) return null;
   if (showIntro) {
     return (
-      <WordIntro
-        item={question.target}
-        onContinue={() => setIntroduced((prev) => new Set(prev).add(index))}
-      />
+      <section className="screen activity">
+        <ActivityHeader
+          title="Nimeä · Name it"
+          index={index}
+          total={round.length}
+          stars={ctx?.sessionStars}
+          onExit={onExit}
+        />
+        <WordIntro
+          item={question.target}
+          onContinue={() => {
+            introducedIds.current.add(question.target.id);
+            setIntroduced((prev) => new Set(prev).add(index));
+          }}
+        />
+      </section>
     );
   }
 

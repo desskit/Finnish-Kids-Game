@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import type { LexicalItem } from './content/types';
 
 // Deterministic listen round for the continuous-session test: the same target
@@ -216,5 +216,52 @@ describe("Today's adventure (guided session)", () => {
     fireEvent.click(screen.getByLabelText('Back to the map'));
     expect(screen.getByText(/Hei,/)).toBeInTheDocument();
     expect(document.querySelector('.adventure-banner')).toBeNull();
+  });
+
+  it('landing back on the map mid-run cancels the adventure — free play is never hijacked', () => {
+    // The child bails out of stop 1 with the BROWSER back button (not the
+    // in-game one). The map must clear the run, or the next free-play node's
+    // back button would "advance" into the stale run's stop 2.
+    function BrowserBackSim() {
+      const navigate = useNavigate();
+      return <button onClick={() => navigate(-1)}>simulate-browser-back</button>;
+    }
+    seedChild(
+      {
+        naming: {
+          'this-is': {
+            plays: 3,
+            bestStars: 2,
+            totalStars: 4,
+            totalPossible: 12,
+            lastPlayed: 1,
+            level: 2,
+            recent: [0.3, 0.4, 0.2],
+          },
+        },
+      },
+      { cat: { box: 5, due: Date.now() + 30 * 86_400_000, seen: 3, correct: 3, lastSeenAt: 1 } },
+    );
+    render(
+      <ProfileProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <AppRoutes />
+          <BrowserBackSim />
+        </MemoryRouter>
+      </ProfileProvider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /today's adventure/i }));
+    expect(document.querySelector('.adventure-banner')?.textContent).toContain('1/2');
+
+    // Browser back → the map. The stale run is cancelled on arrival.
+    fireEvent.click(screen.getByText('simulate-browser-back'));
+    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
+    expect(document.querySelector('.adventure-banner')).toBeNull();
+
+    // Free play into any node: its back button goes HOME, not to stale stop 2.
+    fireEvent.click(screen.getByText(/This is a/).closest('a')!);
+    fireEvent.click(screen.getByLabelText('Back to the map'));
+    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
   });
 });

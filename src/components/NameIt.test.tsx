@@ -190,4 +190,14 @@ describe('NameIt — "meet the word" intro', () => {
     renderActivity();
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3); // straight to the quiz
   });
+
+  it('keeps the activity header (and its exit button) visible during the intro', () => {
+    seedChild();
+    renderActivity();
+    // The session chrome never blinks out: the child can still leave mid-intro,
+    // and the star counter stays on screen.
+    expect(screen.getByText('Uusi sana!')).toBeInTheDocument();
+    expect(document.querySelector('.activity-header')).not.toBeNull();
+    expect(screen.getByRole('button', { name: /back/i })).toBeInTheDocument();
+  });
 });

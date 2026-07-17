@@ -126,6 +126,21 @@ describe('speakableTargetsFor', () => {
     expect(ts.some((t) => !!t.attemptId)).toBe(true);
   });
 
+  it('never surfaces a raw {name}-placeholder line as a say target', () => {
+    // Dialogue/conversation lines are pulled straight from the registries,
+    // where the child's-name slot is still the literal "{name}" — a child must
+    // never be told to say it. Sweep every band on the communicative nodes.
+    for (const id of ['greetings', 'small-talk']) {
+      for (const level of [2, 5, 7]) {
+        for (let run = 0; run < 25; run++) {
+          for (const t of targets(id, nouns, level)) {
+            expect(t.say, `${id} L${level}: "${t.say}"`).not.toContain('{name}');
+          }
+        }
+      }
+    }
+  });
+
   it('every surfaced target is sayable (≤ 5 words) across all speakable node types', () => {
     for (const id of [
       'listen-animals',
