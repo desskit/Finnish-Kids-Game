@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { reviewItems } from '../content';
 import { useProfile } from '../state/profile';
@@ -19,6 +20,14 @@ const ROUND_QUESTIONS = 6;
 export default function MapHome() {
   const { name, activeChild } = useProfile();
   const adventure = useAdventure();
+
+  // Landing on the map means the child left any adventure-in-progress (e.g.
+  // browser back mid-run). Clear it, or the next free-play node's back button
+  // would "advance" into the stale run's next stop instead of returning here.
+  const { active, cancel } = adventure;
+  useEffect(() => {
+    if (active) cancel();
+  }, [active, cancel]);
 
   const srs = activeChild?.srs ?? {};
   const now = Date.now();

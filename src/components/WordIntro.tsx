@@ -11,6 +11,10 @@ interface Props {
 // (never-attempted) item is first quizzed. Picture + Finnish + TTS + English,
 // one tap to continue into the real question — nothing is graded here, so a
 // child's very first encounter with a word is a presentation, not a test.
+//
+// Renders CONTENT ONLY (no screen/section): the host game keeps its own frame
+// around it — ActivityHeader with the star counter and the back button — so
+// the child can still leave mid-intro and the session chrome never blinks out.
 export default function WordIntro({ item, onContinue }: Props) {
   useEffect(() => {
     const t = setTimeout(() => speak(item.fi), 300);
@@ -18,12 +22,12 @@ export default function WordIntro({ item, onContinue }: Props) {
   }, [item]);
 
   return (
-    <section className="screen activity word-intro">
+    <>
       <p className="prompt">
         Uusi sana! <span className="en">New word!</span>
       </p>
 
-      <div className="phrase-card">
+      <div className="phrase-card word-intro">
         <span className="phrase-emoji" aria-hidden="true">
           {item.emoji}
         </span>
@@ -41,6 +45,6 @@ export default function WordIntro({ item, onContinue }: Props) {
       <button className="btn btn--primary" onClick={onContinue} autoFocus>
         Jatka <span className="en">Continue</span>
       </button>
-    </section>
+    </>
   );
 }

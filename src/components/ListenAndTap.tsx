@@ -41,6 +41,10 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   // Same snapshot discipline for "meet the word": which schedules existed at
   // mount time decides which targets are brand-new, frozen for the session.
   const srsSnapshot = useRef(activeChild?.srs).current;
+  // Word ids whose intro card was already shown THIS MOUNT — the snapshot above
+  // never learns about new attempts, so without this a standalone restart
+  // (same mount, fresh round) would re-introduce the same "new" word.
+  const introducedIds = useRef(new Set<string>());
 
   // Whether the current question has had a wrong tap yet — so SRS only credits
   // a "correct" review when the child gets it right on the first try.
@@ -74,9 +78,13 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   // Intro cards already dismissed this segment — one per index, so the SAME
   // question's real quiz shows right after "Continue", never re-shown.
   const [introduced, setIntroduced] = useState<Set<number>>(() => new Set());
-  const showIntro = introSet.has(index) && !introduced.has(index);
 
   const question = round[index];
+  const showIntro =
+    introSet.has(index) &&
+    !introduced.has(index) &&
+    !!question &&
+    !introducedIds.current.has(question.target.id);
 
   // Say the target word when a new question appears. Skipped while the intro
   // card is showing — WordIntro speaks it itself, so it isn't said twice.
@@ -168,10 +176,22 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   if (!question) return null;
   if (showIntro) {
     return (
-      <WordIntro
-        item={question.target}
-        onContinue={() => setIntroduced((prev) => new Set(prev).add(index))}
-      />
+      <section className="screen activity">
+        <ActivityHeader
+          title="Kuuntele ja osoita"
+          index={index}
+          total={round.length}
+          stars={ctx?.sessionStars}
+          onExit={onExit}
+        />
+        <WordIntro
+          item={question.target}
+          onContinue={() => {
+            introducedIds.current.add(question.target.id);
+            setIntroduced((prev) => new Set(prev).add(index));
+          }}
+        />
+      </section>
     );
   }
 

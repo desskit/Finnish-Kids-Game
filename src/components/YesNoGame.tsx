@@ -48,6 +48,13 @@ export default function YesNoGame({ items, construction, onExit }: Props) {
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
 
+  // A pool too small for even one question (needs 2+ picturable items) must
+  // complete the (empty) segment so the rotation moves on — never render
+  // nothing and stall (same guard as SayIt).
+  useEffect(() => {
+    if (round.length === 0) setDone(true);
+  }, [round.length]);
+
   const q = round[index];
   // What the answer sounds like: confirm what the picture really is, in the
   // matching register — "Kyllä, se on kissa." or "Ei, se on kissa.".

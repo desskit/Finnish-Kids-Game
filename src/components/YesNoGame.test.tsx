@@ -10,23 +10,27 @@ const fx = vi.hoisted(() => {
     ({ id, fi, en: id, emoji, tier: 1, inflections: { nominative_singular: fi } }) as LexicalItem;
   const CAT = mk('cat', 'kissa', '🐱');
   const DOG = mk('dog', 'koira', '🐶');
+  const ROUND = [
+    { shown: CAT, asked: CAT, isMatch: true, question: 'Onko tämä kissa?' },
+    { shown: CAT, asked: DOG, isMatch: false, question: 'Onko tämä koira?' },
+  ];
   return {
     CAT,
     DOG,
-    ROUND: [
-      { shown: CAT, asked: CAT, isMatch: true, question: 'Onko tämä kissa?' },
-      { shown: CAT, asked: DOG, isMatch: false, question: 'Onko tämä koira?' },
-    ],
+    ROUND,
+    // Per-test override (the empty-round guard test); null = the default round.
+    next: null as typeof ROUND | null,
   };
 });
 
-vi.mock('../game/round', () => ({ buildYesNoRound: () => fx.ROUND }));
+vi.mock('../game/round', () => ({ buildYesNoRound: () => fx.next ?? fx.ROUND }));
 vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import YesNoGame from './YesNoGame';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
 
 const IS_THIS: Construction = {
   id: 'is-this',
@@ -78,6 +82,7 @@ async function advance(ms: number) {
 beforeEach(() => {
   localStorage.clear();
   seedChild();
+  fx.next = null;
   vi.clearAllMocks();
   vi.useFakeTimers();
 });
@@ -125,5 +130,22 @@ describe('YesNoGame (Onko tämä…?)', () => {
     expect(playDing).toHaveBeenCalledWith(false);
     expect(screen.getByText('Onko tämä kissa?')).toBeInTheDocument(); // same question
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
+  });
+
+  it('an empty round never stalls: it completes the segment instead of blanking', async () => {
+    fx.next = []; // a pool too small for even one question
+    const onSegmentComplete = vi.fn();
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider value={{ onSegmentComplete, sessionStars: 0 }}>
+          <YesNoGame items={[]} construction={IS_THIS} onExit={vi.fn()} />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    // Nothing to answer is rendered…
+    expect(document.querySelector('.yesno-question')).toBeNull();
+    // …and the (empty) segment is reported so the rotation advances.
+    await act(async () => {});
+    expect(onSegmentComplete).toHaveBeenCalled();
   });
 });

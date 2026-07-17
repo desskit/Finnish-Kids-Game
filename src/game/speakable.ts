@@ -26,7 +26,7 @@ import {
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import { kidSafeExamples } from '../content/examples';
-import { dialogues } from '../content/dialogues';
+import { dialogues, NAME_PLACEHOLDER } from '../content/dialogues';
 import { conversations } from '../content/conversations';
 import { stories } from '../content/stories';
 import { countingPhrase } from '../content/types';
@@ -65,7 +65,11 @@ const SENTENCE_POOLS = {
 
 const wordCount = (s: string) => s.trim().split(/\s+/).length;
 export const saySafe = (fi: string): boolean => !!fi && wordCount(fi) <= SAY_MAX_WORDS;
-const keep = (targets: SayTarget[]): SayTarget[] => targets.filter((t) => saySafe(t.say));
+// Dialogue/conversation lines come straight from the registries here, where the
+// child's-name slot is still the literal "{name}" placeholder — those lines
+// must never become say targets (the child would be told to say "{name}").
+const keep = (targets: SayTarget[]): SayTarget[] =>
+  targets.filter((t) => saySafe(t.say) && !t.say.includes(NAME_PLACEHOLDER));
 const pluralEn = (noun: LexicalItem) => noun.english?.plural ?? `${noun.en}s`;
 
 function constructionsForNode(skill: SkillNode) {

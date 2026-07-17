@@ -12,6 +12,15 @@ async function isRoundComplete(page: Page) {
 }
 
 /**
+ * A fresh profile meets brand-new words through a no-stakes "Uusi sana!" intro
+ * card before the quiz — dismiss it (its "Jatka" button) when it's showing.
+ */
+async function dismissIntro(page: Page) {
+  const jatka = page.getByRole('button', { name: /jatka/i });
+  if (await jatka.isVisible().catch(() => false)) await jatka.click();
+}
+
+/**
  * Answer one question in the endless skill stream by watching the header's
  * session-star counter (`N tähteä`): a correct tap bumps it by one.
  */
@@ -19,11 +28,17 @@ async function answerUntilStarAdvance(page: Page) {
   const counter = page.getByLabel(/\d+ tähteä/);
   const before = await counter.getAttribute('aria-label');
 
-  for (let attempt = 0; attempt < 5; attempt++) {
-    const cards = page.locator('.pic-card');
+  for (let attempt = 0; attempt < 8; attempt++) {
+    await dismissIntro(page);
+    // Only enabled cards: right after a correct tap the outgoing question's
+    // cards linger disabled for ~750ms before the next question (or an intro
+    // card) mounts — clicking those would hang.
+    const cards = page.locator('.pic-card:not([disabled])');
     const count = await cards.count();
     for (let i = 0; i < count; i++) {
-      await cards.nth(i).click();
+      // Best-effort click: the grid can remount mid-loop (question advance /
+      // intro card), detaching the handle — just move on and re-scan.
+      await cards.nth(i).click({ timeout: 2000 }).catch(() => {});
 
       // Poll briefly: a correct tap bumps the star counter; a wrong tap just
       // flashes red and stays put, so move on to the next card.
@@ -33,6 +48,8 @@ async function answerUntilStarAdvance(page: Page) {
         if (after && after !== before) return;
       }
     }
+    // Nothing clickable yet (mid-transition) — give the next screen a moment.
+    await page.waitForTimeout(300);
   }
   throw new Error('Could not advance past the question');
 }
