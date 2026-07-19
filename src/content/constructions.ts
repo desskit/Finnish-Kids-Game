@@ -220,6 +220,47 @@ export const nounConstructions: Construction[] = [
     excludeIds: NO_LANDMARK,
   },
 
+  // --- The same postpositions over the GENITIVE PLURAL ("kissojen takana") —
+  // tier 6, the postpositions node's own top rung. The postposition word is
+  // identical to the vetted singular carrier; only the slot's sourced case
+  // changes, so no new Finnish is authored here.
+  {
+    id: 'in-front-of-them',
+    after: 'edessä',
+    en: 'in front of the ___s',
+    tier: 6,
+    case: 'genitive',
+    number: 'plural',
+    excludeIds: NO_LANDMARK,
+  },
+  {
+    id: 'behind-them',
+    after: 'takana',
+    en: 'behind the ___s',
+    tier: 6,
+    case: 'genitive',
+    number: 'plural',
+    excludeIds: NO_LANDMARK,
+  },
+  {
+    id: 'next-to-them',
+    after: 'vieressä',
+    en: 'next to the ___s',
+    tier: 6,
+    case: 'genitive',
+    number: 'plural',
+    excludeIds: NO_LANDMARK,
+  },
+  {
+    id: 'under-them',
+    after: 'alla',
+    en: 'under the ___s',
+    tier: 6,
+    case: 'genitive',
+    number: 'plural',
+    excludeIds: NO_LANDMARK,
+  },
+
   // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
   // docs/FINNISH_GRAMMAR.md "Possession" + "partitive plural" rule. ---
   {
@@ -410,5 +451,55 @@ export const nounConstructions: Construction[] = [
     number: 'plural',
     topics: ['places'],
     requiresTags: [CONTAINER_TAG],
+  },
+
+  // --- Expert band (Tiers 9-10): the PLURAL locative system. The same
+  // carrier pattern as the singular ladder above, with plural subjects and
+  // sourced plural case forms ("pöydillä", "laatikoista"). Carrier verbs
+  // (ovat / menevät / tulevat) are authored fixed text.
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (the carrier texts below).
+  {
+    id: 'on-them', // adessive plural — "Kissat ovat pöydillä."
+    before: 'Kissat ovat',
+    punct: '.',
+    en: 'The cats are on the ___s.',
+    tier: 9,
+    case: 'adessive',
+    number: 'plural',
+    topics: ['places'],
+    requiresTags: [SURFACE_TAG],
+  },
+  {
+    id: 'onto-them', // allative plural — "Kissat menevät pöydille."
+    before: 'Kissat menevät',
+    punct: '.',
+    en: 'The cats go onto the ___s.',
+    tier: 9,
+    case: 'allative',
+    number: 'plural',
+    topics: ['places'],
+    requiresTags: [SURFACE_TAG],
+  },
+  {
+    id: 'out-of-them', // elative plural — "Kissat tulevat laatikoista."
+    before: 'Kissat tulevat',
+    punct: '.',
+    en: 'The cats come out of the ___s.',
+    tier: 10,
+    case: 'elative',
+    number: 'plural',
+    topics: ['places'],
+    requiresTags: [CONTAINER_TAG],
+  },
+  {
+    id: 'off-them', // ablative plural — "Kissat tulevat pöydiltä."
+    before: 'Kissat tulevat',
+    punct: '.',
+    en: 'The cats come off the ___s.',
+    tier: 10,
+    case: 'ablative',
+    number: 'plural',
+    topics: ['places'],
+    requiresTags: [SURFACE_TAG],
   },
 ];

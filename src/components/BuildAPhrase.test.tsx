@@ -23,16 +23,35 @@ const fx = vi.hoisted(() => {
     case: 'nominative',
     number: 'singular',
   };
+  // Expert (formDistractors) fixture: one item with a real mini-paradigm, and
+  // the tiles are its FORMS — only the nominative fits "Tämä on ___.".
+  const FORM_ITEM: LexicalItem = {
+    id: 'cat',
+    fi: 'kissa',
+    en: 'cat',
+    emoji: '🐱',
+    tier: 2,
+    inflections: {
+      nominative_singular: 'kissa',
+      genitive_singular: 'kissan',
+      partitive_singular: 'kissaa',
+      adessive_singular: 'kissalla',
+    },
+  };
   return {
     ITEM: mk('cat', 'kissa', '🐱'),
     OTHER: mk('dog', 'koira', '🐶'),
     FILLER: mk('cow', 'lehmä', '🐮'),
     CON,
+    FORM_ITEM,
+    // Per-test round override (the expert-mode tests); null = the default.
+    next: null as null | unknown[],
   };
 });
 
 vi.mock('../game/round', () => ({
   buildPhraseRound: () =>
+    fx.next ??
     Array.from({ length: 6 }, () => ({
       construction: fx.CON,
       item: fx.ITEM,
@@ -49,6 +68,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import BuildAPhrase from './BuildAPhrase';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -167,5 +188,55 @@ describe('BuildAPhrase', () => {
     expect(screen.getByLabelText('Question 1 of 6')).toBeInTheDocument();
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
     expect(screen.getByTestId('stars')).toHaveTextContent('6');
+  });
+});
+
+describe('BuildAPhrase — expert band (L9+)', () => {
+  function renderExpert() {
+    fx.next = Array.from({ length: 6 }, () => ({
+      construction: fx.CON,
+      item: fx.FORM_ITEM,
+      options: [fx.FORM_ITEM],
+      formOptions: ['kissan', 'kissa', 'kissaa', 'kissalla'],
+    }));
+    return render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(9), sessionStars: 0 }}
+        >
+          <BuildAPhrase items={[fx.FORM_ITEM]} constructions={[fx.CON]} onExit={vi.fn()} />
+          <StarsProbe />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+  }
+
+  afterEach(() => {
+    fx.next = null;
+  });
+
+  it('renders CASE-FORM tiles of the same word; only the fitting form succeeds', async () => {
+    renderExpert();
+    // All four tiles are forms of "kissa" — same word, different endings.
+    for (const form of ['kissan', 'kissa', 'kissaa', 'kissalla']) {
+      expect(screen.getByText(form, { selector: '.word-tile' })).toBeInTheDocument();
+    }
+    // The wrong CASE buzzes without a star…
+    fireEvent.click(screen.getByText('kissan', { selector: '.word-tile' }));
+    expect(playDing).toHaveBeenCalledWith(false);
+    expect(screen.getByTestId('stars')).toHaveTextContent('0');
+    // …the carrier's required form (nominative here) succeeds and speaks it.
+    fireEvent.click(screen.getByText('kissa', { selector: '.word-tile' }));
+    expect(playDing).toHaveBeenCalledWith(true);
+    expect(speak).toHaveBeenCalledWith('Tämä on kissa.');
+    expect(screen.getByTestId('stars')).toHaveTextContent('1');
+  });
+
+  it('drops every English gloss at the expert band (no prompt gloss, no auto-narration)', async () => {
+    renderExpert();
+    expect(screen.getByText('Täydennä lause')).toBeInTheDocument();
+    expect(screen.queryByText('This is a ___.')).not.toBeInTheDocument();
+    await advance(1000);
+    expect(speakEnglish).not.toHaveBeenCalled();
   });
 });

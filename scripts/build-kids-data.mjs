@@ -384,6 +384,12 @@ const VERB_INFLECTION_KEYS = [
   ...VERB_PERSONS.map((p) => `present_active_negative_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_positive_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_negative_${p}`),
+  // The expert band (L7+): perfect ("olen syönyt") and conditional ("söisin"),
+  // auxiliaries included in the sourced forms — nothing is assembled in code.
+  ...VERB_PERSONS.map((p) => `perfect_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `perfect_active_negative_${p}`),
+  ...VERB_PERSONS.map((p) => `conditional_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `conditional_active_negative_${p}`),
   'imperative_active_positive_2sg',
   'imperative_active_positive_2pl',
 ];

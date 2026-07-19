@@ -54,8 +54,9 @@ export default function WordOrder({
 }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  // Higher levels unlock higher-tier carrier phrases (longer, harder sentences).
-  const { maxTier } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Higher levels unlock higher-tier carrier phrases (longer, harder sentences);
+  // the expert band (L9+) drops the English gloss entirely.
+  const { maxTier, drillGlossFree } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -105,18 +106,18 @@ export default function WordOrder({
   // correct answer, since it has no single settled reading the way one
   // carrier phrase does.
   useEffect(() => {
-    if (!q || done) return;
+    if (!q || done || drillGlossFree) return;
     const t = setTimeout(() => speakEnglish(q.hintEn), 350);
     return () => clearTimeout(t);
-  }, [q, done]);
+  }, [q, done, drillGlossFree]);
 
   // Manual replay, in case a distracted child misses the auto-play: English
   // any time, or Finnish once a single-slot phrase is freshly, correctly
   // assembled (never for a multi-slot sentence — see the note above).
   const replay = useCallback(() => {
     if (complete && !buildRound) speak(q!.sentence);
-    else speakEnglish(q!.hintEn);
-  }, [complete, buildRound, q]);
+    else if (!drillGlossFree) speakEnglish(q!.hintEn);
+  }, [complete, buildRound, q, drillGlossFree]);
 
   const tap = useCallback(
     (tile: WordOrderToken) => {
@@ -211,14 +212,16 @@ export default function WordOrder({
             {q.emoji}
           </span>
         )}
-        <p className="en phrase-hint">{q.hintEn}</p>
-        <button
-          className="speaker speaker--inline"
-          onClick={replay}
-          aria-label={complete && !buildRound ? 'Hear the sentence again' : 'Hear the prompt again'}
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {!drillGlossFree && <p className="en phrase-hint">{q.hintEn}</p>}
+        {(!drillGlossFree || (complete && !buildRound)) && (
+          <button
+            className="speaker speaker--inline"
+            onClick={replay}
+            aria-label={complete && !buildRound ? 'Hear the sentence again' : 'Hear the prompt again'}
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
       <div className="word-order-assembled" aria-label="Your sentence so far">

@@ -43,6 +43,13 @@ const PRESENT_POSITIVE: VerbCombo = { tense: 'present', polarity: 'positive' };
 const PRESENT_NEGATIVE: VerbCombo = { tense: 'present', polarity: 'negative' };
 const PAST_POSITIVE: VerbCombo = { tense: 'past', polarity: 'positive' };
 const PAST_NEGATIVE: VerbCombo = { tense: 'past', polarity: 'negative' };
+const PERFECT_POSITIVE: VerbCombo = { tense: 'perfect', polarity: 'positive' };
+const PERFECT_NEGATIVE: VerbCombo = { tense: 'perfect', polarity: 'negative' };
+const CONDITIONAL_POSITIVE: VerbCombo = { tense: 'conditional', polarity: 'positive' };
+const CONDITIONAL_NEGATIVE: VerbCombo = { tense: 'conditional', polarity: 'negative' };
+
+/** The four basic combos every level starts from (present/past ×±). */
+const BASE_COMBOS = [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE];
 
 /** The concrete difficulty knobs a level expands into. */
 export interface Difficulty {
@@ -66,6 +73,24 @@ export interface Difficulty {
    * from level 1 — brutal for a starter, flat at the top.
    */
   maxCases: number;
+  /**
+   * Expert lever (L9+): Build-a-phrase options become CASE FORMS of the same
+   * word ("kissan / kissaa / kissalla…", all from the sourced paradigm) instead
+   * of different words — case-morphology discrimination, not word recognition.
+   */
+  formDistractors: boolean;
+  /**
+   * Expert lever (L9+): the DRILL games drop their English hint. Distinct from
+   * `showsGloss` (the communicative games' Finnish-only rung at L5) — drills
+   * keep their gloss much longer because the grammar itself is the challenge.
+   */
+  drillGlossFree: boolean;
+  /**
+   * Expert lever (L9+): typing games switch to audio-only prompts — hear the
+   * sourced Finnish (word or whole sentence), type it exactly. The hardest
+   * production task in the app.
+   */
+  dictation: boolean;
 }
 
 /**
@@ -79,8 +104,16 @@ export interface Difficulty {
  * forfeits the first-try bonus, so waiting out the clock isn't "free" mastery.
  */
 export function questionTimerMs(level: number): number {
-  const table: Record<number, number> = { 4: 9000, 5: 8000, 6: 7000, 7: 6000, 8: 5000 };
-  const l = Math.max(4, Math.min(8, clampLevel(level)));
+  const table: Record<number, number> = {
+    4: 9000,
+    5: 8000,
+    6: 7000,
+    7: 6000,
+    8: 5000,
+    9: 4500,
+    10: 4000,
+  };
+  const l = Math.max(4, Math.min(MAX_LEVEL, clampLevel(level)));
   return table[l];
 }
 
@@ -96,14 +129,12 @@ export function showsGloss(level: number): boolean {
 
 /**
  * The shared level → levers table. A data-driven array (not a switch) so
- * extending the engine's depth later is a one-row edit. Levels 1–4 preserve
- * the original curve exactly; 5–8 extend it (deeper tiers, larger counts).
- * `verbCombos` grows one real, sourced tense×polarity set per level through
- * L4 (present+ → present- → past+ → past-); it then holds at that full set for
- * 5–8 (those are the only four combos that exist, and the `conjugate` node caps
- * itself at depth 4 anyway). Option count stays ≤ 4 (the card grid only styles
- * 3- and 4-up); harder levels add difficulty through tiers, larger counts, and
- * richer verb forms.
+ * extending the engine's depth later is a one-row edit. Levels 1–5 preserve
+ * the original curve exactly; 6–8 harden the existing top (5 answer tiles,
+ * perfect at L7 and conditional at L8 — both fully sourced tense sets); 9–10
+ * are the EXPERT band, borderline hard for an adult learner: 6 tiles, the
+ * plural-case grammar tiers (t9–10), counting in tens to 100, and the three
+ * expert levers (case-form distractors, gloss-free drills, dictation).
  */
 const LEVEL_SPECS: Difficulty[] = [
   {
@@ -114,6 +145,9 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE],
     tricky: false,
     maxCases: 3,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 2,
@@ -123,6 +157,9 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE],
     tricky: false,
     maxCases: 4,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 3,
@@ -132,51 +169,111 @@ const LEVEL_SPECS: Difficulty[] = [
     verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE],
     tricky: false,
     maxCases: 4,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 4,
     optionCount: 4,
     maxTier: 4,
     maxCount: 12,
-    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    verbCombos: BASE_COMBOS,
     tricky: true,
     maxCases: 5,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 5,
     optionCount: 4,
     maxTier: 5,
     maxCount: 14,
-    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    verbCombos: BASE_COMBOS,
     tricky: true,
     maxCases: 6,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 6,
-    optionCount: 4,
+    optionCount: 5,
     maxTier: 6,
     maxCount: 16,
-    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    verbCombos: BASE_COMBOS,
     tricky: true,
     maxCases: 7,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 7,
-    optionCount: 4,
+    optionCount: 5,
     maxTier: 7,
     maxCount: 18,
-    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    verbCombos: [...BASE_COMBOS, PERFECT_POSITIVE, PERFECT_NEGATIVE],
     tricky: true,
     maxCases: 7,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
   },
   {
     level: 8,
-    optionCount: 4,
+    optionCount: 5,
     maxTier: 8,
     maxCount: 20,
-    verbCombos: [PRESENT_POSITIVE, PRESENT_NEGATIVE, PAST_POSITIVE, PAST_NEGATIVE],
+    verbCombos: [
+      ...BASE_COMBOS,
+      PERFECT_POSITIVE,
+      PERFECT_NEGATIVE,
+      CONDITIONAL_POSITIVE,
+      CONDITIONAL_NEGATIVE,
+    ],
     tricky: true,
     maxCases: 7,
+    formDistractors: false,
+    drillGlossFree: false,
+    dictation: false,
+  },
+  {
+    level: 9,
+    optionCount: 6,
+    maxTier: 9,
+    maxCount: 60,
+    verbCombos: [
+      ...BASE_COMBOS,
+      PERFECT_POSITIVE,
+      PERFECT_NEGATIVE,
+      CONDITIONAL_POSITIVE,
+      CONDITIONAL_NEGATIVE,
+    ],
+    tricky: true,
+    maxCases: 7,
+    formDistractors: true,
+    drillGlossFree: true,
+    dictation: true,
+  },
+  {
+    level: 10,
+    optionCount: 6,
+    maxTier: 10,
+    maxCount: 100,
+    verbCombos: [
+      ...BASE_COMBOS,
+      PERFECT_POSITIVE,
+      PERFECT_NEGATIVE,
+      CONDITIONAL_POSITIVE,
+      CONDITIONAL_NEGATIVE,
+    ],
+    tricky: true,
+    maxCases: 7,
+    formDistractors: true,
+    drillGlossFree: true,
+    dictation: true,
   },
 ];
 

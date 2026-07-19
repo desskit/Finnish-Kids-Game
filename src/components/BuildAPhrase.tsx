@@ -23,8 +23,10 @@ interface Props {
 export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  // Harder levels add more options AND unlock higher-tier carrier phrases.
-  const { optionCount, maxTier, tricky } = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
+  // Harder levels add more options AND unlock higher-tier carrier phrases; the
+  // expert band (L9+) swaps word tiles for CASE-FORM tiles and drops the gloss.
+  const { optionCount, maxTier, tricky, formDistractors, drillGlossFree } =
+    ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -38,16 +40,23 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const round = useMemo(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildPhraseRound(items, constructions, QUESTIONS, optionCount, maxTier, tricky, weigh).slice(
-        0,
-        ctx?.roundQuestions,
-      ),
-    [items, constructions, optionCount, maxTier, tricky, weigh, runId, ctx?.roundQuestions],
+      buildPhraseRound(
+        items,
+        constructions,
+        QUESTIONS,
+        optionCount,
+        maxTier,
+        tricky,
+        weigh,
+        formDistractors,
+      ).slice(0, ctx?.roundQuestions),
+    [items, constructions, optionCount, maxTier, tricky, formDistractors, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
   const [chosen, setChosen] = useState<LexicalItem | null>(null);
   const [wrongId, setWrongId] = useState<string | null>(null);
+  const [wrongForm, setWrongForm] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -59,38 +68,46 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   // the child the completing word for free. The ENGLISH prompt, though, is
   // narrated up front — it's just the on-screen gloss read aloud for a
   // pre-reader, and never previews the Finnish. Finnish is spoken once they
-  // choose correctly, below.
+  // choose correctly, below. Gloss-free expert band: no English at all — the
+  // picture + carrier ARE the prompt.
   useEffect(() => {
-    if (!question || done) return;
+    if (!question || done || drillGlossFree) return;
     const t = setTimeout(() => speakEnglish(englishPrompt), 350);
     return () => clearTimeout(t);
-  }, [question, done, englishPrompt]);
+  }, [question, done, englishPrompt, drillGlossFree]);
+
+  // Shared success/advance path for both tile modes.
+  const succeed = useCallback(() => {
+    if (!question) return;
+    setLocked(true);
+    setChosen(question.item);
+    playDing(true);
+    speak(fullSentence);
+    addStars(1);
+    recordAttempt(question.item.id, !missed.current);
+    // The GRAMMAR gets its own spaced schedule too: the construction just
+    // exercised comes due for review like a word does (see ReviewActivity).
+    recordAttempt(grammarSrsId(question.construction.id), !missed.current);
+    if (!missed.current) firstTries.current += 1;
+    setWrongId(null);
+    setWrongForm(null);
+    const next = index + 1;
+    setTimeout(() => {
+      if (next >= round.length) setDone(true);
+      else {
+        setIndex(next);
+        setChosen(null);
+      }
+      missed.current = false;
+      setLocked(false);
+    }, 1100);
+  }, [question, index, round.length, addStars, recordAttempt, fullSentence]);
 
   const choose = useCallback(
     (item: LexicalItem) => {
       if (!question || locked || done) return;
       if (item.id === question.item.id) {
-        setLocked(true);
-        setChosen(item);
-        playDing(true);
-        speak(fullSentence);
-        addStars(1);
-        recordAttempt(question.item.id, !missed.current);
-        // The GRAMMAR gets its own spaced schedule too: the construction just
-        // exercised comes due for review like a word does (see ReviewActivity).
-        recordAttempt(grammarSrsId(question.construction.id), !missed.current);
-        if (!missed.current) firstTries.current += 1;
-        setWrongId(null);
-        const next = index + 1;
-        setTimeout(() => {
-          if (next >= round.length) setDone(true);
-          else {
-            setIndex(next);
-            setChosen(null);
-          }
-          missed.current = false;
-          setLocked(false);
-        }, 1100);
+        succeed();
       } else {
         missed.current = true;
         playDing(false);
@@ -98,17 +115,35 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, index, round.length, addStars, recordAttempt, fullSentence],
+    [question, locked, done, succeed],
+  );
+
+  // Expert mode: the tiles are case FORMS of the same word — correct means the
+  // one form whose ending fits the carrier.
+  const chooseForm = useCallback(
+    (form: string) => {
+      if (!question || locked || done) return;
+      if (form === formFor(question.item, question.construction)) {
+        succeed();
+      } else {
+        missed.current = true;
+        playDing(false);
+        setWrongForm(form);
+        setTimeout(() => setWrongForm((cur) => (cur === form ? null : cur)), 600);
+      }
+    },
+    [question, locked, done, succeed],
   );
 
   // Replay: English before an answer (a missed auto-play shouldn't be a dead
-  // end), Finnish once answered correctly. Never Finnish before that.
+  // end), Finnish once answered correctly. Never Finnish before that — and in
+  // the gloss-free band, no English either (nothing to replay pre-answer).
   const replay = useCallback(() => {
     if (chosen) speak(fullSentence);
-    else speakEnglish(englishPrompt);
-  }, [chosen, fullSentence, englishPrompt]);
+    else if (!drillGlossFree) speakEnglish(englishPrompt);
+  }, [chosen, fullSentence, englishPrompt, drillGlossFree]);
 
-  // Keyboard: number keys pick a word tile; Space/Enter replays (see `replay`).
+  // Keyboard: number keys pick a tile (word or form); Space/Enter replays.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!question || done) return;
@@ -118,16 +153,21 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         return;
       }
       const n = Number.parseInt(e.key, 10);
-      if (n >= 1 && n <= question.options.length) choose(question.options[n - 1]);
+      if (question.formOptions) {
+        if (n >= 1 && n <= question.formOptions.length) chooseForm(question.formOptions[n - 1]);
+      } else if (n >= 1 && n <= question.options.length) {
+        choose(question.options[n - 1]);
+      }
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [question, done, choose, replay]);
+  }, [question, done, choose, chooseForm, replay]);
 
   function restart() {
     setIndex(0);
     setChosen(null);
     setWrongId(null);
+    setWrongForm(null);
     setLocked(false);
     setDone(false);
     missed.current = false;
@@ -154,9 +194,15 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         onExit={onExit}
       />
 
-      <p className="prompt">
-        {construction.en} <span className="en">{item.en}</span>
-      </p>
+      {drillGlossFree ? (
+        // Expert band: no English anywhere — the picture + carrier are the
+        // whole prompt, and (in form mode) the ENDING is the question.
+        <p className="prompt">Täydennä lause</p>
+      ) : (
+        <p className="prompt">
+          {construction.en} <span className="en">{item.en}</span>
+        </p>
+      )}
 
       <div className="phrase-card">
         <span className="phrase-emoji" aria-hidden="true">
@@ -170,32 +216,56 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
-        <button
-          className="speaker speaker--inline"
-          onClick={replay}
-          aria-label={chosen ? 'Hear the sentence again' : 'Hear the prompt again'}
-        >
-          🔊 <span className="en">Listen</span>
-        </button>
+        {(chosen || !drillGlossFree) && (
+          <button
+            className="speaker speaker--inline"
+            onClick={replay}
+            aria-label={chosen ? 'Hear the sentence again' : 'Hear the prompt again'}
+          >
+            🔊 <span className="en">Listen</span>
+          </button>
+        )}
       </div>
 
-      <div className="word-tiles">
-        {question.options.map((opt, i) => (
-          <button
-            key={opt.id}
-            className={
-              'word-tile' +
-              (wrongId === opt.id ? ' word-tile--wrong' : '') +
-              (locked && opt.id === question.item.id ? ' word-tile--correct' : '')
-            }
-            onClick={() => choose(opt)}
-            disabled={locked}
-          >
-            <span className="word-tile__num">{i + 1}</span>
-            {formFor(opt, construction)}
-          </button>
-        ))}
-      </div>
+      {question.formOptions ? (
+        // Expert tiles: the SAME word across sourced cases — pick the ending
+        // the carrier requires.
+        <div className="word-tiles">
+          {question.formOptions.map((form, i) => (
+            <button
+              key={form}
+              className={
+                'word-tile' +
+                (wrongForm === form ? ' word-tile--wrong' : '') +
+                (locked && form === formFor(item, construction) ? ' word-tile--correct' : '')
+              }
+              onClick={() => chooseForm(form)}
+              disabled={locked}
+            >
+              <span className="word-tile__num">{i + 1}</span>
+              {form}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="word-tiles">
+          {question.options.map((opt, i) => (
+            <button
+              key={opt.id}
+              className={
+                'word-tile' +
+                (wrongId === opt.id ? ' word-tile--wrong' : '') +
+                (locked && opt.id === question.item.id ? ' word-tile--correct' : '')
+              }
+              onClick={() => choose(opt)}
+              disabled={locked}
+            >
+              <span className="word-tile__num">{i + 1}</span>
+              {formFor(opt, construction)}
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

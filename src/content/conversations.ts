@@ -299,4 +299,94 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+
+  // --- Tier 5: the expert-band scenes — longer, multi-clause turns (planning
+  // a whole outing; a misunderstanding and its repair). Inflected forms
+  // cross-checked against the vendored tables where the word is pooled
+  // (haluaisin, metsään, otamme, leikimme…); the rest is authored fixed text.
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (both scenes below).
+  {
+    id: 'plan-day',
+    titleFi: 'Suunnitellaan päivää',
+    titleEn: 'Planning the day',
+    icon: '🗓️',
+    partnerIcon: '👩',
+    tier: 5,
+    turns: [
+      {
+        partner: { fi: 'Mitä haluaisit tehdä tänään?', en: 'What would you like to do today?' },
+        reply: { fi: 'Haluaisin mennä metsään.', en: "I'd like to go to the forest." },
+        distractors: [
+          { fi: 'Se on kirja.', en: "It's a book." },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvä idea! Millainen sää tänään on?', en: "Good idea! What's the weather like today?" },
+        reply: { fi: 'Aurinko paistaa, mutta on kylmä.', en: "The sun is shining, but it's cold." },
+        distractors: [
+          { fi: 'Minun vuoroni!', en: 'My turn!' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä otamme mukaan?', en: 'What shall we take along?' },
+        reply: { fi: 'Otetaan eväät ja lämmin takki.', en: "Let's take a picnic and a warm coat." },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Kolme euroa.', en: 'Three euros.' },
+        ],
+      },
+      {
+        partner: { fi: 'Hienoa! Milloin lähdemme?', en: 'Great! When do we leave?' },
+        reply: { fi: 'Heti lounaan jälkeen.', en: 'Right after lunch.' },
+        distractors: [
+          { fi: 'Olen kuusivuotias.', en: "I'm six years old." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'mixup',
+    titleFi: 'Väärinkäsitys',
+    titleEn: 'A mix-up',
+    icon: '🤝',
+    partnerIcon: '🧒',
+    tier: 5,
+    turns: [
+      {
+        partner: { fi: 'Miksi et tullut eilen leikkimään?', en: "Why didn't you come play yesterday?" },
+        reply: { fi: 'Anteeksi, minä luulin, että tulemme tänään.', en: 'Sorry — I thought we were coming today.' },
+        distractors: [
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+          { fi: 'Se on sininen.', en: "It's blue." },
+        ],
+      },
+      {
+        partner: { fi: 'Ai, minä sanoin sen varmaan epäselvästi.', en: 'Oh, I probably said it unclearly.' },
+        reply: { fi: 'Ei se mitään. Leikitään nyt!', en: "It's okay. Let's play now!" },
+        distractors: [
+          { fi: 'Paljonko se maksaa?', en: 'How much does it cost?' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä haluat leikkiä?', en: 'What do you want to play?' },
+        reply: { fi: 'Leikitään piilosta!', en: "Let's play hide and seek!" },
+        distractors: [
+          { fi: 'Tulen kotiin kello viisi.', en: "I'll come home at five o'clock." },
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+        ],
+      },
+      {
+        partner: { fi: 'Sinä saat etsiä ensin!', en: 'You get to seek first!' },
+        reply: { fi: 'Hyvä on, minä lasken kymmeneen.', en: "Okay, I'll count to ten." },
+        distractors: [
+          { fi: 'Nimeni on {name}.', en: 'My name is {name}.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
 ];

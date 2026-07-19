@@ -485,6 +485,12 @@ export interface PhraseQuestion {
   item: LexicalItem;
   /** Candidate items; each tile shows formFor(option, construction). */
   options: LexicalItem[];
+  /**
+   * Expert mode (formDistractors): when set, the tiles are these FORM strings —
+   * the same item across sourced cases ("kissan / kissaa / kissalla…") with
+   * exactly one fitting the carrier. `options` then holds just the item.
+   */
+  formOptions?: string[];
 }
 
 export function buildPhraseRound(
@@ -495,6 +501,7 @@ export function buildPhraseRound(
   maxTier: Tier = 4,
   tricky = false,
   weigh?: WeighFn,
+  formDistractors = false,
 ): PhraseQuestion[] {
   // Only pair a construction with items that have the needed form AND make
   // sense in the slot (semantic gate). Gate by tier when a skill mixes tiers,
@@ -516,6 +523,13 @@ export function buildPhraseRound(
     weigh && ((p) => weigh(p.item)),
   );
   return chosen.map(({ construction, item }) => {
+    // Expert (L9+): the tiles are the SAME word across sourced cases — exactly
+    // one carries the ending this carrier requires. Falls back to ordinary
+    // word distractors when the paradigm can't fill the tiles distinctly.
+    if (formDistractors) {
+      const forms = caseFormOptions(item, construction, optionCount);
+      if (forms) return { construction, item, options: [item], formOptions: forms };
+    }
     // Distractors pass the same gate, so every tile plausibly fits the phrase
     // and the challenge stays about the grammar, not spotting the absurd word.
     const others = items.filter(
@@ -584,6 +598,32 @@ const GRAMMAR_REVIEW_CASES: CaseId[] = [
   'ablative',
 ];
 
+/**
+ * Shuffled form tiles for one item in one carrier: the sourced correct form
+ * plus distinct case-forms of the SAME item as distractors. Null when the
+ * paradigm can't fill the tiles distinctly (several cells spell alike).
+ * Shared by grammar Review and the expert (formDistractors) build mode.
+ */
+function caseFormOptions(
+  item: LexicalItem,
+  construction: Construction,
+  optionCount: number,
+): string[] | null {
+  const answer = formFor(item, construction);
+  if (!answer) return null;
+  const seen = new Set([answer]);
+  const distractorForms: string[] = [];
+  for (const c of GRAMMAR_REVIEW_CASES) {
+    const form = caseFormOf(item, c, construction.number);
+    if (form && !seen.has(form)) {
+      seen.add(form);
+      distractorForms.push(form);
+    }
+  }
+  if (distractorForms.length < optionCount - 1) return null;
+  return shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
+}
+
 export interface GrammarReviewQuestion {
   construction: Construction;
   /** The item filling the slot (its emoji/gloss anchor the meaning). */
@@ -606,19 +646,9 @@ export function buildGrammarReviewQuestion(
   // can leave too few DISTINCT distractor forms — try another item.
   const candidates = weightedSample(usable, Math.min(usable.length, 8), weigh);
   for (const item of candidates) {
-    const answer = formFor(item, construction)!;
-    const seen = new Set([answer]);
-    const distractorForms: string[] = [];
-    for (const c of GRAMMAR_REVIEW_CASES) {
-      const form = caseFormOf(item, c, construction.number);
-      if (form && !seen.has(form)) {
-        seen.add(form);
-        distractorForms.push(form);
-      }
-    }
-    if (distractorForms.length < optionCount - 1) continue;
-    const options = shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
-    return { construction, item, answer, options };
+    const options = caseFormOptions(item, construction, optionCount);
+    if (!options) continue;
+    return { construction, item, answer: formFor(item, construction)!, options };
   }
   return null;
 }
@@ -778,17 +808,28 @@ export function buildCountingRound(
     return maxCount >= TENS_FROM_MAX_COUNT && v > 20 && v <= 100 && v % 10 === 0;
   });
 
+  // Expert band (maxCount > 20, i.e. L9-10): the TENS dominate the draw —
+  // two of every three questions target a round ten, so the big number words
+  // ("kuusikymmentä") are the working material, not an occasional visitor.
+  const tens = counts.filter((n) => (n.value ?? 0) > 20);
+  const expertTens = maxCount > 20 && tens.length > 0;
+
   const out: CountingQuestion[] = [];
   for (let i = 0; i < questionCount; i++) {
-    const number = sample(counts, 1)[0];
+    const number =
+      expertTens && i % 3 !== 0 ? sample(tens, 1)[0] : sample(counts, 1)[0];
     const noun = weightedSample(nouns, 1, weigh)[0];
     if (!number || !noun) break;
     const otherCounts = counts.filter((n) => n.id !== number.id);
     // Tricky: the wrong counts cluster around the true one (±2), so the child
-    // must actually count — 3 vs 4, not 3 vs 9.
+    // must actually count — 3 vs 4, not 3 vs 9. A tens target clusters over
+    // NEIGHBORING TENS instead (60 vs 50 vs 70): the confusable Finnish
+    // number WORDS are the challenge, not counting emoji.
+    const targetValue = number.value ?? 0;
+    const nearRange = targetValue > 20 ? 20 : 2;
     const nearCounts = tricky
       ? otherCounts.filter(
-          (n) => Math.abs((n.value ?? 0) - (number.value ?? 0)) <= 2,
+          (n) => Math.abs((n.value ?? 0) - targetValue) <= nearRange,
         )
       : [];
     const numberOptions = shuffle([

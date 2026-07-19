@@ -7,7 +7,7 @@ describe('conversation content integrity', () => {
     const ids = conversations.map((c) => c.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const c of conversations) {
-      expect([1, 2, 3, 4].includes(c.tier)).toBe(true);
+      expect([1, 2, 3, 4, 5].includes(c.tier)).toBe(true);
       expect(c.turns.length).toBeGreaterThanOrEqual(2);
       expect(c.titleFi.trim()).toBeTruthy();
       expect(c.titleEn.trim()).toBeTruthy();

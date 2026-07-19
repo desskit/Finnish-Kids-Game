@@ -72,14 +72,21 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell'); // holds at the last entry
   });
 
-  it('gives the locative node a depth-8 ramp ending in typing the inflected form', () => {
+  it('gives the locative node a depth-10 ramp: type the form, then the plural expert band', () => {
     const { skill } = findSkill('locatives')!;
-    expect(skill.maxLevel).toBe(8);
+    expect(skill.maxLevel).toBe(10);
     expect(skill.content.pool).toBe('places');
     expect(activityForLevel(skill, 1)).toBe('build');
     expect(activityForLevel(skill, 4)).toBe('order');
     expect(activityForLevel(skill, 7)).toBe('spell');
     expect(activityForLevel(skill, 8)).toBe('spell');
+    // L9-10: form-tile build, then dictation spell (the L9+ levers), over the
+    // t9-10 plural-locative carriers.
+    expect(activityForLevel(skill, 9)).toBe('build');
+    expect(activityForLevel(skill, 10)).toBe('spell');
+    for (const id of ['on-them', 'onto-them', 'out-of-them', 'off-them']) {
+      expect(skill.content.constructionIds).toContain(id);
+    }
   });
 
   it('ramps the shallow single-case nodes recognize → assemble → type at depth 4', () => {
@@ -91,9 +98,10 @@ describe('learning path', () => {
     expect(activityForLevel(skill, 99)).toBe('spell');
   });
 
-  it('deepens the conjugation node to 6, swapping in a second game mid-ladder', () => {
+  it('deepens the conjugation node to 8, swapping in a second game mid-ladder', () => {
     const { skill } = findSkill('conjugate')!;
-    expect(skill.maxLevel).toBe(6);
+    // L7-8 are the adult rungs: sourced perfect then conditional sets.
+    expect(skill.maxLevel).toBe(8);
     // The kid keyboard has no space key, so multi-word negatives ("en syö")
     // can't be a typing apex — verb conjugation stays recognition through
     // L1-3, L4 mixes in `match` as the "different game" step, and L5–6 return
@@ -129,22 +137,29 @@ describe('learning path', () => {
     expect(activityForLevel(numbers, 4)).toBe('match');
   });
 
-  it('ramps postpositions recognize → assemble → type, same as the other shallow nodes', () => {
+  it('ramps postpositions recognize → assemble → type, topped by the genitive-plural rung', () => {
     const { skill } = findSkill('postpositions')!;
-    expect(skill.maxLevel).toBe(4);
+    expect(skill.maxLevel).toBe(6);
     expect(activityForLevel(skill, 1)).toBe('build');
     expect(activityForLevel(skill, 3)).toBe('order');
     expect(activityForLevel(skill, 4)).toBe('spell');
+    // L5-6 revisit build/spell over the t6 genitive-plural mirrors
+    // ("kissojen takana").
+    expect(activityForLevel(skill, 6)).toBe('spell');
+    expect(skill.content.constructionIds).toContain('behind-them');
   });
 
-  it('lets Count & Say diversify into build/order/spell once the counts have grown', () => {
+  it('lets Count & Say diversify into build/order/spell, then return for the tens band', () => {
     const { skill } = findSkill('count')!;
-    expect(skill.maxLevel).toBe(8);
+    expect(skill.maxLevel).toBe(10);
     expect(activityForLevel(skill, 1)).toBe('count');
     expect(activityForLevel(skill, 5)).toBe('count');
     expect(activityForLevel(skill, 6)).toBe('build');
     expect(activityForLevel(skill, 7)).toBe('order');
     expect(activityForLevel(skill, 8)).toBe('spell');
+    // L9-10: back to counting with the expert tens-dominant draw.
+    expect(activityForLevel(skill, 9)).toBe('count');
+    expect(activityForLevel(skill, 10)).toBe('count');
   });
 
   it('lets Describe it diversify into build/order at the top of its depth-4 ladder', () => {
@@ -160,14 +175,15 @@ describe('learning path', () => {
     const order = findSkill('order')!.skill;
     const spell = findSkill('spell')!.skill;
     // Both ride the full engine depth, tier-gated within one activity (no ramp).
-    expect(order.maxLevel).toBe(8);
+    expect(order.maxLevel).toBe(10);
     expect(activityForLevel(order, 1)).toBe('order');
-    expect(activityForLevel(order, 8)).toBe('order');
-    // Spelling is the production capstone: it types sourced inflected forms.
-    expect(spell.maxLevel).toBe(8);
+    expect(activityForLevel(order, 10)).toBe('order');
+    // Spelling is the production capstone: it types sourced inflected forms
+    // (and at L9-10, from audio alone — the dictation lever).
+    expect(spell.maxLevel).toBe(10);
     expect(spell.content.inflected).toBe(true);
     expect(activityForLevel(spell, 1)).toBe('spell');
-    expect(activityForLevel(spell, 8)).toBe('spell');
+    expect(activityForLevel(spell, 10)).toBe('spell');
   });
 
   it('derives the badge env from the path, excluding review', () => {
@@ -192,13 +208,13 @@ describe('learning path', () => {
     expect(findSkill('listen-numbers')?.skill.maxLevel).toBe(4);
   });
 
-  it('lets Count & Say ride the full engine depth (bigger counts all the way to 20)', () => {
-    expect(findSkill('count')?.skill.maxLevel).toBe(8);
+  it('lets Count & Say ride the full engine depth (counts to 20, then the tens band)', () => {
+    expect(findSkill('count')?.skill.maxLevel).toBe(10);
   });
 
-  it('caps Describe it at the default depth; Conjugate rides tricky distractors to 6', () => {
+  it('caps Describe it at the default depth; Conjugate climbs to 8 (perfect + conditional)', () => {
     expect(findSkill('match')?.skill.maxLevel).toBe(4);
-    expect(findSkill('conjugate')?.skill.maxLevel).toBe(6);
+    expect(findSkill('conjugate')?.skill.maxLevel).toBe(8);
   });
 
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
@@ -284,11 +300,11 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'listen-sentence', () => {})).not.toBeNull();
   });
 
-  it('adds a Story time node in the capstone chapter, with a Finnish-only top rung', () => {
+  it('adds a Story time node in the capstone chapter, with a Finnish-only rung then t5 depth', () => {
     const found = findSkill('stories')!;
     expect(found.chapter.id).toBe('together');
     expect(found.skill.activity).toBe('story');
-    expect(found.skill.maxLevel).toBe(5); // L5 = the glosses drop away
+    expect(found.skill.maxLevel).toBe(7); // L5 = gloss-free; L6-7 = the t5 stories
     expect(renderActivity(found.skill, 'story', () => {})).not.toBeNull();
   });
 
@@ -468,9 +484,10 @@ describe('learning path', () => {
     const found = findSkill('greetings')!;
     expect(found.chapter.id).toBe('conversations');
     expect(found.skill.activity).toBe('dialogue');
-    // Five rungs: L1-4 climb the tiers (difficultyFor L4 → maxTier 4), then L5
-    // is the same content Finnish-only (the English gloss drops — see showsGloss).
-    expect(found.skill.maxLevel).toBe(5);
+    // Seven rungs: L1-4 climb the tiers (difficultyFor L4 → maxTier 4), L5 is
+    // Finnish-only (the gloss drops — showsGloss), and L6-7 add the t5 expert
+    // register with five reply tiles.
+    expect(found.skill.maxLevel).toBe(7);
     // Renders a real dialogue game (no items/constructions props — draws from
     // the dialogue registry internally).
     expect(renderActivity(found.skill, 'dialogue', () => {})).not.toBeNull();
@@ -501,7 +518,7 @@ describe('learning path', () => {
     ]);
   });
 
-  it('ends with a live "Full sentences" chapter — one depth-8 capstone node', () => {
+  it('ends with a live "Full sentences" chapter — one depth-10 capstone node', () => {
     const last = PATH[PATH.length - 1];
     expect(last.id).toBe('sentences');
     // Now that templates are authored, the chapter is live (not "coming soon")
@@ -511,7 +528,7 @@ describe('learning path', () => {
     const node = last.skills[0];
     expect(node.id).toBe('full-sentences');
     expect(node.activity).toBe('sentence');
-    expect(node.maxLevel).toBe(8);
+    expect(node.maxLevel).toBe(10);
   });
 
   it('adds a typing apex to Full sentences at the top levels, mixed with tile assembly', () => {

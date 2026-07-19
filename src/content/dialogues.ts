@@ -349,4 +349,90 @@ export const dialogues: DialogueExchange[] = [
     ],
     tier: 4,
   },
+
+  // --- Tier 5: the expert-band register — multi-clause exchanges about real
+  // errands and repair moves (directions, phone talk, running late, plans).
+  // Inflected forms cross-checked against the vendored tables where the word
+  // exists in the pools (koulun, metsään, isoäidille, heräsin, luimme…).
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (all eight exchanges below).
+  {
+    id: 'ask-directions',
+    prompt: { fi: 'Anteeksi, missä on kauppa?', en: 'Excuse me, where is the shop?' },
+    reply: { fi: 'Se on tuolla, koulun vieressä.', en: "It's over there, next to the school." },
+    distractors: [
+      { fi: 'Kello on kolme.', en: "It's three o'clock." },
+      { fi: 'Hyvää yötä!', en: 'Good night!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'say-it-again',
+    prompt: { fi: 'En kuullut, mitä sanoit.', en: "I didn't hear what you said." },
+    reply: { fi: 'Minä sanon sen uudestaan.', en: "I'll say it again." },
+    distractors: [
+      { fi: 'Se on kirja.', en: "It's a book." },
+      { fi: 'Hauska tutustua!', en: 'Nice to meet you!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'whats-wrong',
+    prompt: { fi: 'Mikä hätänä?', en: "What's wrong?" },
+    reply: { fi: 'Minä kaaduin, mutta ei sattunut.', en: "I fell, but it didn't hurt." },
+    distractors: [
+      { fi: 'Ole hyvä!', en: "You're welcome!" },
+      { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'who-calling',
+    prompt: { fi: 'Kenelle sinä soitat?', en: 'Who are you calling?' },
+    reply: { fi: 'Soitan isoäidille.', en: "I'm calling grandma." },
+    distractors: [
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+      { fi: 'Tervetuloa!', en: 'Welcome!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'when-home',
+    prompt: { fi: 'Milloin tulet kotiin?', en: 'When are you coming home?' },
+    reply: { fi: 'Tulen kotiin kello viisi.', en: "I'll come home at five o'clock." },
+    distractors: [
+      { fi: 'Asun Suomessa.', en: 'I live in Finland.' },
+      { fi: 'Kolme euroa.', en: 'Three euros.' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'what-did-today',
+    prompt: { fi: 'Mitä teit tänään koulussa?', en: 'What did you do at school today?' },
+    reply: { fi: 'Me luimme kirjaa ja leikimme.', en: 'We read a book and played.' },
+    distractors: [
+      { fi: 'Minulla on jano.', en: "I'm thirsty." },
+      { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'why-late',
+    prompt: { fi: 'Miksi myöhästyit?', en: 'Why were you late?' },
+    reply: { fi: 'Koska heräsin myöhään.', en: 'Because I woke up late.' },
+    distractors: [
+      { fi: 'Ole hyvä.', en: "You're welcome." },
+      { fi: 'Nähdään!', en: 'See you!' },
+    ],
+    tier: 5,
+  },
+  {
+    id: 'weekend-plans',
+    prompt: { fi: 'Mitä teette viikonloppuna?', en: 'What are you doing on the weekend?' },
+    reply: { fi: 'Menemme isoäidille kylään.', en: "We're going to visit grandma." },
+    distractors: [
+      { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+      { fi: 'Se on koira.', en: "It's a dog." },
+    ],
+    tier: 5,
+  },
 ];

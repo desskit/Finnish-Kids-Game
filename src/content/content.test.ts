@@ -244,6 +244,20 @@ describe('content integrity', () => {
       expect(imperativeForm(v, '2sg'), v.id).toBeTruthy();
     }
   });
+
+  it('sources perfect and conditional forms for every verb (the L7-8 sets)', () => {
+    // The expert conjugation rungs' guarantee: every curated verb carries the
+    // full sourced perfect + conditional paradigms across all six persons,
+    // both polarities — so the builder never comes up short at the top levels.
+    for (const v of verbs.items) {
+      for (const p of PERSONS) {
+        for (const tense of ['perfect', 'conditional'] as const) {
+          expect(verbForm(v, tense, 'positive', p.id), `${v.id} ${tense}+ ${p.id}`).toBeTruthy();
+          expect(verbForm(v, tense, 'negative', p.id), `${v.id} ${tense}- ${p.id}`).toBeTruthy();
+        }
+      }
+    }
+  });
 });
 
 describe('englishSentenceFor (article cleanup on "a ___" templates)', () => {

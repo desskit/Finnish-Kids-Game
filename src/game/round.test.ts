@@ -81,6 +81,34 @@ describe('buildPhraseRound', () => {
       }
     }
   });
+
+  it('expert mode: form tiles are the SAME word across its own sourced paradigm', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildPhraseRound(
+        animals.items,
+        animals.constructions,
+        6,
+        4,
+        4,
+        false,
+        undefined,
+        true, // formDistractors
+      );
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        expect(q.formOptions).toBeTruthy();
+        const forms = q.formOptions!;
+        expect(new Set(forms).size).toBe(forms.length); // all tiles distinct
+        // Exactly one tile carries the ending this carrier requires.
+        const answer = formFor(q.item, q.construction)!;
+        expect(forms.filter((f) => f === answer)).toHaveLength(1);
+        // Every tile is a real sourced form of THIS item — never generated,
+        // never another word.
+        const paradigm = new Set(Object.values(q.item.inflections));
+        forms.forEach((f) => expect(paradigm.has(f), `${q.item.id}: ${f}`).toBe(true));
+      }
+    }
+  });
 });
 
 describe('buildSpellingRound', () => {
@@ -157,6 +185,28 @@ describe('buildCountingRound', () => {
     }
     // With 9 tens among 29 eligible numbers, 600 draws must hit some.
     expect(tensSeen).toBeGreaterThan(0);
+  });
+
+  it('expert band (maxCount > 20): tens DOMINATE the draw and cluster their distractors', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildCountingRound(numbers.items, animals.items, 6, 4, 100, true);
+      // Two of every three questions target a round ten (indices 1,2,4,5).
+      for (const i of [1, 2, 4, 5]) {
+        const v = round[i].number.value ?? 0;
+        expect(v % 10 === 0 && v > 20 && v <= 100, `q${i}: ${v}`).toBe(true);
+      }
+      for (const q of round) {
+        const v = q.number.value ?? 0;
+        if (v > 20) {
+          // A tens question stays confusable: with tricky on, its wrong number
+          // words prefer NEIGHBORING tens (within ±20) when enough exist.
+          const near = q.numberOptions.filter(
+            (n) => n.id !== q.number.id && Math.abs((n.value ?? 0) - v) <= 20,
+          );
+          expect(near.length).toBeGreaterThan(0);
+        }
+      }
+    }
   });
 });
 

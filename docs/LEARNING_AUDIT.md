@@ -212,3 +212,39 @@ Every item stays inside the golden rule: **no Finnish form is ever
 rule-generated** — new forms (imperatives, question carriers, stories) are
 either looked up from the vendored sourced data or human-authored and flagged
 "⚠️ NEEDS NATIVE FINNISH VETTING" until reviewed.
+
+---
+
+## Part 5 — Expert depth (post-roadmap): difficulty to an adult-learner ceiling
+
+Added after Phases A–D shipped, at the owner's request: every skill area gets
+headroom past the old L8 ceiling, and the intense nodes become borderline hard
+for an adult learner. All of it rides sourced data that was already vendored
+but unused.
+
+**Engine** (`src/game/adapt.ts`): the shared table now runs to **L10**. L6–8
+harden (5 answer tiles; sourced **perfect** at L7 and **conditional** at L8 —
+"olen syönyt", "söisin" — via a `VERB_INFLECTION_KEYS` regen). L9–10 are the
+expert band: 6 tiles, tiers 9–10, counting in tens to 100, and three levers —
+
+- **formDistractors**: Build-a-phrase tiles become CASE FORMS of the same word
+  ("kissan / kissaa / kissalla…"), generalizing the grammar-review mechanic —
+  case-morphology discrimination, not word recognition.
+- **drillGlossFree**: the drill games drop their English entirely (the
+  communicative games' Finnish-only rung stays at L5).
+- **dictation**: the typing games go audio-only — hear the sourced Finnish
+  (word, inflected form, or whole sentence), type it exactly.
+
+**Grammar** (`src/content/constructions.ts`): tiers 9–10 complete the PLURAL
+locative system (on-them/onto-them/out-of-them/off-them — "pöydillä",
+"laatikoista"), and tier 6 adds the genitive-plural postpositions ("kissojen
+takana"). Node caps: locatives/order/spell/full-sentences/count → 10,
+conjugate → 8, postpositions → 6.
+
+**Communicative** (all ⚠️ flagged for native vetting): 8 tier-5 adult-register
+dialogues (directions, phone talk, repair moves, plans), 2 tier-5 scenes
+(planning a day; a mix-up + repair), 2 tier-5 stories (7 pages, past-tense
+narration, sequence/motive questions). Greetings/Small talk/Story time → L7.
+
+**Parent legibility**: four expert can-do claims ("Can use past, perfect and
+conditional verb forms", "Can write Finnish from hearing it alone", …).

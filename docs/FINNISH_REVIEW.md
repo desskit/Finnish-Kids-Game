@@ -1,13 +1,13 @@
 # Finnish content review sheet
 
-- Generated: 2026-07-17T19:43:27.099Z · regenerate with `npm run review:content`
+- Generated: 2026-07-19T04:33:44.742Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 127 entries.**
+- **Approved: 28 of 176 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
-## Greetings & dialogues (28)
+## Greetings & dialogues (36)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -39,8 +39,16 @@
 | ✅ | `dialogue:may-i-have` | Saanko omenan? → Ole hyvä! | May I have an apple? → Here you go! |
 | ✅ | `dialogue:can-you-help` | Voitko auttaa minua? → Joo, minä autan! | Can you help me? → Yes, I'll help! |
 | ✅ | `dialogue:how-much` | Paljonko se maksaa? → Kolme euroa. | How much does it cost? → Three euros. |
+| ⚠️ | `dialogue:ask-directions` | Anteeksi, missä on kauppa? → Se on tuolla, koulun vieressä. | Excuse me, where is the shop? → It's over there, next to the school. |
+| ⚠️ | `dialogue:say-it-again` | En kuullut, mitä sanoit. → Minä sanon sen uudestaan. | I didn't hear what you said. → I'll say it again. |
+| ⚠️ | `dialogue:whats-wrong` | Mikä hätänä? → Minä kaaduin, mutta ei sattunut. | What's wrong? → I fell, but it didn't hurt. |
+| ⚠️ | `dialogue:who-calling` | Kenelle sinä soitat? → Soitan isoäidille. | Who are you calling? → I'm calling grandma. |
+| ⚠️ | `dialogue:when-home` | Milloin tulet kotiin? → Tulen kotiin kello viisi. | When are you coming home? → I'll come home at five o'clock. |
+| ⚠️ | `dialogue:what-did-today` | Mitä teit tänään koulussa? → Me luimme kirjaa ja leikimme. | What did you do at school today? → We read a book and played. |
+| ⚠️ | `dialogue:why-late` | Miksi myöhästyit? → Koska heräsin myöhään. | Why were you late? → Because I woke up late. |
+| ⚠️ | `dialogue:weekend-plans` | Mitä teette viikonloppuna? → Menemme isoäidille kylään. | What are you doing on the weekend? → We're going to visit grandma. |
 
-## Small-talk scenes, turn by turn (22)
+## Small-talk scenes, turn by turn (30)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -66,8 +74,16 @@
 | ⚠️ | `conversation:playdate:2` | Mitä leikitään? → Leikitään autoilla! | What shall we play? → Let's play with the cars! |
 | ⚠️ | `conversation:playdate:3` | Kiva! Mennään ulos. → Mennään! | Nice! Let's go outside. → Let's go! |
 | ⚠️ | `conversation:playdate:4` | Nähdään huomenna! → Nähdään! | See you tomorrow! → See you! |
+| ⚠️ | `conversation:plan-day:1` | Mitä haluaisit tehdä tänään? → Haluaisin mennä metsään. | What would you like to do today? → I'd like to go to the forest. |
+| ⚠️ | `conversation:plan-day:2` | Hyvä idea! Millainen sää tänään on? → Aurinko paistaa, mutta on kylmä. | Good idea! What's the weather like today? → The sun is shining, but it's cold. |
+| ⚠️ | `conversation:plan-day:3` | Mitä otamme mukaan? → Otetaan eväät ja lämmin takki. | What shall we take along? → Let's take a picnic and a warm coat. |
+| ⚠️ | `conversation:plan-day:4` | Hienoa! Milloin lähdemme? → Heti lounaan jälkeen. | Great! When do we leave? → Right after lunch. |
+| ⚠️ | `conversation:mixup:1` | Miksi et tullut eilen leikkimään? → Anteeksi, minä luulin, että tulemme tänään. | Why didn't you come play yesterday? → Sorry — I thought we were coming today. |
+| ⚠️ | `conversation:mixup:2` | Ai, minä sanoin sen varmaan epäselvästi. → Ei se mitään. Leikitään nyt! | Oh, I probably said it unclearly. → It's okay. Let's play now! |
+| ⚠️ | `conversation:mixup:3` | Mitä haluat leikkiä? → Leikitään piilosta! | What do you want to play? → Let's play hide and seek! |
+| ⚠️ | `conversation:mixup:4` | Sinä saat etsiä ensin! → Hyvä on, minä lasken kymmeneen. | You get to seek first! → Okay, I'll count to ten. |
 
-## Stories (22)
+## Stories (42)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -93,8 +109,28 @@
 | ⚠️ | `story:at-the-shop:page-6` | Lapsi syö omenan. | The child eats the apple. |
 | ⚠️ | `story:at-the-shop:q1` | Mitä äiti ostaa? (maitoa / leipää / juustoa) | What does mom buy? (milk / bread / cheese) |
 | ⚠️ | `story:at-the-shop:q2` | Millainen omena on? (punainen / sininen / vihreä) | What is the apple like? (red / blue / green) |
+| ⚠️ | `story:lost-dog:page-1` | Aamulla koira ei ollut kotona. | In the morning the dog wasn't home. |
+| ⚠️ | `story:lost-dog:page-2` | Liisa etsi koiraa metsästä. | Liisa looked for the dog in the forest. |
+| ⚠️ | `story:lost-dog:page-3` | Hän näki jotain puun takana. | She saw something behind a tree. |
+| ⚠️ | `story:lost-dog:page-4` | Koira leikki siellä kissan kanssa. | The dog was playing there with a cat. |
+| ⚠️ | `story:lost-dog:page-5` | Liisa antoi koiralle luun. | Liisa gave the dog a bone. |
+| ⚠️ | `story:lost-dog:page-6` | He kävelivät yhdessä kotiin. | They walked home together. |
+| ⚠️ | `story:lost-dog:page-7` | Illalla koira nukkui hyvin. | In the evening the dog slept well. |
+| ⚠️ | `story:lost-dog:q1` | Missä koira leikki? (puun takana / pöydän alla / autossa) | Where was the dog playing? (behind the tree / under the table / in the car) |
+| ⚠️ | `story:lost-dog:q2` | Mitä tapahtui ensin? (Koira ei ollut kotona. / He kävelivät kotiin. / Liisa antoi luun.) | What happened first? (The dog wasn't home. / They walked home. / Liisa gave a bone.) |
+| ⚠️ | `story:lost-dog:q3` | Miksi Liisa etsi koiraa? (Koska koira ei ollut kotona. / Koska koira söi. / Koska oli yö.) | Why did Liisa look for the dog? (Because the dog wasn't home. / Because the dog was eating. / Because it was night.) |
+| ⚠️ | `story:birthday-surprise:page-1` | Lauantaina oli isän syntymäpäivä. | Saturday was dad's birthday. |
+| ⚠️ | `story:birthday-surprise:page-2` | Lapset tekivät kakun salaa. | The children made a cake in secret. |
+| ⚠️ | `story:birthday-surprise:page-3` | Äiti auttoi keittiössä. | Mom helped in the kitchen. |
+| ⚠️ | `story:birthday-surprise:page-4` | Isä tuli kotiin kello kuusi. | Dad came home at six o'clock. |
+| ⚠️ | `story:birthday-surprise:page-5` | Kaikki lauloivat isälle. | Everyone sang for dad. |
+| ⚠️ | `story:birthday-surprise:page-6` | Isä söi kakkua ja nauroi. | Dad ate cake and laughed. |
+| ⚠️ | `story:birthday-surprise:page-7` | Se oli hauska päivä. | It was a fun day. |
+| ⚠️ | `story:birthday-surprise:q1` | Kenen syntymäpäivä oli? (isän / äidin / kissan) | Whose birthday was it? (dad's / mom's / the cat's) |
+| ⚠️ | `story:birthday-surprise:q2` | Mitä lapset tekivät ensin? (He tekivät kakun. / He lauloivat. / He söivät kakkua.) | What did the children do first? (They made a cake. / They sang. / They ate cake.) |
+| ⚠️ | `story:birthday-surprise:q3` | Miksi lapset tekivät kakun salaa? (Koska se oli yllätys. / Koska heillä oli nälkä. / Koska oli maanantai.) | Why did the children make the cake in secret? (Because it was a surprise. / Because they were hungry. / Because it was Monday.) |
 
-## Carrier phrases — authored fixed texts (31)
+## Carrier phrases — authored fixed texts (39)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -115,6 +151,10 @@
 | ⚠️ | `carrier:behind` | ___ takana — e.g. omenan takana | behind the ___ |
 | ⚠️ | `carrier:next-to` | ___ vieressä — e.g. omenan vieressä | next to the ___ |
 | ⚠️ | `carrier:under` | ___ alla — e.g. omenan alla | under the ___ |
+| ⚠️ | `carrier:in-front-of-them` | ___ edessä — e.g. omenien edessä | in front of the ___s |
+| ⚠️ | `carrier:behind-them` | ___ takana — e.g. omenien takana | behind the ___s |
+| ⚠️ | `carrier:next-to-them` | ___ vieressä — e.g. omenien vieressä | next to the ___s |
+| ⚠️ | `carrier:under-them` | ___ alla — e.g. omenien alla | under the ___s |
 | ⚠️ | `carrier:i-have-some` | Minulla on ___. — e.g. Minulla on omenia. | I have some ___. |
 | ⚠️ | `carrier:i-havent-any` | Minulla ei ole ___. — e.g. Minulla ei ole omenia. | I don't have any ___. |
 | ⚠️ | `carrier:these-are` | Nämä ovat ___. — e.g. Nämä ovat omenia. | These are ___s. |
@@ -129,6 +169,10 @@
 | ⚠️ | `carrier:out-of-it` | Kissa tulee ___. — e.g. Kissa tulee laukusta. | The cat comes out of the ___. |
 | ⚠️ | `carrier:off-it` | Kissa tulee ___. — e.g. Kissa tulee korilta. | The cat comes off the ___. |
 | ⚠️ | `carrier:in-them` | Kissat ovat ___. — e.g. Kissat ovat laukuissa. | The cats are in the ___. |
+| ⚠️ | `carrier:on-them` | Kissat ovat ___. — e.g. Kissat ovat koreilla. | The cats are on the ___s. |
+| ⚠️ | `carrier:onto-them` | Kissat menevät ___. — e.g. Kissat menevät koreille. | The cats go onto the ___s. |
+| ⚠️ | `carrier:out-of-them` | Kissat tulevat ___. — e.g. Kissat tulevat laukuista. | The cats come out of the ___s. |
+| ⚠️ | `carrier:off-them` | Kissat tulevat ___. — e.g. Kissat tulevat koreilta. | The cats come off the ___s. |
 
 ## Sentence templates — authored skeletons (12)
 
@@ -147,7 +191,7 @@
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
 
-## Other authored lines (distractor-only) (12)
+## Other authored lines (distractor-only) (17)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -156,10 +200,15 @@
 | ⚠️ | `line:3-hyvää-päivää-` | Hyvää päivää. | Good day. |
 | ⚠️ | `line:4-hyvää-yötä-` | Hyvää yötä. | Good night. |
 | ⚠️ | `line:5-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
-| ⚠️ | `line:6-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
-| ⚠️ | `line:7-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
-| ⚠️ | `line:8-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
-| ⚠️ | `line:9-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
-| ⚠️ | `line:10-näkemiin-` | Näkemiin. | Goodbye. |
-| ⚠️ | `line:11-ole-hyvä-` | Ole hyvä. | You're welcome. |
-| ⚠️ | `line:12-samoin-` | Samoin! | You too! |
+| ⚠️ | `line:6-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
+| ⚠️ | `line:7-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
+| ⚠️ | `line:8-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
+| ⚠️ | `line:9-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
+| ⚠️ | `line:10-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
+| ⚠️ | `line:11-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
+| ⚠️ | `line:12-näkemiin-` | Näkemiin. | Goodbye. |
+| ⚠️ | `line:13-ole-hyvä-` | Ole hyvä. | You're welcome. |
+| ⚠️ | `line:14-olen-kuusivuotias-` | Olen kuusivuotias. | I'm six years old. |
+| ⚠️ | `line:15-samoin-` | Samoin! | You too! |
+| ⚠️ | `line:16-se-on-koira-` | Se on koira. | It's a dog. |
+| ⚠️ | `line:17-se-on-sininen-` | Se on sininen. | It's blue. |

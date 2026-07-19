@@ -222,7 +222,7 @@ export default function AuditView() {
           <input
             type="range"
             min={1}
-            max={8}
+            max={MAX_LEVEL}
             value={level}
             onChange={(e) => {
               setLevel(Number(e.target.value));

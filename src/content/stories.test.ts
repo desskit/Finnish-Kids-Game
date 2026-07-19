@@ -6,13 +6,13 @@ describe('story content integrity', () => {
     expect(stories.length).toBeGreaterThan(0);
     const ids = stories.map((s) => s.id);
     expect(new Set(ids).size).toBe(ids.length);
-    for (const s of stories) expect([1, 2, 3, 4].includes(s.tier)).toBe(true);
+    for (const s of stories) expect([1, 2, 3, 4, 5].includes(s.tier)).toBe(true);
   });
 
-  it('keeps every story a small, fully-illustrated read (4-6 short pages)', () => {
+  it('keeps every story a small, fully-illustrated read (4-8 short pages)', () => {
     for (const s of stories) {
       expect(s.pages.length).toBeGreaterThanOrEqual(4);
-      expect(s.pages.length).toBeLessThanOrEqual(6);
+      expect(s.pages.length).toBeLessThanOrEqual(8);
       for (const p of s.pages) {
         expect(p.fi.trim()).toBeTruthy();
         expect(p.en.trim()).toBeTruthy();

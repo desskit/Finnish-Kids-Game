@@ -762,9 +762,29 @@ button:focus-visible,
   grid-template-columns: repeat(2, 1fr);
 }
 
+/* Expert tile counts (L6+ / L9+): 2- then 3-across on phones, one row on wide. */
+.card-grid--5,
+.card-grid--6 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 @media (min-width: 640px) {
   .card-grid--4 {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card-grid--5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .card-grid--6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .card-grid--6 {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 

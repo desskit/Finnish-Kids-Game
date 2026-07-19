@@ -203,6 +203,38 @@ export const CAN_DO: CanDoStatement[] = [
     basisEn: 'Build sentences at level 4+',
     requires: [{ chapterId: 'sentences', skillId: 'full-sentences', level: 4 }],
   },
+  // --- The expert band (adult-learner territory) ---
+  {
+    id: 'verb-tenses',
+    emoji: '⏳',
+    en: 'Can use past, perfect and conditional verb forms',
+    basisEn: 'Verbs (I / you / he) at level 8 (the top)',
+    requires: [{ chapterId: 'actions', skillId: 'conjugate', level: 8 }],
+  },
+  {
+    id: 'conversation-expert',
+    emoji: '🗣️',
+    en: 'Can handle real conversations (directions, phone calls, plans)',
+    basisEn: 'Greetings and Small talk at level 6+',
+    requires: [
+      { chapterId: 'conversations', skillId: 'greetings', level: 6 },
+      { chapterId: 'conversations', skillId: 'small-talk', level: 6 },
+    ],
+  },
+  {
+    id: 'plural-cases',
+    emoji: '🧭',
+    en: 'Can use the plural case system (on / into / out of many)',
+    basisEn: 'In, on, into… at level 9+',
+    requires: [{ chapterId: 'where', skillId: 'locatives', level: 9 }],
+  },
+  {
+    id: 'dictation',
+    emoji: '👂',
+    en: 'Can write Finnish from hearing it alone',
+    basisEn: 'Spelling at level 9+ (audio-only dictation)',
+    requires: [{ chapterId: 'together', skillId: 'spell', level: 9 }],
+  },
 ];
 
 function met(child: Child, r: CanDoRequirement): boolean {

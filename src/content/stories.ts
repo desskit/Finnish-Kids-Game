@@ -155,4 +155,101 @@ export const stories: Story[] = [
       },
     ],
   },
+
+  // --- Tier 5: the expert-band stories — longer (7 pages), PAST-TENSE
+  // narration, and a third question that asks about sequence or motive, not
+  // just facts. Every past form checked against the vendored tables before
+  // authoring (etsi, näki, leikki, antoi, kävelivät, nukkui, tekivät, auttoi,
+  // tuli, lauloivat, söi, nauroi; metsästä, koulun, isoäidille…).
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (both stories + questions below).
+  {
+    id: 'lost-dog',
+    titleFi: 'Kadonnut koira',
+    titleEn: 'The lost dog',
+    icon: '🐶',
+    tier: 5,
+    pages: [
+      { fi: 'Aamulla koira ei ollut kotona.', en: "In the morning the dog wasn't home.", emoji: '🌅' },
+      { fi: 'Liisa etsi koiraa metsästä.', en: 'Liisa looked for the dog in the forest.', emoji: '🌲' },
+      { fi: 'Hän näki jotain puun takana.', en: 'She saw something behind a tree.', emoji: '👀' },
+      { fi: 'Koira leikki siellä kissan kanssa.', en: 'The dog was playing there with a cat.', emoji: '🐱' },
+      { fi: 'Liisa antoi koiralle luun.', en: 'Liisa gave the dog a bone.', emoji: '🦴' },
+      { fi: 'He kävelivät yhdessä kotiin.', en: 'They walked home together.', emoji: '🏠' },
+      { fi: 'Illalla koira nukkui hyvin.', en: 'In the evening the dog slept well.', emoji: '😴' },
+    ],
+    questions: [
+      {
+        promptFi: 'Missä koira leikki?',
+        promptEn: 'Where was the dog playing?',
+        options: [
+          { fi: 'puun takana', en: 'behind the tree', emoji: '🌳', correct: true },
+          { fi: 'pöydän alla', en: 'under the table', emoji: '🪑' },
+          { fi: 'autossa', en: 'in the car', emoji: '🚗' },
+        ],
+      },
+      {
+        promptFi: 'Mitä tapahtui ensin?',
+        promptEn: 'What happened first?',
+        options: [
+          { fi: 'Koira ei ollut kotona.', en: "The dog wasn't home.", emoji: '🌅', correct: true },
+          { fi: 'He kävelivät kotiin.', en: 'They walked home.', emoji: '🏠' },
+          { fi: 'Liisa antoi luun.', en: 'Liisa gave a bone.', emoji: '🦴' },
+        ],
+      },
+      {
+        promptFi: 'Miksi Liisa etsi koiraa?',
+        promptEn: 'Why did Liisa look for the dog?',
+        options: [
+          { fi: 'Koska koira ei ollut kotona.', en: "Because the dog wasn't home.", emoji: '🐶', correct: true },
+          { fi: 'Koska koira söi.', en: 'Because the dog was eating.', emoji: '🍖' },
+          { fi: 'Koska oli yö.', en: 'Because it was night.', emoji: '🌙' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'birthday-surprise',
+    titleFi: 'Syntymäpäiväyllätys',
+    titleEn: 'The birthday surprise',
+    icon: '🎂',
+    tier: 5,
+    pages: [
+      { fi: 'Lauantaina oli isän syntymäpäivä.', en: "Saturday was dad's birthday.", emoji: '📅' },
+      { fi: 'Lapset tekivät kakun salaa.', en: 'The children made a cake in secret.', emoji: '🎂' },
+      { fi: 'Äiti auttoi keittiössä.', en: 'Mom helped in the kitchen.', emoji: '👩‍🍳' },
+      { fi: 'Isä tuli kotiin kello kuusi.', en: "Dad came home at six o'clock.", emoji: '🚪' },
+      { fi: 'Kaikki lauloivat isälle.', en: 'Everyone sang for dad.', emoji: '🎶' },
+      { fi: 'Isä söi kakkua ja nauroi.', en: 'Dad ate cake and laughed.', emoji: '😄' },
+      { fi: 'Se oli hauska päivä.', en: 'It was a fun day.', emoji: '🌟' },
+    ],
+    questions: [
+      {
+        promptFi: 'Kenen syntymäpäivä oli?',
+        promptEn: 'Whose birthday was it?',
+        options: [
+          { fi: 'isän', en: "dad's", emoji: '👨', correct: true },
+          { fi: 'äidin', en: "mom's", emoji: '👩' },
+          { fi: 'kissan', en: "the cat's", emoji: '🐱' },
+        ],
+      },
+      {
+        promptFi: 'Mitä lapset tekivät ensin?',
+        promptEn: 'What did the children do first?',
+        options: [
+          { fi: 'He tekivät kakun.', en: 'They made a cake.', emoji: '🎂', correct: true },
+          { fi: 'He lauloivat.', en: 'They sang.', emoji: '🎶' },
+          { fi: 'He söivät kakkua.', en: 'They ate cake.', emoji: '🍰' },
+        ],
+      },
+      {
+        promptFi: 'Miksi lapset tekivät kakun salaa?',
+        promptEn: 'Why did the children make the cake in secret?',
+        options: [
+          { fi: 'Koska se oli yllätys.', en: 'Because it was a surprise.', emoji: '🎁', correct: true },
+          { fi: 'Koska heillä oli nälkä.', en: 'Because they were hungry.', emoji: '🍽️' },
+          { fi: 'Koska oli maanantai.', en: 'Because it was Monday.', emoji: '📅' },
+        ],
+      },
+    ],
+  },
 ];
