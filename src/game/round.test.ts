@@ -18,6 +18,8 @@ import {
   buildConversation,
   buildStory,
   buildReadingRound,
+  buildPossessiveRound,
+  buildErrorRound,
 } from './round';
 import { stories } from '../content/stories';
 import { COMMAND_VERB_IDS } from '../content/semantics';
@@ -38,7 +40,7 @@ import {
   clothes,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
-import { formFor } from '../content/types';
+import { formFor, possessiveForm, POSSESSORS } from '../content/types';
 
 // Round builders are random, so each invariant is checked over many runs. They
 // use the real sourced content, so these double as an integration check that the
@@ -826,5 +828,100 @@ describe('familiarity weighting (weigh) in target selection', () => {
     }
     expect(heavyRounds).toBeGreaterThan(RUNS * 0.9); // ~always drawn
     expect(others.size).toBeGreaterThan(0); // nothing is ever excluded
+  });
+});
+
+describe('buildPossessiveRound (Kenen? — possessive suffixes)', () => {
+  const nouns = [...animals.items, ...places.items];
+
+  it('offers same-word possessive forms; the answer matches the cued possessor', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildPossessiveRound(nouns, 6, 3, false);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // The answer is the sourced possessive form for its possessor + case.
+        expect(q.answer).toBe(possessiveForm(q.item, q.possessor, q.caseId));
+        // Every option is a real sourced possessive form OF THE SAME NOUN —
+        // never generated, never another word.
+        const paradigm = new Set(
+          Object.entries(q.item.inflections)
+            .filter(([k]) => k.startsWith('poss_'))
+            .map(([, v]) => v),
+        );
+        q.options.forEach((f) => expect(paradigm.has(f), `${q.item.id}: ${f}`).toBe(true));
+        // The answer is present exactly once, options distinct.
+        expect(q.options.filter((f) => f === q.answer)).toHaveLength(1);
+        expect(new Set(q.options).size).toBe(q.options.length);
+        expect(q.options).toHaveLength(3);
+      }
+    }
+  });
+
+  it('stays on the bare "my cat" nominative when cases are off', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildPossessiveRound(nouns, 6, 3, false)) {
+        expect(q.caseId).toBe('nominative');
+        // The gloss is just "possessor + noun" (no preposition).
+        const posEn = POSSESSORS.find((p) => p.id === q.possessor)!.en;
+        expect(q.gloss).toBe(`${posEn} ${q.item.en}`);
+      }
+    }
+  });
+
+  it('brings in place-locative forms only on PLACES when cases are on', () => {
+    let sawLocative = false;
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildPossessiveRound(nouns, 6, 4, true)) {
+        if (q.caseId !== 'nominative') {
+          sawLocative = true;
+          expect(q.item.topic).toBe('places'); // never "in my cat"
+          expect(q.gloss).toMatch(/^(in|on) /); // glossed with a preposition
+        }
+      }
+    }
+    expect(sawLocative).toBe(true);
+  });
+});
+
+describe('buildErrorRound (Löydä virhe — grammatical judgment)', () => {
+  const cons = nounConstructions.filter((c) =>
+    ['this-is', 'on-it', 'in-it', 'into-it'].includes(c.id),
+  );
+
+  it('mixes correct and wrong sentences; wrong ones swap the slot to a real other case', () => {
+    let correct = 0;
+    let wrong = 0;
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildErrorRound(places.items, cons, 6, 8, false);
+      expect(round.length).toBeGreaterThan(0);
+      for (const q of round) {
+        // Exactly one slot chip; only it can carry the error.
+        expect(q.words.filter((w) => w.isSlot)).toHaveLength(1);
+        expect(q.words[q.slotIndex].isSlot).toBe(true);
+        const slotText = q.words[q.slotIndex].text.replace(/[.!?]+$/, '');
+        if (q.isCorrect) {
+          correct++;
+          expect(slotText).toBe(q.correctForm);
+        } else {
+          wrong++;
+          // The wrong slot is a DIFFERENT string, and a REAL sourced case form
+          // of the same item (never generated).
+          expect(slotText).not.toBe(q.correctForm);
+          const paradigm = new Set(Object.values(q.item.inflections));
+          expect(paradigm.has(slotText), `${q.item.id}: ${slotText}`).toBe(true);
+        }
+      }
+    }
+    // Both kinds occur across many rounds (the i%2 alternation guarantees it).
+    expect(correct).toBeGreaterThan(0);
+    expect(wrong).toBeGreaterThan(0);
+  });
+
+  it('shows the intended English meaning so the Finnish can be judged against it', () => {
+    for (const q of buildErrorRound(places.items, cons, 6, 8, false)) {
+      expect(q.gloss).toBeTruthy();
+      // The gloss reflects the CONSTRUCTION's meaning, regardless of the error.
+      expect(q.gloss).toContain(q.item.en);
+    }
   });
 });

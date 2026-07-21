@@ -248,3 +248,28 @@ narration, sequence/motive questions). Greetings/Small talk/Story time → L7.
 
 **Parent legibility**: four expert can-do claims ("Can use past, perfect and
 conditional verb forms", "Can write Finnish from hearing it alone", …).
+
+### New game TYPES (two mechanics no existing game had)
+
+Both ceiling additions, both fully sourced.
+
+- **Kenen? / Whose?** (`possessive` activity, naming chapter). Finnish marks
+  the possessor with a SUFFIX, not a separate word: "kissani" (my cat),
+  "kissasi" (your cat), "kissansa" (their cat). A picture + English gloss is
+  shown; the tiles are the same noun with the OTHER possessors' suffixes, so
+  the ending is the whole question. Depth 5: L1-3 the bare "my cat" nominative,
+  L4-5 add the place-locative reach ("in my house", "on my table"). The build
+  attaches a focused subset of the vendored possessive paradigm to every noun
+  (`poss_{possessor}_{case}_singular`); nothing is assembled in code.
+
+- **Löydä virhe / Find the mistake** (`error-fix` activity, capstone chapter).
+  A whole sentence is shown with its intended English meaning; half the time
+  the one inflected word carries the WRONG (real, sourced) case, so it no
+  longer matches. The child taps the bad word or "Kaikki oikein". This tests
+  grammatical JUDGMENT — noticing a real form is wrong HERE — which the
+  produce/recognize games never do. Depth 8, tier-gated into the locatives
+  (where a swapped inessive→adessive is a subtle real-learner error); the wrong
+  form is a lookup (`caseFormOf`), never generated.
+
+Plus two more can-do claims ("Can say whose something is", "Can spot a wrong
+case in a sentence and fix it").

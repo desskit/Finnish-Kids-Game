@@ -35,6 +35,8 @@ import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
 import YesNoGame from '../components/YesNoGame';
 import StoryTime from '../components/StoryTime';
+import PossessiveGame from '../components/PossessiveGame';
+import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
@@ -63,6 +65,8 @@ export type ActivityKind =
   | 'conjugate'
   | 'command'
   | 'yesno'
+  | 'possessive'
+  | 'error-fix'
   | 'order'
   | 'spell'
   | 'sentence'
@@ -373,6 +377,22 @@ const baseChapters: Chapter[] = [
         content: { constructionIds: ['these-are', 'where-are'] },
         exampleFi: 'Nämä ovat kissoja.',
       },
+      {
+        // Kenen? (Whose?) — Finnish possessive SUFFIXES ("kissani" = my cat), a
+        // subsystem no other game touches. Pick the noun form carrying the right
+        // suffix; the tiles are the same noun with the OTHER possessors'
+        // endings, so the suffix is the whole question. Depth 5: L1-3 the bare
+        // "my cat" nominative, L4-5 add the place-locative reach ("in my house",
+        // "on my table"). All forms sourced from the vendored possessive tables.
+        id: 'possessives',
+        titleFi: 'Kenen?',
+        titleEn: 'Whose?',
+        icon: '🙋',
+        activity: 'possessive',
+        maxLevel: 5,
+        content: { pool: 'nouns' },
+        exampleFi: 'Tämä on kissani.',
+      },
     ],
   },
   {
@@ -542,6 +562,38 @@ const baseChapters: Chapter[] = [
       // read + heard, tap the picture they're about. Comprehensible input over
       // the mixed noun pool. Depth comes from the option count + tricky lever.
       { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
+      // Löydä virhe — the grammatical-JUDGMENT game (a new mechanic): a whole
+      // sentence is shown against its intended meaning, and half the time the
+      // one inflected word carries the wrong (real, sourced) case. Tap the bad
+      // word or "all correct". Depth 8: tier-gating brings in harder carriers
+      // (locatives, where a swapped inessive→adessive is a subtle real-learner
+      // error), and `tricky` makes the wrong form close in length to the right
+      // one. Draws from the sentence-shaped carriers over the mixed noun pool.
+      {
+        id: 'find-error',
+        titleFi: 'Löydä virhe',
+        titleEn: 'Find the mistake',
+        icon: '🔎',
+        activity: 'error-fix',
+        maxLevel: 8,
+        content: {
+          pool: 'nouns',
+          constructionIds: [
+            'this-is',
+            'where-is',
+            'i-have',
+            'i-like',
+            'i-see',
+            'on-it',
+            'in-it',
+            'into-it',
+            'onto-it',
+            'out-of-it',
+            'off-it',
+          ],
+        },
+        exampleFi: 'Kissa on laatikossa.',
+      },
       // Story time: a tiny illustrated story read page by page, then a couple
       // of comprehension taps — the app's CONNECTED input (following a little
       // narrative for meaning). Tier-gates which stories play; L5 is the
@@ -896,6 +948,19 @@ export function renderActivity(
         <YesNoGame
           items={pictureItems}
           construction={constructionsFor(skill.content.constructionIds)[0]}
+          onExit={onExit}
+        />
+      );
+    case 'possessive':
+      // Kenen? — pick the noun form with the right possessive suffix.
+      return <PossessiveGame items={pictureItems} onExit={onExit} />;
+    case 'error-fix':
+      // Löydä virhe — is the sentence right? Tap the wrong word (a sourced form
+      // in the wrong case) or "all correct".
+      return (
+        <FindError
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
           onExit={onExit}
         />
       );

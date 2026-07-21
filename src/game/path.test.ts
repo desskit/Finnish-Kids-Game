@@ -332,6 +332,25 @@ describe('learning path', () => {
     expect(renderActivity(found.skill, 'build', () => {})).not.toBeNull();
   });
 
+  it('adds a Kenen? possessive node in the naming chapter', () => {
+    const found = findSkill('possessives')!;
+    expect(found.chapter.id).toBe('naming');
+    expect(found.skill.activity).toBe('possessive');
+    expect(found.skill.maxLevel).toBe(5); // L4-5 add the place-locative reach
+    expect(renderActivity(found.skill, 'possessive', () => {})).not.toBeNull();
+  });
+
+  it('adds a Löydä virhe (find-the-mistake) judgment node in the capstone chapter', () => {
+    const found = findSkill('find-error')!;
+    expect(found.chapter.id).toBe('together');
+    expect(found.skill.activity).toBe('error-fix');
+    expect(found.skill.maxLevel).toBe(8);
+    // Draws from sentence-shaped carriers incl. the locatives (where a swapped
+    // case is a subtle real error).
+    expect(found.skill.content.constructionIds).toContain('in-it');
+    expect(renderActivity(found.skill, 'error-fix', () => {})).not.toBeNull();
+  });
+
   it('adds a plural These-are/Where-are node in the naming chapter', () => {
     const found = findSkill('plurals')!;
     expect(found.chapter.id).toBe('naming');

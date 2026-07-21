@@ -344,6 +344,59 @@ export function commandFor(verb: LexicalItem, person: '2sg' | '2pl' = '2sg'): st
   return form.charAt(0).toUpperCase() + form.slice(1) + '!';
 }
 
+// --- Possessive suffixes ("kissani" = my cat, "talossasi" = in your house) ---
+//
+// Finnish marks the possessor with a SUFFIX stacked on the case ending, not a
+// separate word: kissa+ni, talo+ssa+si. The forms are looked up from the
+// vendored possessive paradigm (build attaches a focused subset under
+// `poss_{possessor}_{case}_singular` keys) — never assembled in code.
+
+/** The possessors the "Kenen?" game teaches. 3rd = his/her/its/their. */
+export type PossessorId = '1sg' | '2sg' | '3rd';
+
+export interface Possessor {
+  id: PossessorId;
+  /** The independent Finnish possessive pronoun, for the prompt ("minun"). */
+  fi: string;
+  /** English gloss word, gender-neutral for 3rd. */
+  en: string;
+}
+
+export const POSSESSORS: Possessor[] = [
+  { id: '1sg', fi: 'minun', en: 'my' },
+  { id: '2sg', fi: 'sinun', en: 'your' },
+  { id: '3rd', fi: 'hänen', en: 'their' },
+];
+
+/** The sourced possessive form for a possessor + case (singular), by tag. */
+export function possessiveForm(
+  item: LexicalItem,
+  possessor: PossessorId,
+  c: CaseId = 'nominative',
+): string | undefined {
+  return item.inflections[`poss_${possessor}_${c}_singular`];
+}
+
+// English glosses for the possessive game. Nominative is bare ("my cat"); the
+// place cases get a leading preposition, since that's how English renders the
+// Finnish locative meaning ("in my house", "on my table"). English meta-text,
+// never Finnish.
+const POSSESSIVE_CASE_PREP: Partial<Record<CaseId, string>> = {
+  inessive: 'in',
+  adessive: 'on',
+};
+
+/** "my cat" / "in your house" — the English side of a possessive prompt. */
+export function possessiveGloss(
+  item: LexicalItem,
+  possessor: PossessorId,
+  c: CaseId = 'nominative',
+): string {
+  const poss = POSSESSORS.find((p) => p.id === possessor)!;
+  const prep = POSSESSIVE_CASE_PREP[c];
+  return [prep, poss.en, item.en].filter(Boolean).join(' ');
+}
+
 // --- Multi-slot sentence templates (advanced; content authored later) -----
 //
 // A `Construction` has exactly ONE inflected slot. Real sentences often have

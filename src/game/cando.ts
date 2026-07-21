@@ -114,6 +114,13 @@ export const CAN_DO: CanDoStatement[] = [
     requires: [{ chapterId: 'naming', skillId: 'i-have', level: 3 }],
   },
   {
+    id: 'possessives',
+    emoji: '🙋',
+    en: 'Can say whose something is (my/your/their + suffix)',
+    basisEn: 'Whose? at level 3+',
+    requires: [{ chapterId: 'naming', skillId: 'possessives', level: 3 }],
+  },
+  {
     id: 'likes',
     emoji: '❤️',
     en: 'Can say what they like and see',
@@ -234,6 +241,13 @@ export const CAN_DO: CanDoStatement[] = [
     en: 'Can write Finnish from hearing it alone',
     basisEn: 'Spelling at level 9+ (audio-only dictation)',
     requires: [{ chapterId: 'together', skillId: 'spell', level: 9 }],
+  },
+  {
+    id: 'spot-errors',
+    emoji: '🔎',
+    en: 'Can spot a wrong case in a sentence and fix it',
+    basisEn: 'Find the mistake at level 5+',
+    requires: [{ chapterId: 'together', skillId: 'find-error', level: 5 }],
   },
 ];
 

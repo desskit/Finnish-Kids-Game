@@ -979,6 +979,62 @@ button:focus-visible,
   box-shadow: 0 0 0 4px #f59e0b;
 }
 
+/* Find-the-mistake: the sentence as tappable word chips, sized to read as one
+   flowing line, plus the "all correct" verdict button. */
+.error-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 620px;
+  margin: 6px 0;
+}
+
+.error-word {
+  min-height: calc(var(--tap) * 0.82);
+  padding: 0 clamp(12px, 3vw, 20px);
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  font-weight: 800;
+  transition: transform 0.08s ease;
+}
+
+.error-word:active {
+  transform: scale(0.95);
+}
+
+.error-word--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.error-word--fixed {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+  color: var(--good);
+}
+
+.error-ok {
+  margin-top: 12px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+.error-ok--wrong {
+  animation: wiggle 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bad);
+}
+
+.error-ok--right {
+  animation: correctpop 0.45s ease-out;
+  box-shadow: 0 0 0 5px var(--good);
+  color: var(--good);
+}
+
 @keyframes hintpulse {
   0%,
   100% {

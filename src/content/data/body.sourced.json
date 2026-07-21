@@ -39,7 +39,16 @@
         "abessive_singular": "silmättä",
         "abessive_plural": "silmittä",
         "instructive_plural": "silmin",
-        "comitative_plural": "silmineen"
+        "comitative_plural": "silmineen",
+        "poss_1sg_nominative_singular": "silmäni",
+        "poss_1sg_inessive_singular": "silmässäni",
+        "poss_1sg_adessive_singular": "silmälläni",
+        "poss_2sg_nominative_singular": "silmäsi",
+        "poss_2sg_inessive_singular": "silmässäsi",
+        "poss_2sg_adessive_singular": "silmälläsi",
+        "poss_3rd_nominative_singular": "silmänsä",
+        "poss_3rd_inessive_singular": "silmässään",
+        "poss_3rd_adessive_singular": "silmällään"
       },
       "english": {
         "plural": "eyes"
@@ -89,7 +98,16 @@
         "abessive_singular": "korvatta",
         "abessive_plural": "korvitta",
         "instructive_plural": "korvin",
-        "comitative_plural": "korvineen"
+        "comitative_plural": "korvineen",
+        "poss_1sg_nominative_singular": "korvani",
+        "poss_1sg_inessive_singular": "korvassani",
+        "poss_1sg_adessive_singular": "korvallani",
+        "poss_2sg_nominative_singular": "korvasi",
+        "poss_2sg_inessive_singular": "korvassasi",
+        "poss_2sg_adessive_singular": "korvallasi",
+        "poss_3rd_nominative_singular": "korvansa",
+        "poss_3rd_inessive_singular": "korvassaan",
+        "poss_3rd_adessive_singular": "korvallaan"
       },
       "english": {
         "plural": "ears"
@@ -139,7 +157,16 @@
         "abessive_singular": "nenättä",
         "abessive_plural": "nenittä",
         "instructive_plural": "nenin",
-        "comitative_plural": "nenineen"
+        "comitative_plural": "nenineen",
+        "poss_1sg_nominative_singular": "nenäni",
+        "poss_1sg_inessive_singular": "nenässäni",
+        "poss_1sg_adessive_singular": "nenälläni",
+        "poss_2sg_nominative_singular": "nenäsi",
+        "poss_2sg_inessive_singular": "nenässäsi",
+        "poss_2sg_adessive_singular": "nenälläsi",
+        "poss_3rd_nominative_singular": "nenänsä",
+        "poss_3rd_inessive_singular": "nenässään",
+        "poss_3rd_adessive_singular": "nenällään"
       },
       "english": {
         "plural": "noses"
@@ -189,7 +216,16 @@
         "abessive_singular": "suutta",
         "abessive_plural": "suitta",
         "instructive_plural": "suin",
-        "comitative_plural": "suineen"
+        "comitative_plural": "suineen",
+        "poss_1sg_nominative_singular": "suuni",
+        "poss_1sg_inessive_singular": "suussani",
+        "poss_1sg_adessive_singular": "suullani",
+        "poss_2sg_nominative_singular": "suusi",
+        "poss_2sg_inessive_singular": "suussasi",
+        "poss_2sg_adessive_singular": "suullasi",
+        "poss_3rd_nominative_singular": "suunsa",
+        "poss_3rd_inessive_singular": "suussaan",
+        "poss_3rd_adessive_singular": "suullaan"
       },
       "english": {
         "plural": "mouths"
@@ -239,7 +275,16 @@
         "abessive_singular": "kädettä",
         "abessive_plural": "käsittä",
         "instructive_plural": "käsin",
-        "comitative_plural": "käsineen"
+        "comitative_plural": "käsineen",
+        "poss_1sg_nominative_singular": "käteni",
+        "poss_1sg_inessive_singular": "kädessäni",
+        "poss_1sg_adessive_singular": "kädelläni",
+        "poss_2sg_nominative_singular": "kätesi",
+        "poss_2sg_inessive_singular": "kädessäsi",
+        "poss_2sg_adessive_singular": "kädelläsi",
+        "poss_3rd_nominative_singular": "kätensä",
+        "poss_3rd_inessive_singular": "kädessään",
+        "poss_3rd_adessive_singular": "kädellään"
       },
       "english": {
         "plural": "hands"
@@ -290,7 +335,16 @@
         "abessive_plural": "jaloitta",
         "instructive_singular": "jalan",
         "instructive_plural": "jaloin",
-        "comitative_plural": "jalkoineen"
+        "comitative_plural": "jalkoineen",
+        "poss_1sg_nominative_singular": "jalkani",
+        "poss_1sg_inessive_singular": "jalassani",
+        "poss_1sg_adessive_singular": "jalallani",
+        "poss_2sg_nominative_singular": "jalkasi",
+        "poss_2sg_inessive_singular": "jalassasi",
+        "poss_2sg_adessive_singular": "jalallasi",
+        "poss_3rd_nominative_singular": "jalkansa",
+        "poss_3rd_inessive_singular": "jalassaan",
+        "poss_3rd_adessive_singular": "jalallaan"
       },
       "english": {
         "plural": "feet"
@@ -340,7 +394,16 @@
         "abessive_singular": "päättä",
         "abessive_plural": "päittä",
         "instructive_plural": "päin",
-        "comitative_plural": "päineen"
+        "comitative_plural": "päineen",
+        "poss_1sg_nominative_singular": "pääni",
+        "poss_1sg_inessive_singular": "päässäni",
+        "poss_1sg_adessive_singular": "päälläni",
+        "poss_2sg_nominative_singular": "pääsi",
+        "poss_2sg_inessive_singular": "päässäsi",
+        "poss_2sg_adessive_singular": "päälläsi",
+        "poss_3rd_nominative_singular": "päänsä",
+        "poss_3rd_inessive_singular": "päässään",
+        "poss_3rd_adessive_singular": "päällään"
       },
       "english": {
         "plural": "heads"
@@ -390,7 +453,16 @@
         "abessive_singular": "hampaatta",
         "abessive_plural": "hampaitta",
         "instructive_plural": "hampain",
-        "comitative_plural": "hampaineen"
+        "comitative_plural": "hampaineen",
+        "poss_1sg_nominative_singular": "hampaani",
+        "poss_1sg_inessive_singular": "hampaassani",
+        "poss_1sg_adessive_singular": "hampaallani",
+        "poss_2sg_nominative_singular": "hampaasi",
+        "poss_2sg_inessive_singular": "hampaassasi",
+        "poss_2sg_adessive_singular": "hampaallasi",
+        "poss_3rd_nominative_singular": "hampaansa",
+        "poss_3rd_inessive_singular": "hampaassaan",
+        "poss_3rd_adessive_singular": "hampaallaan"
       },
       "english": {
         "plural": "teeth"
@@ -440,7 +512,16 @@
         "abessive_singular": "tukatta",
         "abessive_plural": "tukitta",
         "instructive_plural": "tukin",
-        "comitative_plural": "tukkineen"
+        "comitative_plural": "tukkineen",
+        "poss_1sg_nominative_singular": "tukkani",
+        "poss_1sg_inessive_singular": "tukassani",
+        "poss_1sg_adessive_singular": "tukallani",
+        "poss_2sg_nominative_singular": "tukkasi",
+        "poss_2sg_inessive_singular": "tukassasi",
+        "poss_2sg_adessive_singular": "tukallasi",
+        "poss_3rd_nominative_singular": "tukkansa",
+        "poss_3rd_inessive_singular": "tukassaan",
+        "poss_3rd_adessive_singular": "tukallaan"
       },
       "english": {
         "plural": "hairs"
@@ -490,7 +571,16 @@
         "abessive_singular": "vatsatta",
         "abessive_plural": "vatsoitta",
         "instructive_plural": "vatsoin",
-        "comitative_plural": "vatsoineen"
+        "comitative_plural": "vatsoineen",
+        "poss_1sg_nominative_singular": "vatsani",
+        "poss_1sg_inessive_singular": "vatsassani",
+        "poss_1sg_adessive_singular": "vatsallani",
+        "poss_2sg_nominative_singular": "vatsasi",
+        "poss_2sg_inessive_singular": "vatsassasi",
+        "poss_2sg_adessive_singular": "vatsallasi",
+        "poss_3rd_nominative_singular": "vatsansa",
+        "poss_3rd_inessive_singular": "vatsassaan",
+        "poss_3rd_adessive_singular": "vatsallaan"
       },
       "english": {
         "plural": "tummies"
@@ -540,7 +630,16 @@
         "abessive_singular": "sormetta",
         "abessive_plural": "sormitta",
         "instructive_plural": "sormin",
-        "comitative_plural": "sormineen"
+        "comitative_plural": "sormineen",
+        "poss_1sg_nominative_singular": "sormeni",
+        "poss_1sg_inessive_singular": "sormessani",
+        "poss_1sg_adessive_singular": "sormellani",
+        "poss_2sg_nominative_singular": "sormesi",
+        "poss_2sg_inessive_singular": "sormessasi",
+        "poss_2sg_adessive_singular": "sormellasi",
+        "poss_3rd_nominative_singular": "sormensa",
+        "poss_3rd_inessive_singular": "sormessaan",
+        "poss_3rd_adessive_singular": "sormellaan"
       },
       "english": {
         "plural": "fingers"
@@ -590,7 +689,16 @@
         "abessive_singular": "polvetta",
         "abessive_plural": "polvitta",
         "instructive_plural": "polvin",
-        "comitative_plural": "polvineen"
+        "comitative_plural": "polvineen",
+        "poss_1sg_nominative_singular": "polveni",
+        "poss_1sg_inessive_singular": "polvessani",
+        "poss_1sg_adessive_singular": "polvellani",
+        "poss_2sg_nominative_singular": "polvesi",
+        "poss_2sg_inessive_singular": "polvessasi",
+        "poss_2sg_adessive_singular": "polvellasi",
+        "poss_3rd_nominative_singular": "polvensa",
+        "poss_3rd_inessive_singular": "polvessaan",
+        "poss_3rd_adessive_singular": "polvellaan"
       },
       "english": {
         "plural": "knees"
@@ -640,7 +748,16 @@
         "abessive_singular": "kielettä",
         "abessive_plural": "kielittä",
         "instructive_plural": "kielin",
-        "comitative_plural": "kielineen"
+        "comitative_plural": "kielineen",
+        "poss_1sg_nominative_singular": "kieleni",
+        "poss_1sg_inessive_singular": "kielessäni",
+        "poss_1sg_adessive_singular": "kielelläni",
+        "poss_2sg_nominative_singular": "kielesi",
+        "poss_2sg_inessive_singular": "kielessäsi",
+        "poss_2sg_adessive_singular": "kielelläsi",
+        "poss_3rd_nominative_singular": "kielensä",
+        "poss_3rd_inessive_singular": "kielessään",
+        "poss_3rd_adessive_singular": "kielellään"
       },
       "english": {
         "plural": "tongues"
@@ -690,7 +807,16 @@
         "abessive_singular": "sydämettä",
         "abessive_plural": "sydämittä",
         "instructive_plural": "sydämin",
-        "comitative_plural": "sydämineen"
+        "comitative_plural": "sydämineen",
+        "poss_1sg_nominative_singular": "sydämeni",
+        "poss_1sg_inessive_singular": "sydämessäni",
+        "poss_1sg_adessive_singular": "sydämelläni",
+        "poss_2sg_nominative_singular": "sydämesi",
+        "poss_2sg_inessive_singular": "sydämessäsi",
+        "poss_2sg_adessive_singular": "sydämelläsi",
+        "poss_3rd_nominative_singular": "sydämensä",
+        "poss_3rd_inessive_singular": "sydämessään",
+        "poss_3rd_adessive_singular": "sydämellään"
       },
       "english": {
         "plural": "hearts"
@@ -740,7 +866,16 @@
         "abessive_singular": "luutta",
         "abessive_plural": "luitta",
         "instructive_plural": "luin",
-        "comitative_plural": "luineen"
+        "comitative_plural": "luineen",
+        "poss_1sg_nominative_singular": "luuni",
+        "poss_1sg_inessive_singular": "luussani",
+        "poss_1sg_adessive_singular": "luullani",
+        "poss_2sg_nominative_singular": "luusi",
+        "poss_2sg_inessive_singular": "luussasi",
+        "poss_2sg_adessive_singular": "luullasi",
+        "poss_3rd_nominative_singular": "luunsa",
+        "poss_3rd_inessive_singular": "luussaan",
+        "poss_3rd_adessive_singular": "luullaan"
       },
       "english": {
         "plural": "bones"
@@ -790,7 +925,16 @@
         "abessive_singular": "lihaksetta",
         "abessive_plural": "lihaksitta",
         "instructive_plural": "lihaksin",
-        "comitative_plural": "lihaksineen"
+        "comitative_plural": "lihaksineen",
+        "poss_1sg_nominative_singular": "lihakseni",
+        "poss_1sg_inessive_singular": "lihaksessani",
+        "poss_1sg_adessive_singular": "lihaksellani",
+        "poss_2sg_nominative_singular": "lihaksesi",
+        "poss_2sg_inessive_singular": "lihaksessasi",
+        "poss_2sg_adessive_singular": "lihaksellasi",
+        "poss_3rd_nominative_singular": "lihaksensa",
+        "poss_3rd_inessive_singular": "lihaksessaan",
+        "poss_3rd_adessive_singular": "lihaksellaan"
       },
       "english": {
         "plural": "muscles"

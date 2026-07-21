@@ -20,8 +20,10 @@ import {
   caseFormOf,
   englishSentenceFor,
   imperativeForm,
+  possessiveForm,
   suitsSlot,
   PERSONS,
+  POSSESSORS,
 } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
@@ -254,6 +256,25 @@ describe('content integrity', () => {
         for (const tense of ['perfect', 'conditional'] as const) {
           expect(verbForm(v, tense, 'positive', p.id), `${v.id} ${tense}+ ${p.id}`).toBeTruthy();
           expect(verbForm(v, tense, 'negative', p.id), `${v.id} ${tense}- ${p.id}`).toBeTruthy();
+        }
+      }
+    }
+  });
+
+  it('sources possessive-suffix forms for every noun (the Kenen? game)', () => {
+    // The possessive game's guarantee: every noun carries the nominative
+    // possessive across all three possessors ("kissani/kissasi/kissansa"), and
+    // every PLACE additionally carries the inessive/adessive possessive
+    // ("talossani", "pöydälläni") for the higher-level "in my house" reach.
+    const nouns = [animals, food, family, places, body, nature, clothes];
+    for (const theme of nouns) {
+      for (const item of theme.items) {
+        for (const p of POSSESSORS) {
+          expect(possessiveForm(item, p.id, 'nominative'), `${item.id} ${p.id} nom`).toBeTruthy();
+          if (item.topic === 'places') {
+            expect(possessiveForm(item, p.id, 'inessive'), `${item.id} ${p.id} iness`).toBeTruthy();
+            expect(possessiveForm(item, p.id, 'adessive'), `${item.id} ${p.id} adess`).toBeTruthy();
+          }
         }
       }
     }

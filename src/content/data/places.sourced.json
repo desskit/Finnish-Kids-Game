@@ -39,7 +39,16 @@
         "abessive_singular": "laatikotta",
         "abessive_plural": "laatikoitta",
         "instructive_plural": "laatikoin",
-        "comitative_plural": "laatikkoineen"
+        "comitative_plural": "laatikkoineen",
+        "poss_1sg_nominative_singular": "laatikkoni",
+        "poss_1sg_inessive_singular": "laatikossani",
+        "poss_1sg_adessive_singular": "laatikollani",
+        "poss_2sg_nominative_singular": "laatikkosi",
+        "poss_2sg_inessive_singular": "laatikossasi",
+        "poss_2sg_adessive_singular": "laatikollasi",
+        "poss_3rd_nominative_singular": "laatikkonsa",
+        "poss_3rd_inessive_singular": "laatikossaan",
+        "poss_3rd_adessive_singular": "laatikollaan"
       },
       "english": {
         "plural": "boxes"
@@ -93,7 +102,16 @@
         "abessive_singular": "pöydättä",
         "abessive_plural": "pöydittä",
         "instructive_plural": "pöydin",
-        "comitative_plural": "pöytineen"
+        "comitative_plural": "pöytineen",
+        "poss_1sg_nominative_singular": "pöytäni",
+        "poss_1sg_inessive_singular": "pöydässäni",
+        "poss_1sg_adessive_singular": "pöydälläni",
+        "poss_2sg_nominative_singular": "pöytäsi",
+        "poss_2sg_inessive_singular": "pöydässäsi",
+        "poss_2sg_adessive_singular": "pöydälläsi",
+        "poss_3rd_nominative_singular": "pöytänsä",
+        "poss_3rd_inessive_singular": "pöydässään",
+        "poss_3rd_adessive_singular": "pöydällään"
       },
       "english": {
         "plural": "tables"
@@ -146,7 +164,16 @@
         "abessive_singular": "talotta",
         "abessive_plural": "taloitta",
         "instructive_plural": "taloin",
-        "comitative_plural": "taloineen"
+        "comitative_plural": "taloineen",
+        "poss_1sg_nominative_singular": "taloni",
+        "poss_1sg_inessive_singular": "talossani",
+        "poss_1sg_adessive_singular": "talollani",
+        "poss_2sg_nominative_singular": "talosi",
+        "poss_2sg_inessive_singular": "talossasi",
+        "poss_2sg_adessive_singular": "talollasi",
+        "poss_3rd_nominative_singular": "talonsa",
+        "poss_3rd_inessive_singular": "talossaan",
+        "poss_3rd_adessive_singular": "talollaan"
       },
       "english": {
         "plural": "houses"
@@ -199,7 +226,16 @@
         "abessive_singular": "huoneetta",
         "abessive_plural": "huoneitta",
         "instructive_plural": "huonein",
-        "comitative_plural": "huoneineen"
+        "comitative_plural": "huoneineen",
+        "poss_1sg_nominative_singular": "huoneeni",
+        "poss_1sg_inessive_singular": "huoneessani",
+        "poss_1sg_adessive_singular": "huoneellani",
+        "poss_2sg_nominative_singular": "huoneesi",
+        "poss_2sg_inessive_singular": "huoneessasi",
+        "poss_2sg_adessive_singular": "huoneellasi",
+        "poss_3rd_nominative_singular": "huoneensa",
+        "poss_3rd_inessive_singular": "huoneessaan",
+        "poss_3rd_adessive_singular": "huoneellaan"
       },
       "english": {
         "plural": "rooms"
@@ -252,7 +288,16 @@
         "abessive_singular": "autotta",
         "abessive_plural": "autoitta",
         "instructive_plural": "autoin",
-        "comitative_plural": "autoineen"
+        "comitative_plural": "autoineen",
+        "poss_1sg_nominative_singular": "autoni",
+        "poss_1sg_inessive_singular": "autossani",
+        "poss_1sg_adessive_singular": "autollani",
+        "poss_2sg_nominative_singular": "autosi",
+        "poss_2sg_inessive_singular": "autossasi",
+        "poss_2sg_adessive_singular": "autollasi",
+        "poss_3rd_nominative_singular": "autonsa",
+        "poss_3rd_inessive_singular": "autossaan",
+        "poss_3rd_adessive_singular": "autollaan"
       },
       "english": {
         "plural": "cars"
@@ -306,7 +351,16 @@
         "abessive_singular": "sängyttä",
         "abessive_plural": "sängyittä",
         "instructive_plural": "sängyin",
-        "comitative_plural": "sänkyineen"
+        "comitative_plural": "sänkyineen",
+        "poss_1sg_nominative_singular": "sänkyni",
+        "poss_1sg_inessive_singular": "sängyssäni",
+        "poss_1sg_adessive_singular": "sängylläni",
+        "poss_2sg_nominative_singular": "sänkysi",
+        "poss_2sg_inessive_singular": "sängyssäsi",
+        "poss_2sg_adessive_singular": "sängylläsi",
+        "poss_3rd_nominative_singular": "sänkynsä",
+        "poss_3rd_inessive_singular": "sängyssään",
+        "poss_3rd_adessive_singular": "sängyllään"
       },
       "english": {
         "plural": "beds"
@@ -360,7 +414,16 @@
         "abessive_singular": "tuolitta",
         "abessive_plural": "tuoleitta",
         "instructive_plural": "tuolein",
-        "comitative_plural": "tuoleineen"
+        "comitative_plural": "tuoleineen",
+        "poss_1sg_nominative_singular": "tuolini",
+        "poss_1sg_inessive_singular": "tuolissani",
+        "poss_1sg_adessive_singular": "tuolillani",
+        "poss_2sg_nominative_singular": "tuolisi",
+        "poss_2sg_inessive_singular": "tuolissasi",
+        "poss_2sg_adessive_singular": "tuolillasi",
+        "poss_3rd_nominative_singular": "tuolinsa",
+        "poss_3rd_inessive_singular": "tuolissaan",
+        "poss_3rd_adessive_singular": "tuolillaan"
       },
       "english": {
         "plural": "chairs"
@@ -413,7 +476,16 @@
         "abessive_singular": "koulutta",
         "abessive_plural": "kouluitta",
         "instructive_plural": "kouluin",
-        "comitative_plural": "kouluineen"
+        "comitative_plural": "kouluineen",
+        "poss_1sg_nominative_singular": "kouluni",
+        "poss_1sg_inessive_singular": "koulussani",
+        "poss_1sg_adessive_singular": "koulullani",
+        "poss_2sg_nominative_singular": "koulusi",
+        "poss_2sg_inessive_singular": "koulussasi",
+        "poss_2sg_adessive_singular": "koulullasi",
+        "poss_3rd_nominative_singular": "koulunsa",
+        "poss_3rd_inessive_singular": "koulussaan",
+        "poss_3rd_adessive_singular": "koulullaan"
       },
       "english": {
         "plural": "schools"
@@ -466,7 +538,16 @@
         "abessive_singular": "puutta",
         "abessive_plural": "puitta",
         "instructive_plural": "puin",
-        "comitative_plural": "puineen"
+        "comitative_plural": "puineen",
+        "poss_1sg_nominative_singular": "puuni",
+        "poss_1sg_inessive_singular": "puussani",
+        "poss_1sg_adessive_singular": "puullani",
+        "poss_2sg_nominative_singular": "puusi",
+        "poss_2sg_inessive_singular": "puussasi",
+        "poss_2sg_adessive_singular": "puullasi",
+        "poss_3rd_nominative_singular": "puunsa",
+        "poss_3rd_inessive_singular": "puussaan",
+        "poss_3rd_adessive_singular": "puullaan"
       },
       "english": {
         "plural": "trees"
@@ -519,7 +600,16 @@
         "abessive_singular": "metsättä",
         "abessive_plural": "metsittä",
         "instructive_plural": "metsin",
-        "comitative_plural": "metsineen"
+        "comitative_plural": "metsineen",
+        "poss_1sg_nominative_singular": "metsäni",
+        "poss_1sg_inessive_singular": "metsässäni",
+        "poss_1sg_adessive_singular": "metsälläni",
+        "poss_2sg_nominative_singular": "metsäsi",
+        "poss_2sg_inessive_singular": "metsässäsi",
+        "poss_2sg_adessive_singular": "metsälläsi",
+        "poss_3rd_nominative_singular": "metsänsä",
+        "poss_3rd_inessive_singular": "metsässään",
+        "poss_3rd_adessive_singular": "metsällään"
       },
       "english": {
         "plural": "forests"
@@ -572,7 +662,16 @@
         "abessive_singular": "koritta",
         "abessive_plural": "koreitta",
         "instructive_plural": "korein",
-        "comitative_plural": "koreineen"
+        "comitative_plural": "koreineen",
+        "poss_1sg_nominative_singular": "korini",
+        "poss_1sg_inessive_singular": "korissani",
+        "poss_1sg_adessive_singular": "korillani",
+        "poss_2sg_nominative_singular": "korisi",
+        "poss_2sg_inessive_singular": "korissasi",
+        "poss_2sg_adessive_singular": "korillasi",
+        "poss_3rd_nominative_singular": "korinsa",
+        "poss_3rd_inessive_singular": "korissaan",
+        "poss_3rd_adessive_singular": "korillaan"
       },
       "english": {
         "plural": "baskets"
@@ -626,7 +725,16 @@
         "abessive_singular": "laukutta",
         "abessive_plural": "laukuitta",
         "instructive_plural": "laukuin",
-        "comitative_plural": "laukkuineen"
+        "comitative_plural": "laukkuineen",
+        "poss_1sg_nominative_singular": "laukkuni",
+        "poss_1sg_inessive_singular": "laukussani",
+        "poss_1sg_adessive_singular": "laukullani",
+        "poss_2sg_nominative_singular": "laukkusi",
+        "poss_2sg_inessive_singular": "laukussasi",
+        "poss_2sg_adessive_singular": "laukullasi",
+        "poss_3rd_nominative_singular": "laukkunsa",
+        "poss_3rd_inessive_singular": "laukussaan",
+        "poss_3rd_adessive_singular": "laukullaan"
       },
       "english": {
         "plural": "bags"
@@ -678,7 +786,16 @@
         "abessive_singular": "ikkunatta",
         "abessive_plural": "ikkunoitta",
         "instructive_plural": "ikkunoin",
-        "comitative_plural": "ikkunoineen"
+        "comitative_plural": "ikkunoineen",
+        "poss_1sg_nominative_singular": "ikkunani",
+        "poss_1sg_inessive_singular": "ikkunassani",
+        "poss_1sg_adessive_singular": "ikkunallani",
+        "poss_2sg_nominative_singular": "ikkunasi",
+        "poss_2sg_inessive_singular": "ikkunassasi",
+        "poss_2sg_adessive_singular": "ikkunallasi",
+        "poss_3rd_nominative_singular": "ikkunansa",
+        "poss_3rd_inessive_singular": "ikkunassaan",
+        "poss_3rd_adessive_singular": "ikkunallaan"
       },
       "english": {
         "plural": "windows"
@@ -730,7 +847,16 @@
         "abessive_singular": "ovetta",
         "abessive_plural": "ovitta",
         "instructive_plural": "ovin",
-        "comitative_plural": "ovineen"
+        "comitative_plural": "ovineen",
+        "poss_1sg_nominative_singular": "oveni",
+        "poss_1sg_inessive_singular": "ovessani",
+        "poss_1sg_adessive_singular": "ovellani",
+        "poss_2sg_nominative_singular": "ovesi",
+        "poss_2sg_inessive_singular": "ovessasi",
+        "poss_2sg_adessive_singular": "ovellasi",
+        "poss_3rd_nominative_singular": "ovensa",
+        "poss_3rd_inessive_singular": "ovessaan",
+        "poss_3rd_adessive_singular": "ovellaan"
       },
       "english": {
         "plural": "doors"
@@ -782,7 +908,16 @@
         "abessive_singular": "keittiöttä",
         "abessive_plural": "keittiöittä",
         "instructive_plural": "keittiöin",
-        "comitative_plural": "keittiöineen"
+        "comitative_plural": "keittiöineen",
+        "poss_1sg_nominative_singular": "keittiöni",
+        "poss_1sg_inessive_singular": "keittiössäni",
+        "poss_1sg_adessive_singular": "keittiölläni",
+        "poss_2sg_nominative_singular": "keittiösi",
+        "poss_2sg_inessive_singular": "keittiössäsi",
+        "poss_2sg_adessive_singular": "keittiölläsi",
+        "poss_3rd_nominative_singular": "keittiönsä",
+        "poss_3rd_inessive_singular": "keittiössään",
+        "poss_3rd_adessive_singular": "keittiöllään"
       },
       "english": {
         "plural": "kitchens"
@@ -834,7 +969,16 @@
         "abessive_singular": "puutarhatta",
         "abessive_plural": "puutarhoitta",
         "instructive_plural": "puutarhoin",
-        "comitative_plural": "puutarhoineen"
+        "comitative_plural": "puutarhoineen",
+        "poss_1sg_nominative_singular": "puutarhani",
+        "poss_1sg_inessive_singular": "puutarhassani",
+        "poss_1sg_adessive_singular": "puutarhallani",
+        "poss_2sg_nominative_singular": "puutarhasi",
+        "poss_2sg_inessive_singular": "puutarhassasi",
+        "poss_2sg_adessive_singular": "puutarhallasi",
+        "poss_3rd_nominative_singular": "puutarhansa",
+        "poss_3rd_inessive_singular": "puutarhassaan",
+        "poss_3rd_adessive_singular": "puutarhallaan"
       },
       "english": {
         "plural": "gardens"
