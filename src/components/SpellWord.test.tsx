@@ -12,6 +12,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import SpellWord from './SpellWord';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { ActivityContext } from '../game/activityContext';
+import { difficultyFor } from '../game/adapt';
 
 function seedChild() {
   localStorage.setItem(
@@ -208,5 +210,34 @@ describe('SpellWord default (bare-word) mode is unaffected', () => {
     await act(async () => vi.advanceTimersByTimeAsync(500));
     expect(speak).toHaveBeenCalledWith('kissa');
     expect(screen.getByRole('button', { name: /hear the word again/i })).toBeInTheDocument();
+  });
+});
+
+describe('SpellWord — dictation (the L9+ expert lever)', () => {
+  it('sentence mode becomes true dictation: Finnish spoken, every hint gone', async () => {
+    render(
+      <ProfileProvider>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(9), sessionStars: 0 }}
+        >
+          <SpellWord buildRound={() => SENTENCE_ROUND} speakTarget={false} onExit={vi.fn()} />
+          <StarsProbe />
+        </ActivityContext.Provider>
+      </ProfileProvider>,
+    );
+    // No semantic clues: no gloss, no emoji — the AUDIO is the whole prompt.
+    expect(screen.queryByText('I go home.')).not.toBeInTheDocument();
+    expect(document.querySelector('.phrase-hint')).toBeNull();
+    expect(screen.getByText(/type what you hear/i)).toBeInTheDocument();
+    // The Finnish target IS spoken now (dictation overrides sentence-mode
+    // silence) and English is not.
+    await act(async () => vi.advanceTimersByTimeAsync(500));
+    expect(speak).toHaveBeenCalledWith('minä menen kotiin.');
+    expect(speakEnglish).not.toHaveBeenCalled();
+    // Typing what was heard still completes normally.
+    const input = screen.getByLabelText(/type the word you hear/i);
+    fireEvent.change(input, { target: { value: 'minä menen kotiin' } });
+    expect(playDing).toHaveBeenCalledWith(true);
+    expect(screen.getByTestId('stars')).toHaveTextContent('1');
   });
 });

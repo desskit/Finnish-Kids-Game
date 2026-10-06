@@ -35,6 +35,8 @@ import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
 import YesNoGame from '../components/YesNoGame';
 import StoryTime from '../components/StoryTime';
+import PossessiveGame from '../components/PossessiveGame';
+import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
@@ -63,6 +65,8 @@ export type ActivityKind =
   | 'conjugate'
   | 'command'
   | 'yesno'
+  | 'possessive'
+  | 'error-fix'
   | 'order'
   | 'spell'
   | 'sentence'
@@ -373,6 +377,22 @@ const baseChapters: Chapter[] = [
         content: { constructionIds: ['these-are', 'where-are'] },
         exampleFi: 'Nämä ovat kissoja.',
       },
+      {
+        // Kenen? (Whose?) — Finnish possessive SUFFIXES ("kissani" = my cat), a
+        // subsystem no other game touches. Pick the noun form carrying the right
+        // suffix; the tiles are the same noun with the OTHER possessors'
+        // endings, so the suffix is the whole question. Depth 5: L1-3 the bare
+        // "my cat" nominative, L4-5 add the place-locative reach ("in my house",
+        // "on my table"). All forms sourced from the vendored possessive tables.
+        id: 'possessives',
+        titleFi: 'Kenen?',
+        titleEn: 'Whose?',
+        icon: '🙋',
+        activity: 'possessive',
+        maxLevel: 5,
+        content: { pool: 'nouns' },
+        exampleFi: 'Tämä on kissani.',
+      },
     ],
   },
   {
@@ -382,7 +402,9 @@ const baseChapters: Chapter[] = [
     accent: '#0d9488',
     icon: '📍',
     skills: [
-      { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under'] }, exampleFi: 'kissan edessä' },
+      // Depth 6: L5-6 unlock the GENITIVE-PLURAL mirrors ("kissojen takana",
+      // tier 6) — the same postpositions over the sourced plural form.
+      { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', activities: ['build', 'build', 'order', 'spell', 'build', 'spell'], maxLevel: 6, content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under', 'in-front-of-them', 'behind-them', 'next-to-them', 'under-them'] }, exampleFi: 'kissan edessä' },
       {
         // The flagship deep node (depth 8): the Finnish locative case system.
         // One new case unlocks per level via maxTier — adessive (on) → inessive
@@ -396,8 +418,12 @@ const baseChapters: Chapter[] = [
         titleEn: 'In, on, into, out of…',
         icon: '🧭',
         activity: 'build',
-        activities: ['build', 'build', 'build', 'order', 'order', 'order', 'spell', 'spell'],
-        maxLevel: 8,
+        // The expert band (L9-10) completes the PLURAL locative system
+        // (t9-10: pöydillä / pöydille / laatikoista / pöydiltä) — and the L9+
+        // levers turn `build` into case-FORM tiles and `spell` into dictation,
+        // so the top of this ladder is genuinely adult-hard.
+        activities: ['build', 'build', 'build', 'order', 'order', 'order', 'spell', 'spell', 'build', 'spell'],
+        maxLevel: 10,
         content: {
           pool: 'places',
           constructionIds: [
@@ -408,6 +434,10 @@ const baseChapters: Chapter[] = [
             'out-of-it',
             'off-it',
             'in-them',
+            'on-them',
+            'onto-them',
+            'out-of-them',
+            'off-them',
           ],
         },
         exampleFi: 'Kissa on laatikossa.',
@@ -465,7 +495,9 @@ const baseChapters: Chapter[] = [
       // L1-5. Once the counts have grown, L6-8 shift into build/order/spell
       // over the same noun pool so the back half of the grind isn't just
       // "the same game with bigger numbers" forever.
-      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', activities: ['count', 'count', 'count', 'count', 'count', 'build', 'order', 'spell'], maxLevel: 8, content: { pool: 'nouns' } },
+      // L9-10 return to `count` with the expert draw: the round tens DOMINATE
+      // (kuusikymmentä vs seitsemänkymmentä) with neighboring-tens distractors.
+      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', activities: ['count', 'count', 'count', 'count', 'count', 'build', 'order', 'spell', 'count', 'count'], maxLevel: 10, content: { pool: 'nouns' } },
       // Adjective-noun agreement rotates across 7 cases at every level (not
       // tier-gated), so there's no extra grammar to unlock past the default
       // ceiling — depth stays 4 until the cases themselves get tiered. L3-4
@@ -491,14 +523,16 @@ const baseChapters: Chapter[] = [
       // build); only curated kid-actable verbs play (COMMAND_VERB_IDS). Depth
       // 4: option count then sound-confusable distractors (same first letter).
       { id: 'commands', titleFi: 'Tee näin!', titleEn: 'Do this!', icon: '🤸', activity: 'command', maxLevel: 4, content: { pool: 'verbs' }, exampleFi: 'Hyppää!' },
-      // Depth 6: one new sourced tense×polarity set unlocks per level through
+      // Depth 8: one new sourced tense×polarity set unlocks per level through
       // L4 (present+ → present- → past+ → past-), each drilled across all six
       // persons; L4 also swaps in `match` as the "different game" step. L5–6
       // ride the `tricky` lever — a distractor tile is a DIFFERENT verb
       // conjugated for the same person, so the verb itself must be recognized
-      // across the (now ~50-verb) pool, not just the ending. (Imperative is
-      // 2nd-person-only and doesn't fit the "pick the person's form" drill.)
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate'], maxLevel: 6, content: {} },
+      // across the (now ~50-verb) pool, not just the ending. L7 unlocks the
+      // sourced PERFECT ("minä olen syönyt") and L8 the CONDITIONAL ("minä
+      // söisin") — the adult-learner rungs. (Imperative is 2nd-person-only and
+      // doesn't fit the "pick the person's form" drill.)
+      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate', 'conjugate', 'conjugate'], maxLevel: 8, content: {} },
     ],
   },
   {
@@ -518,19 +552,55 @@ const baseChapters: Chapter[] = [
       // No second game type here on purpose: progression is already visible
       // every level via new grammar (maxTier), and no other round builder
       // consumes a generic noun pool the way order/spell already do.
-      { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', maxLevel: 8, content: {} },
+      // Depth 10: the expert band adds the t9-10 plural-locative grammar and
+      // the L9+ levers (gloss-free assembly / audio-only dictation).
+      { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', maxLevel: 10, content: {} },
       // Same reasoning as `order` above — self-ramps via the inflected-form
       // grammar, no second game.
-      { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 8, content: { pool: 'nouns', inflected: true } },
+      { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 10, content: { pool: 'nouns', inflected: true } },
       // Authentic reading: real sourced example sentences (kid-safety filtered),
       // read + heard, tap the picture they're about. Comprehensible input over
       // the mixed noun pool. Depth comes from the option count + tricky lever.
       { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
+      // Löydä virhe — the grammatical-JUDGMENT game (a new mechanic): a whole
+      // sentence is shown against its intended meaning, and half the time the
+      // one inflected word carries the wrong (real, sourced) case. Tap the bad
+      // word or "all correct". Depth 8: tier-gating brings in harder carriers
+      // (locatives, where a swapped inessive→adessive is a subtle real-learner
+      // error), and `tricky` makes the wrong form close in length to the right
+      // one. Draws from the sentence-shaped carriers over the mixed noun pool.
+      {
+        id: 'find-error',
+        titleFi: 'Löydä virhe',
+        titleEn: 'Find the mistake',
+        icon: '🔎',
+        activity: 'error-fix',
+        maxLevel: 8,
+        content: {
+          pool: 'nouns',
+          constructionIds: [
+            'this-is',
+            'where-is',
+            'i-have',
+            'i-like',
+            'i-see',
+            'on-it',
+            'in-it',
+            'into-it',
+            'onto-it',
+            'out-of-it',
+            'off-it',
+          ],
+        },
+        exampleFi: 'Kissa on laatikossa.',
+      },
       // Story time: a tiny illustrated story read page by page, then a couple
       // of comprehension taps — the app's CONNECTED input (following a little
       // narrative for meaning). Tier-gates which stories play; L5 is the
-      // Finnish-only rung (the glosses drop away, see showsGloss).
-      { id: 'stories', titleFi: 'Satuhetki', titleEn: 'Story time', icon: '📚', activity: 'story', maxLevel: 5, content: {} },
+      // Finnish-only rung (the glosses drop away, see showsGloss); L6-7 climb
+      // through the tier-5 stories — longer, past-tense narration with
+      // sequence/motive questions.
+      { id: 'stories', titleFi: 'Satuhetki', titleEn: 'Story time', icon: '📚', activity: 'story', maxLevel: 7, content: {} },
       { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
     ],
   },
@@ -559,6 +629,8 @@ const sentenceSkills: SkillNode[] = HAS_SENTENCES
         // Finnish shown, no TTS) is the harder production test. Sessions
         // round-robin the whole unlocked set, so 7-8 mix tile + typing
         // rounds rather than switching over entirely.
+        // L9-10: the typing apex becomes DICTATION (the dictation lever speaks
+        // the whole Finnish sentence; no gloss) — the app's hardest task.
         activities: [
           'sentence',
           'sentence',
@@ -568,8 +640,10 @@ const sentenceSkills: SkillNode[] = HAS_SENTENCES
           'sentence',
           'sentence-type',
           'sentence-type',
+          'sentence-type',
+          'sentence-type',
         ],
-        maxLevel: 8,
+        maxLevel: 10,
         content: {},
       },
     ]
@@ -601,11 +675,11 @@ const conversationsChapter: Chapter = {
       titleEn: 'Greetings',
       icon: '👋',
       activity: 'dialogue',
-      // Five rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
-      // (favourites, turn-taking) → L5 the SAME content Finnish-only (the English
-      // gloss drops away — comprehension is the top rung). difficultyFor maps
-      // L4 → maxTier 4; L5 keeps that content but hides the gloss (see showsGloss).
-      maxLevel: 5,
+      // Seven rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
+      // (favourites, turn-taking) → L5 Finnish-only (the English gloss drops
+      // away — see showsGloss) → L6-7 the tier-5 expert register (directions,
+      // phone talk, repair moves) with five reply tiles (the L6+ option count).
+      maxLevel: 7,
       content: {},
     },
     {
@@ -617,8 +691,10 @@ const conversationsChapter: Chapter = {
       icon: '🗣️',
       activity: 'conversation',
       // L5 is the Finnish-only rung: the English glosses on the bubbles + reply
-      // tiles drop away, so the child holds the whole scene in Finnish.
-      maxLevel: 5,
+      // tiles drop away, so the child holds the whole scene in Finnish. L6-7
+      // add the tier-5 scenes (planning a day; a mix-up + repair) — longer,
+      // multi-clause turns — with five reply tiles.
+      maxLevel: 7,
       content: {},
     },
   ],
@@ -872,6 +948,19 @@ export function renderActivity(
         <YesNoGame
           items={pictureItems}
           construction={constructionsFor(skill.content.constructionIds)[0]}
+          onExit={onExit}
+        />
+      );
+    case 'possessive':
+      // Kenen? — pick the noun form with the right possessive suffix.
+      return <PossessiveGame items={pictureItems} onExit={onExit} />;
+    case 'error-fix':
+      // Löydä virhe — is the sentence right? Tap the wrong word (a sourced form
+      // in the wrong case) or "all correct".
+      return (
+        <FindError
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
           onExit={onExit}
         />
       );

@@ -39,7 +39,16 @@
         "abessive_singular": "leivättä",
         "abessive_plural": "leivittä",
         "instructive_plural": "leivin",
-        "comitative_plural": "leipineen"
+        "comitative_plural": "leipineen",
+        "poss_1sg_nominative_singular": "leipäni",
+        "poss_1sg_inessive_singular": "leivässäni",
+        "poss_1sg_adessive_singular": "leivälläni",
+        "poss_2sg_nominative_singular": "leipäsi",
+        "poss_2sg_inessive_singular": "leivässäsi",
+        "poss_2sg_adessive_singular": "leivälläsi",
+        "poss_3rd_nominative_singular": "leipänsä",
+        "poss_3rd_inessive_singular": "leivässään",
+        "poss_3rd_adessive_singular": "leivällään"
       },
       "english": {
         "plural": "breads"
@@ -85,7 +94,16 @@
         "abessive_singular": "maidotta",
         "abessive_plural": "maidoitta",
         "instructive_plural": "maidoin",
-        "comitative_plural": "maitoineen"
+        "comitative_plural": "maitoineen",
+        "poss_1sg_nominative_singular": "maitoni",
+        "poss_1sg_inessive_singular": "maidossani",
+        "poss_1sg_adessive_singular": "maidollani",
+        "poss_2sg_nominative_singular": "maitosi",
+        "poss_2sg_inessive_singular": "maidossasi",
+        "poss_2sg_adessive_singular": "maidollasi",
+        "poss_3rd_nominative_singular": "maitonsa",
+        "poss_3rd_inessive_singular": "maidossaan",
+        "poss_3rd_adessive_singular": "maidollaan"
       },
       "english": {
         "plural": "milks"
@@ -135,7 +153,16 @@
         "abessive_singular": "vedettä",
         "abessive_plural": "vesittä",
         "instructive_plural": "vesin",
-        "comitative_plural": "vesineen"
+        "comitative_plural": "vesineen",
+        "poss_1sg_nominative_singular": "veteni",
+        "poss_1sg_inessive_singular": "vedessäni",
+        "poss_1sg_adessive_singular": "vedelläni",
+        "poss_2sg_nominative_singular": "vetesi",
+        "poss_2sg_inessive_singular": "vedessäsi",
+        "poss_2sg_adessive_singular": "vedelläsi",
+        "poss_3rd_nominative_singular": "vetensä",
+        "poss_3rd_inessive_singular": "vedessään",
+        "poss_3rd_adessive_singular": "vedellään"
       },
       "english": {
         "plural": "waters"
@@ -185,7 +212,16 @@
         "abessive_singular": "omenatta",
         "abessive_plural": "omenoitta",
         "instructive_plural": "omenoin",
-        "comitative_plural": "omenoineen"
+        "comitative_plural": "omenoineen",
+        "poss_1sg_nominative_singular": "omenani",
+        "poss_1sg_inessive_singular": "omenassani",
+        "poss_1sg_adessive_singular": "omenallani",
+        "poss_2sg_nominative_singular": "omenasi",
+        "poss_2sg_inessive_singular": "omenassasi",
+        "poss_2sg_adessive_singular": "omenallasi",
+        "poss_3rd_nominative_singular": "omenansa",
+        "poss_3rd_inessive_singular": "omenassaan",
+        "poss_3rd_adessive_singular": "omenallaan"
       },
       "english": {
         "plural": "apples"
@@ -235,7 +271,16 @@
         "abessive_singular": "banaanitta",
         "abessive_plural": "banaaneitta",
         "instructive_plural": "banaanein",
-        "comitative_plural": "banaaneineen"
+        "comitative_plural": "banaaneineen",
+        "poss_1sg_nominative_singular": "banaanini",
+        "poss_1sg_inessive_singular": "banaanissani",
+        "poss_1sg_adessive_singular": "banaanillani",
+        "poss_2sg_nominative_singular": "banaanisi",
+        "poss_2sg_inessive_singular": "banaanissasi",
+        "poss_2sg_adessive_singular": "banaanillasi",
+        "poss_3rd_nominative_singular": "banaaninsa",
+        "poss_3rd_inessive_singular": "banaanissaan",
+        "poss_3rd_adessive_singular": "banaanillaan"
       },
       "english": {
         "plural": "bananas"
@@ -285,7 +330,16 @@
         "abessive_singular": "juustotta",
         "abessive_plural": "juustoitta",
         "instructive_plural": "juustoin",
-        "comitative_plural": "juustoineen"
+        "comitative_plural": "juustoineen",
+        "poss_1sg_nominative_singular": "juustoni",
+        "poss_1sg_inessive_singular": "juustossani",
+        "poss_1sg_adessive_singular": "juustollani",
+        "poss_2sg_nominative_singular": "juustosi",
+        "poss_2sg_inessive_singular": "juustossasi",
+        "poss_2sg_adessive_singular": "juustollasi",
+        "poss_3rd_nominative_singular": "juustonsa",
+        "poss_3rd_inessive_singular": "juustossaan",
+        "poss_3rd_adessive_singular": "juustollaan"
       },
       "english": {
         "plural": "cheeses"
@@ -335,7 +389,16 @@
         "abessive_singular": "kakutta",
         "abessive_plural": "kakuitta",
         "instructive_plural": "kakuin",
-        "comitative_plural": "kakkuineen"
+        "comitative_plural": "kakkuineen",
+        "poss_1sg_nominative_singular": "kakkuni",
+        "poss_1sg_inessive_singular": "kakussani",
+        "poss_1sg_adessive_singular": "kakullani",
+        "poss_2sg_nominative_singular": "kakkusi",
+        "poss_2sg_inessive_singular": "kakussasi",
+        "poss_2sg_adessive_singular": "kakullasi",
+        "poss_3rd_nominative_singular": "kakkunsa",
+        "poss_3rd_inessive_singular": "kakussaan",
+        "poss_3rd_adessive_singular": "kakullaan"
       },
       "english": {
         "plural": "cakes"
@@ -385,7 +448,16 @@
         "abessive_singular": "keksittä",
         "abessive_plural": "kekseittä",
         "instructive_plural": "keksein",
-        "comitative_plural": "kekseineen"
+        "comitative_plural": "kekseineen",
+        "poss_1sg_nominative_singular": "keksini",
+        "poss_1sg_inessive_singular": "keksissäni",
+        "poss_1sg_adessive_singular": "keksilläni",
+        "poss_2sg_nominative_singular": "keksisi",
+        "poss_2sg_inessive_singular": "keksissäsi",
+        "poss_2sg_adessive_singular": "keksilläsi",
+        "poss_3rd_nominative_singular": "keksinsä",
+        "poss_3rd_inessive_singular": "keksissään",
+        "poss_3rd_adessive_singular": "keksillään"
       },
       "english": {
         "plural": "cookies"
@@ -435,7 +507,16 @@
         "abessive_singular": "mehutta",
         "abessive_plural": "mehuitta",
         "instructive_plural": "mehuin",
-        "comitative_plural": "mehuineen"
+        "comitative_plural": "mehuineen",
+        "poss_1sg_nominative_singular": "mehuni",
+        "poss_1sg_inessive_singular": "mehussani",
+        "poss_1sg_adessive_singular": "mehullani",
+        "poss_2sg_nominative_singular": "mehusi",
+        "poss_2sg_inessive_singular": "mehussasi",
+        "poss_2sg_adessive_singular": "mehullasi",
+        "poss_3rd_nominative_singular": "mehunsa",
+        "poss_3rd_inessive_singular": "mehussaan",
+        "poss_3rd_adessive_singular": "mehullaan"
       },
       "english": {
         "plural": "juices"
@@ -485,7 +566,16 @@
         "abessive_singular": "jäätelöttä",
         "abessive_plural": "jäätelöittä",
         "instructive_plural": "jäätelöin",
-        "comitative_plural": "jäätelöineen"
+        "comitative_plural": "jäätelöineen",
+        "poss_1sg_nominative_singular": "jäätelöni",
+        "poss_1sg_inessive_singular": "jäätelössäni",
+        "poss_1sg_adessive_singular": "jäätelölläni",
+        "poss_2sg_nominative_singular": "jäätelösi",
+        "poss_2sg_inessive_singular": "jäätelössäsi",
+        "poss_2sg_adessive_singular": "jäätelölläsi",
+        "poss_3rd_nominative_singular": "jäätelönsä",
+        "poss_3rd_inessive_singular": "jäätelössään",
+        "poss_3rd_adessive_singular": "jäätelöllään"
       },
       "english": {
         "plural": "ice creams"
@@ -535,7 +625,16 @@
         "abessive_singular": "suklaatta",
         "abessive_plural": "suklaitta",
         "instructive_plural": "suklain",
-        "comitative_plural": "suklaineen"
+        "comitative_plural": "suklaineen",
+        "poss_1sg_nominative_singular": "suklaani",
+        "poss_1sg_inessive_singular": "suklaassani",
+        "poss_1sg_adessive_singular": "suklaallani",
+        "poss_2sg_nominative_singular": "suklaasi",
+        "poss_2sg_inessive_singular": "suklaassasi",
+        "poss_2sg_adessive_singular": "suklaallasi",
+        "poss_3rd_nominative_singular": "suklaansa",
+        "poss_3rd_inessive_singular": "suklaassaan",
+        "poss_3rd_adessive_singular": "suklaallaan"
       },
       "english": {
         "plural": "chocolates"
@@ -585,7 +684,16 @@
         "abessive_singular": "perunatta",
         "abessive_plural": "perunoitta",
         "instructive_plural": "perunoin",
-        "comitative_plural": "perunoineen"
+        "comitative_plural": "perunoineen",
+        "poss_1sg_nominative_singular": "perunani",
+        "poss_1sg_inessive_singular": "perunassani",
+        "poss_1sg_adessive_singular": "perunallani",
+        "poss_2sg_nominative_singular": "perunasi",
+        "poss_2sg_inessive_singular": "perunassasi",
+        "poss_2sg_adessive_singular": "perunallasi",
+        "poss_3rd_nominative_singular": "perunansa",
+        "poss_3rd_inessive_singular": "perunassaan",
+        "poss_3rd_adessive_singular": "perunallaan"
       },
       "english": {
         "plural": "potatoes"
@@ -625,7 +733,16 @@
         "abessive_singular": "mansikatta",
         "abessive_plural": "mansikoitta",
         "instructive_plural": "mansikoin",
-        "comitative_plural": "mansikkoineen"
+        "comitative_plural": "mansikkoineen",
+        "poss_1sg_nominative_singular": "mansikkani",
+        "poss_1sg_inessive_singular": "mansikassani",
+        "poss_1sg_adessive_singular": "mansikallani",
+        "poss_2sg_nominative_singular": "mansikkasi",
+        "poss_2sg_inessive_singular": "mansikassasi",
+        "poss_2sg_adessive_singular": "mansikallasi",
+        "poss_3rd_nominative_singular": "mansikkansa",
+        "poss_3rd_inessive_singular": "mansikassaan",
+        "poss_3rd_adessive_singular": "mansikallaan"
       },
       "english": {
         "plural": "strawberries"
@@ -675,7 +792,16 @@
         "abessive_singular": "porkkanatta",
         "abessive_plural": "porkkanoitta",
         "instructive_plural": "porkkanoin",
-        "comitative_plural": "porkkanoineen"
+        "comitative_plural": "porkkanoineen",
+        "poss_1sg_nominative_singular": "porkkanani",
+        "poss_1sg_inessive_singular": "porkkanassani",
+        "poss_1sg_adessive_singular": "porkkanallani",
+        "poss_2sg_nominative_singular": "porkkanasi",
+        "poss_2sg_inessive_singular": "porkkanassasi",
+        "poss_2sg_adessive_singular": "porkkanallasi",
+        "poss_3rd_nominative_singular": "porkkanansa",
+        "poss_3rd_inessive_singular": "porkkanassaan",
+        "poss_3rd_adessive_singular": "porkkanallaan"
       },
       "english": {
         "plural": "carrots"
@@ -725,7 +851,16 @@
         "abessive_singular": "munatta",
         "abessive_plural": "munitta",
         "instructive_plural": "munin",
-        "comitative_plural": "munineen"
+        "comitative_plural": "munineen",
+        "poss_1sg_nominative_singular": "munani",
+        "poss_1sg_inessive_singular": "munassani",
+        "poss_1sg_adessive_singular": "munallani",
+        "poss_2sg_nominative_singular": "munasi",
+        "poss_2sg_inessive_singular": "munassasi",
+        "poss_2sg_adessive_singular": "munallasi",
+        "poss_3rd_nominative_singular": "munansa",
+        "poss_3rd_inessive_singular": "munassaan",
+        "poss_3rd_adessive_singular": "munallaan"
       },
       "english": {
         "plural": "eggs"
@@ -775,7 +910,16 @@
         "abessive_singular": "riisittä",
         "abessive_plural": "riiseittä",
         "instructive_plural": "riisein",
-        "comitative_plural": "riiseineen"
+        "comitative_plural": "riiseineen",
+        "poss_1sg_nominative_singular": "riisini",
+        "poss_1sg_inessive_singular": "riisissäni",
+        "poss_1sg_adessive_singular": "riisilläni",
+        "poss_2sg_nominative_singular": "riisisi",
+        "poss_2sg_inessive_singular": "riisissäsi",
+        "poss_2sg_adessive_singular": "riisilläsi",
+        "poss_3rd_nominative_singular": "riisinsä",
+        "poss_3rd_inessive_singular": "riisissään",
+        "poss_3rd_adessive_singular": "riisillään"
       },
       "english": {
         "plural": "rices"
@@ -825,7 +969,16 @@
         "abessive_singular": "keitotta",
         "abessive_plural": "keitoitta",
         "instructive_plural": "keitoin",
-        "comitative_plural": "keittoineen"
+        "comitative_plural": "keittoineen",
+        "poss_1sg_nominative_singular": "keittoni",
+        "poss_1sg_inessive_singular": "keitossani",
+        "poss_1sg_adessive_singular": "keitollani",
+        "poss_2sg_nominative_singular": "keittosi",
+        "poss_2sg_inessive_singular": "keitossasi",
+        "poss_2sg_adessive_singular": "keitollasi",
+        "poss_3rd_nominative_singular": "keittonsa",
+        "poss_3rd_inessive_singular": "keitossaan",
+        "poss_3rd_adessive_singular": "keitollaan"
       },
       "english": {
         "plural": "soups"
@@ -875,7 +1028,16 @@
         "abessive_singular": "makkaratta",
         "abessive_plural": "makkaroitta",
         "instructive_plural": "makkaroin",
-        "comitative_plural": "makkaroineen"
+        "comitative_plural": "makkaroineen",
+        "poss_1sg_nominative_singular": "makkarani",
+        "poss_1sg_inessive_singular": "makkarassani",
+        "poss_1sg_adessive_singular": "makkarallani",
+        "poss_2sg_nominative_singular": "makkarasi",
+        "poss_2sg_inessive_singular": "makkarassasi",
+        "poss_2sg_adessive_singular": "makkarallasi",
+        "poss_3rd_nominative_singular": "makkaransa",
+        "poss_3rd_inessive_singular": "makkarassaan",
+        "poss_3rd_adessive_singular": "makkarallaan"
       },
       "english": {
         "plural": "sausages"
@@ -925,7 +1087,16 @@
         "abessive_singular": "tomaatitta",
         "abessive_plural": "tomaateitta",
         "instructive_plural": "tomaatein",
-        "comitative_plural": "tomaatteineen"
+        "comitative_plural": "tomaatteineen",
+        "poss_1sg_nominative_singular": "tomaattini",
+        "poss_1sg_inessive_singular": "tomaatissani",
+        "poss_1sg_adessive_singular": "tomaatillani",
+        "poss_2sg_nominative_singular": "tomaattisi",
+        "poss_2sg_inessive_singular": "tomaatissasi",
+        "poss_2sg_adessive_singular": "tomaatillasi",
+        "poss_3rd_nominative_singular": "tomaattinsa",
+        "poss_3rd_inessive_singular": "tomaatissaan",
+        "poss_3rd_adessive_singular": "tomaatillaan"
       },
       "english": {
         "plural": "tomatoes"
@@ -971,7 +1142,16 @@
         "abessive_singular": "karkitta",
         "abessive_plural": "karkeitta",
         "instructive_plural": "karkein",
-        "comitative_plural": "karkkeineen"
+        "comitative_plural": "karkkeineen",
+        "poss_1sg_nominative_singular": "karkkini",
+        "poss_1sg_inessive_singular": "karkissani",
+        "poss_1sg_adessive_singular": "karkillani",
+        "poss_2sg_nominative_singular": "karkkisi",
+        "poss_2sg_inessive_singular": "karkissasi",
+        "poss_2sg_adessive_singular": "karkillasi",
+        "poss_3rd_nominative_singular": "karkkinsa",
+        "poss_3rd_inessive_singular": "karkissaan",
+        "poss_3rd_adessive_singular": "karkillaan"
       },
       "english": {
         "plural": "candies"
@@ -1021,7 +1201,16 @@
         "abessive_singular": "puurotta",
         "abessive_plural": "puuroitta",
         "instructive_plural": "puuroin",
-        "comitative_plural": "puuroineen"
+        "comitative_plural": "puuroineen",
+        "poss_1sg_nominative_singular": "puuroni",
+        "poss_1sg_inessive_singular": "puurossani",
+        "poss_1sg_adessive_singular": "puurollani",
+        "poss_2sg_nominative_singular": "puurosi",
+        "poss_2sg_inessive_singular": "puurossasi",
+        "poss_2sg_adessive_singular": "puurollasi",
+        "poss_3rd_nominative_singular": "puuronsa",
+        "poss_3rd_inessive_singular": "puurossaan",
+        "poss_3rd_adessive_singular": "puurollaan"
       },
       "english": {
         "plural": "porridges"
@@ -1071,7 +1260,16 @@
         "abessive_singular": "voitta",
         "abessive_plural": "voitta",
         "instructive_plural": "voin",
-        "comitative_plural": "voineen"
+        "comitative_plural": "voineen",
+        "poss_1sg_nominative_singular": "voini",
+        "poss_1sg_inessive_singular": "voissani",
+        "poss_1sg_adessive_singular": "voillani",
+        "poss_2sg_nominative_singular": "voisi",
+        "poss_2sg_inessive_singular": "voissasi",
+        "poss_2sg_adessive_singular": "voillasi",
+        "poss_3rd_nominative_singular": "voinsa",
+        "poss_3rd_inessive_singular": "voissaan",
+        "poss_3rd_adessive_singular": "voillaan"
       },
       "english": {
         "plural": "butters"
@@ -1117,7 +1315,16 @@
         "abessive_singular": "pitsatta",
         "abessive_plural": "pitsoitta",
         "instructive_plural": "pitsoin",
-        "comitative_plural": "pitsoineen"
+        "comitative_plural": "pitsoineen",
+        "poss_1sg_nominative_singular": "pitsani",
+        "poss_1sg_inessive_singular": "pitsassani",
+        "poss_1sg_adessive_singular": "pitsallani",
+        "poss_2sg_nominative_singular": "pitsasi",
+        "poss_2sg_inessive_singular": "pitsassasi",
+        "poss_2sg_adessive_singular": "pitsallasi",
+        "poss_3rd_nominative_singular": "pitsansa",
+        "poss_3rd_inessive_singular": "pitsassaan",
+        "poss_3rd_adessive_singular": "pitsallaan"
       },
       "english": {
         "plural": "pizzas"

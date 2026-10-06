@@ -6,11 +6,12 @@ import type {
   Person,
   PersonId,
   Polarity,
+  PossessorId,
   SentenceConstruction,
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, commandFor, conjugatedClause, englishSentenceFor, formFor, PERSONS, sentenceFor, suitsSlot, verbForm } from '../content/types';
+import { caseFormOf, commandFor, conjugatedClause, englishSentenceFor, formFor, PERSONS, POSSESSORS, possessiveForm, possessiveGloss, sentenceFor, suitsSlot, verbForm } from '../content/types';
 import {
   isAnimateOnlyAdjective,
   isAnimateTopic,
@@ -485,6 +486,12 @@ export interface PhraseQuestion {
   item: LexicalItem;
   /** Candidate items; each tile shows formFor(option, construction). */
   options: LexicalItem[];
+  /**
+   * Expert mode (formDistractors): when set, the tiles are these FORM strings —
+   * the same item across sourced cases ("kissan / kissaa / kissalla…") with
+   * exactly one fitting the carrier. `options` then holds just the item.
+   */
+  formOptions?: string[];
 }
 
 export function buildPhraseRound(
@@ -495,6 +502,7 @@ export function buildPhraseRound(
   maxTier: Tier = 4,
   tricky = false,
   weigh?: WeighFn,
+  formDistractors = false,
 ): PhraseQuestion[] {
   // Only pair a construction with items that have the needed form AND make
   // sense in the slot (semantic gate). Gate by tier when a skill mixes tiers,
@@ -516,6 +524,13 @@ export function buildPhraseRound(
     weigh && ((p) => weigh(p.item)),
   );
   return chosen.map(({ construction, item }) => {
+    // Expert (L9+): the tiles are the SAME word across sourced cases — exactly
+    // one carries the ending this carrier requires. Falls back to ordinary
+    // word distractors when the paradigm can't fill the tiles distinctly.
+    if (formDistractors) {
+      const forms = caseFormOptions(item, construction, optionCount);
+      if (forms) return { construction, item, options: [item], formOptions: forms };
+    }
     // Distractors pass the same gate, so every tile plausibly fits the phrase
     // and the challenge stays about the grammar, not spotting the absurd word.
     const others = items.filter(
@@ -584,6 +599,32 @@ const GRAMMAR_REVIEW_CASES: CaseId[] = [
   'ablative',
 ];
 
+/**
+ * Shuffled form tiles for one item in one carrier: the sourced correct form
+ * plus distinct case-forms of the SAME item as distractors. Null when the
+ * paradigm can't fill the tiles distinctly (several cells spell alike).
+ * Shared by grammar Review and the expert (formDistractors) build mode.
+ */
+function caseFormOptions(
+  item: LexicalItem,
+  construction: Construction,
+  optionCount: number,
+): string[] | null {
+  const answer = formFor(item, construction);
+  if (!answer) return null;
+  const seen = new Set([answer]);
+  const distractorForms: string[] = [];
+  for (const c of GRAMMAR_REVIEW_CASES) {
+    const form = caseFormOf(item, c, construction.number);
+    if (form && !seen.has(form)) {
+      seen.add(form);
+      distractorForms.push(form);
+    }
+  }
+  if (distractorForms.length < optionCount - 1) return null;
+  return shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
+}
+
 export interface GrammarReviewQuestion {
   construction: Construction;
   /** The item filling the slot (its emoji/gloss anchor the meaning). */
@@ -606,21 +647,205 @@ export function buildGrammarReviewQuestion(
   // can leave too few DISTINCT distractor forms — try another item.
   const candidates = weightedSample(usable, Math.min(usable.length, 8), weigh);
   for (const item of candidates) {
-    const answer = formFor(item, construction)!;
-    const seen = new Set([answer]);
-    const distractorForms: string[] = [];
-    for (const c of GRAMMAR_REVIEW_CASES) {
-      const form = caseFormOf(item, c, construction.number);
-      if (form && !seen.has(form)) {
-        seen.add(form);
-        distractorForms.push(form);
-      }
-    }
-    if (distractorForms.length < optionCount - 1) continue;
-    const options = shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
-    return { construction, item, answer, options };
+    const options = caseFormOptions(item, construction, optionCount);
+    if (!options) continue;
+    return { construction, item, answer: formFor(item, construction)!, options };
   }
   return null;
+}
+
+// --- Possessive suffixes ("Kenen?" — Whose?) -----------------------------
+//
+// A picture + an English gloss ("my cat" / "in your house") is shown; the child
+// picks the Finnish form carrying the right POSSESSIVE suffix. Distractors are
+// the SAME noun+case across the other possessors ("kissani / kissasi / kissansa"),
+// so the axis under test is purely the suffix — a subsystem no other game
+// touches. Every form is looked up (possessiveForm); nothing is assembled.
+// Non-nominative cases ("in my house") pair only with PLACES, where an English
+// preposition gloss makes sense.
+
+/** Cases a possessive question may use, gated by whether the round allows the
+ *  place-locative variants (the higher-level reach). Nominative is universal. */
+const POSSESSIVE_LOCATIVE_CASES: CaseId[] = ['inessive', 'adessive'];
+
+export interface PossessiveQuestion {
+  item: LexicalItem;
+  possessor: PossessorId;
+  caseId: CaseId;
+  /** The correct sourced possessive form, e.g. "kissani". */
+  answer: string;
+  /** Form options (same noun+case, different possessors), shuffled. */
+  options: string[];
+  /** English prompt, e.g. "my cat" / "in your house". */
+  gloss: string;
+}
+
+export function buildPossessiveRound(
+  items: readonly LexicalItem[],
+  questionCount: number,
+  optionCount: number,
+  withCases = false,
+  weigh?: WeighFn,
+): PossessiveQuestion[] {
+  // Only nouns that actually carry the possessive paradigm can play.
+  const usable = items.filter((i) => possessiveForm(i, '1sg'));
+  // Places that carry the locative possessive forms, for the "in my house"
+  // reach. Kept as a dedicated sub-pool so the higher-level locative variant
+  // reliably surfaces — places are a small slice of the mixed noun pool, so a
+  // uniform draw would show them only rarely.
+  const localePlaces = withCases
+    ? usable.filter((i) => i.topic === 'places' && possessiveForm(i, '1sg', 'inessive'))
+    : [];
+  const out: PossessiveQuestion[] = [];
+  let guard = 0;
+  while (out.length < questionCount && guard++ < questionCount * 8) {
+    // ~40% of questions in the locative band go to a place + a locative case
+    // ("in my house"); the rest are the bare "my cat" nominative over the full
+    // pool, so the two mix.
+    const goLocative = localePlaces.length > 0 && Math.random() < 0.4;
+    const item = goLocative
+      ? weightedSample(localePlaces, 1, weigh)[0]
+      : weightedSample(usable, 1, weigh)[0];
+    if (!item) break;
+    const caseId: CaseId = goLocative ? sample(POSSESSIVE_LOCATIVE_CASES, 1)[0] : 'nominative';
+
+    const possessor = sample(POSSESSORS, 1)[0].id;
+    const answer = possessiveForm(item, possessor, caseId);
+    if (!answer) continue;
+
+    // Distractors: the SAME noun + case, other possessors — the suffix is the
+    // only thing that differs. Pad with a wrong-CASE same-possessor form if a
+    // wider tile count needs it (still the same word, still sourced).
+    const seen = new Set([answer]);
+    const distractors: string[] = [];
+    for (const p of POSSESSORS) {
+      if (p.id === possessor) continue;
+      const f = possessiveForm(item, p.id, caseId);
+      if (f && !seen.has(f)) {
+        seen.add(f);
+        distractors.push(f);
+      }
+    }
+    for (const c of [caseId === 'nominative' ? 'inessive' : 'nominative', ...POSSESSIVE_LOCATIVE_CASES] as CaseId[]) {
+      if (distractors.length >= optionCount - 1) break;
+      const f = possessiveForm(item, possessor, c);
+      if (f && !seen.has(f)) {
+        seen.add(f);
+        distractors.push(f);
+      }
+    }
+    if (distractors.length < optionCount - 1) continue;
+    const options = shuffle([answer, ...sample(distractors, optionCount - 1)]);
+    out.push({ item, possessor, caseId, answer, options, gloss: possessiveGloss(item, possessor, caseId) });
+  }
+  return out;
+}
+
+// --- Error correction ("Löydä virhe" — Find the mistake) -----------------
+//
+// A whole carrier sentence is shown with its intended English meaning. Half the
+// time it's CORRECT; half the time the slot word is swapped to a DIFFERENT (but
+// real, sourced) case of the same noun, so the sentence no longer matches the
+// meaning — "Kissa on laatikolla" (adessive) where "laatikossa" (inessive) was
+// meant. The child taps the wrong word, or "all correct". Grammatical JUDGMENT,
+// a skill the produce/recognize games never test. The carrier's fixed words are
+// always correct, so only the slot can ever be wrong; the wrong form is a
+// lookup (caseFormOf), never generated.
+
+export interface ErrorWord {
+  text: string;
+  /** True for the one inflected slot word (the only one that can be wrong). */
+  isSlot: boolean;
+}
+
+export interface ErrorQuestion {
+  construction: Construction;
+  item: LexicalItem;
+  /** The intended meaning, shown so the child can judge the Finnish against it. */
+  gloss: string;
+  /** The sentence as tappable chips (fixed words + the slot). */
+  words: ErrorWord[];
+  /** Index into `words` of the slot chip. */
+  slotIndex: number;
+  /** True when the sentence is already correct (nothing to fix). */
+  isCorrect: boolean;
+  /** The right slot form (shown to confirm after an answer). */
+  correctForm: string;
+}
+
+/** Single-slot carriers only (the sentence has exactly one inflected word). */
+function splitCarrier(con: Construction, slotForm: string): { words: ErrorWord[]; slotIndex: number } {
+  const before = con.before ? con.before.split(' ') : [];
+  const after = con.after ? con.after.split(' ') : [];
+  const words: ErrorWord[] = [
+    ...before.map((text) => ({ text, isSlot: false })),
+    { text: slotForm, isSlot: true },
+    ...after.map((text) => ({ text, isSlot: false })),
+  ];
+  const slotIndex = before.length;
+  // The construction's punctuation rides on the last chip (presentation only).
+  if (con.punct) words[words.length - 1].text += con.punct;
+  return { words, slotIndex };
+}
+
+export function buildErrorRound(
+  items: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  maxTier: Tier = 4,
+  tricky = false,
+  weigh?: WeighFn,
+): ErrorQuestion[] {
+  const byTier = constructions.filter((c) => c.tier <= maxTier);
+  const allowed = byTier.length > 0 ? byTier : constructions;
+  const pool: { construction: Construction; item: LexicalItem }[] = [];
+  for (const construction of allowed) {
+    for (const item of items) {
+      if (formFor(item, construction) && suitsSlot(item, construction)) {
+        pool.push({ construction, item });
+      }
+    }
+  }
+  const chosen = weightedSample(
+    pool,
+    Math.min(questionCount, pool.length),
+    weigh && ((p) => weigh(p.item)),
+  );
+  return chosen.map(({ construction, item }, i) => {
+    const correctForm = formFor(item, construction)!;
+    // Alternate correct / wrong so a round is a real judgment test, not "always
+    // spot the error". A wrong item swaps the slot to a distinct sourced case.
+    const wantWrong = i % 2 === 1;
+    let slotForm = correctForm;
+    let isCorrect = true;
+    if (wantWrong) {
+      // Tricky: prefer a wrong case whose form is CLOSE in length to the right
+      // one (a subtler ending swap), else any distinct sourced case.
+      const wrongCandidates: string[] = [];
+      for (const c of GRAMMAR_REVIEW_CASES) {
+        if (c === construction.case) continue;
+        const f = caseFormOf(item, c, construction.number);
+        if (f && f !== correctForm) wrongCandidates.push(f);
+      }
+      if (wrongCandidates.length > 0) {
+        const near = tricky
+          ? wrongCandidates.filter((f) => Math.abs(f.length - correctForm.length) <= 1)
+          : [];
+        slotForm = (near.length > 0 ? sample(near, 1) : sample(wrongCandidates, 1))[0];
+        isCorrect = false;
+      }
+    }
+    const { words, slotIndex } = splitCarrier(construction, slotForm);
+    return {
+      construction,
+      item,
+      gloss: englishSentenceFor(item, construction),
+      words,
+      slotIndex,
+      isCorrect,
+      correctForm,
+    };
+  });
 }
 
 // --- Spelling --------------------------------------------------------------
@@ -778,17 +1003,28 @@ export function buildCountingRound(
     return maxCount >= TENS_FROM_MAX_COUNT && v > 20 && v <= 100 && v % 10 === 0;
   });
 
+  // Expert band (maxCount > 20, i.e. L9-10): the TENS dominate the draw —
+  // two of every three questions target a round ten, so the big number words
+  // ("kuusikymmentä") are the working material, not an occasional visitor.
+  const tens = counts.filter((n) => (n.value ?? 0) > 20);
+  const expertTens = maxCount > 20 && tens.length > 0;
+
   const out: CountingQuestion[] = [];
   for (let i = 0; i < questionCount; i++) {
-    const number = sample(counts, 1)[0];
+    const number =
+      expertTens && i % 3 !== 0 ? sample(tens, 1)[0] : sample(counts, 1)[0];
     const noun = weightedSample(nouns, 1, weigh)[0];
     if (!number || !noun) break;
     const otherCounts = counts.filter((n) => n.id !== number.id);
     // Tricky: the wrong counts cluster around the true one (±2), so the child
-    // must actually count — 3 vs 4, not 3 vs 9.
+    // must actually count — 3 vs 4, not 3 vs 9. A tens target clusters over
+    // NEIGHBORING TENS instead (60 vs 50 vs 70): the confusable Finnish
+    // number WORDS are the challenge, not counting emoji.
+    const targetValue = number.value ?? 0;
+    const nearRange = targetValue > 20 ? 20 : 2;
     const nearCounts = tricky
       ? otherCounts.filter(
-          (n) => Math.abs((n.value ?? 0) - (number.value ?? 0)) <= 2,
+          (n) => Math.abs((n.value ?? 0) - targetValue) <= nearRange,
         )
       : [];
     const numberOptions = shuffle([

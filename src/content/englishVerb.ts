@@ -22,6 +22,20 @@ export function englishVerbClause(
   const negative = polarity === 'negative';
   const past = tense === 'past';
 
+  // Conditional: "would" is invariant across persons, so the clause is fully
+  // regular over the base verb — "I would eat" / "she wouldn't be".
+  if (tense === 'conditional') {
+    return `${pronounEn} would${negative ? "n't" : ''} ${verbEn}`;
+  }
+
+  // Perfect: have/has + the SOURCED past participle ("I have eaten",
+  // "he hasn't gone"); the copula's participle is the regular "been".
+  if (tense === 'perfect') {
+    const aux = third ? (negative ? "hasn't" : 'has') : negative ? "haven't" : 'have';
+    const participle = verbEn === 'be' ? 'been' : morph?.pastParticiple ?? morph?.past ?? verbEn;
+    return `${pronounEn} ${aux} ${participle}`;
+  }
+
   // Copula "be" — suppletive; use am/is/are, was/were and their negatives.
   if (verbEn === 'be') {
     if (past) {

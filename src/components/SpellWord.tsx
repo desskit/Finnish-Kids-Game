@@ -68,7 +68,13 @@ export default function SpellWord({
 }: Props) {
   const { addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
-  const { maxTier } = ctx?.difficulty ?? difficultyFor(1);
+  const { maxTier, dictation } = ctx?.difficulty ?? difficultyFor(1);
+  // Expert band (L9+): DICTATION. The audio alone is the prompt — the emoji
+  // and English gloss (which give the answer away semantically) disappear, and
+  // even sentence mode speaks the Finnish instead of glossing it. "Type what
+  // you hear", for real.
+  const speakFi = speakTarget || dictation;
+  const showHint = !dictation;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -135,11 +141,11 @@ export default function SpellWord({
     if (!target || done) return;
     inputRef.current?.focus();
     const t = setTimeout(() => {
-      if (speakTarget) speak(target.text);
+      if (speakFi) speak(target.text);
       else speakEnglish(target.gloss);
     }, 400);
     return () => clearTimeout(t);
-  }, [target, done, index, speakTarget]);
+  }, [target, done, index, speakFi]);
 
   const checkIfComplete = useCallback(
     (value: string) => {
@@ -148,7 +154,7 @@ export default function SpellWord({
       if (norm(value) === norm(target.text)) {
         setLocked(true);
         playDing(true);
-        if (speakTarget) speak(target.text);
+        if (speakFi) speak(target.text);
         addStars(1);
         if (target.id) recordAttempt(target.id, !missed.current);
         // Inflected-phrase mode also schedules the GRAMMAR for spaced review.
@@ -246,7 +252,7 @@ export default function SpellWord({
       />
 
       <p className="prompt">
-        {speakTarget ? (
+        {speakFi ? (
           <>
             Kirjoita mitä kuulet <span className="en">Type what you hear</span>
           </>
@@ -258,16 +264,16 @@ export default function SpellWord({
       </p>
 
       <div className="phrase-card">
-        {target.emoji && (
+        {showHint && target.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
             {target.emoji}
           </span>
         )}
-        <p className="en phrase-hint">{target.gloss}</p>
+        {showHint && <p className="en phrase-hint">{target.gloss}</p>}
         <button
           className="speaker speaker--inline"
-          onClick={() => (speakTarget ? speak(target.text) : speakEnglish(target.gloss))}
-          aria-label={speakTarget ? 'Hear the word again' : 'Hear the prompt again'}
+          onClick={() => (speakFi ? speak(target.text) : speakEnglish(target.gloss))}
+          aria-label={speakFi ? 'Hear the word again' : 'Hear the prompt again'}
         >
           🔊 <span className="en">Listen</span>
         </button>

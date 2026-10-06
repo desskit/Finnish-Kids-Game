@@ -26,7 +26,7 @@ describe('audit registry', () => {
   it('covers every playable ActivityKind the path can serve', () => {
     // Every activity a node actually uses should be auditable (review included).
     const audited = new Set(AUDIT_ENTRIES.map((e) => e.kind));
-    for (const kind of ['listen', 'name', 'listen-sentence', 'reading', 'match', 'count', 'conjugate', 'build', 'order', 'spell', 'sentence', 'sentence-type', 'say', 'dialogue', 'conversation', 'review'] as const) {
+    for (const kind of ['listen', 'name', 'listen-sentence', 'reading', 'match', 'count', 'conjugate', 'build', 'order', 'spell', 'sentence', 'sentence-type', 'say', 'dialogue', 'conversation', 'possessive', 'error-fix', 'review'] as const) {
       expect(audited.has(kind)).toBe(true);
     }
   });

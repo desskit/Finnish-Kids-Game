@@ -7,7 +7,7 @@ describe('conversation content integrity', () => {
     const ids = conversations.map((c) => c.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const c of conversations) {
-      expect([1, 2, 3, 4].includes(c.tier)).toBe(true);
+      expect([1, 2, 3, 4, 5].includes(c.tier)).toBe(true);
       expect(c.turns.length).toBeGreaterThanOrEqual(2);
       expect(c.titleFi.trim()).toBeTruthy();
       expect(c.titleEn.trim()).toBeTruthy();
@@ -37,7 +37,8 @@ describe('conversation content integrity', () => {
     const kuuluuReply = lines.find((l) => /Entä sinulle\?/.test(l));
     expect(kuuluuReply).toBeTruthy();
     // The age question uses plain olla, so its echo is the nominative "Entä sinä?".
-    const ageReply = lines.find((l) => /Olen .* vuotta\. Entä sinä\?/.test(l));
+    // (Reviewer-corrected reply: "Olen kuusivuotias", not "kuusi vuotta".)
+    const ageReply = lines.find((l) => /Olen \S+vuotias\. Entä sinä\?/.test(l));
     expect(ageReply).toBeTruthy();
   });
 });

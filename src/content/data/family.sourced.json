@@ -39,7 +39,16 @@
         "abessive_singular": "äidittä",
         "abessive_plural": "äideittä",
         "instructive_plural": "äidein",
-        "comitative_plural": "äiteineen"
+        "comitative_plural": "äiteineen",
+        "poss_1sg_nominative_singular": "äitini",
+        "poss_1sg_inessive_singular": "äidissäni",
+        "poss_1sg_adessive_singular": "äidilläni",
+        "poss_2sg_nominative_singular": "äitisi",
+        "poss_2sg_inessive_singular": "äidissäsi",
+        "poss_2sg_adessive_singular": "äidilläsi",
+        "poss_3rd_nominative_singular": "äitinsä",
+        "poss_3rd_inessive_singular": "äidissään",
+        "poss_3rd_adessive_singular": "äidillään"
       },
       "english": {
         "plural": "moms"
@@ -89,7 +98,16 @@
         "abessive_singular": "isättä",
         "abessive_plural": "isittä",
         "instructive_plural": "isin",
-        "comitative_plural": "isineen"
+        "comitative_plural": "isineen",
+        "poss_1sg_nominative_singular": "isäni",
+        "poss_1sg_inessive_singular": "isässäni",
+        "poss_1sg_adessive_singular": "isälläni",
+        "poss_2sg_nominative_singular": "isäsi",
+        "poss_2sg_inessive_singular": "isässäsi",
+        "poss_2sg_adessive_singular": "isälläsi",
+        "poss_3rd_nominative_singular": "isänsä",
+        "poss_3rd_inessive_singular": "isässään",
+        "poss_3rd_adessive_singular": "isällään"
       },
       "english": {
         "plural": "dads"
@@ -139,7 +157,16 @@
         "abessive_singular": "veljettä",
         "abessive_plural": "veljittä",
         "instructive_plural": "veljin",
-        "comitative_plural": "veljineen"
+        "comitative_plural": "veljineen",
+        "poss_1sg_nominative_singular": "veljeni",
+        "poss_1sg_inessive_singular": "veljessäni",
+        "poss_1sg_adessive_singular": "veljelläni",
+        "poss_2sg_nominative_singular": "veljesi",
+        "poss_2sg_inessive_singular": "veljessäsi",
+        "poss_2sg_adessive_singular": "veljelläsi",
+        "poss_3rd_nominative_singular": "veljensä",
+        "poss_3rd_inessive_singular": "veljessään",
+        "poss_3rd_adessive_singular": "veljellään"
       },
       "english": {
         "plural": "brothers"
@@ -189,7 +216,16 @@
         "abessive_singular": "siskotta",
         "abessive_plural": "siskoitta",
         "instructive_plural": "siskoin",
-        "comitative_plural": "siskoineen"
+        "comitative_plural": "siskoineen",
+        "poss_1sg_nominative_singular": "siskoni",
+        "poss_1sg_inessive_singular": "siskossani",
+        "poss_1sg_adessive_singular": "siskollani",
+        "poss_2sg_nominative_singular": "siskosi",
+        "poss_2sg_inessive_singular": "siskossasi",
+        "poss_2sg_adessive_singular": "siskollasi",
+        "poss_3rd_nominative_singular": "siskonsa",
+        "poss_3rd_inessive_singular": "siskossaan",
+        "poss_3rd_adessive_singular": "siskollaan"
       },
       "english": {
         "plural": "sisters"
@@ -239,7 +275,16 @@
         "abessive_singular": "vauvatta",
         "abessive_plural": "vauvoitta",
         "instructive_plural": "vauvoin",
-        "comitative_plural": "vauvoineen"
+        "comitative_plural": "vauvoineen",
+        "poss_1sg_nominative_singular": "vauvani",
+        "poss_1sg_inessive_singular": "vauvassani",
+        "poss_1sg_adessive_singular": "vauvallani",
+        "poss_2sg_nominative_singular": "vauvasi",
+        "poss_2sg_inessive_singular": "vauvassasi",
+        "poss_2sg_adessive_singular": "vauvallasi",
+        "poss_3rd_nominative_singular": "vauvansa",
+        "poss_3rd_inessive_singular": "vauvassaan",
+        "poss_3rd_adessive_singular": "vauvallaan"
       },
       "english": {
         "plural": "babies"
@@ -289,7 +334,16 @@
         "abessive_singular": "pojatta",
         "abessive_plural": "pojitta",
         "instructive_plural": "pojin",
-        "comitative_plural": "poikineen"
+        "comitative_plural": "poikineen",
+        "poss_1sg_nominative_singular": "poikani",
+        "poss_1sg_inessive_singular": "pojassani",
+        "poss_1sg_adessive_singular": "pojallani",
+        "poss_2sg_nominative_singular": "poikasi",
+        "poss_2sg_inessive_singular": "pojassasi",
+        "poss_2sg_adessive_singular": "pojallasi",
+        "poss_3rd_nominative_singular": "poikansa",
+        "poss_3rd_inessive_singular": "pojassaan",
+        "poss_3rd_adessive_singular": "pojallaan"
       },
       "english": {
         "plural": "sons"
@@ -339,7 +393,16 @@
         "abessive_singular": "tytöttä",
         "abessive_plural": "tytöittä",
         "instructive_plural": "tytöin",
-        "comitative_plural": "tyttöineen"
+        "comitative_plural": "tyttöineen",
+        "poss_1sg_nominative_singular": "tyttöni",
+        "poss_1sg_inessive_singular": "tytössäni",
+        "poss_1sg_adessive_singular": "tytölläni",
+        "poss_2sg_nominative_singular": "tyttösi",
+        "poss_2sg_inessive_singular": "tytössäsi",
+        "poss_2sg_adessive_singular": "tytölläsi",
+        "poss_3rd_nominative_singular": "tyttönsä",
+        "poss_3rd_inessive_singular": "tytössään",
+        "poss_3rd_adessive_singular": "tytöllään"
       },
       "english": {
         "plural": "daughters"
@@ -389,7 +452,16 @@
         "abessive_singular": "isoäidittä",
         "abessive_plural": "isoäideittä",
         "instructive_plural": "isoäidein",
-        "comitative_plural": "isoäiteineen"
+        "comitative_plural": "isoäiteineen",
+        "poss_1sg_nominative_singular": "isoäitini",
+        "poss_1sg_inessive_singular": "isoäidissäni",
+        "poss_1sg_adessive_singular": "isoäidilläni",
+        "poss_2sg_nominative_singular": "isoäitisi",
+        "poss_2sg_inessive_singular": "isoäidissäsi",
+        "poss_2sg_adessive_singular": "isoäidilläsi",
+        "poss_3rd_nominative_singular": "isoäitinsä",
+        "poss_3rd_inessive_singular": "isoäidissään",
+        "poss_3rd_adessive_singular": "isoäidillään"
       },
       "english": {
         "plural": "grandmothers"
@@ -439,7 +511,16 @@
         "abessive_singular": "isoisättä",
         "abessive_plural": "isoisittä",
         "instructive_plural": "isoisin",
-        "comitative_plural": "isoisineen"
+        "comitative_plural": "isoisineen",
+        "poss_1sg_nominative_singular": "isoisäni",
+        "poss_1sg_inessive_singular": "isoisässäni",
+        "poss_1sg_adessive_singular": "isoisälläni",
+        "poss_2sg_nominative_singular": "isoisäsi",
+        "poss_2sg_inessive_singular": "isoisässäsi",
+        "poss_2sg_adessive_singular": "isoisälläsi",
+        "poss_3rd_nominative_singular": "isoisänsä",
+        "poss_3rd_inessive_singular": "isoisässään",
+        "poss_3rd_adessive_singular": "isoisällään"
       },
       "english": {
         "plural": "grandfathers"
@@ -489,7 +570,16 @@
         "abessive_singular": "perheettä",
         "abessive_plural": "perheittä",
         "instructive_plural": "perhein",
-        "comitative_plural": "perheineen"
+        "comitative_plural": "perheineen",
+        "poss_1sg_nominative_singular": "perheeni",
+        "poss_1sg_inessive_singular": "perheessäni",
+        "poss_1sg_adessive_singular": "perheelläni",
+        "poss_2sg_nominative_singular": "perheesi",
+        "poss_2sg_inessive_singular": "perheessäsi",
+        "poss_2sg_adessive_singular": "perheelläsi",
+        "poss_3rd_nominative_singular": "perheensä",
+        "poss_3rd_inessive_singular": "perheessään",
+        "poss_3rd_adessive_singular": "perheellään"
       },
       "english": {
         "plural": "families"
@@ -539,7 +629,16 @@
         "abessive_singular": "lapsetta",
         "abessive_plural": "lapsitta",
         "instructive_plural": "lapsin",
-        "comitative_plural": "lapsineen"
+        "comitative_plural": "lapsineen",
+        "poss_1sg_nominative_singular": "lapseni",
+        "poss_1sg_inessive_singular": "lapsessani",
+        "poss_1sg_adessive_singular": "lapsellani",
+        "poss_2sg_nominative_singular": "lapsesi",
+        "poss_2sg_inessive_singular": "lapsessasi",
+        "poss_2sg_adessive_singular": "lapsellasi",
+        "poss_3rd_nominative_singular": "lapsensa",
+        "poss_3rd_inessive_singular": "lapsessaan",
+        "poss_3rd_adessive_singular": "lapsellaan"
       },
       "english": {
         "plural": "children"
@@ -588,7 +687,16 @@
         "abessive_singular": "tädittä",
         "abessive_plural": "tädeittä",
         "instructive_plural": "tädein",
-        "comitative_plural": "täteineen"
+        "comitative_plural": "täteineen",
+        "poss_1sg_nominative_singular": "tätini",
+        "poss_1sg_inessive_singular": "tädissäni",
+        "poss_1sg_adessive_singular": "tädilläni",
+        "poss_2sg_nominative_singular": "tätisi",
+        "poss_2sg_inessive_singular": "tädissäsi",
+        "poss_2sg_adessive_singular": "tädilläsi",
+        "poss_3rd_nominative_singular": "tätinsä",
+        "poss_3rd_inessive_singular": "tädissään",
+        "poss_3rd_adessive_singular": "tädillään"
       },
       "english": {
         "plural": "aunts"
@@ -633,7 +741,16 @@
         "abessive_singular": "sedättä",
         "abessive_plural": "sedittä",
         "instructive_plural": "sedin",
-        "comitative_plural": "setineen"
+        "comitative_plural": "setineen",
+        "poss_1sg_nominative_singular": "setäni",
+        "poss_1sg_inessive_singular": "sedässäni",
+        "poss_1sg_adessive_singular": "sedälläni",
+        "poss_2sg_nominative_singular": "setäsi",
+        "poss_2sg_inessive_singular": "sedässäsi",
+        "poss_2sg_adessive_singular": "sedälläsi",
+        "poss_3rd_nominative_singular": "setänsä",
+        "poss_3rd_inessive_singular": "sedässään",
+        "poss_3rd_adessive_singular": "sedällään"
       },
       "english": {
         "plural": "uncles"
@@ -682,7 +799,16 @@
         "abessive_singular": "serkutta",
         "abessive_plural": "serkuitta",
         "instructive_plural": "serkuin",
-        "comitative_plural": "serkkuineen"
+        "comitative_plural": "serkkuineen",
+        "poss_1sg_nominative_singular": "serkkuni",
+        "poss_1sg_inessive_singular": "serkussani",
+        "poss_1sg_adessive_singular": "serkullani",
+        "poss_2sg_nominative_singular": "serkkusi",
+        "poss_2sg_inessive_singular": "serkussasi",
+        "poss_2sg_adessive_singular": "serkullasi",
+        "poss_3rd_nominative_singular": "serkkunsa",
+        "poss_3rd_inessive_singular": "serkussaan",
+        "poss_3rd_adessive_singular": "serkullaan"
       },
       "english": {
         "plural": "cousins"
@@ -731,7 +857,16 @@
         "abessive_singular": "lapsenlapsetta",
         "abessive_plural": "lapsenlapsitta",
         "instructive_plural": "lapsenlapsin",
-        "comitative_plural": "lapsenlapsineen"
+        "comitative_plural": "lapsenlapsineen",
+        "poss_1sg_nominative_singular": "lapsenlapseni",
+        "poss_1sg_inessive_singular": "lapsenlapsessani",
+        "poss_1sg_adessive_singular": "lapsenlapsellani",
+        "poss_2sg_nominative_singular": "lapsenlapsesi",
+        "poss_2sg_inessive_singular": "lapsenlapsessasi",
+        "poss_2sg_adessive_singular": "lapsenlapsellasi",
+        "poss_3rd_nominative_singular": "lapsenlapsensa",
+        "poss_3rd_inessive_singular": "lapsenlapsessaan",
+        "poss_3rd_adessive_singular": "lapsenlapsellaan"
       },
       "english": {
         "plural": "grandchildren"

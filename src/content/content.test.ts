@@ -20,8 +20,10 @@ import {
   caseFormOf,
   englishSentenceFor,
   imperativeForm,
+  possessiveForm,
   suitsSlot,
   PERSONS,
+  POSSESSORS,
 } from '../content/types';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
@@ -242,6 +244,39 @@ describe('content integrity', () => {
     // imperative 2sg (the build keeps those keys — see VERB_INFLECTION_KEYS).
     for (const v of verbs.items) {
       expect(imperativeForm(v, '2sg'), v.id).toBeTruthy();
+    }
+  });
+
+  it('sources perfect and conditional forms for every verb (the L7-8 sets)', () => {
+    // The expert conjugation rungs' guarantee: every curated verb carries the
+    // full sourced perfect + conditional paradigms across all six persons,
+    // both polarities — so the builder never comes up short at the top levels.
+    for (const v of verbs.items) {
+      for (const p of PERSONS) {
+        for (const tense of ['perfect', 'conditional'] as const) {
+          expect(verbForm(v, tense, 'positive', p.id), `${v.id} ${tense}+ ${p.id}`).toBeTruthy();
+          expect(verbForm(v, tense, 'negative', p.id), `${v.id} ${tense}- ${p.id}`).toBeTruthy();
+        }
+      }
+    }
+  });
+
+  it('sources possessive-suffix forms for every noun (the Kenen? game)', () => {
+    // The possessive game's guarantee: every noun carries the nominative
+    // possessive across all three possessors ("kissani/kissasi/kissansa"), and
+    // every PLACE additionally carries the inessive/adessive possessive
+    // ("talossani", "pöydälläni") for the higher-level "in my house" reach.
+    const nouns = [animals, food, family, places, body, nature, clothes];
+    for (const theme of nouns) {
+      for (const item of theme.items) {
+        for (const p of POSSESSORS) {
+          expect(possessiveForm(item, p.id, 'nominative'), `${item.id} ${p.id} nom`).toBeTruthy();
+          if (item.topic === 'places') {
+            expect(possessiveForm(item, p.id, 'inessive'), `${item.id} ${p.id} iness`).toBeTruthy();
+            expect(possessiveForm(item, p.id, 'adessive'), `${item.id} ${p.id} adess`).toBeTruthy();
+          }
+        }
+      }
     }
   });
 });

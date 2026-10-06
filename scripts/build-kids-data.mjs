@@ -384,6 +384,12 @@ const VERB_INFLECTION_KEYS = [
   ...VERB_PERSONS.map((p) => `present_active_negative_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_positive_${p}`),
   ...VERB_PERSONS.map((p) => `past_active_negative_${p}`),
+  // The expert band (L7+): perfect ("olen syönyt") and conditional ("söisin"),
+  // auxiliaries included in the sourced forms — nothing is assembled in code.
+  ...VERB_PERSONS.map((p) => `perfect_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `perfect_active_negative_${p}`),
+  ...VERB_PERSONS.map((p) => `conditional_active_positive_${p}`),
+  ...VERB_PERSONS.map((p) => `conditional_active_negative_${p}`),
   'imperative_active_positive_2sg',
   'imperative_active_positive_2pl',
 ];
@@ -452,6 +458,39 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, 
 
 const nounWords = load('nouns.json').words;
 const numeralWords = load('numerals.json').words;
+
+// Possessive suffixes ("kissani" = my cat, "talossasi" = in your house). A
+// focused subset of the vendored possessive paradigm: the three most useful
+// possessors × a few teachable cases, singular. Attached to noun items under
+// `poss_{possessor}_{case}_singular` keys (namespaced so they never collide
+// with the plain case forms). Every form is SOURCED — never assembled in code.
+const possessiveWords = load('possessives.json').words;
+const POSS_POSSESSORS = ['1sg', '2sg', '3rd'];
+const POSS_CASES = ['nominative', 'inessive', 'adessive'];
+
+function attachPossessives(theme) {
+  const bySrc = new Map(possessiveWords.map((w) => [w.word, w]));
+  const missing = [];
+  for (const item of theme.words) {
+    const src = bySrc.get(item.word);
+    if (!src || !src.inflections) {
+      missing.push(item.word);
+      continue;
+    }
+    for (const possessor of POSS_POSSESSORS) {
+      const table = src.inflections[possessor];
+      if (!table) continue;
+      for (const c of POSS_CASES) {
+        const form = table[`${c}_singular`];
+        if (form) item.inflections[`poss_${possessor}_${c}_singular`] = form;
+      }
+    }
+  }
+  if (missing.length) {
+    console.warn(`  [${theme.theme.id}] no possessive source (skipped): ${missing.join(', ')}`);
+  }
+  return theme;
+}
 
 const animals = buildTheme({
   id: 'animals',
@@ -546,6 +585,10 @@ const clothes = buildTheme({
   curation: CLOTHES,
   sourceWords: nounWords,
 });
+
+// Attach possessive suffix forms to every NOUN theme (the "Kenen?" game draws
+// from these). Adjectives/verbs/numbers don't take possessive suffixes here.
+[animals, food, family, places, body, nature, clothes].forEach(attachPossessives);
 
 // Sourced-English guarantee: no word may ship without its AGID-derived forms.
 if (ENGLISH_MISSING.length) {

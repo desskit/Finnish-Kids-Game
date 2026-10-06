@@ -158,6 +158,27 @@ describe('journey path + progression UI', () => {
     expect(screen.getByText(/This is a/)).toBeInTheDocument();
     expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
   });
+
+  it('dashboard shows can-do statements: achieved claims + a short up-next list', () => {
+    seedChild({
+      conversations: {
+        greetings: { plays: 4, bestStars: 6, totalStars: 20, totalPossible: 24, lastPlayed: 1, level: 3, recent: [0.9] },
+      },
+    });
+    render(
+      <ProfileProvider>
+        <MemoryRouter>
+          <ProgressView />
+        </MemoryRouter>
+      </ProfileProvider>,
+    );
+    // Greetings L3 unlocks the greet claim…
+    expect(screen.getByText(/Can greet people and reply/)).toBeInTheDocument();
+    // …unachieved claims stay out of the achieved list; a short "working
+    // towards" preview shows the nearest ones instead (max 3).
+    expect(document.querySelectorAll('.cando-row--next').length).toBeLessThanOrEqual(3);
+    expect(document.querySelectorAll('.cando-row--next').length).toBeGreaterThan(0);
+  });
 });
 
 describe("Today's adventure (guided session)", () => {

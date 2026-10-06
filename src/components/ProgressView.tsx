@@ -3,6 +3,7 @@ import { useProfile } from '../state/profile';
 import { isDue, isMastered, wordSchedules } from '../game/srs';
 import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadgeIds } from '../game/badges';
+import { canDoSummary } from '../game/cando';
 import { PATH, badgeEnv } from '../game/path';
 
 // Parent dashboard: per child, per chapter, per skill — adaptive level, stars,
@@ -35,6 +36,11 @@ export default function ProgressView() {
 
         const earned = earnedBadgeIds(c, badgeEnv);
         const mode = c.adaptive === false ? `Manual (level ${c.level})` : 'Auto (adaptive)';
+        // Can-do statements (E-17): node levels → plain claims about what the
+        // child can DO with Finnish. Up-next shows only the nearest few, so the
+        // list reads as encouragement, not a wall of missing skills.
+        const cando = canDoSummary(c);
+        const upNext = cando.upNext.slice(0, 3);
 
         const playedChapters = PATH.map((chapter) => ({
           chapter,
@@ -78,6 +84,44 @@ export default function ProgressView() {
               <span className="progress-review__stat">
                 🎯 {accuracy}% <span className="en">first-try</span>
               </span>
+            </div>
+
+            <div className="progress-cando">
+              <h3 className="progress-cando__head">
+                Osaa jo <span className="en">Can do</span>
+              </h3>
+              {cando.achieved.length === 0 ? (
+                <p className="muted">
+                  Ei vielä — ensimmäiset tulevat pelaamalla.{' '}
+                  <span className="en">Nothing yet — the first ones come with play.</span>
+                </p>
+              ) : (
+                <ul className="cando-list">
+                  {cando.achieved.map((s) => (
+                    <li key={s.id} className="cando-row" title={`Based on: ${s.basisEn}`}>
+                      <span aria-hidden="true">{s.emoji}</span> {s.en}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {upNext.length > 0 && (
+                <>
+                  <h4 className="progress-cando__next">
+                    Seuraavaksi <span className="en">Working towards</span>
+                  </h4>
+                  <ul className="cando-list">
+                    {upNext.map((s) => (
+                      <li
+                        key={s.id}
+                        className="cando-row cando-row--next"
+                        title={`Unlocks with: ${s.basisEn}`}
+                      >
+                        <span aria-hidden="true">{s.emoji}</span> {s.en}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
 
             {playedChapters.length === 0 ? (

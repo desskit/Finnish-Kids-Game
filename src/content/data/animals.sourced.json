@@ -39,7 +39,16 @@
         "abessive_singular": "kissatta",
         "abessive_plural": "kissoitta",
         "instructive_plural": "kissoin",
-        "comitative_plural": "kissoineen"
+        "comitative_plural": "kissoineen",
+        "poss_1sg_nominative_singular": "kissani",
+        "poss_1sg_inessive_singular": "kissassani",
+        "poss_1sg_adessive_singular": "kissallani",
+        "poss_2sg_nominative_singular": "kissasi",
+        "poss_2sg_inessive_singular": "kissassasi",
+        "poss_2sg_adessive_singular": "kissallasi",
+        "poss_3rd_nominative_singular": "kissansa",
+        "poss_3rd_inessive_singular": "kissassaan",
+        "poss_3rd_adessive_singular": "kissallaan"
       },
       "english": {
         "plural": "cats"
@@ -89,7 +98,16 @@
         "abessive_singular": "koiratta",
         "abessive_plural": "koiritta",
         "instructive_plural": "koirin",
-        "comitative_plural": "koirineen"
+        "comitative_plural": "koirineen",
+        "poss_1sg_nominative_singular": "koirani",
+        "poss_1sg_inessive_singular": "koirassani",
+        "poss_1sg_adessive_singular": "koirallani",
+        "poss_2sg_nominative_singular": "koirasi",
+        "poss_2sg_inessive_singular": "koirassasi",
+        "poss_2sg_adessive_singular": "koirallasi",
+        "poss_3rd_nominative_singular": "koiransa",
+        "poss_3rd_inessive_singular": "koirassaan",
+        "poss_3rd_adessive_singular": "koirallaan"
       },
       "english": {
         "plural": "dogs"
@@ -139,7 +157,16 @@
         "abessive_singular": "karhutta",
         "abessive_plural": "karhuitta",
         "instructive_plural": "karhuin",
-        "comitative_plural": "karhuineen"
+        "comitative_plural": "karhuineen",
+        "poss_1sg_nominative_singular": "karhuni",
+        "poss_1sg_inessive_singular": "karhussani",
+        "poss_1sg_adessive_singular": "karhullani",
+        "poss_2sg_nominative_singular": "karhusi",
+        "poss_2sg_inessive_singular": "karhussasi",
+        "poss_2sg_adessive_singular": "karhullasi",
+        "poss_3rd_nominative_singular": "karhunsa",
+        "poss_3rd_inessive_singular": "karhussaan",
+        "poss_3rd_adessive_singular": "karhullaan"
       },
       "english": {
         "plural": "bears"
@@ -189,7 +216,16 @@
         "abessive_singular": "puputta",
         "abessive_plural": "pupuitta",
         "instructive_plural": "pupuin",
-        "comitative_plural": "pupuineen"
+        "comitative_plural": "pupuineen",
+        "poss_1sg_nominative_singular": "pupuni",
+        "poss_1sg_inessive_singular": "pupussani",
+        "poss_1sg_adessive_singular": "pupullani",
+        "poss_2sg_nominative_singular": "pupusi",
+        "poss_2sg_inessive_singular": "pupussasi",
+        "poss_2sg_adessive_singular": "pupullasi",
+        "poss_3rd_nominative_singular": "pupunsa",
+        "poss_3rd_inessive_singular": "pupussaan",
+        "poss_3rd_adessive_singular": "pupullaan"
       },
       "english": {
         "plural": "bunnies"
@@ -239,7 +275,16 @@
         "abessive_singular": "linnutta",
         "abessive_plural": "linnuitta",
         "instructive_plural": "linnuin",
-        "comitative_plural": "lintuineen"
+        "comitative_plural": "lintuineen",
+        "poss_1sg_nominative_singular": "lintuni",
+        "poss_1sg_inessive_singular": "linnussani",
+        "poss_1sg_adessive_singular": "linnullani",
+        "poss_2sg_nominative_singular": "lintusi",
+        "poss_2sg_inessive_singular": "linnussasi",
+        "poss_2sg_adessive_singular": "linnullasi",
+        "poss_3rd_nominative_singular": "lintunsa",
+        "poss_3rd_inessive_singular": "linnussaan",
+        "poss_3rd_adessive_singular": "linnullaan"
       },
       "english": {
         "plural": "birds"
@@ -289,7 +334,16 @@
         "abessive_singular": "kalatta",
         "abessive_plural": "kaloitta",
         "instructive_plural": "kaloin",
-        "comitative_plural": "kaloineen"
+        "comitative_plural": "kaloineen",
+        "poss_1sg_nominative_singular": "kalani",
+        "poss_1sg_inessive_singular": "kalassani",
+        "poss_1sg_adessive_singular": "kalallani",
+        "poss_2sg_nominative_singular": "kalasi",
+        "poss_2sg_inessive_singular": "kalassasi",
+        "poss_2sg_adessive_singular": "kalallasi",
+        "poss_3rd_nominative_singular": "kalansa",
+        "poss_3rd_inessive_singular": "kalassaan",
+        "poss_3rd_adessive_singular": "kalallaan"
       },
       "english": {
         "plural": "fish"
@@ -339,7 +393,16 @@
         "abessive_singular": "hevosetta",
         "abessive_plural": "hevositta",
         "instructive_plural": "hevosin",
-        "comitative_plural": "hevosineen"
+        "comitative_plural": "hevosineen",
+        "poss_1sg_nominative_singular": "hevoseni",
+        "poss_1sg_inessive_singular": "hevosessani",
+        "poss_1sg_adessive_singular": "hevosellani",
+        "poss_2sg_nominative_singular": "hevosesi",
+        "poss_2sg_inessive_singular": "hevosessasi",
+        "poss_2sg_adessive_singular": "hevosellasi",
+        "poss_3rd_nominative_singular": "hevosensa",
+        "poss_3rd_inessive_singular": "hevosessaan",
+        "poss_3rd_adessive_singular": "hevosellaan"
       },
       "english": {
         "plural": "horses"
@@ -389,7 +452,16 @@
         "abessive_singular": "lehmättä",
         "abessive_plural": "lehmittä",
         "instructive_plural": "lehmin",
-        "comitative_plural": "lehmineen"
+        "comitative_plural": "lehmineen",
+        "poss_1sg_nominative_singular": "lehmäni",
+        "poss_1sg_inessive_singular": "lehmässäni",
+        "poss_1sg_adessive_singular": "lehmälläni",
+        "poss_2sg_nominative_singular": "lehmäsi",
+        "poss_2sg_inessive_singular": "lehmässäsi",
+        "poss_2sg_adessive_singular": "lehmälläsi",
+        "poss_3rd_nominative_singular": "lehmänsä",
+        "poss_3rd_inessive_singular": "lehmässään",
+        "poss_3rd_adessive_singular": "lehmällään"
       },
       "english": {
         "plural": "cows"
@@ -439,7 +511,16 @@
         "abessive_singular": "siatta",
         "abessive_plural": "sioitta",
         "instructive_plural": "sioin",
-        "comitative_plural": "sikoineen"
+        "comitative_plural": "sikoineen",
+        "poss_1sg_nominative_singular": "sikani",
+        "poss_1sg_inessive_singular": "siassani",
+        "poss_1sg_adessive_singular": "siallani",
+        "poss_2sg_nominative_singular": "sikasi",
+        "poss_2sg_inessive_singular": "siassasi",
+        "poss_2sg_adessive_singular": "siallasi",
+        "poss_3rd_nominative_singular": "sikansa",
+        "poss_3rd_inessive_singular": "siassaan",
+        "poss_3rd_adessive_singular": "siallaan"
       },
       "english": {
         "plural": "pigs"
@@ -489,7 +570,16 @@
         "abessive_singular": "ketutta",
         "abessive_plural": "ketuitta",
         "instructive_plural": "ketuin",
-        "comitative_plural": "kettuineen"
+        "comitative_plural": "kettuineen",
+        "poss_1sg_nominative_singular": "kettuni",
+        "poss_1sg_inessive_singular": "ketussani",
+        "poss_1sg_adessive_singular": "ketullani",
+        "poss_2sg_nominative_singular": "kettusi",
+        "poss_2sg_inessive_singular": "ketussasi",
+        "poss_2sg_adessive_singular": "ketullasi",
+        "poss_3rd_nominative_singular": "kettunsa",
+        "poss_3rd_inessive_singular": "ketussaan",
+        "poss_3rd_adessive_singular": "ketullaan"
       },
       "english": {
         "plural": "foxes"
@@ -539,7 +629,16 @@
         "abessive_singular": "ankatta",
         "abessive_plural": "ankoitta",
         "instructive_plural": "ankoin",
-        "comitative_plural": "ankkoineen"
+        "comitative_plural": "ankkoineen",
+        "poss_1sg_nominative_singular": "ankkani",
+        "poss_1sg_inessive_singular": "ankassani",
+        "poss_1sg_adessive_singular": "ankallani",
+        "poss_2sg_nominative_singular": "ankkasi",
+        "poss_2sg_inessive_singular": "ankassasi",
+        "poss_2sg_adessive_singular": "ankallasi",
+        "poss_3rd_nominative_singular": "ankkansa",
+        "poss_3rd_inessive_singular": "ankassaan",
+        "poss_3rd_adessive_singular": "ankallaan"
       },
       "english": {
         "plural": "ducks"
@@ -589,7 +688,16 @@
         "abessive_singular": "sammakotta",
         "abessive_plural": "sammakoitta",
         "instructive_plural": "sammakoin",
-        "comitative_plural": "sammakkoineen"
+        "comitative_plural": "sammakkoineen",
+        "poss_1sg_nominative_singular": "sammakkoni",
+        "poss_1sg_inessive_singular": "sammakossani",
+        "poss_1sg_adessive_singular": "sammakollani",
+        "poss_2sg_nominative_singular": "sammakkosi",
+        "poss_2sg_inessive_singular": "sammakossasi",
+        "poss_2sg_adessive_singular": "sammakollasi",
+        "poss_3rd_nominative_singular": "sammakkonsa",
+        "poss_3rd_inessive_singular": "sammakossaan",
+        "poss_3rd_adessive_singular": "sammakollaan"
       },
       "english": {
         "plural": "frogs"
@@ -639,7 +747,16 @@
         "abessive_singular": "lampaatta",
         "abessive_plural": "lampaitta",
         "instructive_plural": "lampain",
-        "comitative_plural": "lampaineen"
+        "comitative_plural": "lampaineen",
+        "poss_1sg_nominative_singular": "lampaani",
+        "poss_1sg_inessive_singular": "lampaassani",
+        "poss_1sg_adessive_singular": "lampaallani",
+        "poss_2sg_nominative_singular": "lampaasi",
+        "poss_2sg_inessive_singular": "lampaassasi",
+        "poss_2sg_adessive_singular": "lampaallasi",
+        "poss_3rd_nominative_singular": "lampaansa",
+        "poss_3rd_inessive_singular": "lampaassaan",
+        "poss_3rd_adessive_singular": "lampaallaan"
       },
       "english": {
         "plural": "sheep"
@@ -689,7 +806,16 @@
         "abessive_singular": "hiirettä",
         "abessive_plural": "hiirittä",
         "instructive_plural": "hiirin",
-        "comitative_plural": "hiirineen"
+        "comitative_plural": "hiirineen",
+        "poss_1sg_nominative_singular": "hiireni",
+        "poss_1sg_inessive_singular": "hiiressäni",
+        "poss_1sg_adessive_singular": "hiirelläni",
+        "poss_2sg_nominative_singular": "hiiresi",
+        "poss_2sg_inessive_singular": "hiiressäsi",
+        "poss_2sg_adessive_singular": "hiirelläsi",
+        "poss_3rd_nominative_singular": "hiirensä",
+        "poss_3rd_inessive_singular": "hiiressään",
+        "poss_3rd_adessive_singular": "hiirellään"
       },
       "english": {
         "plural": "mice"
@@ -739,7 +865,16 @@
         "abessive_singular": "norsutta",
         "abessive_plural": "norsuitta",
         "instructive_plural": "norsuin",
-        "comitative_plural": "norsuineen"
+        "comitative_plural": "norsuineen",
+        "poss_1sg_nominative_singular": "norsuni",
+        "poss_1sg_inessive_singular": "norsussani",
+        "poss_1sg_adessive_singular": "norsullani",
+        "poss_2sg_nominative_singular": "norsusi",
+        "poss_2sg_inessive_singular": "norsussasi",
+        "poss_2sg_adessive_singular": "norsullasi",
+        "poss_3rd_nominative_singular": "norsunsa",
+        "poss_3rd_inessive_singular": "norsussaan",
+        "poss_3rd_adessive_singular": "norsullaan"
       },
       "english": {
         "plural": "elephants"
@@ -789,7 +924,16 @@
         "abessive_singular": "leijonatta",
         "abessive_plural": "leijonitta",
         "instructive_plural": "leijonin",
-        "comitative_plural": "leijonineen"
+        "comitative_plural": "leijonineen",
+        "poss_1sg_nominative_singular": "leijonani",
+        "poss_1sg_inessive_singular": "leijonassani",
+        "poss_1sg_adessive_singular": "leijonallani",
+        "poss_2sg_nominative_singular": "leijonasi",
+        "poss_2sg_inessive_singular": "leijonassasi",
+        "poss_2sg_adessive_singular": "leijonallasi",
+        "poss_3rd_nominative_singular": "leijonansa",
+        "poss_3rd_inessive_singular": "leijonassaan",
+        "poss_3rd_adessive_singular": "leijonallaan"
       },
       "english": {
         "plural": "lions"
@@ -839,7 +983,16 @@
         "abessive_singular": "apinatta",
         "abessive_plural": "apinoitta",
         "instructive_plural": "apinoin",
-        "comitative_plural": "apinoineen"
+        "comitative_plural": "apinoineen",
+        "poss_1sg_nominative_singular": "apinani",
+        "poss_1sg_inessive_singular": "apinassani",
+        "poss_1sg_adessive_singular": "apinallani",
+        "poss_2sg_nominative_singular": "apinasi",
+        "poss_2sg_inessive_singular": "apinassasi",
+        "poss_2sg_adessive_singular": "apinallasi",
+        "poss_3rd_nominative_singular": "apinansa",
+        "poss_3rd_inessive_singular": "apinassaan",
+        "poss_3rd_adessive_singular": "apinallaan"
       },
       "english": {
         "plural": "monkeys"
@@ -889,7 +1042,16 @@
         "abessive_singular": "kanatta",
         "abessive_plural": "kanoitta",
         "instructive_plural": "kanoin",
-        "comitative_plural": "kanoineen"
+        "comitative_plural": "kanoineen",
+        "poss_1sg_nominative_singular": "kanani",
+        "poss_1sg_inessive_singular": "kanassani",
+        "poss_1sg_adessive_singular": "kanallani",
+        "poss_2sg_nominative_singular": "kanasi",
+        "poss_2sg_inessive_singular": "kanassasi",
+        "poss_2sg_adessive_singular": "kanallasi",
+        "poss_3rd_nominative_singular": "kanansa",
+        "poss_3rd_inessive_singular": "kanassaan",
+        "poss_3rd_adessive_singular": "kanallaan"
       },
       "english": {
         "plural": "chickens"
@@ -939,7 +1101,16 @@
         "abessive_singular": "sudetta",
         "abessive_plural": "susitta",
         "instructive_plural": "susin",
-        "comitative_plural": "susineen"
+        "comitative_plural": "susineen",
+        "poss_1sg_nominative_singular": "suteni",
+        "poss_1sg_inessive_singular": "sudessani",
+        "poss_1sg_adessive_singular": "sudellani",
+        "poss_2sg_nominative_singular": "sutesi",
+        "poss_2sg_inessive_singular": "sudessasi",
+        "poss_2sg_adessive_singular": "sudellasi",
+        "poss_3rd_nominative_singular": "sutensa",
+        "poss_3rd_inessive_singular": "sudessaan",
+        "poss_3rd_adessive_singular": "sudellaan"
       },
       "english": {
         "plural": "wolves"
@@ -989,7 +1160,16 @@
         "abessive_singular": "käärmeettä",
         "abessive_plural": "käärmeittä",
         "instructive_plural": "käärmein",
-        "comitative_plural": "käärmeineen"
+        "comitative_plural": "käärmeineen",
+        "poss_1sg_nominative_singular": "käärmeeni",
+        "poss_1sg_inessive_singular": "käärmeessäni",
+        "poss_1sg_adessive_singular": "käärmeelläni",
+        "poss_2sg_nominative_singular": "käärmeesi",
+        "poss_2sg_inessive_singular": "käärmeessäsi",
+        "poss_2sg_adessive_singular": "käärmeelläsi",
+        "poss_3rd_nominative_singular": "käärmeensä",
+        "poss_3rd_inessive_singular": "käärmeessään",
+        "poss_3rd_adessive_singular": "käärmeellään"
       },
       "english": {
         "plural": "snakes"
@@ -1035,7 +1215,16 @@
         "abessive_singular": "perhosetta",
         "abessive_plural": "perhositta",
         "instructive_plural": "perhosin",
-        "comitative_plural": "perhosineen"
+        "comitative_plural": "perhosineen",
+        "poss_1sg_nominative_singular": "perhoseni",
+        "poss_1sg_inessive_singular": "perhosessani",
+        "poss_1sg_adessive_singular": "perhosellani",
+        "poss_2sg_nominative_singular": "perhosesi",
+        "poss_2sg_inessive_singular": "perhosessasi",
+        "poss_2sg_adessive_singular": "perhosellasi",
+        "poss_3rd_nominative_singular": "perhosensa",
+        "poss_3rd_inessive_singular": "perhosessaan",
+        "poss_3rd_adessive_singular": "perhosellaan"
       },
       "english": {
         "plural": "butterflies"
@@ -1085,7 +1274,16 @@
         "abessive_singular": "mehiläisettä",
         "abessive_plural": "mehiläisittä",
         "instructive_plural": "mehiläisin",
-        "comitative_plural": "mehiläisineen"
+        "comitative_plural": "mehiläisineen",
+        "poss_1sg_nominative_singular": "mehiläiseni",
+        "poss_1sg_inessive_singular": "mehiläisessäni",
+        "poss_1sg_adessive_singular": "mehiläiselläni",
+        "poss_2sg_nominative_singular": "mehiläisesi",
+        "poss_2sg_inessive_singular": "mehiläisessäsi",
+        "poss_2sg_adessive_singular": "mehiläiselläsi",
+        "poss_3rd_nominative_singular": "mehiläisensä",
+        "poss_3rd_inessive_singular": "mehiläisessään",
+        "poss_3rd_adessive_singular": "mehiläisellään"
       },
       "english": {
         "plural": "bees"

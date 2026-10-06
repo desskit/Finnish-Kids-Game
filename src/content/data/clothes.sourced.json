@@ -39,7 +39,16 @@
         "abessive_singular": "paidatta",
         "abessive_plural": "paidoitta",
         "instructive_plural": "paidoin",
-        "comitative_plural": "paitoineen"
+        "comitative_plural": "paitoineen",
+        "poss_1sg_nominative_singular": "paitani",
+        "poss_1sg_inessive_singular": "paidassani",
+        "poss_1sg_adessive_singular": "paidallani",
+        "poss_2sg_nominative_singular": "paitasi",
+        "poss_2sg_inessive_singular": "paidassasi",
+        "poss_2sg_adessive_singular": "paidallasi",
+        "poss_3rd_nominative_singular": "paitansa",
+        "poss_3rd_inessive_singular": "paidassaan",
+        "poss_3rd_adessive_singular": "paidallaan"
       },
       "english": {
         "plural": "shirts"
@@ -89,7 +98,16 @@
         "abessive_singular": "puserotta",
         "abessive_plural": "puseroitta",
         "instructive_plural": "puseroin",
-        "comitative_plural": "puseroineen"
+        "comitative_plural": "puseroineen",
+        "poss_1sg_nominative_singular": "puseroni",
+        "poss_1sg_inessive_singular": "puserossani",
+        "poss_1sg_adessive_singular": "puserollani",
+        "poss_2sg_nominative_singular": "puserosi",
+        "poss_2sg_inessive_singular": "puserossasi",
+        "poss_2sg_adessive_singular": "puserollasi",
+        "poss_3rd_nominative_singular": "puseronsa",
+        "poss_3rd_inessive_singular": "puserossaan",
+        "poss_3rd_adessive_singular": "puserollaan"
       },
       "english": {
         "plural": "blouses"
@@ -139,7 +157,16 @@
         "abessive_singular": "takitta",
         "abessive_plural": "takeitta",
         "instructive_plural": "takein",
-        "comitative_plural": "takkeineen"
+        "comitative_plural": "takkeineen",
+        "poss_1sg_nominative_singular": "takkini",
+        "poss_1sg_inessive_singular": "takissani",
+        "poss_1sg_adessive_singular": "takillani",
+        "poss_2sg_nominative_singular": "takkisi",
+        "poss_2sg_inessive_singular": "takissasi",
+        "poss_2sg_adessive_singular": "takillasi",
+        "poss_3rd_nominative_singular": "takkinsa",
+        "poss_3rd_inessive_singular": "takissaan",
+        "poss_3rd_adessive_singular": "takillaan"
       },
       "english": {
         "plural": "coats"
@@ -189,7 +216,16 @@
         "abessive_singular": "kengättä",
         "abessive_plural": "kengittä",
         "instructive_plural": "kengin",
-        "comitative_plural": "kenkineen"
+        "comitative_plural": "kenkineen",
+        "poss_1sg_nominative_singular": "kenkäni",
+        "poss_1sg_inessive_singular": "kengässäni",
+        "poss_1sg_adessive_singular": "kengälläni",
+        "poss_2sg_nominative_singular": "kenkäsi",
+        "poss_2sg_inessive_singular": "kengässäsi",
+        "poss_2sg_adessive_singular": "kengälläsi",
+        "poss_3rd_nominative_singular": "kenkänsä",
+        "poss_3rd_inessive_singular": "kengässään",
+        "poss_3rd_adessive_singular": "kengällään"
       },
       "english": {
         "plural": "shoes"
@@ -239,7 +275,16 @@
         "abessive_singular": "sukatta",
         "abessive_plural": "sukitta",
         "instructive_plural": "sukin",
-        "comitative_plural": "sukkineen"
+        "comitative_plural": "sukkineen",
+        "poss_1sg_nominative_singular": "sukkani",
+        "poss_1sg_inessive_singular": "sukassani",
+        "poss_1sg_adessive_singular": "sukallani",
+        "poss_2sg_nominative_singular": "sukkasi",
+        "poss_2sg_inessive_singular": "sukassasi",
+        "poss_2sg_adessive_singular": "sukallasi",
+        "poss_3rd_nominative_singular": "sukkansa",
+        "poss_3rd_inessive_singular": "sukassaan",
+        "poss_3rd_adessive_singular": "sukallaan"
       },
       "english": {
         "plural": "socks"
@@ -289,7 +334,16 @@
         "abessive_singular": "hatutta",
         "abessive_plural": "hatuitta",
         "instructive_plural": "hatuin",
-        "comitative_plural": "hattuineen"
+        "comitative_plural": "hattuineen",
+        "poss_1sg_nominative_singular": "hattuni",
+        "poss_1sg_inessive_singular": "hatussani",
+        "poss_1sg_adessive_singular": "hatullani",
+        "poss_2sg_nominative_singular": "hattusi",
+        "poss_2sg_inessive_singular": "hatussasi",
+        "poss_2sg_adessive_singular": "hatullasi",
+        "poss_3rd_nominative_singular": "hattunsa",
+        "poss_3rd_inessive_singular": "hatussaan",
+        "poss_3rd_adessive_singular": "hatullaan"
       },
       "english": {
         "plural": "hats"
@@ -339,7 +393,16 @@
         "abessive_singular": "mekotta",
         "abessive_plural": "mekoitta",
         "instructive_plural": "mekoin",
-        "comitative_plural": "mekkoineen"
+        "comitative_plural": "mekkoineen",
+        "poss_1sg_nominative_singular": "mekkoni",
+        "poss_1sg_inessive_singular": "mekossani",
+        "poss_1sg_adessive_singular": "mekollani",
+        "poss_2sg_nominative_singular": "mekkosi",
+        "poss_2sg_inessive_singular": "mekossasi",
+        "poss_2sg_adessive_singular": "mekollasi",
+        "poss_3rd_nominative_singular": "mekkonsa",
+        "poss_3rd_inessive_singular": "mekossaan",
+        "poss_3rd_adessive_singular": "mekollaan"
       },
       "english": {
         "plural": "dresses"
@@ -389,7 +452,16 @@
         "abessive_singular": "hameetta",
         "abessive_plural": "hameitta",
         "instructive_plural": "hamein",
-        "comitative_plural": "hameineen"
+        "comitative_plural": "hameineen",
+        "poss_1sg_nominative_singular": "hameeni",
+        "poss_1sg_inessive_singular": "hameessani",
+        "poss_1sg_adessive_singular": "hameellani",
+        "poss_2sg_nominative_singular": "hameesi",
+        "poss_2sg_inessive_singular": "hameessasi",
+        "poss_2sg_adessive_singular": "hameellasi",
+        "poss_3rd_nominative_singular": "hameensa",
+        "poss_3rd_inessive_singular": "hameessaan",
+        "poss_3rd_adessive_singular": "hameellaan"
       },
       "english": {
         "plural": "skirts"
@@ -439,7 +511,16 @@
         "abessive_singular": "käsineettä",
         "abessive_plural": "käsineittä",
         "instructive_plural": "käsinein",
-        "comitative_plural": "käsineineen"
+        "comitative_plural": "käsineineen",
+        "poss_1sg_nominative_singular": "käsineeni",
+        "poss_1sg_inessive_singular": "käsineessäni",
+        "poss_1sg_adessive_singular": "käsineelläni",
+        "poss_2sg_nominative_singular": "käsineesi",
+        "poss_2sg_inessive_singular": "käsineessäsi",
+        "poss_2sg_adessive_singular": "käsineelläsi",
+        "poss_3rd_nominative_singular": "käsineensä",
+        "poss_3rd_inessive_singular": "käsineessään",
+        "poss_3rd_adessive_singular": "käsineellään"
       },
       "english": {
         "plural": "gloves"
@@ -489,7 +570,16 @@
         "abessive_singular": "huivitta",
         "abessive_plural": "huiveitta",
         "instructive_plural": "huivein",
-        "comitative_plural": "huiveineen"
+        "comitative_plural": "huiveineen",
+        "poss_1sg_nominative_singular": "huivini",
+        "poss_1sg_inessive_singular": "huivissani",
+        "poss_1sg_adessive_singular": "huivillani",
+        "poss_2sg_nominative_singular": "huivisi",
+        "poss_2sg_inessive_singular": "huivissasi",
+        "poss_2sg_adessive_singular": "huivillasi",
+        "poss_3rd_nominative_singular": "huivinsa",
+        "poss_3rd_inessive_singular": "huivissaan",
+        "poss_3rd_adessive_singular": "huivillaan"
       },
       "english": {
         "plural": "scarves"
@@ -539,7 +629,16 @@
         "abessive_singular": "lakitta",
         "abessive_plural": "lakeitta",
         "instructive_plural": "lakein",
-        "comitative_plural": "lakkeineen"
+        "comitative_plural": "lakkeineen",
+        "poss_1sg_nominative_singular": "lakkini",
+        "poss_1sg_inessive_singular": "lakissani",
+        "poss_1sg_adessive_singular": "lakillani",
+        "poss_2sg_nominative_singular": "lakkisi",
+        "poss_2sg_inessive_singular": "lakissasi",
+        "poss_2sg_adessive_singular": "lakillasi",
+        "poss_3rd_nominative_singular": "lakkinsa",
+        "poss_3rd_inessive_singular": "lakissaan",
+        "poss_3rd_adessive_singular": "lakillaan"
       },
       "english": {
         "plural": "caps"
@@ -579,7 +678,16 @@
         "abessive_singular": "saappaatta",
         "abessive_plural": "saappaitta",
         "instructive_plural": "saappain",
-        "comitative_plural": "saappaineen"
+        "comitative_plural": "saappaineen",
+        "poss_1sg_nominative_singular": "saappaani",
+        "poss_1sg_inessive_singular": "saappaassani",
+        "poss_1sg_adessive_singular": "saappaallani",
+        "poss_2sg_nominative_singular": "saappaasi",
+        "poss_2sg_inessive_singular": "saappaassasi",
+        "poss_2sg_adessive_singular": "saappaallasi",
+        "poss_3rd_nominative_singular": "saappaansa",
+        "poss_3rd_inessive_singular": "saappaassaan",
+        "poss_3rd_adessive_singular": "saappaallaan"
       },
       "english": {
         "plural": "boots"
@@ -629,7 +737,16 @@
         "abessive_singular": "sormuksetta",
         "abessive_plural": "sormuksitta",
         "instructive_plural": "sormuksin",
-        "comitative_plural": "sormuksineen"
+        "comitative_plural": "sormuksineen",
+        "poss_1sg_nominative_singular": "sormukseni",
+        "poss_1sg_inessive_singular": "sormuksessani",
+        "poss_1sg_adessive_singular": "sormuksellani",
+        "poss_2sg_nominative_singular": "sormuksesi",
+        "poss_2sg_inessive_singular": "sormuksessasi",
+        "poss_2sg_adessive_singular": "sormuksellasi",
+        "poss_3rd_nominative_singular": "sormuksensa",
+        "poss_3rd_inessive_singular": "sormuksessaan",
+        "poss_3rd_adessive_singular": "sormuksellaan"
       },
       "english": {
         "plural": "rings"
@@ -679,7 +796,16 @@
         "abessive_singular": "solmiotta",
         "abessive_plural": "solmioitta",
         "instructive_plural": "solmioin",
-        "comitative_plural": "solmioineen"
+        "comitative_plural": "solmioineen",
+        "poss_1sg_nominative_singular": "solmioni",
+        "poss_1sg_inessive_singular": "solmiossani",
+        "poss_1sg_adessive_singular": "solmiollani",
+        "poss_2sg_nominative_singular": "solmiosi",
+        "poss_2sg_inessive_singular": "solmiossasi",
+        "poss_2sg_adessive_singular": "solmiollasi",
+        "poss_3rd_nominative_singular": "solmionsa",
+        "poss_3rd_inessive_singular": "solmiossaan",
+        "poss_3rd_adessive_singular": "solmiollaan"
       },
       "english": {
         "plural": "ties"
@@ -729,7 +855,16 @@
         "abessive_singular": "liivittä",
         "abessive_plural": "liiveittä",
         "instructive_plural": "liivein",
-        "comitative_plural": "liiveineen"
+        "comitative_plural": "liiveineen",
+        "poss_1sg_nominative_singular": "liivini",
+        "poss_1sg_inessive_singular": "liivissäni",
+        "poss_1sg_adessive_singular": "liivilläni",
+        "poss_2sg_nominative_singular": "liivisi",
+        "poss_2sg_inessive_singular": "liivissäsi",
+        "poss_2sg_adessive_singular": "liivilläsi",
+        "poss_3rd_nominative_singular": "liivinsä",
+        "poss_3rd_inessive_singular": "liivissään",
+        "poss_3rd_adessive_singular": "liivillään"
       },
       "english": {
         "plural": "vests"
@@ -778,7 +913,16 @@
         "abessive_singular": "vyöttä",
         "abessive_plural": "vöittä",
         "instructive_plural": "vöin",
-        "comitative_plural": "vöineen"
+        "comitative_plural": "vöineen",
+        "poss_1sg_nominative_singular": "vyöni",
+        "poss_1sg_inessive_singular": "vyössäni",
+        "poss_1sg_adessive_singular": "vyölläni",
+        "poss_2sg_nominative_singular": "vyösi",
+        "poss_2sg_inessive_singular": "vyössäsi",
+        "poss_2sg_adessive_singular": "vyölläsi",
+        "poss_3rd_nominative_singular": "vyönsä",
+        "poss_3rd_inessive_singular": "vyössään",
+        "poss_3rd_adessive_singular": "vyöllään"
       },
       "english": {
         "plural": "belts"
@@ -827,7 +971,16 @@
         "abessive_singular": "korvakorutta",
         "abessive_plural": "korvakoruitta",
         "instructive_plural": "korvakoruin",
-        "comitative_plural": "korvakoruineen"
+        "comitative_plural": "korvakoruineen",
+        "poss_1sg_nominative_singular": "korvakoruni",
+        "poss_1sg_inessive_singular": "korvakorussani",
+        "poss_1sg_adessive_singular": "korvakorullani",
+        "poss_2sg_nominative_singular": "korvakorusi",
+        "poss_2sg_inessive_singular": "korvakorussasi",
+        "poss_2sg_adessive_singular": "korvakorullasi",
+        "poss_3rd_nominative_singular": "korvakorunsa",
+        "poss_3rd_inessive_singular": "korvakorussaan",
+        "poss_3rd_adessive_singular": "korvakorullaan"
       },
       "english": {
         "plural": "earrings"

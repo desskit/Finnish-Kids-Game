@@ -39,7 +39,16 @@
         "abessive_singular": "auringotta",
         "abessive_plural": "auringoitta",
         "instructive_plural": "auringoin",
-        "comitative_plural": "aurinkoineen"
+        "comitative_plural": "aurinkoineen",
+        "poss_1sg_nominative_singular": "aurinkoni",
+        "poss_1sg_inessive_singular": "auringossani",
+        "poss_1sg_adessive_singular": "auringollani",
+        "poss_2sg_nominative_singular": "aurinkosi",
+        "poss_2sg_inessive_singular": "auringossasi",
+        "poss_2sg_adessive_singular": "auringollasi",
+        "poss_3rd_nominative_singular": "aurinkonsa",
+        "poss_3rd_inessive_singular": "auringossaan",
+        "poss_3rd_adessive_singular": "auringollaan"
       },
       "english": {
         "plural": "suns"
@@ -89,7 +98,16 @@
         "abessive_singular": "kuutta",
         "abessive_plural": "kuitta",
         "instructive_plural": "kuin",
-        "comitative_plural": "kuineen"
+        "comitative_plural": "kuineen",
+        "poss_1sg_nominative_singular": "kuuni",
+        "poss_1sg_inessive_singular": "kuussani",
+        "poss_1sg_adessive_singular": "kuullani",
+        "poss_2sg_nominative_singular": "kuusi",
+        "poss_2sg_inessive_singular": "kuussasi",
+        "poss_2sg_adessive_singular": "kuullasi",
+        "poss_3rd_nominative_singular": "kuunsa",
+        "poss_3rd_inessive_singular": "kuussaan",
+        "poss_3rd_adessive_singular": "kuullaan"
       },
       "english": {
         "plural": "moons"
@@ -139,7 +157,16 @@
         "abessive_singular": "tähdettä",
         "abessive_plural": "tähdittä",
         "instructive_plural": "tähdin",
-        "comitative_plural": "tähtineen"
+        "comitative_plural": "tähtineen",
+        "poss_1sg_nominative_singular": "tähteni",
+        "poss_1sg_inessive_singular": "tähdessäni",
+        "poss_1sg_adessive_singular": "tähdelläni",
+        "poss_2sg_nominative_singular": "tähtesi",
+        "poss_2sg_inessive_singular": "tähdessäsi",
+        "poss_2sg_adessive_singular": "tähdelläsi",
+        "poss_3rd_nominative_singular": "tähtensä",
+        "poss_3rd_inessive_singular": "tähdessään",
+        "poss_3rd_adessive_singular": "tähdellään"
       },
       "english": {
         "plural": "stars"
@@ -189,7 +216,16 @@
         "abessive_singular": "pilvettä",
         "abessive_plural": "pilvittä",
         "instructive_plural": "pilvin",
-        "comitative_plural": "pilvineen"
+        "comitative_plural": "pilvineen",
+        "poss_1sg_nominative_singular": "pilveni",
+        "poss_1sg_inessive_singular": "pilvessäni",
+        "poss_1sg_adessive_singular": "pilvelläni",
+        "poss_2sg_nominative_singular": "pilvesi",
+        "poss_2sg_inessive_singular": "pilvessäsi",
+        "poss_2sg_adessive_singular": "pilvelläsi",
+        "poss_3rd_nominative_singular": "pilvensä",
+        "poss_3rd_inessive_singular": "pilvessään",
+        "poss_3rd_adessive_singular": "pilvellään"
       },
       "english": {
         "plural": "clouds"
@@ -239,7 +275,16 @@
         "abessive_singular": "sateetta",
         "abessive_plural": "sateitta",
         "instructive_plural": "satein",
-        "comitative_plural": "sateineen"
+        "comitative_plural": "sateineen",
+        "poss_1sg_nominative_singular": "sateeni",
+        "poss_1sg_inessive_singular": "sateessani",
+        "poss_1sg_adessive_singular": "sateellani",
+        "poss_2sg_nominative_singular": "sateesi",
+        "poss_2sg_inessive_singular": "sateessasi",
+        "poss_2sg_adessive_singular": "sateellasi",
+        "poss_3rd_nominative_singular": "sateensa",
+        "poss_3rd_inessive_singular": "sateessaan",
+        "poss_3rd_adessive_singular": "sateellaan"
       },
       "english": {
         "plural": "rains"
@@ -289,7 +334,16 @@
         "abessive_singular": "lumetta",
         "abessive_plural": "lumitta",
         "instructive_plural": "lumin",
-        "comitative_plural": "lumineen"
+        "comitative_plural": "lumineen",
+        "poss_1sg_nominative_singular": "lumeni",
+        "poss_1sg_inessive_singular": "lumessani",
+        "poss_1sg_adessive_singular": "lumellani",
+        "poss_2sg_nominative_singular": "lumesi",
+        "poss_2sg_inessive_singular": "lumessasi",
+        "poss_2sg_adessive_singular": "lumellasi",
+        "poss_3rd_nominative_singular": "lumensa",
+        "poss_3rd_inessive_singular": "lumessaan",
+        "poss_3rd_adessive_singular": "lumellaan"
       },
       "english": {
         "plural": "snows"
@@ -339,7 +393,16 @@
         "abessive_singular": "kukatta",
         "abessive_plural": "kukitta",
         "instructive_plural": "kukin",
-        "comitative_plural": "kukkineen"
+        "comitative_plural": "kukkineen",
+        "poss_1sg_nominative_singular": "kukkani",
+        "poss_1sg_inessive_singular": "kukassani",
+        "poss_1sg_adessive_singular": "kukallani",
+        "poss_2sg_nominative_singular": "kukkasi",
+        "poss_2sg_inessive_singular": "kukassasi",
+        "poss_2sg_adessive_singular": "kukallasi",
+        "poss_3rd_nominative_singular": "kukkansa",
+        "poss_3rd_inessive_singular": "kukassaan",
+        "poss_3rd_adessive_singular": "kukallaan"
       },
       "english": {
         "plural": "flowers"
@@ -389,7 +452,16 @@
         "abessive_singular": "vuoretta",
         "abessive_plural": "vuoritta",
         "instructive_plural": "vuorin",
-        "comitative_plural": "vuorineen"
+        "comitative_plural": "vuorineen",
+        "poss_1sg_nominative_singular": "vuoreni",
+        "poss_1sg_inessive_singular": "vuoressani",
+        "poss_1sg_adessive_singular": "vuorellani",
+        "poss_2sg_nominative_singular": "vuoresi",
+        "poss_2sg_inessive_singular": "vuoressasi",
+        "poss_2sg_adessive_singular": "vuorellasi",
+        "poss_3rd_nominative_singular": "vuorensa",
+        "poss_3rd_inessive_singular": "vuoressaan",
+        "poss_3rd_adessive_singular": "vuorellaan"
       },
       "english": {
         "plural": "mountains"
@@ -439,7 +511,16 @@
         "abessive_singular": "kivettä",
         "abessive_plural": "kivittä",
         "instructive_plural": "kivin",
-        "comitative_plural": "kivineen"
+        "comitative_plural": "kivineen",
+        "poss_1sg_nominative_singular": "kiveni",
+        "poss_1sg_inessive_singular": "kivessäni",
+        "poss_1sg_adessive_singular": "kivelläni",
+        "poss_2sg_nominative_singular": "kivesi",
+        "poss_2sg_inessive_singular": "kivessäsi",
+        "poss_2sg_adessive_singular": "kivelläsi",
+        "poss_3rd_nominative_singular": "kivensä",
+        "poss_3rd_inessive_singular": "kivessään",
+        "poss_3rd_adessive_singular": "kivellään"
       },
       "english": {
         "plural": "stones"
@@ -485,7 +566,16 @@
         "abessive_singular": "järvettä",
         "abessive_plural": "järvittä",
         "instructive_plural": "järvin",
-        "comitative_plural": "järvineen"
+        "comitative_plural": "järvineen",
+        "poss_1sg_nominative_singular": "järveni",
+        "poss_1sg_inessive_singular": "järvessäni",
+        "poss_1sg_adessive_singular": "järvelläni",
+        "poss_2sg_nominative_singular": "järvesi",
+        "poss_2sg_inessive_singular": "järvessäsi",
+        "poss_2sg_adessive_singular": "järvelläsi",
+        "poss_3rd_nominative_singular": "järvensä",
+        "poss_3rd_inessive_singular": "järvessään",
+        "poss_3rd_adessive_singular": "järvellään"
       },
       "english": {
         "plural": "lakes"
@@ -535,7 +625,16 @@
         "abessive_singular": "merettä",
         "abessive_plural": "merittä",
         "instructive_plural": "merin",
-        "comitative_plural": "merineen"
+        "comitative_plural": "merineen",
+        "poss_1sg_nominative_singular": "mereni",
+        "poss_1sg_inessive_singular": "meressäni",
+        "poss_1sg_adessive_singular": "merelläni",
+        "poss_2sg_nominative_singular": "meresi",
+        "poss_2sg_inessive_singular": "meressäsi",
+        "poss_2sg_adessive_singular": "merelläsi",
+        "poss_3rd_nominative_singular": "merensä",
+        "poss_3rd_inessive_singular": "meressään",
+        "poss_3rd_adessive_singular": "merellään"
       },
       "english": {
         "plural": "seas"
@@ -585,7 +684,16 @@
         "abessive_singular": "taivaatta",
         "abessive_plural": "taivaitta",
         "instructive_plural": "taivain",
-        "comitative_plural": "taivaineen"
+        "comitative_plural": "taivaineen",
+        "poss_1sg_nominative_singular": "taivaani",
+        "poss_1sg_inessive_singular": "taivaassani",
+        "poss_1sg_adessive_singular": "taivaallani",
+        "poss_2sg_nominative_singular": "taivaasi",
+        "poss_2sg_inessive_singular": "taivaassasi",
+        "poss_2sg_adessive_singular": "taivaallasi",
+        "poss_3rd_nominative_singular": "taivaansa",
+        "poss_3rd_inessive_singular": "taivaassaan",
+        "poss_3rd_adessive_singular": "taivaallaan"
       },
       "english": {
         "plural": "skies"
@@ -635,7 +743,16 @@
         "abessive_singular": "tuuletta",
         "abessive_plural": "tuulitta",
         "instructive_plural": "tuulin",
-        "comitative_plural": "tuulineen"
+        "comitative_plural": "tuulineen",
+        "poss_1sg_nominative_singular": "tuuleni",
+        "poss_1sg_inessive_singular": "tuulessani",
+        "poss_1sg_adessive_singular": "tuulellani",
+        "poss_2sg_nominative_singular": "tuulesi",
+        "poss_2sg_inessive_singular": "tuulessasi",
+        "poss_2sg_adessive_singular": "tuulellasi",
+        "poss_3rd_nominative_singular": "tuulensa",
+        "poss_3rd_inessive_singular": "tuulessaan",
+        "poss_3rd_adessive_singular": "tuulellaan"
       },
       "english": {
         "plural": "winds"
@@ -685,7 +802,16 @@
         "abessive_singular": "jäättä",
         "abessive_plural": "jäittä",
         "instructive_plural": "jäin",
-        "comitative_plural": "jäineen"
+        "comitative_plural": "jäineen",
+        "poss_1sg_nominative_singular": "jääni",
+        "poss_1sg_inessive_singular": "jäässäni",
+        "poss_1sg_adessive_singular": "jäälläni",
+        "poss_2sg_nominative_singular": "jääsi",
+        "poss_2sg_inessive_singular": "jäässäsi",
+        "poss_2sg_adessive_singular": "jäälläsi",
+        "poss_3rd_nominative_singular": "jäänsä",
+        "poss_3rd_inessive_singular": "jäässään",
+        "poss_3rd_adessive_singular": "jäällään"
       },
       "english": {
         "plural": "ices"
@@ -735,7 +861,16 @@
         "abessive_singular": "lehdettä",
         "abessive_plural": "lehdittä",
         "instructive_plural": "lehdin",
-        "comitative_plural": "lehtineen"
+        "comitative_plural": "lehtineen",
+        "poss_1sg_nominative_singular": "lehteni",
+        "poss_1sg_inessive_singular": "lehdessäni",
+        "poss_1sg_adessive_singular": "lehdelläni",
+        "poss_2sg_nominative_singular": "lehtesi",
+        "poss_2sg_inessive_singular": "lehdessäsi",
+        "poss_2sg_adessive_singular": "lehdelläsi",
+        "poss_3rd_nominative_singular": "lehtensä",
+        "poss_3rd_inessive_singular": "lehdessään",
+        "poss_3rd_adessive_singular": "lehdellään"
       },
       "english": {
         "plural": "leaves"
@@ -785,7 +920,16 @@
         "abessive_singular": "tuletta",
         "abessive_plural": "tulitta",
         "instructive_plural": "tulin",
-        "comitative_plural": "tulineen"
+        "comitative_plural": "tulineen",
+        "poss_1sg_nominative_singular": "tuleni",
+        "poss_1sg_inessive_singular": "tulessani",
+        "poss_1sg_adessive_singular": "tulellani",
+        "poss_2sg_nominative_singular": "tulesi",
+        "poss_2sg_inessive_singular": "tulessasi",
+        "poss_2sg_adessive_singular": "tulellasi",
+        "poss_3rd_nominative_singular": "tulensa",
+        "poss_3rd_inessive_singular": "tulessaan",
+        "poss_3rd_adessive_singular": "tulellaan"
       },
       "english": {
         "plural": "fires"
@@ -835,7 +979,16 @@
         "abessive_singular": "ruohotta",
         "abessive_plural": "ruohoitta",
         "instructive_plural": "ruohoin",
-        "comitative_plural": "ruohoineen"
+        "comitative_plural": "ruohoineen",
+        "poss_1sg_nominative_singular": "ruohoni",
+        "poss_1sg_inessive_singular": "ruohossani",
+        "poss_1sg_adessive_singular": "ruohollani",
+        "poss_2sg_nominative_singular": "ruohosi",
+        "poss_2sg_inessive_singular": "ruohossasi",
+        "poss_2sg_adessive_singular": "ruohollasi",
+        "poss_3rd_nominative_singular": "ruohonsa",
+        "poss_3rd_inessive_singular": "ruohossaan",
+        "poss_3rd_adessive_singular": "ruohollaan"
       },
       "english": {
         "plural": "grasses"
@@ -885,7 +1038,16 @@
         "abessive_singular": "saaretta",
         "abessive_plural": "saaritta",
         "instructive_plural": "saarin",
-        "comitative_plural": "saarineen"
+        "comitative_plural": "saarineen",
+        "poss_1sg_nominative_singular": "saareni",
+        "poss_1sg_inessive_singular": "saaressani",
+        "poss_1sg_adessive_singular": "saarellani",
+        "poss_2sg_nominative_singular": "saaresi",
+        "poss_2sg_inessive_singular": "saaressasi",
+        "poss_2sg_adessive_singular": "saarellasi",
+        "poss_3rd_nominative_singular": "saarensa",
+        "poss_3rd_inessive_singular": "saaressaan",
+        "poss_3rd_adessive_singular": "saarellaan"
       },
       "english": {
         "plural": "islands"

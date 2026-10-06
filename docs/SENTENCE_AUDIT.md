@@ -2068,6 +2068,518 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
+### `in-front-of-them` — “in front of the ___s” (tier 6, genitive plural, 123 words)
+
+- omenien edessä _(apple)_
+- tätien edessä _(aunt)_
+- vauvojen edessä _(baby)_
+- laukkujen edessä _(bag)_
+- banaanien edessä _(banana)_
+- korien edessä _(basket)_
+- karhujen edessä _(bear)_
+- sänkyjen edessä _(bed)_
+- mehiläisten edessä _(bee)_
+- vöiden edessä _(belt)_
+- lintujen edessä _(bird)_
+- puserojen edessä _(blouse)_
+- luiden edessä _(bone)_
+- saappaiden edessä _(boot)_
+- laatikkojen edessä _(box)_
+- leipien edessä _(bread)_
+- veljien edessä _(brother)_
+- pupujen edessä _(bunny)_
+- voiden edessä _(butter)_
+- perhosten edessä _(butterfly)_
+- kakkujen edessä _(cake)_
+- karkkien edessä _(candy)_
+- lakkien edessä _(cap)_
+- autojen edessä _(car)_
+- porkkanoiden edessä _(carrot)_
+- kissojen edessä _(cat)_
+- tuolien edessä _(chair)_
+- juustojen edessä _(cheese)_
+- kanojen edessä _(chicken)_
+- lapsien edessä _(child)_
+- suklaiden edessä _(chocolate)_
+- pilvien edessä _(cloud)_
+- takkien edessä _(coat)_
+- keksien edessä _(cookie)_
+- serkkujen edessä _(cousin)_
+- lehmien edessä _(cow)_
+- tyttöjen edessä _(daughter)_
+- koirien edessä _(dog)_
+- ovien edessä _(door)_
+- mekkojen edessä _(dress)_
+- ankkojen edessä _(duck)_
+- korvien edessä _(ear)_
+- korvakorujen edessä _(earring)_
+- munien edessä _(egg)_
+- norsujen edessä _(elephant)_
+- silmien edessä _(eye)_
+- perheiden edessä _(family)_
+- isien edessä _(dad)_
+- sormien edessä _(finger)_
+- tulien edessä _(fire)_
+- kalojen edessä _(fish)_
+- kukkien edessä _(flower)_
+- jalkojen edessä _(foot)_
+- metsien edessä _(forest)_
+- kettujen edessä _(fox)_
+- sammakkojen edessä _(frog)_
+- puutarhojen edessä _(garden)_
+- käsineiden edessä _(glove)_
+- lapsenlapsien edessä _(grandchild)_
+- isoisien edessä _(grandfather)_
+- isoäitien edessä _(grandmother)_
+- ruohojen edessä _(grass)_
+- tukkien edessä _(hair)_
+- käsien edessä _(hand)_
+- hattujen edessä _(hat)_
+- päiden edessä _(head)_
+- sydämien edessä _(heart)_
+- hevosten edessä _(horse)_
+- talojen edessä _(house)_
+- jäiden edessä _(ice)_
+- jäätelöjen edessä _(ice cream)_
+- saarten edessä _(island)_
+- mehujen edessä _(juice)_
+- keittiöiden edessä _(kitchen)_
+- polvien edessä _(knee)_
+- järvien edessä _(lake)_
+- lehtien edessä _(leaf)_
+- leijonien edessä _(lion)_
+- maitojen edessä _(milk)_
+- apinoiden edessä _(monkey)_
+- kuiden edessä _(moon)_
+- äitien edessä _(mom)_
+- vuorten edessä _(mountain)_
+- hiirien edessä _(mouse)_
+- suiden edessä _(mouth)_
+- lihasten edessä _(muscle)_
+- nenien edessä _(nose)_
+- sikojen edessä _(pig)_
+- pitsojen edessä _(pizza)_
+- puurojen edessä _(porridge)_
+- perunoiden edessä _(potato)_
+- riisien edessä _(rice)_
+- sormusten edessä _(ring)_
+- huoneiden edessä _(room)_
+- makkaroiden edessä _(sausage)_
+- huivien edessä _(scarf)_
+- koulujen edessä _(school)_
+- lampaiden edessä _(sheep)_
+- paitojen edessä _(shirt)_
+- kenkien edessä _(shoe)_
+- siskojen edessä _(sister)_
+- hameiden edessä _(skirt)_
+- käärmeiden edessä _(snake)_
+- sukkien edessä _(sock)_
+- poikien edessä _(son)_
+- keittojen edessä _(soup)_
+- tähtien edessä _(star)_
+- kivien edessä _(stone)_
+- mansikoiden edessä _(strawberry)_
+- aurinkojen edessä _(sun)_
+- pöytien edessä _(table)_
+- solmioiden edessä _(tie)_
+- tomaattien edessä _(tomato)_
+- kielten edessä _(tongue)_
+- hampaiden edessä _(tooth)_
+- puiden edessä _(tree)_
+- vatsojen edessä _(tummy)_
+- setien edessä _(uncle)_
+- liivien edessä _(vest)_
+- vesien edessä _(water)_
+- tuulten edessä _(wind)_
+- ikkunoiden edessä _(window)_
+- susien edessä _(wolf)_
+
+Gated out: rain, sea, sky, snow
+
+### `behind-them` — “behind the ___s” (tier 6, genitive plural, 123 words)
+
+- omenien takana _(apple)_
+- tätien takana _(aunt)_
+- vauvojen takana _(baby)_
+- laukkujen takana _(bag)_
+- banaanien takana _(banana)_
+- korien takana _(basket)_
+- karhujen takana _(bear)_
+- sänkyjen takana _(bed)_
+- mehiläisten takana _(bee)_
+- vöiden takana _(belt)_
+- lintujen takana _(bird)_
+- puserojen takana _(blouse)_
+- luiden takana _(bone)_
+- saappaiden takana _(boot)_
+- laatikkojen takana _(box)_
+- leipien takana _(bread)_
+- veljien takana _(brother)_
+- pupujen takana _(bunny)_
+- voiden takana _(butter)_
+- perhosten takana _(butterfly)_
+- kakkujen takana _(cake)_
+- karkkien takana _(candy)_
+- lakkien takana _(cap)_
+- autojen takana _(car)_
+- porkkanoiden takana _(carrot)_
+- kissojen takana _(cat)_
+- tuolien takana _(chair)_
+- juustojen takana _(cheese)_
+- kanojen takana _(chicken)_
+- lapsien takana _(child)_
+- suklaiden takana _(chocolate)_
+- pilvien takana _(cloud)_
+- takkien takana _(coat)_
+- keksien takana _(cookie)_
+- serkkujen takana _(cousin)_
+- lehmien takana _(cow)_
+- tyttöjen takana _(daughter)_
+- koirien takana _(dog)_
+- ovien takana _(door)_
+- mekkojen takana _(dress)_
+- ankkojen takana _(duck)_
+- korvien takana _(ear)_
+- korvakorujen takana _(earring)_
+- munien takana _(egg)_
+- norsujen takana _(elephant)_
+- silmien takana _(eye)_
+- perheiden takana _(family)_
+- isien takana _(dad)_
+- sormien takana _(finger)_
+- tulien takana _(fire)_
+- kalojen takana _(fish)_
+- kukkien takana _(flower)_
+- jalkojen takana _(foot)_
+- metsien takana _(forest)_
+- kettujen takana _(fox)_
+- sammakkojen takana _(frog)_
+- puutarhojen takana _(garden)_
+- käsineiden takana _(glove)_
+- lapsenlapsien takana _(grandchild)_
+- isoisien takana _(grandfather)_
+- isoäitien takana _(grandmother)_
+- ruohojen takana _(grass)_
+- tukkien takana _(hair)_
+- käsien takana _(hand)_
+- hattujen takana _(hat)_
+- päiden takana _(head)_
+- sydämien takana _(heart)_
+- hevosten takana _(horse)_
+- talojen takana _(house)_
+- jäiden takana _(ice)_
+- jäätelöjen takana _(ice cream)_
+- saarten takana _(island)_
+- mehujen takana _(juice)_
+- keittiöiden takana _(kitchen)_
+- polvien takana _(knee)_
+- järvien takana _(lake)_
+- lehtien takana _(leaf)_
+- leijonien takana _(lion)_
+- maitojen takana _(milk)_
+- apinoiden takana _(monkey)_
+- kuiden takana _(moon)_
+- äitien takana _(mom)_
+- vuorten takana _(mountain)_
+- hiirien takana _(mouse)_
+- suiden takana _(mouth)_
+- lihasten takana _(muscle)_
+- nenien takana _(nose)_
+- sikojen takana _(pig)_
+- pitsojen takana _(pizza)_
+- puurojen takana _(porridge)_
+- perunoiden takana _(potato)_
+- riisien takana _(rice)_
+- sormusten takana _(ring)_
+- huoneiden takana _(room)_
+- makkaroiden takana _(sausage)_
+- huivien takana _(scarf)_
+- koulujen takana _(school)_
+- lampaiden takana _(sheep)_
+- paitojen takana _(shirt)_
+- kenkien takana _(shoe)_
+- siskojen takana _(sister)_
+- hameiden takana _(skirt)_
+- käärmeiden takana _(snake)_
+- sukkien takana _(sock)_
+- poikien takana _(son)_
+- keittojen takana _(soup)_
+- tähtien takana _(star)_
+- kivien takana _(stone)_
+- mansikoiden takana _(strawberry)_
+- aurinkojen takana _(sun)_
+- pöytien takana _(table)_
+- solmioiden takana _(tie)_
+- tomaattien takana _(tomato)_
+- kielten takana _(tongue)_
+- hampaiden takana _(tooth)_
+- puiden takana _(tree)_
+- vatsojen takana _(tummy)_
+- setien takana _(uncle)_
+- liivien takana _(vest)_
+- vesien takana _(water)_
+- tuulten takana _(wind)_
+- ikkunoiden takana _(window)_
+- susien takana _(wolf)_
+
+Gated out: rain, sea, sky, snow
+
+### `next-to-them` — “next to the ___s” (tier 6, genitive plural, 123 words)
+
+- omenien vieressä _(apple)_
+- tätien vieressä _(aunt)_
+- vauvojen vieressä _(baby)_
+- laukkujen vieressä _(bag)_
+- banaanien vieressä _(banana)_
+- korien vieressä _(basket)_
+- karhujen vieressä _(bear)_
+- sänkyjen vieressä _(bed)_
+- mehiläisten vieressä _(bee)_
+- vöiden vieressä _(belt)_
+- lintujen vieressä _(bird)_
+- puserojen vieressä _(blouse)_
+- luiden vieressä _(bone)_
+- saappaiden vieressä _(boot)_
+- laatikkojen vieressä _(box)_
+- leipien vieressä _(bread)_
+- veljien vieressä _(brother)_
+- pupujen vieressä _(bunny)_
+- voiden vieressä _(butter)_
+- perhosten vieressä _(butterfly)_
+- kakkujen vieressä _(cake)_
+- karkkien vieressä _(candy)_
+- lakkien vieressä _(cap)_
+- autojen vieressä _(car)_
+- porkkanoiden vieressä _(carrot)_
+- kissojen vieressä _(cat)_
+- tuolien vieressä _(chair)_
+- juustojen vieressä _(cheese)_
+- kanojen vieressä _(chicken)_
+- lapsien vieressä _(child)_
+- suklaiden vieressä _(chocolate)_
+- pilvien vieressä _(cloud)_
+- takkien vieressä _(coat)_
+- keksien vieressä _(cookie)_
+- serkkujen vieressä _(cousin)_
+- lehmien vieressä _(cow)_
+- tyttöjen vieressä _(daughter)_
+- koirien vieressä _(dog)_
+- ovien vieressä _(door)_
+- mekkojen vieressä _(dress)_
+- ankkojen vieressä _(duck)_
+- korvien vieressä _(ear)_
+- korvakorujen vieressä _(earring)_
+- munien vieressä _(egg)_
+- norsujen vieressä _(elephant)_
+- silmien vieressä _(eye)_
+- perheiden vieressä _(family)_
+- isien vieressä _(dad)_
+- sormien vieressä _(finger)_
+- tulien vieressä _(fire)_
+- kalojen vieressä _(fish)_
+- kukkien vieressä _(flower)_
+- jalkojen vieressä _(foot)_
+- metsien vieressä _(forest)_
+- kettujen vieressä _(fox)_
+- sammakkojen vieressä _(frog)_
+- puutarhojen vieressä _(garden)_
+- käsineiden vieressä _(glove)_
+- lapsenlapsien vieressä _(grandchild)_
+- isoisien vieressä _(grandfather)_
+- isoäitien vieressä _(grandmother)_
+- ruohojen vieressä _(grass)_
+- tukkien vieressä _(hair)_
+- käsien vieressä _(hand)_
+- hattujen vieressä _(hat)_
+- päiden vieressä _(head)_
+- sydämien vieressä _(heart)_
+- hevosten vieressä _(horse)_
+- talojen vieressä _(house)_
+- jäiden vieressä _(ice)_
+- jäätelöjen vieressä _(ice cream)_
+- saarten vieressä _(island)_
+- mehujen vieressä _(juice)_
+- keittiöiden vieressä _(kitchen)_
+- polvien vieressä _(knee)_
+- järvien vieressä _(lake)_
+- lehtien vieressä _(leaf)_
+- leijonien vieressä _(lion)_
+- maitojen vieressä _(milk)_
+- apinoiden vieressä _(monkey)_
+- kuiden vieressä _(moon)_
+- äitien vieressä _(mom)_
+- vuorten vieressä _(mountain)_
+- hiirien vieressä _(mouse)_
+- suiden vieressä _(mouth)_
+- lihasten vieressä _(muscle)_
+- nenien vieressä _(nose)_
+- sikojen vieressä _(pig)_
+- pitsojen vieressä _(pizza)_
+- puurojen vieressä _(porridge)_
+- perunoiden vieressä _(potato)_
+- riisien vieressä _(rice)_
+- sormusten vieressä _(ring)_
+- huoneiden vieressä _(room)_
+- makkaroiden vieressä _(sausage)_
+- huivien vieressä _(scarf)_
+- koulujen vieressä _(school)_
+- lampaiden vieressä _(sheep)_
+- paitojen vieressä _(shirt)_
+- kenkien vieressä _(shoe)_
+- siskojen vieressä _(sister)_
+- hameiden vieressä _(skirt)_
+- käärmeiden vieressä _(snake)_
+- sukkien vieressä _(sock)_
+- poikien vieressä _(son)_
+- keittojen vieressä _(soup)_
+- tähtien vieressä _(star)_
+- kivien vieressä _(stone)_
+- mansikoiden vieressä _(strawberry)_
+- aurinkojen vieressä _(sun)_
+- pöytien vieressä _(table)_
+- solmioiden vieressä _(tie)_
+- tomaattien vieressä _(tomato)_
+- kielten vieressä _(tongue)_
+- hampaiden vieressä _(tooth)_
+- puiden vieressä _(tree)_
+- vatsojen vieressä _(tummy)_
+- setien vieressä _(uncle)_
+- liivien vieressä _(vest)_
+- vesien vieressä _(water)_
+- tuulten vieressä _(wind)_
+- ikkunoiden vieressä _(window)_
+- susien vieressä _(wolf)_
+
+Gated out: rain, sea, sky, snow
+
+### `under-them` — “under the ___s” (tier 6, genitive plural, 123 words)
+
+- omenien alla _(apple)_
+- tätien alla _(aunt)_
+- vauvojen alla _(baby)_
+- laukkujen alla _(bag)_
+- banaanien alla _(banana)_
+- korien alla _(basket)_
+- karhujen alla _(bear)_
+- sänkyjen alla _(bed)_
+- mehiläisten alla _(bee)_
+- vöiden alla _(belt)_
+- lintujen alla _(bird)_
+- puserojen alla _(blouse)_
+- luiden alla _(bone)_
+- saappaiden alla _(boot)_
+- laatikkojen alla _(box)_
+- leipien alla _(bread)_
+- veljien alla _(brother)_
+- pupujen alla _(bunny)_
+- voiden alla _(butter)_
+- perhosten alla _(butterfly)_
+- kakkujen alla _(cake)_
+- karkkien alla _(candy)_
+- lakkien alla _(cap)_
+- autojen alla _(car)_
+- porkkanoiden alla _(carrot)_
+- kissojen alla _(cat)_
+- tuolien alla _(chair)_
+- juustojen alla _(cheese)_
+- kanojen alla _(chicken)_
+- lapsien alla _(child)_
+- suklaiden alla _(chocolate)_
+- pilvien alla _(cloud)_
+- takkien alla _(coat)_
+- keksien alla _(cookie)_
+- serkkujen alla _(cousin)_
+- lehmien alla _(cow)_
+- tyttöjen alla _(daughter)_
+- koirien alla _(dog)_
+- ovien alla _(door)_
+- mekkojen alla _(dress)_
+- ankkojen alla _(duck)_
+- korvien alla _(ear)_
+- korvakorujen alla _(earring)_
+- munien alla _(egg)_
+- norsujen alla _(elephant)_
+- silmien alla _(eye)_
+- perheiden alla _(family)_
+- isien alla _(dad)_
+- sormien alla _(finger)_
+- tulien alla _(fire)_
+- kalojen alla _(fish)_
+- kukkien alla _(flower)_
+- jalkojen alla _(foot)_
+- metsien alla _(forest)_
+- kettujen alla _(fox)_
+- sammakkojen alla _(frog)_
+- puutarhojen alla _(garden)_
+- käsineiden alla _(glove)_
+- lapsenlapsien alla _(grandchild)_
+- isoisien alla _(grandfather)_
+- isoäitien alla _(grandmother)_
+- ruohojen alla _(grass)_
+- tukkien alla _(hair)_
+- käsien alla _(hand)_
+- hattujen alla _(hat)_
+- päiden alla _(head)_
+- sydämien alla _(heart)_
+- hevosten alla _(horse)_
+- talojen alla _(house)_
+- jäiden alla _(ice)_
+- jäätelöjen alla _(ice cream)_
+- saarten alla _(island)_
+- mehujen alla _(juice)_
+- keittiöiden alla _(kitchen)_
+- polvien alla _(knee)_
+- järvien alla _(lake)_
+- lehtien alla _(leaf)_
+- leijonien alla _(lion)_
+- maitojen alla _(milk)_
+- apinoiden alla _(monkey)_
+- kuiden alla _(moon)_
+- äitien alla _(mom)_
+- vuorten alla _(mountain)_
+- hiirien alla _(mouse)_
+- suiden alla _(mouth)_
+- lihasten alla _(muscle)_
+- nenien alla _(nose)_
+- sikojen alla _(pig)_
+- pitsojen alla _(pizza)_
+- puurojen alla _(porridge)_
+- perunoiden alla _(potato)_
+- riisien alla _(rice)_
+- sormusten alla _(ring)_
+- huoneiden alla _(room)_
+- makkaroiden alla _(sausage)_
+- huivien alla _(scarf)_
+- koulujen alla _(school)_
+- lampaiden alla _(sheep)_
+- paitojen alla _(shirt)_
+- kenkien alla _(shoe)_
+- siskojen alla _(sister)_
+- hameiden alla _(skirt)_
+- käärmeiden alla _(snake)_
+- sukkien alla _(sock)_
+- poikien alla _(son)_
+- keittojen alla _(soup)_
+- tähtien alla _(star)_
+- kivien alla _(stone)_
+- mansikoiden alla _(strawberry)_
+- aurinkojen alla _(sun)_
+- pöytien alla _(table)_
+- solmioiden alla _(tie)_
+- tomaattien alla _(tomato)_
+- kielten alla _(tongue)_
+- hampaiden alla _(tooth)_
+- puiden alla _(tree)_
+- vatsojen alla _(tummy)_
+- setien alla _(uncle)_
+- liivien alla _(vest)_
+- vesien alla _(water)_
+- tuulten alla _(wind)_
+- ikkunoiden alla _(window)_
+- susien alla _(wolf)_
+
+Gated out: rain, sea, sky, snow
+
 ### `i-have-some` — “I have some ___.” (tier 4, partitive plural, 116 words)
 
 - Minulla on omenia. _(apple)_
@@ -2796,6 +3308,62 @@ Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, 
 - Kissat ovat puissa. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
+
+### `on-them` — “The cats are on the ___s.” (tier 9, adessive plural, 8 words)
+
+- Kissat ovat koreilla. _(basket)_
+- Kissat ovat sängyillä. _(bed)_
+- Kissat ovat laatikoilla. _(box)_
+- Kissat ovat autoilla. _(car)_
+- Kissat ovat tuoleilla. _(chair)_
+- Kissat ovat ovilla. _(door)_
+- Kissat ovat pöydillä. _(table)_
+- Kissat ovat ikkunoilla. _(window)_
+
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+
+### `onto-them` — “The cats go onto the ___s.” (tier 9, allative plural, 8 words)
+
+- Kissat menevät koreille. _(basket)_
+- Kissat menevät sängyille. _(bed)_
+- Kissat menevät laatikoille. _(box)_
+- Kissat menevät autoille. _(car)_
+- Kissat menevät tuoleille. _(chair)_
+- Kissat menevät oville. _(door)_
+- Kissat menevät pöydille. _(table)_
+- Kissat menevät ikkunoille. _(window)_
+
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+
+### `out-of-them` — “The cats come out of the ___s.” (tier 10, elative plural, 12 words)
+
+- Kissat tulevat laukuista. _(bag)_
+- Kissat tulevat koreista. _(basket)_
+- Kissat tulevat sängyistä. _(bed)_
+- Kissat tulevat laatikoista. _(box)_
+- Kissat tulevat autoista. _(car)_
+- Kissat tulevat metsistä. _(forest)_
+- Kissat tulevat puutarhoista. _(garden)_
+- Kissat tulevat taloista. _(house)_
+- Kissat tulevat keittiöistä. _(kitchen)_
+- Kissat tulevat huoneista. _(room)_
+- Kissat tulevat kouluista. _(school)_
+- Kissat tulevat puista. _(tree)_
+
+Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
+
+### `off-them` — “The cats come off the ___s.” (tier 10, ablative plural, 8 words)
+
+- Kissat tulevat koreilta. _(basket)_
+- Kissat tulevat sängyiltä. _(bed)_
+- Kissat tulevat laatikoilta. _(box)_
+- Kissat tulevat autoilta. _(car)_
+- Kissat tulevat tuoleilta. _(chair)_
+- Kissat tulevat ovilta. _(door)_
+- Kissat tulevat pöydiltä. _(table)_
+- Kissat tulevat ikkunoilta. _(window)_
+
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
 
 ## 2. Sentence templates (template × swappable candidates)
 

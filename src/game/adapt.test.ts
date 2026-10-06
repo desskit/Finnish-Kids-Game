@@ -75,9 +75,9 @@ describe('difficultyFor', () => {
     // per-node decision (SkillNode.timerFromLevel), not a global lever.
     expect(questionTimerMs(4)).toBeGreaterThan(questionTimerMs(5));
     expect(questionTimerMs(5)).toBeGreaterThan(questionTimerMs(8));
-    // Clamped: never faster than the L8 floor, never slower than the L4 ceiling.
+    // Clamped: never faster than the top-level floor, never slower than the L4 ceiling.
     expect(questionTimerMs(1)).toBe(questionTimerMs(4));
-    expect(questionTimerMs(99)).toBe(questionTimerMs(8));
+    expect(questionTimerMs(99)).toBe(questionTimerMs(MAX_LEVEL));
   });
 
   it('introduces negative then past verb forms as the level rises', () => {
@@ -98,20 +98,50 @@ describe('difficultyFor', () => {
     expect(difficultyFor(4).maxTier).toBe(4);
   });
 
-  it('extends the table to 8 levels, one new tier + bigger counts per step', () => {
-    expect(MAX_LEVEL).toBe(8);
+  it('extends the table to 10 levels, one new tier + bigger counts per step', () => {
+    expect(MAX_LEVEL).toBe(10);
     // L1–L4 preserved exactly.
     expect(difficultyFor(1)).toMatchObject({ maxTier: 2, maxCount: 5, optionCount: 3 });
     expect(difficultyFor(4)).toMatchObject({ maxTier: 4, maxCount: 12 });
-    // L5–L8 unlock one locative case per level (maxTier 5..8) with larger counts.
-    expect(difficultyFor(5).maxTier).toBe(5);
-    expect(difficultyFor(6).maxTier).toBe(6);
-    expect(difficultyFor(7).maxTier).toBe(7);
-    expect(difficultyFor(8).maxTier).toBe(8);
+    // L5+ unlock one grammar tier per level (maxTier 5..10) with larger counts.
+    for (let l = 5; l <= 10; l++) expect(difficultyFor(l).maxTier).toBe(l);
     const counts = [5, 6, 7, 8].map((l) => difficultyFor(l).maxCount);
     expect(counts).toEqual([14, 16, 18, 20]);
-    // Option count stays tappable at every level.
-    for (let l = 1; l <= MAX_LEVEL; l++) expect(difficultyFor(l).optionCount).toBeLessThanOrEqual(4);
+    // The expert band counts in TENS (no sourced compounds for 21–99).
+    expect(difficultyFor(9).maxCount).toBe(60);
+    expect(difficultyFor(10).maxCount).toBe(100);
+    // Option count stays tappable at every level: 4 through L5, 5 at L6–8, 6 at L9+.
+    for (let l = 1; l <= 5; l++) expect(difficultyFor(l).optionCount).toBeLessThanOrEqual(4);
+    for (let l = 6; l <= 8; l++) expect(difficultyFor(l).optionCount).toBe(5);
+    for (let l = 9; l <= 10; l++) expect(difficultyFor(l).optionCount).toBe(6);
+  });
+
+  it('reserves the expert levers (form distractors, gloss-free drills, dictation) for L9+', () => {
+    for (let l = 1; l <= 8; l++) {
+      const d = difficultyFor(l);
+      expect(d.formDistractors, `L${l}`).toBe(false);
+      expect(d.drillGlossFree, `L${l}`).toBe(false);
+      expect(d.dictation, `L${l}`).toBe(false);
+    }
+    for (let l = 9; l <= 10; l++) {
+      const d = difficultyFor(l);
+      expect(d.formDistractors).toBe(true);
+      expect(d.drillGlossFree).toBe(true);
+      expect(d.dictation).toBe(true);
+    }
+  });
+
+  it('adds the sourced perfect set at L7 and conditional at L8, held through L10', () => {
+    expect(difficultyFor(6).verbCombos.some((c) => c.tense === 'perfect')).toBe(false);
+    expect(difficultyFor(7).verbCombos.some((c) => c.tense === 'perfect')).toBe(true);
+    expect(difficultyFor(7).verbCombos.some((c) => c.tense === 'conditional')).toBe(false);
+    for (const l of [8, 9, 10]) {
+      const tenses = difficultyFor(l).verbCombos.map((c) => `${c.tense}:${c.polarity}`);
+      expect(tenses).toContain('perfect:positive');
+      expect(tenses).toContain('perfect:negative');
+      expect(tenses).toContain('conditional:positive');
+      expect(tenses).toContain('conditional:negative');
+    }
   });
 });
 

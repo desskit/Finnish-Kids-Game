@@ -95,6 +95,22 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
     desc: 'See a picture, hear a -ko question, answer Kyllä or Ei.',
   },
   {
+    id: 'possessive',
+    kind: 'possessive',
+    skillId: 'possessives',
+    titleFi: 'Kenen?',
+    titleEn: 'Whose? (possessive suffix)',
+    desc: 'Pick the noun form with the right possessive suffix (kissani / kissasi).',
+  },
+  {
+    id: 'error-fix',
+    kind: 'error-fix',
+    skillId: 'find-error',
+    titleFi: 'Löydä virhe',
+    titleEn: 'Find the mistake',
+    desc: 'Judge whether a sentence is right; tap the wrong-case word or "all correct".',
+  },
+  {
     id: 'build',
     kind: 'build',
     skillId: 'i-have',

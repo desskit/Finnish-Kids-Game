@@ -28,6 +28,21 @@ describe('englishVerbClause', () => {
     expect(englishVerbClause('he/she', 'eat', eat, 'past', 'negative', '3sg')).toBe("he/she didn't eat");
   });
 
+  it('perfect: have/has + the SOURCED past participle', () => {
+    expect(englishVerbClause('I', 'eat', eat, 'perfect', 'positive', '1sg')).toBe('I have eaten');
+    expect(englishVerbClause('he/she', 'go', go, 'perfect', 'positive', '3sg')).toBe('he/she has gone');
+    expect(englishVerbClause('he/she', 'eat', eat, 'perfect', 'negative', '3sg')).toBe("he/she hasn't eaten");
+    expect(englishVerbClause('they', 'love', love, 'perfect', 'negative', '3pl')).toBe("they haven't loved");
+    expect(englishVerbClause('I', 'be', undefined, 'perfect', 'positive', '1sg')).toBe('I have been');
+  });
+
+  it('conditional: would(n’t) + base, invariant across persons', () => {
+    expect(englishVerbClause('I', 'eat', eat, 'conditional', 'positive', '1sg')).toBe('I would eat');
+    expect(englishVerbClause('he/she', 'go', go, 'conditional', 'positive', '3sg')).toBe('he/she would go');
+    expect(englishVerbClause('they', 'eat', eat, 'conditional', 'negative', '3pl')).toBe("they wouldn't eat");
+    expect(englishVerbClause('he/she', 'be', undefined, 'conditional', 'positive', '3sg')).toBe('he/she would be');
+  });
+
   it('handles the copula "be" (no morph needed)', () => {
     expect(englishVerbClause('I', 'be', undefined, 'present', 'positive', '1sg')).toBe('I am');
     expect(englishVerbClause('he/she', 'be', undefined, 'present', 'positive', '3sg')).toBe('he/she is');
