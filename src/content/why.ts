@@ -68,6 +68,8 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'i-dont-like': '*En pidä* (I don\'t like) still takes **-sta / -stä**.',
   'i-am-in': 'You are IN a place → **-ssa / -ssä**.',
   'i-am-on': 'You are AT / ON a place → **-lla / -llä**.',
+  'now-month': 'After *Nyt on*, the month stays in its **basic form**: *toukokuu*.',
+  'birthday-in': 'IN a month → **-ssa / -ssä**: *toukokuussa* (in May).',
   'go-by': '"By" bus, car, train → **-lla / -llä**: *bussilla*.',
   'write-with': '"With" a tool → **-lla / -llä**: *kynällä*.',
   'draw-with': '"With" a tool → **-lla / -llä**: *kynällä*.',

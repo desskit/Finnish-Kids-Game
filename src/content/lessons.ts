@@ -37,6 +37,7 @@ import { numbers } from './index';
 import { itemById } from './lookup';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
+import { ageSentence, dateEnglish, dateFi, dateSegments, yearsWord } from './dates';
 import {
   comparisonEnglish,
   comparisonSegments,
@@ -98,7 +99,12 @@ export type LessonRef =
   /** "Norsu on isompi kuin hiiri." (`a` is more than `b`). */
   | { compare: string; a: string; b: string; en?: string }
   /** "Norsu on isoin." */
-  | { most: string; a: string; en?: string };
+  | { most: string; a: string; en?: string }
+  /** A date: "viides toukokuuta" (ordinal id + month id); `wrong` = a slip
+   *  (the plain number, or the month in its basic form), for checks. */
+  | { date: string; month: string; wrong?: 'number' | 'month'; en?: string }
+  /** "Olen kahdeksan vuotta vanha." (number id). */
+  | { age: string; en?: string };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -312,6 +318,30 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     const segs = adj && a && superlativeSegments(adj, a);
     if (!segs) return null;
     return { segments: segs, en: ref.en ?? superlativeEnglish(adj!, a!), emoji: a!.emoji, speak: segmentsText(segs) };
+  }
+  if ('date' in ref) {
+    const ord = itemById(ref.date);
+    const month = itemById(ref.month);
+    if (!ord || !month) return null;
+    let segs: Segment[] | undefined;
+    if (ref.wrong === 'number') {
+      const num = numbers.items.find((n) => n.value === ord.value);
+      const f = num && dateFi(num, month);
+      segs = f ? [{ text: f }] : undefined;
+    } else if (ref.wrong === 'month') {
+      const f = dateFi(ord, month, 'nominative');
+      segs = f ? [{ text: f }] : undefined;
+    } else segs = dateSegments(ord, month);
+    if (!segs) return null;
+    return { segments: segs, en: ref.en ?? (ref.wrong ? undefined : `the ${dateEnglish(ord, month).split(' ')[1]} of ${month.en}`), emoji: '📅', speak: segmentsText(segs) };
+  }
+  if ('age' in ref) {
+    const num = itemById(ref.age);
+    const years = yearsWord();
+    const f = num && ageSentence(num, years);
+    if (!num || !f || !years) return null;
+    const segs: Segment[] = [{ text: `Olen ${num.fi} ` }, { text: years, mark: true }, { text: ' vanha.' }];
+    return { segments: segs, en: ref.en ?? `I'm ${num.value} years old.`, emoji: '🎂', speak: segmentsText(segs) };
   }
   if ('vtype' in ref) {
     const verb = itemById(ref.vtype);
@@ -2501,6 +2531,111 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'with-someone', word: 'friend' }, correct: true },
         ],
         explain: 'With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.',
+      },
+    ],
+  },
+  {
+    id: 'big-numbers',
+    titleFi: 'Isot numerot',
+    titleEn: 'Big numbers — and first, second…',
+    emoji: '💯',
+    cards: [
+      {
+        kind: 'examples',
+        title: '13 to 19: -toista',
+        text:
+          'You know 11 and 12. The rest work the same way: the number + **-toista** ("of the second ten"). 13 = *kolmetoista*.',
+        rows: [{ word: 'thirteen' }, { word: 'fifteen' }, { word: 'nineteen' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Tens: -kymmentä',
+        text: 'Tens are the number + **-kymmentä** (tens): 30 = *kolmekymmentä*. And 100 is *sata*.',
+        rows: [{ word: 'twenty' }, { word: 'thirty' }, { word: 'fifty' }, { word: 'hundred' }],
+      },
+      {
+        kind: 'explain',
+        title: '21, 22, 23…',
+        text:
+          'Say the ten, then the one — all in one long word: 21 = *kaksikymmentä* + *yksi*, 35 = *kolmekymmentä* + *viisi*.',
+      },
+      {
+        kind: 'examples',
+        title: 'First, second, third…',
+        text:
+          'For the ORDER (who came first?) Finnish has its own words. From the 4th on most end in **-s**: *neljäs*, *viides*.',
+        rows: [{ word: 'first' }, { word: 'second' }, { word: 'third' }, { word: 'fourth' }, { word: 'fifth' }],
+      },
+      {
+        kind: 'check',
+        question: 'Which one is 15?',
+        options: [{ ref: { word: 'five' } }, { ref: { word: 'fifteen' }, correct: true }, { ref: { word: 'fifty' } }],
+        explain: '5 + **-toista** = *viisitoista*. *viisikymmentä* is 50.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "the third"?',
+        options: [{ ref: { word: 'three' } }, { ref: { word: 'third' }, correct: true }, { ref: { word: 'thirteen' } }],
+        explain: '*kolmas* is the ORDER word (3rd). *kolme* is just 3.',
+      },
+    ],
+  },
+  {
+    id: 'birthdays',
+    titleFi: 'Syntymäpäivä',
+    titleEn: 'Months, dates and birthdays',
+    emoji: '🎂',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'The months',
+        text: 'Every month ends in **-kuu** — *kuu* also means "moon"! Months start with a small letter.',
+        rows: [{ word: 'january' }, { word: 'may' }, { word: 'july' }, { word: 'december' }],
+      },
+      {
+        kind: 'examples',
+        title: 'In May: -ssa',
+        text: 'IN a month takes **-ssa / -ssä**, like *koulussa* (in school).',
+        rows: [
+          { sentence: 'birthday-in', word: 'may' },
+          { sentence: 'birthday-in', word: 'december' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'A date',
+        text:
+          'A date is the ORDER word (first, fifth…) + the month with **-ta**: *viides toukokuuta* = the 5th of May.',
+        rows: [
+          { date: 'first', month: 'january' },
+          { date: 'fifth', month: 'may' },
+          { date: 'tenth', month: 'december' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'How old are you?',
+        text: 'Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).',
+        rows: [{ age: 'seven' }, { age: 'eight' }, { age: 'nine' }],
+      },
+      {
+        kind: 'check',
+        question: 'Which one is "the 5th of May"?',
+        options: [
+          { ref: { date: 'fifth', month: 'may', wrong: 'number' } },
+          { ref: { date: 'fifth', month: 'may' }, correct: true },
+          { ref: { date: 'fifth', month: 'may', wrong: 'month' } },
+        ],
+        explain: 'ORDER word *viides* (5th) + month with **-ta**: *viides toukokuuta*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "My birthday is in May"?',
+        options: [
+          { ref: { sentence: 'birthday-in', word: 'may' }, correct: true },
+          { ref: { sentence: 'birthday-in', word: 'may', asCase: 'partitive' } },
+        ],
+        explain: 'IN May → **-ssa**: *toukokuussa*.',
       },
     ],
   },

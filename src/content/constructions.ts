@@ -115,6 +115,20 @@ const FEELINGS = [
 
 // Weekdays (essive "maanantaina") vs. parts of the day + seasons (adessive
 // "aamulla", "kesällä") — Finnish's two "when" endings.
+const MONTHS = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
 const DAYS = [
   "monday",
   "tuesday",
@@ -1082,6 +1096,31 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     onlyIds: ["friend", "mother", "father", "brother", "sister", "grandmother", "grandfather", "dog", "cat"],
+  },
+
+  // --- Months & birthdays ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    id: "now-month", // "Nyt on toukokuu." — it's May now
+    before: "Nyt on",
+    punct: ".",
+    en: "It's ___ now.",
+    tier: 4,
+    case: "nominative",
+    number: "singular",
+    topics: ["time"],
+    onlyIds: MONTHS,
+  },
+  {
+    id: "birthday-in", // "Syntymäpäiväni on toukokuussa." — in May
+    before: "Syntymäpäiväni on",
+    punct: ".",
+    en: "My birthday is in ___.",
+    tier: 4,
+    case: "inessive",
+    number: "singular",
+    topics: ["time"],
+    onlyIds: MONTHS,
   },
 
   // --- When? ---

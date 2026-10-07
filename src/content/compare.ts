@@ -131,7 +131,8 @@ export function superlativeSegments(adj: LexicalItem, x: LexicalItem): Segment[]
 }
 
 const article = (x: LexicalItem) => (x.topic === 'family' && /^(grand|mother|father)/.test(x.id) ? '' : 'the ');
-const enName = (x: LexicalItem) => `${article(x)}${x.en}`;
+/** "the elephant", "Grandma" — how the English names one of them. */
+export const enName = (x: LexicalItem) => `${article(x)}${x.en}`;
 
 /** "The elephant is bigger than the mouse." */
 export function comparisonEnglish(adj: LexicalItem, x: LexicalItem, y: LexicalItem): string {

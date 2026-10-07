@@ -17,6 +17,7 @@ import {
   freetime,
   time,
   states,
+  ordinals,
   adjectives,
   verbs,
 } from '../content';
@@ -99,7 +100,8 @@ export type Pool =
   | 'colors'
   | 'adjectives'
   | 'feelings'
-  | 'time';
+  | 'time'
+  | 'ordinals';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -314,6 +316,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return FEELINGS;
     case 'time':
       return time.items;
+    case 'ordinals':
+      return ordinals.items;
     default:
       return NOUNS;
   }
@@ -408,6 +412,8 @@ const TAUGHT_CONSTRUCTIONS = [
   'i-go-onto',
   'i-come-from-in',
   'i-come-from-on',
+  'now-month',
+  'birthday-in',
   'go-by',
   'write-with',
   'draw-with',
@@ -567,6 +573,14 @@ const TYPE6_KPT = ['warm-up', 'run-away'];
 // the comparisons are about (the course meets them here, where they're fun).
 const COMPARE_ADJECTIVES = ['young', 'tall', 'strong', 'good', 'funny'];
 const COMPARE_ANIMALS = ['elephant', 'horse', 'cow', 'bear', 'lion', 'pig', 'sheep', 'fox', 'duck', 'chicken', 'mouse', 'frog'];
+
+// The number units' words.
+const TEENS = ['thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const TENS = ['thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred'];
+const ORDINALS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const BIRTHDAY_TIME = ['birthday', 'year', 'month'];
+const PARTY = ['balloon', 'candle', 'present'];
 
 const UNITS: Chapter[] = [
   {
@@ -1331,6 +1345,87 @@ const UNITS: Chapter[] = [
       ),
       phraseStep('clock', 'Kello on…', 'What time is it?', '⏰', ['clock-is'], 'Kello on kolme.', 'numbers'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
+    ],
+  },
+  {
+    id: 'big-numbers',
+    titleFi: 'Isot numerot',
+    titleEn: 'Big numbers · first, second',
+    blurbEn: 'Count past twelve, by tens to a hundred — and first, second, third.',
+    accent: '#0891b2',
+    icon: '💯',
+    lessonId: 'big-numbers',
+    newWords: [...TEENS, ...TENS, ...ORDINALS],
+    skills: [
+      wordsStep('big-numbers', 'numbers', 'Numbers 13–20', TEENS),
+      {
+        id: 'count-to-20',
+        titleFi: 'Montako?',
+        titleEn: 'Count to 20',
+        icon: '🧮',
+        activity: 'count',
+        maxLevel: 3,
+        pin: { maxCount: 20 },
+        content: {},
+        exampleFi: 'viisitoista palloa',
+      },
+      wordsStep('big-numbers', 'numbers', 'Tens to 100', TENS, 'tens-words'),
+      wordsStep('big-numbers', 'ordinals', 'First, second, third', ORDINALS, 'ordinal-words'),
+      {
+        id: 'three-or-third',
+        titleFi: 'Kolme vai kolmas?',
+        titleEn: 'Three or third?',
+        icon: '🥇',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'ordinal' },
+        exampleFi: 'kolme · kolmas',
+      },
+      sceneStep('big-numbers-talk', 'race', 'Kilpajuoksu', 'A race'),
+    ],
+  },
+  {
+    id: 'birthdays',
+    titleFi: 'Syntymäpäivä',
+    titleEn: 'Months & birthdays',
+    blurbEn: 'The months, dates (viides toukokuuta), your age and your birthday.',
+    accent: '#db2777',
+    icon: '🎂',
+    lessonId: 'birthdays',
+    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...PARTY],
+    skills: [
+      wordsStep('birthdays', 'time', 'The months', [...MONTHS, ...BIRTHDAY_TIME]),
+      phraseStep(
+        'birthday-month',
+        'Syntymäpäiväni on…',
+        'My birthday is in…',
+        '🗓️',
+        ['now-month', 'birthday-in'],
+        'Syntymäpäiväni on toukokuussa.',
+        'time',
+      ),
+      {
+        id: 'dates',
+        titleFi: 'Viides toukokuuta',
+        titleEn: 'Dates',
+        icon: '📅',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'date' },
+        exampleFi: 'viides toukokuuta',
+      },
+      wordsStep('birthdays', 'nouns', 'Party things', PARTY, 'party-words'),
+      {
+        id: 'how-old',
+        titleFi: 'Kuinka vanha olet?',
+        titleEn: 'How old are you?',
+        icon: '🎈',
+        activity: 'choose',
+        maxLevel: 2,
+        content: { choose: 'age' },
+        exampleFi: 'Olen kahdeksan vuotta vanha.',
+      },
+      sceneStep('birthdays-talk', 'birthday-party', 'Synttärit', 'A birthday party'),
     ],
   },
   {

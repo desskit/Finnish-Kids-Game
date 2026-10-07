@@ -1312,4 +1312,90 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Big numbers: a race.
+  {
+    id: 'race',
+    titleFi: 'Kilpajuoksu',
+    titleEn: 'A race',
+    icon: '🏁',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Juostaan kilpaa!', en: "Let's race!" },
+        reply: { fi: 'Joo, juostaan!', en: "Yeah, let's run!" },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä olen ensimmäinen!', en: "I'm first!" },
+        reply: { fi: 'Minä olen toinen.', en: "I'm second." },
+        distractors: [
+          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kuka on kolmas?', en: 'Who is third?' },
+        reply: { fi: 'Koira on kolmas!', en: 'The dog is third!' },
+        distractors: [
+          { fi: 'Koira on kolme!', en: 'The dog is three!' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Juostaan uudestaan!', en: "Let's run again!" },
+        reply: { fi: 'Joo, juostaan!', en: "Yeah, let's run!" },
+        distractors: [
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Months & birthdays: a party.
+  {
+    id: 'birthday-party',
+    titleFi: 'Synttärit',
+    titleEn: 'A birthday party',
+    icon: '🎂',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Tervetuloa! Tänään on minun syntymäpäiväni.', en: "Welcome! Today is my birthday." },
+        reply: { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Olen nyt yhdeksän vuotta vanha. Entä sinä?', en: "Thanks! I'm nine years old now. And you?" },
+        reply: { fi: 'Olen kahdeksan vuotta vanha.', en: "I'm eight years old." },
+        distractors: [
+          { fi: 'Olen kahdeksas.', en: "I'm eighth." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Milloin sinun syntymäpäiväsi on?', en: 'When is your birthday?' },
+        reply: { fi: 'Toukokuussa.', en: 'In May.' },
+        distractors: [
+          { fi: 'Toukokuuta.', en: '(of May)' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Tässä on kakkua. Ole hyvä!', en: "Here's some cake. Here you go!" },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        distractors: [
+          { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+          { fi: 'Nähdään!', en: 'See you!' },
+        ],
+      },
+    ],
+  },
 ];

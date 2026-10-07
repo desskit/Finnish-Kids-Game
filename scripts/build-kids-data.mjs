@@ -26,7 +26,7 @@ const ENGLISH_MISSING = [];
 // Lesson-only words are shown once, as-is, and never pluralised or put in an
 // English template — so they need no English morphology.
 const posForTheme = (id) =>
-  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' || id === 'lesson-words' ? null : 'N';
+  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : ['numbers', 'ordinals', 'lesson-words'].includes(id) ? null : 'N';
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -345,10 +345,41 @@ const TIME = [
   ['summer', 'kesä', 'summer', '🏖️'],
   ['autumn', 'syksy', 'autumn', '🍂'],
   ['winter', 'talvi', 'winter', '⛄'],
+  // Months, for dates and birthdays ("viides toukokuuta", "toukokuussa").
+  ['january', 'tammikuu', 'January'],
+  ['february', 'helmikuu', 'February'],
+  ['march', 'maaliskuu', 'March'],
+  ['april', 'huhtikuu', 'April'],
+  ['may', 'toukokuu', 'May'],
+  ['june', 'kesäkuu', 'June'],
+  ['july', 'heinäkuu', 'July'],
+  ['august', 'elokuu', 'August'],
+  ['september', 'syyskuu', 'September'],
+  ['october', 'lokakuu', 'October'],
+  ['november', 'marraskuu', 'November'],
+  ['december', 'joulukuu', 'December'],
+  ['birthday', 'syntymäpäivä', 'birthday', '🎂'],
+  ['year', 'vuosi', 'year'],
+  ['month', 'kuukausi', 'month'],
 ];
 
 // How you feel, as a NOUN: "Minulla on nälkä / jano" (literally "on me is
 // hunger"). Only the Feelings unit's "Minulla on ___" carrier uses these.
+// Ordinals — first, second… (only 1st–10th are sourced numerals). Their own
+// theme, so counting never draws one ("ensimmäinen kissaa" is nonsense).
+const ORDINALS = [
+  ['first', 'ensimmäinen', 'first', '1.', 1],
+  ['second', 'toinen', 'second', '2.', 2],
+  ['third', 'kolmas', 'third', '3.', 3],
+  ['fourth', 'neljäs', 'fourth', '4.', 4],
+  ['fifth', 'viides', 'fifth', '5.', 5],
+  ['sixth', 'kuudes', 'sixth', '6.', 6],
+  ['seventh', 'seitsemäs', 'seventh', '7.', 7],
+  ['eighth', 'kahdeksas', 'eighth', '8.', 8],
+  ['ninth', 'yhdeksäs', 'ninth', '9.', 9],
+  ['tenth', 'kymmenes', 'tenth', '10.', 10],
+];
+
 const STATES = [
   ['hunger', 'nälkä', 'hunger'],
   ['thirst', 'jano', 'thirst'],
@@ -379,6 +410,10 @@ const FREETIME = [
   ['spoon', 'lusikka', 'spoon', '🥄'],
   ['fork', 'haarukka', 'fork'],
   ['key', 'avain', 'key', '🔑'],
+  // Birthday party things.
+  ['balloon', 'ilmapallo', 'balloon', '🎈'],
+  ['candle', 'kynttilä', 'candle', '🕯️'],
+  ['present', 'lahja', 'present'],
 ];
 
 const FAMILY = [
@@ -823,6 +858,15 @@ const states = buildTheme({
   sourceWords: nounWords,
 });
 
+const ordinals = buildTheme({
+  id: 'ordinals',
+  fi: 'Järjestysluvut',
+  en: 'First, second…',
+  emoji: '🥇',
+  curation: ORDINALS,
+  sourceWords: numeralWords,
+});
+
 const lessonWords = buildTheme({
   id: 'lesson-words',
   fi: 'Oppitunnin sanat',
@@ -872,6 +916,7 @@ writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null,
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'ordinals.sourced.json'), JSON.stringify(ordinals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'lesson-words.sourced.json'), JSON.stringify(lessonWords, null, 2) + '\n');
 
 console.log(
@@ -881,5 +926,5 @@ console.log(
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
     `${school.words.length} school, ${freetime.words.length} free-time, ` +
-    `${time.words.length} time, ${states.words.length} state words to ${OUT_DIR}`,
+    `${time.words.length} time, ${states.words.length} state, ${ordinals.words.length} ordinal words to ${OUT_DIR}`,
 );

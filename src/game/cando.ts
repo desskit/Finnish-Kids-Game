@@ -68,6 +68,8 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('town', '🏙️', 'Can say where they are, where they go and where they come from'),
   unitClaim('by-with', '🚌', 'Can say how they travel and what they use — bussilla, kynällä — and who with (kaverin kanssa)'),
   unitClaim('when', '📅', 'Can name the days, say when things happen, and tell the time'),
+  unitClaim('big-numbers', '💯', 'Can count to twenty and by tens to a hundred, and say first, second, third…'),
+  unitClaim('birthdays', '🎂', 'Can name the months, say a date (viides toukokuuta), their age and when their birthday is'),
   unitClaim('question-words', '🤔', 'Can ask and answer who, what, where, when, whose and why'),
   unitClaim('me-you', '🫶', 'Can say help me, give it to me, I like you'),
   unitClaim('around', '🧭', "Can say what's in front of, behind, next to or under something"),

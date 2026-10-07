@@ -12,6 +12,7 @@ import schoolData from './data/school.sourced.json';
 import freetimeData from './data/freetime.sourced.json';
 import timeData from './data/time.sourced.json';
 import statesData from './data/states.sourced.json';
+import ordinalsData from './data/ordinals.sourced.json';
 import lessonWordsData from './data/lesson-words.sourced.json';
 import { nounConstructions } from './constructions';
 import type { Construction, EnglishMorph, Example, LexicalItem, Theme, Tier } from './types';
@@ -147,6 +148,9 @@ export const time = toTheme(timeData as unknown as SourcedFile, nounConstruction
 // "Minulla on nälkä / jano" — feelings as nouns. Only the Feelings unit uses
 // them; not a reviewable topic.
 export const states = toTheme(statesData as unknown as SourcedFile, nounConstructions);
+// First, second, third… (1st–10th, the sourced ordinals) — for dates and
+// races. Their own pool, never mixed with the counting numbers.
+export const ordinals = toTheme(ordinalsData as unknown as SourcedFile, []);
 // Words a lesson SHOWS but no game ever draws (e.g. "tulli" for the sound-length
 // trio tuli / tuuli / tulli). Deliberately in no theme and no pool.
 export const lessonWords = toTheme(lessonWordsData as unknown as SourcedFile, nounConstructions);

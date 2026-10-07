@@ -18,7 +18,19 @@ import {
   animals,
   adjectives as allAdjectives,
   verbs as allVerbs,
+  numbers as allNumbers,
+  ordinals as allOrdinals,
+  time as allTime,
 } from "../content";
+import {
+  BIRTHDAY_FRAME,
+  MONTH_IDS,
+  ageSentence,
+  dateEnglish,
+  dateFi,
+  dateSegments,
+  yearsWord,
+} from "../content/dates";
 import {
   comparable,
   comparisonEnglish,
@@ -29,6 +41,7 @@ import {
   degreeEnglish,
   degreeForm,
   degreeSegments,
+  enName,
   superlativeEnglish,
   superlativeSegments,
   superlativeSentence,
@@ -37,6 +50,7 @@ import {
   type Degree,
 } from "../content/compare";
 import { byIds } from "../util/byIds";
+import { itemById as itemByIdSafe } from "../content/lookup";
 import {
   caseFormOf,
   commandFor,
@@ -81,7 +95,10 @@ export type ChooseMode =
   | "verb-type"
   | "degree"
   | "compare"
-  | "superlative";
+  | "superlative"
+  | "ordinal"
+  | "date"
+  | "age";
 
 export interface FormChoiceQuestion {
   /** Picture anchor, when there is one. */
@@ -476,6 +493,9 @@ export function choosePoolsFor(wordIds: string[] | undefined): ChoosePools {
     owners: known(people),
     things: known(stuff),
     adjectives: comparable(known(allAdjectives.items)),
+    numbers: known(allNumbers.items),
+    ordinals: known(allOrdinals.items),
+    months: known(allTime.items.filter((t) => MONTH_IDS.includes(t.id))),
     known: wordIds ? new Set(wordIds) : undefined,
   };
 }
@@ -490,6 +510,134 @@ export interface ChoosePools {
   adjectives?: LexicalItem[];
   /** Comparing rounds: the words met so far (unset = all). */
   known?: ReadonlySet<string>;
+  /** Number / date / age rounds. */
+  numbers?: LexicalItem[];
+  ordinals?: LexicalItem[];
+  months?: LexicalItem[];
+}
+
+// --- Numbers, dates and age ------------------------------------------------------
+
+const byValue = (items: LexicalItem[] | undefined, v: number) =>
+  items?.find((i) => i.value === v);
+const ordinalEn = (n: number) =>
+  `${n}${n === 1 ? "st" : n === 2 ? "nd" : n === 3 ? "rd" : "th"}`;
+
+/** "the 3rd" → kolmas (not kolme); "three" → kolme (not kolmas). */
+function ordinalQuestion(pools: ChoosePools): FormChoiceQuestion | null {
+  const ord = sample(pools.ordinals ?? [], 1)[0];
+  const v = ord?.value;
+  const num = v !== undefined ? byValue(pools.numbers, v) : undefined;
+  if (!ord || v === undefined || !num) return null;
+  const askOrder = Math.random() < 0.6;
+  const answer = askOrder ? ord.fi : num.fi;
+  const twin = askOrder ? num.fi : ord.fi;
+  const near = byValue(askOrder ? pools.ordinals : pools.numbers, v === 1 ? 2 : v - 1);
+  const options = finish(answer, [twin, near?.fi], 3);
+  if (!options) return null;
+  const rule = `*${ord.fi}* = ${ordinalEn(v)} — the ORDER word (first, second, third…). *${num.fi}* = ${v}, just the number.`;
+  const whyFor: Record<string, Why> = {
+    [twin]: { text: rule, example: [{ text: answer }] },
+  };
+  if (near) {
+    whyFor[near.fi] = {
+      text: `*${near.fi}* is ${askOrder ? ordinalEn(near.value!) : near.value}. You need ${askOrder ? ordinalEn(v) : v}: *${answer}*.`,
+      example: [{ text: answer }],
+    };
+  }
+  return {
+    emoji: askOrder ? ord.emoji : num.emoji,
+    cue: askOrder ? `the ${ordinalEn(v)} (${ord.en})` : `${v} (${num.en})`,
+    answer,
+    options,
+    why: { text: rule, example: [{ text: answer }] },
+    whyFor,
+  };
+}
+
+/** "May 5th" → "viides toukokuuta" (not "viisi toukokuuta", not "viides toukokuu"). */
+function dateQuestion(pools: ChoosePools): FormChoiceQuestion | null {
+  const ord = sample(pools.ordinals ?? [], 1)[0];
+  const month = sample(pools.months ?? [], 1)[0];
+  const num = ord?.value !== undefined ? byValue(pools.numbers, ord.value) : undefined;
+  if (!ord || !month) return null;
+  const date = dateFi(ord, month);
+  const plainMonth = dateFi(ord, month, "nominative");
+  const withNumber = num && dateFi(num, month);
+  const example = dateSegments(ord, month);
+  if (!date || !plainMonth || !example) return null;
+  // Half the time, the whole birthday sentence.
+  const birthday = Math.random() < 0.5;
+  const wrap = (x: string) => (birthday ? `${BIRTHDAY_FRAME.before} ${x}.` : x);
+  const answer = wrap(date);
+  const options = finish(answer, [withNumber && wrap(withNumber), wrap(plainMonth)], 3);
+  if (!options) return null;
+  const en = dateEnglish(ord, month);
+  const rule = `A date = the ORDER word (*${ord.fi}*, ${ordinalEn(ord.value!)}) + the month with **-ta / -tä**: *${date}*.`;
+  const whyFor: Record<string, Why> = {
+    [wrap(plainMonth)]: {
+      text: `In a date the month gets **-ta**: *${date}* ("the ${ordinalEn(ord.value!)} of ${month.en}").`,
+      example,
+    },
+  };
+  if (withNumber) {
+    whyFor[wrap(withNumber)] = {
+      text: `*${num!.fi}* is just "${num!.value}". A date uses the ORDER word: *${ord.fi}* (${ordinalEn(ord.value!)}).`,
+      example,
+    };
+  }
+  return {
+    emoji: birthday ? "🎂" : "📅",
+    cue: birthday ? `${BIRTHDAY_FRAME.en} ${en}.` : en,
+    answer,
+    options,
+    why: { text: rule, example },
+    whyFor,
+  };
+}
+
+/** "I'm 8 years old." → "Olen kahdeksan vuotta vanha." */
+function ageQuestion(pools: ChoosePools): FormChoiceQuestion | null {
+  const num = sample(
+    (pools.numbers ?? []).filter((n) => (n.value ?? 0) >= 5 && (n.value ?? 0) <= 10),
+    1,
+  )[0];
+  const ord = num && byValue(pools.ordinals, num.value!);
+  const years = yearsWord();
+  const year = itemByIdSafe("year");
+  const answer = num && ageSentence(num);
+  if (!num || !answer || !years || !year) return null;
+  const wrongOrd = ord && ageSentence(ord);
+  const wrongCase = ageSentence(num, year.fi);
+  const options = finish(answer, [wrongCase, wrongOrd], 3);
+  if (!options) return null;
+  const example: Segment[] = [
+    { text: `Olen ${num.fi} ` },
+    { text: years, mark: true },
+    { text: " vanha." },
+  ];
+  const whyFor: Record<string, Why> = {};
+  if (wrongCase)
+    whyFor[wrongCase] = {
+      text: `After a number (2 or more) the word gets **-a / -ta**: *${years}*, like *kaksi kirjaa*.`,
+      example,
+    };
+  if (wrongOrd)
+    whyFor[wrongOrd] = {
+      text: `*${ord!.fi}* means ${ordinalEn(ord!.value!)}. For your age use the number: *${num.fi}*.`,
+      example,
+    };
+  return {
+    emoji: "🎂",
+    cue: `I'm ${num.value} years old.`,
+    answer,
+    options,
+    why: {
+      text: `Number + *${years}* (years, with **-ta** after a number) + *vanha* (old).`,
+      example,
+    },
+    whyFor,
+  };
 }
 
 // --- Comparing: iso → isompi → isoin; "Norsu on isompi kuin hiiri." ------------
@@ -591,7 +739,7 @@ function superlativeQuestion(
   const whyFor: Record<string, Why> = {};
   for (const o of others) {
     whyFor[superlativeSentence(adj, o)!] = {
-      text: `That says "${superlativeEnglish(adj, o)}" — but the ${winner.en} is the ${sup}!`,
+      text: `That says "${superlativeEnglish(adj, o)}" — but ${enName(winner)} is the ${sup}!`,
       example,
     };
   }
@@ -674,6 +822,9 @@ export function buildChooseRound(
       q = compareQuestion(pools.adjectives ?? [], pools.known);
     else if (mode === "superlative")
       q = superlativeQuestion(pools.adjectives ?? [], pools.known);
+    else if (mode === "ordinal") q = ordinalQuestion(pools);
+    else if (mode === "date") q = dateQuestion(pools);
+    else if (mode === "age") q = ageQuestion(pools);
     else if (mode === "verb-type") {
       // Every verb can be asked about (no picture needed: the word IS the
       // question) — and a type is worth asking about many times.
