@@ -2886,3 +2886,12 @@ a.badge-strip {
   font-weight: 900;
   font-size: 1.1rem;
 }
+
+/* The English task in the choose-the-form game ("Answer YES", "Mom's bike"). */
+.choose-cue {
+  margin: 4px 0 0;
+  font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  font-weight: 900;
+  color: var(--brand);
+  text-align: center;
+}

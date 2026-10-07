@@ -107,7 +107,7 @@ describe('course home', () => {
     expect(cont.getAttribute('href')).toBe('/lesson/sounds');
     expect(cont.textContent).toMatch(/Unit 1 · Lesson/);
     const units = document.querySelectorAll('.unit');
-    expect(units).toHaveLength(24);
+    expect(units).toHaveLength(30);
     expect(units[0].className).toContain('unit--current');
     expect(units[1].className).toContain('unit--locked');
     // Review + Notebook entries, badges; no "Today's adventure" any more.
@@ -148,7 +148,7 @@ describe('course home', () => {
     expect(units[0].className).toContain('unit--done');
     expect(units[1].className).toContain('unit--current');
     expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
-    expect(screen.getByText('1 of 23 units done')).toBeInTheDocument();
+    expect(screen.getByText('1 of 29 units done')).toBeInTheDocument();
   });
 });
 
@@ -176,7 +176,7 @@ describe('lessons + notebook', () => {
     seedChild({}, {}, { checkpoints: { 'hello': { passedAt: 1, best: 1, attempts: 1 } } });
     renderAt('/notebook');
     expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
-    expect(screen.getByText(/22 more lessons unlock/)).toBeInTheDocument();
+    expect(screen.getByText(/28 more lessons unlock/)).toBeInTheDocument();
   });
 });
 
@@ -186,7 +186,7 @@ describe('achievements', () => {
     renderAt('/achievements');
     expect(screen.getByText(/0 of \d+ earned/)).toBeInTheDocument();
     expect(screen.getByText('Practice 3 days in a row.')).toBeInTheDocument();
-    expect(screen.getByLabelText(/Writer: 0 of 10 sentence steps/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Writer: 0 of 25 sentences typed/)).toBeInTheDocument();
   });
 
   it('is one tap from home', () => {
@@ -240,7 +240,7 @@ describe('grown-up dashboard', () => {
     );
     expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
     expect(screen.getByText(/This is…/)).toBeInTheDocument();
-    expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
+    expect(screen.getByText('Lv 2/3')).toBeInTheDocument();
   });
 
   it('shows can-do statements backed by passed checkpoints', () => {

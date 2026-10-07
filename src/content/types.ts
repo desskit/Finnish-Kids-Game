@@ -154,6 +154,12 @@ export interface Construction {
    * hungry", not "I have a hunger". English meta-text only.
    */
   glossById?: Record<string, string>;
+  /**
+   * Verb carriers ("Haluan ___." → "Haluan leikkiä"): the slot takes a VERB in
+   * its basic (infinitive) form — the sourced dictionary form itself. `case`
+   * is then just 'nominative' (unmarked).
+   */
+  verb?: 'infinitive';
 }
 
 export interface Theme {
@@ -174,6 +180,7 @@ export function inflectionKey(c: CaseId, n: GrammaticalNumber): string {
 
 /** The correct sourced form for an item in a construction's slot, if available. */
 export function formFor(item: LexicalItem, con: Construction): string | undefined {
+  if (con.verb) return item.topic === 'verbs' ? item.fi : undefined;
   if (con.possessor) return item.inflections[`poss_${con.possessor}_${con.case}_singular`];
   return item.inflections[inflectionKey(con.case, con.number)];
 }
@@ -196,7 +203,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // ever mixed them in. The one exception: a thing-describing adjective is a
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not a
 // feeling, which needs a living subject ("Tämä on iloinen" is wrong).
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers'];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const FEELING_ADJECTIVES = [
   'happy',
@@ -404,6 +411,29 @@ export function conjugatedClause(
   const form = verbForm(verb, tense, polarity, person);
   if (!p || !form) return undefined;
   return `${p.fi} ${form}`;
+}
+
+const OWNER_EN: Record<string, string> = {
+  mother: "Mom's",
+  father: "Dad's",
+  grandmother: "Grandma's",
+  grandfather: "Grandpa's",
+};
+
+/** English for "isän pyörä": "Dad's bike", "the teacher's book". */
+export function ownerGloss(owner: LexicalItem, thing: LexicalItem): string {
+  return `${OWNER_EN[owner.id] ?? `the ${owner.en}'s`} ${thing.en}`;
+}
+
+/** "Don't…!" — the sourced negative command, e.g. "älä juokse". */
+export function dontForm(verb: LexicalItem): string | undefined {
+  return verb.inflections.imperative_active_negative_2sg;
+}
+
+/** "Let's…!" — the sourced present passive, e.g. "juostaan", which spoken
+ *  Finnish uses for "let's". */
+export function letsForm(verb: LexicalItem): string | undefined {
+  return verb.inflections.present_passive_positive;
 }
 
 /** The sourced imperative form ("hyppää" / "hypätkää"), looked up by tag. */

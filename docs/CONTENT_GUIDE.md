@@ -191,9 +191,12 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   the vocab warm-up, `sceneStep(...)` for the unit's conversation,
   `reviewStep(unitId)` for a Kertaus, or a plain `SkillNode`. Dialogue, scene
   and story steps take `content.ids` to pick registry entries.
-- **Build, order AND type before done.** `phraseStep` ramps `build → order →
-  spell → spell` (top level 4), so a finished sentence step means the child
-  has tapped, assembled and typed the sentence.
+- **Build and order before done; typing is a minor extra.** `phraseStep`
+  ramps `build → order → order` (top level 3). From `TYPING_FROM_UNIT`
+  (Describing) on, sentence steps also get `minor: spell`: from level 2, one
+  round in four asks the child to type the sentence. Minor rounds earn stars
+  and count toward the Writer achievement, but never move the level or decide
+  "done" (`ActivityProgress.bonus`) — a small challenge, never a roadblock.
 - `checkpoint` (optional `ActivityKind`) is the game a step plays in its
   unit's checkpoint. `phraseStep` uses `order` and `wordsStep` uses `name`;
   without it the checkpoint uses the step's top game at its done level.
@@ -212,7 +215,7 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
 - **"Muistatko?" in checkpoints.** From unit 3 on, `checkpointPlan` adds a
   2-question part from one earlier unit's step, picked from the attempt count,
   so a retry asks about something different.
-- Units 1–23 pin `maxTier` to 10 automatically, because a step's
+- Every unit but Mestari pins `maxTier` to 10 automatically, because a step's
   constructions are already exactly what its lesson taught. A conjugation step
   also pins `verbCombos` to its lesson's tense. Only Mestari (the last unit)
   is unpinned, so its original deep ladders climb to L9–10.
@@ -227,6 +230,30 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   words step: Listen-and-tap shows the English word on the card, Name-it
   prompts with the English word, and Build shows the gloss. Only count, match
   and yes/no need a picture, and they filter those words out.
+
+### Choose-the-form steps (`activity: 'choose'`)
+
+`src/game/formChoice.ts` + `ChooseForm.tsx`: the options are the SAME word(s)
+in several real forms, and the child picks the one this moment needs. Set
+`content.choose` to:
+
+- `answer` — *Syötkö?* → *Syön.* / *En syö.* (not *Syöt.*)
+- `ask` — "Do you sleep?" → *Nukutko?*
+- `mood` — *Juokse! / Älä juokse! / Juostaan!*
+- `pronoun` — *Auta minua! / Anna se minulle! / Pidän sinusta.*
+- `owner` — *isän pyörä* (not *isä pyörä*)
+
+Verb forms come from the sourced tables (the build keeps the "don't" and
+"let's" forms too). Two small closed sets are hand-authored and pinned by
+tests: `questions.ts` (*syötkö* = sourced *syöt* + -kö, checked by vowel
+harmony) and `pronouns.ts` (*minua, minulle…* — the vendored data has no
+pronoun paradigm).
+
+### Verb carriers (`verb: 'infinitive'`)
+
+*Haluan ___.*, *En halua ___.*, *Osaan ___.*, *Saanko ___?* take a VERB in its
+dictionary form (the sourced infinitive). Use `topics: ['verbs']` plus an
+`onlyIds` list of verbs that read naturally.
 
 ### Carrier options added for the expansion
 

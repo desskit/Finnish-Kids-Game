@@ -7,10 +7,10 @@ import { badgeEnv } from './path';
 
 const ENV: BadgeEnv = {
   checkpointUnitIds: ['u1', 'u2', 'u3', 'u4'],
-  phraseStepIds: ['p1', 'p2'],
+  minorKinds: { p1: 'spell' },
   kertausStepIds: ['k1', 'k2'],
   conversationStepIds: ['c1'],
-  skillKinds: { p1: ['build', 'order', 'spell', 'spell'], w1: ['listen', 'name', 'name'] },
+  skillKinds: { p1: ['build', 'order', 'order'], w1: ['listen', 'name', 'name'] },
   allKinds: ['build', 'order', 'spell', 'listen', 'name'],
 };
 
@@ -58,10 +58,10 @@ describe('achievement catalog', () => {
     }
   });
 
-  it('measures against the real course (23 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
-    expect(badgeEnv.checkpointUnitIds.length).toBe(23);
+  it('measures against the real course (29 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
+    expect(badgeEnv.checkpointUnitIds.length).toBe(29);
     expect(badgeEnv.kertausStepIds).toHaveLength(4);
-    expect(badgeEnv.phraseStepIds.length).toBeGreaterThanOrEqual(10);
+    expect(Object.keys(badgeEnv.minorKinds).length).toBeGreaterThanOrEqual(10);
     expect(badgeEnv.allKinds).not.toContain('say'); // needs a microphone — never required
     expect(badgeEnv.allKinds).toEqual(expect.arrayContaining(['spell', 'conversation', 'possessive']));
   });
@@ -96,10 +96,11 @@ describe('earning achievements', () => {
   });
 
   it('skill badges reward the hard parts: typed sentences, every Kertaus, conversations', () => {
-    const proven = progress({ level: 4, topProvenAt: 1 });
-    expect(has(child({ progress: { u: { p1: proven } } }), 'writer')).toBe(false);
-    const ten = Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`p${i}`, proven]));
-    expect(has(child({ progress: { u: ten } }), 'writer', { ...ENV, phraseStepIds: Object.keys(ten) })).toBe(true);
+    const proven = progress({ level: 3, topProvenAt: 1 });
+    // Writer counts sentences TYPED right in the minor typing rounds.
+    const typed = (right: number) => progress({ bonus: { plays: 5, right, total: 30 } });
+    expect(has(child({ progress: { u: { p1: typed(24) } } }), 'writer')).toBe(false);
+    expect(has(child({ progress: { u: { p1: typed(20) }, v: { p2: typed(5) } } }), 'writer')).toBe(true);
     expect(has(child({ progress: { a: { k1: proven } } }), 'memory')).toBe(false);
     expect(has(child({ progress: { a: { k1: proven }, b: { k2: proven } } }), 'memory')).toBe(true);
     expect(has(child({ progress: { u: { c1: progress({ plays: 14 }) } } }), 'chatter')).toBe(false);
@@ -110,7 +111,11 @@ describe('earning achievements', () => {
     const c = child({ progress: { u: { p1: progress({ level: 2 }), w1: progress({ level: 3 }) } } });
     expect([...kindsPlayed(c, ENV)].sort()).toEqual(['build', 'listen', 'name', 'order']);
     expect(has(c, 'all-games')).toBe(false);
-    const all = child({ progress: { u: { p1: progress({ level: 4 }), w1: progress({ level: 2 }) } } });
+    const noTyping = child({ progress: { u: { p1: progress({ level: 3 }), w1: progress({ level: 2 }) } } });
+    expect(has(noTyping, 'all-games')).toBe(false); // typing (the minor round) not played yet
+    const all = child({
+      progress: { u: { p1: progress({ level: 3, bonus: { plays: 1, right: 3, total: 6 } }), w1: progress({ level: 2 }) } },
+    });
     expect(has(all, 'all-games')).toBe(true);
   });
 

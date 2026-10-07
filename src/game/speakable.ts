@@ -32,6 +32,7 @@ import { stories } from '../content/stories';
 import { countingPhrase } from '../content/types';
 import { englishVerbClause } from '../content/englishVerb';
 import { sample } from '../util/shuffle';
+import { buildChooseRound, choosePoolsFor } from './formChoice';
 
 // "Sano se" for EVERY skill: each node's own Finnish becomes something the child
 // says — bare words for vocab, and the node's real phrases/sentences for the
@@ -260,6 +261,14 @@ function routeTargets(
           stories.filter((s) => s.tier <= tier).flatMap((s) => s.pages),
           N,
         ).map((p) => ({ say: p.fi, gloss: p.en, emoji: p.emoji })),
+      );
+
+    // Choose the right form: say the right answer ("Syön.", "Auta minua!").
+    case 'choose':
+      return keep(
+        buildChooseRound(skill.content.choose ?? 'answer', choosePoolsFor(skill.content.wordIds), N, 3).map(
+          (q) => ({ say: q.answer, gloss: q.cue, emoji: q.emoji }),
+        ),
       );
 
     // Vocab (listen / name / spell): say the bare word.

@@ -12,6 +12,8 @@ import {
   isMixable,
   mixStepFor,
   badgeEnv,
+  isMinorRound,
+  TYPING_FROM_UNIT,
 } from './path';
 import { nounConstructions } from '../content/constructions';
 import { dialogues } from '../content/dialogues';
@@ -23,8 +25,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is twenty-four units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(24);
+  it('is thirty units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(30);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -170,9 +172,10 @@ describe('the course (units × steps)', () => {
 
   it('derives the badge env from the course', () => {
     expect(badgeEnv.checkpointUnitIds).toHaveLength(PATH.filter((u) => u.checkpoint !== false).length);
-    expect(badgeEnv.phraseStepIds).toContain('this-is');
+    expect(badgeEnv.minorKinds['in-on']).toBe('spell');
+    expect(badgeEnv.minorKinds['this-is']).toBeUndefined();
     expect(badgeEnv.conversationStepIds).toContain('hello-talk');
-    expect(badgeEnv.skillKinds['this-is']).toEqual(['build', 'order', 'spell', 'spell']);
+    expect(badgeEnv.skillKinds['this-is']).toEqual(['build', 'order', 'order']);
   });
 });
 
@@ -265,6 +268,34 @@ describe('rendering course steps', () => {
   });
 });
 
+describe('the six everyday-grammar units', () => {
+  const at = (id: string) => PATH.findIndex((u) => u.id === id);
+
+  it('each comes after the grammar its answers need', () => {
+    expect(at('owners')).toBe(at('whose') + 1); // my / your → Mom's
+    expect(at('asking')).toBeGreaterThan(at('not-doing')); // "Syötkö? – En syö."
+    expect(at('wanting')).toBeGreaterThan(at('likes'));
+    expect(at('commands')).toBeGreaterThan(at('doing'));
+    // Question words are answered with place endings and times.
+    expect(at('question-words')).toBeGreaterThan(at('moving'));
+    expect(at('question-words')).toBeGreaterThan(at('when'));
+    // "minulle" / "minusta" / "minua" reuse -lle, -sta, -a.
+    expect(at('me-you')).toBeGreaterThan(at('moving'));
+    expect(at('me-you')).toBeGreaterThan(at('seeing'));
+  });
+
+  it('practise with the choose-the-form game, verb carriers, commands and Q&A', () => {
+    expect(findSkill('owner-forms')!.skill.content.choose).toBe('owner');
+    expect(findSkill('answer-it')!.skill.content.choose).toBe('answer');
+    expect(findSkill('ask-it')!.skill.content.choose).toBe('ask');
+    expect(findSkill('do-dont-lets')!.skill.content.choose).toBe('mood');
+    expect(findSkill('me-you-forms')!.skill.content.choose).toBe('pronoun');
+    expect(findSkill('want-to')!.skill.content.constructionIds).toContain('i-want-to');
+    expect(findSkill('commands-tpr')!.skill.activity).toBe('command');
+    expect(findSkill('question-words-qa')!.skill.content.ids).toHaveLength(10);
+  });
+});
+
 describe('possessive endings in the course', () => {
   it('teaches "my / your" right after having — before verbs — with plain forms only', () => {
     const ids = PATH.map((u) => u.id);
@@ -285,20 +316,35 @@ describe('possessive endings in the course', () => {
 
 describe('in-session game rotation', () => {
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
-    const { skill } = findSkill('this-is')!; // ramp: build, order, spell, spell
+    const { skill } = findSkill('this-is')!; // ramp: build, order, order
     expect(activitiesUpTo(skill, 1)).toEqual(['build']);
     expect(activitiesUpTo(skill, 2)).toEqual(['build', 'order']);
-    expect(activitiesUpTo(skill, 3)).toEqual(['build', 'order', 'spell']);
-    expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order', 'spell']);
+    expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order']);
   });
 
-  it('makes a phrase step BUILD, ORDER and TYPE sentences before it counts as done', () => {
-    // Done = its top level proven, and every game type is unlocked by then.
+  it('makes a phrase step BUILD and ORDER sentences before it counts as done — typing never required', () => {
     for (const id of ['this-is', 'i-like', 'in-on', 'where-i-am', 'today-is']) {
       const { skill } = findSkill(id)!;
-      expect(activitiesUpTo(skill, skill.maxLevel!), id).toEqual(['build', 'order', 'spell']);
+      expect(activitiesUpTo(skill, skill.maxLevel!), id).toEqual(['build', 'order']);
       expect(skill.checkpoint, id).toBe('order');
     }
+  });
+
+  it('mixes typing in as a MINOR round only in the later units, from level 2, one round in four', () => {
+    const start = PATH.findIndex((u) => u.id === TYPING_FROM_UNIT);
+    expect(start).toBeGreaterThan(10); // a base first
+    PATH.forEach((u, i) => {
+      for (const s of u.skills) {
+        if (s.activities?.join() !== 'build,order,order' || u.id === 'mestari') continue;
+        if (i < start) expect(s.minor, `${u.id}/${s.id}`).toBeUndefined();
+        else expect(s.minor, `${u.id}/${s.id}`).toEqual({ kind: 'spell', fromLevel: 2, every: 4 });
+      }
+    });
+    const late = findSkill('in-on')!.skill;
+    expect([0, 1, 2, 3, 4, 5, 6, 7].map((n) => isMinorRound(late, 1, n))).not.toContain(true);
+    expect([0, 1, 2, 3, 4, 5, 6, 7].filter((n) => isMinorRound(late, 2, n))).toEqual([3, 7]);
+    expect(activityForRound(late, 2, 3)).toBe('spell');
+    expect(isMinorRound(findSkill('this-is')!.skill, 3, 3)).toBe(false); // early unit: never
   });
 
   it('unlocks every game of a step\'s ladder by its top level (none skipped before "done")', () => {
@@ -318,11 +364,11 @@ describe('in-session game rotation', () => {
 
   it('serves a VARIED, deterministic mix across a session', () => {
     const { skill } = findSkill('where-is')!;
-    expect([0, 1, 2, 3].map((n) => activityForRound(skill, 4, n))).toEqual([
+    expect([0, 1, 2, 3].map((n) => activityForRound(skill, 3, n))).toEqual([
       'build',
       'order',
-      'spell',
       'build',
+      'spell', // the minor typing round
     ]);
   });
 

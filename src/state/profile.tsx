@@ -75,6 +75,8 @@ interface ProfileContextValue {
     stars: number,
     total: number,
     maxLevel?: number,
+    /** A minor bonus round (typing): counted, never moves the level. */
+    bonus?: boolean,
   ) => void;
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
@@ -254,11 +256,11 @@ export function ProfileProvider({
           };
         }),
 
-      recordRound: (topicId, activityId, stars, total, maxLevel) =>
+      recordRound: (topicId, activityId, stars, total, maxLevel, bonus) =>
         updateActive((c) => {
           const streak = bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now()));
           return {
-            ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel),
+            ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel, bonus),
             ...streak,
             bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
           };

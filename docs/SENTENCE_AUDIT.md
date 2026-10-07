@@ -5987,6 +5987,18 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Kello on kaksitoista. _(twelve)_
 - Kello on kaksi. _(two)_
 
+### `i-want-to` — “I want to ___.” (tier 3, nominative singular, 0 words)
+
+
+### `i-dont-want-to` — “I don't want to ___.” (tier 3, nominative singular, 0 words)
+
+
+### `i-can` — “I can ___.” (tier 3, nominative singular, 0 words)
+
+
+### `may-i` — “May I ___?” (tier 3, nominative singular, 0 words)
+
+
 ## 2. Sentence templates (template × swappable candidates)
 
 ### `see-big-animal` — “I see the big {obj}.” (tier 5)

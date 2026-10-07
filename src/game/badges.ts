@@ -36,8 +36,8 @@ export interface BadgeProgress {
 export interface BadgeEnv {
   /** Units that end in a checkpoint (every unit but Mestari). */
   checkpointUnitIds: string[];
-  /** Sentence (phrase) steps — the ones whose top level includes typing. */
-  phraseStepIds: string[];
+  /** skillId → the minor (bonus) game it mixes in, e.g. typing. */
+  minorKinds: Record<string, string>;
   /** Kertaus (mixed review) steps. */
   kertausStepIds: string[];
   /** Conversation (scene) steps. */
@@ -84,6 +84,7 @@ export function kindsPlayed(child: Child, env: BadgeEnv): Set<string> {
     const ladder = env.skillKinds[id];
     if (!ladder) continue;
     for (const k of ladder.slice(0, Math.max(1, p.level ?? 1))) out.add(k);
+    if ((p.bonus?.plays ?? 0) > 0 && env.minorKinds[id]) out.add(env.minorKinds[id]);
   }
   return out;
 }
@@ -182,8 +183,13 @@ export const BADGES: Badge[] = [
     titleFi: 'Kirjoittaja',
     titleEn: 'Writer',
     category: 'skills',
-    hintEn: 'Finish 10 sentence steps — their top level has you TYPE the sentence.',
-    measure: (c, env) => count(provenAmong(c, env.phraseStepIds), 10, 'sentence steps'),
+    hintEn: 'Type 25 sentences right. Typing pops up now and then in the later units.',
+    measure: (c) =>
+      count(
+        entries(c).reduce((n, [, p]) => n + (p?.bonus?.right ?? 0), 0),
+        25,
+        'sentences typed',
+      ),
   },
   {
     id: 'memory',

@@ -28,9 +28,26 @@ export function recordRoundOnChild(
   stars: number,
   total: number,
   maxLevel: number = MAX_LEVEL,
+  /** A minor bonus round (see ActivityProgress.bonus): counted, never levelled. */
+  bonus = false,
 ): Child {
   const topic = child.progress[topicId] ?? {};
   const prev = topic[activityId];
+  if (bonus) {
+    const b = prev?.bonus ?? { plays: 0, right: 0, total: 0 };
+    const entry: ActivityProgress = {
+      plays: prev?.plays ?? 0,
+      bestStars: prev?.bestStars ?? 0,
+      totalStars: (prev?.totalStars ?? 0) + stars,
+      totalPossible: prev?.totalPossible ?? 0,
+      lastPlayed: Date.now(),
+      level: prev?.level ?? 1,
+      recent: prev?.recent ?? [],
+      ...(prev?.topProvenAt ? { topProvenAt: prev.topProvenAt } : {}),
+      bonus: { plays: b.plays + 1, right: b.right + stars, total: b.total + total },
+    };
+    return { ...child, progress: { ...child.progress, [topicId]: { ...topic, [activityId]: entry } } };
+  }
   const accuracy = total > 0 ? stars / total : 0;
   const adapt = applyRound(prev?.level ?? 1, prev?.recent ?? [], accuracy, maxLevel);
 
@@ -42,6 +59,7 @@ export function recordRoundOnChild(
     lastPlayed: Date.now(),
     level: adapt.level,
     recent: adapt.recent,
+    ...(prev?.bonus ? { bonus: prev.bonus } : {}),
   };
   const proven =
     prev?.topProvenAt ?? (provesTop(adapt.level, adapt.recent, maxLevel) ? Date.now() : undefined);

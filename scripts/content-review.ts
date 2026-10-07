@@ -24,6 +24,8 @@ import { stories } from '../src/content/stories';
 import { nounConstructions } from '../src/content/constructions';
 import { sentenceConstructions } from '../src/content/sentences';
 import { lessons } from '../src/content/lessons';
+import { YOU_QUESTION } from '../src/content/questions';
+import { PRONOUNS, PRONOUN_FRAMES } from '../src/content/pronouns';
 import {
   animals,
   food,
@@ -34,6 +36,7 @@ import {
   clothes,
   school,
   freetime,
+  verbs,
 } from '../src/content';
 import { formFor, sentenceFor, suitsSlot } from '../src/content/types';
 
@@ -98,6 +101,7 @@ const ALL_NOUNS = [
   ...clothes.items,
   ...school.items,
   ...freetime.items,
+  ...verbs.items,
 ].sort((a, b) => (a.id < b.id ? -1 : 1));
 
 const carrierRows: Row[] = nounConstructions.map((con) => {
@@ -106,6 +110,22 @@ const carrierRows: Row[] = nounConstructions.map((con) => {
   const sample = sampleItem ? ` — e.g. ${sentenceFor(sampleItem, con)}` : '';
   return { key: `carrier:${con.id}`, fi: `${skeleton}${sample}`, en: con.en };
 });
+
+// Hand-authored grammar tables (not in the sourced data): question forms and
+// the pronoun paradigm. One row each, so a reviewer can approve them line by line.
+const questionRows: Row[] = verbs.items.map((v) => ({
+  key: `question:${v.id}`,
+  fi: `${YOU_QUESTION[v.id]}?`,
+  en: `Do you ${v.en}?`,
+}));
+const pronounRows: Row[] = [
+  ...Object.entries(PRONOUNS).map(([person, f]) => ({
+    key: `pronoun:${person}`,
+    fi: [f.nominative, f.partitive, f.accusative, f.allative, f.elative, f.adessive, f.genitive].join(', '),
+    en: `${f.enObject} — nom, part, acc, all, ela, ade, gen`,
+  })),
+  ...PRONOUN_FRAMES.map((fr) => ({ key: `pronoun-frame:${fr.id}`, fi: `${fr.before} ___${fr.punct}`, en: fr.en })),
+];
 
 const templateRows: Row[] = sentenceConstructions.map((t) => ({
   key: `template:${t.id}`,
@@ -161,6 +181,8 @@ const all = [
   ...storyRows,
   ...carrierRows,
   ...templateRows,
+  ...questionRows,
+  ...pronounRows,
   ...lessonRows,
   ...strayRows,
 ];
@@ -195,6 +217,14 @@ const lines: string[] = [
   `## Sentence templates — authored skeletons (${templateRows.length})`,
   '',
   ...table(templateRows),
+  '',
+  `## Question forms — "do you…?" (${questionRows.length})`,
+  '',
+  ...table(questionRows),
+  '',
+  `## Pronoun forms and frames (${pronounRows.length})`,
+  '',
+  ...table(pronounRows),
   '',
   `## Lesson prose — Finnish quoted in the explanations (${lessonRows.length})`,
   '',

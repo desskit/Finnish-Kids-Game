@@ -1,6 +1,13 @@
 import { cloneElement, useRef, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import { badgeEnv, findSkill, renderActivity, activityForRound, mixStepFor } from './game/path';
+import {
+  badgeEnv,
+  findSkill,
+  renderActivity,
+  activityForRound,
+  isMinorRound,
+  mixStepFor,
+} from './game/path';
 import { difficultyFor } from './game/adapt';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
@@ -88,6 +95,8 @@ function SkillRoute() {
   // a grown-up hasn't switched it off.
   const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
   const activity = activityForRound(play.skill, round.level, round.no, speechOn);
+  // A minor bonus round (typing in later units): scored, never levelled.
+  const bonus = isMinorRound(play.skill, round.level, round.no);
   const onExit = () => navigate('/');
   const element = renderActivity(play.skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
@@ -100,13 +109,13 @@ function SkillRoute() {
     const before = activeChild;
     // This node's own ladder depth caps the adaptive climb (default 4).
     const maxLevel = skill.maxLevel ?? 4;
-    const after = recordRoundOnChild(before, chapter.id, skill.id, segStars, total, maxLevel);
+    const after = recordRoundOnChild(before, chapter.id, skill.id, segStars, total, maxLevel, bonus);
     const afterLevel = activityLevel(after, chapter.id, skill.id);
     const leveledUp =
       before.adaptive !== false && afterLevel > activityLevel(before, chapter.id, skill.id);
     const had = earnedBadgeIds(before, BADGE_ENV);
     const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
-    recordRound(chapter.id, skill.id, segStars, total, maxLevel);
+    recordRound(chapter.id, skill.id, segStars, total, maxLevel, bonus);
     if (leveledUp || newBadges.length > 0) {
       setToast((t) => ({
         outcome: { leveledUp, level: afterLevel, newBadges },
