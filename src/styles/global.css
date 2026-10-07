@@ -2779,3 +2779,110 @@ button:focus-visible,
   margin: 0;
   gap: 2px;
 }
+
+/* ---------- Achievements (Saavutukset) ---------- */
+.achievements__group {
+  width: 100%;
+  max-width: 620px;
+  margin: 8px auto 4px;
+}
+
+.achievements__heading {
+  margin: 12px 4px 8px;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.achievements__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+.achievement__emoji {
+  font-size: 2.2rem;
+  filter: grayscale(1);
+  opacity: 0.45;
+  flex: none;
+}
+
+.achievement--earned .achievement__emoji {
+  filter: none;
+  opacity: 1;
+}
+
+.achievement__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.achievement__title {
+  font-weight: 900;
+}
+
+.achievement__hint {
+  font-size: 0.92rem;
+}
+
+.achievement__done {
+  color: var(--good);
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.achievement__progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.achievement__bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 99px;
+  background: var(--brand-soft);
+  overflow: hidden;
+}
+
+.achievement__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+  border-radius: 99px;
+}
+
+.achievement__count {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+a.badge-strip {
+  text-decoration: none;
+}
+
+.checkpoint__new-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 1.1rem;
+}

@@ -20,7 +20,7 @@ import {
   stepStatus,
   unitStatus,
   unitsCompleted,
-  DEFAULT_DONE_LEVEL,
+  topLevel,
   type NextAction,
   type Unit,
 } from '../game/course';
@@ -108,6 +108,17 @@ export default function CourseHome() {
             {seenCount === 0 ? 'Nothing yet' : dueCount > 0 ? `${dueCount} due` : 'All caught up'}
           </span>
         </Link>
+        <Link className="home-tile" to="/achievements">
+          <span className="home-tile__icon" aria-hidden="true">
+            🏅
+          </span>
+          <span className="home-tile__label">
+            Saavutukset <span className="en">Achievements</span>
+          </span>
+          <span className="home-tile__meta en">
+            {earned.size} of {BADGES.length} earned
+          </span>
+        </Link>
         <Link className="home-tile" to="/notebook">
           <span className="home-tile__icon" aria-hidden="true">
             📓
@@ -119,7 +130,7 @@ export default function CourseHome() {
         </Link>
       </div>
 
-      <div className="badge-strip" aria-label="Badges">
+      <Link className="badge-strip" to="/achievements" aria-label={`Achievements: ${earned.size} of ${BADGES.length} earned`}>
         {BADGES.map((b) => {
           const has = earned.has(b.id);
           return (
@@ -132,7 +143,7 @@ export default function CourseHome() {
             </span>
           );
         })}
-      </div>
+      </Link>
 
       <h2 className="course-progress en">
         {completed} of {total} units done
@@ -225,7 +236,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
       {unit.skills.map((step) => {
         const st = stepStatus(activeChild, unit, step, unlockAll);
         const lvl = stepLevel(activeChild, unit, step);
-        const target = step.doneAtLevel ?? DEFAULT_DONE_LEVEL;
+        const top = topLevel(step);
         const body = (
           <>
             <span className="unit-step__icon" aria-hidden="true">
@@ -238,8 +249,10 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
               {st !== 'locked' && (
                 <span className="unit-step__meta en">
                   {st === 'done'
-                    ? `Level ${lvl}/${step.maxLevel ?? 4} — keep climbing!`
-                    : `Level ${lvl} · done at level ${target}`}
+                    ? `All ${top} levels passed`
+                    : lvl >= top
+                      ? `Top level ${top} — pass it to finish the step`
+                      : `Level ${lvl} of ${top}`}
                 </span>
               )}
               {step.exampleFi && st !== 'locked' && (

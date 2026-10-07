@@ -1,3 +1,4 @@
+import type { BadgeEnv } from './badges';
 import type { ReactElement } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import {
@@ -126,6 +127,9 @@ export interface SkillContent {
   mix?: boolean;
   /** Resolved step ids a mix step rotates through — set by the course builder. */
   mixOf?: string[];
+  /** Possessive steps: 'never' = "my book" only; 'always' = mostly the place
+   *  forms ("in my house"); default = place forms join from level 4. */
+  possessiveCases?: 'never' | 'always';
 }
 
 export interface SkillNode {
@@ -173,11 +177,6 @@ export interface SkillNode {
    * question; new-words steps a 'name' question.
    */
   checkpoint?: ActivityKind;
-  /**
-   * The level at which this step counts as DONE for unit progress (default 2).
-   * The step keeps climbing past it if the child keeps playing.
-   */
-  doneAtLevel?: number;
   /**
    * Difficulty knobs pinned for this step, merged over the level's own
    * (`difficultyFor`). Course steps pin `maxTier` (their constructions are
@@ -419,10 +418,10 @@ function wordsStep(unitId: string, pool: Pool, titleEn = 'New words'): SkillNode
 }
 
 /** A carrier-phrase practice step. L1 recognizes (build); L2 mixes in
- *  ASSEMBLING the sentence (order) — and the step only counts as done after
- *  L2 is proven (doneAtLevel 3), so every child builds sentences before
- *  moving on. Typing (spell) is the next rung up. The checkpoint asks for an
- *  assembly question. */
+ *  ASSEMBLING the sentence (order); L3–4 add TYPING it (spell). Like every
+ *  course step it is done only once its top level is proven — so a child has
+ *  built, ordered AND typed sentences before moving on. The checkpoint asks
+ *  for an assembly question. */
 function phraseStep(
   id: string,
   titleFi: string,
@@ -440,7 +439,6 @@ function phraseStep(
     activity: 'build',
     activities: ['build', 'order', 'spell', 'spell'],
     maxLevel: 4,
-    doneAtLevel: 3,
     checkpoint: 'order',
     content: { constructionIds, pool },
     exampleFi,
@@ -462,7 +460,9 @@ function reviewStep(unitId: string): SkillNode {
   };
 }
 
-/** A unit's "use it" conversation — a short scene built on its grammar. */
+/** A unit's "use it" conversation — a short scene built on its grammar. Its
+ *  ladder is short (2): it is ONE scripted scene, and a level only adds a reply
+ *  tile, so proving it means holding the whole chat cleanly a few times. */
 function sceneStep(id: string, sceneId: string, titleFi: string, titleEn: string): SkillNode {
   return {
     id,
@@ -470,7 +470,7 @@ function sceneStep(id: string, sceneId: string, titleFi: string, titleEn: string
     titleEn,
     icon: '💬',
     activity: 'conversation',
-    maxLevel: 3,
+    maxLevel: 2,
     content: { ids: [sceneId] },
   };
 }
@@ -629,6 +629,39 @@ const UNITS: Chapter[] = [
       phraseStep('have-or-not', 'On vai ei?', 'Have or not', '⚖️', ['i-have', 'i-havent', 'you-have']),
       sceneStep('not-having-talk', 'going-out', 'Mennään ulos', 'Going outside'),
       reviewStep('not-having'),
+    ],
+  },
+  {
+    id: 'whose',
+    titleFi: 'Kenen?',
+    titleEn: 'Whose?',
+    blurbEn: '"My", "your" and "their" are endings: kirjani, kirjasi, kirjansa.',
+    accent: '#9333ea',
+    icon: '🙋',
+    lessonId: 'possessive',
+    newWords: [],
+    skills: [
+      {
+        id: 'possessives',
+        titleFi: 'Kenen?',
+        titleEn: 'Whose is it?',
+        icon: '🙋',
+        activity: 'possessive',
+        // "my book", "your bike" only — the "in my house" forms come in the
+        // Where? unit, once the place endings are known.
+        maxLevel: 3,
+        content: { pool: 'nouns', possessiveCases: 'never' },
+        exampleFi: 'kirjani, kirjasi',
+      },
+      phraseStep(
+        'mine-yours',
+        'Tämä on minun…',
+        'My, your, their',
+        '🫵',
+        ['this-is-mine', 'this-is-yours', 'this-is-theirs'],
+        'Tämä on minun kirjani.',
+      ),
+      sceneStep('whose-talk', 'whose-is-it', 'Kenen tämä on?', 'Whose is this?'),
     ],
   },
   {
@@ -876,8 +909,26 @@ const UNITS: Chapter[] = [
     ],
     skills: [
       wordsStep('where', 'places', 'Places'),
-      phraseStep('where-is', 'Missä on…?', 'Where is…?', '🔍', ['where-is'], 'Missä on reppu?'),
+      phraseStep(
+        'where-is',
+        'Missä on…?',
+        'Where is…?',
+        '🔍',
+        ['where-is', 'where-is-yours'],
+        'Missä on sinun reppusi?',
+      ),
       phraseStep('in-on', 'Missä se on?', 'In or on', '📦', ['in-it', 'on-it'], 'Kirja on laatikossa.', 'places'),
+      {
+        id: 'in-my',
+        titleFi: 'Talossani',
+        titleEn: 'In my house',
+        icon: '🏠',
+        activity: 'possessive',
+        // The "my" ending stacked AFTER a place ending: talo-ssa-ni.
+        maxLevel: 3,
+        content: { pool: 'places', possessiveCases: 'always' },
+        exampleFi: 'talossani, huoneessasi',
+      },
       sceneStep('where-talk', 'tidy-up', 'Missä se on?', 'Where is it?'),
     ],
   },
@@ -1015,37 +1066,6 @@ const UNITS: Chapter[] = [
         'Kissa on tuolin alla.',
       ),
       sceneStep('around-talk', 'hiding', 'Piilossa', 'Hiding'),
-    ],
-  },
-  {
-    id: 'whose',
-    titleFi: 'Kenen?',
-    titleEn: 'Whose?',
-    blurbEn: '"My", "your" and "their" are endings too: kirjani, kirjasi.',
-    accent: '#9333ea',
-    icon: '🙋',
-    lessonId: 'possessive',
-    newWords: [],
-    skills: [
-      {
-        id: 'possessives',
-        titleFi: 'Kenen?',
-        titleEn: 'Whose is it?',
-        icon: '🙋',
-        activity: 'possessive',
-        maxLevel: 5,
-        content: { pool: 'nouns' },
-        exampleFi: 'kirjani, kirjasi',
-      },
-      phraseStep(
-        'mine-yours',
-        'Tämä on minun…',
-        'My, your, their',
-        '🫵',
-        ['this-is-mine', 'this-is-yours', 'this-is-theirs', 'where-is-yours'],
-        'Tämä on minun kirjani.',
-      ),
-      sceneStep('whose-talk', 'whose-is-it', 'Kenen tämä on?', 'Whose is this?'),
     ],
   },
   {
@@ -1539,16 +1559,39 @@ export function allSkills(): FoundSkill[] {
 }
 
 /** Facts the badge rules measure against, derived from the path (not vocab). */
-export const badgeEnv = {
-  topicCount: PATH.filter((c) => c.skills.some((s) => s.activity !== 'review')).length,
-  activityIds: allSkills()
-    .filter(({ skill }) => skill.activity !== 'review')
+/** The kinds of game a step's ladder plays, level by level (index 0 = L1). */
+function ladderKinds(skill: SkillNode): string[] {
+  const top = skill.maxLevel ?? 4;
+  return Array.from({ length: top }, (_, i) => {
+    const unlocked = activitiesUpTo(skill, i + 1);
+    return unlocked[unlocked.length - 1];
+  });
+}
+
+export const badgeEnv: BadgeEnv = {
+  checkpointUnitIds: PATH.filter((u) => u.checkpoint !== false).map((u) => u.id),
+  phraseStepIds: allSkills()
+    .filter(({ skill }) => skill.activities?.join() === 'build,order,spell,spell')
     .map(({ skill }) => skill.id),
-  // Each node's own ladder depth (default 4), so the "top level" badge can be
-  // earned by reaching ANY node's own ceiling — depths vary per node.
-  skillMaxLevels: Object.fromEntries(
-    allSkills().map(({ skill }) => [skill.id, skill.maxLevel ?? 4]),
-  ) as Record<string, number>,
+  kertausStepIds: allSkills()
+    .filter(({ skill }) => skill.content.mix)
+    .map(({ skill }) => skill.id),
+  conversationStepIds: allSkills()
+    .filter(({ skill }) => skill.activity === 'conversation')
+    .map(({ skill }) => skill.id),
+  // A Kertaus step plays OTHER steps' games, so it adds no kinds of its own.
+  skillKinds: Object.fromEntries(
+    allSkills()
+      .filter(({ skill }) => !skill.content.mix)
+      .map(({ skill }) => [skill.id, ladderKinds(skill)]),
+  ),
+  allKinds: [
+    ...new Set(
+      allSkills()
+        .filter(({ skill }) => !skill.content.mix && skill.activity !== 'review')
+        .flatMap(({ skill }) => ladderKinds(skill)),
+    ),
+  ].filter((k) => k !== 'say'),
 };
 
 // --- Rendering ------------------------------------------------------------
@@ -1698,7 +1741,7 @@ export function renderActivity(
       );
     case 'possessive':
       // Kenen? — pick the noun form with the right possessive suffix.
-      return <PossessiveGame items={items} onExit={onExit} />;
+      return <PossessiveGame items={items} onExit={onExit} cases={skill.content.possessiveCases} />;
     case 'error-fix':
       // Löydä virhe — is the sentence right? Tap the wrong word (a sourced form
       // in the wrong case) or "all correct".

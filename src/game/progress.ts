@@ -5,7 +5,7 @@
 // badge at RoundComplete (compute "after" from "before", diff, show the delta).
 
 import type { ActivityProgress, Child } from '../state/storage';
-import { applyRound, MAX_LEVEL } from './adapt';
+import { applyRound, MAX_LEVEL, provesTop } from './adapt';
 
 /** The adaptive level recorded for an activity (defaults to 1 before any play). */
 export function activityLevel(
@@ -43,6 +43,9 @@ export function recordRoundOnChild(
     level: adapt.level,
     recent: adapt.recent,
   };
+  const proven =
+    prev?.topProvenAt ?? (provesTop(adapt.level, adapt.recent, maxLevel) ? Date.now() : undefined);
+  if (proven) entry.topProvenAt = proven;
 
   return {
     ...child,

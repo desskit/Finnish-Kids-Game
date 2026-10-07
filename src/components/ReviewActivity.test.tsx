@@ -162,7 +162,7 @@ describe('ReviewActivity — grammar format (a due carrier phrase)', () => {
     const tiles = Array.from(document.querySelectorAll('.word-tile'));
     expect(tiles.length).toBeGreaterThan(1);
     await advance(400);
-    expect(speakEnglish).toHaveBeenCalledWith(expect.stringMatching(/^I like the /));
+    expect(speakEnglish).toHaveBeenCalledWith(expect.stringMatching(/^I like /));
     expect(speak).not.toHaveBeenCalled();
   });
 

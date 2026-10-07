@@ -827,27 +827,29 @@ export const conversations: Conversation[] = [
     tier: 4,
     turns: [
       {
+        // Unit "whose" now comes right after "Not having": only "Onko…? – On /
+        // Ei ole", minun/sinun/hänen + -ni/-si/-nsa, and words met so far.
         partner: { fi: 'Onko tämä sinun kirjasi?', en: 'Is this your book?' },
         reply: { fi: 'Ei ole. Se on hänen kirjansa.', en: "No. It's their book." },
         distractors: [
-          { fi: 'Kirja on laatikossa.', en: 'The book is in the box.' },
+          { fi: 'Minulla on kissa.', en: 'I have a cat.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
         ],
       },
       {
-        partner: { fi: 'Missä on sinun kynäsi?', en: 'Where is your pencil?' },
-        reply: { fi: 'Kynäni on repussa.', en: 'My pencil is in the backpack.' },
+        partner: { fi: 'Entä tämä reppu? Onko se sinun reppusi?', en: 'And this backpack? Is it your backpack?' },
+        reply: { fi: 'On! Se on minun reppuni.', en: "Yes! It's my backpack." },
         distractors: [
-          { fi: 'Tänään on perjantai.', en: 'Today is Friday.' },
-          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Minulla ei ole hattua.', en: "I don't have a hat." },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
         ],
       },
       {
-        partner: { fi: 'Onko tämä sinun pallosi?', en: 'Is this your ball?' },
-        reply: { fi: 'On! Se on minun palloni.', en: "Yes! It's my ball." },
+        partner: { fi: 'Ole hyvä. Tässä on sinun reppusi.', en: 'Here you go. Here is your backpack.' },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
         distractors: [
-          { fi: 'Se on iso.', en: "It's big." },
-          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Se on hänen kirjansa.', en: "It's their book." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },
     ],

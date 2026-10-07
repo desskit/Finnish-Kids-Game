@@ -1,14 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import type { Child } from '../state/storage';
+import type { ActivityProgress, Child } from '../state/storage';
 import type { ItemSchedule } from './srs';
-import { BADGES, earnedBadgeIds } from './badges';
+import { BADGES, BADGE_CATEGORIES, badgeProgress, earnedBadgeIds, kindsPlayed, type BadgeEnv } from './badges';
 import { MAX_BOX } from './srs';
+import { badgeEnv } from './path';
 
-const ENV = {
-  topicCount: 2,
-  activityIds: ['listen', 'build'],
-  // `listen`/`build` are depth-4 nodes; `locatives` is a deep depth-8 node.
-  skillMaxLevels: { listen: 4, build: 4, locatives: 8 },
+const ENV: BadgeEnv = {
+  checkpointUnitIds: ['u1', 'u2', 'u3', 'u4'],
+  phraseStepIds: ['p1', 'p2'],
+  kertausStepIds: ['k1', 'k2'],
+  conversationStepIds: ['c1'],
+  skillKinds: { p1: ['build', 'order', 'spell', 'spell'], w1: ['listen', 'name', 'name'] },
+  allKinds: ['build', 'order', 'spell', 'listen', 'name'],
 };
 
 function child(patch: Partial<Child> = {}): Child {
@@ -25,103 +28,123 @@ function child(patch: Partial<Child> = {}): Child {
   };
 }
 
+function progress(patch: Partial<ActivityProgress>): ActivityProgress {
+  return { plays: 1, bestStars: 6, totalStars: 6, totalPossible: 6, lastPlayed: 1, level: 1, ...patch };
+}
+
 function schedule(seen: number, correct: number, box = 1): ItemSchedule {
   return { box, due: 0, seen, correct, lastSeenAt: 0 };
 }
 
-describe('badge catalog', () => {
-  it('has unique ids', () => {
+const has = (c: Child, id: string, env = ENV) => earnedBadgeIds(c, env).has(id);
+
+describe('achievement catalog', () => {
+  it('has unique ids, a real category and a clear requirement for every badge', () => {
     expect(new Set(BADGES.map((b) => b.id)).size).toBe(BADGES.length);
+    const cats = new Set(BADGE_CATEGORIES.map((c) => c.id));
+    for (const b of BADGES) {
+      expect(cats.has(b.category), b.id).toBe(true);
+      expect(b.hintEn.length, b.id).toBeGreaterThan(10);
+    }
   });
-});
 
-describe('earnedBadgeIds', () => {
-  it('awards nothing for a brand-new child', () => {
+  it('gives a brand-new child nothing — and a progress line for every badge', () => {
     expect(earnedBadgeIds(child(), ENV).size).toBe(0);
+    for (const b of BADGES) {
+      const p = badgeProgress(child(), ENV, b);
+      expect(p.need, b.id).toBeGreaterThan(0);
+      expect(p.have, b.id).toBe(0);
+      expect(p.unit, b.id).toBeTruthy();
+    }
   });
 
-  it('awards first-steps after any played round', () => {
-    const c = child({
-      progress: { animals: { listen: progress({ plays: 1 }) } },
-    });
-    expect(earnedBadgeIds(c, ENV).has('first-steps')).toBe(true);
-  });
-
-  it('awards star milestones at the thresholds', () => {
-    expect(earnedBadgeIds(child({ stars: 24 }), ENV).has('stars-25')).toBe(false);
-    expect(earnedBadgeIds(child({ stars: 25 }), ENV).has('stars-25')).toBe(true);
-    expect(earnedBadgeIds(child({ stars: 100 }), ENV).has('stars-100')).toBe(true);
-  });
-
-  it('awards words-10 and mastered-10 from the SRS log', () => {
-    const practiced: Record<string, ItemSchedule> = {};
-    for (let i = 0; i < 10; i++) practiced['w' + i] = schedule(1, 1, 1);
-    expect(earnedBadgeIds(child({ srs: practiced }), ENV).has('words-10')).toBe(true);
-    expect(earnedBadgeIds(child({ srs: practiced }), ENV).has('mastered-10')).toBe(false);
-
-    const mastered: Record<string, ItemSchedule> = {};
-    for (let i = 0; i < 10; i++) mastered['w' + i] = schedule(5, 5, MAX_BOX);
-    expect(earnedBadgeIds(child({ srs: mastered }), ENV).has('mastered-10')).toBe(true);
-  });
-
-  it('grammar (con:) schedules never count toward the WORD badges', () => {
-    // Ten practiced GRAMMAR schedules are not ten practiced words.
-    const grammarOnly: Record<string, ItemSchedule> = {};
-    for (let i = 0; i < 10; i++) grammarOnly['con:c' + i] = schedule(1, 1, 1);
-    expect(earnedBadgeIds(child({ srs: grammarOnly }), ENV).has('words-10')).toBe(false);
-  });
-
-  it('awards sharp only with enough volume and high accuracy', () => {
-    const lowVolume: Record<string, ItemSchedule> = { a: schedule(5, 5) };
-    expect(earnedBadgeIds(child({ srs: lowVolume }), ENV).has('sharp')).toBe(false);
-
-    const sharp: Record<string, ItemSchedule> = {};
-    for (let i = 0; i < 10; i++) sharp['w' + i] = schedule(3, 3); // 30 seen, 100%
-    expect(earnedBadgeIds(child({ srs: sharp }), ENV).has('sharp')).toBe(true);
-  });
-
-  it("awards level-up when any node reaches its OWN ceiling", () => {
-    const c = child({
-      progress: { animals: { listen: progress({ plays: 3, level: 4 }) } },
-    });
-    expect(earnedBadgeIds(c, ENV).has('level-up')).toBe(true);
-  });
-
-  it('does not award level-up for a deep node still below its ceiling', () => {
-    // locatives caps at 8; level 4 is mid-climb, not mastered.
-    const c = child({
-      progress: { where: { locatives: progress({ plays: 3, level: 4 }) } },
-    });
-    expect(earnedBadgeIds(c, ENV).has('level-up')).toBe(false);
-  });
-
-  it('awards explorer for playing every topic and all-games for every game', () => {
-    const explorer = child({
-      progress: {
-        animals: { listen: progress({ plays: 1 }) },
-        food: { listen: progress({ plays: 1 }) },
-      },
-    });
-    expect(earnedBadgeIds(explorer, ENV).has('explorer')).toBe(true);
-    expect(earnedBadgeIds(explorer, ENV).has('all-games')).toBe(false);
-
-    const allGames = child({
-      progress: {
-        animals: { listen: progress({ plays: 1 }), build: progress({ plays: 1 }) },
-      },
-    });
-    expect(earnedBadgeIds(allGames, ENV).has('all-games')).toBe(true);
+  it('measures against the real course (23 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
+    expect(badgeEnv.checkpointUnitIds.length).toBe(23);
+    expect(badgeEnv.kertausStepIds).toHaveLength(4);
+    expect(badgeEnv.phraseStepIds.length).toBeGreaterThanOrEqual(10);
+    expect(badgeEnv.allKinds).not.toContain('say'); // needs a microphone — never required
+    expect(badgeEnv.allKinds).toEqual(expect.arrayContaining(['spell', 'conversation', 'possessive']));
   });
 });
 
-// Minimal ActivityProgress with sensible defaults for the fields a rule reads.
-function progress(patch: Partial<import('../state/storage').ActivityProgress>) {
-  return {
-    plays: 0,
-    bestStars: 0,
-    totalStars: 0,
-    totalPossible: 0,
-    lastPlayed: 0,
-    ...patch,
-  };
-}
+describe('earning achievements', () => {
+  it('first steps after any played round', () => {
+    expect(has(child({ progress: { u: { s: progress({ plays: 1 }) } } }), 'first-steps')).toBe(true);
+  });
+
+  it('star milestones at 100 and 500', () => {
+    expect(has(child({ stars: 99 }), 'stars-100')).toBe(false);
+    expect(has(child({ stars: 100 }), 'stars-100')).toBe(true);
+    expect(has(child({ stars: 500 }), 'stars-500')).toBe(true);
+  });
+
+  it('"Top of the ladder" needs a PROVEN top level — reaching it is not enough', () => {
+    expect(has(child({ progress: { u: { s: progress({ level: 4 }) } } }), 'level-up')).toBe(false);
+    expect(has(child({ progress: { u: { s: progress({ level: 4, topProvenAt: 1 }) } } }), 'level-up')).toBe(true);
+  });
+
+  it('course badges follow passed checkpoints (an attempt is not a pass)', () => {
+    const cp = (n: number, best = 0.9) =>
+      Object.fromEntries(Array.from({ length: n }, (_, i) => [`u${i + 1}`, { passedAt: 1, best, attempts: 1 }]));
+    expect(has(child({ course: { checkpoints: { u1: { best: 0.5, attempts: 1 } } } }), 'first-checkpoint')).toBe(false);
+    expect(has(child({ course: { checkpoints: cp(1) } }), 'first-checkpoint')).toBe(true);
+    expect(has(child({ course: { checkpoints: cp(1) } }), 'flawless')).toBe(false);
+    expect(has(child({ course: { checkpoints: cp(1, 1) } }), 'flawless')).toBe(true);
+    expect(has(child({ course: { checkpoints: cp(2) } }), 'halfway')).toBe(true);
+    expect(has(child({ course: { checkpoints: cp(3) } }), 'course-done')).toBe(false);
+    expect(has(child({ course: { checkpoints: cp(4) } }), 'course-done')).toBe(true);
+  });
+
+  it('skill badges reward the hard parts: typed sentences, every Kertaus, conversations', () => {
+    const proven = progress({ level: 4, topProvenAt: 1 });
+    expect(has(child({ progress: { u: { p1: proven } } }), 'writer')).toBe(false);
+    const ten = Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`p${i}`, proven]));
+    expect(has(child({ progress: { u: ten } }), 'writer', { ...ENV, phraseStepIds: Object.keys(ten) })).toBe(true);
+    expect(has(child({ progress: { a: { k1: proven } } }), 'memory')).toBe(false);
+    expect(has(child({ progress: { a: { k1: proven }, b: { k2: proven } } }), 'memory')).toBe(true);
+    expect(has(child({ progress: { u: { c1: progress({ plays: 14 }) } } }), 'chatter')).toBe(false);
+    expect(has(child({ progress: { u: { c1: progress({ plays: 15 }) } } }), 'chatter')).toBe(true);
+  });
+
+  it('Game master counts the KINDS of game actually served (ladder up to the level reached)', () => {
+    const c = child({ progress: { u: { p1: progress({ level: 2 }), w1: progress({ level: 3 }) } } });
+    expect([...kindsPlayed(c, ENV)].sort()).toEqual(['build', 'listen', 'name', 'order']);
+    expect(has(c, 'all-games')).toBe(false);
+    const all = child({ progress: { u: { p1: progress({ level: 4 }), w1: progress({ level: 2 }) } } });
+    expect(has(all, 'all-games')).toBe(true);
+  });
+
+  it('word badges come from the SRS log — grammar schedules never count', () => {
+    const srs: Record<string, ItemSchedule> = {};
+    for (let i = 0; i < 25; i++) srs['w' + i] = schedule(1, 1, 1);
+    for (let i = 0; i < 30; i++) srs['con:x' + i] = schedule(5, 5, MAX_BOX);
+    expect(has(child({ srs }), 'words-25')).toBe(true);
+    expect(has(child({ srs }), 'words-100')).toBe(false);
+    expect(has(child({ srs }), 'mastered-10')).toBe(false);
+    for (let i = 0; i < 10; i++) srs['w' + i] = schedule(4, 4, MAX_BOX);
+    expect(has(child({ srs }), 'mastered-10')).toBe(true);
+  });
+
+  it('Sharpshooter needs 100 answers AND 90% first-try', () => {
+    const few = { a: schedule(50, 50) };
+    expect(has(child({ srs: few }), 'sharp')).toBe(false);
+    expect(badgeProgress(child({ srs: few }), ENV, BADGES.find((b) => b.id === 'sharp')!)).toMatchObject({
+      have: 50,
+      need: 100,
+      unit: 'answers',
+    });
+    expect(has(child({ srs: { a: schedule(100, 85) } }), 'sharp')).toBe(false);
+    expect(has(child({ srs: { a: schedule(100, 92) } }), 'sharp')).toBe(true);
+  });
+
+  it('streak badges use the BEST streak, so a missed day never takes one away', () => {
+    expect(has(child({ streakDays: 2 }), 'streak-3')).toBe(false);
+    expect(has(child({ streakDays: 3 }), 'streak-3')).toBe(true);
+    expect(has(child({ streakDays: 1, bestStreakDays: 7 }), 'streak-7')).toBe(true);
+  });
+
+  it('Bookworm counts lessons read to the end', () => {
+    const seen = Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`l${i}`, 1]));
+    expect(has(child({ course: { lessonsSeen: seen } }), 'bookworm')).toBe(true);
+  });
+});

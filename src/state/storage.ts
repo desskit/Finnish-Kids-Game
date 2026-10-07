@@ -27,6 +27,12 @@ export interface ActivityProgress {
   level?: number;
   /** Rolling per-round accuracy window (0..1) that drives the adaptive level. */
   recent?: number[];
+  /**
+   * When the child PROVED this activity's top level — reached its `maxLevel`
+   * and then cleared the same bar there that a promotion would need. Sticky:
+   * a later dip doesn't undo it. A course step counts as done only then.
+   */
+  topProvenAt?: number;
 }
 
 /** progress[topicId][activityId] — powers map rings, hub state, the dashboard. */
@@ -65,6 +71,8 @@ export interface Child {
   lastPlayedDay?: string;
   /** Consecutive days practiced, including today. Optional (see lastPlayedDay). */
   streakDays?: number;
+  /** The longest streak ever reached — streak badges stay earned after a break. */
+  bestStreakDays?: number;
   /**
    * Guided-course state (see `src/game/course.ts`): which lessons have been
    * read and which unit checkpoints were passed. Optional + unbackfilled so

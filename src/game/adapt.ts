@@ -312,6 +312,20 @@ export function minRoundsToPromote(level: number): number {
   return Math.min(2 + Math.floor((clampLevel(level) - 1) / 2), 5);
 }
 
+/**
+ * Has the child PROVED the top of a ladder? They must be AT `maxLevel` and
+ * have cleared the same bar a promotion from that level would need (enough
+ * rounds, high enough average). Promotion into the top level resets the
+ * window, so this always means fresh rounds played at the top level itself —
+ * with every challenge type the ladder unlocks.
+ */
+export function provesTop(level: number, recent: readonly number[], maxLevel: number): boolean {
+  const cap = clampLevel(maxLevel);
+  if (clampLevel(level, cap) < cap || recent.length < minRoundsToPromote(cap)) return false;
+  const avg = recent.reduce((a, b) => a + b, 0) / recent.length;
+  return avg >= promoteThreshold(cap);
+}
+
 export interface AdaptOutcome {
   /** The level to use for the next round. */
   level: number;
