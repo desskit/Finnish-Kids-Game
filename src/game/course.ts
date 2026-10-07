@@ -130,7 +130,8 @@ export function midLessonStatus(
   unlockAll = false,
 ): Status {
   if (lessonSeen(child, ml.lessonId)) return 'done';
-  if (unlockAll) return 'open';
+  // A finished unit's lessons are always there to re-read.
+  if (unlockAll || unitComplete(child, unit)) return 'open';
   if (unitStatus(child, unit) === 'locked' || !lessonSeen(child, unit.lessonId)) return 'locked';
   const at = unit.skills.findIndex((s) => s.id === ml.before);
   return unit.skills.slice(0, at).every((s) => stepDone(child, unit, s)) ? 'open' : 'locked';
@@ -251,12 +252,20 @@ function partFor(
 export function checkpointPlan(unit: Unit, attempt = 0): CheckpointPart[] {
   if (!hasCheckpoint(unit) || unit.skills.length === 0) return [];
   const cfg = { ...DEFAULT_CHECKPOINT, ...(unit.checkpoint || {}) };
-  const perStep = Math.max(cfg.perStep, Math.ceil(cfg.minQuestions / unit.skills.length));
+  // A long unit asks fewer questions per step (so its checkpoint stays about
+  // as long as a short unit's), and its new-words steps ask just one each.
+  const steps = unit.skills.length;
+  const long = steps >= 5;
+  const perStep = Math.max(
+    long ? Math.min(cfg.perStep, 2) : cfg.perStep,
+    Math.ceil(cfg.minQuestions / steps),
+  );
   const parts = unit.skills.map((step) => {
     const sub = mixStepFor(step, attempt);
+    const n = long && step.content.words === 'new' ? 1 : perStep;
     return sub
-      ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), perStep, 'step')
-      : partFor(step, lessonForStep(unit, step), perStep, 'step');
+      ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), n, 'step')
+      : partFor(step, lessonForStep(unit, step), n, 'step');
   });
   const ui = unitIndex(unit.id);
   if (ui >= 2) {
@@ -295,9 +304,9 @@ export function stepAfterLesson(lessonId: string): SkillNode | undefined {
 /** The first unit whose steps drill a construction — its lesson explains it. */
 export function lessonForConstruction(constructionId: string): string | undefined {
   for (const unit of UNITS) {
-    if (unit.skills.some((s) => s.content.constructionIds?.includes(constructionId))) {
-      return unit.lessonId;
-    }
+    const step = unit.skills.find((s) => s.content.constructionIds?.includes(constructionId));
+    // The lesson that explains that step — a part-way lesson where there is one.
+    if (step) return lessonForStep(unit, step);
   }
   return undefined;
 }

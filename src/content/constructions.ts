@@ -1022,6 +1022,30 @@ export const nounConstructions: Construction[] = [
     requiresTags: ["person-on"],
   },
 
+  // --- Owners: "Tämä on isän pyörä." — the owner gets -n ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frame; listed in FINNISH_REVIEW.md).
+  {
+    id: "owner-thing",
+    before: "Tämä on",
+    after: "pyörä",
+    punct: ".",
+    en: "This is ___ bike.",
+    tier: 3,
+    case: "genitive",
+    number: "singular",
+    onlyIds: ["mother", "father", "grandmother", "grandfather", "brother", "sister", "teacher", "friend"],
+    glossById: {
+      mother: "Mom's",
+      father: "Dad's",
+      grandmother: "Grandma's",
+      grandfather: "Grandpa's",
+      brother: "my brother's",
+      sister: "my sister's",
+      teacher: "the teacher's",
+      friend: "my friend's",
+    },
+  },
+
   // --- By & with: the -lla / -llä ending as a TOOL or a WAY to travel ---
   // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
   {

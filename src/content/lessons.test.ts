@@ -126,8 +126,11 @@ describe('lesson content audit (regressions)', () => {
     for (const unit of PATH) {
       const asked = unit.skills.filter((s) => s.activity === 'dialogue').flatMap((s) => s.content.ids ?? []);
       if (asked.length === 0 || unit.id === 'chatting' || unit.id === 'mestari') continue;
+      // The unit's lesson or one of its part-way lessons.
       const taught = new Set(
-        lesson(unit.lessonId).cards.flatMap((c) => (c.kind === 'pairs' ? c.ids : [])),
+        [unit.lessonId, ...(unit.midLessons ?? []).map((m) => m.lessonId)]
+          .flatMap((id) => lesson(id).cards)
+          .flatMap((c) => (c.kind === 'pairs' ? c.ids : [])),
       );
       for (const id of asked) expect(taught.has(id), `${unit.id}: pair "${id}" never taught`).toBe(true);
     }

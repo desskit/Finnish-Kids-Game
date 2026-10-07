@@ -306,7 +306,12 @@ describe('the six everyday-grammar units', () => {
     expect(findSkill('me-you-forms')!.skill.content.choose).toBe('pronoun');
     expect(findSkill('want-to')!.skill.content.constructionIds).toContain('i-want-to');
     expect(findSkill('commands-tpr')!.skill.activity).toBe('command');
-    expect(findSkill('question-words-qa')!.skill.content.ids).toHaveLength(10);
+    // Question words in two halves (who/what…, then where/where to/from/when
+    // after a part-way lesson), then all ten together.
+    const qa = findSkill('question-words-qa')!.skill.content.ids!;
+    const where = findSkill('where-qa')!.skill.content.ids!;
+    expect(new Set([...qa, ...where]).size).toBe(10);
+    expect(findSkill('question-words-mix')!.skill.content.ids).toHaveLength(10);
   });
 });
 

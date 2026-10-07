@@ -636,27 +636,58 @@ export const lessons: Lesson[] = [
           'In English you say *I have a bike*. Finnish has **no verb for "have"**!\n\nInstead it says something like **"on me is a bike"**: *Minulla on pyörä*.',
       },
       {
-        kind: 'explain',
-        title: 'Who has it?',
+        kind: 'examples',
+        title: 'On me, on you',
         text:
-          'The **-lla / -llä** ending means "on". So:\n- *minulla* — on me → **I have**\n- *sinulla* — on you → **you have**\n- *hänellä* — on him/her → **he/she has**\n- *meillä* — on us → **we have**\n- *teillä* — on you all → **you all have**\n- *heillä* — on them → **they have**',
+          'The **-lla / -llä** ending means "on". So *minulla* — on me → **I have**, and *sinulla* — on you → **you have**.',
+        rows: [
+          { sentence: 'i-have', word: 'bike' },
+          { sentence: 'you-have', word: 'phone' },
+          { sentence: 'i-have', word: 'dog' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'The thing stays as it is',
+        text: 'After *on*, the thing keeps its **basic form**: *pyörä*, *puhelin*, *koira* — and no "a" in front.',
+      },
+      {
+        kind: 'check',
+        question: '*Sinulla on pallo.* — Who has the ball?',
+        options: [{ text: 'I do' }, { text: 'You do', correct: true }],
+        explain: '*sinulla* = "on you" → **you** have the ball.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I have a dog"?',
+        options: [
+          { ref: { sentence: 'i-have', word: 'dog' }, correct: true },
+          { ref: { sentence: 'you-have', word: 'dog' } },
+        ],
+        explain: '*minulla* = "on me" → **I** have.',
+      },
+    ],
+  },
+  {
+    id: 'having-everyone',
+    titleFi: 'Kenellä on?',
+    titleEn: 'Who has it? Everyone!',
+    emoji: '👪',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Everyone gets -lla / -llä',
+        text:
+          '- *minulla* → **I** have\n- *sinulla* → **you** have\n- *hänellä* → **he / she** has\n- *meillä* → **we** have\n- *teillä* → **you all** have\n- *heillä* → **they** have',
       },
       {
         kind: 'examples',
         title: 'Listen',
         rows: [
-          { sentence: 'i-have', word: 'bike' },
-          { sentence: 'you-have', word: 'phone' },
           { sentence: 'she-has', word: 'guitar' },
           { sentence: 'we-have', word: 'dog' },
           { sentence: 'they-have', word: 'computer' },
         ],
-      },
-      {
-        kind: 'check',
-        question: '*Sinulla on pallo.* — Who has the ball?',
-        options: [{ text: 'I do' }, { text: 'You do', correct: true }, { text: 'We do' }],
-        explain: '*sinulla* = "on you" → **you** have the ball.',
       },
       {
         kind: 'check',
@@ -667,6 +698,12 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'they-have', word: 'dog' } },
         ],
         explain: '*meillä* = "on us" → **we** have.',
+      },
+      {
+        kind: 'check',
+        question: '*Hänellä on kitara.* — Who has the guitar?',
+        options: [{ text: 'I do' }, { text: 'He or she does', correct: true }, { text: 'They do' }],
+        explain: '*hänellä* = "on him / her".',
       },
     ],
   },
@@ -903,8 +940,8 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'likes',
-    titleFi: 'Pidän ja rakastan',
-    titleEn: 'Liking and loving',
+    titleFi: 'Pidän',
+    titleEn: 'Liking things',
     emoji: '❤️',
     cards: [
       {
@@ -926,17 +963,6 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
-        title: 'rakastaa → -a / -ä',
-        text:
-          '"I love" is *rakastan*, and it always wants **-a / -ä** instead — or **-ta / -tä** after a long vowel, like *suklaata*.',
-        rows: [
-          { sentence: 'i-love', word: 'pizza' },
-          { sentence: 'i-love', word: 'chocolate' },
-          { sentence: 'i-love', word: 'cat' },
-        ],
-      },
-      {
         kind: 'check',
         question: 'Which one means "I like music"?',
         options: [
@@ -947,6 +973,39 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
+        question: 'Which one means "I like ice cream"?',
+        options: [
+          { ref: { sentence: 'i-like', word: 'ice-cream', asCase: 'nominative' } },
+          { ref: { sentence: 'i-like', word: 'ice-cream' }, correct: true },
+        ],
+        explain: '**-stä** with the vowel team ä, ö, y: *jäätelöstä*.',
+      },
+    ],
+  },
+  {
+    id: 'loving',
+    titleFi: 'Rakastan',
+    titleEn: 'Loving things',
+    emoji: '😍',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'rakastaa → -a / -ä',
+        text:
+          '"I love" is *rakastan* — and it picks a DIFFERENT ending: **-a / -ä**, or **-ta / -tä** after a long vowel, like *suklaata*.',
+        rows: [
+          { sentence: 'i-love', word: 'pizza' },
+          { sentence: 'i-love', word: 'chocolate' },
+          { sentence: 'i-love', word: 'cat' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Two verbs, two endings',
+        text: '- *Pidän* (I like) → **-sta**: *Pidän pitsasta.*\n- *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*',
+      },
+      {
+        kind: 'check',
         question: 'Which one means "I love pizza"?',
         options: [
           { ref: { sentence: 'i-love', word: 'pizza' }, correct: true },
@@ -954,18 +1013,32 @@ export const lessons: Lesson[] = [
         ],
         explain: '*rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)',
       },
+      {
+        kind: 'check',
+        question: 'Which one means "I like pizza"?',
+        options: [
+          { ref: { sentence: 'i-like', word: 'pizza' }, correct: true },
+          { ref: { sentence: 'i-love', word: 'pizza' } },
+        ],
+        explain: '*Pidän* = I like (+ **-sta**). *Rakastan* = I love.',
+      },
     ],
   },
   {
     id: 'total-object',
-    titleFi: 'Näen ja odotan',
-    titleEn: 'Seeing vs. watching',
+    titleFi: 'Näen',
+    titleEn: 'Seeing the whole thing',
     emoji: '👀',
     cards: [
       {
+        kind: 'explain',
+        title: 'Another verb, another ending',
+        text:
+          '*Näen* means **I see**. When you see the **whole thing**, it gets **-n** — the same little ending as in *isän pyörä*, but here it means "the whole thing".',
+      },
+      {
         kind: 'examples',
         title: 'The whole thing: -n',
-        text: 'When you **see the whole thing** (just once), it gets **-n**.',
         rows: [
           { sentence: 'i-see', word: 'bus' },
           { sentence: 'i-see', word: 'train' },
@@ -973,15 +1046,43 @@ export const lessons: Lesson[] = [
         ],
       },
       {
+        kind: 'check',
+        question: 'Which one means "I see the car"?',
+        options: [
+          { ref: { sentence: 'i-see', word: 'car' }, correct: true },
+          { ref: { sentence: 'i-see', word: 'car', asCase: 'nominative' } },
+        ],
+        explain: 'Seeing the whole car → **-n**: *auton*.',
+      },
+      {
+        kind: 'check',
+        question: '*Näen bussin.* — Which ending does "bus" have?',
+        options: [{ text: '-n', correct: true }, { text: '-a' }, { text: '-ssa' }],
+        explain: 'Seeing the whole bus → **-n**: *bussin*.',
+      },
+    ],
+  },
+  {
+    id: 'watching-waiting',
+    titleFi: 'Katson ja odotan',
+    titleEn: 'Watching and waiting',
+    emoji: '⏳',
+    cards: [
+      {
         kind: 'examples',
         title: 'Going on for a while: -a / -ä',
         text:
-          '*katsoa* (to watch) and *odottaa* (to wait for) take a while — so the thing always gets **-a / -ä**.',
+          '*katsoa* (to watch) and *odottaa* (to wait for) **take a while** — so the thing always gets **-a / -ä**, never **-n**.',
         rows: [
           { sentence: 'i-watch', word: 'movie' },
           { sentence: 'i-wait-for', word: 'bus' },
           { sentence: 'i-wait-for', word: 'friend' },
         ],
+      },
+      {
+        kind: 'explain',
+        title: 'See it, or watch it?',
+        text: '- *Näen bussin.* — I see the bus (one look → **-n**)\n- *Odotan bussia.* — I\'m waiting for the bus (it takes a while → **-a**)',
       },
       {
         kind: 'check',
@@ -994,37 +1095,74 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*Näen bussin.* — Which ending does "bus" have?',
-        options: [{ text: '-n', correct: true }, { text: '-a' }, { text: '-ssa' }],
-        explain: 'Seeing the whole bus → **-n**: *bussin*.',
+        question: 'Which one means "I see the train"?',
+        options: [
+          { ref: { sentence: 'i-see', word: 'train' }, correct: true },
+          { ref: { sentence: 'i-wait-for', word: 'train' } },
+        ],
+        explain: '*Näen junan* — seeing it once → **-n**.',
       },
     ],
   },
   {
     id: 'buying',
     titleFi: 'Kaupassa',
-    titleEn: 'One whole thing, or some?',
+    titleEn: 'Buying one whole thing',
     emoji: '🛒',
     cards: [
       {
+        kind: 'explain',
+        title: 'Like seeing',
+        text:
+          '*Ostan* means **I buy**. It works just like *Näen*: buying **one whole thing** — an apple, a banana — it gets **-n**.',
+      },
+      {
         kind: 'examples',
         title: 'One whole thing: -n',
-        text: 'Buying **one whole thing** — an apple, a banana — it gets **-n**.',
         rows: [
           { sentence: 'i-buy', word: 'apple' },
           { sentence: 'i-buy', word: 'banana' },
+          { sentence: 'i-buy', word: 'cake' },
         ],
       },
+      {
+        kind: 'check',
+        question: '*Ostan omenan.* — How many apples?',
+        options: [{ text: 'One whole apple', correct: true }, { text: 'Some apple' }],
+        explain: '**-n** (*omenan*) means one whole thing.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I buy a banana"?',
+        options: [
+          { ref: { sentence: 'i-buy', word: 'banana' }, correct: true },
+          { ref: { sentence: 'i-buy', word: 'banana', asCase: 'nominative' } },
+        ],
+        explain: 'One whole banana → **-n**: *banaanin*.',
+      },
+    ],
+  },
+  {
+    id: 'buying-some',
+    titleFi: 'Ostan maitoa',
+    titleEn: 'Buying some of something',
+    emoji: '🥛',
+    cards: [
       {
         kind: 'examples',
         title: 'Some of something: -a / -ä',
         text:
-          'Milk, bread, juice — you don\'t buy "one milk", you buy **some**. Then it gets **-a / -ä**. (Remember: -a means "not all of it".)',
+          'Milk, bread, juice — you don\'t buy "one milk", you buy **some**. Then it gets **-a / -ä**. (Remember: **-a** means "not all of it".)',
         rows: [
           { sentence: 'i-buy-some', word: 'milk' },
           { sentence: 'i-buy-some', word: 'bread' },
           { sentence: 'i-buy-some', word: 'juice' },
         ],
+      },
+      {
+        kind: 'explain',
+        title: 'One apple — some milk',
+        text: '- *Ostan omenan.* — one whole apple (**-n**)\n- *Ostan maitoa.* — some milk (**-a**)',
       },
       {
         kind: 'check',
@@ -1034,16 +1172,19 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*Ostan omenan.* — How many apples?',
-        options: [{ text: 'One whole apple', correct: true }, { text: 'Some apple' }],
-        explain: '**-n** (*omenan*) means one whole thing.',
+        question: 'Which one means "I buy some bread"?',
+        options: [
+          { ref: { sentence: 'i-buy-some', word: 'bread' }, correct: true },
+          { ref: { sentence: 'i-buy-some', word: 'bread', asCase: 'genitive' } },
+        ],
+        explain: 'Some bread → **-ä**: *leipää*.',
       },
     ],
   },
   {
-    id: 'agreement',
-    titleFi: 'Millainen?',
-    titleEn: 'Describing words copy',
+    id: 'colors',
+    titleFi: 'Värit',
+    titleEn: 'Colors and describing words',
     emoji: '🎨',
     cards: [
       {
@@ -1061,6 +1202,16 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
+        title: '"This is red"',
+        text: 'A describing word works after *Tämä on* just like a thing: *Tämä on punainen* = this is red.',
+        rows: [
+          { sentence: 'this-is', word: 'red' },
+          { sentence: 'this-is', word: 'big' },
+          { sentence: 'is-this', word: 'blue' },
+        ],
+      },
+      {
+        kind: 'examples',
         title: 'Describing words go first',
         text: 'Just like English: the describing word comes **before** the thing.',
         rows: [
@@ -1068,6 +1219,32 @@ export const lessons: Lesson[] = [
           { agree: 'red', word: 'ball', case: 'nominative', en: 'a red ball' },
         ],
       },
+      {
+        kind: 'check',
+        question: 'Which one means "This is green"?',
+        options: [
+          { ref: { sentence: 'this-is', word: 'green' }, correct: true },
+          { ref: { sentence: 'this-is', word: 'yellow' } },
+        ],
+        explain: '*vihreä* = green, *keltainen* = yellow.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "a big dog"?',
+        options: [
+          { ref: { agree: 'big', word: 'dog', case: 'nominative' }, correct: true },
+          { ref: { agree: 'small', word: 'dog', case: 'nominative' } },
+        ],
+        explain: '*iso* = big, *pieni* = small.',
+      },
+    ],
+  },
+  {
+    id: 'agreement',
+    titleFi: 'Millainen?',
+    titleEn: 'Describing words copy',
+    emoji: '🪞',
+    cards: [
       {
         kind: 'examples',
         title: 'They copy the ending!',
@@ -1078,6 +1255,11 @@ export const lessons: Lesson[] = [
           { agree: 'small', word: 'dog', case: 'genitive', en: "a small dog's" },
           { agree: 'big', word: 'table', case: 'adessive', en: 'on a big table' },
         ],
+      },
+      {
+        kind: 'explain',
+        title: 'Listen for the echo',
+        text: '*isossa talossa* — **-ssa** twice. *isolla pöydällä* — **-lla** twice. If the thing has an ending, the describing word has it too.',
       },
       {
         kind: 'check',
@@ -1143,17 +1325,6 @@ export const lessons: Lesson[] = [
           'Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*). Don\'t worry — **the ending at the very end is what tells you "in" or "on"**.',
       },
       {
-        kind: 'examples',
-        title: 'In MY house',
-        text:
-          'Remember the "my" ending **-ni**? It goes on the very end — **after** the place ending: *talo* + **-ssa** + **-ni** = *talossani*, "in my house".',
-        rows: [
-          { possessive: 'house', possessor: '1sg', case: 'inessive' },
-          { possessive: 'room', possessor: '2sg', case: 'inessive' },
-          { possessive: 'table', possessor: '1sg', case: 'adessive' },
-        ],
-      },
-      {
         kind: 'check',
         question: 'The cat is ON the table. Which is right?',
         options: [
@@ -1174,38 +1345,123 @@ export const lessons: Lesson[] = [
     ],
   },
   {
+    id: 'in-my-house',
+    titleFi: 'Talossani',
+    titleEn: 'In MY house',
+    emoji: '🏠',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Two endings on one word',
+        text:
+          'Remember the "my" ending **-ni** and the "your" ending **-si**? They go on the very end — **after** the place ending:\n\n*talo* + **-ssa** + **-ni** = *talossani*, "in my house".',
+      },
+      {
+        kind: 'examples',
+        title: 'In my…, on your…',
+        rows: [
+          { possessive: 'house', possessor: '1sg', case: 'inessive' },
+          { possessive: 'room', possessor: '2sg', case: 'inessive' },
+          { possessive: 'table', possessor: '1sg', case: 'adessive' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "in my house"?',
+        options: [
+          { ref: { possessive: 'house', possessor: '1sg', case: 'inessive' }, correct: true },
+          { ref: { possessive: 'house', possessor: '2sg', case: 'inessive' } },
+          { ref: { possessive: 'house', possessor: '1sg' } },
+        ],
+        explain: '**-ssa** (in) + **-ni** (my): *talossani*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "on your table"?',
+        options: [
+          { ref: { possessive: 'table', possessor: '2sg', case: 'adessive' }, correct: true },
+          { ref: { possessive: 'table', possessor: '1sg', case: 'adessive' } },
+        ],
+        explain: '**-llä** (on) + **-si** (your): *pöydälläsi*.',
+      },
+    ],
+  },
+  {
     id: 'into-out',
-    titleFi: 'Missä? Mihin? Mistä?',
-    titleEn: 'In, into, out of',
+    titleFi: 'Mihin?',
+    titleEn: 'Going into, going onto',
     emoji: '🚶',
     cards: [
       {
         kind: 'explain',
-        title: 'Three questions',
+        title: 'Where is it GOING?',
         text:
-          '- *Missä?* — where is it? (**in / on**)\n- *Mihin?* — where is it going? (**into / onto**)\n- *Mistä?* — where is it coming from? (**out of / off**)\n\nEach question has its own endings.',
+          '- *Missä?* — where is it? (**in / on**) — you know this one!\n- *Mihin?* — where is it **going**? (**into / onto**)\n\nGoing somewhere has its own endings.',
       },
       {
         kind: 'examples',
-        title: 'Things you go INSIDE',
+        title: 'Going INSIDE',
+        text: '"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*).',
         rows: [
           { sentence: 'in-it', word: 'box' },
           { sentence: 'into-it', word: 'box' },
-          { sentence: 'out-of-it', word: 'box' },
+          { sentence: 'into-it', word: 'house' },
         ],
       },
       {
         kind: 'examples',
-        title: 'Things you go ON TOP of',
+        title: 'Going ON TOP',
+        text: '"Onto" is **-lle** — like "on" (**-lla**), with an **e**.',
         rows: [
           { sentence: 'on-it', word: 'table' },
           { sentence: 'onto-it', word: 'table' },
+          { sentence: 'onto-it', word: 'chair' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'The cat goes INTO the box. Which is right?',
+        options: [
+          { ref: { sentence: 'into-it', word: 'box' }, correct: true },
+          { ref: { sentence: 'into-it', word: 'box', asCase: 'inessive' } },
+        ],
+        explain: '"Into" → a long vowel + **n**: *laatikkoon*.',
+      },
+      {
+        kind: 'check',
+        question: 'The cat goes ONTO the table. Which is right?',
+        options: [
+          { ref: { sentence: 'onto-it', word: 'table' }, correct: true },
+          { ref: { sentence: 'onto-it', word: 'table', asCase: 'adessive' } },
+        ],
+        explain: '"Onto" → **-lle**: *pöydälle*.',
+      },
+    ],
+  },
+  {
+    id: 'out-of-off',
+    titleFi: 'Mistä?',
+    titleEn: 'Coming out of, coming off',
+    emoji: '📦',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Where is it coming FROM?',
+        text: '*Mistä?* — where is it **coming from**? (**out of / off**). Two more endings:',
+      },
+      {
+        kind: 'examples',
+        title: 'Out of: -sta / -stä · Off: -lta / -ltä',
+        rows: [
+          { sentence: 'out-of-it', word: 'box' },
+          { sentence: 'out-of-it', word: 'house' },
           { sentence: 'off-it', word: 'table' },
+          { sentence: 'off-it', word: 'chair' },
         ],
       },
       {
         kind: 'explain',
-        title: 'The pattern',
+        title: 'All six together',
         text:
           '**Inside:** -ssa (in) · -an, -oon, -seen… (into) · -sta (out of)\n\n**On top:** -lla (on) · -lle (onto) · -lta (off)\n\nNotice: **s** for inside, **l** for on top!',
       },
@@ -1221,12 +1477,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'The cat goes INTO the box. Which is right?',
+        question: 'The cat jumps OFF the table. Which is right?',
         options: [
-          { ref: { sentence: 'into-it', word: 'box' }, correct: true },
-          { ref: { sentence: 'into-it', word: 'box', asCase: 'elative' } },
+          { ref: { sentence: 'off-it', word: 'table' }, correct: true },
+          { ref: { sentence: 'off-it', word: 'table', asCase: 'allative' } },
         ],
-        explain: '"Into" → a long vowel + **n**: *laatikkoon*.',
+        explain: '"Off" → **-lta / -ltä**: *pöydältä*.',
       },
     ],
   },
@@ -1357,6 +1613,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'The -t means "more than one"',
+        text: 'For a group of things — *the books*, *the balls* — add **-t**.',
         rows: [
           { word: 'book', number: 'plural' },
           { word: 'ball', number: 'plural' },
@@ -1364,10 +1621,38 @@ export const lessons: Lesson[] = [
         ],
       },
       {
+        kind: 'explain',
+        title: '"These are…" and "Where are…?"',
+        text: 'With more than one, *on* (is) becomes *ovat* (are): *Nämä ovat…* = these are, *Missä ovat…?* = where are…?',
+      },
+      {
+        kind: 'check',
+        question: '*kirjat* means…',
+        options: [{ text: 'a book' }, { text: 'the books', correct: true }],
+        explain: 'The **-t** means more than one.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "the friends"?',
+        options: [
+          { ref: { word: 'friend', number: 'plural' }, correct: true },
+          { ref: { word: 'friend' } },
+        ],
+        explain: '*kaveri* + **-t** = *kaverit*.',
+      },
+    ],
+  },
+  {
+    id: 'plural-some',
+    titleFi: 'Palloja',
+    titleEn: 'Some things, any things',
+    emoji: '🧺',
+    cards: [
+      {
         kind: 'examples',
         title: '"Some" things',
         text:
-          'When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending, usually **-ja / -jä** or **-ita / -itä**. It\'s the plural cousin of the -a ending!',
+          'When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending, usually **-ja / -jä** or **-ita / -itä**. It\'s the plural cousin of the **-a** ending!',
         rows: [
           { sentence: 'these-are', word: 'book' },
           { sentence: 'i-have-some', word: 'ball' },
@@ -1375,10 +1660,9 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
-        title: 'In many things: -issa',
-        text: 'Place endings work in the plural too — an **-i-** slips in before them.',
-        rows: [{ sentence: 'in-them', word: 'box' }],
+        kind: 'explain',
+        title: 'The balls — or some balls?',
+        text: '- *pallot* — **the** balls (that group) → **-t**\n- *palloja* — **some** balls → **-ja**',
       },
       {
         kind: 'check',
@@ -1391,9 +1675,46 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*kirjat* means…',
-        options: [{ text: 'a book' }, { text: 'the books', correct: true }],
-        explain: 'The **-t** means more than one.',
+        question: '*Minulla ei ole pelejä.* means…',
+        options: [{ text: "I don't have any games", correct: true }, { text: 'I have some games' }],
+        explain: '*ei ole* = not, and "any games" → *pelejä*.',
+      },
+    ],
+  },
+  {
+    id: 'plural-places',
+    titleFi: 'Laatikoissa',
+    titleEn: 'In many boxes',
+    emoji: '📦',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'In many things: -issa',
+        text: 'Place endings work in the plural too — an **-i-** slips in before them: *laatikossa* (in the box) → *laatikoissa* (in the boxes).',
+        rows: [
+          { sentence: 'in-it', word: 'box' },
+          { sentence: 'in-them', word: 'box' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Look for the -i-',
+        text: '*talossa* → *taloissa* · *repussa* → *repuissa*. The **i** says "more than one", the **-ssa** still says "in".',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "The cats are in the boxes"?',
+        options: [
+          { ref: { sentence: 'in-them', word: 'box' }, correct: true },
+          { ref: { sentence: 'in-them', word: 'box', asCase: 'adessive' } },
+        ],
+        explain: '**-i-** + **-ssa** = in the boxes: *laatikoissa*.',
+      },
+      {
+        kind: 'check',
+        question: '*laatikoissa* means…',
+        options: [{ text: 'in the box' }, { text: 'in the boxes', correct: true }],
+        explain: 'The **-i-** means more than one.',
       },
     ],
   },
@@ -1417,17 +1738,14 @@ export const lessons: Lesson[] = [
         polarity: 'positive',
       },
       {
-        kind: 'explain',
-        title: '"Didn\'t"',
-        text:
-          'For "didn\'t", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-nut / -nyt** (or **-neet** for we, you all and they).',
-      },
-      {
-        kind: 'verbTable',
-        title: 'syödä — didn\'t eat',
-        verb: 'eat',
-        tense: 'past',
-        polarity: 'negative',
+        kind: 'examples',
+        title: 'The k, p, t changes come along',
+        text: 'Verbs whose sound changes still do it in the past: *minä nukuin* (weak), *hän nukkui* (strong) — just like *nukun* and *nukkuu*.',
+        rows: [
+          { verb: 'sleep', tense: 'past', polarity: 'positive', person: '1sg' },
+          { verb: 'sleep', tense: 'past', polarity: 'positive', person: '3sg' },
+          { verb: 'jump', tense: 'past', polarity: 'positive', person: '1sg' },
+        ],
       },
       {
         kind: 'check',
@@ -1438,7 +1756,6 @@ export const lessons: Lesson[] = [
             ref: { verb: 'read', tense: 'past', polarity: 'positive', person: '1sg' },
             correct: true,
           },
-          { ref: { verb: 'read', tense: 'past', polarity: 'negative', person: '1sg' } },
         ],
         explain: 'The **-i-** shows the past: *luin*.',
       },
@@ -1451,6 +1768,51 @@ export const lessons: Lesson[] = [
           { ref: { verb: 'eat', tense: 'past', polarity: 'positive', person: '3pl' } },
         ],
         explain: 'Past **-i-** + **-mme** (we): *söimme*.',
+      },
+    ],
+  },
+  {
+    id: 'past-not',
+    titleFi: 'En syönyt',
+    titleEn: '"Didn\'t"',
+    emoji: '🙅',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'The "not" verb + -nut / -nyt',
+        text:
+          'For "didn\'t", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-nut / -nyt** — or **-neet** for we, you all and they.',
+      },
+      {
+        kind: 'verbTable',
+        title: 'syödä — didn\'t eat',
+        verb: 'eat',
+        tense: 'past',
+        polarity: 'negative',
+      },
+      {
+        kind: 'explain',
+        title: 'Only two shapes',
+        text: '- *en, et, ei* (I, you, he/she) + **-nut / -nyt**: *en syönyt*\n- *emme, ette, eivät* (we, you all, they) + **-neet**: *emme syöneet*',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I didn\'t read"?',
+        options: [
+          { ref: { verb: 'read', tense: 'past', polarity: 'negative', person: '1sg' }, correct: true },
+          { ref: { verb: 'read', tense: 'present', polarity: 'negative', person: '1sg' } },
+          { ref: { verb: 'read', tense: 'past', polarity: 'positive', person: '1sg' } },
+        ],
+        explain: '*en* + **-nut**: *en lukenut*. (*en lue* = I don\'t read.)',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "they didn\'t eat"?',
+        options: [
+          { ref: { verb: 'eat', tense: 'past', polarity: 'negative', person: '3pl' }, correct: true },
+          { ref: { verb: 'eat', tense: 'past', polarity: 'negative', person: '3sg' } },
+        ],
+        explain: 'They → *eivät* + **-neet**: *eivät syöneet*.',
       },
     ],
   },
@@ -1637,10 +1999,37 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
+        kind: 'check',
+        question: 'How do you say "I\'m happy"?',
+        options: [
+          { ref: { sentence: 'i-am', word: 'happy' }, correct: true },
+          { ref: { sentence: 'i-am-not', word: 'happy' } },
+        ],
+        explain: '*Olen* = I am: *Olen iloinen*.',
+      },
+      {
+        kind: 'check',
+        question: '*En ole väsynyt.* means…',
+        options: [{ text: "I'm not tired", correct: true }, { text: "I'm tired" }],
+        explain: '*En ole* = I am **not**.',
+      },
+    ],
+  },
+  {
+    id: 'feelings-on-me',
+    titleFi: 'Minulla on nälkä',
+    titleEn: 'Hungry, thirsty, cold, hot',
+    emoji: '🤤',
+    cards: [
+      {
+        kind: 'explain',
         title: '"On me is hunger"',
         text:
-          'Remember *Minulla on…* (on me is)? Finnish uses it for feeling hungry, thirsty, cold or hot: *Minulla on nälkä* — "on me is hunger".',
+          'Remember *Minulla on…* (on me is) from "I have"? Finnish uses it for feeling **hungry, thirsty, cold or hot**: *Minulla on nälkä* — "on me is hunger".',
+      },
+      {
+        kind: 'examples',
+        title: 'Listen',
         rows: [
           { sentence: 'i-feel', word: 'hunger' },
           { sentence: 'i-feel', word: 'thirst' },
@@ -1659,9 +2048,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*En ole väsynyt.* means…',
-        options: [{ text: "I'm not tired", correct: true }, { text: "I'm tired" }],
-        explain: '*En ole* = I am **not**.',
+        question: 'How do you say "I\'m hungry"?',
+        options: [
+          { ref: { sentence: 'i-feel', word: 'hunger' }, correct: true },
+          { ref: { sentence: 'i-feel', word: 'thirst' } },
+        ],
+        explain: '*nälkä* = hunger, *jano* = thirst.',
       },
     ],
   },
@@ -1814,15 +2206,6 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
-        title: 'What time is it?',
-        text: '*Kello on* + a number: *Kello on kolme* = it\'s three o\'clock.',
-        rows: [
-          { sentence: 'clock-is', word: 'three' },
-          { sentence: 'clock-is', word: 'eight' },
-        ],
-      },
-      {
         kind: 'check',
         question: 'How do you say "on Sunday"?',
         options: [
@@ -1840,6 +2223,46 @@ export const lessons: Lesson[] = [
           { ref: { word: 'winter', case: 'essive' } },
         ],
         explain: 'A season → **-lla**: *talvella*.',
+      },
+    ],
+  },
+  {
+    id: 'clock',
+    titleFi: 'Paljonko kello on?',
+    titleEn: 'What time is it?',
+    emoji: '⏰',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Kello on…',
+        text:
+          '*kello* is a **clock**. To say the time, say *Kello on* + the number: *Kello on kolme* = it\'s three o\'clock. To ask: *Paljonko kello on?*',
+      },
+      {
+        kind: 'examples',
+        title: 'Listen',
+        text: 'The number stays in its **basic form** — the numbers you learned in unit 3.',
+        rows: [
+          { sentence: 'clock-is', word: 'three' },
+          { sentence: 'clock-is', word: 'eight' },
+          { sentence: 'clock-is', word: 'twelve' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "It\'s seven o\'clock"?',
+        options: [
+          { ref: { sentence: 'clock-is', word: 'seven' }, correct: true },
+          { ref: { sentence: 'clock-is', word: 'six' } },
+          { ref: { sentence: 'clock-is', word: 'eight' } },
+        ],
+        explain: '7 = *seitsemän*: *Kello on seitsemän*.',
+      },
+      {
+        kind: 'check',
+        question: '*Kello on kaksitoista.* — What time is it?',
+        options: [{ text: "two o'clock" }, { text: "twelve o'clock", correct: true }, { text: "ten o'clock" }],
+        explain: '*kaksitoista* = 12.',
       },
     ],
   },
@@ -2058,23 +2481,43 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'explain',
-        title: 'The question words',
-        text: '- *Kuka?* — who?\n- *Mikä?* — what? (what is it)\n- *Mitä?* — what? (what are you doing)\n- *Missä?* — where?\n- *Mihin?* — where to?\n- *Mistä?* — where from?\n- *Milloin?* — when?\n- *Montako?* — how many?\n- *Kenen?* — whose?\n- *Miksi?* — why?',
-      },
-      {
-        kind: 'explain',
-        title: 'The answer matches the question',
-        text: 'Listen to the question word — it tells you which ending the answer needs:\n\n- *Missä?* → **-ssa** (*laatikossa*)\n- *Mihin?* → **into** (*puistoon*)\n- *Mistä?* → **-sta** (*koulusta*)\n- *Kenen?* → **-n** (*isän*)\n- *Milloin?* → a time (*lauantaina*)',
+        title: 'Who, what, whose, why…',
+        text: '- *Kuka?* — who?\n- *Mikä?* — what? (what is it)\n- *Mitä?* — what? (what are you doing)\n- *Montako?* — how many?\n- *Kenen?* — whose?\n- *Miksi?* — why?',
       },
       {
         kind: 'pairs',
         title: 'Ask and answer',
-        ids: ['qw-who', 'qw-what-doing', 'qw-where', 'qw-where-to', 'qw-when'],
+        ids: ['qw-who', 'qw-what', 'qw-what-doing', 'qw-how-many', 'qw-whose', 'qw-why'],
+      },
+      {
+        kind: 'check',
+        question: '*Kenen?* means…',
+        options: [{ text: 'whose?', correct: true }, { text: 'who?' }, { text: 'what?' }],
+        explain: '*Kenen?* = whose? (*Kuka?* = who?)',
+      },
+      {
+        kind: 'check',
+        question: '*Miksi?* means…',
+        options: [{ text: 'when?' }, { text: 'why?', correct: true }, { text: 'what?' }],
+        explain: '*Miksi?* = why?',
+      },
+    ],
+  },
+  {
+    id: 'where-questions',
+    titleFi: 'Missä? Mihin? Mistä?',
+    titleEn: 'Where, where to, where from, when',
+    emoji: '🧭',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Three "where" words',
+        text: '- *Missä?* — where? → answer with **-ssa** (*laatikossa*)\n- *Mihin?* — where TO? → answer with **into** (*puistoon*)\n- *Mistä?* — where FROM? → answer with **-sta** (*koulusta*)\n- *Milloin?* — when? → answer with a time (*lauantaina*)',
       },
       {
         kind: 'pairs',
-        title: 'More questions',
-        ids: ['qw-what', 'qw-where-from', 'qw-how-many', 'qw-whose', 'qw-why'],
+        title: 'Ask and answer',
+        ids: ['qw-where', 'qw-where-to', 'qw-where-from', 'qw-when'],
       },
       {
         kind: 'check',
@@ -2088,9 +2531,9 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*Kenen?* means…',
-        options: [{ text: 'whose?', correct: true }, { text: 'who?' }, { text: 'what?' }],
-        explain: '*Kenen?* = whose? (*Kuka?* = who?)',
+        question: '*Mistä?* means…',
+        options: [{ text: 'where?' }, { text: 'where to?' }, { text: 'where from?', correct: true }],
+        explain: '*Mistä?* — where from? Answer with **-sta**.',
       },
     ],
   },
@@ -2386,8 +2829,8 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'comparing',
-    titleFi: 'Isompi, isoin',
-    titleEn: 'Bigger and biggest',
+    titleFi: 'Isompi kuin',
+    titleEn: 'Bigger than',
     emoji: '🐘',
     cards: [
       {
@@ -2413,24 +2856,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'The biggest: -in',
-        text: 'To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".',
-        rows: [
-          { degree: 'big', d: 'superlative' },
-          { most: 'big', a: 'elephant' },
-          { most: 'small', a: 'mouse' },
-        ],
-      },
-      {
-        kind: 'examples',
         title: 'Special ones',
         text:
-          'A few change more, just like in English (good → better → best): *hyvä → parempi → paras*, and *pitkä → pidempi → pisin*.',
+          'A few change more, just like in English (good → better): *hyvä → parempi*, *pitkä → pidempi*.',
         rows: [
           { degree: 'good', d: 'comparative' },
-          { degree: 'good', d: 'superlative' },
           { degree: 'tall', d: 'comparative' },
-          { degree: 'tall', d: 'superlative' },
         ],
       },
       {
@@ -2439,9 +2870,8 @@ export const lessons: Lesson[] = [
         options: [
           { ref: { degree: 'fast', d: 'base' } },
           { ref: { degree: 'fast', d: 'comparative' }, correct: true },
-          { ref: { degree: 'fast', d: 'superlative' } },
         ],
-        explain: '**-mpi** = more: *nopeampi* = faster. *nopein* is the fastest.',
+        explain: '**-mpi** = more: *nopeampi* = faster.',
       },
       {
         kind: 'check',
@@ -2452,6 +2882,35 @@ export const lessons: Lesson[] = [
         ],
         explain: 'The elephant is bigger: *Norsu on isompi kuin hiiri.*',
       },
+    ],
+  },
+  {
+    id: 'superlative',
+    titleFi: 'Isoin',
+    titleEn: 'The biggest of all',
+    emoji: '🏆',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'The biggest: -in',
+        text: 'To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".',
+        rows: [
+          { degree: 'big', d: 'superlative' },
+          { most: 'big', a: 'elephant' },
+          { most: 'small', a: 'mouse' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Big, bigger, biggest',
+        text: '*iso → isompi → isoin*. And the special ones: *hyvä → parempi → paras*, *pitkä → pidempi → pisin*.',
+        rows: [
+          { degree: 'big', d: 'base' },
+          { degree: 'big', d: 'comparative' },
+          { degree: 'big', d: 'superlative' },
+          { degree: 'good', d: 'superlative' },
+        ],
+      },
       {
         kind: 'check',
         question: 'Which one means "Grandpa is the oldest"?',
@@ -2460,6 +2919,15 @@ export const lessons: Lesson[] = [
           { ref: { compare: 'old', a: 'grandfather', b: 'baby' } },
         ],
         explain: '**-in** = the most of all: *vanhin* = the oldest.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "the fastest"?',
+        options: [
+          { ref: { degree: 'fast', d: 'comparative' } },
+          { ref: { degree: 'fast', d: 'superlative' }, correct: true },
+        ],
+        explain: '**-in** = the most: *nopein*. *nopeampi* is faster.',
       },
     ],
   },
@@ -2495,16 +2963,6 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
-        title: 'With a PERSON: kanssa',
-        text:
-          'Careful! With a person (or a pet) it\'s different: the person gets **-n**, then the word **kanssa** (together with).',
-        rows: [
-          { sentence: 'with-someone', word: 'friend' },
-          { sentence: 'with-someone', word: 'mother' },
-        ],
-      },
-      {
         kind: 'check',
         question: 'Which one means "I\'m going by train"?',
         options: [
@@ -2523,6 +2981,30 @@ export const lessons: Lesson[] = [
         ],
         explain: 'WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!',
       },
+    ],
+  },
+  {
+    id: 'with-someone',
+    titleFi: 'Kaverin kanssa',
+    titleEn: 'With a friend: kanssa',
+    emoji: '🤝',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'With a PERSON: kanssa',
+        text:
+          'Careful! With a person (or a pet) it\'s different: the person gets **-n**, then the word **kanssa** (together with).',
+        rows: [
+          { sentence: 'with-someone', word: 'friend' },
+          { sentence: 'with-someone', word: 'mother' },
+          { sentence: 'with-someone', word: 'dog' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Tool or person?',
+        text: '- A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)\n- Someone you\'re WITH → **-n kanssa**: *Leikin kaverin kanssa.* (with a friend)',
+      },
       {
         kind: 'check',
         question: 'Which one means "I play with my friend"?',
@@ -2532,12 +3014,21 @@ export const lessons: Lesson[] = [
         ],
         explain: 'With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.',
       },
+      {
+        kind: 'check',
+        question: 'Which one means "I play with a ball"?',
+        options: [
+          { ref: { sentence: 'play-with-toy', word: 'ball' }, correct: true },
+          { ref: { sentence: 'play-with-toy', word: 'ball', asCase: 'genitive' } },
+        ],
+        explain: 'A ball is a thing you use → **-lla**: *pallolla*.',
+      },
     ],
   },
   {
     id: 'big-numbers',
     titleFi: 'Isot numerot',
-    titleEn: 'Big numbers — and first, second…',
+    titleEn: 'Big numbers',
     emoji: '💯',
     cards: [
       {
@@ -2560,13 +3051,6 @@ export const lessons: Lesson[] = [
           'Say the ten, then the one — all in one long word: 21 = *kaksikymmentä* + *yksi*, 35 = *kolmekymmentä* + *viisi*.',
       },
       {
-        kind: 'examples',
-        title: 'First, second, third…',
-        text:
-          'For the ORDER (who came first?) Finnish has its own words. From the 4th on most end in **-s**: *neljäs*, *viides*.',
-        rows: [{ word: 'first' }, { word: 'second' }, { word: 'third' }, { word: 'fourth' }, { word: 'fifth' }],
-      },
-      {
         kind: 'check',
         question: 'Which one is 15?',
         options: [{ ref: { word: 'five' } }, { ref: { word: 'fifteen' }, correct: true }, { ref: { word: 'fifty' } }],
@@ -2574,17 +3058,49 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
+        question: 'Which one is 40?',
+        options: [{ ref: { word: 'fourteen' } }, { ref: { word: 'forty' }, correct: true }],
+        explain: '4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.',
+      },
+    ],
+  },
+  {
+    id: 'ordinals',
+    titleFi: 'Ensimmäinen, toinen',
+    titleEn: 'First, second, third…',
+    emoji: '🥇',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Order words',
+        text:
+          'For the ORDER (who came first?) Finnish has its own words. The first three are special; from the 4th on most end in **-s**: *neljäs*, *viides*.',
+        rows: [{ word: 'first' }, { word: 'second' }, { word: 'third' }, { word: 'fourth' }, { word: 'fifth' }],
+      },
+      {
+        kind: 'explain',
+        title: 'Three or third?',
+        text: '- *kolme* = **3** (how many)\n- *kolmas* = **3rd** (which place in the line)',
+      },
+      {
+        kind: 'check',
         question: 'Which one means "the third"?',
         options: [{ ref: { word: 'three' } }, { ref: { word: 'third' }, correct: true }, { ref: { word: 'thirteen' } }],
         explain: '*kolmas* is the ORDER word (3rd). *kolme* is just 3.',
+      },
+      {
+        kind: 'check',
+        question: 'Who won the race? The one who is…',
+        options: [{ ref: { word: 'one' } }, { ref: { word: 'first' }, correct: true }, { ref: { word: 'second' } }],
+        explain: '*ensimmäinen* = first.',
       },
     ],
   },
   {
     id: 'birthdays',
-    titleFi: 'Syntymäpäivä',
-    titleEn: 'Months, dates and birthdays',
-    emoji: '🎂',
+    titleFi: 'Kuukaudet',
+    titleEn: 'The months',
+    emoji: '🗓️',
     cards: [
       {
         kind: 'examples',
@@ -2599,11 +3115,35 @@ export const lessons: Lesson[] = [
         rows: [
           { sentence: 'birthday-in', word: 'may' },
           { sentence: 'birthday-in', word: 'december' },
+          { sentence: 'now-month', word: 'june' },
         ],
       },
       {
+        kind: 'check',
+        question: 'Which one means "My birthday is in May"?',
+        options: [
+          { ref: { sentence: 'birthday-in', word: 'may' }, correct: true },
+          { ref: { sentence: 'birthday-in', word: 'may', asCase: 'partitive' } },
+        ],
+        explain: 'IN May → **-ssa**: *toukokuussa*.',
+      },
+      {
+        kind: 'check',
+        question: '*joulukuu* is…',
+        options: [{ text: 'June' }, { text: 'December', correct: true }, { text: 'January' }],
+        explain: '*joulu* is Christmas — *joulukuu* is the Christmas month!',
+      },
+    ],
+  },
+  {
+    id: 'dates',
+    titleFi: 'Päivämäärä',
+    titleEn: 'Saying a date',
+    emoji: '📅',
+    cards: [
+      {
         kind: 'examples',
-        title: 'A date',
+        title: 'Order word + month with -ta',
         text:
           'A date is the ORDER word (first, fifth…) + the month with **-ta**: *viides toukokuuta* = the 5th of May.',
         rows: [
@@ -2613,10 +3153,9 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        kind: 'examples',
-        title: 'How old are you?',
-        text: 'Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).',
-        rows: [{ age: 'seven' }, { age: 'eight' }, { age: 'nine' }],
+        kind: 'explain',
+        title: 'Two slips to watch for',
+        text: '- Use the ORDER word: *viides*, not *viisi*.\n- Give the month **-ta**: *toukokuuta*, not *toukokuu*.',
       },
       {
         kind: 'check',
@@ -2630,12 +3169,47 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'Which one means "My birthday is in May"?',
+        question: 'Which one is "the 1st of January"?',
         options: [
-          { ref: { sentence: 'birthday-in', word: 'may' }, correct: true },
-          { ref: { sentence: 'birthday-in', word: 'may', asCase: 'partitive' } },
+          { ref: { date: 'first', month: 'january' }, correct: true },
+          { ref: { date: 'first', month: 'january', wrong: 'number' } },
         ],
-        explain: 'IN May → **-ssa**: *toukokuussa*.',
+        explain: '*ensimmäinen tammikuuta* — the first of January.',
+      },
+    ],
+  },
+  {
+    id: 'age',
+    titleFi: 'Kuinka vanha olet?',
+    titleEn: 'How old are you?',
+    emoji: '🎂',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Olen … vuotta vanha',
+        text:
+          'Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).',
+        rows: [{ age: 'seven' }, { age: 'eight' }, { age: 'nine' }],
+      },
+      {
+        kind: 'explain',
+        title: 'The number, not the order word',
+        text: 'Your age is HOW MANY years: *kahdeksan* (8) — not *kahdeksas* (8th).',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I\'m eight years old"?',
+        options: [
+          { ref: { age: 'eight' }, correct: true },
+          { ref: { age: 'nine' } },
+        ],
+        explain: '8 = *kahdeksan*: *Olen kahdeksan vuotta vanha*.',
+      },
+      {
+        kind: 'check',
+        question: '*vuotta* means…',
+        options: [{ text: 'years', correct: true }, { text: 'months' }, { text: 'days' }],
+        explain: '*vuosi* = year; after a number → *vuotta*.',
       },
     ],
   },
