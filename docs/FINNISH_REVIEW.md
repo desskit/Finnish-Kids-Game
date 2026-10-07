@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T00:30:33.198Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T01:54:08.120Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 216 entries.**
+- **Approved: 28 of 340 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -48,7 +48,7 @@
 | ⚠️ | `dialogue:why-late` | Miksi myöhästyit? → Koska heräsin myöhään. | Why were you late? → Because I woke up late. |
 | ⚠️ | `dialogue:weekend-plans` | Mitä teette viikonloppuna? → Menemme isoäidille kylään. | What are you doing on the weekend? → We're going to visit grandma. |
 
-## Small-talk scenes, turn by turn (30)
+## Small-talk scenes, turn by turn (75)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -82,6 +82,51 @@
 | ⚠️ | `conversation:mixup:2` | Ai, minä sanoin sen varmaan epäselvästi. → Ei se mitään. Leikitään nyt! | Oh, I probably said it unclearly. → It's okay. Let's play now! |
 | ⚠️ | `conversation:mixup:3` | Mitä haluat leikkiä? → Leikitään piilosta! | What do you want to play? → Let's play hide and seek! |
 | ⚠️ | `conversation:mixup:4` | Sinä saat etsiä ensin! → Hyvä on, minä lasken kymmeneen. | You get to seek first! → Okay, I'll count to ten. |
+| ⚠️ | `conversation:what-you-have:1` | Hei! Mitä sinulla on? → Minulla on pallo. | Hi! What have you got? → I have a ball. |
+| ⚠️ | `conversation:what-you-have:2` | Kiva! Minulla on koira. Entä sinulla? → Minulla on kissa. | Nice! I have a dog. And you? → I have a cat. |
+| ⚠️ | `conversation:what-you-have:3` | Leikitäänkö pallolla? → Joo, leikitään! | Shall we play with the ball? → Yeah, let's play! |
+| ⚠️ | `conversation:going-out:1` | Mennään ulos! Onko sinulla takki? → On. Minulla on takki. | Let's go out! Do you have a coat? → Yes. I have a coat. |
+| ⚠️ | `conversation:going-out:2` | Onko sinulla hattu? → Ei ole. Minulla ei ole hattua. | Do you have a hat? → No. I don't have a hat. |
+| ⚠️ | `conversation:going-out:3` | Ei se mitään. Ota tämä hattu! → Kiitos! | That's okay. Take this hat! → Thank you! |
+| ⚠️ | `conversation:bedtime:1` | Mitä teet? Piirrätkö? → En piirrä. Luen. | What are you doing? Are you drawing? → I'm not drawing. I'm reading. |
+| ⚠️ | `conversation:bedtime:2` | Nukutko jo? → En nuku! | Are you asleep already? → I'm not sleeping! |
+| ⚠️ | `conversation:bedtime:3` | Nyt on yö. Hyvää yötä! → Hyvää yötä! | It's night now. Good night! → Good night! |
+| ⚠️ | `conversation:how-feel:1` | Miltä sinusta tuntuu? → Olen väsynyt. | How do you feel? → I'm tired. |
+| ⚠️ | `conversation:how-feel:2` | Oletko surullinen? → En ole surullinen. | Are you sad? → I'm not sad. |
+| ⚠️ | `conversation:how-feel:3` | Onko sinulla nälkä? → On! Minulla on nälkä. | Are you hungry? → Yes! I'm hungry. |
+| ⚠️ | `conversation:school-day:1` | Pidätkö matematiikasta? → Joo, pidän matematiikasta! | Do you like math? → Yes, I like math! |
+| ⚠️ | `conversation:school-day:2` | Entä liikunnasta? → En pidä liikunnasta. | And gym? → I don't like gym. |
+| ⚠️ | `conversation:school-day:3` | Mennään ruokalaan! → Mennään! Minulla on nälkä. | Let's go to the canteen! → Let's go! I'm hungry. |
+| ⚠️ | `conversation:bus-stop:1` | Mitä sinä odotat? → Odotan bussia. | What are you waiting for? → I'm waiting for the bus. |
+| ⚠️ | `conversation:bus-stop:2` | Näetkö bussin? → Joo, näen bussin! | Do you see the bus? → Yes, I see the bus! |
+| ⚠️ | `conversation:bus-stop:3` | Hienoa! Mennään. → Mennään! | Great! Let's go. → Let's go! |
+| ⚠️ | `conversation:what-like:1` | Millainen koira sinulla on? → Minulla on iso, ruskea koira. | What kind of dog do you have? → I have a big, brown dog. |
+| ⚠️ | `conversation:what-like:2` | Onko se nopea? → Ei ole. Se on hidas. | Is it fast? → No. It's slow. |
+| ⚠️ | `conversation:what-like:3` | Minulla on pieni, valkoinen kissa. → Kiva! Se on söpö. | I have a small, white cat. → Nice! It's cute. |
+| ⚠️ | `conversation:tidy-up:1` | Missä reppu on? → Reppu on tuolilla. | Where is the backpack? → The backpack is on the chair. |
+| ⚠️ | `conversation:tidy-up:2` | Entä kirja? Missä kirja on? → Kirja on laatikossa. | And the book? Where is the book? → The book is in the box. |
+| ⚠️ | `conversation:tidy-up:3` | Kiitos paljon! → Ole hyvä! | Thanks a lot! → You're welcome! |
+| ⚠️ | `conversation:cat-moves:1` | Mihin kissa menee? → Kissa menee laatikkoon. | Where is the cat going? → The cat is going into the box. |
+| ⚠️ | `conversation:cat-moves:2` | Ja nyt? Mistä kissa tulee? → Kissa tulee laatikosta. | And now? Where is the cat coming from? → The cat is coming out of the box. |
+| ⚠️ | `conversation:cat-moves:3` | Mihin se menee nyt? → Se menee pöydälle. | Where is it going now? → It's going onto the table. |
+| ⚠️ | `conversation:in-town:1` | Hei! Mistä sinä tulet? → Tulen koulusta. | Hi! Where are you coming from? → I'm coming from school. |
+| ⚠️ | `conversation:in-town:2` | Mihin sinä menet nyt? → Menen puistoon. | Where are you going now? → I'm going to the park. |
+| ⚠️ | `conversation:in-town:3` | Minä myös! Mennään yhdessä. → Joo, mennään! | Me too! Let's go together. → Yeah, let's go! |
+| ⚠️ | `conversation:when-play:1` | Mikä päivä tänään on? → Tänään on lauantai. | What day is it today? → Today is Saturday. |
+| ⚠️ | `conversation:when-play:2` | Mitä kello on? → Kello on kymmenen. | What time is it? → It's ten o'clock. |
+| ⚠️ | `conversation:when-play:3` | Leikitäänkö sunnuntaina? → Joo, leikitään sunnuntaina! | Shall we play on Sunday? → Yes, let's play on Sunday! |
+| ⚠️ | `conversation:hiding:1` | Missä kissa on? → Kissa on tuolin alla. | Where is the cat? → The cat is under the chair. |
+| ⚠️ | `conversation:hiding:2` | Entä pallo? → Pallo on sängyn vieressä. | And the ball? → The ball is next to the bed. |
+| ⚠️ | `conversation:hiding:3` | Ja koira? → Koira on oven takana. | And the dog? → The dog is behind the door. |
+| ⚠️ | `conversation:whose-is-it:1` | Onko tämä sinun kirjasi? → Ei ole. Se on hänen kirjansa. | Is this your book? → No. It's their book. |
+| ⚠️ | `conversation:whose-is-it:2` | Missä on sinun kynäsi? → Kynäni on repussa. | Where is your pencil? → My pencil is in the backpack. |
+| ⚠️ | `conversation:whose-is-it:3` | Onko tämä sinun pallosi? → On! Se on minun palloni. | Is this your ball? → Yes! It's my ball. |
+| ⚠️ | `conversation:lots-of-things:1` | Mitä nämä ovat? → Nämä ovat kirjoja. | What are these? → These are books. |
+| ⚠️ | `conversation:lots-of-things:2` | Onko sinulla autoja? → On, minulla on kolme autoa. | Do you have any cars? → Yes, I have three cars. |
+| ⚠️ | `conversation:lots-of-things:3` | Missä pallot ovat? → Pallot ovat laatikoissa. | Where are the balls? → The balls are in the boxes. |
+| ⚠️ | `conversation:yesterday:1` | Mitä teit eilen? → Menin puistoon. | What did you do yesterday? → I went to the park. |
+| ⚠️ | `conversation:yesterday:2` | Mitä sinä näit siellä? → Näin koiran. | What did you see there? → I saw a dog. |
+| ⚠️ | `conversation:yesterday:3` | Söitkö jäätelöä? → En syönyt. | Did you eat ice cream? → No, I didn't. |
 
 ## Stories (42)
 
@@ -130,7 +175,7 @@
 | ⚠️ | `story:birthday-surprise:q2` | Mitä lapset tekivät ensin? (He tekivät kakun. / He lauloivat. / He söivät kakkua.) | What did the children do first? (They made a cake. / They sang. / They ate cake.) |
 | ⚠️ | `story:birthday-surprise:q3` | Miksi lapset tekivät kakun salaa? (Koska se oli yllätys. / Koska heillä oli nälkä. / Koska oli maanantai.) | Why did the children make the cake in secret? (Because it was a surprise. / Because they were hungry. / Because it was Monday.) |
 
-## Carrier phrases — authored fixed texts (39)
+## Carrier phrases — authored fixed texts (62)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -155,6 +200,14 @@
 | ⚠️ | `carrier:behind-them` | ___ takana — e.g. omenien takana | behind the ___s |
 | ⚠️ | `carrier:next-to-them` | ___ vieressä — e.g. omenien vieressä | next to the ___s |
 | ⚠️ | `carrier:under-them` | ___ alla — e.g. omenien alla | under the ___s |
+| ⚠️ | `carrier:is-under` | Kissa on ___ alla. — e.g. Kissa on omenan alla. | The cat is under the ___. |
+| ⚠️ | `carrier:is-behind` | Kissa on ___ takana. — e.g. Kissa on omenan takana. | The cat is behind the ___. |
+| ⚠️ | `carrier:is-in-front-of` | Kissa on ___ edessä. — e.g. Kissa on omenan edessä. | The cat is in front of the ___. |
+| ⚠️ | `carrier:is-next-to` | Kissa on ___ vieressä. — e.g. Kissa on omenan vieressä. | The cat is next to the ___. |
+| ⚠️ | `carrier:this-is-mine` | Tämä on minun ___. — e.g. Tämä on minun omenani. | This is my ___. |
+| ⚠️ | `carrier:this-is-yours` | Tämä on sinun ___. — e.g. Tämä on sinun omenasi. | This is your ___. |
+| ⚠️ | `carrier:this-is-theirs` | Tämä on hänen ___. — e.g. Tämä on hänen omenansa. | This is his/her ___. |
+| ⚠️ | `carrier:where-is-yours` | Missä on sinun ___? — e.g. Missä on sinun omenasi? | Where is your ___? |
 | ⚠️ | `carrier:i-have-some` | Minulla on ___. — e.g. Minulla on omenia. | I have some ___s. |
 | ⚠️ | `carrier:i-havent-any` | Minulla ei ole ___. — e.g. Minulla ei ole omenia. | I don't have any ___s. |
 | ⚠️ | `carrier:these-are` | Nämä ovat ___. — e.g. Nämä ovat omenia. | These are ___s. |
@@ -173,6 +226,21 @@
 | ⚠️ | `carrier:onto-them` | Kissat menevät ___. — e.g. Kissat menevät koreille. | The cats go onto the ___s. |
 | ⚠️ | `carrier:out-of-them` | Kissat tulevat ___. — e.g. Kissat tulevat laukuista. | The cats come out of the ___s. |
 | ⚠️ | `carrier:off-them` | Kissat tulevat ___. — e.g. Kissat tulevat koreilta. | The cats come off the ___s. |
+| ⚠️ | `carrier:i-am` | Olen ___. | I'm ___. |
+| ⚠️ | `carrier:she-is` | Hän on ___. | He/she is ___. |
+| ⚠️ | `carrier:i-am-not` | En ole ___. | I'm not ___. |
+| ⚠️ | `carrier:i-feel` | Minulla on ___. | I'm ___. |
+| ⚠️ | `carrier:i-dont-like` | En pidä ___. — e.g. En pidä omenasta. | I don't like the ___. |
+| ⚠️ | `carrier:i-am-in` | Olen ___. — e.g. Olen kylpyhuoneessa. | I'm in the ___. |
+| ⚠️ | `carrier:i-am-on` | Olen ___. — e.g. Olen ovella. | I'm ___. |
+| ⚠️ | `carrier:i-go-into` | Menen ___. — e.g. Menen kylpyhuoneeseen. | I'm going to the ___. |
+| ⚠️ | `carrier:i-go-onto` | Menen ___. — e.g. Menen ovelle. | I'm going to the ___. |
+| ⚠️ | `carrier:i-come-from-in` | Tulen ___. — e.g. Tulen kylpyhuoneesta. | I'm coming from the ___. |
+| ⚠️ | `carrier:i-come-from-on` | Tulen ___. — e.g. Tulen ovelta. | I'm coming from the ___. |
+| ⚠️ | `carrier:today-is` | Tänään on ___. | Today is ___. |
+| ⚠️ | `carrier:play-on-day` | Leikin ___. | I play on ___. |
+| ⚠️ | `carrier:play-at-time` | Leikin ___. | I play ___. |
+| ⚠️ | `carrier:clock-is` | Kello on ___. | It's ___ o'clock. |
 
 ## Sentence templates — authored skeletons (12)
 
@@ -191,69 +259,125 @@
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
 
-## Lesson prose — Finnish quoted in the explanations (40)
+## Lesson prose — Finnish quoted in the explanations (78)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
+| ⚠️ | `lesson:sounds:6` | tuuli · tuli | How Finnish sounds — check |
+| ⚠️ | `lesson:sounds:7` | äiti | How Finnish sounds — check |
 | ⚠️ | `lesson:no-articles:1` | kirja | No "a", no "the" — Two words Finnish doesn't need |
 | ⚠️ | `lesson:no-articles:2` | Tämä on · on | No "a", no "the" — "This is…" |
 | ⚠️ | `lesson:no-articles:3` | on · Onko | No "a", no "the" — Asking with -ko |
 | ⚠️ | `lesson:no-articles:4` | Onko | No "a", no "the" — check |
+| ⚠️ | `lesson:no-articles:5` | opettaja | No "a", no "the" — check |
 | ⚠️ | `lesson:counting:2` | yksi kirja | Counting — One, or more than one? |
 | ⚠️ | `lesson:counting:5` | kirjaa | Counting — check |
+| ⚠️ | `lesson:counting:6` | kaveria | Counting — check |
 | ⚠️ | `lesson:having:1` | I have a bike · Minulla on pyörä | How to say "I have" — There's no verb "to have" |
 | ⚠️ | `lesson:having:2` | minulla · sinulla · hänellä · meillä · teillä · heillä | How to say "I have" — Who has it? |
 | ⚠️ | `lesson:having:4` | Sinulla on pallo. · sinulla | How to say "I have" — check |
+| ⚠️ | `lesson:having:5` | meillä | How to say "I have" — check |
 | ⚠️ | `lesson:negation-object:1` | on | Saying you don't have it — "is" becomes "is not" |
 | ⚠️ | `lesson:negation-object:3` | not all there | Saying you don't have it — Why? |
 | ⚠️ | `lesson:negation-object:4` | ei ole · kenkää | Saying you don't have it — check |
+| ⚠️ | `lesson:negation-object:5` | Minulla on hattu. · on · ei ole · hattua | Saying you don't have it — check |
 | ⚠️ | `lesson:verb-persons:1` | minä · Syön. | Verbs tell you WHO — The end of the verb says who |
+| ⚠️ | `lesson:verb-persons:6` | syötte | Verbs tell you WHO — check |
 | ⚠️ | `lesson:negative-verb:3` | en, et, ei, emme, ette, eivät · syön · en syö | "Not" is a verb — Same endings as before! |
 | ⚠️ | `lesson:negative-verb:4` | et | "Not" is a verb — check |
+| ⚠️ | `lesson:negative-verb:5` | eivät | "Not" is a verb — check |
 | ⚠️ | `lesson:likes:2` | pidän | Liking and loving — pitää → -sta / -stä |
 | ⚠️ | `lesson:likes:3` | rakastan | Liking and loving — rakastaa → -a / -ä |
 | ⚠️ | `lesson:likes:4` | pidän · musiikista | Liking and loving — check |
+| ⚠️ | `lesson:likes:5` | rakastan · pitsaa · pidän | Liking and loving — check |
 | ⚠️ | `lesson:total-object:2` | katsoa · odottaa | Seeing vs. watching — Going on for a while: -a / -ä |
 | ⚠️ | `lesson:total-object:3` | junaa | Seeing vs. watching — check |
+| ⚠️ | `lesson:total-object:4` | Näen bussin. · bussin | Seeing vs. watching — check |
 | ⚠️ | `lesson:buying:3` | Ostan maitoa. · maitoa | One whole thing, or some? — check |
+| ⚠️ | `lesson:buying:4` | Ostan omenan. · omenan | One whole thing, or some? — check |
 | ⚠️ | `lesson:agreement:4` | isossa talossa | Describing words copy — check |
+| ⚠️ | `lesson:agreement:5` | punaisen pallon | Describing words copy — check |
 | ⚠️ | `lesson:in-on:1` | in the box | Endings instead of "in" and "on" — No word for "in" |
 | ⚠️ | `lesson:in-on:3` | -ssa, -lla · -ssä, -llä · talossa · metsässä | Endings instead of "in" and "on" — The vowel team again |
 | ⚠️ | `lesson:in-on:4` | laatikko · laatikossa | Endings instead of "in" and "on" — Look at the END |
 | ⚠️ | `lesson:in-on:5` | pöydällä | Endings instead of "in" and "on" — check |
+| ⚠️ | `lesson:in-on:6` | talossa | Endings instead of "in" and "on" — check |
 | ⚠️ | `lesson:into-out:1` | Missä? · Mihin? · Mistä? | In, into, out of — Three questions |
 | ⚠️ | `lesson:into-out:5` | laatikosta | In, into, out of — check |
+| ⚠️ | `lesson:into-out:6` | laatikkoon | In, into, out of — check |
 | ⚠️ | `lesson:postpositions:1` | under the chair · tuolin alla | Position words come after — Back to front |
 | ⚠️ | `lesson:postpositions:2` | edessä · takana · vieressä · alla | Position words come after — Four position words |
 | ⚠️ | `lesson:postpositions:4` | puun takana | Position words come after — check |
+| ⚠️ | `lesson:postpositions:6` | alla · pöydän alla | Position words come after — check |
 | ⚠️ | `lesson:possessive:2` | minun kirjani · sinun kirjasi · hänen kirjansa | "My" is an ending — You'll hear the pronoun too |
+| ⚠️ | `lesson:possessive:6` | Tämä on sinun kirjasi. · sinun | "My" is an ending — check |
 | ⚠️ | `lesson:plurals:4` | palloja | More than one — check |
+| ⚠️ | `lesson:plurals:5` | kirjat | More than one — check |
 | ⚠️ | `lesson:past:1` | syön · söin | Talking about yesterday — Slip in an -i- |
 | ⚠️ | `lesson:past:3` | en, et, ei… | Talking about yesterday — "Didn't" |
 | ⚠️ | `lesson:past:5` | luin | Talking about yesterday — check |
+| ⚠️ | `lesson:past:6` | söimme | Talking about yesterday — check |
 | ⚠️ | `lesson:conversation:4` | Mitä? · Missä? · Kuka? · Paljonko? | Having a real conversation — Question words |
+| ⚠️ | `lesson:conversation:5` | Kiitos! · Ole hyvä! | Having a real conversation — check |
+| ⚠️ | `lesson:conversation:6` | Anteeksi! · Ei se mitään | Having a real conversation — check |
 | ⚠️ | `lesson:word-order:3` | Kissa on laatikolla | Building sentences — Spotting mistakes |
 | ⚠️ | `lesson:word-order:4` | laatikossa | Building sentences — check |
+| ⚠️ | `lesson:word-order:5` | Pidän · jalkapallosta | Building sentences — check |
 | ⚠️ | `lesson:expert:1` | olla | Expert Finnish — "Have done" — olen syönyt |
+| ⚠️ | `lesson:expert:5` | söisin | Expert Finnish — check |
+| ⚠️ | `lesson:feelings:1` | Olen | Saying how you feel — I am… |
+| ⚠️ | `lesson:feelings:2` | En ole | Saying how you feel — I am not… |
+| ⚠️ | `lesson:feelings:3` | Minulla on… · Minulla on nälkä | Saying how you feel — "On me is hunger" |
+| ⚠️ | `lesson:feelings:4` | Minulla on kylmä | Saying how you feel — check |
+| ⚠️ | `lesson:feelings:5` | En ole väsynyt. · En ole | Saying how you feel — check |
+| ⚠️ | `lesson:school-day:2` | Pidän · En pidä | Liking and not liking — I like / I don't like |
+| ⚠️ | `lesson:school-day:3` | En pidä · en · et · ei | Liking and not liking — The "not" verb again |
+| ⚠️ | `lesson:school-day:4` | En pidä · matematiikasta | Liking and not liking — check |
+| ⚠️ | `lesson:school-day:5` | Pidän englannista. · Pidän · En pidä | Liking and not liking — check |
+| ⚠️ | `lesson:town:1` | into · out of · Olen · Menen · Tulen | You on the move — The cat's endings — for you |
+| ⚠️ | `lesson:town:5` | puistoon | You on the move — check |
+| ⚠️ | `lesson:town:6` | asemalla | You on the move — check |
+| ⚠️ | `lesson:when:1` | maanantai | Days and times — Days of the week |
+| ⚠️ | `lesson:when:4` | Kello on · Kello on kolme | Days and times — What time is it? |
+| ⚠️ | `lesson:when:5` | sunnuntaina | Days and times — check |
+| ⚠️ | `lesson:when:6` | talvella | Days and times — check |
 
-## Other authored lines (distractor-only) (17)
+## Other authored lines (distractor-only) (35)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
 | ⚠️ | `line:1-anteeksi-` | Anteeksi. | Sorry. |
-| ⚠️ | `line:2-hyvää-huomenta-` | Hyvää huomenta. | Good morning. |
-| ⚠️ | `line:3-hyvää-päivää-` | Hyvää päivää. | Good day. |
-| ⚠️ | `line:4-hyvää-yötä-` | Hyvää yötä. | Good night. |
-| ⚠️ | `line:5-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
-| ⚠️ | `line:6-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
-| ⚠️ | `line:7-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
-| ⚠️ | `line:8-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
-| ⚠️ | `line:9-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
-| ⚠️ | `line:10-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
-| ⚠️ | `line:11-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
-| ⚠️ | `line:12-näkemiin-` | Näkemiin. | Goodbye. |
-| ⚠️ | `line:13-ole-hyvä-` | Ole hyvä. | You're welcome. |
-| ⚠️ | `line:14-olen-kuusivuotias-` | Olen kuusivuotias. | I'm six years old. |
-| ⚠️ | `line:15-samoin-` | Samoin! | You too! |
-| ⚠️ | `line:16-se-on-koira-` | Se on koira. | It's a dog. |
-| ⚠️ | `line:17-se-on-sininen-` | Se on sininen. | It's blue. |
+| ⚠️ | `line:2-en-pidä-matematiikasta-` | En pidä matematiikasta. | I don't like math. |
+| ⚠️ | `line:3-en-piirrä-` | En piirrä. | I'm not drawing. |
+| ⚠️ | `line:4-en-syö-` | En syö. | I don't eat. |
+| ⚠️ | `line:5-hyvää-huomenta-` | Hyvää huomenta. | Good morning. |
+| ⚠️ | `line:6-hyvää-päivää-` | Hyvää päivää. | Good day. |
+| ⚠️ | `line:7-hyvää-yötä-` | Hyvää yötä. | Good night. |
+| ⚠️ | `line:8-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
+| ⚠️ | `line:9-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
+| ⚠️ | `line:10-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
+| ⚠️ | `line:11-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
+| ⚠️ | `line:12-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
+| ⚠️ | `line:13-kirja-on-pöydällä-` | Kirja on pöydällä. | The book is on the table. |
+| ⚠️ | `line:14-kissa-on-iloinen-` | Kissa on iloinen. | The cat is happy. |
+| ⚠️ | `line:15-koira-on-iso-` | Koira on iso. | The dog is big. |
+| ⚠️ | `line:16-menen-kouluun-` | Menen kouluun. | I'm going to school. |
+| ⚠️ | `line:17-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
+| ⚠️ | `line:18-minulla-on-kumi-` | Minulla on kumi. | I have an eraser. |
+| ⚠️ | `line:19-minulla-on-nälkä-` | Minulla on nälkä. | I'm hungry. |
+| ⚠️ | `line:20-minulla-on-palloja-` | Minulla on palloja. | I have some balls. |
+| ⚠️ | `line:21-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
+| ⚠️ | `line:22-näkemiin-` | Näkemiin. | Goodbye. |
+| ⚠️ | `line:23-ole-hyvä-` | Ole hyvä. | You're welcome. |
+| ⚠️ | `line:24-olen-iloinen-` | Olen iloinen. | I'm happy. |
+| ⚠️ | `line:25-olen-kuusivuotias-` | Olen kuusivuotias. | I'm six years old. |
+| ⚠️ | `line:26-olen-puistossa-` | Olen puistossa. | I'm in the park. |
+| ⚠️ | `line:27-samoin-` | Samoin! | You too! |
+| ⚠️ | `line:28-se-on-hidas-` | Se on hidas. | It's slow. |
+| ⚠️ | `line:29-se-on-iso-` | Se on iso. | It's big. |
+| ⚠️ | `line:30-se-on-koira-` | Se on koira. | It's a dog. |
+| ⚠️ | `line:31-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
+| ⚠️ | `line:32-se-on-sininen-` | Se on sininen. | It's blue. |
+| ⚠️ | `line:33-tämä-on-kirja-` | Tämä on kirja. | This is a book. |
+| ⚠️ | `line:34-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | `line:35-tänään-on-perjantai-` | Tänään on perjantai. | Today is Friday. |
