@@ -66,6 +66,7 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('where', '📍', 'Can say where things are (in / on)'),
   unitClaim('moving', '🚶', 'Can say where things go and where they come from'),
   unitClaim('town', '🏙️', 'Can say where they are, where they go and where they come from'),
+  unitClaim('by-with', '🚌', 'Can say how they travel and what they use — bussilla, kynällä — and who with (kaverin kanssa)'),
   unitClaim('when', '📅', 'Can name the days, say when things happen, and tell the time'),
   unitClaim('question-words', '🤔', 'Can ask and answer who, what, where, when, whose and why'),
   unitClaim('me-you', '🫶', 'Can say help me, give it to me, I like you'),

@@ -1269,4 +1269,47 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — By & with: getting to school.
+  {
+    id: 'how-do-you-go',
+    titleFi: 'Miten menet?',
+    titleEn: 'How do you go?',
+    icon: '🚌',
+    partnerIcon: '🧑‍🏫',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Miten menet kouluun?', en: 'How do you go to school?' },
+        reply: { fi: 'Menen bussilla.', en: 'I go by bus.' },
+        distractors: [
+          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kenen kanssa?', en: 'Who with?' },
+        reply: { fi: 'Kaverin kanssa.', en: 'With my friend.' },
+        distractors: [
+          { fi: 'Kaverilla.', en: "At my friend's." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä teet koulussa?', en: 'What do you do at school?' },
+        reply: { fi: 'Piirrän kynällä.', en: 'I draw with a pencil.' },
+        distractors: [
+          { fi: 'Piirrän kynää.', en: "I'm drawing a pencil." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Hauskaa! Nähdään!', en: 'Fun! See you!' },
+        reply: { fi: 'Nähdään!', en: 'See you!' },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+        ],
+      },
+    ],
+  },
 ];

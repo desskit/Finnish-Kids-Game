@@ -202,6 +202,12 @@ const PLACES = [
   ['garden', 'puutarha', 'garden'],
   ['bus', 'bussi', 'bus', '🚌'],
   ['train', 'juna', 'train', '🚆'],
+  // Ways to travel, for "Menen bussilla" (by bus). A ship is ON (laivalla);
+  // the rest are IN (veneessä, lentokoneessa, taksissa).
+  ['boat', 'vene', 'boat', '🚤'],
+  ['plane', 'lentokone', 'plane', '🛩️'],
+  ['ship', 'laiva', 'ship', '🚢'],
+  ['taxi', 'taksi', 'taxi', '🚕'],
   ['shop', 'kauppa', 'shop', '🏪'],
   ['library', 'kirjasto', 'library', '📚'],
   // Around town & home — places a child goes, for the person-subject
@@ -272,6 +278,10 @@ const PLACE_TAGS = {
   bathroom: ['container'],
   sofa: ['surface'],
   yard: ['surface'],
+  boat: ['container'],
+  plane: ['container'],
+  ship: ['surface'],
+  taxi: ['container'],
 };
 
 // Where a PERSON can be / go / come from — a separate gate from the cat's
@@ -282,9 +292,9 @@ const PLACE_TAGS = {
 const PERSON_IN = [
   'school', 'room', 'kitchen', 'garden', 'house', 'forest', 'bus', 'train', 'shop',
   'library', 'car', 'bed', 'park', 'hospital', 'museum', 'restaurant', 'cafe', 'city',
-  'zoo', 'living-room', 'bedroom', 'bathroom',
+  'zoo', 'living-room', 'bedroom', 'bathroom', 'boat', 'plane', 'taxi',
 ];
-const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window'];
+const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window', 'ship'];
 for (const id of PERSON_IN) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-in'];
 for (const id of PERSON_ON) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-on'];
 
@@ -365,6 +375,10 @@ const FREETIME = [
   ['computer', 'tietokone', 'computer', '💻'],
   // Emoji-less (text-only depth).
   ['hobby', 'harrastus', 'hobby'],
+  // Things you do something WITH ("Syön lusikalla", I eat with a spoon).
+  ['spoon', 'lusikka', 'spoon', '🥄'],
+  ['fork', 'haarukka', 'fork'],
+  ['key', 'avain', 'key', '🔑'],
 ];
 
 const FAMILY = [

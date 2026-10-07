@@ -2433,6 +2433,77 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: 'by-with',
+    titleFi: 'Bussilla ja kynällä',
+    titleEn: 'By bus, with a pen',
+    emoji: '🚌',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'An ending you already know',
+        text:
+          'You know **-lla / -llä** for ON: *pöydällä* (on the table). The same ending also means **BY** and **WITH**: how you travel, and what you use.',
+      },
+      {
+        kind: 'examples',
+        title: 'By bus, by train',
+        rows: [
+          { sentence: 'go-by', word: 'bus' },
+          { sentence: 'go-by', word: 'train' },
+          { sentence: 'go-by', word: 'bike' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'With a pen, with a spoon',
+        text: 'The thing you do it WITH gets **-lla / -llä**.',
+        rows: [
+          { sentence: 'write-with', word: 'pencil' },
+          { sentence: 'eat-with', word: 'spoon' },
+          { sentence: 'open-with', word: 'key' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'With a PERSON: kanssa',
+        text:
+          'Careful! With a person (or a pet) it\'s different: the person gets **-n**, then the word **kanssa** (together with).',
+        rows: [
+          { sentence: 'with-someone', word: 'friend' },
+          { sentence: 'with-someone', word: 'mother' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I\'m going by train"?',
+        options: [
+          { ref: { sentence: 'go-by', word: 'train', asCase: 'illative' } },
+          { ref: { sentence: 'go-by', word: 'train' }, correct: true },
+          { ref: { sentence: 'go-by', word: 'train', asCase: 'inessive' } },
+        ],
+        explain: 'BY train → **-lla**: *junalla*. *junaan* would be INTO the train.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I eat with a spoon"?',
+        options: [
+          { ref: { sentence: 'eat-with', word: 'spoon' }, correct: true },
+          { ref: { sentence: 'eat-with', word: 'spoon', asCase: 'partitive' } },
+        ],
+        explain: 'WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I play with my friend"?',
+        options: [
+          { ref: { sentence: 'with-someone', word: 'friend', asCase: 'adessive' } },
+          { ref: { sentence: 'with-someone', word: 'friend' }, correct: true },
+        ],
+        explain: 'With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.',
+      },
+    ],
+  },
 ];
 
 export const lessonById: Readonly<Record<string, Lesson>> = Object.fromEntries(
