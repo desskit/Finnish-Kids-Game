@@ -271,12 +271,15 @@ describe('rendering course steps', () => {
     expect((st!.props as { ids: string[] }).ids).toEqual(['lost-dog', 'birthday-surprise']);
   });
 
-  it('gives every grammar unit its own conversation scene — never the same scene twice', () => {
-    const scenes = PATH.filter((u) => !['chatting', 'sentences', 'mestari'].includes(u.id)).map((u) => {
+  it('gives every grammar unit its own conversation scenes (one or two) — never the same scene twice', () => {
+    const scenes = PATH.filter((u) => !['chatting', 'sentences', 'mestari'].includes(u.id)).flatMap((u) => {
       const talk = u.skills.filter((s) => s.activity === 'conversation');
-      expect(talk, u.id).toHaveLength(1);
-      expect(talk[0].content.ids, u.id).toHaveLength(1);
-      return talk[0].content.ids![0];
+      expect(talk.length, u.id).toBeGreaterThanOrEqual(1);
+      expect(talk.length, u.id).toBeLessThanOrEqual(2);
+      return talk.map((t) => {
+        expect(t.content.ids, u.id).toHaveLength(1);
+        return t.content.ids![0];
+      });
     });
     expect(new Set(scenes).size).toBe(scenes.length);
   });

@@ -856,7 +856,7 @@ Going somewhere has its own endings.
 
 ### 2. Going INSIDE _(examples)_
 
-"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*).
+"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*). Short words like *puu* (tree) take **h** + vowel + **n**: *puuhun*.
 
 - 📦 **Kissa on laatiko[ssa].** — The cat is in the box.
 - 📦 **Kissa menee laatikk[oon].** — The cat goes into the box.
@@ -989,7 +989,7 @@ Finnish can stick "my" and "your" onto the **end** of a word:
 
 - 📕 kirja → **kirja[ni]** — my book
 - 📕 kirja → **kirja[si]** — your book
-- 📕 kirja → **kirja[nsa]** — their book
+- 📕 kirja → **kirja[nsa]** — his/her book
 
 ### 2. You'll hear the pronoun too _(explain)_
 
@@ -1010,7 +1010,7 @@ Remember *Nimeni on…* from the very first unit? *nimeni* is **my name** — *n
 
 - ✘ 🚲 pyörä → **pyörä[ni]** — my bike
 - ✔ 🚲 pyörä → **pyörä[si]** — your bike
-- ✘ 🚲 pyörä → **pyörä[nsä]** — their bike
+- ✘ 🚲 pyörä → **pyörä[nsä]** — his/her bike
 
 _Explain:_ **-si** means "your".
 
@@ -1067,7 +1067,7 @@ _Explain:_ *kaveri* + **-t** = *kaverit*.
 
 ### 1. "Some" things _(examples)_
 
-When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending, usually **-ja / -jä** or **-ita / -itä**. It's the plural cousin of the **-a** ending!
+When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending: **-ja / -jä** (*palloja*), **-ia / -iä** (*koiria*) or **-ita / -itä** (*veneitä*). It's the plural cousin of the **-a** ending!
 
 - 📕 **Nämä ovat kirjo[ja].** — These are books.
 - 🏐 **Minulla on pallo[ja].** — I have some balls.
@@ -1133,7 +1133,7 @@ _Explain:_ The **-i-** means more than one.
 
 ### 1. Slip in an -i- _(explain)_
 
-To say something **already happened**, Finnish slips an **-i-** into the verb, just before the "who" ending: *syön* (I eat) → *söin* (I ate). Sometimes a vowel changes too — listen for the **i**.
+To say something **already happened**, Finnish slips an **-i-** into the verb, just before the "who" ending: *syön* (I eat) → *söin* (I ate). Sometimes a vowel changes too — listen for the **i**. Type 4 verbs get **-si-**: *haluan → halusin*.
 
 
 ### 2. syödä — ate _(verbTable)_
@@ -1178,7 +1178,7 @@ _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
 ### 1. The "not" verb + -nut / -nyt _(explain)_
 
-For "didn't", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-nut / -nyt** — or **-neet** for we, you all and they.
+For "didn't", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-ut / -yt**: usually *-nut / -nyt* (*en syönyt*). For we, you all and they it ends in **-eet** (*emme syöneet*).
 
 
 ### 2. syödä — didn't eat _(verbTable)_
@@ -1196,6 +1196,7 @@ _syödä (eat), past negative_
 
 - *en, et, ei* (I, you, he/she) + **-nut / -nyt**: *en syönyt*
 - *emme, ette, eivät* (we, you all, they) + **-neet**: *emme syöneet*
+- Some verbs use **l** or **s** instead of **n**: *en tullut* (I didn't come), *en juossut* (I didn't run).
 
 
 ### 4. Try it _(check)_
@@ -1936,9 +1937,9 @@ _avata (open), present positive_
 - te avaatte
 - he avaavat
 
-### 4. He / she: already long _(examples)_
+### 4. He / she _(examples)_
 
-The stem already ends in two vowels, so for **he / she** nothing more is added: *hän avaa*, *hän haluaa*.
+For **he / she** the last vowel doubles, as usual: *haluan → hän haluaa*. But if it's already long, nothing changes: *avaan → hän avaa*.
 
 - **minä halua[n]**
 - **hän haluaa**
@@ -2143,7 +2144,7 @@ To say "bigger", "faster", "older", Finnish adds **-mpi**.
 
 - 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
 - 🐴🐮 **Hevonen on nopea[mpi] kuin lehmä.** — The horse is faster than the cow.
-- 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandfather is older than the baby.
+- 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
 
 ### 3. Special ones _(examples)_
 
@@ -2193,8 +2194,8 @@ To say "the biggest", "the fastest", Finnish ends the word with **-in** — and 
 
 **Q:** Which one means "Grandpa is the oldest"?
 
-- ✔ 👴 **Isoisä on vanh[in].** — Grandfather is the oldest.
-- ✘ 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandfather is older than the baby.
+- ✔ 👴 **Isoisä on vanh[in].** — Grandpa is the oldest.
+- ✘ 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
 
 _Explain:_ **-in** = the most of all: *vanhin* = the oldest.
 
@@ -2328,7 +2329,7 @@ _Explain:_ 4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.
 
 ### 1. Order words _(examples)_
 
-For the ORDER (who came first?) Finnish has its own words. The first three are special; from the 4th on most end in **-s**: *neljäs*, *viides*.
+For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd on they end in **-s**: *kolmas*, *neljäs*, *viides*.
 
 - 1. **ensimmäinen** — first
 - 2. **toinen** — second

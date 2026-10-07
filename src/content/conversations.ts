@@ -7,7 +7,9 @@
 // grammar-vetted set phrases (never rule-generated Finnish). Each turn gives the
 // partner's line, the ONE fitting reply, and real-Finnish-but-wrong-move
 // distractors — so the skill is discourse competence (keeping a conversation
-// going), not spotting broken grammar.
+// going). A few scenes drive a grammar point home with a WRONG-FORM distractor
+// (*Kolme kynä.*); those always carry a `why`, shown after a wrong pick, and
+// their English is what the child meant to say.
 //
 // A note the reviewer cares about: reciprocal "and you?" is case-sensitive. The
 // verb decides — "Mitä (sinulle) kuuluu?" governs the allative, so it echoes as
@@ -830,7 +832,7 @@ export const conversations: Conversation[] = [
         // Unit "whose" now comes right after "Not having": only "Onko…? – On /
         // Ei ole", minun/sinun/hänen + -ni/-si/-nsa, and words met so far.
         partner: { fi: 'Onko tämä sinun kirjasi?', en: 'Is this your book?' },
-        reply: { fi: 'Ei ole. Se on hänen kirjansa.', en: "No. It's their book." },
+        reply: { fi: 'Ei ole. Se on hänen kirjansa.', en: "No. It's his book." },
         distractors: [
           { fi: 'Minulla on kissa.', en: 'I have a cat.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
@@ -848,7 +850,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Ole hyvä. Tässä on sinun reppusi.', en: 'Here you go. Here is your backpack.' },
         reply: { fi: 'Kiitos!', en: 'Thank you!' },
         distractors: [
-          { fi: 'Se on hänen kirjansa.', en: "It's their book." },
+          { fi: 'Se on hänen kirjansa.', en: "It's his book." },
           { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },
@@ -978,7 +980,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Hei! Leikitkö sinä pallolla?', en: 'Hi! Do you play with a ball?' },
         reply: { fi: 'Leikin!', en: 'Yes, I do!' },
         distractors: [
-          { fi: 'Leikit.', en: 'You play.' },
+          { fi: 'Leikit.', en: 'You play.', why: '*leikit* = YOU play (**-t**). They asked about you — answer about yourself: *Leikin!*' },
           { fi: 'Näkemiin!', en: 'Goodbye!' },
         ],
       },
@@ -986,7 +988,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Uitko sinä?', en: 'Do you swim?' },
         reply: { fi: 'En ui.', en: "No, I don't." },
         distractors: [
-          { fi: 'Et ui.', en: "You don't swim." },
+          { fi: 'Et ui.', en: 'You don\'t swim.', why: '*et* = YOU don\'t. Answer about yourself: *En ui.*' },
           { fi: 'Kiitos!', en: 'Thank you!' },
         ],
       },
@@ -994,7 +996,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Laulatko sinä?', en: 'Do you sing?' },
         reply: { fi: 'Laulan!', en: 'Yes, I do!' },
         distractors: [
-          { fi: 'Laulat.', en: 'You sing.' },
+          { fi: 'Laulat.', en: 'You sing.', why: '*laulat* = YOU sing (**-t**). Answer about yourself: *Laulan!*' },
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
         ],
       },
@@ -1153,7 +1155,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Huomenta! Heräätkö jo?', en: 'Morning! Are you waking up?' },
         reply: { fi: 'Joo, herään.', en: "Yes, I'm waking up." },
         distractors: [
-          { fi: 'Joo, heräät.', en: "Yes, you're waking up." },
+          { fi: 'Joo, heräät.', en: 'Yes, you\'re waking up.', why: '*heräät* = YOU wake up (**-t**). Answer about yourself: *herään*.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
         ],
       },
@@ -1161,7 +1163,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Mitä haluat syödä?', en: 'What do you want to eat?' },
         reply: { fi: 'Haluan puuroa.', en: 'I want porridge.' },
         distractors: [
-          { fi: 'Haluaa puuroa.', en: 'He wants porridge.' },
+          { fi: 'Haluaa puuroa.', en: 'He wants porridge.', why: '*haluaa* = he / she wants. You want → *Haluan puuroa*.' },
           { fi: 'Ole hyvä.', en: "You're welcome." },
         ],
       },
@@ -1169,7 +1171,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Siivoatko huoneesi tänään?', en: 'Will you clean your room today?' },
         reply: { fi: 'Joo, siivoan!', en: "Yes, I'll clean it!" },
         distractors: [
-          { fi: 'Joo, siivoat!', en: "Yes, you'll clean it!" },
+          { fi: 'Joo, siivoat!', en: 'Yes, you\'ll clean it!', why: '*siivoat* = YOU clean (**-t**). Answer about yourself: *siivoan*.' },
           { fi: 'Nähdään!', en: 'See you!' },
         ],
       },
@@ -1177,7 +1179,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Kiitos! Avaatko ikkunan?', en: 'Thanks! Will you open the window?' },
         reply: { fi: 'Avaan.', en: "I'll open it." },
         distractors: [
-          { fi: 'Avaa.', en: 'Open it.' },
+          { fi: 'Avaa.', en: 'Open it.', why: '*Avaa!* tells someone else to open it. Answer about yourself: *Avaan* (I\'ll open it).' },
           { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },
@@ -1196,7 +1198,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Mitä tarvitset?', en: 'What do you need?' },
         reply: { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
         distractors: [
-          { fi: 'Tarvitset kynän.', en: 'You need a pen.' },
+          { fi: 'Tarvitset kynän.', en: 'You need a pen.', why: '*tarvitset* = YOU need (**-t**). Answer about yourself: *Tarvitsen kynän*.' },
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
         ],
       },
@@ -1204,7 +1206,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Valitsetko punaisen vai sinisen?', en: 'Do you choose the red one or the blue one?' },
         reply: { fi: 'Valitsen punaisen!', en: 'I choose the red one!' },
         distractors: [
-          { fi: 'Valitsee punaisen.', en: 'He chooses the red one.' },
+          { fi: 'Valitsee punaisen.', en: 'He chooses the red one.', why: '*valitsee* = he / she chooses. You → *Valitsen punaisen*.' },
           { fi: 'Ei kiitos.', en: 'No thanks.' },
         ],
       },
@@ -1282,7 +1284,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Miten menet kouluun?', en: 'How do you go to school?' },
         reply: { fi: 'Menen bussilla.', en: 'I go by bus.' },
         distractors: [
-          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+          { fi: 'Menen bussiin.', en: 'I\'m going into the bus.', why: '*bussiin* = INTO the bus. BY bus → **-lla**: *Menen bussilla*.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
         ],
       },
@@ -1290,7 +1292,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Kenen kanssa?', en: 'Who with?' },
         reply: { fi: 'Kaverin kanssa.', en: 'With my friend.' },
         distractors: [
-          { fi: 'Kaverilla.', en: "At my friend's." },
+          { fi: 'Kaverilla.', en: 'At my friend\'s.', why: '*kaverilla* = at a friend\'s place. WITH a person → *kaverin kanssa*.' },
           { fi: 'Ole hyvä.', en: "You're welcome." },
         ],
       },
@@ -1298,7 +1300,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Mitä teet koulussa?', en: 'What do you do at school?' },
         reply: { fi: 'Piirrän kynällä.', en: 'I draw with a pencil.' },
         distractors: [
-          { fi: 'Piirrän kynää.', en: "I'm drawing a pencil." },
+          { fi: 'Piirrän kynää.', en: 'I\'m drawing a pencil.', why: '*Piirrän kynää* means you\'re drawing a picture OF a pencil! WITH a pencil → *kynällä*.' },
           { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },
@@ -1307,7 +1309,7 @@ export const conversations: Conversation[] = [
         reply: { fi: 'Nähdään!', en: 'See you!' },
         distractors: [
           { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
-          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+          { fi: 'Menen bussiin.', en: 'I\'m going into the bus.', why: '*bussiin* = INTO the bus. BY bus → **-lla**: *Menen bussilla*.' },
         ],
       },
     ],
@@ -1333,7 +1335,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Minä olen ensimmäinen!', en: "I'm first!" },
         reply: { fi: 'Minä olen toinen.', en: "I'm second." },
         distractors: [
-          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+          { fi: 'Minä olen kaksi.', en: 'I am two.', why: '*kaksi* is just 2. A place in a race is an ORDER word: *toinen* (2nd).' },
           { fi: 'Ole hyvä.', en: "You're welcome." },
         ],
       },
@@ -1341,7 +1343,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Kuka on kolmas?', en: 'Who is third?' },
         reply: { fi: 'Koira on kolmas!', en: 'The dog is third!' },
         distractors: [
-          { fi: 'Koira on kolme!', en: 'The dog is three!' },
+          { fi: 'Koira on kolme!', en: 'The dog is three!', why: '*kolme* is just 3. Third place is *kolmas*.' },
           { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
         ],
       },
@@ -1350,7 +1352,7 @@ export const conversations: Conversation[] = [
         reply: { fi: 'Joo, juostaan!', en: "Yeah, let's run!" },
         distractors: [
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
-          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+          { fi: 'Minä olen kaksi.', en: 'I am two.', why: '*kaksi* is just 2. A place in a race is an ORDER word: *toinen* (2nd).' },
         ],
       },
     ],
@@ -1376,7 +1378,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Kiitos! Olen nyt yhdeksän vuotta vanha. Entä sinä?', en: "Thanks! I'm nine years old now. And you?" },
         reply: { fi: 'Olen kahdeksan vuotta vanha.', en: "I'm eight years old." },
         distractors: [
-          { fi: 'Olen kahdeksas.', en: "I'm eighth." },
+          { fi: 'Olen kahdeksas.', en: 'I\'m eighth.', why: '*kahdeksas* is 8th. Your age is a number: *Olen kahdeksan vuotta vanha*.' },
           { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },
@@ -1384,7 +1386,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Milloin sinun syntymäpäiväsi on?', en: 'When is your birthday?' },
         reply: { fi: 'Toukokuussa.', en: 'In May.' },
         distractors: [
-          { fi: 'Toukokuuta.', en: '(of May)' },
+          { fi: 'Toukokuuta.', en: 'In May.', why: 'IN a month → **-ssa**: *toukokuussa*. (*toukokuuta* is for a date: *viides toukokuuta*.)' },
           { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
         ],
       },
@@ -1394,6 +1396,431 @@ export const conversations: Conversation[] = [
         distractors: [
           { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
           { fi: 'Nähdään!', en: 'See you!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — People & things: Tämä on… / Onko tämä…?
+  {
+    id: 'what-is-this',
+    titleFi: 'Mikä tämä on?',
+    titleEn: 'What is this?',
+    icon: '🎒',
+    partnerIcon: '🧑‍🏫',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mikä tämä on?', en: 'What is this?' },
+        reply: { fi: 'Se on kirja.', en: 'It\'s a book.' },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko tämä kynä?', en: 'Is this a pencil?' },
+        reply: { fi: 'On. Se on kynä.', en: 'Yes. It\'s a pencil.' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Ei se mitään.', en: 'It\'s okay.' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko tämä reppu?', en: 'Is this a backpack?' },
+        reply: { fi: 'Ei. Se on kello.', en: 'No. It\'s a clock.' },
+        distractors: [
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+        ],
+      },
+      {
+        partner: { fi: 'Hienoa! Kiitos.', en: 'Great! Thanks.' },
+        reply: { fi: 'Ole hyvä!', en: 'You\'re welcome!' },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Numbers: one stays basic, two+ take -a / -ä
+  {
+    id: 'how-many-things',
+    titleFi: 'Montako?',
+    titleEn: 'How many?',
+    icon: '🔢',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils have you got?' },
+        reply: { fi: 'Kolme kynää.', en: 'Three pencils.' },
+        distractors: [
+          { fi: 'Kolme kynä.', en: 'Three pencils.', why: 'After 2, 3, 4… the thing gets **-a / -ä**: *kolme kynää*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä kirjoja? Montako kirjaa?', en: 'And books? How many books?' },
+        reply: { fi: 'Yksi kirja.', en: 'One book.' },
+        distractors: [
+          { fi: 'Yksi kirjaa.', en: 'One book.', why: 'With ONE, the word stays in its basic form: *yksi kirja*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Montako kaveria tulee?', en: 'How many friends are coming?' },
+        reply: { fi: 'Viisi kaveria.', en: 'Five friends.' },
+        distractors: [
+          { fi: 'Viisi kaveri.', en: 'Five friends.', why: 'After 2, 3, 4… the thing gets **-a / -ä**: *viisi kaveria*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Leikitään!', en: 'Nice! Let\'s play!' },
+        reply: { fi: 'Joo, leikitään!', en: 'Yeah, let\'s play!' },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — I have: everyone — hänellä, meillä, teillä
+  {
+    id: 'who-has-what',
+    titleFi: 'Kenellä on?',
+    titleEn: 'Who has what?',
+    icon: '👪',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Onko teillä koira?', en: 'Do you (all) have a dog?' },
+        reply: { fi: 'Ei, meillä on kissa.', en: 'No, we have a cat.' },
+        distractors: [
+          { fi: 'Ei, heillä on kissa.', en: 'No, they have a cat.', why: '*heillä* = they have. They asked about you all — *meillä* (we have).' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä Eerolla on?', en: 'What has Eero got?' },
+        reply: { fi: 'Hänellä on kitara.', en: 'He has a guitar.' },
+        distractors: [
+          { fi: 'Minulla on kitara.', en: 'I have a guitar.', why: '*minulla* = I have. They asked about Eero — *hänellä* (he has).' },
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä sinulla?', en: 'And you?' },
+        reply: { fi: 'Minulla on pallo.', en: 'I have a ball.' },
+        distractors: [
+          { fi: 'Hänellä on pallo.', en: 'He has a ball.', why: '*hänellä* = he / she has. They asked about you — *minulla* (I have).' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Leikitään pallolla!', en: 'Let\'s play with the ball!' },
+        reply: { fi: 'Joo, leikitään!', en: 'Yeah, let\'s play!' },
+        distractors: [
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Verbs, part 1: the ending says who (incl. k/p/t)
+  {
+    id: 'what-everyone-does',
+    titleFi: 'Mitä teette?',
+    titleEn: 'What is everyone doing?',
+    icon: '🏠',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä sinä teet?', en: 'What are you doing?' },
+        reply: { fi: 'Minä luen.', en: 'I\'m reading.' },
+        distractors: [
+          { fi: 'Sinä luet.', en: 'You\'re reading.', why: '*sinä luet* = YOU are reading. They asked about you — *Minä luen*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä isä? Mitä hän tekee?', en: 'And Dad? What is he doing?' },
+        reply: { fi: 'Hän nukkuu.', en: 'He\'s sleeping.' },
+        distractors: [
+          { fi: 'Hän nukun.', en: 'He\'s sleeping.', why: '*nukun* is the "I" form (**-n**). For he / she: *hän nukkuu*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä te teette?', en: 'What are you all doing?' },
+        reply: { fi: 'Me laulamme.', en: 'We\'re singing.' },
+        distractors: [
+          { fi: 'He laulavat.', en: 'They\'re singing.', why: '*he laulavat* = THEY are singing. They asked about you all — *Me laulamme*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Minä kuuntelen.', en: 'Nice! I\'m listening.' },
+        reply: { fi: 'Kiitos!', en: 'Thanks!' },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Likes: pidän + -sta, rakastan + -a
+  {
+    id: 'favourite-things',
+    titleFi: 'Mistä pidät?',
+    titleEn: 'What do you like?',
+    icon: '❤️',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Pidätkö pitsasta?', en: 'Do you like pizza?' },
+        reply: { fi: 'Pidän! Pidän pitsasta.', en: 'I do! I like pizza.' },
+        distractors: [
+          { fi: 'Pidän pitsaa.', en: 'I like pizza.', why: '*Pidän* always takes **-sta / -stä**: *Pidän pitsasta*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Rakastatko suklaata?', en: 'Do you love chocolate?' },
+        reply: { fi: 'Rakastan suklaata!', en: 'I love chocolate!' },
+        distractors: [
+          { fi: 'Rakastan suklaasta.', en: 'I love chocolate!', why: '*Rakastan* takes **-a / -ta**: *Rakastan suklaata*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä rakastan jäätelöä!', en: 'I love ice cream!' },
+        reply: { fi: 'Minä myös!', en: 'Me too!' },
+        distractors: [
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Shop: one whole thing (-n) or some (-a)
+  {
+    id: 'shopping-list',
+    titleFi: 'Ostoslista',
+    titleEn: 'The shopping list',
+    icon: '🧺',
+    partnerIcon: '👨',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä me ostamme?', en: 'What are we buying?' },
+        reply: { fi: 'Ostetaan maitoa ja leipää.', en: 'Let\'s buy some milk and bread.' },
+        distractors: [
+          { fi: 'Ostetaan maito ja leipä.', en: 'Let\'s buy some milk and bread.', why: 'Buying SOME of something → **-a / -ä**: *maitoa*, *leipää*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ostetaanko myös omena?', en: 'Shall we buy an apple too?' },
+        reply: { fi: 'Joo, ostan omenan.', en: 'Yes, I\'ll buy an apple.' },
+        distractors: [
+          { fi: 'Joo, ostan omena.', en: 'Yes, I\'ll buy an apple.', why: 'Buying one whole thing → **-n**: *ostan omenan*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvä! Entä mehua?', en: 'Good! And some juice?' },
+        reply: { fi: 'Joo, ostetaan mehua!', en: 'Yes, let\'s buy some juice!' },
+        distractors: [
+          { fi: 'Ei se mitään.', en: 'It\'s okay.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Describing: the describing word copies the ending
+  {
+    id: 'red-balls',
+    titleFi: 'Punaiset pallot',
+    titleEn: 'Red balls',
+    icon: '🔴',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Millainen pallo sinulla on?', en: 'What kind of ball have you got?' },
+        reply: { fi: 'Minulla on punainen pallo.', en: 'I have a red ball.' },
+        distractors: [
+          { fi: 'Minulla on punaista pallo.', en: 'I have a red ball.', why: 'After *Minulla on*, both words stay in their basic form: *punainen pallo*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Montako punaista palloa sinulla on?', en: 'How many red balls have you got?' },
+        reply: { fi: 'Kolme punaista palloa.', en: 'Three red balls.' },
+        distractors: [
+          { fi: 'Kolme punainen palloa.', en: 'Three red balls.', why: 'After 3, BOTH words get **-a / -ä** — the describing word copies: *kolme punaista palloa*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko sinulla sininen pallo?', en: 'Have you got a blue ball?' },
+        reply: { fi: 'Ei ole. Minulla ei ole sinistä palloa.', en: 'No. I don\'t have a blue ball.' },
+        distractors: [
+          { fi: 'Minulla ei ole sininen palloa.', en: 'I don\'t have a blue ball.', why: 'After *ei ole*, BOTH words get **-a / -ä**: *sinistä palloa*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Where: in MY … (talossani)
+  {
+    id: 'my-things',
+    titleFi: 'Missä tavarasi ovat?',
+    titleEn: 'Where are your things?',
+    icon: '🎒',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Missä sinun kirjasi on?', en: 'Where is your book?' },
+        reply: { fi: 'Se on repussani.', en: 'It\'s in my backpack.' },
+        distractors: [
+          { fi: 'Se on reppuni.', en: 'It\'s my backpack.', why: '*reppuni* = my backpack. IN my backpack → *repussani*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä puhelimesi?', en: 'And your phone?' },
+        reply: { fi: 'Se on pöydälläni.', en: 'It\'s on my table.' },
+        distractors: [
+          { fi: 'Se on pöytäni.', en: 'It\'s my table.', why: '*pöytäni* = my table. ON my table → *pöydälläni*.' },
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ja kissa?', en: 'And the cat?' },
+        reply: { fi: 'Se on sängylläni!', en: 'It\'s on my bed!' },
+        distractors: [
+          { fi: 'Se on sänkyni!', en: 'It\'s my bed!', why: '*sänkyni* = my bed. ON my bed → *sängylläni*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — When: on a day -na, in the morning / in winter -lla
+  {
+    id: 'my-week',
+    titleFi: 'Minun viikkoni',
+    titleEn: 'My week',
+    icon: '📅',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä teet lauantaina?', en: 'What do you do on Saturday?' },
+        reply: { fi: 'Lauantaina uin.', en: 'On Saturday I swim.' },
+        distractors: [
+          { fi: 'Lauantailla uin.', en: 'On Saturday I swim.', why: 'ON a day → **-na / -nä**: *lauantaina*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä aamulla?', en: 'And in the morning?' },
+        reply: { fi: 'Aamulla syön puuroa.', en: 'In the morning I eat porridge.' },
+        distractors: [
+          { fi: 'Aamussa syön puuroa.', en: 'In the morning I eat porridge.', why: 'In the morning → **-lla**: *aamulla*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä teet talvella?', en: 'What do you do in winter?' },
+        reply: { fi: 'Talvella leikin lumessa.', en: 'In winter I play in the snow.' },
+        distractors: [
+          { fi: 'Talvessa leikin lumessa.', en: 'In winter I play in the snow.', why: 'In winter → **-lla**: *talvella*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Big numbers: counting past twelve
+  {
+    id: 'sweets',
+    titleFi: 'Karkkeja',
+    titleEn: 'Sweets',
+    icon: '🍬',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Montako karkkia sinulla on?', en: 'How many sweets have you got?' },
+        reply: { fi: 'Minulla on viisitoista karkkia.', en: 'I have fifteen sweets.' },
+        distractors: [
+          { fi: 'Minulla on viisitoista karkki.', en: 'I have fifteen sweets.', why: 'After a number (2 or more) the thing gets **-a / -ä**: *viisitoista karkkia*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minulla on kaksikymmentä!', en: 'I have twenty!' },
+        reply: { fi: 'Sinulla on enemmän!', en: 'You have more!' },
+        distractors: [
+          { fi: 'Minulla on enemmän!', en: 'I have more!' },
+          { fi: 'Ole hyvä.', en: 'Here you go.' },
+        ],
+      },
+      {
+        partner: { fi: 'Annan sinulle viisi.', en: 'I\'ll give you five.' },
+        reply: { fi: 'Kiitos! Nyt minulla on kaksikymmentä.', en: 'Thanks! Now I have twenty.' },
+        distractors: [
+          { fi: 'Kiitos! Nyt minulla on kymmenen.', en: 'Thanks! Now I have ten.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Question words: whose, how many, why, what
+  {
+    id: 'whose-and-why',
+    titleFi: 'Kenen? Miksi?',
+    titleEn: 'Whose? Why?',
+    icon: '🤔',
+    partnerIcon: '🧑‍🏫',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Kenen kynä tämä on?', en: 'Whose pencil is this?' },
+        reply: { fi: 'Se on minun kynäni.', en: 'It\'s my pencil.' },
+        distractors: [
+          { fi: 'Huomenna.', en: 'Tomorrow.' },
+          { fi: 'Kaksi.', en: 'Two.' },
+        ],
+      },
+      {
+        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils have you got?' },
+        reply: { fi: 'Kaksi.', en: 'Two.' },
+        distractors: [
+          { fi: 'Koulussa.', en: 'At school.' },
+          { fi: 'Se on minun kynäni.', en: 'It\'s my pencil.' },
+        ],
+      },
+      {
+        partner: { fi: 'Miksi sinulla on kaksi kynää?', en: 'Why have you got two pencils?' },
+        reply: { fi: 'Koska piirrän paljon!', en: 'Because I draw a lot!' },
+        distractors: [
+          { fi: 'Kaksi.', en: 'Two.' },
+          { fi: 'Kotona.', en: 'At home.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä piirrät?', en: 'What are you drawing?' },
+        reply: { fi: 'Piirrän koiran.', en: 'I\'m drawing a dog.' },
+        distractors: [
+          { fi: 'Koska piirrän paljon!', en: 'Because I draw a lot!' },
+          { fi: 'Kenen?', en: 'Whose?' },
         ],
       },
     ],

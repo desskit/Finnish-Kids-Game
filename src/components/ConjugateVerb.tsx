@@ -10,7 +10,7 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForVerb } from '../content/why';
+import { whyForVerb, whyForVerbPick } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -60,6 +60,8 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
   const q = round[index];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
+  // The wrong tile picked last — its own "Why?" (what that form means).
+  const [whyPick, setWhyPick] = useState<ConjugationOption | null>(null);
 
   // Say the pronoun prompt out loud when a new question appears.
   useEffect(() => {
@@ -95,6 +97,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         setWhyAt(index);
         playDing(false);
         setWrongForm(opt.form);
+        setWhyPick(opt);
         setTimeout(() => setWrongForm((cur) => (cur === opt.form ? null : cur)), 600);
       }
     },
@@ -186,7 +189,15 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
           </button>
         ))}
       </div>
-      {whyAt === index && q && <WhyTip why={whyForVerb(q.verb, q.tense, q.polarity, q.person)} />}
+      {whyAt === index && q && (
+        <WhyTip
+          why={
+            whyPick
+              ? whyForVerbPick(q.verb, q.tense, q.polarity, q.person, whyPick)
+              : whyForVerb(q.verb, q.tense, q.polarity, q.person)
+          }
+        />
+      )}
     </section>
   );
 }

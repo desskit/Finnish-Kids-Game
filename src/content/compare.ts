@@ -130,9 +130,15 @@ export function superlativeSegments(adj: LexicalItem, x: LexicalItem): Segment[]
   return [{ text: `${cap(x.fi)} on ` }, ...degreeSegments(f, 'superlative'), { text: '.' }];
 }
 
-const article = (x: LexicalItem) => (x.topic === 'family' && /^(grand|mother|father)/.test(x.id) ? '' : 'the ');
+// Family members a child calls by name — "Grandpa", not "the grandfather".
+const FAMILY_NAMES: Record<string, string> = {
+  mother: 'Mom',
+  father: 'Dad',
+  grandmother: 'Grandma',
+  grandfather: 'Grandpa',
+};
 /** "the elephant", "Grandma" — how the English names one of them. */
-export const enName = (x: LexicalItem) => `${article(x)}${x.en}`;
+export const enName = (x: LexicalItem) => FAMILY_NAMES[x.id] ?? `the ${x.en}`;
 
 /** "The elephant is bigger than the mouse." */
 export function comparisonEnglish(adj: LexicalItem, x: LexicalItem, y: LexicalItem): string {

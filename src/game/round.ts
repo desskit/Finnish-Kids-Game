@@ -1192,6 +1192,8 @@ export interface ConjugationOption {
   person: PersonId;
   form: string;
   correct: boolean;
+  /** Tricky rounds: the OTHER verb this tile belongs to (for its "Why?"). */
+  verb?: LexicalItem;
 }
 
 export interface ConjugationQuestion {
@@ -1259,6 +1261,7 @@ export function buildConjugationRound(
           person: target.id,
           form: verbForm(otherVerb, combo.tense, combo.polarity, target.id)!,
           correct: false,
+          verb: otherVerb,
         };
       }
     }

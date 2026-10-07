@@ -478,7 +478,7 @@ export interface Possessor {
 export const POSSESSORS: Possessor[] = [
   { id: '1sg', fi: 'minun', en: 'my' },
   { id: '2sg', fi: 'sinun', en: 'your' },
-  { id: '3rd', fi: 'hänen', en: 'their' },
+  { id: '3rd', fi: 'hänen', en: 'his/her' },
 ];
 
 /** The sourced possessive form for a possessor + case (singular), by tag. */

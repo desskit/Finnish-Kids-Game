@@ -659,6 +659,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'Onko tämä kirja?',
       },
       sceneStep('people-talk', 'at-school', 'Koulussa', 'At school'),
+      sceneStep('people-talk-2', 'what-is-this', 'Mikä tämä on?', 'What is this?'),
     ],
   },
   {
@@ -697,6 +698,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'kolme kirjaa',
       },
       sceneStep('numbers-talk', 'new-friend', 'Uusi kaveri', 'A new friend'),
+      sceneStep('numbers-talk-2', 'how-many-things', 'Montako?', 'How many?'),
     ],
   },
   {
@@ -721,6 +723,7 @@ const UNITS: Chapter[] = [
         'Hänellä on kitara.',
       ),
       sceneStep('having-talk', 'what-you-have', 'Mitä sinulla on?', 'What have you got?'),
+      sceneStep('having-talk-2', 'who-has-what', 'Kenellä on?', 'Who has what?'),
     ],
   },
   {
@@ -817,6 +820,7 @@ const UNITS: Chapter[] = [
       verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
       verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
       sceneStep('doing-talk', 'playdate', 'Leikitään!', 'Playing together'),
+      sceneStep('doing-talk-2', 'what-everyone-does', 'Mitä teette?', 'What is everyone doing?'),
     ],
   },
   {
@@ -950,7 +954,7 @@ const UNITS: Chapter[] = [
       wordsStep('likes', 'nouns', 'Food & fun'),
       phraseStep('i-like', 'Pidän…sta', 'I like…', '👍', ['i-like'], 'Pidän jalkapallosta.'),
       phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like'], 'Rakastan pitsaa.'),
-      sceneStep('likes-talk', 'evening-home', 'Illalla kotona', 'Evening at home'),
+      sceneStep('likes-talk', 'favourite-things', 'Mistä pidät?', 'What do you like?'),
     ],
   },
   {
@@ -1046,6 +1050,7 @@ const UNITS: Chapter[] = [
       phraseStep('buy-some', 'Ostan maitoa', 'Some of something', '🥛', ['i-buy-some'], 'Ostan maitoa.'),
       phraseStep('buying', 'Ostan…', 'One, or some?', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
       sceneStep('shop-scene', 'shop', 'Kaupassa', 'At the till'),
+      sceneStep('shop-scene-2', 'shopping-list', 'Ostoslista', 'The shopping list'),
     ],
   },
   {
@@ -1120,6 +1125,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'iso koira',
       },
       sceneStep('describing-talk', 'what-like', 'Millainen?', 'What is it like?'),
+      sceneStep('describing-talk-2', 'red-balls', 'Punaiset pallot', 'Red balls'),
     ],
   },
   {
@@ -1218,6 +1224,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'talossani, huoneessasi',
       },
       sceneStep('where-talk', 'tidy-up', 'Missä se on?', 'Where is it?'),
+      sceneStep('where-talk-2', 'my-things', 'Missä tavarasi ovat?', 'Where are your things?'),
     ],
   },
   {
@@ -1359,6 +1366,7 @@ const UNITS: Chapter[] = [
       ),
       phraseStep('clock', 'Kello on…', 'What time is it?', '⏰', ['clock-is'], 'Kello on kolme.', 'numbers'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
+      sceneStep('when-talk-2', 'my-week', 'Minun viikkoni', 'My week'),
     ],
   },
   {
@@ -1397,6 +1405,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'kolme · kolmas',
       },
       sceneStep('big-numbers-talk', 'race', 'Kilpajuoksu', 'A race'),
+      sceneStep('big-numbers-talk-2', 'sweets', 'Karkkeja', 'Sweets'),
     ],
   },
   {
@@ -1487,6 +1496,7 @@ const UNITS: Chapter[] = [
         },
       },
       sceneStep('question-words-talk', 'new-pupil', 'Uusi oppilas', 'The new pupil'),
+      sceneStep('question-words-talk-2', 'whose-and-why', 'Kenen? Miksi?', 'Whose? Why?'),
     ],
   },
   {
@@ -1654,7 +1664,7 @@ const UNITS: Chapter[] = [
         icon: '🗣️',
         activity: 'conversation',
         maxLevel: 4,
-        content: { ids: ['helping', 'plan-day', 'mixup'] },
+        content: { ids: ['helping', 'evening-home', 'plan-day', 'mixup'] },
       },
       {
         id: 'everyday-stories',

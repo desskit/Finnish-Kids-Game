@@ -107,7 +107,8 @@ function renderActivity() {
 // the lookup to the tile tray.
 const correctTile = () =>
   screen.getByText('kissa', { selector: '.word-tiles *' }).closest('button') as HTMLButtonElement;
-const wrongTile = () => screen.getByText('koira').closest('button') as HTMLButtonElement;
+const wrongTile = () =>
+  screen.getByText('koira', { selector: '.word-tiles *' }).closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
   await act(async () => {
@@ -164,12 +165,14 @@ describe('BuildAPhrase', () => {
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();
   });
 
-  it('explains a miss with a "Why?" tip (the rule + the right form), only after a wrong tap', () => {
+  it('explains a miss with a "Why?" tip that says what the wrong pick means, only after a wrong tap', () => {
     renderActivity();
     expect(document.querySelector('.why-tip')).toBeNull();
     fireEvent.click(wrongTile());
     const tip = document.querySelector('.why-tip')!;
-    expect(tip.textContent).toMatch(/basic form/);
+    // The wrong tile was another WORD (koira = dog): the tip names it, and the right one.
+    expect(tip.textContent).toMatch(/koira is "dog"/);
+    expect(tip.textContent).toMatch(/wrong word/);
     expect(tip.textContent).toContain('kissa');
   });
 

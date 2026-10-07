@@ -253,19 +253,26 @@ export function checkpointPlan(unit: Unit, attempt = 0): CheckpointPart[] {
   if (!hasCheckpoint(unit) || unit.skills.length === 0) return [];
   const cfg = { ...DEFAULT_CHECKPOINT, ...(unit.checkpoint || {}) };
   // A long unit asks fewer questions per step (so its checkpoint stays about
-  // as long as a short unit's), and its new-words steps ask just one each.
+  // as long as a short unit's), and its new-words and scene steps ask just one each.
   const steps = unit.skills.length;
   const long = steps >= 5;
   const perStep = Math.max(
     long ? Math.min(cfg.perStep, 2) : cfg.perStep,
     Math.ceil(cfg.minQuestions / steps),
   );
-  const parts = unit.skills.map((step) => {
+  const light = (step: SkillNode) =>
+    long && (step.content.words === 'new' || step.activity === 'conversation');
+  const counts = unit.skills.map((step) => (light(step) ? 1 : perStep));
+  // Never below the minimum: top up the grammar steps, one at a time.
+  const grammar = unit.skills.map((s, i) => (light(s) ? -1 : i)).filter((i) => i >= 0);
+  for (let k = 0; counts.reduce((a, b) => a + b, 0) < cfg.minQuestions && grammar.length > 0; k++) {
+    counts[grammar[k % grammar.length]] += 1;
+  }
+  const parts = unit.skills.map((step, i) => {
     const sub = mixStepFor(step, attempt);
-    const n = long && step.content.words === 'new' ? 1 : perStep;
     return sub
-      ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), n, 'step')
-      : partFor(step, lessonForStep(unit, step), n, 'step');
+      ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), counts[i], 'step')
+      : partFor(step, lessonForStep(unit, step), counts[i], 'step');
   });
   const ui = unitIndex(unit.id);
   if (ui >= 2) {

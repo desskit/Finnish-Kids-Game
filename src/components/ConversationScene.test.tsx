@@ -80,7 +80,8 @@ function renderActivity() {
   );
 }
 
-const reply = (fi: string) => screen.getByText(fi).closest('button') as HTMLButtonElement;
+const reply = (fi: string) =>
+  screen.getByText(fi, { selector: '.reply-tile__fi' }).closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
   await act(async () => {
@@ -151,7 +152,9 @@ describe('ConversationScene (small talk)', () => {
     await advance(100);
     expect(screen.getByTestId('stars')).toHaveTextContent('0');
     // Still on the first turn.
-    expect(screen.getByText('Moi! Mitä kuuluu?')).toBeInTheDocument();
+    expect(screen.getAllByText('Moi! Mitä kuuluu?').length).toBeGreaterThan(0);
+    // …and a "Why?" says what the picked line means.
+    expect(document.querySelector('.why-tip')?.textContent).toMatch(/Näkemiin! means "Goodbye!" — that doesn't answer/);
   });
 
   it('finishes with the completion payoff after the last turn', async () => {

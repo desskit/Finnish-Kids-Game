@@ -1,5 +1,5 @@
 import type { Construction } from "./types";
-import { SURFACE_TAG, CONTAINER_TAG } from "./semantics";
+import { SURFACE_TAG, CONTAINER_TAG, NOT_COUNTABLE } from "./semantics";
 
 // Generic carrier phrases usable with any countable noun theme (animals, food,
 // family, ...). These are human-authored; each slot's Finnish form is looked
@@ -83,6 +83,37 @@ const NOT_VISIBLE = ["music", "hobby", "math", "gym", "english", "task"];
 
 // Nature words that make no concrete reference point for a postposition
 // ("sateen edessä" reads as poetry, not a place).
+// Things that read oddly in the PLURAL: what can't be counted (music, milk),
+// people you only have one of (Mom, Dad), and one-of-a-kind things.
+// "Nämä ovat englanteja" (these are Englishes) and "Minulla on isiä" (I have
+// some dads) are nonsense.
+const NO_PLURAL = [
+  ...NOT_COUNTABLE,
+  "mother",
+  "father",
+  "grandmother",
+  "grandfather",
+  "family",
+  "fire",
+  "sun",
+  "moon",
+  "sky",
+  "sea",
+  "canteen",
+  "kitchen",
+  "living-room",
+  "bedroom",
+  "bathroom",
+  "hair",
+];
+// Body parts you have anyway — "Minulla on silmiä" (I have some eyes) is odd.
+const BODY = ["eye", "ear", "nose", "mouth", "hand", "foot", "head", "tooth", "hair", "tummy", "finger", "knee", "tongue", "heart", "bone", "muscle"];
+
+// Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
+const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
+// People a child doesn't "have some of": "Minulla on poikia" (I have sons).
+const NOT_YOURS_IN_PLURAL = ["grandchild", "son", "daughter", "baby", "child", "pupil", "teacher"];
+
 const NO_LANDMARK = [
   "rain",
   "snow",
@@ -437,7 +468,7 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: "genitive",
     number: "plural",
-    excludeIds: NO_LANDMARK,
+    excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
   },
   {
     id: "behind-them",
@@ -446,7 +477,7 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: "genitive",
     number: "plural",
-    excludeIds: NO_LANDMARK,
+    excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
   },
   {
     id: "next-to-them",
@@ -455,7 +486,7 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: "genitive",
     number: "plural",
-    excludeIds: NO_LANDMARK,
+    excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
   },
   {
     id: "under-them",
@@ -464,7 +495,7 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: "genitive",
     number: "plural",
-    excludeIds: NO_LANDMARK,
+    excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
   },
 
   // --- Postpositions in a whole sentence (the "Around things" unit): the same
@@ -576,7 +607,9 @@ export const nounConstructions: Construction[] = [
     tier: 4,
     case: "partitive",
     number: "plural",
-    excludeIds: UNOWNABLE,
+    // Things a child has a few of — not islands, forests or grandchildren.
+    topics: ["animals", "food", "clothes", "school", "freetime", "family"],
+    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL],
   },
   {
     id: "i-havent-any",
@@ -588,7 +621,9 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: "partitive",
     number: "plural",
-    excludeIds: UNOWNABLE,
+    // Things a child has a few of — not islands, forests or grandchildren.
+    topics: ["animals", "food", "clothes", "school", "freetime", "family"],
+    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL],
   },
 
   // --- Plural predicatives (Tier 5) — the "many things" mirror of this-is/
@@ -603,6 +638,7 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: "partitive",
     number: "plural",
+    excludeIds: [...NO_PLURAL, ...ONE_EACH],
   },
   {
     id: "where-are",
@@ -612,6 +648,7 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: "nominative",
     number: "plural",
+    excludeIds: [...NO_PLURAL, ...ONE_EACH],
   },
 
   // --- More verb rection at the top (Tier 6) ---

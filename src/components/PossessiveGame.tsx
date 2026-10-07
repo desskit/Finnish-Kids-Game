@@ -9,7 +9,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForPossessor } from '../content/why';
+import { whyForPossessor, whyForPossessorPick } from '../content/why';
 import { POSSESSORS, possessiveForm, possessiveGloss } from '../content/types';
 import { possessiveSegments } from '../content/endings';
 import { Segments } from './LessonView';
@@ -25,7 +25,7 @@ interface Props {
 }
 
 // Kenen? (Whose?) — Finnish marks the possessor with a SUFFIX, not a separate
-// word: "kissani" (my cat), "kissasi" (your cat), "kissansa" (their cat). A
+// word: "kissani" (my cat), "kissasi" (your cat), "kissansa" (his/her cat). A
 // picture + English gloss ("my cat" / "in your house") is shown; the child
 // picks the form carrying the right possessive suffix from tiles that are the
 // SAME noun with the OTHER possessors' suffixes — so the ending is the whole
@@ -86,6 +86,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
     : [];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
+  const [whyPick, setWhyPick] = useState<string | null>(null);
 
   // Narrate the English cue when a new question appears — the Finnish is what
   // the child must recognize, never previewed. (The gloss is the on-screen text
@@ -122,6 +123,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
         setWhyAt(index);
         playDing(false);
         setWrongForm(form);
+        setWhyPick(form);
         setTimeout(() => setWrongForm((cur) => (cur === form ? null : cur)), 600);
       }
     },
@@ -257,7 +259,15 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
           </button>
         ))}
       </div>
-      {whyAt === index && q && <WhyTip why={whyForPossessor(q.item, q.possessor, q.caseId)} />}
+      {whyAt === index && q && (
+        <WhyTip
+          why={
+            whyPick
+              ? whyForPossessorPick(q.item, q.possessor, q.caseId, whyPick)
+              : whyForPossessor(q.item, q.possessor, q.caseId)
+          }
+        />
+      )}
     </section>
   );
 }
