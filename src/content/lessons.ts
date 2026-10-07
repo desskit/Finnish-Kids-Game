@@ -940,7 +940,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'likes',
-    titleFi: 'Pidän',
+    titleFi: 'Tykkään',
     titleEn: 'Liking things',
     emoji: '❤️',
     cards: [
@@ -952,33 +952,66 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'pitää → -sta / -stä',
+        title: 'tykätä → -sta / -stä',
         text:
-          '"I like" is *pidän*, and the thing you like always gets **-sta / -stä** (it really means "from").',
+          '"I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").',
         rows: [
-          { sentence: 'i-like', word: 'football' },
-          { sentence: 'i-like', word: 'pizza' },
-          { sentence: 'i-like', word: 'music' },
-          { sentence: 'i-like', word: 'ice-cream' },
+          { sentence: 'i-like-tykkaan', word: 'football' },
+          { sentence: 'i-like-tykkaan', word: 'pizza' },
+          { sentence: 'i-like-tykkaan', word: 'music' },
+          { sentence: 'i-like-tykkaan', word: 'ice-cream' },
         ],
       },
       {
         kind: 'check',
         question: 'Which one means "I like music"?',
         options: [
-          { ref: { sentence: 'i-like', word: 'music' }, correct: true },
-          { ref: { sentence: 'i-like', word: 'music', asCase: 'partitive' } },
+          { ref: { sentence: 'i-like-tykkaan', word: 'music' }, correct: true },
+          { ref: { sentence: 'i-like-tykkaan', word: 'music', asCase: 'partitive' } },
         ],
-        explain: '*pidän* always takes **-sta / -stä**: *musiikista*.',
+        explain: '*tykkään* always takes **-sta / -stä**: *musiikista*.',
       },
       {
         kind: 'check',
         question: 'Which one means "I like ice cream"?',
         options: [
-          { ref: { sentence: 'i-like', word: 'ice-cream', asCase: 'nominative' } },
-          { ref: { sentence: 'i-like', word: 'ice-cream' }, correct: true },
+          { ref: { sentence: 'i-like-tykkaan', word: 'ice-cream', asCase: 'nominative' } },
+          { ref: { sentence: 'i-like-tykkaan', word: 'ice-cream' }, correct: true },
         ],
         explain: '**-stä** with the vowel team ä, ö, y: *jäätelöstä*.',
+      },
+    ],
+  },
+  {
+    id: 'liking-pidan',
+    titleFi: 'Pidän',
+    titleEn: 'Another "I like"',
+    emoji: '🤝',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Two ways to say "I like"',
+        text:
+          '*Tykkään* is what friends say every day. *Pidän* means the same thing; you\'ll hear it at school and read it in books. The good news: **both take -sta / -stä**.',
+      },
+      {
+        kind: 'examples',
+        title: 'Same ending, both ways',
+        rows: [
+          { sentence: 'i-like-tykkaan', word: 'pizza' },
+          { sentence: 'i-like', word: 'pizza' },
+          { sentence: 'i-like-tykkaan', word: 'cat' },
+          { sentence: 'i-like', word: 'cat' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I like football"?',
+        options: [
+          { ref: { sentence: 'i-like', word: 'football' }, correct: true },
+          { ref: { sentence: 'i-like', word: 'football', asCase: 'partitive' } },
+        ],
+        explain: '*pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.',
       },
     ],
   },
@@ -1002,7 +1035,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: 'Two verbs, two endings',
-        text: '- *Pidän* (I like) → **-sta**: *Pidän pitsasta.*\n- *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*',
+        text: '- *Tykkään* / *Pidän* (I like) → **-sta**: *Tykkään pitsasta.*\n- *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*',
       },
       {
         kind: 'check',
@@ -1011,16 +1044,16 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'i-love', word: 'pizza' }, correct: true },
           { ref: { sentence: 'i-love', word: 'pizza', asCase: 'elative' } },
         ],
-        explain: '*rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)',
+        explain: '*rakastan* wants **-a**: *pitsaa*. (**-sta** is for *tykkään* and *pidän*.)',
       },
       {
         kind: 'check',
         question: 'Which one means "I like pizza"?',
         options: [
-          { ref: { sentence: 'i-like', word: 'pizza' }, correct: true },
+          { ref: { sentence: 'i-like-tykkaan', word: 'pizza' }, correct: true },
           { ref: { sentence: 'i-love', word: 'pizza' } },
         ],
-        explain: '*Pidän* = I like (+ **-sta**). *Rakastan* = I love.',
+        explain: '*Tykkään* = I like (+ **-sta**). *Rakastan* = I love.',
       },
     ],
   },
@@ -2072,10 +2105,10 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'I like / I don\'t like',
         text:
-          'You know *Pidän* + **-sta**. To say you DON\'T like something, use *En pidä* — and the ending **stays the same**.',
+          'You know *Tykkään* + **-sta**. To say you DON\'T like something, use *En tykkää* (or *En pidä*), and the ending **stays the same**.',
         rows: [
-          { sentence: 'i-like', word: 'gym' },
-          { sentence: 'i-dont-like', word: 'math' },
+          { sentence: 'i-like-tykkaan', word: 'gym' },
+          { sentence: 'i-dont-like-tykkaa', word: 'math' },
           { sentence: 'i-dont-like', word: 'test' },
         ],
       },
@@ -2083,16 +2116,16 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'The "not" verb again',
         text:
-          '*En pidä* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.',
+          '*En tykkää* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.',
       },
       {
         kind: 'check',
         question: 'Which one means "I don\'t like math"?',
         options: [
-          { ref: { sentence: 'i-dont-like', word: 'math' }, correct: true },
-          { ref: { sentence: 'i-dont-like', word: 'math', asCase: 'partitive' } },
+          { ref: { sentence: 'i-dont-like-tykkaa', word: 'math' }, correct: true },
+          { ref: { sentence: 'i-dont-like-tykkaa', word: 'math', asCase: 'partitive' } },
         ],
-        explain: '*En pidä* still takes **-sta**: *matematiikasta*.',
+        explain: '*En tykkää* still takes **-sta**: *matematiikasta*.',
       },
       {
         kind: 'check',
@@ -2668,8 +2701,8 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'Weak → strong',
-        text: '**p → pp**, **k → kk**, **v → p**, **d → t**…',
-        rows: [{ kpt: 'jump' }, { kpt: 'cut' }, { kpt: 'climb' }, { kpt: 'fall' }, { kpt: 'meet' }],
+        text: '**p → pp**, **k → kk**, **v → p**, **d → t**… You already know one: *tykätä → tykkään*!',
+        rows: [{ kpt: 'like' }, { kpt: 'jump' }, { kpt: 'cut' }, { kpt: 'climb' }, { kpt: 'fall' }, { kpt: 'meet' }],
       },
       {
         kind: 'examples',

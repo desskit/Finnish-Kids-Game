@@ -486,39 +486,62 @@ _Explain:_ *et* = "you … not" (the **-t** means you).
 
 _Explain:_ *eivät* = "they … not", and the main verb stays short.
 
-## Unit 12: Liking things (Pidän) ❤️
+## Unit 12: Liking things (Tykkään) ❤️
 
 ### 1. Every verb picks an ending _(explain)_
 
 In Finnish, the **verb decides which ending** the next word gets. You just have to learn each verb's favorite.
 
 
-### 2. pitää → -sta / -stä _(examples)_
+### 2. tykätä → -sta / -stä _(examples)_
 
-"I like" is *pidän*, and the thing you like always gets **-sta / -stä** (it really means "from").
+"I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").
 
-- ⚽ **Pidän jalkapallo[sta].** — I like football.
-- 🍕 **Pidän pitsa[sta].** — I like pizza.
-- 🎵 **Pidän musiiki[sta].** — I like music.
-- 🍦 **Pidän jäätelö[stä].** — I like ice cream.
+- ⚽ **Tykkään jalkapallo[sta].** — I like football.
+- 🍕 **Tykkään pitsa[sta].** — I like pizza.
+- 🎵 **Tykkään musiiki[sta].** — I like music.
+- 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
 
 ### 3. Try it _(check)_
 
 **Q:** Which one means "I like music"?
 
-- ✔ 🎵 **Pidän musiiki[sta].** — I like music.
-- ✘ 🎵 **Pidän musiikki[a].**
+- ✔ 🎵 **Tykkään musiiki[sta].** — I like music.
+- ✘ 🎵 **Tykkään musiikki[a].**
 
-_Explain:_ *pidän* always takes **-sta / -stä**: *musiikista*.
+_Explain:_ *tykkään* always takes **-sta / -stä**: *musiikista*.
 
 ### 4. Try it _(check)_
 
 **Q:** Which one means "I like ice cream"?
 
-- ✘ 🍦 **Pidän jäätelö.**
-- ✔ 🍦 **Pidän jäätelö[stä].** — I like ice cream.
+- ✘ 🍦 **Tykkään jäätelö.**
+- ✔ 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
 
 _Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
+
+## Unit 0: Another "I like" (Pidän) 🤝
+
+### 1. Two ways to say "I like" _(explain)_
+
+*Tykkään* is what friends say every day. *Pidän* means the same thing; you'll hear it at school and read it in books. The good news: **both take -sta / -stä**.
+
+
+### 2. Same ending, both ways _(examples)_
+
+- 🍕 **Tykkään pitsa[sta].** — I like pizza.
+- 🍕 **Pidän pitsa[sta].** — I like pizza.
+- 🐱 **Tykkään kissa[sta].** — I like the cat.
+- 🐱 **Pidän kissa[sta].** — I like the cat.
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I like football"?
+
+- ✔ ⚽ **Pidän jalkapallo[sta].** — I like football.
+- ✘ ⚽ **Pidän jalkapallo[a].**
+
+_Explain:_ *pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.
 
 ## Unit 0: Loving things (Rakastan) 😍
 
@@ -532,7 +555,7 @@ _Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
 
 ### 2. Two verbs, two endings _(explain)_
 
-- *Pidän* (I like) → **-sta**: *Pidän pitsasta.*
+- *Tykkään* / *Pidän* (I like) → **-sta**: *Tykkään pitsasta.*
 - *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*
 
 
@@ -543,16 +566,16 @@ _Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
 - ✔ 🍕 **Rakastan pitsa[a].** — I love pizza.
 - ✘ 🍕 **Rakastan pitsa[sta].**
 
-_Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)
+_Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *tykkään* and *pidän*.)
 
 ### 4. Try it _(check)_
 
 **Q:** Which one means "I like pizza"?
 
-- ✔ 🍕 **Pidän pitsa[sta].** — I like pizza.
+- ✔ 🍕 **Tykkään pitsa[sta].** — I like pizza.
 - ✘ 🍕 **Rakastan pitsa[a].** — I love pizza.
 
-_Explain:_ *Pidän* = I like (+ **-sta**). *Rakastan* = I love.
+_Explain:_ *Tykkään* = I like (+ **-sta**). *Rakastan* = I love.
 
 ## Unit 16: Seeing the whole thing (Näen) 👀
 
@@ -1431,25 +1454,25 @@ _Explain:_ *nälkä* = hunger, *jano* = thirst.
 
 ### 2. I like / I don't like _(examples)_
 
-You know *Pidän* + **-sta**. To say you DON'T like something, use *En pidä* — and the ending **stays the same**.
+You know *Tykkään* + **-sta**. To say you DON'T like something, use *En tykkää* (or *En pidä*), and the ending **stays the same**.
 
-- 🤸 **Pidän liikunna[sta].** — I like gym.
-- ➗ **En pidä matematiika[sta].** — I don't like math.
+- 🤸 **Tykkään liikunna[sta].** — I like gym.
+- ➗ **En tykkää matematiika[sta].** — I don't like math.
 - 📋 **En pidä kokee[sta].** — I don't like the test.
 
 ### 3. The "not" verb again _(explain)_
 
-*En pidä* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.
+*En tykkää* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.
 
 
 ### 4. Try it _(check)_
 
 **Q:** Which one means "I don't like math"?
 
-- ✔ ➗ **En pidä matematiika[sta].** — I don't like math.
-- ✘ ➗ **En pidä matematiikka[a].**
+- ✔ ➗ **En tykkää matematiika[sta].** — I don't like math.
+- ✘ ➗ **En tykkää matematiikka[a].**
 
-_Explain:_ *En pidä* still takes **-sta**: *matematiikasta*.
+_Explain:_ *En tykkää* still takes **-sta**: *matematiikasta*.
 
 ### 5. Try it _(check)_
 
@@ -1975,8 +1998,9 @@ Remember *kuunnella → kuuntelen*? Type 4 works the same way: the "to…" word 
 
 ### 2. Weak → strong _(examples)_
 
-**p → pp**, **k → kk**, **v → p**, **d → t**…
+**p → pp**, **k → kk**, **v → p**, **d → t**… You already know one: *tykätä → tykkään*!
 
+- 😋 tykätä → **minä ty[kk]ään** — I like
 - 🦘 hypätä → **minä hy[pp]ään** — I jump
 - ✂️ leikata → **minä lei[kk]aan** — I cut
 - 🧗 kiivetä → **minä kii[p]eän** — I climb

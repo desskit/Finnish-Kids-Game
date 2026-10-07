@@ -534,6 +534,7 @@ const VERBS = [
   ['swim', 'uida', 'swim', '🏊'],
   ['want', 'haluta', 'want'],
   ['love', 'rakastaa', 'love', '❤️'],
+  ['like', 'tykätä', 'like', '😋'],
   ['help', 'auttaa', 'help', '🤝'],
   ['sit', 'istua', 'sit', '🪑'],
   ['stand', 'seisoa', 'stand', '🧍'],

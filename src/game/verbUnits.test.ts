@@ -179,7 +179,8 @@ describe('the unit audit: part-way lessons and checkpoint sizes', () => {
   });
 
   it('links a sentence pattern to the lesson that explains it', () => {
-    expect(lessonForConstruction('i-like')).toBe('likes');
+    expect(lessonForConstruction('i-like-tykkaan')).toBe('likes');
+    expect(lessonForConstruction('i-like')).toBe('liking-pidan');
     expect(lessonForConstruction('i-love')).toBe('loving');
     expect(lessonForConstruction('i-wait-for')).toBe('watching-waiting');
     expect(lessonForConstruction('with-someone')).toBe('with-someone');

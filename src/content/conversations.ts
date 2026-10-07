@@ -1572,21 +1572,29 @@ export const conversations: Conversation[] = [
       },
     ],
   },
-  // ⚠️ NEEDS NATIVE FINNISH VETTING — Likes: pidän + -sta, rakastan + -a
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Likes: tykkään / pidän + -sta, rakastan + -a
   {
     id: 'favourite-things',
-    titleFi: 'Mistä pidät?',
+    titleFi: 'Mistä tykkäät?',
     titleEn: 'What do you like?',
     icon: '❤️',
     partnerIcon: '🧒',
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Pidätkö pitsasta?', en: 'Do you like pizza?' },
-        reply: { fi: 'Pidän! Pidän pitsasta.', en: 'I do! I like pizza.' },
+        partner: { fi: 'Tykkäätkö pitsasta?', en: 'Do you like pizza?' },
+        reply: { fi: 'Tykkään! Tykkään pitsasta.', en: 'I do! I like pizza.' },
         distractors: [
-          { fi: 'Pidän pitsaa.', en: 'I like pizza.', why: '*Pidän* always takes **-sta / -stä**: *Pidän pitsasta*.' },
+          { fi: 'Tykkään pitsaa.', en: 'I like pizza.', why: '*Tykkään* always takes **-sta / -stä**: *Tykkään pitsasta*.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Pidätkö musiikista?', en: 'Do you like music?' },
+        reply: { fi: 'Pidän! Pidän musiikista.', en: 'I do! I like music.' },
+        distractors: [
+          { fi: 'Pidän musiikkia.', en: 'I like music.', why: '*Pidän* takes **-sta / -stä**, just like *tykkään*: *Pidän musiikista*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
         ],
       },
       {

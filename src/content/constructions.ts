@@ -421,6 +421,28 @@ export const nounConstructions: Construction[] = [
     topics: LIKABLE_TOPICS,
   },
   {
+    // tykätä + elative: "Tykkään kissasta." — the everyday "I like"; same
+    // ending as pidän. "Tykkään" / "En tykkää" are the sourced 1sg forms.
+    id: "i-like-tykkaan",
+    before: "Tykkään",
+    punct: ".",
+    en: "I like the ___.",
+    tier: 3,
+    case: "elative",
+    number: "singular",
+    topics: LIKABLE_TOPICS,
+  },
+  {
+    id: "i-dont-like-tykkaa",
+    before: "En tykkää",
+    punct: ".",
+    en: "I don't like the ___.",
+    tier: 3,
+    case: "elative",
+    number: "singular",
+    topics: LIKABLE_TOPICS,
+  },
+  {
     id: "i-see", // total object = genitive (accusative) singular: "Näen kissan."
     before: "Näen",
     punct: ".",

@@ -1712,6 +1712,350 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Pidän pihasta. _(yard)_
 - Pidän eläintarhasta. _(zoo)_
 
+### `i-like-tykkaan` — “I like the ___.” (tier 3, elative singular, 169 words)
+
+- Tykkään omenasta. _(apple)_
+- Tykkään tädistä. _(aunt)_
+- Tykkään vauvasta. _(baby)_
+- Tykkään repusta. _(backpack)_
+- Tykkään laukusta. _(bag)_
+- Tykkään pallosta. _(ball)_
+- Tykkään ilmapallosta. _(balloon)_
+- Tykkään banaanista. _(banana)_
+- Tykkään korista. _(basket)_
+- Tykkään kylpyhuoneesta. _(bathroom)_
+- Tykkään karhusta. _(bear)_
+- Tykkään sängystä. _(bed)_
+- Tykkään makuuhuoneesta. _(bedroom)_
+- Tykkään mehiläisestä. _(bee)_
+- Tykkään vyöstä. _(belt)_
+- Tykkään pyörästä. _(bike)_
+- Tykkään linnusta. _(bird)_
+- Tykkään puserosta. _(blouse)_
+- Tykkään veneestä. _(boat)_
+- Tykkään kirjasta. _(book)_
+- Tykkään saappaasta. _(boot)_
+- Tykkään laatikosta. _(box)_
+- Tykkään leivästä. _(bread)_
+- Tykkään veljestä. _(brother)_
+- Tykkään pupusta. _(bunny)_
+- Tykkään bussista. _(bus)_
+- Tykkään voista. _(butter)_
+- Tykkään perhosesta. _(butterfly)_
+- Tykkään kahvilasta. _(cafe)_
+- Tykkään kakusta. _(cake)_
+- Tykkään kynttilästä. _(candle)_
+- Tykkään karkista. _(candy)_
+- Tykkään ruokalasta. _(canteen)_
+- Tykkään lakista. _(cap)_
+- Tykkään autosta. _(car)_
+- Tykkään porkkanasta. _(carrot)_
+- Tykkään kissasta. _(cat)_
+- Tykkään tuolista. _(chair)_
+- Tykkään juustosta. _(cheese)_
+- Tykkään kanasta. _(chicken)_
+- Tykkään lapsesta. _(child)_
+- Tykkään suklaasta. _(chocolate)_
+- Tykkään kaupungista. _(city)_
+- Tykkään luokasta. _(class)_
+- Tykkään kellosta. _(clock)_
+- Tykkään pilvestä. _(cloud)_
+- Tykkään takista. _(coat)_
+- Tykkään tietokoneesta. _(computer)_
+- Tykkään keksistä. _(cookie)_
+- Tykkään serkusta. _(cousin)_
+- Tykkään lehmästä. _(cow)_
+- Tykkään tytöstä. _(daughter)_
+- Tykkään koirasta. _(dog)_
+- Tykkään ovesta. _(door)_
+- Tykkään mekosta. _(dress)_
+- Tykkään ankasta. _(duck)_
+- Tykkään korvakorusta. _(earring)_
+- Tykkään munasta. _(egg)_
+- Tykkään norsusta. _(elephant)_
+- Tykkään englannista. _(English)_
+- Tykkään kumista. _(eraser)_
+- Tykkään perheestä. _(family)_
+- Tykkään isästä. _(dad)_
+- Tykkään kentästä. _(field)_
+- Tykkään tulesta. _(fire)_
+- Tykkään kalasta. _(fish)_
+- Tykkään kukasta. _(flower)_
+- Tykkään jalkapallosta. _(football)_
+- Tykkään metsästä. _(forest)_
+- Tykkään haarukasta. _(fork)_
+- Tykkään ketusta. _(fox)_
+- Tykkään kaverista. _(friend)_
+- Tykkään sammakosta. _(frog)_
+- Tykkään pelistä. _(game)_
+- Tykkään puutarhasta. _(garden)_
+- Tykkään käsineestä. _(glove)_
+- Tykkään lapsenlapsesta. _(grandchild)_
+- Tykkään isoisästä. _(grandfather)_
+- Tykkään isoäidistä. _(grandmother)_
+- Tykkään ruohosta. _(grass)_
+- Tykkään kitarasta. _(guitar)_
+- Tykkään liikunnasta. _(gym)_
+- Tykkään hatusta. _(hat)_
+- Tykkään harrastuksesta. _(hobby)_
+- Tykkään läksystä. _(homework)_
+- Tykkään hevosesta. _(horse)_
+- Tykkään sairaalasta. _(hospital)_
+- Tykkään talosta. _(house)_
+- Tykkään jäästä. _(ice)_
+- Tykkään jäätelöstä. _(ice cream)_
+- Tykkään saaresta. _(island)_
+- Tykkään mehusta. _(juice)_
+- Tykkään avaimesta. _(key)_
+- Tykkään keittiöstä. _(kitchen)_
+- Tykkään järvestä. _(lake)_
+- Tykkään lehdestä. _(leaf)_
+- Tykkään kirjastosta. _(library)_
+- Tykkään leijonasta. _(lion)_
+- Tykkään olohuoneesta. _(living room)_
+- Tykkään torista. _(market)_
+- Tykkään matematiikasta. _(math)_
+- Tykkään maidosta. _(milk)_
+- Tykkään apinasta. _(monkey)_
+- Tykkään kuusta. _(moon)_
+- Tykkään äidistä. _(mom)_
+- Tykkään vuoresta. _(mountain)_
+- Tykkään hiirestä. _(mouse)_
+- Tykkään elokuvasta. _(movie)_
+- Tykkään museosta. _(museum)_
+- Tykkään musiikista. _(music)_
+- Tykkään paperista. _(paper)_
+- Tykkään puistosta. _(park)_
+- Tykkään kynästä. _(pencil)_
+- Tykkään puhelimesta. _(phone)_
+- Tykkään pianosta. _(piano)_
+- Tykkään kuvasta. _(picture)_
+- Tykkään siasta. _(pig)_
+- Tykkään pitsasta. _(pizza)_
+- Tykkään lentokoneesta. _(plane)_
+- Tykkään puurosta. _(porridge)_
+- Tykkään perunasta. _(potato)_
+- Tykkään lahjasta. _(present)_
+- Tykkään oppilaasta. _(pupil)_
+- Tykkään sateesta. _(rain)_
+- Tykkään ravintolasta. _(restaurant)_
+- Tykkään riisistä. _(rice)_
+- Tykkään sormuksesta. _(ring)_
+- Tykkään huoneesta. _(room)_
+- Tykkään makkarasta. _(sausage)_
+- Tykkään huivista. _(scarf)_
+- Tykkään koulusta. _(school)_
+- Tykkään merestä. _(sea)_
+- Tykkään lampaasta. _(sheep)_
+- Tykkään laivasta. _(ship)_
+- Tykkään paidasta. _(shirt)_
+- Tykkään kengästä. _(shoe)_
+- Tykkään kaupasta. _(shop)_
+- Tykkään siskosta. _(sister)_
+- Tykkään hameesta. _(skirt)_
+- Tykkään taivaasta. _(sky)_
+- Tykkään käärmeestä. _(snake)_
+- Tykkään lumesta. _(snow)_
+- Tykkään sukasta. _(sock)_
+- Tykkään sohvasta. _(sofa)_
+- Tykkään pojasta. _(son)_
+- Tykkään keitosta. _(soup)_
+- Tykkään lusikasta. _(spoon)_
+- Tykkään tähdestä. _(star)_
+- Tykkään asemasta. _(station)_
+- Tykkään kivestä. _(stone)_
+- Tykkään mansikasta. _(strawberry)_
+- Tykkään auringosta. _(sun)_
+- Tykkään pöydästä. _(table)_
+- Tykkään tehtävästä. _(task)_
+- Tykkään taksista. _(taxi)_
+- Tykkään opettajasta. _(teacher)_
+- Tykkään kokeesta. _(test)_
+- Tykkään solmiosta. _(tie)_
+- Tykkään tomaatista. _(tomato)_
+- Tykkään junasta. _(train)_
+- Tykkään puusta. _(tree)_
+- Tykkään sedästä. _(uncle)_
+- Tykkään liivistä. _(vest)_
+- Tykkään vedestä. _(water)_
+- Tykkään tuulesta. _(wind)_
+- Tykkään ikkunasta. _(window)_
+- Tykkään sudesta. _(wolf)_
+- Tykkään pihasta. _(yard)_
+- Tykkään eläintarhasta. _(zoo)_
+
+### `i-dont-like-tykkaa` — “I don't like the ___.” (tier 3, elative singular, 169 words)
+
+- En tykkää omenasta. _(apple)_
+- En tykkää tädistä. _(aunt)_
+- En tykkää vauvasta. _(baby)_
+- En tykkää repusta. _(backpack)_
+- En tykkää laukusta. _(bag)_
+- En tykkää pallosta. _(ball)_
+- En tykkää ilmapallosta. _(balloon)_
+- En tykkää banaanista. _(banana)_
+- En tykkää korista. _(basket)_
+- En tykkää kylpyhuoneesta. _(bathroom)_
+- En tykkää karhusta. _(bear)_
+- En tykkää sängystä. _(bed)_
+- En tykkää makuuhuoneesta. _(bedroom)_
+- En tykkää mehiläisestä. _(bee)_
+- En tykkää vyöstä. _(belt)_
+- En tykkää pyörästä. _(bike)_
+- En tykkää linnusta. _(bird)_
+- En tykkää puserosta. _(blouse)_
+- En tykkää veneestä. _(boat)_
+- En tykkää kirjasta. _(book)_
+- En tykkää saappaasta. _(boot)_
+- En tykkää laatikosta. _(box)_
+- En tykkää leivästä. _(bread)_
+- En tykkää veljestä. _(brother)_
+- En tykkää pupusta. _(bunny)_
+- En tykkää bussista. _(bus)_
+- En tykkää voista. _(butter)_
+- En tykkää perhosesta. _(butterfly)_
+- En tykkää kahvilasta. _(cafe)_
+- En tykkää kakusta. _(cake)_
+- En tykkää kynttilästä. _(candle)_
+- En tykkää karkista. _(candy)_
+- En tykkää ruokalasta. _(canteen)_
+- En tykkää lakista. _(cap)_
+- En tykkää autosta. _(car)_
+- En tykkää porkkanasta. _(carrot)_
+- En tykkää kissasta. _(cat)_
+- En tykkää tuolista. _(chair)_
+- En tykkää juustosta. _(cheese)_
+- En tykkää kanasta. _(chicken)_
+- En tykkää lapsesta. _(child)_
+- En tykkää suklaasta. _(chocolate)_
+- En tykkää kaupungista. _(city)_
+- En tykkää luokasta. _(class)_
+- En tykkää kellosta. _(clock)_
+- En tykkää pilvestä. _(cloud)_
+- En tykkää takista. _(coat)_
+- En tykkää tietokoneesta. _(computer)_
+- En tykkää keksistä. _(cookie)_
+- En tykkää serkusta. _(cousin)_
+- En tykkää lehmästä. _(cow)_
+- En tykkää tytöstä. _(daughter)_
+- En tykkää koirasta. _(dog)_
+- En tykkää ovesta. _(door)_
+- En tykkää mekosta. _(dress)_
+- En tykkää ankasta. _(duck)_
+- En tykkää korvakorusta. _(earring)_
+- En tykkää munasta. _(egg)_
+- En tykkää norsusta. _(elephant)_
+- En tykkää englannista. _(English)_
+- En tykkää kumista. _(eraser)_
+- En tykkää perheestä. _(family)_
+- En tykkää isästä. _(dad)_
+- En tykkää kentästä. _(field)_
+- En tykkää tulesta. _(fire)_
+- En tykkää kalasta. _(fish)_
+- En tykkää kukasta. _(flower)_
+- En tykkää jalkapallosta. _(football)_
+- En tykkää metsästä. _(forest)_
+- En tykkää haarukasta. _(fork)_
+- En tykkää ketusta. _(fox)_
+- En tykkää kaverista. _(friend)_
+- En tykkää sammakosta. _(frog)_
+- En tykkää pelistä. _(game)_
+- En tykkää puutarhasta. _(garden)_
+- En tykkää käsineestä. _(glove)_
+- En tykkää lapsenlapsesta. _(grandchild)_
+- En tykkää isoisästä. _(grandfather)_
+- En tykkää isoäidistä. _(grandmother)_
+- En tykkää ruohosta. _(grass)_
+- En tykkää kitarasta. _(guitar)_
+- En tykkää liikunnasta. _(gym)_
+- En tykkää hatusta. _(hat)_
+- En tykkää harrastuksesta. _(hobby)_
+- En tykkää läksystä. _(homework)_
+- En tykkää hevosesta. _(horse)_
+- En tykkää sairaalasta. _(hospital)_
+- En tykkää talosta. _(house)_
+- En tykkää jäästä. _(ice)_
+- En tykkää jäätelöstä. _(ice cream)_
+- En tykkää saaresta. _(island)_
+- En tykkää mehusta. _(juice)_
+- En tykkää avaimesta. _(key)_
+- En tykkää keittiöstä. _(kitchen)_
+- En tykkää järvestä. _(lake)_
+- En tykkää lehdestä. _(leaf)_
+- En tykkää kirjastosta. _(library)_
+- En tykkää leijonasta. _(lion)_
+- En tykkää olohuoneesta. _(living room)_
+- En tykkää torista. _(market)_
+- En tykkää matematiikasta. _(math)_
+- En tykkää maidosta. _(milk)_
+- En tykkää apinasta. _(monkey)_
+- En tykkää kuusta. _(moon)_
+- En tykkää äidistä. _(mom)_
+- En tykkää vuoresta. _(mountain)_
+- En tykkää hiirestä. _(mouse)_
+- En tykkää elokuvasta. _(movie)_
+- En tykkää museosta. _(museum)_
+- En tykkää musiikista. _(music)_
+- En tykkää paperista. _(paper)_
+- En tykkää puistosta. _(park)_
+- En tykkää kynästä. _(pencil)_
+- En tykkää puhelimesta. _(phone)_
+- En tykkää pianosta. _(piano)_
+- En tykkää kuvasta. _(picture)_
+- En tykkää siasta. _(pig)_
+- En tykkää pitsasta. _(pizza)_
+- En tykkää lentokoneesta. _(plane)_
+- En tykkää puurosta. _(porridge)_
+- En tykkää perunasta. _(potato)_
+- En tykkää lahjasta. _(present)_
+- En tykkää oppilaasta. _(pupil)_
+- En tykkää sateesta. _(rain)_
+- En tykkää ravintolasta. _(restaurant)_
+- En tykkää riisistä. _(rice)_
+- En tykkää sormuksesta. _(ring)_
+- En tykkää huoneesta. _(room)_
+- En tykkää makkarasta. _(sausage)_
+- En tykkää huivista. _(scarf)_
+- En tykkää koulusta. _(school)_
+- En tykkää merestä. _(sea)_
+- En tykkää lampaasta. _(sheep)_
+- En tykkää laivasta. _(ship)_
+- En tykkää paidasta. _(shirt)_
+- En tykkää kengästä. _(shoe)_
+- En tykkää kaupasta. _(shop)_
+- En tykkää siskosta. _(sister)_
+- En tykkää hameesta. _(skirt)_
+- En tykkää taivaasta. _(sky)_
+- En tykkää käärmeestä. _(snake)_
+- En tykkää lumesta. _(snow)_
+- En tykkää sukasta. _(sock)_
+- En tykkää sohvasta. _(sofa)_
+- En tykkää pojasta. _(son)_
+- En tykkää keitosta. _(soup)_
+- En tykkää lusikasta. _(spoon)_
+- En tykkää tähdestä. _(star)_
+- En tykkää asemasta. _(station)_
+- En tykkää kivestä. _(stone)_
+- En tykkää mansikasta. _(strawberry)_
+- En tykkää auringosta. _(sun)_
+- En tykkää pöydästä. _(table)_
+- En tykkää tehtävästä. _(task)_
+- En tykkää taksista. _(taxi)_
+- En tykkää opettajasta. _(teacher)_
+- En tykkää kokeesta. _(test)_
+- En tykkää solmiosta. _(tie)_
+- En tykkää tomaatista. _(tomato)_
+- En tykkää junasta. _(train)_
+- En tykkää puusta. _(tree)_
+- En tykkää sedästä. _(uncle)_
+- En tykkää liivistä. _(vest)_
+- En tykkää vedestä. _(water)_
+- En tykkää tuulesta. _(wind)_
+- En tykkää ikkunasta. _(window)_
+- En tykkää sudesta. _(wolf)_
+- En tykkää pihasta. _(yard)_
+- En tykkää eläintarhasta. _(zoo)_
+
 ### `i-see` — “I see the ___.” (tier 3, genitive singular, 179 words)
 
 - Näen omenan. _(apple)_
