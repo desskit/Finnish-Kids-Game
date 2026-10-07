@@ -42,7 +42,14 @@ if (isSpeechAvailable()) {
   };
 }
 
-function speakIn(text: string, lang: string, langPrefix: string, queue = false): void {
+function speakIn(
+  text: string,
+  lang: string,
+  langPrefix: string,
+  queue = false,
+  onStart?: () => void,
+  onEnd?: () => void,
+): void {
   if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
   // Default: cut off anything mid-utterance so a fresh prompt feels responsive.
@@ -55,6 +62,8 @@ function speakIn(text: string, lang: string, langPrefix: string, queue = false):
   if (voice) u.voice = voice;
   u.rate = 0.85; // a touch slower for young learners
   u.pitch = 1.05;
+  if (onStart) u.onstart = onStart;
+  if (onEnd) u.onend = onEnd;
   synth.speak(u);
 }
 
@@ -63,8 +72,11 @@ function speakIn(text: string, lang: string, langPrefix: string, queue = false):
  * `{ queue: true }` to append after any line still playing (back-to-back
  * conversation turns) instead of interrupting it.
  */
-export function speak(text: string, opts?: { queue?: boolean }): void {
-  speakIn(text, FINNISH, 'fi', opts?.queue);
+export function speak(
+  text: string,
+  opts?: { queue?: boolean; onStart?: () => void; onEnd?: () => void },
+): void {
+  speakIn(text, FINNISH, 'fi', opts?.queue, opts?.onStart, opts?.onEnd);
 }
 
 /**

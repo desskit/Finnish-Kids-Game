@@ -214,11 +214,21 @@ describe('Alphabet & sounds corner', () => {
     seedChild();
     renderAt('/sounds');
     expect(document.querySelectorAll('.letter-tile')).toHaveLength(29);
-    expect(document.querySelectorAll('.sounds__game')).toHaveLength(3);
-    fireEvent.click(screen.getByRole('button', { name: 'J' }));
+    expect(document.querySelectorAll('.sounds__game')).toHaveLength(4);
+    // Every tile shows the letter's NAME.
+    expect(screen.getByRole('button', { name: /^J, called jii/ }).textContent).toContain('jii');
+    fireEvent.click(screen.getByRole('button', { name: /^J, called jii/ }));
+    expect(document.querySelector('.letter-card__name-fi')!.textContent).toBe('“jii”');
     expect(screen.getByText(/the y in "yes"/)).toBeInTheDocument();
     const card = document.querySelector('.letter-card') as HTMLElement;
     expect(within(card).getByText('train')).toBeInTheDocument(); // juna
+  });
+
+  it('plays the letter-names game: hear a name, tap the letter', () => {
+    seedChild();
+    renderAt('/sounds/names');
+    expect(screen.getByText(/which letter is it/)).toBeInTheDocument();
+    expect(document.querySelectorAll('.sound-tile')).toHaveLength(4);
   });
 
   it('plays a listening game: a real word with a gap, letters to choose', () => {

@@ -340,8 +340,12 @@ what's left ("7 / 10 words"). To add one:
   sound tip, borrowed / vowel flags) and the "tricky sounds" guides. Example
   words are listed by their Finnish spelling and must exist in the sourced
   data (`alphabet.test.ts`); letter names are authored and listed for review.
+- Letter NAMES are taught first: every tile shows its name (J / *jii*), the
+  letter card leads with it, "Listen to the whole alphabet" reads them in order,
+  and the *Kirjainten nimet* game alternates hear-the-name → tap the letter and
+  see-the-letter → pick its name (sound-alike names as wrong options).
 - `src/game/soundGames.ts`: three listening games over real sourced words
   with a gap — the options are only LETTERS (*a / ä*, *s / ss*), so no made-up
   word is ever shown. Results are stored in `course.sounds`, apart from the
-  course; the "Sound explorer" achievement asks for all three.
+  course; the "Sound explorer" achievement asks for all four games.
 

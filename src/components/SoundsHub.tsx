@@ -7,6 +7,7 @@ import { useProfile } from '../state/profile';
 import Prose from './Prose';
 
 export const SOUND_GAMES = [
+  { mode: 'names', icon: '🗣️', fi: 'Kirjainten nimet', en: 'What is each letter called?' },
   { mode: 'first-letter', icon: '🔤', fi: 'Mikä kirjain?', en: 'Which letter does it start with?' },
   { mode: 'length', icon: '📏', fi: 'Yksi vai kaksi?', en: 'One letter or two?' },
   { mode: 'vowel', icon: '👄', fi: 'A vai Ä?', en: 'a or ä, o or ö, u or y?' },
@@ -52,8 +53,10 @@ function LetterCard({ letter, onClose }: { letter: Letter; onClose: () => void }
         {letter.ch.toUpperCase()}
         {letter.ch}
       </div>
-      <button className="speaker speaker--inline" onClick={() => speak(letter.nameFi)}>
-        🔊 <span className="en">Its name: “{letter.nameFi}”</span>
+      <button className="letter-card__name" onClick={() => speak(letter.nameFi)} lang="fi">
+        <span className="letter-card__name-label en">It's called</span>
+        <span className="letter-card__name-fi">“{letter.nameFi}”</span>
+        <span aria-hidden="true">🔊</span>
       </button>
       <p className="letter-card__tip">{letter.tip}</p>
       {letter.examples.length > 0 ? (
@@ -75,6 +78,18 @@ function LetterCard({ letter, onClose }: { letter: Letter; onClose: () => void }
 export default function SoundsHub() {
   const { activeChild } = useProfile();
   const [open, setOpen] = useState<Letter | null>(null);
+  // "Listen to the alphabet": every letter's name in order, each tile lighting
+  // up as it's spoken.
+  const [singing, setSinging] = useState<string | null>(null);
+  function readAlphabet() {
+    ALPHABET.forEach((l, i) =>
+      speak(l.nameFi, {
+        queue: i > 0,
+        onStart: () => setSinging(l.ch),
+        onEnd: i === ALPHABET.length - 1 ? () => setSinging(null) : undefined,
+      }),
+    );
+  }
   const played = activeChild?.course?.sounds ?? {};
 
   return (
@@ -109,8 +124,11 @@ export default function SoundsHub() {
       </div>
 
       <h2 className="sounds__heading">
-        Kirjaimet <span className="en">The letters — tap one</span>
+        Kirjaimet <span className="en">The letters — tap one to hear its name</span>
       </h2>
+      <button className="btn sounds__readall" onClick={readAlphabet}>
+        🔊 Aakkoset <span className="en">Listen to the whole alphabet</span>
+      </button>
       {open && <LetterCard letter={open} onClose={() => setOpen(null)} />}
       <div className="letter-grid">
         {ALPHABET.map((l) => (
@@ -120,17 +138,21 @@ export default function SoundsHub() {
               'letter-tile' +
               (l.vowel ? ' letter-tile--vowel' : '') +
               (l.borrowed ? ' letter-tile--borrowed' : '') +
-              (open?.ch === l.ch ? ' letter-tile--on' : '')
+              (open?.ch === l.ch ? ' letter-tile--on' : '') +
+              (singing === l.ch ? ' letter-tile--singing' : '')
             }
             onClick={() => {
               setOpen(l);
               speak(l.nameFi);
             }}
-            aria-label={`${l.ch.toUpperCase()}${l.borrowed ? ', only in borrowed words' : ''}`}
+            aria-label={`${l.ch.toUpperCase()}, called ${l.nameFi}${l.borrowed ? ', only in borrowed words' : ''}`}
             lang="fi"
           >
-            {l.ch.toUpperCase()}
-            <span className="letter-tile__lower">{l.ch}</span>
+            <span className="letter-tile__glyph">
+              {l.ch.toUpperCase()}
+              <span className="letter-tile__lower">{l.ch}</span>
+            </span>
+            <span className="letter-tile__name">{l.nameFi}</span>
           </button>
         ))}
       </div>
