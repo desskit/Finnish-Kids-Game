@@ -332,3 +332,16 @@ what's left ("7 / 10 words"). To add one:
   reward the hard parts (typing, Kertaus, conversations), so nothing is worth
   skipping.
 
+## The Alphabet & sounds corner (optional)
+
+`/sounds` — never part of the course; nothing there unlocks or blocks a unit.
+
+- `src/content/alphabet.ts`: the 29 letters (Finnish letter NAME, a kid-level
+  sound tip, borrowed / vowel flags) and the "tricky sounds" guides. Example
+  words are listed by their Finnish spelling and must exist in the sourced
+  data (`alphabet.test.ts`); letter names are authored and listed for review.
+- `src/game/soundGames.ts`: three listening games over real sourced words
+  with a gap — the options are only LETTERS (*a / ä*, *s / ss*), so no made-up
+  word is ever shown. Results are stored in `course.sounds`, apart from the
+  course; the "Sound explorer" achievement asks for all three.
+

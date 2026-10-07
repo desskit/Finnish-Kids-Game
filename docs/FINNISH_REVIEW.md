@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T03:17:36.023Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T03:34:47.478Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 493 entries.**
+- **Approved: 28 of 522 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -372,6 +372,40 @@
 | ⚠️ | `pronoun-frame:give` | Anna se ___! | Give it to ___! |
 | ⚠️ | `pronoun-frame:like` | Pidän ___. | I like ___. |
 | ⚠️ | `pronoun-frame:see` | Näen ___. | I see ___. |
+
+## Alphabet — letter names and sound tips (29)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `letter:a` | Aa — "aa" | Like the a in "father" — but short. |
+| ⚠️ | `letter:b` | Bb — "bee" | Only in borrowed words. Like English b. |
+| ⚠️ | `letter:c` | Cc — "see" | Only in names and borrowed words. Usually sounds like k or s. |
+| ⚠️ | `letter:d` | Dd — "dee" | A soft d, with the tongue just behind the teeth. Mostly in the MIDDLE of words. |
+| ⚠️ | `letter:e` | Ee — "ee" | Like the e in "bed". |
+| ⚠️ | `letter:f` | Ff — "äf" | Only in borrowed words. Like English f. |
+| ⚠️ | `letter:g` | Gg — "gee" | On its own only in borrowed words. In Finnish words you meet it as ng — like in "singer". |
+| ⚠️ | `letter:h` | Hh — "hoo" | A breathy h — say it even in the middle of a word. |
+| ⚠️ | `letter:i` | Ii — "ii" | Like the ee in "see" — but short. |
+| ⚠️ | `letter:j` | Jj — "jii" | Like the y in "yes" — never like English j! |
+| ⚠️ | `letter:k` | Kk — "koo" | Like k, but with no puff of air. |
+| ⚠️ | `letter:l` | Ll — "äl" | Like the l in "leaf". |
+| ⚠️ | `letter:m` | Mm — "äm" | Like English m. |
+| ⚠️ | `letter:n` | Nn — "än" | Like English n. |
+| ⚠️ | `letter:o` | Oo — "oo" | Like the o in "more", with round lips — short. |
+| ⚠️ | `letter:p` | Pp — "pee" | Like p, but with no puff of air. |
+| ⚠️ | `letter:q` | Qq — "kuu" | Only in names. Sounds like k. |
+| ⚠️ | `letter:r` | Rr — "är" | ROLLED! Tap the tip of your tongue fast — like a purring cat: rrr. |
+| ⚠️ | `letter:s` | Ss — "äs" | Always like the s in "sun" — never like z. |
+| ⚠️ | `letter:t` | Tt — "tee" | Like t, with no puff of air — the tongue touches the teeth. |
+| ⚠️ | `letter:u` | Uu — "uu" | Like the oo in "book". |
+| ⚠️ | `letter:v` | Vv — "vee" | Like the v in "van". |
+| ⚠️ | `letter:w` | Ww — "kaksois-vee" | Only in names. Sounds like v. |
+| ⚠️ | `letter:x` | Xx — "äks" | Only in names and borrowed words. Sounds like ks. |
+| ⚠️ | `letter:y` | Yy — "yy" | Say "ee" — then make your lips round like for "oo". That's y! |
+| ⚠️ | `letter:z` | Zz — "tset" | Only in borrowed words. Sounds like ts. |
+| ⚠️ | `letter:å` | Åå — "ruotsalainen oo" | Only in Swedish names. Sounds like o. |
+| ⚠️ | `letter:ä` | Ää — "ää" | Like the a in "cat". |
+| ⚠️ | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
 
 ## Lesson prose — Finnish quoted in the explanations (110)
 

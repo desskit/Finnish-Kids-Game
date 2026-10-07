@@ -85,6 +85,8 @@ interface ProfileContextValue {
   // --- Guided course ---
   /** Mark a lesson as read to the end (idempotent; keeps the first time). */
   markLessonSeen: (lessonId: string) => void;
+  /** Record a round of an Alphabet-corner game (counts toward the streak). */
+  recordSoundsRound: (mode: string, right: number, total: number) => void;
   /** Mark set phrases (`ex:<id>` / `scene:<id>`) as modelled to the child. */
   markPhraseSeen: (key: string) => void;
   /** Record a checkpoint attempt; `ratio` is first-try correct / total. */
@@ -228,6 +230,29 @@ export function ProfileProvider({
                 },
               },
         ),
+
+      recordSoundsRound: (mode, right, total) =>
+        updateActive((c) => {
+          const prev = c.course?.sounds?.[mode] ?? { plays: 0, right: 0, total: 0, best: 0 };
+          const streak = bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now()));
+          return {
+            ...c,
+            ...streak,
+            bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
+            course: {
+              ...c.course,
+              sounds: {
+                ...c.course?.sounds,
+                [mode]: {
+                  plays: prev.plays + 1,
+                  right: prev.right + right,
+                  total: prev.total + total,
+                  best: Math.max(prev.best, total ? right / total : 0),
+                },
+              },
+            },
+          };
+        }),
 
       markPhraseSeen: (key) =>
         updateActive((c) =>
