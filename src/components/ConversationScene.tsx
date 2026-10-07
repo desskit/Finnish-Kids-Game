@@ -4,6 +4,7 @@ import { useActivityContext, useSegmentComplete } from '../game/activityContext'
 import { difficultyFor, showsGloss } from '../game/adapt';
 import { buildConversation, type ConversationRound } from '../game/round';
 import { conversations } from '../content/conversations';
+import { byIds } from '../util/byIds';
 import type { DialogueLine } from '../content/dialogues';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
@@ -11,6 +12,8 @@ import ActivityHeader from './ActivityHeader';
 
 interface Props {
   onExit: () => void;
+  /** Scope the scenes to these ids (a course step); default = all. */
+  ids?: string[];
 }
 
 // Jutellaan (small talk): hold a short, multi-turn Finnish conversation. The
@@ -19,7 +22,8 @@ interface Props {
 // A fixed golden path — wrong picks just nudge and let the child retry, so the
 // conversation always reaches its end. No SRS crediting (set phrases, like the
 // single-turn greetings game); first-try accuracy still feeds the adaptive engine.
-export default function ConversationScene({ onExit }: Props) {
+export default function ConversationScene({ onExit, ids }: Props) {
+  const pool = byIds(conversations, ids);
   const { level, activeChild, addStars } = useProfile();
   const avatar = activeChild?.avatar;
   const childName = activeChild?.name ?? '';
@@ -35,8 +39,8 @@ export default function ConversationScene({ onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const scene = useMemo<ConversationRound | null>(
-    () => buildConversation(conversations, optionCount, maxTier, childName),
-    [optionCount, maxTier, childName, runId],
+    () => buildConversation(pool, optionCount, maxTier, childName),
+    [pool, optionCount, maxTier, childName, runId],
   );
 
   const [turnIndex, setTurnIndex] = useState(0);

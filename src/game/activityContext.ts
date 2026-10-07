@@ -40,6 +40,11 @@ export interface ActivityContextValue {
    * through a whole round. Games apply it by slicing their built round.
    */
   roundQuestions?: number;
+  /**
+   * The lesson that explains this step's grammar (its unit's lesson). The
+   * "Why?" tip offers to open it in place, without leaving the session.
+   */
+  lessonId?: string;
 }
 
 export const ActivityContext = createContext<ActivityContextValue | null>(null);

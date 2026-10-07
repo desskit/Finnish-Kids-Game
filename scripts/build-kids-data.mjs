@@ -179,6 +179,10 @@ const PLACES = [
   ['door', 'ovi', 'door'],
   ['kitchen', 'keittiö', 'kitchen'],
   ['garden', 'puutarha', 'garden'],
+  ['bus', 'bussi', 'bus', '🚌'],
+  ['train', 'juna', 'train', '🚆'],
+  ['shop', 'kauppa', 'shop', '🏪'],
+  ['library', 'kirjasto', 'library', '📚'],
 ];
 
 // Locative SHAPE tags for places — which "where" cases each one makes sense in:
@@ -209,7 +213,47 @@ const PLACE_TAGS = {
   door: ['surface'],
   kitchen: ['container'],
   garden: ['container'],
+  // Everyday destinations for the course's "going places" units — you are IN a
+  // bus/train/shop/library ("bussissa", "kaupassa", "kirjastossa").
+  bus: ['container'],
+  train: ['container'],
+  shop: ['container'],
+  library: ['container'],
 };
+
+// School life — the course's everyday register for an 8-year-old (people and
+// things at school), replacing animals/body parts as the first nouns met.
+// NOTE: `sakset` (scissors) is a plurale tantum (no singular forms) — excluded.
+const SCHOOL = [
+  ['teacher', 'opettaja', 'teacher', '🧑‍🏫'],
+  ['friend', 'kaveri', 'friend', '🤝'],
+  ['book', 'kirja', 'book', '📕'],
+  ['pencil', 'kynä', 'pencil', '✏️'],
+  ['backpack', 'reppu', 'backpack', '🎒'],
+  ['paper', 'paperi', 'paper', '📄'],
+  ['picture', 'kuva', 'picture', '🖼️'],
+  ['clock', 'kello', 'clock', '⏰'],
+  ['homework', 'läksy', 'homework', '📝'],
+  // Emoji-less (text-only depth, see FAMILY).
+  ['class', 'luokka', 'class'],
+];
+
+// Free time — hobbies, games and gadgets: the things a child actually talks
+// about owning and liking ("Minulla on pyörä", "Pidän jalkapallosta").
+const FREETIME = [
+  ['ball', 'pallo', 'ball', '🏐'],
+  ['football', 'jalkapallo', 'football', '⚽'],
+  ['bike', 'pyörä', 'bike', '🚲'],
+  ['game', 'peli', 'game', '🎮'],
+  ['guitar', 'kitara', 'guitar', '🎸'],
+  ['piano', 'piano', 'piano', '🎹'],
+  ['music', 'musiikki', 'music', '🎵'],
+  ['movie', 'elokuva', 'movie', '🎞️'],
+  ['phone', 'puhelin', 'phone', '📱'],
+  ['computer', 'tietokone', 'computer', '💻'],
+  // Emoji-less (text-only depth).
+  ['hobby', 'harrastus', 'hobby'],
+];
 
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
@@ -586,9 +630,27 @@ const clothes = buildTheme({
   sourceWords: nounWords,
 });
 
+const school = buildTheme({
+  id: 'school',
+  fi: 'Koulu',
+  en: 'School',
+  emoji: '🏫',
+  curation: SCHOOL,
+  sourceWords: nounWords,
+});
+
+const freetime = buildTheme({
+  id: 'freetime',
+  fi: 'Vapaa-aika',
+  en: 'Free time',
+  emoji: '🎮',
+  curation: FREETIME,
+  sourceWords: nounWords,
+});
+
 // Attach possessive suffix forms to every NOUN theme (the "Kenen?" game draws
 // from these). Adjectives/verbs/numbers don't take possessive suffixes here.
-[animals, food, family, places, body, nature, clothes].forEach(attachPossessives);
+[animals, food, family, places, body, nature, clothes, school, freetime].forEach(attachPossessives);
 
 // Sourced-English guarantee: no word may ship without its AGID-derived forms.
 if (ENGLISH_MISSING.length) {
@@ -613,11 +675,14 @@ writeFileSync(join(OUT_DIR, 'places.sourced.json'), JSON.stringify(places, null,
 writeFileSync(join(OUT_DIR, 'body.sourced.json'), JSON.stringify(body, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'nature.sourced.json'), JSON.stringify(nature, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
     `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ` +
     `${food.words.length} food, ${family.words.length} family, ` +
     `${places.words.length} places, ${body.words.length} body, ` +
-    `${nature.words.length} nature, ${clothes.words.length} clothes words to ${OUT_DIR}`,
+    `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
+    `${school.words.length} school, ${freetime.words.length} free-time words to ${OUT_DIR}`,
 );

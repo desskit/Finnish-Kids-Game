@@ -165,3 +165,59 @@ exist in (or can be added to) the inflection dataset.
 4. **Colors** (as adjectives) — feed the agreement game and descriptive sentences.
 5. **More high-frequency nouns** across home / outdoors / body / clothes.
 6. **Multi-slot sentence templates** (§4) — the manual-but-high-impact work.
+
+## The guided course: units, lessons, "Why?" tips
+
+The home screen is a **course of units** (`src/game/path.tsx`, `UNITS`), not an
+open map. Each unit is one idea a beginner can hold:
+
+1. a short **lesson** (`src/content/lessons.ts`) — 3–6 cards;
+2. 1–3 practice **steps** — existing games, scoped to the unit's grammar and
+   to the words met so far;
+3. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
+
+The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
+
+### Adding or changing a unit
+
+- `newWords`: the item ids the unit introduces. Each word may be introduced
+  only once in the course. Steps draw from the unit's own words
+  (`content.words: 'new'`, used by the "New words" warm-up) or, by default,
+  from every word met so far (`'known'`).
+- Steps: use `phraseStep(...)` for carrier-phrase drills (build → order →
+  spell), `wordsStep(...)` for the vocab warm-up, or a plain `SkillNode`.
+  Dialogue, scene and story steps take `content.ids` to pick registry entries.
+- Units 1–19 pin `maxTier` to 10 automatically, because a step's
+  constructions are already exactly what its lesson taught. A conjugation step
+  also pins `verbCombos` to its lesson's tense. Only Mestari (unit 20) is
+  unpinned, so its original deep ladders climb to L9–10.
+- `doneAtLevel` (default 2) is the step level that counts toward unlocking
+  the checkpoint.
+- Run `npx vitest run src/game/course.viability.test.tsx`. It renders every
+  step × game × level and fails if any step can't fill a real question (too
+  few known words, places without the right tags, …).
+
+### Writing a lesson
+
+- The **prose is English**, written for a curious 8-year-old: short sentences,
+  one idea per card, **bold** for the rule, *Finnish* in italics.
+- **Every Finnish example is a reference, not typed text**: `{ word, case }`,
+  `{ sentence: constructionId, word }`, `{ verb, tense, polarity, person }`,
+  `{ possessive, possessor }`, `{ count, word }`, `{ agree, word, case }`, or
+  a vetted dialogue line `{ line, part }`. These resolve through the sourced
+  tables, and `lessons.test.ts` fails if any of them doesn't.
+- The highlighter (`src/content/endings.ts`) only **marks** the ending of a
+  looked-up form. If the form doesn't end in a known ending for its tag,
+  nothing is marked.
+- A `check` card has exactly one correct option. Wrong options may use
+  `asCase` / `wrong` / `adjCase` to show a real form in the wrong place.
+- Finnish quoted in prose (*minulla*, *edessä*…) appears in
+  `docs/FINNISH_REVIEW.md` under "Lesson prose" for native vetting.
+
+### "Why?" tips
+
+`src/content/why.ts` holds the one-line rule shown after a wrong answer (per
+construction, plus counting / verbs / possessives / agreement). The example
+is the correct looked-up form with its ending marked. A new construction
+should get a `CONSTRUCTION_RULES` entry; `why.test.ts` fails if it falls back
+to the generic text.

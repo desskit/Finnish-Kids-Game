@@ -7,11 +7,12 @@ import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { useProfile } from './state/profile';
-import { AdventureProvider, useAdventure } from './state/adventure';
 import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
-import AdventureBanner from './components/AdventureBanner';
-import MapHome from './components/MapHome';
+import CourseHome from './components/CourseHome';
+import LessonRoute from './components/LessonRoute';
+import Notebook from './components/Notebook';
+import CheckpointRoute from './components/CheckpointRoute';
 import ProfilePicker from './components/ProfilePicker';
 import ReviewActivity from './components/ReviewActivity';
 import GrownUp from './components/GrownUp';
@@ -28,8 +29,11 @@ const BADGE_ENV = badgeEnv;
 // base-path/redirect issues on GitHub Pages subpaths, Netlify, and Capacitor
 // file:// — no server rewrites needed.
 //
-//   /                   → MapHome       (the journey path of chapters + skills)
-//   /skill/:skillId     → Activity      (a skill's game, runs full-screen)
+//   /                   → CourseHome    (the guided course: units, Continue, Review)
+//   /lesson/:lessonId   → Lesson        (a unit's short "how it works" lesson)
+//   /notebook           → Notebook      (re-read any opened unit's lesson)
+//   /skill/:skillId     → Activity      (a step's game, runs full-screen)
+//   /checkpoint/:unitId → Checkpoint    (the unit test that unlocks the next unit)
 //   /review             → Review        (cross-topic spaced repetition)
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
 //   /grown-up/*         → math-gated Progress / Profiles / Settings
@@ -50,7 +54,6 @@ function SkillRouteHost() {
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
-  const adventure = useAdventure();
   const { activeChild, recordRound, activityDifficulty, stars, settings } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
@@ -72,14 +75,14 @@ function SkillRoute() {
   const { chapter, skill } = found;
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
-  const difficulty = difficultyFor(round.level);
+  // A course step may pin some knobs (its grammar tier, its verb tense) over
+  // the level's own — the level still drives tiles/trickiness/production.
+  const difficulty = { ...difficultyFor(round.level), ...skill.pin };
   // Speaking is folded into the rotation only where the browser can hear it AND
   // a grown-up hasn't switched it off.
   const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
   const activity = activityForRound(skill, round.level, round.no, speechOn);
-  // On an active "Today's adventure" run, the back button moves to the next
-  // suggested stop instead of the map; free play (no adventure) is unchanged.
-  const onExit = adventure.active ? adventure.advance : () => navigate('/');
+  const onExit = () => navigate('/');
   const element = renderActivity(skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
 
@@ -112,8 +115,9 @@ function SkillRoute() {
 
   return (
     <main className="app">
-      {adventure.active && <AdventureBanner adventure={adventure} />}
-      <ActivityContext.Provider value={{ onSegmentComplete, difficulty, sessionStars }}>
+      <ActivityContext.Provider
+        value={{ onSegmentComplete, difficulty, sessionStars, lessonId: chapter.lessonId }}
+      >
         {/* Key by segment so each one mounts fresh — switching game type cleanly. */}
         {cloneElement(element, { key: round.no })}
       </ActivityContext.Provider>
@@ -130,36 +134,23 @@ function SkillRoute() {
 // isn't a path step; needs an active child to have an SRS history to draw on.
 function ReviewRoute() {
   const { activeChild } = useProfile();
-  const adventure = useAdventure();
   if (!activeChild) return <Navigate to="/profiles" replace />;
-  return (
-    <>
-      {adventure.active && <AdventureBanner adventure={adventure} />}
-      <ReviewActivity onExit={adventure.active ? adventure.advance : undefined} />
-    </>
-  );
+  return <ReviewActivity />;
 }
 
 // Route tree, separated from the router so it can be mounted in a MemoryRouter
-// for tests (the smoke spec drives navigation through these routes). Wrapped
-// in AdventureProvider (needs a Router for useNavigate, and must live ABOVE
-// the individual routes so its state survives moving from stop to stop).
+// for tests (the smoke spec drives navigation through these routes).
 export function AppRoutes() {
-  return (
-    <AdventureProvider>
-      <AppRoutesInner />
-    </AdventureProvider>
-  );
-}
-
-function AppRoutesInner() {
   return (
     <Routes>
       <Route path="/profiles" element={<ProfilePicker />} />
       <Route element={<AppShell />}>
-        <Route path="/" element={<MapHome />} />
+        <Route path="/" element={<CourseHome />} />
+        <Route path="/notebook" element={<Notebook />} />
       </Route>
+      <Route path="/lesson/:lessonId" element={<LessonRoute />} />
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />
+      <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />

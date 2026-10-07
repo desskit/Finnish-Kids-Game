@@ -65,6 +65,27 @@ export interface Child {
   lastPlayedDay?: string;
   /** Consecutive days practiced, including today. Optional (see lastPlayedDay). */
   streakDays?: number;
+  /**
+   * Guided-course state (see `src/game/course.ts`): which lessons have been
+   * read and which unit checkpoints were passed. Optional + unbackfilled so
+   * older stored profiles round-trip (readers treat missing as "nothing yet").
+   */
+  course?: CourseState;
+}
+
+export interface CheckpointRecord {
+  /** When the checkpoint was first passed (undefined = attempted, not passed). */
+  passedAt?: number;
+  /** Best first-try ratio so far, 0..1. */
+  best: number;
+  attempts: number;
+}
+
+export interface CourseState {
+  /** lessonId → when it was first read to the end. */
+  lessonsSeen?: Record<string, number>;
+  /** unitId → checkpoint record. */
+  checkpoints?: Record<string, CheckpointRecord>;
 }
 
 export interface Settings {
@@ -79,6 +100,11 @@ export interface Settings {
    * enabled — see DEFAULT_SETTINGS).
    */
   speakingEnabled?: boolean;
+  /**
+   * Grown-up override: open every course unit regardless of checkpoints (to
+   * jump ahead, or to preview). Optional; missing = off.
+   */
+  unlockAll?: boolean;
 }
 
 export interface ProfilesData {

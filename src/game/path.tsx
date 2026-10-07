@@ -9,9 +9,13 @@ import {
   body,
   nature,
   clothes,
+  school,
+  freetime,
   adjectives,
   verbs,
 } from '../content';
+import type { Difficulty, VerbCombo } from './adapt';
+import { byIds } from '../util/byIds';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import {
@@ -20,7 +24,6 @@ import {
   buildSentenceSpellingRound,
   type SentencePools,
 } from './round';
-import type { Child } from '../state/storage';
 import ListenAndTap from '../components/ListenAndTap';
 import NameIt from '../components/NameIt';
 import ListenSentence from '../components/ListenSentence';
@@ -40,19 +43,14 @@ import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 
-// The learning PATH — the single source of truth for the journey-map home.
+// The learning PATH — the single source of truth for the guided course.
 //
-// We organize by *usable Finnish* (things you can say), not by vocabulary
-// category. A few "first words" warm-ups teach vocab; the rest are communicative
-// skills (carrier phrases, counting, conjugation, …) that pull words from a
-// MIXED pool, so the focus is the pattern, not the noun set. Each skill reuses
-// an existing game + round builder — this file only chooses the content scope.
-//
-// Designed to be ART-READY: every node/chapter carries optional `art`/`bannerArt`
-// + `accent`, and nodes accept optional layout hints (`side`, or `pos` for exact
-// coordinate placement on a future illustrated map). Emoji are the fallback.
-// Progress is keyed by (chapter.id, skill.id) so the adaptive-difficulty / badge
-// / dashboard engine works unchanged. Adding a skill or chapter is data-only.
+// The course is a fixed sequence of UNITS (each a `Chapter`): a short lesson,
+// a few practice STEPS (each a `SkillNode` reusing an existing game, scoped to
+// the unit's grammar and the words met so far), and a checkpoint that unlocks
+// the next unit. Unlock/completion rules live in `src/game/course.ts`; lessons
+// in `src/content/lessons.ts`. Progress is keyed by (unit.id, step.id) so the
+// adaptive-difficulty / badge / SRS engine works unchanged.
 
 export type ActivityKind =
   | 'listen'
@@ -88,6 +86,8 @@ export type Pool =
   | 'body'
   | 'nature'
   | 'clothes'
+  | 'school'
+  | 'freetime'
   | 'verbs'
   | 'colors';
 
@@ -104,6 +104,16 @@ export interface SkillContent {
    * behavior implicitly.
    */
   inflected?: boolean;
+  /**
+   * Which words a course step draws on (resolved below into `wordIds`):
+   * 'new' = only its unit's new words, 'known' (default) = every word met so
+   * far, 'all' = unscoped.
+   */
+  words?: 'new' | 'known' | 'all';
+  /** Resolved word scope (item ids) — set by the course builder, not by hand. */
+  wordIds?: string[];
+  /** Registry scope for dialogue/conversation/story steps (exchange/scene/story ids). */
+  ids?: string[];
 }
 
 export interface SkillNode {
@@ -145,6 +155,17 @@ export interface SkillNode {
    * starter nodes never reach. Unset = no timer.
    */
   timerFromLevel?: number;
+  /**
+   * The level at which this step counts as DONE for unit progress (default 2).
+   * The step keeps climbing past it if the child keeps playing.
+   */
+  doneAtLevel?: number;
+  /**
+   * Difficulty knobs pinned for this step, merged over the level's own
+   * (`difficultyFor`). Course steps pin `maxTier` (their constructions are
+   * already scoped) and conjugation steps pin `verbCombos` to their lesson's tense.
+   */
+  pin?: Partial<Difficulty>;
   // --- art-ready (Phase 1) ---
   /** Node image path under BASE_URL; the emoji `icon` is the fallback. */
   art?: string;
@@ -162,6 +183,16 @@ export interface Chapter {
   accent: string;
   icon: string;
   skills: SkillNode[];
+  /** One-line "what you'll learn" shown on the unit card. */
+  blurbEn: string;
+  /** The unit's lesson (src/content/lessons.ts). */
+  lessonId: string;
+  /** Item ids this unit introduces (they join the cumulative known words). */
+  newWords: string[];
+  /** Checkpoint shape; `false` = no checkpoint (the open-ended Mestari unit). */
+  checkpoint?: { perStep: number; passRatio: number } | false;
+  /** Leave the steps' difficulty unpinned (their own tier ladders apply). */
+  unpinned?: boolean;
   /** A not-yet-filled chapter (advanced content authored later). */
   comingSoon?: boolean;
   // --- art-ready ---
@@ -183,6 +214,8 @@ const NOUNS: LexicalItem[] = [
   ...body.items,
   ...nature.items,
   ...clothes.items,
+  ...school.items,
+  ...freetime.items,
 ];
 
 // The verbs pool for PICTURE-CARD games (the listen-verbs warm-up): only verbs
@@ -217,6 +250,10 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return nature.items;
     case 'clothes':
       return clothes.items;
+    case 'school':
+      return school.items;
+    case 'freetime':
+      return freetime.items;
     case 'verbs':
       return PICTURED_VERBS;
     case 'colors':
@@ -251,177 +288,711 @@ const SENTENCE_POOLS: SentencePools = {
   numbers: numbers.items,
 };
 
-// --- The path -------------------------------------------------------------
+// Whether any multi-slot sentence templates are authored (src/content/sentences.ts);
+// the sentence steps only appear when they are.
+const HAS_SENTENCES = sentenceConstructions.length > 0;
 
-const baseChapters: Chapter[] = [
+// --- The course -------------------------------------------------------------
+//
+// Twenty UNITS in a fixed order — each one a single idea a beginner can hold:
+// a short lesson (src/content/lessons.ts) → 1–3 practice steps (the existing
+// games, scoped) → a checkpoint that unlocks the next unit (src/game/course.ts).
+// Vocabulary is introduced INSIDE the unit that needs it (`newWords`), and every
+// practice step draws only from words met so far (cumulative "known" words), so
+// a sentence never springs a stranger on the child. Themes are an 8-year-old's
+// real life — school, friends, hobbies, food, going places — rather than farm
+// animals and body parts.
+//
+// Units 1–19 PIN their difficulty's grammar tier to the top (`pin.maxTier`): a
+// step's constructions are already scoped to exactly what its lesson taught, so
+// the level ladder only adds tiles/trickiness/production — it must not hide the
+// step's own grammar. Unit 20 (Mestari) is unpinned: there the original deep
+// ladders climb through tiers to the L9–10 expert band.
+
+const EVERY_TIER: Partial<Difficulty> = { maxTier: 10 };
+
+const PRESENT_POS: VerbCombo = { tense: 'present', polarity: 'positive' };
+const PRESENT_NEG: VerbCombo = { tense: 'present', polarity: 'negative' };
+const PAST_POS: VerbCombo = { tense: 'past', polarity: 'positive' };
+const PAST_NEG: VerbCombo = { tense: 'past', polarity: 'negative' };
+
+// The grammar every unit before Mestari has actually taught — the capstone
+// "Sentences" unit mixes exactly these (no untaught plural apexes).
+const TAUGHT_CONSTRUCTIONS = [
+  'this-is',
+  'where-is',
+  'is-this',
+  'i-have',
+  'you-have',
+  'she-has',
+  'we-have',
+  'they-have',
+  'i-havent',
+  'i-like',
+  'i-love',
+  'i-see',
+  'i-watch',
+  'i-wait-for',
+  'i-buy',
+  'i-buy-some',
+  'on-it',
+  'in-it',
+  'into-it',
+  'onto-it',
+  'out-of-it',
+  'off-it',
+  'in-front-of',
+  'behind',
+  'next-to',
+  'under',
+  'these-are',
+  'where-are',
+  'i-have-some',
+  'i-havent-any',
+  'in-them',
+];
+
+/** A unit's "new words" warm-up: meet each word (WordIntro), then hear→tap and
+ *  see→name it. Draws ONLY the unit's own new words. */
+function wordsStep(unitId: string, pool: Pool, titleEn = 'New words'): SkillNode {
+  return {
+    id: `${unitId}-words`,
+    titleFi: 'Uudet sanat',
+    titleEn,
+    icon: '🆕',
+    activity: 'listen',
+    activities: ['listen', 'name', 'name'],
+    maxLevel: 3,
+    content: { pool, words: 'new' },
+  };
+}
+
+/** A carrier-phrase practice step: recognize (build) → assemble (order) → type
+ *  (spell) as the step's level climbs. */
+function phraseStep(
+  id: string,
+  titleFi: string,
+  titleEn: string,
+  icon: string,
+  constructionIds: string[],
+  exampleFi?: string,
+  pool?: Pool,
+): SkillNode {
+  return {
+    id,
+    titleFi,
+    titleEn,
+    icon,
+    activity: 'build',
+    activities: ['build', 'build', 'order', 'spell'],
+    maxLevel: 4,
+    content: { constructionIds, pool },
+    exampleFi,
+  };
+}
+
+const UNITS: Chapter[] = [
   {
-    id: 'first-words',
-    titleFi: 'Ensisanat',
-    titleEn: 'First words',
-    accent: '#0ea5e9',
-    icon: '🔊',
-    // Warm-ups ramp through the whole retrieval spectrum on ONE vocab set:
-    // hear→picture (recognition), see picture→pick the Finnish word
-    // (production recall, the generation effect), hear a full sentence→picture
-    // (sentence-level comprehension), then adjective agreement (`match`). New
-    // game TYPES — not just more option tiles — are what earn the added depth.
-    // Numbers skip `listen-sentence` ("Tämä on kolme" is an awkward carrier),
-    // capping one rung shorter.
+    id: 'u1-hello',
+    titleFi: 'Hei!',
+    titleEn: 'Hello!',
+    blurbEn: 'Greet people, say goodbye, and say who you are.',
+    accent: '#ec4899',
+    icon: '👋',
+    lessonId: 'sounds',
+    newWords: [],
     skills: [
-      { id: 'listen-animals', titleFi: 'Eläimet', titleEn: 'Animals', icon: '🐾', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'animals' } },
-      { id: 'listen-food', titleFi: 'Ruoka', titleEn: 'Food', icon: '🍎', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'food' } },
-      { id: 'listen-family', titleFi: 'Perhe', titleEn: 'Family', icon: '👪', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'family' } },
-      { id: 'listen-body', titleFi: 'Keho', titleEn: 'Body', icon: '🧍', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'body' } },
-      { id: 'listen-nature', titleFi: 'Luonto', titleEn: 'Nature', icon: '🌳', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'nature' } },
-      { id: 'listen-clothes', titleFi: 'Vaatteet', titleEn: 'Clothes', icon: '👕', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'clothes' } },
-      { id: 'listen-places', titleFi: 'Paikat', titleEn: 'Places', icon: '🏠', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence', 'match'], maxLevel: 5, timerFromLevel: 4, content: { pool: 'places' } },
-      { id: 'listen-numbers', titleFi: 'Numerot', titleEn: 'Numbers', icon: '🔢', activity: 'listen', activities: ['listen', 'listen', 'name', 'match'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'numbers' } },
-      // Colors: adjectives, not nouns, so no `match` (they don't pair with a
-      // noun here — they'd have to BE the noun pool, which they aren't).
-      // `listen-sentence` still works: "Tämä on punainen." ("This is red.")
-      // is a natural Finnish predicate-adjective sentence, gated to just the
-      // `this-is` carrier (no "Minulla on punainen" nonsense).
-      { id: 'listen-colors', titleFi: 'Värit', titleEn: 'Colors', icon: '🌈', activity: 'listen', activities: ['listen', 'listen', 'name', 'listen-sentence'], maxLevel: 4, timerFromLevel: 4, content: { pool: 'colors', constructionIds: ['this-is'] } },
+      {
+        id: 'greetings',
+        titleFi: 'Tervehdykset',
+        titleEn: 'Greetings',
+        icon: '👋',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: {
+          ids: ['how-are-you', 'thanks', 'good-morning', 'goodbye', 'good-night', 'here-you-go', 'sorry'],
+        },
+      },
+      {
+        id: 'introduce',
+        titleFi: 'Kuka sinä olet?',
+        titleEn: 'Introduce yourself',
+        icon: '🙋',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: { ids: ['your-name', 'how-old', 'nice-to-meet', 'how-are-you', 'thanks-food'] },
+      },
     ],
   },
   {
-    id: 'naming',
-    titleFi: 'Nimeä ja omista',
-    titleEn: 'Naming & having',
-    accent: '#6366f1',
-    icon: '🧩',
+    id: 'u2-people',
+    titleFi: 'Kuka? Mikä?',
+    titleEn: 'People & things',
+    blurbEn: 'Name the people and things around you at home and school.',
+    accent: '#2563eb',
+    icon: '🧑‍🏫',
+    lessonId: 'no-articles',
+    newWords: [
+      'mother',
+      'father',
+      'brother',
+      'sister',
+      'grandmother',
+      'grandfather',
+      'baby',
+      'child',
+      'teacher',
+      'friend',
+      'book',
+      'pencil',
+      'backpack',
+      'paper',
+      'picture',
+      'clock',
+      'homework',
+      'class',
+    ],
     skills: [
-      // One grammar tier (nominative); depth comes from the challenge ramp
-      // recognize → assemble → type. The spell apex types the nominative (= the
-      // bare noun), so it stays a fair single-word drill.
+      wordsStep('u2', 'nouns'),
+      phraseStep('this-is', 'Tämä on…', 'This is…', '👉', ['this-is'], 'Tämä on opettaja.'),
       {
-        id: 'this-is',
-        titleFi: 'Tämä on…',
-        titleEn: 'This is a…',
-        icon: '🧩',
-        activity: 'build',
-        activities: ['build', 'build', 'order', 'spell'],
-        maxLevel: 4,
-        content: { constructionIds: ['this-is'] },
-        exampleFi: 'Tämä on kissa.',
-      },
-      {
-        id: 'where-is',
-        titleFi: 'Missä on…?',
-        titleEn: 'Where is…?',
-        icon: '❓',
-        activity: 'build',
-        activities: ['build', 'build', 'order', 'spell'],
-        maxLevel: 4,
-        content: { constructionIds: ['where-is'] },
-        exampleFi: 'Missä on koira?',
-      },
-      {
-        // The child's first INTERROGATIVE: the -ko yes/no question. A picture
-        // is shown, "Onko tämä kissa?" is asked, and the child answers Kyllä
-        // or Ei — comprehension of the ASKED word, since half the questions
-        // genuinely don't match. Sits right after this-is/where-is (the same
-        // nominative naming frame, now as a question). Depth 4: tricky (L4)
-        // makes the asked word share the picture's topic (cat vs dog).
         id: 'is-this',
         titleFi: 'Onko tämä…?',
         titleEn: 'Is this…?',
-        icon: '🤔',
+        icon: '❓',
         activity: 'yesno',
+        maxLevel: 3,
+        content: { constructionIds: ['is-this'] },
+        exampleFi: 'Onko tämä kirja?',
+      },
+    ],
+  },
+  {
+    id: 'u3-numbers',
+    titleFi: 'Numerot',
+    titleEn: 'Numbers',
+    blurbEn: 'Count to ten — and learn why "kaksi kirjaa" ends in -a.',
+    accent: '#0891b2',
+    icon: '🔢',
+    lessonId: 'counting',
+    newWords: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
+    skills: [
+      wordsStep('u3', 'numbers', 'Numbers 1–10'),
+      {
+        id: 'how-many',
+        titleFi: 'Montako?',
+        titleEn: 'How many?',
+        icon: '🧮',
+        activity: 'count',
+        // L1 counts to 5, L2 to 8, L3 to 10 — exactly the numbers met.
+        maxLevel: 3,
+        content: {},
+        exampleFi: 'kolme kirjaa',
+      },
+    ],
+  },
+  {
+    id: 'u4-having',
+    titleFi: 'Minulla on',
+    titleEn: 'I have',
+    blurbEn: 'Say what you and others have — Finnish has no verb "to have"!',
+    accent: '#7c3aed',
+    icon: '🎒',
+    lessonId: 'having',
+    newWords: ['ball', 'football', 'bike', 'game', 'guitar', 'piano', 'phone', 'computer', 'cat', 'dog', 'bunny'],
+    skills: [
+      wordsStep('u4', 'nouns'),
+      phraseStep('i-have', 'Minulla on…', 'I have…', '🙋', ['i-have', 'you-have'], 'Minulla on pyörä.'),
+      phraseStep(
+        'who-has',
+        'Kenellä on…?',
+        'Who has what',
+        '👥',
+        ['i-have', 'you-have', 'she-has', 'we-have', 'they-have'],
+        'Hänellä on kitara.',
+      ),
+    ],
+  },
+  {
+    id: 'u5-not-having',
+    titleFi: 'Ei ole',
+    titleEn: "Not having",
+    blurbEn: 'Say what you don\'t have — and watch the word change.',
+    accent: '#db2777',
+    icon: '🚫',
+    lessonId: 'negation-object',
+    newWords: ['shirt', 'coat', 'shoe', 'sock', 'hat', 'cap', 'boot', 'dress'],
+    skills: [
+      wordsStep('u5', 'nouns', 'Clothes'),
+      phraseStep('i-havent', 'Minulla ei ole…', "I don't have…", '🚫', ['i-havent'], 'Minulla ei ole hattua.'),
+      phraseStep('have-or-not', 'On vai ei?', 'Have or not', '⚖️', ['i-have', 'i-havent', 'you-have']),
+    ],
+  },
+  {
+    id: 'u6-doing',
+    titleFi: 'Mitä teet?',
+    titleEn: 'Doing things',
+    blurbEn: 'Action words — the ending tells you WHO is doing it.',
+    accent: '#ea580c',
+    icon: '🏃',
+    lessonId: 'verb-persons',
+    newWords: ['eat', 'drink', 'sleep', 'play', 'run', 'swim', 'read', 'write', 'draw', 'sing', 'listen', 'speak'],
+    skills: [
+      wordsStep('u6', 'verbs', 'Action words'),
+      {
+        id: 'verbs-present',
+        titleFi: 'Minä, sinä, hän…',
+        titleEn: 'Who is doing it?',
+        icon: '🏃',
+        activity: 'conjugate',
         maxLevel: 4,
-        content: { pool: 'nouns', constructionIds: ['is-this'] },
-        exampleFi: 'Onko tämä kissa?',
+        pin: { verbCombos: [PRESENT_POS] },
+        content: {},
+        exampleFi: 'minä syön, sinä syöt',
       },
+    ],
+  },
+  {
+    id: 'u7-not-doing',
+    titleFi: 'En tee',
+    titleEn: 'Saying no',
+    blurbEn: 'In Finnish, "not" is a verb that changes too: en, et, ei…',
+    accent: '#b91c1c',
+    icon: '✋',
+    lessonId: 'negative-verb',
+    newWords: [],
+    skills: [
       {
-        id: 'i-have',
-        titleFi: 'Minulla on… / Kenellä on…',
-        titleEn: 'I have… / Who has…',
-        icon: '🎒',
-        activity: 'build',
-        // A deeper node (depth 6): possession grows by person, then negation,
-        // then plural quantity. The ramp recognizes (build) → assembles
-        // (order — the activity that renders the tier-4/5 partitive-plural
-        // phrases as chips) → types the inflected form (spell, e.g. "kissoja").
-        // Grammar unlocks one rung per level via maxTier: nominative possession
-        // (t2) → negative singular (t3) → partitive-plural positive (t4) →
-        // partitive-plural negative (t5), its own top step.
-        activities: ['build', 'build', 'build', 'order', 'order', 'spell'],
-        maxLevel: 6,
-        content: {
-          constructionIds: [
-            'i-have',
-            'you-have',
-            'she-has',
-            'we-have',
-            'they-have',
-            'i-havent',
-            'i-have-some',
-            'i-havent-any',
-          ],
-        },
-        exampleFi: 'Minulla on kala.',
-      },
-      {
-        // The PLURAL mirror of This-is / Where-is, using the (already-vetted)
-        // plural-predicative constructions: an indefinite plural takes the
-        // partitive plural ("Nämä ovat kissoja"), a definite plural subject the
-        // nominative plural ("Missä ovat kissat?"). Sits after I-have, which
-        // introduces the partitive plural, so the form is already familiar.
-        id: 'plurals',
-        titleFi: 'Nämä ovat… / Missä ovat…',
-        titleEn: 'These are… / Where are…',
-        icon: '👐',
-        activity: 'build',
-        activities: ['build', 'build', 'order', 'spell'],
+        id: 'verbs-negative',
+        titleFi: 'En syö',
+        titleEn: "I don't…",
+        icon: '✋',
+        activity: 'conjugate',
         maxLevel: 4,
-        content: { constructionIds: ['these-are', 'where-are'] },
-        exampleFi: 'Nämä ovat kissoja.',
+        pin: { verbCombos: [PRESENT_NEG] },
+        content: {},
+        exampleFi: 'minä en syö',
       },
       {
-        // Kenen? (Whose?) — Finnish possessive SUFFIXES ("kissani" = my cat), a
-        // subsystem no other game touches. Pick the noun form carrying the right
-        // suffix; the tiles are the same noun with the OTHER possessors'
-        // endings, so the suffix is the whole question. Depth 5: L1-3 the bare
-        // "my cat" nominative, L4-5 add the place-locative reach ("in my house",
-        // "on my table"). All forms sourced from the vendored possessive tables.
+        id: 'verbs-yes-no',
+        titleFi: 'Syön vai en syö?',
+        titleEn: 'Yes or no',
+        icon: '🔀',
+        activity: 'conjugate',
+        maxLevel: 4,
+        pin: { verbCombos: [PRESENT_POS, PRESENT_NEG] },
+        content: {},
+      },
+    ],
+  },
+  {
+    id: 'u8-likes',
+    titleFi: 'Tykkään',
+    titleEn: 'Likes',
+    blurbEn: 'Say what you like and love — each verb picks its own ending.',
+    accent: '#e11d48',
+    icon: '❤️',
+    lessonId: 'likes',
+    newWords: [
+      'pizza',
+      'ice-cream',
+      'chocolate',
+      'apple',
+      'banana',
+      'bread',
+      'cheese',
+      'milk',
+      'juice',
+      'water',
+      'cake',
+      'cookie',
+      'strawberry',
+      'candy',
+      'music',
+      'movie',
+      'hobby',
+    ],
+    skills: [
+      wordsStep('u8', 'nouns', 'Food & fun'),
+      phraseStep('i-like', 'Pidän…sta', 'I like…', '👍', ['i-like'], 'Pidän jalkapallosta.'),
+      phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like'], 'Rakastan pitsaa.'),
+    ],
+  },
+  {
+    id: 'u9-seeing',
+    titleFi: 'Näen ja odotan',
+    titleEn: 'Seeing & waiting',
+    blurbEn: 'See the whole thing (-n) or keep watching it (-a).',
+    accent: '#0d9488',
+    icon: '👀',
+    lessonId: 'total-object',
+    newWords: ['bus', 'train', 'car'],
+    skills: [
+      wordsStep('u9', 'nouns', 'Getting around'),
+      phraseStep('i-see', 'Näen…n', 'I see…', '👀', ['i-see'], 'Näen bussin.'),
+      phraseStep('watch-wait', 'Katson, odotan', 'Watching & waiting', '⏳', ['i-watch', 'i-wait-for'], 'Odotan bussia.'),
+    ],
+  },
+  {
+    id: 'u10-shop',
+    titleFi: 'Kaupassa',
+    titleEn: 'At the shop',
+    blurbEn: 'Buy one whole thing, or some of a thing.',
+    accent: '#16a34a',
+    icon: '🛒',
+    lessonId: 'buying',
+    newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter'],
+    skills: [
+      wordsStep('u10', 'nouns', 'Shopping list'),
+      phraseStep('buying', 'Ostan…', 'Buying', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
+      {
+        id: 'shop-scene',
+        titleFi: 'Kaupassa',
+        titleEn: 'At the till',
+        icon: '🧾',
+        activity: 'conversation',
+        maxLevel: 3,
+        content: { ids: ['shop'] },
+      },
+    ],
+  },
+  {
+    id: 'u11-describing',
+    titleFi: 'Millainen?',
+    titleEn: 'Describing',
+    blurbEn: 'Colors and describing words copy the noun\'s ending.',
+    accent: '#ca8a04',
+    icon: '🎨',
+    lessonId: 'agreement',
+    newWords: [
+      'red',
+      'blue',
+      'yellow',
+      'green',
+      'black',
+      'white',
+      'brown',
+      'big',
+      'small',
+      'fast',
+      'slow',
+      'old',
+      'happy',
+      'tired',
+      'hungry',
+      'cute',
+      'kind',
+    ],
+    skills: [
+      wordsStep('u11', 'colors', 'Colors'),
+      {
+        id: 'describe',
+        titleFi: 'Iso koira',
+        titleEn: 'Describe it',
+        icon: '🎨',
+        activity: 'match',
+        maxLevel: 4,
+        content: {},
+        exampleFi: 'iso koira',
+      },
+    ],
+  },
+  {
+    id: 'u12-where',
+    titleFi: 'Missä?',
+    titleEn: 'Where is it?',
+    blurbEn: 'No words for "in" or "on" — Finnish uses endings instead.',
+    accent: '#0284c7',
+    icon: '📍',
+    lessonId: 'in-on',
+    newWords: [
+      'house',
+      'school',
+      'room',
+      'kitchen',
+      'garden',
+      'library',
+      'forest',
+      'tree',
+      'box',
+      'table',
+      'chair',
+      'bed',
+      'basket',
+      'bag',
+      'window',
+      'door',
+    ],
+    skills: [
+      wordsStep('u12', 'places', 'Places'),
+      phraseStep('where-is', 'Missä on…?', 'Where is…?', '🔍', ['where-is'], 'Missä on reppu?'),
+      phraseStep('in-on', 'Missä se on?', 'In or on', '📦', ['in-it', 'on-it'], 'Kirja on laatikossa.', 'places'),
+    ],
+  },
+  {
+    id: 'u13-moving',
+    titleFi: 'Mihin? Mistä?',
+    titleEn: 'Going & coming',
+    blurbEn: 'Into, onto, out of, off — three questions, six endings.',
+    accent: '#4f46e5',
+    icon: '🚶',
+    lessonId: 'into-out',
+    newWords: [],
+    skills: [
+      phraseStep('into-onto', 'Mihin?', 'Into & onto', '➡️', ['into-it', 'onto-it'], 'Kissa menee laatikkoon.', 'places'),
+      phraseStep('out-off', 'Mistä?', 'Out of & off', '⬅️', ['out-of-it', 'off-it'], 'Kissa tulee laatikosta.', 'places'),
+      phraseStep(
+        'six-cases',
+        'Missä, mihin, mistä',
+        'All six together',
+        '🧭',
+        ['on-it', 'in-it', 'into-it', 'onto-it', 'out-of-it', 'off-it'],
+        undefined,
+        'places',
+      ),
+    ],
+  },
+  {
+    id: 'u14-around',
+    titleFi: 'Edessä, takana',
+    titleEn: 'Around things',
+    blurbEn: 'In front of, behind, next to, under.',
+    accent: '#0f766e',
+    icon: '🧭',
+    lessonId: 'postpositions',
+    newWords: [],
+    skills: [
+      phraseStep(
+        'around',
+        'Edessä, takana…',
+        'In front, behind…',
+        '📍',
+        ['in-front-of', 'behind', 'next-to', 'under'],
+        'tuolin alla',
+      ),
+    ],
+  },
+  {
+    id: 'u15-whose',
+    titleFi: 'Kenen?',
+    titleEn: 'Whose?',
+    blurbEn: '"My", "your" and "their" are endings too: kirjani, kirjasi.',
+    accent: '#9333ea',
+    icon: '🙋',
+    lessonId: 'possessive',
+    newWords: [],
+    skills: [
+      {
         id: 'possessives',
         titleFi: 'Kenen?',
-        titleEn: 'Whose?',
+        titleEn: 'Whose is it?',
         icon: '🙋',
         activity: 'possessive',
         maxLevel: 5,
         content: { pool: 'nouns' },
-        exampleFi: 'Tämä on kissani.',
+        exampleFi: 'kirjani, kirjasi',
       },
     ],
   },
   {
-    id: 'where',
-    titleFi: 'Missä se on',
-    titleEn: 'Where things are',
-    accent: '#0d9488',
-    icon: '📍',
+    id: 'u16-many',
+    titleFi: 'Monta',
+    titleEn: 'Many',
+    blurbEn: 'More than one: kirjat, kirjoja — and "some".',
+    accent: '#c026d3',
+    icon: '👐',
+    lessonId: 'plurals',
+    newWords: [],
     skills: [
-      // Depth 6: L5-6 unlock the GENITIVE-PLURAL mirrors ("kissojen takana",
-      // tier 6) — the same postpositions over the sourced plural form.
-      { id: 'postpositions', titleFi: 'Edessä, takana…', titleEn: 'In front, behind…', icon: '📍', activity: 'build', activities: ['build', 'build', 'order', 'spell', 'build', 'spell'], maxLevel: 6, content: { constructionIds: ['in-front-of', 'behind', 'next-to', 'under', 'in-front-of-them', 'behind-them', 'next-to-them', 'under-them'] }, exampleFi: 'kissan edessä' },
+      phraseStep('these-are', 'Nämä ovat…', 'These are…', '👐', ['these-are', 'where-are'], 'Nämä ovat kirjoja.'),
+      phraseStep('some-any', 'Minulla on…ja', 'Some & any', '🧺', ['i-have-some', 'i-havent-any'], 'Minulla on palloja.'),
+      phraseStep('in-them', '…issa', 'In the boxes', '📦', ['in-them'], 'Kissat ovat laatikoissa.', 'places'),
+    ],
+  },
+  {
+    id: 'u17-yesterday',
+    titleFi: 'Eilen',
+    titleEn: 'Yesterday',
+    blurbEn: 'Talk about what already happened.',
+    accent: '#a16207',
+    icon: '⏮️',
+    lessonId: 'past',
+    newWords: ['walk', 'jump', 'dance', 'help', 'cook', 'clean', 'go', 'come', 'see', 'give', 'make'],
+    skills: [
+      wordsStep('u17', 'verbs', 'More action words'),
       {
-        // The flagship deep node (depth 8): the Finnish locative case system.
-        // One new case unlocks per level via maxTier — adessive (on) → inessive
-        // (in) → illative (into) → allative (onto) → elative (out of) → ablative
-        // (off) → inessive PLURAL (apex). The ramp shifts recognize (build) →
-        // assemble (order) → type the inflected place form (spell, e.g.
-        // "laatikoissa"). Place vocabulary carries the full sourced locative
-        // paradigm, so every step resolves — no generated Finnish.
-        id: 'locatives',
+        id: 'verbs-past',
+        titleFi: 'Söin, en syönyt',
+        titleEn: 'What happened',
+        icon: '⏮️',
+        activity: 'conjugate',
+        maxLevel: 4,
+        pin: { verbCombos: [PAST_POS, PAST_NEG] },
+        content: {},
+        exampleFi: 'minä söin, minä en syönyt',
+      },
+      {
+        id: 'past-stories',
+        titleFi: 'Tarinat',
+        titleEn: 'Stories',
+        icon: '📚',
+        activity: 'story',
+        maxLevel: 4,
+        content: { ids: ['lost-dog', 'birthday-surprise'] },
+      },
+    ],
+  },
+  {
+    id: 'u18-chatting',
+    titleFi: 'Jutellaan',
+    titleEn: 'Real conversations',
+    blurbEn: 'Hold a whole conversation and follow a story.',
+    accent: '#be185d',
+    icon: '🗣️',
+    lessonId: 'conversation',
+    newWords: [],
+    skills: [
+      {
+        id: 'everyday-talk',
+        titleFi: 'Arkipuhetta',
+        titleEn: 'Everyday talk',
+        icon: '💬',
+        activity: 'dialogue',
+        maxLevel: 4,
+        content: {
+          ids: [
+            'where-going',
+            'what-is-this',
+            'good-day',
+            'see-tomorrow',
+            'where-live',
+            'welcome',
+            'fav-color',
+            'whose-turn',
+            'happy-birthday',
+            'who-wants',
+            'enjoy-meal',
+            'feeling',
+            'weather',
+            'favorite-food',
+            'may-i-have',
+            'can-you-help',
+            'how-much',
+          ],
+        },
+      },
+      {
+        id: 'scenes',
+        titleFi: 'Jutellaan',
+        titleEn: 'Conversations',
+        icon: '🗣️',
+        activity: 'conversation',
+        maxLevel: 4,
+        content: { ids: ['playground', 'at-school', 'new-friend', 'evening-home', 'helping', 'playdate'] },
+      },
+      {
+        id: 'everyday-stories',
+        titleFi: 'Tarinat',
+        titleEn: 'Stories',
+        icon: '📖',
+        activity: 'story',
+        maxLevel: 4,
+        content: { ids: ['morning', 'at-the-shop'] },
+      },
+    ],
+  },
+  {
+    id: 'u19-sentences',
+    titleFi: 'Lauseet',
+    titleEn: 'Sentences',
+    blurbEn: 'Put whole sentences together, and spot mistakes.',
+    accent: '#475569',
+    icon: '📝',
+    lessonId: 'word-order',
+    newWords: [],
+    skills: [
+      {
+        id: 'word-order',
+        titleFi: 'Järjestä sanat',
+        titleEn: 'Word order',
+        icon: '🔀',
+        activity: 'order',
+        activities: ['order', 'order', 'spell'],
+        maxLevel: 4,
+        content: { constructionIds: TAUGHT_CONSTRUCTIONS },
+      },
+      ...(HAS_SENTENCES
+        ? [
+            {
+              id: 'build-sentences',
+              titleFi: 'Rakenna lauseita',
+              titleEn: 'Build sentences',
+              icon: '📝',
+              activity: 'sentence' as ActivityKind,
+              activities: ['sentence', 'sentence', 'sentence-type'] as ActivityKind[],
+              maxLevel: 4,
+              content: {},
+            },
+          ]
+        : []),
+      {
+        id: 'find-error',
+        titleFi: 'Löydä virhe',
+        titleEn: 'Find the mistake',
+        icon: '🔎',
+        activity: 'error-fix',
+        maxLevel: 4,
+        content: {
+          constructionIds: [
+            'this-is',
+            'where-is',
+            'i-have',
+            'i-like',
+            'i-see',
+            'on-it',
+            'in-it',
+            'into-it',
+            'onto-it',
+            'out-of-it',
+            'off-it',
+          ],
+        },
+        exampleFi: 'Kirja on laatikossa.',
+      },
+    ],
+  },
+  {
+    // The expert band — the original deep ladders, unpinned, so they climb
+    // through tiers to L9–10 (case-form tiles, gloss-free drills, dictation,
+    // perfect + conditional, the full plural locative system). No checkpoint:
+    // this is where a finished course keeps getting harder.
+    id: 'u20-mestari',
+    titleFi: 'Mestari',
+    titleEn: 'Expert',
+    blurbEn: 'Everything, harder and harder — for when the course is done.',
+    accent: '#1e293b',
+    icon: '🏆',
+    lessonId: 'expert',
+    newWords: [],
+    checkpoint: false,
+    unpinned: true,
+    skills: [
+      {
+        id: 'verbs-expert',
+        titleFi: 'Kaikki aikamuodot',
+        titleEn: 'Every tense',
+        icon: '🏃',
+        activity: 'conjugate',
+        activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate', 'conjugate', 'conjugate'],
+        maxLevel: 8,
+        content: {},
+      },
+      {
+        id: 'cases-expert',
         titleFi: 'Missä, mihin, mistä',
-        titleEn: 'In, on, into, out of…',
+        titleEn: 'Every place case',
         icon: '🧭',
         activity: 'build',
-        // The expert band (L9-10) completes the PLURAL locative system
-        // (t9-10: pöydillä / pöydille / laatikoista / pöydiltä) — and the L9+
-        // levers turn `build` into case-FORM tiles and `spell` into dictation,
-        // so the top of this ladder is genuinely adult-hard.
         activities: ['build', 'build', 'build', 'order', 'order', 'order', 'spell', 'spell', 'build', 'spell'],
         maxLevel: 10,
         content: {
@@ -440,144 +1011,89 @@ const baseChapters: Chapter[] = [
             'off-them',
           ],
         },
-        exampleFi: 'Kissa on laatikossa.',
       },
-    ],
-  },
-  {
-    id: 'likes',
-    titleFi: 'Tykkää ja näe',
-    titleEn: 'Likes & seeing',
-    accent: '#db2777',
-    icon: '❤️',
-    // Each verb governs a single case (the subject's natural cap = depth 4):
-    // depth comes from the challenge ramp, and the spell apex types the inflected
-    // object form (e.g. "kissasta", "koiran"). Demonstrates the "varying degrees"
-    // — shallow nodes alongside the deep locative/possession ones.
-    skills: [
-      { id: 'i-like', titleFi: 'Pidän …sta', titleEn: 'I like…', icon: '❤️', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-like'] }, exampleFi: 'Pidän kissasta.' },
-      { id: 'i-see', titleFi: 'Näen …n', titleEn: 'I see…', icon: '👀', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-see'] }, exampleFi: 'Näen koiran.' },
-      { id: 'i-love', titleFi: 'Rakastan …a', titleEn: 'I love…', icon: '💕', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-love'] }, exampleFi: 'Rakastan kissaa.' },
-      { id: 'i-watch', titleFi: 'Katson …a', titleEn: 'I watch…', icon: '🔭', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-watch'] }, exampleFi: 'Katson kissaa.' },
-      // odottaa always governs the partitive object ("Odotan äitiä"), a
-      // different rection from the genitive/partitive verbs above.
-      { id: 'i-wait-for', titleFi: 'Odotan …a', titleEn: 'I wait for…', icon: '⏳', activity: 'build', activities: ['build', 'build', 'order', 'spell'], maxLevel: 4, content: { constructionIds: ['i-wait-for'] }, exampleFi: 'Odotan äitiä.' },
       {
-        // Shopping — the object-case CONTRAST in one functional scene: a whole
-        // countable thing takes the genitive ("Ostan omenan"), a mass/divisible
-        // thing takes the partitive ("Ostan maitoa"). Both carriers share the
-        // same verb, so the case difference IS the lesson. Food pool (the
-        // contrast only exists there); clothes/animals still meet i-buy in the
-        // mixed capstones.
-        id: 'shopping',
-        titleFi: 'Kaupassa',
-        titleEn: 'Shopping',
-        icon: '🛒',
+        id: 'around-expert',
+        titleFi: 'Edessä, takana…',
+        titleEn: 'Around many things',
+        icon: '📍',
         activity: 'build',
-        activities: ['build', 'build', 'order', 'spell'],
-        maxLevel: 4,
-        content: { pool: 'food', constructionIds: ['i-buy', 'i-buy-some'] },
-        exampleFi: 'Ostan omenan.',
+        activities: ['build', 'build', 'order', 'spell', 'build', 'spell'],
+        maxLevel: 6,
+        content: {
+          constructionIds: [
+            'in-front-of',
+            'behind',
+            'next-to',
+            'under',
+            'in-front-of-them',
+            'behind-them',
+            'next-to-them',
+            'under-them',
+          ],
+        },
       },
-    ],
-  },
-  {
-    id: 'numbers-describe',
-    titleFi: 'Laske ja kuvaile',
-    titleEn: 'Numbers & describing',
-    accent: '#f59e0b',
-    icon: '🔢',
-    skills: [
-      // Counting's own grammar subject is the number itself — the shared level
-      // table keeps raising maxCount all the way to 20 (5 → 8 → 10 → 12 → 14 →
-      // 16 → 18 → 20), so this node rides the FULL engine depth: bigger counts
-      // (and the nominative/partitive split they force) is genuine headroom for
-      // L1-5. Once the counts have grown, L6-8 shift into build/order/spell
-      // over the same noun pool so the back half of the grind isn't just
-      // "the same game with bigger numbers" forever.
-      // L9-10 return to `count` with the expert draw: the round tens DOMINATE
-      // (kuusikymmentä vs seitsemänkymmentä) with neighboring-tens distractors.
-      { id: 'count', titleFi: 'Laske ja sano', titleEn: 'Count & say', icon: '🔢', activity: 'count', activities: ['count', 'count', 'count', 'count', 'count', 'build', 'order', 'spell', 'count', 'count'], maxLevel: 10, content: { pool: 'nouns' } },
-      // Adjective-noun agreement rotates across 7 cases at every level (not
-      // tier-gated), so there's no extra grammar to unlock past the default
-      // ceiling — depth stays 4 until the cases themselves get tiered. L3-4
-      // shift into build/order over the same noun pool for a second game.
-      { id: 'match', titleFi: 'Yhdistä sanat', titleEn: 'Describe it', icon: '🎨', activity: 'match', activities: ['match', 'match', 'build', 'order'], maxLevel: 4, content: { pool: 'nouns' } },
-    ],
-  },
-  {
-    id: 'actions',
-    titleFi: 'Tekeminen',
-    titleEn: 'Actions',
-    accent: '#16a34a',
-    icon: '🏃',
-    skills: [
-      // The verbs warm-up: hear an action verb (the infinitive), tap its
-      // picture — same format as the chapter-1 noun warm-ups, over the verbs
-      // pool (only picturable verbs render; see itemsForPool). L3 swaps to a
-      // conjugation taste, not `match` (verbs don't decline by case).
-      { id: 'listen-verbs', titleFi: 'Verbit', titleEn: 'Action words', icon: '🎬', activity: 'listen', activities: ['listen', 'listen', 'conjugate'], maxLevel: 3, content: { pool: 'verbs' } },
-      // TPR commands: hear a real imperative ("Hyppää!"), tap the action —
-      // Total Physical Response, the classic listening format for this age.
-      // Imperative 2sg forms are sourced (see VERB_INFLECTION_KEYS in the data
-      // build); only curated kid-actable verbs play (COMMAND_VERB_IDS). Depth
-      // 4: option count then sound-confusable distractors (same first letter).
-      { id: 'commands', titleFi: 'Tee näin!', titleEn: 'Do this!', icon: '🤸', activity: 'command', maxLevel: 4, content: { pool: 'verbs' }, exampleFi: 'Hyppää!' },
-      // Depth 8: one new sourced tense×polarity set unlocks per level through
-      // L4 (present+ → present- → past+ → past-), each drilled across all six
-      // persons; L4 also swaps in `match` as the "different game" step. L5–6
-      // ride the `tricky` lever — a distractor tile is a DIFFERENT verb
-      // conjugated for the same person, so the verb itself must be recognized
-      // across the (now ~50-verb) pool, not just the ending. L7 unlocks the
-      // sourced PERFECT ("minä olen syönyt") and L8 the CONDITIONAL ("minä
-      // söisin") — the adult-learner rungs. (Imperative is 2nd-person-only and
-      // doesn't fit the "pick the person's form" drill.)
-      { id: 'conjugate', titleFi: 'Taivuta verbi', titleEn: 'Verbs (I / you / he)', icon: '🏃', activity: 'conjugate', activities: ['conjugate', 'conjugate', 'conjugate', 'match', 'conjugate', 'conjugate', 'conjugate', 'conjugate'], maxLevel: 8, content: {} },
-    ],
-  },
-  {
-    id: 'together',
-    titleFi: 'Kokoa yhteen',
-    titleEn: 'Put it together',
-    accent: '#7c3aed',
-    icon: '🔀',
-    skills: [
-      // The cross-cutting capstones (depth 8): they mix EVERY carrier phrase the
-      // game teaches over the full noun pool, tier-gated by level — so they
-      // self-ramp from nominative (L1) all the way to the inessive-plural apex
-      // (L8) without an explicit `activities` array. `order` is the assembly
-      // capstone (reorder the chips of a correct Finnish sentence); `spell` is
-      // the production capstone (type the sourced inflected form). Together they
-      // are "put everything you've learned together", and a genuine grind to top.
-      // No second game type here on purpose: progression is already visible
-      // every level via new grammar (maxTier), and no other round builder
-      // consumes a generic noun pool the way order/spell already do.
-      // Depth 10: the expert band adds the t9-10 plural-locative grammar and
-      // the L9+ levers (gloss-free assembly / audio-only dictation).
-      { id: 'order', titleFi: 'Järjestä sanat', titleEn: 'Word order', icon: '🔀', activity: 'order', maxLevel: 10, content: {} },
-      // Same reasoning as `order` above — self-ramps via the inflected-form
-      // grammar, no second game.
-      { id: 'spell', titleFi: 'Kirjoita sana', titleEn: 'Spelling', icon: '⌨️', activity: 'spell', maxLevel: 10, content: { pool: 'nouns', inflected: true } },
-      // Authentic reading: real sourced example sentences (kid-safety filtered),
-      // read + heard, tap the picture they're about. Comprehensible input over
-      // the mixed noun pool. Depth comes from the option count + tricky lever.
-      { id: 'reading', titleFi: 'Lue lause', titleEn: 'Read a sentence', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
-      // Löydä virhe — the grammatical-JUDGMENT game (a new mechanic): a whole
-      // sentence is shown against its intended meaning, and half the time the
-      // one inflected word carries the wrong (real, sourced) case. Tap the bad
-      // word or "all correct". Depth 8: tier-gating brings in harder carriers
-      // (locatives, where a swapped inessive→adessive is a subtle real-learner
-      // error), and `tricky` makes the wrong form close in length to the right
-      // one. Draws from the sentence-shaped carriers over the mixed noun pool.
       {
-        id: 'find-error',
+        id: 'count-expert',
+        titleFi: 'Laske sataan',
+        titleEn: 'Count to 100',
+        icon: '💯',
+        activity: 'count',
+        activities: ['count', 'count', 'count', 'count', 'count', 'build', 'order', 'spell', 'count', 'count'],
+        maxLevel: 10,
+        content: { words: 'all' },
+      },
+      {
+        id: 'order-expert',
+        titleFi: 'Järjestä sanat',
+        titleEn: 'Word order',
+        icon: '🔀',
+        activity: 'order',
+        maxLevel: 10,
+        content: {},
+      },
+      {
+        id: 'spell-expert',
+        titleFi: 'Kirjoita sana',
+        titleEn: 'Spelling & dictation',
+        icon: '⌨️',
+        activity: 'spell',
+        maxLevel: 10,
+        content: { pool: 'nouns', inflected: true },
+      },
+      ...(HAS_SENTENCES
+        ? [
+            {
+              id: 'sentences-expert',
+              titleFi: 'Rakenna lauseita',
+              titleEn: 'Sentences',
+              icon: '📝',
+              activity: 'sentence' as ActivityKind,
+              activities: [
+                'sentence',
+                'sentence',
+                'sentence',
+                'sentence',
+                'sentence',
+                'sentence',
+                'sentence-type',
+                'sentence-type',
+                'sentence-type',
+                'sentence-type',
+              ] as ActivityKind[],
+              maxLevel: 10,
+              content: {},
+            },
+          ]
+        : []),
+      {
+        id: 'find-error-expert',
         titleFi: 'Löydä virhe',
         titleEn: 'Find the mistake',
         icon: '🔎',
         activity: 'error-fix',
         maxLevel: 8,
         content: {
-          pool: 'nouns',
           constructionIds: [
             'this-is',
             'where-is',
@@ -592,137 +1108,46 @@ const baseChapters: Chapter[] = [
             'off-it',
           ],
         },
-        exampleFi: 'Kissa on laatikossa.',
       },
-      // Story time: a tiny illustrated story read page by page, then a couple
-      // of comprehension taps — the app's CONNECTED input (following a little
-      // narrative for meaning). Tier-gates which stories play; L5 is the
-      // Finnish-only rung (the glosses drop away, see showsGloss); L6-7 climb
-      // through the tier-5 stories — longer, past-tense narration with
-      // sequence/motive questions.
-      { id: 'stories', titleFi: 'Satuhetki', titleEn: 'Story time', icon: '📚', activity: 'story', maxLevel: 7, content: {} },
-      { id: 'review', titleFi: 'Kertaus', titleEn: 'Review', icon: '🔁', activity: 'review', content: {} },
+      { id: 'talk-expert', titleFi: 'Keskustelut', titleEn: 'Hard conversations', icon: '💬', activity: 'dialogue', maxLevel: 7, content: {} },
+      { id: 'scenes-expert', titleFi: 'Jutellaan', titleEn: 'Long scenes', icon: '🗣️', activity: 'conversation', maxLevel: 7, content: {} },
+      { id: 'stories-expert', titleFi: 'Satuhetki', titleEn: 'All stories', icon: '📚', activity: 'story', maxLevel: 7, content: {} },
+      { id: 'reading', titleFi: 'Lue lause', titleEn: 'Real sentences', icon: '📖', activity: 'reading', maxLevel: 3, content: {} },
     ],
   },
 ];
 
-// Advanced final chapter — ONE cross-cutting "build a whole sentence" node (like
-// the chapter-7 capstones), not one node per template: every authored
-// SentenceConstruction is a sample inside this single activity, tier-gated by the
-// node's measured level so harder multi-slot patterns unlock as the child climbs.
-// The registry (src/content/sentences.ts) drives whether the chapter is live: an
-// empty registry keeps the friendly "coming soon" placeholder and no playable node.
-// The top levels add a typing apex ('sentence-type') on top of tile assembly
-// ('sentence') — see the node's `activities` ramp below.
-const HAS_SENTENCES = sentenceConstructions.length > 0;
+// --- Resolve each step's word scope + default pins ------------------------
+//
+// A unit's `newWords` accumulate into the "known" set; each step gets a STABLE
+// `content.wordIds` array (resolved once here, so renderActivity's caches key
+// on it) — 'new' = just this unit's words, 'known' (default) = every word met up
+// to and including this unit, 'all' = unscoped.
+const knownByUnit: string[][] = [];
+{
+  const acc: string[] = [];
+  for (const unit of UNITS) {
+    for (const w of unit.newWords ?? []) if (!acc.includes(w)) acc.push(w);
+    knownByUnit.push([...acc]);
+  }
+}
 
-const sentenceSkills: SkillNode[] = HAS_SENTENCES
-  ? [
-      {
-        id: 'full-sentences',
-        titleFi: 'Rakenna lauseita',
-        titleEn: 'Build sentences',
-        icon: '📝',
-        activity: 'sentence',
-        // The top levels add a typing apex: once the child can assemble a
-        // sentence from tiles, typing it out from the English gloss (no
-        // Finnish shown, no TTS) is the harder production test. Sessions
-        // round-robin the whole unlocked set, so 7-8 mix tile + typing
-        // rounds rather than switching over entirely.
-        // L9-10: the typing apex becomes DICTATION (the dictation lever speaks
-        // the whole Finnish sentence; no gloss) — the app's hardest task.
-        activities: [
-          'sentence',
-          'sentence',
-          'sentence',
-          'sentence',
-          'sentence',
-          'sentence',
-          'sentence-type',
-          'sentence-type',
-          'sentence-type',
-          'sentence-type',
-        ],
-        maxLevel: 10,
-        content: {},
-      },
-    ]
-  : [];
+UNITS.forEach((unit, ui) => {
+  for (const step of unit.skills) {
+    const scope = step.content.words ?? 'known';
+    if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
+    else if (scope === 'known') step.content.wordIds = knownByUnit[ui];
+    if (!unit.unpinned) step.pin = { ...EVERY_TIER, ...step.pin };
+  }
+});
 
-const sentencesChapter: Chapter = {
-  id: 'sentences',
-  titleFi: 'Kokonaiset lauseet',
-  titleEn: 'Full sentences',
-  accent: '#64748b',
-  icon: '📝',
-  comingSoon: !HAS_SENTENCES,
-  skills: sentenceSkills,
-};
+/** Every word id introduced up to and including unit `index` (0-based). */
+export function knownWordsThrough(index: number): readonly string[] {
+  return knownByUnit[Math.max(0, Math.min(index, knownByUnit.length - 1))] ?? [];
+}
 
-// Conversations — everyday greetings/courtesies as a "choose the right reply"
-// game. Communicative Finnish the drill formats can't teach; content is the
-// hand-authored dialogue registry (src/content/dialogues.ts).
-const conversationsChapter: Chapter = {
-  id: 'conversations',
-  titleFi: 'Keskustelut',
-  titleEn: 'Conversations',
-  accent: '#ec4899',
-  icon: '💬',
-  skills: [
-    {
-      id: 'greetings',
-      titleFi: 'Tervehdykset',
-      titleEn: 'Greetings',
-      icon: '👋',
-      activity: 'dialogue',
-      // Seven rungs: L1 simple greetings (t1–2) → L4 the tier-4 exchanges
-      // (favourites, turn-taking) → L5 Finnish-only (the English gloss drops
-      // away — see showsGloss) → L6-7 the tier-5 expert register (directions,
-      // phone talk, repair moves) with five reply tiles (the L6+ option count).
-      maxLevel: 7,
-      content: {},
-    },
-    {
-      // The pieces strung together: hold a whole short scene, turn by turn.
-      // Greetings (the adjacency pairs) → Small talk (connected discourse).
-      id: 'small-talk',
-      titleFi: 'Jutellaan',
-      titleEn: 'Small talk',
-      icon: '🗣️',
-      activity: 'conversation',
-      // L5 is the Finnish-only rung: the English glosses on the bubbles + reply
-      // tiles drop away, so the child holds the whole scene in Finnish. L6-7
-      // add the tier-5 scenes (planning a day; a mix-up + repair) — longer,
-      // multi-clause turns — with five reply tiles.
-      maxLevel: 7,
-      content: {},
-    },
-  ],
-};
+export const PATH: Chapter[] = UNITS;
 
-// The learner journey, sequenced easy → hard and front-loading communication:
-// vocab first, then greetings (the most immediately usable Finnish), then
-// grammar climbing from the simplest cases (naming / having) up through the
-// full 7-case locative system, and finally the sentence + typing capstones.
-// Chapters are DEFINED above in author-groups; this list is the single source
-// of their PLAY order (reordering here never touches progress, which is keyed
-// by chapter+node id, not position).
-const CHAPTER_ORDER = [
-  'first-words', // noun vocab recognition
-  'conversations', // greetings + small talk — early communicative win
-  'naming', // this-is / these-are / where-is / I-have (simplest cases)
-  'likes', // verb-object carriers (partitive / genitive objects)
-  'numbers-describe', // counting + adjective agreement
-  'actions', // verb vocab + conjugation
-  'where', // the 7 locative cases (the hardest grammar) — belongs late
-  'together', // word-order / spelling capstones, reading, review
-  'sentences', // full multi-slot sentence assembly — the summit
-] as const;
-
-const allChapters = [...baseChapters, conversationsChapter, sentencesChapter];
-export const PATH: Chapter[] = CHAPTER_ORDER.map(
-  (id) => allChapters.find((c) => c.id === id)!,
-);
 
 // --- Lookups + progression helpers ---------------------------------------
 
@@ -811,16 +1236,6 @@ export function allSkills(): FoundSkill[] {
   return PATH.flatMap((chapter) => chapter.skills.map((skill) => ({ chapter, skill })));
 }
 
-/** The first not-yet-played skill (the highlighted "next" on the map). */
-export function nextSkillId(child: Child | null | undefined): string | undefined {
-  for (const { chapter, skill } of allSkills()) {
-    if (skill.activity === 'review') continue; // review isn't a path step
-    const plays = child?.progress?.[chapter.id]?.[skill.id]?.plays ?? 0;
-    if (plays === 0) return skill.id;
-  }
-  return undefined;
-}
-
 /** Facts the badge rules measure against, derived from the path (not vocab). */
 export const badgeEnv = {
   topicCount: PATH.filter((c) => c.skills.some((s) => s.activity !== 'review')).length,
@@ -861,6 +1276,18 @@ function pictureSafe(items: LexicalItem[]): LexicalItem[] {
   return cached;
 }
 
+/**
+ * A pool narrowed to a step's word scope — a STABLE array per (pool, ids) (see
+ * `byIds`) so the games' round memos never see a fresh identity. Falls back to
+ * the whole pool when the scope leaves fewer than `min` items (a game that
+ * needs distractors from this pool would otherwise have nothing to offer).
+ */
+function scoped(all: LexicalItem[], ids: string[] | undefined, min: number): LexicalItem[] {
+  if (!ids) return all;
+  const hit = byIds(all, ids) as LexicalItem[];
+  return hit.length >= min ? hit : all;
+}
+
 /** Render one specific activity for a skill, wired to the skill's content scope.
  *  The caller decides WHICH activity (per round, for in-session variety — see
  *  `activityForRound`); this just maps an activity kind to its game component.
@@ -871,7 +1298,9 @@ export function renderActivity(
   activity: ActivityKind,
   onExit: () => void,
 ): ReactElement | null {
-  const items = itemsForPool(skill.content.pool);
+  // Course steps draw only from their scoped words (see `content.wordIds`).
+  const wordIds = skill.content.wordIds;
+  const items = scoped(itemsForPool(skill.content.pool), wordIds, 1);
   // A pool may include a few emoji-less words (text-only depth for family/
   // places/clothes — see build-kids-data.mjs); safe for the games that render
   // without a picture (name/listen-sentence/reading/say already filter or
@@ -922,9 +1351,15 @@ export function renderActivity(
     case 'count':
       return <CountAndSay nouns={pictureItems} numbers={numbers.items} onExit={onExit} />;
     case 'match':
-      return <MatchTheWord adjectives={adjectives.items} nouns={pictureItems} onExit={onExit} />;
+      return (
+        <MatchTheWord
+          adjectives={scoped(adjectives.items, wordIds, 4)}
+          nouns={pictureItems}
+          onExit={onExit}
+        />
+      );
     case 'conjugate':
-      return <ConjugateVerb verbs={verbs.items} onExit={onExit} />;
+      return <ConjugateVerb verbs={scoped(verbs.items, wordIds, 4)} onExit={onExit} />;
     case 'command':
       // TPR: hear an imperative, tap the action picture. Same utterance→picture
       // mechanic as sentence listening, so it reuses that game with a command
@@ -1020,17 +1455,17 @@ export function renderActivity(
     case 'dialogue':
       // Choose the right reply to a Finnish greeting/courtesy. Draws from the
       // hand-authored dialogue registry; tier-gated by the adaptive level.
-      return <DialogueGame onExit={onExit} />;
+      return <DialogueGame ids={skill.content.ids} onExit={onExit} />;
     case 'conversation':
       // Hold a short multi-turn scene (the greetings pieces, strung together).
       // Draws from the hand-authored conversation registry; tier-gated.
-      return <ConversationScene onExit={onExit} />;
+      return <ConversationScene ids={skill.content.ids} onExit={onExit} />;
     case 'reading':
       // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
       return <ReadAndListen items={items} onExit={onExit} />;
     case 'story':
       // A tiny illustrated story, page by page, then comprehension taps.
-      return <StoryTime onExit={onExit} />;
+      return <StoryTime ids={skill.content.ids} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

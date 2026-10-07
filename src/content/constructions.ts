@@ -25,18 +25,39 @@ const UNOWNABLE = [
   'lake',
   'mountain',
   'school',
+  // Course vocabulary: things you go to / listen to, not things you own.
+  'class',
+  'music',
+  'library',
+  'shop',
+  'bus',
+  'train',
 ];
 
 // Things it makes sense to LIKE/LOVE — everything except body parts
 // ("Rakastan polvea", I love the knee, is nobody's flashcard).
-const LIKABLE_TOPICS = ['animals', 'food', 'family', 'places', 'nature', 'clothes'];
+const LIKABLE_TOPICS = [
+  'animals',
+  'food',
+  'family',
+  'places',
+  'nature',
+  'clothes',
+  'school',
+  'freetime',
+];
 
-// Things one WATCHES — living beings and scenery, not food or socks.
-const WATCHABLE_TOPICS = ['animals', 'family', 'places', 'nature'];
+// Things one WATCHES — living beings and scenery, not food or socks; plus a
+// movie, a game, a picture, a football match.
+const WATCHABLE_TOPICS = ['animals', 'family', 'places', 'nature', 'school', 'freetime'];
+
+// Things you can't SEE or WATCH as an object ("Näen musiikin" is wrong — you
+// hear music; a hobby is an activity, not a thing in view).
+const NOT_VISIBLE = ['music', 'hobby'];
 
 // Nature words that make no concrete reference point for a postposition
 // ("sateen edessä" reads as poetry, not a place).
-const NO_LANDMARK = ['rain', 'snow', 'sky', 'sea'];
+const NO_LANDMARK = ['rain', 'snow', 'sky', 'sea', 'music', 'hobby', 'class', 'homework'];
 
 export const nounConstructions: Construction[] = [
   // --- Nominative subject/complement (Tier 2) ---
@@ -158,6 +179,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: 'genitive',
     number: 'singular',
+    excludeIds: NOT_VISIBLE,
   },
   {
     id: 'i-love', // rakastaa always governs the partitive: "Rakastan kissaa."
@@ -178,8 +200,22 @@ export const nounConstructions: Construction[] = [
     case: 'partitive',
     number: 'singular',
     topics: WATCHABLE_TOPICS,
-    // Furniture/containers from `places` aren't things one watches.
-    excludeIds: ['bag', 'basket', 'box', 'chair', 'table', 'bed'],
+    // Furniture/containers from `places` aren't things one watches; nor are
+    // school supplies or invisible things.
+    excludeIds: [
+      'bag',
+      'basket',
+      'box',
+      'chair',
+      'table',
+      'bed',
+      'pencil',
+      'paper',
+      'backpack',
+      'homework',
+      'class',
+      ...NOT_VISIBLE,
+    ],
   },
 
   // --- Locational postpositions, all governing the genitive (Tier 3) ---
@@ -267,7 +303,7 @@ export const nounConstructions: Construction[] = [
     id: 'i-have-some',
     before: 'Minulla on',
     punct: '.',
-    en: 'I have some ___.',
+    en: 'I have some ___s.',
     tier: 4,
     case: 'partitive',
     number: 'plural',
@@ -277,7 +313,7 @@ export const nounConstructions: Construction[] = [
     id: 'i-havent-any',
     before: 'Minulla ei ole',
     punct: '.',
-    en: "I don't have any ___.",
+    en: "I don't have any ___s.",
     // Tier 5: negative partitive-plural is the possession node's own top step,
     // one rung above the positive partitive-plural (i-have-some, tier 4).
     tier: 5,
@@ -318,11 +354,23 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: 'genitive',
     number: 'singular',
-    topics: ['animals', 'food', 'clothes'],
+    topics: ['animals', 'food', 'clothes', 'school', 'freetime'],
     // Mass nouns take the partitive when bought ("Ostan maitoa"), so keep them
     // out of this genitive total-object frame — they get their own carrier
     // below (i-buy-some), making the pair the Shopping node's real lesson.
-    excludeIds: ['water', 'milk', 'juice', 'chocolate'],
+    // People, homework, music and hobbies aren't bought.
+    excludeIds: [
+      'water',
+      'milk',
+      'juice',
+      'chocolate',
+      'teacher',
+      'friend',
+      'homework',
+      'class',
+      'music',
+      'hobby',
+    ],
   },
   {
     // The partitive half of the buying contrast: a mass/divisible thing bought
@@ -361,7 +409,37 @@ export const nounConstructions: Construction[] = [
     tier: 6,
     case: 'partitive',
     number: 'singular',
-    topics: ['animals', 'family'],
+    // People, pets and rides: "Odotan opettajaa / bussia". Every other place
+    // and school thing is filtered out (nobody waits for a pencil).
+    topics: ['animals', 'family', 'school', 'places'],
+    excludeIds: [
+      'box',
+      'table',
+      'house',
+      'room',
+      'car',
+      'bed',
+      'chair',
+      'school',
+      'tree',
+      'forest',
+      'basket',
+      'bag',
+      'window',
+      'door',
+      'kitchen',
+      'garden',
+      'shop',
+      'library',
+      'book',
+      'pencil',
+      'backpack',
+      'paper',
+      'picture',
+      'clock',
+      'homework',
+      'class',
+    ],
   },
 
   // --- Locative cases: WHERE things are (the `places` pool, "where" chapter).
@@ -445,7 +523,7 @@ export const nounConstructions: Construction[] = [
     id: 'in-them', // inessive PLURAL apex — "Kissat ovat laatikoissa."
     before: 'Kissat ovat',
     punct: '.',
-    en: 'The cats are in the ___.',
+    en: 'The cats are in the ___s.',
     tier: 8,
     case: 'inessive',
     number: 'plural',

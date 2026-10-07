@@ -1,0 +1,650 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "freetime",
+    "fi": "Vapaa-aika",
+    "en": "Free time",
+    "emoji": "🎮"
+  },
+  "words": [
+    {
+      "id": "ball",
+      "word": "pallo",
+      "en": "ball",
+      "emoji": "🏐",
+      "inflections": {
+        "nominative_singular": "pallo",
+        "nominative_plural": "pallot",
+        "genitive_singular": "pallon",
+        "genitive_plural": "pallojen",
+        "partitive_singular": "palloa",
+        "partitive_plural": "palloja",
+        "inessive_singular": "pallossa",
+        "inessive_plural": "palloissa",
+        "elative_singular": "pallosta",
+        "elative_plural": "palloista",
+        "illative_singular": "palloon",
+        "illative_plural": "palloihin",
+        "adessive_singular": "pallolla",
+        "adessive_plural": "palloilla",
+        "ablative_singular": "pallolta",
+        "ablative_plural": "palloilta",
+        "allative_singular": "pallolle",
+        "allative_plural": "palloille",
+        "essive_singular": "pallona",
+        "essive_plural": "palloina",
+        "translative_singular": "palloksi",
+        "translative_plural": "palloiksi",
+        "abessive_singular": "pallotta",
+        "abessive_plural": "palloitta",
+        "instructive_plural": "palloin",
+        "comitative_plural": "palloineen",
+        "poss_1sg_nominative_singular": "palloni",
+        "poss_1sg_inessive_singular": "pallossani",
+        "poss_1sg_adessive_singular": "pallollani",
+        "poss_2sg_nominative_singular": "pallosi",
+        "poss_2sg_inessive_singular": "pallossasi",
+        "poss_2sg_adessive_singular": "pallollasi",
+        "poss_3rd_nominative_singular": "pallonsa",
+        "poss_3rd_inessive_singular": "pallossaan",
+        "poss_3rd_adessive_singular": "pallollaan"
+      },
+      "english": {
+        "plural": "balls"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 2984,
+      "examples": [
+        {
+          "fi": "Mayuko tiputti pallon.",
+          "en": "Mayuko has dropped the ball."
+        },
+        {
+          "fi": "Hän löysi pihalta pallon.",
+          "en": "He found a ball in the garden."
+        }
+      ]
+    },
+    {
+      "id": "football",
+      "word": "jalkapallo",
+      "en": "football",
+      "emoji": "⚽",
+      "inflections": {
+        "nominative_singular": "jalkapallo",
+        "nominative_plural": "jalkapallot",
+        "genitive_singular": "jalkapallon",
+        "genitive_plural": "jalkapallojen",
+        "partitive_singular": "jalkapalloa",
+        "partitive_plural": "jalkapalloja",
+        "inessive_singular": "jalkapallossa",
+        "inessive_plural": "jalkapalloissa",
+        "elative_singular": "jalkapallosta",
+        "elative_plural": "jalkapalloista",
+        "illative_singular": "jalkapalloon",
+        "illative_plural": "jalkapalloihin",
+        "adessive_singular": "jalkapallolla",
+        "adessive_plural": "jalkapalloilla",
+        "ablative_singular": "jalkapallolta",
+        "ablative_plural": "jalkapalloilta",
+        "allative_singular": "jalkapallolle",
+        "allative_plural": "jalkapalloille",
+        "essive_singular": "jalkapallona",
+        "essive_plural": "jalkapalloina",
+        "translative_singular": "jalkapalloksi",
+        "translative_plural": "jalkapalloiksi",
+        "abessive_singular": "jalkapallotta",
+        "abessive_plural": "jalkapalloitta",
+        "instructive_plural": "jalkapalloin",
+        "comitative_plural": "jalkapalloineen",
+        "poss_1sg_nominative_singular": "jalkapalloni",
+        "poss_1sg_inessive_singular": "jalkapallossani",
+        "poss_1sg_adessive_singular": "jalkapallollani",
+        "poss_2sg_nominative_singular": "jalkapallosi",
+        "poss_2sg_inessive_singular": "jalkapallossasi",
+        "poss_2sg_adessive_singular": "jalkapallollasi",
+        "poss_3rd_nominative_singular": "jalkapallonsa",
+        "poss_3rd_inessive_singular": "jalkapallossaan",
+        "poss_3rd_adessive_singular": "jalkapallollaan"
+      },
+      "english": {
+        "plural": "footballs"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 6183,
+      "examples": [
+        {
+          "fi": "Olen hyvä jalkapallossa.",
+          "en": "I'm good at soccer."
+        },
+        {
+          "fi": "Hän on hyvä jalkapallossa.",
+          "en": "He is good at soccer."
+        }
+      ]
+    },
+    {
+      "id": "bike",
+      "word": "pyörä",
+      "en": "bike",
+      "emoji": "🚲",
+      "inflections": {
+        "nominative_singular": "pyörä",
+        "nominative_plural": "pyörät",
+        "genitive_singular": "pyörän",
+        "genitive_plural": "pyörien",
+        "partitive_singular": "pyörää",
+        "partitive_plural": "pyöriä",
+        "inessive_singular": "pyörässä",
+        "inessive_plural": "pyörissä",
+        "elative_singular": "pyörästä",
+        "elative_plural": "pyöristä",
+        "illative_singular": "pyörään",
+        "illative_plural": "pyöriin",
+        "adessive_singular": "pyörällä",
+        "adessive_plural": "pyörillä",
+        "ablative_singular": "pyörältä",
+        "ablative_plural": "pyöriltä",
+        "allative_singular": "pyörälle",
+        "allative_plural": "pyörille",
+        "essive_singular": "pyöränä",
+        "essive_plural": "pyörinä",
+        "translative_singular": "pyöräksi",
+        "translative_plural": "pyöriksi",
+        "abessive_singular": "pyörättä",
+        "abessive_plural": "pyörittä",
+        "instructive_plural": "pyörin",
+        "comitative_plural": "pyörineen",
+        "poss_1sg_nominative_singular": "pyöräni",
+        "poss_1sg_inessive_singular": "pyörässäni",
+        "poss_1sg_adessive_singular": "pyörälläni",
+        "poss_2sg_nominative_singular": "pyöräsi",
+        "poss_2sg_inessive_singular": "pyörässäsi",
+        "poss_2sg_adessive_singular": "pyörälläsi",
+        "poss_3rd_nominative_singular": "pyöränsä",
+        "poss_3rd_inessive_singular": "pyörässään",
+        "poss_3rd_adessive_singular": "pyörällään"
+      },
+      "english": {
+        "plural": "bikes"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 6468,
+      "examples": [
+        {
+          "fi": "Menen töihin pyörällä.",
+          "en": "I ride a bike to work."
+        },
+        {
+          "fi": "Kuljen kouluun pyörällä.",
+          "en": "I go to school by bicycle."
+        }
+      ]
+    },
+    {
+      "id": "game",
+      "word": "peli",
+      "en": "game",
+      "emoji": "🎮",
+      "inflections": {
+        "nominative_singular": "peli",
+        "nominative_plural": "pelit",
+        "genitive_singular": "pelin",
+        "genitive_plural": "pelien",
+        "partitive_singular": "peliä",
+        "partitive_plural": "pelejä",
+        "inessive_singular": "pelissä",
+        "inessive_plural": "peleissä",
+        "elative_singular": "pelistä",
+        "elative_plural": "peleistä",
+        "illative_singular": "peliin",
+        "illative_plural": "peleihin",
+        "adessive_singular": "pelillä",
+        "adessive_plural": "peleillä",
+        "ablative_singular": "peliltä",
+        "ablative_plural": "peleiltä",
+        "allative_singular": "pelille",
+        "allative_plural": "peleille",
+        "essive_singular": "pelinä",
+        "essive_plural": "peleinä",
+        "translative_singular": "peliksi",
+        "translative_plural": "peleiksi",
+        "abessive_singular": "pelittä",
+        "abessive_plural": "peleittä",
+        "instructive_plural": "pelein",
+        "comitative_plural": "peleineen",
+        "poss_1sg_nominative_singular": "pelini",
+        "poss_1sg_inessive_singular": "pelissäni",
+        "poss_1sg_adessive_singular": "pelilläni",
+        "poss_2sg_nominative_singular": "pelisi",
+        "poss_2sg_inessive_singular": "pelissäsi",
+        "poss_2sg_adessive_singular": "pelilläsi",
+        "poss_3rd_nominative_singular": "pelinsä",
+        "poss_3rd_inessive_singular": "pelissään",
+        "poss_3rd_adessive_singular": "pelillään"
+      },
+      "english": {
+        "plural": "games"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 1417,
+      "examples": [
+        {
+          "fi": "ajopeli, kulkupeli, ankkuripeli",
+          "en": "(dialectal or humorous) vehicle; (dialectal or humorous) vehicle; anchor windlass"
+        },
+        {
+          "fi": "Kiva peli!",
+          "en": "Nice wheels!"
+        }
+      ]
+    },
+    {
+      "id": "guitar",
+      "word": "kitara",
+      "en": "guitar",
+      "emoji": "🎸",
+      "inflections": {
+        "nominative_singular": "kitara",
+        "nominative_plural": "kitarat",
+        "genitive_singular": "kitaran",
+        "genitive_plural": "kitaroiden",
+        "partitive_singular": "kitaraa",
+        "partitive_plural": "kitaroita",
+        "inessive_singular": "kitarassa",
+        "inessive_plural": "kitaroissa",
+        "elative_singular": "kitarasta",
+        "elative_plural": "kitaroista",
+        "illative_singular": "kitaraan",
+        "illative_plural": "kitaroihin",
+        "adessive_singular": "kitaralla",
+        "adessive_plural": "kitaroilla",
+        "ablative_singular": "kitaralta",
+        "ablative_plural": "kitaroilta",
+        "allative_singular": "kitaralle",
+        "allative_plural": "kitaroille",
+        "essive_singular": "kitarana",
+        "essive_plural": "kitaroina",
+        "translative_singular": "kitaraksi",
+        "translative_plural": "kitaroiksi",
+        "abessive_singular": "kitaratta",
+        "abessive_plural": "kitaroitta",
+        "instructive_plural": "kitaroin",
+        "comitative_plural": "kitaroineen",
+        "poss_1sg_nominative_singular": "kitarani",
+        "poss_1sg_inessive_singular": "kitarassani",
+        "poss_1sg_adessive_singular": "kitarallani",
+        "poss_2sg_nominative_singular": "kitarasi",
+        "poss_2sg_inessive_singular": "kitarassasi",
+        "poss_2sg_adessive_singular": "kitarallasi",
+        "poss_3rd_nominative_singular": "kitaransa",
+        "poss_3rd_inessive_singular": "kitarassaan",
+        "poss_3rd_adessive_singular": "kitarallaan"
+      },
+      "english": {
+        "plural": "guitars"
+      },
+      "kotusType": 13,
+      "group": "a_ae",
+      "frequencyRank": 11764,
+      "examples": [
+        {
+          "fi": "Katkaisin kielen kitarasta.",
+          "en": "I broke a string on my guitar."
+        },
+        {
+          "fi": "Ostin uuden kitaran tänään.",
+          "en": "I bought a new guitar today."
+        }
+      ]
+    },
+    {
+      "id": "piano",
+      "word": "piano",
+      "en": "piano",
+      "emoji": "🎹",
+      "inflections": {
+        "nominative_singular": "piano",
+        "nominative_plural": "pianot",
+        "genitive_singular": "pianon",
+        "genitive_plural": "pianojen",
+        "partitive_singular": "pianoa",
+        "partitive_plural": "pianoja",
+        "inessive_singular": "pianossa",
+        "inessive_plural": "pianoissa",
+        "elative_singular": "pianosta",
+        "elative_plural": "pianoista",
+        "illative_singular": "pianoon",
+        "illative_plural": "pianoihin",
+        "adessive_singular": "pianolla",
+        "adessive_plural": "pianoilla",
+        "ablative_singular": "pianolta",
+        "ablative_plural": "pianoilta",
+        "allative_singular": "pianolle",
+        "allative_plural": "pianoille",
+        "essive_singular": "pianona",
+        "essive_plural": "pianoina",
+        "translative_singular": "pianoksi",
+        "translative_plural": "pianoiksi",
+        "abessive_singular": "pianotta",
+        "abessive_plural": "pianoitta",
+        "instructive_plural": "pianoin",
+        "comitative_plural": "pianoineen",
+        "poss_1sg_nominative_singular": "pianoni",
+        "poss_1sg_inessive_singular": "pianossani",
+        "poss_1sg_adessive_singular": "pianollani",
+        "poss_2sg_nominative_singular": "pianosi",
+        "poss_2sg_inessive_singular": "pianossasi",
+        "poss_2sg_adessive_singular": "pianollasi",
+        "poss_3rd_nominative_singular": "pianonsa",
+        "poss_3rd_inessive_singular": "pianossaan",
+        "poss_3rd_adessive_singular": "pianollaan"
+      },
+      "english": {
+        "plural": "pianos"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 11605,
+      "examples": [
+        {
+          "fi": "Tom soitti pianolla kappaleen.",
+          "en": "Tom played a piece on the piano."
+        },
+        {
+          "fi": "Tomi lauloi ja Mari säesti pianolla.",
+          "en": "Tom sang and Mary accompanied him on the piano."
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "word": "musiikki",
+      "en": "music",
+      "emoji": "🎵",
+      "inflections": {
+        "nominative_singular": "musiikki",
+        "nominative_plural": "musiikit",
+        "genitive_singular": "musiikin",
+        "genitive_plural": "musiikkien",
+        "partitive_singular": "musiikkia",
+        "partitive_plural": "musiikkeja",
+        "inessive_singular": "musiikissa",
+        "inessive_plural": "musiikeissa",
+        "elative_singular": "musiikista",
+        "elative_plural": "musiikeista",
+        "illative_singular": "musiikkiin",
+        "illative_plural": "musiikkeihin",
+        "adessive_singular": "musiikilla",
+        "adessive_plural": "musiikeilla",
+        "ablative_singular": "musiikilta",
+        "ablative_plural": "musiikeilta",
+        "allative_singular": "musiikille",
+        "allative_plural": "musiikeille",
+        "essive_singular": "musiikkina",
+        "essive_plural": "musiikkeina",
+        "translative_singular": "musiikiksi",
+        "translative_plural": "musiikeiksi",
+        "abessive_singular": "musiikitta",
+        "abessive_plural": "musiikeitta",
+        "instructive_plural": "musiikein",
+        "comitative_plural": "musiikkeineen",
+        "poss_1sg_nominative_singular": "musiikkini",
+        "poss_1sg_inessive_singular": "musiikissani",
+        "poss_1sg_adessive_singular": "musiikillani",
+        "poss_2sg_nominative_singular": "musiikkisi",
+        "poss_2sg_inessive_singular": "musiikissasi",
+        "poss_2sg_adessive_singular": "musiikillasi",
+        "poss_3rd_nominative_singular": "musiikkinsa",
+        "poss_3rd_inessive_singular": "musiikissaan",
+        "poss_3rd_adessive_singular": "musiikillaan"
+      },
+      "english": {
+        "plural": "musics"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 1783,
+      "examples": [
+        {
+          "fi": "musiikkitalo",
+          "en": "music hall"
+        },
+        {
+          "fi": "musiikki-instrumentti",
+          "en": "musical instrument"
+        }
+      ]
+    },
+    {
+      "id": "movie",
+      "word": "elokuva",
+      "en": "movie",
+      "emoji": "🎞️",
+      "inflections": {
+        "nominative_singular": "elokuva",
+        "nominative_plural": "elokuvat",
+        "genitive_singular": "elokuvan",
+        "genitive_plural": "elokuvien",
+        "partitive_singular": "elokuvaa",
+        "partitive_plural": "elokuvia",
+        "inessive_singular": "elokuvassa",
+        "inessive_plural": "elokuvissa",
+        "elative_singular": "elokuvasta",
+        "elative_plural": "elokuvista",
+        "illative_singular": "elokuvaan",
+        "illative_plural": "elokuviin",
+        "adessive_singular": "elokuvalla",
+        "adessive_plural": "elokuvilla",
+        "ablative_singular": "elokuvalta",
+        "ablative_plural": "elokuvilta",
+        "allative_singular": "elokuvalle",
+        "allative_plural": "elokuville",
+        "essive_singular": "elokuvana",
+        "essive_plural": "elokuvina",
+        "translative_singular": "elokuvaksi",
+        "translative_plural": "elokuviksi",
+        "abessive_singular": "elokuvatta",
+        "abessive_plural": "elokuvitta",
+        "instructive_plural": "elokuvin",
+        "comitative_plural": "elokuvineen",
+        "poss_1sg_nominative_singular": "elokuvani",
+        "poss_1sg_inessive_singular": "elokuvassani",
+        "poss_1sg_adessive_singular": "elokuvallani",
+        "poss_2sg_nominative_singular": "elokuvasi",
+        "poss_2sg_inessive_singular": "elokuvassasi",
+        "poss_2sg_adessive_singular": "elokuvallasi",
+        "poss_3rd_nominative_singular": "elokuvansa",
+        "poss_3rd_inessive_singular": "elokuvassaan",
+        "poss_3rd_adessive_singular": "elokuvallaan"
+      },
+      "english": {
+        "plural": "movies"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 2182,
+      "examples": [
+        {
+          "fi": "Mennään tänään elokuviin!",
+          "en": "Let's go to the movies tonight."
+        },
+        {
+          "fi": "Haluatko näytellä elokuvassa?",
+          "en": "Do you want to act in a movie?"
+        }
+      ]
+    },
+    {
+      "id": "phone",
+      "word": "puhelin",
+      "en": "phone",
+      "emoji": "📱",
+      "inflections": {
+        "nominative_singular": "puhelin",
+        "nominative_plural": "puhelimet",
+        "genitive_singular": "puhelimen",
+        "genitive_plural": "puhelimien",
+        "partitive_singular": "puhelinta",
+        "partitive_plural": "puhelimia",
+        "inessive_singular": "puhelimessa",
+        "inessive_plural": "puhelimissa",
+        "elative_singular": "puhelimesta",
+        "elative_plural": "puhelimista",
+        "illative_singular": "puhelimeen",
+        "illative_plural": "puhelimiin",
+        "adessive_singular": "puhelimella",
+        "adessive_plural": "puhelimilla",
+        "ablative_singular": "puhelimelta",
+        "ablative_plural": "puhelimilta",
+        "allative_singular": "puhelimelle",
+        "allative_plural": "puhelimille",
+        "essive_singular": "puhelimena",
+        "essive_plural": "puhelimina",
+        "translative_singular": "puhelimeksi",
+        "translative_plural": "puhelimiksi",
+        "abessive_singular": "puhelimetta",
+        "abessive_plural": "puhelimitta",
+        "instructive_plural": "puhelimin",
+        "comitative_plural": "puhelimineen",
+        "poss_1sg_nominative_singular": "puhelimeni",
+        "poss_1sg_inessive_singular": "puhelimessani",
+        "poss_1sg_adessive_singular": "puhelimellani",
+        "poss_2sg_nominative_singular": "puhelimesi",
+        "poss_2sg_inessive_singular": "puhelimessasi",
+        "poss_2sg_adessive_singular": "puhelimellasi",
+        "poss_3rd_nominative_singular": "puhelimensa",
+        "poss_3rd_inessive_singular": "puhelimessaan",
+        "poss_3rd_adessive_singular": "puhelimellaan"
+      },
+      "english": {
+        "plural": "phones"
+      },
+      "kotusType": 33,
+      "group": "in",
+      "frequencyRank": 1451,
+      "examples": [
+        {
+          "fi": "vastata puhelimeen",
+          "en": "to pick up the phone"
+        },
+        {
+          "fi": "Puhelimessa.",
+          "en": "Speaking."
+        }
+      ]
+    },
+    {
+      "id": "computer",
+      "word": "tietokone",
+      "en": "computer",
+      "emoji": "💻",
+      "inflections": {
+        "nominative_singular": "tietokone",
+        "nominative_plural": "tietokoneet",
+        "genitive_singular": "tietokoneen",
+        "genitive_plural": "tietokoneiden",
+        "partitive_singular": "tietokonetta",
+        "partitive_plural": "tietokoneita",
+        "inessive_singular": "tietokoneessa",
+        "inessive_plural": "tietokoneissa",
+        "elative_singular": "tietokoneesta",
+        "elative_plural": "tietokoneista",
+        "illative_singular": "tietokoneeseen",
+        "illative_plural": "tietokoneisiin",
+        "adessive_singular": "tietokoneella",
+        "adessive_plural": "tietokoneilla",
+        "ablative_singular": "tietokoneelta",
+        "ablative_plural": "tietokoneilta",
+        "allative_singular": "tietokoneelle",
+        "allative_plural": "tietokoneille",
+        "essive_singular": "tietokoneena",
+        "essive_plural": "tietokoneina",
+        "translative_singular": "tietokoneeksi",
+        "translative_plural": "tietokoneiksi",
+        "abessive_singular": "tietokoneetta",
+        "abessive_plural": "tietokoneitta",
+        "instructive_plural": "tietokonein",
+        "comitative_plural": "tietokoneineen",
+        "poss_1sg_nominative_singular": "tietokoneeni",
+        "poss_1sg_inessive_singular": "tietokoneessani",
+        "poss_1sg_adessive_singular": "tietokoneellani",
+        "poss_2sg_nominative_singular": "tietokoneesi",
+        "poss_2sg_inessive_singular": "tietokoneessasi",
+        "poss_2sg_adessive_singular": "tietokoneellasi",
+        "poss_3rd_nominative_singular": "tietokoneensa",
+        "poss_3rd_inessive_singular": "tietokoneessaan",
+        "poss_3rd_adessive_singular": "tietokoneellaan"
+      },
+      "english": {
+        "plural": "computers"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 3324
+    },
+    {
+      "id": "hobby",
+      "word": "harrastus",
+      "en": "hobby",
+      "inflections": {
+        "nominative_singular": "harrastus",
+        "nominative_plural": "harrastukset",
+        "genitive_singular": "harrastuksen",
+        "genitive_plural": "harrastusten",
+        "partitive_singular": "harrastusta",
+        "partitive_plural": "harrastuksia",
+        "inessive_singular": "harrastuksessa",
+        "inessive_plural": "harrastuksissa",
+        "elative_singular": "harrastuksesta",
+        "elative_plural": "harrastuksista",
+        "illative_singular": "harrastukseen",
+        "illative_plural": "harrastuksiin",
+        "adessive_singular": "harrastuksella",
+        "adessive_plural": "harrastuksilla",
+        "ablative_singular": "harrastukselta",
+        "ablative_plural": "harrastuksilta",
+        "allative_singular": "harrastukselle",
+        "allative_plural": "harrastuksille",
+        "essive_singular": "harrastuksena",
+        "essive_plural": "harrastuksina",
+        "translative_singular": "harrastukseksi",
+        "translative_plural": "harrastuksiksi",
+        "abessive_singular": "harrastuksetta",
+        "abessive_plural": "harrastuksitta",
+        "instructive_plural": "harrastuksin",
+        "comitative_plural": "harrastuksineen",
+        "poss_1sg_nominative_singular": "harrastukseni",
+        "poss_1sg_inessive_singular": "harrastuksessani",
+        "poss_1sg_adessive_singular": "harrastuksellani",
+        "poss_2sg_nominative_singular": "harrastuksesi",
+        "poss_2sg_inessive_singular": "harrastuksessasi",
+        "poss_2sg_adessive_singular": "harrastuksellasi",
+        "poss_3rd_nominative_singular": "harrastuksensa",
+        "poss_3rd_inessive_singular": "harrastuksessaan",
+        "poss_3rd_adessive_singular": "harrastuksellaan"
+      },
+      "english": {
+        "plural": "hobbies"
+      },
+      "kotusType": 39,
+      "group": "us_ys",
+      "frequencyRank": 12591,
+      "examples": [
+        {
+          "fi": "Kuntourheilun harrastus on lisääntynyt.",
+          "en": "Practicing fitness sports has become more popular."
+        },
+        {
+          "fi": "aloittaa / lopettaa harrastus",
+          "en": "to take up / give up a hobby"
+        }
+      ]
+    }
+  ]
+}

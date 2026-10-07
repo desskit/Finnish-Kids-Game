@@ -26,6 +26,7 @@ import type { Story, StoryOption, StoryQuestion } from '../content/stories';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
+import type { Why } from '../content/why';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
 // content — the Finnish slot forms come from the sourced inflection tables via
@@ -1298,6 +1299,8 @@ export interface SentenceQuestion {
   shuffled: WordOrderToken[];
   /** Optional item id for SRS crediting (sentences span several words, so none). */
   attemptId?: string;
+  /** The rule shown after a miss (single-slot carrier phrases only). */
+  why?: Why;
   /**
    * Optional GRAMMAR SRS id (`con:<constructionId>`, carrier-phrase mode only)
    * — schedules the construction itself for spaced review, in parallel with

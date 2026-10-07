@@ -47,6 +47,23 @@ export default function Settings() {
         />
       </label>
 
+      <label className="setting-row">
+        <span className="setting-row__label">
+          Avaa kaikki osat <span className="en">Unlock all units</span>
+        </span>
+        <input
+          type="checkbox"
+          className="setting-row__toggle"
+          checked={!!settings.unlockAll}
+          onChange={(e) => updateSettings({ unlockAll: e.target.checked })}
+        />
+      </label>
+      <p className="setting-note en">
+        The course normally opens one unit at a time — each unit's checkpoint unlocks the next.
+        Turn this on to let your child jump to any unit (for example if they already know some
+        Finnish).
+      </p>
+
       {speechAvailable && (
         <>
           <label className="setting-row">

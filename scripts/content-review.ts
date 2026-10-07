@@ -7,7 +7,9 @@
 // re-running this export — approved entries then show ✅ instead of ⚠️.
 //
 // Covers the authored registries: dialogues, small-talk scenes, stories, the
-// carrier phrases' fixed texts, and the sentence templates. The exhaustive
+// carrier phrases' fixed texts, the sentence templates, and the Finnish
+// snippets quoted inside lesson prose (lessons' worked examples are lookups of
+// these same vetted sources, so only the prose snippets are new text). The exhaustive
 // carrier × word and template × candidate EXPANSIONS live in
 // docs/SENTENCE_AUDIT.md (npm run audit:sentences) — this sheet reviews the
 // authored text itself, that one reviews every machine-assembled pairing.
@@ -21,6 +23,7 @@ import { conversations } from '../src/content/conversations';
 import { stories } from '../src/content/stories';
 import { nounConstructions } from '../src/content/constructions';
 import { sentenceConstructions } from '../src/content/sentences';
+import { lessons } from '../src/content/lessons';
 import {
   animals,
   food,
@@ -29,6 +32,8 @@ import {
   body,
   nature,
   clothes,
+  school,
+  freetime,
 } from '../src/content';
 import { formFor, sentenceFor, suitsSlot } from '../src/content/types';
 
@@ -91,6 +96,8 @@ const ALL_NOUNS = [
   ...body.items,
   ...nature.items,
   ...clothes.items,
+  ...school.items,
+  ...freetime.items,
 ].sort((a, b) => (a.id < b.id ? -1 : 1));
 
 const carrierRows: Row[] = nounConstructions.map((con) => {
@@ -107,6 +114,26 @@ const templateRows: Row[] = sentenceConstructions.map((t) => ({
     .join(' '),
   en: t.en,
 }));
+
+// Finnish quoted in lesson prose (*like this*), one row per card that has any.
+const fiSnippets = (text: string) => [...text.matchAll(/(?<!\*)\*([^*]+)\*(?!\*)/g)].map((m) => m[1]);
+const lessonRows: Row[] = lessons.flatMap((l) =>
+  l.cards.flatMap((c, i) => {
+    const prose = [
+      'text' in c ? (c.text ?? '') : '',
+      c.kind === 'check' ? `${c.question}\n${c.explain}` : '',
+    ].join('\n');
+    const snippets = [...new Set(fiSnippets(prose))];
+    if (snippets.length === 0) return [];
+    return [
+      {
+        key: `lesson:${l.id}:${i + 1}`,
+        fi: snippets.join(' · '),
+        en: `${l.titleEn} — ${c.title ?? c.kind}`,
+      },
+    ];
+  }),
+);
 
 // Any distractor line that never appears as a reply elsewhere would slip
 // through the exchange rows above — collect the distinct ones for completeness.
@@ -134,6 +161,7 @@ const all = [
   ...storyRows,
   ...carrierRows,
   ...templateRows,
+  ...lessonRows,
   ...strayRows,
 ];
 const approved = all.filter((r) => vetted.has(r.key)).length;
@@ -167,6 +195,10 @@ const lines: string[] = [
   `## Sentence templates — authored skeletons (${templateRows.length})`,
   '',
   ...table(templateRows),
+  '',
+  `## Lesson prose — Finnish quoted in the explanations (${lessonRows.length})`,
+  '',
+  ...table(lessonRows),
   '',
   `## Other authored lines (distractor-only) (${strayRows.length})`,
   '',

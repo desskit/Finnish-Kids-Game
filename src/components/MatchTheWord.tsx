@@ -9,6 +9,8 @@ import { buildAgreementRound, type AgreementOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForAgreement } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -78,6 +80,8 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
   const [done, setDone] = useState(false);
 
   const q = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
   const fullPhrase = q
     ? agreementPhrase(q.adjective, q.noun, q.case, q.number) ?? `${q.adjForm} ${q.answer}`
     : '';
@@ -113,6 +117,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         }, 1200);
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongForm(opt.form);
         setTimeout(() => setWrongForm((cur) => (cur === opt.form ? null : cur)), 600);
@@ -225,6 +230,7 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
           Ohita <span className="en">Skip</span> →
         </button>
       </div>
+      {whyAt === index && q && <WhyTip why={whyForAgreement(q.adjective, q.noun, q.case, q.number)} />}
     </section>
   );
 }

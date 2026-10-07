@@ -16,7 +16,7 @@ export default function GrownUp() {
     <main className="app">
       <section className="screen grownup">
         <header className="grownup__head">
-          <Link className="icon-btn" to="/" aria-label="Back to the map">
+          <Link className="icon-btn" to="/" aria-label="Back home">
             ⬅︎
           </Link>
           <h1 className="grownup__title">

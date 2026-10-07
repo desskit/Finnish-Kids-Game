@@ -9,6 +9,8 @@ import {
   body,
   nature,
   clothes,
+  school,
+  freetime,
   adjectives,
   verbs,
   reviewItems,
@@ -43,6 +45,8 @@ describe('content integrity', () => {
       'body',
       'nature',
       'clothes',
+      'school',
+      'freetime',
     ]);
   });
 
@@ -266,7 +270,7 @@ describe('content integrity', () => {
     // possessive across all three possessors ("kissani/kissasi/kissansa"), and
     // every PLACE additionally carries the inessive/adessive possessive
     // ("talossani", "pöydälläni") for the higher-level "in my house" reach.
-    const nouns = [animals, food, family, places, body, nature, clothes];
+    const nouns = [animals, food, family, places, body, nature, clothes, school, freetime];
     for (const theme of nouns) {
       for (const item of theme.items) {
         for (const p of POSSESSORS) {

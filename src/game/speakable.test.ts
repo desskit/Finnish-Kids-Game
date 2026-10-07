@@ -17,31 +17,36 @@ describe('speakableTargetsFor', () => {
   });
 
   it('count node speaks a two-word "<number> <noun>" phrase', () => {
-    const ts = targets('count');
+    const ts = targets('count-expert');
     expect(ts.length).toBeGreaterThan(0);
     ts.forEach((t) => expect(t.say.split(' ')).toHaveLength(2));
   });
 
   it('conjugate node speaks a pronoun + verb clause ("minä syön")', () => {
-    const ts = targets('conjugate');
+    const ts = targets('verbs-expert');
     expect(ts.length).toBeGreaterThan(0);
     expect(ts.some((t) => /^(minä|sinä|hän|me|te|he) /.test(t.say))).toBe(true);
     ts.forEach((t) => expect(t.gloss).toBeTruthy());
   });
 
   it('match node speaks a two-word agreement phrase ("iso kissa")', () => {
-    const ts = targets('match');
+    const ts = targets('describe');
     expect(ts.length).toBeGreaterThan(0);
     ts.forEach((t) => expect(t.say.split(' ')).toHaveLength(2));
   });
 
   it('greetings/small-talk speak a reply phrase', () => {
-    expect(targets('greetings').length).toBeGreaterThan(0);
-    expect(targets('small-talk').length).toBeGreaterThan(0);
+    expect(targets('talk-expert').length).toBeGreaterThan(0);
+    expect(targets('scenes-expert').length).toBeGreaterThan(0);
   });
 
   it('commands node speaks the imperative itself ("Hyppää!")', () => {
-    const ts = speakableTargetsFor(findSkill('commands')!.skill, verbs.items, 8, 5);
+    const ts = speakableTargetsFor(
+      { id: 'commands', titleFi: '', titleEn: '', icon: '', activity: 'command', content: { pool: 'verbs' } },
+      verbs.items,
+      8,
+      5,
+    );
     expect(ts.length).toBeGreaterThan(0);
     ts.forEach((t) => {
       expect(t.say).toMatch(/^[A-ZÄÖÅ].*!$/);
@@ -57,7 +62,7 @@ describe('speakableTargetsFor', () => {
   });
 
   it('story node speaks the story pages themselves', () => {
-    const ts = targets('stories', []);
+    const ts = targets('stories-expert', []);
     expect(ts.length).toBeGreaterThan(0);
     // Every target is a real story page line, glossed.
     ts.forEach((t) => {
@@ -82,7 +87,7 @@ describe('speakableTargetsFor', () => {
   it('scopes counting/agreement speaking to the node’s own pool', () => {
     // Only "cat" in the pool → every counting phrase is about the cat.
     const onlyCat = animals.items.filter((i) => i.id === 'cat');
-    const counting = speakableTargetsFor(findSkill('count')!.skill, onlyCat, 8);
+    const counting = speakableTargetsFor(findSkill('count-expert')!.skill, onlyCat, 8);
     expect(counting.length).toBeGreaterThan(0);
     expect(counting.every((t) => t.attemptId === 'cat')).toBe(true);
   });
@@ -90,38 +95,38 @@ describe('speakableTargetsFor', () => {
   it('tier-gates conversation replies (a beginner never gets a hard scene)', () => {
     // Small-talk scenes are tier 3+, so at tier 1 there are no in-tier replies →
     // the fallback (bare words) kicks in rather than leaking a hard reply.
-    const smallTalk = findSkill('small-talk')!;
+    const smallTalk = findSkill('scenes-expert')!;
     const t1 = speakableTargetsFor(smallTalk.skill, nouns, 1);
     // Nothing surfaced from the (tier 3+) scenes; whatever shows is the fallback.
     expect(t1.every((t) => saySafe(t.say))).toBe(true);
   });
 
   it('ramps by level: a count node says a bare word at the starter band, a phrase at core', () => {
-    const starter = targets('count', nouns, 2); // level ≤ 3 → bare words
+    const starter = targets('count-expert', nouns, 2); // level ≤ 3 → bare words
     expect(starter.length).toBeGreaterThan(0);
     starter.forEach((t) => expect(t.say.split(' ')).toHaveLength(1));
-    const core = targets('count', nouns, 5); // level 4-5 → the counting phrase
+    const core = targets('count-expert', nouns, 5); // level 4-5 → the counting phrase
     core.forEach((t) => expect(t.say.split(' ')).toHaveLength(2));
   });
 
   it('starter band keeps a dialogue node on its REPLIES, never bare nouns', () => {
     // Communicative nodes have no vocab pool, so a "bare word" would be a random
     // noun ("kissa") on a Greetings node — they must stay on their replies.
-    const ts = targets('greetings', nouns, 2); // starter band (level ≤ 3)
+    const ts = targets('talk-expert', nouns, 2); // starter band (level ≤ 3)
     expect(ts.length).toBeGreaterThan(0);
     const replies = dialogues.map((d) => d.reply.fi);
     expect(ts.every((t) => replies.includes(t.say))).toBe(true);
   });
 
   it('stretch band: a dialogue node speaks BOTH sides of the exchange', () => {
-    const stretch = targets('greetings', nouns, 7); // level ≥ 6
+    const stretch = targets('talk-expert', nouns, 7); // level ≥ 6
     // The whole exchange means the prompts show up too, not only replies.
     const dialoguePrompts = dialogues.map((d) => d.prompt.fi);
     expect(stretch.some((t) => dialoguePrompts.includes(t.say))).toBe(true);
   });
 
   it('a full-sentence target credits its main noun to SRS (attemptId set)', () => {
-    const ts = targets('full-sentences', nouns, 5);
+    const ts = targets('sentences-expert', nouns, 5);
     expect(ts.length).toBeGreaterThan(0);
     expect(ts.some((t) => !!t.attemptId)).toBe(true);
   });
@@ -130,7 +135,7 @@ describe('speakableTargetsFor', () => {
     // Dialogue/conversation lines are pulled straight from the registries,
     // where the child's-name slot is still the literal "{name}" — a child must
     // never be told to say it. Sweep every band on the communicative nodes.
-    for (const id of ['greetings', 'small-talk']) {
+    for (const id of ['talk-expert', 'scenes-expert']) {
       for (const level of [2, 5, 7]) {
         for (let run = 0; run < 25; run++) {
           for (const t of targets(id, nouns, level)) {
@@ -143,17 +148,17 @@ describe('speakableTargetsFor', () => {
 
   it('every surfaced target is sayable (≤ 5 words) across all speakable node types', () => {
     for (const id of [
-      'listen-animals',
+      'u2-words',
       'this-is',
-      'count',
-      'match',
-      'conjugate',
+      'count-expert',
+      'describe',
+      'verbs-expert',
       'reading',
-      'greetings',
-      'small-talk',
-      'full-sentences',
-      'order',
-      'spell',
+      'talk-expert',
+      'scenes-expert',
+      'sentences-expert',
+      'order-expert',
+      'spell-expert',
     ]) {
       const found = findSkill(id);
       if (!found) continue;

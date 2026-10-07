@@ -9,6 +9,8 @@ import { buildConjugationRound, type ConjugationOption } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForVerb } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -56,6 +58,8 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
   const [done, setDone] = useState(false);
 
   const q = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
 
   // Say the pronoun prompt out loud when a new question appears.
   useEffect(() => {
@@ -88,6 +92,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
         }, 1200);
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongForm(opt.form);
         setTimeout(() => setWrongForm((cur) => (cur === opt.form ? null : cur)), 600);
@@ -181,6 +186,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
           </button>
         ))}
       </div>
+      {whyAt === index && q && <WhyTip why={whyForVerb(q.verb, q.tense, q.polarity, q.person)} />}
     </section>
   );
 }

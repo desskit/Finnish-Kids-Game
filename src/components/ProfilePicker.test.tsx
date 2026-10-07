@@ -25,14 +25,14 @@ beforeEach(() => {
 });
 
 describe('ProfilePicker navigation', () => {
-  it('offers Back to the map when a child already exists (not a forced choice)', () => {
+  it('offers Back home when a child already exists (not a forced choice)', () => {
     seedChildren();
     render(
       <ProfileProvider>
         <ProfilePicker />
       </ProfileProvider>,
     );
-    const back = screen.getByText('Back to the map').closest('button')!;
+    const back = screen.getByText('Back home').closest('button')!;
     fireEvent.click(back);
     expect(nav.fn).toHaveBeenCalledWith('/');
   });
@@ -43,6 +43,6 @@ describe('ProfilePicker navigation', () => {
         <ProfilePicker />
       </ProfileProvider>,
     );
-    expect(screen.queryByText('Back to the map')).toBeNull();
+    expect(screen.queryByText('Back home')).toBeNull();
   });
 });

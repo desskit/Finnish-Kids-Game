@@ -8,6 +8,8 @@ import { buildPossessiveRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForPossessor } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -59,6 +61,8 @@ export default function PossessiveGame({ items, onExit }: Props) {
   }, [round.length]);
 
   const q = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
 
   // Narrate the English cue when a new question appears — the Finnish is what
   // the child must recognize, never previewed. (The gloss is the on-screen text
@@ -92,6 +96,7 @@ export default function PossessiveGame({ items, onExit }: Props) {
         }, 900);
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongForm(form);
         setTimeout(() => setWrongForm((cur) => (cur === form ? null : cur)), 600);
@@ -178,6 +183,7 @@ export default function PossessiveGame({ items, onExit }: Props) {
           </button>
         ))}
       </div>
+      {whyAt === index && q && <WhyTip why={whyForPossessor(q.item, q.possessor, q.caseId)} />}
     </section>
   );
 }

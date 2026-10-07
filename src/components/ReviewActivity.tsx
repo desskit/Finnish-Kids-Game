@@ -11,6 +11,9 @@ import { sample, shuffle } from '../util/shuffle';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForConstruction } from '../content/why';
+import { lessonForConstruction } from '../game/course';
 import RoundComplete from './RoundComplete';
 
 const QUESTIONS = 8;
@@ -51,8 +54,7 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
 // answer back into SRS, which schedules the next review. Reachable at /review.
 interface Props {
   embedded?: boolean;
-  /** Overrides the default "go home" destination (e.g. a "Today's adventure"
-   *  run advancing to its next stop instead of the map). Ignored when embedded. */
+  /** Overrides the default "go home" destination. Ignored when embedded. */
   onExit?: () => void;
 }
 
@@ -121,6 +123,8 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   const MAX_REVEALS = 3;
 
   const question = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
   const spellingCorrect =
     !!question && question.format === 'spelling' && norm(input) === norm(question.target.fi);
 
@@ -193,12 +197,13 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         succeed();
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongId(form);
         setTimeout(() => setWrongId((cur) => (cur === form ? null : cur)), 600);
       }
     },
-    [question, locked, done, succeed],
+    [question, locked, done, succeed, index],
   );
 
   // Spelling: the device keyboard drives the input; check on every change.
@@ -291,9 +296,8 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   }
 
   // Embedded (in the grown-up Audit harness) it must NOT navigate the app away,
-  // so "home" is disabled — only replaying the round is offered. Otherwise,
-  // an active "Today's adventure" run's onExit takes over (advances to the
-  // next stop); plain free play falls back to the map, as before.
+  // so "home" is disabled — only replaying the round is offered. Otherwise a
+  // caller's onExit wins, falling back to the course home.
   const goHome = embedded ? undefined : (onExit ?? (() => navigate('/')));
 
   if (!activeChild) return null;
@@ -489,6 +493,12 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
               </>
             )}
           </>
+        )}
+        {whyAt === index && question?.grammar && (
+          <WhyTip
+            why={whyForConstruction(question.grammar.construction, question.grammar.item)}
+            lessonId={lessonForConstruction(question.grammar.construction.id)}
+          />
         )}
       </section>
     </main>

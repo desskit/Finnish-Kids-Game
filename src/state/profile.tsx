@@ -79,6 +79,12 @@ interface ProfileContextValue {
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
 
+  // --- Guided course ---
+  /** Mark a lesson as read to the end (idempotent; keeps the first time). */
+  markLessonSeen: (lessonId: string) => void;
+  /** Record a checkpoint attempt; `ratio` is first-try correct / total. */
+  recordCheckpoint: (unitId: string, ratio: number, passed: boolean) => void;
+
   // --- Settings (device-wide) ---
   settings: Settings;
   updateSettings: (patch: Partial<Settings>) => void;
@@ -200,6 +206,38 @@ export function ProfileProvider({
           ...c,
           srs: { ...c.srs, [itemId]: review(c.srs[itemId], correct, Date.now()) },
         })),
+
+      markLessonSeen: (lessonId) =>
+        updateActive((c) =>
+          c.course?.lessonsSeen?.[lessonId]
+            ? c
+            : {
+                ...c,
+                course: {
+                  ...c.course,
+                  lessonsSeen: { ...c.course?.lessonsSeen, [lessonId]: Date.now() },
+                },
+              },
+        ),
+
+      recordCheckpoint: (unitId, ratio, passed) =>
+        updateActive((c) => {
+          const prev = c.course?.checkpoints?.[unitId];
+          return {
+            ...c,
+            course: {
+              ...c.course,
+              checkpoints: {
+                ...c.course?.checkpoints,
+                [unitId]: {
+                  passedAt: prev?.passedAt ?? (passed ? Date.now() : undefined),
+                  best: Math.max(prev?.best ?? 0, ratio),
+                  attempts: (prev?.attempts ?? 0) + 1,
+                },
+              },
+            },
+          };
+        }),
 
       recordRound: (topicId, activityId, stars, total, maxLevel) =>
         updateActive((c) => ({

@@ -1,11 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
 
 // Headless smoke test against the real production build: profile creation →
-// journey path → a First-words skill (Listen & Tap) → an unbroken stream of
-// challenges (no round-complete interstitial) → Review, which still ends in a
-// celebration. Round content/options are randomized, so each question is
-// answered by trying pic-cards in order until the app reacts (a wrong tap
-// just flashes red and stays put).
+// the course home → Continue into unit 1's lesson → read it through → its
+// first practice step (the greetings dialogue) as an unbroken stream of
+// challenges (no round-complete interstitial) → home with the lesson ticked;
+// then Review, which still ends in a celebration. Round content/options are
+// randomized, so each question is answered by trying options in order until
+// the app reacts (a wrong tap just flashes red and stays put).
 
 async function isRoundComplete(page: Page) {
   return page.getByText(/Hienoa|Great job/i).isVisible().catch(() => false);
@@ -24,7 +25,7 @@ async function dismissIntro(page: Page) {
  * Answer one question in the endless skill stream by watching the header's
  * session-star counter (`N tähteä`): a correct tap bumps it by one.
  */
-async function answerUntilStarAdvance(page: Page) {
+async function answerUntilStarAdvance(page: Page, optionSelector = '.pic-card') {
   const counter = page.getByLabel(/\d+ tähteä/);
   const before = await counter.getAttribute('aria-label');
 
@@ -33,7 +34,7 @@ async function answerUntilStarAdvance(page: Page) {
     // Only enabled cards: right after a correct tap the outgoing question's
     // cards linger disabled for ~750ms before the next question (or an intro
     // card) mounts — clicking those would hang.
-    const cards = page.locator('.pic-card:not([disabled])');
+    const cards = page.locator(`${optionSelector}:not([disabled])`);
     const count = await cards.count();
     for (let i = 0; i < count; i++) {
       // Best-effort click: the grid can remount mid-loop (question advance /
@@ -76,7 +77,7 @@ async function answerUntilDotAdvance(page: Page) {
   throw new Error('Could not advance past the question');
 }
 
-test('full happy path: create profile, play a skill as one unbroken stream', async ({ page }) => {
+test('full happy path: create profile, read the first lesson, practise as one unbroken stream', async ({ page }) => {
   await page.goto('/');
 
   // Fresh data with no profile bounces to the picker.
@@ -84,43 +85,50 @@ test('full happy path: create profile, play a skill as one unbroken stream', asy
   await page.getByLabel(/^Nimi/).fill('Aino');
   await page.getByRole('button', { name: /Aloita/i }).click();
 
-  // Lands on the path with the new player's greeting.
+  // Lands on the course home with the new player's greeting.
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
 
-  // Open the first "First words" skill (Listen & Tap over animals). Force:
-  // the suggested-next node bobs forever, so it never reads as "stable".
-  await page.getByRole('link', { name: /Eläimet|Animals/i }).click({ force: true });
-  await expect(page).toHaveURL(/#\/skill\/listen-animals$/);
+  // Continue → unit 1's lesson.
+  await page.getByRole('link', { name: /Continue/ }).click();
+  await expect(page).toHaveURL(/#\/lesson\/sounds$/);
+  for (let i = 0; i < 10; i++) {
+    const next = page.getByRole('button', { name: /Next/ });
+    if (!(await next.isVisible().catch(() => false))) break;
+    await next.click();
+  }
+  await page.getByRole('button', { name: /Start practicing/ }).click();
 
-  // In-session header counts stars, not questions — there is no round to count.
+  // Straight into the unit's first step.
+  await expect(page).toHaveURL(/#\/skill\/greetings$/);
   await expect(page.getByLabel('0 tähteä')).toBeVisible();
 
   // Play PAST the old 6-question boundary: the stream never stops.
   for (let q = 0; q < 7; q++) {
-    await answerUntilStarAdvance(page);
+    await answerUntilStarAdvance(page, '.reply-tile');
     expect(await isRoundComplete(page)).toBe(false);
   }
   await expect(page.getByLabel('7 tähteä')).toBeVisible();
-  await expect(page.locator('.pic-card').first()).toBeVisible();
 
-  // The only exit is the header's back button; back button works from the path.
-  await page.getByRole('button', { name: 'Back to the map' }).click();
+  // The only exit is the header's back button → home, with the lesson ticked.
+  await page.getByRole('button', { name: 'Back home' }).click();
   await expect(page).toHaveURL(/#\/$/);
+  await expect(page.locator('.unit--current .unit-step--done').first()).toBeVisible();
 
-  await page.goto(`${page.url()}`.replace(/#.*$/, '#/skill/listen-animals'));
-  await expect(page).toHaveURL(/#\/skill\/listen-animals$/);
+  // Browser history works across a step.
+  await page.goto(`${page.url()}`.replace(/#.*$/, '#/skill/greetings'));
+  await expect(page).toHaveURL(/#\/skill\/greetings$/);
   await page.goBack();
   await expect(page).toHaveURL(/#\/$/);
 });
 
-test('spaced-repetition Review is reachable from the path and completes', async ({ page }) => {
+test('spaced-repetition Review is reachable from home and completes', async ({ page }) => {
   await page.goto('/');
   await page.getByLabel(/^Nimi/).fill('Otto');
   await page.getByRole('button', { name: /Aloita/i }).click();
   await expect(page).toHaveURL(/#\/$/);
 
-  // The Review node is always present (new words backfill an empty schedule).
+  // The Review tile is always present (new words backfill an empty schedule).
   await page.getByRole('link', { name: /Kertaus|Review/i }).click();
   await expect(page).toHaveURL(/#\/review$/);
   await expect(page.getByLabel(/Question 1 of \d+/)).toBeVisible();

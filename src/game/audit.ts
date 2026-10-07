@@ -25,7 +25,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'listen',
     kind: 'listen',
-    skillId: 'listen-animals',
+    skillId: 'u2-words',
     titleFi: 'Kuuntele ja osoita',
     titleEn: 'Listen & Tap',
     desc: 'Hear a Finnish word, tap its picture (recognition).',
@@ -33,7 +33,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'name',
     kind: 'name',
-    skillId: 'listen-animals',
+    skillId: 'u2-words',
     titleFi: 'Nimeä se',
     titleEn: 'Name it',
     desc: 'See a picture, pick the Finnish word (production recall).',
@@ -41,7 +41,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'listen-sentence',
     kind: 'listen-sentence',
-    skillId: 'listen-animals',
+    skillId: 'u2-words',
     titleFi: 'Kuuntele lause',
     titleEn: 'Listen to a sentence',
     desc: 'Hear a full carrier sentence, tap the picture it is about.',
@@ -57,7 +57,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'match',
     kind: 'match',
-    skillId: 'match',
+    skillId: 'describe',
     titleFi: 'Yhdistä sanat',
     titleEn: 'Describe it (agreement)',
     desc: 'Pick the adjective + noun that agree.',
@@ -65,7 +65,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'count',
     kind: 'count',
-    skillId: 'count',
+    skillId: 'count-expert',
     titleFi: 'Laske ja sano',
     titleEn: 'Count & Say',
     desc: 'Count the objects, pick the right number word.',
@@ -73,18 +73,10 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'conjugate',
     kind: 'conjugate',
-    skillId: 'conjugate',
+    skillId: 'verbs-expert',
     titleFi: 'Taivuta verbi',
     titleEn: 'Conjugate the verb',
     desc: 'Pick the right verb form for I / you / he.',
-  },
-  {
-    id: 'command',
-    kind: 'command',
-    skillId: 'commands',
-    titleFi: 'Tee näin!',
-    titleEn: 'Commands (TPR)',
-    desc: 'Hear an imperative ("Hyppää!"), tap the matching action picture.',
   },
   {
     id: 'yesno',
@@ -105,7 +97,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'error-fix',
     kind: 'error-fix',
-    skillId: 'find-error',
+    skillId: 'find-error-expert',
     titleFi: 'Löydä virhe',
     titleEn: 'Find the mistake',
     desc: 'Judge whether a sentence is right; tap the wrong-case word or "all correct".',
@@ -121,7 +113,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'order',
     kind: 'order',
-    skillId: 'order',
+    skillId: 'order-expert',
     titleFi: 'Järjestä sanat',
     titleEn: 'Word order',
     desc: 'Put the words of a phrase in the right order.',
@@ -129,7 +121,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'spell',
     kind: 'spell',
-    skillId: 'spell',
+    skillId: 'spell-expert',
     titleFi: 'Kirjoita sana',
     titleEn: 'Spelling',
     desc: 'Type the sourced (inflected) Finnish form.',
@@ -137,7 +129,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'sentence',
     kind: 'sentence',
-    skillId: 'full-sentences',
+    skillId: 'sentences-expert',
     titleFi: 'Järjestä lause',
     titleEn: 'Sentences (word order)',
     desc: 'Assemble a whole sentence from tiles.',
@@ -145,7 +137,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'sentence-type',
     kind: 'sentence-type',
-    skillId: 'full-sentences',
+    skillId: 'sentences-expert',
     titleFi: 'Kirjoita lause',
     titleEn: 'Write the sentence',
     desc: 'Type a full sentence from the English gloss.',
@@ -153,7 +145,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'say',
     kind: 'say',
-    skillId: 'listen-animals',
+    skillId: 'u2-words',
     titleFi: 'Sano se',
     titleEn: 'Say it (speaking)',
     desc: 'Repeat the Finnish aloud; mic scoring or a self-report fallback.',
@@ -161,7 +153,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'dialogue',
     kind: 'dialogue',
-    skillId: 'greetings',
+    skillId: 'talk-expert',
     titleFi: 'Tervehdykset',
     titleEn: 'Greetings (choose the reply)',
     desc: 'Hear a line, pick the fitting reply.',
@@ -169,7 +161,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'conversation',
     kind: 'conversation',
-    skillId: 'small-talk',
+    skillId: 'scenes-expert',
     titleFi: 'Jutellaan',
     titleEn: 'Small talk',
     desc: 'Hold a short multi-turn conversation, turn by turn.',
@@ -177,7 +169,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'story',
     kind: 'story',
-    skillId: 'stories',
+    skillId: 'stories-expert',
     titleFi: 'Satuhetki',
     titleEn: 'Story time',
     desc: 'Read a tiny illustrated story page by page, then answer comprehension taps.',

@@ -168,11 +168,17 @@ describe('ReviewActivity — grammar format (a due carrier phrase)', () => {
 
   it('a correct form pick speaks the WHOLE sentence and credits the con: schedule', async () => {
     renderReview();
-    // Exactly one tile carries the elative ending the carrier requires.
-    const tiles = Array.from(document.querySelectorAll('.word-tile'));
-    const answer = tiles.find((t) => /st[aä]$/.test(t.textContent!.replace(/^\d+/, '')))!;
-    expect(answer).toBeTruthy();
-    fireEvent.click(answer);
+    // The answer carries the elative ending the carrier requires. (A plural
+    // elative distractor — "kissoista" — also ends in -sta, so try each
+    // -sta/-stä tile until the right one lands.)
+    const tiles = Array.from(document.querySelectorAll('.word-tile')).filter((t) =>
+      /st[aä]$/.test(t.textContent!.replace(/^\d+/, '')),
+    );
+    expect(tiles.length).toBeGreaterThan(0);
+    for (const t of tiles) {
+      fireEvent.click(t);
+      if (vi.mocked(playDing).mock.calls.some(([ok]) => ok)) break;
+    }
     expect(playDing).toHaveBeenCalledWith(true);
     expect(speak).toHaveBeenCalledWith(expect.stringMatching(/^Pidän .*\.$/));
     // The grammar schedule (not a word's) got the credit.
@@ -188,6 +194,8 @@ describe('ReviewActivity — grammar format (a due carrier phrase)', () => {
     fireEvent.click(wrong);
     expect(playDing).toHaveBeenCalledWith(false);
     // Still on the same question (the carrier is still on screen).
-    expect(screen.getByText('Pidän')).toBeInTheDocument();
+    expect(screen.getByText('Pidän', { selector: '.phrase-fixed' })).toBeInTheDocument();
+    // …and the miss explains itself: the "Why?" rule for pitää + -sta.
+    expect(document.querySelector('.why-tip')?.textContent).toMatch(/-sta/);
   });
 });

@@ -273,3 +273,44 @@ Both ceiling additions, both fully sourced.
 
 Plus two more can-do claims ("Can say whose something is", "Can spot a wrong
 case in a sentence and fix it").
+
+---
+
+## Part 6 — The guided-course overhaul
+
+Owner feedback: the app felt too young for an almost-8-year-old. The look,
+rewards and narration were fine. The **content** was the problem: "Tämä on
+kissa", the little-cat story, and a wall of picture-tap vocabulary before any
+real sentence. Grammar was also never explained.
+
+**Structure.** The open map of 9 chapters / ~45 nodes became **20 units in a
+fixed order**. Each unit is a lesson, then 1–3 practice steps, then a
+checkpoint (≥ 8 first-try questions, 80% to pass). Passing unlocks the next
+unit; a grown-up can "unlock all". A single **Continue** button always points
+at the next lesson, step or checkpoint. "Today's adventure" was removed
+because Continue replaces it.
+
+**When topics appear.** Vocabulary arrives inside the unit that needs it,
+themed on a real 8-year-old's life: school and family first, then hobbies and
+gadgets, clothes, food, transport, and places. Two new sourced themes were
+added (**school**, **free time**) plus bus/train/shop/library places. Practice
+only ever uses words already met. Grammar follows a beginner sequence:
+
+no articles → counting (-a) → having → not having → verb persons →
+negative verb → likes → seeing vs. waiting → buying → agreement →
+in/on → into/out of → postpositions → possessives → plurals → past →
+conversations → sentences → Mestari (the L9–10 expert band).
+
+**Lessons.** There are 20 lessons, each 3–6 cards: kid-level English, a
+worked example for every point (all looked up, with the ending highlighted),
+verb tables, and an ungraded "try it". The **Notebook** keeps every opened
+unit's lesson for re-reading.
+
+**"Why?" after mistakes.** Nine games (build, word order, spelling, find the
+mistake, counting, conjugation, possessives, agreement, grammar review) show
+the rule behind the right answer after a wrong tap, plus a button that opens
+the lesson in place without leaving the session.
+
+**Golden rule unchanged.** No Finnish is generated. Lesson examples resolve
+through the sourced tables and vetted carriers or lines. The only new authored
+Finnish is the short prose quotes, which are listed for review.
