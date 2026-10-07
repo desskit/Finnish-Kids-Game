@@ -26,7 +26,7 @@ const ENGLISH_MISSING = [];
 // Lesson-only words are shown once, as-is, and never pluralised or put in an
 // English template — so they need no English morphology.
 const posForTheme = (id) =>
-  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' || id === 'lesson-words' ? null : 'N';
+  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : ['numbers', 'ordinals', 'lesson-words'].includes(id) ? null : 'N';
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -143,6 +143,12 @@ const ADJECTIVES = [
   ['black', 'musta', 'black', '⬛'],
   ['white', 'valkoinen', 'white', '⬜'],
   ['brown', 'ruskea', 'brown', '🟫'],
+  // For the "Comparing" unit (each has a sourced comparative + superlative).
+  ['young', 'nuori', 'young'],
+  ['tall', 'pitkä', 'tall', '🦒'],
+  ['strong', 'vahva', 'strong', '🏋️'],
+  ['good', 'hyvä', 'good', '👍'],
+  ['funny', 'hauska', 'funny', '🤪'],
 ];
 
 const FOOD = [
@@ -196,6 +202,12 @@ const PLACES = [
   ['garden', 'puutarha', 'garden'],
   ['bus', 'bussi', 'bus', '🚌'],
   ['train', 'juna', 'train', '🚆'],
+  // Ways to travel, for "Menen bussilla" (by bus). A ship is ON (laivalla);
+  // the rest are IN (veneessä, lentokoneessa, taksissa).
+  ['boat', 'vene', 'boat', '🚤'],
+  ['plane', 'lentokone', 'plane', '🛩️'],
+  ['ship', 'laiva', 'ship', '🚢'],
+  ['taxi', 'taksi', 'taxi', '🚕'],
   ['shop', 'kauppa', 'shop', '🏪'],
   ['library', 'kirjasto', 'library', '📚'],
   // Around town & home — places a child goes, for the person-subject
@@ -266,6 +278,10 @@ const PLACE_TAGS = {
   bathroom: ['container'],
   sofa: ['surface'],
   yard: ['surface'],
+  boat: ['container'],
+  plane: ['container'],
+  ship: ['surface'],
+  taxi: ['container'],
 };
 
 // Where a PERSON can be / go / come from — a separate gate from the cat's
@@ -276,9 +292,9 @@ const PLACE_TAGS = {
 const PERSON_IN = [
   'school', 'room', 'kitchen', 'garden', 'house', 'forest', 'bus', 'train', 'shop',
   'library', 'car', 'bed', 'park', 'hospital', 'museum', 'restaurant', 'cafe', 'city',
-  'zoo', 'living-room', 'bedroom', 'bathroom',
+  'zoo', 'living-room', 'bedroom', 'bathroom', 'boat', 'plane', 'taxi',
 ];
-const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window'];
+const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window', 'ship'];
 for (const id of PERSON_IN) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-in'];
 for (const id of PERSON_ON) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-on'];
 
@@ -329,10 +345,41 @@ const TIME = [
   ['summer', 'kesä', 'summer', '🏖️'],
   ['autumn', 'syksy', 'autumn', '🍂'],
   ['winter', 'talvi', 'winter', '⛄'],
+  // Months, for dates and birthdays ("viides toukokuuta", "toukokuussa").
+  ['january', 'tammikuu', 'January'],
+  ['february', 'helmikuu', 'February'],
+  ['march', 'maaliskuu', 'March'],
+  ['april', 'huhtikuu', 'April'],
+  ['may', 'toukokuu', 'May'],
+  ['june', 'kesäkuu', 'June'],
+  ['july', 'heinäkuu', 'July'],
+  ['august', 'elokuu', 'August'],
+  ['september', 'syyskuu', 'September'],
+  ['october', 'lokakuu', 'October'],
+  ['november', 'marraskuu', 'November'],
+  ['december', 'joulukuu', 'December'],
+  ['birthday', 'syntymäpäivä', 'birthday', '🎂'],
+  ['year', 'vuosi', 'year'],
+  ['month', 'kuukausi', 'month'],
 ];
 
 // How you feel, as a NOUN: "Minulla on nälkä / jano" (literally "on me is
 // hunger"). Only the Feelings unit's "Minulla on ___" carrier uses these.
+// Ordinals — first, second… (only 1st–10th are sourced numerals). Their own
+// theme, so counting never draws one ("ensimmäinen kissaa" is nonsense).
+const ORDINALS = [
+  ['first', 'ensimmäinen', 'first', '1.', 1],
+  ['second', 'toinen', 'second', '2.', 2],
+  ['third', 'kolmas', 'third', '3.', 3],
+  ['fourth', 'neljäs', 'fourth', '4.', 4],
+  ['fifth', 'viides', 'fifth', '5.', 5],
+  ['sixth', 'kuudes', 'sixth', '6.', 6],
+  ['seventh', 'seitsemäs', 'seventh', '7.', 7],
+  ['eighth', 'kahdeksas', 'eighth', '8.', 8],
+  ['ninth', 'yhdeksäs', 'ninth', '9.', 9],
+  ['tenth', 'kymmenes', 'tenth', '10.', 10],
+];
+
 const STATES = [
   ['hunger', 'nälkä', 'hunger'],
   ['thirst', 'jano', 'thirst'],
@@ -359,6 +406,14 @@ const FREETIME = [
   ['computer', 'tietokone', 'computer', '💻'],
   // Emoji-less (text-only depth).
   ['hobby', 'harrastus', 'hobby'],
+  // Things you do something WITH ("Syön lusikalla", I eat with a spoon).
+  ['spoon', 'lusikka', 'spoon', '🥄'],
+  ['fork', 'haarukka', 'fork'],
+  ['key', 'avain', 'key', '🔑'],
+  // Birthday party things.
+  ['balloon', 'ilmapallo', 'balloon', '🎈'],
+  ['candle', 'kynttilä', 'candle', '🕯️'],
+  ['present', 'lahja', 'present'],
 ];
 
 const FAMILY = [
@@ -522,6 +577,20 @@ const VERBS = [
   ['build', 'rakentaa', 'build', '🧱'],
   ['fix', 'korjata', 'fix', '🔧'],
   ['wake-up', 'herätä', 'wake up', '⏰'],
+  // Type 4 verbs with a consonant change (hypätä → hyppään), for the
+  // "Verbs, part 2" unit's KPT half.
+  ['meet', 'tavata', 'meet'],
+  ['fall', 'pudota', 'fall'],
+  ['cut', 'leikata', 'cut', '✂️'],
+  // Type 5 (-ita/-itä → -itse-) and type 6 (-eta/-etä → -ene-), for the
+  // "Verbs, part 3" unit.
+  ['need', 'tarvita', 'need'],
+  ['choose', 'valita', 'choose', '👉'],
+  ['disturb', 'häiritä', 'disturb'],
+  ['lock', 'lukita', 'lock', '🔐'],
+  ['grow-old', 'vanheta', 'grow old', '👵'],
+  ['warm-up', 'lämmetä', 'warm up', '♨️'],
+  ['run-away', 'paeta', 'run away', '💨'],
 ];
 
 // Focused conjugation subset kept per verb: present and past, each in BOTH
@@ -674,6 +743,28 @@ const adjectives = buildTheme({
   sourceWords: nounWords,
 });
 
+// Comparison degrees ("isompi" bigger, "isoin" biggest) — dictionary headwords
+// of their own in the source ("comparative degree of iso"), looked up and
+// attached whole. When the source lists more than one, the first in PREFER wins.
+const DEGREE_PREFER = { pitkä: ['pidempi'], hyvä: ['paras'] };
+function attachDegrees(theme) {
+  const found = {};
+  for (const w of nounWords) {
+    const tr = (w.translations || []).join(' ');
+    for (const m of tr.matchAll(/(comparative|superlative) (?:degree |form )?of ([a-zäöå]+)/g)) {
+      ((found[m[2]] ??= {})[m[1]] ??= []).push(w.word);
+    }
+  }
+  for (const item of theme.words) {
+    const f = found[item.word];
+    if (!f?.comparative || !f?.superlative) continue;
+    const pick = (list) => list.find((x) => (DEGREE_PREFER[item.word] ?? []).includes(x)) ?? list[0];
+    item.degrees = { comparative: pick(f.comparative), superlative: pick(f.superlative) };
+  }
+  return theme;
+}
+attachDegrees(adjectives);
+
 const verbWords = load('verbs.json').words;
 const verbs = buildTheme({
   id: 'verbs',
@@ -767,6 +858,15 @@ const states = buildTheme({
   sourceWords: nounWords,
 });
 
+const ordinals = buildTheme({
+  id: 'ordinals',
+  fi: 'Järjestysluvut',
+  en: 'First, second…',
+  emoji: '🥇',
+  curation: ORDINALS,
+  sourceWords: numeralWords,
+});
+
 const lessonWords = buildTheme({
   id: 'lesson-words',
   fi: 'Oppitunnin sanat',
@@ -816,6 +916,7 @@ writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null,
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'ordinals.sourced.json'), JSON.stringify(ordinals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'lesson-words.sourced.json'), JSON.stringify(lessonWords, null, 2) + '\n');
 
 console.log(
@@ -825,5 +926,5 @@ console.log(
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
     `${school.words.length} school, ${freetime.words.length} free-time, ` +
-    `${time.words.length} time, ${states.words.length} state words to ${OUT_DIR}`,
+    `${time.words.length} time, ${states.words.length} state, ${ordinals.words.length} ordinal words to ${OUT_DIR}`,
 );

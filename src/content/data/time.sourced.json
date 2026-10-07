@@ -796,6 +796,732 @@
           "en": "I like winter."
         }
       ]
+    },
+    {
+      "id": "january",
+      "word": "tammikuu",
+      "en": "January",
+      "inflections": {
+        "nominative_singular": "tammikuu",
+        "nominative_plural": "tammikuut",
+        "genitive_singular": "tammikuun",
+        "genitive_plural": "tammikuiden",
+        "partitive_singular": "tammikuuta",
+        "partitive_plural": "tammikuita",
+        "inessive_singular": "tammikuussa",
+        "inessive_plural": "tammikuissa",
+        "elative_singular": "tammikuusta",
+        "elative_plural": "tammikuista",
+        "illative_singular": "tammikuuhun",
+        "illative_plural": "tammikuihin",
+        "adessive_singular": "tammikuulla",
+        "adessive_plural": "tammikuilla",
+        "ablative_singular": "tammikuulta",
+        "ablative_plural": "tammikuilta",
+        "allative_singular": "tammikuulle",
+        "allative_plural": "tammikuille",
+        "essive_singular": "tammikuuna",
+        "essive_plural": "tammikuina",
+        "translative_singular": "tammikuuksi",
+        "translative_plural": "tammikuiksi",
+        "abessive_singular": "tammikuutta",
+        "abessive_plural": "tammikuitta",
+        "instructive_plural": "tammikuin",
+        "comitative_plural": "tammikuineen"
+      },
+      "english": {
+        "plural": "Januaries"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 14204,
+      "examples": [
+        {
+          "fi": "Teen kokeen tammikuussa.",
+          "en": "I'm taking an exam in January."
+        },
+        {
+          "fi": "Osallistun tenttiin tammikuussa.",
+          "en": "I'm taking an exam in January."
+        }
+      ]
+    },
+    {
+      "id": "february",
+      "word": "helmikuu",
+      "en": "February",
+      "inflections": {
+        "nominative_singular": "helmikuu",
+        "nominative_plural": "helmikuut",
+        "genitive_singular": "helmikuun",
+        "genitive_plural": "helmikuiden",
+        "partitive_singular": "helmikuuta",
+        "partitive_plural": "helmikuita",
+        "inessive_singular": "helmikuussa",
+        "inessive_plural": "helmikuissa",
+        "elative_singular": "helmikuusta",
+        "elative_plural": "helmikuista",
+        "illative_singular": "helmikuuhun",
+        "illative_plural": "helmikuihin",
+        "adessive_singular": "helmikuulla",
+        "adessive_plural": "helmikuilla",
+        "ablative_singular": "helmikuulta",
+        "ablative_plural": "helmikuilta",
+        "allative_singular": "helmikuulle",
+        "allative_plural": "helmikuille",
+        "essive_singular": "helmikuuna",
+        "essive_plural": "helmikuina",
+        "translative_singular": "helmikuuksi",
+        "translative_plural": "helmikuiksi",
+        "abessive_singular": "helmikuutta",
+        "abessive_plural": "helmikuitta",
+        "instructive_plural": "helmikuin",
+        "comitative_plural": "helmikuineen"
+      },
+      "english": {
+        "plural": "Februaries"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 14390,
+      "examples": [
+        {
+          "fi": "Palkkani nousi helmikuussa.",
+          "en": "My salary increased in February."
+        },
+        {
+          "fi": "Helmikuussa on vain 28 päivää.",
+          "en": "February has only 28 days."
+        }
+      ]
+    },
+    {
+      "id": "march",
+      "word": "maaliskuu",
+      "en": "March",
+      "inflections": {
+        "nominative_singular": "maaliskuu",
+        "nominative_plural": "maaliskuut",
+        "genitive_singular": "maaliskuun",
+        "genitive_plural": "maaliskuiden",
+        "partitive_singular": "maaliskuuta",
+        "partitive_plural": "maaliskuita",
+        "inessive_singular": "maaliskuussa",
+        "inessive_plural": "maaliskuissa",
+        "elative_singular": "maaliskuusta",
+        "elative_plural": "maaliskuista",
+        "illative_singular": "maaliskuuhun",
+        "illative_plural": "maaliskuihin",
+        "adessive_singular": "maaliskuulla",
+        "adessive_plural": "maaliskuilla",
+        "ablative_singular": "maaliskuulta",
+        "ablative_plural": "maaliskuilta",
+        "allative_singular": "maaliskuulle",
+        "allative_plural": "maaliskuille",
+        "essive_singular": "maaliskuuna",
+        "essive_plural": "maaliskuina",
+        "translative_singular": "maaliskuuksi",
+        "translative_plural": "maaliskuiksi",
+        "abessive_singular": "maaliskuutta",
+        "abessive_plural": "maaliskuitta",
+        "instructive_plural": "maaliskuin",
+        "comitative_plural": "maaliskuineen"
+      },
+      "english": {
+        "plural": "marches"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 12534,
+      "examples": [
+        {
+          "fi": "Julius Caesar murhattiin 15. maaliskuuta.",
+          "en": "Julius Caesar was murdered on March 15th."
+        },
+        {
+          "fi": "Maaliskuussa monet kukat tulevat esiin.",
+          "en": "In March, many flowers come out."
+        }
+      ]
+    },
+    {
+      "id": "april",
+      "word": "huhtikuu",
+      "en": "April",
+      "inflections": {
+        "nominative_singular": "huhtikuu",
+        "nominative_plural": "huhtikuut",
+        "genitive_singular": "huhtikuun",
+        "genitive_plural": "huhtikuiden",
+        "partitive_singular": "huhtikuuta",
+        "partitive_plural": "huhtikuita",
+        "inessive_singular": "huhtikuussa",
+        "inessive_plural": "huhtikuissa",
+        "elative_singular": "huhtikuusta",
+        "elative_plural": "huhtikuista",
+        "illative_singular": "huhtikuuhun",
+        "illative_plural": "huhtikuihin",
+        "adessive_singular": "huhtikuulla",
+        "adessive_plural": "huhtikuilla",
+        "ablative_singular": "huhtikuulta",
+        "ablative_plural": "huhtikuilta",
+        "allative_singular": "huhtikuulle",
+        "allative_plural": "huhtikuille",
+        "essive_singular": "huhtikuuna",
+        "essive_plural": "huhtikuina",
+        "translative_singular": "huhtikuuksi",
+        "translative_plural": "huhtikuiksi",
+        "abessive_singular": "huhtikuutta",
+        "abessive_plural": "huhtikuitta",
+        "instructive_plural": "huhtikuin",
+        "comitative_plural": "huhtikuineen"
+      },
+      "english": {
+        "plural": "Aprils"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 10709,
+      "examples": [
+        {
+          "fi": "Huhtikuussa kevät on jo täydessä vauhdissa.",
+          "en": "Spring is already in full swing in April."
+        },
+        {
+          "fi": "Suomen kielen päivä on 9. huhtikuuta.",
+          "en": "Finnish Language Day is on April 9th."
+        }
+      ]
+    },
+    {
+      "id": "may",
+      "word": "toukokuu",
+      "en": "May",
+      "inflections": {
+        "nominative_singular": "toukokuu",
+        "nominative_plural": "toukokuut",
+        "genitive_singular": "toukokuun",
+        "genitive_plural": "toukokuiden",
+        "partitive_singular": "toukokuuta",
+        "partitive_plural": "toukokuita",
+        "inessive_singular": "toukokuussa",
+        "inessive_plural": "toukokuissa",
+        "elative_singular": "toukokuusta",
+        "elative_plural": "toukokuista",
+        "illative_singular": "toukokuuhun",
+        "illative_plural": "toukokuihin",
+        "adessive_singular": "toukokuulla",
+        "adessive_plural": "toukokuilla",
+        "ablative_singular": "toukokuulta",
+        "ablative_plural": "toukokuilta",
+        "allative_singular": "toukokuulle",
+        "allative_plural": "toukokuille",
+        "essive_singular": "toukokuuna",
+        "essive_plural": "toukokuina",
+        "translative_singular": "toukokuuksi",
+        "translative_plural": "toukokuiksi",
+        "abessive_singular": "toukokuutta",
+        "abessive_plural": "toukokuitta",
+        "instructive_plural": "toukokuin",
+        "comitative_plural": "toukokuineen"
+      },
+      "english": {
+        "plural": "mays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 11598,
+      "examples": [
+        {
+          "fi": "toukokuussa touot tehdään",
+          "en": "in May, one sows the seeds"
+        },
+        {
+          "fi": "Eduskuntavaalit järjestetään toukokuussa.",
+          "en": "A general election will be held in May."
+        }
+      ]
+    },
+    {
+      "id": "june",
+      "word": "kesäkuu",
+      "en": "June",
+      "inflections": {
+        "nominative_singular": "kesäkuu",
+        "nominative_plural": "kesäkuut",
+        "genitive_singular": "kesäkuun",
+        "genitive_plural": "kesäkuiden",
+        "partitive_singular": "kesäkuuta",
+        "partitive_plural": "kesäkuita",
+        "inessive_singular": "kesäkuussa",
+        "inessive_plural": "kesäkuissa",
+        "elative_singular": "kesäkuusta",
+        "elative_plural": "kesäkuista",
+        "illative_singular": "kesäkuuhun",
+        "illative_plural": "kesäkuihin",
+        "adessive_singular": "kesäkuulla",
+        "adessive_plural": "kesäkuilla",
+        "ablative_singular": "kesäkuulta",
+        "ablative_plural": "kesäkuilta",
+        "allative_singular": "kesäkuulle",
+        "allative_plural": "kesäkuille",
+        "essive_singular": "kesäkuuna",
+        "essive_plural": "kesäkuina",
+        "translative_singular": "kesäkuuksi",
+        "translative_plural": "kesäkuiksi",
+        "abessive_singular": "kesäkuutta",
+        "abessive_plural": "kesäkuitta",
+        "instructive_plural": "kesäkuin",
+        "comitative_plural": "kesäkuineen"
+      },
+      "english": {
+        "plural": "Junes"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 5682,
+      "examples": [
+        {
+          "fi": "Sadekausi alkaa kesäkuussa.",
+          "en": "The rainy season begins in June."
+        },
+        {
+          "fi": "Me menemme vihille kesäkuussa.",
+          "en": "We will get married in June."
+        }
+      ]
+    },
+    {
+      "id": "july",
+      "word": "heinäkuu",
+      "en": "July",
+      "inflections": {
+        "nominative_singular": "heinäkuu",
+        "nominative_plural": "heinäkuut",
+        "genitive_singular": "heinäkuun",
+        "genitive_plural": "heinäkuiden",
+        "partitive_singular": "heinäkuuta",
+        "partitive_plural": "heinäkuita",
+        "inessive_singular": "heinäkuussa",
+        "inessive_plural": "heinäkuissa",
+        "elative_singular": "heinäkuusta",
+        "elative_plural": "heinäkuista",
+        "illative_singular": "heinäkuuhun",
+        "illative_plural": "heinäkuihin",
+        "adessive_singular": "heinäkuulla",
+        "adessive_plural": "heinäkuilla",
+        "ablative_singular": "heinäkuulta",
+        "ablative_plural": "heinäkuilta",
+        "allative_singular": "heinäkuulle",
+        "allative_plural": "heinäkuille",
+        "essive_singular": "heinäkuuna",
+        "essive_plural": "heinäkuina",
+        "translative_singular": "heinäkuuksi",
+        "translative_plural": "heinäkuiksi",
+        "abessive_singular": "heinäkuutta",
+        "abessive_plural": "heinäkuitta",
+        "instructive_plural": "heinäkuin",
+        "comitative_plural": "heinäkuineen"
+      },
+      "english": {
+        "plural": "Julies"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 10392,
+      "examples": [
+        {
+          "fi": "Juhlimme Tanabataa heinäkuussa.",
+          "en": "We celebrate Tanabata in July."
+        },
+        {
+          "fi": "Kirsikat ovat kypsiä kesä- tai heinäkuussa.",
+          "en": "Cherries are ripe in June or July."
+        }
+      ]
+    },
+    {
+      "id": "august",
+      "word": "elokuu",
+      "en": "August",
+      "inflections": {
+        "nominative_singular": "elokuu",
+        "nominative_plural": "elokuut",
+        "genitive_singular": "elokuun",
+        "genitive_plural": "elokuiden",
+        "partitive_singular": "elokuuta",
+        "partitive_plural": "elokuita",
+        "inessive_singular": "elokuussa",
+        "inessive_plural": "elokuissa",
+        "elative_singular": "elokuusta",
+        "elative_plural": "elokuista",
+        "illative_singular": "elokuuhun",
+        "illative_plural": "elokuihin",
+        "adessive_singular": "elokuulla",
+        "adessive_plural": "elokuilla",
+        "ablative_singular": "elokuulta",
+        "ablative_plural": "elokuilta",
+        "allative_singular": "elokuulle",
+        "allative_plural": "elokuille",
+        "essive_singular": "elokuuna",
+        "essive_plural": "elokuina",
+        "translative_singular": "elokuuksi",
+        "translative_plural": "elokuiksi",
+        "abessive_singular": "elokuutta",
+        "abessive_plural": "elokuitta",
+        "instructive_plural": "elokuin",
+        "comitative_plural": "elokuineen"
+      },
+      "english": {
+        "plural": "augusts"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 11537,
+      "examples": [
+        {
+          "fi": "Olen lomalla, palaan 10. elokuuta",
+          "en": "I am on holiday and will return on August 10"
+        },
+        {
+          "fi": "Elokuussa on 31 päivää.",
+          "en": "August has thirty-one days."
+        }
+      ]
+    },
+    {
+      "id": "september",
+      "word": "syyskuu",
+      "en": "September",
+      "inflections": {
+        "nominative_singular": "syyskuu",
+        "nominative_plural": "syyskuut",
+        "genitive_singular": "syyskuun",
+        "genitive_plural": "syyskuiden",
+        "partitive_singular": "syyskuuta",
+        "partitive_plural": "syyskuita",
+        "inessive_singular": "syyskuussa",
+        "inessive_plural": "syyskuissa",
+        "elative_singular": "syyskuusta",
+        "elative_plural": "syyskuista",
+        "illative_singular": "syyskuuhun",
+        "illative_plural": "syyskuihin",
+        "adessive_singular": "syyskuulla",
+        "adessive_plural": "syyskuilla",
+        "ablative_singular": "syyskuulta",
+        "ablative_plural": "syyskuilta",
+        "allative_singular": "syyskuulle",
+        "allative_plural": "syyskuille",
+        "essive_singular": "syyskuuna",
+        "essive_plural": "syyskuina",
+        "translative_singular": "syyskuuksi",
+        "translative_plural": "syyskuiksi",
+        "abessive_singular": "syyskuutta",
+        "abessive_plural": "syyskuitta",
+        "instructive_plural": "syyskuin",
+        "comitative_plural": "syyskuineen"
+      },
+      "english": {
+        "plural": "Septembers"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 10148,
+      "examples": [
+        {
+          "fi": "Täytän kuusitoista syyskuussa.",
+          "en": "I'll be sixteen in September."
+        },
+        {
+          "fi": "Euroopassa koulut alkavat syyskuussa.",
+          "en": "School starts in September in Europe."
+        }
+      ]
+    },
+    {
+      "id": "october",
+      "word": "lokakuu",
+      "en": "October",
+      "inflections": {
+        "nominative_singular": "lokakuu",
+        "nominative_plural": "lokakuut",
+        "genitive_singular": "lokakuun",
+        "genitive_plural": "lokakuiden",
+        "partitive_singular": "lokakuuta",
+        "partitive_plural": "lokakuita",
+        "inessive_singular": "lokakuussa",
+        "inessive_plural": "lokakuissa",
+        "elative_singular": "lokakuusta",
+        "elative_plural": "lokakuista",
+        "illative_singular": "lokakuuhun",
+        "illative_plural": "lokakuihin",
+        "adessive_singular": "lokakuulla",
+        "adessive_plural": "lokakuilla",
+        "ablative_singular": "lokakuulta",
+        "ablative_plural": "lokakuilta",
+        "allative_singular": "lokakuulle",
+        "allative_plural": "lokakuille",
+        "essive_singular": "lokakuuna",
+        "essive_plural": "lokakuina",
+        "translative_singular": "lokakuuksi",
+        "translative_plural": "lokakuiksi",
+        "abessive_singular": "lokakuutta",
+        "abessive_plural": "lokakuitta",
+        "instructive_plural": "lokakuin",
+        "comitative_plural": "lokakuineen"
+      },
+      "english": {
+        "plural": "Octobers"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 10938,
+      "examples": [
+        {
+          "fi": "Tom syntyi lokakuussa.",
+          "en": "Tom was born in October."
+        },
+        {
+          "fi": "Tomi kuoli lokakuussa.",
+          "en": "Tom died in October."
+        }
+      ]
+    },
+    {
+      "id": "november",
+      "word": "marraskuu",
+      "en": "November",
+      "inflections": {
+        "nominative_singular": "marraskuu",
+        "nominative_plural": "marraskuut",
+        "genitive_singular": "marraskuun",
+        "genitive_plural": "marraskuiden",
+        "partitive_singular": "marraskuuta",
+        "partitive_plural": "marraskuita",
+        "inessive_singular": "marraskuussa",
+        "inessive_plural": "marraskuissa",
+        "elative_singular": "marraskuusta",
+        "elative_plural": "marraskuista",
+        "illative_singular": "marraskuuhun",
+        "illative_plural": "marraskuihin",
+        "adessive_singular": "marraskuulla",
+        "adessive_plural": "marraskuilla",
+        "ablative_singular": "marraskuulta",
+        "ablative_plural": "marraskuilta",
+        "allative_singular": "marraskuulle",
+        "allative_plural": "marraskuille",
+        "essive_singular": "marraskuuna",
+        "essive_plural": "marraskuina",
+        "translative_singular": "marraskuuksi",
+        "translative_plural": "marraskuiksi",
+        "abessive_singular": "marraskuutta",
+        "abessive_plural": "marraskuitta",
+        "instructive_plural": "marraskuin",
+        "comitative_plural": "marraskuineen"
+      },
+      "english": {
+        "plural": "Novembers"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 10829
+    },
+    {
+      "id": "december",
+      "word": "joulukuu",
+      "en": "December",
+      "inflections": {
+        "nominative_singular": "joulukuu",
+        "nominative_plural": "joulukuut",
+        "genitive_singular": "joulukuun",
+        "genitive_plural": "joulukuiden",
+        "partitive_singular": "joulukuuta",
+        "partitive_plural": "joulukuita",
+        "inessive_singular": "joulukuussa",
+        "inessive_plural": "joulukuissa",
+        "elative_singular": "joulukuusta",
+        "elative_plural": "joulukuista",
+        "illative_singular": "joulukuuhun",
+        "illative_plural": "joulukuihin",
+        "adessive_singular": "joulukuulla",
+        "adessive_plural": "joulukuilla",
+        "ablative_singular": "joulukuulta",
+        "ablative_plural": "joulukuilta",
+        "allative_singular": "joulukuulle",
+        "allative_plural": "joulukuille",
+        "essive_singular": "joulukuuna",
+        "essive_plural": "joulukuina",
+        "translative_singular": "joulukuuksi",
+        "translative_plural": "joulukuiksi",
+        "abessive_singular": "joulukuutta",
+        "abessive_plural": "joulukuitta",
+        "instructive_plural": "joulukuin",
+        "comitative_plural": "joulukuineen"
+      },
+      "english": {
+        "plural": "Decembers"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 3830,
+      "examples": [
+        {
+          "fi": "Suomen itsenäisyyspäivä on 6. joulukuuta.",
+          "en": "The Finnish Independence Day is on December 6th."
+        },
+        {
+          "fi": "Maciek menetti henkensä joulukuussa.",
+          "en": "Maciek lost his life in December."
+        }
+      ]
+    },
+    {
+      "id": "birthday",
+      "word": "syntymäpäivä",
+      "en": "birthday",
+      "emoji": "🎂",
+      "inflections": {
+        "nominative_singular": "syntymäpäivä",
+        "nominative_plural": "syntymäpäivät",
+        "genitive_singular": "syntymäpäivän",
+        "genitive_plural": "syntymäpäivien",
+        "partitive_singular": "syntymäpäivää",
+        "partitive_plural": "syntymäpäiviä",
+        "inessive_singular": "syntymäpäivässä",
+        "inessive_plural": "syntymäpäivissä",
+        "elative_singular": "syntymäpäivästä",
+        "elative_plural": "syntymäpäivistä",
+        "illative_singular": "syntymäpäivään",
+        "illative_plural": "syntymäpäiviin",
+        "adessive_singular": "syntymäpäivällä",
+        "adessive_plural": "syntymäpäivillä",
+        "ablative_singular": "syntymäpäivältä",
+        "ablative_plural": "syntymäpäiviltä",
+        "allative_singular": "syntymäpäivälle",
+        "allative_plural": "syntymäpäiville",
+        "essive_singular": "syntymäpäivänä",
+        "essive_plural": "syntymäpäivinä",
+        "translative_singular": "syntymäpäiväksi",
+        "translative_plural": "syntymäpäiviksi",
+        "abessive_singular": "syntymäpäivättä",
+        "abessive_plural": "syntymäpäivittä",
+        "instructive_plural": "syntymäpäivin",
+        "comitative_plural": "syntymäpäivineen"
+      },
+      "english": {
+        "plural": "birthdays"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3631,
+      "examples": [
+        {
+          "fi": "Minä unohdin vaimoni syntymäpäivät.",
+          "en": "I forgot my wife's birthday."
+        },
+        {
+          "fi": "Tomi unohtaa aina Marin syntymäpäivän.",
+          "en": "Tom always forgets Mary's birthday."
+        }
+      ]
+    },
+    {
+      "id": "year",
+      "word": "vuosi",
+      "en": "year",
+      "inflections": {
+        "nominative_singular": "vuosi",
+        "nominative_plural": "vuodet",
+        "genitive_singular": "vuoden",
+        "genitive_plural": "vuosien",
+        "partitive_singular": "vuotta",
+        "partitive_plural": "vuosia",
+        "inessive_singular": "vuodessa",
+        "inessive_plural": "vuosissa",
+        "elative_singular": "vuodesta",
+        "elative_plural": "vuosista",
+        "illative_singular": "vuoteen",
+        "illative_plural": "vuosiin",
+        "adessive_singular": "vuodella",
+        "adessive_plural": "vuosilla",
+        "ablative_singular": "vuodelta",
+        "ablative_plural": "vuosilta",
+        "allative_singular": "vuodelle",
+        "allative_plural": "vuosille",
+        "essive_singular": "vuotena",
+        "essive_plural": "vuosina",
+        "translative_singular": "vuodeksi",
+        "translative_plural": "vuosiksi",
+        "abessive_singular": "vuodetta",
+        "abessive_plural": "vuositta",
+        "instructive_plural": "vuosin",
+        "comitative_plural": "vuosineen"
+      },
+      "english": {
+        "plural": "years"
+      },
+      "kotusType": 27,
+      "group": "i_old",
+      "frequencyRank": 188,
+      "examples": [
+        {
+          "fi": "joka vuosi",
+          "en": "every year"
+        },
+        {
+          "fi": "vuodessa",
+          "en": "in a year, per annum"
+        }
+      ]
+    },
+    {
+      "id": "month",
+      "word": "kuukausi",
+      "en": "month",
+      "inflections": {
+        "nominative_singular": "kuukausi",
+        "nominative_plural": "kuukaudet",
+        "genitive_singular": "kuukauden",
+        "genitive_plural": "kuukausien",
+        "partitive_singular": "kuukautta",
+        "partitive_plural": "kuukausia",
+        "inessive_singular": "kuukaudessa",
+        "inessive_plural": "kuukausissa",
+        "elative_singular": "kuukaudesta",
+        "elative_plural": "kuukausista",
+        "illative_singular": "kuukauteen",
+        "illative_plural": "kuukausiin",
+        "adessive_singular": "kuukaudella",
+        "adessive_plural": "kuukausilla",
+        "ablative_singular": "kuukaudelta",
+        "ablative_plural": "kuukausilta",
+        "allative_singular": "kuukaudelle",
+        "allative_plural": "kuukausille",
+        "essive_singular": "kuukautena",
+        "essive_plural": "kuukausina",
+        "translative_singular": "kuukaudeksi",
+        "translative_plural": "kuukausiksi",
+        "abessive_singular": "kuukaudetta",
+        "abessive_plural": "kuukausitta",
+        "instructive_plural": "kuukausin",
+        "comitative_plural": "kuukausineen"
+      },
+      "english": {
+        "plural": "months"
+      },
+      "kotusType": 27,
+      "group": "i_old",
+      "frequencyRank": 884,
+      "examples": [
+        {
+          "fi": "viisi kuukautta",
+          "en": "five months"
+        },
+        {
+          "fi": "Huhtikuu on kuukausista julmin.",
+          "en": "April is the cruelest month."
+        }
+      ]
     }
   ]
 }

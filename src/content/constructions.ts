@@ -115,6 +115,20 @@ const FEELINGS = [
 
 // Weekdays (essive "maanantaina") vs. parts of the day + seasons (adessive
 // "aamulla", "kesällä") — Finnish's two "when" endings.
+const MONTHS = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
 const DAYS = [
   "monday",
   "tuesday",
@@ -1006,6 +1020,107 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: ["person-on"],
+  },
+
+  // --- By & with: the -lla / -llä ending as a TOOL or a WAY to travel ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    id: "go-by", // "Menen bussilla." — by bus
+    before: "Menen",
+    punct: ".",
+    en: "I'm going by ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["bus", "train", "car", "bike", "boat", "plane", "ship", "taxi"],
+  },
+  {
+    id: "write-with", // "Kirjoitan kynällä." — with a pen
+    before: "Kirjoitan",
+    punct: ".",
+    en: "I write with a ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["pencil", "computer", "phone"],
+    glossById: { computer: "on the computer", phone: "on my phone" },
+  },
+  {
+    id: "draw-with", // "Piirrän kynällä."
+    before: "Piirrän",
+    punct: ".",
+    en: "I draw with a ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["pencil", "computer"],
+    glossById: { computer: "on the computer" },
+  },
+  {
+    id: "eat-with", // "Syön lusikalla."
+    before: "Syön",
+    punct: ".",
+    en: "I eat with a ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["spoon", "fork"],
+  },
+  {
+    id: "play-with-toy", // "Leikin pallolla."
+    before: "Leikin",
+    punct: ".",
+    en: "I play with a ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["ball", "car", "boat"],
+  },
+  {
+    id: "open-with", // "Avaan oven avaimella."
+    before: "Avaan oven",
+    punct: ".",
+    en: "I open the door with a ___.",
+    tier: 4,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["key"],
+  },
+  {
+    id: "with-someone", // "Leikin kaverin kanssa." — WITH a person: genitive + kanssa
+    before: "Leikin",
+    after: "kanssa",
+    punct: ".",
+    en: "I play with my ___.",
+    tier: 4,
+    case: "genitive",
+    number: "singular",
+    onlyIds: ["friend", "mother", "father", "brother", "sister", "grandmother", "grandfather", "dog", "cat"],
+  },
+
+  // --- Months & birthdays ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    id: "now-month", // "Nyt on toukokuu." — it's May now
+    before: "Nyt on",
+    punct: ".",
+    en: "It's ___ now.",
+    tier: 4,
+    case: "nominative",
+    number: "singular",
+    topics: ["time"],
+    onlyIds: MONTHS,
+  },
+  {
+    id: "birthday-in", // "Syntymäpäiväni on toukokuussa." — in May
+    before: "Syntymäpäiväni on",
+    punct: ".",
+    en: "My birthday is in ___.",
+    tier: 4,
+    case: "inessive",
+    number: "singular",
+    topics: ["time"],
+    onlyIds: MONTHS,
   },
 
   // --- When? ---

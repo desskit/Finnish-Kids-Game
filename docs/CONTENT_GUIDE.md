@@ -242,12 +242,45 @@ in several real forms, and the child picks the one this moment needs. Set
 - `mood` — *Juokse! / Älä juokse! / Juostaan!*
 - `pronoun` — *Auta minua! / Anna se minulle! / Pidän sinusta.*
 - `owner` — *isän pyörä* (not *isä pyörä*)
+- `verb-type` — *laulaa* → "Tyyppi 1" (filter the step with `content.verbs.types`)
+- `degree` — "bigger" → *isompi* (not *iso*, *isoin*)
+- `compare` — *Kumpi on isompi?* → *Norsu on isompi kuin hiiri.* (not the reverse)
+- `superlative` — *Mikä on isoin?* → *Norsu on isoin.*
+- `ordinal` — "the 3rd" → *kolmas* (not *kolme*)
+- `date` — "May 5th" → *viides toukokuuta* (not *viisi toukokuuta*, *viides toukokuu*)
+- `age` — "I'm 8" → *Olen kahdeksan vuotta vanha.*
 
 Verb forms come from the sourced tables (the build keeps the "don't" and
 "let's" forms too). Two small closed sets are hand-authored and pinned by
 tests: `questions.ts` (*syötkö* = sourced *syöt* + -kö, checked by vowel
 harmony) and `pronouns.ts` (*minua, minulle…* — the vendored data has no
 pronoun paradigm).
+
+### Verb types, KPT and lessons part-way through a unit
+
+- `src/content/verbTypes.ts` gives a verb's school type (1–6) from its SOURCED
+  Kotus class, and finds consonant gradation (KPT) by comparing the sourced
+  infinitive with the sourced *minä* form (*nukkua → nukun*). Nothing is built:
+  the KPT test only compares, and `markGradation` only marks letters.
+- A conjugate or choose step narrows its verbs with
+  `content.verbs: { types: [1, 3], kpt: true }`.
+- `Chapter.midLessons: [{ lessonId, before }]` puts a lesson PART-WAY through a
+  unit. It opens once the steps before `before` are done, and the steps from
+  `before` on wait until it's read. Words listed in a later words step's
+  `content.only` stay out of every step before the lesson. That's how the
+  verbs units bring in their KPT verbs halfway.
+- `wordsStep(unit, pool, title, only, id)` meets only part of a unit's words.
+
+### Comparisons and dates (`compare.ts`, `dates.ts`)
+
+Adjective degrees (*isompi*, *isoin*, *parempi*, *paras*) are their own
+dictionary headwords in the source, and the build attaches them as
+`item.degrees`. `RANKINGS` in `compare.ts` is authored WORLD KNOWLEDGE, as item
+ids: which thing really is bigger, faster or older. Only well-separated pairs
+are ever compared, so a sentence is always true. A date is the sourced ordinal
+plus the sourced month partitive (*viides toukokuuta*). Only 1st–10th are
+sourced ordinals, so dates stop at the 10th. The glue patterns are listed in
+`FINNISH_REVIEW.md` under "Comparison & date patterns".
 
 ### Verb carriers (`verb: 'infinitive'`)
 

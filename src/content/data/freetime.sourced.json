@@ -645,6 +645,358 @@
           "en": "to take up / give up a hobby"
         }
       ]
+    },
+    {
+      "id": "spoon",
+      "word": "lusikka",
+      "en": "spoon",
+      "emoji": "🥄",
+      "inflections": {
+        "nominative_singular": "lusikka",
+        "nominative_plural": "lusikat",
+        "genitive_singular": "lusikan",
+        "genitive_plural": "lusikoiden",
+        "partitive_singular": "lusikkaa",
+        "partitive_plural": "lusikoita",
+        "inessive_singular": "lusikassa",
+        "inessive_plural": "lusikoissa",
+        "elative_singular": "lusikasta",
+        "elative_plural": "lusikoista",
+        "illative_singular": "lusikkaan",
+        "illative_plural": "lusikoihin",
+        "adessive_singular": "lusikalla",
+        "adessive_plural": "lusikoilla",
+        "ablative_singular": "lusikalta",
+        "ablative_plural": "lusikoilta",
+        "allative_singular": "lusikalle",
+        "allative_plural": "lusikoille",
+        "essive_singular": "lusikkana",
+        "essive_plural": "lusikkoina",
+        "translative_singular": "lusikaksi",
+        "translative_plural": "lusikoiksi",
+        "abessive_singular": "lusikatta",
+        "abessive_plural": "lusikoitta",
+        "instructive_plural": "lusikoin",
+        "comitative_plural": "lusikkoineen",
+        "poss_1sg_nominative_singular": "lusikkani",
+        "poss_1sg_inessive_singular": "lusikassani",
+        "poss_1sg_adessive_singular": "lusikallani",
+        "poss_2sg_nominative_singular": "lusikkasi",
+        "poss_2sg_inessive_singular": "lusikassasi",
+        "poss_2sg_adessive_singular": "lusikallasi",
+        "poss_3rd_nominative_singular": "lusikkansa",
+        "poss_3rd_inessive_singular": "lusikassaan",
+        "poss_3rd_adessive_singular": "lusikallaan"
+      },
+      "english": {
+        "plural": "spoons"
+      },
+      "kotusType": 14,
+      "group": "a_ae",
+      "frequencyRank": 24143,
+      "examples": [
+        {
+          "fi": "painaa lusikka pohjaan",
+          "en": "to put the pedal to the metal"
+        },
+        {
+          "fi": "Hän hämmensi kahvia lusikalla.",
+          "en": "She stirred her coffee with a spoon."
+        }
+      ]
+    },
+    {
+      "id": "fork",
+      "word": "haarukka",
+      "en": "fork",
+      "inflections": {
+        "nominative_singular": "haarukka",
+        "nominative_plural": "haarukat",
+        "genitive_singular": "haarukan",
+        "genitive_plural": "haarukoiden",
+        "partitive_singular": "haarukkaa",
+        "partitive_plural": "haarukoita",
+        "inessive_singular": "haarukassa",
+        "inessive_plural": "haarukoissa",
+        "elative_singular": "haarukasta",
+        "elative_plural": "haarukoista",
+        "illative_singular": "haarukkaan",
+        "illative_plural": "haarukoihin",
+        "adessive_singular": "haarukalla",
+        "adessive_plural": "haarukoilla",
+        "ablative_singular": "haarukalta",
+        "ablative_plural": "haarukoilta",
+        "allative_singular": "haarukalle",
+        "allative_plural": "haarukoille",
+        "essive_singular": "haarukkana",
+        "essive_plural": "haarukkoina",
+        "translative_singular": "haarukaksi",
+        "translative_plural": "haarukoiksi",
+        "abessive_singular": "haarukatta",
+        "abessive_plural": "haarukoitta",
+        "instructive_plural": "haarukoin",
+        "comitative_plural": "haarukkoineen",
+        "poss_1sg_nominative_singular": "haarukkani",
+        "poss_1sg_inessive_singular": "haarukassani",
+        "poss_1sg_adessive_singular": "haarukallani",
+        "poss_2sg_nominative_singular": "haarukkasi",
+        "poss_2sg_inessive_singular": "haarukassasi",
+        "poss_2sg_adessive_singular": "haarukallasi",
+        "poss_3rd_nominative_singular": "haarukkansa",
+        "poss_3rd_inessive_singular": "haarukassaan",
+        "poss_3rd_adessive_singular": "haarukallaan"
+      },
+      "english": {
+        "plural": "forks"
+      },
+      "kotusType": 14,
+      "group": "a_ae",
+      "frequencyRank": 29810,
+      "examples": [
+        {
+          "fi": "Minä syön possua haarukalla.",
+          "en": "I eat pork with a fork."
+        },
+        {
+          "fi": "Keittoa ei voi syödä haarukalla.",
+          "en": "Soup can't be eaten with a fork."
+        }
+      ]
+    },
+    {
+      "id": "key",
+      "word": "avain",
+      "en": "key",
+      "emoji": "🔑",
+      "inflections": {
+        "nominative_singular": "avain",
+        "nominative_plural": "avaimet",
+        "genitive_singular": "avaimen",
+        "genitive_plural": "avaimien",
+        "partitive_singular": "avainta",
+        "partitive_plural": "avaimia",
+        "inessive_singular": "avaimessa",
+        "inessive_plural": "avaimissa",
+        "elative_singular": "avaimesta",
+        "elative_plural": "avaimista",
+        "illative_singular": "avaimeen",
+        "illative_plural": "avaimiin",
+        "adessive_singular": "avaimella",
+        "adessive_plural": "avaimilla",
+        "ablative_singular": "avaimelta",
+        "ablative_plural": "avaimilta",
+        "allative_singular": "avaimelle",
+        "allative_plural": "avaimille",
+        "essive_singular": "avaimena",
+        "essive_plural": "avaimina",
+        "translative_singular": "avaimeksi",
+        "translative_plural": "avaimiksi",
+        "abessive_singular": "avaimetta",
+        "abessive_plural": "avaimitta",
+        "instructive_plural": "avaimin",
+        "comitative_plural": "avaimineen",
+        "poss_1sg_nominative_singular": "avaimeni",
+        "poss_1sg_inessive_singular": "avaimessani",
+        "poss_1sg_adessive_singular": "avaimellani",
+        "poss_2sg_nominative_singular": "avaimesi",
+        "poss_2sg_inessive_singular": "avaimessasi",
+        "poss_2sg_adessive_singular": "avaimellasi",
+        "poss_3rd_nominative_singular": "avaimensa",
+        "poss_3rd_inessive_singular": "avaimessaan",
+        "poss_3rd_adessive_singular": "avaimellaan"
+      },
+      "english": {
+        "plural": "keys"
+      },
+      "kotusType": 33,
+      "group": "in",
+      "frequencyRank": 1678,
+      "examples": [
+        {
+          "fi": "avaimet käteen -toimitus",
+          "en": "turnkey delivery"
+        },
+        {
+          "fi": "jakoavain",
+          "en": "adjustable wrench / adjustable spanner"
+        }
+      ]
+    },
+    {
+      "id": "balloon",
+      "word": "ilmapallo",
+      "en": "balloon",
+      "emoji": "🎈",
+      "inflections": {
+        "nominative_singular": "ilmapallo",
+        "nominative_plural": "ilmapallot",
+        "genitive_singular": "ilmapallon",
+        "genitive_plural": "ilmapallojen",
+        "partitive_singular": "ilmapalloa",
+        "partitive_plural": "ilmapalloja",
+        "inessive_singular": "ilmapallossa",
+        "inessive_plural": "ilmapalloissa",
+        "elative_singular": "ilmapallosta",
+        "elative_plural": "ilmapalloista",
+        "illative_singular": "ilmapalloon",
+        "illative_plural": "ilmapalloihin",
+        "adessive_singular": "ilmapallolla",
+        "adessive_plural": "ilmapalloilla",
+        "ablative_singular": "ilmapallolta",
+        "ablative_plural": "ilmapalloilta",
+        "allative_singular": "ilmapallolle",
+        "allative_plural": "ilmapalloille",
+        "essive_singular": "ilmapallona",
+        "essive_plural": "ilmapalloina",
+        "translative_singular": "ilmapalloksi",
+        "translative_plural": "ilmapalloiksi",
+        "abessive_singular": "ilmapallotta",
+        "abessive_plural": "ilmapalloitta",
+        "instructive_plural": "ilmapalloin",
+        "comitative_plural": "ilmapalloineen",
+        "poss_1sg_nominative_singular": "ilmapalloni",
+        "poss_1sg_inessive_singular": "ilmapallossani",
+        "poss_1sg_adessive_singular": "ilmapallollani",
+        "poss_2sg_nominative_singular": "ilmapallosi",
+        "poss_2sg_inessive_singular": "ilmapallossasi",
+        "poss_2sg_adessive_singular": "ilmapallollasi",
+        "poss_3rd_nominative_singular": "ilmapallonsa",
+        "poss_3rd_inessive_singular": "ilmapallossaan",
+        "poss_3rd_adessive_singular": "ilmapallollaan"
+      },
+      "english": {
+        "plural": "balloons"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 26975,
+      "examples": [
+        {
+          "fi": "Tom täyttää ilmapalloa.",
+          "en": "Tom is inflating a balloon."
+        },
+        {
+          "fi": "Ilmapallo tyhjentyi äkisti.",
+          "en": "The balloon deflated quickly."
+        }
+      ]
+    },
+    {
+      "id": "candle",
+      "word": "kynttilä",
+      "en": "candle",
+      "emoji": "🕯️",
+      "inflections": {
+        "nominative_singular": "kynttilä",
+        "nominative_plural": "kynttilät",
+        "genitive_singular": "kynttilän",
+        "genitive_plural": "kynttilöiden",
+        "partitive_singular": "kynttilää",
+        "partitive_plural": "kynttilöitä",
+        "inessive_singular": "kynttilässä",
+        "inessive_plural": "kynttilöissä",
+        "elative_singular": "kynttilästä",
+        "elative_plural": "kynttilöistä",
+        "illative_singular": "kynttilään",
+        "illative_plural": "kynttilöihin",
+        "adessive_singular": "kynttilällä",
+        "adessive_plural": "kynttilöillä",
+        "ablative_singular": "kynttilältä",
+        "ablative_plural": "kynttilöiltä",
+        "allative_singular": "kynttilälle",
+        "allative_plural": "kynttilöille",
+        "essive_singular": "kynttilänä",
+        "essive_plural": "kynttilöinä",
+        "translative_singular": "kynttiläksi",
+        "translative_plural": "kynttilöiksi",
+        "abessive_singular": "kynttilättä",
+        "abessive_plural": "kynttilöittä",
+        "instructive_plural": "kynttilöin",
+        "comitative_plural": "kynttilöineen",
+        "poss_1sg_nominative_singular": "kynttiläni",
+        "poss_1sg_inessive_singular": "kynttilässäni",
+        "poss_1sg_adessive_singular": "kynttilälläni",
+        "poss_2sg_nominative_singular": "kynttiläsi",
+        "poss_2sg_inessive_singular": "kynttilässäsi",
+        "poss_2sg_adessive_singular": "kynttilälläsi",
+        "poss_3rd_nominative_singular": "kynttilänsä",
+        "poss_3rd_inessive_singular": "kynttilässään",
+        "poss_3rd_adessive_singular": "kynttilällään"
+      },
+      "english": {
+        "plural": "candles"
+      },
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 12852,
+      "examples": [
+        {
+          "fi": "Sytytä kynttilät.",
+          "en": "Light the candles."
+        },
+        {
+          "fi": "Sytytin kynttilät.",
+          "en": "I lit the candles."
+        }
+      ]
+    },
+    {
+      "id": "present",
+      "word": "lahja",
+      "en": "present",
+      "inflections": {
+        "nominative_singular": "lahja",
+        "nominative_plural": "lahjat",
+        "genitive_singular": "lahjan",
+        "genitive_plural": "lahjojen",
+        "partitive_singular": "lahjaa",
+        "partitive_plural": "lahjoja",
+        "inessive_singular": "lahjassa",
+        "inessive_plural": "lahjoissa",
+        "elative_singular": "lahjasta",
+        "elative_plural": "lahjoista",
+        "illative_singular": "lahjaan",
+        "illative_plural": "lahjoihin",
+        "adessive_singular": "lahjalla",
+        "adessive_plural": "lahjoilla",
+        "ablative_singular": "lahjalta",
+        "ablative_plural": "lahjoilta",
+        "allative_singular": "lahjalle",
+        "allative_plural": "lahjoille",
+        "essive_singular": "lahjana",
+        "essive_plural": "lahjoina",
+        "translative_singular": "lahjaksi",
+        "translative_plural": "lahjoiksi",
+        "abessive_singular": "lahjatta",
+        "abessive_plural": "lahjoitta",
+        "instructive_plural": "lahjoin",
+        "comitative_plural": "lahjoineen",
+        "poss_1sg_nominative_singular": "lahjani",
+        "poss_1sg_inessive_singular": "lahjassani",
+        "poss_1sg_adessive_singular": "lahjallani",
+        "poss_2sg_nominative_singular": "lahjasi",
+        "poss_2sg_inessive_singular": "lahjassasi",
+        "poss_2sg_adessive_singular": "lahjallasi",
+        "poss_3rd_nominative_singular": "lahjansa",
+        "poss_3rd_inessive_singular": "lahjassaan",
+        "poss_3rd_adessive_singular": "lahjallaan"
+      },
+      "english": {
+        "plural": "presents"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 1579,
+      "examples": [
+        {
+          "fi": "Kiitos lahjasta.",
+          "en": "Thanks for your gift."
+        },
+        {
+          "fi": "Kiitos lahjasta!",
+          "en": "Thank you for your gift!"
+        }
+      ]
     }
   ]
 }

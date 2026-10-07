@@ -57,7 +57,11 @@
           "fi": "olet jo iso poika",
           "en": "you're a big boy already"
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "isompi",
+        "superlative": "isoin"
+      }
     },
     {
       "id": "small",
@@ -108,7 +112,11 @@
           "fi": "Laitoin radiota pienemmälle.",
           "en": "I turned down the radio."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "pienempi",
+        "superlative": "pienin"
+      }
     },
     {
       "id": "fast",
@@ -159,7 +167,11 @@
           "fi": "nopea oppimaan",
           "en": "quick to learn"
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "nopeampi",
+        "superlative": "nopein"
+      }
     },
     {
       "id": "slow",
@@ -260,7 +272,11 @@
           "fi": "Vanha asunto meni vaihdossa.",
           "en": "I traded out my old apartment."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "vanhempi",
+        "superlative": "vanhin"
+      }
     },
     {
       "id": "happy",
@@ -1280,6 +1296,270 @@
           "en": "She has brown eyes."
         }
       ]
+    },
+    {
+      "id": "young",
+      "word": "nuori",
+      "en": "young",
+      "inflections": {
+        "nominative_singular": "nuori",
+        "nominative_plural": "nuoret",
+        "genitive_singular": "nuoren",
+        "genitive_plural": "nuorten",
+        "partitive_singular": "nuorta",
+        "partitive_plural": "nuoria",
+        "inessive_singular": "nuoressa",
+        "inessive_plural": "nuorissa",
+        "elative_singular": "nuoresta",
+        "elative_plural": "nuorista",
+        "illative_singular": "nuoreen",
+        "illative_plural": "nuoriin",
+        "adessive_singular": "nuorella",
+        "adessive_plural": "nuorilla",
+        "ablative_singular": "nuorelta",
+        "ablative_plural": "nuorilta",
+        "allative_singular": "nuorelle",
+        "allative_plural": "nuorille",
+        "essive_singular": "nuorena",
+        "essive_plural": "nuorina",
+        "translative_singular": "nuoreksi",
+        "translative_plural": "nuoriksi",
+        "abessive_singular": "nuoretta",
+        "abessive_plural": "nuoritta",
+        "instructive_plural": "nuorin",
+        "comitative_plural": "nuorine"
+      },
+      "english": {
+        "comparative": "younger",
+        "superlative": "youngest"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 754,
+      "degrees": {
+        "comparative": "nuorempi",
+        "superlative": "nuorin"
+      }
+    },
+    {
+      "id": "tall",
+      "word": "pitkä",
+      "en": "tall",
+      "emoji": "🦒",
+      "inflections": {
+        "nominative_singular": "pitkä",
+        "nominative_plural": "pitkät",
+        "genitive_singular": "pitkän",
+        "genitive_plural": "pitkien",
+        "partitive_singular": "pitkää",
+        "partitive_plural": "pitkiä",
+        "inessive_singular": "pitkässä",
+        "inessive_plural": "pitkissä",
+        "elative_singular": "pitkästä",
+        "elative_plural": "pitkistä",
+        "illative_singular": "pitkään",
+        "illative_plural": "pitkiin",
+        "adessive_singular": "pitkällä",
+        "adessive_plural": "pitkillä",
+        "ablative_singular": "pitkältä",
+        "ablative_plural": "pitkiltä",
+        "allative_singular": "pitkälle",
+        "allative_plural": "pitkille",
+        "essive_singular": "pitkänä",
+        "essive_plural": "pitkinä",
+        "translative_singular": "pitkäksi",
+        "translative_plural": "pitkiksi",
+        "abessive_singular": "pitkättä",
+        "abessive_plural": "pitkittä",
+        "instructive_plural": "pitkin",
+        "comitative_plural": "pitkine"
+      },
+      "english": {
+        "comparative": "taller",
+        "superlative": "tallest"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 746,
+      "examples": [
+        {
+          "fi": "pitkä keppi",
+          "en": "long stick"
+        },
+        {
+          "fi": "Siitä on pitkä aika, kun heräsin.",
+          "en": "It's been a long time since I woke up."
+        }
+      ],
+      "degrees": {
+        "comparative": "pidempi",
+        "superlative": "pisin"
+      }
+    },
+    {
+      "id": "strong",
+      "word": "vahva",
+      "en": "strong",
+      "emoji": "🏋️",
+      "inflections": {
+        "nominative_singular": "vahva",
+        "nominative_plural": "vahvat",
+        "genitive_singular": "vahvan",
+        "genitive_plural": "vahvojen",
+        "partitive_singular": "vahvaa",
+        "partitive_plural": "vahvoja",
+        "inessive_singular": "vahvassa",
+        "inessive_plural": "vahvoissa",
+        "elative_singular": "vahvasta",
+        "elative_plural": "vahvoista",
+        "illative_singular": "vahvaan",
+        "illative_plural": "vahvoihin",
+        "adessive_singular": "vahvalla",
+        "adessive_plural": "vahvoilla",
+        "ablative_singular": "vahvalta",
+        "ablative_plural": "vahvoilta",
+        "allative_singular": "vahvalle",
+        "allative_plural": "vahvoille",
+        "essive_singular": "vahvana",
+        "essive_plural": "vahvoina",
+        "translative_singular": "vahvaksi",
+        "translative_plural": "vahvoiksi",
+        "abessive_singular": "vahvatta",
+        "abessive_plural": "vahvoitta",
+        "instructive_plural": "vahvoin",
+        "comitative_plural": "vahvoine"
+      },
+      "english": {
+        "comparative": "stronger",
+        "superlative": "strongest"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 1334,
+      "examples": [
+        {
+          "fi": "vahva mies",
+          "en": "a strong man"
+        },
+        {
+          "fi": "vahva magneetti",
+          "en": "a strong magnet"
+        }
+      ],
+      "degrees": {
+        "comparative": "vahvempi",
+        "superlative": "vahvin"
+      }
+    },
+    {
+      "id": "good",
+      "word": "hyvä",
+      "en": "good",
+      "emoji": "👍",
+      "inflections": {
+        "nominative_singular": "hyvä",
+        "nominative_plural": "hyvät",
+        "genitive_singular": "hyvän",
+        "genitive_plural": "hyvien",
+        "partitive_singular": "hyvää",
+        "partitive_plural": "hyviä",
+        "inessive_singular": "hyvässä",
+        "inessive_plural": "hyvissä",
+        "elative_singular": "hyvästä",
+        "elative_plural": "hyvistä",
+        "illative_singular": "hyvään",
+        "illative_plural": "hyviin",
+        "adessive_singular": "hyvällä",
+        "adessive_plural": "hyvillä",
+        "ablative_singular": "hyvältä",
+        "ablative_plural": "hyviltä",
+        "allative_singular": "hyvälle",
+        "allative_plural": "hyville",
+        "essive_singular": "hyvänä",
+        "essive_plural": "hyvinä",
+        "translative_singular": "hyväksi",
+        "translative_plural": "hyviksi",
+        "abessive_singular": "hyvättä",
+        "abessive_plural": "hyvittä",
+        "instructive_plural": "hyvin",
+        "comitative_plural": "hyvine"
+      },
+      "english": {
+        "comparative": "better",
+        "superlative": "best"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 34,
+      "examples": [
+        {
+          "fi": "hyvä uinnissa / hyvä uimaan",
+          "en": "good at swimming"
+        },
+        {
+          "fi": "Kaikilla on taito tehdä hyvää.",
+          "en": "Everyone has the ability to do good (deeds)."
+        }
+      ],
+      "degrees": {
+        "comparative": "parempi",
+        "superlative": "paras"
+      }
+    },
+    {
+      "id": "funny",
+      "word": "hauska",
+      "en": "funny",
+      "emoji": "🤪",
+      "inflections": {
+        "nominative_singular": "hauska",
+        "nominative_plural": "hauskat",
+        "genitive_singular": "hauskan",
+        "genitive_plural": "hauskojen",
+        "partitive_singular": "hauskaa",
+        "partitive_plural": "hauskoja",
+        "inessive_singular": "hauskassa",
+        "inessive_plural": "hauskoissa",
+        "elative_singular": "hauskasta",
+        "elative_plural": "hauskoista",
+        "illative_singular": "hauskaan",
+        "illative_plural": "hauskoihin",
+        "adessive_singular": "hauskalla",
+        "adessive_plural": "hauskoilla",
+        "ablative_singular": "hauskalta",
+        "ablative_plural": "hauskoilta",
+        "allative_singular": "hauskalle",
+        "allative_plural": "hauskoille",
+        "essive_singular": "hauskana",
+        "essive_plural": "hauskoina",
+        "translative_singular": "hauskaksi",
+        "translative_plural": "hauskoiksi",
+        "abessive_singular": "hauskatta",
+        "abessive_plural": "hauskoitta",
+        "instructive_plural": "hauskoin",
+        "comitative_plural": "hauskoine"
+      },
+      "english": {
+        "comparative": "funnier",
+        "superlative": "funniest"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 279,
+      "examples": [
+        {
+          "fi": "pitää hauskaa",
+          "en": "to have fun"
+        },
+        {
+          "fi": "Kuulostaa hauskalta.",
+          "en": "That sounds like fun."
+        }
+      ],
+      "degrees": {
+        "comparative": "hauskempi",
+        "superlative": "hauskin"
+      }
     }
   ]
 }

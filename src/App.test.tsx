@@ -37,6 +37,7 @@ vi.mock('./audio/sfx', () => ({ playDing: vi.fn() }));
 
 import { AppRoutes } from './App';
 import ProgressView from './components/ProgressView';
+import { UNITS } from './game/course';
 import { ProfileProvider } from './state/profile';
 
 // Integration tests for the guided-course shell (home → lesson → step →
@@ -111,8 +112,8 @@ describe('course home', () => {
     expect(units).toHaveLength(3);
     expect(units[0].className).toContain('unit--current');
     expect(units[1].className).toContain('unit--locked');
-    fireEvent.click(screen.getByRole('button', { name: /27 more units/ }));
-    expect(document.querySelectorAll('.unit')).toHaveLength(30);
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(`${UNITS.length - 3} more units`) }));
+    expect(document.querySelectorAll('.unit')).toHaveLength(UNITS.length);
     // Review + Notebook entries, badges; no "Today's adventure" any more.
     expect(screen.getByRole('link', { name: /Review/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Notebook/ })).toBeInTheDocument();
@@ -152,7 +153,7 @@ describe('course home', () => {
     expect(units[0].className).toContain('unit--done');
     expect(units[1].className).toContain('unit--current');
     expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
-    expect(screen.getByText('1 of 29 units done')).toBeInTheDocument();
+    expect(screen.getByText(`1 of ${UNITS.length - 1} units done`)).toBeInTheDocument();
   });
 });
 
@@ -180,7 +181,7 @@ describe('lessons + notebook', () => {
     seedChild({}, {}, { checkpoints: { 'hello': { passedAt: 1, best: 1, attempts: 1 } } });
     renderAt('/notebook');
     expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
-    expect(screen.getByText(/28 more lessons unlock/)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${UNITS.length - 2} more lessons unlock`))).toBeInTheDocument();
   });
 });
 

@@ -1140,4 +1140,262 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Verbs, part 2 (type 4): a morning at home.
+  {
+    id: 'morning',
+    titleFi: 'Aamulla',
+    titleEn: 'In the morning',
+    icon: '⏰',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Huomenta! Heräätkö jo?', en: 'Morning! Are you waking up?' },
+        reply: { fi: 'Joo, herään.', en: "Yes, I'm waking up." },
+        distractors: [
+          { fi: 'Joo, heräät.', en: "Yes, you're waking up." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä haluat syödä?', en: 'What do you want to eat?' },
+        reply: { fi: 'Haluan puuroa.', en: 'I want porridge.' },
+        distractors: [
+          { fi: 'Haluaa puuroa.', en: 'He wants porridge.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Siivoatko huoneesi tänään?', en: 'Will you clean your room today?' },
+        reply: { fi: 'Joo, siivoan!', en: "Yes, I'll clean it!" },
+        distractors: [
+          { fi: 'Joo, siivoat!', en: "Yes, you'll clean it!" },
+          { fi: 'Nähdään!', en: 'See you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Avaatko ikkunan?', en: 'Thanks! Will you open the window?' },
+        reply: { fi: 'Avaan.', en: "I'll open it." },
+        distractors: [
+          { fi: 'Avaa.', en: 'Open it.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Verbs, part 3 (types 5 & 6): drawing time.
+  {
+    id: 'drawing-time',
+    titleFi: 'Piirretään!',
+    titleEn: "Let's draw!",
+    icon: '✏️',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä tarvitset?', en: 'What do you need?' },
+        reply: { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+        distractors: [
+          { fi: 'Tarvitset kynän.', en: 'You need a pen.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Valitsetko punaisen vai sinisen?', en: 'Do you choose the red one or the blue one?' },
+        reply: { fi: 'Valitsen punaisen!', en: 'I choose the red one!' },
+        distractors: [
+          { fi: 'Valitsee punaisen.', en: 'He chooses the red one.' },
+          { fi: 'Ei kiitos.', en: 'No thanks.' },
+        ],
+      },
+      {
+        partner: { fi: 'Älä häiritse kissaa! Se nukkuu.', en: "Don't disturb the cat! It's sleeping." },
+        reply: { fi: 'Anteeksi! En häiritse.', en: "Sorry! I won't disturb it." },
+        distractors: [
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Mennään!', en: "Let's go!" },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva kuva! Nähdään huomenna.', en: 'Nice picture! See you tomorrow.' },
+        reply: { fi: 'Nähdään!', en: 'See you!' },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Comparing: at the zoo.
+  {
+    id: 'at-the-zoo',
+    titleFi: 'Eläintarhassa',
+    titleEn: 'At the zoo',
+    icon: '🐘',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Katso! Kumpi on isompi, norsu vai hevonen?', en: 'Look! Which is bigger, the elephant or the horse?' },
+        reply: { fi: 'Norsu on isompi.', en: 'The elephant is bigger.' },
+        distractors: [
+          { fi: 'Hevonen on isompi.', en: 'The horse is bigger.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä kumpi on nopeampi, hevonen vai lehmä?', en: 'And which is faster, the horse or the cow?' },
+        reply: { fi: 'Hevonen on nopeampi kuin lehmä.', en: 'The horse is faster than the cow.' },
+        distractors: [
+          { fi: 'Lehmä on nopeampi kuin hevonen.', en: 'The cow is faster than the horse.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mikä eläin on pienin?', en: 'Which animal is the smallest?' },
+        reply: { fi: 'Hiiri on pienin!', en: 'The mouse is the smallest!' },
+        distractors: [
+          { fi: 'Norsu on pienin!', en: 'The elephant is the smallest!' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä olen nopein! Juostaan!', en: "I'm the fastest! Let's run!" },
+        reply: { fi: 'Ei, minä olen nopein!', en: "No, I'm the fastest!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — By & with: getting to school.
+  {
+    id: 'how-do-you-go',
+    titleFi: 'Miten menet?',
+    titleEn: 'How do you go?',
+    icon: '🚌',
+    partnerIcon: '🧑‍🏫',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Miten menet kouluun?', en: 'How do you go to school?' },
+        reply: { fi: 'Menen bussilla.', en: 'I go by bus.' },
+        distractors: [
+          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kenen kanssa?', en: 'Who with?' },
+        reply: { fi: 'Kaverin kanssa.', en: 'With my friend.' },
+        distractors: [
+          { fi: 'Kaverilla.', en: "At my friend's." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä teet koulussa?', en: 'What do you do at school?' },
+        reply: { fi: 'Piirrän kynällä.', en: 'I draw with a pencil.' },
+        distractors: [
+          { fi: 'Piirrän kynää.', en: "I'm drawing a pencil." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Hauskaa! Nähdään!', en: 'Fun! See you!' },
+        reply: { fi: 'Nähdään!', en: 'See you!' },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Menen bussiin.', en: "I'm going into the bus." },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Big numbers: a race.
+  {
+    id: 'race',
+    titleFi: 'Kilpajuoksu',
+    titleEn: 'A race',
+    icon: '🏁',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Juostaan kilpaa!', en: "Let's race!" },
+        reply: { fi: 'Joo, juostaan!', en: "Yeah, let's run!" },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä olen ensimmäinen!', en: "I'm first!" },
+        reply: { fi: 'Minä olen toinen.', en: "I'm second." },
+        distractors: [
+          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kuka on kolmas?', en: 'Who is third?' },
+        reply: { fi: 'Koira on kolmas!', en: 'The dog is third!' },
+        distractors: [
+          { fi: 'Koira on kolme!', en: 'The dog is three!' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Juostaan uudestaan!', en: "Let's run again!" },
+        reply: { fi: 'Joo, juostaan!', en: "Yeah, let's run!" },
+        distractors: [
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+          { fi: 'Minä olen kaksi.', en: 'I am two.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Months & birthdays: a party.
+  {
+    id: 'birthday-party',
+    titleFi: 'Synttärit',
+    titleEn: 'A birthday party',
+    icon: '🎂',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Tervetuloa! Tänään on minun syntymäpäiväni.', en: "Welcome! Today is my birthday." },
+        reply: { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Olen nyt yhdeksän vuotta vanha. Entä sinä?', en: "Thanks! I'm nine years old now. And you?" },
+        reply: { fi: 'Olen kahdeksan vuotta vanha.', en: "I'm eight years old." },
+        distractors: [
+          { fi: 'Olen kahdeksas.', en: "I'm eighth." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Milloin sinun syntymäpäiväsi on?', en: 'When is your birthday?' },
+        reply: { fi: 'Toukokuussa.', en: 'In May.' },
+        distractors: [
+          { fi: 'Toukokuuta.', en: '(of May)' },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Tässä on kakkua. Ole hyvä!', en: "Here's some cake. Here you go!" },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        distractors: [
+          { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+          { fi: 'Nähdään!', en: 'See you!' },
+        ],
+      },
+    ],
+  },
 ];

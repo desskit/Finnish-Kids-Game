@@ -27,6 +27,9 @@ import { lessons } from '../src/content/lessons';
 import { YOU_QUESTION } from '../src/content/questions';
 import { PRONOUNS, PRONOUN_FRAMES } from '../src/content/pronouns';
 import { ALPHABET } from '../src/content/alphabet';
+import { comparisonSentence, superlativeSentence, whichIsMost, whichOfTwo } from '../src/content/compare';
+import { BIRTHDAY_FRAME, ageSentence, dateFi } from '../src/content/dates';
+import { itemById } from '../src/content/lookup';
 import {
   animals,
   food,
@@ -134,6 +137,19 @@ const letterRows: Row[] = ALPHABET.map((l) => ({
   en: l.tip,
 }));
 
+// Patterns that join SOURCED words with authored glue: comparisons and dates.
+// One worked example each — every other instance has the same shape.
+const w = (id: string) => itemById(id)!;
+const patternRows: Row[] = [
+  { key: 'pattern:compare', fi: `${comparisonSentence(w('big'), w('elephant'), w('mouse'))} (X on ⟨-mpi⟩ kuin Y)`, en: 'The elephant is bigger than the mouse.' },
+  { key: 'pattern:superlative', fi: `${superlativeSentence(w('big'), w('elephant'))} (X on ⟨-in⟩)`, en: 'The elephant is the biggest.' },
+  { key: 'pattern:which-of-two', fi: whichOfTwo(w('big'))!, en: 'Which one is bigger?' },
+  { key: 'pattern:which-most', fi: `${whichIsMost(w('big'), false)} / ${whichIsMost(w('old'), true)}`, en: 'Which one is the biggest? / Who is the oldest?' },
+  { key: 'pattern:date', fi: `${dateFi(w('fifth'), w('may'))} (⟨ordinal⟩ ⟨month-partitive⟩)`, en: 'the 5th of May' },
+  { key: 'pattern:birthday-date', fi: `${BIRTHDAY_FRAME.before} ${dateFi(w('fifth'), w('may'))}.`, en: `${BIRTHDAY_FRAME.en} May 5th.` },
+  { key: 'pattern:age', fi: ageSentence(w('eight'))!, en: "I'm 8 years old." },
+];
+
 const templateRows: Row[] = sentenceConstructions.map((t) => ({
   key: `template:${t.id}`,
   fi: t.tokens
@@ -188,6 +204,7 @@ const all = [
   ...storyRows,
   ...carrierRows,
   ...templateRows,
+  ...patternRows,
   ...questionRows,
   ...pronounRows,
   ...letterRows,
@@ -225,6 +242,10 @@ const lines: string[] = [
   `## Sentence templates — authored skeletons (${templateRows.length})`,
   '',
   ...table(templateRows),
+  '',
+  `## Comparison & date patterns — sourced words, authored glue (${patternRows.length})`,
+  '',
+  ...table(patternRows),
   '',
   `## Question forms — "do you…?" (${questionRows.length})`,
   '',

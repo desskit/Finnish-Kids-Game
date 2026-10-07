@@ -197,6 +197,7 @@ describe('lessons ↔ units', () => {
       u1.lessonId,
       u2.lessonId,
     ]);
-    expect(notebookLessonIds(child(), true)).toHaveLength(UNITS.length);
+    const midLessons = UNITS.reduce((n, u) => n + (u.midLessons?.length ?? 0), 0);
+    expect(notebookLessonIds(child(), true)).toHaveLength(UNITS.length + midLessons);
   });
 });

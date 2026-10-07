@@ -9,6 +9,7 @@ import {
   mixStepFor,
 } from './game/path';
 import { difficultyFor } from './game/adapt';
+import { lessonForStep } from './game/course';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
@@ -138,7 +139,7 @@ function SkillRoute() {
         </div>
       )}
       <ActivityContext.Provider
-        value={{ onSegmentComplete, difficulty, sessionStars, lessonId: play.chapter.lessonId }}
+        value={{ onSegmentComplete, difficulty, sessionStars, lessonId: lessonForStep(play.chapter, play.skill) }}
       >
         {/* Key by segment so each one mounts fresh — switching game type cleanly. */}
         {cloneElement(element, { key: round.no })}

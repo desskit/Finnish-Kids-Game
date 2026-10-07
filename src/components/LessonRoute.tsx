@@ -1,6 +1,6 @@
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { lessonById } from '../content/lessons';
-import { unitForLesson } from '../game/course';
+import { stepAfterLesson } from '../game/course';
 import { useProfile } from '../state/profile';
 import LessonView from './LessonView';
 
@@ -19,7 +19,7 @@ export default function LessonRoute() {
 
   const fromNotebook = (location.state as { from?: string } | null)?.from === 'notebook';
   const back = () => navigate(fromNotebook ? '/notebook' : '/');
-  const firstStep = unitForLesson(lesson.id)?.skills[0];
+  const firstStep = stepAfterLesson(lesson.id);
 
   return (
     <main className="app">
@@ -33,7 +33,8 @@ export default function LessonRoute() {
         }
         onDone={() => {
           markLessonSeen(lesson.id);
-          // Straight into the unit's first practice step — the natural next move.
+          // Straight into the practice it opens (the unit's first step, or for a
+          // part-way lesson the step after it) — the natural next move.
           if (!fromNotebook && firstStep) navigate(`/skill/${firstStep.id}`);
           else back();
         }}

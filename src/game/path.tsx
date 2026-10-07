@@ -3,6 +3,7 @@ import ChooseForm from '../components/ChooseForm';
 import { choosePoolsFor, type ChooseMode, type ChoosePools } from './formChoice';
 import type { ReactElement } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
+import { matchesVerbFilter, typeByLook, verbType, type VerbFilter, type VerbType } from '../content/verbTypes';
 import {
   animals,
   food,
@@ -16,6 +17,7 @@ import {
   freetime,
   time,
   states,
+  ordinals,
   adjectives,
   verbs,
 } from '../content';
@@ -98,7 +100,8 @@ export type Pool =
   | 'colors'
   | 'adjectives'
   | 'feelings'
-  | 'time';
+  | 'time'
+  | 'ordinals';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -135,6 +138,14 @@ export interface SkillContent {
   possessiveCases?: 'never' | 'always';
   /** 'choose' steps: which grammar the choose-the-form game asks about. */
   choose?: ChooseMode;
+  /**
+   * Verb steps (conjugate / choose): only verbs of these types, with or
+   * without a consonant change (KPT) — see src/content/verbTypes.ts.
+   */
+  verbs?: VerbFilter;
+  /** A words step that meets only PART of its unit's new words (a unit that
+   *  brings in its KPT verbs halfway through). Becomes `wordIds`. */
+  only?: string[];
 }
 
 export interface SkillNode {
@@ -216,6 +227,12 @@ export interface Chapter {
   blurbEn: string;
   /** The unit's lesson (src/content/lessons.ts). */
   lessonId: string;
+  /**
+   * Lessons PART-WAY through the unit: each opens once every step before
+   * `before` is done, and the steps from `before` on stay locked until it has
+   * been read (e.g. the consonant-change lesson halfway through a verbs unit).
+   */
+  midLessons?: { lessonId: string; before: string }[];
   /** Item ids this unit introduces (they join the cumulative known words). */
   newWords: string[];
   /** Checkpoint shape; `false` = no checkpoint (the open-ended Mestari unit). */
@@ -299,6 +316,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return FEELINGS;
     case 'time':
       return time.items;
+    case 'ordinals':
+      return ordinals.items;
     default:
       return NOUNS;
   }
@@ -393,6 +412,15 @@ const TAUGHT_CONSTRUCTIONS = [
   'i-go-onto',
   'i-come-from-in',
   'i-come-from-on',
+  'now-month',
+  'birthday-in',
+  'go-by',
+  'write-with',
+  'draw-with',
+  'eat-with',
+  'play-with-toy',
+  'open-with',
+  'with-someone',
   'today-is',
   'play-on-day',
   'play-at-time',
@@ -415,9 +443,15 @@ const TAUGHT_CONSTRUCTIONS = [
 /** A unit's "new words" warm-up: meet each word (WordIntro), then hear→tap and
  *  see→name it. Draws ONLY the unit's own new words; words with no single
  *  picture show their English instead. Its checkpoint question is "name it". */
-function wordsStep(unitId: string, pool: Pool, titleEn = 'New words'): SkillNode {
+function wordsStep(
+  unitId: string,
+  pool: Pool,
+  titleEn = 'New words',
+  only?: string[],
+  id = `${unitId}-words`,
+): SkillNode {
   return {
-    id: `${unitId}-words`,
+    id,
     titleFi: 'Uudet sanat',
     titleEn,
     icon: '🆕',
@@ -425,7 +459,46 @@ function wordsStep(unitId: string, pool: Pool, titleEn = 'New words'): SkillNode
     activities: ['listen', 'name', 'name'],
     maxLevel: 3,
     checkpoint: 'name',
-    content: { pool, words: 'new' },
+    content: { pool, words: 'new', only },
+  };
+}
+
+/** A conjugation step: pick the verb form that agrees with the person. `verbs`
+ *  narrows it to verb types / KPT verbs (src/content/verbTypes.ts). */
+function verbStep(
+  id: string,
+  titleFi: string,
+  titleEn: string,
+  icon: string,
+  verbFilter: VerbFilter | undefined,
+  combos: VerbCombo[],
+  maxLevel: number,
+  exampleFi?: string,
+): SkillNode {
+  return {
+    id,
+    titleFi,
+    titleEn,
+    icon,
+    activity: 'conjugate',
+    maxLevel,
+    pin: { verbCombos: combos },
+    content: verbFilter ? { verbs: verbFilter } : {},
+    exampleFi,
+  };
+}
+
+/** "Which verb type?" — read a verb's ending, pick its family. */
+function typeStep(id: string, types: VerbType[], maxLevel: number, kpt?: boolean): SkillNode {
+  return {
+    id,
+    titleFi: 'Mikä tyyppi?',
+    titleEn: `Which type? (${types[0]}–${types[types.length - 1]})`,
+    icon: '🔎',
+    activity: 'choose',
+    maxLevel,
+    content: { choose: 'verb-type', verbs: { types, kpt } },
+    exampleFi: 'laulaa → tyyppi 1',
   };
 }
 
@@ -486,6 +559,28 @@ function sceneStep(id: string, sceneId: string, titleFi: string, titleEn: string
     content: { ids: [sceneId] },
   };
 }
+
+// The verbs units' words, each split at its part-way KPT lesson: plain verbs
+// first, the ones whose k / p / t changes after the lesson.
+const DOING_PLAIN = ['sing', 'speak', 'dance', 'eat', 'drink', 'swim', 'go', 'come', 'walk', 'run'];
+const DOING_KPT = ['sleep', 'play', 'read', 'write', 'draw', 'help', 'listen'];
+const TYPE4_PLAIN = ['want', 'open', 'answer', 'clean', 'paint', 'hug', 'fix', 'wake-up'];
+const TYPE4_KPT = ['jump', 'climb', 'cut', 'fall', 'meet'];
+const TYPE56_PLAIN = ['need', 'choose', 'disturb', 'lock', 'grow-old'];
+const TYPE6_KPT = ['warm-up', 'run-away'];
+
+// The Comparing unit: the adjectives that have sourced degrees, and the animals
+// the comparisons are about (the course meets them here, where they're fun).
+const COMPARE_ADJECTIVES = ['young', 'tall', 'strong', 'good', 'funny'];
+const COMPARE_ANIMALS = ['elephant', 'horse', 'cow', 'bear', 'lion', 'pig', 'sheep', 'fox', 'duck', 'chicken', 'mouse', 'frog'];
+
+// The number units' words.
+const TEENS = ['thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const TENS = ['thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred'];
+const ORDINALS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const BIRTHDAY_TIME = ['birthday', 'year', 'month'];
+const PARTY = ['balloon', 'candle', 'present'];
 
 const UNITS: Chapter[] = [
   {
@@ -702,25 +797,23 @@ const UNITS: Chapter[] = [
   {
     id: 'doing',
     titleFi: 'Mitä teet?',
-    titleEn: 'Doing things',
-    blurbEn: 'Action words — the ending tells you WHO is doing it.',
+    titleEn: 'Verbs, part 1: types 1–3',
+    blurbEn: 'Action words in three families — and the ending tells you WHO. Halfway: when k, p and t change.',
     accent: '#ea580c',
     icon: '🏃',
     lessonId: 'verb-persons',
-    newWords: ['eat', 'drink', 'sleep', 'play', 'run', 'swim', 'read', 'write', 'draw', 'sing', 'listen', 'speak'],
+    midLessons: [{ lessonId: 'kpt-1-3', before: 'doing-kpt-words' }],
+    newWords: [...DOING_PLAIN, ...DOING_KPT],
+    checkpoint: { perStep: 2, passRatio: 0.8 },
     skills: [
-      wordsStep('doing', 'verbs', 'Action words'),
-      {
-        id: 'verbs-present',
-        titleFi: 'Minä, sinä, hän…',
-        titleEn: 'Who is doing it?',
-        icon: '🏃',
-        activity: 'conjugate',
-        maxLevel: 4,
-        pin: { verbCombos: [PRESENT_POS] },
-        content: {},
-        exampleFi: 'minä syön, sinä syöt',
-      },
+      wordsStep('doing', 'verbs', 'Action words', DOING_PLAIN),
+      verbStep('verbs-type1', 'Tyyppi 1', 'Type 1: laulaa', '1️⃣', { types: [1], kpt: false }, [PRESENT_POS], 2, 'minä laulan, hän laulaa'),
+      verbStep('verbs-type2', 'Tyyppi 2', 'Type 2: syödä', '2️⃣', { types: [2], kpt: false }, [PRESENT_POS], 2, 'minä syön, hän syö'),
+      verbStep('verbs-type3', 'Tyyppi 3', 'Type 3: tulla', '3️⃣', { types: [3], kpt: false }, [PRESENT_POS], 2, 'minä tulen, hän tulee'),
+      typeStep('which-type-1-3', [1, 2, 3], 2, false),
+      wordsStep('doing', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
+      verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
+      verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
       sceneStep('doing-talk', 'playdate', 'Leikitään!', 'Playing together'),
     ],
   },
@@ -872,6 +965,29 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'verbs-4',
+    titleFi: 'Avaan, haluan',
+    titleEn: 'Verbs, part 2: type 4',
+    blurbEn: 'The -ata, -ota, -uta family (haluta → haluan) — and verbs whose sound gets STRONGER.',
+    accent: '#0d9488',
+    icon: '🔓',
+    lessonId: 'verb-type4',
+    midLessons: [{ lessonId: 'kpt-4', before: 'verbs-4-kpt-words' }],
+    newWords: [...TYPE4_PLAIN, ...TYPE4_KPT],
+    checkpoint: { perStep: 2, passRatio: 0.8 },
+    skills: [
+      wordsStep('verbs-4', 'verbs', 'Type 4 verbs', TYPE4_PLAIN),
+      verbStep('verbs-type4', 'Tyyppi 4', 'Type 4: avata', '4️⃣', { types: [4], kpt: false }, [PRESENT_POS], 3, 'minä avaan, hän avaa'),
+      verbStep('verbs-type4-not', 'En avaa', "Type 4: I don't", '✋', { types: [4], kpt: false }, [PRESENT_NEG], 2, 'minä en avaa'),
+      typeStep('which-type-1-4', [1, 2, 3, 4], 2),
+      wordsStep('verbs-4', 'verbs', 'Verbs that get stronger', TYPE4_KPT, 'verbs-4-kpt-words'),
+      verbStep('verbs-kpt-4', 'Hyppään, hyppää', 'Type 4: p → pp', '🦘', { types: [4], kpt: true }, [PRESENT_POS], 3, 'minä hyppään, hän hyppää'),
+      verbStep('verbs-kpt-mix', 'Nukun · hyppään', 'Weaker or stronger?', '🔀', { kpt: true }, [PRESENT_POS], 3, 'minä nukun, minä hyppään'),
+      verbStep('verbs-1-4', 'Kaikki tyypit', 'Types 1–4, yes and no', '🏃', undefined, [PRESENT_POS, PRESENT_NEG], 3),
+      sceneStep('verbs-4-talk', 'morning', 'Aamulla', 'In the morning'),
+    ],
+  },
+  {
     id: 'school-day',
     titleFi: 'Koulupäivä',
     titleEn: 'School day',
@@ -998,6 +1114,51 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'comparing',
+    titleFi: 'Isompi, isoin',
+    titleEn: 'Comparing',
+    blurbEn: 'Bigger, faster, older — and the biggest of all: isompi kuin, isoin.',
+    accent: '#16a34a',
+    icon: '🐘',
+    lessonId: 'comparing',
+    newWords: [...COMPARE_ADJECTIVES, ...COMPARE_ANIMALS],
+    skills: [
+      wordsStep('comparing', 'adjectives', 'Comparing words', COMPARE_ADJECTIVES),
+      wordsStep('comparing', 'animals', 'Animals', COMPARE_ANIMALS, 'comparing-animals'),
+      {
+        id: 'degrees',
+        titleFi: 'Iso, isompi, isoin',
+        titleEn: 'Big, bigger, biggest',
+        icon: '📏',
+        activity: 'choose',
+        maxLevel: 2,
+        content: { choose: 'degree' },
+        exampleFi: 'iso → isompi → isoin',
+      },
+      {
+        id: 'compare-two',
+        titleFi: 'Kumpi on isompi?',
+        titleEn: 'Which is bigger?',
+        icon: '⚖️',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'compare' },
+        exampleFi: 'Norsu on isompi kuin hiiri.',
+      },
+      {
+        id: 'the-most',
+        titleFi: 'Mikä on isoin?',
+        titleEn: 'The biggest of all',
+        icon: '🏆',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'superlative' },
+        exampleFi: 'Norsu on isoin.',
+      },
+      sceneStep('comparing-talk', 'at-the-zoo', 'Eläintarhassa', 'At the zoo'),
+    ],
+  },
+  {
     id: 'where',
     titleFi: 'Missä?',
     titleEn: 'Where is it?',
@@ -1114,6 +1275,37 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'by-with',
+    titleFi: 'Bussilla, kynällä',
+    titleEn: 'By bus, with a pen',
+    blurbEn: 'How you go and what you use: bussilla, kynällä — and kaverin kanssa for people.',
+    accent: '#0284c7',
+    icon: '🚌',
+    lessonId: 'by-with',
+    newWords: ['boat', 'plane', 'ship', 'taxi', 'spoon', 'fork', 'key'],
+    skills: [
+      wordsStep('by-with', 'nouns', 'Rides and tools'),
+      phraseStep('go-by', 'Menen bussilla', 'By bus, by car', '🚌', ['go-by'], 'Menen bussilla.'),
+      phraseStep(
+        'with-tools',
+        'Kirjoitan kynällä',
+        'With a pen, with a spoon',
+        '✏️',
+        ['write-with', 'draw-with', 'eat-with', 'play-with-toy', 'open-with'],
+        'Kirjoitan kynällä.',
+      ),
+      phraseStep('with-people', 'Kaverin kanssa', 'With a friend', '🤝', ['with-someone'], 'Leikin kaverin kanssa.'),
+      phraseStep(
+        'by-or-with',
+        'Kynällä vai kanssa?',
+        'Tool or person?',
+        '🔀',
+        ['go-by', 'write-with', 'eat-with', 'play-with-toy', 'with-someone'],
+      ),
+      sceneStep('by-with-talk', 'how-do-you-go', 'Miten menet?', 'How do you go?'),
+    ],
+  },
+  {
     id: 'when',
     titleFi: 'Milloin?',
     titleEn: 'When?',
@@ -1153,6 +1345,87 @@ const UNITS: Chapter[] = [
       ),
       phraseStep('clock', 'Kello on…', 'What time is it?', '⏰', ['clock-is'], 'Kello on kolme.', 'numbers'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
+    ],
+  },
+  {
+    id: 'big-numbers',
+    titleFi: 'Isot numerot',
+    titleEn: 'Big numbers · first, second',
+    blurbEn: 'Count past twelve, by tens to a hundred — and first, second, third.',
+    accent: '#0891b2',
+    icon: '💯',
+    lessonId: 'big-numbers',
+    newWords: [...TEENS, ...TENS, ...ORDINALS],
+    skills: [
+      wordsStep('big-numbers', 'numbers', 'Numbers 13–20', TEENS),
+      {
+        id: 'count-to-20',
+        titleFi: 'Montako?',
+        titleEn: 'Count to 20',
+        icon: '🧮',
+        activity: 'count',
+        maxLevel: 3,
+        pin: { maxCount: 20 },
+        content: {},
+        exampleFi: 'viisitoista palloa',
+      },
+      wordsStep('big-numbers', 'numbers', 'Tens to 100', TENS, 'tens-words'),
+      wordsStep('big-numbers', 'ordinals', 'First, second, third', ORDINALS, 'ordinal-words'),
+      {
+        id: 'three-or-third',
+        titleFi: 'Kolme vai kolmas?',
+        titleEn: 'Three or third?',
+        icon: '🥇',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'ordinal' },
+        exampleFi: 'kolme · kolmas',
+      },
+      sceneStep('big-numbers-talk', 'race', 'Kilpajuoksu', 'A race'),
+    ],
+  },
+  {
+    id: 'birthdays',
+    titleFi: 'Syntymäpäivä',
+    titleEn: 'Months & birthdays',
+    blurbEn: 'The months, dates (viides toukokuuta), your age and your birthday.',
+    accent: '#db2777',
+    icon: '🎂',
+    lessonId: 'birthdays',
+    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...PARTY],
+    skills: [
+      wordsStep('birthdays', 'time', 'The months', [...MONTHS, ...BIRTHDAY_TIME]),
+      phraseStep(
+        'birthday-month',
+        'Syntymäpäiväni on…',
+        'My birthday is in…',
+        '🗓️',
+        ['now-month', 'birthday-in'],
+        'Syntymäpäiväni on toukokuussa.',
+        'time',
+      ),
+      {
+        id: 'dates',
+        titleFi: 'Viides toukokuuta',
+        titleEn: 'Dates',
+        icon: '📅',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'date' },
+        exampleFi: 'viides toukokuuta',
+      },
+      wordsStep('birthdays', 'nouns', 'Party things', PARTY, 'party-words'),
+      {
+        id: 'how-old',
+        titleFi: 'Kuinka vanha olet?',
+        titleEn: 'How old are you?',
+        icon: '🎈',
+        activity: 'choose',
+        maxLevel: 2,
+        content: { choose: 'age' },
+        exampleFi: 'Olen kahdeksan vuotta vanha.',
+      },
+      sceneStep('birthdays-talk', 'birthday-party', 'Synttärit', 'A birthday party'),
     ],
   },
   {
@@ -1261,6 +1534,29 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'verbs-5-6',
+    titleFi: 'Tarvitsen, vanhenen',
+    titleEn: 'Verbs, part 3: types 5 & 6',
+    blurbEn: 'The last two families (tarvita → tarvitsen, vanheta → vanhenen) — then all six together.',
+    accent: '#7c3aed',
+    icon: '👵',
+    lessonId: 'verb-types-5-6',
+    midLessons: [{ lessonId: 'kpt-6', before: 'verbs-6-kpt-words' }],
+    newWords: [...TYPE56_PLAIN, ...TYPE6_KPT],
+    checkpoint: { perStep: 2, passRatio: 0.8 },
+    skills: [
+      wordsStep('verbs-5-6', 'verbs', 'Type 5 & 6 verbs', TYPE56_PLAIN),
+      verbStep('verbs-type5', 'Tyyppi 5', 'Type 5: tarvita', '5️⃣', { types: [5] }, [PRESENT_POS], 2, 'minä tarvitsen, hän tarvitsee'),
+      verbStep('verbs-type5-6', 'Tyypit 5 ja 6', 'Types 5 & 6, yes and no', '6️⃣', { types: [5, 6], kpt: false }, [PRESENT_POS, PRESENT_NEG], 3, 'minä vanhenen, en vanhene'),
+      typeStep('which-type-all', [1, 2, 3, 4, 5, 6], 3),
+      wordsStep('verbs-5-6', 'verbs', 'Type 6 verbs that change', TYPE6_KPT, 'verbs-6-kpt-words'),
+      verbStep('verbs-kpt-6', 'Pakenen', 'Type 6: a k appears', '💨', { types: [6], kpt: true }, [PRESENT_POS], 2, 'minä pakenen, hän pakenee'),
+      verbStep('verbs-kpt-all', 'Heikko vai vahva?', 'All the changing verbs', '🔀', { kpt: true }, [PRESENT_POS, PRESENT_NEG], 3, 'nukun · kuuntelen · hyppään · pakenen'),
+      verbStep('verbs-all-types', 'Kaikki kuusi', 'All six types', '🏃', undefined, [PRESENT_POS, PRESENT_NEG], 3),
+      sceneStep('verbs-5-6-talk', 'drawing-time', 'Piirretään!', "Let's draw!"),
+    ],
+  },
+  {
     id: 'yesterday',
     titleFi: 'Eilen',
     titleEn: 'Yesterday',
@@ -1268,7 +1564,7 @@ const UNITS: Chapter[] = [
     accent: '#a16207',
     icon: '⏮️',
     lessonId: 'past',
-    newWords: ['walk', 'jump', 'dance', 'help', 'cook', 'clean', 'go', 'come', 'see', 'give', 'make'],
+    newWords: ['cook', 'see', 'give', 'make', 'take', 'find', 'bring', 'look'],
     skills: [
       wordsStep('yesterday', 'verbs', 'More action words'),
       {
@@ -1613,12 +1909,22 @@ const TYPING_MINOR = { kind: 'spell' as ActivityKind, fromLevel: 2, every: 4 };
 const typingFrom = UNITS.findIndex((u) => u.id === TYPING_FROM_UNIT);
 
 UNITS.forEach((unit, ui) => {
-  for (const step of unit.skills) {
+  // Words a unit brings in only AFTER a part-way lesson (its KPT verbs) stay
+  // out of the steps before that lesson.
+  const firstMid = Math.min(
+    ...(unit.midLessons ?? []).map((m) => unit.skills.findIndex((s) => s.id === m.before)),
+  );
+  const heldBack = new Set(
+    unit.skills.slice(Math.max(0, firstMid)).flatMap((s) => (Number.isFinite(firstMid) ? s.content.only ?? [] : [])),
+  );
+  const knownBefore = knownByUnit[ui].filter((w) => !heldBack.has(w));
+  unit.skills.forEach((step, si) => {
     const isSentenceStep = step.activities?.join() === 'build,order,order';
     if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
     const scope = step.content.words ?? 'known';
-    if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
-    else if (scope === 'known') step.content.wordIds = knownByUnit[ui];
+    if (step.content.only) step.content.wordIds = step.content.only;
+    else if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
+    else if (scope === 'known') step.content.wordIds = si < firstMid ? knownBefore : knownByUnit[ui];
     if (!unit.unpinned) step.pin = { ...EVERY_TIER, ...step.pin };
     if (step.content.mix) {
       step.content.mixOf = UNITS.slice(0, ui)
@@ -1626,7 +1932,7 @@ UNITS.forEach((unit, ui) => {
         .filter(isMixable)
         .map((s) => s.id);
     }
-  }
+  });
 });
 
 /** Every word id introduced up to and including unit `index` (0-based). */
@@ -1842,6 +2148,49 @@ function scoped(all: LexicalItem[], ids: string[] | undefined, min: number): Lex
   return hit.length >= min ? hit : all;
 }
 
+/**
+ * A verb step's verbs: the words met so far, narrowed by its type/KPT filter
+ * (`content.verbs`). Stable per step. A filtered step keeps its small set —
+ * never padded out with other types — since the set IS the lesson.
+ */
+const STEP_VERBS = new Map<string, LexicalItem[]>();
+function stepVerbs(skill: SkillNode): LexicalItem[] {
+  let cached = STEP_VERBS.get(skill.id);
+  if (!cached) {
+    const filter = skill.content.verbs;
+    cached = filter
+      ? scoped(verbs.items, skill.content.wordIds, 1).filter((v) => matchesVerbFilter(v, filter))
+      : scoped(verbs.items, skill.content.wordIds, 4);
+    STEP_VERBS.set(skill.id, cached);
+  }
+  return cached;
+}
+
+/** Choose-the-form pools for a step — its verbs narrowed like `stepVerbs`. */
+const STEP_CHOOSE = new Map<string, ChoosePools>();
+function stepChoosePools(skill: SkillNode): ChoosePools {
+  let cached = STEP_CHOOSE.get(skill.id);
+  if (!cached) {
+    const base = choosePools(skill.content.wordIds);
+    const filter = skill.content.verbs;
+    if (!filter) cached = base;
+    else {
+      // "Which type?" asks only about verbs whose look matches their type
+      // (kiivetä looks like type 6 but is type 4 — not a fair question).
+      const types = filter.types;
+      cached = {
+        ...base,
+        verbs: base.verbs.filter(
+          (v) => matchesVerbFilter(v, filter) && typeByLook(v.fi) === verbType(v),
+        ),
+        types,
+      };
+    }
+    STEP_CHOOSE.set(skill.id, cached);
+  }
+  return cached;
+}
+
 /** Render one specific activity for a skill, wired to the skill's content scope.
  *  The caller decides WHICH activity (per round, for in-session variety — see
  *  `activityForRound`); this just maps an activity kind to its game component.
@@ -1921,7 +2270,7 @@ export function renderActivity(
         />
       );
     case 'conjugate':
-      return <ConjugateVerb verbs={scoped(verbs.items, wordIds, 4)} onExit={onExit} />;
+      return <ConjugateVerb verbs={stepVerbs(skill)} onExit={onExit} />;
     case 'command':
       // TPR: hear an imperative, tap the action picture. Same utterance→picture
       // mechanic as sentence listening, so it reuses that game with a command
@@ -1951,7 +2300,7 @@ export function renderActivity(
     case 'choose':
       // Choose the right form: answer / ask / do-don't-let's / me-and-you / owners.
       return (
-        <ChooseForm mode={skill.content.choose ?? 'answer'} {...choosePools(wordIds)} onExit={onExit} />
+        <ChooseForm mode={skill.content.choose ?? 'answer'} {...stepChoosePools(skill)} onExit={onExit} />
       );
     case 'possessive':
       // Kenen? — pick the noun form with the right possessive suffix.

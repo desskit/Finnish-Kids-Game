@@ -1133,6 +1133,258 @@
       ]
     },
     {
+      "id": "boat",
+      "word": "vene",
+      "en": "boat",
+      "emoji": "🚤",
+      "inflections": {
+        "nominative_singular": "vene",
+        "nominative_plural": "veneet",
+        "genitive_singular": "veneen",
+        "genitive_plural": "veneiden",
+        "partitive_singular": "venettä",
+        "partitive_plural": "veneitä",
+        "inessive_singular": "veneessä",
+        "inessive_plural": "veneissä",
+        "elative_singular": "veneestä",
+        "elative_plural": "veneistä",
+        "illative_singular": "veneeseen",
+        "illative_plural": "veneisiin",
+        "adessive_singular": "veneellä",
+        "adessive_plural": "veneillä",
+        "ablative_singular": "veneeltä",
+        "ablative_plural": "veneiltä",
+        "allative_singular": "veneelle",
+        "allative_plural": "veneille",
+        "essive_singular": "veneenä",
+        "essive_plural": "veneinä",
+        "translative_singular": "veneeksi",
+        "translative_plural": "veneiksi",
+        "abessive_singular": "veneettä",
+        "abessive_plural": "veneittä",
+        "instructive_plural": "venein",
+        "comitative_plural": "veneineen",
+        "poss_1sg_nominative_singular": "veneeni",
+        "poss_1sg_inessive_singular": "veneessäni",
+        "poss_1sg_adessive_singular": "veneelläni",
+        "poss_2sg_nominative_singular": "veneesi",
+        "poss_2sg_inessive_singular": "veneessäsi",
+        "poss_2sg_adessive_singular": "veneelläsi",
+        "poss_3rd_nominative_singular": "veneensä",
+        "poss_3rd_inessive_singular": "veneessään",
+        "poss_3rd_adessive_singular": "veneellään"
+      },
+      "english": {
+        "plural": "boats"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 3369,
+      "examples": [
+        {
+          "fi": "Olen veneessä.",
+          "en": "I'm on a boat."
+        },
+        {
+          "fi": "Nukuin veneessä.",
+          "en": "I slept on the boat."
+        }
+      ]
+    },
+    {
+      "id": "plane",
+      "word": "lentokone",
+      "en": "plane",
+      "emoji": "🛩️",
+      "inflections": {
+        "nominative_singular": "lentokone",
+        "nominative_plural": "lentokoneet",
+        "genitive_singular": "lentokoneen",
+        "genitive_plural": "lentokoneiden",
+        "partitive_singular": "lentokonetta",
+        "partitive_plural": "lentokoneita",
+        "inessive_singular": "lentokoneessa",
+        "inessive_plural": "lentokoneissa",
+        "elative_singular": "lentokoneesta",
+        "elative_plural": "lentokoneista",
+        "illative_singular": "lentokoneeseen",
+        "illative_plural": "lentokoneisiin",
+        "adessive_singular": "lentokoneella",
+        "adessive_plural": "lentokoneilla",
+        "ablative_singular": "lentokoneelta",
+        "ablative_plural": "lentokoneilta",
+        "allative_singular": "lentokoneelle",
+        "allative_plural": "lentokoneille",
+        "essive_singular": "lentokoneena",
+        "essive_plural": "lentokoneina",
+        "translative_singular": "lentokoneeksi",
+        "translative_plural": "lentokoneiksi",
+        "abessive_singular": "lentokoneetta",
+        "abessive_plural": "lentokoneitta",
+        "instructive_plural": "lentokonein",
+        "comitative_plural": "lentokoneineen",
+        "poss_1sg_nominative_singular": "lentokoneeni",
+        "poss_1sg_inessive_singular": "lentokoneessani",
+        "poss_1sg_adessive_singular": "lentokoneellani",
+        "poss_2sg_nominative_singular": "lentokoneesi",
+        "poss_2sg_inessive_singular": "lentokoneessasi",
+        "poss_2sg_adessive_singular": "lentokoneellasi",
+        "poss_3rd_nominative_singular": "lentokoneensa",
+        "poss_3rd_inessive_singular": "lentokoneessaan",
+        "poss_3rd_adessive_singular": "lentokoneellaan"
+      },
+      "english": {
+        "plural": "planes"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 6422,
+      "examples": [
+        {
+          "fi": "Tom on lentokoneessa.",
+          "en": "Tom is on the plane."
+        },
+        {
+          "fi": "Me jopa kuulimme lentokoneiden äänet.",
+          "en": "We even heard planes."
+        }
+      ]
+    },
+    {
+      "id": "ship",
+      "word": "laiva",
+      "en": "ship",
+      "emoji": "🚢",
+      "inflections": {
+        "nominative_singular": "laiva",
+        "nominative_plural": "laivat",
+        "genitive_singular": "laivan",
+        "genitive_plural": "laivojen",
+        "partitive_singular": "laivaa",
+        "partitive_plural": "laivoja",
+        "inessive_singular": "laivassa",
+        "inessive_plural": "laivoissa",
+        "elative_singular": "laivasta",
+        "elative_plural": "laivoista",
+        "illative_singular": "laivaan",
+        "illative_plural": "laivoihin",
+        "adessive_singular": "laivalla",
+        "adessive_plural": "laivoilla",
+        "ablative_singular": "laivalta",
+        "ablative_plural": "laivoilta",
+        "allative_singular": "laivalle",
+        "allative_plural": "laivoille",
+        "essive_singular": "laivana",
+        "essive_plural": "laivoina",
+        "translative_singular": "laivaksi",
+        "translative_plural": "laivoiksi",
+        "abessive_singular": "laivatta",
+        "abessive_plural": "laivoitta",
+        "instructive_plural": "laivoin",
+        "comitative_plural": "laivoineen",
+        "poss_1sg_nominative_singular": "laivani",
+        "poss_1sg_inessive_singular": "laivassani",
+        "poss_1sg_adessive_singular": "laivallani",
+        "poss_2sg_nominative_singular": "laivasi",
+        "poss_2sg_inessive_singular": "laivassasi",
+        "poss_2sg_adessive_singular": "laivallasi",
+        "poss_3rd_nominative_singular": "laivansa",
+        "poss_3rd_inessive_singular": "laivassaan",
+        "poss_3rd_adessive_singular": "laivallaan"
+      },
+      "english": {
+        "plural": "ships"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 3917,
+      "examples": [
+        {
+          "fi": "Hän on laivassa.",
+          "en": "He is on board the ship."
+        },
+        {
+          "fi": "Tomi on laivassa.",
+          "en": "Tom is on board the ship."
+        }
+      ]
+    },
+    {
+      "id": "taxi",
+      "word": "taksi",
+      "en": "taxi",
+      "emoji": "🚕",
+      "inflections": {
+        "nominative_singular": "taksi",
+        "nominative_plural": "taksit",
+        "genitive_singular": "taksin",
+        "genitive_plural": "taksien",
+        "partitive_singular": "taksia",
+        "partitive_plural": "takseja",
+        "inessive_singular": "taksissa",
+        "inessive_plural": "takseissa",
+        "elative_singular": "taksista",
+        "elative_plural": "takseista",
+        "illative_singular": "taksiin",
+        "illative_plural": "takseihin",
+        "adessive_singular": "taksilla",
+        "adessive_plural": "takseilla",
+        "ablative_singular": "taksilta",
+        "ablative_plural": "takseilta",
+        "allative_singular": "taksille",
+        "allative_plural": "takseille",
+        "essive_singular": "taksina",
+        "essive_plural": "takseina",
+        "translative_singular": "taksiksi",
+        "translative_plural": "takseiksi",
+        "abessive_singular": "taksitta",
+        "abessive_plural": "takseitta",
+        "instructive_plural": "taksein",
+        "comitative_plural": "takseineen",
+        "poss_1sg_nominative_singular": "taksini",
+        "poss_1sg_inessive_singular": "taksissani",
+        "poss_1sg_adessive_singular": "taksillani",
+        "poss_2sg_nominative_singular": "taksisi",
+        "poss_2sg_inessive_singular": "taksissasi",
+        "poss_2sg_adessive_singular": "taksillasi",
+        "poss_3rd_nominative_singular": "taksinsa",
+        "poss_3rd_inessive_singular": "taksissaan",
+        "poss_3rd_adessive_singular": "taksillaan"
+      },
+      "english": {
+        "plural": "taxis"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 4123,
+      "examples": [
+        {
+          "fi": "Synnyin taksissa.",
+          "en": "I was born in a taxi."
+        },
+        {
+          "fi": "Mennään taksilla.",
+          "en": "Let's go by taxi."
+        }
+      ]
+    },
+    {
       "id": "shop",
       "word": "kauppa",
       "en": "shop",

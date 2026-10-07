@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { lessonById } from '../content/lessons';
-import { UNITS, unitStatus } from '../game/course';
+import { UNITS, midLessonStatus, unitStatus } from '../game/course';
 import { useProfile } from '../state/profile';
 
 // The Notebook (Vihko): every lesson from the units the child has opened, to
@@ -26,11 +26,18 @@ export default function Notebook() {
       </div>
       <p className="notebook__intro en">Every rule you've learned, ready to read again.</p>
       <ol className="notebook__list">
-        {open.map(({ u, i }) => {
-          const lesson = lessonById[u.lessonId];
+        {open.flatMap(({ u, i }) =>
+          [
+            u.lessonId,
+            ...(u.midLessons ?? [])
+              .filter((m) => midLessonStatus(activeChild, u, m, unlockAll) !== 'locked')
+              .map((m) => m.lessonId),
+          ].map((id) => ({ u, i, id })),
+        ).map(({ u, i, id }) => {
+          const lesson = lessonById[id];
           if (!lesson) return null;
           return (
-            <li key={u.id}>
+            <li key={id}>
               <Link
                 className="notebook__item"
                 to={`/lesson/${lesson.id}`}

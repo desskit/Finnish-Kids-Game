@@ -29,6 +29,9 @@ export const CONTAINER_TAG = 'container';
 // agreement game only pairs these with animals/family; size/colour/age
 // adjectives pair with anything.
 export const ANIMATE_ONLY_ADJECTIVES = [
+  'young',
+  'strong',
+  'funny',
   'happy',
   'tired',
   'hungry',

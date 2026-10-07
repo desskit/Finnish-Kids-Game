@@ -169,7 +169,9 @@ function ExampleRow({ r }: { r: ResolvedRef }) {
         <span className="lesson-row__fi" lang="fi">
           {r.base && (
             <>
-              <span className="lesson-row__base">{r.base}</span>
+              <span className="lesson-row__base">
+                {r.baseSegments ? <Segments segments={r.baseSegments} /> : r.base}
+              </span>
               <span className="lesson-row__arrow" aria-hidden="true">
                 {' → '}
               </span>
