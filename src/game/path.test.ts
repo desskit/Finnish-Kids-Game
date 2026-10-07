@@ -9,6 +9,8 @@ import {
   activitiesUpTo,
   activityForRound,
   isSpeakable,
+  isMixable,
+  mixStepFor,
   badgeEnv,
 } from './path';
 import { nounConstructions } from '../content/constructions';
@@ -21,11 +23,13 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is twenty units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(20);
-    expect(PATH[0].id).toBe('u1-hello');
+  it('is twenty-four units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(24);
+    expect(PATH[0].id).toBe('hello');
+    // Semantic ids (no unit numbers), so inserting a unit never renames one.
+    for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
     const last = PATH[PATH.length - 1];
-    expect(last.id).toBe('u20-mestari');
+    expect(last.id).toBe('mestari');
     expect(last.checkpoint).toBe(false);
     // Every other unit has a checkpoint (default shape).
     for (const u of PATH.slice(0, -1)) expect(u.checkpoint, u.id).not.toBe(false);
@@ -126,6 +130,31 @@ describe('the course (units × steps)', () => {
     expect(findSkill('verbs-past')!.skill.pin?.verbCombos?.every((c) => c.tense === 'past')).toBe(true);
   });
 
+  it('places a Kertaus (mixed review) step every few units, mixing ALL earlier grammar steps', () => {
+    const mixes = allSkills().filter(({ skill }) => skill.content.mix);
+    expect(mixes.map(({ chapter }) => chapter.id)).toEqual(['not-having', 'school-day', 'moving', 'many']);
+    for (const { chapter, skill } of mixes) {
+      const ui = PATH.indexOf(chapter);
+      const mixOf = skill.content.mixOf!;
+      expect(mixOf.length, skill.id).toBeGreaterThan(2);
+      for (const id of mixOf) {
+        const found = findSkill(id)!;
+        // Only EARLIER units' grammar steps — never words / scenes / other mixes.
+        expect(PATH.indexOf(found.chapter), `${skill.id}: ${id}`).toBeLessThan(ui);
+        expect(isMixable(found.skill), `${skill.id}: ${id}`).toBe(true);
+      }
+    }
+    // The last Kertaus reaches back to the very first grammar unit.
+    expect(mixes[mixes.length - 1].skill.content.mixOf).toContain('this-is');
+  });
+
+  it('rotates a Kertaus step through different earlier steps, segment by segment', () => {
+    const { skill } = findSkill('moving-mix')!;
+    const seen = new Set([0, 1, 2, 3, 4, 5].map((n) => mixStepFor(skill, n)!.skill.id));
+    expect(seen.size).toBe(6); // six segments, six different earlier steps
+    expect(mixStepFor(findSkill('this-is')!.skill, 0)).toBeUndefined();
+  });
+
   it('keeps the expert depth in Mestari (L8–10 ladders)', () => {
     expect(findSkill('verbs-expert')!.skill.maxLevel).toBe(8);
     expect(findSkill('cases-expert')!.skill.maxLevel).toBe(10);
@@ -135,7 +164,7 @@ describe('the course (units × steps)', () => {
   });
 
   it('finds a step and the unit it belongs to', () => {
-    expect(findSkill('this-is')?.chapter.id).toBe('u2-people');
+    expect(findSkill('this-is')?.chapter.id).toBe('people');
     expect(findSkill('nope')).toBeUndefined();
   });
 
@@ -173,12 +202,26 @@ describe('rendering course steps', () => {
   });
 
   it("a 'new words' step only shows its own unit's words", () => {
-    const { skill } = findSkill('u2-words')!;
+    const { skill } = findSkill('people-words')!;
     const el = renderActivity(skill, 'listen', () => {});
     const items = (el!.props as { items: { id: string }[] }).items;
     expect(items.length).toBeGreaterThan(0);
-    const unitWords = new Set(findSkill('u2-words')!.chapter.newWords);
+    const unitWords = new Set(findSkill('people-words')!.chapter.newWords);
     for (const i of items) expect(unitWords.has(i.id), i.id).toBe(true);
+  });
+
+  it('meets EVERY new word in its unit — picture-less words included', () => {
+    // The fix: a words step hands its games every new word, and the picture
+    // games fall back to the English word on the card when there's no emoji.
+    for (const unit of PATH) {
+      const step = unit.skills.find((s) => s.content.words === 'new');
+      if (!step) continue;
+      for (const kind of ['listen', 'name'] as const) {
+        const el = renderActivity(step, kind, () => {});
+        const ids = new Set((el!.props as { items: { id: string }[] }).items.map((i) => i.id));
+        for (const w of unit.newWords) expect(ids.has(w), `${unit.id} ${kind}: ${w}`).toBe(true);
+      }
+    }
   });
 
   it('a practice step never draws a word the child has not met yet', () => {
@@ -191,9 +234,9 @@ describe('rendering course steps', () => {
     expect(items.some((i) => i.id === 'library')).toBe(false);
   });
 
-  it('keeps emoji-less words out of every picture game', () => {
+  it('keeps emoji-less words out of the games that NEED a picture (count / match / yes-no)', () => {
     const { skill } = findSkill('this-is')!;
-    for (const activity of ['listen', 'build', 'count', 'match'] as const) {
+    for (const activity of ['count', 'match', 'yesno'] as const) {
       const el = renderActivity(skill, activity, () => {});
       const props = el!.props as { items?: { emoji?: string }[]; nouns?: { emoji?: string }[] };
       const items = props.items ?? props.nouns ?? [];
@@ -208,15 +251,36 @@ describe('rendering course steps', () => {
     const st = renderActivity(findSkill('past-stories')!.skill, 'story', () => {});
     expect((st!.props as { ids: string[] }).ids).toEqual(['lost-dog', 'birthday-surprise']);
   });
+
+  it('gives every grammar unit its own conversation scene — never the same scene twice', () => {
+    const scenes = PATH.filter((u) => !['chatting', 'sentences', 'mestari'].includes(u.id)).map((u) => {
+      const talk = u.skills.filter((s) => s.activity === 'conversation');
+      expect(talk, u.id).toHaveLength(1);
+      expect(talk[0].content.ids, u.id).toHaveLength(1);
+      return talk[0].content.ids![0];
+    });
+    expect(new Set(scenes).size).toBe(scenes.length);
+  });
 });
 
 describe('in-session game rotation', () => {
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
-    const { skill } = findSkill('this-is')!; // ramp: build, build, order, spell
+    const { skill } = findSkill('this-is')!; // ramp: build, order, spell, spell
     expect(activitiesUpTo(skill, 1)).toEqual(['build']);
-    expect(activitiesUpTo(skill, 3)).toEqual(['build', 'order']);
-    expect(activitiesUpTo(skill, 4)).toEqual(['build', 'order', 'spell']);
+    expect(activitiesUpTo(skill, 2)).toEqual(['build', 'order']);
+    expect(activitiesUpTo(skill, 3)).toEqual(['build', 'order', 'spell']);
     expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order', 'spell']);
+  });
+
+  it('makes a phrase step BUILD sentences before it counts as done', () => {
+    // Done at L3 means L2 — where word-assembly joins — had to be proven, and
+    // the checkpoint asks an assembly question.
+    for (const id of ['this-is', 'i-like', 'in-on', 'where-i-am', 'today-is']) {
+      const { skill } = findSkill(id)!;
+      expect(skill.doneAtLevel, id).toBe(3);
+      expect(activitiesUpTo(skill, 2), id).toContain('order');
+      expect(skill.checkpoint, id).toBe('order');
+    }
   });
 
   it('a single-activity step always serves that one game', () => {
@@ -236,7 +300,7 @@ describe('in-session game rotation', () => {
   });
 
   it('folds `say` in from level 2 only when speech is available — never on level 1', () => {
-    const words = findSkill('u2-words')!.skill;
+    const words = findSkill('people-words')!.skill;
     expect([0, 1, 2, 3].map((n) => activityForRound(words, 3, n))).not.toContain('say');
     expect(new Set([0, 1, 2, 3].map((n) => activityForRound(words, 3, n, true))).has('say')).toBe(true);
     expect(activityForRound(words, 1, 0, true)).toBe('listen');

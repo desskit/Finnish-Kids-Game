@@ -10,6 +10,8 @@ import natureData from './data/nature.sourced.json';
 import clothesData from './data/clothes.sourced.json';
 import schoolData from './data/school.sourced.json';
 import freetimeData from './data/freetime.sourced.json';
+import timeData from './data/time.sourced.json';
+import statesData from './data/states.sourced.json';
 import { nounConstructions } from './constructions';
 import type { Construction, EnglishMorph, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -136,6 +138,13 @@ export const freetime = toTheme(freetimeData as unknown as SourcedFile, nounCons
   countable: true,
 });
 
+// When? — days, parts of the day, seasons. Reviewable (in `themes`), but kept
+// OUT of the mixed noun pool in path.tsx so they only fill their own carriers.
+export const time = toTheme(timeData as unknown as SourcedFile, nounConstructions);
+// "Minulla on nälkä / jano" — feelings as nouns. Only the Feelings unit uses
+// them; not a reviewable topic.
+export const states = toTheme(statesData as unknown as SourcedFile, nounConstructions);
+
 // Adjectives are content for the (later) adjective+noun agreement exercises.
 // Exported for use by the round builder, but intentionally NOT added to
 // `themes` — it is not a standalone play topic in the home UI.
@@ -156,6 +165,7 @@ export const themes: Theme[] = [
   clothes,
   school,
   freetime,
+  time,
 ];
 
 // Every vocabulary item the Review activity can quiz, across all topics. These

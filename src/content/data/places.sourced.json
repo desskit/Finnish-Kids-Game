@@ -179,7 +179,8 @@
         "plural": "houses"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 1,
       "group": "o_oe",
@@ -241,7 +242,8 @@
         "plural": "rooms"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 48,
       "group": "other_cons",
@@ -304,7 +306,8 @@
       },
       "tags": [
         "surface",
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 1,
       "group": "o_oe",
@@ -367,7 +370,8 @@
       },
       "tags": [
         "surface",
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 1,
       "group": "o_oe",
@@ -491,7 +495,8 @@
         "plural": "schools"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 1,
       "group": "o_oe",
@@ -615,7 +620,8 @@
         "plural": "forests"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 10,
       "group": "a_ae",
@@ -801,7 +807,8 @@
         "plural": "windows"
       },
       "tags": [
-        "surface"
+        "surface",
+        "person-on"
       ],
       "kotusType": 12,
       "group": "a_ae",
@@ -862,7 +869,8 @@
         "plural": "doors"
       },
       "tags": [
-        "surface"
+        "surface",
+        "person-on"
       ],
       "kotusType": 7,
       "group": "i_old",
@@ -923,7 +931,8 @@
         "plural": "kitchens"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 3,
       "group": "o_oe",
@@ -984,7 +993,8 @@
         "plural": "gardens"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 9,
       "group": "a_ae",
@@ -1046,7 +1056,8 @@
         "plural": "buses"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 5,
       "group": "i_new",
@@ -1108,7 +1119,8 @@
         "plural": "trains"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 10,
       "group": "a_ae",
@@ -1166,7 +1178,8 @@
         "plural": "shops"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 9,
       "group": "a_ae",
@@ -1228,7 +1241,8 @@
         "plural": "libraries"
       },
       "tags": [
-        "container"
+        "container",
+        "person-in"
       ],
       "kotusType": 2,
       "group": "u_y",
@@ -1241,6 +1255,942 @@
         {
           "fi": "Olen ollut kirjastossa.",
           "en": "I've been to the library."
+        }
+      ]
+    },
+    {
+      "id": "park",
+      "word": "puisto",
+      "en": "park",
+      "emoji": "🛝",
+      "inflections": {
+        "nominative_singular": "puisto",
+        "nominative_plural": "puistot",
+        "genitive_singular": "puiston",
+        "genitive_plural": "puistojen",
+        "partitive_singular": "puistoa",
+        "partitive_plural": "puistoja",
+        "inessive_singular": "puistossa",
+        "inessive_plural": "puistoissa",
+        "elative_singular": "puistosta",
+        "elative_plural": "puistoista",
+        "illative_singular": "puistoon",
+        "illative_plural": "puistoihin",
+        "adessive_singular": "puistolla",
+        "adessive_plural": "puistoilla",
+        "ablative_singular": "puistolta",
+        "ablative_plural": "puistoilta",
+        "allative_singular": "puistolle",
+        "allative_plural": "puistoille",
+        "essive_singular": "puistona",
+        "essive_plural": "puistoina",
+        "translative_singular": "puistoksi",
+        "translative_plural": "puistoiksi",
+        "abessive_singular": "puistotta",
+        "abessive_plural": "puistoitta",
+        "instructive_plural": "puistoin",
+        "comitative_plural": "puistoineen",
+        "poss_1sg_nominative_singular": "puistoni",
+        "poss_1sg_inessive_singular": "puistossani",
+        "poss_1sg_adessive_singular": "puistollani",
+        "poss_2sg_nominative_singular": "puistosi",
+        "poss_2sg_inessive_singular": "puistossasi",
+        "poss_2sg_adessive_singular": "puistollasi",
+        "poss_3rd_nominative_singular": "puistonsa",
+        "poss_3rd_inessive_singular": "puistossaan",
+        "poss_3rd_adessive_singular": "puistollaan"
+      },
+      "english": {
+        "plural": "parks"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 5218,
+      "examples": [
+        {
+          "fi": "Tom on puistossa.",
+          "en": "Tom is in the park."
+        },
+        {
+          "fi": "Näin hänet puistossa.",
+          "en": "I saw him in the park."
+        }
+      ]
+    },
+    {
+      "id": "hospital",
+      "word": "sairaala",
+      "en": "hospital",
+      "emoji": "🏥",
+      "inflections": {
+        "nominative_singular": "sairaala",
+        "nominative_plural": "sairaalat",
+        "genitive_singular": "sairaalan",
+        "genitive_plural": "sairaaloiden",
+        "partitive_singular": "sairaalaa",
+        "partitive_plural": "sairaaloita",
+        "inessive_singular": "sairaalassa",
+        "inessive_plural": "sairaaloissa",
+        "elative_singular": "sairaalasta",
+        "elative_plural": "sairaaloista",
+        "illative_singular": "sairaalaan",
+        "illative_plural": "sairaaloihin",
+        "adessive_singular": "sairaalalla",
+        "adessive_plural": "sairaaloilla",
+        "ablative_singular": "sairaalalta",
+        "ablative_plural": "sairaaloilta",
+        "allative_singular": "sairaalalle",
+        "allative_plural": "sairaaloille",
+        "essive_singular": "sairaalana",
+        "essive_plural": "sairaaloina",
+        "translative_singular": "sairaalaksi",
+        "translative_plural": "sairaaloiksi",
+        "abessive_singular": "sairaalatta",
+        "abessive_plural": "sairaaloitta",
+        "instructive_plural": "sairaaloin",
+        "comitative_plural": "sairaaloineen",
+        "poss_1sg_nominative_singular": "sairaalani",
+        "poss_1sg_inessive_singular": "sairaalassani",
+        "poss_1sg_adessive_singular": "sairaalallani",
+        "poss_2sg_nominative_singular": "sairaalasi",
+        "poss_2sg_inessive_singular": "sairaalassasi",
+        "poss_2sg_adessive_singular": "sairaalallasi",
+        "poss_3rd_nominative_singular": "sairaalansa",
+        "poss_3rd_inessive_singular": "sairaalassaan",
+        "poss_3rd_adessive_singular": "sairaalallaan"
+      },
+      "english": {
+        "plural": "hospitals"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 13,
+      "group": "a_ae",
+      "frequencyRank": 1385,
+      "examples": [
+        {
+          "fi": "Olen sairaalassa.",
+          "en": "I'm in the hospital."
+        },
+        {
+          "fi": "Hän on sairaalassa.",
+          "en": "He is in hospital."
+        }
+      ]
+    },
+    {
+      "id": "station",
+      "word": "asema",
+      "en": "station",
+      "emoji": "🚉",
+      "inflections": {
+        "nominative_singular": "asema",
+        "nominative_plural": "asemat",
+        "genitive_singular": "aseman",
+        "genitive_plural": "asemien",
+        "partitive_singular": "asemaa",
+        "partitive_plural": "asemia",
+        "inessive_singular": "asemassa",
+        "inessive_plural": "asemissa",
+        "elative_singular": "asemasta",
+        "elative_plural": "asemista",
+        "illative_singular": "asemaan",
+        "illative_plural": "asemiin",
+        "adessive_singular": "asemalla",
+        "adessive_plural": "asemilla",
+        "ablative_singular": "asemalta",
+        "ablative_plural": "asemilta",
+        "allative_singular": "asemalle",
+        "allative_plural": "asemille",
+        "essive_singular": "asemana",
+        "essive_plural": "asemina",
+        "translative_singular": "asemaksi",
+        "translative_plural": "asemiksi",
+        "abessive_singular": "asematta",
+        "abessive_plural": "asemitta",
+        "instructive_plural": "asemin",
+        "comitative_plural": "asemineen",
+        "poss_1sg_nominative_singular": "asemani",
+        "poss_1sg_inessive_singular": "asemassani",
+        "poss_1sg_adessive_singular": "asemallani",
+        "poss_2sg_nominative_singular": "asemasi",
+        "poss_2sg_inessive_singular": "asemassasi",
+        "poss_2sg_adessive_singular": "asemallasi",
+        "poss_3rd_nominative_singular": "asemansa",
+        "poss_3rd_inessive_singular": "asemassaan",
+        "poss_3rd_adessive_singular": "asemallaan"
+      },
+      "english": {
+        "plural": "stations"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3865,
+      "examples": [
+        {
+          "fi": "rautatieasema",
+          "en": "railway station"
+        }
+      ]
+    },
+    {
+      "id": "museum",
+      "word": "museo",
+      "en": "museum",
+      "emoji": "🏛️",
+      "inflections": {
+        "nominative_singular": "museo",
+        "nominative_plural": "museot",
+        "genitive_singular": "museon",
+        "genitive_plural": "museoiden",
+        "partitive_singular": "museota",
+        "partitive_plural": "museoita",
+        "inessive_singular": "museossa",
+        "inessive_plural": "museoissa",
+        "elative_singular": "museosta",
+        "elative_plural": "museoista",
+        "illative_singular": "museoon",
+        "illative_plural": "museoihin",
+        "adessive_singular": "museolla",
+        "adessive_plural": "museoilla",
+        "ablative_singular": "museolta",
+        "ablative_plural": "museoilta",
+        "allative_singular": "museolle",
+        "allative_plural": "museoille",
+        "essive_singular": "museona",
+        "essive_plural": "museoina",
+        "translative_singular": "museoksi",
+        "translative_plural": "museoiksi",
+        "abessive_singular": "museotta",
+        "abessive_plural": "museoitta",
+        "instructive_plural": "museoin",
+        "comitative_plural": "museoineen",
+        "poss_1sg_nominative_singular": "museoni",
+        "poss_1sg_inessive_singular": "museossani",
+        "poss_1sg_adessive_singular": "museollani",
+        "poss_2sg_nominative_singular": "museosi",
+        "poss_2sg_inessive_singular": "museossasi",
+        "poss_2sg_adessive_singular": "museollasi",
+        "poss_3rd_nominative_singular": "museonsa",
+        "poss_3rd_inessive_singular": "museossaan",
+        "poss_3rd_adessive_singular": "museollaan"
+      },
+      "english": {
+        "plural": "museums"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 3,
+      "group": "o_oe",
+      "frequencyRank": 13555,
+      "examples": [
+        {
+          "fi": "Käyn hyvin harvoin museoissa.",
+          "en": "I hardly ever go to museums."
+        },
+        {
+          "fi": "Olemme valinneet hotellin läheltä museoita.",
+          "en": "We've chosen a hotel near the museums."
+        }
+      ]
+    },
+    {
+      "id": "restaurant",
+      "word": "ravintola",
+      "en": "restaurant",
+      "emoji": "🍴",
+      "inflections": {
+        "nominative_singular": "ravintola",
+        "nominative_plural": "ravintolat",
+        "genitive_singular": "ravintolan",
+        "genitive_plural": "ravintoloiden",
+        "partitive_singular": "ravintolaa",
+        "partitive_plural": "ravintoloita",
+        "inessive_singular": "ravintolassa",
+        "inessive_plural": "ravintoloissa",
+        "elative_singular": "ravintolasta",
+        "elative_plural": "ravintoloista",
+        "illative_singular": "ravintolaan",
+        "illative_plural": "ravintoloihin",
+        "adessive_singular": "ravintolalla",
+        "adessive_plural": "ravintoloilla",
+        "ablative_singular": "ravintolalta",
+        "ablative_plural": "ravintoloilta",
+        "allative_singular": "ravintolalle",
+        "allative_plural": "ravintoloille",
+        "essive_singular": "ravintolana",
+        "essive_plural": "ravintoloina",
+        "translative_singular": "ravintolaksi",
+        "translative_plural": "ravintoloiksi",
+        "abessive_singular": "ravintolatta",
+        "abessive_plural": "ravintoloitta",
+        "instructive_plural": "ravintoloin",
+        "comitative_plural": "ravintoloineen",
+        "poss_1sg_nominative_singular": "ravintolani",
+        "poss_1sg_inessive_singular": "ravintolassani",
+        "poss_1sg_adessive_singular": "ravintolallani",
+        "poss_2sg_nominative_singular": "ravintolasi",
+        "poss_2sg_inessive_singular": "ravintolassasi",
+        "poss_2sg_adessive_singular": "ravintolallasi",
+        "poss_3rd_nominative_singular": "ravintolansa",
+        "poss_3rd_inessive_singular": "ravintolassaan",
+        "poss_3rd_adessive_singular": "ravintolallaan"
+      },
+      "english": {
+        "plural": "restaurants"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 4956,
+      "examples": [
+        {
+          "fi": "Bostonissa on monia hyviä ravintoloita.",
+          "en": "There are many good restaurants in Boston."
+        }
+      ]
+    },
+    {
+      "id": "cafe",
+      "word": "kahvila",
+      "en": "cafe",
+      "emoji": "☕",
+      "inflections": {
+        "nominative_singular": "kahvila",
+        "nominative_plural": "kahvilat",
+        "genitive_singular": "kahvilan",
+        "genitive_plural": "kahviloiden",
+        "partitive_singular": "kahvilaa",
+        "partitive_plural": "kahviloita",
+        "inessive_singular": "kahvilassa",
+        "inessive_plural": "kahviloissa",
+        "elative_singular": "kahvilasta",
+        "elative_plural": "kahviloista",
+        "illative_singular": "kahvilaan",
+        "illative_plural": "kahviloihin",
+        "adessive_singular": "kahvilalla",
+        "adessive_plural": "kahviloilla",
+        "ablative_singular": "kahvilalta",
+        "ablative_plural": "kahviloilta",
+        "allative_singular": "kahvilalle",
+        "allative_plural": "kahviloille",
+        "essive_singular": "kahvilana",
+        "essive_plural": "kahviloina",
+        "translative_singular": "kahvilaksi",
+        "translative_plural": "kahviloiksi",
+        "abessive_singular": "kahvilatta",
+        "abessive_plural": "kahviloitta",
+        "instructive_plural": "kahviloin",
+        "comitative_plural": "kahviloineen",
+        "poss_1sg_nominative_singular": "kahvilani",
+        "poss_1sg_inessive_singular": "kahvilassani",
+        "poss_1sg_adessive_singular": "kahvilallani",
+        "poss_2sg_nominative_singular": "kahvilasi",
+        "poss_2sg_inessive_singular": "kahvilassasi",
+        "poss_2sg_adessive_singular": "kahvilallasi",
+        "poss_3rd_nominative_singular": "kahvilansa",
+        "poss_3rd_inessive_singular": "kahvilassaan",
+        "poss_3rd_adessive_singular": "kahvilallaan"
+      },
+      "english": {
+        "plural": "cafes"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 7717,
+      "examples": [
+        {
+          "fi": "Tavataan kahvilassa.",
+          "en": "Meet me down in the coffee shop."
+        },
+        {
+          "fi": "Pidimme hauskaa kahvilassa.",
+          "en": "We had a good time at a coffee shop."
+        }
+      ]
+    },
+    {
+      "id": "city",
+      "word": "kaupunki",
+      "en": "city",
+      "emoji": "🏙️",
+      "inflections": {
+        "nominative_singular": "kaupunki",
+        "nominative_plural": "kaupungit",
+        "genitive_singular": "kaupungin",
+        "genitive_plural": "kaupunkien",
+        "partitive_singular": "kaupunkia",
+        "partitive_plural": "kaupunkeja",
+        "inessive_singular": "kaupungissa",
+        "inessive_plural": "kaupungeissa",
+        "elative_singular": "kaupungista",
+        "elative_plural": "kaupungeista",
+        "illative_singular": "kaupunkiin",
+        "illative_plural": "kaupunkeihin",
+        "adessive_singular": "kaupungilla",
+        "adessive_plural": "kaupungeilla",
+        "ablative_singular": "kaupungilta",
+        "ablative_plural": "kaupungeilta",
+        "allative_singular": "kaupungille",
+        "allative_plural": "kaupungeille",
+        "essive_singular": "kaupunkina",
+        "essive_plural": "kaupunkeina",
+        "translative_singular": "kaupungiksi",
+        "translative_plural": "kaupungeiksi",
+        "abessive_singular": "kaupungitta",
+        "abessive_plural": "kaupungeitta",
+        "instructive_plural": "kaupungein",
+        "comitative_plural": "kaupunkeineen",
+        "poss_1sg_nominative_singular": "kaupunkini",
+        "poss_1sg_inessive_singular": "kaupungissani",
+        "poss_1sg_adessive_singular": "kaupungillani",
+        "poss_2sg_nominative_singular": "kaupunkisi",
+        "poss_2sg_inessive_singular": "kaupungissasi",
+        "poss_2sg_adessive_singular": "kaupungillasi",
+        "poss_3rd_nominative_singular": "kaupunkinsa",
+        "poss_3rd_inessive_singular": "kaupungissaan",
+        "poss_3rd_adessive_singular": "kaupungillaan"
+      },
+      "english": {
+        "plural": "cities"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 1013,
+      "examples": [
+        {
+          "fi": "En pidä isoista kaupungeista.",
+          "en": "I dislike big cities."
+        },
+        {
+          "fi": "Se on yksi maailman suurimmista kaupungeista.",
+          "en": "It's one of the largest cities in the world."
+        }
+      ]
+    },
+    {
+      "id": "market",
+      "word": "tori",
+      "en": "market",
+      "emoji": "🛍️",
+      "inflections": {
+        "nominative_singular": "tori",
+        "nominative_plural": "torit",
+        "genitive_singular": "torin",
+        "genitive_plural": "torien",
+        "partitive_singular": "toria",
+        "partitive_plural": "toreja",
+        "inessive_singular": "torissa",
+        "inessive_plural": "toreissa",
+        "elative_singular": "torista",
+        "elative_plural": "toreista",
+        "illative_singular": "toriin",
+        "illative_plural": "toreihin",
+        "adessive_singular": "torilla",
+        "adessive_plural": "toreilla",
+        "ablative_singular": "torilta",
+        "ablative_plural": "toreilta",
+        "allative_singular": "torille",
+        "allative_plural": "toreille",
+        "essive_singular": "torina",
+        "essive_plural": "toreina",
+        "translative_singular": "toriksi",
+        "translative_plural": "toreiksi",
+        "abessive_singular": "toritta",
+        "abessive_plural": "toreitta",
+        "instructive_plural": "torein",
+        "comitative_plural": "toreineen",
+        "poss_1sg_nominative_singular": "torini",
+        "poss_1sg_inessive_singular": "torissani",
+        "poss_1sg_adessive_singular": "torillani",
+        "poss_2sg_nominative_singular": "torisi",
+        "poss_2sg_inessive_singular": "torissasi",
+        "poss_2sg_adessive_singular": "torillasi",
+        "poss_3rd_nominative_singular": "torinsa",
+        "poss_3rd_inessive_singular": "torissaan",
+        "poss_3rd_adessive_singular": "torillaan"
+      },
+      "english": {
+        "plural": "markets"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 15888,
+      "examples": [
+        {
+          "fi": "Xavier myy kurpitsaleipää torilla.",
+          "en": "Xavier sells pumpkin bread in the market."
+        },
+        {
+          "fi": "Näin tiedät-kyllä-kenet tänään torilla.",
+          "en": "I saw you-know-who at the market today."
+        }
+      ]
+    },
+    {
+      "id": "zoo",
+      "word": "eläintarha",
+      "en": "zoo",
+      "emoji": "🦒",
+      "inflections": {
+        "nominative_singular": "eläintarha",
+        "nominative_plural": "eläintarhat",
+        "genitive_singular": "eläintarhan",
+        "genitive_plural": "eläintarhojen",
+        "partitive_singular": "eläintarhaa",
+        "partitive_plural": "eläintarhoja",
+        "inessive_singular": "eläintarhassa",
+        "inessive_plural": "eläintarhoissa",
+        "elative_singular": "eläintarhasta",
+        "elative_plural": "eläintarhoista",
+        "illative_singular": "eläintarhaan",
+        "illative_plural": "eläintarhoihin",
+        "adessive_singular": "eläintarhalla",
+        "adessive_plural": "eläintarhoilla",
+        "ablative_singular": "eläintarhalta",
+        "ablative_plural": "eläintarhoilta",
+        "allative_singular": "eläintarhalle",
+        "allative_plural": "eläintarhoille",
+        "essive_singular": "eläintarhana",
+        "essive_plural": "eläintarhoina",
+        "translative_singular": "eläintarhaksi",
+        "translative_plural": "eläintarhoiksi",
+        "abessive_singular": "eläintarhatta",
+        "abessive_plural": "eläintarhoitta",
+        "instructive_plural": "eläintarhoin",
+        "comitative_plural": "eläintarhoineen",
+        "poss_1sg_nominative_singular": "eläintarhani",
+        "poss_1sg_inessive_singular": "eläintarhassani",
+        "poss_1sg_adessive_singular": "eläintarhallani",
+        "poss_2sg_nominative_singular": "eläintarhasi",
+        "poss_2sg_inessive_singular": "eläintarhassasi",
+        "poss_2sg_adessive_singular": "eläintarhallasi",
+        "poss_3rd_nominative_singular": "eläintarhansa",
+        "poss_3rd_inessive_singular": "eläintarhassaan",
+        "poss_3rd_adessive_singular": "eläintarhallaan"
+      },
+      "english": {
+        "plural": "zoos"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 18235,
+      "examples": [
+        {
+          "fi": "Kävin eilen eläintarhassa.",
+          "en": "I went to the zoo yesterday."
+        },
+        {
+          "fi": "Näin seepran eläintarhassa.",
+          "en": "I saw a zebra at the zoo."
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "word": "kenttä",
+      "en": "field",
+      "emoji": "🏟️",
+      "inflections": {
+        "nominative_singular": "kenttä",
+        "nominative_plural": "kentät",
+        "genitive_singular": "kentän",
+        "genitive_plural": "kenttien",
+        "partitive_singular": "kenttää",
+        "partitive_plural": "kenttiä",
+        "inessive_singular": "kentässä",
+        "inessive_plural": "kentissä",
+        "elative_singular": "kentästä",
+        "elative_plural": "kentistä",
+        "illative_singular": "kenttään",
+        "illative_plural": "kenttiin",
+        "adessive_singular": "kentällä",
+        "adessive_plural": "kentillä",
+        "ablative_singular": "kentältä",
+        "ablative_plural": "kentiltä",
+        "allative_singular": "kentälle",
+        "allative_plural": "kentille",
+        "essive_singular": "kenttänä",
+        "essive_plural": "kenttinä",
+        "translative_singular": "kentäksi",
+        "translative_plural": "kentiksi",
+        "abessive_singular": "kentättä",
+        "abessive_plural": "kentittä",
+        "instructive_plural": "kentin",
+        "comitative_plural": "kenttineen",
+        "poss_1sg_nominative_singular": "kenttäni",
+        "poss_1sg_inessive_singular": "kentässäni",
+        "poss_1sg_adessive_singular": "kentälläni",
+        "poss_2sg_nominative_singular": "kenttäsi",
+        "poss_2sg_inessive_singular": "kentässäsi",
+        "poss_2sg_adessive_singular": "kentälläsi",
+        "poss_3rd_nominative_singular": "kenttänsä",
+        "poss_3rd_inessive_singular": "kentässään",
+        "poss_3rd_adessive_singular": "kentällään"
+      },
+      "english": {
+        "plural": "fields"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 4659,
+      "examples": [
+        {
+          "fi": "kenttäsairaala",
+          "en": "field hospital"
+        },
+        {
+          "fi": "Herra Wood tuli kentälle.",
+          "en": "Mr Wood came into the field."
+        }
+      ]
+    },
+    {
+      "id": "living-room",
+      "word": "olohuone",
+      "en": "living room",
+      "inflections": {
+        "nominative_singular": "olohuone",
+        "nominative_plural": "olohuoneet",
+        "genitive_singular": "olohuoneen",
+        "genitive_plural": "olohuoneiden",
+        "partitive_singular": "olohuonetta",
+        "partitive_plural": "olohuoneita",
+        "inessive_singular": "olohuoneessa",
+        "inessive_plural": "olohuoneissa",
+        "elative_singular": "olohuoneesta",
+        "elative_plural": "olohuoneista",
+        "illative_singular": "olohuoneeseen",
+        "illative_plural": "olohuoneisiin",
+        "adessive_singular": "olohuoneella",
+        "adessive_plural": "olohuoneilla",
+        "ablative_singular": "olohuoneelta",
+        "ablative_plural": "olohuoneilta",
+        "allative_singular": "olohuoneelle",
+        "allative_plural": "olohuoneille",
+        "essive_singular": "olohuoneena",
+        "essive_plural": "olohuoneina",
+        "translative_singular": "olohuoneeksi",
+        "translative_plural": "olohuoneiksi",
+        "abessive_singular": "olohuoneetta",
+        "abessive_plural": "olohuoneitta",
+        "instructive_plural": "olohuonein",
+        "comitative_plural": "olohuoneineen",
+        "poss_1sg_nominative_singular": "olohuoneeni",
+        "poss_1sg_inessive_singular": "olohuoneessani",
+        "poss_1sg_adessive_singular": "olohuoneellani",
+        "poss_2sg_nominative_singular": "olohuoneesi",
+        "poss_2sg_inessive_singular": "olohuoneessasi",
+        "poss_2sg_adessive_singular": "olohuoneellasi",
+        "poss_3rd_nominative_singular": "olohuoneensa",
+        "poss_3rd_inessive_singular": "olohuoneessaan",
+        "poss_3rd_adessive_singular": "olohuoneellaan"
+      },
+      "english": {
+        "plural": "living rooms"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 10858,
+      "examples": [
+        {
+          "fi": "Olen olohuoneessa.",
+          "en": "I'm in the living room."
+        },
+        {
+          "fi": "Tom palasi olohuoneeseen.",
+          "en": "Tom returned to the living room."
+        }
+      ]
+    },
+    {
+      "id": "bedroom",
+      "word": "makuuhuone",
+      "en": "bedroom",
+      "emoji": "🛌",
+      "inflections": {
+        "nominative_singular": "makuuhuone",
+        "nominative_plural": "makuuhuoneet",
+        "genitive_singular": "makuuhuoneen",
+        "genitive_plural": "makuuhuoneiden",
+        "partitive_singular": "makuuhuonetta",
+        "partitive_plural": "makuuhuoneita",
+        "inessive_singular": "makuuhuoneessa",
+        "inessive_plural": "makuuhuoneissa",
+        "elative_singular": "makuuhuoneesta",
+        "elative_plural": "makuuhuoneista",
+        "illative_singular": "makuuhuoneeseen",
+        "illative_plural": "makuuhuoneisiin",
+        "adessive_singular": "makuuhuoneella",
+        "adessive_plural": "makuuhuoneilla",
+        "ablative_singular": "makuuhuoneelta",
+        "ablative_plural": "makuuhuoneilta",
+        "allative_singular": "makuuhuoneelle",
+        "allative_plural": "makuuhuoneille",
+        "essive_singular": "makuuhuoneena",
+        "essive_plural": "makuuhuoneina",
+        "translative_singular": "makuuhuoneeksi",
+        "translative_plural": "makuuhuoneiksi",
+        "abessive_singular": "makuuhuoneetta",
+        "abessive_plural": "makuuhuoneitta",
+        "instructive_plural": "makuuhuonein",
+        "comitative_plural": "makuuhuoneineen",
+        "poss_1sg_nominative_singular": "makuuhuoneeni",
+        "poss_1sg_inessive_singular": "makuuhuoneessani",
+        "poss_1sg_adessive_singular": "makuuhuoneellani",
+        "poss_2sg_nominative_singular": "makuuhuoneesi",
+        "poss_2sg_inessive_singular": "makuuhuoneessasi",
+        "poss_2sg_adessive_singular": "makuuhuoneellasi",
+        "poss_3rd_nominative_singular": "makuuhuoneensa",
+        "poss_3rd_inessive_singular": "makuuhuoneessaan",
+        "poss_3rd_adessive_singular": "makuuhuoneellaan"
+      },
+      "english": {
+        "plural": "bedrooms"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 9329,
+      "examples": [
+        {
+          "fi": "Hän tuli makuuhuoneeseen.",
+          "en": "He came into the bedroom."
+        },
+        {
+          "fi": "Tomin asunnossa on kolme makuuhuonetta.",
+          "en": "Tom's apartment has three bedrooms."
+        }
+      ]
+    },
+    {
+      "id": "bathroom",
+      "word": "kylpyhuone",
+      "en": "bathroom",
+      "emoji": "🛁",
+      "inflections": {
+        "nominative_singular": "kylpyhuone",
+        "nominative_plural": "kylpyhuoneet",
+        "genitive_singular": "kylpyhuoneen",
+        "genitive_plural": "kylpyhuoneiden",
+        "partitive_singular": "kylpyhuonetta",
+        "partitive_plural": "kylpyhuoneita",
+        "inessive_singular": "kylpyhuoneessa",
+        "inessive_plural": "kylpyhuoneissa",
+        "elative_singular": "kylpyhuoneesta",
+        "elative_plural": "kylpyhuoneista",
+        "illative_singular": "kylpyhuoneeseen",
+        "illative_plural": "kylpyhuoneisiin",
+        "adessive_singular": "kylpyhuoneella",
+        "adessive_plural": "kylpyhuoneilla",
+        "ablative_singular": "kylpyhuoneelta",
+        "ablative_plural": "kylpyhuoneilta",
+        "allative_singular": "kylpyhuoneelle",
+        "allative_plural": "kylpyhuoneille",
+        "essive_singular": "kylpyhuoneena",
+        "essive_plural": "kylpyhuoneina",
+        "translative_singular": "kylpyhuoneeksi",
+        "translative_plural": "kylpyhuoneiksi",
+        "abessive_singular": "kylpyhuoneetta",
+        "abessive_plural": "kylpyhuoneitta",
+        "instructive_plural": "kylpyhuonein",
+        "comitative_plural": "kylpyhuoneineen",
+        "poss_1sg_nominative_singular": "kylpyhuoneeni",
+        "poss_1sg_inessive_singular": "kylpyhuoneessani",
+        "poss_1sg_adessive_singular": "kylpyhuoneellani",
+        "poss_2sg_nominative_singular": "kylpyhuoneesi",
+        "poss_2sg_inessive_singular": "kylpyhuoneessasi",
+        "poss_2sg_adessive_singular": "kylpyhuoneellasi",
+        "poss_3rd_nominative_singular": "kylpyhuoneensa",
+        "poss_3rd_inessive_singular": "kylpyhuoneessaan",
+        "poss_3rd_adessive_singular": "kylpyhuoneellaan"
+      },
+      "english": {
+        "plural": "bathrooms"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 11955,
+      "examples": [
+        {
+          "fi": "Hän on kylpyhuoneessa.",
+          "en": "She is in the bathroom."
+        },
+        {
+          "fi": "Tom meni kylpyhuoneeseen.",
+          "en": "Tom went to the bathroom."
+        }
+      ]
+    },
+    {
+      "id": "sofa",
+      "word": "sohva",
+      "en": "sofa",
+      "emoji": "🛋️",
+      "inflections": {
+        "nominative_singular": "sohva",
+        "nominative_plural": "sohvat",
+        "genitive_singular": "sohvan",
+        "genitive_plural": "sohvien",
+        "partitive_singular": "sohvaa",
+        "partitive_plural": "sohvia",
+        "inessive_singular": "sohvassa",
+        "inessive_plural": "sohvissa",
+        "elative_singular": "sohvasta",
+        "elative_plural": "sohvista",
+        "illative_singular": "sohvaan",
+        "illative_plural": "sohviin",
+        "adessive_singular": "sohvalla",
+        "adessive_plural": "sohvilla",
+        "ablative_singular": "sohvalta",
+        "ablative_plural": "sohvilta",
+        "allative_singular": "sohvalle",
+        "allative_plural": "sohville",
+        "essive_singular": "sohvana",
+        "essive_plural": "sohvina",
+        "translative_singular": "sohvaksi",
+        "translative_plural": "sohviksi",
+        "abessive_singular": "sohvatta",
+        "abessive_plural": "sohvitta",
+        "instructive_plural": "sohvin",
+        "comitative_plural": "sohvineen",
+        "poss_1sg_nominative_singular": "sohvani",
+        "poss_1sg_inessive_singular": "sohvassani",
+        "poss_1sg_adessive_singular": "sohvallani",
+        "poss_2sg_nominative_singular": "sohvasi",
+        "poss_2sg_inessive_singular": "sohvassasi",
+        "poss_2sg_adessive_singular": "sohvallasi",
+        "poss_3rd_nominative_singular": "sohvansa",
+        "poss_3rd_inessive_singular": "sohvassaan",
+        "poss_3rd_adessive_singular": "sohvallaan"
+      },
+      "english": {
+        "plural": "sofas"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 5668,
+      "examples": [
+        {
+          "fi": "Se on sohvalla.",
+          "en": "It's on the sofa."
+        },
+        {
+          "fi": "Istun sohvalla.",
+          "en": "I'm sitting on the sofa."
+        }
+      ]
+    },
+    {
+      "id": "yard",
+      "word": "piha",
+      "en": "yard",
+      "emoji": "🏡",
+      "inflections": {
+        "nominative_singular": "piha",
+        "nominative_plural": "pihat",
+        "genitive_singular": "pihan",
+        "genitive_plural": "pihojen",
+        "partitive_singular": "pihaa",
+        "partitive_plural": "pihoja",
+        "inessive_singular": "pihassa",
+        "inessive_plural": "pihoissa",
+        "elative_singular": "pihasta",
+        "elative_plural": "pihoista",
+        "illative_singular": "pihaan",
+        "illative_plural": "pihoihin",
+        "adessive_singular": "pihalla",
+        "adessive_plural": "pihoilla",
+        "ablative_singular": "pihalta",
+        "ablative_plural": "pihoilta",
+        "allative_singular": "pihalle",
+        "allative_plural": "pihoille",
+        "essive_singular": "pihana",
+        "essive_plural": "pihoina",
+        "translative_singular": "pihaksi",
+        "translative_plural": "pihoiksi",
+        "abessive_singular": "pihatta",
+        "abessive_plural": "pihoitta",
+        "instructive_plural": "pihoin",
+        "comitative_plural": "pihoineen",
+        "poss_1sg_nominative_singular": "pihani",
+        "poss_1sg_inessive_singular": "pihassani",
+        "poss_1sg_adessive_singular": "pihallani",
+        "poss_2sg_nominative_singular": "pihasi",
+        "poss_2sg_inessive_singular": "pihassasi",
+        "poss_2sg_adessive_singular": "pihallasi",
+        "poss_3rd_nominative_singular": "pihansa",
+        "poss_3rd_inessive_singular": "pihassaan",
+        "poss_3rd_adessive_singular": "pihallaan"
+      },
+      "english": {
+        "plural": "yards"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 3452,
+      "examples": [
+        {
+          "fi": "Tomi on ihan pihalla.",
+          "en": "Tom is clueless."
+        },
+        {
+          "fi": "Koira ei ole pihalla.",
+          "en": "There's no dog in the yard."
         }
       ]
     }

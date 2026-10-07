@@ -596,6 +596,471 @@
           "en": "economy class"
         }
       ]
+    },
+    {
+      "id": "math",
+      "word": "matematiikka",
+      "en": "math",
+      "emoji": "➗",
+      "inflections": {
+        "nominative_singular": "matematiikka",
+        "nominative_plural": "matematiikat",
+        "genitive_singular": "matematiikan",
+        "genitive_plural": "matematiikkojen",
+        "partitive_singular": "matematiikkaa",
+        "partitive_plural": "matematiikkoja",
+        "inessive_singular": "matematiikassa",
+        "inessive_plural": "matematiikoissa",
+        "elative_singular": "matematiikasta",
+        "elative_plural": "matematiikoista",
+        "illative_singular": "matematiikkaan",
+        "illative_plural": "matematiikkoihin",
+        "adessive_singular": "matematiikalla",
+        "adessive_plural": "matematiikoilla",
+        "ablative_singular": "matematiikalta",
+        "ablative_plural": "matematiikoilta",
+        "allative_singular": "matematiikalle",
+        "allative_plural": "matematiikoille",
+        "essive_singular": "matematiikkana",
+        "essive_plural": "matematiikkoina",
+        "translative_singular": "matematiikaksi",
+        "translative_plural": "matematiikoiksi",
+        "abessive_singular": "matematiikatta",
+        "abessive_plural": "matematiikoitta",
+        "instructive_plural": "matematiikoin",
+        "comitative_plural": "matematiikkoineen",
+        "poss_1sg_nominative_singular": "matematiikkani",
+        "poss_1sg_inessive_singular": "matematiikassani",
+        "poss_1sg_adessive_singular": "matematiikallani",
+        "poss_2sg_nominative_singular": "matematiikkasi",
+        "poss_2sg_inessive_singular": "matematiikassasi",
+        "poss_2sg_adessive_singular": "matematiikallasi",
+        "poss_3rd_nominative_singular": "matematiikkansa",
+        "poss_3rd_inessive_singular": "matematiikassaan",
+        "poss_3rd_adessive_singular": "matematiikallaan"
+      },
+      "english": {
+        "plural": "maths"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 17147,
+      "examples": [
+        {
+          "fi": "Hän loistaa matematiikassa.",
+          "en": "In mathematics, he is an ace."
+        },
+        {
+          "fi": "Hän on ässä matematiikassa.",
+          "en": "In mathematics, he is an ace."
+        }
+      ]
+    },
+    {
+      "id": "gym",
+      "word": "liikunta",
+      "en": "gym",
+      "emoji": "🤸",
+      "inflections": {
+        "nominative_singular": "liikunta",
+        "nominative_plural": "liikunnat",
+        "genitive_singular": "liikunnan",
+        "genitive_plural": "liikuntojen",
+        "partitive_singular": "liikuntaa",
+        "partitive_plural": "liikuntoja",
+        "inessive_singular": "liikunnassa",
+        "inessive_plural": "liikunnoissa",
+        "elative_singular": "liikunnasta",
+        "elative_plural": "liikunnoista",
+        "illative_singular": "liikuntaan",
+        "illative_plural": "liikuntoihin",
+        "adessive_singular": "liikunnalla",
+        "adessive_plural": "liikunnoilla",
+        "ablative_singular": "liikunnalta",
+        "ablative_plural": "liikunnoilta",
+        "allative_singular": "liikunnalle",
+        "allative_plural": "liikunnoille",
+        "essive_singular": "liikuntana",
+        "essive_plural": "liikuntoina",
+        "translative_singular": "liikunnaksi",
+        "translative_plural": "liikunnoiksi",
+        "abessive_singular": "liikunnatta",
+        "abessive_plural": "liikunnoitta",
+        "instructive_plural": "liikunnoin",
+        "comitative_plural": "liikuntoineen",
+        "poss_1sg_nominative_singular": "liikuntani",
+        "poss_1sg_inessive_singular": "liikunnassani",
+        "poss_1sg_adessive_singular": "liikunnallani",
+        "poss_2sg_nominative_singular": "liikuntasi",
+        "poss_2sg_inessive_singular": "liikunnassasi",
+        "poss_2sg_adessive_singular": "liikunnallasi",
+        "poss_3rd_nominative_singular": "liikuntansa",
+        "poss_3rd_inessive_singular": "liikunnassaan",
+        "poss_3rd_adessive_singular": "liikunnallaan"
+      },
+      "english": {
+        "plural": "gyms"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 17365,
+      "examples": [
+        {
+          "fi": "Harrastan liikuntaa.",
+          "en": "I work out."
+        },
+        {
+          "fi": "Se tarvitsee liikuntaa.",
+          "en": "It needs exercise."
+        }
+      ]
+    },
+    {
+      "id": "english",
+      "word": "englanti",
+      "en": "English",
+      "emoji": "🇬🇧",
+      "inflections": {
+        "nominative_singular": "englanti",
+        "nominative_plural": "englannit",
+        "genitive_singular": "englannin",
+        "genitive_plural": "englantien",
+        "partitive_singular": "englantia",
+        "partitive_plural": "englanteja",
+        "inessive_singular": "englannissa",
+        "inessive_plural": "englanneissa",
+        "elative_singular": "englannista",
+        "elative_plural": "englanneista",
+        "illative_singular": "englantiin",
+        "illative_plural": "englanteihin",
+        "adessive_singular": "englannilla",
+        "adessive_plural": "englanneilla",
+        "ablative_singular": "englannilta",
+        "ablative_plural": "englanneilta",
+        "allative_singular": "englannille",
+        "allative_plural": "englanneille",
+        "essive_singular": "englantina",
+        "essive_plural": "englanteina",
+        "translative_singular": "englanniksi",
+        "translative_plural": "englanneiksi",
+        "abessive_singular": "englannitta",
+        "abessive_plural": "englanneitta",
+        "instructive_plural": "englannein",
+        "comitative_plural": "englanteineen",
+        "poss_1sg_nominative_singular": "englantini",
+        "poss_1sg_inessive_singular": "englannissani",
+        "poss_1sg_adessive_singular": "englannillani",
+        "poss_2sg_nominative_singular": "englantisi",
+        "poss_2sg_inessive_singular": "englannissasi",
+        "poss_2sg_adessive_singular": "englannillasi",
+        "poss_3rd_nominative_singular": "englantinsa",
+        "poss_3rd_inessive_singular": "englannissaan",
+        "poss_3rd_adessive_singular": "englannillaan"
+      },
+      "english": {
+        "plural": "Englishes"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 2602,
+      "examples": [
+        {
+          "fi": "Puhutteko englantia?",
+          "en": "Do you speak English?"
+        },
+        {
+          "fi": "Kuinka sanotaan ’rotta’ englanniksi?",
+          "en": "How do you say 'rotta' in English?"
+        }
+      ]
+    },
+    {
+      "id": "pupil",
+      "word": "oppilas",
+      "en": "pupil",
+      "emoji": "🧑‍🎓",
+      "inflections": {
+        "nominative_singular": "oppilas",
+        "nominative_plural": "oppilaat",
+        "genitive_singular": "oppilaan",
+        "genitive_plural": "oppilaiden",
+        "partitive_singular": "oppilasta",
+        "partitive_plural": "oppilaita",
+        "inessive_singular": "oppilaassa",
+        "inessive_plural": "oppilaissa",
+        "elative_singular": "oppilaasta",
+        "elative_plural": "oppilaista",
+        "illative_singular": "oppilaaseen",
+        "illative_plural": "oppilaisiin",
+        "adessive_singular": "oppilaalla",
+        "adessive_plural": "oppilailla",
+        "ablative_singular": "oppilaalta",
+        "ablative_plural": "oppilailta",
+        "allative_singular": "oppilaalle",
+        "allative_plural": "oppilaille",
+        "essive_singular": "oppilaana",
+        "essive_plural": "oppilaina",
+        "translative_singular": "oppilaaksi",
+        "translative_plural": "oppilaiksi",
+        "abessive_singular": "oppilaatta",
+        "abessive_plural": "oppilaitta",
+        "instructive_plural": "oppilain",
+        "comitative_plural": "oppilaineen",
+        "poss_1sg_nominative_singular": "oppilaani",
+        "poss_1sg_inessive_singular": "oppilaassani",
+        "poss_1sg_adessive_singular": "oppilaallani",
+        "poss_2sg_nominative_singular": "oppilaasi",
+        "poss_2sg_inessive_singular": "oppilaassasi",
+        "poss_2sg_adessive_singular": "oppilaallasi",
+        "poss_3rd_nominative_singular": "oppilaansa",
+        "poss_3rd_inessive_singular": "oppilaassaan",
+        "poss_3rd_adessive_singular": "oppilaallaan"
+      },
+      "english": {
+        "plural": "pupils"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 6411,
+      "examples": [
+        {
+          "fi": "Hän käski oppilaiden olla hiljaa.",
+          "en": "He told the students to be quiet."
+        },
+        {
+          "fi": "Platonin oppilaiden pitää ajatella.",
+          "en": "Academics need to think."
+        }
+      ]
+    },
+    {
+      "id": "test",
+      "word": "koe",
+      "en": "test",
+      "emoji": "📋",
+      "inflections": {
+        "nominative_singular": "koe",
+        "nominative_plural": "kokeet",
+        "genitive_singular": "kokeen",
+        "genitive_plural": "kokeiden",
+        "partitive_singular": "koetta",
+        "partitive_plural": "kokeita",
+        "inessive_singular": "kokeessa",
+        "inessive_plural": "kokeissa",
+        "elative_singular": "kokeesta",
+        "elative_plural": "kokeista",
+        "illative_singular": "kokeeseen",
+        "illative_plural": "kokeisiin",
+        "adessive_singular": "kokeella",
+        "adessive_plural": "kokeilla",
+        "ablative_singular": "kokeelta",
+        "ablative_plural": "kokeilta",
+        "allative_singular": "kokeelle",
+        "allative_plural": "kokeille",
+        "essive_singular": "kokeena",
+        "essive_plural": "kokeina",
+        "translative_singular": "kokeeksi",
+        "translative_plural": "kokeiksi",
+        "abessive_singular": "kokeetta",
+        "abessive_plural": "kokeitta",
+        "instructive_plural": "kokein",
+        "comitative_plural": "kokeineen",
+        "poss_1sg_nominative_singular": "kokeeni",
+        "poss_1sg_inessive_singular": "kokeessani",
+        "poss_1sg_adessive_singular": "kokeellani",
+        "poss_2sg_nominative_singular": "kokeesi",
+        "poss_2sg_inessive_singular": "kokeessasi",
+        "poss_2sg_adessive_singular": "kokeellasi",
+        "poss_3rd_nominative_singular": "kokeensa",
+        "poss_3rd_inessive_singular": "kokeessaan",
+        "poss_3rd_adessive_singular": "kokeellaan"
+      },
+      "english": {
+        "plural": "tests"
+      },
+      "kotusType": 48,
+      "group": "other_cons",
+      "frequencyRank": 1798,
+      "examples": [
+        {
+          "fi": "tieteellinen koe",
+          "en": "scientific experiment"
+        },
+        {
+          "fi": "suullinen koe",
+          "en": "oral examination / oral test"
+        }
+      ]
+    },
+    {
+      "id": "eraser",
+      "word": "kumi",
+      "en": "eraser",
+      "inflections": {
+        "nominative_singular": "kumi",
+        "nominative_plural": "kumit",
+        "genitive_singular": "kumin",
+        "genitive_plural": "kumien",
+        "partitive_singular": "kumia",
+        "partitive_plural": "kumeja",
+        "inessive_singular": "kumissa",
+        "inessive_plural": "kumeissa",
+        "elative_singular": "kumista",
+        "elative_plural": "kumeista",
+        "illative_singular": "kumiin",
+        "illative_plural": "kumeihin",
+        "adessive_singular": "kumilla",
+        "adessive_plural": "kumeilla",
+        "ablative_singular": "kumilta",
+        "ablative_plural": "kumeilta",
+        "allative_singular": "kumille",
+        "allative_plural": "kumeille",
+        "essive_singular": "kumina",
+        "essive_plural": "kumeina",
+        "translative_singular": "kumiksi",
+        "translative_plural": "kumeiksi",
+        "abessive_singular": "kumitta",
+        "abessive_plural": "kumeitta",
+        "instructive_plural": "kumein",
+        "comitative_plural": "kumeineen",
+        "poss_1sg_nominative_singular": "kumini",
+        "poss_1sg_inessive_singular": "kumissani",
+        "poss_1sg_adessive_singular": "kumillani",
+        "poss_2sg_nominative_singular": "kumisi",
+        "poss_2sg_inessive_singular": "kumissasi",
+        "poss_2sg_adessive_singular": "kumillasi",
+        "poss_3rd_nominative_singular": "kuminsa",
+        "poss_3rd_inessive_singular": "kumissaan",
+        "poss_3rd_adessive_singular": "kumillaan"
+      },
+      "english": {
+        "plural": "erasers"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 21387,
+      "examples": [
+        {
+          "fi": "Kumi tehdään kumipuun mahlasta.",
+          "en": "Rubber is made from the sap of the rubber tree."
+        }
+      ]
+    },
+    {
+      "id": "task",
+      "word": "tehtävä",
+      "en": "task",
+      "inflections": {
+        "nominative_singular": "tehtävä",
+        "nominative_plural": "tehtävät",
+        "genitive_singular": "tehtävän",
+        "genitive_plural": "tehtävien",
+        "partitive_singular": "tehtävää",
+        "partitive_plural": "tehtäviä",
+        "inessive_singular": "tehtävässä",
+        "inessive_plural": "tehtävissä",
+        "elative_singular": "tehtävästä",
+        "elative_plural": "tehtävistä",
+        "illative_singular": "tehtävään",
+        "illative_plural": "tehtäviin",
+        "adessive_singular": "tehtävällä",
+        "adessive_plural": "tehtävillä",
+        "ablative_singular": "tehtävältä",
+        "ablative_plural": "tehtäviltä",
+        "allative_singular": "tehtävälle",
+        "allative_plural": "tehtäville",
+        "essive_singular": "tehtävänä",
+        "essive_plural": "tehtävinä",
+        "translative_singular": "tehtäväksi",
+        "translative_plural": "tehtäviksi",
+        "abessive_singular": "tehtävättä",
+        "abessive_plural": "tehtävittä",
+        "instructive_plural": "tehtävin",
+        "comitative_plural": "tehtävineen",
+        "poss_1sg_nominative_singular": "tehtäväni",
+        "poss_1sg_inessive_singular": "tehtävässäni",
+        "poss_1sg_adessive_singular": "tehtävälläni",
+        "poss_2sg_nominative_singular": "tehtäväsi",
+        "poss_2sg_inessive_singular": "tehtävässäsi",
+        "poss_2sg_adessive_singular": "tehtävälläsi",
+        "poss_3rd_nominative_singular": "tehtävänsä",
+        "poss_3rd_inessive_singular": "tehtävässään",
+        "poss_3rd_adessive_singular": "tehtävällään"
+      },
+      "english": {
+        "plural": "tasks"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 764,
+      "examples": [
+        {
+          "fi": "mahdoton tehtävä",
+          "en": "mission impossible / impossible mission"
+        },
+        {
+          "fi": "erota tehtävästään",
+          "en": "to resign from one's job/post/position"
+        }
+      ]
+    },
+    {
+      "id": "canteen",
+      "word": "ruokala",
+      "en": "canteen",
+      "inflections": {
+        "nominative_singular": "ruokala",
+        "nominative_plural": "ruokalat",
+        "genitive_singular": "ruokalan",
+        "genitive_plural": "ruokaloiden",
+        "partitive_singular": "ruokalaa",
+        "partitive_plural": "ruokaloita",
+        "inessive_singular": "ruokalassa",
+        "inessive_plural": "ruokaloissa",
+        "elative_singular": "ruokalasta",
+        "elative_plural": "ruokaloista",
+        "illative_singular": "ruokalaan",
+        "illative_plural": "ruokaloihin",
+        "adessive_singular": "ruokalalla",
+        "adessive_plural": "ruokaloilla",
+        "ablative_singular": "ruokalalta",
+        "ablative_plural": "ruokaloilta",
+        "allative_singular": "ruokalalle",
+        "allative_plural": "ruokaloille",
+        "essive_singular": "ruokalana",
+        "essive_plural": "ruokaloina",
+        "translative_singular": "ruokalaksi",
+        "translative_plural": "ruokaloiksi",
+        "abessive_singular": "ruokalatta",
+        "abessive_plural": "ruokaloitta",
+        "instructive_plural": "ruokaloin",
+        "comitative_plural": "ruokaloineen",
+        "poss_1sg_nominative_singular": "ruokalani",
+        "poss_1sg_inessive_singular": "ruokalassani",
+        "poss_1sg_adessive_singular": "ruokalallani",
+        "poss_2sg_nominative_singular": "ruokalasi",
+        "poss_2sg_inessive_singular": "ruokalassasi",
+        "poss_2sg_adessive_singular": "ruokalallasi",
+        "poss_3rd_nominative_singular": "ruokalansa",
+        "poss_3rd_inessive_singular": "ruokalassaan",
+        "poss_3rd_adessive_singular": "ruokalallaan"
+      },
+      "english": {
+        "plural": "canteens"
+      },
+      "kotusType": 12,
+      "group": "a_ae",
+      "frequencyRank": 23222,
+      "examples": [
+        {
+          "fi": "Söin ruokalassa.",
+          "en": "I ate in the canteen."
+        },
+        {
+          "fi": "Onko ruokala nyt auki?",
+          "en": "Is the dining room open now?"
+        }
+      ]
     }
   ]
 }

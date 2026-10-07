@@ -1,0 +1,110 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "states",
+    "fi": "Olotila",
+    "en": "How you feel",
+    "emoji": "🙂"
+  },
+  "words": [
+    {
+      "id": "hunger",
+      "word": "nälkä",
+      "en": "hunger",
+      "inflections": {
+        "nominative_singular": "nälkä",
+        "nominative_plural": "nälät",
+        "genitive_singular": "nälän",
+        "genitive_plural": "nälkien",
+        "partitive_singular": "nälkää",
+        "partitive_plural": "nälkiä",
+        "inessive_singular": "nälässä",
+        "inessive_plural": "nälissä",
+        "elative_singular": "nälästä",
+        "elative_plural": "nälistä",
+        "illative_singular": "nälkään",
+        "illative_plural": "nälkiin",
+        "adessive_singular": "nälällä",
+        "adessive_plural": "nälillä",
+        "ablative_singular": "nälältä",
+        "ablative_plural": "näliltä",
+        "allative_singular": "nälälle",
+        "allative_plural": "nälille",
+        "essive_singular": "nälkänä",
+        "essive_plural": "nälkinä",
+        "translative_singular": "näläksi",
+        "translative_plural": "näliksi",
+        "abessive_singular": "nälättä",
+        "abessive_plural": "nälittä",
+        "instructive_plural": "nälin",
+        "comitative_plural": "nälkineen"
+      },
+      "english": {
+        "plural": "hungers"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1256,
+      "examples": [
+        {
+          "fi": "Minulla on nälkä.",
+          "en": "I am hungry."
+        },
+        {
+          "fi": "Mä kuolen nälkään!",
+          "en": "I'm starving!"
+        }
+      ]
+    },
+    {
+      "id": "thirst",
+      "word": "jano",
+      "en": "thirst",
+      "inflections": {
+        "nominative_singular": "jano",
+        "nominative_plural": "janot",
+        "genitive_singular": "janon",
+        "genitive_plural": "janojen",
+        "partitive_singular": "janoa",
+        "partitive_plural": "janoja",
+        "inessive_singular": "janossa",
+        "inessive_plural": "janoissa",
+        "elative_singular": "janosta",
+        "elative_plural": "janoista",
+        "illative_singular": "janoon",
+        "illative_plural": "janoihin",
+        "adessive_singular": "janolla",
+        "adessive_plural": "janoilla",
+        "ablative_singular": "janolta",
+        "ablative_plural": "janoilta",
+        "allative_singular": "janolle",
+        "allative_plural": "janoille",
+        "essive_singular": "janona",
+        "essive_plural": "janoina",
+        "translative_singular": "janoksi",
+        "translative_plural": "janoiksi",
+        "abessive_singular": "janotta",
+        "abessive_plural": "janoitta",
+        "instructive_plural": "janoin",
+        "comitative_plural": "janoineen"
+      },
+      "english": {
+        "plural": "thirsts"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 8812,
+      "examples": [
+        {
+          "fi": "Minulla on jano.",
+          "en": "I am thirsty."
+        },
+        {
+          "fi": "Mullon jano.",
+          "en": "I'm thirsty."
+        }
+      ]
+    }
+  ]
+}

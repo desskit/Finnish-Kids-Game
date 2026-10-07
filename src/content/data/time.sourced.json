@@ -1,0 +1,801 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "time",
+    "fi": "Aika",
+    "en": "Time",
+    "emoji": "📅"
+  },
+  "words": [
+    {
+      "id": "monday",
+      "word": "maanantai",
+      "en": "Monday",
+      "inflections": {
+        "nominative_singular": "maanantai",
+        "nominative_plural": "maanantait",
+        "genitive_singular": "maanantain",
+        "genitive_plural": "maanantaiden",
+        "partitive_singular": "maanantaita",
+        "partitive_plural": "maanantaita",
+        "inessive_singular": "maanantaissa",
+        "inessive_plural": "maanantaissa",
+        "elative_singular": "maanantaista",
+        "elative_plural": "maanantaista",
+        "illative_singular": "maanantaihin",
+        "illative_plural": "maanantaihin",
+        "adessive_singular": "maanantailla",
+        "adessive_plural": "maanantailla",
+        "ablative_singular": "maanantailta",
+        "ablative_plural": "maanantailta",
+        "allative_singular": "maanantaille",
+        "allative_plural": "maanantaille",
+        "essive_singular": "maanantaina",
+        "essive_plural": "maanantaina",
+        "translative_singular": "maanantaiksi",
+        "translative_plural": "maanantaiksi",
+        "abessive_singular": "maanantaitta",
+        "abessive_plural": "maanantaitta",
+        "instructive_plural": "maanantain",
+        "comitative_plural": "maanantaineen"
+      },
+      "english": {
+        "plural": "Mondays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 3467,
+      "examples": [
+        {
+          "fi": "maanantaina makkarat tehtiin",
+          "en": "on Monday, the sausages were made"
+        },
+        {
+          "fi": "Lunta satoi maanantaista perjantaihin.",
+          "en": "It snowed from Monday to Friday."
+        }
+      ]
+    },
+    {
+      "id": "tuesday",
+      "word": "tiistai",
+      "en": "Tuesday",
+      "inflections": {
+        "nominative_singular": "tiistai",
+        "nominative_plural": "tiistait",
+        "genitive_singular": "tiistain",
+        "genitive_plural": "tiistaiden",
+        "partitive_singular": "tiistaita",
+        "partitive_plural": "tiistaita",
+        "inessive_singular": "tiistaissa",
+        "inessive_plural": "tiistaissa",
+        "elative_singular": "tiistaista",
+        "elative_plural": "tiistaista",
+        "illative_singular": "tiistaihin",
+        "illative_plural": "tiistaihin",
+        "adessive_singular": "tiistailla",
+        "adessive_plural": "tiistailla",
+        "ablative_singular": "tiistailta",
+        "ablative_plural": "tiistailta",
+        "allative_singular": "tiistaille",
+        "allative_plural": "tiistaille",
+        "essive_singular": "tiistaina",
+        "essive_plural": "tiistaina",
+        "translative_singular": "tiistaiksi",
+        "translative_plural": "tiistaiksi",
+        "abessive_singular": "tiistaitta",
+        "abessive_plural": "tiistaitta",
+        "instructive_plural": "tiistain",
+        "comitative_plural": "tiistaineen"
+      },
+      "english": {
+        "plural": "Tuesdays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 5585,
+      "examples": [
+        {
+          "fi": "tiistaina tikut vuoltiin",
+          "en": "on Tuesday, the sticks were whittled"
+        }
+      ]
+    },
+    {
+      "id": "wednesday",
+      "word": "keskiviikko",
+      "en": "Wednesday",
+      "inflections": {
+        "nominative_singular": "keskiviikko",
+        "nominative_plural": "keskiviikot",
+        "genitive_singular": "keskiviikon",
+        "genitive_plural": "keskiviikkojen",
+        "partitive_singular": "keskiviikkoa",
+        "partitive_plural": "keskiviikkoja",
+        "inessive_singular": "keskiviikossa",
+        "inessive_plural": "keskiviikoissa",
+        "elative_singular": "keskiviikosta",
+        "elative_plural": "keskiviikoista",
+        "illative_singular": "keskiviikkoon",
+        "illative_plural": "keskiviikkoihin",
+        "adessive_singular": "keskiviikolla",
+        "adessive_plural": "keskiviikoilla",
+        "ablative_singular": "keskiviikolta",
+        "ablative_plural": "keskiviikoilta",
+        "allative_singular": "keskiviikolle",
+        "allative_plural": "keskiviikoille",
+        "essive_singular": "keskiviikkona",
+        "essive_plural": "keskiviikkoina",
+        "translative_singular": "keskiviikoksi",
+        "translative_plural": "keskiviikoiksi",
+        "abessive_singular": "keskiviikotta",
+        "abessive_plural": "keskiviikoitta",
+        "instructive_plural": "keskiviikoin",
+        "comitative_plural": "keskiviikkoineen"
+      },
+      "english": {
+        "plural": "Wednesdays"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 7581,
+      "examples": [
+        {
+          "fi": "keskiviikkona keitto keitettiin",
+          "en": "on Wednesday, the soup was cooked"
+        },
+        {
+          "fi": "Nähdään ensi keskiviikkona.",
+          "en": "I'll see you next Wednesday."
+        }
+      ]
+    },
+    {
+      "id": "thursday",
+      "word": "torstai",
+      "en": "Thursday",
+      "inflections": {
+        "nominative_singular": "torstai",
+        "nominative_plural": "torstait",
+        "genitive_singular": "torstain",
+        "genitive_plural": "torstaiden",
+        "partitive_singular": "torstaita",
+        "partitive_plural": "torstaita",
+        "inessive_singular": "torstaissa",
+        "inessive_plural": "torstaissa",
+        "elative_singular": "torstaista",
+        "elative_plural": "torstaista",
+        "illative_singular": "torstaihin",
+        "illative_plural": "torstaihin",
+        "adessive_singular": "torstailla",
+        "adessive_plural": "torstailla",
+        "ablative_singular": "torstailta",
+        "ablative_plural": "torstailta",
+        "allative_singular": "torstaille",
+        "allative_plural": "torstaille",
+        "essive_singular": "torstaina",
+        "essive_plural": "torstaina",
+        "translative_singular": "torstaiksi",
+        "translative_plural": "torstaiksi",
+        "abessive_singular": "torstaitta",
+        "abessive_plural": "torstaitta",
+        "instructive_plural": "torstain",
+        "comitative_plural": "torstaineen"
+      },
+      "english": {
+        "plural": "Thursdays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 5210,
+      "examples": [
+        {
+          "fi": "torstaina tupaan kannettiin",
+          "en": "on Thursday, (it) was carried into the main room [referring to the soup made on keskiviikko (“Wednesday”) earlier in the rhyme]"
+        },
+        {
+          "fi": "Nähdään torstaina.",
+          "en": "See you Thursday!"
+        }
+      ]
+    },
+    {
+      "id": "friday",
+      "word": "perjantai",
+      "en": "Friday",
+      "inflections": {
+        "nominative_singular": "perjantai",
+        "nominative_plural": "perjantait",
+        "genitive_singular": "perjantain",
+        "genitive_plural": "perjantaiden",
+        "partitive_singular": "perjantaita",
+        "partitive_plural": "perjantaita",
+        "inessive_singular": "perjantaissa",
+        "inessive_plural": "perjantaissa",
+        "elative_singular": "perjantaista",
+        "elative_plural": "perjantaista",
+        "illative_singular": "perjantaihin",
+        "illative_plural": "perjantaihin",
+        "adessive_singular": "perjantailla",
+        "adessive_plural": "perjantailla",
+        "ablative_singular": "perjantailta",
+        "ablative_plural": "perjantailta",
+        "allative_singular": "perjantaille",
+        "allative_plural": "perjantaille",
+        "essive_singular": "perjantaina",
+        "essive_plural": "perjantaina",
+        "translative_singular": "perjantaiksi",
+        "translative_plural": "perjantaiksi",
+        "abessive_singular": "perjantaitta",
+        "abessive_plural": "perjantaitta",
+        "instructive_plural": "perjantain",
+        "comitative_plural": "perjantaineen"
+      },
+      "english": {
+        "plural": "Fridays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 3173,
+      "examples": [
+        {
+          "fi": "perjantaina perheelle annettiin",
+          "en": "on Friday, (it) was given to the family [referring to the soup made on keskiviikko (“Wednesday”) earlier in the rhyme]"
+        },
+        {
+          "fi": "Perjantaihin!",
+          "en": "See you on Friday."
+        }
+      ]
+    },
+    {
+      "id": "saturday",
+      "word": "lauantai",
+      "en": "Saturday",
+      "inflections": {
+        "nominative_singular": "lauantai",
+        "nominative_plural": "lauantait",
+        "genitive_singular": "lauantain",
+        "genitive_plural": "lauantaiden",
+        "partitive_singular": "lauantaita",
+        "partitive_plural": "lauantaita",
+        "inessive_singular": "lauantaissa",
+        "inessive_plural": "lauantaissa",
+        "elative_singular": "lauantaista",
+        "elative_plural": "lauantaista",
+        "illative_singular": "lauantaihin",
+        "illative_plural": "lauantaihin",
+        "adessive_singular": "lauantailla",
+        "adessive_plural": "lauantailla",
+        "ablative_singular": "lauantailta",
+        "ablative_plural": "lauantailta",
+        "allative_singular": "lauantaille",
+        "allative_plural": "lauantaille",
+        "essive_singular": "lauantaina",
+        "essive_plural": "lauantaina",
+        "translative_singular": "lauantaiksi",
+        "translative_plural": "lauantaiksi",
+        "abessive_singular": "lauantaitta",
+        "abessive_plural": "lauantaitta",
+        "instructive_plural": "lauantain",
+        "comitative_plural": "lauantaineen"
+      },
+      "english": {
+        "plural": "Saturdays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 3320,
+      "examples": [
+        {
+          "fi": "lauantaina liemi latkittiin",
+          "en": "on Saturday, the broth was lapped up"
+        },
+        {
+          "fi": "Olen varattu lauantaina.",
+          "en": "I'm busy on Saturday."
+        }
+      ]
+    },
+    {
+      "id": "sunday",
+      "word": "sunnuntai",
+      "en": "Sunday",
+      "inflections": {
+        "nominative_singular": "sunnuntai",
+        "nominative_plural": "sunnuntait",
+        "genitive_singular": "sunnuntain",
+        "genitive_plural": "sunnuntaiden",
+        "partitive_singular": "sunnuntaita",
+        "partitive_plural": "sunnuntaita",
+        "inessive_singular": "sunnuntaissa",
+        "inessive_plural": "sunnuntaissa",
+        "elative_singular": "sunnuntaista",
+        "elative_plural": "sunnuntaista",
+        "illative_singular": "sunnuntaihin",
+        "illative_plural": "sunnuntaihin",
+        "adessive_singular": "sunnuntailla",
+        "adessive_plural": "sunnuntailla",
+        "ablative_singular": "sunnuntailta",
+        "ablative_plural": "sunnuntailta",
+        "allative_singular": "sunnuntaille",
+        "allative_plural": "sunnuntaille",
+        "essive_singular": "sunnuntaina",
+        "essive_plural": "sunnuntaina",
+        "translative_singular": "sunnuntaiksi",
+        "translative_plural": "sunnuntaiksi",
+        "abessive_singular": "sunnuntaitta",
+        "abessive_plural": "sunnuntaitta",
+        "instructive_plural": "sunnuntain",
+        "comitative_plural": "sunnuntaineen"
+      },
+      "english": {
+        "plural": "Sundays"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 4242,
+      "examples": [
+        {
+          "fi": "sunnuntaina suu pyyhittiin",
+          "en": "on Sunday, the mouth was wiped"
+        },
+        {
+          "fi": "On satanut sunnuntaista saakka.",
+          "en": "It has been raining since Sunday."
+        }
+      ]
+    },
+    {
+      "id": "weekend",
+      "word": "viikonloppu",
+      "en": "weekend",
+      "emoji": "🎉",
+      "inflections": {
+        "nominative_singular": "viikonloppu",
+        "nominative_plural": "viikonloput",
+        "genitive_singular": "viikonlopun",
+        "genitive_plural": "viikonloppujen",
+        "partitive_singular": "viikonloppua",
+        "partitive_plural": "viikonloppuja",
+        "inessive_singular": "viikonlopussa",
+        "inessive_plural": "viikonlopuissa",
+        "elative_singular": "viikonlopusta",
+        "elative_plural": "viikonlopuista",
+        "illative_singular": "viikonloppuun",
+        "illative_plural": "viikonloppuihin",
+        "adessive_singular": "viikonlopulla",
+        "adessive_plural": "viikonlopuilla",
+        "ablative_singular": "viikonlopulta",
+        "ablative_plural": "viikonlopuilta",
+        "allative_singular": "viikonlopulle",
+        "allative_plural": "viikonlopuille",
+        "essive_singular": "viikonloppuna",
+        "essive_plural": "viikonloppuina",
+        "translative_singular": "viikonlopuksi",
+        "translative_plural": "viikonlopuiksi",
+        "abessive_singular": "viikonloputta",
+        "abessive_plural": "viikonlopuitta",
+        "instructive_plural": "viikonlopuin",
+        "comitative_plural": "viikonloppuineen"
+      },
+      "english": {
+        "plural": "weekends"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 3316,
+      "examples": [
+        {
+          "fi": "Hyvää viikonloppua!",
+          "en": "Have a good weekend!"
+        },
+        {
+          "fi": "Mitä teit viime viikonloppuna?",
+          "en": "What did you do last weekend?"
+        }
+      ]
+    },
+    {
+      "id": "morning",
+      "word": "aamu",
+      "en": "morning",
+      "emoji": "🌅",
+      "inflections": {
+        "nominative_singular": "aamu",
+        "nominative_plural": "aamut",
+        "genitive_singular": "aamun",
+        "genitive_plural": "aamujen",
+        "partitive_singular": "aamua",
+        "partitive_plural": "aamuja",
+        "inessive_singular": "aamussa",
+        "inessive_plural": "aamuissa",
+        "elative_singular": "aamusta",
+        "elative_plural": "aamuista",
+        "illative_singular": "aamuun",
+        "illative_plural": "aamuihin",
+        "adessive_singular": "aamulla",
+        "adessive_plural": "aamuilla",
+        "ablative_singular": "aamulta",
+        "ablative_plural": "aamuilta",
+        "allative_singular": "aamulle",
+        "allative_plural": "aamuille",
+        "essive_singular": "aamuna",
+        "essive_plural": "aamuina",
+        "translative_singular": "aamuksi",
+        "translative_plural": "aamuiksi",
+        "abessive_singular": "aamutta",
+        "abessive_plural": "aamuitta",
+        "instructive_plural": "aamuin",
+        "comitative_plural": "aamuineen"
+      },
+      "english": {
+        "plural": "mornings"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 602,
+      "examples": [
+        {
+          "fi": "On satanut aamusta alkaen.",
+          "en": "It's been raining since morning."
+        },
+        {
+          "fi": "On satanut aamusta lähtien.",
+          "en": "It's been raining since morning."
+        }
+      ]
+    },
+    {
+      "id": "daytime",
+      "word": "päivä",
+      "en": "day",
+      "emoji": "🌞",
+      "inflections": {
+        "nominative_singular": "päivä",
+        "nominative_plural": "päivät",
+        "genitive_singular": "päivän",
+        "genitive_plural": "päivien",
+        "partitive_singular": "päivää",
+        "partitive_plural": "päiviä",
+        "inessive_singular": "päivässä",
+        "inessive_plural": "päivissä",
+        "elative_singular": "päivästä",
+        "elative_plural": "päivistä",
+        "illative_singular": "päivään",
+        "illative_plural": "päiviin",
+        "adessive_singular": "päivällä",
+        "adessive_plural": "päivillä",
+        "ablative_singular": "päivältä",
+        "ablative_plural": "päiviltä",
+        "allative_singular": "päivälle",
+        "allative_plural": "päiville",
+        "essive_singular": "päivänä",
+        "essive_plural": "päivinä",
+        "translative_singular": "päiväksi",
+        "translative_plural": "päiviksi",
+        "abessive_singular": "päivättä",
+        "abessive_plural": "päivittä",
+        "instructive_plural": "päivin",
+        "comitative_plural": "päivineen"
+      },
+      "english": {
+        "plural": "days"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 305,
+      "examples": [
+        {
+          "fi": "Siitä on nyt vuoden päivät.",
+          "en": "It was about one year ago."
+        },
+        {
+          "fi": "Päivä paistaa.",
+          "en": "The sun is shining."
+        }
+      ]
+    },
+    {
+      "id": "evening",
+      "word": "ilta",
+      "en": "evening",
+      "emoji": "🌆",
+      "inflections": {
+        "nominative_singular": "ilta",
+        "nominative_plural": "illat",
+        "genitive_singular": "illan",
+        "genitive_plural": "iltojen",
+        "partitive_singular": "iltaa",
+        "partitive_plural": "iltoja",
+        "inessive_singular": "illassa",
+        "inessive_plural": "illoissa",
+        "elative_singular": "illasta",
+        "elative_plural": "illoista",
+        "illative_singular": "iltaan",
+        "illative_plural": "iltoihin",
+        "adessive_singular": "illalla",
+        "adessive_plural": "illoilla",
+        "ablative_singular": "illalta",
+        "ablative_plural": "illoilta",
+        "allative_singular": "illalle",
+        "allative_plural": "illoille",
+        "essive_singular": "iltana",
+        "essive_plural": "iltoina",
+        "translative_singular": "illaksi",
+        "translative_plural": "illoiksi",
+        "abessive_singular": "illatta",
+        "abessive_plural": "illoitta",
+        "instructive_plural": "illoin",
+        "comitative_plural": "iltoineen"
+      },
+      "english": {
+        "plural": "evenings"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 675,
+      "examples": [
+        {
+          "fi": "tänä iltana",
+          "en": "(in) this evening"
+        },
+        {
+          "fi": "Herra Brown on elämänsä illassa.",
+          "en": "Mr Brown is in the sunset of his life."
+        }
+      ]
+    },
+    {
+      "id": "night",
+      "word": "yö",
+      "en": "night",
+      "emoji": "🌃",
+      "inflections": {
+        "nominative_singular": "yö",
+        "nominative_plural": "yöt",
+        "genitive_singular": "yön",
+        "genitive_plural": "öiden",
+        "partitive_singular": "yötä",
+        "partitive_plural": "öitä",
+        "inessive_singular": "yössä",
+        "inessive_plural": "öissä",
+        "elative_singular": "yöstä",
+        "elative_plural": "öistä",
+        "illative_singular": "yöhön",
+        "illative_plural": "öihin",
+        "adessive_singular": "yöllä",
+        "adessive_plural": "öillä",
+        "ablative_singular": "yöltä",
+        "ablative_plural": "öiltä",
+        "allative_singular": "yölle",
+        "allative_plural": "öille",
+        "essive_singular": "yönä",
+        "essive_plural": "öinä",
+        "translative_singular": "yöksi",
+        "translative_plural": "öiksi",
+        "abessive_singular": "yöttä",
+        "abessive_plural": "öittä",
+        "instructive_plural": "öin",
+        "comitative_plural": "öineen"
+      },
+      "english": {
+        "plural": "nights"
+      },
+      "kotusType": 19,
+      "group": "long_vowel",
+      "frequencyRank": 545,
+      "examples": [
+        {
+          "fi": "yölintu",
+          "en": "nocturnal bird"
+        },
+        {
+          "fi": "keskellä yötä",
+          "en": "in the middle of the night"
+        }
+      ]
+    },
+    {
+      "id": "spring",
+      "word": "kevät",
+      "en": "spring",
+      "emoji": "🌱",
+      "inflections": {
+        "nominative_singular": "kevät",
+        "nominative_plural": "keväät",
+        "genitive_singular": "kevään",
+        "genitive_plural": "keväiden",
+        "partitive_singular": "kevättä",
+        "partitive_plural": "keväitä",
+        "inessive_singular": "keväässä",
+        "inessive_plural": "keväissä",
+        "elative_singular": "keväästä",
+        "elative_plural": "keväistä",
+        "illative_singular": "kevääseen",
+        "illative_plural": "keväisiin",
+        "adessive_singular": "keväällä",
+        "adessive_plural": "keväillä",
+        "ablative_singular": "keväältä",
+        "ablative_plural": "keväiltä",
+        "allative_singular": "keväälle",
+        "allative_plural": "keväille",
+        "essive_singular": "keväänä",
+        "essive_plural": "keväinä",
+        "translative_singular": "kevääksi",
+        "translative_plural": "keväiksi",
+        "abessive_singular": "keväättä",
+        "abessive_plural": "keväittä",
+        "instructive_plural": "keväin",
+        "comitative_plural": "keväineen"
+      },
+      "english": {
+        "plural": "springs"
+      },
+      "kotusType": 44,
+      "group": "other_cons",
+      "frequencyRank": 9473,
+      "examples": [
+        {
+          "fi": "Pidän keväästä.",
+          "en": "I like spring."
+        },
+        {
+          "fi": "Pidän keväästä eniten.",
+          "en": "I like spring the best."
+        }
+      ]
+    },
+    {
+      "id": "summer",
+      "word": "kesä",
+      "en": "summer",
+      "emoji": "🏖️",
+      "inflections": {
+        "nominative_singular": "kesä",
+        "nominative_plural": "kesät",
+        "genitive_singular": "kesän",
+        "genitive_plural": "kesien",
+        "partitive_singular": "kesää",
+        "partitive_plural": "kesiä",
+        "inessive_singular": "kesässä",
+        "inessive_plural": "kesissä",
+        "elative_singular": "kesästä",
+        "elative_plural": "kesistä",
+        "illative_singular": "kesään",
+        "illative_plural": "kesiin",
+        "adessive_singular": "kesällä",
+        "adessive_plural": "kesillä",
+        "ablative_singular": "kesältä",
+        "ablative_plural": "kesiltä",
+        "allative_singular": "kesälle",
+        "allative_plural": "kesille",
+        "essive_singular": "kesänä",
+        "essive_plural": "kesinä",
+        "translative_singular": "kesäksi",
+        "translative_plural": "kesiksi",
+        "abessive_singular": "kesättä",
+        "abessive_plural": "kesittä",
+        "instructive_plural": "kesin",
+        "comitative_plural": "kesineen"
+      },
+      "english": {
+        "plural": "summers"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 5682,
+      "examples": [
+        {
+          "fi": "Pahinta kesässä on lämpö.",
+          "en": "The worst thing about summer is the heat."
+        },
+        {
+          "fi": "Pidän talvesta enemmän kuin kesästä.",
+          "en": "I like winter better than summer."
+        }
+      ]
+    },
+    {
+      "id": "autumn",
+      "word": "syksy",
+      "en": "autumn",
+      "emoji": "🍂",
+      "inflections": {
+        "nominative_singular": "syksy",
+        "nominative_plural": "syksyt",
+        "genitive_singular": "syksyn",
+        "genitive_plural": "syksyjen",
+        "partitive_singular": "syksyä",
+        "partitive_plural": "syksyjä",
+        "inessive_singular": "syksyssä",
+        "inessive_plural": "syksyissä",
+        "elative_singular": "syksystä",
+        "elative_plural": "syksyistä",
+        "illative_singular": "syksyyn",
+        "illative_plural": "syksyihin",
+        "adessive_singular": "syksyllä",
+        "adessive_plural": "syksyillä",
+        "ablative_singular": "syksyltä",
+        "ablative_plural": "syksyiltä",
+        "allative_singular": "syksylle",
+        "allative_plural": "syksyille",
+        "essive_singular": "syksynä",
+        "essive_plural": "syksyinä",
+        "translative_singular": "syksyksi",
+        "translative_plural": "syksyiksi",
+        "abessive_singular": "syksyttä",
+        "abessive_plural": "syksyittä",
+        "instructive_plural": "syksyin",
+        "comitative_plural": "syksyineen"
+      },
+      "english": {
+        "plural": "autumns"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 13234,
+      "examples": [
+        {
+          "fi": "Kuu on syksyllä kaunis.",
+          "en": "The moon is pretty in the fall."
+        },
+        {
+          "fi": "On tullut aika syksyistä.",
+          "en": "It has become quite autumnal."
+        }
+      ]
+    },
+    {
+      "id": "winter",
+      "word": "talvi",
+      "en": "winter",
+      "emoji": "⛄",
+      "inflections": {
+        "nominative_singular": "talvi",
+        "nominative_plural": "talvet",
+        "genitive_singular": "talven",
+        "genitive_plural": "talvien",
+        "partitive_singular": "talvea",
+        "partitive_plural": "talvia",
+        "inessive_singular": "talvessa",
+        "inessive_plural": "talvissa",
+        "elative_singular": "talvesta",
+        "elative_plural": "talvista",
+        "illative_singular": "talveen",
+        "illative_plural": "talviin",
+        "adessive_singular": "talvella",
+        "adessive_plural": "talvilla",
+        "ablative_singular": "talvelta",
+        "ablative_plural": "talvilta",
+        "allative_singular": "talvelle",
+        "allative_plural": "talville",
+        "essive_singular": "talvena",
+        "essive_plural": "talvina",
+        "translative_singular": "talveksi",
+        "translative_plural": "talviksi",
+        "abessive_singular": "talvetta",
+        "abessive_plural": "talvitta",
+        "instructive_plural": "talvin",
+        "comitative_plural": "talvineen"
+      },
+      "english": {
+        "plural": "winters"
+      },
+      "kotusType": 7,
+      "group": "i_old",
+      "frequencyRank": 9416,
+      "examples": [
+        {
+          "fi": "Pidän talvesta.",
+          "en": "I like winter."
+        },
+        {
+          "fi": "Minä pidän talvesta.",
+          "en": "I like winter."
+        }
+      ]
+    }
+  ]
+}

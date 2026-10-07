@@ -140,6 +140,18 @@ export interface Construction {
    * Omitted = no allow-list (the other gates still apply).
    */
   onlyIds?: string[];
+  /**
+   * Possessive carriers ("Tämä on minun ___." → "kirjani"): the slot takes the
+   * sourced POSSESSIVE form for this possessor (in `case`, singular) instead
+   * of the plain case form. See `possessiveForm`.
+   */
+  possessor?: PossessorId;
+  /**
+   * Per-word English overrides for the gloss (`englishSentenceFor`), where the
+   * Finnish idiom doesn't map word-for-word: "Minulla on nälkä" is "I'm
+   * hungry", not "I have a hunger". English meta-text only.
+   */
+  glossById?: Record<string, string>;
 }
 
 export interface Theme {
@@ -160,7 +172,13 @@ export function inflectionKey(c: CaseId, n: GrammaticalNumber): string {
 
 /** The correct sourced form for an item in a construction's slot, if available. */
 export function formFor(item: LexicalItem, con: Construction): string | undefined {
+  if (con.possessor) return item.inflections[`poss_${con.possessor}_${con.case}_singular`];
   return item.inflections[inflectionKey(con.case, con.number)];
+}
+
+/** The English word for an item in a construction (honours `glossById`). */
+export function glossFor(item: LexicalItem, con: Construction): string {
+  return con.glossById?.[item.id] ?? item.en;
 }
 
 /**
@@ -169,7 +187,41 @@ export function formFor(item: LexicalItem, con: Construction): string | undefine
  * when this passes, so the capstones can't produce grammatical nonsense like
  * "Minulla on taivas".
  */
+// Words that only fill carriers which ask for them BY NAME (via `topics` or
+// `onlyIds`): days and seasons, feelings-as-nouns, adjectives and numbers. A
+// generic carrier ("Minulla on ___", "Näen ___n") never takes them — so
+// "Minulla on maanantai" or "Näen punaisen" can't be assembled even if a pool
+// ever mixed them in. The one exception: a thing-describing adjective is a
+// fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not a
+// feeling, which needs a living subject ("Tämä on iloinen" is wrong).
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers'];
+const PREDICATE_CARRIERS = ['this-is', 'is-this'];
+const FEELING_ADJECTIVES = [
+  'happy',
+  'sad',
+  'angry',
+  'tired',
+  'hungry',
+  'thirsty',
+  'sick',
+  'calm',
+  'proud',
+  'kind',
+  'cute',
+];
+
 export function suitsSlot(item: LexicalItem, con: Construction): boolean {
+  const predicate =
+    item.topic === 'adjectives' && PREDICATE_CARRIERS.includes(con.id) && !FEELING_ADJECTIVES.includes(item.id);
+  if (
+    item.topic &&
+    OPT_IN_TOPICS.includes(item.topic) &&
+    !predicate &&
+    !con.topics?.includes(item.topic) &&
+    !con.onlyIds?.includes(item.id)
+  ) {
+    return false;
+  }
   if (con.topics && (!item.topic || !con.topics.includes(item.topic))) return false;
   if (con.excludeIds?.includes(item.id)) return false;
   if (con.requiresTags && !con.requiresTags.every((t) => item.tags?.includes(t))) return false;
@@ -210,6 +262,8 @@ function englishArticleFor(item: LexicalItem): string {
  * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
 export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  const override = con.glossById?.[item.id];
+  if (override) return con.en.replace(/a ___|___s|___/, override);
   // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
   // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
   if (con.en.includes('___s')) {

@@ -28,7 +28,50 @@ export const CONTAINER_TAG = 'container';
 // baby) and read as nonsense on an object (a hungry sock, a kind bed). The
 // agreement game only pairs these with animals/family; size/colour/age
 // adjectives pair with anything.
-export const ANIMATE_ONLY_ADJECTIVES = ['happy', 'tired', 'hungry', 'cute', 'kind'];
+export const ANIMATE_ONLY_ADJECTIVES = [
+  'happy',
+  'tired',
+  'hungry',
+  'cute',
+  'kind',
+  'sad',
+  'angry',
+  'thirsty',
+  'sick',
+  'calm',
+  'proud',
+];
+
+/**
+ * Nouns that don't COUNT ("kolme musiikkia", three musics, is nonsense) —
+ * mass nouns, subjects, weather and sky things. Counting rounds skip them.
+ */
+export const NOT_COUNTABLE = [
+  'music',
+  'math',
+  'gym',
+  'english',
+  'water',
+  'milk',
+  'juice',
+  'rice',
+  'porridge',
+  'soup',
+  'butter',
+  'snow',
+  'rain',
+  'sky',
+  'sea',
+  'sun',
+  'moon',
+  'grass',
+  'ice',
+  'wind',
+];
+
+export function isCountable(id: string): boolean {
+  return !NOT_COUNTABLE.includes(id);
+}
 
 /** Topics whose words are living things an animate adjective can describe. */
 export const ANIMATE_TOPICS = ['animals', 'family'];

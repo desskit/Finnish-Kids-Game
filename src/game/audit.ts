@@ -25,7 +25,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'listen',
     kind: 'listen',
-    skillId: 'u2-words',
+    skillId: 'people-words',
     titleFi: 'Kuuntele ja osoita',
     titleEn: 'Listen & Tap',
     desc: 'Hear a Finnish word, tap its picture (recognition).',
@@ -33,7 +33,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'name',
     kind: 'name',
-    skillId: 'u2-words',
+    skillId: 'people-words',
     titleFi: 'Nimeä se',
     titleEn: 'Name it',
     desc: 'See a picture, pick the Finnish word (production recall).',
@@ -41,7 +41,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'listen-sentence',
     kind: 'listen-sentence',
-    skillId: 'u2-words',
+    skillId: 'people-words',
     titleFi: 'Kuuntele lause',
     titleEn: 'Listen to a sentence',
     desc: 'Hear a full carrier sentence, tap the picture it is about.',
@@ -145,7 +145,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
   {
     id: 'say',
     kind: 'say',
-    skillId: 'u2-words',
+    skillId: 'people-words',
     titleFi: 'Sano se',
     titleEn: 'Say it (speaking)',
     desc: 'Repeat the Finnish aloud; mic scoring or a self-report fallback.',

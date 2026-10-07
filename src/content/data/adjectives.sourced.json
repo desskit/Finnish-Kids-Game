@@ -12,6 +12,7 @@
       "id": "big",
       "word": "iso",
       "en": "big",
+      "emoji": "🦕",
       "inflections": {
         "nominative_singular": "iso",
         "nominative_plural": "isot",
@@ -62,6 +63,7 @@
       "id": "small",
       "word": "pieni",
       "en": "small",
+      "emoji": "🐜",
       "inflections": {
         "nominative_singular": "pieni",
         "nominative_plural": "pienet",
@@ -112,6 +114,7 @@
       "id": "fast",
       "word": "nopea",
       "en": "fast",
+      "emoji": "🏎️",
       "inflections": {
         "nominative_singular": "nopea",
         "nominative_plural": "nopeat",
@@ -162,6 +165,7 @@
       "id": "slow",
       "word": "hidas",
       "en": "slow",
+      "emoji": "🐢",
       "inflections": {
         "nominative_singular": "hidas",
         "nominative_plural": "hitaat",
@@ -262,6 +266,7 @@
       "id": "happy",
       "word": "iloinen",
       "en": "happy",
+      "emoji": "😄",
       "inflections": {
         "nominative_singular": "iloinen",
         "nominative_plural": "iloiset",
@@ -312,6 +317,7 @@
       "id": "tired",
       "word": "väsynyt",
       "en": "tired",
+      "emoji": "🥱",
       "inflections": {
         "nominative_singular": "väsynyt",
         "nominative_plural": "väsyneet",
@@ -362,6 +368,7 @@
       "id": "hungry",
       "word": "nälkäinen",
       "en": "hungry",
+      "emoji": "🤤",
       "inflections": {
         "nominative_singular": "nälkäinen",
         "nominative_plural": "nälkäiset",
@@ -412,6 +419,7 @@
       "id": "cute",
       "word": "söpö",
       "en": "cute",
+      "emoji": "🥰",
       "inflections": {
         "nominative_singular": "söpö",
         "nominative_plural": "söpöt",
@@ -462,6 +470,7 @@
       "id": "kind",
       "word": "kiltti",
       "en": "kind",
+      "emoji": "😇",
       "inflections": {
         "nominative_singular": "kiltti",
         "nominative_plural": "kiltit",
@@ -505,6 +514,413 @@
         {
           "fi": "Olkaa kilttejä toisille.",
           "en": "Be kind to others!"
+        }
+      ]
+    },
+    {
+      "id": "sad",
+      "word": "surullinen",
+      "en": "sad",
+      "emoji": "😞",
+      "inflections": {
+        "nominative_singular": "surullinen",
+        "nominative_plural": "surulliset",
+        "genitive_singular": "surullisen",
+        "genitive_plural": "surullisten",
+        "partitive_singular": "surullista",
+        "partitive_plural": "surullisia",
+        "inessive_singular": "surullisessa",
+        "inessive_plural": "surullisissa",
+        "elative_singular": "surullisesta",
+        "elative_plural": "surullisista",
+        "illative_singular": "surulliseen",
+        "illative_plural": "surullisiin",
+        "adessive_singular": "surullisella",
+        "adessive_plural": "surullisilla",
+        "ablative_singular": "surulliselta",
+        "ablative_plural": "surullisilta",
+        "allative_singular": "surulliselle",
+        "allative_plural": "surullisille",
+        "essive_singular": "surullisena",
+        "essive_plural": "surullisina",
+        "translative_singular": "surulliseksi",
+        "translative_plural": "surullisiksi",
+        "abessive_singular": "surullisetta",
+        "abessive_plural": "surullisitta",
+        "instructive_plural": "surullisin",
+        "comitative_plural": "surullisine"
+      },
+      "english": {
+        "comparative": "sadder",
+        "superlative": "saddest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 2579,
+      "examples": [
+        {
+          "fi": "Näytät surulliselta.",
+          "en": "You look sad."
+        },
+        {
+          "fi": "Vaikutat surulliselta.",
+          "en": "You seem sad."
+        }
+      ]
+    },
+    {
+      "id": "angry",
+      "word": "vihainen",
+      "en": "angry",
+      "emoji": "😠",
+      "inflections": {
+        "nominative_singular": "vihainen",
+        "nominative_plural": "vihaiset",
+        "genitive_singular": "vihaisen",
+        "genitive_plural": "vihaisten",
+        "partitive_singular": "vihaista",
+        "partitive_plural": "vihaisia",
+        "inessive_singular": "vihaisessa",
+        "inessive_plural": "vihaisissa",
+        "elative_singular": "vihaisesta",
+        "elative_plural": "vihaisista",
+        "illative_singular": "vihaiseen",
+        "illative_plural": "vihaisiin",
+        "adessive_singular": "vihaisella",
+        "adessive_plural": "vihaisilla",
+        "ablative_singular": "vihaiselta",
+        "ablative_plural": "vihaisilta",
+        "allative_singular": "vihaiselle",
+        "allative_plural": "vihaisille",
+        "essive_singular": "vihaisena",
+        "essive_plural": "vihaisina",
+        "translative_singular": "vihaiseksi",
+        "translative_plural": "vihaisiksi",
+        "abessive_singular": "vihaisetta",
+        "abessive_plural": "vihaisitta",
+        "instructive_plural": "vihaisin",
+        "comitative_plural": "vihaisine"
+      },
+      "english": {
+        "comparative": "angrier",
+        "superlative": "angriest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 775,
+      "examples": [
+        {
+          "fi": "Tom näyttää vihaiselta.",
+          "en": "Tom looks angry."
+        },
+        {
+          "fi": "Sinä näytät vihaiselta.",
+          "en": "You look angry."
+        }
+      ]
+    },
+    {
+      "id": "thirsty",
+      "word": "janoinen",
+      "en": "thirsty",
+      "inflections": {
+        "nominative_singular": "janoinen",
+        "nominative_plural": "janoiset",
+        "genitive_singular": "janoisen",
+        "genitive_plural": "janoisten",
+        "partitive_singular": "janoista",
+        "partitive_plural": "janoisia",
+        "inessive_singular": "janoisessa",
+        "inessive_plural": "janoisissa",
+        "elative_singular": "janoisesta",
+        "elative_plural": "janoisista",
+        "illative_singular": "janoiseen",
+        "illative_plural": "janoisiin",
+        "adessive_singular": "janoisella",
+        "adessive_plural": "janoisilla",
+        "ablative_singular": "janoiselta",
+        "ablative_plural": "janoisilta",
+        "allative_singular": "janoiselle",
+        "allative_plural": "janoisille",
+        "essive_singular": "janoisena",
+        "essive_plural": "janoisina",
+        "translative_singular": "janoiseksi",
+        "translative_plural": "janoisiksi",
+        "abessive_singular": "janoisetta",
+        "abessive_plural": "janoisitta",
+        "instructive_plural": "janoisin",
+        "comitative_plural": "janoisine"
+      },
+      "english": {
+        "comparative": "thirstier",
+        "superlative": "thirstiest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 15557,
+      "examples": [
+        {
+          "fi": "Mari on janoinen.",
+          "en": "Mary is thirsty."
+        },
+        {
+          "fi": "En ollut janoinen.",
+          "en": "I wasn't thirsty."
+        }
+      ]
+    },
+    {
+      "id": "sick",
+      "word": "sairas",
+      "en": "sick",
+      "emoji": "🤒",
+      "inflections": {
+        "nominative_singular": "sairas",
+        "nominative_plural": "sairaat",
+        "genitive_singular": "sairaan",
+        "genitive_plural": "sairaiden",
+        "partitive_singular": "sairasta",
+        "partitive_plural": "sairaita",
+        "inessive_singular": "sairaassa",
+        "inessive_plural": "sairaissa",
+        "elative_singular": "sairaasta",
+        "elative_plural": "sairaista",
+        "illative_singular": "sairaaseen",
+        "illative_plural": "sairaisiin",
+        "adessive_singular": "sairaalla",
+        "adessive_plural": "sairailla",
+        "ablative_singular": "sairaalta",
+        "ablative_plural": "sairailta",
+        "allative_singular": "sairaalle",
+        "allative_plural": "sairaille",
+        "essive_singular": "sairaana",
+        "essive_plural": "sairaina",
+        "translative_singular": "sairaaksi",
+        "translative_plural": "sairaiksi",
+        "abessive_singular": "sairaatta",
+        "abessive_plural": "sairaitta",
+        "instructive_plural": "sairain",
+        "comitative_plural": "sairaine"
+      },
+      "english": {
+        "comparative": "sicker",
+        "superlative": "sickest"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 1036,
+      "examples": [
+        {
+          "fi": "Tom näyttää sairaalta.",
+          "en": "Tom looks sick."
+        },
+        {
+          "fi": "Hän näyttää sairaalta.",
+          "en": "He seems sick."
+        }
+      ]
+    },
+    {
+      "id": "calm",
+      "word": "rauhallinen",
+      "en": "calm",
+      "emoji": "😌",
+      "inflections": {
+        "nominative_singular": "rauhallinen",
+        "nominative_plural": "rauhalliset",
+        "genitive_singular": "rauhallisen",
+        "genitive_plural": "rauhallisten",
+        "partitive_singular": "rauhallista",
+        "partitive_plural": "rauhallisia",
+        "inessive_singular": "rauhallisessa",
+        "inessive_plural": "rauhallisissa",
+        "elative_singular": "rauhallisesta",
+        "elative_plural": "rauhallisista",
+        "illative_singular": "rauhalliseen",
+        "illative_plural": "rauhallisiin",
+        "adessive_singular": "rauhallisella",
+        "adessive_plural": "rauhallisilla",
+        "ablative_singular": "rauhalliselta",
+        "ablative_plural": "rauhallisilta",
+        "allative_singular": "rauhalliselle",
+        "allative_plural": "rauhallisille",
+        "essive_singular": "rauhallisena",
+        "essive_plural": "rauhallisina",
+        "translative_singular": "rauhalliseksi",
+        "translative_plural": "rauhallisiksi",
+        "abessive_singular": "rauhallisetta",
+        "abessive_plural": "rauhallisitta",
+        "instructive_plural": "rauhallisin",
+        "comitative_plural": "rauhallisine"
+      },
+      "english": {
+        "comparative": "calmer",
+        "superlative": "calmest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 4901,
+      "examples": [
+        {
+          "fi": "Suomi on rauhallinen maa.",
+          "en": "Finland is a peaceful country."
+        },
+        {
+          "fi": "Hän on hyväntuulinen ja rauhallinen.",
+          "en": "She is cheerful and calm."
+        }
+      ]
+    },
+    {
+      "id": "proud",
+      "word": "ylpeä",
+      "en": "proud",
+      "emoji": "😤",
+      "inflections": {
+        "nominative_singular": "ylpeä",
+        "nominative_plural": "ylpeät",
+        "genitive_singular": "ylpeän",
+        "genitive_plural": "ylpeiden",
+        "partitive_singular": "ylpeää",
+        "partitive_plural": "ylpeitä",
+        "inessive_singular": "ylpeässä",
+        "inessive_plural": "ylpeissä",
+        "elative_singular": "ylpeästä",
+        "elative_plural": "ylpeistä",
+        "illative_singular": "ylpeään",
+        "illative_plural": "ylpeisiin",
+        "adessive_singular": "ylpeällä",
+        "adessive_plural": "ylpeillä",
+        "ablative_singular": "ylpeältä",
+        "ablative_plural": "ylpeiltä",
+        "allative_singular": "ylpeälle",
+        "allative_plural": "ylpeille",
+        "essive_singular": "ylpeänä",
+        "essive_plural": "ylpeinä",
+        "translative_singular": "ylpeäksi",
+        "translative_plural": "ylpeiksi",
+        "abessive_singular": "ylpeättä",
+        "abessive_plural": "ylpeittä",
+        "instructive_plural": "ylpein",
+        "comitative_plural": "ylpeine"
+      },
+      "english": {
+        "comparative": "prouder",
+        "superlative": "proudest"
+      },
+      "kotusType": 15,
+      "group": "a_ae",
+      "frequencyRank": 999,
+      "examples": [
+        {
+          "fi": "Olen ylpeä hänestä.",
+          "en": "I am proud of him/her."
+        },
+        {
+          "fi": "Olemme ylpeitä sinusta.",
+          "en": "We're proud of you."
+        }
+      ]
+    },
+    {
+      "id": "cold",
+      "word": "kylmä",
+      "en": "cold",
+      "emoji": "🥶",
+      "inflections": {
+        "nominative_singular": "kylmä",
+        "nominative_plural": "kylmät",
+        "genitive_singular": "kylmän",
+        "genitive_plural": "kylmien",
+        "partitive_singular": "kylmää",
+        "partitive_plural": "kylmiä",
+        "inessive_singular": "kylmässä",
+        "inessive_plural": "kylmissä",
+        "elative_singular": "kylmästä",
+        "elative_plural": "kylmistä",
+        "illative_singular": "kylmään",
+        "illative_plural": "kylmiin",
+        "adessive_singular": "kylmällä",
+        "adessive_plural": "kylmillä",
+        "ablative_singular": "kylmältä",
+        "ablative_plural": "kylmiltä",
+        "allative_singular": "kylmälle",
+        "allative_plural": "kylmille",
+        "essive_singular": "kylmänä",
+        "essive_plural": "kylminä",
+        "translative_singular": "kylmäksi",
+        "translative_plural": "kylmiksi",
+        "abessive_singular": "kylmättä",
+        "abessive_plural": "kylmittä",
+        "instructive_plural": "kylmin",
+        "comitative_plural": "kylmine"
+      },
+      "english": {
+        "comparative": "colder",
+        "superlative": "coldest"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1523,
+      "examples": [
+        {
+          "fi": "kylmä sää",
+          "en": "cold weather"
+        },
+        {
+          "fi": "kylmä vesi",
+          "en": "cold water"
+        }
+      ]
+    },
+    {
+      "id": "hot",
+      "word": "kuuma",
+      "en": "hot",
+      "emoji": "🥵",
+      "inflections": {
+        "nominative_singular": "kuuma",
+        "nominative_plural": "kuumat",
+        "genitive_singular": "kuuman",
+        "genitive_plural": "kuumien",
+        "partitive_singular": "kuumaa",
+        "partitive_plural": "kuumia",
+        "inessive_singular": "kuumassa",
+        "inessive_plural": "kuumissa",
+        "elative_singular": "kuumasta",
+        "elative_plural": "kuumista",
+        "illative_singular": "kuumaan",
+        "illative_plural": "kuumiin",
+        "adessive_singular": "kuumalla",
+        "adessive_plural": "kuumilla",
+        "ablative_singular": "kuumalta",
+        "ablative_plural": "kuumilta",
+        "allative_singular": "kuumalle",
+        "allative_plural": "kuumille",
+        "essive_singular": "kuumana",
+        "essive_plural": "kuumina",
+        "translative_singular": "kuumaksi",
+        "translative_plural": "kuumiksi",
+        "abessive_singular": "kuumatta",
+        "abessive_plural": "kuumitta",
+        "instructive_plural": "kuumin",
+        "comitative_plural": "kuumine"
+      },
+      "english": {
+        "comparative": "hotter",
+        "superlative": "hottest"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1539,
+      "examples": [
+        {
+          "fi": "kuuma sää",
+          "en": "hot weather"
+        },
+        {
+          "fi": "kuuma vesi",
+          "en": "hot water"
         }
       ]
     },

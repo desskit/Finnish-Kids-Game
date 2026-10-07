@@ -62,13 +62,13 @@ describe('can-do statements', () => {
   });
 
   it('a unit claim flips when its checkpoint is passed — an attempt alone is not enough', () => {
-    const greet = CAN_DO.find((s) => s.id === 'u1-hello')!;
+    const greet = CAN_DO.find((s) => s.id === 'hello')!;
     expect(
-      canDoAchieved(child({ course: { checkpoints: { 'u1-hello': { best: 0.5, attempts: 1 } } } }), greet),
+      canDoAchieved(child({ course: { checkpoints: { 'hello': { best: 0.5, attempts: 1 } } } }), greet),
     ).toBe(false);
     expect(
       canDoAchieved(
-        child({ course: { checkpoints: { 'u1-hello': { passedAt: 1, best: 0.9, attempts: 2 } } } }),
+        child({ course: { checkpoints: { 'hello': { passedAt: 1, best: 0.9, attempts: 2 } } } }),
         greet,
       ),
     ).toBe(true);
@@ -76,16 +76,16 @@ describe('can-do statements', () => {
 
   it('an expert claim flips at its step level, not before', () => {
     const tenses = CAN_DO.find((s) => s.id === 'verb-tenses')!;
-    expect(canDoAchieved(child({ progress: { 'u20-mestari': { 'verbs-expert': prog(7) } } }), tenses)).toBe(false);
-    expect(canDoAchieved(child({ progress: { 'u20-mestari': { 'verbs-expert': prog(8) } } }), tenses)).toBe(true);
+    expect(canDoAchieved(child({ progress: { 'mestari': { 'verbs-expert': prog(7) } } }), tenses)).toBe(false);
+    expect(canDoAchieved(child({ progress: { 'mestari': { 'verbs-expert': prog(8) } } }), tenses)).toBe(true);
   });
 
   it('splits achieved / up next in authored order', () => {
     const c = child({
-      course: { checkpoints: { 'u2-people': { passedAt: 1, best: 1, attempts: 1 } } },
+      course: { checkpoints: { 'people': { passedAt: 1, best: 1, attempts: 1 } } },
     });
     const { achieved, upNext } = canDoSummary(c);
-    expect(achieved.map((s) => s.id)).toEqual(['u2-people']);
-    expect(upNext[0].id).toBe('u1-hello');
+    expect(achieved.map((s) => s.id)).toEqual(['people']);
+    expect(upNext[0].id).toBe('hello');
   });
 });

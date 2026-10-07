@@ -11,13 +11,16 @@ import {
   clothes,
   school,
   freetime,
+  states,
   adjectives,
   verbs,
   reviewItems,
 } from '../content';
+import { PATH } from '../game/path';
 import { nounConstructions } from '../content/constructions';
 import {
   formFor,
+  sentenceFor,
   verbForm,
   caseFormOf,
   englishSentenceFor,
@@ -47,6 +50,7 @@ describe('content integrity', () => {
       'clothes',
       'school',
       'freetime',
+      'time',
     ]);
   });
 
@@ -173,11 +177,25 @@ describe('content integrity', () => {
 
   it('gives every place a valid locative shape tag (surface and/or container)', () => {
     // The locative carriers gate on these; a place with neither could never
-    // appear in any "where" question. Only 'surface'/'container' are valid.
+    // appear in any "where" question. Shape tags are 'surface'/'container';
+    // 'person-in'/'person-on' additionally mark where a PERSON can be / go.
     for (const place of places.items) {
       const tags = place.tags ?? [];
-      expect(tags.length, `${place.id} has no shape tag`).toBeGreaterThan(0);
-      for (const t of tags) expect(['surface', 'container']).toContain(t);
+      expect(
+        tags.some((t) => t === 'surface' || t === 'container'),
+        `${place.id} has no shape tag`,
+      ).toBe(true);
+      for (const t of tags) expect(['surface', 'container', 'person-in', 'person-on']).toContain(t);
+    }
+  });
+
+  it("keeps a person's in/on places consistent with the place's own shape", () => {
+    // "Olen koulussa" needs an IN place; "Olen pihalla" an ON place — and never both.
+    for (const place of places.items) {
+      const t = place.tags ?? [];
+      expect(t.includes('person-in') && t.includes('person-on'), place.id).toBe(false);
+      if (t.includes('person-in')) expect(t, place.id).toContain('container');
+      if (t.includes('person-on')) expect(t, place.id).toContain('surface');
     }
   });
 
@@ -281,6 +299,79 @@ describe('content integrity', () => {
           }
         }
       }
+    }
+  });
+});
+
+describe('expansion carriers (feelings, school, town, when, possessives)', () => {
+  const con = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const allWords = [
+    ...themes.flatMap((t) => t.items),
+    ...states.items,
+    ...adjectives.items,
+  ];
+  const fits = (id: string) => allWords.filter((i) => suitsSlot(i, con(id)) && formFor(i, con(id)));
+
+  it('only lets a PERSON be/go/come where a person goes — never "Olen pöydällä"', () => {
+    const on = fits('i-am-on').map((i) => i.id);
+    expect(on).toContain('station');
+    expect(on).toContain('sofa');
+    for (const bad of ['table', 'chair', 'box', 'basket']) expect(on, bad).not.toContain(bad);
+    const into = fits('i-go-into').map((i) => i.id);
+    expect(into).toContain('park');
+    expect(into).not.toContain('station'); // an "on" place: "Menen asemalle"
+    expect(sentenceFor(places.items.find((p) => p.id === 'park')!, con('i-go-into'))).toBe('Menen puistoon.');
+    expect(sentenceFor(places.items.find((p) => p.id === 'station')!, con('i-am-on'))).toBe('Olen asemalla.');
+  });
+
+  it('keeps days, feelings, adjectives and numbers out of every generic carrier', () => {
+    // "Minulla on maanantai" / "Tämä on iloinen" / "Minulla on yksi" must be impossible.
+    const optIn = allWords.filter((i) => ['time', 'states', 'adjectives', 'numbers'].includes(i.topic ?? ''));
+    expect(optIn.length).toBeGreaterThan(20);
+    for (const id of ['i-have', 'i-see', 'i-like', 'where-is']) {
+      for (const w of optIn) expect(suitsSlot(w, con(id)), `${id} + ${w.id}`).toBe(false);
+    }
+    // "Tämä on punainen." is a fine predicate; "Tämä on iloinen / maanantai" is not.
+    const adj = (id: string) => adjectives.items.find((i) => i.id === id)!;
+    expect(suitsSlot(adj('red'), con('this-is'))).toBe(true);
+    expect(suitsSlot(adj('happy'), con('this-is'))).toBe(false);
+    expect(suitsSlot(themes.flatMap((t) => t.items).find((i) => i.id === 'monday')!, con('this-is'))).toBe(false);
+  });
+
+  it('builds the "when" sentences with the right ending: essive for days, adessive for times', () => {
+    const t = (id: string) => [...themes.flatMap((x) => x.items)].find((i) => i.id === id)!;
+    expect(sentenceFor(t('monday'), con('today-is'))).toBe('Tänään on maanantai.');
+    expect(sentenceFor(t('saturday'), con('play-on-day'))).toBe('Leikin lauantaina.');
+    expect(sentenceFor(t('morning'), con('play-at-time'))).toBe('Leikin aamulla.');
+    expect(sentenceFor(t('summer'), con('play-at-time'))).toBe('Leikin kesällä.');
+    expect(suitsSlot(t('morning'), con('play-on-day'))).toBe(false);
+    expect(suitsSlot(t('monday'), con('play-at-time'))).toBe(false);
+    expect(sentenceFor(numbers.items.find((n) => n.id === 'three')!, con('clock-is'))).toBe('Kello on kolme.');
+  });
+
+  it('says feelings idiomatically, with natural English glosses', () => {
+    const hunger = states.items.find((i) => i.id === 'hunger')!;
+    expect(sentenceFor(hunger, con('i-feel'))).toBe('Minulla on nälkä.');
+    expect(englishSentenceFor(hunger, con('i-feel'))).toBe("I'm hungry.");
+    const tired = adjectives.items.find((i) => i.id === 'tired')!;
+    expect(sentenceFor(tired, con('i-am-not'))).toBe('En ole väsynyt.');
+    const night = themes.flatMap((t) => t.items).find((i) => i.id === 'night')!;
+    expect(englishSentenceFor(night, con('play-at-time'))).toBe('I play at night.');
+  });
+
+  it('fills possessive carriers with the sourced possessive form', () => {
+    const book = school.items.find((i) => i.id === 'book')!;
+    expect(sentenceFor(book, con('this-is-mine'))).toBe('Tämä on minun kirjani.');
+    expect(sentenceFor(book, con('where-is-yours'))).toBe('Missä on sinun kirjasi?');
+    expect(sentenceFor(book, con('this-is-theirs'))).toBe('Tämä on hänen kirjansa.');
+  });
+
+  it("gives each unit's new words distinct pictures (the words step tells them apart)", () => {
+    for (const unit of PATH) {
+      const emojis = unit.newWords
+        .map((w) => allWords.find((i) => i.id === w)?.emoji ?? verbs.items.find((v) => v.id === w)?.emoji)
+        .filter(Boolean);
+      expect(new Set(emojis).size, unit.id).toBe(emojis.length);
     }
   });
 });

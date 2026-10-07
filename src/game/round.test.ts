@@ -579,9 +579,12 @@ describe('buildConversation', () => {
   });
 
   it('fills the {name} placeholder with the child\'s own name (new-friend scene)', () => {
+    // Only new-friend carries {name}; with a scene per unit, a random pick over
+    // the whole registry would rarely land on it.
+    const newFriend = conversations.filter((c) => c.id === 'new-friend');
     let sawName = false;
     for (let r = 0; r < RUNS; r++) {
-      const scene = buildConversation(conversations, 3, 4, 'Liam')!;
+      const scene = buildConversation(newFriend, 3, 4, 'Liam')!;
       for (const t of scene.turns) {
         expect(t.partner.fi).not.toContain('{name}');
         expect(t.reply.fi).not.toContain('{name}');
