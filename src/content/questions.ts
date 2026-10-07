@@ -28,6 +28,7 @@ export const YOU_QUESTION: Readonly<Record<string, string>> = {
   'swim': 'uitko',
   'want': 'haluatko',
   'love': 'rakastatko',
+  'like': 'tykkäätkö',
   'help': 'autatko',
   'sit': 'istutko',
   'stand': 'seisotko',

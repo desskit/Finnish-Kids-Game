@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T15:50:56.325Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T19:24:34.390Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 783 entries.**
+- **Approved: 28 of 791 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -58,7 +58,7 @@
 | ⚠️ | `dialogue:qw-whose` | Kenen pallo tämä on? → Se on isän pallo. | Whose ball is this? → It's Dad's ball. |
 | ⚠️ | `dialogue:qw-why` | Miksi sinä itket? → Koska olen surullinen. | Why are you crying? → Because I'm sad. |
 
-## Small-talk scenes, turn by turn (155)
+## Small-talk scenes, turn by turn (156)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -195,9 +195,10 @@
 | ⚠️ | `conversation:what-everyone-does:2` | Entä isä? Mitä hän tekee? → Hän nukkuu. | And Dad? What is he doing? → He's sleeping. |
 | ⚠️ | `conversation:what-everyone-does:3` | Mitä te teette? → Me laulamme. | What are you all doing? → We're singing. |
 | ⚠️ | `conversation:what-everyone-does:4` | Kiva! Minä kuuntelen. → Kiitos! | Nice! I'm listening. → Thanks! |
-| ⚠️ | `conversation:favourite-things:1` | Pidätkö pitsasta? → Pidän! Pidän pitsasta. | Do you like pizza? → I do! I like pizza. |
-| ⚠️ | `conversation:favourite-things:2` | Rakastatko suklaata? → Rakastan suklaata! | Do you love chocolate? → I love chocolate! |
-| ⚠️ | `conversation:favourite-things:3` | Minä rakastan jäätelöä! → Minä myös! | I love ice cream! → Me too! |
+| ⚠️ | `conversation:favourite-things:1` | Tykkäätkö pitsasta? → Tykkään! Tykkään pitsasta. | Do you like pizza? → I do! I like pizza. |
+| ⚠️ | `conversation:favourite-things:2` | Pidätkö musiikista? → Pidän! Pidän musiikista. | Do you like music? → I do! I like music. |
+| ⚠️ | `conversation:favourite-things:3` | Rakastatko suklaata? → Rakastan suklaata! | Do you love chocolate? → I love chocolate! |
+| ⚠️ | `conversation:favourite-things:4` | Minä rakastan jäätelöä! → Minä myös! | I love ice cream! → Me too! |
 | ⚠️ | `conversation:shopping-list:1` | Mitä me ostamme? → Ostetaan maitoa ja leipää. | What are we buying? → Let's buy some milk and bread. |
 | ⚠️ | `conversation:shopping-list:2` | Ostetaanko myös omena? → Joo, ostan omenan. | Shall we buy an apple too? → Yes, I'll buy an apple. |
 | ⚠️ | `conversation:shopping-list:3` | Hyvä! Entä mehua? → Joo, ostetaan mehua! | Good! And some juice? → Yes, let's buy some juice! |
@@ -265,7 +266,7 @@
 | ⚠️ | `story:birthday-surprise:q2` | Mitä lapset tekivät ensin? (He tekivät kakun. / He lauloivat. / He söivät kakkua.) | What did the children do first? (They made a cake. / They sang. / They ate cake.) |
 | ⚠️ | `story:birthday-surprise:q3` | Miksi lapset tekivät kakun salaa? (Koska se oli yllätys. / Koska heillä oli nälkä. / Koska oli maanantai.) | Why did the children make the cake in secret? (Because it was a surprise. / Because they were hungry. / Because it was Monday.) |
 
-## Carrier phrases — authored fixed texts (76)
+## Carrier phrases — authored fixed texts (78)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -279,6 +280,8 @@
 | ⚠️ | `carrier:they-have` | Heillä on ___. — e.g. Heillä on omena. | They have a ___. |
 | ⚠️ | `carrier:i-havent` | Minulla ei ole ___. — e.g. Minulla ei ole omenaa. | I don't have a ___. |
 | ⚠️ | `carrier:i-like` | Pidän ___. — e.g. Pidän omenasta. | I like the ___. |
+| ⚠️ | `carrier:i-like-tykkaan` | Tykkään ___. — e.g. Tykkään omenasta. | I like the ___. |
+| ⚠️ | `carrier:i-dont-like-tykkaa` | En tykkää ___. — e.g. En tykkää omenasta. | I don't like the ___. |
 | ⚠️ | `carrier:i-see` | Näen ___. — e.g. Näen omenan. | I see the ___. |
 | ⚠️ | `carrier:i-love` | Rakastan ___. — e.g. Rakastan omenaa. | I love the ___. |
 | ⚠️ | `carrier:i-watch` | Katson ___. — e.g. Katson tätiä. | I watch the ___. |
@@ -401,7 +404,7 @@
 | ⚠️ | `ordinal:thirtieth` | kolmaskymmenes | thirtieth (30.) |
 | ⚠️ | `ordinal:thirty-first` | kolmaskymmenesensimmäinen | thirty-first (31.) |
 
-## Question forms — "do you…?" (71)
+## Question forms — "do you…?" (72)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -423,6 +426,7 @@
 | ⚠️ | `question:swim` | uitko? | Do you swim? |
 | ⚠️ | `question:want` | haluatko? | Do you want? |
 | ⚠️ | `question:love` | rakastatko? | Do you love? |
+| ⚠️ | `question:like` | tykkäätkö? | Do you like? |
 | ⚠️ | `question:help` | autatko? | Do you help? |
 | ⚠️ | `question:sit` | istutko? | Do you sit? |
 | ⚠️ | `question:stand` | seisotko? | Do you stand? |
@@ -527,7 +531,7 @@
 | ⚠️ | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
 
-## Lesson prose — Finnish quoted in the explanations (216)
+## Lesson prose — Finnish quoted in the explanations (219)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -571,13 +575,15 @@
 | ⚠️ | `lesson:negative-verb:3` | en, et, ei, emme, ette, eivät · syön · en syö | "Not" is a verb — Same endings as before! |
 | ⚠️ | `lesson:negative-verb:4` | et | "Not" is a verb — check |
 | ⚠️ | `lesson:negative-verb:5` | eivät | "Not" is a verb — check |
-| ⚠️ | `lesson:likes:2` | pidän | Liking things — pitää → -sta / -stä |
-| ⚠️ | `lesson:likes:3` | pidän · musiikista | Liking things — check |
+| ⚠️ | `lesson:likes:2` | tykkään | Liking things — tykätä → -sta / -stä |
+| ⚠️ | `lesson:likes:3` | tykkään · musiikista | Liking things — check |
 | ⚠️ | `lesson:likes:4` | jäätelöstä | Liking things — check |
+| ⚠️ | `lesson:liking-pidan:1` | Tykkään · Pidän | Another "I like" — Two ways to say "I like" |
+| ⚠️ | `lesson:liking-pidan:3` | pidän · tykkään · jalkapallosta | Another "I like" — check |
 | ⚠️ | `lesson:loving:1` | rakastan · suklaata | Loving things — rakastaa → -a / -ä |
-| ⚠️ | `lesson:loving:2` | Pidän · Pidän pitsasta. · Rakastan · Rakastan pitsaa. | Loving things — Two verbs, two endings |
-| ⚠️ | `lesson:loving:3` | rakastan · pitsaa · pidän | Loving things — check |
-| ⚠️ | `lesson:loving:4` | Pidän · Rakastan | Loving things — check |
+| ⚠️ | `lesson:loving:2` | Tykkään · Pidän · Tykkään pitsasta. · Rakastan · Rakastan pitsaa. | Loving things — Two verbs, two endings |
+| ⚠️ | `lesson:loving:3` | rakastan · pitsaa · tykkään · pidän | Loving things — check |
+| ⚠️ | `lesson:loving:4` | Tykkään · Rakastan | Loving things — check |
 | ⚠️ | `lesson:total-object:1` | Näen · isän pyörä | Seeing the whole thing — Another verb, another ending |
 | ⚠️ | `lesson:total-object:3` | auton | Seeing the whole thing — check |
 | ⚠️ | `lesson:total-object:4` | Näen bussin. · bussin | Seeing the whole thing — check |
@@ -654,9 +660,9 @@
 | ⚠️ | `lesson:feelings-on-me:1` | Minulla on… · Minulla on nälkä | Hungry, thirsty, cold, hot — "On me is hunger" |
 | ⚠️ | `lesson:feelings-on-me:3` | Minulla on kylmä | Hungry, thirsty, cold, hot — check |
 | ⚠️ | `lesson:feelings-on-me:4` | nälkä · jano | Hungry, thirsty, cold, hot — check |
-| ⚠️ | `lesson:school-day:2` | Pidän · En pidä | Liking and not liking — I like / I don't like |
-| ⚠️ | `lesson:school-day:3` | En pidä · en · et · ei | Liking and not liking — The "not" verb again |
-| ⚠️ | `lesson:school-day:4` | En pidä · matematiikasta | Liking and not liking — check |
+| ⚠️ | `lesson:school-day:2` | Tykkään · En tykkää · En pidä | Liking and not liking — I like / I don't like |
+| ⚠️ | `lesson:school-day:3` | En tykkää · en · et · ei | Liking and not liking — The "not" verb again |
+| ⚠️ | `lesson:school-day:4` | En tykkää · matematiikasta | Liking and not liking — check |
 | ⚠️ | `lesson:school-day:5` | Pidän englannista. · Pidän · En pidä | Liking and not liking — check |
 | ⚠️ | `lesson:town:1` | into · out of · Olen · Menen · Tulen | You on the move — The cat's endings — for you |
 | ⚠️ | `lesson:town:5` | puistoon | You on the move — check |
@@ -699,6 +705,7 @@
 | ⚠️ | `lesson:verb-type4:5` | haluan | Verb type 4 — check |
 | ⚠️ | `lesson:verb-type4:6` | korjata · korjaan | Verb type 4 — check |
 | ⚠️ | `lesson:kpt-4:1` | kuunnella → kuuntelen · hypätä → hyppään, hyppää | Type 4: the sound gets STRONGER — The other way round — like kuunnella |
+| ⚠️ | `lesson:kpt-4:2` | tykätä → tykkään | Type 4: the sound gets STRONGER — Weak → strong |
 | ⚠️ | `lesson:kpt-4:3` | minä hyppään · hän hyppää · me hyppäämme | Type 4: the sound gets STRONGER — Every person is strong |
 | ⚠️ | `lesson:kpt-4:4` | kiivetä · kiipeän · hyppään | Type 4: the sound gets STRONGER — Watch out: kiivetä |
 | ⚠️ | `lesson:kpt-4:5` | hyppään | Type 4: the sound gets STRONGER — check |
@@ -748,7 +755,7 @@
 | ⚠️ | `lesson:age:3` | kahdeksan · Olen kahdeksan vuotta vanha | How old are you? — check |
 | ⚠️ | `lesson:age:4` | vuotta · vuosi | How old are you? — check |
 
-## Other authored lines (distractor-only) (97)
+## Other authored lines (distractor-only) (98)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -823,7 +830,7 @@
 | ⚠️ | `line:69-olen-koulussa-` | Olen koulussa. | I'm at school. |
 | ⚠️ | `line:70-olen-puistossa-` | Olen puistossa. | I'm in the park. |
 | ⚠️ | `line:71-ostetaan-maito-ja-leipä-` | Ostetaan maito ja leipä. | Let's buy some milk and bread. |
-| ⚠️ | `line:72-pidän-pitsaa-` | Pidän pitsaa. | I like pizza. |
+| ⚠️ | `line:72-pidän-musiikkia-` | Pidän musiikkia. | I like music. |
 | ⚠️ | `line:73-pidän-pitsasta-` | Pidän pitsasta. | I like pizza. |
 | ⚠️ | `line:74-pidän-sinusta-` | Pidän sinusta. | I like you. |
 | ⚠️ | `line:75-piirrän-kynää-` | Piirrän kynää. | I'm drawing a pencil. |
@@ -843,9 +850,10 @@
 | ⚠️ | `line:89-talvessa-leikin-lumessa-` | Talvessa leikin lumessa. | In winter I play in the snow. |
 | ⚠️ | `line:90-tarvitset-kynän-` | Tarvitset kynän. | You need a pen. |
 | ⚠️ | `line:91-toukokuuta-` | Toukokuuta. | In May. |
-| ⚠️ | `line:92-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
-| ⚠️ | `line:93-uitko-` | Uitko? | Do you swim? |
-| ⚠️ | `line:94-valitsee-punaisen-` | Valitsee punaisen. | He chooses the red one. |
-| ⚠️ | `line:95-viisi-kaveri-` | Viisi kaveri. | Five friends. |
-| ⚠️ | `line:96-yksi-kirjaa-` | Yksi kirjaa. | One book. |
-| ⚠️ | `line:97-älä-leiki-` | Älä leiki! | Don't play! |
+| ⚠️ | `line:92-tykkään-pitsaa-` | Tykkään pitsaa. | I like pizza. |
+| ⚠️ | `line:93-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | `line:94-uitko-` | Uitko? | Do you swim? |
+| ⚠️ | `line:95-valitsee-punaisen-` | Valitsee punaisen. | He chooses the red one. |
+| ⚠️ | `line:96-viisi-kaveri-` | Viisi kaveri. | Five friends. |
+| ⚠️ | `line:97-yksi-kirjaa-` | Yksi kirjaa. | One book. |
+| ⚠️ | `line:98-älä-leiki-` | Älä leiki! | Don't play! |

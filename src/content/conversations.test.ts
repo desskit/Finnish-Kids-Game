@@ -53,7 +53,7 @@ describe('conversation content integrity', () => {
     }
     // The grammar slips the scenes use on purpose all carry a "why".
     const lines = conversations.flatMap((c) => c.turns.flatMap((t) => t.distractors));
-    for (const fi of ['Kolme kynä.', 'Pidän pitsaa.', 'Lauantailla uin.', 'Minä olen kaksi.', 'Menen bussiin.']) {
+    for (const fi of ['Kolme kynä.', 'Tykkään pitsaa.', 'Pidän musiikkia.', 'Lauantailla uin.', 'Minä olen kaksi.', 'Menen bussiin.']) {
       expect(lines.find((l) => l.fi === fi)?.why, fi).toBeTruthy();
     }
   });

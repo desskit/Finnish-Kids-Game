@@ -393,8 +393,10 @@ const TAUGHT_CONSTRUCTIONS = [
   'i-am-not',
   'i-feel',
   'i-like',
+  'i-like-tykkaan',
   'i-love',
   'i-dont-like',
+  'i-dont-like-tykkaa',
   'i-see',
   'i-watch',
   'i-wait-for',
@@ -566,7 +568,7 @@ function sceneStep(id: string, sceneId: string, titleFi: string, titleEn: string
 const DOING_PLAIN = ['sing', 'speak', 'dance', 'eat', 'drink', 'swim', 'go', 'come', 'walk', 'run'];
 const DOING_KPT = ['sleep', 'play', 'read', 'write', 'draw', 'help', 'listen'];
 const TYPE4_PLAIN = ['want', 'open', 'answer', 'clean', 'paint', 'hug', 'fix', 'wake-up'];
-const TYPE4_KPT = ['jump', 'climb', 'cut', 'fall', 'meet'];
+const TYPE4_KPT = ['jump', 'climb', 'cut', 'fall', 'meet', 'like'];
 const TYPE56_PLAIN = ['need', 'choose', 'disturb', 'lock', 'grow-old'];
 const TYPE6_KPT = ['warm-up', 'run-away'];
 
@@ -928,13 +930,16 @@ const UNITS: Chapter[] = [
   },
   {
     id: 'likes',
-    titleFi: 'Pidän ja rakastan',
+    titleFi: 'Tykkään, pidän, rakastan',
     titleEn: 'Likes',
     blurbEn: 'Say what you like and love — each verb picks its own ending.',
     accent: '#e11d48',
     icon: '❤️',
     lessonId: 'likes',
-    midLessons: [{ lessonId: 'loving', before: 'i-love' }],
+    midLessons: [
+      { lessonId: 'liking-pidan', before: 'i-like-pidan' },
+      { lessonId: 'loving', before: 'i-love' },
+    ],
     newWords: [
       'pizza',
       'ice-cream',
@@ -956,9 +961,17 @@ const UNITS: Chapter[] = [
     ],
     skills: [
       wordsStep('likes', 'nouns', 'Food & fun'),
-      phraseStep('i-like', 'Pidän…sta', 'I like…', '👍', ['i-like'], 'Pidän jalkapallosta.'),
-      phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like'], 'Rakastan pitsaa.'),
-      sceneStep('likes-talk', 'favourite-things', 'Mistä pidät?', 'What do you like?'),
+      phraseStep('i-like', 'Tykkään…sta', 'I like…', '👍', ['i-like-tykkaan'], 'Tykkään jalkapallosta.'),
+      phraseStep(
+        'i-like-pidan',
+        'Pidän…sta',
+        'Another way to say it',
+        '🤝',
+        ['i-like', 'i-like-tykkaan'],
+        'Pidän jalkapallosta.',
+      ),
+      phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like-tykkaan', 'i-like'], 'Rakastan pitsaa.'),
+      sceneStep('likes-talk', 'favourite-things', 'Mistä tykkäät?', 'What do you like?'),
     ],
   },
   {
@@ -1011,11 +1024,11 @@ const UNITS: Chapter[] = [
       wordsStep('school-day', 'nouns', 'School words'),
       phraseStep(
         'like-or-not',
-        'Pidän / En pidä',
+        'Tykkään / En tykkää',
         'Like it or not',
         '👍',
-        ['i-like', 'i-dont-like'],
-        'En pidä matematiikasta.',
+        ['i-like-tykkaan', 'i-dont-like-tykkaa', 'i-like', 'i-dont-like'],
+        'En tykkää matematiikasta.',
       ),
       sceneStep('school-day-talk', 'school-day', 'Koulupäivä', 'A school day'),
       reviewStep('school-day'),

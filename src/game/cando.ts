@@ -54,7 +54,7 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('not-doing', '✋', "Can say what they don't do"),
   unitClaim('asking', '❓', 'Can ask "do you…?" with -ko / -kö and answer with the verb'),
   unitClaim('feelings', '😄', 'Can say how they feel ("Olen iloinen", "Minulla on nälkä")'),
-  unitClaim('likes', '❤️', 'Can say what they like and love'),
+  unitClaim('likes', '❤️', 'Can say what they like and love (tykkään, pidän, rakastan)'),
   unitClaim('wanting', '🎯', 'Can say what they want to do, can do, and ask "may I…?"'),
   unitClaim('verbs-4', '🔓', 'Can use type 4 verbs (haluta → haluan), including ones that get stronger (hypätä → hyppään)'),
   unitClaim('school-day', '🏫', "Can talk about school subjects they like and don't like"),

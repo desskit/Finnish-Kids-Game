@@ -272,7 +272,7 @@ const NO_ARTICLE_IDS = new Set([
 ]);
 // Carriers about liking something: English talks about a KIND of food or
 // pastime without "the" ("I like pizza", "I love chocolate").
-const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like']);
+const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like', 'i-like-tykkaan', 'i-dont-like-tykkaa']);
 
 function englishArticleFor(item: LexicalItem): string {
   // A describing word after "is" takes no article: "This is red", not "a red".
