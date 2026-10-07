@@ -92,14 +92,14 @@ export const conversations: Conversation[] = [
       {
         partner: { fi: 'Minun nimeni on Eero. Kuinka vanha olet?', en: "My name is Eero. How old are you?" },
         // Nominative echo — "olla" here, so "Entä sinä?" (contrast with turn 1 of Playground).
-        reply: { fi: 'Olen kuusivuotias. Entä sinä?', en: "I'm six years old. And you?" },
+        reply: { fi: 'Olen seitsemänvuotias. Entä sinä?', en: "I'm seven years old. And you?" },
         distractors: [
           { fi: 'Se on kirja.', en: "It's a book." },
           { fi: 'Ole hyvä.', en: "You're welcome." },
         ],
       },
       {
-        partner: { fi: 'Olen myös kuusi. Hauska tutustua!', en: "I'm six too. Nice to meet you!" },
+        partner: { fi: 'Olen myös seitsemän. Hauska tutustua!', en: "I'm seven too. Nice to meet you!" },
         // Same reviewer-corrected echo as dialogue `nice-to-meet` (illative
         // with tutustua).
         reply: { fi: 'Niin sinuunkin!', en: 'You too!' },
@@ -341,7 +341,7 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Hienoa! Milloin lähdemme?', en: 'Great! When do we leave?' },
         reply: { fi: 'Heti lounaan jälkeen.', en: 'Right after lunch.' },
         distractors: [
-          { fi: 'Olen kuusivuotias.', en: "I'm six years old." },
+          { fi: 'Olen seitsemänvuotias.', en: "I'm seven years old." },
           { fi: 'Ole hyvä.', en: "You're welcome." },
         ],
       },

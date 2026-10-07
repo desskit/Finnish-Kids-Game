@@ -164,8 +164,10 @@ describe('lessons + notebook', () => {
     fireEvent.click(screen.getByRole('button', { name: /Start practicing/ }));
     const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
     expect(saved.children[0].course.lessonsSeen.sounds).toBeGreaterThan(0);
-    // Now on the unit's first step (the greetings dialogue).
-    expect(await screen.findByText(/What do you reply/)).toBeInTheDocument();
+    // Now on the unit's first step (the greetings dialogue) — which first MODELS
+    // a pair the child has never been shown, before asking for it.
+    expect(await screen.findByText(/New phrase/)).toBeInTheDocument();
+    expect(screen.getByText('…you say back:')).toBeInTheDocument();
   });
 
   it('lists only open units in the Notebook', () => {

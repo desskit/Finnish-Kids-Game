@@ -255,6 +255,22 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
 - The highlighter (`src/content/endings.ts`) only **marks** the ending of a
   looked-up form. If the form doesn't end in a known ending for its tag,
   nothing is marked.
+- **Teach before you test.** Never ask for something the lesson hasn't shown:
+  - Set phrases (greetings, "Ei se mitään") go in a `pairs` card, listed as
+    **they say → you say back**. `lessons.test.ts` fails if a unit's dialogue
+    step asks for a pair that its lesson never shows.
+  - In the games, an exchange the child has never seen is **modelled first**
+    ("Uusi fraasi!") and a never-heard scene plays as a full example ("Kuuntele
+    ensin") before the child takes a turn. Both are remembered per child in
+    `course.phrasesSeen`.
+- A word brought in only to show a **sound** (*tulli* in the tuli / tuuli /
+  tulli trio) lives in the lesson-only theme `lesson-words`. It is never in a
+  game pool, and a check that uses it must be a **listening** check (`listen`:
+  "which word do you hear?"), never "what does it mean?".
+- Example rows for an inflected form need the English of the **phrase**
+  (`en: 'on the table'`), not the bare word.
+- Review every lesson as rendered with `npm run audit:lessons` →
+  `docs/LESSON_AUDIT.md`.
 - A `check` card has exactly one correct option. Wrong options may use
   `asCase` / `wrong` / `adjCase` to show a real form in the wrong place.
 - Finnish quoted in prose (*minulla*, *edessä*…) appears in

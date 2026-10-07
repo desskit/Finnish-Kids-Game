@@ -8,6 +8,7 @@ import { byIds } from '../util/byIds';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import PhraseIntro from './PhraseIntro';
 
 const QUESTIONS = 6;
 
@@ -25,7 +26,7 @@ interface Props {
 // single lexical items (like the multi-slot sentence game).
 export default function DialogueGame({ onExit, ids }: Props) {
   const pool = byIds(dialogues, ids);
-  const { level, addStars, activeChild } = useProfile();
+  const { level, addStars, activeChild, markPhraseSeen } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, maxTier } = difficulty;
@@ -35,6 +36,11 @@ export default function DialogueGame({ onExit, ids }: Props) {
 
   const missed = useRef(false);
   const firstTries = useRef(0);
+  // Pairs already modelled — snapshotted once per mount (the stored record
+  // grows as intros are dismissed; `introducedIds` covers this mount).
+  const seenSnapshot = useRef(activeChild?.course?.phrasesSeen ?? {}).current;
+  const introducedIds = useRef(new Set<string>());
+  const [, setIntroTick] = useState(0);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo<DialogueQuestion[]>(
@@ -54,14 +60,17 @@ export default function DialogueGame({ onExit, ids }: Props) {
   const [done, setDone] = useState(false);
 
   const q = round[index];
+  // A pair the child has never been shown is MODELLED first ("when someone
+  // says… you say back…"), then asked — never asked cold.
+  const showIntro = !!q && !seenSnapshot[`ex:${q.id}`] && !introducedIds.current.has(q.id);
 
   // Play the other speaker's Finnish line when a new exchange appears — it's the
-  // input the child responds to.
+  // input the child responds to. (The intro card speaks both lines itself.)
   useEffect(() => {
-    if (!q || done) return;
+    if (!q || done || showIntro) return;
     const t = setTimeout(() => speak(q.prompt.fi), 400);
     return () => clearTimeout(t);
-  }, [q, done]);
+  }, [q, done, showIntro]);
 
   const choose = useCallback(
     (fi: string) => {
@@ -96,7 +105,7 @@ export default function DialogueGame({ onExit, ids }: Props) {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (!q || done) return;
+      if (!q || done || showIntro) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         speak(q.prompt.fi);
@@ -107,7 +116,7 @@ export default function DialogueGame({ onExit, ids }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [q, done, choose]);
+  }, [q, done, showIntro, choose]);
 
   function restart() {
     setIndex(0);
@@ -124,6 +133,29 @@ export default function DialogueGame({ onExit, ids }: Props) {
 
   if (done) return null;
   if (!q) return null;
+
+  if (showIntro) {
+    return (
+      <section className="screen activity">
+        <ActivityHeader
+          title="Keskustelu · Conversation"
+          index={index}
+          total={round.length}
+          stars={ctx?.sessionStars}
+          onExit={onExit}
+        />
+        <PhraseIntro
+          prompt={q.prompt}
+          reply={q.reply}
+          onContinue={() => {
+            introducedIds.current.add(q.id);
+            markPhraseSeen(`ex:${q.id}`);
+            setIntroTick((n) => n + 1);
+          }}
+        />
+      </section>
+    );
+  }
 
   return (
     <section className="screen activity">

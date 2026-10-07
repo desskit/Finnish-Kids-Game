@@ -42,12 +42,24 @@ import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 
-function seedChild() {
+function seedChild(seen = true) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
-      children: [{ id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {} }],
+      children: [
+        {
+          id: 'k',
+          name: 'K',
+          avatar: '🦊',
+          level: 1,
+          stars: 0,
+          createdAt: 1,
+          progress: {},
+          // Already modelled once — so the tests below play the scene directly.
+          course: seen ? { phrasesSeen: { 'scene:playground': 1 } } : {},
+        },
+      ],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
     }),
@@ -87,6 +99,24 @@ afterEach(() => {
 });
 
 describe('ConversationScene (small talk)', () => {
+  it('MODELS a never-heard scene first — both sides, read aloud — then hands over', async () => {
+    localStorage.clear();
+    seedChild(false);
+    renderActivity();
+    expect(screen.getByText('Kuuntele ensin', { exact: false })).toBeInTheDocument();
+    // The whole exchange is visible, including the child's own lines.
+    expect(screen.getByText('Hyvää, kiitos! Entä sinulle?')).toBeInTheDocument();
+    expect(screen.getByText('Joo, leikitään!')).toBeInTheDocument();
+    expect(document.querySelectorAll('.reply-tile')).toHaveLength(0);
+    await advance(500);
+    expect(speak).toHaveBeenCalledWith('Moi! Mitä kuuluu?', { queue: true });
+    expect(speak).toHaveBeenCalledWith('Joo, leikitään!', { queue: true });
+    fireEvent.click(screen.getByText('Nyt sinä!', { exact: false }).closest('button')!);
+    expect(document.querySelectorAll('.reply-tile')).toHaveLength(3);
+    const stored = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    expect(stored.children[0].course.phrasesSeen['scene:playground']).toBeTruthy();
+  });
+
   it('opens the scene by speaking the first partner line and showing reply tiles', async () => {
     renderActivity();
     expect(screen.getByText('Moi! Mitä kuuluu?')).toBeInTheDocument();

@@ -102,6 +102,8 @@ const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
 const TIMES_OF = ['morning', 'daytime', 'evening', 'night', 'spring', 'summer', 'autumn', 'winter'];
 
 // Where a person is ON/AT, with the English preposition each one takes.
+const SCHOOL_GLOSS: Record<string, string> = { school: 'school' };
+
 const PERSON_ON_GLOSS: Record<string, string> = {
   station: 'at the station',
   market: 'at the market',
@@ -505,7 +507,7 @@ export const nounConstructions: Construction[] = [
     id: 'i-buy', // total object = genitive: "Ostan omenan."
     before: 'Ostan',
     punct: '.',
-    en: 'I buy the ___.',
+    en: 'I buy a ___.',
     tier: 6,
     case: 'genitive',
     number: 'singular',
@@ -864,6 +866,8 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
     topics: ['places'],
     requiresTags: ['person-in'],
+    // English says "to school" / "from school", with no "the".
+    glossById: SCHOOL_GLOSS,
   },
   {
     id: 'i-go-onto',
@@ -886,6 +890,8 @@ export const nounConstructions: Construction[] = [
     number: 'singular',
     topics: ['places'],
     requiresTags: ['person-in'],
+    // English says "to school" / "from school", with no "the".
+    glossById: SCHOOL_GLOSS,
   },
   {
     id: 'i-come-from-on',

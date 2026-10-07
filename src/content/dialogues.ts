@@ -135,7 +135,7 @@ export const dialogues: DialogueExchange[] = [
   {
     id: 'how-old',
     prompt: { fi: 'Kuinka vanha olet?', en: 'How old are you?' },
-    reply: { fi: 'Olen viisivuotias.', en: "I'm five years old." },
+    reply: { fi: 'Olen seitsemänvuotias.', en: "I'm seven years old." },
     distractors: [
       { fi: 'Nimeni on {name}.', en: 'My name is {name}.' },
       { fi: 'Kiitos hyvää.', en: 'Fine, thanks.' },
@@ -203,7 +203,7 @@ export const dialogues: DialogueExchange[] = [
     prompt: { fi: 'Missä sinä asut?', en: 'Where do you live?' },
     reply: { fi: 'Asun Suomessa.', en: 'I live in Finland.' },
     distractors: [
-      { fi: 'Olen viisivuotias.', en: "I'm five years old." },
+      { fi: 'Olen seitsemänvuotias.', en: "I'm seven years old." },
       { fi: 'Hyvää, kiitos.', en: 'Good, thanks.' },
     ],
     tier: 3,
@@ -300,7 +300,7 @@ export const dialogues: DialogueExchange[] = [
     prompt: { fi: 'Millainen sää on?', en: "What's the weather like?" },
     reply: { fi: 'Aurinko paistaa.', en: 'The sun is shining.' },
     distractors: [
-      { fi: 'Olen viisivuotias.', en: "I'm five years old." },
+      { fi: 'Olen seitsemänvuotias.', en: "I'm seven years old." },
       { fi: 'Se on kirja.', en: "It's a book." },
     ],
     tier: 4,
@@ -345,7 +345,7 @@ export const dialogues: DialogueExchange[] = [
     reply: { fi: 'Kolme euroa.', en: 'Three euros.' },
     distractors: [
       { fi: 'Se on kirja.', en: "It's a book." },
-      { fi: 'Olen viisivuotias.', en: "I'm five years old." },
+      { fi: 'Olen seitsemänvuotias.', en: "I'm seven years old." },
     ],
     tier: 4,
   },

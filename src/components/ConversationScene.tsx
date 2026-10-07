@@ -24,7 +24,7 @@ interface Props {
 // single-turn greetings game); first-try accuracy still feeds the adaptive engine.
 export default function ConversationScene({ onExit, ids }: Props) {
   const pool = byIds(conversations, ids);
-  const { level, activeChild, addStars } = useProfile();
+  const { level, activeChild, addStars, markPhraseSeen } = useProfile();
   const avatar = activeChild?.avatar;
   const childName = activeChild?.name ?? '';
   const ctx = useActivityContext();
@@ -33,6 +33,10 @@ export default function ConversationScene({ onExit, ids }: Props) {
   // Top rung: Finnish-only — drop the English glosses on the bubbles + tiles.
   const glossed = showsGloss(difficulty.level);
 
+  // A scene the child has never heard is MODELLED first — the whole exchange,
+  // both sides, read aloud — then they play their part. Snapshotted per mount.
+  const seenSnapshot = useRef(activeChild?.course?.phrasesSeen ?? {}).current;
+  const [modelled, setModelled] = useState<Set<string>>(() => new Set());
   const missedTurn = useRef(false);
   const firstTries = useRef(0);
   const spokenFor = useRef(-1);
@@ -51,18 +55,33 @@ export default function ConversationScene({ onExit, ids }: Props) {
   const [done, setDone] = useState(false);
 
   const turn = scene?.turns[turnIndex];
+  const showModel = !!scene && !seenSnapshot[`scene:${scene.id}`] && !modelled.has(scene.id);
+
+  // Read the model conversation aloud, line by line, both voices in order.
+  const playModel = useCallback(() => {
+    if (!scene) return;
+    for (const t of scene.turns) {
+      speak(t.partner.fi, { queue: true });
+      speak(t.reply.fi, { queue: true });
+    }
+  }, [scene]);
+  useEffect(() => {
+    if (!showModel) return;
+    const t = setTimeout(playModel, 400);
+    return () => clearTimeout(t);
+  }, [showModel, playModel]);
 
   // Speak the partner's line when a new turn is reached (guard so it plays once
   // per turn even if the effect re-runs).
   useEffect(() => {
-    if (!turn || done || finished) return;
+    if (!turn || done || finished || showModel) return;
     if (spokenFor.current === turnIndex) return;
     spokenFor.current = turnIndex;
     // Queue so a still-playing reply from the previous turn finishes first
     // (each TTS line completes before the next begins).
     const t = setTimeout(() => speak(turn.partner.fi, { queue: true }), 400);
     return () => clearTimeout(t);
-  }, [turn, turnIndex, done, finished]);
+  }, [turn, turnIndex, done, finished, showModel]);
 
   const choose = useCallback(
     (fi: string) => {
@@ -99,7 +118,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (!turn || done || finished) return;
+      if (!turn || done || finished || showModel) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         speak(turn.partner.fi);
@@ -110,7 +129,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [turn, done, finished, choose]);
+  }, [turn, done, finished, showModel, choose]);
 
   function restart() {
     setTurnIndex(0);
@@ -129,6 +148,60 @@ export default function ConversationScene({ onExit, ids }: Props) {
   useSegmentComplete(done, firstTries.current, total, restart);
 
   if (done || !scene) return null;
+
+  if (showModel) {
+    return (
+      <section className="screen activity">
+        <ActivityHeader
+          title={`${scene.titleFi} · ${scene.titleEn}`}
+          index={0}
+          total={total}
+          stars={ctx?.sessionStars}
+          onExit={onExit}
+        />
+        <p className="prompt">
+          Kuuntele ensin <span className="en">Listen first — then it's your turn</span>
+        </p>
+        <div className="chat chat--model" aria-label="Example conversation">
+          {scene.turns.map((t, i) => (
+            <div className="chat-row" key={i}>
+              <div className="chat-bubble chat-bubble--partner">
+                <span className="chat-avatar" aria-hidden="true">
+                  {scene.partnerIcon}
+                </span>
+                <span className="chat-lines">
+                  <span className="chat-fi">{t.partner.fi}</span>
+                  <span className="en chat-en">{t.partner.en}</span>
+                </span>
+              </div>
+              <div className="chat-bubble chat-bubble--child">
+                <span className="chat-lines">
+                  <span className="chat-fi">{t.reply.fi}</span>
+                  <span className="en chat-en">{t.reply.en}</span>
+                </span>
+                <span className="chat-avatar" aria-hidden="true">
+                  {avatar || '🙂'}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="speaker speaker--inline" onClick={playModel} aria-label="Hear it again">
+          🔊 <span className="en">Listen again</span>
+        </button>
+        <button
+          className="btn btn--primary"
+          onClick={() => {
+            markPhraseSeen(`scene:${scene.id}`);
+            setModelled((prev) => new Set(prev).add(scene.id));
+          }}
+          autoFocus
+        >
+          Nyt sinä! <span className="en">Your turn</span>
+        </button>
+      </section>
+    );
+  }
 
   return (
     <section className="screen activity">

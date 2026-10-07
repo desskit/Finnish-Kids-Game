@@ -6,6 +6,8 @@
 // generates or inflects Finnish by rule. Carrier phrases below are
 // human-authored; only the slot form is filled from the tagged data.
 
+import { LIKED_AS_A_KIND, NOT_COUNTABLE } from './semantics';
+
 export type Tier = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export type GrammaticalNumber = 'singular' | 'plural';
@@ -243,8 +245,18 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
 // needs something else in plain English: mass nouns take no article at all
 // ("This is water.", not "a water"), and a few nature words are conventionally
 // unique referents ("This is the sun.", not "a sun").
-const NO_ARTICLE_IDS = new Set(['rain', 'snow', 'water', 'milk', 'bread', 'cheese', 'juice', 'hair']);
 const DEFINITE_ARTICLE_IDS = new Set(['sun', 'moon', 'sky', 'sea']);
+// Uncountable things take no "a" — "This is soup", "I buy rice" — plus a few
+// words that are uncountable in English only.
+const NO_ARTICLE_IDS = new Set([
+  ...NOT_COUNTABLE.filter((id) => !DEFINITE_ARTICLE_IDS.has(id)),
+  'bread',
+  'cheese',
+  'hair',
+]);
+// Carriers about liking something: English talks about a KIND of food or
+// pastime without "the" ("I like pizza", "I love chocolate").
+const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like']);
 
 function englishArticleFor(item: LexicalItem): string {
   if (NO_ARTICLE_IDS.has(item.id)) return '';
@@ -263,7 +275,9 @@ function englishArticleFor(item: LexicalItem): string {
  */
 export function englishSentenceFor(item: LexicalItem, con: Construction): string {
   const override = con.glossById?.[item.id];
-  if (override) return con.en.replace(/a ___|___s|___/, override);
+  // An override is the whole noun phrase ("at the station", "school"), so it
+  // also replaces any article baked into the template.
+  if (override) return con.en.replace(/(?:a |the )?___s?/, override);
   // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
   // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
   if (con.en.includes('___s')) {
@@ -272,6 +286,16 @@ export function englishSentenceFor(item: LexicalItem, con: Construction): string
   if (con.en.includes('a ___')) {
     const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');
     return con.en.replace('a ___', filled);
+  }
+  // Liking something uncountable, or a kind of food / pastime → no "the":
+  // "I like music", "I don't like math", "I love pizza" — but "I love the
+  // cat", and "Where is the rain?" keeps its "the".
+  if (
+    con.en.includes('the ___') &&
+    LIKING_CARRIERS.has(con.id) &&
+    (NO_ARTICLE_IDS.has(item.id) || LIKED_AS_A_KIND.includes(item.id))
+  ) {
+    return con.en.replace('the ___', item.en);
   }
   return con.en.replace('___', item.en);
 }

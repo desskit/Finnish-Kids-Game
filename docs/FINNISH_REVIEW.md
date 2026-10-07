@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T01:54:08.120Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T02:15:01.569Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 340 entries.**
+- **Approved: 28 of 343 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -19,7 +19,7 @@
 | ✅ | `dialogue:here-you-go` | Ole hyvä! → Kiitos! | Here you go! → Thank you! |
 | ✅ | `dialogue:sorry` | Anteeksi! → Ei se mitään. | Sorry! → It's okay. |
 | ✅ | `dialogue:your-name` | Mikä sinun nimesi on? → Nimeni on {name}. | What's your name? → My name is {name}. |
-| ✅ | `dialogue:how-old` | Kuinka vanha olet? → Olen viisivuotias. | How old are you? → I'm five years old. |
+| ✅ | `dialogue:how-old` | Kuinka vanha olet? → Olen seitsemänvuotias. | How old are you? → I'm seven years old. |
 | ✅ | `dialogue:nice-to-meet` | Hauska tutustua! → Niin sinuunkin! | Nice to meet you! → You too! |
 | ✅ | `dialogue:where-going` | Minne menet? → Menen kotiin. | Where are you going? → I'm going home. |
 | ✅ | `dialogue:what-is-this` | Mikä tämä on? → Se on kirja. | What is this? → It's a book. |
@@ -56,8 +56,8 @@
 | ⚠️ | `conversation:playground:2` | Kiitos, hyvää! Leikitäänkö? → Joo, leikitään! | Thanks, good! Shall we play? → Yeah, let's play! |
 | ⚠️ | `conversation:playground:3` | Kiva! Mennään. → Mennään! | Nice! Let's go. → Let's go! |
 | ⚠️ | `conversation:new-friend:1` | Hei! Mikä sinun nimesi on? → Nimeni on {name}. Entä sinun? | Hi! What's your name? → My name is {name}. And yours? |
-| ⚠️ | `conversation:new-friend:2` | Minun nimeni on Eero. Kuinka vanha olet? → Olen kuusivuotias. Entä sinä? | My name is Eero. How old are you? → I'm six years old. And you? |
-| ⚠️ | `conversation:new-friend:3` | Olen myös kuusi. Hauska tutustua! → Niin sinuunkin! | I'm six too. Nice to meet you! → You too! |
+| ⚠️ | `conversation:new-friend:2` | Minun nimeni on Eero. Kuinka vanha olet? → Olen seitsemänvuotias. Entä sinä? | My name is Eero. How old are you? → I'm seven years old. And you? |
+| ⚠️ | `conversation:new-friend:3` | Olen myös seitsemän. Hauska tutustua! → Niin sinuunkin! | I'm seven too. Nice to meet you! → You too! |
 | ⚠️ | `conversation:at-school:1` | Hyvää huomenta! → Hyvää huomenta, opettaja! | Good morning! → Good morning, teacher! |
 | ⚠️ | `conversation:at-school:2` | Mitä kuuluu? → Hyvää, kiitos! | How are you? → Good, thanks! |
 | ⚠️ | `conversation:at-school:3` | Kiva! Aloitetaan. → Aloitetaan! | Nice! Let's begin. → Let's begin! |
@@ -212,7 +212,7 @@
 | ⚠️ | `carrier:i-havent-any` | Minulla ei ole ___. — e.g. Minulla ei ole omenia. | I don't have any ___s. |
 | ⚠️ | `carrier:these-are` | Nämä ovat ___. — e.g. Nämä ovat omenia. | These are ___s. |
 | ⚠️ | `carrier:where-are` | Missä ovat ___? — e.g. Missä ovat omenat? | Where are the ___s? |
-| ⚠️ | `carrier:i-buy` | Ostan ___. — e.g. Ostan omenan. | I buy the ___. |
+| ⚠️ | `carrier:i-buy` | Ostan ___. — e.g. Ostan omenan. | I buy a ___. |
 | ⚠️ | `carrier:i-buy-some` | Ostan ___. — e.g. Ostan leipää. | I buy some ___. |
 | ⚠️ | `carrier:i-wait-for` | Odotan ___. — e.g. Odotan tätiä. | I wait for the ___. |
 | ⚠️ | `carrier:on-it` | Kissa on ___. — e.g. Kissa on korilla. | The cat is on the ___. |
@@ -259,17 +259,20 @@
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
 
-## Lesson prose — Finnish quoted in the explanations (78)
+## Lesson prose — Finnish quoted in the explanations (82)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
-| ⚠️ | `lesson:sounds:6` | tuuli · tuli | How Finnish sounds — check |
-| ⚠️ | `lesson:sounds:7` | äiti | How Finnish sounds — check |
+| ⚠️ | `lesson:sounds:2` | or | How Finnish sounds — Double letters are long |
+| ⚠️ | `lesson:sounds:6` | tuuli · tuli · tulli | How Finnish sounds — check |
+| ⚠️ | `lesson:sounds:7` | Hyvää yötä! | How Finnish sounds — check |
+| ⚠️ | `lesson:sounds:8` | äiti | How Finnish sounds — check |
 | ⚠️ | `lesson:no-articles:1` | kirja | No "a", no "the" — Two words Finnish doesn't need |
 | ⚠️ | `lesson:no-articles:2` | Tämä on · on | No "a", no "the" — "This is…" |
 | ⚠️ | `lesson:no-articles:3` | on · Onko | No "a", no "the" — Asking with -ko |
 | ⚠️ | `lesson:no-articles:4` | Onko | No "a", no "the" — check |
 | ⚠️ | `lesson:no-articles:5` | opettaja | No "a", no "the" — check |
+| ⚠️ | `lesson:counting:1` | yksitoista · kaksitoista | Counting — One to twelve |
 | ⚠️ | `lesson:counting:2` | yksi kirja | Counting — One, or more than one? |
 | ⚠️ | `lesson:counting:5` | kirjaa | Counting — check |
 | ⚠️ | `lesson:counting:6` | kaveria | Counting — check |
@@ -282,12 +285,13 @@
 | ⚠️ | `lesson:negation-object:4` | ei ole · kenkää | Saying you don't have it — check |
 | ⚠️ | `lesson:negation-object:5` | Minulla on hattu. · on · ei ole · hattua | Saying you don't have it — check |
 | ⚠️ | `lesson:verb-persons:1` | minä · Syön. | Verbs tell you WHO — The end of the verb says who |
+| ⚠️ | `lesson:verb-persons:3` | lukee · syö | Verbs tell you WHO — The six endings |
 | ⚠️ | `lesson:verb-persons:6` | syötte | Verbs tell you WHO — check |
 | ⚠️ | `lesson:negative-verb:3` | en, et, ei, emme, ette, eivät · syön · en syö | "Not" is a verb — Same endings as before! |
 | ⚠️ | `lesson:negative-verb:4` | et | "Not" is a verb — check |
 | ⚠️ | `lesson:negative-verb:5` | eivät | "Not" is a verb — check |
 | ⚠️ | `lesson:likes:2` | pidän | Liking and loving — pitää → -sta / -stä |
-| ⚠️ | `lesson:likes:3` | rakastan | Liking and loving — rakastaa → -a / -ä |
+| ⚠️ | `lesson:likes:3` | rakastan · suklaata | Liking and loving — rakastaa → -a / -ä |
 | ⚠️ | `lesson:likes:4` | pidän · musiikista | Liking and loving — check |
 | ⚠️ | `lesson:likes:5` | rakastan · pitsaa · pidän | Liking and loving — check |
 | ⚠️ | `lesson:total-object:2` | katsoa · odottaa | Seeing vs. watching — Going on for a while: -a / -ä |
@@ -342,7 +346,7 @@
 | ⚠️ | `lesson:when:5` | sunnuntaina | Days and times — check |
 | ⚠️ | `lesson:when:6` | talvella | Days and times — check |
 
-## Other authored lines (distractor-only) (35)
+## Other authored lines (distractor-only) (34)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -370,14 +374,13 @@
 | ⚠️ | `line:22-näkemiin-` | Näkemiin. | Goodbye. |
 | ⚠️ | `line:23-ole-hyvä-` | Ole hyvä. | You're welcome. |
 | ⚠️ | `line:24-olen-iloinen-` | Olen iloinen. | I'm happy. |
-| ⚠️ | `line:25-olen-kuusivuotias-` | Olen kuusivuotias. | I'm six years old. |
-| ⚠️ | `line:26-olen-puistossa-` | Olen puistossa. | I'm in the park. |
-| ⚠️ | `line:27-samoin-` | Samoin! | You too! |
-| ⚠️ | `line:28-se-on-hidas-` | Se on hidas. | It's slow. |
-| ⚠️ | `line:29-se-on-iso-` | Se on iso. | It's big. |
-| ⚠️ | `line:30-se-on-koira-` | Se on koira. | It's a dog. |
-| ⚠️ | `line:31-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
-| ⚠️ | `line:32-se-on-sininen-` | Se on sininen. | It's blue. |
-| ⚠️ | `line:33-tämä-on-kirja-` | Tämä on kirja. | This is a book. |
-| ⚠️ | `line:34-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
-| ⚠️ | `line:35-tänään-on-perjantai-` | Tänään on perjantai. | Today is Friday. |
+| ⚠️ | `line:25-olen-puistossa-` | Olen puistossa. | I'm in the park. |
+| ⚠️ | `line:26-samoin-` | Samoin! | You too! |
+| ⚠️ | `line:27-se-on-hidas-` | Se on hidas. | It's slow. |
+| ⚠️ | `line:28-se-on-iso-` | Se on iso. | It's big. |
+| ⚠️ | `line:29-se-on-koira-` | Se on koira. | It's a dog. |
+| ⚠️ | `line:30-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
+| ⚠️ | `line:31-se-on-sininen-` | Se on sininen. | It's blue. |
+| ⚠️ | `line:32-tämä-on-kirja-` | Tämä on kirja. | This is a book. |
+| ⚠️ | `line:33-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | `line:34-tänään-on-perjantai-` | Tänään on perjantai. | Today is Friday. |

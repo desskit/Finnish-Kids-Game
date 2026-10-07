@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PERSONS } from '../content/types';
 import { resolveRef, type Lesson, type LessonCard, type LessonRef, type ResolvedRef } from '../content/lessons';
 import type { Segment } from '../content/endings';
@@ -123,6 +123,27 @@ function CardBody({ card }: { card: LessonCard }) {
           </ul>
         </>
       );
+    case 'pairs':
+      return (
+        <>
+          {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
+          {card.text && <Prose text={card.text} />}
+          <ul className="lesson-rows lesson-pairs">
+            {card.ids.map((id) => {
+              const said = resolve({ line: id, part: 'prompt' });
+              const back = resolve({ line: id, part: 'reply' });
+              return said && back ? (
+                <li key={id} className="lesson-pair">
+                  <ul className="lesson-rows">
+                    <ExampleRow r={{ ...said, emoji: '🗣️' }} />
+                    <ExampleRow r={{ ...back, emoji: '↪️' }} />
+                  </ul>
+                </li>
+              ) : null;
+            })}
+          </ul>
+        </>
+      );
     case 'check':
       return <CheckCard card={card} resolve={resolve} />;
   }
@@ -179,11 +200,28 @@ function CheckCard({
   const [picked, setPicked] = useState<number | null>(null);
   const answered = picked !== null;
   const right = answered && !!card.options[picked].correct;
+  const heard = card.listen ? resolve(card.listen) : null;
+  useEffect(() => {
+    if (!heard) return;
+    const t = setTimeout(() => speak(heard.speak), 400);
+    return () => clearTimeout(t);
+    // Once per card (the card is keyed, so this runs on arrival).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <h2 className="lesson-card__title">{card.title ?? 'Kokeile! · Try it'}</h2>
       <Prose text={card.question} />
+      {heard && (
+        <button
+          className="speaker speaker--inline lesson-check__listen"
+          onClick={() => speak(heard.speak)}
+          aria-label="Kuuntele · Listen"
+        >
+          🔊 <span className="en">Listen</span>
+        </button>
+      )}
       <div className="lesson-check">
         {card.options.map((o, i) => {
           const res = o.ref ? resolve(o.ref) : null;
