@@ -1446,8 +1446,8 @@ export const conversations: Conversation[] = [
   // ⚠️ NEEDS NATIVE FINNISH VETTING — Numbers: one stays basic, two+ take -a / -ä
   {
     id: 'how-many-things',
-    titleFi: 'Montako?',
-    titleEn: 'How many?',
+    titleFi: 'Montako kynää?',
+    titleEn: 'How many pencils?',
     icon: '🔢',
     partnerIcon: '🧒',
     tier: 4,
@@ -1489,14 +1489,14 @@ export const conversations: Conversation[] = [
   // ⚠️ NEEDS NATIVE FINNISH VETTING — I have: everyone — hänellä, meillä, teillä
   {
     id: 'who-has-what',
-    titleFi: 'Kenellä on?',
-    titleEn: 'Who has what?',
+    titleFi: 'Onko teillä koira?',
+    titleEn: 'Have you all got a dog?',
     icon: '👪',
     partnerIcon: '👧',
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Onko teillä koira?', en: 'Do you (all) have a dog?' },
+        partner: { fi: 'Onko teillä koira?', en: 'Have you all got a dog?' },
         reply: { fi: 'Ei, meillä on kissa.', en: 'No, we have a cat.' },
         distractors: [
           { fi: 'Ei, heillä on kissa.', en: 'No, they have a cat.', why: '*heillä* = they have. They asked about you all — *meillä* (we have).' },

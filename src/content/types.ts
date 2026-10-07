@@ -158,6 +158,12 @@ export interface Construction {
    */
   glossById?: Record<string, string>;
   /**
+   * Whole English sentences for words where English changes more than the
+   * noun phrase: "Kissa menee puuhun" is "The cat goes up the tree", "Menen
+   * bussiin" is "I'm getting on the bus". Checked before `glossById`.
+   */
+  sentenceById?: Record<string, string>;
+  /**
    * Verb carriers ("Haluan ___." → "Haluan leikkiä"): the slot takes a VERB in
    * its basic (infinitive) form — the sourced dictionary form itself. `case`
    * is then just 'nominative' (unmarked).
@@ -285,11 +291,24 @@ function englishArticleFor(item: LexicalItem): string {
  * "This is a ___." + rain doesn't come out as "This is a rain."; any other
  * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
+// Family members a child calls by name — "Grandpa", not "the grandfather".
+export const FAMILY_NAMES: Record<string, string> = {
+  mother: 'Mom',
+  father: 'Dad',
+  grandmother: 'Grandma',
+  grandfather: 'Grandpa',
+};
+
 export function englishSentenceFor(item: LexicalItem, con: Construction): string {
+  const sentence = con.sentenceById?.[item.id];
+  if (sentence) return sentence;
   const override = con.glossById?.[item.id];
   // An override is the whole noun phrase ("at the station", "school"), so it
   // also replaces any article baked into the template.
   if (override) return con.en.replace(/(?:a |the )?___s?/, override);
+  // "Where is Mom?", not "Where is the mom?".
+  const name = FAMILY_NAMES[item.id];
+  if (name && /(?:a |the )___(?!s)/.test(con.en)) return con.en.replace(/(?:a |the )___/, name);
   // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
   // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
   if (con.en.includes('___s')) {
@@ -391,7 +410,7 @@ export const PERSONS: Person[] = [
   { id: '2sg', fi: 'sinä', en: 'you' },
   { id: '3sg', fi: 'hän', en: 'he/she' },
   { id: '1pl', fi: 'me', en: 'we' },
-  { id: '2pl', fi: 'te', en: 'you (plural)' },
+  { id: '2pl', fi: 'te', en: 'you all' },
   { id: '3pl', fi: 'he', en: 'they' },
 ];
 
