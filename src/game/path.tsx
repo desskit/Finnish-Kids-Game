@@ -582,6 +582,10 @@ const ORDINALS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seven
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const BIRTHDAY_TIME = ['birthday', 'year', 'month'];
 const PARTY = ['balloon', 'candle', 'present'];
+// Dates past the 10th: 11th–20th and 30th are met as words; 21st–29th and 31st
+// are "the ten + the one" (kahdeskymmenes + ensimmäinen) and join the date game
+// once their parts are known.
+const DATE_ORDINALS = ['eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth', 'thirtieth'];
 
 const UNITS: Chapter[] = [
   {
@@ -698,7 +702,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'kolme kirjaa',
       },
       sceneStep('numbers-talk', 'new-friend', 'Uusi kaveri', 'A new friend'),
-      sceneStep('numbers-talk-2', 'how-many-things', 'Montako?', 'How many?'),
+      sceneStep('numbers-talk-2', 'how-many-things', 'Montako kynää?', 'How many pencils?'),
     ],
   },
   {
@@ -723,7 +727,7 @@ const UNITS: Chapter[] = [
         'Hänellä on kitara.',
       ),
       sceneStep('having-talk', 'what-you-have', 'Mitä sinulla on?', 'What have you got?'),
-      sceneStep('having-talk-2', 'who-has-what', 'Kenellä on?', 'Who has what?'),
+      sceneStep('having-talk-2', 'who-has-what', 'Onko teillä koira?', 'Have you all got a dog?'),
     ],
   },
   {
@@ -747,7 +751,7 @@ const UNITS: Chapter[] = [
     id: 'whose',
     titleFi: 'Kenen?',
     titleEn: 'Whose?',
-    blurbEn: '"My", "your" and "their" are endings: kirjani, kirjasi, kirjansa.',
+    blurbEn: '"My", "your" and "his / her" are endings: kirjani, kirjasi, kirjansa.',
     accent: '#9333ea',
     icon: '🙋',
     lessonId: 'possessive',
@@ -768,7 +772,7 @@ const UNITS: Chapter[] = [
       phraseStep(
         'mine-yours',
         'Tämä on minun…',
-        'My, your, their',
+        'My, your, his/her',
         '🫵',
         ['this-is-mine', 'this-is-yours', 'this-is-theirs'],
         'Tämä on minun kirjani.',
@@ -788,8 +792,8 @@ const UNITS: Chapter[] = [
     skills: [
       {
         id: 'owner-forms',
-        titleFi: 'Kenen?',
-        titleEn: 'Whose is it?',
+        titleFi: 'Isän pyörä',
+        titleEn: "Dad's bike",
         icon: '🚲',
         activity: 'choose',
         maxLevel: 3,
@@ -924,7 +928,7 @@ const UNITS: Chapter[] = [
   },
   {
     id: 'likes',
-    titleFi: 'Tykkään',
+    titleFi: 'Pidän ja rakastan',
     titleEn: 'Likes',
     blurbEn: 'Say what you like and love — each verb picks its own ending.',
     accent: '#e11d48',
@@ -1004,7 +1008,7 @@ const UNITS: Chapter[] = [
     lessonId: 'school-day',
     newWords: ['math', 'gym', 'english', 'pupil', 'test', 'eraser', 'task', 'canteen'],
     skills: [
-      wordsStep('school-day', 'nouns', 'At school'),
+      wordsStep('school-day', 'nouns', 'School words'),
       phraseStep(
         'like-or-not',
         'Pidän / En pidä',
@@ -1211,7 +1215,7 @@ const UNITS: Chapter[] = [
         ['where-is', 'where-is-yours'],
         'Missä on sinun reppusi?',
       ),
-      phraseStep('in-on', 'Missä se on?', 'In or on', '📦', ['in-it', 'on-it'], 'Kirja on laatikossa.', 'places'),
+      phraseStep('in-on', 'Laatikossa, pöydällä', 'In or on', '📦', ['in-it', 'on-it'], 'Kirja on laatikossa.', 'places'),
       {
         id: 'in-my',
         titleFi: 'Talossani',
@@ -1280,7 +1284,7 @@ const UNITS: Chapter[] = [
     ],
     skills: [
       wordsStep('town', 'places', 'Town & home'),
-      phraseStep('where-i-am', 'Olen…', 'Where I am', '📍', ['i-am-in', 'i-am-on'], 'Olen puistossa.', 'places'),
+      phraseStep('where-i-am', 'Olen puistossa', 'Where I am', '📍', ['i-am-in', 'i-am-on'], 'Olen puistossa.', 'places'),
       phraseStep(
         'going-coming',
         'Menen, tulen',
@@ -1416,8 +1420,8 @@ const UNITS: Chapter[] = [
     accent: '#db2777',
     icon: '🎂',
     lessonId: 'birthdays',
-    midLessons: [{ lessonId: 'dates', before: 'dates' }, { lessonId: 'age', before: 'how-old' }],
-    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...PARTY],
+    midLessons: [{ lessonId: 'dates', before: 'date-ordinals' }, { lessonId: 'age', before: 'how-old' }],
+    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...DATE_ORDINALS, ...PARTY],
     skills: [
       wordsStep('birthdays', 'time', 'The months', [...MONTHS, ...BIRTHDAY_TIME]),
       phraseStep(
@@ -1429,6 +1433,7 @@ const UNITS: Chapter[] = [
         'Syntymäpäiväni on toukokuussa.',
         'time',
       ),
+      wordsStep('birthdays', 'ordinals', '11th to 31st', DATE_ORDINALS, 'date-ordinals'),
       {
         id: 'dates',
         titleFi: 'Viides toukokuuta',

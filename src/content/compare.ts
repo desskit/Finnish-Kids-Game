@@ -10,6 +10,7 @@
 // ⚠️ NEEDS NATIVE FINNISH VETTING (the frames; listed in FINNISH_REVIEW.md).
 
 import type { LexicalItem } from './types';
+import { FAMILY_NAMES } from './types';
 import type { Segment } from './endings';
 import { itemById } from './lookup';
 
@@ -130,13 +131,6 @@ export function superlativeSegments(adj: LexicalItem, x: LexicalItem): Segment[]
   return [{ text: `${cap(x.fi)} on ` }, ...degreeSegments(f, 'superlative'), { text: '.' }];
 }
 
-// Family members a child calls by name — "Grandpa", not "the grandfather".
-const FAMILY_NAMES: Record<string, string> = {
-  mother: 'Mom',
-  father: 'Dad',
-  grandmother: 'Grandma',
-  grandfather: 'Grandpa',
-};
 /** "the elephant", "Grandma" — how the English names one of them. */
 export const enName = (x: LexicalItem) => FAMILY_NAMES[x.id] ?? `the ${x.en}`;
 

@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T14:57:34.080Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T15:50:56.325Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 760 entries.**
+- **Approved: 28 of 783 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -187,7 +187,7 @@
 | ⚠️ | `conversation:how-many-things:2` | Entä kirjoja? Montako kirjaa? → Yksi kirja. | And books? How many books? → One book. |
 | ⚠️ | `conversation:how-many-things:3` | Montako kaveria tulee? → Viisi kaveria. | How many friends are coming? → Five friends. |
 | ⚠️ | `conversation:how-many-things:4` | Kiva! Leikitään! → Joo, leikitään! | Nice! Let's play! → Yeah, let's play! |
-| ⚠️ | `conversation:who-has-what:1` | Onko teillä koira? → Ei, meillä on kissa. | Do you (all) have a dog? → No, we have a cat. |
+| ⚠️ | `conversation:who-has-what:1` | Onko teillä koira? → Ei, meillä on kissa. | Have you all got a dog? → No, we have a cat. |
 | ⚠️ | `conversation:who-has-what:2` | Mitä Eerolla on? → Hänellä on kitara. | What has Eero got? → He has a guitar. |
 | ⚠️ | `conversation:who-has-what:3` | Entä sinulla? → Minulla on pallo. | And you? → I have a ball. |
 | ⚠️ | `conversation:who-has-what:4` | Leikitään pallolla! → Joo, leikitään! | Let's play with the ball! → Yeah, let's play! |
@@ -254,11 +254,11 @@
 | ⚠️ | `story:lost-dog:q1` | Missä koira leikki? (puun takana / pöydän alla / autossa) | Where was the dog playing? (behind the tree / under the table / in the car) |
 | ⚠️ | `story:lost-dog:q2` | Mitä tapahtui ensin? (Koira ei ollut kotona. / He kävelivät kotiin. / Liisa antoi luun.) | What happened first? (The dog wasn't home. / They walked home. / Liisa gave a bone.) |
 | ⚠️ | `story:lost-dog:q3` | Miksi Liisa etsi koiraa? (Koska koira ei ollut kotona. / Koska koira söi. / Koska oli yö.) | Why did Liisa look for the dog? (Because the dog wasn't home. / Because the dog was eating. / Because it was night.) |
-| ⚠️ | `story:birthday-surprise:page-1` | Lauantaina oli isän syntymäpäivä. | Saturday was dad's birthday. |
+| ⚠️ | `story:birthday-surprise:page-1` | Lauantaina oli isän syntymäpäivä. | Saturday was Dad's birthday. |
 | ⚠️ | `story:birthday-surprise:page-2` | Lapset tekivät kakun salaa. | The children made a cake in secret. |
 | ⚠️ | `story:birthday-surprise:page-3` | Äiti auttoi keittiössä. | Mom helped in the kitchen. |
 | ⚠️ | `story:birthday-surprise:page-4` | Isä tuli kotiin kello kuusi. | Dad came home at six o'clock. |
-| ⚠️ | `story:birthday-surprise:page-5` | Kaikki lauloivat isälle. | Everyone sang for dad. |
+| ⚠️ | `story:birthday-surprise:page-5` | Kaikki lauloivat isälle. | Everyone sang for Dad. |
 | ⚠️ | `story:birthday-surprise:page-6` | Isä söi kakkua ja nauroi. | Dad ate cake and laughed. |
 | ⚠️ | `story:birthday-surprise:page-7` | Se oli hauska päivä. | It was a fun day. |
 | ⚠️ | `story:birthday-surprise:q1` | Kenen syntymäpäivä oli? (isän / äidin / kissan) | Whose birthday was it? (dad's / mom's / the cat's) |
@@ -274,7 +274,7 @@
 | ⚠️ | `carrier:is-this` | Onko tämä ___? — e.g. Onko tämä omena? | Is this a ___? |
 | ⚠️ | `carrier:i-have` | Minulla on ___. — e.g. Minulla on omena. | I have a ___. |
 | ⚠️ | `carrier:you-have` | Sinulla on ___. — e.g. Sinulla on omena. | You have a ___. |
-| ⚠️ | `carrier:she-has` | Hänellä on ___. — e.g. Hänellä on omena. | She/He has a ___. |
+| ⚠️ | `carrier:she-has` | Hänellä on ___. — e.g. Hänellä on omena. | He/she has a ___. |
 | ⚠️ | `carrier:we-have` | Meillä on ___. — e.g. Meillä on omena. | We have a ___. |
 | ⚠️ | `carrier:they-have` | Heillä on ___. — e.g. Heillä on omena. | They have a ___. |
 | ⚠️ | `carrier:i-havent` | Minulla ei ole ___. — e.g. Minulla ei ole omenaa. | I don't have a ___. |
@@ -375,6 +375,32 @@
 | ⚠️ | `pattern:birthday-date` | Syntymäpäiväni on viides toukokuuta. | My birthday is on May 5th. |
 | ⚠️ | `pattern:age` | Olen kahdeksan vuotta vanha. | I'm 8 years old. |
 
+## Ordinals 11th–31st — hand-authored words (21)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `ordinal:eleventh` | yhdestoista | eleventh (11.) |
+| ⚠️ | `ordinal:twelfth` | kahdestoista | twelfth (12.) |
+| ⚠️ | `ordinal:thirteenth` | kolmastoista | thirteenth (13.) |
+| ⚠️ | `ordinal:fourteenth` | neljästoista | fourteenth (14.) |
+| ⚠️ | `ordinal:fifteenth` | viidestoista | fifteenth (15.) |
+| ⚠️ | `ordinal:sixteenth` | kuudestoista | sixteenth (16.) |
+| ⚠️ | `ordinal:seventeenth` | seitsemästoista | seventeenth (17.) |
+| ⚠️ | `ordinal:eighteenth` | kahdeksastoista | eighteenth (18.) |
+| ⚠️ | `ordinal:nineteenth` | yhdeksästoista | nineteenth (19.) |
+| ⚠️ | `ordinal:twentieth` | kahdeskymmenes | twentieth (20.) |
+| ⚠️ | `ordinal:twenty-first` | kahdeskymmenesensimmäinen | twenty-first (21.) |
+| ⚠️ | `ordinal:twenty-second` | kahdeskymmenestoinen | twenty-second (22.) |
+| ⚠️ | `ordinal:twenty-third` | kahdeskymmeneskolmas | twenty-third (23.) |
+| ⚠️ | `ordinal:twenty-fourth` | kahdeskymmenesneljäs | twenty-fourth (24.) |
+| ⚠️ | `ordinal:twenty-fifth` | kahdeskymmenesviides | twenty-fifth (25.) |
+| ⚠️ | `ordinal:twenty-sixth` | kahdeskymmeneskuudes | twenty-sixth (26.) |
+| ⚠️ | `ordinal:twenty-seventh` | kahdeskymmenesseitsemäs | twenty-seventh (27.) |
+| ⚠️ | `ordinal:twenty-eighth` | kahdeskymmeneskahdeksas | twenty-eighth (28.) |
+| ⚠️ | `ordinal:twenty-ninth` | kahdeskymmenesyhdeksäs | twenty-ninth (29.) |
+| ⚠️ | `ordinal:thirtieth` | kolmaskymmenes | thirtieth (30.) |
+| ⚠️ | `ordinal:thirty-first` | kolmaskymmenesensimmäinen | thirty-first (31.) |
+
 ## Question forms — "do you…?" (71)
 
 | Status | Key | Finnish | English |
@@ -413,12 +439,12 @@
 | ⚠️ | `question:say` | sanotko? | Do you say? |
 | ⚠️ | `question:ask` | kysytkö? | Do you ask? |
 | ⚠️ | `question:answer` | vastaatko? | Do you answer? |
-| ⚠️ | `question:search` | etsitkö? | Do you search? |
+| ⚠️ | `question:search` | etsitkö? | Do you look for? |
 | ⚠️ | `question:find` | löydätkö? | Do you find? |
 | ⚠️ | `question:make` | teetkö? | Do you make? |
 | ⚠️ | `question:get` | saatko? | Do you get? |
 | ⚠️ | `question:bring` | tuotko? | Do you bring? |
-| ⚠️ | `question:carry` | vietkö? | Do you take away? |
+| ⚠️ | `question:carry` | vietkö? | Do you carry? |
 | ⚠️ | `question:fly` | lennätkö? | Do you fly? |
 | ⚠️ | `question:drive` | ajatko? | Do you drive? |
 | ⚠️ | `question:wash` | pesetkö? | Do you wash? |
@@ -501,7 +527,7 @@
 | ⚠️ | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
 
-## Lesson prose — Finnish quoted in the explanations (214)
+## Lesson prose — Finnish quoted in the explanations (216)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -712,9 +738,11 @@
 | ⚠️ | `lesson:birthdays:3` | toukokuussa | The months — check |
 | ⚠️ | `lesson:birthdays:4` | joulukuu · joulu | The months — check |
 | ⚠️ | `lesson:dates:1` | viides toukokuuta | Saying a date — Order word + month with -ta |
-| ⚠️ | `lesson:dates:2` | viides · viisi · toukokuuta · toukokuu | Saying a date — Two slips to watch for |
-| ⚠️ | `lesson:dates:3` | viides · viides toukokuuta | Saying a date — check |
-| ⚠️ | `lesson:dates:4` | ensimmäinen tammikuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:2` | yhdestoista · viidestoista · kahdeskymmenes · kolmaskymmenes · ensimmäinen | Saying a date — Past the 10th |
+| ⚠️ | `lesson:dates:3` | viides · viisi · toukokuuta · toukokuu | Saying a date — Two slips to watch for |
+| ⚠️ | `lesson:dates:4` | viides · viides toukokuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:5` | viidestoista · kesäkuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:6` | ensimmäinen tammikuuta | Saying a date — check |
 | ⚠️ | `lesson:age:1` | vuotta · kaksi kirjaa · vanha | How old are you? — Olen … vuotta vanha |
 | ⚠️ | `lesson:age:2` | kahdeksan · kahdeksas | How old are you? — The number, not the order word |
 | ⚠️ | `lesson:age:3` | kahdeksan · Olen kahdeksan vuotta vanha | How old are you? — check |

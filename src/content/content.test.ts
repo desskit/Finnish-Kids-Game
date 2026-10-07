@@ -359,6 +359,34 @@ describe('expansion carriers (feelings, school, town, when, possessives)', () =>
     expect(englishSentenceFor(night, con('play-at-time'))).toBe('I play at night.');
   });
 
+  it('glosses places and tools in natural English', () => {
+    const place = (id: string) => places.items.find((i) => i.id === id)!;
+    const en = (id: string, c: string) => englishSentenceFor(place(id), con(c));
+    expect(en('tree', 'into-it')).toBe('The cat goes up the tree.');
+    expect(en('bus', 'in-it')).toBe('The cat is on the bus.');
+    expect(en('window', 'on-it')).toBe('The cat is at the window.');
+    expect(en('box', 'on-it')).toBe('The cat is on the box.');
+    expect(en('school', 'i-am-in')).toBe("I'm at school.");
+    expect(en('bed', 'i-go-into')).toBe("I'm going to bed.");
+    expect(en('train', 'i-come-from-in')).toBe("I'm getting off the train.");
+    expect(en('ship', 'i-am-on')).toBe("I'm on the ship.");
+    const thing = (id: string) => themes.flatMap((t) => t.items).find((i) => i.id === id)!;
+    expect(englishSentenceFor(thing('phone'), con('write-with'))).toBe('I write on my phone.');
+    expect(englishSentenceFor(thing('pencil'), con('write-with'))).toBe('I write with a pencil.');
+    expect(englishSentenceFor(thing('grandmother'), con('with-someone'))).toBe('I play with Grandma.');
+  });
+
+  it('never glosses a carrier with broken English', () => {
+    const bad = [/with on /, /with a on /, /I'm [a-z]+\.$/, /\bthe (mom|dad|grandmother|grandfather)\b/i, /I'm in the school/, /\bin the (bus|train|plane)\b/];
+    for (const c of nounConstructions) {
+      for (const item of themes.flatMap((t) => t.items)) {
+        if (!suitsSlot(item, c) || !formFor(item, c)) continue;
+        const en = englishSentenceFor(item, c);
+        for (const re of bad) expect(en, `${c.id}/${item.id}`).not.toMatch(re);
+      }
+    }
+  });
+
   it('fills possessive carriers with the sourced possessive form', () => {
     const book = school.items.find((i) => i.id === 'book')!;
     expect(sentenceFor(book, con('this-is-mine'))).toBe('Tämä on minun kirjani.');

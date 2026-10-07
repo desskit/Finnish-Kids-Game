@@ -2691,7 +2691,7 @@
     {
       "id": "search",
       "word": "etsiä",
-      "en": "search",
+      "en": "look for",
       "emoji": "🔍",
       "inflections": {
         "present_active_positive_1sg": "etsin",
@@ -2748,10 +2748,10 @@
         "present_passive_positive": "etsitään"
       },
       "english": {
-        "past": "searched",
-        "pastParticiple": "searched",
-        "gerund": "searching",
-        "thirdSg": "searches"
+        "past": "looked for",
+        "pastParticiple": "looked for",
+        "gerund": "looking for",
+        "thirdSg": "looks for"
       },
       "kotusType": 61,
       "group": "type1",
@@ -3083,7 +3083,7 @@
     {
       "id": "carry",
       "word": "viedä",
-      "en": "take away",
+      "en": "carry",
       "inflections": {
         "present_active_positive_1sg": "vien",
         "present_active_positive_2sg": "viet",
@@ -3139,10 +3139,10 @@
         "present_passive_positive": "viedään"
       },
       "english": {
-        "past": "took away",
-        "pastParticiple": "taken away",
-        "gerund": "taking away",
-        "thirdSg": "takes away"
+        "past": "carried",
+        "pastParticiple": "carried",
+        "gerund": "carrying",
+        "thirdSg": "carries"
       },
       "kotusType": 64,
       "group": "type2",

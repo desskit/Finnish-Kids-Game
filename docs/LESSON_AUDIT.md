@@ -240,7 +240,7 @@ _Explain:_ *minulla* = "on me" → **I** have.
 
 ### 2. Listen _(examples)_
 
-- 🎸 **Hänellä on kitara.** — She/He has a guitar.
+- 🎸 **Hänellä on kitara.** — He/she has a guitar.
 - 🐶 **Meillä on koira.** — We have a dog.
 - 💻 **Heillä on tietokone.** — They have a computer.
 
@@ -2255,7 +2255,7 @@ _Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eat
 Careful! With a person (or a pet) it's different: the person gets **-n**, then the word **kanssa** (together with).
 
 - 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
-- 👩 **Leikin äidi[n] kanssa.** — I play with my mom.
+- 👩 **Leikin äidi[n] kanssa.** — I play with Mom.
 - 🐶 **Leikin koira[n] kanssa.** — I play with my dog.
 
 ### 2. Tool or person? _(explain)_
@@ -2411,13 +2411,22 @@ A date is the ORDER word (first, fifth…) + the month with **-ta**: *viides tou
 - 📅 **viides toukokuu[ta]** — the 5th of May
 - 📅 **kymmenes joulukuu[ta]** — the 10th of December
 
-### 2. Two slips to watch for _(explain)_
+### 2. Past the 10th _(examples)_
+
+11th to 19th end in **-stoista**: *yhdestoista* (11th), *viidestoista* (15th). The 20th is *kahdeskymmenes* and the 30th *kolmaskymmenes*. The 21st joins two words you know: *kahdeskymmenes* + *ensimmäinen*.
+
+- 11. **yhdestoista** — eleventh
+- 15. **viidestoista** — fifteenth
+- 20. **kahdeskymmenes** — twentieth
+- 21. **kahdeskymmenesensimmäinen** — twenty-first
+
+### 3. Two slips to watch for _(explain)_
 
 - Use the ORDER word: *viides*, not *viisi*.
 - Give the month **-ta**: *toukokuuta*, not *toukokuu*.
 
 
-### 3. Try it _(check)_
+### 4. Try it _(check)_
 
 **Q:** Which one is "the 5th of May"?
 
@@ -2427,7 +2436,17 @@ A date is the ORDER word (first, fifth…) + the month with **-ta**: *viides tou
 
 _Explain:_ ORDER word *viides* (5th) + month with **-ta**: *viides toukokuuta*.
 
-### 4. Try it _(check)_
+### 5. Try it _(check)_
+
+**Q:** Which one is "the 15th of June"?
+
+- ✔ 📅 **viidestoista kesäkuu[ta]** — the 15th of June
+- ✘ 📅 **viisitoista kesäkuuta**
+- ✘ 📅 **viidestoista kesäkuu**
+
+_Explain:_ *viidestoista* (15th) + *kesäkuuta*.
+
+### 6. Try it _(check)_
 
 **Q:** Which one is "the 1st of January"?
 

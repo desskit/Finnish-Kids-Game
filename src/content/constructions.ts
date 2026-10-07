@@ -184,6 +184,7 @@ const TIMES_OF = [
 const SCHOOL_GLOSS: Record<string, string> = { school: "school" };
 
 const PERSON_ON_GLOSS: Record<string, string> = {
+  ship: "on the ship",
   station: "at the station",
   market: "at the market",
   field: "on the field",
@@ -192,6 +193,56 @@ const PERSON_ON_GLOSS: Record<string, string> = {
   door: "at the door",
   window: "at the window",
 };
+
+// Whole English sentences where the place changes more than "the ___":
+// a cat sits AT a window, gets ON a bus, goes UP a tree. English meta-text
+// only — the Finnish is the same sourced case form as for every other word.
+const VEHICLES = ["bus", "train", "plane"];
+const RIDES_IN = ["car", "taxi", "boat"];
+const AT_PLACES: Record<string, string> = {
+  window: "window",
+  door: "door",
+  station: "station",
+  market: "market",
+};
+const at = (frame: (place: string) => string, ids = AT_PLACES) =>
+  Object.fromEntries(Object.entries(ids).map(([id, en]) => [id, frame(en)]));
+const each = (ids: string[], frame: (place: string) => string) => Object.fromEntries(ids.map((id) => [id, frame(id)]));
+const PLURAL_EN: Record<string, string> = { tree: "trees", bus: "buses", train: "trains", plane: "planes" };
+
+const CAT_ON = { ...at((p) => `The cat is at the ${p}.`), yard: "The cat is in the yard." };
+const CAT_ONTO = { ...at((p) => `The cat goes to the ${p}.`), yard: "The cat goes into the yard." };
+const CAT_OFF = { ...at((p) => `The cat comes away from the ${p}.`), yard: "The cat comes in from the yard." };
+const CATS_ON = { ...at((p) => `The cats are at the ${p}s.`), yard: "The cats are in the yards." };
+const CATS_ONTO = { ...at((p) => `The cats go to the ${p}s.`), yard: "The cats go into the yards." };
+const CATS_OFF = { ...at((p) => `The cats come away from the ${p}s.`), yard: "The cats come in from the yards." };
+const CAT_IN = each(VEHICLES, (v) => `The cat is on the ${v}.`);
+const CAT_INTO = { ...each(VEHICLES, (v) => `The cat gets on the ${v}.`), tree: "The cat goes up the tree.", bed: "The cat gets into bed." };
+const CAT_OUT = { ...each(VEHICLES, (v) => `The cat gets off the ${v}.`), tree: "The cat comes down from the tree.", bed: "The cat gets out of bed." };
+const CATS_IN = each(VEHICLES, (v) => `The cats are on the ${PLURAL_EN[v]}.`);
+const CATS_OUT = { ...each(VEHICLES, (v) => `The cats get off the ${PLURAL_EN[v]}.`), tree: "The cats come down from the trees." };
+
+const AT_THE = ["shop", "library", "museum", "restaurant", "zoo"];
+const I_AM_IN = {
+  bed: "I'm in bed.",
+  school: "I'm at school.",
+  cafe: "I'm at the café.",
+  ...each(VEHICLES, (v) => `I'm on the ${v}.`),
+  boat: "I'm on the boat.",
+  ...each(AT_THE, (p) => `I'm at the ${p}.`),
+};
+const I_GO_INTO = {
+  bed: "I'm going to bed.",
+  ...each(VEHICLES, (v) => `I'm getting on the ${v}.`),
+  ...each(RIDES_IN, (v) => `I'm getting into the ${v}.`),
+};
+const I_COME_FROM_IN = {
+  bed: "I'm getting out of bed.",
+  ...each(VEHICLES, (v) => `I'm getting off the ${v}.`),
+  ...each(RIDES_IN, (v) => `I'm getting out of the ${v}.`),
+};
+const I_GO_ONTO = { ship: "I'm getting on the ship." };
+const I_COME_FROM_ON = { ship: "I'm getting off the ship." };
 
 // Verbs that read naturally after each "verb + verb" carrier.
 const WANT_TO = [
@@ -318,7 +369,7 @@ export const nounConstructions: Construction[] = [
     id: "she-has",
     before: "Hänellä on",
     punct: ".",
-    en: "She/He has a ___.",
+    en: "He/she has a ___.",
     tier: 2,
     case: "nominative",
     number: "singular",
@@ -796,6 +847,7 @@ export const nounConstructions: Construction[] = [
     // Surface case: only places tagged a surface you can sit ON (a table, a
     // car roof) — never "on the room".
     requiresTags: [SURFACE_TAG],
+    sentenceById: CAT_ON,
   },
   {
     id: "in-it", // inessive: inside — "Kissa on laatikossa."
@@ -809,6 +861,7 @@ export const nounConstructions: Construction[] = [
     // Container case: only places tagged something you can be IN — not a flat
     // table or chair.
     requiresTags: [CONTAINER_TAG],
+    sentenceById: CAT_IN,
   },
   {
     id: "into-it", // illative: motion into — "Kissa menee laatikkoon."
@@ -820,6 +873,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: [CONTAINER_TAG],
+    sentenceById: CAT_INTO,
   },
   {
     id: "onto-it", // allative: motion onto — "Kissa menee pöydälle."
@@ -831,6 +885,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: [SURFACE_TAG],
+    sentenceById: CAT_ONTO,
   },
   {
     id: "out-of-it", // elative: motion out of — "Kissa tulee laatikosta."
@@ -842,6 +897,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: [CONTAINER_TAG],
+    sentenceById: CAT_OUT,
   },
   {
     id: "off-it", // ablative: motion off a surface — "Kissa tulee pöydältä."
@@ -853,6 +909,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: [SURFACE_TAG],
+    sentenceById: CAT_OFF,
   },
   {
     id: "in-them", // inessive PLURAL apex — "Kissat ovat laatikoissa."
@@ -864,6 +921,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["places"],
     requiresTags: [CONTAINER_TAG],
+    sentenceById: CATS_IN,
   },
 
   // --- Expert band (Tiers 9-10): the PLURAL locative system. The same
@@ -881,6 +939,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["places"],
     requiresTags: [SURFACE_TAG],
+    sentenceById: CATS_ON,
   },
   {
     id: "onto-them", // allative plural — "Kissat menevät pöydille."
@@ -892,6 +951,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["places"],
     requiresTags: [SURFACE_TAG],
+    sentenceById: CATS_ONTO,
   },
   {
     id: "out-of-them", // elative plural — "Kissat tulevat laatikoista."
@@ -903,6 +963,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["places"],
     requiresTags: [CONTAINER_TAG],
+    sentenceById: CATS_OUT,
   },
   {
     id: "off-them", // ablative plural — "Kissat tulevat pöydiltä."
@@ -914,6 +975,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["places"],
     requiresTags: [SURFACE_TAG],
+    sentenceById: CATS_OFF,
   },
 
   // =====================================================================
@@ -997,6 +1059,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: ["person-in"],
+    sentenceById: I_AM_IN,
   },
   {
     id: "i-am-on",
@@ -1022,6 +1085,7 @@ export const nounConstructions: Construction[] = [
     requiresTags: ["person-in"],
     // English says "to school" / "from school", with no "the".
     glossById: SCHOOL_GLOSS,
+    sentenceById: I_GO_INTO,
   },
   {
     id: "i-go-onto",
@@ -1033,6 +1097,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: ["person-on"],
+    sentenceById: I_GO_ONTO,
   },
   {
     id: "i-come-from-in",
@@ -1046,6 +1111,7 @@ export const nounConstructions: Construction[] = [
     requiresTags: ["person-in"],
     // English says "to school" / "from school", with no "the".
     glossById: SCHOOL_GLOSS,
+    sentenceById: I_COME_FROM_IN,
   },
   {
     id: "i-come-from-on",
@@ -1057,6 +1123,7 @@ export const nounConstructions: Construction[] = [
     number: "singular",
     topics: ["places"],
     requiresTags: ["person-on"],
+    sentenceById: I_COME_FROM_ON,
   },
 
   // --- Owners: "Tämä on isän pyörä." — the owner gets -n ---
@@ -1104,7 +1171,7 @@ export const nounConstructions: Construction[] = [
     case: "adessive",
     number: "singular",
     onlyIds: ["pencil", "computer", "phone"],
-    glossById: { computer: "on the computer", phone: "on my phone" },
+    sentenceById: { computer: "I write on the computer.", phone: "I write on my phone." },
   },
   {
     id: "draw-with", // "Piirrän kynällä."
@@ -1115,7 +1182,7 @@ export const nounConstructions: Construction[] = [
     case: "adessive",
     number: "singular",
     onlyIds: ["pencil", "computer"],
-    glossById: { computer: "on the computer" },
+    sentenceById: { computer: "I draw on the computer." },
   },
   {
     id: "eat-with", // "Syön lusikalla."
@@ -1157,6 +1224,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     onlyIds: ["friend", "mother", "father", "brother", "sister", "grandmother", "grandfather", "dog", "cat"],
+    sentenceById: { mother: "I play with Mom.", father: "I play with Dad.", grandmother: "I play with Grandma.", grandfather: "I play with Grandpa." },
   },
 
   // --- Months & birthdays ---

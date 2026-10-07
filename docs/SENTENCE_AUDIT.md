@@ -920,7 +920,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 
 Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
 
-### `she-has` — “She/He has a ___.” (tier 2, nominative singular, 150 words)
+### `she-has` — “He/she has a ___.” (tier 2, nominative singular, 150 words)
 
 - Hänellä on omena. _(apple)_
 - Hänellä on täti. _(aunt)_
@@ -6246,102 +6246,102 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 
 ### `family-does-somewhere` — “The {subj} {verb}s in the {loc}.” (tier 6)
 
-- äiti laulaa huoneessa. _(The mom sings in the room.)_
-- äiti laulaa talossa. _(The mom sings in the house.)_
-- äiti laulaa koulussa. _(The mom sings in the school.)_
-- äiti laulaa metsässä. _(The mom sings in the forest.)_
-- äiti tanssii huoneessa. _(The mom dances in the room.)_
-- äiti tanssii talossa. _(The mom dances in the house.)_
-- äiti tanssii koulussa. _(The mom dances in the school.)_
-- äiti tanssii metsässä. _(The mom dances in the forest.)_
-- äiti nukkuu huoneessa. _(The mom sleeps in the room.)_
-- äiti nukkuu talossa. _(The mom sleeps in the house.)_
-- äiti nukkuu koulussa. _(The mom sleeps in the school.)_
-- äiti nukkuu metsässä. _(The mom sleeps in the forest.)_
-- äiti lukee huoneessa. _(The mom reads in the room.)_
-- äiti lukee talossa. _(The mom reads in the house.)_
-- äiti lukee koulussa. _(The mom reads in the school.)_
-- äiti lukee metsässä. _(The mom reads in the forest.)_
-- isä laulaa huoneessa. _(The dad sings in the room.)_
-- isä laulaa talossa. _(The dad sings in the house.)_
-- isä laulaa koulussa. _(The dad sings in the school.)_
-- isä laulaa metsässä. _(The dad sings in the forest.)_
-- isä tanssii huoneessa. _(The dad dances in the room.)_
-- isä tanssii talossa. _(The dad dances in the house.)_
-- isä tanssii koulussa. _(The dad dances in the school.)_
-- isä tanssii metsässä. _(The dad dances in the forest.)_
-- isä nukkuu huoneessa. _(The dad sleeps in the room.)_
-- isä nukkuu talossa. _(The dad sleeps in the house.)_
-- isä nukkuu koulussa. _(The dad sleeps in the school.)_
-- isä nukkuu metsässä. _(The dad sleeps in the forest.)_
-- isä lukee huoneessa. _(The dad reads in the room.)_
-- isä lukee talossa. _(The dad reads in the house.)_
-- isä lukee koulussa. _(The dad reads in the school.)_
-- isä lukee metsässä. _(The dad reads in the forest.)_
+- äiti laulaa huoneessa. _(Mom sings in the room.)_
+- äiti laulaa talossa. _(Mom sings in the house.)_
+- äiti laulaa koulussa. _(Mom sings at school.)_
+- äiti laulaa metsässä. _(Mom sings in the forest.)_
+- äiti tanssii huoneessa. _(Mom dances in the room.)_
+- äiti tanssii talossa. _(Mom dances in the house.)_
+- äiti tanssii koulussa. _(Mom dances at school.)_
+- äiti tanssii metsässä. _(Mom dances in the forest.)_
+- äiti nukkuu huoneessa. _(Mom sleeps in the room.)_
+- äiti nukkuu talossa. _(Mom sleeps in the house.)_
+- äiti nukkuu koulussa. _(Mom sleeps at school.)_
+- äiti nukkuu metsässä. _(Mom sleeps in the forest.)_
+- äiti lukee huoneessa. _(Mom reads in the room.)_
+- äiti lukee talossa. _(Mom reads in the house.)_
+- äiti lukee koulussa. _(Mom reads at school.)_
+- äiti lukee metsässä. _(Mom reads in the forest.)_
+- isä laulaa huoneessa. _(Dad sings in the room.)_
+- isä laulaa talossa. _(Dad sings in the house.)_
+- isä laulaa koulussa. _(Dad sings at school.)_
+- isä laulaa metsässä. _(Dad sings in the forest.)_
+- isä tanssii huoneessa. _(Dad dances in the room.)_
+- isä tanssii talossa. _(Dad dances in the house.)_
+- isä tanssii koulussa. _(Dad dances at school.)_
+- isä tanssii metsässä. _(Dad dances in the forest.)_
+- isä nukkuu huoneessa. _(Dad sleeps in the room.)_
+- isä nukkuu talossa. _(Dad sleeps in the house.)_
+- isä nukkuu koulussa. _(Dad sleeps at school.)_
+- isä nukkuu metsässä. _(Dad sleeps in the forest.)_
+- isä lukee huoneessa. _(Dad reads in the room.)_
+- isä lukee talossa. _(Dad reads in the house.)_
+- isä lukee koulussa. _(Dad reads at school.)_
+- isä lukee metsässä. _(Dad reads in the forest.)_
 - veli laulaa huoneessa. _(The brother sings in the room.)_
 - veli laulaa talossa. _(The brother sings in the house.)_
-- veli laulaa koulussa. _(The brother sings in the school.)_
+- veli laulaa koulussa. _(The brother sings at school.)_
 - veli laulaa metsässä. _(The brother sings in the forest.)_
 - veli tanssii huoneessa. _(The brother dances in the room.)_
 - veli tanssii talossa. _(The brother dances in the house.)_
-- veli tanssii koulussa. _(The brother dances in the school.)_
+- veli tanssii koulussa. _(The brother dances at school.)_
 - veli tanssii metsässä. _(The brother dances in the forest.)_
 - veli nukkuu huoneessa. _(The brother sleeps in the room.)_
 - veli nukkuu talossa. _(The brother sleeps in the house.)_
-- veli nukkuu koulussa. _(The brother sleeps in the school.)_
+- veli nukkuu koulussa. _(The brother sleeps at school.)_
 - veli nukkuu metsässä. _(The brother sleeps in the forest.)_
 - veli lukee huoneessa. _(The brother reads in the room.)_
 - veli lukee talossa. _(The brother reads in the house.)_
-- veli lukee koulussa. _(The brother reads in the school.)_
+- veli lukee koulussa. _(The brother reads at school.)_
 - veli lukee metsässä. _(The brother reads in the forest.)_
 - sisko laulaa huoneessa. _(The sister sings in the room.)_
 - sisko laulaa talossa. _(The sister sings in the house.)_
-- sisko laulaa koulussa. _(The sister sings in the school.)_
+- sisko laulaa koulussa. _(The sister sings at school.)_
 - sisko laulaa metsässä. _(The sister sings in the forest.)_
 - sisko tanssii huoneessa. _(The sister dances in the room.)_
 - sisko tanssii talossa. _(The sister dances in the house.)_
-- sisko tanssii koulussa. _(The sister dances in the school.)_
+- sisko tanssii koulussa. _(The sister dances at school.)_
 - sisko tanssii metsässä. _(The sister dances in the forest.)_
 - sisko nukkuu huoneessa. _(The sister sleeps in the room.)_
 - sisko nukkuu talossa. _(The sister sleeps in the house.)_
-- sisko nukkuu koulussa. _(The sister sleeps in the school.)_
+- sisko nukkuu koulussa. _(The sister sleeps at school.)_
 - sisko nukkuu metsässä. _(The sister sleeps in the forest.)_
 - sisko lukee huoneessa. _(The sister reads in the room.)_
 - sisko lukee talossa. _(The sister reads in the house.)_
-- sisko lukee koulussa. _(The sister reads in the school.)_
+- sisko lukee koulussa. _(The sister reads at school.)_
 - sisko lukee metsässä. _(The sister reads in the forest.)_
-- isoäiti laulaa huoneessa. _(The grandmother sings in the room.)_
-- isoäiti laulaa talossa. _(The grandmother sings in the house.)_
-- isoäiti laulaa koulussa. _(The grandmother sings in the school.)_
-- isoäiti laulaa metsässä. _(The grandmother sings in the forest.)_
-- isoäiti tanssii huoneessa. _(The grandmother dances in the room.)_
-- isoäiti tanssii talossa. _(The grandmother dances in the house.)_
-- isoäiti tanssii koulussa. _(The grandmother dances in the school.)_
-- isoäiti tanssii metsässä. _(The grandmother dances in the forest.)_
-- isoäiti nukkuu huoneessa. _(The grandmother sleeps in the room.)_
-- isoäiti nukkuu talossa. _(The grandmother sleeps in the house.)_
-- isoäiti nukkuu koulussa. _(The grandmother sleeps in the school.)_
-- isoäiti nukkuu metsässä. _(The grandmother sleeps in the forest.)_
-- isoäiti lukee huoneessa. _(The grandmother reads in the room.)_
-- isoäiti lukee talossa. _(The grandmother reads in the house.)_
-- isoäiti lukee koulussa. _(The grandmother reads in the school.)_
-- isoäiti lukee metsässä. _(The grandmother reads in the forest.)_
-- isoisä laulaa huoneessa. _(The grandfather sings in the room.)_
-- isoisä laulaa talossa. _(The grandfather sings in the house.)_
-- isoisä laulaa koulussa. _(The grandfather sings in the school.)_
-- isoisä laulaa metsässä. _(The grandfather sings in the forest.)_
-- isoisä tanssii huoneessa. _(The grandfather dances in the room.)_
-- isoisä tanssii talossa. _(The grandfather dances in the house.)_
-- isoisä tanssii koulussa. _(The grandfather dances in the school.)_
-- isoisä tanssii metsässä. _(The grandfather dances in the forest.)_
-- isoisä nukkuu huoneessa. _(The grandfather sleeps in the room.)_
-- isoisä nukkuu talossa. _(The grandfather sleeps in the house.)_
-- isoisä nukkuu koulussa. _(The grandfather sleeps in the school.)_
-- isoisä nukkuu metsässä. _(The grandfather sleeps in the forest.)_
-- isoisä lukee huoneessa. _(The grandfather reads in the room.)_
-- isoisä lukee talossa. _(The grandfather reads in the house.)_
-- isoisä lukee koulussa. _(The grandfather reads in the school.)_
-- isoisä lukee metsässä. _(The grandfather reads in the forest.)_
+- isoäiti laulaa huoneessa. _(Grandma sings in the room.)_
+- isoäiti laulaa talossa. _(Grandma sings in the house.)_
+- isoäiti laulaa koulussa. _(Grandma sings at school.)_
+- isoäiti laulaa metsässä. _(Grandma sings in the forest.)_
+- isoäiti tanssii huoneessa. _(Grandma dances in the room.)_
+- isoäiti tanssii talossa. _(Grandma dances in the house.)_
+- isoäiti tanssii koulussa. _(Grandma dances at school.)_
+- isoäiti tanssii metsässä. _(Grandma dances in the forest.)_
+- isoäiti nukkuu huoneessa. _(Grandma sleeps in the room.)_
+- isoäiti nukkuu talossa. _(Grandma sleeps in the house.)_
+- isoäiti nukkuu koulussa. _(Grandma sleeps at school.)_
+- isoäiti nukkuu metsässä. _(Grandma sleeps in the forest.)_
+- isoäiti lukee huoneessa. _(Grandma reads in the room.)_
+- isoäiti lukee talossa. _(Grandma reads in the house.)_
+- isoäiti lukee koulussa. _(Grandma reads at school.)_
+- isoäiti lukee metsässä. _(Grandma reads in the forest.)_
+- isoisä laulaa huoneessa. _(Grandpa sings in the room.)_
+- isoisä laulaa talossa. _(Grandpa sings in the house.)_
+- isoisä laulaa koulussa. _(Grandpa sings at school.)_
+- isoisä laulaa metsässä. _(Grandpa sings in the forest.)_
+- isoisä tanssii huoneessa. _(Grandpa dances in the room.)_
+- isoisä tanssii talossa. _(Grandpa dances in the house.)_
+- isoisä tanssii koulussa. _(Grandpa dances at school.)_
+- isoisä tanssii metsässä. _(Grandpa dances in the forest.)_
+- isoisä nukkuu huoneessa. _(Grandpa sleeps in the room.)_
+- isoisä nukkuu talossa. _(Grandpa sleeps in the house.)_
+- isoisä nukkuu koulussa. _(Grandpa sleeps at school.)_
+- isoisä nukkuu metsässä. _(Grandpa sleeps in the forest.)_
+- isoisä lukee huoneessa. _(Grandpa reads in the room.)_
+- isoisä lukee talossa. _(Grandpa reads in the house.)_
+- isoisä lukee koulussa. _(Grandpa reads at school.)_
+- isoisä lukee metsässä. _(Grandpa reads in the forest.)_
 
 ### `i-help-someone` — “I help the {obj}.” (tier 7)
 

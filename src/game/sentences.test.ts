@@ -156,7 +156,17 @@ describe('authored sentence templates (real sourced data)', () => {
         // A real multi-word sentence, no leftover gloss placeholders.
         expect(resolved!.words.length).toBeGreaterThan(1);
         expect(resolved!.gloss).not.toMatch(/[{}]/);
+        // Natural English: "Dad reads at school", never "The dad … in the school".
+        expect(resolved!.gloss).not.toMatch(/\bthe (mom|dad|grandmother|grandfather)\b|in the school|ys in /i);
       }
+    }
+  });
+
+  it('names family members and schools the way English does', () => {
+    const t = sentenceConstructions.find((x) => x.id === 'family-does-somewhere')!;
+    for (let i = 0; i < 40; i++) {
+      const g = resolveSentence(pin(t, 'grandfather'), realPools)!.gloss;
+      expect(g).toMatch(/^Grandpa [a-z]+ (in the|at school)/);
     }
   });
 

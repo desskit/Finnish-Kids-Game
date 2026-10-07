@@ -214,11 +214,11 @@ export const stories: Story[] = [
     icon: '🎂',
     tier: 5,
     pages: [
-      { fi: 'Lauantaina oli isän syntymäpäivä.', en: "Saturday was dad's birthday.", emoji: '📅' },
+      { fi: 'Lauantaina oli isän syntymäpäivä.', en: "Saturday was Dad's birthday.", emoji: '📅' },
       { fi: 'Lapset tekivät kakun salaa.', en: 'The children made a cake in secret.', emoji: '🎂' },
       { fi: 'Äiti auttoi keittiössä.', en: 'Mom helped in the kitchen.', emoji: '👩‍🍳' },
       { fi: 'Isä tuli kotiin kello kuusi.', en: "Dad came home at six o'clock.", emoji: '🚪' },
-      { fi: 'Kaikki lauloivat isälle.', en: 'Everyone sang for dad.', emoji: '🎶' },
+      { fi: 'Kaikki lauloivat isälle.', en: 'Everyone sang for Dad.', emoji: '🎶' },
       { fi: 'Isä söi kakkua ja nauroi.', en: 'Dad ate cake and laughed.', emoji: '😄' },
       { fi: 'Se oli hauska päivä.', en: 'It was a fun day.', emoji: '🌟' },
     ],

@@ -28,6 +28,7 @@ import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 import type { Why } from '../content/why';
+import { FAMILY_NAMES } from '../content/types';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
 // content — the Finnish slot forms come from the sourced inflection tables via
@@ -1471,10 +1472,26 @@ function resolveSentenceInternal(
 
 /** Fill `{slotId}` placeholders in the gloss from each pick's English gloss. */
 function glossFor(template: SentenceConstruction, picks: Record<string, SlotPick>): string {
-  return template.en.replace(/\{(\w+)\}/g, (whole, id: string) => {
+  const en = template.en
+    // "The {subj}" with Mom / Dad / Grandma / Grandpa → the name, no "the".
+    .replace(/\b([Tt]he|in the) \{(\w+)\}/g, (whole, the: string, id: string) => {
+      const item = picks[id]?.item;
+      if (item && FAMILY_NAMES[item.id]) return the === 'in the' ? whole : `{${id}}`;
+      // "at school", not "in the school".
+      if (item?.id === 'school' && the === 'in the') return 'at school';
+      return whole;
+    })
+    // "{verb}s" → the sourced English he/she form ("watches", "carries").
+    .replace(/\{(\w+)\}s\b/g, (whole, id: string) => {
+      const item = picks[id]?.item;
+      return item?.english?.thirdSg ? item.english.thirdSg : whole;
+    });
+  return en.replace(/\{(\w+)\}/g, (whole, id: string) => {
     const pick = picks[id];
     if (!pick) return whole;
-    return pick.person?.en ?? pick.item?.en ?? whole;
+    const item = pick.item;
+    if (item && FAMILY_NAMES[item.id]) return FAMILY_NAMES[item.id];
+    return pick.person?.en ?? item?.en ?? whole;
   });
 }
 

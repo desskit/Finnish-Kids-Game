@@ -48,7 +48,7 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('numbers', '🔢', 'Can count to twelve (and knows why "kaksi kirjaa" ends in -a)'),
   unitClaim('having', '🎒', 'Can say who has what ("Minulla on…")'),
   unitClaim('not-having', '🚫', "Can say what they don't have"),
-  unitClaim('whose', '🙋', 'Can say whose something is — my, your, their (kirjani, kirjasi)'),
+  unitClaim('whose', '🙋', 'Can say whose something is — my, your, his / her (kirjani, kirjasi, kirjansa)'),
   unitClaim('owners', '🚲', "Can say whose something is — isän pyörä (Dad's bike)"),
   unitClaim('doing', '🏃', 'Can use verb types 1–3 with the right "who" ending — including verbs whose k, p or t changes (nukkua → nukun)'),
   unitClaim('not-doing', '✋', "Can say what they don't do"),

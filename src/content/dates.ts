@@ -12,6 +12,7 @@ import type { LexicalItem } from './types';
 import { caseFormOf } from './types';
 import type { Segment } from './endings';
 import { itemById } from './lookup';
+import { ordinalSuffix } from './higherOrdinals';
 
 export const MONTH_IDS = [
   'january',
@@ -41,11 +42,10 @@ export function dateSegments(ordinal: LexicalItem, month: LexicalItem): Segment[
   return [{ text: `${ordinal.fi} ${month.fi}` }, { text: m.slice(month.fi.length), mark: true }];
 }
 
-const ORDINAL_SUFFIX = (n: number) => (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th');
 
 /** "May 5th" (English meta-text). */
 export function dateEnglish(ordinal: LexicalItem, month: LexicalItem): string {
-  return `${month.en} ${ordinal.value}${ORDINAL_SUFFIX(ordinal.value ?? 0)}`;
+  return `${month.en} ${ordinal.value}${ordinalSuffix(ordinal.value ?? 0)}`;
 }
 
 /** The birthday frame around a date: "Syntymäpäiväni on viides toukokuuta." */
