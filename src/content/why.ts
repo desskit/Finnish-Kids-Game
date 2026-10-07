@@ -70,6 +70,7 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'i-am-on': 'You are AT / ON a place → **-lla / -llä**.',
   'now-month': 'After *Nyt on*, the month stays in its **basic form**: *toukokuu*.',
   'birthday-in': 'IN a month → **-ssa / -ssä**: *toukokuussa* (in May).',
+  'owner-thing': 'The OWNER gets **-n**, and comes first: *isän pyörä* (Dad\'s bike).',
   'go-by': '"By" bus, car, train → **-lla / -llä**: *bussilla*.',
   'write-with': '"With" a tool → **-lla / -llä**: *kynällä*.',
   'draw-with': '"With" a tool → **-lla / -llä**: *kynällä*.',

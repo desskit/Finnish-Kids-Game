@@ -4,6 +4,8 @@ import type { LexicalItem } from '../content/types';
 import {
   UNITS,
   actionHref,
+  checkpointPlan,
+  lessonForConstruction,
   lessonForStep,
   midLessonStatus,
   nextAction,
@@ -16,6 +18,9 @@ import { hasKpt, verbType } from '../content/verbTypes';
 import { lessonById } from '../content/lessons';
 import { verbTypeNote } from '../content/why';
 import { verbs } from '../content';
+import { nounConstructions } from '../content/constructions';
+import { englishSentenceFor, sentenceFor } from '../content/types';
+import { itemById } from '../content/lookup';
 
 // The verbs units: types 1–3 (unit 8), type 4, types 5 & 6 — each with its
 // consonant-change (KPT) verbs held back until a part-way lesson.
@@ -155,5 +160,41 @@ describe('the "Why?" note for verbs', () => {
   });
   it('calls the special verbs special', () => {
     expect(verbTypeNote(v('juosta'))).toMatch(/special.*juoksen/);
+  });
+});
+
+describe('the unit audit: part-way lessons and checkpoint sizes', () => {
+  it('uses every lesson once across the course — unit lessons and part-way lessons', () => {
+    const ids = UNITS.flatMap((u) => [u.lessonId, ...(u.midLessons ?? []).map((m) => m.lessonId)]);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(lessonById[id], id).toBeTruthy();
+  });
+
+  it('keeps every checkpoint between 8 and 18 questions', () => {
+    for (const u of UNITS.filter((x) => x.checkpoint !== false)) {
+      const n = checkpointPlan(u).reduce((sum, p) => sum + p.questions, 0);
+      expect(n, u.id).toBeGreaterThanOrEqual(8);
+      expect(n, u.id).toBeLessThanOrEqual(18);
+    }
+  });
+
+  it('links a sentence pattern to the lesson that explains it', () => {
+    expect(lessonForConstruction('i-like')).toBe('likes');
+    expect(lessonForConstruction('i-love')).toBe('loving');
+    expect(lessonForConstruction('i-wait-for')).toBe('watching-waiting');
+    expect(lessonForConstruction('with-someone')).toBe('with-someone');
+  });
+
+  it('teaches the owner sentence with a natural English gloss', () => {
+    const con = nounConstructions.find((c) => c.id === 'owner-thing')!;
+    expect(englishSentenceFor(itemById('father')!, con)).toBe("This is Dad's bike.");
+    expect(sentenceFor(itemById('father')!, con)).toBe('Tämä on isän pyörä.');
+  });
+
+  it('glosses "Tämä on punainen" as "This is red" (no article before a describing word)', () => {
+    const thisIs = nounConstructions.find((c) => c.id === 'this-is')!;
+    expect(englishSentenceFor(itemById('red')!, thisIs)).toBe('This is red.');
+    expect(englishSentenceFor(itemById('old')!, thisIs)).toBe('This is old.');
+    expect(englishSentenceFor(itemById('cat')!, thisIs)).toBe('This is a cat.');
   });
 });

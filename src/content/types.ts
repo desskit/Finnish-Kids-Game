@@ -269,6 +269,8 @@ const NO_ARTICLE_IDS = new Set([
 const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like']);
 
 function englishArticleFor(item: LexicalItem): string {
+  // A describing word after "is" takes no article: "This is red", not "a red".
+  if (item.topic === 'adjectives') return '';
   if (NO_ARTICLE_IDS.has(item.id)) return '';
   if (DEFINITE_ARTICLE_IDS.has(item.id)) return 'the';
   return /^[aeiou]/i.test(item.en) ? 'an' : 'a';

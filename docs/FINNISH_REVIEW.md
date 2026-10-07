@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T04:43:08.755Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T13:37:32.006Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 635 entries.**
+- **Approved: 28 of 693 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -227,7 +227,7 @@
 | ⚠️ | `story:birthday-surprise:q2` | Mitä lapset tekivät ensin? (He tekivät kakun. / He lauloivat. / He söivät kakkua.) | What did the children do first? (They made a cake. / They sang. / They ate cake.) |
 | ⚠️ | `story:birthday-surprise:q3` | Miksi lapset tekivät kakun salaa? (Koska se oli yllätys. / Koska heillä oli nälkä. / Koska oli maanantai.) | Why did the children make the cake in secret? (Because it was a surprise. / Because they were hungry. / Because it was Monday.) |
 
-## Carrier phrases — authored fixed texts (75)
+## Carrier phrases — authored fixed texts (76)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -289,6 +289,7 @@
 | ⚠️ | `carrier:i-go-onto` | Menen ___. — e.g. Menen ovelle. | I'm going to the ___. |
 | ⚠️ | `carrier:i-come-from-in` | Tulen ___. — e.g. Tulen kylpyhuoneesta. | I'm coming from the ___. |
 | ⚠️ | `carrier:i-come-from-on` | Tulen ___. — e.g. Tulen ovelta. | I'm coming from the ___. |
+| ⚠️ | `carrier:owner-thing` | Tämä on ___ pyörä. — e.g. Tämä on veljen pyörä. | This is ___ bike. |
 | ⚠️ | `carrier:go-by` | Menen ___. — e.g. Menen pyörällä. | I'm going by ___. |
 | ⚠️ | `carrier:write-with` | Kirjoitan ___. — e.g. Kirjoitan tietokoneella. | I write with a ___. |
 | ⚠️ | `carrier:draw-with` | Piirrän ___. — e.g. Piirrän tietokoneella. | I draw with a ___. |
@@ -462,7 +463,7 @@
 | ⚠️ | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
 
-## Lesson prose — Finnish quoted in the explanations (156)
+## Lesson prose — Finnish quoted in the explanations (213)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -481,9 +482,13 @@
 | ⚠️ | `lesson:counting:5` | kirjaa | Counting — check |
 | ⚠️ | `lesson:counting:6` | kaveria | Counting — check |
 | ⚠️ | `lesson:having:1` | I have a bike · Minulla on pyörä | How to say "I have" — There's no verb "to have" |
-| ⚠️ | `lesson:having:2` | minulla · sinulla · hänellä · meillä · teillä · heillä | How to say "I have" — Who has it? |
+| ⚠️ | `lesson:having:2` | minulla · sinulla | How to say "I have" — On me, on you |
+| ⚠️ | `lesson:having:3` | on · pyörä · puhelin · koira | How to say "I have" — The thing stays as it is |
 | ⚠️ | `lesson:having:4` | Sinulla on pallo. · sinulla | How to say "I have" — check |
-| ⚠️ | `lesson:having:5` | meillä | How to say "I have" — check |
+| ⚠️ | `lesson:having:5` | minulla | How to say "I have" — check |
+| ⚠️ | `lesson:having-everyone:1` | minulla · sinulla · hänellä · meillä · teillä · heillä | Who has it? Everyone! — Everyone gets -lla / -llä |
+| ⚠️ | `lesson:having-everyone:3` | meillä | Who has it? Everyone! — check |
+| ⚠️ | `lesson:having-everyone:4` | Hänellä on kitara. · hänellä | Who has it? Everyone! — check |
 | ⚠️ | `lesson:negation-object:1` | on | Saying you don't have it — "is" becomes "is not" |
 | ⚠️ | `lesson:negation-object:3` | not all there | Saying you don't have it — Why? |
 | ⚠️ | `lesson:negation-object:4` | ei ole · kenkää | Saying you don't have it — check |
@@ -502,26 +507,47 @@
 | ⚠️ | `lesson:negative-verb:3` | en, et, ei, emme, ette, eivät · syön · en syö | "Not" is a verb — Same endings as before! |
 | ⚠️ | `lesson:negative-verb:4` | et | "Not" is a verb — check |
 | ⚠️ | `lesson:negative-verb:5` | eivät | "Not" is a verb — check |
-| ⚠️ | `lesson:likes:2` | pidän | Liking and loving — pitää → -sta / -stä |
-| ⚠️ | `lesson:likes:3` | rakastan · suklaata | Liking and loving — rakastaa → -a / -ä |
-| ⚠️ | `lesson:likes:4` | pidän · musiikista | Liking and loving — check |
-| ⚠️ | `lesson:likes:5` | rakastan · pitsaa · pidän | Liking and loving — check |
-| ⚠️ | `lesson:total-object:2` | katsoa · odottaa | Seeing vs. watching — Going on for a while: -a / -ä |
-| ⚠️ | `lesson:total-object:3` | junaa | Seeing vs. watching — check |
-| ⚠️ | `lesson:total-object:4` | Näen bussin. · bussin | Seeing vs. watching — check |
-| ⚠️ | `lesson:buying:3` | Ostan maitoa. · maitoa | One whole thing, or some? — check |
-| ⚠️ | `lesson:buying:4` | Ostan omenan. · omenan | One whole thing, or some? — check |
-| ⚠️ | `lesson:agreement:4` | isossa talossa | Describing words copy — check |
-| ⚠️ | `lesson:agreement:5` | punaisen pallon | Describing words copy — check |
+| ⚠️ | `lesson:likes:2` | pidän | Liking things — pitää → -sta / -stä |
+| ⚠️ | `lesson:likes:3` | pidän · musiikista | Liking things — check |
+| ⚠️ | `lesson:likes:4` | jäätelöstä | Liking things — check |
+| ⚠️ | `lesson:loving:1` | rakastan · suklaata | Loving things — rakastaa → -a / -ä |
+| ⚠️ | `lesson:loving:2` | Pidän · Pidän pitsasta. · Rakastan · Rakastan pitsaa. | Loving things — Two verbs, two endings |
+| ⚠️ | `lesson:loving:3` | rakastan · pitsaa · pidän | Loving things — check |
+| ⚠️ | `lesson:loving:4` | Pidän · Rakastan | Loving things — check |
+| ⚠️ | `lesson:total-object:1` | Näen · isän pyörä | Seeing the whole thing — Another verb, another ending |
+| ⚠️ | `lesson:total-object:3` | auton | Seeing the whole thing — check |
+| ⚠️ | `lesson:total-object:4` | Näen bussin. · bussin | Seeing the whole thing — check |
+| ⚠️ | `lesson:watching-waiting:1` | katsoa · odottaa | Watching and waiting — Going on for a while: -a / -ä |
+| ⚠️ | `lesson:watching-waiting:2` | Näen bussin. · Odotan bussia. | Watching and waiting — See it, or watch it? |
+| ⚠️ | `lesson:watching-waiting:3` | junaa | Watching and waiting — check |
+| ⚠️ | `lesson:watching-waiting:4` | Näen junan | Watching and waiting — check |
+| ⚠️ | `lesson:buying:1` | Ostan · Näen | Buying one whole thing — Like seeing |
+| ⚠️ | `lesson:buying:3` | Ostan omenan. · omenan | Buying one whole thing — check |
+| ⚠️ | `lesson:buying:4` | banaanin | Buying one whole thing — check |
+| ⚠️ | `lesson:buying-some:2` | Ostan omenan. · Ostan maitoa. | Buying some of something — One apple — some milk |
+| ⚠️ | `lesson:buying-some:3` | Ostan maitoa. · maitoa | Buying some of something — check |
+| ⚠️ | `lesson:buying-some:4` | leipää | Buying some of something — check |
+| ⚠️ | `lesson:colors:2` | Tämä on · Tämä on punainen | Colors and describing words — "This is red" |
+| ⚠️ | `lesson:colors:4` | vihreä · keltainen | Colors and describing words — check |
+| ⚠️ | `lesson:colors:5` | iso · pieni | Colors and describing words — check |
+| ⚠️ | `lesson:agreement:2` | isossa talossa · isolla pöydällä | Describing words copy — Listen for the echo |
+| ⚠️ | `lesson:agreement:3` | isossa talossa | Describing words copy — check |
+| ⚠️ | `lesson:agreement:4` | punaisen pallon | Describing words copy — check |
 | ⚠️ | `lesson:in-on:1` | in the box | Endings instead of "in" and "on" — No word for "in" |
 | ⚠️ | `lesson:in-on:3` | -ssa, -lla · -ssä, -llä · talossa · metsässä | Endings instead of "in" and "on" — The vowel team again |
 | ⚠️ | `lesson:in-on:4` | laatikko · laatikossa | Endings instead of "in" and "on" — Look at the END |
-| ⚠️ | `lesson:in-on:5` | talo · talossani | Endings instead of "in" and "on" — In MY house |
-| ⚠️ | `lesson:in-on:6` | pöydällä | Endings instead of "in" and "on" — check |
-| ⚠️ | `lesson:in-on:7` | talossa | Endings instead of "in" and "on" — check |
-| ⚠️ | `lesson:into-out:1` | Missä? · Mihin? · Mistä? | In, into, out of — Three questions |
-| ⚠️ | `lesson:into-out:5` | laatikosta | In, into, out of — check |
-| ⚠️ | `lesson:into-out:6` | laatikkoon | In, into, out of — check |
+| ⚠️ | `lesson:in-on:5` | pöydällä | Endings instead of "in" and "on" — check |
+| ⚠️ | `lesson:in-on:6` | talossa | Endings instead of "in" and "on" — check |
+| ⚠️ | `lesson:in-my-house:1` | talo · talossani | In MY house — Two endings on one word |
+| ⚠️ | `lesson:in-my-house:3` | talossani | In MY house — check |
+| ⚠️ | `lesson:in-my-house:4` | pöydälläsi | In MY house — check |
+| ⚠️ | `lesson:into-out:1` | Missä? · Mihin? | Going into, going onto — Where is it GOING? |
+| ⚠️ | `lesson:into-out:2` | laatikkoon · taloon · huoneeseen | Going into, going onto — Going INSIDE |
+| ⚠️ | `lesson:into-out:4` | laatikkoon | Going into, going onto — check |
+| ⚠️ | `lesson:into-out:5` | pöydälle | Going into, going onto — check |
+| ⚠️ | `lesson:out-of-off:1` | Mistä? | Coming out of, coming off — Where is it coming FROM? |
+| ⚠️ | `lesson:out-of-off:4` | laatikosta | Coming out of, coming off — check |
+| ⚠️ | `lesson:out-of-off:5` | pöydältä | Coming out of, coming off — check |
 | ⚠️ | `lesson:postpositions:1` | under the chair · tuolin alla | Position words come after — Back to front |
 | ⚠️ | `lesson:postpositions:2` | edessä · takana · vieressä · alla | Position words come after — Four position words |
 | ⚠️ | `lesson:postpositions:4` | puun takana | Position words come after — check |
@@ -529,12 +555,25 @@
 | ⚠️ | `lesson:possessive:2` | minun kirjani · sinun kirjasi · hänen kirjansa | "My" is an ending — You'll hear the pronoun too |
 | ⚠️ | `lesson:possessive:3` | Nimeni on… · nimeni · nimi | "My" is an ending — You already know one! |
 | ⚠️ | `lesson:possessive:6` | Tämä on sinun kirjasi. · sinun | "My" is an ending — check |
-| ⚠️ | `lesson:plurals:4` | palloja | More than one — check |
-| ⚠️ | `lesson:plurals:5` | kirjat | More than one — check |
+| ⚠️ | `lesson:plurals:1` | the books · the balls | More than one — The -t means "more than one" |
+| ⚠️ | `lesson:plurals:2` | on · ovat · Nämä ovat… · Missä ovat…? | More than one — "These are…" and "Where are…?" |
+| ⚠️ | `lesson:plurals:3` | kirjat | More than one — check |
+| ⚠️ | `lesson:plurals:4` | kaveri · kaverit | More than one — check |
+| ⚠️ | `lesson:plural-some:2` | pallot · palloja | Some things, any things — The balls — or some balls? |
+| ⚠️ | `lesson:plural-some:3` | palloja | Some things, any things — check |
+| ⚠️ | `lesson:plural-some:4` | Minulla ei ole pelejä. · ei ole · pelejä | Some things, any things — check |
+| ⚠️ | `lesson:plural-places:1` | laatikossa · laatikoissa | In many boxes — In many things: -issa |
+| ⚠️ | `lesson:plural-places:2` | talossa · taloissa · repussa · repuissa | In many boxes — Look for the -i- |
+| ⚠️ | `lesson:plural-places:3` | laatikoissa | In many boxes — check |
+| ⚠️ | `lesson:plural-places:4` | laatikoissa | In many boxes — check |
 | ⚠️ | `lesson:past:1` | syön · söin | Talking about yesterday — Slip in an -i- |
-| ⚠️ | `lesson:past:3` | en, et, ei… | Talking about yesterday — "Didn't" |
-| ⚠️ | `lesson:past:5` | luin | Talking about yesterday — check |
-| ⚠️ | `lesson:past:6` | söimme | Talking about yesterday — check |
+| ⚠️ | `lesson:past:3` | minä nukuin · hän nukkui · nukun · nukkuu | Talking about yesterday — The k, p, t changes come along |
+| ⚠️ | `lesson:past:4` | luin | Talking about yesterday — check |
+| ⚠️ | `lesson:past:5` | söimme | Talking about yesterday — check |
+| ⚠️ | `lesson:past-not:1` | en, et, ei… | "Didn't" — The "not" verb + -nut / -nyt |
+| ⚠️ | `lesson:past-not:3` | en, et, ei · en syönyt · emme, ette, eivät · emme syöneet | "Didn't" — Only two shapes |
+| ⚠️ | `lesson:past-not:4` | en · en lukenut · en lue | "Didn't" — check |
+| ⚠️ | `lesson:past-not:5` | eivät · eivät syöneet | "Didn't" — check |
 | ⚠️ | `lesson:conversation:4` | Mitä? · Missä? · Kuka? · Paljonko? | Having a real conversation — Question words |
 | ⚠️ | `lesson:conversation:5` | Kiitos! · Ole hyvä! | Having a real conversation — check |
 | ⚠️ | `lesson:conversation:6` | Anteeksi! · Ei se mitään | Having a real conversation — check |
@@ -545,9 +584,11 @@
 | ⚠️ | `lesson:expert:5` | söisin | Expert Finnish — check |
 | ⚠️ | `lesson:feelings:1` | Olen | Saying how you feel — I am… |
 | ⚠️ | `lesson:feelings:2` | En ole | Saying how you feel — I am not… |
-| ⚠️ | `lesson:feelings:3` | Minulla on… · Minulla on nälkä | Saying how you feel — "On me is hunger" |
-| ⚠️ | `lesson:feelings:4` | Minulla on kylmä | Saying how you feel — check |
-| ⚠️ | `lesson:feelings:5` | En ole väsynyt. · En ole | Saying how you feel — check |
+| ⚠️ | `lesson:feelings:3` | Olen · Olen iloinen | Saying how you feel — check |
+| ⚠️ | `lesson:feelings:4` | En ole väsynyt. · En ole | Saying how you feel — check |
+| ⚠️ | `lesson:feelings-on-me:1` | Minulla on… · Minulla on nälkä | Hungry, thirsty, cold, hot — "On me is hunger" |
+| ⚠️ | `lesson:feelings-on-me:3` | Minulla on kylmä | Hungry, thirsty, cold, hot — check |
+| ⚠️ | `lesson:feelings-on-me:4` | nälkä · jano | Hungry, thirsty, cold, hot — check |
 | ⚠️ | `lesson:school-day:2` | Pidän · En pidä | Liking and not liking — I like / I don't like |
 | ⚠️ | `lesson:school-day:3` | En pidä · en · et · ei | Liking and not liking — The "not" verb again |
 | ⚠️ | `lesson:school-day:4` | En pidä · matematiikasta | Liking and not liking — check |
@@ -556,9 +597,11 @@
 | ⚠️ | `lesson:town:5` | puistoon | You on the move — check |
 | ⚠️ | `lesson:town:6` | asemalla | You on the move — check |
 | ⚠️ | `lesson:when:1` | maanantai | Days and times — Days of the week |
-| ⚠️ | `lesson:when:4` | Kello on · Kello on kolme | Days and times — What time is it? |
-| ⚠️ | `lesson:when:5` | sunnuntaina | Days and times — check |
-| ⚠️ | `lesson:when:6` | talvella | Days and times — check |
+| ⚠️ | `lesson:when:4` | sunnuntaina | Days and times — check |
+| ⚠️ | `lesson:when:5` | talvella | Days and times — check |
+| ⚠️ | `lesson:clock:1` | kello · Kello on · Kello on kolme · Paljonko kello on? | What time is it? — Kello on… |
+| ⚠️ | `lesson:clock:3` | seitsemän · Kello on seitsemän | What time is it? — check |
+| ⚠️ | `lesson:clock:4` | Kello on kaksitoista. · kaksitoista | What time is it? — check |
 | ⚠️ | `lesson:owners:1` | isä · isän pyörä | Mom's bike — the owner gets -n — The owner comes first |
 | ⚠️ | `lesson:owners:2` | Kenen pyörä tämä on? · Se on isän pyörä. · minun · sinun | Mom's bike — the owner gets -n — Kenen? — Whose? |
 | ⚠️ | `lesson:owners:3` | äiti · äidin | Mom's bike — the owner gets -n — Look at the END |
@@ -576,10 +619,12 @@
 | ⚠️ | `lesson:commands:2` | älä | Do it, don't, let's — Don't! |
 | ⚠️ | `lesson:commands:4` | Älä · Älä juokse! | Do it, don't, let's — check |
 | ⚠️ | `lesson:commands:5` | Leikitään! | Do it, don't, let's — check |
-| ⚠️ | `lesson:question-words:1` | Kuka? · Mikä? · Mitä? · Missä? · Mihin? · Mistä? · Milloin? · Montako? · Kenen? · Miksi? | Question words — The question words |
-| ⚠️ | `lesson:question-words:2` | Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Kenen? · isän · Milloin? · lauantaina | Question words — The answer matches the question |
-| ⚠️ | `lesson:question-words:5` | Mihin sinä menet? · Mihin? · Menen puistoon | Question words — check |
-| ⚠️ | `lesson:question-words:6` | Kenen? · Kuka? | Question words — check |
+| ⚠️ | `lesson:question-words:1` | Kuka? · Mikä? · Mitä? · Montako? · Kenen? · Miksi? | Question words — Who, what, whose, why… |
+| ⚠️ | `lesson:question-words:3` | Kenen? · Kuka? | Question words — check |
+| ⚠️ | `lesson:question-words:4` | Miksi? | Question words — check |
+| ⚠️ | `lesson:where-questions:1` | Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Milloin? · lauantaina | Where, where to, where from, when — Three "where" words |
+| ⚠️ | `lesson:where-questions:3` | Mihin sinä menet? · Mihin? · Menen puistoon | Where, where to, where from, when — check |
+| ⚠️ | `lesson:where-questions:4` | Mistä? | Where, where to, where from, when — check |
 | ⚠️ | `lesson:me-you:1` | minä · Auta minua! · Anna se minulle! · Pidän sinusta. | Me and you — I, me, to me… |
 | ⚠️ | `lesson:me-you:4` | Auta, Odota · minua, häntä · Anna se · minulle · Pidän · sinusta · Näen · sinut, hänet | Me and you — Which ending? |
 | ⚠️ | `lesson:me-you:5` | auttaa · Auta minua! | Me and you — check |
@@ -601,27 +646,40 @@
 | ⚠️ | `lesson:kpt-6:3` | minä, sinä, me, te | Type 6: a sound gets stronger too — The whole picture |
 | ⚠️ | `lesson:kpt-6:4` | pakenen | Type 6: a sound gets stronger too — check |
 | ⚠️ | `lesson:kpt-6:5` | nukkuu | Type 6: a sound gets stronger too — check |
-| ⚠️ | `lesson:comparing:2` | Norsu on isompi kuin hiiri. | Bigger and biggest — Than = kuin |
-| ⚠️ | `lesson:comparing:4` | hyvä → parempi → paras · pitkä → pidempi → pisin | Bigger and biggest — Special ones |
-| ⚠️ | `lesson:comparing:5` | nopeampi · nopein | Bigger and biggest — check |
-| ⚠️ | `lesson:comparing:6` | Norsu on isompi kuin hiiri. | Bigger and biggest — check |
-| ⚠️ | `lesson:comparing:7` | vanhin | Bigger and biggest — check |
+| ⚠️ | `lesson:comparing:2` | Norsu on isompi kuin hiiri. | Bigger than — Than = kuin |
+| ⚠️ | `lesson:comparing:3` | hyvä → parempi · pitkä → pidempi | Bigger than — Special ones |
+| ⚠️ | `lesson:comparing:4` | nopeampi | Bigger than — check |
+| ⚠️ | `lesson:comparing:5` | Norsu on isompi kuin hiiri. | Bigger than — check |
+| ⚠️ | `lesson:superlative:2` | iso → isompi → isoin · hyvä → parempi → paras · pitkä → pidempi → pisin | The biggest of all — Big, bigger, biggest |
+| ⚠️ | `lesson:superlative:3` | vanhin | The biggest of all — check |
+| ⚠️ | `lesson:superlative:4` | nopein · nopeampi | The biggest of all — check |
 | ⚠️ | `lesson:by-with:1` | pöydällä | By bus, with a pen — An ending you already know |
-| ⚠️ | `lesson:by-with:5` | junalla · junaan | By bus, with a pen — check |
-| ⚠️ | `lesson:by-with:6` | lusikalla · Syön lusikkaa | By bus, with a pen — check |
-| ⚠️ | `lesson:by-with:7` | kanssa · kaverin kanssa | By bus, with a pen — check |
-| ⚠️ | `lesson:big-numbers:1` | kolmetoista | Big numbers — and first, second… — 13 to 19: -toista |
-| ⚠️ | `lesson:big-numbers:2` | kolmekymmentä · sata | Big numbers — and first, second… — Tens: -kymmentä |
-| ⚠️ | `lesson:big-numbers:3` | kaksikymmentä · yksi · kolmekymmentä · viisi | Big numbers — and first, second… — 21, 22, 23… |
-| ⚠️ | `lesson:big-numbers:4` | neljäs · viides | Big numbers — and first, second… — First, second, third… |
-| ⚠️ | `lesson:big-numbers:5` | viisitoista · viisikymmentä | Big numbers — and first, second… — check |
-| ⚠️ | `lesson:big-numbers:6` | kolmas · kolme | Big numbers — and first, second… — check |
-| ⚠️ | `lesson:birthdays:1` | kuu | Months, dates and birthdays — The months |
-| ⚠️ | `lesson:birthdays:2` | koulussa | Months, dates and birthdays — In May: -ssa |
-| ⚠️ | `lesson:birthdays:3` | viides toukokuuta | Months, dates and birthdays — A date |
-| ⚠️ | `lesson:birthdays:4` | vuotta · kaksi kirjaa · vanha | Months, dates and birthdays — How old are you? |
-| ⚠️ | `lesson:birthdays:5` | viides · viides toukokuuta | Months, dates and birthdays — check |
-| ⚠️ | `lesson:birthdays:6` | toukokuussa | Months, dates and birthdays — check |
+| ⚠️ | `lesson:by-with:4` | junalla · junaan | By bus, with a pen — check |
+| ⚠️ | `lesson:by-with:5` | lusikalla · Syön lusikkaa | By bus, with a pen — check |
+| ⚠️ | `lesson:with-someone:2` | Leikin pallolla. · Leikin kaverin kanssa. | With a friend: kanssa — Tool or person? |
+| ⚠️ | `lesson:with-someone:3` | kanssa · kaverin kanssa | With a friend: kanssa — check |
+| ⚠️ | `lesson:with-someone:4` | pallolla | With a friend: kanssa — check |
+| ⚠️ | `lesson:big-numbers:1` | kolmetoista | Big numbers — 13 to 19: -toista |
+| ⚠️ | `lesson:big-numbers:2` | kolmekymmentä · sata | Big numbers — Tens: -kymmentä |
+| ⚠️ | `lesson:big-numbers:3` | kaksikymmentä · yksi · kolmekymmentä · viisi | Big numbers — 21, 22, 23… |
+| ⚠️ | `lesson:big-numbers:4` | viisitoista · viisikymmentä | Big numbers — check |
+| ⚠️ | `lesson:big-numbers:5` | neljäkymmentä · neljätoista | Big numbers — check |
+| ⚠️ | `lesson:ordinals:1` | neljäs · viides | First, second, third… — Order words |
+| ⚠️ | `lesson:ordinals:2` | kolme · kolmas | First, second, third… — Three or third? |
+| ⚠️ | `lesson:ordinals:3` | kolmas · kolme | First, second, third… — check |
+| ⚠️ | `lesson:ordinals:4` | ensimmäinen | First, second, third… — check |
+| ⚠️ | `lesson:birthdays:1` | kuu | The months — The months |
+| ⚠️ | `lesson:birthdays:2` | koulussa | The months — In May: -ssa |
+| ⚠️ | `lesson:birthdays:3` | toukokuussa | The months — check |
+| ⚠️ | `lesson:birthdays:4` | joulukuu · joulu | The months — check |
+| ⚠️ | `lesson:dates:1` | viides toukokuuta | Saying a date — Order word + month with -ta |
+| ⚠️ | `lesson:dates:2` | viides · viisi · toukokuuta · toukokuu | Saying a date — Two slips to watch for |
+| ⚠️ | `lesson:dates:3` | viides · viides toukokuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:4` | ensimmäinen tammikuuta | Saying a date — check |
+| ⚠️ | `lesson:age:1` | vuotta · kaksi kirjaa · vanha | How old are you? — Olen … vuotta vanha |
+| ⚠️ | `lesson:age:2` | kahdeksan · kahdeksas | How old are you? — The number, not the order word |
+| ⚠️ | `lesson:age:3` | kahdeksan · Olen kahdeksan vuotta vanha | How old are you? — check |
+| ⚠️ | `lesson:age:4` | vuotta · vuosi | How old are you? — check |
 
 ## Other authored lines (distractor-only) (69)
 

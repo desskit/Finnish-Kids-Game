@@ -429,6 +429,7 @@ const TAUGHT_CONSTRUCTIONS = [
   'is-behind',
   'is-in-front-of',
   'is-next-to',
+  'owner-thing',
   'this-is-mine',
   'this-is-yours',
   'this-is-theirs',
@@ -706,6 +707,7 @@ const UNITS: Chapter[] = [
     accent: '#7c3aed',
     icon: '🎒',
     lessonId: 'having',
+    midLessons: [{ lessonId: 'having-everyone', before: 'who-has' }],
     newWords: ['ball', 'football', 'bike', 'game', 'guitar', 'piano', 'phone', 'computer', 'cat', 'dog', 'bunny'],
     skills: [
       wordsStep('having', 'nouns'),
@@ -791,6 +793,7 @@ const UNITS: Chapter[] = [
         content: { choose: 'owner' },
         exampleFi: 'isän pyörä',
       },
+      phraseStep('owner-sentences', 'Tämä on isän pyörä', 'Whose bike is it?', '🔑', ['owner-thing'], 'Tämä on isän pyörä.'),
       sceneStep('owners-talk', 'whose-thing', 'Kenen pyörä?', 'Whose bike?'),
     ],
   },
@@ -804,7 +807,6 @@ const UNITS: Chapter[] = [
     lessonId: 'verb-persons',
     midLessons: [{ lessonId: 'kpt-1-3', before: 'doing-kpt-words' }],
     newWords: [...DOING_PLAIN, ...DOING_KPT],
-    checkpoint: { perStep: 2, passRatio: 0.8 },
     skills: [
       wordsStep('doing', 'verbs', 'Action words', DOING_PLAIN),
       verbStep('verbs-type1', 'Tyyppi 1', 'Type 1: laulaa', '1️⃣', { types: [1], kpt: false }, [PRESENT_POS], 2, 'minä laulan, hän laulaa'),
@@ -892,6 +894,7 @@ const UNITS: Chapter[] = [
     accent: '#f59e0b',
     icon: '😄',
     lessonId: 'feelings',
+    midLessons: [{ lessonId: 'feelings-on-me', before: 'i-feel' }],
     newWords: [
       'happy',
       'sad',
@@ -923,6 +926,7 @@ const UNITS: Chapter[] = [
     accent: '#e11d48',
     icon: '❤️',
     lessonId: 'likes',
+    midLessons: [{ lessonId: 'loving', before: 'i-love' }],
     newWords: [
       'pizza',
       'ice-cream',
@@ -974,7 +978,6 @@ const UNITS: Chapter[] = [
     lessonId: 'verb-type4',
     midLessons: [{ lessonId: 'kpt-4', before: 'verbs-4-kpt-words' }],
     newWords: [...TYPE4_PLAIN, ...TYPE4_KPT],
-    checkpoint: { perStep: 2, passRatio: 0.8 },
     skills: [
       wordsStep('verbs-4', 'verbs', 'Type 4 verbs', TYPE4_PLAIN),
       verbStep('verbs-type4', 'Tyyppi 4', 'Type 4: avata', '4️⃣', { types: [4], kpt: false }, [PRESENT_POS], 3, 'minä avaan, hän avaa'),
@@ -1018,6 +1021,7 @@ const UNITS: Chapter[] = [
     accent: '#0d9488',
     icon: '👀',
     lessonId: 'total-object',
+    midLessons: [{ lessonId: 'watching-waiting', before: 'watch-wait' }],
     newWords: ['bus', 'train', 'car'],
     skills: [
       wordsStep('seeing', 'nouns', 'Getting around'),
@@ -1034,10 +1038,13 @@ const UNITS: Chapter[] = [
     accent: '#16a34a',
     icon: '🛒',
     lessonId: 'buying',
+    midLessons: [{ lessonId: 'buying-some', before: 'buy-some' }],
     newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter'],
     skills: [
       wordsStep('shop', 'nouns', 'Shopping list'),
-      phraseStep('buying', 'Ostan…', 'Buying', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
+      phraseStep('buy-one', 'Ostan omenan', 'One whole thing', '🍎', ['i-buy'], 'Ostan omenan.'),
+      phraseStep('buy-some', 'Ostan maitoa', 'Some of something', '🥛', ['i-buy-some'], 'Ostan maitoa.'),
+      phraseStep('buying', 'Ostan…', 'One, or some?', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
       sceneStep('shop-scene', 'shop', 'Kaupassa', 'At the till'),
     ],
   },
@@ -1081,7 +1088,8 @@ const UNITS: Chapter[] = [
     blurbEn: "Colors and describing words copy the noun's ending.",
     accent: '#ca8a04',
     icon: '🎨',
-    lessonId: 'agreement',
+    lessonId: 'colors',
+    midLessons: [{ lessonId: 'agreement', before: 'describe' }],
     newWords: [
       'red',
       'blue',
@@ -1100,6 +1108,7 @@ const UNITS: Chapter[] = [
     ],
     skills: [
       wordsStep('describing', 'adjectives', 'Colors & describing words'),
+      phraseStep('what-color', 'Tämä on punainen', 'This is red', '🟥', ['this-is', 'is-this'], 'Tämä on punainen.', 'adjectives'),
       {
         id: 'describe',
         titleFi: 'Iso koira',
@@ -1121,6 +1130,7 @@ const UNITS: Chapter[] = [
     accent: '#16a34a',
     icon: '🐘',
     lessonId: 'comparing',
+    midLessons: [{ lessonId: 'superlative', before: 'the-most' }],
     newWords: [...COMPARE_ADJECTIVES, ...COMPARE_ANIMALS],
     skills: [
       wordsStep('comparing', 'adjectives', 'Comparing words', COMPARE_ADJECTIVES),
@@ -1166,6 +1176,7 @@ const UNITS: Chapter[] = [
     accent: '#0284c7',
     icon: '📍',
     lessonId: 'in-on',
+    midLessons: [{ lessonId: 'in-my-house', before: 'in-my' }],
     newWords: [
       'house',
       'school',
@@ -1217,6 +1228,7 @@ const UNITS: Chapter[] = [
     accent: '#4f46e5',
     icon: '🚶',
     lessonId: 'into-out',
+    midLessons: [{ lessonId: 'out-of-off', before: 'out-off' }],
     newWords: [],
     skills: [
       phraseStep('into-onto', 'Mihin?', 'Into & onto', '➡️', ['into-it', 'onto-it'], 'Kissa menee laatikkoon.', 'places'),
@@ -1282,6 +1294,7 @@ const UNITS: Chapter[] = [
     accent: '#0284c7',
     icon: '🚌',
     lessonId: 'by-with',
+    midLessons: [{ lessonId: 'with-someone', before: 'with-people' }],
     newWords: ['boat', 'plane', 'ship', 'taxi', 'spoon', 'fork', 'key'],
     skills: [
       wordsStep('by-with', 'nouns', 'Rides and tools'),
@@ -1313,6 +1326,7 @@ const UNITS: Chapter[] = [
     accent: '#7c2d12',
     icon: '📅',
     lessonId: 'when',
+    midLessons: [{ lessonId: 'clock', before: 'clock' }],
     newWords: [
       'monday',
       'tuesday',
@@ -1355,6 +1369,7 @@ const UNITS: Chapter[] = [
     accent: '#0891b2',
     icon: '💯',
     lessonId: 'big-numbers',
+    midLessons: [{ lessonId: 'ordinals', before: 'ordinal-words' }],
     newWords: [...TEENS, ...TENS, ...ORDINALS],
     skills: [
       wordsStep('big-numbers', 'numbers', 'Numbers 13–20', TEENS),
@@ -1392,6 +1407,7 @@ const UNITS: Chapter[] = [
     accent: '#db2777',
     icon: '🎂',
     lessonId: 'birthdays',
+    midLessons: [{ lessonId: 'dates', before: 'dates' }, { lessonId: 'age', before: 'how-old' }],
     newWords: [...MONTHS, ...BIRTHDAY_TIME, ...PARTY],
     skills: [
       wordsStep('birthdays', 'time', 'The months', [...MONTHS, ...BIRTHDAY_TIME]),
@@ -1436,30 +1452,39 @@ const UNITS: Chapter[] = [
     accent: '#be123c',
     icon: '🤔',
     lessonId: 'question-words',
+    midLessons: [{ lessonId: 'where-questions', before: 'where-qa' }],
     newWords: [],
     skills: [
       {
         id: 'question-words-qa',
-        titleFi: 'Kysy ja vastaa',
-        titleEn: 'Ask and answer',
+        titleFi: 'Kuka? Mikä? Kenen?',
+        titleEn: 'Who, what, whose, why',
         icon: '🤔',
         activity: 'dialogue',
         maxLevel: 3,
-        content: {
-          ids: [
-            'qw-who',
-            'qw-what',
-            'qw-what-doing',
-            'qw-where',
-            'qw-where-to',
-            'qw-where-from',
-            'qw-when',
-            'qw-how-many',
-            'qw-whose',
-            'qw-why',
-          ],
-        },
+        content: { ids: ['qw-who', 'qw-what', 'qw-what-doing', 'qw-how-many', 'qw-whose', 'qw-why'] },
+        exampleFi: 'Kuka tuo on?',
+      },
+      {
+        id: 'where-qa',
+        titleFi: 'Missä? Mihin? Mistä?',
+        titleEn: 'Where, where to, where from',
+        icon: '🧭',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: { ids: ['qw-where', 'qw-where-to', 'qw-where-from', 'qw-when'] },
         exampleFi: 'Missä kissa on?',
+      },
+      {
+        id: 'question-words-mix',
+        titleFi: 'Kaikki kysymykset',
+        titleEn: 'All the questions',
+        icon: '❓',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: {
+          ids: ['qw-who', 'qw-what', 'qw-what-doing', 'qw-where', 'qw-where-to', 'qw-where-from', 'qw-when', 'qw-how-many', 'qw-whose', 'qw-why'],
+        },
       },
       sceneStep('question-words-talk', 'new-pupil', 'Uusi oppilas', 'The new pupil'),
     ],
@@ -1524,6 +1549,7 @@ const UNITS: Chapter[] = [
     accent: '#c026d3',
     icon: '👐',
     lessonId: 'plurals',
+    midLessons: [{ lessonId: 'plural-some', before: 'some-any' }, { lessonId: 'plural-places', before: 'in-them' }],
     newWords: [],
     skills: [
       phraseStep('these-are', 'Nämä ovat…', 'These are…', '👐', ['these-are', 'where-are'], 'Nämä ovat kirjoja.'),
@@ -1543,7 +1569,6 @@ const UNITS: Chapter[] = [
     lessonId: 'verb-types-5-6',
     midLessons: [{ lessonId: 'kpt-6', before: 'verbs-6-kpt-words' }],
     newWords: [...TYPE56_PLAIN, ...TYPE6_KPT],
-    checkpoint: { perStep: 2, passRatio: 0.8 },
     skills: [
       wordsStep('verbs-5-6', 'verbs', 'Type 5 & 6 verbs', TYPE56_PLAIN),
       verbStep('verbs-type5', 'Tyyppi 5', 'Type 5: tarvita', '5️⃣', { types: [5] }, [PRESENT_POS], 2, 'minä tarvitsen, hän tarvitsee'),
@@ -1564,20 +1589,13 @@ const UNITS: Chapter[] = [
     accent: '#a16207',
     icon: '⏮️',
     lessonId: 'past',
+    midLessons: [{ lessonId: 'past-not', before: 'verbs-past-not' }],
     newWords: ['cook', 'see', 'give', 'make', 'take', 'find', 'bring', 'look'],
     skills: [
       wordsStep('yesterday', 'verbs', 'More action words'),
-      {
-        id: 'verbs-past',
-        titleFi: 'Söin, en syönyt',
-        titleEn: 'What happened',
-        icon: '⏮️',
-        activity: 'conjugate',
-        maxLevel: 4,
-        pin: { verbCombos: [PAST_POS, PAST_NEG] },
-        content: {},
-        exampleFi: 'minä söin, minä en syönyt',
-      },
+      verbStep('verbs-past', 'Söin', 'What happened', '⏮️', undefined, [PAST_POS], 3, 'minä söin, hän nukkui'),
+      verbStep('verbs-past-not', 'En syönyt', "What didn't happen", '🙅', undefined, [PAST_NEG], 3, 'minä en syönyt'),
+      verbStep('verbs-past-mix', 'Söin vai en syönyt?', 'Did or didn\'t', '🔀', undefined, [PAST_POS, PAST_NEG], 3),
       {
         id: 'past-stories',
         titleFi: 'Tarinat',

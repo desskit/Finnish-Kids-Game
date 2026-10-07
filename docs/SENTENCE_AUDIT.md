@@ -6333,6 +6333,17 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Tulen ikkunalta. _(window)_
 - Tulen pihalta. _(yard)_
 
+### `owner-thing` — “This is ___ bike.” (tier 3, genitive singular, 8 words)
+
+- Tämä on veljen pyörä. _(brother)_
+- Tämä on isän pyörä. _(dad)_
+- Tämä on kaverin pyörä. _(friend)_
+- Tämä on isoisän pyörä. _(grandfather)_
+- Tämä on isoäidin pyörä. _(grandmother)_
+- Tämä on äidin pyörä. _(mom)_
+- Tämä on siskon pyörä. _(sister)_
+- Tämä on opettajan pyörä. _(teacher)_
+
 ### `go-by` — “I'm going by ___.” (tier 4, adessive singular, 8 words)
 
 - Menen pyörällä. _(bike)_
