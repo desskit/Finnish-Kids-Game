@@ -282,41 +282,55 @@ In English: I eat, you eat, we eat — the verb hardly changes.
 In Finnish, **the end of the verb tells you who is doing it**. That's why Finns often skip *minä* (I): *Syön.* already means "I eat".
 
 
-### 2. syödä — to eat _(verbTable)_
+### 2. Verbs come in families _(examples)_
 
-The marked ending is the "who" part.
+Finnish verbs belong to **types** (families). Look at the END of the "to…" word to see which one:
 
-_syödä (eat), present positive_
+- **Type 1** ends in two vowels: *laulaa*, *puhua*
+- **Type 2** ends in **-da / -dä**: *syödä*
+- **Type 3** ends in **-lla, -nna, -sta**: *tulla*, *mennä*
 
-- minä syön
-- sinä syöt
-- hän syö
-- me syömme
-- te syötte
-- he syövät
+- 🎤 **laul[aa]** — to sing · type 1
+- 🍽️ **syö[dä]** — to eat · type 2
+- **tu[lla]** — to come · type 3
 
-### 3. The six endings _(explain)_
+### 3. Each family makes "I…" its own way _(examples)_
+
+- **Type 1**: drop the last letter → *laula-* + **n**
+- **Type 2**: drop **-da / -dä** → *syö-* + **n**
+- **Type 3**: drop **-la, -na, -ta** (or -lä, -nä, -tä), add **e** → *tule-* + **n**
+
+*juosta* is a special one — learn it as it is: *juoksen*.
+
+- 🎤 **minä laula[n]**
+- 🍽️ **minä syö[n]**
+- **minä tule[n]**
+- 🏃 **minä juokse[n]**
+
+### 4. The six endings — the same for every family _(explain)_
 
 - **-n** → I
 - **-t** → you
-- (the last vowel doubles: *lukee*; if it's already long, nothing changes: *syö*) → he / she
+- (the last vowel doubles: *laulaa*, *tulee*; if it's already long, nothing changes: *syö*) → he / she
 - **-mme** → we
 - **-tte** → you all
 - **-vat / -vät** → they
 
 
-### 4. lukea — to read _(verbTable)_
+### 5. tulla — to come _(verbTable)_
 
-_lukea (read), present positive_
+The marked ending is the "who" part.
 
-- minä luen
-- sinä luet
-- hän lukee
-- me luemme
-- te luette
-- he lukevat
+_tulla (come), present positive_
 
-### 5. Try it _(check)_
+- minä tulen
+- sinä tulet
+- hän tulee
+- me tulemme
+- te tulette
+- he tulevat
+
+### 6. Try it _(check)_
 
 **Q:** Which one means "we swim"?
 
@@ -326,15 +340,76 @@ _lukea (read), present positive_
 
 _Explain:_ **-mme** means "we".
 
+### 7. Try it _(check)_
+
+**Q:** Which family is *mennä* (to go)?
+
+- ✘ Type 1
+- ✘ Type 2
+- ✔ Type 3
+
+_Explain:_ *mennä* ends in **-nna** — two consonants and a vowel: **type 3** (*menen*).
+
+## Unit 0: When k, p and t change (K, P ja T vaihtuvat) 🔀
+
+### 1. A letter in the MIDDLE can change _(explain)_
+
+Some verbs change a sound in the middle, not just the ending. It happens to **k**, **p** and **t** — Finns call it **KPT**.
+
+In type 1 the "to…" word has the STRONG sound (*nukkua*), and "I" gets the WEAK one (*nukun*): **kk → k**, **tt → t**, **pp → p**.
+
+
+### 2. Strong → weak _(examples)_
+
+The marked letters are the ones that change.
+
+- 😴 nukkua → **minä nu[k]un** — I sleep
+- 🧸 leikkiä → **minä lei[k]in** — I play
+- ✍️ kirjoittaa → **minä kirjoi[t]an** — I write
+- 🤝 auttaa → **minä au[t]an** — I help
+
+### 3. He, she and they stay STRONG _(examples)_
+
+Only **I, you, we, you all** get the weak sound. **He / she** and **they** keep the strong one: *minä nukun* but *hän nukkuu*.
+
+- 😴 nukkua → **minä nu[k]un** — I sleep
+- 😴 nukkua → **sinä nu[k]ut** — you sleep
+- 😴 nukkua → **hän nu[kk]uu** — he/she sleeps
+- 😴 nukkua → **he nu[kk]uvat** — they sleep
+
+### 4. Other changes _(examples)_
+
+**rt → rr**: *piirtää → piirrän*. And a **k** can disappear: *lukea → luen*.
+
+- ✏️ piirtää → **minä pii[rr]än** — I draw
+- 📖 lukea → **minä luen** — I read
+
+### 5. Type 3 goes the other way round _(examples)_
+
+In type 3 the "to…" word has the WEAK sound, and every person gets the STRONG one: *kuunnella → kuuntelen, kuuntelee*.
+
+- 🎧 kuunnella → **minä kuu[nt]elen** — I listen
+- 🎧 kuunnella → **hän kuu[nt]elee** — he/she listens
+
 ### 6. Try it _(check)_
 
-**Q:** *syötte* — who is eating?
+**Q:** Which one means "I sleep"?
 
-- ✘ I
-- ✔ you all
-- ✘ they
+- ✔ 😴 nukkua → **minä nu[k]un** — I sleep
+- ✘ 😴 **hän nukkuu**
+- ✘ 😴 **sinä nuku[t]**
 
-_Explain:_ **-tte** means "you all".
+_Explain:_ "I" is **-n**, with the weak **k**: *nukun*. *nukkuu* is he/she — strong **kk**.
+
+### 7. Try it _(check)_
+
+**Q:** Which one means "she writes"?
+
+- ✘ ✍️ **minä kirjoita[n]**
+- ✔ ✍️ kirjoittaa → **hän kirjoi[tt]aa** — he/she writes
+- ✘ ✍️ **me kirjoita[mme]**
+
+_Explain:_ He / she keeps the strong **tt**: *kirjoittaa*.
 
 ## Unit 9: "Not" is a verb (En tee) ✋
 
@@ -423,7 +498,7 @@ _Explain:_ *pidän* always takes **-sta / -stä**: *musiikista*.
 
 _Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)
 
-## Unit 15: Seeing vs. watching (Näen ja odotan) 👀
+## Unit 16: Seeing vs. watching (Näen ja odotan) 👀
 
 ### 1. The whole thing: -n _(examples)_
 
@@ -460,7 +535,7 @@ _Explain:_ Waiting goes on for a while → **-a**: *junaa*.
 
 _Explain:_ Seeing the whole bus → **-n**: *bussin*.
 
-## Unit 16: One whole thing, or some? (Kaupassa) 🛒
+## Unit 17: One whole thing, or some? (Kaupassa) 🛒
 
 ### 1. One whole thing: -n _(examples)_
 
@@ -495,7 +570,7 @@ _Explain:_ **-a** (*maitoa*) means "some of it".
 
 _Explain:_ **-n** (*omenan*) means one whole thing.
 
-## Unit 18: Describing words copy (Millainen?) 🎨
+## Unit 19: Describing words copy (Millainen?) 🎨
 
 ### 1. Colors _(examples)_
 
@@ -540,7 +615,7 @@ _Explain:_ Both words get the ending: *isossa talossa*.
 
 _Explain:_ Both words take **-n**: *punaisen pallon*.
 
-## Unit 19: Endings instead of "in" and "on" (Missä?) 📍
+## Unit 20: Endings instead of "in" and "on" (Missä?) 📍
 
 ### 1. No word for "in" _(examples)_
 
@@ -595,7 +670,7 @@ _Explain:_ "On" → **-lla / -llä**: *pöydällä*.
 
 _Explain:_ "In" → **-ssa**: *talossa*.
 
-## Unit 20: In, into, out of (Missä? Mihin? Mistä?) 🚶
+## Unit 21: In, into, out of (Missä? Mihin? Mistä?) 🚶
 
 ### 1. Three questions _(explain)_
 
@@ -646,7 +721,7 @@ _Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
 
 _Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
 
-## Unit 25: Position words come after (Edessä, takana) 🧭
+## Unit 26: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -746,7 +821,7 @@ _Explain:_ **-si** means "your".
 
 _Explain:_ *sinun* + **-si** = your.
 
-## Unit 26: More than one (Monta) 👐
+## Unit 27: More than one (Monta) 👐
 
 ### 1. The -t means "more than one" _(examples)_
 
@@ -786,7 +861,7 @@ _Explain:_ "Some" balls → *palloja*.
 
 _Explain:_ The **-t** means more than one.
 
-## Unit 27: Talking about yesterday (Eilen) ⏮️
+## Unit 29: Talking about yesterday (Eilen) ⏮️
 
 ### 1. Slip in an -i- _(explain)_
 
@@ -840,7 +915,7 @@ _Explain:_ The **-i-** shows the past: *luin*.
 
 _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
-## Unit 28: Having a real conversation (Jutellaan) 🗣️
+## Unit 30: Having a real conversation (Jutellaan) 🗣️
 
 ### 1. Pick what FITS _(explain)_
 
@@ -887,7 +962,7 @@ _Explain:_ After a thank-you comes *Ole hyvä!* (you're welcome).
 
 _Explain:_ *Ei se mitään* = "it's okay".
 
-## Unit 29: Building sentences (Lauseet) 📝
+## Unit 31: Building sentences (Lauseet) 📝
 
 ### 1. Endings do the work _(explain)_
 
@@ -924,7 +999,7 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
-## Unit 30: Expert Finnish (Mestari) 🏆
+## Unit 32: Expert Finnish (Mestari) 🏆
 
 ### 1. "Have done" — olen syönyt _(verbTable)_
 
@@ -1019,7 +1094,7 @@ _Explain:_ *Minulla on kylmä* — "on me is cold".
 
 _Explain:_ *En ole* = I am **not**.
 
-## Unit 14: Liking and not liking (Koulupäivä) 🏫
+## Unit 15: Liking and not liking (Koulupäivä) 🏫
 
 ### 1. School subjects _(examples)_
 
@@ -1059,7 +1134,7 @@ _Explain:_ *En pidä* still takes **-sta**: *matematiikasta*.
 
 _Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
 
-## Unit 21: You on the move (Kaupungilla ja kotona) 🏙️
+## Unit 22: You on the move (Kaupungilla ja kotona) 🏙️
 
 ### 1. The cat's endings — for you _(explain)_
 
@@ -1105,7 +1180,7 @@ _Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
 
 _Explain:_ A station is an "on" place → **-lla**: *asemalla*.
 
-## Unit 22: Days and times (Milloin?) 📅
+## Unit 23: Days and times (Milloin?) 📅
 
 ### 1. Days of the week _(examples)_
 
@@ -1298,7 +1373,7 @@ _Explain:_ After *Haluan*, the verb stays basic: *uida*.
 
 _Explain:_ *Osaan* = I can (I know how).
 
-## Unit 17: Do it, don't, let's (Tee! Älä! Tehdään!) 🏃
+## Unit 18: Do it, don't, let's (Tee! Älä! Tehdään!) 🏃
 
 ### 1. Telling someone to do it _(examples)_
 
@@ -1345,7 +1420,7 @@ _Explain:_ *Älä* + the short verb: *Älä juokse!*
 
 _Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
 
-## Unit 23: Question words (Kysymyssanat) 🤔
+## Unit 24: Question words (Kysymyssanat) 🤔
 
 ### 1. The question words _(explain)_
 
@@ -1408,7 +1483,7 @@ _Explain:_ *Mihin?* = where TO — *Menen puistoon* (into the park).
 
 _Explain:_ *Kenen?* = whose? (*Kuka?* = who?)
 
-## Unit 24: Me and you (Minua, minulle) 🫶
+## Unit 25: Me and you (Minua, minulle) 🫶
 
 ### 1. I, me, to me… _(explain)_
 
@@ -1464,3 +1539,220 @@ _Explain:_ *auttaa* takes **-a**: *Auta minua!*
 - ✘ **Anna se häne[stä]!**
 
 _Explain:_ Giving TO someone → **-lle**: *hänelle*.
+
+## Unit 14: Verb type 4 (Verbityyppi 4) 🔓
+
+### 1. A new family: type 4 _(examples)_
+
+Type 4 verbs end in a vowel + **-ta / -tä**: **-ata, -ota, -uta, -ätä**…
+
+- 🔓 **av[ata]** — to open · type 4
+- **hal[uta]** — to want · type 4
+- 🧹 **siiv[ota]** — to clean · type 4
+
+### 2. Drop the t — the vowels join up _(explain)_
+
+Take off **-ta / -tä**, and put **a / ä** in its place: *avata → avaa-*, *haluta → halua-*. Then add the "who" ending: *avaan*, *haluan*.
+
+
+### 3. avata — to open _(verbTable)_
+
+The marked ending is the "who" part.
+
+_avata (open), present positive_
+
+- minä avaan
+- sinä avaat
+- hän avaa
+- me avaamme
+- te avaatte
+- he avaavat
+
+### 4. He / she: already long _(examples)_
+
+The stem already ends in two vowels, so for **he / she** nothing more is added: *hän avaa*, *hän haluaa*.
+
+- **minä halua[n]**
+- **hän haluaa**
+- 🧹 **minä siivoa[n]**
+- ⏰ **minä herää[n]**
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "I want"?
+
+- ✔ **minä halua[n]**
+- ✘ **hän haluaa**
+- ✘ **sinä halua[t]**
+
+_Explain:_ "I" is **-n**: *haluan*.
+
+### 6. Try it _(check)_
+
+**Q:** Which family is *korjata* (to fix)?
+
+- ✘ Type 1
+- ✘ Type 3
+- ✔ Type 4
+
+_Explain:_ *korjata* ends in **-ata**: **type 4** (*korjaan*).
+
+## Unit 0: Type 4: the sound gets STRONGER (Vahvempi kirjain) 🦘
+
+### 1. The other way round — like kuunnella _(explain)_
+
+Remember *kuunnella → kuuntelen*? Type 4 works the same way: the "to…" word has the **weak** sound, and EVERY person gets the **strong** one: *hypätä → hyppään, hyppää*.
+
+
+### 2. Weak → strong _(examples)_
+
+**p → pp**, **k → kk**, **v → p**, **d → t**…
+
+- 🦘 hypätä → **minä hy[pp]ään** — I jump
+- ✂️ leikata → **minä lei[kk]aan** — I cut
+- 🧗 kiivetä → **minä kii[p]eän** — I climb
+- pudota → **minä pu[t]oan** — I fall
+- tavata → **minä ta[p]aan** — I meet
+
+### 3. Every person is strong _(examples)_
+
+In type 4 there is no weak person form: *minä hyppään*, *hän hyppää*, *me hyppäämme*.
+
+- 🦘 hypätä → **minä hy[pp]ään** — I jump
+- 🦘 hypätä → **hän hy[pp]ää** — he/she jumps
+- 🦘 hypätä → **me hy[pp]äämme** — we jump
+
+### 4. Watch out: kiivetä _(explain)_
+
+*kiivetä* ends in **-etä**, but it is a **type 4** verb all the same: *kiipeän*, like *hyppään*.
+
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "I jump"?
+
+- ✔ 🦘 hypätä → **minä hy[pp]ään** — I jump
+- ✘ 🦘 **sinä hyppää[t]**
+- ✘ 🦘 **hän hyppää**
+
+_Explain:_ "I" is **-n**, with the strong **pp**: *hyppään*.
+
+### 6. Try it _(check)_
+
+**Q:** Listen! Which one did you hear?
+
+🔊 plays: ✂️ leikata → **hän lei[kk]aa** — he/she cuts
+
+- ✘ ✂️ **minä leikkaa[n]**
+- ✔ ✂️ leikata → **hän lei[kk]aa** — he/she cuts
+- ✘ ✂️ **me leikkaa[mme]**
+
+_Explain:_ *hän leikkaa* — she cuts. The strong **kk** is in every person.
+
+## Unit 28: Verb types 5 and 6 (Verbityypit 5 ja 6) 👵
+
+### 1. Type 5: -ita / -itä _(examples)_
+
+Type 5 turns **-ita** into **-itse-**, then adds the "who" ending: *tarvita → tarvitsen*.
+
+- **tarv[ita]** — to need · type 5
+- **minä tarvitse[n]**
+- 👉 **minä valitse[n]**
+- 👉 **hän valitsee**
+
+### 2. Type 6: -eta / -etä _(examples)_
+
+Type 6 turns **-eta** into **-ene-**, then adds the "who" ending: *vanheta → vanhenen*.
+
+- 👵 **vanh[eta]** — to grow old · type 6
+- 👵 **minä vanhene[n]**
+- 👵 **hän vanhenee**
+
+### 3. tarvita — to need _(verbTable)_
+
+The marked ending is the "who" part.
+
+_tarvita (need), present positive_
+
+- minä tarvitsen
+- sinä tarvitset
+- hän tarvitsee
+- me tarvitsemme
+- te tarvitsette
+- he tarvitsevat
+
+### 4. All six families _(examples)_
+
+Now you know them all — look at the END of the verb.
+
+- 🎤 **laul[aa]** — to sing · type 1
+- 🍽️ **syö[dä]** — to eat · type 2
+- **tu[lla]** — to come · type 3
+- 🔓 **av[ata]** — to open · type 4
+- **tarv[ita]** — to need · type 5
+- 👵 **vanh[eta]** — to grow old · type 6
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "I choose"?
+
+- ✘ 👉 **sinä valitse[t]**
+- ✔ 👉 **minä valitse[n]**
+- ✘ 👉 **hän valitsee**
+
+_Explain:_ "I" is **-n**: *valitsen*.
+
+### 6. Try it _(check)_
+
+**Q:** Which family is *vanheta* (to grow old)?
+
+- ✘ Type 4
+- ✘ Type 5
+- ✔ Type 6
+
+_Explain:_ *vanheta* ends in **-eta**: **type 6** (*vanhenen*).
+
+## Unit 0: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 💨
+
+### 1. Weak → strong, like type 4 _(examples)_
+
+Type 6 verbs change the same way as type 4: weak in the "to…" word, strong in every person. **mm → mp**, and a **k** can even appear: *paeta → pakenen*.
+
+- ♨️ lämmetä → **minä lä[mp]enen** — I warm up
+- 💨 paeta → **minä pa[k]enen** — I run away
+
+### 2. Every person is strong _(examples)_
+
+- 💨 paeta → **minä pa[k]enen** — I run away
+- 💨 paeta → **hän pa[k]enee** — he/she runs away
+- ♨️ lämmetä → **hän lä[mp]enee** — he/she warms up
+
+### 3. The whole picture _(examples)_
+
+- **Type 1**: strong in the "to…" word, weak in *minä, sinä, me, te*.
+- **Types 3, 4 and 6**: weak in the "to…" word, strong in every person.
+
+- 😴 nukkua → **minä nu[k]un** — I sleep
+- 🎧 kuunnella → **minä kuu[nt]elen** — I listen
+- 🦘 hypätä → **minä hy[pp]ään** — I jump
+- 💨 paeta → **minä pa[k]enen** — I run away
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I run away"?
+
+- ✘ 💨 **sinä pakene[t]**
+- ✘ 💨 **hän pakenee**
+- ✔ 💨 paeta → **minä pa[k]enen** — I run away
+
+_Explain:_ "I" is **-n**: *pakenen*.
+
+### 5. Try it _(check)_
+
+**Q:** Remember type 1? Which one means "he sleeps"?
+
+- ✔ 😴 nukkua → **hän nu[kk]uu** — he/she sleeps
+- ✘ 😴 **minä nuku[n]**
+- ✘ 😴 **sinä nuku[t]**
+
+_Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.

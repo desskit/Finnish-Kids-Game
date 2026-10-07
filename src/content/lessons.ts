@@ -35,6 +35,8 @@ import { PRONOUNS, PRONOUN_FRAMES, type PronounCase } from './pronouns';
 import { dialogues, personalizeLine } from './dialogues';
 import { numbers } from './index';
 import { itemById } from './lookup';
+import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
+import { englishVerbClause } from './englishVerb';
 import {
   caseSegments,
   dontSegments,
@@ -75,7 +77,12 @@ export type LessonRef =
   /** A pronoun sentence frame filled ("Auta minua!"); `case` = a wrong option. */
   | { frame: string; person: PersonId; case?: PronounCase; en?: string }
   /** An owner + a thing ("isän pyörä"); `wrong` = a learner slip, for checks. */
-  | { owner: string; thing: string; wrong?: 'basic' | 'has'; en?: string };
+  | { owner: string; thing: string; wrong?: 'basic' | 'has'; en?: string }
+  /** A KPT verb: "nukkua → minä nukun", the changing consonants marked in both
+   *  (sourced forms; present tense, `person` default "minä"). */
+  | { kpt: string; person?: PersonId; en?: string }
+  /** A verb's infinitive with the ending that shows its TYPE marked ("laulaa"). */
+  | { vtype: string; en?: string };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -115,6 +122,8 @@ export interface ResolvedRef {
   segments: Segment[];
   /** The plain form, when the row shows "base → form". */
   base?: string;
+  /** The base with a part marked (a KPT verb's infinitive) — shown in place of `base`. */
+  baseSegments?: Segment[];
   en?: string;
   emoji?: string;
   /** What 🔊 says. */
@@ -242,6 +251,30 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
       emoji: item.emoji,
       speak: segmentsText(segs),
     };
+  }
+  if ('kpt' in ref) {
+    const verb = itemById(ref.kpt);
+    const person = ref.person ?? '1sg';
+    const p = PERSONS.find((x) => x.id === person);
+    const g = verb && gradation(verb);
+    const form = verb && verbForm(verb, 'present', 'positive', person);
+    if (!verb || !p || !g || !form) return null;
+    const segs = [{ text: p.fi + ' ' }, ...markGradation(form, g)];
+    return {
+      segments: segs,
+      base: verb.fi,
+      baseSegments: markGradation(verb.fi, g),
+      en: ref.en ?? englishVerbClause(p.en, verb.en, verb.english, 'present', 'positive', person),
+      emoji: verb.emoji,
+      speak: segmentsText(segs),
+    };
+  }
+  if ('vtype' in ref) {
+    const verb = itemById(ref.vtype);
+    const t = verb && verbType(verb);
+    if (!verb || !t) return null;
+    const segs = typeSegments(verb.fi, t);
+    return { segments: segs, en: ref.en ?? `to ${verb.en} · type ${t}`, emoji: verb.emoji, speak: verb.fi };
   }
   if ('verb' in ref) {
     const verb = itemById(ref.verb);
@@ -622,23 +655,35 @@ export const lessons: Lesson[] = [
           'In English: I eat, you eat, we eat — the verb hardly changes.\n\nIn Finnish, **the end of the verb tells you who is doing it**. That\'s why Finns often skip *minä* (I): *Syön.* already means "I eat".',
       },
       {
-        kind: 'verbTable',
-        title: 'syödä — to eat',
-        text: 'The marked ending is the "who" part.',
-        verb: 'eat',
-        tense: 'present',
-        polarity: 'positive',
+        kind: 'examples',
+        title: 'Verbs come in families',
+        text:
+          'Finnish verbs belong to **types** (families). Look at the END of the "to…" word to see which one:\n\n- **Type 1** ends in two vowels: *laulaa*, *puhua*\n- **Type 2** ends in **-da / -dä**: *syödä*\n- **Type 3** ends in **-lla, -nna, -sta**: *tulla*, *mennä*',
+        rows: [{ vtype: 'sing' }, { vtype: 'eat' }, { vtype: 'come' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Each family makes "I…" its own way',
+        text:
+          '- **Type 1**: drop the last letter → *laula-* + **n**\n- **Type 2**: drop **-da / -dä** → *syö-* + **n**\n- **Type 3**: drop **-la, -na, -ta** (or -lä, -nä, -tä), add **e** → *tule-* + **n**\n\n*juosta* is a special one — learn it as it is: *juoksen*.',
+        rows: [
+          { verb: 'sing', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'eat', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'come', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'run', tense: 'present', polarity: 'positive', person: '1sg' },
+        ],
       },
       {
         kind: 'explain',
-        title: 'The six endings',
+        title: 'The six endings — the same for every family',
         text:
-          '- **-n** → I\n- **-t** → you\n- (the last vowel doubles: *lukee*; if it\'s already long, nothing changes: *syö*) → he / she\n- **-mme** → we\n- **-tte** → you all\n- **-vat / -vät** → they',
+          '- **-n** → I\n- **-t** → you\n- (the last vowel doubles: *laulaa*, *tulee*; if it\'s already long, nothing changes: *syö*) → he / she\n- **-mme** → we\n- **-tte** → you all\n- **-vat / -vät** → they',
       },
       {
         kind: 'verbTable',
-        title: 'lukea — to read',
-        verb: 'read',
+        title: 'tulla — to come',
+        text: 'The marked ending is the "who" part.',
+        verb: 'come',
         tense: 'present',
         polarity: 'positive',
       },
@@ -657,9 +702,77 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '*syötte* — who is eating?',
-        options: [{ text: 'I' }, { text: 'you all', correct: true }, { text: 'they' }],
-        explain: '**-tte** means "you all".',
+        question: 'Which family is *mennä* (to go)?',
+        options: [{ text: 'Type 1' }, { text: 'Type 2' }, { text: 'Type 3', correct: true }],
+        explain: '*mennä* ends in **-nna** — two consonants and a vowel: **type 3** (*menen*).',
+      },
+    ],
+  },
+  {
+    id: 'kpt-1-3',
+    titleFi: 'K, P ja T vaihtuvat',
+    titleEn: 'When k, p and t change',
+    emoji: '🔀',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'A letter in the MIDDLE can change',
+        text:
+          'Some verbs change a sound in the middle, not just the ending. It happens to **k**, **p** and **t** — Finns call it **KPT**.\n\nIn type 1 the "to…" word has the STRONG sound (*nukkua*), and "I" gets the WEAK one (*nukun*): **kk → k**, **tt → t**, **pp → p**.',
+      },
+      {
+        kind: 'examples',
+        title: 'Strong → weak',
+        text: 'The marked letters are the ones that change.',
+        rows: [{ kpt: 'sleep' }, { kpt: 'play' }, { kpt: 'write' }, { kpt: 'help' }],
+      },
+      {
+        kind: 'examples',
+        title: 'He, she and they stay STRONG',
+        text:
+          'Only **I, you, we, you all** get the weak sound. **He / she** and **they** keep the strong one: *minä nukun* but *hän nukkuu*.',
+        rows: [
+          { kpt: 'sleep', person: '1sg' },
+          { kpt: 'sleep', person: '2sg' },
+          { kpt: 'sleep', person: '3sg' },
+          { kpt: 'sleep', person: '3pl' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Other changes',
+        text: '**rt → rr**: *piirtää → piirrän*. And a **k** can disappear: *lukea → luen*.',
+        rows: [{ kpt: 'draw' }, { kpt: 'read' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Type 3 goes the other way round',
+        text:
+          'In type 3 the "to…" word has the WEAK sound, and every person gets the STRONG one: *kuunnella → kuuntelen, kuuntelee*.',
+        rows: [
+          { kpt: 'listen', person: '1sg' },
+          { kpt: 'listen', person: '3sg' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I sleep"?',
+        options: [
+          { ref: { kpt: 'sleep', person: '1sg' }, correct: true },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '3sg' } },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '2sg' } },
+        ],
+        explain: '"I" is **-n**, with the weak **k**: *nukun*. *nukkuu* is he/she — strong **kk**.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "she writes"?',
+        options: [
+          { ref: { verb: 'write', tense: 'present', polarity: 'positive', person: '1sg' } },
+          { ref: { kpt: 'write', person: '3sg' }, correct: true },
+          { ref: { verb: 'write', tense: 'present', polarity: 'positive', person: '1pl' } },
+        ],
+        explain: 'He / she keeps the strong **tt**: *kirjoittaa*.',
       },
     ],
   },
@@ -1963,6 +2076,237 @@ export const lessons: Lesson[] = [
           { ref: { frame: 'give', person: '3sg', case: 'elative' } },
         ],
         explain: 'Giving TO someone → **-lle**: *hänelle*.',
+      },
+    ],
+  },
+  {
+    id: 'verb-type4',
+    titleFi: 'Verbityyppi 4',
+    titleEn: 'Verb type 4',
+    emoji: '🔓',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'A new family: type 4',
+        text:
+          'Type 4 verbs end in a vowel + **-ta / -tä**: **-ata, -ota, -uta, -ätä**…',
+        rows: [{ vtype: 'open' }, { vtype: 'want' }, { vtype: 'clean' }],
+      },
+      {
+        kind: 'explain',
+        title: 'Drop the t — the vowels join up',
+        text:
+          'Take off **-ta / -tä**, and put **a / ä** in its place: *avata → avaa-*, *haluta → halua-*. Then add the "who" ending: *avaan*, *haluan*.',
+      },
+      {
+        kind: 'verbTable',
+        title: 'avata — to open',
+        text: 'The marked ending is the "who" part.',
+        verb: 'open',
+        tense: 'present',
+        polarity: 'positive',
+      },
+      {
+        kind: 'examples',
+        title: 'He / she: already long',
+        text:
+          'The stem already ends in two vowels, so for **he / she** nothing more is added: *hän avaa*, *hän haluaa*.',
+        rows: [
+          { verb: 'want', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'want', tense: 'present', polarity: 'positive', person: '3sg' },
+          { verb: 'clean', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'wake-up', tense: 'present', polarity: 'positive', person: '1sg' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I want"?',
+        options: [
+          { ref: { verb: 'want', tense: 'present', polarity: 'positive', person: '1sg' }, correct: true },
+          { ref: { verb: 'want', tense: 'present', polarity: 'positive', person: '3sg' } },
+          { ref: { verb: 'want', tense: 'present', polarity: 'positive', person: '2sg' } },
+        ],
+        explain: '"I" is **-n**: *haluan*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which family is *korjata* (to fix)?',
+        options: [{ text: 'Type 1' }, { text: 'Type 3' }, { text: 'Type 4', correct: true }],
+        explain: '*korjata* ends in **-ata**: **type 4** (*korjaan*).',
+      },
+    ],
+  },
+  {
+    id: 'kpt-4',
+    titleFi: 'Vahvempi kirjain',
+    titleEn: 'Type 4: the sound gets STRONGER',
+    emoji: '🦘',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'The other way round — like kuunnella',
+        text:
+          'Remember *kuunnella → kuuntelen*? Type 4 works the same way: the "to…" word has the **weak** sound, and EVERY person gets the **strong** one: *hypätä → hyppään, hyppää*.',
+      },
+      {
+        kind: 'examples',
+        title: 'Weak → strong',
+        text: '**p → pp**, **k → kk**, **v → p**, **d → t**…',
+        rows: [{ kpt: 'jump' }, { kpt: 'cut' }, { kpt: 'climb' }, { kpt: 'fall' }, { kpt: 'meet' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Every person is strong',
+        text: 'In type 4 there is no weak person form: *minä hyppään*, *hän hyppää*, *me hyppäämme*.',
+        rows: [
+          { kpt: 'jump', person: '1sg' },
+          { kpt: 'jump', person: '3sg' },
+          { kpt: 'jump', person: '1pl' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Watch out: kiivetä',
+        text:
+          '*kiivetä* ends in **-etä**, but it is a **type 4** verb all the same: *kiipeän*, like *hyppään*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I jump"?',
+        options: [
+          { ref: { kpt: 'jump', person: '1sg' }, correct: true },
+          { ref: { verb: 'jump', tense: 'present', polarity: 'positive', person: '2sg' } },
+          { ref: { verb: 'jump', tense: 'present', polarity: 'positive', person: '3sg' } },
+        ],
+        explain: '"I" is **-n**, with the strong **pp**: *hyppään*.',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! Which one did you hear?',
+        listen: { kpt: 'cut', person: '3sg' },
+        options: [
+          { ref: { verb: 'cut', tense: 'present', polarity: 'positive', person: '1sg' } },
+          { ref: { kpt: 'cut', person: '3sg' }, correct: true },
+          { ref: { verb: 'cut', tense: 'present', polarity: 'positive', person: '1pl' } },
+        ],
+        explain: '*hän leikkaa* — she cuts. The strong **kk** is in every person.',
+      },
+    ],
+  },
+  {
+    id: 'verb-types-5-6',
+    titleFi: 'Verbityypit 5 ja 6',
+    titleEn: 'Verb types 5 and 6',
+    emoji: '👵',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Type 5: -ita / -itä',
+        text: 'Type 5 turns **-ita** into **-itse-**, then adds the "who" ending: *tarvita → tarvitsen*.',
+        rows: [
+          { vtype: 'need' },
+          { verb: 'need', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'choose', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'choose', tense: 'present', polarity: 'positive', person: '3sg' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Type 6: -eta / -etä',
+        text: 'Type 6 turns **-eta** into **-ene-**, then adds the "who" ending: *vanheta → vanhenen*.',
+        rows: [
+          { vtype: 'grow-old' },
+          { verb: 'grow-old', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'grow-old', tense: 'present', polarity: 'positive', person: '3sg' },
+        ],
+      },
+      {
+        kind: 'verbTable',
+        title: 'tarvita — to need',
+        text: 'The marked ending is the "who" part.',
+        verb: 'need',
+        tense: 'present',
+        polarity: 'positive',
+      },
+      {
+        kind: 'examples',
+        title: 'All six families',
+        text: 'Now you know them all — look at the END of the verb.',
+        rows: [
+          { vtype: 'sing' },
+          { vtype: 'eat' },
+          { vtype: 'come' },
+          { vtype: 'open' },
+          { vtype: 'need' },
+          { vtype: 'grow-old' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I choose"?',
+        options: [
+          { ref: { verb: 'choose', tense: 'present', polarity: 'positive', person: '2sg' } },
+          { ref: { verb: 'choose', tense: 'present', polarity: 'positive', person: '1sg' }, correct: true },
+          { ref: { verb: 'choose', tense: 'present', polarity: 'positive', person: '3sg' } },
+        ],
+        explain: '"I" is **-n**: *valitsen*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which family is *vanheta* (to grow old)?',
+        options: [{ text: 'Type 4' }, { text: 'Type 5' }, { text: 'Type 6', correct: true }],
+        explain: '*vanheta* ends in **-eta**: **type 6** (*vanhenen*).',
+      },
+    ],
+  },
+  {
+    id: 'kpt-6',
+    titleFi: 'Tyyppi 6 ja KPT',
+    titleEn: 'Type 6: a sound gets stronger too',
+    emoji: '💨',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Weak → strong, like type 4',
+        text:
+          'Type 6 verbs change the same way as type 4: weak in the "to…" word, strong in every person. **mm → mp**, and a **k** can even appear: *paeta → pakenen*.',
+        rows: [{ kpt: 'warm-up' }, { kpt: 'run-away' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Every person is strong',
+        rows: [
+          { kpt: 'run-away', person: '1sg' },
+          { kpt: 'run-away', person: '3sg' },
+          { kpt: 'warm-up', person: '3sg' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'The whole picture',
+        text:
+          '- **Type 1**: strong in the "to…" word, weak in *minä, sinä, me, te*.\n- **Types 3, 4 and 6**: weak in the "to…" word, strong in every person.',
+        rows: [{ kpt: 'sleep' }, { kpt: 'listen' }, { kpt: 'jump' }, { kpt: 'run-away' }],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I run away"?',
+        options: [
+          { ref: { verb: 'run-away', tense: 'present', polarity: 'positive', person: '2sg' } },
+          { ref: { verb: 'run-away', tense: 'present', polarity: 'positive', person: '3sg' } },
+          { ref: { kpt: 'run-away', person: '1sg' }, correct: true },
+        ],
+        explain: '"I" is **-n**: *pakenen*.',
+      },
+      {
+        kind: 'check',
+        question: 'Remember type 1? Which one means "he sleeps"?',
+        options: [
+          { ref: { kpt: 'sleep', person: '3sg' }, correct: true },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '1sg' } },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '2sg' } },
+        ],
+        explain: 'Type 1: he / she keeps the strong **kk**: *nukkuu*.',
       },
     ],
   },

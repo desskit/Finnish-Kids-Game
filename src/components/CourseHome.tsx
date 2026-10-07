@@ -15,6 +15,7 @@ import {
   checkpointStatus,
   hasCheckpoint,
   lessonSeen,
+  midLessonStatus,
   nextAction,
   stepLevel,
   stepStatus,
@@ -255,6 +256,8 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
         </li>
       )}
       {unit.skills.map((step) => {
+        const mid = unit.midLessons?.find((m) => m.before === step.id);
+        const midRow = mid && <MidLessonRow key={mid.lessonId} unit={unit} lessonId={mid.lessonId} unlockAll={unlockAll} />;
         const st = stepStatus(activeChild, unit, step, unlockAll);
         const lvl = stepLevel(activeChild, unit, step);
         const top = topLevel(step);
@@ -287,7 +290,8 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
             </span>
           </>
         );
-        return (
+        return [
+          midRow,
           <li key={step.id}>
             {st === 'locked' ? (
               <span className="unit-step unit-step--locked" aria-disabled="true" title="Read the lesson first">
@@ -298,8 +302,8 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
                 {body}
               </Link>
             )}
-          </li>
-        );
+          </li>,
+        ];
       })}
       {hasCheckpoint(unit) && (
         <li>
@@ -345,12 +349,51 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
   );
 }
 
+/** A lesson PART-WAY through a unit (e.g. the consonant-change lesson): opens
+ *  once the steps above it are done; the steps below wait for it. */
+function MidLessonRow({ unit, lessonId, unlockAll }: { unit: Unit; lessonId: string; unlockAll: boolean }) {
+  const { activeChild } = useProfile();
+  const lesson = lessonById[lessonId];
+  const ml = unit.midLessons?.find((m) => m.lessonId === lessonId);
+  if (!lesson || !ml) return null;
+  const st = midLessonStatus(activeChild, unit, ml, unlockAll);
+  const body = (
+    <>
+      <span className="unit-step__icon" aria-hidden="true">
+        📖
+      </span>
+      <span className="unit-step__label">
+        <span className="unit-step__title">
+          Uusi oppitunti <span className="en">Lesson: {lesson.titleEn}</span>
+        </span>
+        {st === 'locked' && <span className="unit-step__meta en">Finish the steps above to open it</span>}
+      </span>
+      <span className="unit-step__state" aria-hidden="true">
+        {st === 'done' ? '✓' : st === 'locked' ? '🔒' : '•'}
+      </span>
+    </>
+  );
+  return (
+    <li>
+      {st === 'locked' ? (
+        <span className="unit-step unit-step--locked" aria-disabled="true">
+          {body}
+        </span>
+      ) : (
+        <Link className={'unit-step' + (st === 'done' ? ' unit-step--done' : ' unit-step--next')} to={`/lesson/${lesson.id}`}>
+          {body}
+        </Link>
+      )}
+    </li>
+  );
+}
+
 /** "Unit 4 · Lesson: How to say "I have"" — the Continue button's subtitle. */
 function describe(a: NextAction): string {
   const n = UNITS.indexOf(a.unit) + 1;
   switch (a.kind) {
     case 'lesson':
-      return `Unit ${n} · Lesson: ${lessonById[a.unit.lessonId]?.titleEn ?? a.unit.titleEn}`;
+      return `Unit ${n} · Lesson: ${lessonById[a.lessonId]?.titleEn ?? a.unit.titleEn}`;
     case 'step':
       return `Unit ${n} · ${a.step.titleEn}`;
     case 'checkpoint':

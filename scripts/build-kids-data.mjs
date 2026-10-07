@@ -522,6 +522,20 @@ const VERBS = [
   ['build', 'rakentaa', 'build', '🧱'],
   ['fix', 'korjata', 'fix', '🔧'],
   ['wake-up', 'herätä', 'wake up', '⏰'],
+  // Type 4 verbs with a consonant change (hypätä → hyppään), for the
+  // "Verbs, part 2" unit's KPT half.
+  ['meet', 'tavata', 'meet'],
+  ['fall', 'pudota', 'fall'],
+  ['cut', 'leikata', 'cut', '✂️'],
+  // Type 5 (-ita/-itä → -itse-) and type 6 (-eta/-etä → -ene-), for the
+  // "Verbs, part 3" unit.
+  ['need', 'tarvita', 'need'],
+  ['choose', 'valita', 'choose', '👉'],
+  ['disturb', 'häiritä', 'disturb'],
+  ['lock', 'lukita', 'lock', '🔐'],
+  ['grow-old', 'vanheta', 'grow old', '👵'],
+  ['warm-up', 'lämmetä', 'warm up', '♨️'],
+  ['run-away', 'paeta', 'run away', '💨'],
 ];
 
 // Focused conjugation subset kept per verb: present and past, each in BOTH

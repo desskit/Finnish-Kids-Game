@@ -45,8 +45,22 @@ import {
 } from "../content/endings";
 import type { Why } from "../content/why";
 import { sample, shuffle } from "../util/shuffle";
+import {
+  TYPE_LOOKS,
+  TYPE_TILE,
+  typeEnding,
+  typeSegments,
+  verbType,
+  type VerbType,
+} from "../content/verbTypes";
 
-export type ChooseMode = "answer" | "ask" | "mood" | "pronoun" | "owner";
+export type ChooseMode =
+  | "answer"
+  | "ask"
+  | "mood"
+  | "pronoun"
+  | "owner"
+  | "verb-type";
 
 export interface FormChoiceQuestion {
   /** Picture anchor, when there is one. */
@@ -62,6 +76,9 @@ export interface FormChoiceQuestion {
   /** A tip for one specific WRONG pick ("Et juokse" = YOU don't run), so the
    *  "Why?" says what that choice actually means, not just the rule. */
   whyFor?: Record<string, Why>;
+  /** What to say aloud on a right pick, when the answer isn't Finnish to
+   *  read out (a "type 1" tile says the verb itself). Default = the answer. */
+  spoken?: string;
 }
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -444,6 +461,48 @@ export interface ChoosePools {
   verbs: LexicalItem[];
   owners: LexicalItem[];
   things: LexicalItem[];
+  /** "Which type?" rounds: the verb types on offer (default 1–3). */
+  types?: VerbType[];
+}
+
+// --- Which verb type? "laulaa" → type 1 ---------------------------------------
+
+function verbTypeQuestion(
+  verb: LexicalItem,
+  types: VerbType[],
+  optionCount: number,
+): FormChoiceQuestion | null {
+  const t = verbType(verb);
+  if (!t || !types.includes(t)) return null;
+  const answer = TYPE_TILE[t];
+  const others = shuffle(types.filter((x) => x !== t));
+  const options = finish(
+    answer,
+    others.map((x) => TYPE_TILE[x]),
+    optionCount,
+  );
+  if (!options) return null;
+  const example = typeSegments(verb.fi, t);
+  const whyFor: Record<string, Why> = {};
+  for (const x of others) {
+    whyFor[TYPE_TILE[x]] = {
+      text: `Type ${x} verbs end in **${TYPE_LOOKS[x]}**. *${verb.fi}* ends in **${typeEnding(verb.fi, t)}** — that's type ${t}.`,
+      example,
+    };
+  }
+  return {
+    emoji: verb.emoji,
+    said: { fi: verb.fi, en: `to ${verb.en}` },
+    cue: "Look at the end of the word",
+    answer,
+    spoken: verb.fi,
+    options,
+    why: {
+      text: `Look at the END of the verb: type ${t} ends in **${TYPE_LOOKS[t]}**.`,
+      example,
+    },
+    whyFor,
+  };
 }
 
 export function buildChooseRound(
@@ -462,6 +521,17 @@ export function buildChooseRound(
   ) {
     let q: FormChoiceQuestion | null = null;
     if (mode === "pronoun") q = pronounQuestion(optionCount);
+    else if (mode === "verb-type") {
+      // Every verb can be asked about (no picture needed: the word IS the
+      // question) — and a type is worth asking about many times.
+      const verb = sample(pools.verbs, 1)[0];
+      if (!verb) break;
+      q = verbTypeQuestion(verb, pools.types ?? [1, 2, 3], optionCount);
+      if (q && used.has(q.said!.fi)) continue;
+      if (q) used.add(q.said!.fi);
+      if (q) out.push(q);
+      continue;
+    }
     else if (mode === "owner")
       q = ownerQuestion(pools.owners, pools.things, optionCount);
     else {

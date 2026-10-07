@@ -25,8 +25,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(30);
+  it('is thirty-two units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(32);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -88,12 +88,22 @@ describe('the course (units × steps)', () => {
 
   it("scopes each step's words: 'new' = its unit's words, default = everything met so far", () => {
     PATH.forEach((u, i) => {
-      for (const s of u.skills) {
+      // Words a unit only brings in after its part-way lesson stay out of the
+      // steps before that lesson.
+      const midAt = Math.min(
+        ...(u.midLessons ?? []).map((m) => u.skills.findIndex((s) => s.id === m.before)),
+      );
+      const later = new Set(u.skills.slice(Math.max(0, midAt)).flatMap((s) => s.content.only ?? []));
+      u.skills.forEach((s, si) => {
         const scope = s.content.words ?? 'known';
-        if (scope === 'new') expect(s.content.wordIds, s.id).toEqual(u.newWords);
-        else if (scope === 'known') expect(s.content.wordIds, s.id).toEqual(knownWordsThrough(i));
+        if (s.content.only) expect(s.content.wordIds, s.id).toEqual(s.content.only);
+        else if (scope === 'new') expect(s.content.wordIds, s.id).toEqual(u.newWords);
+        else if (scope === 'known')
+          expect(s.content.wordIds, s.id).toEqual(
+            si < midAt ? knownWordsThrough(i).filter((w) => !later.has(w)) : knownWordsThrough(i),
+          );
         else expect(s.content.wordIds, s.id).toBeUndefined();
-      }
+      });
     });
   });
 
@@ -219,11 +229,15 @@ describe('rendering course steps', () => {
     // The fix: a words step hands its games every new word, and the picture
     // games fall back to the English word on the card when there's no emoji.
     for (const unit of PATH) {
-      const step = unit.skills.find((s) => s.content.words === 'new');
-      if (!step) continue;
+      // (A unit may meet its words in two steps — before and after a part-way lesson.)
+      const steps = unit.skills.filter((s) => s.content.words === 'new');
+      if (steps.length === 0) continue;
       for (const kind of ['listen', 'name'] as const) {
-        const el = renderActivity(step, kind, () => {});
-        const ids = new Set((el!.props as { items: { id: string }[] }).items.map((i) => i.id));
+        const ids = new Set(
+          steps.flatMap((step) =>
+            (renderActivity(step, kind, () => {})!.props as { items: { id: string }[] }).items.map((i) => i.id),
+          ),
+        );
         for (const w of unit.newWords) expect(ids.has(w), `${unit.id} ${kind}: ${w}`).toBe(true);
       }
     }

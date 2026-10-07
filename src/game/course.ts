@@ -88,6 +88,26 @@ export function unitStatus(
   return !hasCheckpoint(prev) || checkpointPassed(child, prev.id) ? 'open' : 'locked';
 }
 
+export type MidLesson = NonNullable<Unit['midLessons']>[number];
+
+/** The part-way lesson a step sits behind (the latest one placed at or before it). */
+export function midLessonBefore(unit: Unit, step: SkillNode): MidLesson | undefined {
+  const at = unit.skills.indexOf(step);
+  let found: MidLesson | undefined;
+  for (const ml of unit.midLessons ?? []) {
+    const i = unit.skills.findIndex((s) => s.id === ml.before);
+    if (i >= 0 && i <= at && (!found || i >= unit.skills.findIndex((s) => s.id === found!.before))) {
+      found = ml;
+    }
+  }
+  return found;
+}
+
+/** The lesson that explains a step: its part-way lesson, else the unit's. */
+export function lessonForStep(unit: Unit, step: SkillNode): string {
+  return midLessonBefore(unit, step)?.lessonId ?? unit.lessonId;
+}
+
 export function stepStatus(
   child: Child | null | undefined,
   unit: Unit,
@@ -97,7 +117,23 @@ export function stepStatus(
   if (stepDone(child, unit, step)) return 'done';
   if (unlockAll) return 'open';
   if (unitStatus(child, unit) === 'locked') return 'locked';
-  return lessonSeen(child, unit.lessonId) ? 'open' : 'locked';
+  if (!lessonSeen(child, unit.lessonId)) return 'locked';
+  const ml = midLessonBefore(unit, step);
+  return ml && !lessonSeen(child, ml.lessonId) ? 'locked' : 'open';
+}
+
+/** A part-way lesson: open once every step before it is done. */
+export function midLessonStatus(
+  child: Child | null | undefined,
+  unit: Unit,
+  ml: MidLesson,
+  unlockAll = false,
+): Status {
+  if (lessonSeen(child, ml.lessonId)) return 'done';
+  if (unlockAll) return 'open';
+  if (unitStatus(child, unit) === 'locked' || !lessonSeen(child, unit.lessonId)) return 'locked';
+  const at = unit.skills.findIndex((s) => s.id === ml.before);
+  return unit.skills.slice(0, at).every((s) => stepDone(child, unit, s)) ? 'open' : 'locked';
 }
 
 export function checkpointStatus(
@@ -112,7 +148,7 @@ export function checkpointStatus(
 }
 
 export type NextAction =
-  | { kind: 'lesson'; unit: Unit }
+  | { kind: 'lesson'; unit: Unit; lessonId: string }
   | { kind: 'step'; unit: Unit; step: SkillNode }
   | { kind: 'checkpoint'; unit: Unit };
 
@@ -125,9 +161,14 @@ export type NextAction =
 export function nextAction(child: Child | null | undefined): NextAction {
   for (const unit of UNITS) {
     if (unitComplete(child, unit)) continue;
-    if (!lessonSeen(child, unit.lessonId)) return { kind: 'lesson', unit };
+    if (!lessonSeen(child, unit.lessonId)) return { kind: 'lesson', unit, lessonId: unit.lessonId };
     const step = unit.skills.find((s) => !stepDone(child, unit, s));
-    if (step) return { kind: 'step', unit, step };
+    if (step) {
+      // Reached a part-way lesson not yet read? Read it first.
+      const ml = midLessonBefore(unit, step);
+      if (ml && !lessonSeen(child, ml.lessonId)) return { kind: 'lesson', unit, lessonId: ml.lessonId };
+      return { kind: 'step', unit, step };
+    }
     if (hasCheckpoint(unit)) return { kind: 'checkpoint', unit };
     // An open-ended unit with everything "done": keep climbing its lowest step.
     const lowest = [...unit.skills].sort(
@@ -143,7 +184,7 @@ export function nextAction(child: Child | null | undefined): NextAction {
 export function actionHref(a: NextAction): string {
   switch (a.kind) {
     case 'lesson':
-      return `/lesson/${a.unit.lessonId}`;
+      return `/lesson/${a.lessonId}`;
     case 'step':
       return `/skill/${a.step.id}`;
     case 'checkpoint':
@@ -214,13 +255,13 @@ export function checkpointPlan(unit: Unit, attempt = 0): CheckpointPart[] {
   const parts = unit.skills.map((step) => {
     const sub = mixStepFor(step, attempt);
     return sub
-      ? partFor(sub.skill, sub.chapter.lessonId, perStep, 'step')
-      : partFor(step, unit.lessonId, perStep, 'step');
+      ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), perStep, 'step')
+      : partFor(step, lessonForStep(unit, step), perStep, 'step');
   });
   const ui = unitIndex(unit.id);
   if (ui >= 2) {
     const earlier = UNITS.slice(0, ui).flatMap((u) =>
-      u.skills.filter(isMixable).map((s) => ({ s, lessonId: u.lessonId })),
+      u.skills.filter(isMixable).map((s) => ({ s, lessonId: lessonForStep(u, s) })),
     );
     if (earlier.length > 0) {
       const pick = earlier[(attempt * 7 + ui * 3) % earlier.length];
@@ -237,7 +278,18 @@ export function checkpointPassRatio(unit: Unit): number {
 // --- Lessons ↔ units -----------------------------------------------------------
 
 export function unitForLesson(lessonId: string): Unit | undefined {
-  return UNITS.find((u) => u.lessonId === lessonId);
+  return UNITS.find(
+    (u) => u.lessonId === lessonId || u.midLessons?.some((m) => m.lessonId === lessonId),
+  );
+}
+
+/** The step a lesson leads into: a unit's first step, or (for a part-way
+ *  lesson) the step it sits before. */
+export function stepAfterLesson(lessonId: string): SkillNode | undefined {
+  const unit = unitForLesson(lessonId);
+  if (!unit) return undefined;
+  const ml = unit.midLessons?.find((m) => m.lessonId === lessonId);
+  return ml ? unit.skills.find((s) => s.id === ml.before) : unit.skills[0];
 }
 
 /** The first unit whose steps drill a construction — its lesson explains it. */
@@ -252,5 +304,10 @@ export function lessonForConstruction(constructionId: string): string | undefine
 
 /** Lessons the child can open in the Notebook (open or finished units). */
 export function notebookLessonIds(child: Child | null | undefined, unlockAll = false): string[] {
-  return UNITS.filter((u) => unitStatus(child, u, unlockAll) !== 'locked').map((u) => u.lessonId);
+  return UNITS.filter((u) => unitStatus(child, u, unlockAll) !== 'locked').flatMap((u) => [
+    u.lessonId,
+    ...(u.midLessons ?? [])
+      .filter((m) => midLessonStatus(child, u, m, unlockAll) !== 'locked')
+      .map((m) => m.lessonId),
+  ]);
 }

@@ -58,8 +58,8 @@ describe('achievement catalog', () => {
     }
   });
 
-  it('measures against the real course (29 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
-    expect(badgeEnv.checkpointUnitIds.length).toBe(29);
+  it('measures against the real course (31 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
+    expect(badgeEnv.checkpointUnitIds.length).toBe(31);
     expect(badgeEnv.kertausStepIds).toHaveLength(4);
     expect(Object.keys(badgeEnv.minorKinds).length).toBeGreaterThanOrEqual(10);
     expect(badgeEnv.allKinds).not.toContain('say'); // needs a microphone — never required

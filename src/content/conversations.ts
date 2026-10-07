@@ -1140,4 +1140,90 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Verbs, part 2 (type 4): a morning at home.
+  {
+    id: 'morning',
+    titleFi: 'Aamulla',
+    titleEn: 'In the morning',
+    icon: '⏰',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Huomenta! Heräätkö jo?', en: 'Morning! Are you waking up?' },
+        reply: { fi: 'Joo, herään.', en: "Yes, I'm waking up." },
+        distractors: [
+          { fi: 'Joo, heräät.', en: "Yes, you're waking up." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä haluat syödä?', en: 'What do you want to eat?' },
+        reply: { fi: 'Haluan puuroa.', en: 'I want porridge.' },
+        distractors: [
+          { fi: 'Haluaa puuroa.', en: 'He wants porridge.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Siivoatko huoneesi tänään?', en: 'Will you clean your room today?' },
+        reply: { fi: 'Joo, siivoan!', en: "Yes, I'll clean it!" },
+        distractors: [
+          { fi: 'Joo, siivoat!', en: "Yes, you'll clean it!" },
+          { fi: 'Nähdään!', en: 'See you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Avaatko ikkunan?', en: 'Thanks! Will you open the window?' },
+        reply: { fi: 'Avaan.', en: "I'll open it." },
+        distractors: [
+          { fi: 'Avaa.', en: 'Open it.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Verbs, part 3 (types 5 & 6): drawing time.
+  {
+    id: 'drawing-time',
+    titleFi: 'Piirretään!',
+    titleEn: "Let's draw!",
+    icon: '✏️',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä tarvitset?', en: 'What do you need?' },
+        reply: { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+        distractors: [
+          { fi: 'Tarvitset kynän.', en: 'You need a pen.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Valitsetko punaisen vai sinisen?', en: 'Do you choose the red one or the blue one?' },
+        reply: { fi: 'Valitsen punaisen!', en: 'I choose the red one!' },
+        distractors: [
+          { fi: 'Valitsee punaisen.', en: 'He chooses the red one.' },
+          { fi: 'Ei kiitos.', en: 'No thanks.' },
+        ],
+      },
+      {
+        partner: { fi: 'Älä häiritse kissaa! Se nukkuu.', en: "Don't disturb the cat! It's sleeping." },
+        reply: { fi: 'Anteeksi! En häiritse.', en: "Sorry! I won't disturb it." },
+        distractors: [
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Mennään!', en: "Let's go!" },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva kuva! Nähdään huomenna.', en: 'Nice picture! See you tomorrow.' },
+        reply: { fi: 'Nähdään!', en: 'See you!' },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+        ],
+      },
+    ],
+  },
 ];

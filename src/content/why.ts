@@ -15,6 +15,7 @@ import type {
 } from './types';
 import { caseFormOf, countingNounForm, formFor, possessiveForm, verbForm, PERSONS } from './types';
 import { caseSegments, possessiveSegments, verbSegments, type Segment } from './endings';
+import { gradation, gradationLabel, isSpecialVerb, verbType } from './verbTypes';
 
 export interface Why {
   /** The rule, kid-level English. */
@@ -135,6 +136,26 @@ export function whyForCount(count: number, numberFi: string, noun: LexicalItem):
 }
 
 /** Conjugation: which part of the verb shows who / when / not. */
+/**
+ * The verb's family, and — for a verb whose k / p / t changes — which persons
+ * get which sound. Shows only sourced forms (the infinitive, minä, hän).
+ */
+export function verbTypeNote(verb: LexicalItem): string | undefined {
+  const t = verbType(verb);
+  const mina = verbForm(verb, 'present', 'positive', '1sg');
+  const han = verbForm(verb, 'present', 'positive', '3sg');
+  if (!t || !mina || !han) return undefined;
+  if (isSpecialVerb(verb)) {
+    return `*${verb.fi}* is a special one — learn it by heart: *minä ${mina}*, *hän ${han}*.`;
+  }
+  const g = gradation(verb);
+  if (!g) return `Type ${t}: *${verb.fi}* → *minä ${mina}*, *hän ${han}*.`;
+  const change = `**${gradationLabel(g)}**`;
+  return g.strong === 'infinitive'
+    ? `Type ${t}, and the sound changes (${change}): weak for I, you, we, you all (*minä ${mina}*) — strong for he, she, they (*hän ${han}*).`
+    : `Type ${t}, and the sound gets STRONGER (${change}) in every person: *minä ${mina}*, *hän ${han}*.`;
+}
+
 export function whyForVerb(
   verb: LexicalItem,
   tense: VerbTense,
@@ -158,6 +179,8 @@ export function whyForVerb(
   } else {
     text =
       'The ending shows who: **-n** I · **-t** you · (last vowel doubles) he/she · **-mme** we · **-tte** you all · **-vat / -vät** they.';
+    const note = verbTypeNote(verb);
+    if (note) text += '\n\n' + note;
   }
   return {
     text,

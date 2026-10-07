@@ -44,7 +44,10 @@ describe('choose-the-form rounds', () => {
   it("uses the sourced do / don't / let's forms", () => {
     for (let r = 0; r < RUNS; r++) {
       for (const q of buildChooseRound('mood', pools, 6, 3)) {
-        const v = verbs.items.find((x) => q.cue.toLowerCase().includes(x.en))!;
+        // The longest matching gloss wins ("run away" over "run").
+        const v = verbs.items
+          .filter((x) => q.cue.toLowerCase().includes(x.en))
+          .sort((a, b) => b.en.length - a.en.length)[0];
         const forms = [commandFor(v), dontForm(v), letsForm(v)].map((f) => f!.replace(/!$/, '').toLowerCase());
         expect(forms).toContain(q.answer.replace(/!$/, '').toLowerCase());
       }
