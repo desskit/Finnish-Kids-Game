@@ -123,9 +123,9 @@ export const BADGES: Badge[] = [
     titleFi: 'Äänitutkija',
     titleEn: 'Sound explorer',
     category: 'start',
-    hintEn: 'Play all three games in the Alphabet & sounds corner.',
+    hintEn: 'Play all four games in the Alphabet & sounds corner.',
     measure: (c) =>
-      count(Object.values(c.course?.sounds ?? {}).filter((s) => s.plays > 0).length, 3, 'sound games'),
+      count(Object.values(c.course?.sounds ?? {}).filter((s) => s.plays > 0).length, 4, 'sound games'),
   },
   {
     id: 'stars-100',

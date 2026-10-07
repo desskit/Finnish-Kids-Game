@@ -1,37 +1,26 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { buildSoundRound, soundWords, type SoundMode } from '../game/soundGames';
+import { Link, useNavigate } from 'react-router-dom';
+import { buildNameRound } from '../game/soundGames';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { SOUND_GAMES } from './SoundsHub';
-import LetterNameGame from './LetterNameGame';
 
-const QUESTIONS = 8;
+const QUESTIONS = 10;
 
-// One listening game from the Alphabet corner: hear a real word, see it with a
-// gap, and pick the letter(s) that fill it. A short round, then a result card
-// with "again" / "back to the alphabet". Recorded on its own (course.sounds) —
-// it never touches course progress.
-export default function SoundGame() {
-  const { mode = '' } = useParams();
-  // Letter names are their own game shape (hear a name / see a letter).
-  return mode === 'names' ? <LetterNameGame /> : <WordSoundGame mode={mode} />;
-}
-
-function WordSoundGame({ mode }: { mode: string }) {
+// Kirjainten nimet — what each letter is CALLED (j is "jii", l is "äl"), the way
+// Finnish children spell out loud. Questions alternate: HEAR a name → tap the
+// letter; SEE a letter → pick its name. A wrong pick shows the right name and
+// how the letter sounds.
+export default function LetterNameGame() {
   const navigate = useNavigate();
   const { addStars, recordSoundsRound } = useProfile();
-  const game = SOUND_GAMES.find((g) => g.mode === mode);
-
   const [runId, setRunId] = useState(0);
-  const words = useMemo(() => soundWords(), []);
   const round = useMemo(
-    () => (game ? buildSoundRound(game.mode as SoundMode, words, QUESTIONS) : []),
+    () => buildNameRound(QUESTIONS),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [game, words, runId],
+    [runId],
   );
   const [index, setIndex] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
@@ -42,9 +31,11 @@ function WordSoundGame({ mode }: { mode: string }) {
   const firstTries = useRef(0);
   const q = round[index];
 
+  // A "hear" question speaks the name; a "see" question stays quiet (the
+  // child reads the letter and recalls its name).
   useEffect(() => {
-    if (!q || done) return;
-    const t = setTimeout(() => speak(q.item.fi), 350);
+    if (!q || done || q.ask !== 'hear') return;
+    const t = setTimeout(() => speak(q.letter.nameFi), 350);
     return () => clearTimeout(t);
   }, [q, done]);
 
@@ -54,7 +45,7 @@ function WordSoundGame({ mode }: { mode: string }) {
       if (opt === q.answer) {
         setLocked(true);
         playDing(true);
-        speak(q.item.fi);
+        speak(q.letter.nameFi);
         addStars(1);
         if (!missed.current) firstTries.current += 1;
         setWrong(null);
@@ -62,7 +53,7 @@ function WordSoundGame({ mode }: { mode: string }) {
           missed.current = false;
           setLocked(false);
           if (index + 1 >= round.length) {
-            recordSoundsRound(mode, firstTries.current, round.length);
+            recordSoundsRound('names', firstTries.current, round.length);
             setDone(true);
           } else setIndex(index + 1);
         }, 900);
@@ -74,13 +65,8 @@ function WordSoundGame({ mode }: { mode: string }) {
         setTimeout(() => setWrong((w) => (w === opt ? null : w)), 600);
       }
     },
-    [q, locked, index, round.length, addStars, recordSoundsRound, mode],
+    [q, locked, index, round.length, addStars, recordSoundsRound],
   );
-
-  if (!game) {
-    navigate('/sounds', { replace: true });
-    return null;
-  }
 
   if (done) {
     const right = firstTries.current;
@@ -88,10 +74,10 @@ function WordSoundGame({ mode }: { mode: string }) {
       <main className="app">
         <section className="screen checkpoint checkpoint--pass">
           <div className="checkpoint__badge" aria-hidden="true">
-            {right / round.length >= 0.8 ? '🌟' : '👂'}
+            {right / round.length >= 0.8 ? '🌟' : '🔤'}
           </div>
           <h1 className="title">
-            Hienoa! <span className="en">Nice listening!</span>
+            Hienoa! <span className="en">You know your letters!</span>
           </h1>
           <p className="checkpoint__score" aria-label={`${right} of ${round.length} right first time`}>
             {right} / {round.length}
@@ -124,28 +110,24 @@ function WordSoundGame({ mode }: { mode: string }) {
   return (
     <main className="app">
       <section className="screen activity">
-        <ActivityHeader
-          title={game.fi}
-          index={index}
-          total={round.length}
-          onExit={() => navigate('/sounds')}
-        />
+        <ActivityHeader title="Kirjainten nimet" index={index} total={round.length} onExit={() => navigate('/sounds')} />
         <p className="prompt">
-          Kuuntele! <span className="en">Listen, then fill the gap</span>
+          {q.ask === 'hear' ? 'Mikä kirjain?' : 'Mikä sen nimi on?'}{' '}
+          <span className="en">
+            {q.ask === 'hear' ? 'Listen to the name — which letter is it?' : 'What is this letter called?'}
+          </span>
         </p>
         <div className="phrase-card">
-          <span className="phrase-emoji" aria-hidden="true">
-            {q.item.emoji}
-          </span>
-          <p className="sound-word" lang="fi">
-            {q.before}
-            <span className={'sound-gap' + (locked ? ' sound-gap--filled' : '')}>{locked ? q.answer : '?'}</span>
-            {q.after}
-          </p>
-          <p className="en phrase-hint">{q.item.en}</p>
-          <button className="speaker speaker--inline" onClick={() => speak(q.item.fi)} aria-label="Hear it again">
-            🔊 <span className="en">Listen</span>
-          </button>
+          {q.ask === 'hear' ? (
+            <button className="speaker name-speaker" onClick={() => speak(q.letter.nameFi)} aria-label="Hear the name again">
+              🔊
+            </button>
+          ) : (
+            <p className="letter-card__big" lang="fi">
+              {q.letter.ch.toUpperCase()}
+              {q.letter.ch}
+            </p>
+          )}
         </div>
         <div className="word-tiles">
           {q.options.map((o, i) => (
@@ -156,23 +138,20 @@ function WordSoundGame({ mode }: { mode: string }) {
                 (wrong === o ? ' word-tile--wrong' : '') +
                 (locked && o === q.answer ? ' word-tile--correct' : '')
               }
-              onClick={() => choose(o)}
+              onClick={() => {
+                // Tapping a NAME lets the child hear it too.
+                if (q.ask === 'see' && !locked) speak(o);
+                choose(o);
+              }}
               disabled={locked}
               lang="fi"
             >
               <span className="word-tile__num">{i + 1}</span>
-              {o}
+              {q.ask === 'hear' ? o.toUpperCase() + o : o}
             </button>
           ))}
         </div>
-        {tipAt === index && (
-          <WhyTip
-            why={{
-              text: q.tip,
-              example: [{ text: q.before }, { text: q.answer, mark: true }, { text: q.after }],
-            }}
-          />
-        )}
+        {tipAt === index && <WhyTip why={{ text: q.tip }} />}
       </section>
     </main>
   );

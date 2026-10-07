@@ -8,6 +8,7 @@
 
 import type { LexicalItem } from '../content/types';
 import { allWords } from '../content/lookup';
+import { ALPHABET, type Letter } from '../content/alphabet';
 import { sample, shuffle } from '../util/shuffle';
 
 export type SoundMode = 'first-letter' | 'length' | 'vowel';
@@ -147,4 +148,62 @@ export function buildSoundRound(
     out.push(q);
   }
   return out;
+}
+
+// --- Letter names (Kirjainten nimet): j is "jii", l is "äl" ------------------------
+
+
+export interface NameQuestion {
+  letter: Letter;
+  /** 'hear': the name is spoken → tap the letter. 'see': the letter is shown → pick its name. */
+  ask: 'hear' | 'see';
+  answer: string;
+  options: string[];
+  tip: string;
+}
+
+/** Names that sound alike — offered first as wrong options. */
+const NAME_ALIKE: Record<string, string[]> = {
+  a: ['ä', 'o'],
+  ä: ['a', 'e'],
+  e: ['ä', 'i'],
+  i: ['j', 'e'],
+  j: ['i', 'g'],
+  o: ['ö', 'u'],
+  ö: ['o', 'y'],
+  u: ['y', 'o'],
+  y: ['u', 'i'],
+  l: ['r', 'm', 'n', 's'],
+  r: ['l', 's'],
+  m: ['n', 'l'],
+  n: ['m', 'l'],
+  s: ['l', 'r'],
+  k: ['h', 'o'],
+  h: ['k', 'o'],
+  p: ['t', 'v', 'd'],
+  t: ['p', 'd'],
+  d: ['t', 'p'],
+  v: ['p', 'd'],
+};
+
+/** The letters the names game asks about: every letter used in Finnish words. */
+export const NAME_LETTERS = ALPHABET.filter((l) => !l.borrowed);
+
+export function buildNameRound(count: number, optionCount = 4): NameQuestion[] {
+  const picks = shuffle(NAME_LETTERS).slice(0, count);
+  return picks.map((letter, n) => {
+    const ask: 'hear' | 'see' = n % 2 === 0 ? 'hear' : 'see';
+    const alike = (NAME_ALIKE[letter.ch] ?? []).map((ch) => NAME_LETTERS.find((l) => l.ch === ch)!).filter(Boolean);
+    const others = shuffle(NAME_LETTERS.filter((l) => l !== letter && !alike.includes(l)));
+    const wrong = [...alike, ...others].slice(0, optionCount - 1);
+    const answer = ask === 'hear' ? letter.ch : letter.nameFi;
+    const options = shuffle([letter, ...wrong].map((l) => (ask === 'hear' ? l.ch : l.nameFi)));
+    return {
+      letter,
+      ask,
+      answer,
+      options,
+      tip: `${letter.ch.toUpperCase()} is called "${letter.nameFi}". ${letter.tip}`,
+    };
+  });
 }

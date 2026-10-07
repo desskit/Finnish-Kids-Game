@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildSoundRound, soundWords, type SoundMode } from './soundGames';
+import { buildNameRound, buildSoundRound, NAME_LETTERS, soundWords, type SoundMode } from './soundGames';
 
 const RUNS = 30;
 const words = soundWords();
@@ -57,5 +57,33 @@ describe('Alphabet-corner listening games', () => {
     const [q] = buildSoundRound('first-letter', auto, 1, 4);
     expect(q.answer).toBe('a');
     expect(q.options).toContain('ä');
+  });
+});
+
+describe('letter names game (j is "jii")', () => {
+  it('asks about every Finnish letter, alternating hear-the-name and see-the-letter', () => {
+    expect(NAME_LETTERS.map((l) => l.ch).join('')).toBe('adehijklmnoprstuvyäö');
+    const round = buildNameRound(10);
+    expect(round.map((q) => q.ask)).toEqual(['hear', 'see', 'hear', 'see', 'hear', 'see', 'hear', 'see', 'hear', 'see']);
+    for (const q of round) {
+      expect(q.options).toContain(q.answer);
+      expect(new Set(q.options).size).toBe(4);
+      expect(q.answer).toBe(q.ask === 'hear' ? q.letter.ch : q.letter.nameFi);
+      expect(q.tip).toContain(q.letter.nameFi);
+    }
+  });
+
+  it('offers sound-alike names as the wrong options (äl → är, äs…)', () => {
+    for (let r = 0; r < 30; r++) {
+      const q = buildNameRound(20).find((x) => x.letter.ch === 'l' && x.ask === 'see');
+      if (!q) continue;
+      expect(q.options.filter((o) => o.startsWith('ä')).length).toBeGreaterThanOrEqual(3);
+      return;
+    }
+  });
+
+  it('every Finnish letter has a distinct name', () => {
+    const names = NAME_LETTERS.map((l) => l.nameFi);
+    expect(new Set(names).size).toBe(names.length);
   });
 });
