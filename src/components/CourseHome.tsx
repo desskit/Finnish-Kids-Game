@@ -127,6 +127,15 @@ export default function CourseHome() {
             {earned.size} of {BADGES.length} earned
           </span>
         </Link>
+        <Link className="home-tile" to="/sounds">
+          <span className="home-tile__icon" aria-hidden="true">
+            🔤
+          </span>
+          <span className="home-tile__label">
+            Aakkoset <span className="en">Alphabet</span>
+          </span>
+          <span className="home-tile__meta en">Letters & sounds</span>
+        </Link>
         <Link className="home-tile" to="/notebook">
           <span className="home-tile__icon" aria-hidden="true">
             📓

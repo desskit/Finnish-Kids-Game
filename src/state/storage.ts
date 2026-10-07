@@ -106,6 +106,11 @@ export interface CourseState {
    * conversation) → when. A phrase is modelled once, then practised.
    */
   phrasesSeen?: Record<string, number>;
+  /**
+   * The optional Alphabet corner's games (first-letter / length / vowel) —
+   * kept apart from the course: they never gate a unit or move a level.
+   */
+  sounds?: Record<string, { plays: number; right: number; total: number; best: number }>;
 }
 
 export interface Settings {

@@ -20,6 +20,8 @@ import CourseHome from './components/CourseHome';
 import LessonRoute from './components/LessonRoute';
 import Achievements from './components/Achievements';
 import Notebook from './components/Notebook';
+import SoundsHub from './components/SoundsHub';
+import SoundGame from './components/SoundGame';
 import CheckpointRoute from './components/CheckpointRoute';
 import ProfilePicker from './components/ProfilePicker';
 import ReviewActivity from './components/ReviewActivity';
@@ -168,11 +170,13 @@ export function AppRoutes() {
         <Route path="/" element={<CourseHome />} />
         <Route path="/notebook" element={<Notebook />} />
         <Route path="/achievements" element={<Achievements />} />
+        <Route path="/sounds" element={<SoundsHub />} />
       </Route>
       <Route path="/lesson/:lessonId" element={<LessonRoute />} />
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />
       <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
+      <Route path="/sounds/:mode" element={<SoundGame />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />
         <Route path="progress" element={<ProgressView />} />

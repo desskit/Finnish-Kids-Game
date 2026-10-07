@@ -26,6 +26,7 @@ import { sentenceConstructions } from '../src/content/sentences';
 import { lessons } from '../src/content/lessons';
 import { YOU_QUESTION } from '../src/content/questions';
 import { PRONOUNS, PRONOUN_FRAMES } from '../src/content/pronouns';
+import { ALPHABET } from '../src/content/alphabet';
 import {
   animals,
   food,
@@ -127,6 +128,12 @@ const pronounRows: Row[] = [
   ...PRONOUN_FRAMES.map((fr) => ({ key: `pronoun-frame:${fr.id}`, fi: `${fr.before} ___${fr.punct}`, en: fr.en })),
 ];
 
+const letterRows: Row[] = ALPHABET.map((l) => ({
+  key: `letter:${l.ch}`,
+  fi: `${l.ch.toUpperCase()}${l.ch} — "${l.nameFi}"`,
+  en: l.tip,
+}));
+
 const templateRows: Row[] = sentenceConstructions.map((t) => ({
   key: `template:${t.id}`,
   fi: t.tokens
@@ -183,6 +190,7 @@ const all = [
   ...templateRows,
   ...questionRows,
   ...pronounRows,
+  ...letterRows,
   ...lessonRows,
   ...strayRows,
 ];
@@ -225,6 +233,10 @@ const lines: string[] = [
   `## Pronoun forms and frames (${pronounRows.length})`,
   '',
   ...table(pronounRows),
+  '',
+  `## Alphabet — letter names and sound tips (${letterRows.length})`,
+  '',
+  ...table(letterRows),
   '',
   `## Lesson prose — Finnish quoted in the explanations (${lessonRows.length})`,
   '',

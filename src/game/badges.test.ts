@@ -148,6 +148,12 @@ describe('earning achievements', () => {
     expect(has(child({ streakDays: 1, bestStreakDays: 7 }), 'streak-7')).toBe(true);
   });
 
+  it('Sound explorer: all three Alphabet-corner games played', () => {
+    const r = { plays: 1, right: 6, total: 8, best: 0.75 };
+    expect(has(child({ course: { sounds: { 'first-letter': r, length: r } } }), 'sounds')).toBe(false);
+    expect(has(child({ course: { sounds: { 'first-letter': r, length: r, vowel: r } } }), 'sounds')).toBe(true);
+  });
+
   it('Bookworm counts lessons read to the end', () => {
     const seen = Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`l${i}`, 1]));
     expect(has(child({ course: { lessonsSeen: seen } }), 'bookworm')).toBe(true);

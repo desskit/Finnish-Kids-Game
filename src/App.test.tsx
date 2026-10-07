@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, within, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { LexicalItem } from './content/types';
 
@@ -200,6 +200,32 @@ describe('achievements', () => {
     const links = screen.getAllByRole('link', { name: /Achievements/ });
     expect(links.length).toBe(1);
     for (const l of links) expect(l.getAttribute('href')).toMatch(/achievements$/);
+  });
+});
+
+describe('Alphabet & sounds corner', () => {
+  it('is an optional tile on home, with the letters, guides and three games', () => {
+    seedChild();
+    renderAt('/');
+    expect(screen.getByRole('link', { name: /Alphabet/ }).getAttribute('href')).toMatch(/sounds$/);
+  });
+
+  it('opens a letter card with its name, a tip and real example words', () => {
+    seedChild();
+    renderAt('/sounds');
+    expect(document.querySelectorAll('.letter-tile')).toHaveLength(29);
+    expect(document.querySelectorAll('.sounds__game')).toHaveLength(3);
+    fireEvent.click(screen.getByRole('button', { name: 'J' }));
+    expect(screen.getByText(/the y in "yes"/)).toBeInTheDocument();
+    const card = document.querySelector('.letter-card') as HTMLElement;
+    expect(within(card).getByText('train')).toBeInTheDocument(); // juna
+  });
+
+  it('plays a listening game: a real word with a gap, letters to choose', () => {
+    seedChild();
+    renderAt('/sounds/length');
+    expect(document.querySelector('.sound-gap')).not.toBeNull();
+    expect(document.querySelectorAll('.sound-tile')).toHaveLength(2);
   });
 });
 
