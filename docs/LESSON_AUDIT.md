@@ -615,7 +615,7 @@ _Explain:_ Both words get the ending: *isossa talossa*.
 
 _Explain:_ Both words take **-n**: *punaisen pallon*.
 
-## Unit 20: Endings instead of "in" and "on" (Missä?) 📍
+## Unit 21: Endings instead of "in" and "on" (Missä?) 📍
 
 ### 1. No word for "in" _(examples)_
 
@@ -670,7 +670,7 @@ _Explain:_ "On" → **-lla / -llä**: *pöydällä*.
 
 _Explain:_ "In" → **-ssa**: *talossa*.
 
-## Unit 21: In, into, out of (Missä? Mihin? Mistä?) 🚶
+## Unit 22: In, into, out of (Missä? Mihin? Mistä?) 🚶
 
 ### 1. Three questions _(explain)_
 
@@ -721,7 +721,7 @@ _Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
 
 _Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
 
-## Unit 26: Position words come after (Edessä, takana) 🧭
+## Unit 30: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -821,7 +821,7 @@ _Explain:_ **-si** means "your".
 
 _Explain:_ *sinun* + **-si** = your.
 
-## Unit 27: More than one (Monta) 👐
+## Unit 31: More than one (Monta) 👐
 
 ### 1. The -t means "more than one" _(examples)_
 
@@ -861,7 +861,7 @@ _Explain:_ "Some" balls → *palloja*.
 
 _Explain:_ The **-t** means more than one.
 
-## Unit 29: Talking about yesterday (Eilen) ⏮️
+## Unit 33: Talking about yesterday (Eilen) ⏮️
 
 ### 1. Slip in an -i- _(explain)_
 
@@ -915,7 +915,7 @@ _Explain:_ The **-i-** shows the past: *luin*.
 
 _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
-## Unit 30: Having a real conversation (Jutellaan) 🗣️
+## Unit 34: Having a real conversation (Jutellaan) 🗣️
 
 ### 1. Pick what FITS _(explain)_
 
@@ -962,7 +962,7 @@ _Explain:_ After a thank-you comes *Ole hyvä!* (you're welcome).
 
 _Explain:_ *Ei se mitään* = "it's okay".
 
-## Unit 31: Building sentences (Lauseet) 📝
+## Unit 35: Building sentences (Lauseet) 📝
 
 ### 1. Endings do the work _(explain)_
 
@@ -999,7 +999,7 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
-## Unit 32: Expert Finnish (Mestari) 🏆
+## Unit 36: Expert Finnish (Mestari) 🏆
 
 ### 1. "Have done" — olen syönyt _(verbTable)_
 
@@ -1134,7 +1134,7 @@ _Explain:_ *En pidä* still takes **-sta**: *matematiikasta*.
 
 _Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
 
-## Unit 22: You on the move (Kaupungilla ja kotona) 🏙️
+## Unit 23: You on the move (Kaupungilla ja kotona) 🏙️
 
 ### 1. The cat's endings — for you _(explain)_
 
@@ -1180,7 +1180,7 @@ _Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
 
 _Explain:_ A station is an "on" place → **-lla**: *asemalla*.
 
-## Unit 23: Days and times (Milloin?) 📅
+## Unit 25: Days and times (Milloin?) 📅
 
 ### 1. Days of the week _(examples)_
 
@@ -1420,7 +1420,7 @@ _Explain:_ *Älä* + the short verb: *Älä juokse!*
 
 _Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
 
-## Unit 24: Question words (Kysymyssanat) 🤔
+## Unit 28: Question words (Kysymyssanat) 🤔
 
 ### 1. The question words _(explain)_
 
@@ -1483,7 +1483,7 @@ _Explain:_ *Mihin?* = where TO — *Menen puistoon* (into the park).
 
 _Explain:_ *Kenen?* = whose? (*Kuka?* = who?)
 
-## Unit 25: Me and you (Minua, minulle) 🫶
+## Unit 29: Me and you (Minua, minulle) 🫶
 
 ### 1. I, me, to me… _(explain)_
 
@@ -1649,7 +1649,7 @@ _Explain:_ "I" is **-n**, with the strong **pp**: *hyppään*.
 
 _Explain:_ *hän leikkaa* — she cuts. The strong **kk** is in every person.
 
-## Unit 28: Verb types 5 and 6 (Verbityypit 5 ja 6) 👵
+## Unit 32: Verb types 5 and 6 (Verbityypit 5 ja 6) 👵
 
 ### 1. Type 5: -ita / -itä _(examples)_
 
@@ -1756,3 +1756,231 @@ _Explain:_ "I" is **-n**: *pakenen*.
 - ✘ 😴 **sinä nuku[t]**
 
 _Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.
+
+## Unit 20: Bigger and biggest (Isompi, isoin) 🐘
+
+### 1. Bigger: -mpi _(examples)_
+
+To say "bigger", "faster", "older", Finnish adds **-mpi**.
+
+- 🦕 iso → **iso[mpi]** — bigger
+- 🏎️ nopea → **nopea[mpi]** — faster
+- vanha → **vanhe[mpi]** — older
+
+### 2. Than = kuin _(examples)_
+
+**kuin** means "than". Both things stay in their basic form:
+
+*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.
+
+- 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
+- 🐴🐮 **Hevonen on nopea[mpi] kuin lehmä.** — The horse is faster than the cow.
+- 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandfather is older than the baby.
+
+### 3. The biggest: -in _(examples)_
+
+To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".
+
+- 🦕 iso → **iso[in]** — biggest
+- 🐘 **Norsu on iso[in].** — The elephant is the biggest.
+- 🐭 **Hiiri on pien[in].** — The mouse is the smallest.
+
+### 4. Special ones _(examples)_
+
+A few change more, just like in English (good → better → best): *hyvä → parempi → paras*, and *pitkä → pidempi → pisin*.
+
+- 👍 hyvä → **pare[mpi]** — better
+- 👍 hyvä → **paras** — best
+- 🦒 pitkä → **pide[mpi]** — taller
+- 🦒 pitkä → **pis[in]** — tallest
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "faster"?
+
+- ✘ 🏎️ **nopea** — fast
+- ✔ 🏎️ nopea → **nopea[mpi]** — faster
+- ✘ 🏎️ nopea → **nope[in]** — fastest
+
+_Explain:_ **-mpi** = more: *nopeampi* = faster. *nopein* is the fastest.
+
+### 6. Try it _(check)_
+
+**Q:** Which one is TRUE?
+
+- ✘ 🐭🐘 **Hiiri on iso[mpi] kuin norsu.** — The mouse is bigger than the elephant.
+- ✔ 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
+
+_Explain:_ The elephant is bigger: *Norsu on isompi kuin hiiri.*
+
+### 7. Try it _(check)_
+
+**Q:** Which one means "Grandpa is the oldest"?
+
+- ✔ 👴 **Isoisä on vanh[in].** — Grandfather is the oldest.
+- ✘ 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandfather is older than the baby.
+
+_Explain:_ **-in** = the most of all: *vanhin* = the oldest.
+
+## Unit 24: By bus, with a pen (Bussilla ja kynällä) 🚌
+
+### 1. An ending you already know _(explain)_
+
+You know **-lla / -llä** for ON: *pöydällä* (on the table). The same ending also means **BY** and **WITH**: how you travel, and what you use.
+
+
+### 2. By bus, by train _(examples)_
+
+- 🚌 **Menen bussi[lla].** — I'm going by bus.
+- 🚆 **Menen juna[lla].** — I'm going by train.
+- 🚲 **Menen pyörä[llä].** — I'm going by bike.
+
+### 3. With a pen, with a spoon _(examples)_
+
+The thing you do it WITH gets **-lla / -llä**.
+
+- ✏️ **Kirjoitan kynä[llä].** — I write with a pencil.
+- 🥄 **Syön lusika[lla].** — I eat with a spoon.
+- 🔑 **Avaan oven avaime[lla].** — I open the door with a key.
+
+### 4. With a PERSON: kanssa _(examples)_
+
+Careful! With a person (or a pet) it's different: the person gets **-n**, then the word **kanssa** (together with).
+
+- 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
+- 👩 **Leikin äidi[n] kanssa.** — I play with my mom.
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "I'm going by train"?
+
+- ✘ 🚆 **Menen jun[aan].**
+- ✔ 🚆 **Menen juna[lla].** — I'm going by train.
+- ✘ 🚆 **Menen juna[ssa].**
+
+_Explain:_ BY train → **-lla**: *junalla*. *junaan* would be INTO the train.
+
+### 6. Try it _(check)_
+
+**Q:** Which one means "I eat with a spoon"?
+
+- ✔ 🥄 **Syön lusika[lla].** — I eat with a spoon.
+- ✘ 🥄 **Syön lusikka[a].**
+
+_Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!
+
+### 7. Try it _(check)_
+
+**Q:** Which one means "I play with my friend"?
+
+- ✘ 🤝 **Leikin kaveri[lla] kanssa.**
+- ✔ 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
+
+_Explain:_ With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.
+
+## Unit 26: Big numbers — and first, second… (Isot numerot) 💯
+
+### 1. 13 to 19: -toista _(examples)_
+
+You know 11 and 12. The rest work the same way: the number + **-toista** ("of the second ten"). 13 = *kolmetoista*.
+
+- 13 **kolmetoista** — thirteen
+- 15 **viisitoista** — fifteen
+- 19 **yhdeksäntoista** — nineteen
+
+### 2. Tens: -kymmentä _(examples)_
+
+Tens are the number + **-kymmentä** (tens): 30 = *kolmekymmentä*. And 100 is *sata*.
+
+- 20 **kaksikymmentä** — twenty
+- 30 **kolmekymmentä** — thirty
+- 50 **viisikymmentä** — fifty
+- 100 **sata** — a hundred
+
+### 3. 21, 22, 23… _(explain)_
+
+Say the ten, then the one — all in one long word: 21 = *kaksikymmentä* + *yksi*, 35 = *kolmekymmentä* + *viisi*.
+
+
+### 4. First, second, third… _(examples)_
+
+For the ORDER (who came first?) Finnish has its own words. From the 4th on most end in **-s**: *neljäs*, *viides*.
+
+- 1. **ensimmäinen** — first
+- 2. **toinen** — second
+- 3. **kolmas** — third
+- 4. **neljäs** — fourth
+- 5. **viides** — fifth
+
+### 5. Try it _(check)_
+
+**Q:** Which one is 15?
+
+- ✘ 5️⃣ **viisi** — five
+- ✔ 15 **viisitoista** — fifteen
+- ✘ 50 **viisikymmentä** — fifty
+
+_Explain:_ 5 + **-toista** = *viisitoista*. *viisikymmentä* is 50.
+
+### 6. Try it _(check)_
+
+**Q:** Which one means "the third"?
+
+- ✘ 3️⃣ **kolme** — three
+- ✔ 3. **kolmas** — third
+- ✘ 13 **kolmetoista** — thirteen
+
+_Explain:_ *kolmas* is the ORDER word (3rd). *kolme* is just 3.
+
+## Unit 27: Months, dates and birthdays (Syntymäpäivä) 🎂
+
+### 1. The months _(examples)_
+
+Every month ends in **-kuu** — *kuu* also means "moon"! Months start with a small letter.
+
+- **tammikuu** — January
+- **toukokuu** — May
+- **heinäkuu** — July
+- **joulukuu** — December
+
+### 2. In May: -ssa _(examples)_
+
+IN a month takes **-ssa / -ssä**, like *koulussa* (in school).
+
+- **Syntymäpäiväni on toukokuu[ssa].** — My birthday is in May.
+- **Syntymäpäiväni on joulukuu[ssa].** — My birthday is in December.
+
+### 3. A date _(examples)_
+
+A date is the ORDER word (first, fifth…) + the month with **-ta**: *viides toukokuuta* = the 5th of May.
+
+- 📅 **ensimmäinen tammikuu[ta]** — the 1st of January
+- 📅 **viides toukokuu[ta]** — the 5th of May
+- 📅 **kymmenes joulukuu[ta]** — the 10th of December
+
+### 4. How old are you? _(examples)_
+
+Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).
+
+- 🎂 **Olen seitsemän [vuotta] vanha.** — I'm 7 years old.
+- 🎂 **Olen kahdeksan [vuotta] vanha.** — I'm 8 years old.
+- 🎂 **Olen yhdeksän [vuotta] vanha.** — I'm 9 years old.
+
+### 5. Try it _(check)_
+
+**Q:** Which one is "the 5th of May"?
+
+- ✘ 📅 **viisi toukokuuta**
+- ✔ 📅 **viides toukokuu[ta]** — the 5th of May
+- ✘ 📅 **viides toukokuu**
+
+_Explain:_ ORDER word *viides* (5th) + month with **-ta**: *viides toukokuuta*.
+
+### 6. Try it _(check)_
+
+**Q:** Which one means "My birthday is in May"?
+
+- ✔ **Syntymäpäiväni on toukokuu[ssa].** — My birthday is in May.
+- ✘ **Syntymäpäiväni on toukokuu[ta].**
+
+_Explain:_ IN May → **-ssa**: *toukokuussa*.
