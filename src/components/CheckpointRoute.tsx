@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { difficultyFor } from '../game/adapt';
 import { ActivityContext } from '../game/activityContext';
-import { renderActivity } from '../game/path';
+import { badgeEnv, renderActivity } from '../game/path';
+import { earnedBadgeIds, earnedBadges } from '../game/badges';
 import {
   UNITS,
   checkpointPassRatio,
@@ -38,6 +39,8 @@ export default function CheckpointRoute() {
   // Frozen at Start: earlier tries vary which review steps appear, but a run
   // never reshuffles under the child.
   const [runPlan, setRunPlan] = useState<CheckpointPart[] | null>(null);
+  // Badges held just before this checkpoint was recorded — to celebrate new ones.
+  const badgesBefore = useRef<Set<string> | null>(null);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!unit) return <Navigate to="/" replace />;
@@ -102,6 +105,9 @@ export default function CheckpointRoute() {
       if (a < w) weakest = i;
     });
     const weakStep = plan[weakest]?.step;
+    // Achievements this checkpoint just earned (first checkpoint, flawless, halfway…).
+    const before = badgesBefore.current;
+    const newBadges = before ? earnedBadges(activeChild, badgeEnv).filter((b) => !before.has(b.id)) : [];
     return (
       <main className="app">
         <section className={'screen checkpoint checkpoint--' + (passed ? 'pass' : 'fail')}>
@@ -124,6 +130,15 @@ export default function CheckpointRoute() {
               You need {Math.ceil(passRatio * total)} to pass.
               {weakStep && <> Practise “{weakStep.titleEn}” a little more, then try again.</>}
             </p>
+          )}
+          {newBadges.length > 0 && (
+            <ul className="checkpoint__new-badges" aria-label="New achievements">
+              {newBadges.map((b) => (
+                <li key={b.id}>
+                  <span aria-hidden="true">{b.emoji}</span> Uusi saavutus! <span className="en">{b.titleEn}</span>
+                </li>
+              ))}
+            </ul>
           )}
           <div className="button-row">
             {passed ? (
@@ -169,6 +184,7 @@ export default function CheckpointRoute() {
     const t = next.reduce((s, r) => s + r.total, 0);
     const ratio = t > 0 ? c / t : 0;
     const passed = ratio >= passRatio;
+    badgesBefore.current = earnedBadgeIds(activeChild, badgeEnv);
     recordCheckpoint(unit.id, ratio, passed);
     playDing(passed);
     setPhase('result');

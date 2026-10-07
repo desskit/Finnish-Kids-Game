@@ -30,7 +30,8 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import CheckpointRoute from './CheckpointRoute';
 
-const lvl2 = { plays: 3, bestStars: 6, totalStars: 18, totalPossible: 18, lastPlayed: 1, level: 2, recent: [] };
+// Every step's top level proven — what opens a checkpoint.
+const lvl2 = { plays: 3, bestStars: 6, totalStars: 18, totalPossible: 18, lastPlayed: 1, level: 3, recent: [], topProvenAt: 1 };
 
 function seed() {
   localStorage.setItem(

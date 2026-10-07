@@ -169,8 +169,10 @@ describe('the course (units × steps)', () => {
   });
 
   it('derives the badge env from the course', () => {
-    expect(badgeEnv.topicCount).toBe(PATH.length);
-    expect(badgeEnv.activityIds).toContain('this-is');
+    expect(badgeEnv.checkpointUnitIds).toHaveLength(PATH.filter((u) => u.checkpoint !== false).length);
+    expect(badgeEnv.phraseStepIds).toContain('this-is');
+    expect(badgeEnv.conversationStepIds).toContain('hello-talk');
+    expect(badgeEnv.skillKinds['this-is']).toEqual(['build', 'order', 'spell', 'spell']);
   });
 });
 
@@ -263,6 +265,24 @@ describe('rendering course steps', () => {
   });
 });
 
+describe('possessive endings in the course', () => {
+  it('teaches "my / your" right after having — before verbs — with plain forms only', () => {
+    const ids = PATH.map((u) => u.id);
+    expect(ids.indexOf('whose')).toBe(ids.indexOf('not-having') + 1);
+    const { skill } = findSkill('possessives')!;
+    expect(skill.content.possessiveCases).toBe('never');
+    // Its sentences use only "Tämä on…" — "Missä on…?" waits for the Where? unit.
+    expect(findSkill('mine-yours')!.skill.content.constructionIds).not.toContain('where-is-yours');
+  });
+
+  it('adds "in my house" once the place endings are known', () => {
+    const found = findSkill('in-my')!;
+    expect(found.chapter.id).toBe('where');
+    expect(found.skill.content.possessiveCases).toBe('always');
+    expect(findSkill('where-is')!.skill.content.constructionIds).toContain('where-is-yours');
+  });
+});
+
 describe('in-session game rotation', () => {
   it('unlocks the ramp as a GROWING set of game types, not one type per level', () => {
     const { skill } = findSkill('this-is')!; // ramp: build, order, spell, spell
@@ -272,14 +292,21 @@ describe('in-session game rotation', () => {
     expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order', 'spell']);
   });
 
-  it('makes a phrase step BUILD sentences before it counts as done', () => {
-    // Done at L3 means L2 — where word-assembly joins — had to be proven, and
-    // the checkpoint asks an assembly question.
+  it('makes a phrase step BUILD, ORDER and TYPE sentences before it counts as done', () => {
+    // Done = its top level proven, and every game type is unlocked by then.
     for (const id of ['this-is', 'i-like', 'in-on', 'where-i-am', 'today-is']) {
       const { skill } = findSkill(id)!;
-      expect(skill.doneAtLevel, id).toBe(3);
-      expect(activitiesUpTo(skill, 2), id).toContain('order');
+      expect(activitiesUpTo(skill, skill.maxLevel!), id).toEqual(['build', 'order', 'spell']);
       expect(skill.checkpoint, id).toBe('order');
+    }
+  });
+
+  it('unlocks every game of a step\'s ladder by its top level (none skipped before "done")', () => {
+    for (const unit of PATH) {
+      for (const s of unit.skills) {
+        if (!s.activities) continue;
+        expect(activitiesUpTo(s, s.maxLevel ?? 4), s.id).toEqual([...new Set(s.activities)]);
+      }
     }
   });
 

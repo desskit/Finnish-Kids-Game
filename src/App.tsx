@@ -11,6 +11,7 @@ import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
 import CourseHome from './components/CourseHome';
 import LessonRoute from './components/LessonRoute';
+import Achievements from './components/Achievements';
 import Notebook from './components/Notebook';
 import CheckpointRoute from './components/CheckpointRoute';
 import ProfilePicker from './components/ProfilePicker';
@@ -157,6 +158,7 @@ export function AppRoutes() {
       <Route element={<AppShell />}>
         <Route path="/" element={<CourseHome />} />
         <Route path="/notebook" element={<Notebook />} />
+        <Route path="/achievements" element={<Achievements />} />
       </Route>
       <Route path="/lesson/:lessonId" element={<LessonRoute />} />
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />

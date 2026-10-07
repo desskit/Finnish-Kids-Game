@@ -63,3 +63,33 @@ describe('activityLevel', () => {
     expect(activityLevel(child(), 'x', 'y')).toBe(1);
   });
 });
+
+describe('proving the top level (what makes a course step done)', () => {
+  const play = (c: Child, acc: number, max: number) => recordRoundOnChild(c, 'u', 's', acc * 6, 6, max);
+
+  it('needs the top level REACHED and then passed there — reaching it is not enough', () => {
+    let c = child();
+    // Two perfect rounds: L1 → L2 (the top of a 2-level ladder).
+    c = play(play(c, 1, 2), 1, 2);
+    expect(c.progress.u.s.level).toBe(2);
+    expect(c.progress.u.s.topProvenAt).toBeUndefined();
+    // Two strong rounds AT the top prove it.
+    c = play(play(c, 1, 2), 1, 2);
+    expect(c.progress.u.s.topProvenAt).toBeGreaterThan(0);
+  });
+
+  it('does not count weak rounds at the top', () => {
+    let c = child();
+    c = play(play(c, 1, 2), 1, 2);
+    c = play(play(c, 0.6, 2), 0.7, 2);
+    expect(c.progress.u.s.topProvenAt).toBeUndefined();
+  });
+
+  it('is sticky — a later bad day does not undo it', () => {
+    let c = child();
+    for (let i = 0; i < 4; i++) c = play(c, 1, 2);
+    const at = c.progress.u.s.topProvenAt;
+    c = play(play(c, 0, 2), 0, 2);
+    expect(c.progress.u.s.topProvenAt).toBe(at);
+  });
+});

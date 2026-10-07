@@ -10,12 +10,18 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForPossessor } from '../content/why';
+import { POSSESSORS, possessiveForm, possessiveGloss } from '../content/types';
+import { possessiveSegments } from '../content/endings';
+import { Segments } from './LessonView';
 
 const QUESTIONS = 6;
 
 interface Props {
   items: LexicalItem[];
   onExit: () => void;
+  /** 'never' = only "my book"; 'always' = mostly "in my house"; default = the
+   *  place forms join from level 4. */
+  cases?: 'never' | 'always';
 }
 
 // Kenen? (Whose?) — Finnish marks the possessor with a SUFFIX, not a separate
@@ -24,14 +30,16 @@ interface Props {
 // picks the form carrying the right possessive suffix from tiles that are the
 // SAME noun with the OTHER possessors' suffixes — so the ending is the whole
 // question. Every form is sourced (possessiveForm); nothing is assembled.
-export default function PossessiveGame({ items, onExit }: Props) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+export default function PossessiveGame({ items, onExit, cases }: Props) {
+  const { level, addStars, recordAttempt, activeChild, markPhraseSeen } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount } = difficulty;
   // From L4 up, bring in the place-locative forms ("in my house") on top of the
   // bare "my cat" nominative — the node's own reach.
-  const withCases = difficulty.level >= 4;
+  const withCases = cases === 'always' || (cases !== 'never' && difficulty.level >= 4);
+  // A step that is ABOUT the place forms asks them most of the time.
+  const locativeShare = cases === 'always' ? 0.75 : 0.4;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
   const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
 
@@ -42,11 +50,11 @@ export default function PossessiveGame({ items, onExit }: Props) {
   const round = useMemo(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildPossessiveRound(items, QUESTIONS, optionCount, withCases, weigh).slice(
+      buildPossessiveRound(items, QUESTIONS, optionCount, withCases, weigh, locativeShare).slice(
         0,
         ctx?.roundQuestions,
       ),
-    [items, optionCount, withCases, weigh, runId, ctx?.roundQuestions],
+    [items, optionCount, withCases, locativeShare, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
@@ -61,6 +69,21 @@ export default function PossessiveGame({ items, onExit }: Props) {
   }, [round.length]);
 
   const q = round[index];
+  // First time this kind of possessive comes up, SHOW the endings before asking:
+  // the same word with -ni / -si / -nsa ("kirjani — my book…"). Remembered per
+  // child; 'places' is its own intro ("talossani — in my house").
+  const introKey = withCases ? 'poss:places' : 'poss:endings';
+  const seenSnapshot = useRef(activeChild?.course?.phrasesSeen ?? {}).current;
+  const [introDone, setIntroDone] = useState(false);
+  const showIntro = !!q && !done && !introDone && !seenSnapshot[introKey];
+  // The intro's example: the first question's word, in its case.
+  const introRows = q
+    ? POSSESSORS.map((p) => ({
+        id: p.id,
+        form: possessiveForm(q.item, p.id, q.caseId),
+        en: possessiveGloss(q.item, p.id, q.caseId),
+      })).filter((r) => r.form)
+    : [];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
 
@@ -68,10 +91,10 @@ export default function PossessiveGame({ items, onExit }: Props) {
   // the child must recognize, never previewed. (The gloss is the on-screen text
   // read aloud for a pre-reader.)
   useEffect(() => {
-    if (!q || done) return;
+    if (!q || done || showIntro) return;
     const t = setTimeout(() => speakEnglish(q.gloss), 350);
     return () => clearTimeout(t);
-  }, [q, done]);
+  }, [q, done, showIntro]);
 
   const choose = useCallback(
     (form: string) => {
@@ -108,7 +131,7 @@ export default function PossessiveGame({ items, onExit }: Props) {
   // Keyboard: number keys pick a tile; Space/Enter replays the English cue.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (!q || done) return;
+      if (!q || done || showIntro) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         speakEnglish(q.gloss);
@@ -135,6 +158,57 @@ export default function PossessiveGame({ items, onExit }: Props) {
 
   if (done) return null;
   if (!q) return null;
+
+  if (showIntro) {
+    return (
+      <section className="screen activity">
+        <ActivityHeader title="Kenen? · Whose?" index={index} total={round.length} stars={ctx?.sessionStars} onExit={onExit} />
+        <p className="prompt">
+          Uusi pääte! <span className="en">A new ending!</span>
+        </p>
+        <div className="phrase-card phrase-intro">
+          <p className="phrase-intro__label en">
+            {withCases
+              ? '"My" goes on the very end — after the place ending:'
+              : 'The END of the word says whose it is:'}
+          </p>
+          <ul className="lesson-rows">
+            {introRows.map((r) => (
+              <li className="lesson-row" key={r.id}>
+                <span className="lesson-row__emoji" aria-hidden="true">
+                  {q.item.emoji}
+                </span>
+                <span className="lesson-row__text">
+                  <span className="lesson-row__fi" lang="fi">
+                    <Segments segments={possessiveSegments(r.form!, r.id)} />
+                  </span>
+                  <span className="en lesson-row__en">{r.en}</span>
+                </span>
+                <button
+                  className="speaker speaker--inline lesson-row__speak"
+                  onClick={() => speak(r.form!)}
+                  aria-label={`Kuuntele · Listen: ${r.form}`}
+                >
+                  🔊
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className="phrase-intro__label en">-ni = my · -si = your · -nsa / -nsä = his, her, their</p>
+        </div>
+        <button
+          className="btn btn--primary"
+          onClick={() => {
+            markPhraseSeen(introKey);
+            setIntroDone(true);
+          }}
+          autoFocus
+        >
+          Jatka <span className="en">Continue</span>
+        </button>
+      </section>
+    );
+  }
 
   return (
     <section className="screen activity">

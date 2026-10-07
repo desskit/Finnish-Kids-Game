@@ -42,13 +42,24 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 
-function seedChild() {
+function seedChild(seen = true) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
       children: [
-        { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {} },
+        {
+          id: 'k',
+          name: 'K',
+          avatar: '🦊',
+          level: 1,
+          stars: 0,
+          createdAt: 1,
+          progress: {},
+          srs: {},
+          // The "new ending" intro was already shown; these tests play the questions.
+          course: seen ? { phrasesSeen: { 'poss:endings': 1, 'poss:places': 1 } } : {},
+        },
       ],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
@@ -90,6 +101,18 @@ afterEach(() => {
 });
 
 describe('PossessiveGame (Kenen?)', () => {
+  it('SHOWS the endings (-ni / -si / -nsa) the first time, before asking', () => {
+    localStorage.clear();
+    seedChild(false);
+    renderGame();
+    expect(screen.getByText('Uusi pääte!', { exact: false })).toBeInTheDocument();
+    expect(document.querySelectorAll('.word-tile')).toHaveLength(0);
+    fireEvent.click(screen.getByText('Jatka', { exact: false }).closest('button')!);
+    expect(screen.getByText('kissani', { selector: '.word-tile' })).toBeInTheDocument();
+    const stored = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    expect(stored.children[0].course.phrasesSeen['poss:endings']).toBeTruthy();
+  });
+
   it('shows the picture + English gloss and the possessor form tiles', async () => {
     renderGame();
     expect(screen.getByText('🐱')).toBeInTheDocument();

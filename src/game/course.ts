@@ -7,7 +7,9 @@
 //     with no checkpoint — Mestari — never blocks anything after it).
 //   - Inside an open unit, the lesson comes first: practice steps open once the
 //     lesson has been read to the end.
-//   - A step is DONE when its adaptive level reaches `doneAtLevel` (default 2).
+//   - A step is DONE when the child has PROVED its top level: reached its
+//     `maxLevel` and cleared the promotion bar there (see `provesTop`), so every
+//     challenge type on the step's ladder has been passed — none skipped.
 //   - The checkpoint opens when every step is done; passing it completes the unit.
 //   - A grown-up's `unlockAll` setting opens every unit and step.
 
@@ -25,7 +27,6 @@ import {
 export type Unit = Chapter;
 export type Status = 'locked' | 'open' | 'done';
 
-export const DEFAULT_DONE_LEVEL = 2;
 /** Checkpoint defaults: ~3 questions per step, at least 8 in all, 80% to pass. */
 export const DEFAULT_CHECKPOINT = { perStep: 3, minQuestions: 8, passRatio: 0.8 };
 
@@ -55,8 +56,13 @@ export function stepLevel(child: Child | null | undefined, unit: Unit, step: Ski
   return child?.progress?.[unit.id]?.[step.id]?.level ?? 1;
 }
 
+/** The level a step must be proven at — the top of its own ladder. */
+export function topLevel(step: SkillNode): number {
+  return step.maxLevel ?? 4;
+}
+
 export function stepDone(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
-  return stepLevel(child, unit, step) >= (step.doneAtLevel ?? DEFAULT_DONE_LEVEL);
+  return !!child?.progress?.[unit.id]?.[step.id]?.topProvenAt;
 }
 
 export function allStepsDone(child: Child | null | undefined, unit: Unit): boolean {
@@ -160,7 +166,7 @@ export interface CheckpointPart {
   activity: ActivityKind;
   /** Questions to ask from this step. */
   questions: number;
-  /** Level to play at (the step's done level — what the child has proven). */
+  /** Level to play at (the step's top level — what the child has proven). */
   level: number;
   /** The lesson that explains this part (for the "Why?" tip). */
   lessonId: string;
@@ -174,7 +180,7 @@ export const REMEMBER_QUESTIONS = 2;
 /** The game a step contributes to a checkpoint. */
 export function checkpointActivity(step: SkillNode): ActivityKind {
   if (step.checkpoint) return step.checkpoint;
-  const unlocked = activitiesUpTo(step, step.doneAtLevel ?? DEFAULT_DONE_LEVEL);
+  const unlocked = activitiesUpTo(step, topLevel(step));
   return unlocked[unlocked.length - 1];
 }
 
@@ -188,7 +194,7 @@ function partFor(
     step,
     activity: checkpointActivity(step),
     questions,
-    level: step.doneAtLevel ?? DEFAULT_DONE_LEVEL,
+    level: topLevel(step),
     lessonId,
     kind,
   };

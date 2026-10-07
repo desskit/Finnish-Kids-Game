@@ -47,7 +47,7 @@ Greetings come in **pairs**: someone says the first line, and you answer with th
 
 ### 5. Saying who you are _(pairs)_
 
-When you meet someone new:
+When you meet someone new. Look at *nimesi* and *nimeni*: *nimi* means **name**, and the ending says whose — **-si** = your, **-ni** = my. (More about these endings in the "Whose?" unit.)
 
 - 🗣️ **Mikä sinun nimesi on?** — What's your name?  →  ↪️ **Nimeni on Aino.** — My name is Aino.
 - 🗣️ **Kuinka vanha olet?** — How old are you?  →  ↪️ **Olen seitsemänvuotias.** — I'm seven years old.
@@ -273,7 +273,7 @@ _Explain:_ After *ei ole*, the thing takes **-a / -ä**: *kenkää*.
 
 _Explain:_ *on* means "is" — so yes! For "no" it would be *ei ole* … *hattua*.
 
-## Unit 6: Verbs tell you WHO (Kuka tekee?) 🏃
+## Unit 7: Verbs tell you WHO (Kuka tekee?) 🏃
 
 ### 1. The end of the verb says who _(explain)_
 
@@ -336,7 +336,7 @@ _Explain:_ **-mme** means "we".
 
 _Explain:_ **-tte** means "you all".
 
-## Unit 7: "Not" is a verb (En tee) ✋
+## Unit 8: "Not" is a verb (En tee) ✋
 
 ### 1. A "no" word that changes _(explain)_
 
@@ -381,7 +381,7 @@ _Explain:_ *et* = "you … not" (the **-t** means you).
 
 _Explain:_ *eivät* = "they … not", and the main verb stays short.
 
-## Unit 9: Liking and loving (Pidän ja rakastan) ❤️
+## Unit 10: Liking and loving (Pidän ja rakastan) ❤️
 
 ### 1. Every verb picks an ending _(explain)_
 
@@ -423,7 +423,7 @@ _Explain:_ *pidän* always takes **-sta / -stä**: *musiikista*.
 
 _Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)
 
-## Unit 11: Seeing vs. watching (Näen ja odotan) 👀
+## Unit 12: Seeing vs. watching (Näen ja odotan) 👀
 
 ### 1. The whole thing: -n _(examples)_
 
@@ -460,7 +460,7 @@ _Explain:_ Waiting goes on for a while → **-a**: *junaa*.
 
 _Explain:_ Seeing the whole bus → **-n**: *bussin*.
 
-## Unit 12: One whole thing, or some? (Kaupassa) 🛒
+## Unit 13: One whole thing, or some? (Kaupassa) 🛒
 
 ### 1. One whole thing: -n _(examples)_
 
@@ -495,7 +495,7 @@ _Explain:_ **-a** (*maitoa*) means "some of it".
 
 _Explain:_ **-n** (*omenan*) means one whole thing.
 
-## Unit 13: Describing words copy (Millainen?) 🎨
+## Unit 14: Describing words copy (Millainen?) 🎨
 
 ### 1. Colors _(examples)_
 
@@ -540,7 +540,7 @@ _Explain:_ Both words get the ending: *isossa talossa*.
 
 _Explain:_ Both words take **-n**: *punaisen pallon*.
 
-## Unit 14: Endings instead of "in" and "on" (Missä?) 📍
+## Unit 15: Endings instead of "in" and "on" (Missä?) 📍
 
 ### 1. No word for "in" _(examples)_
 
@@ -569,7 +569,15 @@ Words with **a, o, u** → *-ssa, -lla*. Words with **ä, ö, y** → *-ssä, -l
 Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*). Don't worry — **the ending at the very end is what tells you "in" or "on"**.
 
 
-### 5. Try it _(check)_
+### 5. In MY house _(examples)_
+
+Remember the "my" ending **-ni**? It goes on the very end — **after** the place ending: *talo* + **-ssa** + **-ni** = *talossani*, "in my house".
+
+- 🏠 talo → **talossa[ni]** — in my house
+- 🚪 huone → **huoneessa[si]** — in your room
+- 🍽️ pöytä → **pöydällä[ni]** — on my table
+
+### 6. Try it _(check)_
 
 **Q:** The cat is ON the table. Which is right?
 
@@ -578,7 +586,7 @@ Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*
 
 _Explain:_ "On" → **-lla / -llä**: *pöydällä*.
 
-### 6. Try it _(check)_
+### 7. Try it _(check)_
 
 **Q:** The cat is IN the house. Which is right?
 
@@ -587,7 +595,7 @@ _Explain:_ "On" → **-lla / -llä**: *pöydällä*.
 
 _Explain:_ "In" → **-ssa**: *talossa*.
 
-## Unit 15: In, into, out of (Missä? Mihin? Mistä?) 🚶
+## Unit 16: In, into, out of (Missä? Mihin? Mistä?) 🚶
 
 ### 1. Three questions _(explain)_
 
@@ -638,7 +646,7 @@ _Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
 
 _Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
 
-## Unit 18: Position words come after (Edessä, takana) 🧭
+## Unit 19: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -686,7 +694,7 @@ _Explain:_ Before a position word, the thing gets **-n**: *puun takana*.
 
 _Explain:_ Before *alla*, the thing gets **-n**: *pöydän alla*.
 
-## Unit 19: "My" is an ending (Kenen?) 🙋
+## Unit 6: "My" is an ending (Kenen?) 🙋
 
 ### 1. Endings for my, your, their _(examples)_
 
@@ -704,12 +712,13 @@ Finnish can stick "my" and "your" onto the **end** of a word:
 People often say both: *minun kirjani* (my book), *sinun kirjasi* (your book), *hänen kirjansa* (his/her book). **The ending is the part to listen for.**
 
 
-### 3. Stacking endings _(examples)_
+### 3. You already know one! _(examples)_
 
-The "my" ending can even go **after** a place ending: "in my house".
+Remember *Nimeni on…* from the very first unit? *nimeni* is **my name** — *nimi* + **-ni**. It works on any word:
 
-- 🏠 talo → **talossa[ni]** — in my house
-- 🚪 huone → **huoneessa[si]** — in your room
+- 👩 äiti → **äiti[ni]** — my mom
+- 🤝 kaveri → **kaveri[ni]** — my friend
+- 🐶 koira → **koira[si]** — your dog
 
 ### 4. Try it _(check)_
 
@@ -725,7 +734,7 @@ _Explain:_ **-si** means "your".
 
 - 📕 **Tämä on minun kirja[ni].** — This is my book.
 - 🚲 **Tämä on sinun pyörä[si].** — This is your bike.
-- 🎒 **Missä on sinun reppu[si]?** — Where is your backpack?
+- 🎒 **Tämä on hänen reppu[nsa].** — This is his/her backpack.
 
 ### 6. Try it _(check)_
 
@@ -966,7 +975,7 @@ Every practice here gets **harder and harder** as you improve — tricky look-al
 
 _Explain:_ "Would" → **-isi-**: *söisin*.
 
-## Unit 8: Saying how you feel (Miltä tuntuu?) 😄
+## Unit 9: Saying how you feel (Miltä tuntuu?) 😄
 
 ### 1. I am… _(examples)_
 
@@ -1010,7 +1019,7 @@ _Explain:_ *Minulla on kylmä* — "on me is cold".
 
 _Explain:_ *En ole* = I am **not**.
 
-## Unit 10: Liking and not liking (Koulupäivä) 🏫
+## Unit 11: Liking and not liking (Koulupäivä) 🏫
 
 ### 1. School subjects _(examples)_
 
@@ -1050,7 +1059,7 @@ _Explain:_ *En pidä* still takes **-sta**: *matematiikasta*.
 
 _Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
 
-## Unit 16: You on the move (Kaupungilla ja kotona) 🏙️
+## Unit 17: You on the move (Kaupungilla ja kotona) 🏙️
 
 ### 1. The cat's endings — for you _(explain)_
 
@@ -1096,7 +1105,7 @@ _Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
 
 _Explain:_ A station is an "on" place → **-lla**: *asemalla*.
 
-## Unit 17: Days and times (Milloin?) 📅
+## Unit 18: Days and times (Milloin?) 📅
 
 ### 1. Days of the week _(examples)_
 

@@ -191,9 +191,9 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   the vocab warm-up, `sceneStep(...)` for the unit's conversation,
   `reviewStep(unitId)` for a Kertaus, or a plain `SkillNode`. Dialogue, scene
   and story steps take `content.ids` to pick registry entries.
-- **Build it before done.** `phraseStep` ramps `build → order → spell → spell`
-  and is done at **level 3**, so a child must assemble the sentence (word
-  order) before the step counts — tapping tiles alone never finishes it.
+- **Build, order AND type before done.** `phraseStep` ramps `build → order →
+  spell → spell` (top level 4), so a finished sentence step means the child
+  has tapped, assembled and typed the sentence.
 - `checkpoint` (optional `ActivityKind`) is the game a step plays in its
   unit's checkpoint. `phraseStep` uses `order` and `wordsStep` uses `name`;
   without it the checkpoint uses the step's top game at its done level.
@@ -216,8 +216,13 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   constructions are already exactly what its lesson taught. A conjugation step
   also pins `verbCombos` to its lesson's tense. Only Mestari (the last unit)
   is unpinned, so its original deep ladders climb to L9–10.
-- `doneAtLevel` (default 2) is the step level that counts toward unlocking
-  the checkpoint.
+- **A step is done only when its TOP level is proven.** The child reaches the
+  step's `maxLevel`, then clears the same bar a promotion would need there
+  (`provesTop`: enough rounds, a high enough first-try average). That is
+  recorded as `topProvenAt` and stays set. Every game on the step's ladder is
+  unlocked by its top level, so none can be skipped (a test enforces this).
+  Choose `maxLevel` with that in mind: a single scripted scene uses 2, words
+  use 3, sentences use 4. Checkpoints ask at each step's top level.
 - **Words without a picture** (days, *janoinen*, *olohuone*…) are fine in the
   words step: Listen-and-tap shows the English word on the card, Name-it
   prompts with the English word, and Build shows the gloss. Only count, match
@@ -283,3 +288,20 @@ construction, plus counting / verbs / possessives / agreement). The example
 is the correct looked-up form with its ending marked. A new construction
 should get a `CONSTRUCTION_RULES` entry; `why.test.ts` fails if it falls back
 to the generic text.
+
+## Achievements
+
+`src/game/badges.ts` lists every achievement as a **measure** (`have / need`
+plus a unit), and the Achievements screen (`/achievements`) shows exactly
+what's left ("7 / 10 words"). To add one:
+
+- Give it a category, a kid-readable `hintEn` saying exactly what to do, and a
+  `measure(child, env)`.
+- Measure only what is already stored (stars, SRS, `progress`, `course`,
+  streaks). If it needs new facts about the content, add them to `badgeEnv`
+  in `path.tsx`.
+- Balance it against the current course. The early badges come in the first
+  sessions; the course badges follow passed checkpoints; the skill badges
+  reward the hard parts (typing, Kertaus, conversations), so nothing is worth
+  skipping.
+

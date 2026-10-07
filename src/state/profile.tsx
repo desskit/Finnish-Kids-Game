@@ -255,10 +255,14 @@ export function ProfileProvider({
         }),
 
       recordRound: (topicId, activityId, stars, total, maxLevel) =>
-        updateActive((c) => ({
-          ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel),
-          ...bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now())),
-        })),
+        updateActive((c) => {
+          const streak = bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now()));
+          return {
+            ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel),
+            ...streak,
+            bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
+          };
+        }),
 
       settings: data.settings,
       updateSettings: (patch) =>

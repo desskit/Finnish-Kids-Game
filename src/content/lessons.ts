@@ -270,7 +270,8 @@ export const lessons: Lesson[] = [
       {
         kind: 'pairs',
         title: 'Saying who you are',
-        text: 'When you meet someone new:',
+        text:
+          'When you meet someone new. Look at *nimesi* and *nimeni*: *nimi* means **name**, and the ending says whose — **-si** = your, **-ni** = my. (More about these endings in the "Whose?" unit.)',
         ids: ['your-name', 'how-old', 'nice-to-meet', 'thanks-food'],
       },
       {
@@ -862,6 +863,17 @@ export const lessons: Lesson[] = [
           'Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*). Don\'t worry — **the ending at the very end is what tells you "in" or "on"**.',
       },
       {
+        kind: 'examples',
+        title: 'In MY house',
+        text:
+          'Remember the "my" ending **-ni**? It goes on the very end — **after** the place ending: *talo* + **-ssa** + **-ni** = *talossani*, "in my house".',
+        rows: [
+          { possessive: 'house', possessor: '1sg', case: 'inessive' },
+          { possessive: 'room', possessor: '2sg', case: 'inessive' },
+          { possessive: 'table', possessor: '1sg', case: 'adessive' },
+        ],
+      },
+      {
         kind: 'check',
         question: 'The cat is ON the table. Which is right?',
         options: [
@@ -1020,11 +1032,13 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Stacking endings',
-        text: 'The "my" ending can even go **after** a place ending: "in my house".',
+        title: 'You already know one!',
+        text:
+          'Remember *Nimeni on…* from the very first unit? *nimeni* is **my name** — *nimi* + **-ni**. It works on any word:',
         rows: [
-          { possessive: 'house', possessor: '1sg', case: 'inessive' },
-          { possessive: 'room', possessor: '2sg', case: 'inessive' },
+          { possessive: 'mother', possessor: '1sg' },
+          { possessive: 'friend', possessor: '1sg' },
+          { possessive: 'dog', possessor: '2sg' },
         ],
       },
       {
@@ -1043,7 +1057,7 @@ export const lessons: Lesson[] = [
         rows: [
           { sentence: 'this-is-mine', word: 'book' },
           { sentence: 'this-is-yours', word: 'bike' },
-          { sentence: 'where-is-yours', word: 'backpack' },
+          { sentence: 'this-is-theirs', word: 'backpack' },
         ],
       },
       {

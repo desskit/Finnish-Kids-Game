@@ -95,6 +95,8 @@ const lvl = (level: number) => ({
   level,
   recent: [] as number[],
 });
+/** A step whose TOP level has been proven — the only thing that counts as done. */
+const proven = (level: number) => ({ ...lvl(level), topProvenAt: 1 });
 
 describe('course home', () => {
   it('starts a new child on unit 1: Continue → its lesson, later units locked', () => {
@@ -124,7 +126,7 @@ describe('course home', () => {
 
   it('ticks finished steps and opens the checkpoint once all are done', () => {
     seedChild(
-      { 'hello': { greetings: lvl(2), introduce: lvl(2), 'hello-talk': lvl(2) } },
+      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 } },
     );
@@ -137,7 +139,7 @@ describe('course home', () => {
 
   it('opens the next unit once the checkpoint is passed', () => {
     seedChild(
-      { 'hello': { greetings: lvl(2), introduce: lvl(2), 'hello-talk': lvl(2) } },
+      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 }, checkpoints: { 'hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
     );
@@ -175,6 +177,25 @@ describe('lessons + notebook', () => {
     renderAt('/notebook');
     expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
     expect(screen.getByText(/22 more lessons unlock/)).toBeInTheDocument();
+  });
+});
+
+describe('achievements', () => {
+  it('lists every achievement with exactly what earns it, and how far along you are', () => {
+    seedChild();
+    renderAt('/achievements');
+    expect(screen.getByText(/0 of \d+ earned/)).toBeInTheDocument();
+    expect(screen.getByText('Practice 3 days in a row.')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Writer: 0 of 10 sentence steps/)).toBeInTheDocument();
+  });
+
+  it('is one tap from home', () => {
+    seedChild();
+    renderAt('/');
+    // The tile AND the badge strip both open it.
+    const links = screen.getAllByRole('link', { name: /Achievements/ });
+    expect(links.length).toBe(2);
+    for (const l of links) expect(l.getAttribute('href')).toMatch(/achievements$/);
   });
 });
 

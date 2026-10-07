@@ -40,9 +40,11 @@ function child(over: Partial<Child> = {}): Child {
 const [u1, u2, u3] = UNITS;
 const passed = (...ids: string[]) =>
   Object.fromEntries(ids.map((id) => [id, { passedAt: 1, best: 1, attempts: 1 }]));
-/** Every step of a unit at its done level. */
+/** Every step of a unit with its top level proven. */
 const allDone = (unit: (typeof UNITS)[number]) => ({
-  [unit.id]: Object.fromEntries(unit.skills.map((s) => [s.id, prog(s.doneAtLevel ?? 2)])),
+  [unit.id]: Object.fromEntries(
+    unit.skills.map((s) => [s.id, { ...prog(s.maxLevel ?? 4), topProvenAt: 1 }]),
+  ),
 });
 
 describe('unit unlocking', () => {
@@ -75,24 +77,23 @@ describe('steps and checkpoints inside a unit', () => {
     expect(stepStatus(read, u1, s)).toBe('open');
   });
 
-  it("marks a step done at its done level (default 2)", () => {
+  it('marks a step done only once its TOP level is proven — reaching it is not enough', () => {
     const s = u1.skills[0];
-    const c = child({
-      course: { lessonsSeen: { [u1.lessonId]: 1 } },
-      progress: { [u1.id]: { [s.id]: prog(2) } },
+    const read = { lessonsSeen: { [u1.lessonId]: 1 } };
+    const top = s.maxLevel ?? 4;
+    const atTop = child({ course: read, progress: { [u1.id]: { [s.id]: prog(top) } } });
+    expect(stepStatus(atTop, u1, s)).toBe('open');
+    const provenTop = child({
+      course: read,
+      progress: { [u1.id]: { [s.id]: { ...prog(top), topProvenAt: 1 } } },
     });
-    expect(stepStatus(c, u1, s)).toBe('done');
-    const lower = child({
-      course: { lessonsSeen: { [u1.lessonId]: 1 } },
-      progress: { [u1.id]: { [s.id]: prog(1) } },
-    });
-    expect(stepStatus(lower, u1, s)).toBe('open');
+    expect(stepStatus(provenTop, u1, s)).toBe('done');
   });
 
   it('opens the checkpoint only when every step is done', () => {
     const some = child({
       course: { lessonsSeen: { [u1.lessonId]: 1 } },
-      progress: { [u1.id]: { [u1.skills[0].id]: prog(2) } },
+      progress: { [u1.id]: { [u1.skills[0].id]: { ...prog(3), topProvenAt: 1 } } },
     });
     expect(checkpointStatus(some, u1)).toBe('locked');
     const all = child({ course: { lessonsSeen: { [u1.lessonId]: 1 } }, progress: allDone(u1) });
@@ -112,7 +113,8 @@ describe('steps and checkpoints inside a unit', () => {
         else expect(p.step.id).toBe(step.id);
       });
       expect(plan.reduce((n, p) => n + p.questions, 0)).toBeGreaterThanOrEqual(8);
-      for (const p of plan) expect(p.level).toBe(p.step.doneAtLevel ?? 2);
+      // Asked at each step's TOP level — what the child proved.
+      for (const p of plan) expect(p.level).toBe(p.step.maxLevel ?? 4);
       const remember = plan.filter((p) => p.kind === 'remember');
       expect(remember.length).toBe(ui >= 2 ? 1 : 0);
       for (const r of remember) {

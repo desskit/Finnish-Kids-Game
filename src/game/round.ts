@@ -699,6 +699,8 @@ export function buildPossessiveRound(
   optionCount: number,
   withCases = false,
   weigh?: WeighFn,
+  /** Share of questions that go to a place + locative case when `withCases`. */
+  locativeShare = 0.4,
 ): PossessiveQuestion[] {
   // Only nouns that actually carry the possessive paradigm can play.
   const usable = items.filter((i) => possessiveForm(i, '1sg'));
@@ -715,12 +717,18 @@ export function buildPossessiveRound(
     // ~40% of questions in the locative band go to a place + a locative case
     // ("in my house"); the rest are the bare "my cat" nominative over the full
     // pool, so the two mix.
-    const goLocative = localePlaces.length > 0 && Math.random() < 0.4;
+    const goLocative = localePlaces.length > 0 && Math.random() < locativeShare;
     const item = goLocative
       ? weightedSample(localePlaces, 1, weigh)[0]
       : weightedSample(usable, 1, weigh)[0];
     if (!item) break;
-    const caseId: CaseId = goLocative ? sample(POSSESSIVE_LOCATIVE_CASES, 1)[0] : 'nominative';
+    // A place takes the ending that fits ITS shape: "in" for things you go
+    // inside (talossani), "on" for surfaces (pöydälläni) — never "on my forest".
+    const fits = POSSESSIVE_LOCATIVE_CASES.filter((c) =>
+      c === 'inessive' ? item.tags?.includes('container') : item.tags?.includes('surface'),
+    );
+    if (goLocative && fits.length === 0) continue;
+    const caseId: CaseId = goLocative ? sample(fits, 1)[0] : 'nominative';
 
     const possessor = sample(POSSESSORS, 1)[0].id;
     const answer = possessiveForm(item, possessor, caseId);

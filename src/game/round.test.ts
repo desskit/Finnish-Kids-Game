@@ -835,6 +835,15 @@ describe('familiarity weighting (weigh) in target selection', () => {
 });
 
 describe('buildPossessiveRound (Kenen? — possessive suffixes)', () => {
+  it('gives a place the ending that fits its shape — never "on my forest"', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildPossessiveRound(places.items, 6, 3, true, undefined, 1)) {
+        if (q.caseId === 'inessive') expect(q.item.tags, q.answer).toContain('container');
+        if (q.caseId === 'adessive') expect(q.item.tags, q.answer).toContain('surface');
+      }
+    }
+  });
+
   const nouns = [...animals.items, ...places.items];
 
   it('offers same-word possessive forms; the answer matches the cued possessor', () => {
