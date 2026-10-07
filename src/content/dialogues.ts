@@ -435,4 +435,112 @@ export const dialogues: DialogueExchange[] = [
     ],
     tier: 5,
   },
+
+  // --- Question words (the "Kysymyssanat" unit). The reply is the answer that
+  // fits THIS question word; the backfilled tiles are answers to the OTHER
+  // question words — so the child has to understand kuka / mikä / missä /
+  // mihin / mistä / milloin / montako / kenen / miksi to pick. Inflected forms
+  // checked against the sourced tables (kirjaa, laatikossa, puistoon,
+  // koulusta, lauantaina, kissaa, isän). ⚠️ NEEDS NATIVE FINNISH VETTING.
+  {
+    id: 'qw-who',
+    prompt: { fi: 'Kuka tuo on?', en: 'Who is that?' },
+    reply: { fi: 'Tuo on minun opettajani.', en: "That's my teacher." },
+    distractors: [
+      { fi: 'Kissa on laatikossa.', en: 'The cat is in the box.' },
+      { fi: 'Lauantaina.', en: 'On Saturday.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-what',
+    prompt: { fi: 'Mikä tämä on?', en: 'What is this?' },
+    reply: { fi: 'Tämä on kirja.', en: 'This is a book.' },
+    distractors: [
+      { fi: 'Kaksi.', en: 'Two.' },
+      { fi: 'Menen puistoon.', en: "I'm going to the park." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-what-doing',
+    prompt: { fi: 'Mitä sinä teet?', en: 'What are you doing?' },
+    reply: { fi: 'Luen kirjaa.', en: "I'm reading a book." },
+    distractors: [
+      { fi: 'Koulussa.', en: 'At school.' },
+      { fi: 'Se on isän pallo.', en: "It's Dad's ball." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-where',
+    prompt: { fi: 'Missä kissa on?', en: 'Where is the cat?' },
+    reply: { fi: 'Kissa on laatikossa.', en: 'The cat is in the box.' },
+    distractors: [
+      { fi: 'Lauantaina.', en: 'On Saturday.' },
+      { fi: 'Tuo on minun opettajani.', en: "That's my teacher." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-where-to',
+    prompt: { fi: 'Mihin sinä menet?', en: 'Where are you going?' },
+    reply: { fi: 'Menen puistoon.', en: "I'm going to the park." },
+    distractors: [
+      // Real Finnish, but it answers MISSÄ (where you are), not MIHIN.
+      { fi: 'Olen puistossa.', en: "I'm in the park." },
+      { fi: 'Kaksi.', en: 'Two.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-where-from',
+    prompt: { fi: 'Mistä sinä tulet?', en: 'Where are you coming from?' },
+    reply: { fi: 'Tulen koulusta.', en: "I'm coming from school." },
+    distractors: [
+      { fi: 'Menen kouluun.', en: "I'm going to school." },
+      { fi: 'Luen kirjaa.', en: "I'm reading a book." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-when',
+    prompt: { fi: 'Milloin leikitään?', en: 'When shall we play?' },
+    reply: { fi: 'Lauantaina.', en: 'On Saturday.' },
+    distractors: [
+      { fi: 'Koulussa.', en: 'At school.' },
+      { fi: 'Tämä on kirja.', en: 'This is a book.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-how-many',
+    prompt: { fi: 'Montako kissaa sinulla on?', en: 'How many cats do you have?' },
+    reply: { fi: 'Kaksi.', en: 'Two.' },
+    distractors: [
+      { fi: 'Se on isän pallo.', en: "It's Dad's ball." },
+      { fi: 'Lauantaina.', en: 'On Saturday.' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-whose',
+    prompt: { fi: 'Kenen pallo tämä on?', en: 'Whose ball is this?' },
+    reply: { fi: 'Se on isän pallo.', en: "It's Dad's ball." },
+    distractors: [
+      { fi: 'Tämä on kirja.', en: 'This is a book.' },
+      { fi: 'Tulen koulusta.', en: "I'm coming from school." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'qw-why',
+    prompt: { fi: 'Miksi sinä itket?', en: 'Why are you crying?' },
+    reply: { fi: 'Koska olen surullinen.', en: "Because I'm sad." },
+    distractors: [
+      { fi: 'Koulussa.', en: 'At school.' },
+      { fi: 'Kaksi.', en: 'Two.' },
+    ],
+    tier: 3,
+  },
 ];

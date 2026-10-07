@@ -29,12 +29,19 @@ import {
   verbForm,
 } from './types';
 import { nounConstructions } from './constructions';
+import { commandFor, dontForm, letsForm, ownerGloss } from './types';
+import { questionFor } from './questions';
+import { PRONOUNS, PRONOUN_FRAMES, type PronounCase } from './pronouns';
 import { dialogues, personalizeLine } from './dialogues';
 import { numbers } from './index';
 import { itemById } from './lookup';
 import {
   caseSegments,
+  dontSegments,
+  letsSegments,
   possessiveSegments,
+  pronounSegments,
+  questionSegments,
   segmentsText,
   verbSegments,
   type Segment,
@@ -47,7 +54,7 @@ export type LessonRef =
   | { word: string; case?: CaseId; number?: GrammaticalNumber; en?: string }
   /** A whole carrier sentence. `asCase` deliberately uses the WRONG case (only
    *  for the wrong options of a `check` card). */
-  | { sentence: string; word: string; asCase?: CaseId; en?: string }
+  | { sentence: string; word: string; asCase?: CaseId; verbAs?: '1sg'; en?: string }
   /** A pronoun + conjugated verb ("minä syön"). */
   | { verb: string; tense: VerbTense; polarity: Polarity; person: PersonId; en?: string }
   /** A possessive form ("kirjani"). */
@@ -58,7 +65,17 @@ export type LessonRef =
   /** Adjective + noun agreeing in a case; `adjCase` breaks agreement (wrong option). */
   | { agree: string; word: string; case: CaseId; adjCase?: CaseId; en?: string }
   /** A vetted dialogue line. */
-  | { line: string; part: 'prompt' | 'reply' };
+  | { line: string; part: 'prompt' | 'reply' }
+  /** A yes/no question with a verb ("Syötkö?" — questions.ts). */
+  | { ask: string; en?: string }
+  /** A command: do it ("Juokse!"), don't ("Älä juokse!") or let's ("Juostaan!"). */
+  | { mood: string; kind: 'do' | 'dont' | 'lets'; en?: string }
+  /** A pronoun form ("minua", "minulle" — pronouns.ts). */
+  | { pronoun: PersonId; case: PronounCase; en?: string }
+  /** A pronoun sentence frame filled ("Auta minua!"); `case` = a wrong option. */
+  | { frame: string; person: PersonId; case?: PronounCase; en?: string }
+  /** An owner + a thing ("isän pyörä"); `wrong` = a learner slip, for checks. */
+  | { owner: string; thing: string; wrong?: 'basic' | 'has'; en?: string };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -131,12 +148,88 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     const l = personalizeLine(ex[ref.part], childName);
     return { segments: [{ text: l.fi }], en: l.en, speak: l.fi };
   }
+  if ('ask' in ref) {
+    const verb = itemById(ref.ask);
+    const q = verb && questionFor(verb);
+    if (!verb || !q) return null;
+    const segs = [...questionSegments(q.slice(0, -1)), { text: '?' }];
+    segs[0] = { ...segs[0], text: segs[0].text.charAt(0).toUpperCase() + segs[0].text.slice(1) };
+    return { segments: segs, en: ref.en ?? `Do you ${verb.en}?`, emoji: verb.emoji, speak: segmentsText(segs) };
+  }
+  if ('mood' in ref) {
+    const verb = itemById(ref.mood);
+    if (!verb) return null;
+    const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+    let segs: Segment[] | null = null;
+    let en = '';
+    if (ref.kind === 'do') {
+      const f = commandFor(verb);
+      if (f) segs = [{ text: f }];
+      en = `${cap(verb.en)}!`;
+    } else if (ref.kind === 'dont') {
+      const f = dontForm(verb);
+      if (f) segs = [...dontSegments(cap(f)), { text: '!' }];
+      en = `Don't ${verb.en}!`;
+    } else {
+      const f = letsForm(verb);
+      if (f) segs = [...letsSegments(cap(f)), { text: '!' }];
+      en = `Let's ${verb.en}!`;
+    }
+    if (!segs) return null;
+    return { segments: segs, en: ref.en ?? en, emoji: verb.emoji, speak: segmentsText(segs) };
+  }
+  if ('pronoun' in ref) {
+    const forms = PRONOUNS[ref.pronoun];
+    if (!forms) return null;
+    const segs = pronounSegments(forms[ref.case], ref.case);
+    return { segments: segs, base: ref.case === 'nominative' ? undefined : forms.nominative, en: ref.en, speak: segmentsText(segs) };
+  }
+  if ('frame' in ref) {
+    const frame = PRONOUN_FRAMES.find((f) => f.id === ref.frame);
+    if (!frame) return null;
+    const c = ref.case ?? frame.case;
+    const segs = [
+      { text: frame.before + ' ' },
+      ...pronounSegments(PRONOUNS[ref.person][c], c),
+      { text: frame.punct },
+    ];
+    return {
+      segments: segs,
+      en: ref.en ?? (ref.case ? undefined : frame.en.replace('___', PRONOUNS[ref.person].enObject)),
+      speak: segmentsText(segs),
+    };
+  }
+  if ('owner' in ref) {
+    const owner = itemById(ref.owner);
+    const thing = itemById(ref.thing);
+    if (!owner || !thing) return null;
+    const ownerForm =
+      ref.wrong === 'basic'
+        ? owner.fi
+        : caseFormOf(owner, ref.wrong === 'has' ? 'adessive' : 'genitive', 'singular');
+    if (!ownerForm) return null;
+    const segs: Segment[] = [
+      ...(ref.wrong ? [{ text: ownerForm }] : caseSegments(ownerForm, 'genitive')),
+      { text: ` ${thing.fi}` },
+    ];
+    const gloss = ownerGloss(owner, thing);
+    return {
+      segments: segs,
+      en: ref.en ?? (ref.wrong ? undefined : gloss.charAt(0).toUpperCase() + gloss.slice(1)),
+      emoji: thing.emoji,
+      speak: segmentsText(segs),
+    };
+  }
   if ('sentence' in ref) {
     const con = nounConstructions.find((c) => c.id === ref.sentence);
     const item = itemById(ref.word);
     if (!con || !item) return null;
     const c = ref.asCase ?? con.case;
-    const form = ref.asCase ? caseFormOf(item, c, con.number) : formFor(item, con);
+    const form = ref.verbAs
+      ? verbForm(item, 'present', 'positive', ref.verbAs)
+      : ref.asCase
+        ? caseFormOf(item, c, con.number)
+        : formFor(item, con);
     if (!form) return null;
     const slot =
       con.possessor && !ref.asCase
@@ -145,7 +238,7 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     const segs = sentenceSegments(con.before, slot, con.after, con.punct);
     return {
       segments: segs,
-      en: ref.en ?? (ref.asCase ? undefined : englishSentenceFor(item, con)),
+      en: ref.en ?? (ref.asCase || ref.verbAs ? undefined : englishSentenceFor(item, con)),
       emoji: item.emoji,
       speak: segmentsText(segs),
     };
@@ -1560,6 +1653,316 @@ export const lessons: Lesson[] = [
           { ref: { word: 'winter', case: 'essive' } },
         ],
         explain: 'A season → **-lla**: *talvella*.',
+      },
+    ],
+  },
+  // --- Six grammar lessons added with the "Owners / Asking / Want-can-may /
+  // Do-don't-let's / Question words / Me and you" units. Finnish quoted in
+  // prose (*isän*, *-ko*…) is listed in FINNISH_REVIEW.md for native vetting.
+  {
+    id: 'owners',
+    titleFi: 'Äidin pyörä',
+    titleEn: "Mom's bike — the owner gets -n",
+    emoji: '🚲',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'The owner comes first',
+        text: 'To say WHOSE something is, put the **owner first** and give it **-n**: *isä* → *isän pyörä* = Dad\'s bike. No extra word for "\'s"!',
+        rows: [
+          { owner: 'father', thing: 'bike' },
+          { owner: 'mother', thing: 'coat' },
+          { owner: 'teacher', thing: 'book' },
+          { owner: 'cat', thing: 'ball' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Kenen? — Whose?',
+        text: '*Kenen pyörä tämä on?* means **Whose bike is this?** Answer with the owner + **-n**: *Se on isän pyörä.*\n\nYou already know *minun* and *sinun* (my, your) — they end in **-n** too!',
+      },
+      {
+        kind: 'examples',
+        title: 'Look at the END',
+        text: 'Sometimes the middle of the word changes a little (*äiti* → *äidin*). The **-n** at the very end is what says "whose".',
+        rows: [
+          { owner: 'mother', thing: 'phone' },
+          { owner: 'friend', thing: 'bike' },
+          { owner: 'sister', thing: 'hat' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means **Dad\'s ball**?',
+        options: [
+          { ref: { owner: 'father', thing: 'ball' }, correct: true },
+          { ref: { owner: 'father', thing: 'ball', wrong: 'basic' } },
+          { ref: { owner: 'father', thing: 'ball', wrong: 'has' } },
+        ],
+        explain: 'The owner takes **-n**: *isän pallo*.',
+      },
+      {
+        kind: 'check',
+        question: '*äidin kissa* — whose cat is it?',
+        options: [{ text: "Mom's", correct: true }, { text: "Dad's" }, { text: 'Mine' }],
+        explain: '*äidin* = Mom\'s (*äiti* + **-n**).',
+      },
+    ],
+  },
+  {
+    id: 'asking',
+    titleFi: 'Kysymykset',
+    titleEn: 'Asking with -ko / -kö',
+    emoji: '❓',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Any verb can ask',
+        text: 'You know *Onko…?* — that is *on* + **-ko**. It works on ANY verb: take the "you" form and add **-ko** or **-kö**.\n\n*syöt* (you eat) → *syötkö?* (do you eat?)',
+      },
+      {
+        kind: 'examples',
+        title: '-ko or -kö?',
+        text: 'The vowel team again: a word with **a, o, u** gets **-ko**; otherwise **-kö**.',
+        rows: [{ ask: 'sleep' }, { ask: 'play' }, { ask: 'swim' }, { ask: 'eat' }, { ask: 'jump' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Answer with the verb',
+        text: 'Finns often answer a question like this with the **verb itself** — and it switches from "you" to "I":\n\n*Syötkö?* — *Syön!* (yes) or *En syö.* (no)',
+        rows: [
+          { verb: 'eat', tense: 'present', polarity: 'positive', person: '1sg', en: 'yes — I eat' },
+          { verb: 'eat', tense: 'present', polarity: 'negative', person: '1sg', en: "no — I don't eat" },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you ask **"Do you swim?"**',
+        options: [
+          { ref: { ask: 'swim' }, correct: true },
+          { ref: { verb: 'swim', tense: 'present', polarity: 'positive', person: '2sg' } },
+          { ref: { verb: 'swim', tense: 'present', polarity: 'positive', person: '1sg' } },
+        ],
+        explain: 'The "you" form + **-ko**: *uit* → *uitko?*',
+      },
+      {
+        kind: 'check',
+        question: 'Someone asks *Nukutko?* — say **no**.',
+        options: [
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'negative', person: '1sg' }, correct: true },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '1sg' } },
+          { ref: { verb: 'sleep', tense: 'present', polarity: 'negative', person: '2sg' } },
+        ],
+        explain: '"No, I don\'t" = *en nuku* — about YOU, so *en* (I), not *et* (you).',
+      },
+    ],
+  },
+  {
+    id: 'wanting',
+    titleFi: 'Haluan leikkiä',
+    titleEn: 'Want to, can, may I',
+    emoji: '🎯',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Two verbs together',
+        text: '*Haluan* = I want. The verb after it stays in its **basic form** — the dictionary form you see in lists: *Haluan leikkiä* = I want to play.\n\nOnly the FIRST verb changes for the person.',
+      },
+      {
+        kind: 'examples',
+        title: 'I want to…',
+        rows: [
+          { sentence: 'i-want-to', word: 'play' },
+          { sentence: 'i-want-to', word: 'swim' },
+          { sentence: 'i-dont-want-to', word: 'sleep' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'I can… · May I…?',
+        text: '*Osaan* = I can (I know how). *Saanko…?* = May I…? — that is *saan* + the question ending **-ko**.',
+        rows: [
+          { sentence: 'i-can', word: 'swim' },
+          { sentence: 'i-can', word: 'read' },
+          { sentence: 'may-i', word: 'play' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means **"I want to swim"**?',
+        options: [
+          { ref: { sentence: 'i-want-to', word: 'swim' }, correct: true },
+          { ref: { sentence: 'i-want-to', word: 'swim', verbAs: '1sg' } },
+        ],
+        explain: 'After *Haluan*, the verb stays basic: *uida*.',
+      },
+      {
+        kind: 'check',
+        question: '*Osaan lukea.* means…',
+        options: [{ text: 'I can read', correct: true }, { text: 'I want to read' }, { text: 'May I read?' }],
+        explain: '*Osaan* = I can (I know how).',
+      },
+    ],
+  },
+  {
+    id: 'commands',
+    titleFi: 'Tee! Älä! Tehdään!',
+    titleEn: "Do it, don't, let's",
+    emoji: '🏃',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Telling someone to do it',
+        text: 'To tell ONE person what to do, use the **short verb**: the "I" form without its **-n**. *juoksen* (I run) → *Juokse!* (Run!)',
+        rows: [
+          { mood: 'run', kind: 'do' },
+          { mood: 'jump', kind: 'do' },
+          { mood: 'look', kind: 'do' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: "Don't!",
+        text: '"Don\'t" is *älä* + the same short verb.',
+        rows: [
+          { mood: 'run', kind: 'dont' },
+          { mood: 'cry', kind: 'dont' },
+          { mood: 'forget', kind: 'dont' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: "Let's!",
+        text: 'In everyday Finnish, "let\'s…" ends in **-aan / -ään** — you hear it all the time at school and on the playground.',
+        rows: [
+          { mood: 'play', kind: 'lets' },
+          { mood: 'go', kind: 'lets' },
+          { mood: 'eat', kind: 'lets' },
+          { mood: 'swim', kind: 'lets' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say **"Don\'t run!"**?',
+        options: [
+          { ref: { mood: 'run', kind: 'dont' }, correct: true },
+          { ref: { mood: 'run', kind: 'do' } },
+          { ref: { mood: 'run', kind: 'lets' } },
+        ],
+        explain: '*Älä* + the short verb: *Älä juokse!*',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say **"Let\'s play!"**?',
+        options: [
+          { ref: { mood: 'play', kind: 'lets' }, correct: true },
+          { ref: { mood: 'play', kind: 'do' } },
+          { ref: { mood: 'play', kind: 'dont' } },
+        ],
+        explain: '"Let\'s" ends in **-aan / -ään**: *Leikitään!*',
+      },
+    ],
+  },
+  {
+    id: 'question-words',
+    titleFi: 'Kysymyssanat',
+    titleEn: 'Question words',
+    emoji: '🤔',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'The question words',
+        text: '- *Kuka?* — who?\n- *Mikä?* — what? (what is it)\n- *Mitä?* — what? (what are you doing)\n- *Missä?* — where?\n- *Mihin?* — where to?\n- *Mistä?* — where from?\n- *Milloin?* — when?\n- *Montako?* — how many?\n- *Kenen?* — whose?\n- *Miksi?* — why?',
+      },
+      {
+        kind: 'explain',
+        title: 'The answer matches the question',
+        text: 'Listen to the question word — it tells you which ending the answer needs:\n\n- *Missä?* → **-ssa** (*laatikossa*)\n- *Mihin?* → **into** (*puistoon*)\n- *Mistä?* → **-sta** (*koulusta*)\n- *Kenen?* → **-n** (*isän*)\n- *Milloin?* → a time (*lauantaina*)',
+      },
+      {
+        kind: 'pairs',
+        title: 'Ask and answer',
+        ids: ['qw-who', 'qw-what-doing', 'qw-where', 'qw-where-to', 'qw-when'],
+      },
+      {
+        kind: 'pairs',
+        title: 'More questions',
+        ids: ['qw-what', 'qw-where-from', 'qw-how-many', 'qw-whose', 'qw-why'],
+      },
+      {
+        kind: 'check',
+        question: 'Someone asks *Mihin sinä menet?* — what fits?',
+        options: [
+          { ref: { line: 'qw-where-to', part: 'reply' }, correct: true },
+          { ref: { line: 'qw-where', part: 'reply' } },
+          { ref: { line: 'qw-when', part: 'reply' } },
+        ],
+        explain: '*Mihin?* = where TO — *Menen puistoon* (into the park).',
+      },
+      {
+        kind: 'check',
+        question: '*Kenen?* means…',
+        options: [{ text: 'whose?', correct: true }, { text: 'who?' }, { text: 'what?' }],
+        explain: '*Kenen?* = whose? (*Kuka?* = who?)',
+      },
+    ],
+  },
+  {
+    id: 'me-you',
+    titleFi: 'Minua, minulle',
+    titleEn: 'Me and you',
+    emoji: '🫶',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'I, me, to me…',
+        text: '*minä* (I) changes its ending just like any word:\n\n- *Auta minua!* — Help me!\n- *Anna se minulle!* — Give it to me!\n- *Pidän sinusta.* — I like you.',
+      },
+      {
+        kind: 'examples',
+        title: 'The endings you know',
+        text: 'The same endings as the nouns: **-a**, **-lle**, **-sta**… plus one new one, **-t**, for "I see you".',
+        rows: [
+          { pronoun: '1sg', case: 'partitive', en: 'me — help me, wait for me' },
+          { pronoun: '1sg', case: 'allative', en: 'to me — give it to me' },
+          { pronoun: '2sg', case: 'elative', en: 'you — I like you' },
+          { pronoun: '3sg', case: 'accusative', en: 'him/her — I see him/her' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Help me, help us…',
+        rows: [
+          { frame: 'help', person: '1sg' },
+          { frame: 'help', person: '3sg' },
+          { frame: 'help', person: '1pl' },
+          { frame: 'help', person: '3pl' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Which ending?',
+        text: 'The verb decides, just like with nouns:\n\n- *Auta, Odota* → **-a / -ä** (*minua, häntä*)\n- *Anna se* → **-lle** (*minulle*)\n- *Pidän* → **-sta / -stä** (*sinusta*)\n- *Näen* → **-t** (*sinut, hänet*)',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say **"Help me!"**?',
+        options: [
+          { ref: { frame: 'help', person: '1sg' }, correct: true },
+          { ref: { frame: 'help', person: '1sg', case: 'allative' } },
+          { ref: { frame: 'help', person: '1sg', case: 'nominative' } },
+        ],
+        explain: '*auttaa* takes **-a**: *Auta minua!*',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say **"Give it to him/her!"**?',
+        options: [
+          { ref: { frame: 'give', person: '3sg' }, correct: true },
+          { ref: { frame: 'give', person: '3sg', case: 'partitive' } },
+          { ref: { frame: 'give', person: '3sg', case: 'elative' } },
+        ],
+        explain: 'Giving TO someone → **-lle**: *hänelle*.',
       },
     ],
   },

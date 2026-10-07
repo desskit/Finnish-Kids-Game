@@ -93,3 +93,20 @@ describe('proving the top level (what makes a course step done)', () => {
     expect(c.progress.u.s.topProvenAt).toBe(at);
   });
 });
+
+describe('minor bonus rounds (typing in the later units)', () => {
+  it('are counted but never move the level, the window, or "done"', () => {
+    let c = recordRoundOnChild(child(), 'u', 's', 6, 6, 3);
+    const before = c.progress.u.s;
+    c = recordRoundOnChild(c, 'u', 's', 0, 6, 3, true); // a bad typing round
+    const after = c.progress.u.s;
+    expect(after.level).toBe(before.level);
+    expect(after.recent).toEqual(before.recent);
+    expect(after.bonus).toEqual({ plays: 1, right: 0, total: 6 });
+    c = recordRoundOnChild(c, 'u', 's', 5, 6, 3, true);
+    expect(c.progress.u.s.bonus).toEqual({ plays: 2, right: 5, total: 12 });
+    // A normal round keeps the bonus tally.
+    c = recordRoundOnChild(c, 'u', 's', 6, 6, 3);
+    expect(c.progress.u.s.bonus?.right).toBe(5);
+  });
+});

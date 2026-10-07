@@ -33,6 +33,12 @@ export interface ActivityProgress {
    * a later dip doesn't undo it. A course step counts as done only then.
    */
   topProvenAt?: number;
+  /**
+   * "Minor" bonus rounds (typing, in later units): played and scored for stars
+   * and the Writer achievement, but they never move the level or decide
+   * whether the step is done — a small extra challenge, not a roadblock.
+   */
+  bonus?: { plays: number; right: number; total: number };
 }
 
 /** progress[topicId][activityId] — powers map rings, hub state, the dashboard. */

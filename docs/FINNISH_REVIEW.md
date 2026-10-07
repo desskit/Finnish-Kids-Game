@@ -1,13 +1,13 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T02:34:52.173Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T03:17:36.023Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 346 entries.**
+- **Approved: 28 of 493 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
-## Greetings & dialogues (36)
+## Greetings & dialogues (46)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -47,8 +47,18 @@
 | ⚠️ | `dialogue:what-did-today` | Mitä teit tänään koulussa? → Me luimme kirjaa ja leikimme. | What did you do at school today? → We read a book and played. |
 | ⚠️ | `dialogue:why-late` | Miksi myöhästyit? → Koska heräsin myöhään. | Why were you late? → Because I woke up late. |
 | ⚠️ | `dialogue:weekend-plans` | Mitä teette viikonloppuna? → Menemme isoäidille kylään. | What are you doing on the weekend? → We're going to visit grandma. |
+| ⚠️ | `dialogue:qw-who` | Kuka tuo on? → Tuo on minun opettajani. | Who is that? → That's my teacher. |
+| ⚠️ | `dialogue:qw-what` | Mikä tämä on? → Tämä on kirja. | What is this? → This is a book. |
+| ⚠️ | `dialogue:qw-what-doing` | Mitä sinä teet? → Luen kirjaa. | What are you doing? → I'm reading a book. |
+| ⚠️ | `dialogue:qw-where` | Missä kissa on? → Kissa on laatikossa. | Where is the cat? → The cat is in the box. |
+| ⚠️ | `dialogue:qw-where-to` | Mihin sinä menet? → Menen puistoon. | Where are you going? → I'm going to the park. |
+| ⚠️ | `dialogue:qw-where-from` | Mistä sinä tulet? → Tulen koulusta. | Where are you coming from? → I'm coming from school. |
+| ⚠️ | `dialogue:qw-when` | Milloin leikitään? → Lauantaina. | When shall we play? → On Saturday. |
+| ⚠️ | `dialogue:qw-how-many` | Montako kissaa sinulla on? → Kaksi. | How many cats do you have? → Two. |
+| ⚠️ | `dialogue:qw-whose` | Kenen pallo tämä on? → Se on isän pallo. | Whose ball is this? → It's Dad's ball. |
+| ⚠️ | `dialogue:qw-why` | Miksi sinä itket? → Koska olen surullinen. | Why are you crying? → Because I'm sad. |
 
-## Small-talk scenes, turn by turn (75)
+## Small-talk scenes, turn by turn (93)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -127,6 +137,24 @@
 | ⚠️ | `conversation:yesterday:1` | Mitä teit eilen? → Menin puistoon. | What did you do yesterday? → I went to the park. |
 | ⚠️ | `conversation:yesterday:2` | Mitä sinä näit siellä? → Näin koiran. | What did you see there? → I saw a dog. |
 | ⚠️ | `conversation:yesterday:3` | Söitkö jäätelöä? → En syönyt. | Did you eat ice cream? → No, I didn't. |
+| ⚠️ | `conversation:whose-thing:1` | Kenen pyörä tämä on? → Se on isän pyörä. | Whose bike is this? → It's Dad's bike. |
+| ⚠️ | `conversation:whose-thing:2` | Entä tämä takki? Onko se äidin takki? → On. Se on äidin takki. | And this coat? Is it Mom's coat? → Yes. It's Mom's coat. |
+| ⚠️ | `conversation:whose-thing:3` | Kenen koira tuo on? → Se on kaverin koira. | Whose dog is that? → It's my friend's dog. |
+| ⚠️ | `conversation:do-you:1` | Hei! Leikitkö sinä pallolla? → Leikin! | Hi! Do you play with a ball? → Yes, I do! |
+| ⚠️ | `conversation:do-you:2` | Uitko sinä? → En ui. | Do you swim? → No, I don't. |
+| ⚠️ | `conversation:do-you:3` | Laulatko sinä? → Laulan! | Do you sing? → Yes, I do! |
+| ⚠️ | `conversation:what-to-do:1` | Mitä haluat tehdä? → Haluan leikkiä. | What do you want to do? → I want to play. |
+| ⚠️ | `conversation:what-to-do:2` | Osaatko uida? → Osaan! | Can you swim? → Yes, I can! |
+| ⚠️ | `conversation:what-to-do:3` | Saanko tulla? → Saat! | May I come? → Yes, you may! |
+| ⚠️ | `conversation:lets-go:1` | Hei! Leikitään! → Joo, leikitään! | Hi! Let's play! → Yeah, let's play! |
+| ⚠️ | `conversation:lets-go:2` | Juostaan! → Ei, kävellään! | Let's run! → No, let's walk! |
+| ⚠️ | `conversation:lets-go:3` | Odota! Älä unohda reppua! → Kiitos! | Wait! Don't forget your backpack! → Thanks! |
+| ⚠️ | `conversation:new-pupil:1` | Hei! Kuka sinä olet? → Olen {name}. | Hi! Who are you? → I'm {name}. |
+| ⚠️ | `conversation:new-pupil:2` | Mistä sinä tulet? → Tulen kirjastosta. | Where are you coming from? → I'm coming from the library. |
+| ⚠️ | `conversation:new-pupil:3` | Milloin leikitään? → Huomenna! | When shall we play? → Tomorrow! |
+| ⚠️ | `conversation:help-me:1` | Auta minua! → Joo, autan sinua! | Help me! → Sure, I'll help you! |
+| ⚠️ | `conversation:help-me:2` | Anna se minulle! → Ole hyvä! | Give it to me! → Here you go! |
+| ⚠️ | `conversation:help-me:3` | Kiitos! Pidän sinusta. → Ja minä pidän sinusta! | Thanks! I like you. → And I like you! |
 
 ## Stories (42)
 
@@ -175,7 +203,7 @@
 | ⚠️ | `story:birthday-surprise:q2` | Mitä lapset tekivät ensin? (He tekivät kakun. / He lauloivat. / He söivät kakkua.) | What did the children do first? (They made a cake. / They sang. / They ate cake.) |
 | ⚠️ | `story:birthday-surprise:q3` | Miksi lapset tekivät kakun salaa? (Koska se oli yllätys. / Koska heillä oli nälkä. / Koska oli maanantai.) | Why did the children make the cake in secret? (Because it was a surprise. / Because they were hungry. / Because it was Monday.) |
 
-## Carrier phrases — authored fixed texts (62)
+## Carrier phrases — authored fixed texts (66)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -241,6 +269,10 @@
 | ⚠️ | `carrier:play-on-day` | Leikin ___. | I play on ___. |
 | ⚠️ | `carrier:play-at-time` | Leikin ___. | I play ___. |
 | ⚠️ | `carrier:clock-is` | Kello on ___. | It's ___ o'clock. |
+| ⚠️ | `carrier:i-want-to` | Haluan ___. — e.g. Haluan rakentaa. | I want to ___. |
+| ⚠️ | `carrier:i-dont-want-to` | En halua ___. — e.g. En halua siivota. | I don't want to ___. |
+| ⚠️ | `carrier:i-can` | Osaan ___. — e.g. Osaan rakentaa. | I can ___. |
+| ⚠️ | `carrier:may-i` | Saanko ___? — e.g. Saanko tulla? | May I ___? |
 
 ## Sentence templates — authored skeletons (12)
 
@@ -259,7 +291,89 @@
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
 
-## Lesson prose — Finnish quoted in the explanations (85)
+## Question forms — "do you…?" (61)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `question:be` | oletko? | Do you be? |
+| ⚠️ | `question:eat` | syötkö? | Do you eat? |
+| ⚠️ | `question:drink` | juotko? | Do you drink? |
+| ⚠️ | `question:sleep` | nukutko? | Do you sleep? |
+| ⚠️ | `question:play` | leikitkö? | Do you play? |
+| ⚠️ | `question:run` | juoksetko? | Do you run? |
+| ⚠️ | `question:jump` | hyppäätkö? | Do you jump? |
+| ⚠️ | `question:go` | menetkö? | Do you go? |
+| ⚠️ | `question:come` | tuletko? | Do you come? |
+| ⚠️ | `question:see` | näetkö? | Do you see? |
+| ⚠️ | `question:give` | annatko? | Do you give? |
+| ⚠️ | `question:take` | otatko? | Do you take? |
+| ⚠️ | `question:look` | katsotko? | Do you look? |
+| ⚠️ | `question:sing` | laulatko? | Do you sing? |
+| ⚠️ | `question:read` | luetko? | Do you read? |
+| ⚠️ | `question:swim` | uitko? | Do you swim? |
+| ⚠️ | `question:want` | haluatko? | Do you want? |
+| ⚠️ | `question:love` | rakastatko? | Do you love? |
+| ⚠️ | `question:help` | autatko? | Do you help? |
+| ⚠️ | `question:sit` | istutko? | Do you sit? |
+| ⚠️ | `question:stand` | seisotko? | Do you stand? |
+| ⚠️ | `question:walk` | käveletkö? | Do you walk? |
+| ⚠️ | `question:dance` | tanssitko? | Do you dance? |
+| ⚠️ | `question:draw` | piirrätkö? | Do you draw? |
+| ⚠️ | `question:write` | kirjoitatko? | Do you write? |
+| ⚠️ | `question:open` | avaatko? | Do you open? |
+| ⚠️ | `question:close` | suljetko? | Do you close? |
+| ⚠️ | `question:buy` | ostatko? | Do you buy? |
+| ⚠️ | `question:hear` | kuuletko? | Do you hear? |
+| ⚠️ | `question:listen` | kuunteletko? | Do you listen? |
+| ⚠️ | `question:speak` | puhutko? | Do you speak? |
+| ⚠️ | `question:say` | sanotko? | Do you say? |
+| ⚠️ | `question:ask` | kysytkö? | Do you ask? |
+| ⚠️ | `question:answer` | vastaatko? | Do you answer? |
+| ⚠️ | `question:search` | etsitkö? | Do you search? |
+| ⚠️ | `question:find` | löydätkö? | Do you find? |
+| ⚠️ | `question:make` | teetkö? | Do you make? |
+| ⚠️ | `question:get` | saatko? | Do you get? |
+| ⚠️ | `question:bring` | tuotko? | Do you bring? |
+| ⚠️ | `question:carry` | vietkö? | Do you take away? |
+| ⚠️ | `question:fly` | lennätkö? | Do you fly? |
+| ⚠️ | `question:drive` | ajatko? | Do you drive? |
+| ⚠️ | `question:wash` | pesetkö? | Do you wash? |
+| ⚠️ | `question:clean` | siivoatko? | Do you clean? |
+| ⚠️ | `question:cook` | keitätkö? | Do you cook? |
+| ⚠️ | `question:paint` | maalaatko? | Do you paint? |
+| ⚠️ | `question:smile` | hymyiletkö? | Do you smile? |
+| ⚠️ | `question:cry` | itketkö? | Do you cry? |
+| ⚠️ | `question:laugh` | nauratko? | Do you laugh? |
+| ⚠️ | `question:hug` | halaatko? | Do you hug? |
+| ⚠️ | `question:throw` | heitätkö? | Do you throw? |
+| ⚠️ | `question:climb` | kiipeätkö? | Do you climb? |
+| ⚠️ | `question:remember` | muistatko? | Do you remember? |
+| ⚠️ | `question:forget` | unohdatko? | Do you forget? |
+| ⚠️ | `question:learn` | opitko? | Do you learn? |
+| ⚠️ | `question:teach` | opetatko? | Do you teach? |
+| ⚠️ | `question:wait` | odotatko? | Do you wait? |
+| ⚠️ | `question:live` | asutko? | Do you live? |
+| ⚠️ | `question:build` | rakennatko? | Do you build? |
+| ⚠️ | `question:fix` | korjaatko? | Do you fix? |
+| ⚠️ | `question:wake-up` | heräätkö? | Do you wake up? |
+
+## Pronoun forms and frames (11)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `pronoun:1sg` | minä, minua, minut, minulle, minusta, minulla, minun | me — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun:2sg` | sinä, sinua, sinut, sinulle, sinusta, sinulla, sinun | you — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun:3sg` | hän, häntä, hänet, hänelle, hänestä, hänellä, hänen | him/her — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun:1pl` | me, meitä, meidät, meille, meistä, meillä, meidän | us — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun:2pl` | te, teitä, teidät, teille, teistä, teillä, teidän | you all — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun:3pl` | he, heitä, heidät, heille, heistä, heillä, heidän | them — nom, part, acc, all, ela, ade, gen |
+| ⚠️ | `pronoun-frame:help` | Auta ___! | Help ___! |
+| ⚠️ | `pronoun-frame:wait` | Odota ___! | Wait for ___! |
+| ⚠️ | `pronoun-frame:give` | Anna se ___! | Give it to ___! |
+| ⚠️ | `pronoun-frame:like` | Pidän ___. | I like ___. |
+| ⚠️ | `pronoun-frame:see` | Näen ___. | I see ___. |
+
+## Lesson prose — Finnish quoted in the explanations (110)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -348,42 +462,85 @@
 | ⚠️ | `lesson:when:4` | Kello on · Kello on kolme | Days and times — What time is it? |
 | ⚠️ | `lesson:when:5` | sunnuntaina | Days and times — check |
 | ⚠️ | `lesson:when:6` | talvella | Days and times — check |
+| ⚠️ | `lesson:owners:1` | isä · isän pyörä | Mom's bike — the owner gets -n — The owner comes first |
+| ⚠️ | `lesson:owners:2` | Kenen pyörä tämä on? · Se on isän pyörä. · minun · sinun | Mom's bike — the owner gets -n — Kenen? — Whose? |
+| ⚠️ | `lesson:owners:3` | äiti · äidin | Mom's bike — the owner gets -n — Look at the END |
+| ⚠️ | `lesson:owners:4` | isän pallo | Mom's bike — the owner gets -n — check |
+| ⚠️ | `lesson:owners:5` | äidin kissa · äidin · äiti | Mom's bike — the owner gets -n — check |
+| ⚠️ | `lesson:asking:1` | Onko…? · on · syöt · syötkö? | Asking with -ko / -kö — Any verb can ask |
+| ⚠️ | `lesson:asking:3` | Syötkö? · Syön! · En syö. | Asking with -ko / -kö — Answer with the verb |
+| ⚠️ | `lesson:asking:4` | uit · uitko? | Asking with -ko / -kö — check |
+| ⚠️ | `lesson:asking:5` | Nukutko? · en nuku · en · et | Asking with -ko / -kö — check |
+| ⚠️ | `lesson:wanting:1` | Haluan · Haluan leikkiä | Want to, can, may I — Two verbs together |
+| ⚠️ | `lesson:wanting:3` | Osaan · Saanko…? · saan | Want to, can, may I — I can… · May I…? |
+| ⚠️ | `lesson:wanting:4` | Haluan · uida | Want to, can, may I — check |
+| ⚠️ | `lesson:wanting:5` | Osaan lukea. · Osaan | Want to, can, may I — check |
+| ⚠️ | `lesson:commands:1` | juoksen · Juokse! | Do it, don't, let's — Telling someone to do it |
+| ⚠️ | `lesson:commands:2` | älä | Do it, don't, let's — Don't! |
+| ⚠️ | `lesson:commands:4` | Älä · Älä juokse! | Do it, don't, let's — check |
+| ⚠️ | `lesson:commands:5` | Leikitään! | Do it, don't, let's — check |
+| ⚠️ | `lesson:question-words:1` | Kuka? · Mikä? · Mitä? · Missä? · Mihin? · Mistä? · Milloin? · Montako? · Kenen? · Miksi? | Question words — The question words |
+| ⚠️ | `lesson:question-words:2` | Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Kenen? · isän · Milloin? · lauantaina | Question words — The answer matches the question |
+| ⚠️ | `lesson:question-words:5` | Mihin sinä menet? · Mihin? · Menen puistoon | Question words — check |
+| ⚠️ | `lesson:question-words:6` | Kenen? · Kuka? | Question words — check |
+| ⚠️ | `lesson:me-you:1` | minä · Auta minua! · Anna se minulle! · Pidän sinusta. | Me and you — I, me, to me… |
+| ⚠️ | `lesson:me-you:4` | Auta, Odota · minua, häntä · Anna se · minulle · Pidän · sinusta · Näen · sinut, hänet | Me and you — Which ending? |
+| ⚠️ | `lesson:me-you:5` | auttaa · Auta minua! | Me and you — check |
+| ⚠️ | `lesson:me-you:6` | hänelle | Me and you — check |
 
-## Other authored lines (distractor-only) (34)
+## Other authored lines (distractor-only) (52)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
 | ⚠️ | `line:1-anteeksi-` | Anteeksi. | Sorry. |
-| ⚠️ | `line:2-en-pidä-matematiikasta-` | En pidä matematiikasta. | I don't like math. |
-| ⚠️ | `line:3-en-piirrä-` | En piirrä. | I'm not drawing. |
-| ⚠️ | `line:4-en-syö-` | En syö. | I don't eat. |
-| ⚠️ | `line:5-hyvää-huomenta-` | Hyvää huomenta. | Good morning. |
-| ⚠️ | `line:6-hyvää-päivää-` | Hyvää päivää. | Good day. |
-| ⚠️ | `line:7-hyvää-yötä-` | Hyvää yötä. | Good night. |
-| ⚠️ | `line:8-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
-| ⚠️ | `line:9-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
-| ⚠️ | `line:10-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
-| ⚠️ | `line:11-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
-| ⚠️ | `line:12-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
-| ⚠️ | `line:13-kirja-on-pöydällä-` | Kirja on pöydällä. | The book is on the table. |
-| ⚠️ | `line:14-kissa-on-iloinen-` | Kissa on iloinen. | The cat is happy. |
-| ⚠️ | `line:15-koira-on-iso-` | Koira on iso. | The dog is big. |
-| ⚠️ | `line:16-menen-kouluun-` | Menen kouluun. | I'm going to school. |
-| ⚠️ | `line:17-minulla-ei-ole-hattua-` | Minulla ei ole hattua. | I don't have a hat. |
-| ⚠️ | `line:18-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
-| ⚠️ | `line:19-minulla-on-kumi-` | Minulla on kumi. | I have an eraser. |
-| ⚠️ | `line:20-minulla-on-nälkä-` | Minulla on nälkä. | I'm hungry. |
-| ⚠️ | `line:21-minulla-on-palloja-` | Minulla on palloja. | I have some balls. |
-| ⚠️ | `line:22-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
-| ⚠️ | `line:23-näkemiin-` | Näkemiin. | Goodbye. |
-| ⚠️ | `line:24-ole-hyvä-` | Ole hyvä. | You're welcome. |
-| ⚠️ | `line:25-olen-iloinen-` | Olen iloinen. | I'm happy. |
-| ⚠️ | `line:26-olen-puistossa-` | Olen puistossa. | I'm in the park. |
-| ⚠️ | `line:27-samoin-` | Samoin! | You too! |
-| ⚠️ | `line:28-se-on-hidas-` | Se on hidas. | It's slow. |
-| ⚠️ | `line:29-se-on-hänen-kirjansa-` | Se on hänen kirjansa. | It's their book. |
-| ⚠️ | `line:30-se-on-koira-` | Se on koira. | It's a dog. |
-| ⚠️ | `line:31-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
-| ⚠️ | `line:32-se-on-sininen-` | Se on sininen. | It's blue. |
-| ⚠️ | `line:33-tämä-on-kirja-` | Tämä on kirja. | This is a book. |
-| ⚠️ | `line:34-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | `line:2-ei-ole-` | Ei ole. | No. |
+| ⚠️ | `line:3-en-halua-nukkua-` | En halua nukkua. | I don't want to sleep. |
+| ⚠️ | `line:4-en-pidä-matematiikasta-` | En pidä matematiikasta. | I don't like math. |
+| ⚠️ | `line:5-en-piirrä-` | En piirrä. | I'm not drawing. |
+| ⚠️ | `line:6-en-syö-` | En syö. | I don't eat. |
+| ⚠️ | `line:7-et-ui-` | Et ui. | You don't swim. |
+| ⚠️ | `line:8-haluan-nukkua-` | Haluan nukkua. | I want to sleep. |
+| ⚠️ | `line:9-hyvää-huomenta-` | Hyvää huomenta. | Good morning. |
+| ⚠️ | `line:10-hyvää-päivää-` | Hyvää päivää. | Good day. |
+| ⚠️ | `line:11-hyvää-yötä-` | Hyvää yötä. | Good night. |
+| ⚠️ | `line:12-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
+| ⚠️ | `line:13-juokse-` | Juokse! | Run! |
+| ⚠️ | `line:14-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
+| ⚠️ | `line:15-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
+| ⚠️ | `line:16-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
+| ⚠️ | `line:17-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
+| ⚠️ | `line:18-kirja-on-pöydällä-` | Kirja on pöydällä. | The book is on the table. |
+| ⚠️ | `line:19-kissa-on-iloinen-` | Kissa on iloinen. | The cat is happy. |
+| ⚠️ | `line:20-koira-on-iso-` | Koira on iso. | The dog is big. |
+| ⚠️ | `line:21-koulussa-` | Koulussa. | At school. |
+| ⚠️ | `line:22-laulat-` | Laulat. | You sing. |
+| ⚠️ | `line:23-leikin-` | Leikin. | I play. |
+| ⚠️ | `line:24-leikit-` | Leikit. | You play. |
+| ⚠️ | `line:25-leikitkö-` | Leikitkö? | Do you play? |
+| ⚠️ | `line:26-menen-kirjastoon-` | Menen kirjastoon. | I'm going to the library. |
+| ⚠️ | `line:27-menen-kouluun-` | Menen kouluun. | I'm going to school. |
+| ⚠️ | `line:28-minulla-ei-ole-hattua-` | Minulla ei ole hattua. | I don't have a hat. |
+| ⚠️ | `line:29-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
+| ⚠️ | `line:30-minulla-on-kumi-` | Minulla on kumi. | I have an eraser. |
+| ⚠️ | `line:31-minulla-on-nälkä-` | Minulla on nälkä. | I'm hungry. |
+| ⚠️ | `line:32-minulla-on-palloja-` | Minulla on palloja. | I have some balls. |
+| ⚠️ | `line:33-näen-sinut-` | Näen sinut. | I see you. |
+| ⚠️ | `line:34-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
+| ⚠️ | `line:35-näkemiin-` | Näkemiin. | Goodbye. |
+| ⚠️ | `line:36-ole-hyvä-` | Ole hyvä. | You're welcome. |
+| ⚠️ | `line:37-olen-iloinen-` | Olen iloinen. | I'm happy. |
+| ⚠️ | `line:38-olen-koulussa-` | Olen koulussa. | I'm at school. |
+| ⚠️ | `line:39-olen-puistossa-` | Olen puistossa. | I'm in the park. |
+| ⚠️ | `line:40-pidän-pitsasta-` | Pidän pitsasta. | I like pizza. |
+| ⚠️ | `line:41-pidän-sinusta-` | Pidän sinusta. | I like you. |
+| ⚠️ | `line:42-puistossa-` | Puistossa. | In the park. |
+| ⚠️ | `line:43-samoin-` | Samoin! | You too! |
+| ⚠️ | `line:44-se-on-hidas-` | Se on hidas. | It's slow. |
+| ⚠️ | `line:45-se-on-hänen-kirjansa-` | Se on hänen kirjansa. | It's their book. |
+| ⚠️ | `line:46-se-on-koira-` | Se on koira. | It's a dog. |
+| ⚠️ | `line:47-se-on-minun-reppuni-` | Se on minun reppuni. | It's my backpack. |
+| ⚠️ | `line:48-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
+| ⚠️ | `line:49-se-on-sininen-` | Se on sininen. | It's blue. |
+| ⚠️ | `line:50-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | `line:51-uitko-` | Uitko? | Do you swim? |
+| ⚠️ | `line:52-älä-leiki-` | Älä leiki! | Don't play! |

@@ -142,3 +142,26 @@ export function possessiveSegments(form: string, possessor: PossessorId): Segmen
 export function segmentsText(segs: Segment[]): string {
   return segs.map((s) => s.text).join('');
 }
+
+/** "syötkö" → syöt|kö — the question ending. */
+export function questionSegments(form: string): Segment[] {
+  return splitBy(form, [/k[oö]$/]);
+}
+
+/** "älä juokse" — the "don't" word is what matters. */
+export function dontSegments(form: string): Segment[] {
+  const [first, ...rest] = form.split(' ');
+  return rest.length ? [{ text: first, mark: true }, { text: ' ' + rest.join(' ') }] : plain(form);
+}
+
+/** "juostaan" → juost|aan, "mennään" → men|nään — the "let's" ending. */
+export function letsSegments(form: string): Segment[] {
+  return splitBy(form, [/[dlnrt][aä]{2}n$/, /[aä]{2}n$/]);
+}
+
+/** A pronoun form with its ending marked ("minu|a", "häne|lle", "minu|t"). */
+export function pronounSegments(form: string, c: string): Segment[] {
+  if (c === 'accusative') return splitBy(form, [/t$/]);
+  if (c === 'nominative') return plain(form);
+  return caseSegments(form, c as CaseId);
+}

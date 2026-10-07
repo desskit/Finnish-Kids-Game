@@ -542,6 +542,10 @@ const VERB_INFLECTION_KEYS = [
   ...VERB_PERSONS.map((p) => `conditional_active_negative_${p}`),
   'imperative_active_positive_2sg',
   'imperative_active_positive_2pl',
+  // "Don't…!" (älä + the connegative) and "Let's…!" (the present passive, which
+  // spoken Finnish uses for "let's": "Leikitään!") — both sourced whole.
+  'imperative_active_negative_2sg',
+  'present_passive_positive',
 ];
 
 function pickExamples(src) {

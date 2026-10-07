@@ -85,7 +85,7 @@ describe('content integrity', () => {
 
   it('lets every noun construction be filled by at least one item in each topic', () => {
     for (const theme of nounTopics) {
-      for (const con of theme.constructions) {
+      for (const con of theme.constructions.filter((c) => !c.verb)) {
         const usable = theme.items.some((item) => formFor(item, con));
         expect(usable, `${theme.id} / ${con.id} has no usable item`).toBe(true);
       }
@@ -93,7 +93,7 @@ describe('content integrity', () => {
   });
 
   it('resolves every shared noun construction for every animal', () => {
-    for (const con of nounConstructions) {
+    for (const con of nounConstructions.filter((c) => !c.verb)) {
       for (const item of animals.items) {
         expect(formFor(item, con), `${item.id} lacks ${con.case}`).toBeTruthy();
       }

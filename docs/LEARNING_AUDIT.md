@@ -370,3 +370,26 @@ Four new lessons explain:
 **Golden rule unchanged.** All new forms come from the sourced tables. The
 new carriers, the 15 scenes and the lesson quotes are flagged ⚠️ in
 `FINNISH_REVIEW.md` for native vetting.
+
+## Part 8 — Everyday grammar, and typing as a minor challenge
+
+Six units (30 in all) cover the most-used grammar the course was missing:
+
+| Unit (after…) | What it teaches | Practice |
+|---|---|---|
+| Mom's bike (Whose?) | the owner takes -n: *isän pyörä* | choose the form |
+| Asking (Saying no) | *Syötkö?* — and answering *Syön! / En syö.* | answer it · ask it |
+| Want, can, may (Likes) | *Haluan leikkiä, Osaan uida, Saanko…?* | build · order |
+| Do it, don't, let's (At the shop) | *Juokse! Älä juokse! Juostaan!* | hear & do · choose |
+| Question words (When?) | kuka, mikä, missä, mihin, mistä, milloin, montako, kenen, miksi | ask & answer |
+| Me and you (Question words) | *minua, minulle, minusta, minut* | choose the form |
+
+Each has a lesson, "Why?" tips, a conversation and a can-do claim. Pronouns
+and *-ko* question forms are not in the sourced data, so they are small
+authored tables, pinned by tests and listed for native vetting.
+
+**Typing** is no longer needed to finish a step. Sentence steps finish after
+building and ordering (top level 3). From the Describing unit on, a "type it"
+round joins one round in four, from level 2. It earns stars and the Writer
+achievement but never moves the level or blocks progress.
+

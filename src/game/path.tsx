@@ -1,4 +1,6 @@
 import type { BadgeEnv } from './badges';
+import ChooseForm from '../components/ChooseForm';
+import { choosePoolsFor, type ChooseMode, type ChoosePools } from './formChoice';
 import type { ReactElement } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import {
@@ -76,6 +78,7 @@ export type ActivityKind =
   | 'conversation'
   | 'reading'
   | 'story'
+  | 'choose'
   | 'review';
 
 /** Which vocabulary pool a skill draws from. */
@@ -130,6 +133,8 @@ export interface SkillContent {
   /** Possessive steps: 'never' = "my book" only; 'always' = mostly the place
    *  forms ("in my house"); default = place forms join from level 4. */
   possessiveCases?: 'never' | 'always';
+  /** 'choose' steps: which grammar the choose-the-form game asks about. */
+  choose?: ChooseMode;
 }
 
 export interface SkillNode {
@@ -162,6 +167,13 @@ export interface SkillNode {
    * up to the engine's `MAX_LEVEL` (see `src/game/adapt.ts`).
    */
   maxLevel?: number;
+  /**
+   * A MINOR game mixed in now and then — typing, in the later units: from
+   * `fromLevel` on, every `every`-th round plays it. Minor rounds earn stars
+   * (and the Writer achievement) but never move the level or decide whether
+   * the step is done, so they stay a small extra challenge, not a roadblock.
+   */
+  minor?: { kind: ActivityKind; fromLevel: number; every: number };
   /**
    * From this measured level up, the node's picture-recognition games (Listen &
    * Tap, Name it) run a gentle per-question countdown (see `questionTimerMs`).
@@ -418,10 +430,10 @@ function wordsStep(unitId: string, pool: Pool, titleEn = 'New words'): SkillNode
 }
 
 /** A carrier-phrase practice step. L1 recognizes (build); L2 mixes in
- *  ASSEMBLING the sentence (order); L3–4 add TYPING it (spell). Like every
- *  course step it is done only once its top level is proven — so a child has
- *  built, ordered AND typed sentences before moving on. The checkpoint asks
- *  for an assembly question. */
+ *  ASSEMBLING the sentence (order); L3 is the same pair with harder tiles.
+ *  Done once L3 is proven. Typing (spell) is never required: from the
+ *  `TYPING_FROM_UNIT` on it joins as a MINOR round (see `SkillNode.minor`).
+ *  The checkpoint asks for an assembly question. */
 function phraseStep(
   id: string,
   titleFi: string,
@@ -437,8 +449,8 @@ function phraseStep(
     titleEn,
     icon,
     activity: 'build',
-    activities: ['build', 'order', 'spell', 'spell'],
-    maxLevel: 4,
+    activities: ['build', 'order', 'order'],
+    maxLevel: 3,
     checkpoint: 'order',
     content: { constructionIds, pool },
     exampleFi,
@@ -665,6 +677,29 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'owners',
+    titleFi: 'Äidin pyörä',
+    titleEn: "Mom's bike",
+    blurbEn: 'Say whose something is: isän pyörä, äidin takki.',
+    accent: '#7c3aed',
+    icon: '🚲',
+    lessonId: 'owners',
+    newWords: [],
+    skills: [
+      {
+        id: 'owner-forms',
+        titleFi: 'Kenen?',
+        titleEn: 'Whose is it?',
+        icon: '🚲',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'owner' },
+        exampleFi: 'isän pyörä',
+      },
+      sceneStep('owners-talk', 'whose-thing', 'Kenen pyörä?', 'Whose bike?'),
+    ],
+  },
+  {
     id: 'doing',
     titleFi: 'Mitä teet?',
     titleEn: 'Doing things',
@@ -721,6 +756,39 @@ const UNITS: Chapter[] = [
         content: {},
       },
       sceneStep('not-doing-talk', 'bedtime', 'Nukutko jo?', 'Are you asleep?'),
+    ],
+  },
+  {
+    id: 'asking',
+    titleFi: 'Kysytään!',
+    titleEn: 'Asking questions',
+    blurbEn: 'Ask "do you…?" with -ko / -kö — and answer with the verb.',
+    accent: '#0891b2',
+    icon: '❓',
+    lessonId: 'asking',
+    newWords: [],
+    skills: [
+      {
+        id: 'answer-it',
+        titleFi: 'Syön vai en syö?',
+        titleEn: 'Answer it',
+        icon: '💬',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'answer' },
+        exampleFi: 'Syötkö? – Syön!',
+      },
+      {
+        id: 'ask-it',
+        titleFi: 'Syötkö?',
+        titleEn: 'Ask it',
+        icon: '❓',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'ask' },
+        exampleFi: 'Nukutko?',
+      },
+      sceneStep('asking-talk', 'do-you', 'Leikitkö?', 'Do you play?'),
     ],
   },
   {
@@ -789,6 +857,21 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'wanting',
+    titleFi: 'Haluan, osaan, saanko',
+    titleEn: 'Want, can, may',
+    blurbEn: 'Two verbs together: Haluan leikkiä. Osaan uida. Saanko…?',
+    accent: '#16a34a',
+    icon: '🎯',
+    lessonId: 'wanting',
+    newWords: [],
+    skills: [
+      phraseStep('want-to', 'Haluan…', 'I want to…', '🎯', ['i-want-to', 'i-dont-want-to'], 'Haluan leikkiä.', 'verbs'),
+      phraseStep('can-may', 'Osaan, saanko', 'Can & may', '🙋', ['i-can', 'may-i'], 'Osaan uida.', 'verbs'),
+      sceneStep('wanting-talk', 'what-to-do', 'Mitä haluat tehdä?', 'What do you want to do?'),
+    ],
+  },
+  {
     id: 'school-day',
     titleFi: 'Koulupäivä',
     titleEn: 'School day',
@@ -840,6 +923,39 @@ const UNITS: Chapter[] = [
       wordsStep('shop', 'nouns', 'Shopping list'),
       phraseStep('buying', 'Ostan…', 'Buying', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
       sceneStep('shop-scene', 'shop', 'Kaupassa', 'At the till'),
+    ],
+  },
+  {
+    id: 'commands',
+    titleFi: 'Tee! Älä! Tehdään!',
+    titleEn: "Do it, don't, let's",
+    blurbEn: "Tell someone what to do — or not to — and say let's!",
+    accent: '#ea580c',
+    icon: '🏃',
+    lessonId: 'commands',
+    newWords: [],
+    skills: [
+      {
+        id: 'commands-tpr',
+        titleFi: 'Tee näin!',
+        titleEn: 'Do this!',
+        icon: '👂',
+        activity: 'command',
+        maxLevel: 3,
+        content: { pool: 'verbs' },
+        exampleFi: 'Hyppää!',
+      },
+      {
+        id: 'do-dont-lets',
+        titleFi: 'Tee! Älä! Tehdään!',
+        titleEn: "Do, don't, let's",
+        icon: '✋',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'mood' },
+        exampleFi: 'Älä juokse! Juostaan!',
+      },
+      sceneStep('commands-talk', 'lets-go', 'Leikitään!', "Let's play!"),
     ],
   },
   {
@@ -1037,6 +1153,65 @@ const UNITS: Chapter[] = [
       ),
       phraseStep('clock', 'Kello on…', 'What time is it?', '⏰', ['clock-is'], 'Kello on kolme.', 'numbers'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
+    ],
+  },
+  {
+    id: 'question-words',
+    titleFi: 'Kysymyssanat',
+    titleEn: 'Question words',
+    blurbEn: 'Kuka, mikä, missä, milloin… — and the answer that fits.',
+    accent: '#be123c',
+    icon: '🤔',
+    lessonId: 'question-words',
+    newWords: [],
+    skills: [
+      {
+        id: 'question-words-qa',
+        titleFi: 'Kysy ja vastaa',
+        titleEn: 'Ask and answer',
+        icon: '🤔',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: {
+          ids: [
+            'qw-who',
+            'qw-what',
+            'qw-what-doing',
+            'qw-where',
+            'qw-where-to',
+            'qw-where-from',
+            'qw-when',
+            'qw-how-many',
+            'qw-whose',
+            'qw-why',
+          ],
+        },
+        exampleFi: 'Missä kissa on?',
+      },
+      sceneStep('question-words-talk', 'new-pupil', 'Uusi oppilas', 'The new pupil'),
+    ],
+  },
+  {
+    id: 'me-you',
+    titleFi: 'Minua, minulle',
+    titleEn: 'Me and you',
+    blurbEn: 'minä changes too: Auta minua! Anna se minulle! Pidän sinusta.',
+    accent: '#db2777',
+    icon: '🫶',
+    lessonId: 'me-you',
+    newWords: [],
+    skills: [
+      {
+        id: 'me-you-forms',
+        titleFi: 'Minua, minulle',
+        titleEn: 'Me, to me, you…',
+        icon: '🫶',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'pronoun' },
+        exampleFi: 'Auta minua!',
+      },
+      sceneStep('me-you-talk', 'help-me', 'Auta minua!', 'Help me!'),
     ],
   },
   {
@@ -1428,8 +1603,19 @@ export function isMixable(step: SkillNode): boolean {
   return !step.content.mix && step.content.words !== 'new' && !NOT_MIXABLE.has(step.activity);
 }
 
+/**
+ * Typing joins from here on — once a base is built (the core sentences, verbs
+ * and questions), every sentence step mixes in a minor "type it" round: one in
+ * four, from level 2. Never required (see `SkillNode.minor`).
+ */
+export const TYPING_FROM_UNIT = 'describing';
+const TYPING_MINOR = { kind: 'spell' as ActivityKind, fromLevel: 2, every: 4 };
+const typingFrom = UNITS.findIndex((u) => u.id === TYPING_FROM_UNIT);
+
 UNITS.forEach((unit, ui) => {
   for (const step of unit.skills) {
+    const isSentenceStep = step.activities?.join() === 'build,order,order';
+    if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
     const scope = step.content.words ?? 'known';
     if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
     else if (scope === 'known') step.content.wordIds = knownByUnit[ui];
@@ -1545,12 +1731,20 @@ export function activityForRound(
   roundNo: number,
   speechAvailable = false,
 ): ActivityKind {
+  if (isMinorRound(skill, level, roundNo)) return skill.minor!.kind;
   let unlocked = activitiesUpTo(skill, level);
   if (speechAvailable && level >= 2 && isSpeakable(skill) && !unlocked.includes('say')) {
     unlocked = [...unlocked, 'say'];
   }
   const i = ((Math.trunc(roundNo) % unlocked.length) + unlocked.length) % unlocked.length;
   return unlocked[i];
+}
+
+/** Is round `roundNo` one of the step's minor (bonus) rounds? */
+export function isMinorRound(skill: SkillNode, level: number, roundNo: number): boolean {
+  const m = skill.minor;
+  if (!m || level < m.fromLevel) return false;
+  return ((Math.trunc(roundNo) % m.every) + m.every) % m.every === m.every - 1;
 }
 
 /** Every (chapter, skill) pair in path order. */
@@ -1570,9 +1764,11 @@ function ladderKinds(skill: SkillNode): string[] {
 
 export const badgeEnv: BadgeEnv = {
   checkpointUnitIds: PATH.filter((u) => u.checkpoint !== false).map((u) => u.id),
-  phraseStepIds: allSkills()
-    .filter(({ skill }) => skill.activities?.join() === 'build,order,spell,spell')
-    .map(({ skill }) => skill.id),
+  minorKinds: Object.fromEntries(
+    allSkills()
+      .filter(({ skill }) => skill.minor)
+      .map(({ skill }) => [skill.id, skill.minor!.kind]),
+  ),
   kertausStepIds: allSkills()
     .filter(({ skill }) => skill.content.mix)
     .map(({ skill }) => skill.id),
@@ -1589,7 +1785,7 @@ export const badgeEnv: BadgeEnv = {
     ...new Set(
       allSkills()
         .filter(({ skill }) => !skill.content.mix && skill.activity !== 'review')
-        .flatMap(({ skill }) => ladderKinds(skill)),
+        .flatMap(({ skill }) => [...ladderKinds(skill), ...(skill.minor ? [skill.minor.kind] : [])]),
     ),
   ].filter((k) => k !== 'say'),
 };
@@ -1627,6 +1823,19 @@ function pictureSafe(items: LexicalItem[]): LexicalItem[] {
  * the whole pool when the scope leaves fewer than `min` items (a game that
  * needs distractors from this pool would otherwise have nothing to offer).
  */
+/** Choose-the-form pools for a word scope — memoized per scope, so the game's
+ *  round memo sees STABLE arrays across re-renders. */
+const CHOOSE_POOLS = new Map<string, ChoosePools>();
+function choosePools(wordIds: string[] | undefined): ChoosePools {
+  const key = wordIds ? wordIds.join(',') : '*';
+  let p = CHOOSE_POOLS.get(key);
+  if (!p) {
+    p = choosePoolsFor(wordIds);
+    CHOOSE_POOLS.set(key, p);
+  }
+  return p;
+}
+
 function scoped(all: LexicalItem[], ids: string[] | undefined, min: number): LexicalItem[] {
   if (!ids) return all;
   const hit = byIds(all, ids) as LexicalItem[];
@@ -1738,6 +1947,11 @@ export function renderActivity(
           construction={constructionsFor(skill.content.constructionIds)[0]}
           onExit={onExit}
         />
+      );
+    case 'choose':
+      // Choose the right form: answer / ask / do-don't-let's / me-and-you / owners.
+      return (
+        <ChooseForm mode={skill.content.choose ?? 'answer'} {...choosePools(wordIds)} onExit={onExit} />
       );
     case 'possessive':
       // Kenen? — pick the noun form with the right possessive suffix.
