@@ -106,14 +106,18 @@ describe('course home', () => {
     const cont = screen.getByRole('link', { name: /Continue/ });
     expect(cont.getAttribute('href')).toBe('/lesson/sounds');
     expect(cont.textContent).toMatch(/Unit 1 · Lesson/);
+    // Unit 1 plus a peek at the next two locked ones; the rest fold away.
     const units = document.querySelectorAll('.unit');
-    expect(units).toHaveLength(30);
+    expect(units).toHaveLength(3);
     expect(units[0].className).toContain('unit--current');
     expect(units[1].className).toContain('unit--locked');
+    fireEvent.click(screen.getByRole('button', { name: /27 more units/ }));
+    expect(document.querySelectorAll('.unit')).toHaveLength(30);
     // Review + Notebook entries, badges; no "Today's adventure" any more.
     expect(screen.getByRole('link', { name: /Review/ })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Notebook/ })).toBeInTheDocument();
-    expect(document.querySelector('.badge-strip')).not.toBeNull();
+    // No achievements yet → no badge strip (the Achievements tile is there).
+    expect(document.querySelector('.badge-strip')).toBeNull();
     expect(screen.queryByText(/Today's adventure/i)).not.toBeInTheDocument();
   });
 
@@ -192,9 +196,9 @@ describe('achievements', () => {
   it('is one tap from home', () => {
     seedChild();
     renderAt('/');
-    // The tile AND the badge strip both open it.
+    // The tile opens it (the badge strip joins once something is earned).
     const links = screen.getAllByRole('link', { name: /Achievements/ });
-    expect(links.length).toBe(2);
+    expect(links.length).toBe(1);
     for (const l of links) expect(l.getAttribute('href')).toMatch(/achievements$/);
   });
 });
@@ -238,9 +242,10 @@ describe('grown-up dashboard', () => {
         </MemoryRouter>
       </ProfileProvider>,
     );
-    expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
+    expect(screen.getByText(/adapts automatically/)).toBeInTheDocument();
     expect(screen.getByText(/This is…/)).toBeInTheDocument();
-    expect(screen.getByText('Lv 2/3')).toBeInTheDocument();
+    expect(screen.getByText('Level 2 of 3')).toBeInTheDocument();
+    expect(screen.getByText(/3 rounds · 89% right first time/)).toBeInTheDocument();
   });
 
   it('shows can-do statements backed by passed checkpoints', () => {
@@ -253,7 +258,8 @@ describe('grown-up dashboard', () => {
       </ProfileProvider>,
     );
     expect(screen.getByText(/Can greet people, say thanks/)).toBeInTheDocument();
-    expect(document.querySelectorAll('.cando-row--next').length).toBeLessThanOrEqual(3);
-    expect(document.querySelectorAll('.cando-row--next').length).toBeGreaterThan(0);
+    expect(document.querySelectorAll('.gcando__row--next').length).toBeLessThanOrEqual(2);
+    expect(document.querySelectorAll('.gcando__row--next').length).toBeGreaterThan(0);
+    expect(screen.getByText('✓ Passed')).toBeInTheDocument(); // unit 1 in the breakdown
   });
 });

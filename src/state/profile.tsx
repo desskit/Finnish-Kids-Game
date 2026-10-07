@@ -9,6 +9,7 @@ import {
 import {
   AVATARS,
   emptyProfiles,
+  exportBackup,
   localProfileStore,
   newId,
   sandboxProfiles,
@@ -95,6 +96,10 @@ interface ProfileContextValue {
 
   // --- Danger zone ---
   resetAll: () => void;
+  /** The whole store as a backup file (JSON). */
+  backup: () => string;
+  /** Replace everything with a parsed backup (see `parseBackup`). */
+  restore: (data: ProfilesData) => void;
 }
 
 const ProfileContext = createContext<ProfileContextValue | null>(null);
@@ -271,6 +276,8 @@ export function ProfileProvider({
         setData((d) => ({ ...d, settings: { ...d.settings, ...patch } })),
 
       resetAll: () => setData(emptyProfiles()),
+      backup: () => exportBackup(data),
+      restore: (next) => setData(next),
     };
   }, [data]);
 
