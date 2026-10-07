@@ -4,6 +4,7 @@ import { ProfileProvider, useProfile } from '../state/profile';
 
 const fx = vi.hoisted(() => ({
   Q: {
+    id: 'thanks',
     prompt: { fi: 'Kiitos!', en: 'Thank you!' },
     reply: { fi: 'Ole hyvä!', en: "You're welcome!" },
     options: [
@@ -26,12 +27,25 @@ import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 
-function seedChild() {
+// By default the pair has already been modelled, so the game asks straight away;
+// `seen: false` is a child meeting it for the first time.
+function seedChild(seen = true) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
-      children: [{ id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {} }],
+      children: [
+        {
+          id: 'k',
+          name: 'K',
+          avatar: '🦊',
+          level: 1,
+          stars: 0,
+          createdAt: 1,
+          progress: {},
+          course: seen ? { phrasesSeen: { 'ex:thanks': 1 } } : {},
+        },
+      ],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
     }),
@@ -71,6 +85,23 @@ afterEach(() => {
 });
 
 describe('DialogueGame (choose the right reply)', () => {
+  it('MODELS a never-seen pair first ("when someone says… you say back…"), then asks it', async () => {
+    localStorage.clear();
+    seedChild(false);
+    renderActivity();
+    expect(screen.getByText('Uusi fraasi!', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('…you say back:')).toBeInTheDocument();
+    expect(document.querySelectorAll('.reply-tile')).toHaveLength(0); // not asked yet
+    await advance(400);
+    expect(speak).toHaveBeenCalledWith('Kiitos!', { queue: true });
+    expect(speak).toHaveBeenCalledWith('Ole hyvä!', { queue: true });
+    fireEvent.click(screen.getByText('Jatka', { exact: false }).closest('button')!);
+    expect(document.querySelectorAll('.reply-tile')).toHaveLength(3);
+    // Remembered for the child: the next session asks it straight away.
+    const stored = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    expect(stored.children[0].course.phrasesSeen['ex:thanks']).toBeTruthy();
+  });
+
   it('plays the Finnish prompt and shows reply options', async () => {
     renderActivity();
     expect(screen.getByText('Kiitos!', { selector: '.dialogue-said' })).toBeInTheDocument();

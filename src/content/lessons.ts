@@ -71,10 +71,16 @@ export type LessonCard =
       tense: VerbTense;
       polarity: Polarity;
     }
+  /** Set-phrase pairs: what someone SAYS → what you SAY BACK (vetted dialogue
+   *  exchanges by id). Teaches "what comes after what" before any game asks. */
+  | { kind: 'pairs'; title?: string; text?: string; ids: string[] }
   | {
       kind: 'check';
       title?: string;
       question: string;
+      /** A listening check: a 🔊 button plays this; the options are written
+       *  forms to pick from ("which one did you hear?"). */
+      listen?: LessonRef;
       options: { ref?: LessonRef; text?: string; correct?: boolean }[];
       explain: string;
     };
@@ -234,17 +240,17 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Read it like it\'s written',
         text:
-          'Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see.\n\nNo silent letters, like the k in English "knee"!',
+          'Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!\n\nAnd you always press on the **first part** of a word: KIR-ja, PÖY-tä, O-pet-ta-ja. Say the rest lightly.',
       },
       {
         kind: 'examples',
         title: 'Double letters are long',
         text:
-          'When a letter is written **twice**, you hold the sound longer. That can change the whole word! Listen to the difference:',
+          'When a letter is written **twice**, you hold that sound longer — a vowel *or* a consonant. That can change the whole word! Listen to all three:',
         rows: [
-          { word: 'fire', en: 'fire (short u)' },
-          { word: 'wind', en: 'wind (long uu)' },
-          { word: 'friend', en: 'friend' },
+          { word: 'fire', en: 'fire — short u, one l' },
+          { word: 'wind', en: 'wind — long uu' },
+          { word: 'customs', en: 'customs (at the border) — long ll' },
         ],
       },
       {
@@ -255,28 +261,38 @@ export const lessons: Lesson[] = [
         rows: [{ word: 'mother' }, { word: 'table' }, { word: 'pencil' }],
       },
       {
-        kind: 'explain',
-        title: 'The beat of a word',
+        kind: 'pairs',
+        title: 'What do you say back?',
         text:
-          'In Finnish you always press on the **first part** of a word: KIR-ja, PÖY-tä, O-pet-ta-ja. Say the rest lightly.',
+          'Greetings come in **pairs**: someone says the first line, and you answer with the second. Tap 🔊 and say both out loud.',
+        ids: ['good-morning', 'how-are-you', 'thanks', 'here-you-go', 'sorry', 'goodbye', 'good-night'],
       },
       {
-        kind: 'examples',
-        title: 'Your first Finnish',
-        text: 'These are the first things to say. Tap 🔊 and copy them out loud.',
-        rows: [
-          { line: 'good-morning', part: 'prompt' },
-          { line: 'how-are-you', part: 'prompt' },
-          { line: 'how-are-you', part: 'reply' },
-          { line: 'thanks', part: 'prompt' },
-          { line: 'goodbye', part: 'prompt' },
-        ],
+        kind: 'pairs',
+        title: 'Saying who you are',
+        text: 'When you meet someone new:',
+        ids: ['your-name', 'how-old', 'nice-to-meet', 'thanks-food'],
       },
       {
         kind: 'check',
-        question: 'Which one means **wind**? Listen for the long sound.',
-        options: [{ ref: { word: 'fire' } }, { ref: { word: 'wind' }, correct: true }],
-        explain: '*tuuli* has a long **uu** — that makes it "wind". *tuli* (short u) is "fire".',
+        question: '**Kuuntele!** Tap 🔊 — which word do you hear? Listen for the long sound.',
+        listen: { word: 'wind' },
+        options: [
+          { ref: { word: 'fire' } },
+          { ref: { word: 'wind' }, correct: true },
+          { ref: { word: 'customs' } },
+        ],
+        explain: 'You heard *tuuli*: the **uu** is held long. *tuli* is short all the way, and *tulli* holds the **l** instead.',
+      },
+      {
+        kind: 'check',
+        question: 'Someone says *Hyvää yötä!* What do you say back?',
+        options: [
+          { ref: { line: 'good-night', part: 'reply' }, correct: true },
+          { ref: { line: 'good-morning', part: 'reply' } },
+          { ref: { line: 'sorry', part: 'reply' } },
+        ],
+        explain: '*Hyvää yötä!* (good night) is answered with the same words: *Hyvää yötä!*',
       },
       {
         kind: 'check',
@@ -343,7 +359,8 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'examples',
-        title: 'One to ten',
+        title: 'One to twelve',
+        text: 'Eleven and twelve are "one-of-the-second-ten" and "two-of-the-second-ten": *yksitoista*, *kaksitoista*.',
         rows: [
           { word: 'one' },
           { word: 'two' },
@@ -355,13 +372,15 @@ export const lessons: Lesson[] = [
           { word: 'eight' },
           { word: 'nine' },
           { word: 'ten' },
+          { word: 'eleven' },
+          { word: 'twelve' },
         ],
       },
       {
         kind: 'explain',
         title: 'One, or more than one?',
         text:
-          'With **one** thing, the word stays just as it is: *yksi kirja*.\n\nWith **two or more**, Finnish adds a little ending: **-a** or **-ä**. And the word stays singular — no "-s" like in English!',
+          'With **one** thing, the word stays just as it is: *yksi kirja*.\n\nWith **two or more**, Finnish adds a little ending: **-a** or **-ä** (a few words take **-ta / -tä** instead). And the word stays singular — no "-s" like in English!',
       },
       {
         kind: 'examples',
@@ -520,7 +539,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'The six endings',
         text:
-          '- **-n** → I\n- **-t** → you\n- (the vowel just gets longer) → he / she\n- **-mme** → we\n- **-tte** → you all\n- **-vat / -vät** → they',
+          '- **-n** → I\n- **-t** → you\n- (the last vowel doubles: *lukee*; if it\'s already long, nothing changes: *syö*) → he / she\n- **-mme** → we\n- **-tte** → you all\n- **-vat / -vät** → they',
       },
       {
         kind: 'verbTable',
@@ -628,7 +647,8 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'rakastaa → -a / -ä',
-        text: '"I love" is *rakastan*, and it always wants **-a / -ä** instead.',
+        text:
+          '"I love" is *rakastan*, and it always wants **-a / -ä** instead — or **-ta / -tä** after a long vowel, like *suklaata*.',
         rows: [
           { sentence: 'i-love', word: 'pizza' },
           { sentence: 'i-love', word: 'chocolate' },
@@ -716,7 +736,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Some of a stuff: -a / -ä',
+        title: 'Some of something: -a / -ä',
         text:
           'Milk, bread, juice — you don\'t buy "one milk", you buy **some**. Then it gets **-a / -ä**. (Remember: -a means "not all of it".)',
         rows: [
@@ -775,7 +795,7 @@ export const lessons: Lesson[] = [
         rows: [
           { agree: 'big', word: 'house', case: 'inessive', en: 'in a big house' },
           { agree: 'small', word: 'dog', case: 'genitive', en: "a small dog's" },
-          { agree: 'red', word: 'ball', case: 'partitive', en: 'red ball (some / not all)' },
+          { agree: 'big', word: 'table', case: 'adessive', en: 'on a big table' },
         ],
       },
       {
@@ -810,18 +830,18 @@ export const lessons: Lesson[] = [
         text:
           'English puts a little word **in front**: *in the box*. Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".',
         rows: [
-          { word: 'box', case: 'inessive' },
-          { word: 'house', case: 'inessive' },
-          { word: 'school', case: 'inessive' },
+          { word: 'box', case: 'inessive', en: 'in the box' },
+          { word: 'house', case: 'inessive', en: 'in the house' },
+          { word: 'school', case: 'inessive', en: 'at school' },
         ],
       },
       {
         kind: 'examples',
         title: '"On" is -lla / -llä',
         rows: [
-          { word: 'table', case: 'adessive' },
-          { word: 'chair', case: 'adessive' },
-          { word: 'bed', case: 'adessive' },
+          { word: 'table', case: 'adessive', en: 'on the table' },
+          { word: 'chair', case: 'adessive', en: 'on the chair' },
+          { word: 'bed', case: 'adessive', en: 'on the bed' },
         ],
       },
       {
@@ -830,9 +850,9 @@ export const lessons: Lesson[] = [
         text:
           'Words with **a, o, u** → *-ssa, -lla*. Words with **ä, ö, y** → *-ssä, -llä*. Look at *talossa* vs. *metsässä*.',
         rows: [
-          { word: 'house', case: 'inessive' },
-          { word: 'forest', case: 'inessive' },
-          { word: 'table', case: 'adessive' },
+          { word: 'house', case: 'inessive', en: 'in the house' },
+          { word: 'forest', case: 'inessive', en: 'in the forest' },
+          { word: 'table', case: 'adessive', en: 'on the table' },
         ],
       },
       {
@@ -1272,9 +1292,9 @@ export const lessons: Lesson[] = [
         title: 'Place endings in the plural',
         text: 'Every place ending has a plural with **-i-**:',
         rows: [
-          { word: 'table', case: 'adessive', number: 'plural' },
-          { word: 'box', case: 'elative', number: 'plural' },
-          { word: 'table', case: 'allative', number: 'plural' },
+          { word: 'table', case: 'adessive', number: 'plural', en: 'on the tables' },
+          { word: 'box', case: 'elative', number: 'plural', en: 'out of the boxes' },
+          { word: 'table', case: 'allative', number: 'plural', en: 'onto the tables' },
         ],
       },
       {
@@ -1410,7 +1430,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Inside places: -ssa, -Vn, -sta',
+        title: 'Inside places: in, into, out of',
         rows: [
           { sentence: 'i-am-in', word: 'park' },
           { sentence: 'i-go-into', word: 'library' },
@@ -1483,8 +1503,8 @@ export const lessons: Lesson[] = [
         title: 'On Monday: -na / -nä',
         text: '"On" a day is the ending **-na / -nä** — no extra word.',
         rows: [
-          { word: 'monday', case: 'essive' },
-          { word: 'saturday', case: 'essive' },
+          { word: 'monday', case: 'essive', en: 'on Monday' },
+          { word: 'saturday', case: 'essive', en: 'on Saturday' },
           { sentence: 'play-on-day', word: 'friday' },
         ],
       },
@@ -1493,10 +1513,10 @@ export const lessons: Lesson[] = [
         title: 'In the morning, in summer: -lla / -llä',
         text: 'Parts of the day and seasons use the "on" ending **-lla / -llä** instead.',
         rows: [
-          { word: 'morning', case: 'adessive' },
-          { word: 'evening', case: 'adessive' },
-          { word: 'summer', case: 'adessive' },
-          { word: 'winter', case: 'adessive' },
+          { word: 'morning', case: 'adessive', en: 'in the morning' },
+          { word: 'evening', case: 'adessive', en: 'in the evening' },
+          { word: 'summer', case: 'adessive', en: 'in summer' },
+          { word: 'winter', case: 'adessive', en: 'in winter' },
         ],
       },
       {

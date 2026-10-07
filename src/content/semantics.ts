@@ -73,6 +73,11 @@ export function isCountable(id: string): boolean {
   return !NOT_COUNTABLE.includes(id);
 }
 
+/** Foods and pastimes that you like or love AS A KIND, so English drops "the":
+ *  "Pidän pitsasta" = "I like pizza", not "I like the pizza". (Countable
+ *  things — an apple, a cat — keep "the": "Pidän kissasta" = "I like the cat".) */
+export const LIKED_AS_A_KIND = ['pizza', 'ice-cream', 'chocolate', 'bread', 'cheese', 'cake', 'football'];
+
 /** Topics whose words are living things an animate adjective can describe. */
 export const ANIMATE_TOPICS = ['animals', 'family'];
 

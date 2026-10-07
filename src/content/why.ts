@@ -33,14 +33,14 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'she-has': 'With *Hänellä on*, the thing stays in its **basic form**.',
   'we-have': 'With *Meillä on*, the thing stays in its **basic form**.',
   'they-have': 'With *Heillä on*, the thing stays in its **basic form**.',
-  'i-havent': 'After *ei ole* (is not), the thing gets **-a / -ä**.',
+  'i-havent': 'After *ei ole* (is not), the thing gets **-a / -ä** (or **-ta / -tä**).',
   'i-like': '*Pidän* (I like) always takes **-sta / -stä**.',
-  'i-love': '*Rakastan* (I love) always takes **-a / -ä**.',
+  'i-love': '*Rakastan* (I love) always takes **-a / -ä** (or **-ta / -tä**).',
   'i-see': 'Seeing the whole thing → **-n**.',
-  'i-watch': 'Watching goes on for a while → **-a / -ä**.',
-  'i-wait-for': 'Waiting goes on for a while → **-a / -ä**.',
+  'i-watch': 'Watching goes on for a while → **-a / -ä** (or **-ta / -tä**).',
+  'i-wait-for': 'Waiting goes on for a while → **-a / -ä** (or **-ta / -tä**).',
   'i-buy': 'Buying one whole thing → **-n**.',
-  'i-buy-some': 'Buying SOME of a stuff → **-a / -ä**.',
+  'i-buy-some': 'Buying SOME of something → **-a / -ä** (or **-ta / -tä**).',
   'on-it': 'ON something → **-lla / -llä**.',
   'in-it': 'IN something → **-ssa / -ssä**.',
   'into-it': 'INTO something → a long vowel + **n** (or **-seen**).',
@@ -92,7 +92,7 @@ const CONSTRUCTION_RULES: Record<string, string> = {
 const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {
   nominative: 'Here the word stays in its **basic form**.',
   genitive: 'Here the word takes **-n**.',
-  partitive: 'Here the word takes **-a / -ä**.',
+  partitive: 'Here the word takes **-a / -ä** (or **-ta / -tä**).',
   inessive: 'IN something → **-ssa / -ssä**.',
   elative: 'OUT OF / FROM something → **-sta / -stä**.',
   illative: 'INTO something → a long vowel + **n** (or **-seen**).',
@@ -122,7 +122,7 @@ export function whyForCount(count: number, numberFi: string, noun: LexicalItem):
     text:
       count === 1
         ? 'With **one** thing, the word stays in its basic form.'
-        : 'With **two or more**, the word gets **-a / -ä** (and stays singular).',
+        : 'With **two or more**, the word gets **-a / -ä** (or **-ta / -tä**) and stays singular.',
     example: [
       { text: numberFi + ' ' },
       ...(count === 1 ? [{ text: form }] : caseSegments(form, 'partitive')),
@@ -153,7 +153,7 @@ export function whyForVerb(
     text = '"Have done" = *olla* (to be) + the **-nut / -nyt** form.';
   } else {
     text =
-      'The ending shows who: **-n** I · **-t** you · (long vowel) he/she · **-mme** we · **-tte** you all · **-vat / -vät** they.';
+      'The ending shows who: **-n** I · **-t** you · (last vowel doubles) he/she · **-mme** we · **-tte** you all · **-vat / -vät** they.';
   }
   return {
     text,

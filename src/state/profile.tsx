@@ -82,6 +82,8 @@ interface ProfileContextValue {
   // --- Guided course ---
   /** Mark a lesson as read to the end (idempotent; keeps the first time). */
   markLessonSeen: (lessonId: string) => void;
+  /** Mark set phrases (`ex:<id>` / `scene:<id>`) as modelled to the child. */
+  markPhraseSeen: (key: string) => void;
   /** Record a checkpoint attempt; `ratio` is first-try correct / total. */
   recordCheckpoint: (unitId: string, ratio: number, passed: boolean) => void;
 
@@ -216,6 +218,19 @@ export function ProfileProvider({
                 course: {
                   ...c.course,
                   lessonsSeen: { ...c.course?.lessonsSeen, [lessonId]: Date.now() },
+                },
+              },
+        ),
+
+      markPhraseSeen: (key) =>
+        updateActive((c) =>
+          c.course?.phrasesSeen?.[key]
+            ? c
+            : {
+                ...c,
+                course: {
+                  ...c.course,
+                  phrasesSeen: { ...c.course?.phrasesSeen, [key]: Date.now() },
                 },
               },
         ),

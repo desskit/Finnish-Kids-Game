@@ -86,6 +86,12 @@ export interface CourseState {
   lessonsSeen?: Record<string, number>;
   /** unitId → checkpoint record. */
   checkpoints?: Record<string, CheckpointRecord>;
+  /**
+   * Set phrases the child has been SHOWN before being asked for them:
+   * `ex:<exchangeId>` (a greeting pair) and `scene:<sceneId>` (a whole modelled
+   * conversation) → when. A phrase is modelled once, then practised.
+   */
+  phrasesSeen?: Record<string, number>;
 }
 
 export interface Settings {

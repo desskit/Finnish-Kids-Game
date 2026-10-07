@@ -5254,7 +5254,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä ovat pihat? _(yard)_
 - Missä ovat eläintarhat? _(zoo)_
 
-### `i-buy` — “I buy the ___.” (tier 6, genitive singular, 74 words)
+### `i-buy` — “I buy a ___.” (tier 6, genitive singular, 74 words)
 
 - Ostan omenan. _(apple)_
 - Ostan repun. _(backpack)_

@@ -192,6 +192,8 @@ export function buildReadingRound(
 // say back?"), not spotting broken Finnish. Content is human-authored.
 
 export interface DialogueQuestion {
+  /** The exchange id (for "show it before you ask it"). */
+  id: string;
   prompt: DialogueLine;
   /** The correct reply. */
   reply: DialogueLine;
@@ -225,6 +227,7 @@ export function buildDialogueRound(
     const distractors = sample(pool, Math.max(0, optionCount - 1));
     const options = shuffle([ex.reply, ...distractors]).map((l) => personalizeLine(l, childName));
     return {
+      id: ex.id,
       prompt: personalizeLine(ex.prompt, childName),
       reply: personalizeLine(ex.reply, childName),
       options,

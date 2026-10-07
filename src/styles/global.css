@@ -247,6 +247,13 @@ button:focus-visible,
   opacity: 0.8;
 }
 
+/* On a filled (blue) button the English must stay light enough to read —
+   the default soft-ink grey vanished into the blue. */
+.btn--primary .en {
+  color: rgba(255, 255, 255, 0.85);
+  opacity: 1;
+}
+
 /* Stuck-child helpers under a typing challenge: reveal-a-letter (with a
    remaining-uses count) + skip. Smaller, quieter than a primary action. */
 .stuck-help {
@@ -2702,4 +2709,73 @@ button:focus-visible,
   background: var(--bg);
   border-radius: var(--radius);
   padding-bottom: 16px;
+}
+
+/* ---------- "Show it before you ask it" for set phrases ---------- */
+.phrase-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.phrase-intro__label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.phrase-intro__fi {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 900;
+  color: var(--ink);
+  text-align: center;
+}
+
+.phrase-intro__fi--reply {
+  color: var(--brand);
+}
+
+.phrase-intro__arrow {
+  margin: 6px 0;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--ink-soft);
+}
+
+/* The modelled scene: the whole exchange, both sides, before the child plays it. */
+.chat--model {
+  margin-bottom: 12px;
+}
+
+/* A listening check in a lesson: hear it, then pick what you heard. */
+.lesson-check__listen {
+  align-self: center;
+  margin: 4px 0 8px;
+}
+
+/* "They say → you say" pairs in a lesson: each pair grouped as one unit. */
+.lesson-pairs {
+  gap: 10px;
+}
+
+.lesson-pair {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--brand-soft);
+}
+
+.lesson-pair .lesson-row {
+  background: var(--bg-card);
+}
+
+.lesson-pair > .lesson-rows {
+  padding: 0;
+  margin: 0;
+  gap: 2px;
 }

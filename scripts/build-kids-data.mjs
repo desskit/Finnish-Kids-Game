@@ -23,7 +23,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const AGID = loadAgid(resolve(__dirname, '..', 'data', 'english-agid', 'infl.txt'));
 const ENGLISH_MISSING = [];
 /** AGID part-of-speech for a theme (numbers carry no inflected English). */
-const posForTheme = (id) => (id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' ? null : 'N');
+// Lesson-only words are shown once, as-is, and never pluralised or put in an
+// English template — so they need no English morphology.
+const posForTheme = (id) =>
+  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : id === 'numbers' || id === 'lesson-words' ? null : 'N';
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -334,6 +337,12 @@ const STATES = [
   ['hunger', 'nälkä', 'hunger'],
   ['thirst', 'jano', 'thirst'],
 ];
+
+// Lesson-only words: shown in a lesson to make a point about SOUNDS, never
+// drawn into a game pool. "tulli" completes the classic length trio
+// tuli (fire) / tuuli (wind) / tulli (customs): one vowel, two vowels, two
+// consonants — three different words.
+const LESSON_WORDS = [['customs', 'tulli', 'customs', '🛂']];
 
 // Free time — hobbies, games and gadgets: the things a child actually talks
 // about owning and liking ("Minulla on pyörä", "Pidän jalkapallosta").
@@ -754,6 +763,15 @@ const states = buildTheme({
   sourceWords: nounWords,
 });
 
+const lessonWords = buildTheme({
+  id: 'lesson-words',
+  fi: 'Oppitunnin sanat',
+  en: 'Lesson words',
+  emoji: '📖',
+  curation: LESSON_WORDS,
+  sourceWords: nounWords,
+});
+
 const freetime = buildTheme({
   id: 'freetime',
   fi: 'Vapaa-aika',
@@ -794,6 +812,7 @@ writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null,
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'lesson-words.sourced.json'), JSON.stringify(lessonWords, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +

@@ -1,0 +1,59 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "lesson-words",
+    "fi": "Oppitunnin sanat",
+    "en": "Lesson words",
+    "emoji": "📖"
+  },
+  "words": [
+    {
+      "id": "customs",
+      "word": "tulli",
+      "en": "customs",
+      "emoji": "🛂",
+      "inflections": {
+        "nominative_singular": "tulli",
+        "nominative_plural": "tullit",
+        "genitive_singular": "tullin",
+        "genitive_plural": "tullien",
+        "partitive_singular": "tullia",
+        "partitive_plural": "tulleja",
+        "inessive_singular": "tullissa",
+        "inessive_plural": "tulleissa",
+        "elative_singular": "tullista",
+        "elative_plural": "tulleista",
+        "illative_singular": "tulliin",
+        "illative_plural": "tulleihin",
+        "adessive_singular": "tullilla",
+        "adessive_plural": "tulleilla",
+        "ablative_singular": "tullilta",
+        "ablative_plural": "tulleilta",
+        "allative_singular": "tullille",
+        "allative_plural": "tulleille",
+        "essive_singular": "tullina",
+        "essive_plural": "tulleina",
+        "translative_singular": "tulliksi",
+        "translative_plural": "tulleiksi",
+        "abessive_singular": "tullitta",
+        "abessive_plural": "tulleitta",
+        "instructive_plural": "tullein",
+        "comitative_plural": "tulleineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 27617,
+      "examples": [
+        {
+          "fi": "tietulli",
+          "en": "road toll"
+        },
+        {
+          "fi": "Missä on tulli?",
+          "en": "Where is Customs?"
+        }
+      ]
+    }
+  ]
+}
