@@ -46,6 +46,14 @@ export default function CourseHome() {
 
   // The current unit starts expanded; others toggle open on tap.
   const [open, setOpen] = useState<Set<string>>(() => new Set([next.unit.id]));
+  // Locked units far ahead fold away — a peek at the next two, then a button.
+  const [showAll, setShowAll] = useState(false);
+  const lastOpen = UNITS.reduce(
+    (last, u, i) => (unitStatus(activeChild, u, unlockAll) !== 'locked' ? i : last),
+    0,
+  );
+  const cutoff = showAll ? UNITS.length : lastOpen + 2;
+  const hidden = UNITS.length - 1 - cutoff;
   const toggle = (id: string) =>
     setOpen((s) => {
       const n = new Set(s);
@@ -130,27 +138,26 @@ export default function CourseHome() {
         </Link>
       </div>
 
-      <Link className="badge-strip" to="/achievements" aria-label={`Achievements: ${earned.size} of ${BADGES.length} earned`}>
-        {BADGES.map((b) => {
-          const has = earned.has(b.id);
-          return (
-            <span
-              key={b.id}
-              className={'badge' + (has ? '' : ' badge--locked')}
-              title={has ? `${b.titleEn} — earned` : `${b.titleEn}: ${b.hintEn}`}
-            >
+      {earned.size > 0 && (
+        <Link
+          className="badge-strip"
+          to="/achievements"
+          aria-label={`Achievements: ${earned.size} of ${BADGES.length} earned`}
+        >
+          {BADGES.filter((b) => earned.has(b.id)).map((b) => (
+            <span key={b.id} className="badge" title={`${b.titleEn} — earned`}>
               {b.emoji}
             </span>
-          );
-        })}
-      </Link>
+          ))}
+        </Link>
+      )}
 
       <h2 className="course-progress en">
         {completed} of {total} units done
       </h2>
 
       <ol className="units">
-        {UNITS.map((unit, i) => {
+        {UNITS.slice(0, cutoff + 1).map((unit, i) => {
           const status = unitStatus(activeChild, unit, unlockAll);
           const isCurrent = unit.id === next.unit.id;
           const expanded = status !== 'locked' && open.has(unit.id);
@@ -194,6 +201,11 @@ export default function CourseHome() {
           );
         })}
       </ol>
+      {hidden > 0 && (
+        <button className="btn units-more" onClick={() => setShowAll(true)}>
+          🔒 {hidden} more units <span className="en">Show them all</span>
+        </button>
+      )}
 
       {!isSpeechAvailable() && (
         <p className="audio-note">🔇 Audio isn't available in this browser. Words still show as text.</p>

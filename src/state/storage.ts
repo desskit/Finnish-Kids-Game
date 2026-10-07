@@ -274,3 +274,29 @@ export interface ProfileStore {
 
 /** The active store. Swap this for a remote-backed store (Supabase) later. */
 export const localProfileStore: ProfileStore = { load, save };
+
+// --- Backup / restore (grown-up Settings) --------------------------------------
+//
+// Everything lives in this browser only, so a grown-up can save a backup file
+// and restore it (after clearing site data, or on a new device). Restore
+// validates the file first and repairs it through `sanitize`, so a bad file can
+// never leave the app in a broken state.
+
+/** The current data as a pretty JSON backup file. */
+export function exportBackup(data: ProfilesData): string {
+  return JSON.stringify({ app: 'finnish-kids-game', savedAt: new Date().toISOString(), ...data }, null, 2);
+}
+
+/** Parse a backup file; returns the repaired data, or null if it isn't one. */
+export function parseBackup(text: string): ProfilesData | null {
+  try {
+    const parsed = JSON.parse(text) as Partial<ProfilesData>;
+    if (!parsed || parsed.version !== 2 || !Array.isArray(parsed.children)) return null;
+    const ok = parsed.children.every(
+      (c) => c && typeof c.id === 'string' && typeof c.name === 'string' && typeof c.stars === 'number',
+    );
+    return ok ? sanitize(parsed as ProfilesData) : null;
+  } catch {
+    return null;
+  }
+}

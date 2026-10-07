@@ -114,8 +114,8 @@ export default function ProfilePicker() {
         {/* Opened from the map to switch player? Let a grown-up back out without
             being forced to pick someone. Hidden at first launch (no child yet). */}
         {!adding && children.length > 0 && (
-          <button className="text-btn" onClick={() => navigate('/')}>
-            Takaisin <span className="en">Back home</span>
+          <button className="btn" onClick={() => navigate('/')}>
+            ⬅︎ Takaisin <span className="en">Back home</span>
           </button>
         )}
       </section>
