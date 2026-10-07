@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { englishSentenceFor, formFor, sentenceFor } from '../content';
+import { glossFor } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -66,6 +67,10 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
 
+  // Gloss-free (L9+) needs a picture to stand in for the English — a word with
+  // no single picture keeps its English, or the question would be unreadable.
+  const glossFree = drillGlossFree && !!question?.item.emoji;
+
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
   const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
@@ -76,10 +81,10 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   // choose correctly, below. Gloss-free expert band: no English at all — the
   // picture + carrier ARE the prompt.
   useEffect(() => {
-    if (!question || done || drillGlossFree) return;
+    if (!question || done || glossFree) return;
     const t = setTimeout(() => speakEnglish(englishPrompt), 350);
     return () => clearTimeout(t);
-  }, [question, done, englishPrompt, drillGlossFree]);
+  }, [question, done, englishPrompt, glossFree]);
 
   // Shared success/advance path for both tile modes.
   const succeed = useCallback(() => {
@@ -147,8 +152,8 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   // the gloss-free band, no English either (nothing to replay pre-answer).
   const replay = useCallback(() => {
     if (chosen) speak(fullSentence);
-    else if (!drillGlossFree) speakEnglish(englishPrompt);
-  }, [chosen, fullSentence, englishPrompt, drillGlossFree]);
+    else if (!glossFree) speakEnglish(englishPrompt);
+  }, [chosen, fullSentence, englishPrompt, glossFree]);
 
   // Keyboard: number keys pick a tile (word or form); Space/Enter replays.
   useEffect(() => {
@@ -201,20 +206,22 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         onExit={onExit}
       />
 
-      {drillGlossFree ? (
+      {glossFree ? (
         // Expert band: no English anywhere — the picture + carrier are the
         // whole prompt, and (in form mode) the ENDING is the question.
         <p className="prompt">Täydennä lause</p>
       ) : (
         <p className="prompt">
-          {construction.en} <span className="en">{item.en}</span>
+          {construction.en} <span className="en">{glossFor(item, construction)}</span>
         </p>
       )}
 
       <div className="phrase-card">
-        <span className="phrase-emoji" aria-hidden="true">
-          {item.emoji}
-        </span>
+        {item.emoji && (
+          <span className="phrase-emoji" aria-hidden="true">
+            {item.emoji}
+          </span>
+        )}
         <div className="phrase-line">
           {construction.before && <span className="phrase-fixed">{construction.before}</span>}
           <span className={'phrase-slot' + (chosenForm ? ' phrase-slot--filled' : '')}>
@@ -223,7 +230,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}
         </div>
-        {(chosen || !drillGlossFree) && (
+        {(chosen || !glossFree) && (
           <button
             className="speaker speaker--inline"
             onClick={replay}

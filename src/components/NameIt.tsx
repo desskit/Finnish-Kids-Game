@@ -54,7 +54,8 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   const round = useMemo(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildListenRound(items.filter((i) => i.emoji), QUESTIONS, optionCount, tricky, weigh).slice(
+      // Picture-less words play too: their prompt is the English word alone.
+      buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(
         0,
         ctx?.roundQuestions,
       ),
@@ -202,10 +203,14 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
       </p>
 
       <div className="phrase-card">
-        <span className="phrase-emoji" aria-hidden="true">
-          {question.target.emoji}
-        </span>
-        <p className="en phrase-hint">{question.target.en}</p>
+        {question.target.emoji && (
+          <span className="phrase-emoji" aria-hidden="true">
+            {question.target.emoji}
+          </span>
+        )}
+        <p className={'en phrase-hint' + (question.target.emoji ? '' : ' phrase-hint--solo')}>
+          {question.target.en}
+        </p>
         <button
           className="speaker speaker--inline"
           onClick={() => speakEnglish(question.target.en)}

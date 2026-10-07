@@ -1,6 +1,6 @@
 import { cloneElement, useRef, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import { badgeEnv, findSkill, renderActivity, activityForRound } from './game/path';
+import { badgeEnv, findSkill, renderActivity, activityForRound, mixStepFor } from './game/path';
 import { difficultyFor } from './game/adapt';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
@@ -75,15 +75,20 @@ function SkillRoute() {
   const { chapter, skill } = found;
   if (skill.activity === 'review') return <Navigate to="/review" replace />;
 
+  // A Kertaus (mixed review) step replays a different EARLIER step each
+  // segment — that step's own game, words and pins — while progress still
+  // records under the Kertaus step itself.
+  const mix = mixStepFor(skill, round.no);
+  const play = mix ?? { chapter, skill };
   // A course step may pin some knobs (its grammar tier, its verb tense) over
   // the level's own — the level still drives tiles/trickiness/production.
-  const difficulty = { ...difficultyFor(round.level), ...skill.pin };
+  const difficulty = { ...difficultyFor(round.level), ...play.skill.pin };
   // Speaking is folded into the rotation only where the browser can hear it AND
   // a grown-up hasn't switched it off.
   const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
-  const activity = activityForRound(skill, round.level, round.no, speechOn);
+  const activity = activityForRound(play.skill, round.level, round.no, speechOn);
   const onExit = () => navigate('/');
-  const element = renderActivity(skill, activity, onExit);
+  const element = renderActivity(play.skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
 
   // Silent segment recording + advance, in one commit: fold the segment's
@@ -115,8 +120,13 @@ function SkillRoute() {
 
   return (
     <main className="app">
+      {mix && (
+        <div className="checkpoint-bar" aria-label={`Mixed review: ${mix.skill.titleEn}`}>
+          🔁 <span className="en">Kertaus · {mix.skill.titleEn}</span>
+        </div>
+      )}
       <ActivityContext.Provider
-        value={{ onSegmentComplete, difficulty, sessionStars, lessonId: chapter.lessonId }}
+        value={{ onSegmentComplete, difficulty, sessionStars, lessonId: play.chapter.lessonId }}
       >
         {/* Key by segment so each one mounts fresh — switching game type cleanly. */}
         {cloneElement(element, { key: round.no })}

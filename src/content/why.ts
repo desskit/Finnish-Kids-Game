@@ -55,6 +55,29 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'behind-them': 'Before *takana*, MANY things get **-en / -jen**.',
   'next-to-them': 'Before *vieressä*, MANY things get **-en / -jen**.',
   'under-them': 'Before *alla*, MANY things get **-en / -jen**.',
+  'is-under': 'Before *alla* (under), the thing gets **-n**.',
+  'is-behind': 'Before *takana* (behind), the thing gets **-n**.',
+  'is-in-front-of': 'Before *edessä* (in front of), the thing gets **-n**.',
+  'is-next-to': 'Before *vieressä* (next to), the thing gets **-n**.',
+  'this-is-mine': '*minun* (my) + the ending **-ni**.',
+  'i-am': 'After *Olen* (I am), the feeling stays in its **basic form**.',
+  'she-is': 'After *Hän on* (he/she is), the feeling stays in its **basic form**.',
+  'i-am-not': 'After *En ole* (I am not), a feeling STILL stays in its **basic form**.',
+  'i-feel': '*Minulla on* + the feeling in its **basic form** — "on me is hunger".',
+  'i-dont-like': '*En pidä* (I don\'t like) still takes **-sta / -stä**.',
+  'i-am-in': 'You are IN a place → **-ssa / -ssä**.',
+  'i-am-on': 'You are AT / ON a place → **-lla / -llä**.',
+  'i-go-into': 'Going INTO a place → a long vowel + **n** (or **-seen**).',
+  'i-go-onto': 'Going TO an "on" place → **-lle**.',
+  'i-come-from-in': 'Coming FROM inside a place → **-sta / -stä**.',
+  'i-come-from-on': 'Coming FROM an "on" place → **-lta / -ltä**.',
+  'today-is': 'After *Tänään on*, the day stays in its **basic form** (no capital letter!).',
+  'play-on-day': 'ON a day → **-na / -nä**: *maanantaina*.',
+  'play-at-time': 'IN the morning / IN summer → **-lla / -llä**: *aamulla*, *kesällä*.',
+  'clock-is': 'After *Kello on*, the number stays in its **basic form**.',
+  'this-is-yours': '*sinun* (your) + the ending **-si**.',
+  'this-is-theirs': '*hänen* (his / her) + the ending **-nsa / -nsä**.',
+  'where-is-yours': '*sinun* (your) + the ending **-si**.',
   'i-have-some': '"Some" things → the plural **-ja / -jä** (or **-ita / -itä**).',
   'i-havent-any': '"Not any" → the plural **-ja / -jä** (or **-ita / -itä**).',
   'these-are': '*Nämä ovat* + "some" things → plural **-ja / -jä** (or **-ita / -itä**).',
@@ -76,13 +99,19 @@ const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {
   adessive: 'ON something → **-lla / -llä**.',
   ablative: 'OFF something → **-lta / -ltä**.',
   allative: 'ONTO something → **-lle**.',
+  essive: 'ON a day → **-na / -nä**.',
 };
 
 export function whyForConstruction(con: Construction, item: LexicalItem): Why {
   const form = formFor(item, con);
+  const fallback = con.possessor ? POSSESSOR_RULE[con.possessor] : CASE_DEFAULTS[con.case];
   return {
-    text: CONSTRUCTION_RULES[con.id] ?? CASE_DEFAULTS[con.case] ?? 'Look at the ending.',
-    example: form ? caseSegments(form, con.case, con.number === 'plural') : undefined,
+    text: CONSTRUCTION_RULES[con.id] ?? fallback ?? 'Look at the ending.',
+    example: form
+      ? con.possessor
+        ? possessiveSegments(form, con.possessor)
+        : caseSegments(form, con.case, con.number === 'plural')
+      : undefined,
   };
 }
 

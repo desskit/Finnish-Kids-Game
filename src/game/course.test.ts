@@ -99,14 +99,44 @@ describe('steps and checkpoints inside a unit', () => {
     expect(checkpointStatus(all, u1)).toBe('open');
   });
 
-  it('plans a checkpoint of ≥ 8 questions over every step at its done level', () => {
-    for (const u of UNITS.filter((x) => x.checkpoint !== false)) {
+  it('plans a checkpoint of ≥ 8 questions: every step, then (from unit 3) a "Muistatko?" part', () => {
+    UNITS.forEach((u, ui) => {
+      if (u.checkpoint === false) return;
       const plan = checkpointPlan(u);
-      expect(plan.map((p) => p.step.id)).toEqual(u.skills.map((s) => s.id));
+      const own = plan.filter((p) => p.kind === 'step');
+      expect(own).toHaveLength(u.skills.length);
+      own.forEach((p, i) => {
+        const step = u.skills[i];
+        // A Kertaus step contributes one of its EARLIER steps instead.
+        if (step.content.mixOf) expect(step.content.mixOf).toContain(p.step.id);
+        else expect(p.step.id).toBe(step.id);
+      });
       expect(plan.reduce((n, p) => n + p.questions, 0)).toBeGreaterThanOrEqual(8);
       for (const p of plan) expect(p.level).toBe(p.step.doneAtLevel ?? 2);
-    }
+      const remember = plan.filter((p) => p.kind === 'remember');
+      expect(remember.length).toBe(ui >= 2 ? 1 : 0);
+      for (const r of remember) {
+        // From an EARLIER unit.
+        const from = UNITS.findIndex((x) => x.skills.some((s) => s.id === r.step.id));
+        expect(from).toBeLessThan(ui);
+      }
+    });
     expect(checkpointPlan(UNITS[UNITS.length - 1])).toEqual([]);
+  });
+
+  it('asks phrase steps for an ASSEMBLY question in the checkpoint', () => {
+    const people = UNITS.find((u) => u.id === 'people')!;
+    const part = checkpointPlan(people).find((p) => p.step.id === 'this-is')!;
+    expect(part.activity).toBe('order');
+    const words = checkpointPlan(people).find((p) => p.step.id === 'people-words')!;
+    expect(words.activity).toBe('name');
+  });
+
+  it('varies the review parts by attempt, deterministically', () => {
+    const many = UNITS.find((u) => u.id === 'many')!;
+    const ids = (attempt: number) => checkpointPlan(many, attempt).map((p) => p.step.id).join(',');
+    expect(ids(0)).toBe(ids(0));
+    expect(new Set([0, 1, 2, 3].map(ids)).size).toBeGreaterThan(1);
   });
 });
 

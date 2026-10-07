@@ -12,7 +12,15 @@
 //   - A grown-up's `unlockAll` setting opens every unit and step.
 
 import type { Child } from '../state/storage';
-import { PATH, activitiesUpTo, type ActivityKind, type Chapter, type SkillNode } from './path';
+import {
+  PATH,
+  activitiesUpTo,
+  isMixable,
+  mixStepFor,
+  type ActivityKind,
+  type Chapter,
+  type SkillNode,
+} from './path';
 
 export type Unit = Chapter;
 export type Status = 'locked' | 'open' | 'done';
@@ -145,25 +153,75 @@ export function unitsCompleted(child: Child | null | undefined): number {
 // --- Checkpoints -------------------------------------------------------------
 
 export interface CheckpointPart {
+  /** The step whose game is played (for a Kertaus or "Muistatko?" part, the
+   *  earlier step being revisited). */
   step: SkillNode;
-  /** The game to play for this part (the step's top game at its done level). */
+  /** The game to play for this part. */
   activity: ActivityKind;
   /** Questions to ask from this step. */
   questions: number;
   /** Level to play at (the step's done level — what the child has proven). */
   level: number;
+  /** The lesson that explains this part (for the "Why?" tip). */
+  lessonId: string;
+  /** 'remember' = the "Muistatko?" question from an earlier unit. */
+  kind: 'step' | 'remember';
 }
 
-/** The ordered parts of a unit's checkpoint (empty for Mestari). */
-export function checkpointPlan(unit: Unit): CheckpointPart[] {
+/** Questions in a checkpoint's "Muistatko?" (remember?) part. */
+export const REMEMBER_QUESTIONS = 2;
+
+/** The game a step contributes to a checkpoint. */
+export function checkpointActivity(step: SkillNode): ActivityKind {
+  if (step.checkpoint) return step.checkpoint;
+  const unlocked = activitiesUpTo(step, step.doneAtLevel ?? DEFAULT_DONE_LEVEL);
+  return unlocked[unlocked.length - 1];
+}
+
+function partFor(
+  step: SkillNode,
+  lessonId: string,
+  questions: number,
+  kind: CheckpointPart['kind'],
+): CheckpointPart {
+  return {
+    step,
+    activity: checkpointActivity(step),
+    questions,
+    level: step.doneAtLevel ?? DEFAULT_DONE_LEVEL,
+    lessonId,
+    kind,
+  };
+}
+
+/**
+ * The ordered parts of a unit's checkpoint (empty for Mestari): every step of
+ * the unit — a Kertaus step contributes one of its earlier steps — then, from
+ * unit 3 on, a short "Muistatko?" part from an earlier unit so old grammar
+ * keeps coming back. `attempt` (the number of earlier tries) varies WHICH
+ * earlier steps appear, deterministically, so a retry isn't a replay.
+ */
+export function checkpointPlan(unit: Unit, attempt = 0): CheckpointPart[] {
   if (!hasCheckpoint(unit) || unit.skills.length === 0) return [];
   const cfg = { ...DEFAULT_CHECKPOINT, ...(unit.checkpoint || {}) };
   const perStep = Math.max(cfg.perStep, Math.ceil(cfg.minQuestions / unit.skills.length));
-  return unit.skills.map((step) => {
-    const level = step.doneAtLevel ?? DEFAULT_DONE_LEVEL;
-    const unlocked = activitiesUpTo(step, level);
-    return { step, activity: unlocked[unlocked.length - 1], questions: perStep, level };
+  const parts = unit.skills.map((step) => {
+    const sub = mixStepFor(step, attempt);
+    return sub
+      ? partFor(sub.skill, sub.chapter.lessonId, perStep, 'step')
+      : partFor(step, unit.lessonId, perStep, 'step');
   });
+  const ui = unitIndex(unit.id);
+  if (ui >= 2) {
+    const earlier = UNITS.slice(0, ui).flatMap((u) =>
+      u.skills.filter(isMixable).map((s) => ({ s, lessonId: u.lessonId })),
+    );
+    if (earlier.length > 0) {
+      const pick = earlier[(attempt * 7 + ui * 3) % earlier.length];
+      parts.push(partFor(pick.s, pick.lessonId, REMEMBER_QUESTIONS, 'remember'));
+    }
+  }
+  return parts;
 }
 
 export function checkpointPassRatio(unit: Unit): number {

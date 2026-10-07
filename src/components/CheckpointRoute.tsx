@@ -10,6 +10,7 @@ import {
   checkpointStatus,
   findUnit,
   unitIndex,
+  type CheckpointPart,
 } from '../game/course';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
@@ -34,10 +35,14 @@ export default function CheckpointRoute() {
   const [results, setResults] = useState<PartResult[]>([]);
   const [run, setRun] = useState(0);
   const [startStars, setStartStars] = useState(stars);
+  // Frozen at Start: earlier tries vary which review steps appear, but a run
+  // never reshuffles under the child.
+  const [runPlan, setRunPlan] = useState<CheckpointPart[] | null>(null);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!unit) return <Navigate to="/" replace />;
-  const plan = checkpointPlan(unit);
+  const attempts = activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0;
+  const plan = runPlan ?? checkpointPlan(unit, attempts);
   if (plan.length === 0) return <Navigate to="/" replace />;
   if (checkpointStatus(activeChild, unit, !!settings.unlockAll) === 'locked') {
     return <Navigate to="/" replace />;
@@ -49,6 +54,7 @@ export default function CheckpointRoute() {
   const questions = plan.reduce((s, p) => s + p.questions, 0);
 
   const start = () => {
+    setRunPlan(checkpointPlan(unit, activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0));
     setPart(0);
     setResults([]);
     setRun((r) => r + 1);
@@ -171,7 +177,11 @@ export default function CheckpointRoute() {
   return (
     <main className="app">
       <div className="checkpoint-bar" aria-label={`Checkpoint part ${part + 1} of ${plan.length}`}>
-        🏁 <span className="en">Checkpoint · part {part + 1}/{plan.length}</span>
+        🏁{' '}
+        <span className="en">
+          {p.kind === 'remember' ? 'Muistatko? Remember?' : 'Checkpoint'} · part {part + 1}/
+          {plan.length}
+        </span>
       </div>
       <ActivityContext.Provider
         value={{
@@ -179,7 +189,7 @@ export default function CheckpointRoute() {
           difficulty: { ...difficultyFor(p.level), ...p.step.pin },
           sessionStars: stars - startStars,
           roundQuestions: p.questions,
-          lessonId: unit.lessonId,
+          lessonId: p.lessonId,
         }}
       >
         <div key={`${run}-${part}`}>{element}</div>

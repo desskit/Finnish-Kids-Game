@@ -244,9 +244,15 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
             disabled={locked}
           >
             <span className="pic-card__num">{i + 1}</span>
-            <span className="pic-card__emoji" aria-hidden="true">
-              {opt.emoji}
-            </span>
+            {opt.emoji ? (
+              <span className="pic-card__emoji" aria-hidden="true">
+                {opt.emoji}
+              </span>
+            ) : (
+              // A word with no single picture (a weekday, "kind", "hobby")
+              // shows its English meaning instead.
+              <span className="pic-card__word">{opt.en}</span>
+            )}
           </button>
         ))}
       </div>

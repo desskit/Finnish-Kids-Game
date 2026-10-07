@@ -389,4 +389,537 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+
+  // --- One scene per unit (course expansion). Each uses ONLY its unit's
+  // grammar plus the words met so far; every inflected form was looked up in
+  // the sourced tables before authoring. Where it can, a "wrong move"
+  // distractor is the unit's own contrast: "Olen puistossa" for a MIHIN?
+  // question, "Tämä on kirja" for MITÄ NÄMÄ OVAT?, present-tense twins
+  // ("Menen puistoon", "En syö") for an EILEN? question.
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (all scenes below). ---
+  {
+    // Unit: having
+    id: 'what-you-have',
+    titleFi: 'Mitä sinulla on?',
+    titleEn: 'What have you got?',
+    icon: '🎒',
+    partnerIcon: '🧒',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Hei! Mitä sinulla on?', en: 'Hi! What have you got?' },
+        reply: { fi: 'Minulla on pallo.', en: 'I have a ball.' },
+        distractors: [
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Minulla on koira. Entä sinulla?', en: 'Nice! I have a dog. And you?' },
+        reply: { fi: 'Minulla on kissa.', en: 'I have a cat.' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Leikitäänkö pallolla?', en: 'Shall we play with the ball?' },
+        reply: { fi: 'Joo, leikitään!', en: "Yeah, let's play!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: not-having
+    id: 'going-out',
+    titleFi: 'Mennään ulos',
+    titleEn: 'Going outside',
+    icon: '🧥',
+    partnerIcon: '👩',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Mennään ulos! Onko sinulla takki?', en: "Let's go out! Do you have a coat?" },
+        reply: { fi: 'On. Minulla on takki.', en: 'Yes. I have a coat.' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Onko sinulla hattu?', en: 'Do you have a hat?' },
+        reply: { fi: 'Ei ole. Minulla ei ole hattua.', en: "No. I don't have a hat." },
+        distractors: [
+          { fi: 'Minulla on kissa.', en: 'I have a cat.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ei se mitään. Ota tämä hattu!', en: "That's okay. Take this hat!" },
+        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: not-doing
+    id: 'bedtime',
+    titleFi: 'Nukutko jo?',
+    titleEn: 'Are you asleep?',
+    icon: '🛏️',
+    partnerIcon: '👨',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Mitä teet? Piirrätkö?', en: 'What are you doing? Are you drawing?' },
+        reply: { fi: 'En piirrä. Luen.', en: "I'm not drawing. I'm reading." },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'Minulla on pallo.', en: 'I have a ball.' },
+        ],
+      },
+      {
+        partner: { fi: 'Nukutko jo?', en: 'Are you asleep already?' },
+        reply: { fi: 'En nuku!', en: "I'm not sleeping!" },
+        distractors: [
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+        ],
+      },
+      {
+        partner: { fi: 'Nyt on yö. Hyvää yötä!', en: "It's night now. Good night!" },
+        reply: { fi: 'Hyvää yötä!', en: 'Good night!' },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: feelings
+    id: 'how-feel',
+    titleFi: 'Miltä tuntuu?',
+    titleEn: 'How do you feel?',
+    icon: '😄',
+    partnerIcon: '👩',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Miltä sinusta tuntuu?', en: 'How do you feel?' },
+        reply: { fi: 'Olen väsynyt.', en: "I'm tired." },
+        distractors: [
+          { fi: 'Minulla on pallo.', en: 'I have a ball.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Oletko surullinen?', en: 'Are you sad?' },
+        reply: { fi: 'En ole surullinen.', en: "I'm not sad." },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'En nuku!', en: "I'm not sleeping!" },
+        ],
+      },
+      {
+        partner: { fi: 'Onko sinulla nälkä?', en: 'Are you hungry?' },
+        reply: { fi: 'On! Minulla on nälkä.', en: "Yes! I'm hungry." },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: school-day
+    id: 'school-day',
+    titleFi: 'Koulupäivä',
+    titleEn: 'A school day',
+    icon: '✏️',
+    partnerIcon: '👧',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Pidätkö matematiikasta?', en: 'Do you like math?' },
+        reply: { fi: 'Joo, pidän matematiikasta!', en: 'Yes, I like math!' },
+        distractors: [
+          { fi: 'Minulla on kumi.', en: 'I have an eraser.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä liikunnasta?', en: 'And gym?' },
+        reply: { fi: 'En pidä liikunnasta.', en: "I don't like gym." },
+        distractors: [
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Olen iloinen.', en: "I'm happy." },
+        ],
+      },
+      {
+        partner: { fi: 'Mennään ruokalaan!', en: "Let's go to the canteen!" },
+        reply: { fi: 'Mennään! Minulla on nälkä.', en: "Let's go! I'm hungry." },
+        distractors: [
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+          { fi: 'En piirrä.', en: "I'm not drawing." },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: seeing
+    id: 'bus-stop',
+    titleFi: 'Bussipysäkillä',
+    titleEn: 'At the bus stop',
+    icon: '🚏',
+    partnerIcon: '👴',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä sinä odotat?', en: 'What are you waiting for?' },
+        reply: { fi: 'Odotan bussia.', en: "I'm waiting for the bus." },
+        distractors: [
+          { fi: 'Minulla on kumi.', en: 'I have an eraser.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Näetkö bussin?', en: 'Do you see the bus?' },
+        reply: { fi: 'Joo, näen bussin!', en: 'Yes, I see the bus!' },
+        distractors: [
+          { fi: 'En pidä matematiikasta.', en: "I don't like math." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Hienoa! Mennään.', en: "Great! Let's go." },
+        reply: { fi: 'Mennään!', en: "Let's go!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Olen väsynyt.', en: "I'm tired." },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: describing
+    id: 'what-like',
+    titleFi: 'Millainen?',
+    titleEn: 'What is it like?',
+    icon: '🎨',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Millainen koira sinulla on?', en: 'What kind of dog do you have?' },
+        reply: { fi: 'Minulla on iso, ruskea koira.', en: 'I have a big, brown dog.' },
+        distractors: [
+          { fi: 'Odotan bussia.', en: "I'm waiting for the bus." },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko se nopea?', en: 'Is it fast?' },
+        reply: { fi: 'Ei ole. Se on hidas.', en: "No. It's slow." },
+        distractors: [
+          { fi: 'Minulla on nälkä.', en: "I'm hungry." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Minulla on pieni, valkoinen kissa.', en: 'I have a small, white cat.' },
+        reply: { fi: 'Kiva! Se on söpö.', en: "Nice! It's cute." },
+        distractors: [
+          { fi: 'En pidä liikunnasta.', en: "I don't like gym." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: where
+    id: 'tidy-up',
+    titleFi: 'Missä se on?',
+    titleEn: 'Where is it?',
+    icon: '🔍',
+    partnerIcon: '👩',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Missä reppu on?', en: 'Where is the backpack?' },
+        reply: { fi: 'Reppu on tuolilla.', en: 'The backpack is on the chair.' },
+        distractors: [
+          { fi: 'Odotan bussia.', en: "I'm waiting for the bus." },
+          { fi: 'Olen väsynyt.', en: "I'm tired." },
+        ],
+      },
+      {
+        partner: { fi: 'Entä kirja? Missä kirja on?', en: 'And the book? Where is the book?' },
+        reply: { fi: 'Kirja on laatikossa.', en: 'The book is in the box.' },
+        distractors: [
+          { fi: 'Se on hidas.', en: "It's slow." },
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos paljon!', en: 'Thanks a lot!' },
+        reply: { fi: 'Ole hyvä!', en: "You're welcome!" },
+        distractors: [
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+          { fi: 'Kirja on pöydällä.', en: 'The book is on the table.' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: moving
+    id: 'cat-moves',
+    titleFi: 'Mihin kissa menee?',
+    titleEn: "Where's the cat going?",
+    icon: '🐈',
+    partnerIcon: '👦',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mihin kissa menee?', en: 'Where is the cat going?' },
+        reply: { fi: 'Kissa menee laatikkoon.', en: 'The cat is going into the box.' },
+        distractors: [
+          { fi: 'Kissa on iloinen.', en: 'The cat is happy.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ja nyt? Mistä kissa tulee?', en: 'And now? Where is the cat coming from?' },
+        reply: { fi: 'Kissa tulee laatikosta.', en: 'The cat is coming out of the box.' },
+        distractors: [
+          { fi: 'Odotan bussia.', en: "I'm waiting for the bus." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mihin se menee nyt?', en: 'Where is it going now?' },
+        reply: { fi: 'Se menee pöydälle.', en: "It's going onto the table." },
+        distractors: [
+          { fi: 'Se on pöydällä.', en: "It's on the table." },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: town
+    id: 'in-town',
+    titleFi: 'Kaupungilla',
+    titleEn: 'Out in town',
+    icon: '🏙️',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Hei! Mistä sinä tulet?', en: 'Hi! Where are you coming from?' },
+        reply: { fi: 'Tulen koulusta.', en: "I'm coming from school." },
+        distractors: [
+          { fi: 'Menen kouluun.', en: "I'm going to school." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mihin sinä menet nyt?', en: 'Where are you going now?' },
+        reply: { fi: 'Menen puistoon.', en: "I'm going to the park." },
+        distractors: [
+          { fi: 'Olen puistossa.', en: "I'm in the park." },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä myös! Mennään yhdessä.', en: "Me too! Let's go together." },
+        reply: { fi: 'Joo, mennään!', en: "Yeah, let's go!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Tulen koulusta.', en: "I'm coming from school." },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: when
+    id: 'when-play',
+    titleFi: 'Milloin leikitään?',
+    titleEn: 'When shall we play?',
+    icon: '📅',
+    partnerIcon: '👧',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mikä päivä tänään on?', en: 'What day is it today?' },
+        reply: { fi: 'Tänään on lauantai.', en: 'Today is Saturday.' },
+        distractors: [
+          { fi: 'Kello on kolme.', en: "It's three o'clock." },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä kello on?', en: 'What time is it?' },
+        reply: { fi: 'Kello on kymmenen.', en: "It's ten o'clock." },
+        distractors: [
+          { fi: 'Tänään on maanantai.', en: 'Today is Monday.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Leikitäänkö sunnuntaina?', en: 'Shall we play on Sunday?' },
+        reply: { fi: 'Joo, leikitään sunnuntaina!', en: "Yes, let's play on Sunday!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Menen puistoon.', en: "I'm going to the park." },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: around
+    id: 'hiding',
+    titleFi: 'Piilossa',
+    titleEn: 'Hiding',
+    icon: '🙈',
+    partnerIcon: '👦',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Missä kissa on?', en: 'Where is the cat?' },
+        reply: { fi: 'Kissa on tuolin alla.', en: 'The cat is under the chair.' },
+        distractors: [
+          { fi: 'Tänään on lauantai.', en: 'Today is Saturday.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä pallo?', en: 'And the ball?' },
+        reply: { fi: 'Pallo on sängyn vieressä.', en: 'The ball is next to the bed.' },
+        distractors: [
+          { fi: 'Kello on kymmenen.', en: "It's ten o'clock." },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Ja koira?', en: 'And the dog?' },
+        reply: { fi: 'Koira on oven takana.', en: 'The dog is behind the door.' },
+        distractors: [
+          { fi: 'Koira on iso.', en: 'The dog is big.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: whose
+    id: 'whose-is-it',
+    titleFi: 'Kenen tämä on?',
+    titleEn: 'Whose is this?',
+    icon: '🙋',
+    partnerIcon: '👩‍🏫',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Onko tämä sinun kirjasi?', en: 'Is this your book?' },
+        reply: { fi: 'Ei ole. Se on hänen kirjansa.', en: "No. It's their book." },
+        distractors: [
+          { fi: 'Kirja on laatikossa.', en: 'The book is in the box.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Missä on sinun kynäsi?', en: 'Where is your pencil?' },
+        reply: { fi: 'Kynäni on repussa.', en: 'My pencil is in the backpack.' },
+        distractors: [
+          { fi: 'Tänään on perjantai.', en: 'Today is Friday.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Onko tämä sinun pallosi?', en: 'Is this your ball?' },
+        reply: { fi: 'On! Se on minun palloni.', en: "Yes! It's my ball." },
+        distractors: [
+          { fi: 'Se on iso.', en: "It's big." },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: many
+    id: 'lots-of-things',
+    titleFi: 'Paljon tavaraa',
+    titleEn: 'Lots of things',
+    icon: '🧺',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä nämä ovat?', en: 'What are these?' },
+        reply: { fi: 'Nämä ovat kirjoja.', en: 'These are books.' },
+        distractors: [
+          { fi: 'Tämä on kirja.', en: 'This is a book.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko sinulla autoja?', en: 'Do you have any cars?' },
+        reply: { fi: 'On, minulla on kolme autoa.', en: 'Yes, I have three cars.' },
+        distractors: [
+          { fi: 'Pallot ovat laatikoissa.', en: 'The balls are in the boxes.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Missä pallot ovat?', en: 'Where are the balls?' },
+        reply: { fi: 'Pallot ovat laatikoissa.', en: 'The balls are in the boxes.' },
+        distractors: [
+          { fi: 'Minulla on palloja.', en: 'I have some balls.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  {
+    // Unit: yesterday
+    id: 'yesterday',
+    titleFi: 'Mitä teit eilen?',
+    titleEn: 'What did you do yesterday?',
+    icon: '⏮️',
+    partnerIcon: '👵',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Mitä teit eilen?', en: 'What did you do yesterday?' },
+        reply: { fi: 'Menin puistoon.', en: 'I went to the park.' },
+        distractors: [
+          { fi: 'Menen puistoon.', en: "I'm going to the park." },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä sinä näit siellä?', en: 'What did you see there?' },
+        reply: { fi: 'Näin koiran.', en: 'I saw a dog.' },
+        distractors: [
+          { fi: 'Koira on iso.', en: 'The dog is big.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Söitkö jäätelöä?', en: 'Did you eat ice cream?' },
+        reply: { fi: 'En syönyt.', en: "No, I didn't." },
+        distractors: [
+          { fi: 'En syö.', en: "I don't eat." },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+    ],
+  },
 ];

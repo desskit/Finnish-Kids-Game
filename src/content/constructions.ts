@@ -32,6 +32,25 @@ const UNOWNABLE = [
   'shop',
   'bus',
   'train',
+  'park',
+  'hospital',
+  'station',
+  'museum',
+  'restaurant',
+  'cafe',
+  'city',
+  'market',
+  'zoo',
+  'field',
+  'living-room',
+  'bedroom',
+  'bathroom',
+  'yard',
+  // School subjects are taken, not owned.
+  'math',
+  'gym',
+  'english',
+  'canteen',
 ];
 
 // Things it makes sense to LIKE/LOVE — everything except body parts
@@ -53,11 +72,45 @@ const WATCHABLE_TOPICS = ['animals', 'family', 'places', 'nature', 'school', 'fr
 
 // Things you can't SEE or WATCH as an object ("Näen musiikin" is wrong — you
 // hear music; a hobby is an activity, not a thing in view).
-const NOT_VISIBLE = ['music', 'hobby'];
+const NOT_VISIBLE = ['music', 'hobby', 'math', 'gym', 'english', 'task'];
 
 // Nature words that make no concrete reference point for a postposition
 // ("sateen edessä" reads as poetry, not a place).
-const NO_LANDMARK = ['rain', 'snow', 'sky', 'sea', 'music', 'hobby', 'class', 'homework'];
+const NO_LANDMARK = [
+  'rain',
+  'snow',
+  'sky',
+  'sea',
+  'music',
+  'hobby',
+  'class',
+  'homework',
+  'city',
+  'math',
+  'gym',
+  'english',
+  'task',
+  'test',
+];
+
+// The feelings the "Olen ___" carriers describe (all animate-only adjectives).
+const FEELINGS = ['happy', 'tired', 'hungry', 'sad', 'angry', 'thirsty', 'sick', 'calm', 'proud'];
+
+// Weekdays (essive "maanantaina") vs. parts of the day + seasons (adessive
+// "aamulla", "kesällä") — Finnish's two "when" endings.
+const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const TIMES_OF = ['morning', 'daytime', 'evening', 'night', 'spring', 'summer', 'autumn', 'winter'];
+
+// Where a person is ON/AT, with the English preposition each one takes.
+const PERSON_ON_GLOSS: Record<string, string> = {
+  station: 'at the station',
+  market: 'at the market',
+  field: 'on the field',
+  yard: 'in the yard',
+  sofa: 'on the sofa',
+  door: 'at the door',
+  window: 'at the window',
+};
 
 export const nounConstructions: Construction[] = [
   // --- Nominative subject/complement (Tier 2) ---
@@ -214,6 +267,9 @@ export const nounConstructions: Construction[] = [
       'backpack',
       'homework',
       'class',
+      'sofa',
+      'test',
+      'eraser',
       ...NOT_VISIBLE,
     ],
   },
@@ -297,6 +353,105 @@ export const nounConstructions: Construction[] = [
     excludeIds: NO_LANDMARK,
   },
 
+  // --- Postpositions in a whole sentence (the "Around things" unit): the same
+  // genitive + position word, but inside the vetted "Kissa on …" frame the
+  // locative carriers use, so it reads as a sentence, not a phrase. The cat
+  // can't be in front of itself, so 'cat' is excluded.
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (fixed texts).
+  {
+    id: 'is-under',
+    before: 'Kissa on',
+    after: 'alla',
+    punct: '.',
+    en: 'The cat is under the ___.',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+    excludeIds: [...NO_LANDMARK, 'cat'],
+  },
+  {
+    id: 'is-behind',
+    before: 'Kissa on',
+    after: 'takana',
+    punct: '.',
+    en: 'The cat is behind the ___.',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+    excludeIds: [...NO_LANDMARK, 'cat'],
+  },
+  {
+    id: 'is-in-front-of',
+    before: 'Kissa on',
+    after: 'edessä',
+    punct: '.',
+    en: 'The cat is in front of the ___.',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+    excludeIds: [...NO_LANDMARK, 'cat'],
+  },
+  {
+    id: 'is-next-to',
+    before: 'Kissa on',
+    after: 'vieressä',
+    punct: '.',
+    en: 'The cat is next to the ___.',
+    tier: 3,
+    case: 'genitive',
+    number: 'singular',
+    excludeIds: [...NO_LANDMARK, 'cat'],
+  },
+
+  // --- Possessive carriers (the "Whose?" unit): the slot takes the sourced
+  // POSSESSIVE form — "Tämä on minun kirjani." Pronoun + suffix together is the
+  // everyday pattern; the suffix is the part under test.
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (fixed texts).
+  {
+    id: 'this-is-mine',
+    before: 'Tämä on minun',
+    punct: '.',
+    en: 'This is my ___.',
+    tier: 4,
+    case: 'nominative',
+    number: 'singular',
+    possessor: '1sg',
+    excludeIds: UNOWNABLE,
+  },
+  {
+    id: 'this-is-yours',
+    before: 'Tämä on sinun',
+    punct: '.',
+    en: 'This is your ___.',
+    tier: 4,
+    case: 'nominative',
+    number: 'singular',
+    possessor: '2sg',
+    excludeIds: UNOWNABLE,
+  },
+  {
+    id: 'this-is-theirs',
+    before: 'Tämä on hänen',
+    punct: '.',
+    en: 'This is his/her ___.',
+    tier: 4,
+    case: 'nominative',
+    number: 'singular',
+    possessor: '3rd',
+    excludeIds: UNOWNABLE,
+  },
+  {
+    id: 'where-is-yours',
+    before: 'Missä on sinun',
+    punct: '?',
+    en: 'Where is your ___?',
+    tier: 4,
+    case: 'nominative',
+    number: 'singular',
+    possessor: '2sg',
+    excludeIds: UNOWNABLE,
+  },
+
   // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
   // docs/FINNISH_GRAMMAR.md "Possession" + "partitive plural" rule. ---
   {
@@ -370,6 +525,13 @@ export const nounConstructions: Construction[] = [
       'class',
       'music',
       'hobby',
+      'math',
+      'gym',
+      'english',
+      'pupil',
+      'test',
+      'task',
+      'canteen',
     ],
   },
   {
@@ -439,6 +601,28 @@ export const nounConstructions: Construction[] = [
       'clock',
       'homework',
       'class',
+      'park',
+      'hospital',
+      'station',
+      'museum',
+      'restaurant',
+      'cafe',
+      'city',
+      'market',
+      'zoo',
+      'field',
+      'living-room',
+      'bedroom',
+      'bathroom',
+      'sofa',
+      'yard',
+      'math',
+      'gym',
+      'english',
+      'eraser',
+      'task',
+      'canteen',
+      'test',
     ],
   },
 
@@ -579,5 +763,212 @@ export const nounConstructions: Construction[] = [
     number: 'plural',
     topics: ['places'],
     requiresTags: [SURFACE_TAG],
+  },
+
+  // =====================================================================
+  // Course expansion carriers (Feelings / School day / Town & home / When?).
+  // Fixed texts are short, everyday Finnish; every slot form is still looked
+  // up. ⚠️ NEEDS NATIVE FINNISH VETTING (fixed texts below).
+  // =====================================================================
+
+  // --- Feelings: olla + a feeling (predicate adjective, nominative) ---
+  {
+    id: 'i-am',
+    before: 'Olen',
+    punct: '.',
+    en: "I'm ___.",
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+    onlyIds: FEELINGS,
+  },
+  {
+    id: 'she-is',
+    before: 'Hän on',
+    punct: '.',
+    en: 'He/she is ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+    onlyIds: FEELINGS,
+  },
+  {
+    // A predicate adjective stays nominative under negation ("En ole
+    // väsynyt") — unlike the partitive of "Minulla ei ole kissaa".
+    id: 'i-am-not',
+    before: 'En ole',
+    punct: '.',
+    en: "I'm not ___.",
+    tier: 3,
+    case: 'nominative',
+    number: 'singular',
+    onlyIds: FEELINGS,
+  },
+  {
+    // "Minulla on nälkä" — literally "on me is hunger": how Finnish says I'm
+    // hungry / thirsty / cold / hot. glossById keeps the English natural.
+    id: 'i-feel',
+    before: 'Minulla on',
+    punct: '.',
+    en: "I'm ___.",
+    tier: 3,
+    case: 'nominative',
+    number: 'singular',
+    onlyIds: ['hunger', 'thirst', 'cold', 'hot'],
+    glossById: { hunger: 'hungry', thirst: 'thirsty', cold: 'cold', hot: 'hot' },
+  },
+
+  // --- School day: the negative of pitää still takes the elative ---
+  {
+    id: 'i-dont-like',
+    before: 'En pidä',
+    punct: '.',
+    en: "I don't like the ___.",
+    tier: 3,
+    case: 'elative',
+    number: 'singular',
+    topics: LIKABLE_TOPICS,
+  },
+
+  // --- Town & home: YOU are / go / come (person-subject locatives) ---
+  {
+    id: 'i-am-in',
+    before: 'Olen',
+    punct: '.',
+    en: "I'm in the ___.",
+    tier: 3,
+    case: 'inessive',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-in'],
+  },
+  {
+    id: 'i-am-on',
+    before: 'Olen',
+    punct: '.',
+    en: "I'm ___.",
+    tier: 3,
+    case: 'adessive',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-on'],
+    glossById: PERSON_ON_GLOSS,
+  },
+  {
+    id: 'i-go-into',
+    before: 'Menen',
+    punct: '.',
+    en: "I'm going to the ___.",
+    tier: 4,
+    case: 'illative',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-in'],
+  },
+  {
+    id: 'i-go-onto',
+    before: 'Menen',
+    punct: '.',
+    en: "I'm going to the ___.",
+    tier: 4,
+    case: 'allative',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-on'],
+  },
+  {
+    id: 'i-come-from-in',
+    before: 'Tulen',
+    punct: '.',
+    en: "I'm coming from the ___.",
+    tier: 4,
+    case: 'elative',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-in'],
+  },
+  {
+    id: 'i-come-from-on',
+    before: 'Tulen',
+    punct: '.',
+    en: "I'm coming from the ___.",
+    tier: 4,
+    case: 'ablative',
+    number: 'singular',
+    topics: ['places'],
+    requiresTags: ['person-on'],
+  },
+
+  // --- When? ---
+  {
+    id: 'today-is',
+    before: 'Tänään on',
+    punct: '.',
+    en: 'Today is ___.',
+    tier: 2,
+    case: 'nominative',
+    number: 'singular',
+    topics: ['time'],
+    onlyIds: DAYS,
+  },
+  {
+    // Days (and the weekend) take the ESSIVE: "maanantaina" = on Monday.
+    id: 'play-on-day',
+    before: 'Leikin',
+    punct: '.',
+    en: 'I play on ___.',
+    tier: 3,
+    case: 'essive',
+    number: 'singular',
+    topics: ['time'],
+    onlyIds: [...DAYS, 'weekend'],
+    glossById: { weekend: 'the weekend' },
+  },
+  {
+    // Parts of the day and seasons take the ADESSIVE: "aamulla", "kesällä".
+    id: 'play-at-time',
+    before: 'Leikin',
+    punct: '.',
+    en: 'I play ___.',
+    tier: 3,
+    case: 'adessive',
+    number: 'singular',
+    topics: ['time'],
+    onlyIds: TIMES_OF,
+    glossById: {
+      morning: 'in the morning',
+      daytime: 'in the daytime',
+      evening: 'in the evening',
+      night: 'at night',
+      spring: 'in spring',
+      summer: 'in summer',
+      autumn: 'in autumn',
+      winter: 'in winter',
+    },
+  },
+  {
+    // Telling the time: the hour is just the number word, nominative.
+    id: 'clock-is',
+    before: 'Kello on',
+    punct: '.',
+    en: "It's ___ o'clock.",
+    tier: 3,
+    case: 'nominative',
+    number: 'singular',
+    topics: ['numbers'],
+    onlyIds: [
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+      'ten',
+      'eleven',
+      'twelve',
+    ],
   },
 ];

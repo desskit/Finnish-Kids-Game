@@ -171,8 +171,8 @@ exist in (or can be added to) the inflection dataset.
 The home screen is a **course of units** (`src/game/path.tsx`, `UNITS`), not an
 open map. Each unit is one idea a beginner can hold:
 
-1. a short **lesson** (`src/content/lessons.ts`) — 3–6 cards;
-2. 1–3 practice **steps** — existing games, scoped to the unit's grammar and
+1. a short **lesson** (`src/content/lessons.ts`) — 4–8 cards with 2–3 "try it" checks;
+2. 2–5 practice **steps** — existing games, scoped to the unit's grammar and
    to the words met so far;
 3. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
 
@@ -184,15 +184,61 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   only once in the course. Steps draw from the unit's own words
   (`content.words: 'new'`, used by the "New words" warm-up) or, by default,
   from every word met so far (`'known'`).
-- Steps: use `phraseStep(...)` for carrier-phrase drills (build → order →
-  spell), `wordsStep(...)` for the vocab warm-up, or a plain `SkillNode`.
-  Dialogue, scene and story steps take `content.ids` to pick registry entries.
-- Units 1–19 pin `maxTier` to 10 automatically, because a step's
+- Unit ids are **semantic** (`having`, `when`, `town`…), never numbered, so a
+  new unit can be inserted without renaming saved progress. "Unit N" on screen
+  comes from position.
+- Steps: use `phraseStep(...)` for carrier-phrase drills, `wordsStep(...)` for
+  the vocab warm-up, `sceneStep(...)` for the unit's conversation,
+  `reviewStep(unitId)` for a Kertaus, or a plain `SkillNode`. Dialogue, scene
+  and story steps take `content.ids` to pick registry entries.
+- **Build it before done.** `phraseStep` ramps `build → order → spell → spell`
+  and is done at **level 3**, so a child must assemble the sentence (word
+  order) before the step counts — tapping tiles alone never finishes it.
+- `checkpoint` (optional `ActivityKind`) is the game a step plays in its
+  unit's checkpoint. `phraseStep` uses `order` and `wordsStep` uses `name`;
+  without it the checkpoint uses the step's top game at its done level.
+- **One conversation per unit.** Every grammar unit ends with a
+  `sceneStep` whose 3-turn scene (`src/content/conversations.ts`) uses only
+  that unit's grammar and the words met so far. Distractors are real Finnish
+  that is the wrong move — ideally the unit's own contrast ("Olen puistossa"
+  for *Mihin menet?*). New scenes are ⚠️-flagged for native vetting.
+- **Kertaus (mixed review).** `reviewStep(unitId)` creates a step with
+  `content.mix`. The course resolves it to `content.mixOf`: every *mixable*
+  step of the EARLIER units (phrase, conjugation, count, match, possessive —
+  not words, dialogue, scene or story steps). Each segment plays one of them
+  (`mixStepFor`, a coprime stride, so a session rotates through different
+  ones) with that step's own scoping, pin and game, while progress records
+  under the Kertaus step. They sit in units 5, 10, 15 and 20.
+- **"Muistatko?" in checkpoints.** From unit 3 on, `checkpointPlan` adds a
+  2-question part from one earlier unit's step, picked from the attempt count,
+  so a retry asks about something different.
+- Units 1–23 pin `maxTier` to 10 automatically, because a step's
   constructions are already exactly what its lesson taught. A conjugation step
-  also pins `verbCombos` to its lesson's tense. Only Mestari (unit 20) is
-  unpinned, so its original deep ladders climb to L9–10.
+  also pins `verbCombos` to its lesson's tense. Only Mestari (the last unit)
+  is unpinned, so its original deep ladders climb to L9–10.
 - `doneAtLevel` (default 2) is the step level that counts toward unlocking
   the checkpoint.
+- **Words without a picture** (days, *janoinen*, *olohuone*…) are fine in the
+  words step: Listen-and-tap shows the English word on the card, Name-it
+  prompts with the English word, and Build shows the gloss. Only count, match
+  and yes/no need a picture, and they filter those words out.
+
+### Carrier options added for the expansion
+
+- `possessor` (`'1sg' | '2sg' | '3rd'`) makes `formFor` return the sourced
+  possessive form: *Tämä on minun **kirjani**.* Form tiles and "Why?" tips
+  follow it.
+- `glossById` overrides the English for one word when the literal reading is
+  wrong: *Minulla on nälkä* → "I'm hungry", not "I have a hunger";
+  *Leikin yöllä* → "I play at night".
+- `onlyIds` / `topics`: **days, seasons, feelings-as-nouns, adjectives and
+  numbers are opt-in.** A carrier only takes them if it names their topic or
+  id, so "Minulla on maanantai" can't be assembled. The one exception is a
+  thing-describing adjective after *Tämä on / Onko tämä* ("Tämä on
+  punainen."); feelings never go there, because they need a living subject.
+- **Person locatives** (*Olen / Menen / Tulen* + place) take only places
+  tagged `person-in` or `person-on` in `scripts/build-kids-data.mjs`, so a
+  child goes *puistoon* and *asemalle*, but never "Olen pöydällä".
 - Run `npx vitest run src/game/course.viability.test.tsx`. It renders every
   step × game × level and fails if any step can't fill a real question (too
   few known words, places without the right tags, …).

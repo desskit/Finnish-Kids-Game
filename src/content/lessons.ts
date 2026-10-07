@@ -132,12 +132,11 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     const c = ref.asCase ?? con.case;
     const form = ref.asCase ? caseFormOf(item, c, con.number) : formFor(item, con);
     if (!form) return null;
-    const segs = sentenceSegments(
-      con.before,
-      caseSegments(form, c, con.number === 'plural'),
-      con.after,
-      con.punct,
-    );
+    const slot =
+      con.possessor && !ref.asCase
+        ? possessiveSegments(form, con.possessor)
+        : caseSegments(form, c, con.number === 'plural');
+    const segs = sentenceSegments(con.before, slot, con.after, con.punct);
     return {
       segments: segs,
       en: ref.en ?? (ref.asCase ? undefined : englishSentenceFor(item, con)),
@@ -273,6 +272,18 @@ export const lessons: Lesson[] = [
           { line: 'goodbye', part: 'prompt' },
         ],
       },
+      {
+        kind: 'check',
+        question: 'Which one means **wind**? Listen for the long sound.',
+        options: [{ ref: { word: 'fire' } }, { ref: { word: 'wind' }, correct: true }],
+        explain: '*tuuli* has a long **uu** — that makes it "wind". *tuli* (short u) is "fire".',
+      },
+      {
+        kind: 'check',
+        question: 'Which letter sounds like the a in "cat"?',
+        options: [{ text: 'a' }, { text: 'ä', correct: true }, { text: 'ö' }],
+        explain: '**ä** is the "cat" sound — like in *äiti*.',
+      },
     ],
   },
   {
@@ -315,6 +326,12 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'is-this', word: 'clock' }, correct: true },
         ],
         explain: '*Onko* at the start — with its **-ko** — turns it into a question.',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "a teacher" in Finnish?',
+        options: [{ text: 'a opettaja' }, { ref: { word: 'teacher' }, correct: true }],
+        explain: 'No "a" in Finnish — just *opettaja*.',
       },
     ],
   },
@@ -375,6 +392,15 @@ export const lessons: Lesson[] = [
         ],
         explain: 'Two or more → the word gets **-a**: *kirjaa*.',
       },
+      {
+        kind: 'check',
+        question: 'How do you say "three friends"?',
+        options: [
+          { ref: { count: 3, word: 'friend' }, correct: true },
+          { ref: { count: 3, word: 'friend', wrong: true } },
+        ],
+        explain: 'Three is more than one → **-a**: *kaveria*.',
+      },
     ],
   },
   {
@@ -411,6 +437,16 @@ export const lessons: Lesson[] = [
         question: '*Sinulla on pallo.* — Who has the ball?',
         options: [{ text: 'I do' }, { text: 'You do', correct: true }, { text: 'We do' }],
         explain: '*sinulla* = "on you" → **you** have the ball.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "we have a dog"?',
+        options: [
+          { ref: { sentence: 'i-have', word: 'dog' } },
+          { ref: { sentence: 'we-have', word: 'dog' }, correct: true },
+          { ref: { sentence: 'they-have', word: 'dog' } },
+        ],
+        explain: '*meillä* = "on us" → **we** have.',
       },
     ],
   },
@@ -451,6 +487,12 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'i-havent', word: 'shoe' }, correct: true },
         ],
         explain: 'After *ei ole*, the thing takes **-a / -ä**: *kenkää*.',
+      },
+      {
+        kind: 'check',
+        question: '*Minulla on hattu.* — Do I have a hat?',
+        options: [{ text: 'Yes', correct: true }, { text: 'No' }],
+        explain: '*on* means "is" — so yes! For "no" it would be *ei ole* … *hattua*.',
       },
     ],
   },
@@ -500,6 +542,12 @@ export const lessons: Lesson[] = [
         ],
         explain: '**-mme** means "we".',
       },
+      {
+        kind: 'check',
+        question: '*syötte* — who is eating?',
+        options: [{ text: 'I' }, { text: 'you all', correct: true }, { text: 'they' }],
+        explain: '**-tte** means "you all".',
+      },
     ],
   },
   {
@@ -540,6 +588,16 @@ export const lessons: Lesson[] = [
           { ref: { verb: 'sleep', tense: 'present', polarity: 'negative', person: '3sg' } },
         ],
         explain: '*et* = "you … not" (the **-t** means you).',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "they don\'t sing"?',
+        options: [
+          { ref: { verb: 'sing', tense: 'present', polarity: 'negative', person: '3pl' }, correct: true },
+          { ref: { verb: 'sing', tense: 'present', polarity: 'positive', person: '3pl' } },
+          { ref: { verb: 'sing', tense: 'present', polarity: 'negative', person: '1pl' } },
+        ],
+        explain: '*eivät* = "they … not", and the main verb stays short.',
       },
     ],
   },
@@ -586,6 +644,15 @@ export const lessons: Lesson[] = [
         ],
         explain: '*pidän* always takes **-sta / -stä**: *musiikista*.',
       },
+      {
+        kind: 'check',
+        question: 'Which one means "I love pizza"?',
+        options: [
+          { ref: { sentence: 'i-love', word: 'pizza' }, correct: true },
+          { ref: { sentence: 'i-love', word: 'pizza', asCase: 'elative' } },
+        ],
+        explain: '*rakastan* wants **-a**: *pitsaa*. (**-sta** is for *pidän*.)',
+      },
     ],
   },
   {
@@ -624,6 +691,12 @@ export const lessons: Lesson[] = [
         ],
         explain: 'Waiting goes on for a while → **-a**: *junaa*.',
       },
+      {
+        kind: 'check',
+        question: '*Näen bussin.* — Which ending does "bus" have?',
+        options: [{ text: '-n', correct: true }, { text: '-a' }, { text: '-ssa' }],
+        explain: 'Seeing the whole bus → **-n**: *bussin*.',
+      },
     ],
   },
   {
@@ -657,6 +730,12 @@ export const lessons: Lesson[] = [
         question: '*Ostan maitoa.* — How much milk?',
         options: [{ text: 'Some milk', correct: true }, { text: 'One whole milk' }],
         explain: '**-a** (*maitoa*) means "some of it".',
+      },
+      {
+        kind: 'check',
+        question: '*Ostan omenan.* — How many apples?',
+        options: [{ text: 'One whole apple', correct: true }, { text: 'Some apple' }],
+        explain: '**-n** (*omenan*) means one whole thing.',
       },
     ],
   },
@@ -707,6 +786,15 @@ export const lessons: Lesson[] = [
           { ref: { agree: 'big', word: 'house', case: 'inessive' }, correct: true },
         ],
         explain: 'Both words get the ending: *isossa talossa*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "of a red ball" (it takes -n)?',
+        options: [
+          { ref: { agree: 'red', word: 'ball', case: 'genitive' }, correct: true },
+          { ref: { agree: 'red', word: 'ball', case: 'genitive', adjCase: 'nominative' } },
+        ],
+        explain: 'Both words take **-n**: *punaisen pallon*.',
       },
     ],
   },
@@ -762,6 +850,15 @@ export const lessons: Lesson[] = [
         ],
         explain: '"On" → **-lla / -llä**: *pöydällä*.',
       },
+      {
+        kind: 'check',
+        question: 'The cat is IN the house. Which is right?',
+        options: [
+          { ref: { sentence: 'in-it', word: 'house' }, correct: true },
+          { ref: { sentence: 'in-it', word: 'house', asCase: 'adessive' } },
+        ],
+        explain: '"In" → **-ssa**: *talossa*.',
+      },
     ],
   },
   {
@@ -810,6 +907,15 @@ export const lessons: Lesson[] = [
         ],
         explain: '"Out of" → **-sta / -stä**: *laatikosta*.',
       },
+      {
+        kind: 'check',
+        question: 'The cat goes INTO the box. Which is right?',
+        options: [
+          { ref: { sentence: 'into-it', word: 'box' }, correct: true },
+          { ref: { sentence: 'into-it', word: 'box', asCase: 'elative' } },
+        ],
+        explain: '"Into" → a long vowel + **n**: *laatikkoon*.',
+      },
     ],
   },
   {
@@ -848,6 +954,24 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'behind', word: 'tree', asCase: 'nominative' } },
         ],
         explain: 'Before a position word, the thing gets **-n**: *puun takana*.',
+      },
+      {
+        kind: 'examples',
+        title: 'In a whole sentence',
+        rows: [
+          { sentence: 'is-under', word: 'chair' },
+          { sentence: 'is-behind', word: 'tree' },
+          { sentence: 'is-next-to', word: 'teacher' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "under the table"?',
+        options: [
+          { ref: { sentence: 'under', word: 'table' }, correct: true },
+          { ref: { sentence: 'under', word: 'table', asCase: 'nominative' } },
+        ],
+        explain: 'Before *alla*, the thing gets **-n**: *pöydän alla*.',
       },
     ],
   },
@@ -893,6 +1017,21 @@ export const lessons: Lesson[] = [
         ],
         explain: '**-si** means "your".',
       },
+      {
+        kind: 'examples',
+        title: 'In a sentence',
+        rows: [
+          { sentence: 'this-is-mine', word: 'book' },
+          { sentence: 'this-is-yours', word: 'bike' },
+          { sentence: 'where-is-yours', word: 'backpack' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: '*Tämä on sinun kirjasi.* — Whose book is it?',
+        options: [{ text: 'Mine' }, { text: 'Yours', correct: true }, { text: 'Theirs' }],
+        explain: '*sinun* + **-si** = your.',
+      },
     ],
   },
   {
@@ -935,6 +1074,12 @@ export const lessons: Lesson[] = [
           { ref: { sentence: 'i-have-some', word: 'ball' }, correct: true },
         ],
         explain: '"Some" balls → *palloja*.',
+      },
+      {
+        kind: 'check',
+        question: '*kirjat* means…',
+        options: [{ text: 'a book' }, { text: 'the books', correct: true }],
+        explain: 'The **-t** means more than one.',
       },
     ],
   },
@@ -983,6 +1128,16 @@ export const lessons: Lesson[] = [
         ],
         explain: 'The **-i-** shows the past: *luin*.',
       },
+      {
+        kind: 'check',
+        question: 'Which one means "we ate"?',
+        options: [
+          { ref: { verb: 'eat', tense: 'past', polarity: 'positive', person: '1pl' }, correct: true },
+          { ref: { verb: 'eat', tense: 'present', polarity: 'positive', person: '1pl' } },
+          { ref: { verb: 'eat', tense: 'past', polarity: 'positive', person: '3pl' } },
+        ],
+        explain: 'Past **-i-** + **-mme** (we): *söimme*.',
+      },
     ],
   },
   {
@@ -1021,6 +1176,24 @@ export const lessons: Lesson[] = [
         title: 'Question words',
         text:
           'Most questions start with a question word:\n- *Mitä?* — what?\n- *Missä?* — where?\n- *Kuka?* — who?\n- *Paljonko?* — how much?',
+      },
+      {
+        kind: 'check',
+        question: 'Someone says *Kiitos!* — what fits?',
+        options: [
+          { ref: { line: 'thanks', part: 'reply' }, correct: true },
+          { ref: { line: 'good-night', part: 'prompt' } },
+        ],
+        explain: 'After a thank-you comes *Ole hyvä!* (you\'re welcome).',
+      },
+      {
+        kind: 'check',
+        question: 'Someone says *Anteeksi!* — what fits?',
+        options: [
+          { ref: { line: 'thanks', part: 'prompt' } },
+          { ref: { line: 'sorry', part: 'reply' }, correct: true },
+        ],
+        explain: '*Ei se mitään* = "it\'s okay".',
       },
     ],
   },
@@ -1061,6 +1234,15 @@ export const lessons: Lesson[] = [
         ],
         explain: '"In" → **-ssa**: *laatikossa*.',
       },
+      {
+        kind: 'check',
+        question: '"I like football." Which one is right?',
+        options: [
+          { ref: { sentence: 'i-like', word: 'football' }, correct: true },
+          { ref: { sentence: 'i-like', word: 'football', asCase: 'partitive' } },
+        ],
+        explain: '*Pidän* always takes **-sta**: *jalkapallosta*.',
+      },
     ],
   },
   {
@@ -1100,6 +1282,250 @@ export const lessons: Lesson[] = [
         title: 'Keep climbing',
         text:
           'Every practice here gets **harder and harder** as you improve — tricky look-alike answers, no English hints, and finally writing Finnish just from hearing it.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I would eat"?',
+        options: [
+          { ref: { verb: 'eat', tense: 'conditional', polarity: 'positive', person: '1sg' }, correct: true },
+          { ref: { verb: 'eat', tense: 'perfect', polarity: 'positive', person: '1sg' } },
+          { ref: { verb: 'eat', tense: 'past', polarity: 'positive', person: '1sg' } },
+        ],
+        explain: '"Would" → **-isi-**: *söisin*.',
+      },
+    ],
+  },
+  {
+    id: 'feelings',
+    titleFi: 'Miltä tuntuu?',
+    titleEn: 'Saying how you feel',
+    emoji: '😄',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'I am…',
+        text:
+          '*Olen* means **I am**. Put a feeling after it — the feeling stays in its **basic form**.',
+        rows: [
+          { sentence: 'i-am', word: 'happy' },
+          { sentence: 'i-am', word: 'tired' },
+          { sentence: 'she-is', word: 'sad' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'I am not…',
+        text:
+          '*En ole* means **I am not**. Good news: here the feeling word **doesn\'t change**.',
+        rows: [
+          { sentence: 'i-am-not', word: 'angry' },
+          { sentence: 'i-am-not', word: 'sick' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: '"On me is hunger"',
+        text:
+          'Remember *Minulla on…* (on me is)? Finnish uses it for feeling hungry, thirsty, cold or hot: *Minulla on nälkä* — "on me is hunger".',
+        rows: [
+          { sentence: 'i-feel', word: 'hunger' },
+          { sentence: 'i-feel', word: 'thirst' },
+          { sentence: 'i-feel', word: 'cold' },
+          { sentence: 'i-feel', word: 'hot' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I\'m cold"?',
+        options: [
+          { ref: { sentence: 'i-feel', word: 'cold' }, correct: true },
+          { ref: { sentence: 'i-am', word: 'tired' } },
+        ],
+        explain: '*Minulla on kylmä* — "on me is cold".',
+      },
+      {
+        kind: 'check',
+        question: '*En ole väsynyt.* means…',
+        options: [{ text: "I'm not tired", correct: true }, { text: "I'm tired" }],
+        explain: '*En ole* = I am **not**.',
+      },
+    ],
+  },
+  {
+    id: 'school-day',
+    titleFi: 'Koulupäivä',
+    titleEn: 'Liking and not liking',
+    emoji: '🏫',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'School subjects',
+        rows: [{ word: 'math' }, { word: 'gym' }, { word: 'english' }, { word: 'music' }],
+      },
+      {
+        kind: 'examples',
+        title: 'I like / I don\'t like',
+        text:
+          'You know *Pidän* + **-sta**. To say you DON\'T like something, use *En pidä* — and the ending **stays the same**.',
+        rows: [
+          { sentence: 'i-like', word: 'gym' },
+          { sentence: 'i-dont-like', word: 'math' },
+          { sentence: 'i-dont-like', word: 'test' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'The "not" verb again',
+        text:
+          '*En pidä* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "I don\'t like math"?',
+        options: [
+          { ref: { sentence: 'i-dont-like', word: 'math' }, correct: true },
+          { ref: { sentence: 'i-dont-like', word: 'math', asCase: 'partitive' } },
+        ],
+        explain: '*En pidä* still takes **-sta**: *matematiikasta*.',
+      },
+      {
+        kind: 'check',
+        question: '*Pidän englannista.* — Do I like English?',
+        options: [{ text: 'Yes', correct: true }, { text: 'No' }],
+        explain: '*Pidän* = I like. (*En pidä* would be "I don\'t like".)',
+      },
+    ],
+  },
+  {
+    id: 'town',
+    titleFi: 'Kaupungilla ja kotona',
+    titleEn: 'You on the move',
+    emoji: '🏙️',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'The cat\'s endings — for you',
+        text:
+          'Remember the cat going *into* and *out of* the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).',
+      },
+      {
+        kind: 'examples',
+        title: 'Inside places: -ssa, -Vn, -sta',
+        rows: [
+          { sentence: 'i-am-in', word: 'park' },
+          { sentence: 'i-go-into', word: 'library' },
+          { sentence: 'i-come-from-in', word: 'school' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: '"On" places: -lla, -lle, -lta',
+        text:
+          'Some places are "on" places in Finnish — a station, a market, the yard. They take the **l** endings.',
+        rows: [
+          { sentence: 'i-am-on', word: 'station' },
+          { sentence: 'i-go-onto', word: 'yard' },
+          { sentence: 'i-come-from-on', word: 'market' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'At home',
+        rows: [
+          { sentence: 'i-am-in', word: 'bedroom' },
+          { sentence: 'i-am-on', word: 'sofa' },
+          { sentence: 'i-go-into', word: 'kitchen' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: '"I\'m going to the park." Which is right?',
+        options: [
+          { ref: { sentence: 'i-go-into', word: 'park' }, correct: true },
+          { ref: { sentence: 'i-go-into', word: 'park', asCase: 'inessive' } },
+          { ref: { sentence: 'i-go-into', word: 'park', asCase: 'elative' } },
+        ],
+        explain: 'Going INTO → a long vowel + **n**: *puistoon*.',
+      },
+      {
+        kind: 'check',
+        question: '"I\'m at the station." Which is right?',
+        options: [
+          { ref: { sentence: 'i-am-on', word: 'station' }, correct: true },
+          { ref: { sentence: 'i-am-on', word: 'station', asCase: 'inessive' } },
+        ],
+        explain: 'A station is an "on" place → **-lla**: *asemalla*.',
+      },
+    ],
+  },
+  {
+    id: 'when',
+    titleFi: 'Milloin?',
+    titleEn: 'Days and times',
+    emoji: '📅',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Days of the week',
+        text: 'Finnish days **don\'t start with a capital letter**: *maanantai*, not "Maanantai".',
+        rows: [
+          { word: 'monday' },
+          { word: 'tuesday' },
+          { word: 'wednesday' },
+          { word: 'thursday' },
+          { word: 'friday' },
+          { word: 'saturday' },
+          { word: 'sunday' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'On Monday: -na / -nä',
+        text: '"On" a day is the ending **-na / -nä** — no extra word.',
+        rows: [
+          { word: 'monday', case: 'essive' },
+          { word: 'saturday', case: 'essive' },
+          { sentence: 'play-on-day', word: 'friday' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'In the morning, in summer: -lla / -llä',
+        text: 'Parts of the day and seasons use the "on" ending **-lla / -llä** instead.',
+        rows: [
+          { word: 'morning', case: 'adessive' },
+          { word: 'evening', case: 'adessive' },
+          { word: 'summer', case: 'adessive' },
+          { word: 'winter', case: 'adessive' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'What time is it?',
+        text: '*Kello on* + a number: *Kello on kolme* = it\'s three o\'clock.',
+        rows: [
+          { sentence: 'clock-is', word: 'three' },
+          { sentence: 'clock-is', word: 'eight' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "on Sunday"?',
+        options: [
+          { ref: { word: 'sunday', case: 'essive' }, correct: true },
+          { ref: { word: 'sunday', case: 'adessive' } },
+          { ref: { word: 'sunday' } },
+        ],
+        explain: 'A day → **-na**: *sunnuntaina*.',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "in winter"?',
+        options: [
+          { ref: { word: 'winter', case: 'adessive' }, correct: true },
+          { ref: { word: 'winter', case: 'essive' } },
+        ],
+        explain: 'A season → **-lla**: *talvella*.',
       },
     ],
   },

@@ -18,6 +18,10 @@ import {
   body,
   nature,
   clothes,
+  school,
+  freetime,
+  time,
+  states,
   verbs,
   adjectives,
   numbers,
@@ -40,6 +44,20 @@ const NOUNS = [
   ...clothes.items,
 ];
 
+// Every word a carrier slot could ever see: the nouns above plus school / free
+// time, and the opt-in words (days & times, feelings, adjectives, numbers) that
+// only fill carriers which ask for them by name.
+const CARRIER_WORDS = [
+  ...NOUNS,
+  ...school.items,
+  ...freetime.items,
+  ...time.items,
+  ...states.items,
+  ...adjectives.items,
+  ...numbers.items,
+];
+const OPT_IN = new Set(['time', 'states', 'adjectives', 'numbers']);
+
 const POOLS: SentencePools = {
   nouns: NOUNS,
   verbs: verbs.items,
@@ -61,12 +79,14 @@ const lines: string[] = [
 ];
 
 for (const con of nounConstructions) {
-  const eligible = NOUNS.filter((i) => formFor(i, con) && suitsSlot(i, con)).sort((a, b) =>
+  const eligible = CARRIER_WORDS.filter((i) => formFor(i, con) && suitsSlot(i, con)).sort((a, b) =>
     a.id.localeCompare(b.id),
   );
-  const excluded = NOUNS.filter((i) => formFor(i, con) && !suitsSlot(i, con)).sort((a, b) =>
-    a.id.localeCompare(b.id),
-  );
+  // Opt-in words are gated out of generic carriers by design — listing them
+  // under every carrier would bury the gates a reviewer actually cares about.
+  const excluded = CARRIER_WORDS.filter(
+    (i) => formFor(i, con) && !suitsSlot(i, con) && !OPT_IN.has(i.topic ?? '') && !con.onlyIds && !con.topics,
+  ).sort((a, b) => a.id.localeCompare(b.id));
   lines.push(
     `### \`${con.id}\` — “${con.en}” (tier ${con.tier}, ${con.case} ${con.number}, ${eligible.length} words)`,
     '',

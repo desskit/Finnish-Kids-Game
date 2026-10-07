@@ -45,7 +45,7 @@ function seed() {
           level: 1,
           stars: 0,
           createdAt: 1,
-          progress: { 'u1-hello': { greetings: lvl2, introduce: lvl2 } },
+          progress: { 'hello': { greetings: lvl2, introduce: lvl2, 'hello-talk': lvl2 } },
           srs: {},
           course: { lessonsSeen: { sounds: 1 } },
         },
@@ -59,7 +59,7 @@ function seed() {
 function renderCheckpoint() {
   return render(
     <ProfileProvider>
-      <MemoryRouter initialEntries={['/checkpoint/u1-hello']}>
+      <MemoryRouter initialEntries={['/checkpoint/hello']}>
         <Routes>
           <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
           <Route path="*" element={<p>elsewhere</p>} />
@@ -85,9 +85,11 @@ describe('CheckpointRoute', () => {
     fireEvent.click(screen.getByRole('button', { name: 'all right' }));
     expect(screen.getByText('game:introduce')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'all right' }));
+    expect(screen.getByText('game:hello-talk')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'all right' }));
     expect(screen.getByText(/Checkpoint passed/)).toBeInTheDocument();
     expect(screen.getByText(/Unit 2 · People & things is open/)).toBeInTheDocument();
-    const cp = saved().course.checkpoints['u1-hello'];
+    const cp = saved().course.checkpoints['hello'];
     expect(cp.passedAt).toBeGreaterThan(0);
     expect(cp.best).toBe(1);
   });
@@ -97,9 +99,10 @@ describe('CheckpointRoute', () => {
     fireEvent.click(screen.getByRole('button', { name: /Start/ }));
     fireEvent.click(screen.getByRole('button', { name: 'all right' }));
     fireEvent.click(screen.getByRole('button', { name: 'all wrong' }));
+    fireEvent.click(screen.getByRole('button', { name: 'all right' }));
     expect(screen.getByText(/Almost there/)).toBeInTheDocument();
     expect(screen.getByText(/Introduce yourself/)).toBeInTheDocument();
-    const cp = saved().course.checkpoints['u1-hello'];
+    const cp = saved().course.checkpoints['hello'];
     expect(cp.passedAt).toBeUndefined();
     expect(cp.attempts).toBe(1);
     // Try again restarts from the first part.

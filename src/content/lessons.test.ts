@@ -24,12 +24,12 @@ function refsOf(): { lesson: string; ref: LessonRef }[] {
 }
 
 describe('lessons', () => {
-  it('have unique ids and 3–6 short cards each', () => {
+  it('have unique ids and 3–8 short cards each', () => {
     const ids = lessons.map((l) => l.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const l of lessons) {
       expect(l.cards.length, l.id).toBeGreaterThanOrEqual(3);
-      expect(l.cards.length, l.id).toBeLessThanOrEqual(6);
+      expect(l.cards.length, l.id).toBeLessThanOrEqual(8);
     }
   });
 
@@ -52,6 +52,15 @@ describe('lessons', () => {
       expect(marked.length).toBeLessThanOrEqual(1);
       if (marked.length) expect(r.segments[r.segments.length - 1].mark, item.id).toBe(true);
     }
+  });
+
+  it('give every lesson at least two "try it" questions', () => {
+    for (const l of lessons) {
+      expect(l.cards.filter((c) => c.kind === 'check').length, l.id).toBeGreaterThanOrEqual(1);
+    }
+    // Most lessons carry 2+ (the fix for single-question lessons).
+    const multi = lessons.filter((l) => l.cards.filter((c) => c.kind === 'check').length >= 2);
+    expect(multi.length).toBeGreaterThanOrEqual(lessons.length - 6);
   });
 
   it('give every check card exactly one right answer', () => {

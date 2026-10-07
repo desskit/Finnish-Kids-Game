@@ -18,6 +18,7 @@ import {
   isMovementOnlyAdjective,
   canDescribeMovement,
   isCommandVerb,
+  isCountable,
 } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
 import { personalizeLine } from '../content/dialogues';
@@ -615,13 +616,21 @@ function caseFormOptions(
   if (!answer) return null;
   const seen = new Set([answer]);
   const distractorForms: string[] = [];
-  for (const c of GRAMMAR_REVIEW_CASES) {
-    const form = caseFormOf(item, c, construction.number);
+  const add = (form: string | undefined) => {
     if (form && !seen.has(form)) {
       seen.add(form);
       distractorForms.push(form);
     }
+  };
+  // A possessive carrier's real choice is WHOSE (the suffix): offer the other
+  // possessors' forms first, then the bare case form ("kirja" for "kirjani").
+  if (construction.possessor) {
+    for (const p of POSSESSORS) {
+      if (p.id !== construction.possessor) add(possessiveForm(item, p.id, construction.case));
+    }
+    add(caseFormOf(item, construction.case, 'singular'));
   }
+  for (const c of GRAMMAR_REVIEW_CASES) add(caseFormOf(item, c, construction.number));
   if (distractorForms.length < optionCount - 1) return null;
   return shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
 }
@@ -1010,11 +1019,14 @@ export function buildCountingRound(
   const tens = counts.filter((n) => (n.value ?? 0) > 20);
   const expertTens = maxCount > 20 && tens.length > 0;
 
+  // Only things you can count ("kolme kirjaa", not "kolme musiikkia").
+  const countable = nouns.filter((n) => isCountable(n.id));
+
   const out: CountingQuestion[] = [];
   for (let i = 0; i < questionCount; i++) {
     const number =
       expertTens && i % 3 !== 0 ? sample(tens, 1)[0] : sample(counts, 1)[0];
-    const noun = weightedSample(nouns, 1, weigh)[0];
+    const noun = weightedSample(countable, 1, weigh)[0];
     if (!number || !noun) break;
     const otherCounts = counts.filter((n) => n.id !== number.id);
     // Tricky: the wrong counts cluster around the true one (±2), so the child
@@ -1032,7 +1044,7 @@ export function buildCountingRound(
       number,
       ...pickPreferring(otherCounts, nearCounts, optionCount - 1),
     ]);
-    const otherNouns = nouns.filter((x) => x.id !== noun.id);
+    const otherNouns = countable.filter((x) => x.id !== noun.id);
     const nearNouns = tricky ? otherNouns.filter((x) => x.topic && x.topic === noun.topic) : [];
     const nounOptions = shuffle([noun, ...pickPreferring(otherNouns, nearNouns, optionCount - 1)]);
     out.push({ number, noun, numberOptions, nounOptions });

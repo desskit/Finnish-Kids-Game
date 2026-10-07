@@ -550,6 +550,18 @@ button:focus-visible,
   opacity: 0.85;
 }
 
+/* A picture-less word (a day, "thirsty", "living room") shows its English
+   word in place of the emoji — smaller, so long words still fit the card. */
+.pic-card__word {
+  font-size: clamp(1rem, 3.4vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.15;
+  padding: 0 8px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+
 .pic-card__num {
   position: absolute;
   top: 8px;
@@ -669,6 +681,12 @@ button:focus-visible,
 .phrase-hint {
   margin: 0;
   font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+}
+
+/* No picture to name: the English word IS the prompt, so give it weight. */
+.phrase-hint--solo {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 800;
 }
 
 .word-tiles {

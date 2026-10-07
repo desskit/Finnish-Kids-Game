@@ -110,17 +110,29 @@ const NUMBERS = [
 // Adjectives decline like nouns and AGREE with their noun in case + number, so
 // they're sourced from nouns.json too. Colors get a color-square placeholder;
 // quality/size adjectives have no single picture (emoji omitted).
+// Describing words + feelings. A picture where one reads clearly (so the
+// course's "New words" warm-up can show it); the rest ('old', 'thirsty') fall
+// back to their English word on the card. Feelings also power the Feelings
+// unit ("Olen iloinen"); `kylmä`/`kuuma` double as "Minulla on kylmä".
 const ADJECTIVES = [
-  ['big', 'iso', 'big', ''],
-  ['small', 'pieni', 'small', ''],
-  ['fast', 'nopea', 'fast', ''],
-  ['slow', 'hidas', 'slow', ''],
+  ['big', 'iso', 'big', '🦕'],
+  ['small', 'pieni', 'small', '🐜'],
+  ['fast', 'nopea', 'fast', '🏎️'],
+  ['slow', 'hidas', 'slow', '🐢'],
   ['old', 'vanha', 'old', ''],
-  ['happy', 'iloinen', 'happy', ''],
-  ['tired', 'väsynyt', 'tired', ''],
-  ['hungry', 'nälkäinen', 'hungry', ''],
-  ['cute', 'söpö', 'cute', ''],
-  ['kind', 'kiltti', 'kind', ''],
+  ['happy', 'iloinen', 'happy', '😄'],
+  ['tired', 'väsynyt', 'tired', '🥱'],
+  ['hungry', 'nälkäinen', 'hungry', '🤤'],
+  ['cute', 'söpö', 'cute', '🥰'],
+  ['kind', 'kiltti', 'kind', '😇'],
+  ['sad', 'surullinen', 'sad', '😞'],
+  ['angry', 'vihainen', 'angry', '😠'],
+  ['thirsty', 'janoinen', 'thirsty', ''],
+  ['sick', 'sairas', 'sick', '🤒'],
+  ['calm', 'rauhallinen', 'calm', '😌'],
+  ['proud', 'ylpeä', 'proud', '😤'],
+  ['cold', 'kylmä', 'cold', '🥶'],
+  ['hot', 'kuuma', 'hot', '🥵'],
   ['red', 'punainen', 'red', '🟥'],
   ['blue', 'sininen', 'blue', '🟦'],
   ['yellow', 'keltainen', 'yellow', '🟨'],
@@ -183,6 +195,23 @@ const PLACES = [
   ['train', 'juna', 'train', '🚆'],
   ['shop', 'kauppa', 'shop', '🏪'],
   ['library', 'kirjasto', 'library', '📚'],
+  // Around town & home — places a child goes, for the person-subject
+  // carriers ("Menen puistoon", "Olen pihalla").
+  ['park', 'puisto', 'park', '🛝'],
+  ['hospital', 'sairaala', 'hospital', '🏥'],
+  ['station', 'asema', 'station', '🚉'],
+  ['museum', 'museo', 'museum', '🏛️'],
+  ['restaurant', 'ravintola', 'restaurant', '🍴'],
+  ['cafe', 'kahvila', 'cafe', '☕'],
+  ['city', 'kaupunki', 'city', '🏙️'],
+  ['market', 'tori', 'market', '🛍️'],
+  ['zoo', 'eläintarha', 'zoo', '🦒'],
+  ['field', 'kenttä', 'field', '🏟️'],
+  ['living-room', 'olohuone', 'living room'],
+  ['bedroom', 'makuuhuone', 'bedroom', '🛌'],
+  ['bathroom', 'kylpyhuone', 'bathroom', '🛁'],
+  ['sofa', 'sohva', 'sofa', '🛋️'],
+  ['yard', 'piha', 'yard', '🏡'],
 ];
 
 // Locative SHAPE tags for places — which "where" cases each one makes sense in:
@@ -219,7 +248,36 @@ const PLACE_TAGS = {
   train: ['container'],
   shop: ['container'],
   library: ['container'],
+  park: ['container'],
+  hospital: ['container'],
+  station: ['surface'],
+  museum: ['container'],
+  restaurant: ['container'],
+  cafe: ['container'],
+  city: ['container'],
+  market: ['surface'],
+  zoo: ['container'],
+  field: ['surface'],
+  'living-room': ['container'],
+  bedroom: ['container'],
+  bathroom: ['container'],
+  sofa: ['surface'],
+  yard: ['surface'],
 };
+
+// Where a PERSON can be / go / come from — a separate gate from the cat's
+// surface/container shape, because "Olen pöydällä" (I'm on the table) is odd
+// even though the table is a surface. 'person-in' places take -ssa / -Vn /
+// -sta ("Olen koulussa", "Menen kouluun", "Tulen koulusta"); 'person-on'
+// places take -lla / -lle / -lta ("Olen pihalla", "Menen asemalle").
+const PERSON_IN = [
+  'school', 'room', 'kitchen', 'garden', 'house', 'forest', 'bus', 'train', 'shop',
+  'library', 'car', 'bed', 'park', 'hospital', 'museum', 'restaurant', 'cafe', 'city',
+  'zoo', 'living-room', 'bedroom', 'bathroom',
+];
+const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window'];
+for (const id of PERSON_IN) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-in'];
+for (const id of PERSON_ON) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-on'];
 
 // School life — the course's everyday register for an 8-year-old (people and
 // things at school), replacing animals/body parts as the first nouns met.
@@ -236,6 +294,45 @@ const SCHOOL = [
   ['homework', 'läksy', 'homework', '📝'],
   // Emoji-less (text-only depth, see FAMILY).
   ['class', 'luokka', 'class'],
+  // School day: subjects + school life ("Pidän matematiikasta").
+  ['math', 'matematiikka', 'math', '➗'],
+  ['gym', 'liikunta', 'gym', '🤸'],
+  ['english', 'englanti', 'English', '🇬🇧'],
+  ['pupil', 'oppilas', 'pupil', '🧑‍🎓'],
+  ['test', 'koe', 'test', '📋'],
+  ['eraser', 'kumi', 'eraser'],
+  ['task', 'tehtävä', 'task'],
+  ['canteen', 'ruokala', 'canteen'],
+];
+
+// When? — days of the week (no single picture each, so their English shows on
+// the card), parts of the day, seasons. Kept OUT of the mixed noun pool: they
+// only fill their own time carriers ("Tänään on maanantai", "Leikin
+// maanantaina / aamulla / kesällä").
+const TIME = [
+  ['monday', 'maanantai', 'Monday'],
+  ['tuesday', 'tiistai', 'Tuesday'],
+  ['wednesday', 'keskiviikko', 'Wednesday'],
+  ['thursday', 'torstai', 'Thursday'],
+  ['friday', 'perjantai', 'Friday'],
+  ['saturday', 'lauantai', 'Saturday'],
+  ['sunday', 'sunnuntai', 'Sunday'],
+  ['weekend', 'viikonloppu', 'weekend', '🎉'],
+  ['morning', 'aamu', 'morning', '🌅'],
+  ['daytime', 'päivä', 'day', '🌞'],
+  ['evening', 'ilta', 'evening', '🌆'],
+  ['night', 'yö', 'night', '🌃'],
+  ['spring', 'kevät', 'spring', '🌱'],
+  ['summer', 'kesä', 'summer', '🏖️'],
+  ['autumn', 'syksy', 'autumn', '🍂'],
+  ['winter', 'talvi', 'winter', '⛄'],
+];
+
+// How you feel, as a NOUN: "Minulla on nälkä / jano" (literally "on me is
+// hunger"). Only the Feelings unit's "Minulla on ___" carrier uses these.
+const STATES = [
+  ['hunger', 'nälkä', 'hunger'],
+  ['thirst', 'jano', 'thirst'],
 ];
 
 // Free time — hobbies, games and gadgets: the things a child actually talks
@@ -639,6 +736,24 @@ const school = buildTheme({
   sourceWords: nounWords,
 });
 
+const time = buildTheme({
+  id: 'time',
+  fi: 'Aika',
+  en: 'Time',
+  emoji: '📅',
+  curation: TIME,
+  sourceWords: nounWords,
+});
+
+const states = buildTheme({
+  id: 'states',
+  fi: 'Olotila',
+  en: 'How you feel',
+  emoji: '🙂',
+  curation: STATES,
+  sourceWords: nounWords,
+});
+
 const freetime = buildTheme({
   id: 'freetime',
   fi: 'Vapaa-aika',
@@ -677,6 +792,8 @@ writeFileSync(join(OUT_DIR, 'nature.sourced.json'), JSON.stringify(nature, null,
 writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
@@ -684,5 +801,6 @@ console.log(
     `${food.words.length} food, ${family.words.length} family, ` +
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
-    `${school.words.length} school, ${freetime.words.length} free-time words to ${OUT_DIR}`,
+    `${school.words.length} school, ${freetime.words.length} free-time, ` +
+    `${time.words.length} time, ${states.words.length} state words to ${OUT_DIR}`,
 );

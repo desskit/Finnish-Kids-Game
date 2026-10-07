@@ -105,7 +105,7 @@ describe('course home', () => {
     expect(cont.getAttribute('href')).toBe('/lesson/sounds');
     expect(cont.textContent).toMatch(/Unit 1 · Lesson/);
     const units = document.querySelectorAll('.unit');
-    expect(units).toHaveLength(20);
+    expect(units).toHaveLength(24);
     expect(units[0].className).toContain('unit--current');
     expect(units[1].className).toContain('unit--locked');
     // Review + Notebook entries, badges; no "Today's adventure" any more.
@@ -124,29 +124,29 @@ describe('course home', () => {
 
   it('ticks finished steps and opens the checkpoint once all are done', () => {
     seedChild(
-      { 'u1-hello': { greetings: lvl(2), introduce: lvl(2) } },
+      { 'hello': { greetings: lvl(2), introduce: lvl(2), 'hello-talk': lvl(2) } },
       {},
       { lessonsSeen: { sounds: 1 } },
     );
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
-    expect(cont.getAttribute('href')).toBe('/checkpoint/u1-hello');
-    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(3); // lesson + 2 steps
+    expect(cont.getAttribute('href')).toBe('/checkpoint/hello');
+    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(4); // lesson + 3 steps
     expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
   });
 
   it('opens the next unit once the checkpoint is passed', () => {
     seedChild(
-      { 'u1-hello': { greetings: lvl(2), introduce: lvl(2) } },
+      { 'hello': { greetings: lvl(2), introduce: lvl(2), 'hello-talk': lvl(2) } },
       {},
-      { lessonsSeen: { sounds: 1 }, checkpoints: { 'u1-hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
+      { lessonsSeen: { sounds: 1 }, checkpoints: { 'hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
     );
     renderAt('/');
     const units = document.querySelectorAll('.unit');
     expect(units[0].className).toContain('unit--done');
     expect(units[1].className).toContain('unit--current');
     expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
-    expect(screen.getByText('1 of 19 units done')).toBeInTheDocument();
+    expect(screen.getByText('1 of 23 units done')).toBeInTheDocument();
   });
 });
 
@@ -169,10 +169,10 @@ describe('lessons + notebook', () => {
   });
 
   it('lists only open units in the Notebook', () => {
-    seedChild({}, {}, { checkpoints: { 'u1-hello': { passedAt: 1, best: 1, attempts: 1 } } });
+    seedChild({}, {}, { checkpoints: { 'hello': { passedAt: 1, best: 1, attempts: 1 } } });
     renderAt('/notebook');
     expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
-    expect(screen.getByText(/18 more lessons unlock/)).toBeInTheDocument();
+    expect(screen.getByText(/22 more lessons unlock/)).toBeInTheDocument();
   });
 });
 
@@ -183,7 +183,7 @@ describe('playing a step', () => {
     seedChild({}, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } });
     vi.useFakeTimers();
     try {
-      renderAt('/skill/u4-words');
+      renderAt('/skill/having-words');
       expect(screen.getByLabelText('0 tähteä')).toBeInTheDocument();
       const tapCorrect = async () => {
         fireEvent.click(screen.getByText('🐱').closest('button') as HTMLButtonElement);
@@ -196,7 +196,7 @@ describe('playing a step', () => {
       expect(document.querySelectorAll('.pic-card').length).toBeGreaterThan(0);
       expect(screen.getByLabelText('6 tähteä')).toBeInTheDocument();
       const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
-      const entry = saved.children[0].progress['u4-having']['u4-words'];
+      const entry = saved.children[0].progress['having']['having-words'];
       expect(entry.plays).toBe(1);
       expect(entry.totalPossible).toBe(6);
     } finally {
@@ -207,7 +207,7 @@ describe('playing a step', () => {
 
 describe('grown-up dashboard', () => {
   it('shows difficulty mode and per-step level', () => {
-    seedChild({ 'u2-people': { 'this-is': lvl(2) } });
+    seedChild({ 'people': { 'this-is': lvl(2) } });
     render(
       <ProfileProvider>
         <MemoryRouter>
@@ -221,7 +221,7 @@ describe('grown-up dashboard', () => {
   });
 
   it('shows can-do statements backed by passed checkpoints', () => {
-    seedChild({}, {}, { checkpoints: { 'u1-hello': { passedAt: 1, best: 1, attempts: 1 } } });
+    seedChild({}, {}, { checkpoints: { 'hello': { passedAt: 1, best: 1, attempts: 1 } } });
     render(
       <ProfileProvider>
         <MemoryRouter>

@@ -314,3 +314,59 @@ the lesson in place without leaving the session.
 **Golden rule unchanged.** No Finnish is generated. Lesson examples resolve
 through the sourced tables and vetted carriers or lines. The only new authored
 Finnish is the short prose quotes, which are listed for review.
+
+## Part 7 — Course expansion: closing the gaps, spiral review, four new units
+
+An audit of the 20-unit course found four gaps. The owner chose to fix all of
+them and add four topics.
+
+**Production gap → build it before done.** Phrase steps used to count as
+done at level 2. Their ramp was build, build, order, spell, so a child could
+finish a step tapping tiles only. The ramp is now **build → order → spell →
+spell**, done at **level 3**, and the checkpoint asks phrase steps for a
+word-order (assembly) question.
+
+**Words never met → text fallback.** 18 words (10 adjectives, kitchen,
+window, door, class, hobby, go, come…) were never shown, because the warm-up
+games dropped words without an emoji. Listen-and-tap, Name-it and Build now
+show the English word when there's no picture. Clear adjectives gained an
+emoji. A test checks that every unit's new words are actually met.
+
+**No spiral → Kertaus + "Muistatko?".** Four **Kertaus** steps (units 5, 10,
+15, 20) rotate through every earlier grammar step, each in its own game. From
+unit 3 on, every checkpoint adds a two-question **"Muistatko? — Remember?"**
+part from an earlier unit. The part changes with each retry.
+
+**No communication → a conversation per unit.** Every grammar unit now ends
+in a short 3-turn scene: 6 existing scenes were re-homed and 15 written new.
+Each uses only that unit's grammar and the words met so far. Wrong answers
+are real Finnish that is the wrong move, often the unit's own contrast:
+
+- *Olen puistossa* answering *Mihin menet?*
+- *Menen puistoon* answering *Mitä teit eilen?*
+- *Tämä on kirja* answering *Mitä nämä ovat?*
+
+**Four new units (24 in all).**
+
+| Unit | Words | Grammar |
+|---|---|---|
+| Feelings | iloinen, surullinen, väsynyt… + nälkä, jano, kylmä, kuuma | *Olen / Hän on ___*, *En ole ___*, *Minulla on nälkä* |
+| School day | matematiikka, liikunta, koe, kumi, ruokala… | *Pidän / En pidä ___sta* |
+| Around town & home | puisto, asema, kahvila, olohuone, sohva… | *Olen / Menen / Tulen* + the six place endings, for a person |
+| When? | 7 days, aamu, ilta, kesä, talvi, viikonloppu | *Tänään on ___*, *maanantaina* (-na) vs *aamulla / kesällä* (-lla), *Kello on ___* |
+
+Two existing units also got more practice. "Around things" adds full
+sentences (*Kissa on tuolin alla.*). "Whose?" adds possessive sentences
+(*Tämä on minun kirjani.*, *Missä on sinun reppusi?*).
+
+**Every lesson** now ends with two or three "try it" checks instead of one.
+Four new lessons explain:
+
+- feelings ("on me is hunger");
+- dislikes with *En pidä*;
+- going places as a person;
+- days (-na) vs times of day and seasons (-lla).
+
+**Golden rule unchanged.** All new forms come from the sourced tables. The
+new carriers, the 15 scenes and the lesson quotes are flagged ⚠️ in
+`FINNISH_REVIEW.md` for native vetting.
