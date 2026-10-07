@@ -582,6 +582,10 @@ const ORDINALS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seven
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const BIRTHDAY_TIME = ['birthday', 'year', 'month'];
 const PARTY = ['balloon', 'candle', 'present'];
+// Dates past the 10th: 11th–20th and 30th are met as words; 21st–29th and 31st
+// are "the ten + the one" (kahdeskymmenes + ensimmäinen) and join the date game
+// once their parts are known.
+const DATE_ORDINALS = ['eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth', 'thirtieth'];
 
 const UNITS: Chapter[] = [
   {
@@ -1416,8 +1420,8 @@ const UNITS: Chapter[] = [
     accent: '#db2777',
     icon: '🎂',
     lessonId: 'birthdays',
-    midLessons: [{ lessonId: 'dates', before: 'dates' }, { lessonId: 'age', before: 'how-old' }],
-    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...PARTY],
+    midLessons: [{ lessonId: 'dates', before: 'date-ordinals' }, { lessonId: 'age', before: 'how-old' }],
+    newWords: [...MONTHS, ...BIRTHDAY_TIME, ...DATE_ORDINALS, ...PARTY],
     skills: [
       wordsStep('birthdays', 'time', 'The months', [...MONTHS, ...BIRTHDAY_TIME]),
       phraseStep(
@@ -1429,6 +1433,7 @@ const UNITS: Chapter[] = [
         'Syntymäpäiväni on toukokuussa.',
         'time',
       ),
+      wordsStep('birthdays', 'ordinals', '11th to 31st', DATE_ORDINALS, 'date-ordinals'),
       {
         id: 'dates',
         titleFi: 'Viides toukokuuta',

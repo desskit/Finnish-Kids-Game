@@ -9,7 +9,7 @@ const it_ = (id: string) => itemById(id)!;
 
 describe('numbers, dates and birthdays', () => {
   it('has the sourced ordinals 1st–10th, in their own pool', () => {
-    expect(ordinals.items.map((o) => o.fi)).toEqual([
+    expect(ordinals.items.filter((o) => !o.tags?.includes('authored')).map((o) => o.fi)).toEqual([
       'ensimmäinen', 'toinen', 'kolmas', 'neljäs', 'viides', 'kuudes', 'seitsemäs', 'kahdeksas', 'yhdeksäs', 'kymmenes',
     ]);
   });
@@ -40,7 +40,8 @@ describe('numbers, dates and birthdays', () => {
     const pools = choosePoolsFor(findSkill('dates')!.skill.content.wordIds);
     for (let r = 0; r < 20; r++) {
       for (const q of buildChooseRound('date', pools, 6, 3)) {
-        expect(q.answer).toMatch(/(ensimmäinen|toinen|kolmas|neljäs|viides|kuudes|seitsemäs|kahdeksas|yhdeksäs|kymmenes) [a-zäö]+kuuta\.?$/);
+        // Any ordinal ends in -s, -nen or -toista; the month always in -kuuta.
+        expect(q.answer).toMatch(/(s|nen|toista) [a-zäö]+kuuta\.?$/);
       }
     }
   });

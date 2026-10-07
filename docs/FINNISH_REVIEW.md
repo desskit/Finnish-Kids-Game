@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-07T14:57:34.080Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T15:40:44.714Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 760 entries.**
+- **Approved: 28 of 783 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -375,6 +375,32 @@
 | ⚠️ | `pattern:birthday-date` | Syntymäpäiväni on viides toukokuuta. | My birthday is on May 5th. |
 | ⚠️ | `pattern:age` | Olen kahdeksan vuotta vanha. | I'm 8 years old. |
 
+## Ordinals 11th–31st — hand-authored words (21)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `ordinal:eleventh` | yhdestoista | eleventh (11.) |
+| ⚠️ | `ordinal:twelfth` | kahdestoista | twelfth (12.) |
+| ⚠️ | `ordinal:thirteenth` | kolmastoista | thirteenth (13.) |
+| ⚠️ | `ordinal:fourteenth` | neljästoista | fourteenth (14.) |
+| ⚠️ | `ordinal:fifteenth` | viidestoista | fifteenth (15.) |
+| ⚠️ | `ordinal:sixteenth` | kuudestoista | sixteenth (16.) |
+| ⚠️ | `ordinal:seventeenth` | seitsemästoista | seventeenth (17.) |
+| ⚠️ | `ordinal:eighteenth` | kahdeksastoista | eighteenth (18.) |
+| ⚠️ | `ordinal:nineteenth` | yhdeksästoista | nineteenth (19.) |
+| ⚠️ | `ordinal:twentieth` | kahdeskymmenes | twentieth (20.) |
+| ⚠️ | `ordinal:twenty-first` | kahdeskymmenesensimmäinen | twenty-first (21.) |
+| ⚠️ | `ordinal:twenty-second` | kahdeskymmenestoinen | twenty-second (22.) |
+| ⚠️ | `ordinal:twenty-third` | kahdeskymmeneskolmas | twenty-third (23.) |
+| ⚠️ | `ordinal:twenty-fourth` | kahdeskymmenesneljäs | twenty-fourth (24.) |
+| ⚠️ | `ordinal:twenty-fifth` | kahdeskymmenesviides | twenty-fifth (25.) |
+| ⚠️ | `ordinal:twenty-sixth` | kahdeskymmeneskuudes | twenty-sixth (26.) |
+| ⚠️ | `ordinal:twenty-seventh` | kahdeskymmenesseitsemäs | twenty-seventh (27.) |
+| ⚠️ | `ordinal:twenty-eighth` | kahdeskymmeneskahdeksas | twenty-eighth (28.) |
+| ⚠️ | `ordinal:twenty-ninth` | kahdeskymmenesyhdeksäs | twenty-ninth (29.) |
+| ⚠️ | `ordinal:thirtieth` | kolmaskymmenes | thirtieth (30.) |
+| ⚠️ | `ordinal:thirty-first` | kolmaskymmenesensimmäinen | thirty-first (31.) |
+
 ## Question forms — "do you…?" (71)
 
 | Status | Key | Finnish | English |
@@ -501,7 +527,7 @@
 | ⚠️ | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
 
-## Lesson prose — Finnish quoted in the explanations (214)
+## Lesson prose — Finnish quoted in the explanations (216)
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
@@ -712,9 +738,11 @@
 | ⚠️ | `lesson:birthdays:3` | toukokuussa | The months — check |
 | ⚠️ | `lesson:birthdays:4` | joulukuu · joulu | The months — check |
 | ⚠️ | `lesson:dates:1` | viides toukokuuta | Saying a date — Order word + month with -ta |
-| ⚠️ | `lesson:dates:2` | viides · viisi · toukokuuta · toukokuu | Saying a date — Two slips to watch for |
-| ⚠️ | `lesson:dates:3` | viides · viides toukokuuta | Saying a date — check |
-| ⚠️ | `lesson:dates:4` | ensimmäinen tammikuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:2` | yhdestoista · viidestoista · kahdeskymmenes · kolmaskymmenes · ensimmäinen | Saying a date — Past the 10th |
+| ⚠️ | `lesson:dates:3` | viides · viisi · toukokuuta · toukokuu | Saying a date — Two slips to watch for |
+| ⚠️ | `lesson:dates:4` | viides · viides toukokuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:5` | viidestoista · kesäkuuta | Saying a date — check |
+| ⚠️ | `lesson:dates:6` | ensimmäinen tammikuuta | Saying a date — check |
 | ⚠️ | `lesson:age:1` | vuotta · kaksi kirjaa · vanha | How old are you? — Olen … vuotta vanha |
 | ⚠️ | `lesson:age:2` | kahdeksan · kahdeksas | How old are you? — The number, not the order word |
 | ⚠️ | `lesson:age:3` | kahdeksan · Olen kahdeksan vuotta vanha | How old are you? — check |

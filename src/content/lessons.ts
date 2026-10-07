@@ -3153,6 +3153,13 @@ export const lessons: Lesson[] = [
         ],
       },
       {
+        kind: 'examples',
+        title: 'Past the 10th',
+        text:
+          '11th to 19th end in **-stoista**: *yhdestoista* (11th), *viidestoista* (15th). The 20th is *kahdeskymmenes* and the 30th *kolmaskymmenes*. The 21st joins two words you know: *kahdeskymmenes* + *ensimmäinen*.',
+        rows: [{ word: 'eleventh' }, { word: 'fifteenth' }, { word: 'twentieth' }, { word: 'twenty-first' }],
+      },
+      {
         kind: 'explain',
         title: 'Two slips to watch for',
         text: '- Use the ORDER word: *viides*, not *viisi*.\n- Give the month **-ta**: *toukokuuta*, not *toukokuu*.',
@@ -3166,6 +3173,16 @@ export const lessons: Lesson[] = [
           { ref: { date: 'fifth', month: 'may', wrong: 'month' } },
         ],
         explain: 'ORDER word *viides* (5th) + month with **-ta**: *viides toukokuuta*.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one is "the 15th of June"?',
+        options: [
+          { ref: { date: 'fifteenth', month: 'june' }, correct: true },
+          { ref: { date: 'fifteenth', month: 'june', wrong: 'number' } },
+          { ref: { date: 'fifteenth', month: 'june', wrong: 'month' } },
+        ],
+        explain: '*viidestoista* (15th) + *kesäkuuta*.',
       },
       {
         kind: 'check',

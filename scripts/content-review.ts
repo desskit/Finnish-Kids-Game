@@ -29,6 +29,7 @@ import { PRONOUNS, PRONOUN_FRAMES } from '../src/content/pronouns';
 import { ALPHABET } from '../src/content/alphabet';
 import { comparisonSentence, superlativeSentence, whichIsMost, whichOfTwo } from '../src/content/compare';
 import { BIRTHDAY_FRAME, ageSentence, dateFi } from '../src/content/dates';
+import { HIGHER_ORDINALS } from '../src/content/higherOrdinals';
 import { itemById } from '../src/content/lookup';
 import {
   animals,
@@ -150,6 +151,13 @@ const patternRows: Row[] = [
   { key: 'pattern:age', fi: ageSentence(w('eight'))!, en: "I'm 8 years old." },
 ];
 
+// Ordinals 11th–31st: the only hand-authored WORDS (the source stops at 10th).
+const ordinalRows: Row[] = HIGHER_ORDINALS.map((o) => ({
+  key: `ordinal:${o.id}`,
+  fi: o.fi,
+  en: `${o.en} (${o.value}.)`,
+}));
+
 const templateRows: Row[] = sentenceConstructions.map((t) => ({
   key: `template:${t.id}`,
   fi: t.tokens
@@ -205,6 +213,7 @@ const all = [
   ...carrierRows,
   ...templateRows,
   ...patternRows,
+  ...ordinalRows,
   ...questionRows,
   ...pronounRows,
   ...letterRows,
@@ -246,6 +255,10 @@ const lines: string[] = [
   `## Comparison & date patterns — sourced words, authored glue (${patternRows.length})`,
   '',
   ...table(patternRows),
+  '',
+  `## Ordinals 11th–31st — hand-authored words (${ordinalRows.length})`,
+  '',
+  ...table(ordinalRows),
   '',
   `## Question forms — "do you…?" (${questionRows.length})`,
   '',

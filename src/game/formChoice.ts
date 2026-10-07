@@ -51,6 +51,7 @@ import {
 } from "../content/compare";
 import { byIds } from "../util/byIds";
 import { itemById as itemByIdSafe } from "../content/lookup";
+import { JOINED_ORDINAL_IDS, ordinalSuffix } from "../content/higherOrdinals";
 import {
   caseFormOf,
   commandFor,
@@ -484,6 +485,19 @@ const THING_IDS = [
   "boot",
 ];
 
+/** The joined ordinals (21st = 20th + 1st, 31st = 30th + 1st) come with
+ *  their parts: once a child knows *kahdeskymmenes*, the 20s are in. */
+function withJoinedOrdinals(known: LexicalItem[], wordIds: string[] | undefined): LexicalItem[] {
+  if (!wordIds) return known;
+  const has = new Set(wordIds);
+  const joined = allOrdinals.items.filter(
+    (o) =>
+      JOINED_ORDINAL_IDS.includes(o.id) &&
+      has.has((o.value ?? 0) < 30 ? "twentieth" : "thirtieth"),
+  );
+  return [...known, ...joined];
+}
+
 /** A step's pools, narrowed to the words met so far (`wordIds`; none = all). */
 export function choosePoolsFor(wordIds: string[] | undefined): ChoosePools {
   const known = (items: LexicalItem[]) =>
@@ -500,7 +514,7 @@ export function choosePoolsFor(wordIds: string[] | undefined): ChoosePools {
     things: known(stuff),
     adjectives: comparable(known(allAdjectives.items)),
     numbers: known(allNumbers.items),
-    ordinals: known(allOrdinals.items),
+    ordinals: withJoinedOrdinals(known(allOrdinals.items), wordIds),
     months: known(allTime.items.filter((t) => MONTH_IDS.includes(t.id))),
     known: wordIds ? new Set(wordIds) : undefined,
   };
@@ -526,8 +540,7 @@ export interface ChoosePools {
 
 const byValue = (items: LexicalItem[] | undefined, v: number) =>
   items?.find((i) => i.value === v);
-const ordinalEn = (n: number) =>
-  `${n}${n === 1 ? "st" : n === 2 ? "nd" : n === 3 ? "rd" : "th"}`;
+const ordinalEn = (n: number) => `${n}${ordinalSuffix(n)}`;
 
 /** "the 3rd" → kolmas (not kolme); "three" → kolme (not kolmas). */
 function ordinalQuestion(pools: ChoosePools): FormChoiceQuestion | null {
@@ -576,7 +589,14 @@ function dateQuestion(pools: ChoosePools): FormChoiceQuestion | null {
   const birthday = Math.random() < 0.5;
   const wrap = (x: string) => (birthday ? `${BIRTHDAY_FRAME.before} ${x}.` : x);
   const answer = wrap(date);
-  const options = finish(answer, [withNumber && wrap(withNumber), wrap(plainMonth)], 3);
+  // No sourced number for 21, 22…: the second slip is then a neighbouring date.
+  const neighbour = byValue(pools.ordinals, (ord.value ?? 0) + ((ord.value ?? 0) > 1 ? -1 : 1));
+  const neighbourDate = neighbour && dateFi(neighbour, month);
+  const options = finish(
+    answer,
+    [withNumber && wrap(withNumber), wrap(plainMonth), neighbourDate && wrap(neighbourDate)],
+    3,
+  );
   if (!options) return null;
   const en = dateEnglish(ord, month);
   const rule = `A date = the ORDER word (*${ord.fi}*, ${ordinalEn(ord.value!)}) + the month with **-ta / -tä**: *${date}*.`;
@@ -586,6 +606,12 @@ function dateQuestion(pools: ChoosePools): FormChoiceQuestion | null {
       example,
     },
   };
+  if (neighbour && neighbourDate) {
+    whyFor[wrap(neighbourDate)] = {
+      text: `*${neighbour.fi}* is the ${ordinalEn(neighbour.value!)}. You need the ${ordinalEn(ord.value!)}: *${ord.fi}*.`,
+      example,
+    };
+  }
   if (withNumber) {
     whyFor[wrap(withNumber)] = {
       text: `*${num!.fi}* is just "${num!.value}". A date uses the ORDER word: *${ord.fi}* (${ordinalEn(ord.value!)}).`,
