@@ -16,6 +16,9 @@ const TITLES: Record<ChooseMode, { fi: string; en: string; prompt: string; promp
   mood: { fi: 'Tee! Älä!', en: "Do, don't, let's", prompt: 'Mitä sanot?', promptEn: 'What do you say?' },
   pronoun: { fi: 'Minua, minulle', en: 'Me and you', prompt: 'Kumpi on oikein?', promptEn: 'Which one is right?' },
   owner: { fi: 'Kenen?', en: 'Whose is it?', prompt: 'Kenen se on?', promptEn: 'Which one is it?' },
+  degree: { fi: 'Iso, isompi, isoin', en: 'Big, bigger, biggest', prompt: 'Mikä sana?', promptEn: 'Which word is it?' },
+  compare: { fi: 'Kumpi?', en: 'Which is more?', prompt: 'Mikä on totta?', promptEn: 'Which one is true?' },
+  superlative: { fi: 'Kuka voittaa?', en: 'Who wins?', prompt: 'Mikä on totta?', promptEn: 'Which one is true?' },
   'verb-type': { fi: 'Mikä tyyppi?', en: 'Which type?', prompt: 'Mikä verbityyppi?', promptEn: 'Which verb type is it?' },
 };
 
@@ -27,7 +30,7 @@ interface Props extends ChoosePools {
 // Valitse oikea muoto — the same word(s) in a few real forms; pick the one this
 // moment needs (see game/formChoice.ts). Someone's Finnish line (a question) is
 // read aloud; the English task is narrated; a wrong pick shows the "Why?" rule.
-export default function ChooseForm({ mode, verbs, owners, things, types, onExit }: Props) {
+export default function ChooseForm({ mode, verbs, owners, things, types, adjectives, known, onExit }: Props) {
   const { level, addStars } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -40,11 +43,11 @@ export default function ChooseForm({ mode, verbs, owners, things, types, onExit 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
     () =>
-      buildChooseRound(mode, { verbs, owners, things, types }, QUESTIONS, Math.max(3, optionCount)).slice(
+      buildChooseRound(mode, { verbs, owners, things, types, adjectives, known }, QUESTIONS, Math.max(3, optionCount)).slice(
         0,
         ctx?.roundQuestions,
       ),
-    [mode, verbs, owners, things, types, optionCount, runId, ctx?.roundQuestions],
+    [mode, verbs, owners, things, types, adjectives, known, optionCount, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

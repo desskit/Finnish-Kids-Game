@@ -16,8 +16,26 @@ import {
   freetime,
   school,
   animals,
+  adjectives as allAdjectives,
   verbs as allVerbs,
 } from "../content";
+import {
+  comparable,
+  comparisonEnglish,
+  comparisonSegments,
+  comparisonSentence,
+  comparisons,
+  contests,
+  degreeEnglish,
+  degreeForm,
+  degreeSegments,
+  superlativeEnglish,
+  superlativeSegments,
+  superlativeSentence,
+  whichIsMost,
+  whichOfTwo,
+  type Degree,
+} from "../content/compare";
 import { byIds } from "../util/byIds";
 import {
   caseFormOf,
@@ -60,7 +78,10 @@ export type ChooseMode =
   | "mood"
   | "pronoun"
   | "owner"
-  | "verb-type";
+  | "verb-type"
+  | "degree"
+  | "compare"
+  | "superlative";
 
 export interface FormChoiceQuestion {
   /** Picture anchor, when there is one. */
@@ -454,6 +475,8 @@ export function choosePoolsFor(wordIds: string[] | undefined): ChoosePools {
     verbs: known(allVerbs.items).filter((v) => YOU_QUESTION[v.id]),
     owners: known(people),
     things: known(stuff),
+    adjectives: comparable(known(allAdjectives.items)),
+    known: wordIds ? new Set(wordIds) : undefined,
   };
 }
 
@@ -463,6 +486,128 @@ export interface ChoosePools {
   things: LexicalItem[];
   /** "Which type?" rounds: the verb types on offer (default 1–3). */
   types?: VerbType[];
+  /** Comparing rounds: adjectives with sourced degrees (iso → isompi → isoin). */
+  adjectives?: LexicalItem[];
+  /** Comparing rounds: the words met so far (unset = all). */
+  known?: ReadonlySet<string>;
+}
+
+// --- Comparing: iso → isompi → isoin; "Norsu on isompi kuin hiiri." ------------
+
+const DEGREE_RULE: Record<Degree, string> = {
+  base: "The basic word, with nothing added.",
+  comparative: "**-mpi** means MORE: bigger, faster, older.",
+  superlative: "**-in** means the MOST of all: biggest, fastest, oldest.",
+};
+
+/** A special one (hyvä → parempi → paras) — said so in the Why. */
+function irregularNote(adj: LexicalItem): string {
+  const c = degreeForm(adj, "comparative")!;
+  const s = degreeForm(adj, "superlative")!;
+  return c.endsWith("mpi") && s.endsWith("in")
+    ? ""
+    : ` *${adj.fi}* is a special one: *${c}*, *${s}*.`;
+}
+
+function degreeQuestion(adj: LexicalItem): FormChoiceQuestion | null {
+  const degrees: Degree[] = ["base", "comparative", "superlative"];
+  const d = sample(degrees, 1)[0];
+  const forms = degrees.map((x) => degreeForm(adj, x));
+  const en = degreeEnglish(adj, d);
+  if (forms.some((f) => !f) || !en || new Set(forms).size < 3) return null;
+  const answer = degreeForm(adj, d)!;
+  const example = degreeSegments(answer, d);
+  const whyFor: Record<string, Why> = {};
+  for (const x of degrees.filter((y) => y !== d)) {
+    whyFor[degreeForm(adj, x)!] = {
+      text: `*${degreeForm(adj, x)}* means "${degreeEnglish(adj, x)}". "${en}" is *${answer}*.${irregularNote(adj)}`,
+      example,
+    };
+  }
+  return {
+    emoji: adj.emoji,
+    cue: `"${en}"`,
+    answer,
+    options: shuffle(forms as string[]),
+    why: { text: DEGREE_RULE[d] + irregularNote(adj), example },
+    whyFor,
+  };
+}
+
+function compareQuestion(
+  adjectives: LexicalItem[],
+  known: ReadonlySet<string> | undefined,
+): FormChoiceQuestion | null {
+  const c = sample(comparisons(adjectives, known), 1)[0];
+  if (!c) return null;
+  const { adj, more, less } = c;
+  const answer = comparisonSentence(adj, more, less);
+  const swapped = comparisonSentence(adj, less, more);
+  const basic = comparisonSentence(adj, more, less, "base");
+  const q = whichOfTwo(adj);
+  const example = comparisonSegments(adj, more, less);
+  if (!answer || !swapped || !basic || !q || !example) return null;
+  const pair = shuffle([more, less]);
+  const options = finish(answer, [swapped, basic], 3);
+  if (!options) return null;
+  return {
+    emoji: pair.map((x) => x.emoji).join("  "),
+    said: { fi: q, en: `Which one is ${degreeEnglish(adj, "comparative")}?` },
+    cue: `${pair[0].en} or ${pair[1].en}?`,
+    answer,
+    options,
+    why: {
+      text: `**-mpi** + **kuin** = "…-er than": ${comparisonEnglish(adj, more, less)}`,
+      example,
+    },
+    whyFor: {
+      [swapped]: {
+        text: `That says "${comparisonEnglish(adj, less, more)}" — it's the other way round!`,
+        example,
+      },
+      [basic]: {
+        text: `With **kuin** (than), use the **-mpi** word: *${degreeForm(adj, "comparative")}*, not *${adj.fi}*.`,
+        example,
+      },
+    },
+  };
+}
+
+function superlativeQuestion(
+  adjectives: LexicalItem[],
+  known: ReadonlySet<string> | undefined,
+): FormChoiceQuestion | null {
+  const c = sample(contests(adjectives, known), 1)[0];
+  if (!c) return null;
+  const { adj, winner, others, people } = c;
+  const answer = superlativeSentence(adj, winner);
+  const q = whichIsMost(adj, people);
+  const example = superlativeSegments(adj, winner);
+  if (!answer || !q || !example) return null;
+  const wrong = others.map((o) => superlativeSentence(adj, o));
+  const options = finish(answer, wrong, 3);
+  if (!options) return null;
+  const sup = degreeEnglish(adj, "superlative");
+  const whyFor: Record<string, Why> = {};
+  for (const o of others) {
+    whyFor[superlativeSentence(adj, o)!] = {
+      text: `That says "${superlativeEnglish(adj, o)}" — but the ${winner.en} is the ${sup}!`,
+      example,
+    };
+  }
+  return {
+    emoji: shuffle([winner, ...others])
+      .map((x) => x.emoji)
+      .join("  "),
+    said: { fi: q, en: `${people ? "Who" : "Which one"} is the ${sup}?` },
+    cue: shuffle([winner, ...others])
+      .map((x) => x.en)
+      .join(", "),
+    answer,
+    options,
+    why: { text: `**-in** = the MOST of all: ${superlativeEnglish(adj, winner)}`, example },
+    whyFor,
+  };
 }
 
 // --- Which verb type? "laulaa" → type 1 ---------------------------------------
@@ -521,6 +666,14 @@ export function buildChooseRound(
   ) {
     let q: FormChoiceQuestion | null = null;
     if (mode === "pronoun") q = pronounQuestion(optionCount);
+    else if (mode === "degree") {
+      const adj = sample(pools.adjectives ?? [], 1)[0];
+      if (!adj) break;
+      q = degreeQuestion(adj);
+    } else if (mode === "compare")
+      q = compareQuestion(pools.adjectives ?? [], pools.known);
+    else if (mode === "superlative")
+      q = superlativeQuestion(pools.adjectives ?? [], pools.known);
     else if (mode === "verb-type") {
       // Every verb can be asked about (no picture needed: the word IS the
       // question) — and a type is worth asking about many times.

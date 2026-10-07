@@ -143,6 +143,12 @@ const ADJECTIVES = [
   ['black', 'musta', 'black', '⬛'],
   ['white', 'valkoinen', 'white', '⬜'],
   ['brown', 'ruskea', 'brown', '🟫'],
+  // For the "Comparing" unit (each has a sourced comparative + superlative).
+  ['young', 'nuori', 'young'],
+  ['tall', 'pitkä', 'tall', '🦒'],
+  ['strong', 'vahva', 'strong', '🏋️'],
+  ['good', 'hyvä', 'good', '👍'],
+  ['funny', 'hauska', 'funny', '🤪'],
 ];
 
 const FOOD = [
@@ -687,6 +693,28 @@ const adjectives = buildTheme({
   curation: ADJECTIVES,
   sourceWords: nounWords,
 });
+
+// Comparison degrees ("isompi" bigger, "isoin" biggest) — dictionary headwords
+// of their own in the source ("comparative degree of iso"), looked up and
+// attached whole. When the source lists more than one, the first in PREFER wins.
+const DEGREE_PREFER = { pitkä: ['pidempi'], hyvä: ['paras'] };
+function attachDegrees(theme) {
+  const found = {};
+  for (const w of nounWords) {
+    const tr = (w.translations || []).join(' ');
+    for (const m of tr.matchAll(/(comparative|superlative) (?:degree |form )?of ([a-zäöå]+)/g)) {
+      ((found[m[2]] ??= {})[m[1]] ??= []).push(w.word);
+    }
+  }
+  for (const item of theme.words) {
+    const f = found[item.word];
+    if (!f?.comparative || !f?.superlative) continue;
+    const pick = (list) => list.find((x) => (DEGREE_PREFER[item.word] ?? []).includes(x)) ?? list[0];
+    item.degrees = { comparative: pick(f.comparative), superlative: pick(f.superlative) };
+  }
+  return theme;
+}
+attachDegrees(adjectives);
 
 const verbWords = load('verbs.json').words;
 const verbs = buildTheme({

@@ -1226,4 +1226,47 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Comparing: at the zoo.
+  {
+    id: 'at-the-zoo',
+    titleFi: 'Eläintarhassa',
+    titleEn: 'At the zoo',
+    icon: '🐘',
+    partnerIcon: '🧒',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Katso! Kumpi on isompi, norsu vai hevonen?', en: 'Look! Which is bigger, the elephant or the horse?' },
+        reply: { fi: 'Norsu on isompi.', en: 'The elephant is bigger.' },
+        distractors: [
+          { fi: 'Hevonen on isompi.', en: 'The horse is bigger.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä kumpi on nopeampi, hevonen vai lehmä?', en: 'And which is faster, the horse or the cow?' },
+        reply: { fi: 'Hevonen on nopeampi kuin lehmä.', en: 'The horse is faster than the cow.' },
+        distractors: [
+          { fi: 'Lehmä on nopeampi kuin hevonen.', en: 'The cow is faster than the horse.' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mikä eläin on pienin?', en: 'Which animal is the smallest?' },
+        reply: { fi: 'Hiiri on pienin!', en: 'The mouse is the smallest!' },
+        distractors: [
+          { fi: 'Norsu on pienin!', en: 'The elephant is the smallest!' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä olen nopein! Juostaan!', en: "I'm the fastest! Let's run!" },
+        reply: { fi: 'Ei, minä olen nopein!', en: "No, I'm the fastest!" },
+        distractors: [
+          { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
+          { fi: 'Hyvää huomenta.', en: 'Good morning.' },
+        ],
+      },
+    ],
+  },
 ];

@@ -76,6 +76,9 @@ export interface LexicalItem {
    */
   english?: EnglishMorph;
   kotusType?: number;
+  /** Adjectives: the sourced comparison degrees (dictionary headwords),
+   *  e.g. { comparative: 'isompi', superlative: 'isoin' }. */
+  degrees?: { comparative: string; superlative: string };
   group?: string;
   frequencyRank?: number;
   /** Numeric value, for number words (used by counting scenes + grammar rule). */

@@ -556,6 +556,11 @@ const TYPE4_KPT = ['jump', 'climb', 'cut', 'fall', 'meet'];
 const TYPE56_PLAIN = ['need', 'choose', 'disturb', 'lock', 'grow-old'];
 const TYPE6_KPT = ['warm-up', 'run-away'];
 
+// The Comparing unit: the adjectives that have sourced degrees, and the animals
+// the comparisons are about (the course meets them here, where they're fun).
+const COMPARE_ADJECTIVES = ['young', 'tall', 'strong', 'good', 'funny'];
+const COMPARE_ANIMALS = ['elephant', 'horse', 'cow', 'bear', 'lion', 'pig', 'sheep', 'fox', 'duck', 'chicken', 'mouse', 'frog'];
+
 const UNITS: Chapter[] = [
   {
     id: 'hello',
@@ -1085,6 +1090,51 @@ const UNITS: Chapter[] = [
         exampleFi: 'iso koira',
       },
       sceneStep('describing-talk', 'what-like', 'Millainen?', 'What is it like?'),
+    ],
+  },
+  {
+    id: 'comparing',
+    titleFi: 'Isompi, isoin',
+    titleEn: 'Comparing',
+    blurbEn: 'Bigger, faster, older — and the biggest of all: isompi kuin, isoin.',
+    accent: '#16a34a',
+    icon: '🐘',
+    lessonId: 'comparing',
+    newWords: [...COMPARE_ADJECTIVES, ...COMPARE_ANIMALS],
+    skills: [
+      wordsStep('comparing', 'adjectives', 'Comparing words', COMPARE_ADJECTIVES),
+      wordsStep('comparing', 'animals', 'Animals', COMPARE_ANIMALS, 'comparing-animals'),
+      {
+        id: 'degrees',
+        titleFi: 'Iso, isompi, isoin',
+        titleEn: 'Big, bigger, biggest',
+        icon: '📏',
+        activity: 'choose',
+        maxLevel: 2,
+        content: { choose: 'degree' },
+        exampleFi: 'iso → isompi → isoin',
+      },
+      {
+        id: 'compare-two',
+        titleFi: 'Kumpi on isompi?',
+        titleEn: 'Which is bigger?',
+        icon: '⚖️',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'compare' },
+        exampleFi: 'Norsu on isompi kuin hiiri.',
+      },
+      {
+        id: 'the-most',
+        titleFi: 'Mikä on isoin?',
+        titleEn: 'The biggest of all',
+        icon: '🏆',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'superlative' },
+        exampleFi: 'Norsu on isoin.',
+      },
+      sceneStep('comparing-talk', 'at-the-zoo', 'Eläintarhassa', 'At the zoo'),
     ],
   },
   {

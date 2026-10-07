@@ -38,6 +38,16 @@ import { itemById } from './lookup';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
 import {
+  comparisonEnglish,
+  comparisonSegments,
+  degreeEnglish,
+  degreeForm,
+  degreeSegments,
+  superlativeEnglish,
+  superlativeSegments,
+  type Degree,
+} from './compare';
+import {
   caseSegments,
   dontSegments,
   letsSegments,
@@ -82,7 +92,13 @@ export type LessonRef =
    *  (sourced forms; present tense, `person` default "minä"). */
   | { kpt: string; person?: PersonId; en?: string }
   /** A verb's infinitive with the ending that shows its TYPE marked ("laulaa"). */
-  | { vtype: string; en?: string };
+  | { vtype: string; en?: string }
+  /** An adjective at a degree: "iso → isompi" (comparative) / "iso → isoin". */
+  | { degree: string; d: Degree; en?: string }
+  /** "Norsu on isompi kuin hiiri." (`a` is more than `b`). */
+  | { compare: string; a: string; b: string; en?: string }
+  /** "Norsu on isoin." */
+  | { most: string; a: string; en?: string };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -268,6 +284,34 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
       emoji: verb.emoji,
       speak: segmentsText(segs),
     };
+  }
+  if ('degree' in ref) {
+    const adj = itemById(ref.degree);
+    const form = adj && degreeForm(adj, ref.d);
+    if (!adj || !form) return null;
+    const segs = degreeSegments(form, ref.d);
+    return {
+      segments: segs,
+      base: ref.d === 'base' ? undefined : adj.fi,
+      en: ref.en ?? degreeEnglish(adj, ref.d),
+      emoji: adj.emoji,
+      speak: segmentsText(segs),
+    };
+  }
+  if ('compare' in ref) {
+    const adj = itemById(ref.compare);
+    const a = itemById(ref.a);
+    const b = itemById(ref.b);
+    const segs = adj && a && b && comparisonSegments(adj, a, b);
+    if (!segs) return null;
+    return { segments: segs, en: ref.en ?? comparisonEnglish(adj!, a!, b!), emoji: `${a!.emoji ?? ''}${b!.emoji ?? ''}`, speak: segmentsText(segs) };
+  }
+  if ('most' in ref) {
+    const adj = itemById(ref.most);
+    const a = itemById(ref.a);
+    const segs = adj && a && superlativeSegments(adj, a);
+    if (!segs) return null;
+    return { segments: segs, en: ref.en ?? superlativeEnglish(adj!, a!), emoji: a!.emoji, speak: segmentsText(segs) };
   }
   if ('vtype' in ref) {
     const verb = itemById(ref.vtype);
@@ -2307,6 +2351,85 @@ export const lessons: Lesson[] = [
           { ref: { verb: 'sleep', tense: 'present', polarity: 'positive', person: '2sg' } },
         ],
         explain: 'Type 1: he / she keeps the strong **kk**: *nukkuu*.',
+      },
+    ],
+  },
+  {
+    id: 'comparing',
+    titleFi: 'Isompi, isoin',
+    titleEn: 'Bigger and biggest',
+    emoji: '🐘',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Bigger: -mpi',
+        text: 'To say "bigger", "faster", "older", Finnish adds **-mpi**.',
+        rows: [
+          { degree: 'big', d: 'comparative' },
+          { degree: 'fast', d: 'comparative' },
+          { degree: 'old', d: 'comparative' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Than = kuin',
+        text:
+          '**kuin** means "than". Both things stay in their basic form:\n\n*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.',
+        rows: [
+          { compare: 'big', a: 'elephant', b: 'mouse' },
+          { compare: 'fast', a: 'horse', b: 'cow' },
+          { compare: 'old', a: 'grandfather', b: 'baby' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'The biggest: -in',
+        text: 'To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".',
+        rows: [
+          { degree: 'big', d: 'superlative' },
+          { most: 'big', a: 'elephant' },
+          { most: 'small', a: 'mouse' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Special ones',
+        text:
+          'A few change more, just like in English (good → better → best): *hyvä → parempi → paras*, and *pitkä → pidempi → pisin*.',
+        rows: [
+          { degree: 'good', d: 'comparative' },
+          { degree: 'good', d: 'superlative' },
+          { degree: 'tall', d: 'comparative' },
+          { degree: 'tall', d: 'superlative' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "faster"?',
+        options: [
+          { ref: { degree: 'fast', d: 'base' } },
+          { ref: { degree: 'fast', d: 'comparative' }, correct: true },
+          { ref: { degree: 'fast', d: 'superlative' } },
+        ],
+        explain: '**-mpi** = more: *nopeampi* = faster. *nopein* is the fastest.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one is TRUE?',
+        options: [
+          { ref: { compare: 'big', a: 'mouse', b: 'elephant' } },
+          { ref: { compare: 'big', a: 'elephant', b: 'mouse' }, correct: true },
+        ],
+        explain: 'The elephant is bigger: *Norsu on isompi kuin hiiri.*',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "Grandpa is the oldest"?',
+        options: [
+          { ref: { most: 'old', a: 'grandfather' }, correct: true },
+          { ref: { compare: 'old', a: 'grandfather', b: 'baby' } },
+        ],
+        explain: '**-in** = the most of all: *vanhin* = the oldest.',
       },
     ],
   },

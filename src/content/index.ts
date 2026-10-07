@@ -55,6 +55,7 @@ interface SourcedWord {
   examples?: Example[];
   tags?: string[];
   english?: EnglishMorph;
+  degrees?: { comparative: string; superlative: string };
 }
 
 interface SourcedFile {
@@ -78,6 +79,7 @@ function toItem(w: SourcedWord, tier: Tier, topic: string): LexicalItem {
     value: w.value,
     examples: w.examples,
     english: w.english,
+    degrees: w.degrees,
     topic,
     tags: w.tags,
   };

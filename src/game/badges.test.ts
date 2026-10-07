@@ -3,7 +3,7 @@ import type { ActivityProgress, Child } from '../state/storage';
 import type { ItemSchedule } from './srs';
 import { BADGES, BADGE_CATEGORIES, badgeProgress, earnedBadgeIds, kindsPlayed, type BadgeEnv } from './badges';
 import { MAX_BOX } from './srs';
-import { badgeEnv } from './path';
+import { PATH, badgeEnv } from './path';
 
 const ENV: BadgeEnv = {
   checkpointUnitIds: ['u1', 'u2', 'u3', 'u4'],
@@ -58,8 +58,8 @@ describe('achievement catalog', () => {
     }
   });
 
-  it('measures against the real course (31 checkpoints, 4 Kertaus steps, many sentence steps)', () => {
-    expect(badgeEnv.checkpointUnitIds.length).toBe(31);
+  it('measures against the real course (a checkpoint per unit but Mestari, 4 Kertaus steps, many sentence steps)', () => {
+    expect(badgeEnv.checkpointUnitIds.length).toBe(PATH.length - 1);
     expect(badgeEnv.kertausStepIds).toHaveLength(4);
     expect(Object.keys(badgeEnv.minorKinds).length).toBeGreaterThanOrEqual(10);
     expect(badgeEnv.allKinds).not.toContain('say'); // needs a microphone — never required
