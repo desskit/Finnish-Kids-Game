@@ -1,9 +1,9 @@
 # Finnish content review sheet
 
-- Generated: 2026-07-19T04:33:44.742Z · regenerate with `npm run review:content`
+- Generated: 2026-10-07T00:30:33.198Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved. To approve an entry, add its **Key** to
   `data/finnish-vetted.json` and re-run the export.
-- **Approved: 28 of 176 entries.**
+- **Approved: 28 of 216 entries.**
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -155,8 +155,8 @@
 | ⚠️ | `carrier:behind-them` | ___ takana — e.g. omenien takana | behind the ___s |
 | ⚠️ | `carrier:next-to-them` | ___ vieressä — e.g. omenien vieressä | next to the ___s |
 | ⚠️ | `carrier:under-them` | ___ alla — e.g. omenien alla | under the ___s |
-| ⚠️ | `carrier:i-have-some` | Minulla on ___. — e.g. Minulla on omenia. | I have some ___. |
-| ⚠️ | `carrier:i-havent-any` | Minulla ei ole ___. — e.g. Minulla ei ole omenia. | I don't have any ___. |
+| ⚠️ | `carrier:i-have-some` | Minulla on ___. — e.g. Minulla on omenia. | I have some ___s. |
+| ⚠️ | `carrier:i-havent-any` | Minulla ei ole ___. — e.g. Minulla ei ole omenia. | I don't have any ___s. |
 | ⚠️ | `carrier:these-are` | Nämä ovat ___. — e.g. Nämä ovat omenia. | These are ___s. |
 | ⚠️ | `carrier:where-are` | Missä ovat ___? — e.g. Missä ovat omenat? | Where are the ___s? |
 | ⚠️ | `carrier:i-buy` | Ostan ___. — e.g. Ostan omenan. | I buy the ___. |
@@ -168,7 +168,7 @@
 | ⚠️ | `carrier:onto-it` | Kissa menee ___. — e.g. Kissa menee korille. | The cat goes onto the ___. |
 | ⚠️ | `carrier:out-of-it` | Kissa tulee ___. — e.g. Kissa tulee laukusta. | The cat comes out of the ___. |
 | ⚠️ | `carrier:off-it` | Kissa tulee ___. — e.g. Kissa tulee korilta. | The cat comes off the ___. |
-| ⚠️ | `carrier:in-them` | Kissat ovat ___. — e.g. Kissat ovat laukuissa. | The cats are in the ___. |
+| ⚠️ | `carrier:in-them` | Kissat ovat ___. — e.g. Kissat ovat laukuissa. | The cats are in the ___s. |
 | ⚠️ | `carrier:on-them` | Kissat ovat ___. — e.g. Kissat ovat koreilla. | The cats are on the ___s. |
 | ⚠️ | `carrier:onto-them` | Kissat menevät ___. — e.g. Kissat menevät koreille. | The cats go onto the ___s. |
 | ⚠️ | `carrier:out-of-them` | Kissat tulevat ___. — e.g. Kissat tulevat laukuista. | The cats come out of the ___s. |
@@ -190,6 +190,51 @@
 | ⚠️ | `template:family-does-somewhere` | ⟨subj⟩ ⟨verb⟩ ⟨loc⟩ | The {subj} {verb}s in the {loc}. |
 | ⚠️ | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
 | ⚠️ | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
+
+## Lesson prose — Finnish quoted in the explanations (40)
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `lesson:no-articles:1` | kirja | No "a", no "the" — Two words Finnish doesn't need |
+| ⚠️ | `lesson:no-articles:2` | Tämä on · on | No "a", no "the" — "This is…" |
+| ⚠️ | `lesson:no-articles:3` | on · Onko | No "a", no "the" — Asking with -ko |
+| ⚠️ | `lesson:no-articles:4` | Onko | No "a", no "the" — check |
+| ⚠️ | `lesson:counting:2` | yksi kirja | Counting — One, or more than one? |
+| ⚠️ | `lesson:counting:5` | kirjaa | Counting — check |
+| ⚠️ | `lesson:having:1` | I have a bike · Minulla on pyörä | How to say "I have" — There's no verb "to have" |
+| ⚠️ | `lesson:having:2` | minulla · sinulla · hänellä · meillä · teillä · heillä | How to say "I have" — Who has it? |
+| ⚠️ | `lesson:having:4` | Sinulla on pallo. · sinulla | How to say "I have" — check |
+| ⚠️ | `lesson:negation-object:1` | on | Saying you don't have it — "is" becomes "is not" |
+| ⚠️ | `lesson:negation-object:3` | not all there | Saying you don't have it — Why? |
+| ⚠️ | `lesson:negation-object:4` | ei ole · kenkää | Saying you don't have it — check |
+| ⚠️ | `lesson:verb-persons:1` | minä · Syön. | Verbs tell you WHO — The end of the verb says who |
+| ⚠️ | `lesson:negative-verb:3` | en, et, ei, emme, ette, eivät · syön · en syö | "Not" is a verb — Same endings as before! |
+| ⚠️ | `lesson:negative-verb:4` | et | "Not" is a verb — check |
+| ⚠️ | `lesson:likes:2` | pidän | Liking and loving — pitää → -sta / -stä |
+| ⚠️ | `lesson:likes:3` | rakastan | Liking and loving — rakastaa → -a / -ä |
+| ⚠️ | `lesson:likes:4` | pidän · musiikista | Liking and loving — check |
+| ⚠️ | `lesson:total-object:2` | katsoa · odottaa | Seeing vs. watching — Going on for a while: -a / -ä |
+| ⚠️ | `lesson:total-object:3` | junaa | Seeing vs. watching — check |
+| ⚠️ | `lesson:buying:3` | Ostan maitoa. · maitoa | One whole thing, or some? — check |
+| ⚠️ | `lesson:agreement:4` | isossa talossa | Describing words copy — check |
+| ⚠️ | `lesson:in-on:1` | in the box | Endings instead of "in" and "on" — No word for "in" |
+| ⚠️ | `lesson:in-on:3` | -ssa, -lla · -ssä, -llä · talossa · metsässä | Endings instead of "in" and "on" — The vowel team again |
+| ⚠️ | `lesson:in-on:4` | laatikko · laatikossa | Endings instead of "in" and "on" — Look at the END |
+| ⚠️ | `lesson:in-on:5` | pöydällä | Endings instead of "in" and "on" — check |
+| ⚠️ | `lesson:into-out:1` | Missä? · Mihin? · Mistä? | In, into, out of — Three questions |
+| ⚠️ | `lesson:into-out:5` | laatikosta | In, into, out of — check |
+| ⚠️ | `lesson:postpositions:1` | under the chair · tuolin alla | Position words come after — Back to front |
+| ⚠️ | `lesson:postpositions:2` | edessä · takana · vieressä · alla | Position words come after — Four position words |
+| ⚠️ | `lesson:postpositions:4` | puun takana | Position words come after — check |
+| ⚠️ | `lesson:possessive:2` | minun kirjani · sinun kirjasi · hänen kirjansa | "My" is an ending — You'll hear the pronoun too |
+| ⚠️ | `lesson:plurals:4` | palloja | More than one — check |
+| ⚠️ | `lesson:past:1` | syön · söin | Talking about yesterday — Slip in an -i- |
+| ⚠️ | `lesson:past:3` | en, et, ei… | Talking about yesterday — "Didn't" |
+| ⚠️ | `lesson:past:5` | luin | Talking about yesterday — check |
+| ⚠️ | `lesson:conversation:4` | Mitä? · Missä? · Kuka? · Paljonko? | Having a real conversation — Question words |
+| ⚠️ | `lesson:word-order:3` | Kissa on laatikolla | Building sentences — Spotting mistakes |
+| ⚠️ | `lesson:word-order:4` | laatikossa | Building sentences — check |
+| ⚠️ | `lesson:expert:1` | olla | Expert Finnish — "Have done" — olen syönyt |
 
 ## Other authored lines (distractor-only) (17)
 

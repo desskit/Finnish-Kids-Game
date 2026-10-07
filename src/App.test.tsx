@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import type { LexicalItem } from './content/types';
 
 // Deterministic listen round for the continuous-session test: the same target
@@ -28,18 +28,26 @@ vi.mock('./game/round', async (importOriginal) => {
       })),
   };
 });
-vi.mock('./audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('./audio/speak', () => ({
+  speak: vi.fn(),
+  speakEnglish: vi.fn(),
+  isSpeechAvailable: () => true,
+}));
 vi.mock('./audio/sfx', () => ({ playDing: vi.fn() }));
 
 import { AppRoutes } from './App';
 import ProgressView from './components/ProgressView';
 import { ProfileProvider } from './state/profile';
 
-// Smoke test for the journey-path navigation shell + the progression UI on top
-// of it (badge strip, level pips, the dashboard). jsdom has no Web Speech/Audio,
-// but the map / dashboard screens don't play audio, so they render as-is.
+// Integration tests for the guided-course shell (home → lesson → step →
+// checkpoint) and the progression UI on top of it (badges, step levels, the
+// dashboard). jsdom has no Web Speech/Audio; audio modules are mocked.
 
-function seedChild(progress: Record<string, unknown> = {}, srs: Record<string, unknown> = {}) {
+function seedChild(
+  progress: Record<string, unknown> = {},
+  srs: Record<string, unknown> = {},
+  course: Record<string, unknown> = {},
+) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
@@ -55,6 +63,7 @@ function seedChild(progress: Record<string, unknown> = {}, srs: Record<string, u
           createdAt: 1,
           progress,
           srs,
+          course,
         },
       ],
       activeId: 'k',
@@ -77,46 +86,105 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-describe('journey path + progression UI', () => {
-  it('renders the path home with chapters, a skill node, and badges (no manual difficulty control)', () => {
+const lvl = (level: number) => ({
+  plays: 3,
+  bestStars: 6,
+  totalStars: 16,
+  totalPossible: 18,
+  lastPlayed: 1,
+  level,
+  recent: [] as number[],
+});
+
+describe('course home', () => {
+  it('starts a new child on unit 1: Continue → its lesson, later units locked', () => {
     seedChild();
     renderAt('/');
     expect(screen.getByRole('heading', { name: /Hei, Aino/i })).toBeInTheDocument();
-    // A chapter banner and a communicative skill node (not a vocab category).
-    expect(screen.getByText('Naming & having')).toBeInTheDocument();
-    expect(screen.getByText(/This is a/)).toBeInTheDocument();
-    // Difficulty is always adaptive now — no Easy/Hard chips for kids to tap.
-    expect(screen.queryByText('Auto')).not.toBeInTheDocument();
+    const cont = screen.getByRole('link', { name: /Continue/ });
+    expect(cont.getAttribute('href')).toBe('/lesson/sounds');
+    expect(cont.textContent).toMatch(/Unit 1 · Lesson/);
+    const units = document.querySelectorAll('.unit');
+    expect(units).toHaveLength(20);
+    expect(units[0].className).toContain('unit--current');
+    expect(units[1].className).toContain('unit--locked');
+    // Review + Notebook entries, badges; no "Today's adventure" any more.
+    expect(screen.getByRole('link', { name: /Review/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Notebook/ })).toBeInTheDocument();
     expect(document.querySelector('.badge-strip')).not.toBeNull();
-    // The advanced chapter is now live: its capstone node renders, not a
-    // "coming soon" placeholder.
-    expect(screen.getByText('Full sentences')).toBeInTheDocument();
-    expect(screen.getByText('Build sentences')).toBeInTheDocument();
-    expect(screen.queryByText(/More coming soon/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Today's adventure/i)).not.toBeInTheDocument();
   });
 
-  it('shows a level pip on a node once a level is reached', () => {
-    seedChild({
-      naming: {
-        'this-is': { plays: 3, bestStars: 6, totalStars: 16, totalPossible: 18, lastPlayed: 1, level: 2, recent: [] },
-      },
-    });
+  it("locks a unit's practice until its lesson is read, and the checkpoint until every step is done", () => {
+    seedChild();
     renderAt('/');
-    // Node depth shows as "level / maxLevel"; this-is is a depth-4 node.
-    expect(screen.getByText('Taso 2/4')).toBeInTheDocument();
+    // Unit 1 expanded: lesson link + locked steps + locked checkpoint.
+    expect(document.querySelectorAll('.unit--current .unit-step--locked').length).toBeGreaterThanOrEqual(3);
   });
 
-  it('plays a skill node as one unbroken stream — no interstitial, silent recording', async () => {
-    // Cat pre-seeded as already-seen so the "meet the word" intro (a separate
-    // feature) never intercepts this deterministic-round play-through test.
+  it('ticks finished steps and opens the checkpoint once all are done', () => {
+    seedChild(
+      { 'u1-hello': { greetings: lvl(2), introduce: lvl(2) } },
+      {},
+      { lessonsSeen: { sounds: 1 } },
+    );
+    renderAt('/');
+    const cont = screen.getByRole('link', { name: /Continue/ });
+    expect(cont.getAttribute('href')).toBe('/checkpoint/u1-hello');
+    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(3); // lesson + 2 steps
+    expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
+  });
+
+  it('opens the next unit once the checkpoint is passed', () => {
+    seedChild(
+      { 'u1-hello': { greetings: lvl(2), introduce: lvl(2) } },
+      {},
+      { lessonsSeen: { sounds: 1 }, checkpoints: { 'u1-hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
+    );
+    renderAt('/');
+    const units = document.querySelectorAll('.unit');
+    expect(units[0].className).toContain('unit--done');
+    expect(units[1].className).toContain('unit--current');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
+    expect(screen.getByText('1 of 19 units done')).toBeInTheDocument();
+  });
+});
+
+describe('lessons + notebook', () => {
+  it('reading a lesson to the end marks it read and starts the first practice step', async () => {
+    seedChild();
+    renderAt('/lesson/sounds');
+    expect(screen.getByText('Read it like it\'s written')).toBeInTheDocument();
+    // Click through every card.
+    for (let i = 0; i < 10; i++) {
+      const next = screen.queryByRole('button', { name: /Next/ });
+      if (!next) break;
+      fireEvent.click(next);
+    }
+    fireEvent.click(screen.getByRole('button', { name: /Start practicing/ }));
+    const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
+    expect(saved.children[0].course.lessonsSeen.sounds).toBeGreaterThan(0);
+    // Now on the unit's first step (the greetings dialogue).
+    expect(await screen.findByText(/What do you reply/)).toBeInTheDocument();
+  });
+
+  it('lists only open units in the Notebook', () => {
+    seedChild({}, {}, { checkpoints: { 'u1-hello': { passedAt: 1, best: 1, attempts: 1 } } });
+    renderAt('/notebook');
+    expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
+    expect(screen.getByText(/18 more lessons unlock/)).toBeInTheDocument();
+  });
+});
+
+describe('playing a step', () => {
+  it('plays a step as one unbroken stream — no interstitial, silent recording under its unit', async () => {
+    // Cat pre-seeded as already-seen so the "meet the word" intro never
+    // intercepts this deterministic-round play-through test.
     seedChild({}, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } });
     vi.useFakeTimers();
     try {
-      renderAt('/skill/listen-animals');
-
-      // In-session header shows the running star count, not question dots.
+      renderAt('/skill/u4-words');
       expect(screen.getByLabelText('0 tähteä')).toBeInTheDocument();
-
       const tapCorrect = async () => {
         fireEvent.click(screen.getByText('🐱').closest('button') as HTMLButtonElement);
         await act(async () => {
@@ -124,29 +192,22 @@ describe('journey path + progression UI', () => {
         });
       };
       for (let q = 0; q < 6; q++) await tapCorrect();
-
-      // Segment finished: no "Hienoa!" stop — a 7th question is just there,
-      // and the star counter kept counting.
       expect(screen.queryByText(/Great job/i)).not.toBeInTheDocument();
       expect(document.querySelectorAll('.pic-card').length).toBeGreaterThan(0);
       expect(screen.getByLabelText('6 tähteä')).toBeInTheDocument();
-
-      // The segment was recorded exactly once, quietly, in the background.
       const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
-      const entry = saved.children[0].progress['first-words']['listen-animals'];
+      const entry = saved.children[0].progress['u4-having']['u4-words'];
       expect(entry.plays).toBe(1);
       expect(entry.totalPossible).toBe(6);
     } finally {
       vi.useRealTimers();
     }
   });
+});
 
-  it('renders the parent dashboard with difficulty mode and per-skill level', () => {
-    seedChild({
-      naming: {
-        'this-is': { plays: 2, bestStars: 6, totalStars: 10, totalPossible: 12, lastPlayed: 1, level: 2, recent: [0.83] },
-      },
-    });
+describe('grown-up dashboard', () => {
+  it('shows difficulty mode and per-step level', () => {
+    seedChild({ 'u2-people': { 'this-is': lvl(2) } });
     render(
       <ProfileProvider>
         <MemoryRouter>
@@ -155,16 +216,12 @@ describe('journey path + progression UI', () => {
       </ProfileProvider>,
     );
     expect(screen.getByText(/Auto \(adaptive\)/)).toBeInTheDocument();
-    expect(screen.getByText(/This is a/)).toBeInTheDocument();
+    expect(screen.getByText(/This is…/)).toBeInTheDocument();
     expect(screen.getByText('Lv 2/4')).toBeInTheDocument();
   });
 
-  it('dashboard shows can-do statements: achieved claims + a short up-next list', () => {
-    seedChild({
-      conversations: {
-        greetings: { plays: 4, bestStars: 6, totalStars: 20, totalPossible: 24, lastPlayed: 1, level: 3, recent: [0.9] },
-      },
-    });
+  it('shows can-do statements backed by passed checkpoints', () => {
+    seedChild({}, {}, { checkpoints: { 'u1-hello': { passedAt: 1, best: 1, attempts: 1 } } });
     render(
       <ProfileProvider>
         <MemoryRouter>
@@ -172,117 +229,8 @@ describe('journey path + progression UI', () => {
         </MemoryRouter>
       </ProfileProvider>,
     );
-    // Greetings L3 unlocks the greet claim…
-    expect(screen.getByText(/Can greet people and reply/)).toBeInTheDocument();
-    // …unachieved claims stay out of the achieved list; a short "working
-    // towards" preview shows the nearest ones instead (max 3).
+    expect(screen.getByText(/Can greet people, say thanks/)).toBeInTheDocument();
     expect(document.querySelectorAll('.cando-row--next').length).toBeLessThanOrEqual(3);
     expect(document.querySelectorAll('.cando-row--next').length).toBeGreaterThan(0);
-  });
-});
-
-describe("Today's adventure (guided session)", () => {
-  it('offers a one-tap adventure card built from the weak node + the next unplayed one', () => {
-    seedChild({
-      naming: {
-        'this-is': {
-          plays: 3,
-          bestStars: 2,
-          totalStars: 4,
-          totalPossible: 12,
-          lastPlayed: 1,
-          level: 2,
-          recent: [0.3, 0.4, 0.2], // well under the practice-more bar
-        },
-      },
-    });
-    renderAt('/');
-    expect(screen.getByRole('button', { name: /today's adventure/i })).toBeInTheDocument();
-  });
-
-  it('chains stop to stop on exit — back button moves on instead of going home, then finally home', async () => {
-    // Pre-seed 'cat' as already-seen so stop 2 (listen-animals) shows its
-    // normal quiz, not the unrelated "meet the word" intro card.
-    seedChild(
-      {
-        naming: {
-          'this-is': {
-            plays: 3,
-            bestStars: 2,
-            totalStars: 4,
-            totalPossible: 12,
-            lastPlayed: 1,
-            level: 2,
-            recent: [0.3, 0.4, 0.2],
-          },
-        },
-      },
-      // due far in the future — seen, but NOT due, so no review stop sneaks in.
-      { cat: { box: 5, due: Date.now() + 30 * 86_400_000, seen: 3, correct: 3, lastSeenAt: 1 } },
-    );
-    renderAt('/');
-
-    fireEvent.click(screen.getByRole('button', { name: /today's adventure/i }));
-
-    // Stop 1: the weak node ("this-is"), banner shows 1/2.
-    expect(screen.getByText(/This is a/)).toBeInTheDocument();
-    expect(document.querySelector('.adventure-banner')?.textContent).toContain('1/2');
-
-    // Exit stop 1 — advances to stop 2 ("listen-animals"), not home.
-    fireEvent.click(screen.getByLabelText('Back to the map'));
-    expect(screen.queryByText(/Hei,/)).not.toBeInTheDocument(); // still not on the map
-    expect(document.querySelector('.adventure-banner')?.textContent).toContain('2/2');
-
-    // Exit the LAST stop — now it really does go home, banner gone.
-    fireEvent.click(screen.getByLabelText('Back to the map'));
-    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
-    expect(document.querySelector('.adventure-banner')).toBeNull();
-  });
-
-  it('landing back on the map mid-run cancels the adventure — free play is never hijacked', () => {
-    // The child bails out of stop 1 with the BROWSER back button (not the
-    // in-game one). The map must clear the run, or the next free-play node's
-    // back button would "advance" into the stale run's stop 2.
-    function BrowserBackSim() {
-      const navigate = useNavigate();
-      return <button onClick={() => navigate(-1)}>simulate-browser-back</button>;
-    }
-    seedChild(
-      {
-        naming: {
-          'this-is': {
-            plays: 3,
-            bestStars: 2,
-            totalStars: 4,
-            totalPossible: 12,
-            lastPlayed: 1,
-            level: 2,
-            recent: [0.3, 0.4, 0.2],
-          },
-        },
-      },
-      { cat: { box: 5, due: Date.now() + 30 * 86_400_000, seen: 3, correct: 3, lastSeenAt: 1 } },
-    );
-    render(
-      <ProfileProvider>
-        <MemoryRouter initialEntries={['/']}>
-          <AppRoutes />
-          <BrowserBackSim />
-        </MemoryRouter>
-      </ProfileProvider>,
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: /today's adventure/i }));
-    expect(document.querySelector('.adventure-banner')?.textContent).toContain('1/2');
-
-    // Browser back → the map. The stale run is cancelled on arrival.
-    fireEvent.click(screen.getByText('simulate-browser-back'));
-    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
-    expect(document.querySelector('.adventure-banner')).toBeNull();
-
-    // Free play into any node: its back button goes HOME, not to stale stop 2.
-    fireEvent.click(screen.getByText(/This is a/).closest('a')!);
-    fireEvent.click(screen.getByLabelText('Back to the map'));
-    expect(screen.getByText(/Hei,/)).toBeInTheDocument();
   });
 });

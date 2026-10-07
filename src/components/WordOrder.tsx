@@ -13,6 +13,9 @@ import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForConstruction } from '../content/why';
+
 
 const QUESTIONS = 6;
 
@@ -77,6 +80,7 @@ export default function WordOrder({
           attemptId: q.item.id,
           grammarId: grammarSrsId(q.construction.id),
           emoji: q.item.emoji,
+          why: whyForConstruction(q.construction, q.item),
         }));
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     return full.slice(0, ctx?.roundQuestions);
@@ -94,6 +98,8 @@ export default function WordOrder({
   const [wrongTaps, setWrongTaps] = useState(0);
 
   const q = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
   const complete = !!q && placed.length === q.tokens.length;
   const showHint = hintAfterMisses !== undefined && wrongTaps >= hintAfterMisses;
 
@@ -148,6 +154,7 @@ export default function WordOrder({
         }
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongId(tile.id);
         setWrongTaps((n) => n + 1);
@@ -259,6 +266,7 @@ export default function WordOrder({
           Ohita <span className="en">Skip</span> →
         </button>
       </div>
+      {whyAt === index && q?.why && <WhyTip why={q.why} />}
     </section>
   );
 }

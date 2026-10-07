@@ -8,6 +8,8 @@ import placesData from './data/places.sourced.json';
 import bodyData from './data/body.sourced.json';
 import natureData from './data/nature.sourced.json';
 import clothesData from './data/clothes.sourced.json';
+import schoolData from './data/school.sourced.json';
+import freetimeData from './data/freetime.sourced.json';
 import { nounConstructions } from './constructions';
 import type { Construction, EnglishMorph, Example, LexicalItem, Theme, Tier } from './types';
 
@@ -124,6 +126,16 @@ export const clothes = toTheme(clothesData as unknown as SourcedFile, nounConstr
   countable: true,
 });
 
+// School + free time — the course's everyday register (people and things at
+// school, hobbies and gadgets), so a child's first sentences are about their
+// own life rather than farm animals.
+export const school = toTheme(schoolData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
+export const freetime = toTheme(freetimeData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
+
 // Adjectives are content for the (later) adjective+noun agreement exercises.
 // Exported for use by the round builder, but intentionally NOT added to
 // `themes` — it is not a standalone play topic in the home UI.
@@ -133,7 +145,18 @@ export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
 // out of `themes` — it isn't a noun vocabulary topic, it has its own game.
 export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
 
-export const themes: Theme[] = [animals, numbers, food, family, places, body, nature, clothes];
+export const themes: Theme[] = [
+  animals,
+  numbers,
+  food,
+  family,
+  places,
+  body,
+  nature,
+  clothes,
+  school,
+  freetime,
+];
 
 // Every vocabulary item the Review activity can quiz, across all topics. These
 // are exactly the items the picture-tap activities record SRS attempts against,

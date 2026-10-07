@@ -19,7 +19,7 @@ export default function ActivityHeader({ title, index, total, stars, onExit }: P
   return (
     <header className="activity-header">
       {onExit ? (
-        <button className="icon-btn" onClick={onExit} aria-label="Back to the map">
+        <button className="icon-btn" onClick={onExit} aria-label="Back home">
           ⬅︎
         </button>
       ) : (

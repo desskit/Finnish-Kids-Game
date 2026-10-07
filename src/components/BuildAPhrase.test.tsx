@@ -164,6 +164,15 @@ describe('BuildAPhrase', () => {
     expect(screen.getByLabelText('Question 2 of 6')).toBeInTheDocument();
   });
 
+  it('explains a miss with a "Why?" tip (the rule + the right form), only after a wrong tap', () => {
+    renderActivity();
+    expect(document.querySelector('.why-tip')).toBeNull();
+    fireEvent.click(wrongTile());
+    const tip = document.querySelector('.why-tip')!;
+    expect(tip.textContent).toMatch(/basic form/);
+    expect(tip.textContent).toContain('kissa');
+  });
+
   it('highlights a wrong tap without advancing or awarding a star', async () => {
     renderActivity();
     fireEvent.click(wrongTile());

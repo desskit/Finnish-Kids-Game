@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { StoryOption } from '../content/stories';
 import { stories } from '../content/stories';
+import { byIds } from '../util/byIds';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, showsGloss } from '../game/adapt';
@@ -11,6 +12,8 @@ import ActivityHeader from './ActivityHeader';
 
 interface Props {
   onExit: () => void;
+  /** Scope the stories to these ids (a course step); default = all. */
+  ids?: string[];
 }
 
 // Satuhetki (story time): a tiny illustrated story read page by page, then a
@@ -20,7 +23,8 @@ interface Props {
 // they alone feed the adaptive engine. Like the other communicative games the
 // English glosses drop away at the Finnish-only rung (showsGloss). No SRS
 // crediting — story lines are authored wholes, not single lexical items.
-export default function StoryTime({ onExit }: Props) {
+export default function StoryTime({ onExit, ids }: Props) {
+  const pool = byIds(stories, ids);
   const { level, addStars } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -34,9 +38,9 @@ export default function StoryTime({ onExit }: Props) {
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(
-    () => buildStory(stories, maxTier),
+    () => buildStory(pool, maxTier),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [maxTier, runId],
+    [pool, maxTier, runId],
   );
 
   const [pageIndex, setPageIndex] = useState(0);

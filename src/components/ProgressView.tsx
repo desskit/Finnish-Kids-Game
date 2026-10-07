@@ -5,8 +5,9 @@ import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { canDoSummary } from '../game/cando';
 import { PATH, badgeEnv } from '../game/path';
+import { UNITS, nextAction, unitsCompleted } from '../game/course';
 
-// Parent dashboard: per child, per chapter, per skill — adaptive level, stars,
+// Parent dashboard: per child, per unit, per step — adaptive level, stars,
 // plays and accuracy, read straight from the progress model the skills record,
 // plus the cross-topic spaced-repetition (vocabulary) summary and badges.
 export default function ProgressView() {
@@ -42,6 +43,12 @@ export default function ProgressView() {
         const cando = canDoSummary(c);
         const upNext = cando.upNext.slice(0, 3);
 
+        // Where the child is in the guided course.
+        const unitsDone = unitsCompleted(c);
+        const unitsTotal = UNITS.filter((u) => u.checkpoint !== false).length;
+        const now2 = nextAction(c);
+        const currentUnit = UNITS.indexOf(now2.unit) + 1;
+
         const playedChapters = PATH.map((chapter) => ({
           chapter,
           skills: chapter.skills.filter((s) => c.progress?.[chapter.id]?.[s.id]),
@@ -55,6 +62,10 @@ export default function ProgressView() {
             </h2>
 
             <p className="progress-mode muted">Vaikeustaso · Difficulty: {mode}</p>
+            <p className="progress-course">
+              📘 Course: {unitsDone} of {unitsTotal} units passed · now on Unit {currentUnit} ·{' '}
+              {now2.unit.titleEn}
+            </p>
 
             <div className="progress-badges" aria-label="Badges earned">
               {BADGES.map((b) => (

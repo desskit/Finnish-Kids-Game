@@ -115,7 +115,7 @@ export default function ProfilePicker() {
             being forced to pick someone. Hidden at first launch (no child yet). */}
         {!adding && children.length > 0 && (
           <button className="text-btn" onClick={() => navigate('/')}>
-            Takaisin <span className="en">Back to the map</span>
+            Takaisin <span className="en">Back home</span>
           </button>
         )}
       </section>

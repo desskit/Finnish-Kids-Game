@@ -13,7 +13,7 @@ const prog = (level: number) => ({
   recent: [0.9],
 });
 
-function child(progress: Child['progress'] = {}): Child {
+function child(over: Partial<Child> = {}): Child {
   return {
     id: 'k',
     name: 'K',
@@ -21,25 +21,37 @@ function child(progress: Child['progress'] = {}): Child {
     level: 1,
     stars: 0,
     createdAt: 1,
-    progress,
+    progress: {},
     srs: {},
+    ...over,
   } as Child;
 }
 
-describe('can-do statements (E-17)', () => {
-  it('every requirement points at a REAL chapter + skill on the path', () => {
+describe('can-do statements', () => {
+  it('every requirement points at a REAL unit, or a real step within its own ladder', () => {
     for (const s of CAN_DO) {
       for (const r of s.requires) {
-        const chapter = PATH.find((c) => c.id === r.chapterId);
-        expect(chapter, `${s.id}: chapter ${r.chapterId}`).toBeTruthy();
-        const skill = chapter!.skills.find((sk) => sk.id === r.skillId);
-        expect(skill, `${s.id}: skill ${r.skillId}`).toBeTruthy();
-        // A bar above the node's own ladder could never be reached.
-        expect(
-          r.level,
-          `${s.id}: level ${r.level} exceeds ${r.skillId}'s max`,
-        ).toBeLessThanOrEqual(skill!.maxLevel ?? 4);
+        if ('unitId' in r) {
+          const unit = PATH.find((u) => u.id === r.unitId);
+          expect(unit, `${s.id}: unit ${r.unitId}`).toBeTruthy();
+          expect(unit!.checkpoint, `${s.id}: unit has a checkpoint`).not.toBe(false);
+          continue;
+        }
+        const unit = PATH.find((c) => c.id === r.chapterId);
+        expect(unit, `${s.id}: unit ${r.chapterId}`).toBeTruthy();
+        const step = unit!.skills.find((sk) => sk.id === r.skillId);
+        expect(step, `${s.id}: step ${r.skillId}`).toBeTruthy();
+        expect(r.level).toBeLessThanOrEqual(step!.maxLevel ?? 4);
       }
+    }
+  });
+
+  it('claims every unit that has a checkpoint', () => {
+    for (const unit of PATH.filter((u) => u.checkpoint !== false)) {
+      expect(
+        CAN_DO.some((s) => s.requires.some((r) => 'unitId' in r && r.unitId === unit.id)),
+        unit.id,
+      ).toBe(true);
     }
   });
 
@@ -49,55 +61,31 @@ describe('can-do statements (E-17)', () => {
     expect(upNext).toHaveLength(CAN_DO.length);
   });
 
-  it('a single-node statement flips when its level is reached, not before', () => {
-    const greet = CAN_DO.find((s) => s.id === 'greet')!;
-    expect(canDoAchieved(child({ conversations: { greetings: prog(2) } }), greet)).toBe(false);
-    expect(canDoAchieved(child({ conversations: { greetings: prog(3) } }), greet)).toBe(true);
-  });
-
-  it("an 'all' statement needs every node, not just one", () => {
-    const likes = CAN_DO.find((s) => s.id === 'likes')!;
-    expect(canDoAchieved(child({ likes: { 'i-like': prog(3) } }), likes)).toBe(false);
+  it('a unit claim flips when its checkpoint is passed — an attempt alone is not enough', () => {
+    const greet = CAN_DO.find((s) => s.id === 'u1-hello')!;
     expect(
-      canDoAchieved(child({ likes: { 'i-like': prog(3), 'i-see': prog(3) } }), likes),
-    ).toBe(true);
-  });
-
-  it("an 'any' statement needs just one qualifying node", () => {
-    const name = CAN_DO.find((s) => s.id === 'name-things')!;
-    expect(canDoAchieved(child({ 'first-words': { 'listen-nature': prog(3) } }), name)).toBe(true);
-    expect(canDoAchieved(child({ 'first-words': { 'listen-nature': prog(2) } }), name)).toBe(false);
-  });
-
-  it("a 'count' statement needs the stated number of themes", () => {
-    const first = CAN_DO.find((s) => s.id === 'first-words')!;
-    expect(canDoAchieved(child({ 'first-words': { 'listen-animals': prog(2) } }), first)).toBe(
-      false,
-    );
+      canDoAchieved(child({ course: { checkpoints: { 'u1-hello': { best: 0.5, attempts: 1 } } } }), greet),
+    ).toBe(false);
     expect(
       canDoAchieved(
-        child({ 'first-words': { 'listen-animals': prog(2), 'listen-food': prog(2) } }),
-        first,
+        child({ course: { checkpoints: { 'u1-hello': { passedAt: 1, best: 0.9, attempts: 2 } } } }),
+        greet,
       ),
     ).toBe(true);
   });
 
-  it('counting claims track the adaptive engine: L3 → to 10, L8 → to 20', () => {
-    const c10 = CAN_DO.find((s) => s.id === 'count-10')!;
-    const c20 = CAN_DO.find((s) => s.id === 'count-20')!;
-    const atL3 = child({ 'numbers-describe': { count: prog(3) } });
-    expect(canDoAchieved(atL3, c10)).toBe(true);
-    expect(canDoAchieved(atL3, c20)).toBe(false);
-    const atL8 = child({ 'numbers-describe': { count: prog(8) } });
-    expect(canDoAchieved(atL8, c20)).toBe(true);
+  it('an expert claim flips at its step level, not before', () => {
+    const tenses = CAN_DO.find((s) => s.id === 'verb-tenses')!;
+    expect(canDoAchieved(child({ progress: { 'u20-mestari': { 'verbs-expert': prog(7) } } }), tenses)).toBe(false);
+    expect(canDoAchieved(child({ progress: { 'u20-mestari': { 'verbs-expert': prog(8) } } }), tenses)).toBe(true);
   });
 
-  it('summary preserves authored order within both halves', () => {
+  it('splits achieved / up next in authored order', () => {
     const c = child({
-      conversations: { greetings: prog(3) },
-      'numbers-describe': { count: prog(3) },
+      course: { checkpoints: { 'u2-people': { passedAt: 1, best: 1, attempts: 1 } } },
     });
-    const { achieved } = canDoSummary(c);
-    expect(achieved.map((s) => s.id)).toEqual(['greet', 'count-10']);
+    const { achieved, upNext } = canDoSummary(c);
+    expect(achieved.map((s) => s.id)).toEqual(['u2-people']);
+    expect(upNext[0].id).toBe('u1-hello');
   });
 });

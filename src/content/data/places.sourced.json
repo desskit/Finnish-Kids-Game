@@ -999,6 +999,250 @@
           "en": "I am in the garden."
         }
       ]
+    },
+    {
+      "id": "bus",
+      "word": "bussi",
+      "en": "bus",
+      "emoji": "🚌",
+      "inflections": {
+        "nominative_singular": "bussi",
+        "nominative_plural": "bussit",
+        "genitive_singular": "bussin",
+        "genitive_plural": "bussien",
+        "partitive_singular": "bussia",
+        "partitive_plural": "busseja",
+        "inessive_singular": "bussissa",
+        "inessive_plural": "busseissa",
+        "elative_singular": "bussista",
+        "elative_plural": "busseista",
+        "illative_singular": "bussiin",
+        "illative_plural": "busseihin",
+        "adessive_singular": "bussilla",
+        "adessive_plural": "busseilla",
+        "ablative_singular": "bussilta",
+        "ablative_plural": "busseilta",
+        "allative_singular": "bussille",
+        "allative_plural": "busseille",
+        "essive_singular": "bussina",
+        "essive_plural": "busseina",
+        "translative_singular": "bussiksi",
+        "translative_plural": "busseiksi",
+        "abessive_singular": "bussitta",
+        "abessive_plural": "busseitta",
+        "instructive_plural": "bussein",
+        "comitative_plural": "busseineen",
+        "poss_1sg_nominative_singular": "bussini",
+        "poss_1sg_inessive_singular": "bussissani",
+        "poss_1sg_adessive_singular": "bussillani",
+        "poss_2sg_nominative_singular": "bussisi",
+        "poss_2sg_inessive_singular": "bussissasi",
+        "poss_2sg_adessive_singular": "bussillasi",
+        "poss_3rd_nominative_singular": "bussinsa",
+        "poss_3rd_inessive_singular": "bussissaan",
+        "poss_3rd_adessive_singular": "bussillaan"
+      },
+      "english": {
+        "plural": "buses"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 5768,
+      "examples": [
+        {
+          "fi": "Tom on bussissa.",
+          "en": "Tom is on the bus."
+        },
+        {
+          "fi": "Tomi ei saanut unta bussissa.",
+          "en": "Tom wasn't able to sleep on the bus."
+        }
+      ]
+    },
+    {
+      "id": "train",
+      "word": "juna",
+      "en": "train",
+      "emoji": "🚆",
+      "inflections": {
+        "nominative_singular": "juna",
+        "nominative_plural": "junat",
+        "genitive_singular": "junan",
+        "genitive_plural": "junien",
+        "partitive_singular": "junaa",
+        "partitive_plural": "junia",
+        "inessive_singular": "junassa",
+        "inessive_plural": "junissa",
+        "elative_singular": "junasta",
+        "elative_plural": "junista",
+        "illative_singular": "junaan",
+        "illative_plural": "juniin",
+        "adessive_singular": "junalla",
+        "adessive_plural": "junilla",
+        "ablative_singular": "junalta",
+        "ablative_plural": "junilta",
+        "allative_singular": "junalle",
+        "allative_plural": "junille",
+        "essive_singular": "junana",
+        "essive_plural": "junina",
+        "translative_singular": "junaksi",
+        "translative_plural": "juniksi",
+        "abessive_singular": "junatta",
+        "abessive_plural": "junitta",
+        "instructive_plural": "junin",
+        "comitative_plural": "junineen",
+        "poss_1sg_nominative_singular": "junani",
+        "poss_1sg_inessive_singular": "junassani",
+        "poss_1sg_adessive_singular": "junallani",
+        "poss_2sg_nominative_singular": "junasi",
+        "poss_2sg_inessive_singular": "junassasi",
+        "poss_2sg_adessive_singular": "junallasi",
+        "poss_3rd_nominative_singular": "junansa",
+        "poss_3rd_inessive_singular": "junassaan",
+        "poss_3rd_adessive_singular": "junallaan"
+      },
+      "english": {
+        "plural": "trains"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 3332,
+      "examples": [
+        {
+          "fi": "Hän on junassa.",
+          "en": "He's on the train."
+        }
+      ]
+    },
+    {
+      "id": "shop",
+      "word": "kauppa",
+      "en": "shop",
+      "emoji": "🏪",
+      "inflections": {
+        "nominative_singular": "kauppa",
+        "nominative_plural": "kaupat",
+        "genitive_singular": "kaupan",
+        "genitive_plural": "kauppojen",
+        "partitive_singular": "kauppaa",
+        "partitive_plural": "kauppoja",
+        "inessive_singular": "kaupassa",
+        "inessive_plural": "kaupoissa",
+        "elative_singular": "kaupasta",
+        "elative_plural": "kaupoista",
+        "illative_singular": "kauppaan",
+        "illative_plural": "kauppoihin",
+        "adessive_singular": "kaupalla",
+        "adessive_plural": "kaupoilla",
+        "ablative_singular": "kaupalta",
+        "ablative_plural": "kaupoilta",
+        "allative_singular": "kaupalle",
+        "allative_plural": "kaupoille",
+        "essive_singular": "kauppana",
+        "essive_plural": "kauppoina",
+        "translative_singular": "kaupaksi",
+        "translative_plural": "kaupoiksi",
+        "abessive_singular": "kaupatta",
+        "abessive_plural": "kaupoitta",
+        "instructive_plural": "kaupoin",
+        "comitative_plural": "kauppoineen",
+        "poss_1sg_nominative_singular": "kauppani",
+        "poss_1sg_inessive_singular": "kaupassani",
+        "poss_1sg_adessive_singular": "kaupallani",
+        "poss_2sg_nominative_singular": "kauppasi",
+        "poss_2sg_inessive_singular": "kaupassasi",
+        "poss_2sg_adessive_singular": "kaupallasi",
+        "poss_3rd_nominative_singular": "kauppansa",
+        "poss_3rd_inessive_singular": "kaupassaan",
+        "poss_3rd_adessive_singular": "kaupallaan"
+      },
+      "english": {
+        "plural": "shops"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 3800,
+      "examples": [
+        {
+          "fi": "käydä kauppaa",
+          "en": "to trade, deal, do business"
+        },
+        {
+          "fi": "En ostanut mitään tax free -kaupoista.",
+          "en": "I didn't buy anything at the duty-free shops."
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "word": "kirjasto",
+      "en": "library",
+      "emoji": "📚",
+      "inflections": {
+        "nominative_singular": "kirjasto",
+        "nominative_plural": "kirjastot",
+        "genitive_singular": "kirjaston",
+        "genitive_plural": "kirjastojen",
+        "partitive_singular": "kirjastoa",
+        "partitive_plural": "kirjastoja",
+        "inessive_singular": "kirjastossa",
+        "inessive_plural": "kirjastoissa",
+        "elative_singular": "kirjastosta",
+        "elative_plural": "kirjastoista",
+        "illative_singular": "kirjastoon",
+        "illative_plural": "kirjastoihin",
+        "adessive_singular": "kirjastolla",
+        "adessive_plural": "kirjastoilla",
+        "ablative_singular": "kirjastolta",
+        "ablative_plural": "kirjastoilta",
+        "allative_singular": "kirjastolle",
+        "allative_plural": "kirjastoille",
+        "essive_singular": "kirjastona",
+        "essive_plural": "kirjastoina",
+        "translative_singular": "kirjastoksi",
+        "translative_plural": "kirjastoiksi",
+        "abessive_singular": "kirjastotta",
+        "abessive_plural": "kirjastoitta",
+        "instructive_plural": "kirjastoin",
+        "comitative_plural": "kirjastoineen",
+        "poss_1sg_nominative_singular": "kirjastoni",
+        "poss_1sg_inessive_singular": "kirjastossani",
+        "poss_1sg_adessive_singular": "kirjastollani",
+        "poss_2sg_nominative_singular": "kirjastosi",
+        "poss_2sg_inessive_singular": "kirjastossasi",
+        "poss_2sg_adessive_singular": "kirjastollasi",
+        "poss_3rd_nominative_singular": "kirjastonsa",
+        "poss_3rd_inessive_singular": "kirjastossaan",
+        "poss_3rd_adessive_singular": "kirjastollaan"
+      },
+      "english": {
+        "plural": "libraries"
+      },
+      "tags": [
+        "container"
+      ],
+      "kotusType": 2,
+      "group": "u_y",
+      "frequencyRank": 8264,
+      "examples": [
+        {
+          "fi": "Oletko kirjastossa?",
+          "en": "Are you in the library?"
+        },
+        {
+          "fi": "Olen ollut kirjastossa.",
+          "en": "I've been to the library."
+        }
+      ]
     }
   ]
 }

@@ -8,6 +8,8 @@ import { difficultyFor } from '../game/adapt';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForConstruction, type Why } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -49,6 +51,8 @@ interface SpellTarget {
   emoji?: string;
   /** English hint: the word, the carrier-phrase gloss, or the sentence gloss. */
   gloss: string;
+  /** The rule shown after a miss (inflected-phrase mode). */
+  why?: Why;
 }
 
 // Spelling: see/hear a Finnish word, type it on the DEVICE keyboard (a real
@@ -96,6 +100,7 @@ export default function SpellWord({
           text: q.target,
           emoji: q.item.emoji,
           gloss: q.construction.en,
+          why: whyForConstruction(q.construction, q.item),
         }),
       );
     } else {
@@ -125,6 +130,8 @@ export default function SpellWord({
   const MAX_REVEALS = 3;
 
   const target = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
   // A forgotten trailing period/! /? shouldn't fail an otherwise-correct
   // sentence — strip it from both sides before comparing (bare-word targets
   // never have trailing punctuation, so this is a no-op there).
@@ -173,6 +180,7 @@ export default function SpellWord({
         }, 1200);
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setShake(true);
         setTimeout(() => setShake(false), 400);
@@ -203,6 +211,7 @@ export default function SpellWord({
     const n = Math.min(p + 1, Math.max(0, answer.length - 1));
     if (n <= p) return; // already at the last letter — nothing new to show
     missed.current = true;
+    setWhyAt(index);
     setRevealed(revealed + 1);
     setInput(answer.slice(0, n));
     inputRef.current?.focus();
@@ -318,6 +327,7 @@ export default function SpellWord({
           Ohita <span className="en">Skip</span> →
         </button>
       </div>
+      {whyAt === index && target?.why && <WhyTip why={target.why} />}
     </section>
   );
 }

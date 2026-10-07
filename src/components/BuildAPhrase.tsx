@@ -9,6 +9,8 @@ import { buildPhraseRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForConstruction } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -61,6 +63,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const [done, setDone] = useState(false);
 
   const question = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
+
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
   const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
@@ -110,12 +115,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         succeed();
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongId(item.id);
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
-    [question, locked, done, succeed],
+    [question, locked, done, succeed, index],
   );
 
   // Expert mode: the tiles are case FORMS of the same word — correct means the
@@ -127,12 +133,13 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         succeed();
       } else {
         missed.current = true;
+        setWhyAt(index);
         playDing(false);
         setWrongForm(form);
         setTimeout(() => setWrongForm((cur) => (cur === form ? null : cur)), 600);
       }
     },
-    [question, locked, done, succeed],
+    [question, locked, done, succeed, index],
   );
 
   // Replay: English before an answer (a missed auto-play shouldn't be a dead
@@ -265,6 +272,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
             </button>
           ))}
         </div>
+      )}
+      {whyAt === index && question && (
+        <WhyTip why={whyForConstruction(question.construction, question.item)} />
       )}
     </section>
   );

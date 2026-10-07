@@ -8,6 +8,8 @@ import { buildErrorRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
+import { whyForConstruction } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -56,6 +58,8 @@ export default function FindError({ items, constructions, onExit }: Props) {
   }, [round.length]);
 
   const q = round[index];
+  // The question a wrong tap happened on — its "Why?" tip shows until it advances.
+  const [whyAt, setWhyAt] = useState(-1);
 
   // Read the intended English meaning aloud on a new question — the Finnish is
   // what's under judgment, never previewed.
@@ -94,10 +98,11 @@ export default function FindError({ items, constructions, onExit }: Props) {
 
   const wrong = useCallback((pick: number | 'ok') => {
     missed.current = true;
+    setWhyAt(index);
     playDing(false);
     setWrongPick(pick);
     setTimeout(() => setWrongPick((cur) => (cur === pick ? null : cur)), 600);
-  }, []);
+  }, [index]);
 
   // Tap a word: right only if the sentence IS wrong and this is the bad slot.
   const tapWord = useCallback(
@@ -198,6 +203,7 @@ export default function FindError({ items, constructions, onExit }: Props) {
       >
         ✓ Kaikki oikein <span className="en">All correct</span>
       </button>
+      {whyAt === index && q && <WhyTip why={whyForConstruction(q.construction, q.item)} />}
     </section>
   );
 }

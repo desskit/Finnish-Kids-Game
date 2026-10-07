@@ -8,7 +8,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 
 ## 1. Carrier phrases (construction × eligible words)
 
-### `this-is` — “This is a ___.” (tier 2, nominative singular, 127 words)
+### `this-is` — “This is a ___.” (tier 2, nominative singular, 131 words)
 
 - Tämä on omena. _(apple)_
 - Tämä on täti. _(aunt)_
@@ -28,6 +28,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on leipä. _(bread)_
 - Tämä on veli. _(brother)_
 - Tämä on pupu. _(bunny)_
+- Tämä on bussi. _(bus)_
 - Tämä on voi. _(butter)_
 - Tämä on perhonen. _(butterfly)_
 - Tämä on kakku. _(cake)_
@@ -87,6 +88,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on polvi. _(knee)_
 - Tämä on järvi. _(lake)_
 - Tämä on lehti. _(leaf)_
+- Tämä on kirjasto. _(library)_
 - Tämä on leijona. _(lion)_
 - Tämä on maito. _(milk)_
 - Tämä on apina. _(monkey)_
@@ -112,6 +114,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on lammas. _(sheep)_
 - Tämä on paita. _(shirt)_
 - Tämä on kenkä. _(shoe)_
+- Tämä on kauppa. _(shop)_
 - Tämä on sisko. _(sister)_
 - Tämä on hame. _(skirt)_
 - Tämä on taivas. _(sky)_
@@ -129,6 +132,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on tomaatti. _(tomato)_
 - Tämä on kieli. _(tongue)_
 - Tämä on hammas. _(tooth)_
+- Tämä on juna. _(train)_
 - Tämä on puu. _(tree)_
 - Tämä on vatsa. _(tummy)_
 - Tämä on setä. _(uncle)_
@@ -138,7 +142,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on ikkuna. _(window)_
 - Tämä on susi. _(wolf)_
 
-### `where-is` — “Where is the ___?” (tier 2, nominative singular, 127 words)
+### `where-is` — “Where is the ___?” (tier 2, nominative singular, 131 words)
 
 - Missä on omena? _(apple)_
 - Missä on täti? _(aunt)_
@@ -158,6 +162,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Missä on leipä? _(bread)_
 - Missä on veli? _(brother)_
 - Missä on pupu? _(bunny)_
+- Missä on bussi? _(bus)_
 - Missä on voi? _(butter)_
 - Missä on perhonen? _(butterfly)_
 - Missä on kakku? _(cake)_
@@ -217,6 +222,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Missä on polvi? _(knee)_
 - Missä on järvi? _(lake)_
 - Missä on lehti? _(leaf)_
+- Missä on kirjasto? _(library)_
 - Missä on leijona? _(lion)_
 - Missä on maito? _(milk)_
 - Missä on apina? _(monkey)_
@@ -242,6 +248,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Missä on lammas? _(sheep)_
 - Missä on paita? _(shirt)_
 - Missä on kenkä? _(shoe)_
+- Missä on kauppa? _(shop)_
 - Missä on sisko? _(sister)_
 - Missä on hame? _(skirt)_
 - Missä on taivas? _(sky)_
@@ -259,6 +266,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Missä on tomaatti? _(tomato)_
 - Missä on kieli? _(tongue)_
 - Missä on hammas? _(tooth)_
+- Missä on juna? _(train)_
 - Missä on puu? _(tree)_
 - Missä on vatsa? _(tummy)_
 - Missä on setä? _(uncle)_
@@ -268,7 +276,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Missä on ikkuna? _(window)_
 - Missä on susi? _(wolf)_
 
-### `is-this` — “Is this a ___?” (tier 2, nominative singular, 127 words)
+### `is-this` — “Is this a ___?” (tier 2, nominative singular, 131 words)
 
 - Onko tämä omena? _(apple)_
 - Onko tämä täti? _(aunt)_
@@ -288,6 +296,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Onko tämä leipä? _(bread)_
 - Onko tämä veli? _(brother)_
 - Onko tämä pupu? _(bunny)_
+- Onko tämä bussi? _(bus)_
 - Onko tämä voi? _(butter)_
 - Onko tämä perhonen? _(butterfly)_
 - Onko tämä kakku? _(cake)_
@@ -347,6 +356,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Onko tämä polvi? _(knee)_
 - Onko tämä järvi? _(lake)_
 - Onko tämä lehti? _(leaf)_
+- Onko tämä kirjasto? _(library)_
 - Onko tämä leijona? _(lion)_
 - Onko tämä maito? _(milk)_
 - Onko tämä apina? _(monkey)_
@@ -372,6 +382,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Onko tämä lammas? _(sheep)_
 - Onko tämä paita? _(shirt)_
 - Onko tämä kenkä? _(shoe)_
+- Onko tämä kauppa? _(shop)_
 - Onko tämä sisko? _(sister)_
 - Onko tämä hame? _(skirt)_
 - Onko tämä taivas? _(sky)_
@@ -389,6 +400,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Onko tämä tomaatti? _(tomato)_
 - Onko tämä kieli? _(tongue)_
 - Onko tämä hammas? _(tooth)_
+- Onko tämä juna? _(train)_
 - Onko tämä puu? _(tree)_
 - Onko tämä vatsa? _(tummy)_
 - Onko tämä setä? _(uncle)_
@@ -517,7 +529,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Minulla on ikkuna. _(window)_
 - Minulla on susi. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
 ### `you-have` — “You have a ___.” (tier 2, nominative singular, 116 words)
 
@@ -638,7 +650,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Sinulla on ikkuna. _(window)_
 - Sinulla on susi. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
 ### `she-has` — “She/He has a ___.” (tier 2, nominative singular, 116 words)
 
@@ -759,7 +771,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Hänellä on ikkuna. _(window)_
 - Hänellä on susi. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
 ### `we-have` — “We have a ___.” (tier 2, nominative singular, 116 words)
 
@@ -880,7 +892,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Meillä on ikkuna. _(window)_
 - Meillä on susi. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
 ### `they-have` — “They have a ___.” (tier 2, nominative singular, 116 words)
 
@@ -1001,7 +1013,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Heillä on ikkuna. _(window)_
 - Heillä on susi. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
 ### `i-havent` — “I don't have a ___.” (tier 3, partitive singular, 116 words)
 
@@ -1122,9 +1134,9 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Minulla ei ole ikkunaa. _(window)_
 - Minulla ei ole sutta. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
-### `i-like` — “I like the ___.” (tier 3, elative singular, 111 words)
+### `i-like` — “I like the ___.” (tier 3, elative singular, 115 words)
 
 - Pidän omenasta. _(apple)_
 - Pidän tädistä. _(aunt)_
@@ -1143,6 +1155,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Pidän leivästä. _(bread)_
 - Pidän veljestä. _(brother)_
 - Pidän pupusta. _(bunny)_
+- Pidän bussista. _(bus)_
 - Pidän voista. _(butter)_
 - Pidän perhosesta. _(butterfly)_
 - Pidän kakusta. _(cake)_
@@ -1193,6 +1206,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Pidän keittiöstä. _(kitchen)_
 - Pidän järvestä. _(lake)_
 - Pidän lehdestä. _(leaf)_
+- Pidän kirjastosta. _(library)_
 - Pidän leijonasta. _(lion)_
 - Pidän maidosta. _(milk)_
 - Pidän apinasta. _(monkey)_
@@ -1215,6 +1229,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Pidän lampaasta. _(sheep)_
 - Pidän paidasta. _(shirt)_
 - Pidän kengästä. _(shoe)_
+- Pidän kaupasta. _(shop)_
 - Pidän siskosta. _(sister)_
 - Pidän hameesta. _(skirt)_
 - Pidän taivaasta. _(sky)_
@@ -1230,6 +1245,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Pidän pöydästä. _(table)_
 - Pidän solmiosta. _(tie)_
 - Pidän tomaatista. _(tomato)_
+- Pidän junasta. _(train)_
 - Pidän puusta. _(tree)_
 - Pidän sedästä. _(uncle)_
 - Pidän liivistä. _(vest)_
@@ -1240,7 +1256,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 
 Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, muscle, nose, tongue, tooth, tummy
 
-### `i-see` — “I see the ___.” (tier 3, genitive singular, 127 words)
+### `i-see` — “I see the ___.” (tier 3, genitive singular, 131 words)
 
 - Näen omenan. _(apple)_
 - Näen tädin. _(aunt)_
@@ -1260,6 +1276,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Näen leivän. _(bread)_
 - Näen veljen. _(brother)_
 - Näen pupun. _(bunny)_
+- Näen bussin. _(bus)_
 - Näen voin. _(butter)_
 - Näen perhosen. _(butterfly)_
 - Näen kakun. _(cake)_
@@ -1319,6 +1336,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Näen polven. _(knee)_
 - Näen järven. _(lake)_
 - Näen lehden. _(leaf)_
+- Näen kirjaston. _(library)_
 - Näen leijonan. _(lion)_
 - Näen maidon. _(milk)_
 - Näen apinan. _(monkey)_
@@ -1344,6 +1362,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Näen lampaan. _(sheep)_
 - Näen paidan. _(shirt)_
 - Näen kengän. _(shoe)_
+- Näen kaupan. _(shop)_
 - Näen siskon. _(sister)_
 - Näen hameen. _(skirt)_
 - Näen taivaan. _(sky)_
@@ -1361,6 +1380,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Näen tomaatin. _(tomato)_
 - Näen kielen. _(tongue)_
 - Näen hampaan. _(tooth)_
+- Näen junan. _(train)_
 - Näen puun. _(tree)_
 - Näen vatsan. _(tummy)_
 - Näen sedän. _(uncle)_
@@ -1370,7 +1390,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Näen ikkunan. _(window)_
 - Näen suden. _(wolf)_
 
-### `i-love` — “I love the ___.” (tier 3, partitive singular, 111 words)
+### `i-love` — “I love the ___.” (tier 3, partitive singular, 115 words)
 
 - Rakastan omenaa. _(apple)_
 - Rakastan tätiä. _(aunt)_
@@ -1389,6 +1409,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Rakastan leipää. _(bread)_
 - Rakastan veljeä. _(brother)_
 - Rakastan pupua. _(bunny)_
+- Rakastan bussia. _(bus)_
 - Rakastan voita. _(butter)_
 - Rakastan perhosta. _(butterfly)_
 - Rakastan kakkua. _(cake)_
@@ -1439,6 +1460,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Rakastan keittiötä. _(kitchen)_
 - Rakastan järveä. _(lake)_
 - Rakastan lehteä. _(leaf)_
+- Rakastan kirjastoa. _(library)_
 - Rakastan leijonaa. _(lion)_
 - Rakastan maitoa. _(milk)_
 - Rakastan apinaa. _(monkey)_
@@ -1461,6 +1483,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Rakastan lammasta. _(sheep)_
 - Rakastan paitaa. _(shirt)_
 - Rakastan kenkää. _(shoe)_
+- Rakastan kauppaa. _(shop)_
 - Rakastan siskoa. _(sister)_
 - Rakastan hametta. _(skirt)_
 - Rakastan taivasta. _(sky)_
@@ -1476,6 +1499,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Rakastan pöytää. _(table)_
 - Rakastan solmiota. _(tie)_
 - Rakastan tomaattia. _(tomato)_
+- Rakastan junaa. _(train)_
 - Rakastan puuta. _(tree)_
 - Rakastan setää. _(uncle)_
 - Rakastan liiviä. _(vest)_
@@ -1486,7 +1510,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 
 Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, muscle, nose, tongue, tooth, tummy
 
-### `i-watch` — “I watch the ___.” (tier 3, partitive singular, 65 words)
+### `i-watch` — “I watch the ___.” (tier 3, partitive singular, 69 words)
 
 - Katson tätiä. _(aunt)_
 - Katson vauvaa. _(baby)_
@@ -1495,6 +1519,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Katson lintua. _(bird)_
 - Katson veljeä. _(brother)_
 - Katson pupua. _(bunny)_
+- Katson bussia. _(bus)_
 - Katson perhosta. _(butterfly)_
 - Katson autoa. _(car)_
 - Katson kissaa. _(cat)_
@@ -1528,6 +1553,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Katson keittiötä. _(kitchen)_
 - Katson järveä. _(lake)_
 - Katson lehteä. _(leaf)_
+- Katson kirjastoa. _(library)_
 - Katson leijonaa. _(lion)_
 - Katson apinaa. _(monkey)_
 - Katson kuuta. _(moon)_
@@ -1540,6 +1566,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Katson koulua. _(school)_
 - Katson merta. _(sea)_
 - Katson lammasta. _(sheep)_
+- Katson kauppaa. _(shop)_
 - Katson siskoa. _(sister)_
 - Katson taivasta. _(sky)_
 - Katson käärmettä. _(snake)_
@@ -1548,6 +1575,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 - Katson tähteä. _(star)_
 - Katson kiveä. _(stone)_
 - Katson aurinkoa. _(sun)_
+- Katson junaa. _(train)_
 - Katson puuta. _(tree)_
 - Katson setää. _(uncle)_
 - Katson tuulta. _(wind)_
@@ -1556,7 +1584,7 @@ Gated out: bone, ear, eye, finger, foot, hair, hand, head, heart, knee, mouth, m
 
 Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread, butter, cake, candy, cap, carrot, chair, cheese, chocolate, coat, cookie, dress, ear, earring, egg, eye, finger, foot, glove, hair, hand, hat, head, heart, ice-cream, juice, knee, milk, mouth, muscle, nose, pizza, porridge, potato, rice, ring, sausage, scarf, shirt, shoe, skirt, sock, soup, strawberry, table, tie, tomato, tongue, tooth, tummy, vest, water
 
-### `in-front-of` — “in front of the ___” (tier 3, genitive singular, 123 words)
+### `in-front-of` — “in front of the ___” (tier 3, genitive singular, 127 words)
 
 - omenan edessä _(apple)_
 - tädin edessä _(aunt)_
@@ -1576,6 +1604,7 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 - leivän edessä _(bread)_
 - veljen edessä _(brother)_
 - pupun edessä _(bunny)_
+- bussin edessä _(bus)_
 - voin edessä _(butter)_
 - perhosen edessä _(butterfly)_
 - kakun edessä _(cake)_
@@ -1635,6 +1664,7 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 - polven edessä _(knee)_
 - järven edessä _(lake)_
 - lehden edessä _(leaf)_
+- kirjaston edessä _(library)_
 - leijonan edessä _(lion)_
 - maidon edessä _(milk)_
 - apinan edessä _(monkey)_
@@ -1658,6 +1688,7 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 - lampaan edessä _(sheep)_
 - paidan edessä _(shirt)_
 - kengän edessä _(shoe)_
+- kaupan edessä _(shop)_
 - siskon edessä _(sister)_
 - hameen edessä _(skirt)_
 - käärmeen edessä _(snake)_
@@ -1673,6 +1704,7 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 - tomaatin edessä _(tomato)_
 - kielen edessä _(tongue)_
 - hampaan edessä _(tooth)_
+- junan edessä _(train)_
 - puun edessä _(tree)_
 - vatsan edessä _(tummy)_
 - sedän edessä _(uncle)_
@@ -1684,7 +1716,7 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 
 Gated out: rain, sea, sky, snow
 
-### `behind` — “behind the ___” (tier 3, genitive singular, 123 words)
+### `behind` — “behind the ___” (tier 3, genitive singular, 127 words)
 
 - omenan takana _(apple)_
 - tädin takana _(aunt)_
@@ -1704,6 +1736,7 @@ Gated out: rain, sea, sky, snow
 - leivän takana _(bread)_
 - veljen takana _(brother)_
 - pupun takana _(bunny)_
+- bussin takana _(bus)_
 - voin takana _(butter)_
 - perhosen takana _(butterfly)_
 - kakun takana _(cake)_
@@ -1763,6 +1796,7 @@ Gated out: rain, sea, sky, snow
 - polven takana _(knee)_
 - järven takana _(lake)_
 - lehden takana _(leaf)_
+- kirjaston takana _(library)_
 - leijonan takana _(lion)_
 - maidon takana _(milk)_
 - apinan takana _(monkey)_
@@ -1786,6 +1820,7 @@ Gated out: rain, sea, sky, snow
 - lampaan takana _(sheep)_
 - paidan takana _(shirt)_
 - kengän takana _(shoe)_
+- kaupan takana _(shop)_
 - siskon takana _(sister)_
 - hameen takana _(skirt)_
 - käärmeen takana _(snake)_
@@ -1801,6 +1836,7 @@ Gated out: rain, sea, sky, snow
 - tomaatin takana _(tomato)_
 - kielen takana _(tongue)_
 - hampaan takana _(tooth)_
+- junan takana _(train)_
 - puun takana _(tree)_
 - vatsan takana _(tummy)_
 - sedän takana _(uncle)_
@@ -1812,7 +1848,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `next-to` — “next to the ___” (tier 3, genitive singular, 123 words)
+### `next-to` — “next to the ___” (tier 3, genitive singular, 127 words)
 
 - omenan vieressä _(apple)_
 - tädin vieressä _(aunt)_
@@ -1832,6 +1868,7 @@ Gated out: rain, sea, sky, snow
 - leivän vieressä _(bread)_
 - veljen vieressä _(brother)_
 - pupun vieressä _(bunny)_
+- bussin vieressä _(bus)_
 - voin vieressä _(butter)_
 - perhosen vieressä _(butterfly)_
 - kakun vieressä _(cake)_
@@ -1891,6 +1928,7 @@ Gated out: rain, sea, sky, snow
 - polven vieressä _(knee)_
 - järven vieressä _(lake)_
 - lehden vieressä _(leaf)_
+- kirjaston vieressä _(library)_
 - leijonan vieressä _(lion)_
 - maidon vieressä _(milk)_
 - apinan vieressä _(monkey)_
@@ -1914,6 +1952,7 @@ Gated out: rain, sea, sky, snow
 - lampaan vieressä _(sheep)_
 - paidan vieressä _(shirt)_
 - kengän vieressä _(shoe)_
+- kaupan vieressä _(shop)_
 - siskon vieressä _(sister)_
 - hameen vieressä _(skirt)_
 - käärmeen vieressä _(snake)_
@@ -1929,6 +1968,7 @@ Gated out: rain, sea, sky, snow
 - tomaatin vieressä _(tomato)_
 - kielen vieressä _(tongue)_
 - hampaan vieressä _(tooth)_
+- junan vieressä _(train)_
 - puun vieressä _(tree)_
 - vatsan vieressä _(tummy)_
 - sedän vieressä _(uncle)_
@@ -1940,7 +1980,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `under` — “under the ___” (tier 3, genitive singular, 123 words)
+### `under` — “under the ___” (tier 3, genitive singular, 127 words)
 
 - omenan alla _(apple)_
 - tädin alla _(aunt)_
@@ -1960,6 +2000,7 @@ Gated out: rain, sea, sky, snow
 - leivän alla _(bread)_
 - veljen alla _(brother)_
 - pupun alla _(bunny)_
+- bussin alla _(bus)_
 - voin alla _(butter)_
 - perhosen alla _(butterfly)_
 - kakun alla _(cake)_
@@ -2019,6 +2060,7 @@ Gated out: rain, sea, sky, snow
 - polven alla _(knee)_
 - järven alla _(lake)_
 - lehden alla _(leaf)_
+- kirjaston alla _(library)_
 - leijonan alla _(lion)_
 - maidon alla _(milk)_
 - apinan alla _(monkey)_
@@ -2042,6 +2084,7 @@ Gated out: rain, sea, sky, snow
 - lampaan alla _(sheep)_
 - paidan alla _(shirt)_
 - kengän alla _(shoe)_
+- kaupan alla _(shop)_
 - siskon alla _(sister)_
 - hameen alla _(skirt)_
 - käärmeen alla _(snake)_
@@ -2057,6 +2100,7 @@ Gated out: rain, sea, sky, snow
 - tomaatin alla _(tomato)_
 - kielen alla _(tongue)_
 - hampaan alla _(tooth)_
+- junan alla _(train)_
 - puun alla _(tree)_
 - vatsan alla _(tummy)_
 - sedän alla _(uncle)_
@@ -2068,7 +2112,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `in-front-of-them` — “in front of the ___s” (tier 6, genitive plural, 123 words)
+### `in-front-of-them` — “in front of the ___s” (tier 6, genitive plural, 127 words)
 
 - omenien edessä _(apple)_
 - tätien edessä _(aunt)_
@@ -2088,6 +2132,7 @@ Gated out: rain, sea, sky, snow
 - leipien edessä _(bread)_
 - veljien edessä _(brother)_
 - pupujen edessä _(bunny)_
+- bussien edessä _(bus)_
 - voiden edessä _(butter)_
 - perhosten edessä _(butterfly)_
 - kakkujen edessä _(cake)_
@@ -2147,6 +2192,7 @@ Gated out: rain, sea, sky, snow
 - polvien edessä _(knee)_
 - järvien edessä _(lake)_
 - lehtien edessä _(leaf)_
+- kirjastojen edessä _(library)_
 - leijonien edessä _(lion)_
 - maitojen edessä _(milk)_
 - apinoiden edessä _(monkey)_
@@ -2170,6 +2216,7 @@ Gated out: rain, sea, sky, snow
 - lampaiden edessä _(sheep)_
 - paitojen edessä _(shirt)_
 - kenkien edessä _(shoe)_
+- kauppojen edessä _(shop)_
 - siskojen edessä _(sister)_
 - hameiden edessä _(skirt)_
 - käärmeiden edessä _(snake)_
@@ -2185,6 +2232,7 @@ Gated out: rain, sea, sky, snow
 - tomaattien edessä _(tomato)_
 - kielten edessä _(tongue)_
 - hampaiden edessä _(tooth)_
+- junien edessä _(train)_
 - puiden edessä _(tree)_
 - vatsojen edessä _(tummy)_
 - setien edessä _(uncle)_
@@ -2196,7 +2244,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `behind-them` — “behind the ___s” (tier 6, genitive plural, 123 words)
+### `behind-them` — “behind the ___s” (tier 6, genitive plural, 127 words)
 
 - omenien takana _(apple)_
 - tätien takana _(aunt)_
@@ -2216,6 +2264,7 @@ Gated out: rain, sea, sky, snow
 - leipien takana _(bread)_
 - veljien takana _(brother)_
 - pupujen takana _(bunny)_
+- bussien takana _(bus)_
 - voiden takana _(butter)_
 - perhosten takana _(butterfly)_
 - kakkujen takana _(cake)_
@@ -2275,6 +2324,7 @@ Gated out: rain, sea, sky, snow
 - polvien takana _(knee)_
 - järvien takana _(lake)_
 - lehtien takana _(leaf)_
+- kirjastojen takana _(library)_
 - leijonien takana _(lion)_
 - maitojen takana _(milk)_
 - apinoiden takana _(monkey)_
@@ -2298,6 +2348,7 @@ Gated out: rain, sea, sky, snow
 - lampaiden takana _(sheep)_
 - paitojen takana _(shirt)_
 - kenkien takana _(shoe)_
+- kauppojen takana _(shop)_
 - siskojen takana _(sister)_
 - hameiden takana _(skirt)_
 - käärmeiden takana _(snake)_
@@ -2313,6 +2364,7 @@ Gated out: rain, sea, sky, snow
 - tomaattien takana _(tomato)_
 - kielten takana _(tongue)_
 - hampaiden takana _(tooth)_
+- junien takana _(train)_
 - puiden takana _(tree)_
 - vatsojen takana _(tummy)_
 - setien takana _(uncle)_
@@ -2324,7 +2376,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `next-to-them` — “next to the ___s” (tier 6, genitive plural, 123 words)
+### `next-to-them` — “next to the ___s” (tier 6, genitive plural, 127 words)
 
 - omenien vieressä _(apple)_
 - tätien vieressä _(aunt)_
@@ -2344,6 +2396,7 @@ Gated out: rain, sea, sky, snow
 - leipien vieressä _(bread)_
 - veljien vieressä _(brother)_
 - pupujen vieressä _(bunny)_
+- bussien vieressä _(bus)_
 - voiden vieressä _(butter)_
 - perhosten vieressä _(butterfly)_
 - kakkujen vieressä _(cake)_
@@ -2403,6 +2456,7 @@ Gated out: rain, sea, sky, snow
 - polvien vieressä _(knee)_
 - järvien vieressä _(lake)_
 - lehtien vieressä _(leaf)_
+- kirjastojen vieressä _(library)_
 - leijonien vieressä _(lion)_
 - maitojen vieressä _(milk)_
 - apinoiden vieressä _(monkey)_
@@ -2426,6 +2480,7 @@ Gated out: rain, sea, sky, snow
 - lampaiden vieressä _(sheep)_
 - paitojen vieressä _(shirt)_
 - kenkien vieressä _(shoe)_
+- kauppojen vieressä _(shop)_
 - siskojen vieressä _(sister)_
 - hameiden vieressä _(skirt)_
 - käärmeiden vieressä _(snake)_
@@ -2441,6 +2496,7 @@ Gated out: rain, sea, sky, snow
 - tomaattien vieressä _(tomato)_
 - kielten vieressä _(tongue)_
 - hampaiden vieressä _(tooth)_
+- junien vieressä _(train)_
 - puiden vieressä _(tree)_
 - vatsojen vieressä _(tummy)_
 - setien vieressä _(uncle)_
@@ -2452,7 +2508,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `under-them` — “under the ___s” (tier 6, genitive plural, 123 words)
+### `under-them` — “under the ___s” (tier 6, genitive plural, 127 words)
 
 - omenien alla _(apple)_
 - tätien alla _(aunt)_
@@ -2472,6 +2528,7 @@ Gated out: rain, sea, sky, snow
 - leipien alla _(bread)_
 - veljien alla _(brother)_
 - pupujen alla _(bunny)_
+- bussien alla _(bus)_
 - voiden alla _(butter)_
 - perhosten alla _(butterfly)_
 - kakkujen alla _(cake)_
@@ -2531,6 +2588,7 @@ Gated out: rain, sea, sky, snow
 - polvien alla _(knee)_
 - järvien alla _(lake)_
 - lehtien alla _(leaf)_
+- kirjastojen alla _(library)_
 - leijonien alla _(lion)_
 - maitojen alla _(milk)_
 - apinoiden alla _(monkey)_
@@ -2554,6 +2612,7 @@ Gated out: rain, sea, sky, snow
 - lampaiden alla _(sheep)_
 - paitojen alla _(shirt)_
 - kenkien alla _(shoe)_
+- kauppojen alla _(shop)_
 - siskojen alla _(sister)_
 - hameiden alla _(skirt)_
 - käärmeiden alla _(snake)_
@@ -2569,6 +2628,7 @@ Gated out: rain, sea, sky, snow
 - tomaattien alla _(tomato)_
 - kielten alla _(tongue)_
 - hampaiden alla _(tooth)_
+- junien alla _(train)_
 - puiden alla _(tree)_
 - vatsojen alla _(tummy)_
 - setien alla _(uncle)_
@@ -2580,7 +2640,7 @@ Gated out: rain, sea, sky, snow
 
 Gated out: rain, sea, sky, snow
 
-### `i-have-some` — “I have some ___.” (tier 4, partitive plural, 116 words)
+### `i-have-some` — “I have some ___s.” (tier 4, partitive plural, 116 words)
 
 - Minulla on omenia. _(apple)_
 - Minulla on tätejä. _(aunt)_
@@ -2699,9 +2759,9 @@ Gated out: rain, sea, sky, snow
 - Minulla on ikkunoita. _(window)_
 - Minulla on susia. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
-### `i-havent-any` — “I don't have any ___.” (tier 5, partitive plural, 116 words)
+### `i-havent-any` — “I don't have any ___s.” (tier 5, partitive plural, 116 words)
 
 - Minulla ei ole omenia. _(apple)_
 - Minulla ei ole tätejä. _(aunt)_
@@ -2820,9 +2880,9 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Minulla ei ole ikkunoita. _(window)_
 - Minulla ei ole susia. _(wolf)_
 
-Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
+Gated out: bus, cloud, lake, library, moon, mountain, rain, school, sea, shop, sky, snow, star, sun, train
 
-### `these-are` — “These are ___s.” (tier 5, partitive plural, 127 words)
+### `these-are` — “These are ___s.” (tier 5, partitive plural, 131 words)
 
 - Nämä ovat omenia. _(apple)_
 - Nämä ovat tätejä. _(aunt)_
@@ -2842,6 +2902,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Nämä ovat leipiä. _(bread)_
 - Nämä ovat veljiä. _(brother)_
 - Nämä ovat pupuja. _(bunny)_
+- Nämä ovat busseja. _(bus)_
 - Nämä ovat voita. _(butter)_
 - Nämä ovat perhosia. _(butterfly)_
 - Nämä ovat kakkuja. _(cake)_
@@ -2901,6 +2962,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Nämä ovat polvia. _(knee)_
 - Nämä ovat järviä. _(lake)_
 - Nämä ovat lehtiä. _(leaf)_
+- Nämä ovat kirjastoja. _(library)_
 - Nämä ovat leijonia. _(lion)_
 - Nämä ovat maitoja. _(milk)_
 - Nämä ovat apinoita. _(monkey)_
@@ -2926,6 +2988,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Nämä ovat lampaita. _(sheep)_
 - Nämä ovat paitoja. _(shirt)_
 - Nämä ovat kenkiä. _(shoe)_
+- Nämä ovat kauppoja. _(shop)_
 - Nämä ovat siskoja. _(sister)_
 - Nämä ovat hameita. _(skirt)_
 - Nämä ovat taivaita. _(sky)_
@@ -2943,6 +3006,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Nämä ovat tomaatteja. _(tomato)_
 - Nämä ovat kieliä. _(tongue)_
 - Nämä ovat hampaita. _(tooth)_
+- Nämä ovat junia. _(train)_
 - Nämä ovat puita. _(tree)_
 - Nämä ovat vatsoja. _(tummy)_
 - Nämä ovat setiä. _(uncle)_
@@ -2952,7 +3016,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Nämä ovat ikkunoita. _(window)_
 - Nämä ovat susia. _(wolf)_
 
-### `where-are` — “Where are the ___s?” (tier 5, nominative plural, 127 words)
+### `where-are` — “Where are the ___s?” (tier 5, nominative plural, 131 words)
 
 - Missä ovat omenat? _(apple)_
 - Missä ovat tädit? _(aunt)_
@@ -2972,6 +3036,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Missä ovat leivät? _(bread)_
 - Missä ovat veljet? _(brother)_
 - Missä ovat puput? _(bunny)_
+- Missä ovat bussit? _(bus)_
 - Missä ovat voit? _(butter)_
 - Missä ovat perhoset? _(butterfly)_
 - Missä ovat kakut? _(cake)_
@@ -3031,6 +3096,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Missä ovat polvet? _(knee)_
 - Missä ovat järvet? _(lake)_
 - Missä ovat lehdet? _(leaf)_
+- Missä ovat kirjastot? _(library)_
 - Missä ovat leijonat? _(lion)_
 - Missä ovat maidot? _(milk)_
 - Missä ovat apinat? _(monkey)_
@@ -3056,6 +3122,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Missä ovat lampaat? _(sheep)_
 - Missä ovat paidat? _(shirt)_
 - Missä ovat kengät? _(shoe)_
+- Missä ovat kaupat? _(shop)_
 - Missä ovat siskot? _(sister)_
 - Missä ovat hameet? _(skirt)_
 - Missä ovat taivaat? _(sky)_
@@ -3073,6 +3140,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Missä ovat tomaatit? _(tomato)_
 - Missä ovat kielet? _(tongue)_
 - Missä ovat hampaat? _(tooth)_
+- Missä ovat junat? _(train)_
 - Missä ovat puut? _(tree)_
 - Missä ovat vatsat? _(tummy)_
 - Missä ovat sedät? _(uncle)_
@@ -3143,7 +3211,7 @@ Gated out: cloud, lake, moon, mountain, rain, school, sea, sky, snow, star, sun
 - Ostan liivin. _(vest)_
 - Ostan suden. _(wolf)_
 
-Gated out: aunt, baby, bag, basket, bed, bone, box, brother, car, chair, child, chocolate, cloud, cousin, daughter, door, ear, eye, family, father, finger, fire, flower, foot, forest, garden, grandchild, grandfather, grandmother, grass, hair, hand, head, heart, house, ice, island, juice, kitchen, knee, lake, leaf, milk, moon, mother, mountain, mouth, muscle, nose, rain, room, school, sea, sister, sky, snow, son, star, stone, sun, table, tongue, tooth, tree, tummy, uncle, water, wind, window
+Gated out: aunt, baby, bag, basket, bed, bone, box, brother, bus, car, chair, child, chocolate, cloud, cousin, daughter, door, ear, eye, family, father, finger, fire, flower, foot, forest, garden, grandchild, grandfather, grandmother, grass, hair, hand, head, heart, house, ice, island, juice, kitchen, knee, lake, leaf, library, milk, moon, mother, mountain, mouth, muscle, nose, rain, room, school, sea, shop, sister, sky, snow, son, star, stone, sun, table, tongue, tooth, train, tree, tummy, uncle, water, wind, window
 
 ### `i-buy-some` — “I buy some ___.” (tier 6, partitive singular, 10 words)
 
@@ -3158,9 +3226,9 @@ Gated out: aunt, baby, bag, basket, bed, bone, box, brother, car, chair, child, 
 - Ostan riisiä. _(rice)_
 - Ostan vettä. _(water)_
 
-Gated out: apple, aunt, baby, bag, banana, basket, bear, bed, bee, belt, bird, blouse, bone, boot, box, brother, bunny, butterfly, cake, cap, car, carrot, cat, chair, chicken, child, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, island, kitchen, knee, lake, leaf, lion, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, wind, window, wolf
+Gated out: apple, aunt, baby, bag, banana, basket, bear, bed, bee, belt, bird, blouse, bone, boot, box, brother, bunny, bus, butterfly, cake, cap, car, carrot, cat, chair, chicken, child, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, island, kitchen, knee, lake, leaf, library, lion, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, wind, window, wolf
 
-### `i-wait-for` — “I wait for the ___.” (tier 6, partitive singular, 37 words)
+### `i-wait-for` — “I wait for the ___.” (tier 6, partitive singular, 39 words)
 
 - Odotan tätiä. _(aunt)_
 - Odotan vauvaa. _(baby)_
@@ -3169,6 +3237,7 @@ Gated out: apple, aunt, baby, bag, banana, basket, bear, bed, bee, belt, bird, b
 - Odotan lintua. _(bird)_
 - Odotan veljeä. _(brother)_
 - Odotan pupua. _(bunny)_
+- Odotan bussia. _(bus)_
 - Odotan perhosta. _(butterfly)_
 - Odotan kissaa. _(cat)_
 - Odotan kanaa. _(chicken)_
@@ -3197,10 +3266,11 @@ Gated out: apple, aunt, baby, bag, banana, basket, bear, bed, bee, belt, bird, b
 - Odotan siskoa. _(sister)_
 - Odotan käärmettä. _(snake)_
 - Odotan poikaa. _(son)_
+- Odotan junaa. _(train)_
 - Odotan setää. _(uncle)_
 - Odotan sutta. _(wolf)_
 
-Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread, butter, cake, candy, cap, car, carrot, chair, cheese, chocolate, cloud, coat, cookie, door, dress, ear, earring, egg, eye, finger, fire, flower, foot, forest, garden, glove, grass, hair, hand, hat, head, heart, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, milk, moon, mountain, mouth, muscle, nose, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, shirt, shoe, skirt, sky, snow, sock, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tree, tummy, vest, water, wind, window
+Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread, butter, cake, candy, cap, car, carrot, chair, cheese, chocolate, cloud, coat, cookie, door, dress, ear, earring, egg, eye, finger, fire, flower, foot, forest, garden, glove, grass, hair, hand, hat, head, heart, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, milk, moon, mountain, mouth, muscle, nose, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, shirt, shoe, shop, skirt, sky, snow, sock, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tree, tummy, vest, water, wind, window
 
 ### `on-it` — “The cat is on the ___.” (tier 2, adessive singular, 8 words)
 
@@ -3213,38 +3283,46 @@ Gated out: apple, bag, banana, basket, bed, belt, blouse, bone, boot, box, bread
 - Kissa on pöydällä. _(table)_
 - Kissa on ikkunalla. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
-### `in-it` — “The cat is in the ___.” (tier 3, inessive singular, 12 words)
+### `in-it` — “The cat is in the ___.” (tier 3, inessive singular, 16 words)
 
 - Kissa on laukussa. _(bag)_
 - Kissa on korissa. _(basket)_
 - Kissa on sängyssä. _(bed)_
 - Kissa on laatikossa. _(box)_
+- Kissa on bussissa. _(bus)_
 - Kissa on autossa. _(car)_
 - Kissa on metsässä. _(forest)_
 - Kissa on puutarhassa. _(garden)_
 - Kissa on talossa. _(house)_
 - Kissa on keittiössä. _(kitchen)_
+- Kissa on kirjastossa. _(library)_
 - Kissa on huoneessa. _(room)_
 - Kissa on koulussa. _(school)_
+- Kissa on kaupassa. _(shop)_
+- Kissa on junassa. _(train)_
 - Kissa on puussa. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
 
-### `into-it` — “The cat goes into the ___.” (tier 4, illative singular, 12 words)
+### `into-it` — “The cat goes into the ___.” (tier 4, illative singular, 16 words)
 
 - Kissa menee laukkuun. _(bag)_
 - Kissa menee koriin. _(basket)_
 - Kissa menee sänkyyn. _(bed)_
 - Kissa menee laatikkoon. _(box)_
+- Kissa menee bussiin. _(bus)_
 - Kissa menee autoon. _(car)_
 - Kissa menee metsään. _(forest)_
 - Kissa menee puutarhaan. _(garden)_
 - Kissa menee taloon. _(house)_
 - Kissa menee keittiöön. _(kitchen)_
+- Kissa menee kirjastoon. _(library)_
 - Kissa menee huoneeseen. _(room)_
 - Kissa menee kouluun. _(school)_
+- Kissa menee kauppaan. _(shop)_
+- Kissa menee junaan. _(train)_
 - Kissa menee puuhun. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
@@ -3260,21 +3338,25 @@ Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot,
 - Kissa menee pöydälle. _(table)_
 - Kissa menee ikkunalle. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
-### `out-of-it` — “The cat comes out of the ___.” (tier 6, elative singular, 12 words)
+### `out-of-it` — “The cat comes out of the ___.” (tier 6, elative singular, 16 words)
 
 - Kissa tulee laukusta. _(bag)_
 - Kissa tulee korista. _(basket)_
 - Kissa tulee sängystä. _(bed)_
 - Kissa tulee laatikosta. _(box)_
+- Kissa tulee bussista. _(bus)_
 - Kissa tulee autosta. _(car)_
 - Kissa tulee metsästä. _(forest)_
 - Kissa tulee puutarhasta. _(garden)_
 - Kissa tulee talosta. _(house)_
 - Kissa tulee keittiöstä. _(kitchen)_
+- Kissa tulee kirjastosta. _(library)_
 - Kissa tulee huoneesta. _(room)_
 - Kissa tulee koulusta. _(school)_
+- Kissa tulee kaupasta. _(shop)_
+- Kissa tulee junasta. _(train)_
 - Kissa tulee puusta. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
@@ -3290,21 +3372,25 @@ Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot,
 - Kissa tulee pöydältä. _(table)_
 - Kissa tulee ikkunalta. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
-### `in-them` — “The cats are in the ___.” (tier 8, inessive plural, 12 words)
+### `in-them` — “The cats are in the ___s.” (tier 8, inessive plural, 16 words)
 
 - Kissat ovat laukuissa. _(bag)_
 - Kissat ovat koreissa. _(basket)_
 - Kissat ovat sängyissä. _(bed)_
 - Kissat ovat laatikoissa. _(box)_
+- Kissat ovat busseissa. _(bus)_
 - Kissat ovat autoissa. _(car)_
 - Kissat ovat metsissä. _(forest)_
 - Kissat ovat puutarhoissa. _(garden)_
 - Kissat ovat taloissa. _(house)_
 - Kissat ovat keittiöissä. _(kitchen)_
+- Kissat ovat kirjastoissa. _(library)_
 - Kissat ovat huoneissa. _(room)_
 - Kissat ovat kouluissa. _(school)_
+- Kissat ovat kaupoissa. _(shop)_
+- Kissat ovat junissa. _(train)_
 - Kissat ovat puissa. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
@@ -3320,7 +3406,7 @@ Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot,
 - Kissat ovat pöydillä. _(table)_
 - Kissat ovat ikkunoilla. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
 ### `onto-them` — “The cats go onto the ___s.” (tier 9, allative plural, 8 words)
 
@@ -3333,21 +3419,25 @@ Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, 
 - Kissat menevät pöydille. _(table)_
 - Kissat menevät ikkunoille. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
-### `out-of-them` — “The cats come out of the ___s.” (tier 10, elative plural, 12 words)
+### `out-of-them` — “The cats come out of the ___s.” (tier 10, elative plural, 16 words)
 
 - Kissat tulevat laukuista. _(bag)_
 - Kissat tulevat koreista. _(basket)_
 - Kissat tulevat sängyistä. _(bed)_
 - Kissat tulevat laatikoista. _(box)_
+- Kissat tulevat busseista. _(bus)_
 - Kissat tulevat autoista. _(car)_
 - Kissat tulevat metsistä. _(forest)_
 - Kissat tulevat puutarhoista. _(garden)_
 - Kissat tulevat taloista. _(house)_
 - Kissat tulevat keittiöistä. _(kitchen)_
+- Kissat tulevat kirjastoista. _(library)_
 - Kissat tulevat huoneista. _(room)_
 - Kissat tulevat kouluista. _(school)_
+- Kissat tulevat kaupoista. _(shop)_
+- Kissat tulevat junista. _(train)_
 - Kissat tulevat puista. _(tree)_
 
 Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, chair, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, door, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, fox, frog, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, ice, ice-cream, island, juice, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, sausage, scarf, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, table, tie, tomato, tongue, tooth, tummy, uncle, vest, water, wind, window, wolf
@@ -3363,7 +3453,7 @@ Gated out: apple, aunt, baby, banana, bear, bee, belt, bird, blouse, bone, boot,
 - Kissat tulevat pöydiltä. _(table)_
 - Kissat tulevat ikkunoilta. _(window)_
 
-Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, tree, tummy, uncle, vest, water, wind, wolf
+Gated out: apple, aunt, baby, bag, banana, bear, bee, belt, bird, blouse, bone, boot, bread, brother, bunny, bus, butter, butterfly, cake, candy, cap, carrot, cat, cheese, chicken, child, chocolate, cloud, coat, cookie, cousin, cow, daughter, dog, dress, duck, ear, earring, egg, elephant, eye, family, father, finger, fire, fish, flower, foot, forest, fox, frog, garden, glove, grandchild, grandfather, grandmother, grass, hair, hand, hat, head, heart, horse, house, ice, ice-cream, island, juice, kitchen, knee, lake, leaf, library, lion, milk, monkey, moon, mother, mountain, mouse, mouth, muscle, nose, pig, pizza, porridge, potato, rain, rice, ring, room, sausage, scarf, school, sea, sheep, shirt, shoe, shop, sister, skirt, sky, snake, snow, sock, son, soup, star, stone, strawberry, sun, tie, tomato, tongue, tooth, train, tree, tummy, uncle, vest, water, wind, wolf
 
 ## 2. Sentence templates (template × swappable candidates)
 

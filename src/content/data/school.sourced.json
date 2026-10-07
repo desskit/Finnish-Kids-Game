@@ -1,0 +1,601 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "school",
+    "fi": "Koulu",
+    "en": "School",
+    "emoji": "🏫"
+  },
+  "words": [
+    {
+      "id": "teacher",
+      "word": "opettaja",
+      "en": "teacher",
+      "emoji": "🧑‍🏫",
+      "inflections": {
+        "nominative_singular": "opettaja",
+        "nominative_plural": "opettajat",
+        "genitive_singular": "opettajan",
+        "genitive_plural": "opettajien",
+        "partitive_singular": "opettajaa",
+        "partitive_plural": "opettajia",
+        "inessive_singular": "opettajassa",
+        "inessive_plural": "opettajissa",
+        "elative_singular": "opettajasta",
+        "elative_plural": "opettajista",
+        "illative_singular": "opettajaan",
+        "illative_plural": "opettajiin",
+        "adessive_singular": "opettajalla",
+        "adessive_plural": "opettajilla",
+        "ablative_singular": "opettajalta",
+        "ablative_plural": "opettajilta",
+        "allative_singular": "opettajalle",
+        "allative_plural": "opettajille",
+        "essive_singular": "opettajana",
+        "essive_plural": "opettajina",
+        "translative_singular": "opettajaksi",
+        "translative_plural": "opettajiksi",
+        "abessive_singular": "opettajatta",
+        "abessive_plural": "opettajitta",
+        "instructive_plural": "opettajin",
+        "comitative_plural": "opettajineen",
+        "poss_1sg_nominative_singular": "opettajani",
+        "poss_1sg_inessive_singular": "opettajassani",
+        "poss_1sg_adessive_singular": "opettajallani",
+        "poss_2sg_nominative_singular": "opettajasi",
+        "poss_2sg_inessive_singular": "opettajassasi",
+        "poss_2sg_adessive_singular": "opettajallasi",
+        "poss_3rd_nominative_singular": "opettajansa",
+        "poss_3rd_inessive_singular": "opettajassaan",
+        "poss_3rd_adessive_singular": "opettajallaan"
+      },
+      "english": {
+        "plural": "teachers"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 2243,
+      "examples": [
+        {
+          "fi": "Hän pitää opettajasta.",
+          "en": "She likes the teacher."
+        },
+        {
+          "fi": "Hän näyttää opettajalta.",
+          "en": "She looks like a teacher."
+        }
+      ]
+    },
+    {
+      "id": "friend",
+      "word": "kaveri",
+      "en": "friend",
+      "emoji": "🤝",
+      "inflections": {
+        "nominative_singular": "kaveri",
+        "nominative_plural": "kaverit",
+        "genitive_singular": "kaverin",
+        "genitive_plural": "kaverien",
+        "partitive_singular": "kaveria",
+        "partitive_plural": "kavereita",
+        "inessive_singular": "kaverissa",
+        "inessive_plural": "kavereissa",
+        "elative_singular": "kaverista",
+        "elative_plural": "kavereista",
+        "illative_singular": "kaveriin",
+        "illative_plural": "kavereihin",
+        "adessive_singular": "kaverilla",
+        "adessive_plural": "kavereilla",
+        "ablative_singular": "kaverilta",
+        "ablative_plural": "kavereilta",
+        "allative_singular": "kaverille",
+        "allative_plural": "kavereille",
+        "essive_singular": "kaverina",
+        "essive_plural": "kavereina",
+        "translative_singular": "kaveriksi",
+        "translative_plural": "kavereiksi",
+        "abessive_singular": "kaveritta",
+        "abessive_plural": "kavereitta",
+        "instructive_plural": "kaverein",
+        "comitative_plural": "kavereineen",
+        "poss_1sg_nominative_singular": "kaverini",
+        "poss_1sg_inessive_singular": "kaverissani",
+        "poss_1sg_adessive_singular": "kaverillani",
+        "poss_2sg_nominative_singular": "kaverisi",
+        "poss_2sg_inessive_singular": "kaverissasi",
+        "poss_2sg_adessive_singular": "kaverillasi",
+        "poss_3rd_nominative_singular": "kaverinsa",
+        "poss_3rd_inessive_singular": "kaverissaan",
+        "poss_3rd_adessive_singular": "kaverillaan"
+      },
+      "english": {
+        "plural": "friends"
+      },
+      "kotusType": 6,
+      "group": "i_new",
+      "frequencyRank": 471,
+      "examples": [
+        {
+          "fi": "Kukas tuo kaveri on?",
+          "en": "Who's that dude?"
+        },
+        {
+          "fi": "Mä tykkään sun kavereista.",
+          "en": "I like your friends."
+        }
+      ]
+    },
+    {
+      "id": "book",
+      "word": "kirja",
+      "en": "book",
+      "emoji": "📕",
+      "inflections": {
+        "nominative_singular": "kirja",
+        "nominative_plural": "kirjat",
+        "genitive_singular": "kirjan",
+        "genitive_plural": "kirjojen",
+        "partitive_singular": "kirjaa",
+        "partitive_plural": "kirjoja",
+        "inessive_singular": "kirjassa",
+        "inessive_plural": "kirjoissa",
+        "elative_singular": "kirjasta",
+        "elative_plural": "kirjoista",
+        "illative_singular": "kirjaan",
+        "illative_plural": "kirjoihin",
+        "adessive_singular": "kirjalla",
+        "adessive_plural": "kirjoilla",
+        "ablative_singular": "kirjalta",
+        "ablative_plural": "kirjoilta",
+        "allative_singular": "kirjalle",
+        "allative_plural": "kirjoille",
+        "essive_singular": "kirjana",
+        "essive_plural": "kirjoina",
+        "translative_singular": "kirjaksi",
+        "translative_plural": "kirjoiksi",
+        "abessive_singular": "kirjatta",
+        "abessive_plural": "kirjoitta",
+        "instructive_plural": "kirjoin",
+        "comitative_plural": "kirjoineen",
+        "poss_1sg_nominative_singular": "kirjani",
+        "poss_1sg_inessive_singular": "kirjassani",
+        "poss_1sg_adessive_singular": "kirjallani",
+        "poss_2sg_nominative_singular": "kirjasi",
+        "poss_2sg_inessive_singular": "kirjassasi",
+        "poss_2sg_adessive_singular": "kirjallasi",
+        "poss_3rd_nominative_singular": "kirjansa",
+        "poss_3rd_inessive_singular": "kirjassaan",
+        "poss_3rd_adessive_singular": "kirjallaan"
+      },
+      "english": {
+        "plural": "books"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 1701,
+      "examples": [
+        {
+          "fi": "Puhumme kirjoista.",
+          "en": "We're talking about books."
+        },
+        {
+          "fi": "Pidätkö Franz Kafkan kirjoista?",
+          "en": "Do you like books written by Franz Kafka?"
+        }
+      ]
+    },
+    {
+      "id": "pencil",
+      "word": "kynä",
+      "en": "pencil",
+      "emoji": "✏️",
+      "inflections": {
+        "nominative_singular": "kynä",
+        "nominative_plural": "kynät",
+        "genitive_singular": "kynän",
+        "genitive_plural": "kynien",
+        "partitive_singular": "kynää",
+        "partitive_plural": "kyniä",
+        "inessive_singular": "kynässä",
+        "inessive_plural": "kynissä",
+        "elative_singular": "kynästä",
+        "elative_plural": "kynistä",
+        "illative_singular": "kynään",
+        "illative_plural": "kyniin",
+        "adessive_singular": "kynällä",
+        "adessive_plural": "kynillä",
+        "ablative_singular": "kynältä",
+        "ablative_plural": "kyniltä",
+        "allative_singular": "kynälle",
+        "allative_plural": "kynille",
+        "essive_singular": "kynänä",
+        "essive_plural": "kyninä",
+        "translative_singular": "kynäksi",
+        "translative_plural": "kyniksi",
+        "abessive_singular": "kynättä",
+        "abessive_plural": "kynittä",
+        "instructive_plural": "kynin",
+        "comitative_plural": "kynineen",
+        "poss_1sg_nominative_singular": "kynäni",
+        "poss_1sg_inessive_singular": "kynässäni",
+        "poss_1sg_adessive_singular": "kynälläni",
+        "poss_2sg_nominative_singular": "kynäsi",
+        "poss_2sg_inessive_singular": "kynässäsi",
+        "poss_2sg_adessive_singular": "kynälläsi",
+        "poss_3rd_nominative_singular": "kynänsä",
+        "poss_3rd_inessive_singular": "kynässään",
+        "poss_3rd_adessive_singular": "kynällään"
+      },
+      "english": {
+        "plural": "pencils"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 6716,
+      "examples": [
+        {
+          "fi": "Kynä on korjannut, mitä miekka on särkenyt.",
+          "en": "The pen has mended what the sword has broken."
+        },
+        {
+          "fi": "Kynästä on loppunut muste.",
+          "en": "The pen has run out of ink."
+        }
+      ]
+    },
+    {
+      "id": "backpack",
+      "word": "reppu",
+      "en": "backpack",
+      "emoji": "🎒",
+      "inflections": {
+        "nominative_singular": "reppu",
+        "nominative_plural": "reput",
+        "genitive_singular": "repun",
+        "genitive_plural": "reppujen",
+        "partitive_singular": "reppua",
+        "partitive_plural": "reppuja",
+        "inessive_singular": "repussa",
+        "inessive_plural": "repuissa",
+        "elative_singular": "repusta",
+        "elative_plural": "repuista",
+        "illative_singular": "reppuun",
+        "illative_plural": "reppuihin",
+        "adessive_singular": "repulla",
+        "adessive_plural": "repuilla",
+        "ablative_singular": "repulta",
+        "ablative_plural": "repuilta",
+        "allative_singular": "repulle",
+        "allative_plural": "repuille",
+        "essive_singular": "reppuna",
+        "essive_plural": "reppuina",
+        "translative_singular": "repuksi",
+        "translative_plural": "repuiksi",
+        "abessive_singular": "reputta",
+        "abessive_plural": "repuitta",
+        "instructive_plural": "repuin",
+        "comitative_plural": "reppuineen",
+        "poss_1sg_nominative_singular": "reppuni",
+        "poss_1sg_inessive_singular": "repussani",
+        "poss_1sg_adessive_singular": "repullani",
+        "poss_2sg_nominative_singular": "reppusi",
+        "poss_2sg_inessive_singular": "repussasi",
+        "poss_2sg_adessive_singular": "repullasi",
+        "poss_3rd_nominative_singular": "reppunsa",
+        "poss_3rd_inessive_singular": "repussaan",
+        "poss_3rd_adessive_singular": "repullaan"
+      },
+      "english": {
+        "plural": "backpacks"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 16988,
+      "examples": [
+        {
+          "fi": "Yannilla on pieni reppu.",
+          "en": "Yanni has a little backpack."
+        },
+        {
+          "fi": "Hänellä on reppu selässä.",
+          "en": "She is carrying a backpack on her back."
+        }
+      ]
+    },
+    {
+      "id": "paper",
+      "word": "paperi",
+      "en": "paper",
+      "emoji": "📄",
+      "inflections": {
+        "nominative_singular": "paperi",
+        "nominative_plural": "paperit",
+        "genitive_singular": "paperin",
+        "genitive_plural": "paperien",
+        "partitive_singular": "paperia",
+        "partitive_plural": "papereita",
+        "inessive_singular": "paperissa",
+        "inessive_plural": "papereissa",
+        "elative_singular": "paperista",
+        "elative_plural": "papereista",
+        "illative_singular": "paperiin",
+        "illative_plural": "papereihin",
+        "adessive_singular": "paperilla",
+        "adessive_plural": "papereilla",
+        "ablative_singular": "paperilta",
+        "ablative_plural": "papereilta",
+        "allative_singular": "paperille",
+        "allative_plural": "papereille",
+        "essive_singular": "paperina",
+        "essive_plural": "papereina",
+        "translative_singular": "paperiksi",
+        "translative_plural": "papereiksi",
+        "abessive_singular": "paperitta",
+        "abessive_plural": "papereitta",
+        "instructive_plural": "paperein",
+        "comitative_plural": "papereineen",
+        "poss_1sg_nominative_singular": "paperini",
+        "poss_1sg_inessive_singular": "paperissani",
+        "poss_1sg_adessive_singular": "paperillani",
+        "poss_2sg_nominative_singular": "paperisi",
+        "poss_2sg_inessive_singular": "paperissasi",
+        "poss_2sg_adessive_singular": "paperillasi",
+        "poss_3rd_nominative_singular": "paperinsa",
+        "poss_3rd_inessive_singular": "paperissaan",
+        "poss_3rd_adessive_singular": "paperillaan"
+      },
+      "english": {
+        "plural": "papers"
+      },
+      "kotusType": 6,
+      "group": "i_new",
+      "frequencyRank": 2319,
+      "examples": [
+        {
+          "fi": "Pidän kiiltävästä paperista.",
+          "en": "I like glossy paper."
+        },
+        {
+          "fi": "Hän teki paperista lumihiutaleen.",
+          "en": "She made a paper snowflake."
+        }
+      ]
+    },
+    {
+      "id": "picture",
+      "word": "kuva",
+      "en": "picture",
+      "emoji": "🖼️",
+      "inflections": {
+        "nominative_singular": "kuva",
+        "nominative_plural": "kuvat",
+        "genitive_singular": "kuvan",
+        "genitive_plural": "kuvien",
+        "partitive_singular": "kuvaa",
+        "partitive_plural": "kuvia",
+        "inessive_singular": "kuvassa",
+        "inessive_plural": "kuvissa",
+        "elative_singular": "kuvasta",
+        "elative_plural": "kuvista",
+        "illative_singular": "kuvaan",
+        "illative_plural": "kuviin",
+        "adessive_singular": "kuvalla",
+        "adessive_plural": "kuvilla",
+        "ablative_singular": "kuvalta",
+        "ablative_plural": "kuvilta",
+        "allative_singular": "kuvalle",
+        "allative_plural": "kuville",
+        "essive_singular": "kuvana",
+        "essive_plural": "kuvina",
+        "translative_singular": "kuvaksi",
+        "translative_plural": "kuviksi",
+        "abessive_singular": "kuvatta",
+        "abessive_plural": "kuvitta",
+        "instructive_plural": "kuvin",
+        "comitative_plural": "kuvineen",
+        "poss_1sg_nominative_singular": "kuvani",
+        "poss_1sg_inessive_singular": "kuvassani",
+        "poss_1sg_adessive_singular": "kuvallani",
+        "poss_2sg_nominative_singular": "kuvasi",
+        "poss_2sg_inessive_singular": "kuvassasi",
+        "poss_2sg_adessive_singular": "kuvallasi",
+        "poss_3rd_nominative_singular": "kuvansa",
+        "poss_3rd_inessive_singular": "kuvassaan",
+        "poss_3rd_adessive_singular": "kuvallaan"
+      },
+      "english": {
+        "plural": "pictures"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 1126,
+      "examples": [
+        {
+          "fi": "kuva kissasta",
+          "en": "a photo of a cat"
+        },
+        {
+          "fi": "Tunnetko poikaa kuvassa?",
+          "en": "Do you know the boy in the picture?"
+        }
+      ]
+    },
+    {
+      "id": "clock",
+      "word": "kello",
+      "en": "clock",
+      "emoji": "⏰",
+      "inflections": {
+        "nominative_singular": "kello",
+        "nominative_plural": "kellot",
+        "genitive_singular": "kellon",
+        "genitive_plural": "kellojen",
+        "partitive_singular": "kelloa",
+        "partitive_plural": "kelloja",
+        "inessive_singular": "kellossa",
+        "inessive_plural": "kelloissa",
+        "elative_singular": "kellosta",
+        "elative_plural": "kelloista",
+        "illative_singular": "kelloon",
+        "illative_plural": "kelloihin",
+        "adessive_singular": "kellolla",
+        "adessive_plural": "kelloilla",
+        "ablative_singular": "kellolta",
+        "ablative_plural": "kelloilta",
+        "allative_singular": "kellolle",
+        "allative_plural": "kelloille",
+        "essive_singular": "kellona",
+        "essive_plural": "kelloina",
+        "translative_singular": "kelloksi",
+        "translative_plural": "kelloiksi",
+        "abessive_singular": "kellotta",
+        "abessive_plural": "kelloitta",
+        "instructive_plural": "kelloin",
+        "comitative_plural": "kelloineen",
+        "poss_1sg_nominative_singular": "kelloni",
+        "poss_1sg_inessive_singular": "kellossani",
+        "poss_1sg_adessive_singular": "kellollani",
+        "poss_2sg_nominative_singular": "kellosi",
+        "poss_2sg_inessive_singular": "kellossasi",
+        "poss_2sg_adessive_singular": "kellollasi",
+        "poss_3rd_nominative_singular": "kellonsa",
+        "poss_3rd_inessive_singular": "kellossaan",
+        "poss_3rd_adessive_singular": "kellollaan"
+      },
+      "english": {
+        "plural": "clocks"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 442,
+      "examples": [
+        {
+          "fi": "munakello",
+          "en": "egg timer"
+        },
+        {
+          "fi": "Kello on kahdeksan.",
+          "en": "It's eight o'clock."
+        }
+      ]
+    },
+    {
+      "id": "homework",
+      "word": "läksy",
+      "en": "homework",
+      "emoji": "📝",
+      "inflections": {
+        "nominative_singular": "läksy",
+        "nominative_plural": "läksyt",
+        "genitive_singular": "läksyn",
+        "genitive_plural": "läksyjen",
+        "partitive_singular": "läksyä",
+        "partitive_plural": "läksyjä",
+        "inessive_singular": "läksyssä",
+        "inessive_plural": "läksyissä",
+        "elative_singular": "läksystä",
+        "elative_plural": "läksyistä",
+        "illative_singular": "läksyyn",
+        "illative_plural": "läksyihin",
+        "adessive_singular": "läksyllä",
+        "adessive_plural": "läksyillä",
+        "ablative_singular": "läksyltä",
+        "ablative_plural": "läksyiltä",
+        "allative_singular": "läksylle",
+        "allative_plural": "läksyille",
+        "essive_singular": "läksynä",
+        "essive_plural": "läksyinä",
+        "translative_singular": "läksyksi",
+        "translative_plural": "läksyiksi",
+        "abessive_singular": "läksyttä",
+        "abessive_plural": "läksyittä",
+        "instructive_plural": "läksyin",
+        "comitative_plural": "läksyineen",
+        "poss_1sg_nominative_singular": "läksyni",
+        "poss_1sg_inessive_singular": "läksyssäni",
+        "poss_1sg_adessive_singular": "läksylläni",
+        "poss_2sg_nominative_singular": "läksysi",
+        "poss_2sg_inessive_singular": "läksyssäsi",
+        "poss_2sg_adessive_singular": "läksylläsi",
+        "poss_3rd_nominative_singular": "läksynsä",
+        "poss_3rd_inessive_singular": "läksyssään",
+        "poss_3rd_adessive_singular": "läksyllään"
+      },
+      "english": {
+        "plural": "homeworks"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 9943,
+      "examples": [
+        {
+          "fi": "matematiikan läksy(t)",
+          "en": "math homework"
+        },
+        {
+          "fi": "Onko sinulla paljon läksyjä?",
+          "en": "Do you have a lot of homework?"
+        }
+      ]
+    },
+    {
+      "id": "class",
+      "word": "luokka",
+      "en": "class",
+      "inflections": {
+        "nominative_singular": "luokka",
+        "nominative_plural": "luokat",
+        "genitive_singular": "luokan",
+        "genitive_plural": "luokkien",
+        "partitive_singular": "luokkaa",
+        "partitive_plural": "luokkia",
+        "inessive_singular": "luokassa",
+        "inessive_plural": "luokissa",
+        "elative_singular": "luokasta",
+        "elative_plural": "luokista",
+        "illative_singular": "luokkaan",
+        "illative_plural": "luokkiin",
+        "adessive_singular": "luokalla",
+        "adessive_plural": "luokilla",
+        "ablative_singular": "luokalta",
+        "ablative_plural": "luokilta",
+        "allative_singular": "luokalle",
+        "allative_plural": "luokille",
+        "essive_singular": "luokkana",
+        "essive_plural": "luokkina",
+        "translative_singular": "luokaksi",
+        "translative_plural": "luokiksi",
+        "abessive_singular": "luokatta",
+        "abessive_plural": "luokitta",
+        "instructive_plural": "luokin",
+        "comitative_plural": "luokkineen",
+        "poss_1sg_nominative_singular": "luokkani",
+        "poss_1sg_inessive_singular": "luokassani",
+        "poss_1sg_adessive_singular": "luokallani",
+        "poss_2sg_nominative_singular": "luokkasi",
+        "poss_2sg_inessive_singular": "luokassasi",
+        "poss_2sg_adessive_singular": "luokallasi",
+        "poss_3rd_nominative_singular": "luokkansa",
+        "poss_3rd_inessive_singular": "luokassaan",
+        "poss_3rd_adessive_singular": "luokallaan"
+      },
+      "english": {
+        "plural": "classes"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 4395,
+      "examples": [
+        {
+          "fi": "luokkataistelu",
+          "en": "class struggle"
+        },
+        {
+          "fi": "turistiluokka",
+          "en": "economy class"
+        }
+      ]
+    }
+  ]
+}

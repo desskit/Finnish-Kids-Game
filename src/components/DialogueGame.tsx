@@ -4,6 +4,7 @@ import { useActivityContext, useSegmentComplete } from '../game/activityContext'
 import { difficultyFor, showsGloss } from '../game/adapt';
 import { buildDialogueRound, type DialogueQuestion } from '../game/round';
 import { dialogues } from '../content/dialogues';
+import { byIds } from '../util/byIds';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
@@ -12,6 +13,8 @@ const QUESTIONS = 6;
 
 interface Props {
   onExit: () => void;
+  /** Scope the exchanges to these ids (a course step); default = all. */
+  ids?: string[];
 }
 
 // Keskustelu (conversations): hear/read the other speaker's Finnish line, tap
@@ -20,7 +23,8 @@ interface Props {
 // Finnish for other moments, so the child practices what to SAY BACK, not
 // spotting broken grammar. No SRS crediting — replies are set phrases, not
 // single lexical items (like the multi-slot sentence game).
-export default function DialogueGame({ onExit }: Props) {
+export default function DialogueGame({ onExit, ids }: Props) {
+  const pool = byIds(dialogues, ids);
   const { level, addStars, activeChild } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -36,11 +40,11 @@ export default function DialogueGame({ onExit }: Props) {
   const round = useMemo<DialogueQuestion[]>(
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
-      buildDialogueRound(dialogues, QUESTIONS, optionCount, maxTier, childName).slice(
+      buildDialogueRound(pool, QUESTIONS, optionCount, maxTier, childName).slice(
         0,
         ctx?.roundQuestions,
       ),
-    [optionCount, maxTier, childName, runId, ctx?.roundQuestions],
+    [pool, optionCount, maxTier, childName, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
