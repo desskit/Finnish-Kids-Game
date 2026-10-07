@@ -1401,7 +1401,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'Going INSIDE',
-        text: '"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*).',
+        text: '"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*). Short words like *puu* (tree) take **h** + vowel + **n**: *puuhun*.',
         rows: [
           { sentence: 'in-it', word: 'box' },
           { sentence: 'into-it', word: 'box' },
@@ -1652,7 +1652,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: '"Some" things',
         text:
-          'When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending, usually **-ja / -jä** or **-ita / -itä**. It\'s the plural cousin of the **-a** ending!',
+          'When you mean **some** or **any** (not a fixed group), Finnish uses a different plural ending: **-ja / -jä** (*palloja*), **-ia / -iä** (*koiria*) or **-ita / -itä** (*veneitä*). It\'s the plural cousin of the **-a** ending!',
         rows: [
           { sentence: 'these-are', word: 'book' },
           { sentence: 'i-have-some', word: 'ball' },
@@ -1728,7 +1728,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Slip in an -i-',
         text:
-          'To say something **already happened**, Finnish slips an **-i-** into the verb, just before the "who" ending: *syön* (I eat) → *söin* (I ate). Sometimes a vowel changes too — listen for the **i**.',
+          'To say something **already happened**, Finnish slips an **-i-** into the verb, just before the "who" ending: *syön* (I eat) → *söin* (I ate). Sometimes a vowel changes too — listen for the **i**. Type 4 verbs get **-si-**: *haluan → halusin*.',
       },
       {
         kind: 'verbTable',
@@ -1781,7 +1781,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'The "not" verb + -nut / -nyt',
         text:
-          'For "didn\'t", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-nut / -nyt** — or **-neet** for we, you all and they.',
+          'For "didn\'t", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-ut / -yt**: usually *-nut / -nyt* (*en syönyt*). For we, you all and they it ends in **-eet** (*emme syöneet*).',
       },
       {
         kind: 'verbTable',
@@ -1793,7 +1793,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: 'Only two shapes',
-        text: '- *en, et, ei* (I, you, he/she) + **-nut / -nyt**: *en syönyt*\n- *emme, ette, eivät* (we, you all, they) + **-neet**: *emme syöneet*',
+        text: '- *en, et, ei* (I, you, he/she) + **-nut / -nyt**: *en syönyt*\n- *emme, ette, eivät* (we, you all, they) + **-neet**: *emme syöneet*\n- Some verbs use **l** or **s** instead of **n**: *en tullut* (I didn\'t come), *en juossut* (I didn\'t run).',
       },
       {
         kind: 'check',
@@ -2625,9 +2625,9 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'He / she: already long',
+        title: 'He / she',
         text:
-          'The stem already ends in two vowels, so for **he / she** nothing more is added: *hän avaa*, *hän haluaa*.',
+          'For **he / she** the last vowel doubles, as usual: *haluan → hän haluaa*. But if it\'s already long, nothing changes: *avaan → hän avaa*.',
         rows: [
           { verb: 'want', tense: 'present', polarity: 'positive', person: '1sg' },
           { verb: 'want', tense: 'present', polarity: 'positive', person: '3sg' },
@@ -3074,7 +3074,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Order words',
         text:
-          'For the ORDER (who came first?) Finnish has its own words. The first three are special; from the 4th on most end in **-s**: *neljäs*, *viides*.',
+          'For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd on they end in **-s**: *kolmas*, *neljäs*, *viides*.',
         rows: [{ word: 'first' }, { word: 'second' }, { word: 'third' }, { word: 'fourth' }, { word: 'fifth' }],
       },
       {

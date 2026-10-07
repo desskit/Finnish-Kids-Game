@@ -11,7 +11,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForConstruction } from '../content/why';
+import { whyForPhrasePick } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -66,6 +66,8 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   const question = round[index];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
+  // What the child picked last (another word, or another form of the word).
+  const [whyPick, setWhyPick] = useState<{ item?: LexicalItem; form?: string }>({});
 
   // Gloss-free (L9+) needs a picture to stand in for the English — a word with
   // no single picture keeps its English, or the question would be unreadable.
@@ -123,6 +125,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         setWhyAt(index);
         playDing(false);
         setWrongId(item.id);
+        setWhyPick({ item });
         setTimeout(() => setWrongId((cur) => (cur === item.id ? null : cur)), 600);
       }
     },
@@ -141,6 +144,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         setWhyAt(index);
         playDing(false);
         setWrongForm(form);
+        setWhyPick({ form });
         setTimeout(() => setWrongForm((cur) => (cur === form ? null : cur)), 600);
       }
     },
@@ -281,7 +285,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         </div>
       )}
       {whyAt === index && question && (
-        <WhyTip why={whyForConstruction(question.construction, question.item)} />
+        <WhyTip why={whyForPhrasePick(question.construction, question.item, whyPick)} />
       )}
     </section>
   );

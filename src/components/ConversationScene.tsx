@@ -9,6 +9,7 @@ import type { DialogueLine } from '../content/dialogues';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import WhyTip from './WhyTip';
 
 interface Props {
   onExit: () => void;
@@ -50,6 +51,8 @@ export default function ConversationScene({ onExit, ids }: Props) {
   const [turnIndex, setTurnIndex] = useState(0);
   const [answered, setAnswered] = useState<DialogueLine[]>([]);
   const [wrongFi, setWrongFi] = useState<string | null>(null);
+  // The wrong reply picked last on THIS turn — its "Why?" shows until the turn moves on.
+  const [whyLine, setWhyLine] = useState<DialogueLine | null>(null);
   const [locked, setLocked] = useState(false);
   const [finished, setFinished] = useState(false); // transcript payoff before done
   const [done, setDone] = useState(false);
@@ -90,10 +93,12 @@ export default function ConversationScene({ onExit, ids }: Props) {
         missedTurn.current = true;
         playDing(false);
         setWrongFi(fi);
+        setWhyLine(turn.options.find((o) => o.fi === fi) ?? null);
         setTimeout(() => setWrongFi((cur) => (cur === fi ? null : cur)), 600);
         return;
       }
       setLocked(true);
+      setWhyLine(null);
       playDing(true);
       // Queue after the partner line, then the next turn's partner queues after
       // this — so the exchange is heard in order, not overlapping.
@@ -135,6 +140,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
     setTurnIndex(0);
     setAnswered([]);
     setWrongFi(null);
+    setWhyLine(null);
     setLocked(false);
     setFinished(false);
     setDone(false);
@@ -273,6 +279,17 @@ export default function ConversationScene({ onExit, ids }: Props) {
                 </button>
               ))}
             </div>
+            {whyLine && (
+              <WhyTip
+                why={{
+                  // A wrong-form line explains its own slip; any other line
+                  // just doesn't fit — say what each one means.
+                  text:
+                    whyLine.why ??
+                    `*${whyLine.fi}* means "${whyLine.en}" — that doesn't answer *${turn.partner.fi}* ("${turn.partner.en}").`,
+                }}
+              />
+            )}
           </>
         )
       )}

@@ -12,7 +12,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForConstruction } from '../content/why';
+import { whyForPhrasePick } from '../content/why';
 import { lessonForConstruction } from '../game/course';
 import RoundComplete from './RoundComplete';
 
@@ -125,6 +125,8 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   const question = round[index];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
+  // The wrong form picked last, for its own "Why?".
+  const [whyForm, setWhyForm] = useState<string | undefined>(undefined);
   const spellingCorrect =
     !!question && question.format === 'spelling' && norm(input) === norm(question.target.fi);
 
@@ -200,6 +202,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         setWhyAt(index);
         playDing(false);
         setWrongId(form);
+        setWhyForm(form);
         setTimeout(() => setWrongId((cur) => (cur === form ? null : cur)), 600);
       }
     },
@@ -496,7 +499,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         )}
         {whyAt === index && question?.grammar && (
           <WhyTip
-            why={whyForConstruction(question.grammar.construction, question.grammar.item)}
+            why={whyForPhrasePick(question.grammar.construction, question.grammar.item, { form: whyForm })}
             lessonId={lessonForConstruction(question.grammar.construction.id)}
           />
         )}

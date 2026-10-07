@@ -16,6 +16,7 @@ import type {
 import { caseFormOf, countingNounForm, formFor, possessiveForm, verbForm, PERSONS } from './types';
 import { caseSegments, possessiveSegments, verbSegments, type Segment } from './endings';
 import { gradation, gradationLabel, isSpecialVerb, verbType } from './verbTypes';
+import { englishVerbClause } from './englishVerb';
 
 export interface Why {
   /** The rule, kid-level English. */
@@ -44,22 +45,22 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'i-buy-some': 'Buying SOME of something → **-a / -ä** (or **-ta / -tä**).',
   'on-it': 'ON something → **-lla / -llä**.',
   'in-it': 'IN something → **-ssa / -ssä**.',
-  'into-it': 'INTO something → a long vowel + **n** (or **-seen**).',
+  'into-it': 'INTO something → a long vowel + **n** (*laatikkoon*) — or **-seen** (*huoneeseen*), or **h** + vowel + **n** (*puuhun*).',
   'onto-it': 'ONTO something → **-lle**.',
   'out-of-it': 'OUT OF something → **-sta / -stä**.',
   'off-it': 'OFF something → **-lta / -ltä**.',
-  'in-front-of': 'Before *edessä* (in front of), the thing gets **-n**.',
-  behind: 'Before *takana* (behind), the thing gets **-n**.',
-  'next-to': 'Before *vieressä* (next to), the thing gets **-n**.',
-  under: 'Before *alla* (under), the thing gets **-n**.',
-  'in-front-of-them': 'Before *edessä*, MANY things get **-en / -jen**.',
-  'behind-them': 'Before *takana*, MANY things get **-en / -jen**.',
-  'next-to-them': 'Before *vieressä*, MANY things get **-en / -jen**.',
-  'under-them': 'Before *alla*, MANY things get **-en / -jen**.',
-  'is-under': 'Before *alla* (under), the thing gets **-n**.',
-  'is-behind': 'Before *takana* (behind), the thing gets **-n**.',
-  'is-in-front-of': 'Before *edessä* (in front of), the thing gets **-n**.',
-  'is-next-to': 'Before *vieressä* (next to), the thing gets **-n**.',
+  'in-front-of': 'The thing gets **-n** and comes FIRST, then *edessä*: *talon edessä* (in front of the house).',
+  behind: 'The thing gets **-n** and comes FIRST, then *takana*: *puun takana* (behind the tree).',
+  'next-to': 'The thing gets **-n** and comes FIRST, then *vieressä*: *kaverin vieressä* (next to a friend).',
+  under: 'The thing gets **-n** and comes FIRST, then *alla*: *pöydän alla* (under the table).',
+  'in-front-of-them': 'MANY things get a plural **-n** ending (*-jen, -ien, -iden*…) and come first: *kirjojen edessä*.',
+  'behind-them': 'MANY things get a plural **-n** ending (*-jen, -ien, -iden*…) and come first: *tuolien takana*.',
+  'next-to-them': 'MANY things get a plural **-n** ending (*-jen, -ien, -iden*…) and come first: *veneiden vieressä*.',
+  'under-them': 'MANY things get a plural **-n** ending (*-jen, -ien, -iden*…) and come first: *pöytien alla*.',
+  'is-under': 'The thing gets **-n** and comes FIRST, then *alla* (under): *tuolin alla*.',
+  'is-behind': 'The thing gets **-n** and comes FIRST, then *takana* (behind): *puun takana*.',
+  'is-in-front-of': 'The thing gets **-n** and comes FIRST, then *edessä* (in front of): *talon edessä*.',
+  'is-next-to': 'The thing gets **-n** and comes FIRST, then *vieressä* (next to): *sängyn vieressä*.',
   'this-is-mine': '*minun* (my) + the ending **-ni**.',
   'i-am': 'After *Olen* (I am), the feeling stays in its **basic form**.',
   'she-is': 'After *Hän on* (he/she is), the feeling stays in its **basic form**.',
@@ -77,8 +78,8 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'eat-with': '"With" a tool → **-lla / -llä**: *lusikalla*.',
   'play-with-toy': 'Playing WITH a toy → **-lla / -llä**: *pallolla*.',
   'open-with': '"With" a tool → **-lla / -llä**: *avaimella*.',
-  'with-someone': 'WITH a person (or a pet) → **-n** + *kanssa*: *kaverin kanssa*. **-lla** is only for tools and rides!',
-  'i-go-into': 'Going INTO a place → a long vowel + **n** (or **-seen**).',
+  'with-someone': 'WITH a person (or a pet) → **-n** + *kanssa*: *kaverin kanssa*. (**-lla** is for a thing you use: *pallolla*.)',
+  'i-go-into': 'Going INTO a place → a long vowel + **n** (*kouluun*) — or **-seen** (*huoneeseen*).',
   'i-go-onto': 'Going TO an "on" place → **-lle**.',
   'i-come-from-in': 'Coming FROM inside a place → **-sta / -stä**.',
   'i-come-from-on': 'Coming FROM an "on" place → **-lta / -ltä**.',
@@ -93,9 +94,9 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'this-is-yours': '*sinun* (your) + the ending **-si**.',
   'this-is-theirs': '*hänen* (his / her) + the ending **-nsa / -nsä**.',
   'where-is-yours': '*sinun* (your) + the ending **-si**.',
-  'i-have-some': '"Some" things → the plural **-ja / -jä** (or **-ita / -itä**).',
-  'i-havent-any': '"Not any" → the plural **-ja / -jä** (or **-ita / -itä**).',
-  'these-are': '*Nämä ovat* + "some" things → plural **-ja / -jä** (or **-ita / -itä**).',
+  'i-have-some': '"Some" things → the plural **-ja / -jä**, **-ia / -iä** or **-ita / -itä** (*palloja, koiria, veneitä*).',
+  'i-havent-any': '"Not any" → the plural **-ja / -jä**, **-ia / -iä** or **-ita / -itä** (*palloja, koiria, veneitä*).',
+  'these-are': '*Nämä ovat* + a kind of thing → the plural **-ja / -jä**, **-ia / -iä** or **-ita / -itä** (*kirjoja, koiria*).',
   'where-are': 'MORE than one → the plural **-t**.',
   'in-them': 'IN many things → **-issa / -issä**.',
   'on-them': 'ON many things → **-illa / -illä**.',
@@ -110,7 +111,7 @@ const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {
   partitive: 'Here the word takes **-a / -ä** (or **-ta / -tä**).',
   inessive: 'IN something → **-ssa / -ssä**.',
   elative: 'OUT OF / FROM something → **-sta / -stä**.',
-  illative: 'INTO something → a long vowel + **n** (or **-seen**).',
+  illative: 'INTO something → a long vowel + **n** (or **-seen**, or **h** + vowel + **n**).',
   adessive: 'ON something → **-lla / -llä**.',
   ablative: 'OFF something → **-lta / -ltä**.',
   allative: 'ONTO something → **-lle**.',
@@ -178,17 +179,18 @@ export function whyForVerb(
   if (polarity === 'negative') {
     text =
       tense === 'past' || tense === 'perfect'
-        ? '"Didn\'t": the "not" verb (*en, et, ei, emme, ette, eivät*) shows who, then **-nut / -nyt** (plural **-neet**).'
-        : 'The "not" verb shows who — *en, et, ei, emme, ette, eivät* — and the main verb stays short.';
+        ? '"Didn\'t": the "not" verb (*en, et, ei, emme, ette, eivät*) shows who, then a form ending in **-ut / -yt** — usually *-nut / -nyt* (*en syönyt*), but *-lut, -sut* for some (*en tullut*). For we, you all and they: **-eet** (*emme syöneet*).'
+        : 'The "not" verb shows who — *en, et, ei, emme, ette, eivät* — and the main verb is the "I" form without its **-n**: *nukun → en nuku*.';
   } else if (tense === 'past') {
-    text = 'The past slips in an **-i-** before the "who" ending.';
+    text =
+      'The past slips in an **-i-** before the "who" ending: *syön → söin*. Type 4 verbs get **-si-**: *haluan → halusin*.';
   } else if (tense === 'conditional') {
     text = '"Would" slips in **-isi-** before the "who" ending.';
   } else if (tense === 'perfect') {
     text = '"Have done" = *olla* (to be) + the **-nut / -nyt** form.';
   } else {
     text =
-      'The ending shows who: **-n** I · **-t** you · (last vowel doubles) he/she · **-mme** we · **-tte** you all · **-vat / -vät** they.';
+      'The ending shows who: **-n** I · **-t** you · he/she: the last vowel doubles (unless it\'s already long: *syö*) · **-mme** we · **-tte** you all · **-vat / -vät** they.';
     const note = verbTypeNote(verb);
     if (note) text += '\n\n' + note;
   }
@@ -233,4 +235,207 @@ export function whyForAgreement(
     example:
       a && n ? [...caseSegments(a, c, pl), { text: ' ' }, ...caseSegments(n, c, pl)] : undefined,
   };
+}
+
+// --- What a WRONG pick means ------------------------------------------------
+//
+// A rule alone doesn't say why *your* answer was wrong. These say what the
+// picked tile actually means ("*laatikkoon* is the INTO form"), then the rule
+// for what was needed — so the child sees the difference, not just the answer.
+
+/** What each case form is, in kid words. */
+const FORM_NAME: Partial<Record<CaseId, string>> = {
+  nominative: 'the basic form, with no ending',
+  genitive: 'the **-n** form ("whose", or the whole thing)',
+  partitive: 'the **-a / -ä** form ("some", "not any", or after 2, 3, 4…)',
+  inessive: 'the IN form (**-ssa / -ssä**)',
+  elative: 'the OUT OF / FROM form (**-sta / -stä**)',
+  illative: 'the INTO form',
+  adessive: 'the ON / AT / WITH form (**-lla / -llä**)',
+  ablative: 'the OFF / FROM form (**-lta / -ltä**)',
+  allative: 'the ONTO / TO form (**-lle**)',
+  essive: 'the **-na / -nä** form ("on Monday")',
+};
+
+/** Which case (and number) a form of this word is — the first match. */
+export function caseOfForm(
+  item: LexicalItem,
+  form: string,
+): { c: CaseId; n: GrammaticalNumber } | undefined {
+  const f = form.toLowerCase();
+  for (const n of ['singular', 'plural'] as const) {
+    for (const c of Object.keys(FORM_NAME) as CaseId[]) {
+      if (caseFormOf(item, c, n)?.toLowerCase() === f) return { c, n };
+    }
+  }
+  return undefined;
+}
+
+/** "the INTO form", "the plural IN form" — what a form of this word is. */
+export function formMeaning(item: LexicalItem, form: string): string | undefined {
+  const hit = caseOfForm(item, form);
+  if (!hit) return undefined;
+  if (hit.n === 'plural') {
+    return hit.c === 'nominative'
+      ? `the plural with **-t** ("the ${item.english?.plural ?? `${item.en}s`}")`
+      : `${FORM_NAME[hit.c]}, for MANY things`;
+  }
+  return FORM_NAME[hit.c]!;
+}
+
+/**
+ * A carrier-phrase game (build / review): the child picked `picked` — another
+ * WORD (its form in this slot) or another FORM of the right word.
+ */
+export function whyForPhrasePick(
+  con: Construction,
+  item: LexicalItem,
+  picked: { item?: LexicalItem; form?: string },
+): Why {
+  const base = whyForConstruction(con, item);
+  const right = formFor(item, con);
+  if (picked.item && picked.item.id !== item.id) {
+    const theirs = formFor(picked.item, con);
+    return {
+      text: `*${theirs}* is "${picked.item.en}" — the right form, but the wrong word. You need "${item.en}": *${right}*.`,
+      example: base.example,
+    };
+  }
+  if (picked.form && picked.form !== right) {
+    const meaning = formMeaning(item, picked.form);
+    return {
+      text: meaning ? `*${picked.form}* is ${meaning}. ${base.text}` : base.text,
+      example: base.example,
+    };
+  }
+  return base;
+}
+
+/** Conjugation: the child picked another person's form — or another verb. */
+export function whyForVerbPick(
+  verb: LexicalItem,
+  tense: VerbTense,
+  polarity: Polarity,
+  person: PersonId,
+  picked: { person: PersonId; form: string; verb?: LexicalItem },
+): Why {
+  const base = whyForVerb(verb, tense, polarity, person);
+  const p = PERSONS.find((x) => x.id === picked.person);
+  const target = PERSONS.find((x) => x.id === person);
+  if (!p || !target) return base;
+  const clause = (v: LexicalItem, who: PersonId) => {
+    const pp = PERSONS.find((x) => x.id === who)!;
+    return englishVerbClause(pp.en, v.en, v.english, tense, polarity, who);
+  };
+  if (picked.verb && picked.verb.id !== verb.id) {
+    return {
+      text: `*${picked.form}* is a different verb: "${clause(picked.verb, picked.person)}". You need *${verb.fi}* — "${clause(verb, person)}".`,
+      example: base.example,
+    };
+  }
+  // The pick, then the rule for who-endings — plus the verb's own note only
+  // when it matters (a k / p / t change, or a special verb).
+  const rule = base.text.split('\n\n')[0];
+  const note =
+    tense === 'present' && polarity === 'positive' && (gradation(verb) || isSpecialVerb(verb))
+      ? verbTypeNote(verb)
+      : undefined;
+  return {
+    text: [
+      `*${p.fi} ${picked.form}* means "${clause(verb, picked.person)}". The prompt is *${target.fi}* — "${clause(verb, person)}".`,
+      rule,
+      note,
+    ]
+      .filter(Boolean)
+      .join('\n\n'),
+    example: base.example,
+  };
+}
+
+/** Agreement: the child picked the thing in a different case than the describing word. */
+export function whyForAgreementPick(
+  adjective: LexicalItem,
+  noun: LexicalItem,
+  c: CaseId,
+  number: GrammaticalNumber,
+  picked: { caseId: CaseId; num: GrammaticalNumber; form: string },
+): Why {
+  const base = whyForAgreement(adjective, noun, c, number);
+  const adj = caseFormOf(adjective, c, number);
+  const pickedName = FORM_NAME[picked.caseId];
+  const wantName = FORM_NAME[c];
+  if (!adj || !pickedName || !wantName) return base;
+  const plural = picked.num !== number ? ` (and it's ${picked.num === 'plural' ? 'MANY things' : 'ONE thing'})` : '';
+  return {
+    text: `*${picked.form}* is ${pickedName}${plural}. But *${adj}* is ${wantName} — the thing must copy it.`,
+    example: base.example,
+  };
+}
+
+const POSSESSOR_EN: Record<PossessorId, string> = { '1sg': 'MY', '2sg': 'YOUR', '3rd': 'HIS / HER / THEIR' };
+
+/** Possessives: the child picked another owner's ending. */
+export function whyForPossessorPick(
+  item: LexicalItem,
+  possessor: PossessorId,
+  c: CaseId,
+  pickedForm: string,
+): Why {
+  const base = whyForPossessor(item, possessor, c);
+  const who = (Object.keys(POSSESSOR_EN) as PossessorId[]).find(
+    (p) => possessiveForm(item, p, c) === pickedForm,
+  );
+  if (!who || who === possessor) return base;
+  return {
+    text: `*${pickedForm}* means ${POSSESSOR_EN[who]} ${item.en}. You need ${POSSESSOR_EN[possessor]}: ${POSSESSOR_RULE[possessor]}`,
+    example: base.example,
+  };
+}
+
+/** Counting: a wrong NUMBER is a miscount; a wrong THING is the wrong word. */
+export function whyForCountPick(
+  count: number,
+  numberFi: string,
+  noun: LexicalItem,
+  picked: LexicalItem,
+): Why {
+  const base = whyForCount(count, numberFi, noun);
+  if (picked.value !== undefined && picked.topic === 'numbers') {
+    return { text: `*${picked.fi}* is ${picked.value}. Count the pictures again, one by one!` };
+  }
+  return {
+    text: `That's "${picked.en}" — look at the picture again. (${base.text})`,
+  };
+}
+
+/** Find the mistake: the child said "all right" when it wasn't, tapped a word
+ *  that can't be wrong, or found a "mistake" in a correct sentence. */
+export function whyForErrorPick(
+  con: Construction,
+  item: LexicalItem,
+  slotText: string,
+  isCorrect: boolean,
+  picked: { ok: true } | { word: string; isSlot: boolean },
+): Why {
+  const base = whyForConstruction(con, item);
+  const slot = slotText.replace(/[.?!]$/, '');
+  const meaning = formMeaning(item, slot);
+  if (isCorrect) {
+    return { text: `This one was already right! ${base.text}`, example: base.example };
+  }
+  if ('ok' in picked) {
+    return {
+      text: meaning
+        ? `Look again at *${slot}* — it's ${meaning}. ${base.text}`
+        : `Look again at the ending of *${slot}*. ${base.text}`,
+      example: base.example,
+    };
+  }
+  if (!picked.isSlot) {
+    return {
+      text: `*${picked.word.replace(/[.?!]$/, '')}* is fine — it never changes here. Check the ending of *${slot}*${meaning ? `: it's ${meaning}` : ''}.`,
+      example: base.example,
+    };
+  }
+  return base;
 }

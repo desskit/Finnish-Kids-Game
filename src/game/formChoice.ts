@@ -334,16 +334,16 @@ const PRONOUN_DISTRACTOR_CASES: PronounCase[] = [
   "adessive",
 ];
 
-/** What a wrong pronoun form actually says, for the "Why?" tip. */
+/** What a wrong pronoun form actually says, for the "Why?" tip ("___" = the
+ *  person in English: me, you, him/her…). */
 const CASE_MEANING: Record<PronounCase, string> = {
-  nominative:
-    'is the plain "I / you / he" form — it never comes after a verb like this.',
-  partitive: "has the **-a / -ä** ending — not this one.",
-  accusative: 'has the **-t** ending (for "I see you") — not this one.',
-  allative: 'means "TO ___" — not this one.',
-  elative: 'means "FROM / about ___" — not this one.',
-  adessive: 'means "___ has / on ___" — not this one.',
-  genitive: 'means "___\'s" — not this one.',
+  nominative: "is the plain form (like in *minä syön*) — after this verb it needs an ending.",
+  partitive: "has the **-a / -ä** ending (*Auta minua*, help ___) — not this verb's ending.",
+  accusative: "is the **-t** form, for seeing a whole person (*Näen sinut*, I see ___) — not this verb's ending.",
+  allative: 'means "to ___" (*Anna se minulle*) — not this verb\'s ending.',
+  elative: 'means "about / from ___" (*Pidän sinusta*) — not this verb\'s ending.',
+  adessive: 'means "___ has" (*Minulla on…*) — not this verb\'s ending.',
+  genitive: 'means "___\'s" — not this verb\'s ending.',
 };
 
 function pronounQuestion(optionCount: number): FormChoiceQuestion | null {
@@ -364,7 +364,7 @@ function pronounQuestion(optionCount: number): FormChoiceQuestion | null {
   for (const c of PRONOUN_DISTRACTOR_CASES) {
     if (c === frame.case) continue;
     whyFor[pronounSentence(frame, person, c)] = {
-      text: `*${PRONOUNS[person][c]}* ${CASE_MEANING[c]} ${frame.rule}`,
+      text: `*${PRONOUNS[person][c]}* ${CASE_MEANING[c].replace(/___/g, PRONOUNS[person].enObject)} ${frame.rule}`,
       example,
     };
   }
@@ -385,7 +385,11 @@ function ownerQuestion(
   optionCount: number,
 ): FormChoiceQuestion | null {
   const owner = sample(owners, 1)[0];
-  const thing = sample(things, 1)[0];
+  // A pet owns a ball, not a piano or a coat.
+  const fits = ANIMAL_OWNERS.includes(owner?.id ?? "")
+    ? things.filter((t) => PET_THINGS.includes(t.id))
+    : things;
+  const thing = sample(fits, 1)[0];
   if (!owner || !thing) return null;
   const gen = caseFormOf(owner, "genitive", "singular");
   if (!gen) return null;
@@ -439,6 +443,8 @@ function ownerQuestion(
 // --- The round ----------------------------------------------------------------------
 
 /** People and pets that own things ("isän", "kissan"). */
+const ANIMAL_OWNERS = ["cat", "dog", "bunny"];
+const PET_THINGS = ["ball"];
 const OWNER_IDS = [
   "mother",
   "father",
@@ -672,12 +678,19 @@ function degreeQuestion(adj: LexicalItem): FormChoiceQuestion | null {
       example,
     };
   }
+  // A special one (paras) doesn't follow the -mpi / -in rule — say so instead.
+  const special = d !== "base" && irregularNote(adj) !== "";
   return {
     emoji: adj.emoji,
     cue: `"${en}"`,
     answer,
     options: shuffle(forms as string[]),
-    why: { text: DEGREE_RULE[d] + irregularNote(adj), example },
+    why: {
+      text: special
+        ? `*${adj.fi}* is a special one, like good → better → best in English: *${adj.fi}* → *${degreeForm(adj, "comparative")}* → *${degreeForm(adj, "superlative")}*.`
+        : DEGREE_RULE[d] + irregularNote(adj),
+      example,
+    },
     whyFor,
   };
 }

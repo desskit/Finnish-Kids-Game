@@ -10,7 +10,7 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForCount } from '../content/why';
+import { whyForCount, whyForCountPick } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -58,6 +58,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
   const q = round[index];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
+  const [whyPick, setWhyPick] = useState<LexicalItem | null>(null);
   const count = q?.number.value ?? 0;
   const fullPhrase = q ? countingPhrase(q.number, q.noun) : '';
 
@@ -78,6 +79,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
       } else {
         missed.current = true;
         setWhyAt(index);
+        setWhyPick(item);
         playDing(false);
         flashWrong(item.id);
       }
@@ -112,6 +114,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
       } else {
         missed.current = true;
         setWhyAt(index);
+        setWhyPick(item);
         playDing(false);
         flashWrong(item.id);
       }
@@ -219,7 +222,15 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
           </button>
         ))}
       </div>
-      {whyAt === index && q && <WhyTip why={whyForCount(q.number.value ?? 0, q.number.fi, q.noun)} />}
+      {whyAt === index && q && (
+        <WhyTip
+          why={
+            whyPick
+              ? whyForCountPick(q.number.value ?? 0, q.number.fi, q.noun, whyPick)
+              : whyForCount(q.number.value ?? 0, q.number.fi, q.noun)
+          }
+        />
+      )}
     </section>
   );
 }

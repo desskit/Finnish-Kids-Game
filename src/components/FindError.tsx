@@ -9,7 +9,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
-import { whyForConstruction } from '../content/why';
+import { whyForErrorPick } from '../content/why';
 
 const QUESTIONS = 6;
 
@@ -49,6 +49,8 @@ export default function FindError({ items, constructions, onExit }: Props) {
 
   const [index, setIndex] = useState(0);
   const [wrongPick, setWrongPick] = useState<number | 'ok' | null>(null);
+  // The last wrong pick, kept for its "Why?" (wrongPick clears after the flash).
+  const [whyPick, setWhyPick] = useState<number | 'ok' | null>(null);
   const [locked, setLocked] = useState(false);
   const [solved, setSolved] = useState(false); // answered right → reveal state
   const [done, setDone] = useState(false);
@@ -101,6 +103,7 @@ export default function FindError({ items, constructions, onExit }: Props) {
     setWhyAt(index);
     playDing(false);
     setWrongPick(pick);
+    setWhyPick(pick);
     setTimeout(() => setWrongPick((cur) => (cur === pick ? null : cur)), 600);
   }, [index]);
 
@@ -203,7 +206,19 @@ export default function FindError({ items, constructions, onExit }: Props) {
       >
         ✓ Kaikki oikein <span className="en">All correct</span>
       </button>
-      {whyAt === index && q && <WhyTip why={whyForConstruction(q.construction, q.item)} />}
+      {whyAt === index && q && (
+        <WhyTip
+          why={whyForErrorPick(
+            q.construction,
+            q.item,
+            q.words[q.slotIndex].text,
+            q.isCorrect,
+            whyPick === 'ok' || whyPick === null
+              ? { ok: true }
+              : { word: q.words[whyPick].text, isSlot: whyPick === q.slotIndex },
+          )}
+        />
+      )}
     </section>
   );
 }

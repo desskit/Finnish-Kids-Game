@@ -21,6 +21,8 @@
 export interface DialogueLine {
   fi: string;
   en: string;
+  /** A scene distractor's own "Why?" — what's wrong with picking it. */
+  why?: string;
 }
 
 // Every line that states "my name is ___" carries this placeholder instead of
@@ -35,6 +37,7 @@ export function personalizeLine(line: DialogueLine, name: string): DialogueLine 
   if (!line.fi.includes(NAME_PLACEHOLDER)) return line;
   const safeName = name.trim() || 'Aino';
   return {
+    ...line,
     fi: line.fi.split(NAME_PLACEHOLDER).join(safeName),
     en: line.en.split(NAME_PLACEHOLDER).join(safeName),
   };

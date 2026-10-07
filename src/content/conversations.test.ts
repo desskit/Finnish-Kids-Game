@@ -41,4 +41,20 @@ describe('conversation content integrity', () => {
     const ageReply = lines.find((l) => /Olen \S+vuotias\. Entä sinä\?/.test(l));
     expect(ageReply).toBeTruthy();
   });
+
+  it("never glosses a wrong line with a give-away — and every wrong-form line explains itself", () => {
+    for (const c of conversations) {
+      for (const t of c.turns) {
+        for (const d of t.distractors) {
+          expect(d.en.startsWith('('), `${c.id}: ${d.fi}`).toBe(false);
+          if (d.why) expect(d.why, `${c.id}: ${d.fi}`).toMatch(/\*[^*]+\*/);
+        }
+      }
+    }
+    // The grammar slips the scenes use on purpose all carry a "why".
+    const lines = conversations.flatMap((c) => c.turns.flatMap((t) => t.distractors));
+    for (const fi of ['Kolme kynä.', 'Pidän pitsaa.', 'Lauantailla uin.', 'Minä olen kaksi.', 'Menen bussiin.']) {
+      expect(lines.find((l) => l.fi === fi)?.why, fi).toBeTruthy();
+    }
+  });
 });
