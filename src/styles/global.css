@@ -3401,6 +3401,176 @@ a.badge-strip {
   font-weight: 800;
 }
 
+/* Finnish check (native review) */
+.rprogress {
+  height: 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.rprogress span {
+  display: block;
+  height: 100%;
+  background: var(--good);
+}
+
+.rfield {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.rfield input,
+.rsearch,
+.rselect,
+.rcard__edit textarea,
+.rcard__edit input {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  background: var(--bg-card);
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  width: 100%;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.rfilters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rcard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--bg);
+  border-left: 5px solid #cbd5e1;
+}
+
+.rcard--ok,
+.rcard--ledger {
+  border-left-color: var(--good);
+}
+
+.rcard--fix {
+  border-left-color: #f97316;
+}
+
+.rcard--changed {
+  border-left-color: #a855f7;
+}
+
+.rcard__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rcard__status {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.rcard__status--ok,
+.rcard__status--ledger {
+  color: #15803d;
+}
+
+.rcard__status--fix {
+  color: #c2410c;
+}
+
+.rcard__fi {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.35;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.rcard__speak {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.rcard__en {
+  margin: 0;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.rcard__note {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #fff7ed;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.rcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rcard__en-inline {
+  font-weight: 600;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.rcard__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rcard__edit label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.rcard__key {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+
+.gerror {
+  margin: 0;
+  color: #b91c1c;
+  font-weight: 700;
+}
+
 /* Stats: the 14-day activity chart */
 .gchart {
   list-style: none;

@@ -19,7 +19,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "audit:lessons": "vite-node scripts/audit-lessons.ts"
+    "audit:lessons": "vite-node scripts/audit-lessons.ts",
+    "review:import": "vite-node scripts/review-import.ts"
   },
   "dependencies": {
     "react": "^18.3.1",

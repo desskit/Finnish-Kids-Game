@@ -34,6 +34,7 @@ import Settings from './components/Settings';
 import AuditView from './components/AuditView';
 import WarmupRoute from './components/WarmupRoute';
 import StatsView from './components/StatsView';
+import FinnishReview from './components/FinnishReview';
 
 // Content facts the badge rules measure against (derived from the path).
 const BADGE_ENV = badgeEnv;
@@ -203,6 +204,7 @@ export function AppRoutes() {
         <Route path="profiles" element={<Profiles />} />
         <Route path="settings" element={<Settings />} />
         <Route path="audit" element={<AuditView />} />
+        <Route path="review" element={<FinnishReview />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

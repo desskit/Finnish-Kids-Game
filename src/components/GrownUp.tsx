@@ -7,6 +7,7 @@ const TABS = [
   { to: '/grown-up/stats', icon: '📈', en: 'Stats', fi: 'Tilastot' },
   { to: '/grown-up/profiles', icon: '👥', en: 'Players', fi: 'Pelaajat' },
   { to: '/grown-up/settings', icon: '⚙️', en: 'Settings', fi: 'Asetukset' },
+  { to: '/grown-up/review', icon: '🇫🇮', en: 'Finnish check', fi: 'Tarkistus' },
   { to: '/grown-up/audit', icon: '🧪', en: 'Test games', fi: 'Testaus' },
 ];
 
