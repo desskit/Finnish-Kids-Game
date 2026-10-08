@@ -1,5 +1,5 @@
 // The native reviewer's in-app "Finnish check": pure helpers over the review
-// entries (content/reviewEntries.ts), the decisions made on this device, and
+// entries (game/reviewEntries.ts), the decisions made on this device, and
 // the reviewer's ledger (data/finnish-vetted.json).
 //
 // A decision remembers the Finnish AS IT READ when it was made. If the text
@@ -7,7 +7,7 @@
 // "correct" never vouches for new words.
 
 import type { ReviewDecision, ReviewState } from '../state/storage';
-import type { ReviewEntry } from '../content/reviewEntries';
+import type { ReviewEntry } from './reviewEntries';
 
 export type EntryStatus =
   /** Approved in the reviewer's ledger (data/finnish-vetted.json). */

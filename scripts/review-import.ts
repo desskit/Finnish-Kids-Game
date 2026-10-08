@@ -12,7 +12,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { reviewEntries } from '../src/content/reviewEntries';
+import { reviewEntries } from '../src/game/reviewEntries';
 import { applyReviewToLedger, parseReviewFile, type LedgerUpdate } from '../src/game/review';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');

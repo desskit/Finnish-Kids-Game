@@ -1,13 +1,14 @@
 import { useMemo, useRef, useState } from 'react';
 import vettedLedger from '../../data/finnish-vetted.json';
-import { reviewEntries, reviewSections, type ReviewEntry } from '../content/reviewEntries';
+import { reviewEntries, reviewSections, type ReviewEntry } from '../game/reviewEntries';
 import { entryStatus, mergeReview, parseReviewFile, reviewCounts, reviewFile, type EntryStatus } from '../game/review';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
 
 // Grown-ups → Finnish check. For a Finnish speaker (a parent, a teacher): every
 // piece of Finnish the app's authors wrote by hand — stories, scenes, sentence
-// patterns, the forms marked wrong, lesson quotes — one at a time: ✓ if it's
+// patterns, the forms marked wrong, lesson quotes, titles, the screens' own
+// labels — one at a time: ✓ if it's
 // right, ✎ if it needs fixing (with a note). Decisions stay on this device;
 // "Download" makes a file to send to the developer, who folds it into the
 // app (`npm run review:import`). Generated from the same list as
@@ -176,8 +177,9 @@ export default function FinnishReview() {
         <header>
           <h2 className="greport__name">Suomen tarkistus · Finnish check</h2>
           <p className="gmuted">
-            For a Finnish speaker. Every word form the games use comes from Wiktionary; the sentences, stories and
-            explanations below were written by hand, so they need a native ear. Tap <strong>✓ Oikein</strong> if it's
+            For a Finnish speaker. Every word form the games use comes from Wiktionary; the sentences, stories,
+            explanations, titles and button labels below were written by hand, so they need a native ear. Tap{' '}
+            <strong>✓ Oikein</strong> if it's
             right, or <strong>✎ Korjattava</strong> to say what's wrong. Your answers are saved on this device —
             download them and send the file to the app's developer.
           </p>

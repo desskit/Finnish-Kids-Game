@@ -156,7 +156,7 @@ export interface ReviewDecision {
 /** The in-app review on this device (not per player — it's about the app's Finnish). */
 export interface ReviewState {
   reviewer?: string;
-  /** entry key (content/reviewEntries.ts) → decision. */
+  /** entry key (game/reviewEntries.ts) → decision. */
   decisions: Record<string, ReviewDecision>;
 }
 

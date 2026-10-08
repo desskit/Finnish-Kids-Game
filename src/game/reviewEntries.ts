@@ -7,24 +7,31 @@
 // phrases' fixed texts AND the forms each carrier marks as wrong ("slips"),
 // sentence templates, comparison / date patterns, the hand-authored ordinals,
 // question forms, pronoun forms and frames, the alphabet, and the Finnish quoted
-// in lesson prose. (Machine-assembled pairings live in docs/SENTENCE_AUDIT.md.)
+// in lesson prose — plus what the child reads around them: unit, step, lesson
+// and badge titles, and the screens' own labels ("Jatka", "Mitä kuulit?"),
+// pulled from the components into data/ui-finnish.json (src/test/uiFinnish.ts).
+// (Machine-assembled pairings live in docs/SENTENCE_AUDIT.md.)
 
-import { dialogues } from './dialogues';
-import { conversations } from './conversations';
-import { stories } from './stories';
-import { nounConstructions } from './constructions';
-import { sentenceConstructions } from './sentences';
-import { lessons } from './lessons';
-import { YOU_QUESTION } from './questions';
-import { PRONOUNS, PRONOUN_FRAMES } from './pronouns';
-import { ALPHABET } from './alphabet';
-import { comparisonSentence, superlativeSentence, whichIsMost, whichOfTwo } from './compare';
-import { BIRTHDAY_FRAME, ageSentence, dateFi } from './dates';
-import { HIGHER_ORDINALS } from './higherOrdinals';
-import { itemById } from './lookup';
-import { slipForms } from './contrasts';
-import { animals, food, family, places, body, nature, clothes, school, freetime, verbs } from '.';
-import { formFor, sentenceFor, suitsSlot } from './types';
+import { dialogues } from '../content/dialogues';
+import { conversations } from '../content/conversations';
+import { stories } from '../content/stories';
+import { nounConstructions } from '../content/constructions';
+import { sentenceConstructions } from '../content/sentences';
+import { lessons } from '../content/lessons';
+import { YOU_QUESTION } from '../content/questions';
+import { PRONOUNS, PRONOUN_FRAMES } from '../content/pronouns';
+import { ALPHABET } from '../content/alphabet';
+import { comparisonSentence, superlativeSentence, whichIsMost, whichOfTwo } from '../content/compare';
+import { BIRTHDAY_FRAME, ageSentence, dateFi } from '../content/dates';
+import { HIGHER_ORDINALS } from '../content/higherOrdinals';
+import { itemById } from '../content/lookup';
+import { slipForms } from '../content/contrasts';
+import { animals, food, family, places, body, nature, clothes, school, freetime, verbs } from '../content';
+import { formFor, sentenceFor, suitsSlot } from '../content/types';
+import uiFinnish from '../../data/ui-finnish.json';
+import { PATH } from './path';
+import { BADGES, BADGE_CATEGORIES } from './badges';
+import { AUDIT_ENTRIES } from './audit';
 
 export interface ReviewEntry {
   /** Stable key — what the reviewer's ledger (data/finnish-vetted.json) lists. */
@@ -161,6 +168,39 @@ function collect(): ReviewSection[] {
     .sort(([a], [b]) => (a < b ? -1 : 1))
     .map(([fi, en], i) => ({ key: `line:${i + 1}-${fi.toLowerCase().replace(/[^a-zäöå]+/g, '-').slice(0, 24)}`, fi, en }));
 
+  // What the child reads around the content: unit, step and lesson titles, the
+  // examples under steps, badge and game names. One entry per distinct Finnish
+  // text (every words step is "Uudet sanat"), keyed by the text itself — so a
+  // changed title is a new entry to check.
+  const byText = (pairs: [string | undefined, string][]): ReviewEntry[] => {
+    const glosses = new Map<string, Set<string>>();
+    for (const [fi, en] of pairs) {
+      if (!fi) continue;
+      glosses.set(fi, (glosses.get(fi) ?? new Set<string>()).add(en));
+    }
+    return [...glosses]
+      .sort(([a], [b]) => a.localeCompare(b, 'fi'))
+      .map(([fi, ens]) => ({ key: fi, fi, en: [...ens].join(' / ') }));
+  };
+  const titleRows = byText([
+    ...PATH.flatMap((unit) => [
+      [unit.titleFi, unit.titleEn] as [string, string],
+      ...unit.skills.flatMap((s): [string | undefined, string][] => [
+        [s.titleFi, s.titleEn],
+        [s.exampleFi, `${s.titleEn} — example`],
+      ]),
+    ]),
+    ...lessons.map((l): [string, string] => [l.titleFi, l.titleEn]),
+    ...BADGE_CATEGORIES.map((c): [string, string] => [c.titleFi, c.titleEn]),
+    ...BADGES.map((b): [string, string] => [b.titleFi, b.titleEn]),
+    ...AUDIT_ENTRIES.map((a): [string, string] => [a.titleFi, a.titleEn]),
+  ]).map((r) => ({ ...r, key: `title:${r.key}` }));
+  // The screens' own labels, minus any already listed as a title.
+  const titled = new Set(titleRows.map((r) => r.fi));
+  const uiRows: ReviewEntry[] = (uiFinnish as { labels: { fi: string; en: string }[] }).labels
+    .filter((l) => !titled.has(l.fi))
+    .map((l) => ({ key: `ui:${l.fi}`, fi: l.fi, en: l.en || '(no English shown)' }));
+
   return [
     { id: 'dialogues', title: 'Greetings & dialogues', hint: 'A line someone says → the reply.', rows: dialogueRows },
     { id: 'conversations', title: 'Scenes, turn by turn', hint: 'Each turn of a short conversation.', rows: conversationRows },
@@ -175,6 +215,18 @@ function collect(): ReviewSection[] {
     { id: 'letters', title: 'Alphabet', hint: 'Letter names and sound tips.', rows: letterRows },
     { id: 'lessons', title: 'Finnish in the lessons', hint: 'Words quoted in the explanations.', rows: lessonRows },
     { id: 'lines', title: 'Other lines (wrong replies)', hint: 'Lines only offered as wrong answers.', rows: strayRows },
+    {
+      id: 'titles',
+      title: 'Course titles',
+      hint: 'Unit, step, lesson, badge and game names, and the examples under steps.',
+      rows: titleRows,
+    },
+    {
+      id: 'ui',
+      title: 'Buttons & screen labels',
+      hint: 'What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app.',
+      rows: uiRows,
+    },
   ];
 }
 

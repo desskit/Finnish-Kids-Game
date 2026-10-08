@@ -2,7 +2,7 @@
 // game, as one proofing sheet for the native reviewer — the vetting workflow
 // that replaces the scattered "⚠️ NEEDS NATIVE FINNISH VETTING" code comments.
 //
-// The entries come from src/content/reviewEntries.ts — the SAME list the
+// The entries come from src/game/reviewEntries.ts — the SAME list the
 // grown-ups' in-app "Finnish check" screen shows, under the same stable keys.
 // A reviewer approves entries either here (add the Key to
 // data/finnish-vetted.json) or in the app (then `npm run review:import
@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { reviewSections, type ReviewEntry } from '../src/content/reviewEntries';
+import { reviewSections, type ReviewEntry } from '../src/game/reviewEntries';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { reviewEntries, reviewSections } from '../content/reviewEntries';
+import { reviewEntries, reviewSections } from './reviewEntries';
 import { UNIT_STORIES } from '../content/unitStories';
 import {
   applyReviewToLedger,

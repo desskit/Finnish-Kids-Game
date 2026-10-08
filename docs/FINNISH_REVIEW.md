@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-08T04:41:07.453Z · regenerate with `npm run review:content`
+- Generated: 2026-10-08T05:08:38.825Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1095 entries.** Flagged: 0.
+- **Approved: 28 of 1589 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -1193,3 +1193,511 @@ _Lines only offered as wrong answers._
 | ⚠️ | `line:96-viisi-kaveri-` | Viisi kaveri. | Five friends. |
 | ⚠️ | `line:97-yksi-kirjaa-` | Yksi kirjaa. | One book. |
 | ⚠️ | `line:98-älä-leiki-` | Älä leiki! | Don't play! |
+
+## Course titles (377)
+
+_Unit, step, lesson, badge and game names, and the examples under steps._
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `title:…issa` | …issa | In the boxes |
+| ⚠️ | `title:Aamulla` | Aamulla | In the morning |
+| ⚠️ | `title:Alku` | Alku | Getting started |
+| ⚠️ | `title:Arkipuhetta` | Arkipuhetta | Everyday talk |
+| ⚠️ | `title:Auta minua, näen sinut` | Auta minua, näen sinut | Help me, I see you |
+| ⚠️ | `title:Auta minua!` | Auta minua! | All of them together — example / Help me! / Story: Help me! |
+| ⚠️ | `title:Auta minua! · Näen sinut.` | Auta minua! · Näen sinut. | Help me, I see you — example |
+| ⚠️ | `title:Avaan, haluan` | Avaan, haluan | Verbs, part 2: type 4 |
+| ⚠️ | `title:Avaan. · Hän ei avaa.` | Avaan. · Hän ei avaa. | Who, and yes or no? — example |
+| ⚠️ | `title:Bussilla ja kynällä` | Bussilla ja kynällä | By bus, with a pen |
+| ⚠️ | `title:Bussilla, kynällä` | Bussilla, kynällä | By bus, with a pen |
+| ⚠️ | `title:Bussipysäkillä` | Bussipysäkillä | At the bus stop |
+| ⚠️ | `title:Edessä, takana` | Edessä, takana | Around things / Position words come after |
+| ⚠️ | `title:Edessä, takana…` | Edessä, takana… | In front, behind… / Around many things |
+| ⚠️ | `title:Ei "a" eikä "the"` | Ei "a" eikä "the" | No "a", no "the" |
+| ⚠️ | `title:Ei ole` | Ei ole | Not having |
+| ⚠️ | `title:Eilen` | Eilen | Yesterday / Talking about yesterday |
+| ⚠️ | `title:Eläintarhassa` | Eläintarhassa | At the zoo |
+| ⚠️ | `title:En avaa` | En avaa | Type 4: I don't |
+| ⚠️ | `title:En ole väsynyt.` | En ole väsynyt. | I'm not… — example |
+| ⚠️ | `title:En ole…` | En ole… | I'm not… |
+| ⚠️ | `title:En syö` | En syö | I don't… |
+| ⚠️ | `title:En syönyt` | En syönyt | What didn't happen / "Didn't" |
+| ⚠️ | `title:En tee` | En tee | Saying no / "Not" is a verb |
+| ⚠️ | `title:En tykkää kokeesta.` | En tykkää kokeesta. | Like it or not? — example |
+| ⚠️ | `title:En tykkää matematiikasta.` | En tykkää matematiikasta. | Like it or not — example |
+| ⚠️ | `title:Ensiaskeleet` | Ensiaskeleet | First steps |
+| ⚠️ | `title:Ensimmäinen välitesti` | Ensimmäinen välitesti | First checkpoint |
+| ⚠️ | `title:Ensimmäinen, toinen` | Ensimmäinen, toinen | First, second, third… |
+| ⚠️ | `title:Haluan leikkiä` | Haluan leikkiä | Want to, can, may I |
+| ⚠️ | `title:Haluan leikkiä.` | Haluan leikkiä. | I want to… — example |
+| ⚠️ | `title:Haluan uida. · Osaan uida.` | Haluan uida. · Osaan uida. | Want, can or not? — example |
+| ⚠️ | `title:Haluan, osaan, saanko` | Haluan, osaan, saanko | Want, can, may |
+| ⚠️ | `title:Haluan…` | Haluan… | I want to… |
+| ⚠️ | `title:Halusin` | Halusin | Type 4 past: -si- |
+| ⚠️ | `title:Hei, Eero!` | Hei, Eero! | Story: Hi, Eero! |
+| ⚠️ | `title:Hei!` | Hei! | Hello! |
+| ⚠️ | `title:Heikko vai vahva?` | Heikko vai vahva? | All the changing verbs |
+| ⚠️ | `title:Herään` | Herään | Story: I wake up |
+| ⚠️ | `title:Huipulla` | Huipulla | Top of the ladder |
+| ⚠️ | `title:Hyppää!` | Hyppää! | Do this! — example |
+| ⚠️ | `title:Hyppään, hyppää` | Hyppään, hyppää | Type 4: p → pp |
+| ⚠️ | `title:Hänellä on kitara.` | Hänellä on kitara. | Who has what — example |
+| ⚠️ | `title:Ilta` | Ilta | Story: Evening |
+| ⚠️ | `title:iso → isompi → isoin` | iso → isompi → isoin | Big, bigger, biggest — example |
+| ⚠️ | `title:Iso ja pieni` | Iso ja pieni | Story: Big and small |
+| ⚠️ | `title:iso koira` | iso koira | Describe it — example |
+| ⚠️ | `title:Iso koira` | Iso koira | Describe it |
+| ⚠️ | `title:Iso, isompi, isoin` | Iso, isompi, isoin | Big, bigger, biggest |
+| ⚠️ | `title:Isoin` | Isoin | The biggest of all |
+| ⚠️ | `title:Isompi kuin` | Isompi kuin | Bigger than |
+| ⚠️ | `title:Isompi, isoin` | Isompi, isoin | Comparing |
+| ⚠️ | `title:Isossa talossa` | Isossa talossa | In the big house |
+| ⚠️ | `title:isossa talossa · pienellä pöydällä` | isossa talossa · pienellä pöydällä | In the big house — example |
+| ⚠️ | `title:Isot numerot` | Isot numerot | Big numbers · first, second / Big numbers |
+| ⚠️ | `title:isän pyörä` | isän pyörä | Dad's bike — example |
+| ⚠️ | `title:Isän pyörä` | Isän pyörä | Dad's bike / Story: Dad's bike |
+| ⚠️ | `title:isän pyörä · äidin pyörä` | isän pyörä · äidin pyörä | Whose bike? — example |
+| ⚠️ | `title:Jutellaan` | Jutellaan | Real conversations / Conversations / Long scenes / Having a real conversation / Small talk |
+| ⚠️ | `title:Juttelija` | Juttelija | Chatterbox |
+| ⚠️ | `title:Järjestä lause` | Järjestä lause | Sentences (word order) |
+| ⚠️ | `title:Järjestä sanat` | Järjestä sanat | Word order |
+| ⚠️ | `title:K, P ja T vaihtuvat` | K, P ja T vaihtuvat | When k, p and t change |
+| ⚠️ | `title:Kaikki aikamuodot` | Kaikki aikamuodot | Every tense |
+| ⚠️ | `title:Kaikki kuusi` | Kaikki kuusi | All six types |
+| ⚠️ | `title:Kaikki kysymykset` | Kaikki kysymykset | All the questions |
+| ⚠️ | `title:Kaikki tyypit` | Kaikki tyypit | Types 1–4, yes and no |
+| ⚠️ | `title:Kaikki verbit` | Kaikki verbit | Every verb, every ending |
+| ⚠️ | `title:Karkkeja` | Karkkeja | Sweets |
+| ⚠️ | `title:Karkkipäivä` | Karkkipäivä | Story: Sweets day |
+| ⚠️ | `title:Katson ja odotan` | Katson ja odotan | Watching and waiting |
+| ⚠️ | `title:Katson, odotan` | Katson, odotan | Watching & waiting |
+| ⚠️ | `title:Kaupassa` | Kaupassa | At the shop / At the till / Buying one whole thing |
+| ⚠️ | `title:Kauppareissu` | Kauppareissu | Story: The shopping trip |
+| ⚠️ | `title:Kaupungilla` | Kaupungilla | Out in town |
+| ⚠️ | `title:Kaupungilla ja kotona` | Kaupungilla ja kotona | Around town & home / You on the move |
+| ⚠️ | `title:Kaverin kanssa` | Kaverin kanssa | With a friend / With a friend: kanssa |
+| ⚠️ | `title:Kello on kolme.` | Kello on kolme. | What time is it? — example |
+| ⚠️ | `title:Kello on…` | Kello on… | What time is it? |
+| ⚠️ | `title:Kenellä on?` | Kenellä on? | Who has it? Everyone! |
+| ⚠️ | `title:Kenellä on…?` | Kenellä on…? | Who has what |
+| ⚠️ | `title:Kenen pyörä?` | Kenen pyörä? | Whose bike? |
+| ⚠️ | `title:Kenen tämä on?` | Kenen tämä on? | Whose is this? |
+| ⚠️ | `title:Kenen?` | Kenen? | Whose? / Whose is it? / "My" is an ending / Whose? (possessive suffix) |
+| ⚠️ | `title:Kenen? Miksi?` | Kenen? Miksi? | Whose? Why? |
+| ⚠️ | `title:Kertaus` | Kertaus | Mixed review / Review (spaced repetition) |
+| ⚠️ | `title:Keskustelut` | Keskustelut | Hard conversations |
+| ⚠️ | `title:Kilpajuoksu` | Kilpajuoksu | A race |
+| ⚠️ | `title:Kirja on laatikossa.` | Kirja on laatikossa. | In or on — example / Find the mistake — example |
+| ⚠️ | `title:kirjani · kirjasi · kirjansa` | kirjani · kirjasi · kirjansa | My, your or his / her? — example |
+| ⚠️ | `title:kirjani, kirjasi` | kirjani, kirjasi | Whose is it? — example |
+| ⚠️ | `title:Kirjoita lause` | Kirjoita lause | Write the sentence |
+| ⚠️ | `title:Kirjoita sana` | Kirjoita sana | Spelling & dictation / Spelling |
+| ⚠️ | `title:Kirjoitan kynällä` | Kirjoitan kynällä | With a pen, with a spoon |
+| ⚠️ | `title:Kirjoitan kynällä.` | Kirjoitan kynällä. | With a pen, with a spoon — example |
+| ⚠️ | `title:Kirjoittaja` | Kirjoittaja | Writer |
+| ⚠️ | `title:Kissa ja laatikko` | Kissa ja laatikko | Story: The cat and the box |
+| ⚠️ | `title:Kissa menee laatikkoon.` | Kissa menee laatikkoon. | Into & onto — example |
+| ⚠️ | `title:Kissa on tuolin alla` | Kissa on tuolin alla | Where the cat is |
+| ⚠️ | `title:Kissa on tuolin alla.` | Kissa on tuolin alla. | Where the cat is — example / Where is the cat? — example |
+| ⚠️ | `title:Kissa tulee laatikosta.` | Kissa tulee laatikosta. | Out of & off — example |
+| ⚠️ | `title:Kissat ovat laatikoissa.` | Kissat ovat laatikoissa. | In the boxes — example |
+| ⚠️ | `title:kolme · kolmas` | kolme · kolmas | Three or third? — example |
+| ⚠️ | `title:kolme kirjaa` | kolme kirjaa | How many? — example / How many did you hear? — example |
+| ⚠️ | `title:Kolme kissaa` | Kolme kissaa | Story: Three cats |
+| ⚠️ | `title:Kolme vai kolmas?` | Kolme vai kolmas? | Three or third? |
+| ⚠️ | `title:Koulupäivä` | Koulupäivä | School day / A school day / Liking and not liking |
+| ⚠️ | `title:Koulussa` | Koulussa | At school |
+| ⚠️ | `title:Kuinka vanha olet?` | Kuinka vanha olet? | How old are you? |
+| ⚠️ | `title:Kuka on nopein?` | Kuka on nopein? | Story: Who is the fastest? |
+| ⚠️ | `title:Kuka sinä olet?` | Kuka sinä olet? | Introduce yourself |
+| ⚠️ | `title:Kuka tekee?` | Kuka tekee? | Verbs tell you WHO |
+| ⚠️ | `title:Kuka tuo on?` | Kuka tuo on? | Who, what, whose, why — example |
+| ⚠️ | `title:Kuka? Mikä?` | Kuka? Mikä? | People & things |
+| ⚠️ | `title:Kuka? Mikä? Kenen?` | Kuka? Mikä? Kenen? | Who, what, whose, why |
+| ⚠️ | `title:Kumpi on isompi?` | Kumpi on isompi? | Which is bigger? |
+| ⚠️ | `title:Kurssi` | Kurssi | The course |
+| ⚠️ | `title:Kurssi valmis` | Kurssi valmis | Course complete |
+| ⚠️ | `title:Kuukaudet` | Kuukaudet | The months |
+| ⚠️ | `title:Kuuntele` | Kuuntele | Hear it, pick the meaning |
+| ⚠️ | `title:Kuuntele ja osoita` | Kuuntele ja osoita | Listen & Tap |
+| ⚠️ | `title:Kuuntele lause` | Kuuntele lause | Listen to a sentence |
+| ⚠️ | `title:Kuuntele!` | Kuuntele! | Statement or question? / How many did you hear? / Who has it? / Have it or not? / My, your or his / her? / Whose bike? / Who is doing it? / Nukun or nukkuu? / Yes or no? / Who feels it? / Like, love or not? / Want, can or not? / Who, and yes or no? / Like it or not? / See, watch or wait? / One, or some? / In or on? / Into, in or out of? / Am, going or coming? / By bus, or onto the bus? / Today, or on a day? / Now, or my birthday? / Where is the cat? / One, or many? / Now, or yesterday? |
+| ⚠️ | `title:Kynällä vai kanssa?` | Kynällä vai kanssa? | Tool or person? |
+| ⚠️ | `title:Kysymykset` | Kysymykset | Asking with -ko / -kö |
+| ⚠️ | `title:Kysymyssanat` | Kysymyssanat | Question words |
+| ⚠️ | `title:Kysytään!` | Kysytään! | Asking questions |
+| ⚠️ | `title:Kävelevä sanakirja` | Kävelevä sanakirja | Walking dictionary |
+| ⚠️ | `title:laatikkoon · huoneeseen · puuhun` | laatikkoon · huoneeseen · puuhun | Into: three shapes — example |
+| ⚠️ | `title:laatikkoon · laatikossa · laatikosta` | laatikkoon · laatikossa · laatikosta | Into, in or out of? — example |
+| ⚠️ | `title:Laatikkoon, huoneeseen` | Laatikkoon, huoneeseen | Into: three shapes |
+| ⚠️ | `title:Laatikoissa` | Laatikoissa | In many boxes |
+| ⚠️ | `title:laatikossa · pöydällä` | laatikossa · pöydällä | In or on? — example |
+| ⚠️ | `title:Laatikossa, pöydällä` | Laatikossa, pöydällä | In or on |
+| ⚠️ | `title:Laske ja sano` | Laske ja sano | Count & Say |
+| ⚠️ | `title:Laske sataan` | Laske sataan | Count to 100 |
+| ⚠️ | `title:Laskeminen` | Laskeminen | Counting |
+| ⚠️ | `title:laulaa → tyyppi 1` | laulaa → tyyppi 1 | Which type? (1–3) — example / Which type? (1–4) — example / Which type? (1–6) — example |
+| ⚠️ | `title:Laulatko?` | Laulatko? | Story: Do you sing? |
+| ⚠️ | `title:Lauseet` | Lauseet | Sentences / Building sentences |
+| ⚠️ | `title:Leikin kaverin kanssa.` | Leikin kaverin kanssa. | With a friend — example |
+| ⚠️ | `title:Leikin lauantaina.` | Leikin lauantaina. | When I play — example |
+| ⚠️ | `title:Leikin…` | Leikin… | When I play |
+| ⚠️ | `title:Leikitkö?` | Leikitkö? | Do you play? |
+| ⚠️ | `title:Leikitään!` | Leikitään! | Playing together / Let's play! |
+| ⚠️ | `title:Leikkipuistossa` | Leikkipuistossa | At the playground |
+| ⚠️ | `title:Lue lause` | Lue lause | Real sentences / Read a sentence |
+| ⚠️ | `title:Lukutoukka` | Lukutoukka | Bookworm |
+| ⚠️ | `title:Luokassa` | Luokassa | Story: In the classroom |
+| ⚠️ | `title:Löydä virhe` | Löydä virhe | Find the mistake |
+| ⚠️ | `title:Matikka ja liikunta` | Matikka ja liikunta | Story: Math and gym |
+| ⚠️ | `title:Menen bussilla` | Menen bussilla | By bus, by car |
+| ⚠️ | `title:Menen bussilla.` | Menen bussilla. | By bus, by car — example |
+| ⚠️ | `title:Menen bussilla. · Menen bussiin.` | Menen bussilla. · Menen bussiin. | By bus, or onto the bus? — example |
+| ⚠️ | `title:Menen kirjastoon.` | Menen kirjastoon. | Where I go & come from — example |
+| ⚠️ | `title:Menen, tulen` | Menen, tulen | Where I go & come from |
+| ⚠️ | `title:Mennään ulos` | Mennään ulos | Going outside |
+| ⚠️ | `title:Mestari` | Mestari | Expert / Expert Finnish |
+| ⚠️ | `title:Mihin kissa menee?` | Mihin kissa menee? | Where's the cat going? |
+| ⚠️ | `title:Mihin?` | Mihin? | Into & onto / Going into, going onto |
+| ⚠️ | `title:Mihin? Mistä?` | Mihin? Mistä? | Going & coming |
+| ⚠️ | `title:Mikä on isoin?` | Mikä on isoin? | The biggest of all |
+| ⚠️ | `title:Mikä pääte?` | Mikä pääte? | Which verb, which ending? |
+| ⚠️ | `title:Mikä tyyppi?` | Mikä tyyppi? | Which type? (1–3) / Which type? (1–4) / Which type? (1–6) |
+| ⚠️ | `title:Mikä tämä on?` | Mikä tämä on? | What is this? |
+| ⚠️ | `title:Millainen?` | Millainen? | Describing / What is it like? / Describing words copy |
+| ⚠️ | `title:Milloin leikitään?` | Milloin leikitään? | When shall we play? |
+| ⚠️ | `title:Milloin?` | Milloin? | When? / Days and times |
+| ⚠️ | `title:Miltä suomi kuulostaa?` | Miltä suomi kuulostaa? | How Finnish sounds |
+| ⚠️ | `title:Miltä tuntuu?` | Miltä tuntuu? | Feelings / How do you feel? / Saying how you feel |
+| ⚠️ | `title:Minua, minulle` | Minua, minulle | Me and you / All of them together |
+| ⚠️ | `title:Minulla · sinulla · hänellä` | Minulla · sinulla · hänellä | Who has it? — example |
+| ⚠️ | `title:Minulla ei ole` | Minulla ei ole | Saying you don't have it |
+| ⚠️ | `title:Minulla ei ole hattua.` | Minulla ei ole hattua. | I don't have… — example |
+| ⚠️ | `title:Minulla ei ole…` | Minulla ei ole… | I don't have… |
+| ⚠️ | `title:Minulla on` | Minulla on | I have / How to say "I have" |
+| ⚠️ | `title:Minulla on hattu. · Minulla ei ole hattua.` | Minulla on hattu. · Minulla ei ole hattua. | Have it or not? — example |
+| ⚠️ | `title:Minulla on nälkä` | Minulla on nälkä | Hungry, thirsty, cold / Hungry, thirsty, cold, hot |
+| ⚠️ | `title:Minulla on nälkä.` | Minulla on nälkä. | Hungry, thirsty, cold — example |
+| ⚠️ | `title:Minulla on pallo. · Minulla on palloja.` | Minulla on pallo. · Minulla on palloja. | One, or several? — example / One, or many? — example |
+| ⚠️ | `title:Minulla on palloja.` | Minulla on palloja. | Some & any — example |
+| ⚠️ | `title:Minulla on pyörä.` | Minulla on pyörä. | I have… — example |
+| ⚠️ | `title:Minulla on…` | Minulla on… | I have… |
+| ⚠️ | `title:Minulla on…ja` | Minulla on…ja | Some & any |
+| ⚠️ | `title:Minun lauantaini` | Minun lauantaini | Story: My Saturday |
+| ⚠️ | `title:Minun reppuni` | Minun reppuni | Story: My backpack |
+| ⚠️ | `title:Minun viikkoni` | Minun viikkoni | My week |
+| ⚠️ | `title:minä avaan, hän avaa` | minä avaan, hän avaa | Type 4: avata — example |
+| ⚠️ | `title:minä en avaa` | minä en avaa | Type 4: I don't — example |
+| ⚠️ | `title:minä en syö` | minä en syö | I don't… — example |
+| ⚠️ | `title:minä en syönyt` | minä en syönyt | What didn't happen — example |
+| ⚠️ | `title:minä halusin, hän avasi` | minä halusin, hän avasi | Type 4 past: -si- — example |
+| ⚠️ | `title:minä hyppään, hän hyppää` | minä hyppään, hän hyppää | Type 4: p → pp — example |
+| ⚠️ | `title:minä laulan, hän laulaa` | minä laulan, hän laulaa | Type 1: laulaa — example |
+| ⚠️ | `title:minä nukun, hän nukkuu` | minä nukun, hän nukkuu | k, p, t change — example |
+| ⚠️ | `title:minä nukun, minä hyppään` | minä nukun, minä hyppään | Weaker or stronger? — example |
+| ⚠️ | `title:minä pakenen, hän pakenee` | minä pakenen, hän pakenee | Type 6: a k appears — example |
+| ⚠️ | `title:minä syön, hän syö` | minä syön, hän syö | Type 2: syödä — example |
+| ⚠️ | `title:minä syön, sinä nukut` | minä syön, sinä nukut | All three types — example |
+| ⚠️ | `title:minä söin, hän nukkui` | minä söin, hän nukkui | What happened — example |
+| ⚠️ | `title:minä tarvitsen, hän tarvitsee` | minä tarvitsen, hän tarvitsee | Type 5: tarvita — example |
+| ⚠️ | `title:minä tulen, hän tulee` | minä tulen, hän tulee | Type 3: tulla — example |
+| ⚠️ | `title:minä vanhenen, en vanhene` | minä vanhenen, en vanhene | Types 5 & 6, yes and no — example |
+| ⚠️ | `title:Minä, sinä, hän…` | Minä, sinä, hän… | All three types |
+| ⚠️ | `title:Missä hattu on?` | Missä hattu on? | Story: Where's the hat? |
+| ⚠️ | `title:Missä kissa on?` | Missä kissa on? | Story: Where's the cat? / Where, where to, where from — example |
+| ⚠️ | `title:Missä on sinun reppusi?` | Missä on sinun reppusi? | Where is…? — example |
+| ⚠️ | `title:Missä on…?` | Missä on…? | Where is…? |
+| ⚠️ | `title:Missä pallo on?` | Missä pallo on? | Story: Where's the ball? |
+| ⚠️ | `title:Missä se on?` | Missä se on? | Where is it? |
+| ⚠️ | `title:Missä tavarasi ovat?` | Missä tavarasi ovat? | Where are your things? |
+| ⚠️ | `title:Missä, mihin, mistä` | Missä, mihin, mistä | All six together / Every place case |
+| ⚠️ | `title:Missä?` | Missä? | Where is it? / Endings instead of "in" and "on" |
+| ⚠️ | `title:Missä? Mihin? Mistä?` | Missä? Mihin? Mistä? | Where, where to, where from / Where, where to, where from, when |
+| ⚠️ | `title:Mistä tykkäämme?` | Mistä tykkäämme? | Story: What we like |
+| ⚠️ | `title:Mistä tykkäät?` | Mistä tykkäät? | What do you like? |
+| ⚠️ | `title:Mistä?` | Mistä? | Out of & off / Coming out of, coming off |
+| ⚠️ | `title:Miten menemme?` | Miten menemme? | Story: How we go |
+| ⚠️ | `title:Miten menet?` | Miten menet? | How do you go? |
+| ⚠️ | `title:Mitä haluat tehdä?` | Mitä haluat tehdä? | What do you want to do? |
+| ⚠️ | `title:Mitä meillä on?` | Mitä meillä on? | Story: What have we got? |
+| ⚠️ | `title:Mitä sinulla on?` | Mitä sinulla on? | What have you got? |
+| ⚠️ | `title:Mitä teet?` | Mitä teet? | Verbs, part 1: types 1–3 |
+| ⚠️ | `title:Mitä teette?` | Mitä teette? | What is everyone doing? |
+| ⚠️ | `title:Mitä teit eilen?` | Mitä teit eilen? | What did you do yesterday? |
+| ⚠️ | `title:Monta` | Monta | Many / More than one |
+| ⚠️ | `title:Montako kynää?` | Montako kynää? | How many pencils? |
+| ⚠️ | `title:Montako?` | Montako? | How many? / Count to 20 |
+| ⚠️ | `title:Muistaja` | Muistaja | Memory keeper |
+| ⚠️ | `title:Nimeä se` | Nimeä se | Name it |
+| ⚠️ | `title:Norsu on isoin.` | Norsu on isoin. | The biggest of all — example |
+| ⚠️ | `title:Norsu on isompi kuin hiiri.` | Norsu on isompi kuin hiiri. | Which is bigger? — example |
+| ⚠️ | `title:Nukun · hyppään` | Nukun · hyppään | Weaker or stronger? |
+| ⚠️ | `title:nukun · kuuntelen · hyppään · pakenen` | nukun · kuuntelen · hyppään · pakenen | All the changing verbs — example |
+| ⚠️ | `title:Nukun, nukkuu` | Nukun, nukkuu | Verbs, part 1b: k, p and t change / k, p, t change |
+| ⚠️ | `title:Nukun. · Hän nukkuu.` | Nukun. · Hän nukkuu. | Nukun or nukkuu? — example |
+| ⚠️ | `title:Nukutko jo?` | Nukutko jo? | Are you asleep? |
+| ⚠️ | `title:Nukutko?` | Nukutko? | Ask it — example |
+| ⚠️ | `title:Numerot` | Numerot | Numbers |
+| ⚠️ | `title:Nyt on toukokuu. · Syntymäpäiväni on toukokuussa.` | Nyt on toukokuu. · Syntymäpäiväni on toukokuussa. | Now, or my birthday? — example |
+| ⚠️ | `title:Näen` | Näen | Seeing the whole thing |
+| ⚠️ | `title:Näen bussin.` | Näen bussin. | I see… — example |
+| ⚠️ | `title:Näen bussin. · Odotan bussia.` | Näen bussin. · Odotan bussia. | See, watch or wait? — example |
+| ⚠️ | `title:Näen ja odotan` | Näen ja odotan | Seeing & waiting |
+| ⚠️ | `title:Näen…n` | Näen…n | I see… |
+| ⚠️ | `title:Nämä ovat kirjoja.` | Nämä ovat kirjoja. | These are… — example |
+| ⚠️ | `title:Nämä ovat…` | Nämä ovat… | These are… |
+| ⚠️ | `title:Odotan bussia` | Odotan bussia | Story: I'm waiting for the bus |
+| ⚠️ | `title:Odotan bussia.` | Odotan bussia. | Watching & waiting — example |
+| ⚠️ | `title:Olen iloinen.` | Olen iloinen. | I'm… — example |
+| ⚠️ | `title:Olen iloinen. · En ole iloinen.` | Olen iloinen. · En ole iloinen. | Who feels it? — example |
+| ⚠️ | `title:Olen kahdeksan vuotta vanha.` | Olen kahdeksan vuotta vanha. | How old are you? — example |
+| ⚠️ | `title:Olen puistossa` | Olen puistossa | Where I am |
+| ⚠️ | `title:Olen puistossa.` | Olen puistossa. | Where I am — example |
+| ⚠️ | `title:Olen puistossa. · Menen puistoon.` | Olen puistossa. · Menen puistoon. | Am, going or coming? — example |
+| ⚠️ | `title:Olen…` | Olen… | I'm… |
+| ⚠️ | `title:On vai ei?` | On vai ei? | Have or not |
+| ⚠️ | `title:Onko teillä koira?` | Onko teillä koira? | Have you all got a dog? |
+| ⚠️ | `title:Onko tämä kirja?` | Onko tämä kirja? | Is this…? — example |
+| ⚠️ | `title:Onko tämä…?` | Onko tämä…? | Is this…? / Yes/no questions |
+| ⚠️ | `title:Osaan uida.` | Osaan uida. | Can & may — example |
+| ⚠️ | `title:Osaan, saanko` | Osaan, saanko | Can & may |
+| ⚠️ | `title:Ostan maitoa` | Ostan maitoa | Some of something / Buying some of something |
+| ⚠️ | `title:Ostan maitoa.` | Ostan maitoa. | Some of something — example |
+| ⚠️ | `title:Ostan omenan` | Ostan omenan | One whole thing |
+| ⚠️ | `title:Ostan omenan.` | Ostan omenan. | One whole thing — example |
+| ⚠️ | `title:Ostan omenan. · Ostan maitoa.` | Ostan omenan. · Ostan maitoa. | One, or some? — example |
+| ⚠️ | `title:Ostan omenan. Ostan maitoa.` | Ostan omenan. Ostan maitoa. | One, or some? — example |
+| ⚠️ | `title:Ostan…` | Ostan… | One, or some? |
+| ⚠️ | `title:Ostoslista` | Ostoslista | The shopping list |
+| ⚠️ | `title:Pakenen` | Pakenen | Type 6: a k appears |
+| ⚠️ | `title:Paljon tavaraa` | Paljon tavaraa | Lots of things / Story: Lots of things |
+| ⚠️ | `title:Paljonko kello on?` | Paljonko kello on? | What time is it? |
+| ⚠️ | `title:Palloja` | Palloja | Some things, any things |
+| ⚠️ | `title:Pelataan!` | Pelataan! | Story: Let's play! |
+| ⚠️ | `title:Pelimestari` | Pelimestari | Game master |
+| ⚠️ | `title:Pidän` | Pidän | Another "I like" |
+| ⚠️ | `title:Pidän · Rakastan · Näen · Odotan` | Pidän · Rakastan · Näen · Odotan | Every verb, every ending — example |
+| ⚠️ | `title:Pidän jalkapallosta.` | Pidän jalkapallosta. | Another way to say it — example |
+| ⚠️ | `title:Pidän…sta` | Pidän…sta | Another way to say it |
+| ⚠️ | `title:Piilossa` | Piilossa | Hiding |
+| ⚠️ | `title:Piirretään!` | Piirretään! | Let's draw! |
+| ⚠️ | `title:Piirrän talon` | Piirrän talon | Story: I draw a house |
+| ⚠️ | `title:Puisto ja kirjasto` | Puisto ja kirjasto | Story: The park and the library |
+| ⚠️ | `title:Puistossa` | Puistossa | Story: In the park |
+| ⚠️ | `title:Punaiset pallot` | Punaiset pallot | Red balls |
+| ⚠️ | `title:Puolivälissä` | Puolivälissä | Halfway there |
+| ⚠️ | `title:Päivämäärä` | Päivämäärä | Saying a date |
+| ⚠️ | `title:Rakastan` | Rakastan | Loving things |
+| ⚠️ | `title:Rakastan pitsaa.` | Rakastan pitsaa. | I love… — example |
+| ⚠️ | `title:Rakastan…a` | Rakastan…a | I love… |
+| ⚠️ | `title:Rakenna lause` | Rakenna lause | Build a phrase |
+| ⚠️ | `title:Rakenna lauseita` | Rakenna lauseita | Build sentences / Sentences |
+| ⚠️ | `title:Sairas päivä` | Sairas päivä | Story: A sick day |
+| ⚠️ | `title:Sanakuningas` | Sanakuningas | Word royalty |
+| ⚠️ | `title:Sanamestari` | Sanamestari | Word master |
+| ⚠️ | `title:Sanat` | Sanat | Words |
+| ⚠️ | `title:Sano se` | Sano se | Say it (speaking) |
+| ⚠️ | `title:Sanojen oppija` | Sanojen oppija | Word learner |
+| ⚠️ | `title:Satuhetki` | Satuhetki | All stories / Story time |
+| ⚠️ | `title:Sinulle, sinusta` | Sinulle, sinusta | To you, for you, I like you |
+| ⚠️ | `title:Synttärit` | Synttärit | A birthday party |
+| ⚠️ | `title:Syntymäpäivä` | Syntymäpäivä | Months & birthdays |
+| ⚠️ | `title:Syntymäpäiväni` | Syntymäpäiväni | Story: My birthday |
+| ⚠️ | `title:Syntymäpäiväni on toukokuussa.` | Syntymäpäiväni on toukokuussa. | My birthday is in… — example |
+| ⚠️ | `title:Syntymäpäiväni on…` | Syntymäpäiväni on… | My birthday is in… |
+| ⚠️ | `title:Syön vai en syö?` | Syön vai en syö? | Yes or no / Answer it |
+| ⚠️ | `title:Syön. · En syö.` | Syön. · En syö. | Yes or no? — example |
+| ⚠️ | `title:Syön. · Syöt. · Hän syö.` | Syön. · Syöt. · Hän syö. | Who is doing it? — example |
+| ⚠️ | `title:Syön. · Söin. · En syönyt.` | Syön. · Söin. · En syönyt. | Now, or yesterday? — example |
+| ⚠️ | `title:Syötkö?` | Syötkö? | Ask it |
+| ⚠️ | `title:Syötkö? – Syön!` | Syötkö? – Syön! | Answer it — example |
+| ⚠️ | `title:Söin` | Söin | What happened |
+| ⚠️ | `title:Söin vai en syönyt?` | Söin vai en syönyt? | Did or didn't |
+| ⚠️ | `title:Taidot` | Taidot | Skills |
+| ⚠️ | `title:Taivuta verbi` | Taivuta verbi | Conjugate the verb |
+| ⚠️ | `title:Talossani` | Talossani | In my house / In MY house |
+| ⚠️ | `title:talossani, huoneessasi` | talossani, huoneessasi | In my house — example |
+| ⚠️ | `title:Tarinat` | Tarinat | Stories |
+| ⚠️ | `title:Tarkka` | Tarkka | Sharpshooter |
+| ⚠️ | `title:Tarvitsen, vanhenen` | Tarvitsen, vanhenen | Verbs, part 3: types 5 & 6 |
+| ⚠️ | `title:Tarvitsen. · En tarvitse.` | Tarvitsen. · En tarvitse. | Who, and yes or no? — example |
+| ⚠️ | `title:Tavat` | Tavat | Habits |
+| ⚠️ | `title:Tee näin!` | Tee näin! | Do this! |
+| ⚠️ | `title:Tee! Älä! Tehdään!` | Tee! Älä! Tehdään! | Do it, don't, let's / Do, don't, let's |
+| ⚠️ | `title:Tervehdykset` | Tervehdykset | Greetings / Greetings (choose the reply) |
+| ⚠️ | `title:tuolin alla` | tuolin alla | In front, behind… — example |
+| ⚠️ | `title:Tykkään` | Tykkään | Liking things |
+| ⚠️ | `title:Tykkään / En tykkää` | Tykkään / En tykkää | Like it or not |
+| ⚠️ | `title:Tykkään jalkapallosta.` | Tykkään jalkapallosta. | I like… — example |
+| ⚠️ | `title:Tykkään koirasta · Näen koiran · Odotan koiraa` | Tykkään koirasta · Näen koiran · Odotan koiraa | Which verb, which ending? — example |
+| ⚠️ | `title:Tykkään pitsasta. · Rakastan pitsaa.` | Tykkään pitsasta. · Rakastan pitsaa. | Like, love or not? — example |
+| ⚠️ | `title:Tykkään, pidän, rakastan` | Tykkään, pidän, rakastan | Likes |
+| ⚠️ | `title:Tykkään…sta` | Tykkään…sta | I like… |
+| ⚠️ | `title:Tyypit 5 ja 6` | Tyypit 5 ja 6 | Types 5 & 6, yes and no |
+| ⚠️ | `title:Tyyppi 1` | Tyyppi 1 | Type 1: laulaa |
+| ⚠️ | `title:Tyyppi 2` | Tyyppi 2 | Type 2: syödä |
+| ⚠️ | `title:Tyyppi 3` | Tyyppi 3 | Type 3: tulla |
+| ⚠️ | `title:Tyyppi 4` | Tyyppi 4 | Type 4: avata |
+| ⚠️ | `title:Tyyppi 5` | Tyyppi 5 | Type 5: tarvita |
+| ⚠️ | `title:Tyyppi 6 ja KPT` | Tyyppi 6 ja KPT | Type 6: a sound gets stronger too |
+| ⚠️ | `title:Tähtien keräilijä` | Tähtien keräilijä | Star collector |
+| ⚠️ | `title:Tähtimestari` | Tähtimestari | Star champion |
+| ⚠️ | `title:Tämä on isän pyörä` | Tämä on isän pyörä | Whose bike is it? |
+| ⚠️ | `title:Tämä on isän pyörä.` | Tämä on isän pyörä. | Whose bike is it? — example |
+| ⚠️ | `title:Tämä on kirja. · Onko tämä kirja?` | Tämä on kirja. · Onko tämä kirja? | Statement or question? — example |
+| ⚠️ | `title:Tämä on minun kirjani.` | Tämä on minun kirjani. | My, your, his/her — example |
+| ⚠️ | `title:Tämä on minun…` | Tämä on minun… | My, your, his/her |
+| ⚠️ | `title:Tämä on opettaja.` | Tämä on opettaja. | This is… — example |
+| ⚠️ | `title:Tämä on punainen` | Tämä on punainen | This is red |
+| ⚠️ | `title:Tämä on punainen.` | Tämä on punainen. | This is red — example |
+| ⚠️ | `title:Tämä on sinulle! · Pidän sinusta.` | Tämä on sinulle! · Pidän sinusta. | To you, for you, I like you — example |
+| ⚠️ | `title:Tämä on…` | Tämä on… | This is… |
+| ⚠️ | `title:Tänään on maanantai.` | Tänään on maanantai. | Today is… — example |
+| ⚠️ | `title:Tänään on maanantai. · Leikin maanantaina.` | Tänään on maanantai. · Leikin maanantaina. | Today, or on a day? — example |
+| ⚠️ | `title:Tänään on…` | Tänään on… | Today is… |
+| ⚠️ | `title:Uida vai leikkiä?` | Uida vai leikkiä? | Story: Swim or play? |
+| ⚠️ | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Clothes / Action words / Verbs that change / Feelings / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Getting around / Shopping list / Colors & describing words / Comparing words / Animals / Places / Town & home / Rides and tools / Days & times / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Type 5 & 6 verbs / Type 6 verbs that change / More action words |
+| ⚠️ | `title:Uusi kaveri` | Uusi kaveri | A new friend |
+| ⚠️ | `title:Uusi oppilas` | Uusi oppilas | The new pupil / Story: The new pupil |
+| ⚠️ | `title:Vahvempi kirjain` | Vahvempi kirjain | Type 4: the sound gets STRONGER |
+| ⚠️ | `title:Valitse pääte` | Valitse pääte | Pick the ending |
+| ⚠️ | `title:Vauhdissa` | Vauhdissa | On a roll |
+| ⚠️ | `title:Verbityypit 5 ja 6` | Verbityypit 5 ja 6 | Verb types 5 and 6 |
+| ⚠️ | `title:Verbityyppi 4` | Verbityyppi 4 | Verb type 4 |
+| ⚠️ | `title:viides toukokuuta` | viides toukokuuta | Dates — example |
+| ⚠️ | `title:Viides toukokuuta` | Viides toukokuuta | Dates |
+| ⚠️ | `title:Viikko putkeen` | Viikko putkeen | A whole week |
+| ⚠️ | `title:viisitoista palloa` | viisitoista palloa | Count to 20 — example / How many did you hear? — example |
+| ⚠️ | `title:Virheetön` | Virheetön | Flawless |
+| ⚠️ | `title:Värit` | Värit | Colors and describing words |
+| ⚠️ | `title:Väsynyt kissa` | Väsynyt kissa | Story: The tired cat |
+| ⚠️ | `title:Yhdistä sanat` | Yhdistä sanat | Describe it (agreement) |
+| ⚠️ | `title:Yksi vai monta?` | Yksi vai monta? | One, or several? |
+| ⚠️ | `title:Äidin pyörä` | Äidin pyörä | Mom's bike / Mom's bike — the owner gets -n |
+| ⚠️ | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
+| ⚠️ | `title:Äänitutkija` | Äänitutkija | Sound explorer |
+
+## Buttons & screen labels (117)
+
+_What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
+
+| Status | Key | Finnish | English |
+| --- | --- | --- | --- |
+| ⚠️ | `ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.` | ⟨Kyllä / Ei⟩, se on ⟨fi⟩. | (no English shown) |
+| ⚠️ | `ui:⟨streak⟩ päivää putkeen!` | ⟨streak⟩ päivää putkeen! | ⟨streak⟩-day streak |
+| ⚠️ | `ui:A vai Ä?` | A vai Ä? | a or ä, o or ö, u or y? |
+| ⚠️ | `ui:Aakkoset` | Aakkoset | Alphabet / Alphabet & sounds / Back to the alphabet / Listen to the whole alphabet |
+| ⚠️ | `ui:Aikuisille` | Aikuisille | Grown-ups |
+| ⚠️ | `ui:Aloita` | Aloita | Start |
+| ⚠️ | `ui:Ansaittu` | Ansaittu | Earned |
+| ⚠️ | `ui:Asetukset` | Asetukset | Settings |
+| ⚠️ | `ui:Avaa kaikki osat` | Avaa kaikki osat | Unlock all units |
+| ⚠️ | `ui:Edistyminen` | Edistyminen | Progress |
+| ⚠️ | `ui:Ei!` | Ei! | No |
+| ⚠️ | `ui:Harjoittele` | Harjoittele | Practise |
+| ⚠️ | `ui:Harjoittele!` | Harjoittele! | Start practicing |
+| ⚠️ | `ui:Hei⟨…⟩!` | Hei⟨…⟩! | Your Finnish course |
+| ⚠️ | `ui:Hienoa työtä tänään!` | Hienoa työtä tänään! | Great work today |
+| ⚠️ | `ui:Hienoa, juttelit suomeksi!` | Hienoa, juttelit suomeksi! | You had a conversation! |
+| ⚠️ | `ui:Hienoa!` | Hienoa! | Great job! / Great! / Nice listening! / You know your letters! |
+| ⚠️ | `ui:Hitaasti` | Hitaasti | Slowly |
+| ⚠️ | `ui:Hyvä yritys!` | Hyvä yritys! | Good try! |
+| ⚠️ | `ui:Jatka` | Jatka | Continue / Keep going |
+| ⚠️ | `ui:Kaikki oikein` | Kaikki oikein | All correct |
+| ⚠️ | `ui:Kenen se on?` | Kenen se on? | Which one is it? |
+| ⚠️ | `ui:Keskustelu` | Keskustelu | Conversation |
+| ⚠️ | `ui:Kirjaimet` | Kirjaimet | The letters — tap one to hear its name |
+| ⚠️ | `ui:Kirjain` | Kirjain | Letter |
+| ⚠️ | `ui:Kirjainten nimet` | Kirjainten nimet | What is each letter called? |
+| ⚠️ | `ui:Kirjoita mitä kuulet` | Kirjoita mitä kuulet | Type what you hear |
+| ⚠️ | `ui:Kirjoita oikea muoto` | Kirjoita oikea muoto | (no English shown) |
+| ⚠️ | `ui:Kirjoita suomeksi` | Kirjoita suomeksi | Write it in Finnish |
+| ⚠️ | `ui:Kokeile!` | Kokeile! | Try it |
+| ⚠️ | `ui:Korjattava` | Korjattava | (no English shown) |
+| ⚠️ | `ui:Koti` | Koti | Home |
+| ⚠️ | `ui:Kuinka vanha?` | Kuinka vanha? | How old? |
+| ⚠️ | `ui:Kuka pelaa?` | Kuka pelaa? | Who's playing? |
+| ⚠️ | `ui:Kuka voittaa?` | Kuka voittaa? | Who wins? |
+| ⚠️ | `ui:Kumpi on oikein?` | Kumpi on oikein? | Which one is right? |
+| ⚠️ | `ui:Kumpi?` | Kumpi? | Which is more? |
+| ⚠️ | `ui:Kuuntele ensin` | Kuuntele ensin | Listen first — then it's your turn |
+| ⚠️ | `ui:Kuuntelen…` | Kuuntelen… | Listening… |
+| ⚠️ | `ui:Kyllä!` | Kyllä! | Yes |
+| ⚠️ | `ui:Kysy` | Kysy | Ask it |
+| ⚠️ | `ui:Laita sanat järjestykseen` | Laita sanat järjestykseen | Put the words in order |
+| ⚠️ | `ui:Luetaan!` | Luetaan! | Story time |
+| ⚠️ | `ui:Lämmittely` | Lämmittely | Warm-up |
+| ⚠️ | `ui:Lämmittely tehty!` | Lämmittely tehty! | Warm-up done |
+| ⚠️ | `ui:Läpäisty!` | Läpäisty! | (no English shown) |
+| ⚠️ | `ui:Melkein!` | Melkein! | (no English shown) |
+| ⚠️ | `ui:Miksi?` | Miksi? | Why? |
+| ⚠️ | `ui:Mikä eläin?` | Mikä eläin? | (no English shown) |
+| ⚠️ | `ui:Mikä kirjain?` | Mikä kirjain? | Which letter does it start with? |
+| ⚠️ | `ui:Mikä on oikein?` | Mikä on oikein? | Look at the verb: which ending? |
+| ⚠️ | `ui:Mikä on totta?` | Mikä on totta? | Which one is true? |
+| ⚠️ | `ui:Mikä sana?` | Mikä sana? | Which word is it? |
+| ⚠️ | `ui:Mikä sen nimi on?` | Mikä sen nimi on? | (no English shown) |
+| ⚠️ | `ui:Mikä sopii yhteen?` | Mikä sopii yhteen? | Pick the word with the matching ending |
+| ⚠️ | `ui:Mikä tämä on suomeksi?` | Mikä tämä on suomeksi? | What is this in Finnish? |
+| ⚠️ | `ui:Mikä verbityyppi?` | Mikä verbityyppi? | Which verb type is it? |
+| ⚠️ | `ui:Mistä lause kertoo?` | Mistä lause kertoo? | What is the sentence about? |
+| ⚠️ | `ui:Mistä puhutaan?` | Mistä puhutaan? | (no English shown) |
+| ⚠️ | `ui:Miten kysyt?` | Miten kysyt? | How do you ask? |
+| ⚠️ | `ui:Miten sanot?` | Miten sanot? | How do you say it? |
+| ⚠️ | `ui:Mitä kuulit?` | Mitä kuulit? | What did you hear? |
+| ⚠️ | `ui:Mitä sanot?` | Mitä sanot? | What do you say? |
+| ⚠️ | `ui:Mitä vastaat?` | Mitä vastaat? | What do you answer? / What do you reply? |
+| ⚠️ | `ui:Muistatko?` | Muistatko? | Remember? |
+| ⚠️ | `ui:Mykistä äänet` | Mykistä äänet | Mute all sound |
+| ⚠️ | `ui:Nimeä` | Nimeä | Name it |
+| ⚠️ | `ui:Nimi` | Nimi | Name |
+| ⚠️ | `ui:Nyt sinä!` | Nyt sinä! | Your turn |
+| ⚠️ | `ui:Ohita` | Ohita | Skip |
+| ⚠️ | `ui:Oikein` | Oikein | (no English shown) |
+| ⚠️ | `ui:Oikein!` | Oikein! | Right! |
+| ⚠️ | `ui:Onko lause oikein?` | Onko lause oikein? | Is the sentence right? Tap the wrong word. |
+| ⚠️ | `ui:Oppitunti` | Oppitunti | Lesson: ⟨titleEn⟩ / Read the lesson |
+| ⚠️ | `ui:Paina ja puhu` | Paina ja puhu | Tap & speak |
+| ⚠️ | `ui:Paljonko on ⟨a⟩ + ⟨b⟩?` | Paljonko on ⟨a⟩ + ⟨b⟩? | Solve to continue |
+| ⚠️ | `ui:Pelaajat` | Pelaajat | Players |
+| ⚠️ | `ui:Pelataan tänään!` | Pelataan tänään! | Let's practice today |
+| ⚠️ | `ui:Pelit` | Pelit | Listening games |
+| ⚠️ | `ui:Pidennä pitkää ääntä` | Pidennä pitkää ääntä | mind the long sound, hold the doubled letter |
+| ⚠️ | `ui:Puheharjoittelu` | Puheharjoittelu | Speaking practice |
+| ⚠️ | `ui:Päivän lämmittely` | Päivän lämmittely | today's warm-up |
+| ⚠️ | `ui:Saavutukset` | Saavutukset | Achievements |
+| ⚠️ | `ui:Salli mikrofoni ja yritä uudestaan` | Salli mikrofoni ja yritä uudestaan | Allow the mic and try again |
+| ⚠️ | `ui:Sano suomeksi` | Sano suomeksi | Say it in Finnish |
+| ⚠️ | `ui:Sano tämä ääneen` | Sano tämä ääneen | Say this out loud |
+| ⚠️ | `ui:Sanoin sen` | Sanoin sen | I said it |
+| ⚠️ | `ui:Selvä` | Selvä | OK |
+| ⚠️ | `ui:Seuraava` | Seuraava | Next |
+| ⚠️ | `ui:Sulje` | Sulje | Close |
+| ⚠️ | `ui:Suomen tarkistus` | Suomen tarkistus | Finnish check |
+| ⚠️ | `ui:Takaisin` | Takaisin | Back / Back home / Back to notebook / Back to practice |
+| ⚠️ | `ui:Tarkistus` | Tarkistus | Finnish check |
+| ⚠️ | `ui:Tee! Älä!` | Tee! Älä! | Do, don't, let's |
+| ⚠️ | `ui:Testaus` | Testaus | Test games |
+| ⚠️ | `ui:Tilastot` | Tilastot | Stats |
+| ⚠️ | `ui:Täydennä lause` | Täydennä lause | Complete the sentence |
+| ⚠️ | `ui:Uudestaan` | Uudestaan | Play again / Try again |
+| ⚠️ | `ui:Uusi` | Uusi | New |
+| ⚠️ | `ui:Uusi fraasi!` | Uusi fraasi! | New phrase! |
+| ⚠️ | `ui:Uusi mitali! ⟨titleFi⟩` | Uusi mitali! ⟨titleFi⟩ | ⟨titleEn⟩ |
+| ⚠️ | `ui:Uusi oppitunti` | Uusi oppitunti | Lesson: ⟨titleEn⟩ |
+| ⚠️ | `ui:Uusi pääte!` | Uusi pääte! | A new ending! |
+| ⚠️ | `ui:Uusi saavutus!` | Uusi saavutus! | ⟨titleEn⟩ |
+| ⚠️ | `ui:Uusi sana!` | Uusi sana! | New word! |
+| ⚠️ | `ui:Uusi taso ⟨level⟩!` | Uusi taso ⟨level⟩! | Level up! |
+| ⚠️ | `ui:Vaihda pelaaja` | Vaihda pelaaja | Switch player |
+| ⚠️ | `ui:Vain aikuisille` | Vain aikuisille | Grown-ups only |
+| ⚠️ | `ui:Valmis!` | Valmis! | Got it |
+| ⚠️ | `ui:Vastaa` | Vastaa | Answer it |
+| ⚠️ | `ui:Vastaa kysymykseen` | Vastaa kysymykseen | Answer the question |
+| ⚠️ | `ui:Vihko` | Vihko | Notebook |
+| ⚠️ | `ui:Vinkit` | Vinkit | Tricky sounds |
+| ⚠️ | `ui:Vähennä liikettä` | Vähennä liikettä | Reduce motion |
+| ⚠️ | `ui:Välitesti` | Välitesti | Checkpoint |
+| ⚠️ | `ui:Yksi vai kaksi?` | Yksi vai kaksi? | One letter or two? |
+| ⚠️ | `ui:Yritä uudestaan` | Yritä uudestaan | Try again |
