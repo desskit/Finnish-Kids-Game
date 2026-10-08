@@ -106,10 +106,13 @@ export default function CourseHome() {
           </span>
           <span className="continue-cta__label">
             <span className="continue-cta__title">
-              Jatka <span className="en">Continue · today's warm-up</span>
+              Jatka <span className="en">Continue</span>
+            </span>
+            <span className="continue-cta__tag">
+              Päivän lämmittely <span className="en">today's warm-up · {WARMUP_QUESTIONS} questions</span>
             </span>
             <span className="continue-cta__what">
-              {WARMUP_QUESTIONS} questions · Unit {warmup.unitNo}: {warmup.step.titleEn}
+              Unit {warmup.unitNo}: {warmup.step.titleEn}
             </span>
           </span>
         </Link>

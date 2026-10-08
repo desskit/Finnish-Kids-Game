@@ -201,8 +201,8 @@ describe('daily warm-up', () => {
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
     expect(cont.getAttribute('href')).toBe('/warmup');
-    expect(cont.textContent).toMatch(/today's warm-up/);
-    expect(cont.textContent).toMatch(/10 questions · Unit 2: New words/);
+    expect(cont.textContent).toMatch(/today's warm-up · 10 questions/);
+    expect(cont.textContent).toMatch(/Unit 2: New words/);
   });
 
   it('is the course again once today’s warm-up is done', () => {

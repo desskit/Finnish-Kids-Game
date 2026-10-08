@@ -2245,8 +2245,13 @@ button:focus-visible,
 }
 
 .continue-cta__title .en,
+.continue-cta__tag .en,
 .continue-cta__what {
   color: rgba(255, 255, 255, 0.85);
+}
+
+.continue-cta__tag {
+  font-weight: 800;
 }
 
 .continue-cta__what {
@@ -2256,13 +2261,6 @@ button:focus-visible,
 /* The new day's warm-up takes over the Continue button until it's done. */
 .continue-cta--warmup {
   background: linear-gradient(135deg, #f59e0b, #ea580c);
-}
-
-.warmup-bar {
-  max-width: calc(100vw - 32px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .home-tiles {
@@ -2743,18 +2741,29 @@ button:focus-visible,
   color: var(--good);
 }
 
+/* A route with a status strip above its game (checkpoint, warm-up, mixed
+   review). The strip sits in the flow, so however long its text, it never
+   covers the game's own header (the back button, the stars). */
+.app--barred {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app__game {
+  width: 100%;
+}
+
 .checkpoint-bar {
-  position: fixed;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
+  max-width: calc(100% - 32px);
+  margin: 10px 16px 0;
   padding: 4px 14px;
   border-radius: 99px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
   font-weight: 700;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 /* ---------- "Why?" tip ---------- */
@@ -3445,6 +3454,17 @@ a.badge-strip {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Four filters: wrap on a phone rather than hide "Correct" and "All" off-screen. */
+.rfilters .gswitch {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.rfilters .gswitch__btn {
+  min-height: 40px;
+  padding: 0 14px;
 }
 
 .rlist {

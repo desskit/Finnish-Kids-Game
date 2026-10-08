@@ -23,10 +23,10 @@ async function dismissIntro(page: Page) {
 
 /**
  * Answer one question in the endless skill stream by watching the header's
- * session-star counter (`N tähteä`): a correct tap bumps it by one.
+ * session-star counter (`N tähteä`, `1 tähti`): a correct tap bumps it by one.
  */
 async function answerUntilStarAdvance(page: Page, optionSelector = '.pic-card') {
-  const counter = page.getByLabel(/\d+ tähteä/);
+  const counter = page.getByLabel(/^\d+ täh(teä|ti)$/);
   const before = await counter.getAttribute('aria-label');
 
   for (let attempt = 0; attempt < 8; attempt++) {

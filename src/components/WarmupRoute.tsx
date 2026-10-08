@@ -106,10 +106,11 @@ export default function WarmupRoute() {
   };
 
   return (
-    <main className="app">
+    <main className="app app--barred">
       <div className="checkpoint-bar warmup-bar" aria-label={`Warm-up: ${tally.total} of ${WARMUP_QUESTIONS} questions`}>
-        ☀️ <span className="en">
-          Lämmittely · Unit {unitNo}: {step.titleEn} · {Math.min(tally.total, WARMUP_QUESTIONS)}/{WARMUP_QUESTIONS}
+        ☀️ Lämmittely{' '}
+        <span className="en">
+          Warm-up · Unit {unitNo}: {step.titleEn} · {Math.min(tally.total, WARMUP_QUESTIONS)}/{WARMUP_QUESTIONS}
         </span>
       </div>
       <ActivityContext.Provider
@@ -121,7 +122,9 @@ export default function WarmupRoute() {
           lessonId: lessonForStep(unit, step),
         }}
       >
-        <div key={seg}>{element}</div>
+        <div className="app__game" key={seg}>
+          {element}
+        </div>
       </ActivityContext.Provider>
     </main>
   );

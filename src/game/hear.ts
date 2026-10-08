@@ -56,6 +56,8 @@ export interface HearQuestion {
 }
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+/** A quoted sentence keeps its own stop: "…like *Kissa on korilla.*" — not "*korilla.*.". */
+const tidy = (s: string) => s.replace(/([.!?])\*\./g, '$1*');
 
 // --- Carriers: the same word in the step's different sentence patterns ---------
 
@@ -108,13 +110,13 @@ function carrierQuestion(
   const whyFor: Record<string, Why> = {};
   for (const c of picked) {
     whyFor[c.id] = {
-      text: `${youHeard} "${englishSentenceFor(item, c)}" would sound like *${sentenceFor(item, c)}*.`,
+      text: tidy(`${youHeard} "${englishSentenceFor(item, c)}" would sound like *${sentenceFor(item, c)}*.`),
       example: carrierSegments(target, item),
     };
   }
   for (const o of others) {
     whyFor[`w:${o.id}`] = {
-      text: `${youHeard} "${englishSentenceFor(o, target)}" would sound like *${sentenceFor(o, target)}*.`,
+      text: tidy(`${youHeard} "${englishSentenceFor(o, target)}" would sound like *${sentenceFor(o, target)}*.`),
       example: carrierSegments(target, item),
     };
   }
@@ -236,7 +238,9 @@ function verbQuestion(verb: LexicalItem, combos: readonly VerbCombo[], optionCou
   const whyFor: Record<string, Why> = {};
   for (const v of wrong) {
     whyFor[key(v)] = {
-      text: `You heard *${fi}* — "${right}". "${englishOf(verb, v.tense, v.polarity, v.person)}" would sound like *${spokenClause(verb, v.tense, v.polarity, v.person)}*. ${rule}`,
+      text: tidy(
+        `You heard *${fi}* — "${right}". "${englishOf(verb, v.tense, v.polarity, v.person)}" would sound like *${spokenClause(verb, v.tense, v.polarity, v.person)}*. ${rule}`,
+      ),
       example: clauseSegments(verb, target.tense, target.polarity, target.person),
     };
   }

@@ -205,7 +205,7 @@ export default function CheckpointRoute() {
   };
 
   return (
-    <main className="app">
+    <main className="app app--barred">
       <div className="checkpoint-bar" aria-label={`Checkpoint part ${part + 1} of ${plan.length}`}>
         🏁{' '}
         <span className="en">
@@ -222,7 +222,9 @@ export default function CheckpointRoute() {
           lessonId: p.lessonId,
         }}
       >
-        <div key={`${run}-${part}`}>{element}</div>
+        <div className="app__game" key={`${run}-${part}`}>
+          {element}
+        </div>
       </ActivityContext.Provider>
     </main>
   );

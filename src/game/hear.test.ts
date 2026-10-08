@@ -20,8 +20,12 @@ describe('hear it, pick the meaning — carriers', () => {
         expect(q.options.length).toBeGreaterThanOrEqual(3);
         // What is said is a real carrier sentence; the marked text is the same sentence.
         expect(segmentsText(q.segments)).toBe(q.fi);
-        // Every wrong meaning explains itself.
-        for (const o of q.options) if (o.id !== q.answerId) expect(q.whyFor[o.id]?.text).toMatch(/^You heard \*/);
+        // Every wrong meaning explains itself (with no doubled stop after a quote).
+        for (const o of q.options) {
+          if (o.id === q.answerId) continue;
+          expect(q.whyFor[o.id]?.text).toMatch(/^You heard \*/);
+          expect(q.whyFor[o.id]?.text).not.toMatch(/[.!?]\*\./);
+        }
       }
     }
   });
@@ -63,6 +67,7 @@ describe('hear it — verbs', () => {
         expect(q.options.filter((o) => o.id === q.answerId)).toHaveLength(1);
         expect(new Set(q.options.map((o) => o.en)).size).toBe(q.options.length);
         expect(q.options.length).toBeGreaterThanOrEqual(3);
+        for (const o of q.options) if (o.id !== q.answerId) expect(q.whyFor[o.id]?.text).not.toMatch(/[.!?]\*\./);
       }
     }
   });

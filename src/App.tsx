@@ -150,7 +150,7 @@ function SkillRoute() {
   };
 
   return (
-    <main className="app">
+    <main className={'app' + (mix ? ' app--barred' : '')}>
       {mix && (
         <div className="checkpoint-bar" aria-label={`Mixed review: ${mix.skill.titleEn}`}>
           🔁 <span className="en">Kertaus · {mix.skill.titleEn}</span>
