@@ -226,7 +226,7 @@ const AT_THE = ["shop", "library", "museum", "restaurant", "zoo"];
 const I_AM_IN = {
   bed: "I'm in bed.",
   school: "I'm at school.",
-  cafe: "I'm at the café.",
+  cafe: "I'm at the cafe.",
   ...each(VEHICLES, (v) => `I'm on the ${v}.`),
   boat: "I'm on the boat.",
   ...each(AT_THE, (p) => `I'm at the ${p}.`),
@@ -734,6 +734,14 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     topics: ["animals", "food", "clothes", "school", "freetime"],
+    // A whole one of a "some" food: say so, or it reads like "some bread"
+    // (Ostan leivän = a loaf; Ostan leipää = some bread).
+    glossById: {
+      bread: "a loaf of bread",
+      cheese: "a whole cheese",
+      rice: "a bag of rice",
+      butter: "a pack of butter",
+    },
     // Mass nouns take the partitive when bought ("Ostan maitoa"), so keep them
     // out of this genitive total-object frame — they get their own carrier
     // below (i-buy-some), making the pair the Shopping node's real lesson.

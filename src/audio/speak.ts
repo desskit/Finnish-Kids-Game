@@ -49,6 +49,7 @@ function speakIn(
   queue = false,
   onStart?: () => void,
   onEnd?: () => void,
+  slow = false,
 ): void {
   if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
@@ -60,7 +61,7 @@ function speakIn(
   u.lang = lang;
   const voice = pickVoice(langPrefix);
   if (voice) u.voice = voice;
-  u.rate = 0.85; // a touch slower for young learners
+  u.rate = slow ? 0.6 : 0.85; // a touch slower for young learners (much slower on request)
   u.pitch = 1.05;
   if (onStart) u.onstart = onStart;
   if (onEnd) u.onend = onEnd;
@@ -74,9 +75,9 @@ function speakIn(
  */
 export function speak(
   text: string,
-  opts?: { queue?: boolean; onStart?: () => void; onEnd?: () => void },
+  opts?: { queue?: boolean; onStart?: () => void; onEnd?: () => void; slow?: boolean },
 ): void {
-  speakIn(text, FINNISH, 'fi', opts?.queue, opts?.onStart, opts?.onEnd);
+  speakIn(text, FINNISH, 'fi', opts?.queue, opts?.onStart, opts?.onEnd, opts?.slow);
 }
 
 /**

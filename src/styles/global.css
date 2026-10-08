@@ -512,6 +512,66 @@ button:focus-visible,
   transform: scale(0.95);
 }
 
+/* ---------- Kuuntele (hear it, pick the meaning) ---------- */
+.hear-speakers {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.speaker--slow {
+  flex-direction: column;
+  width: clamp(76px, 18vw, 96px);
+  height: clamp(76px, 18vw, 96px);
+  font-size: clamp(1.8rem, 6vw, 2.2rem);
+  background: #0f766e;
+  box-shadow: var(--shadow);
+}
+
+.speaker--slow .speaker__hint {
+  font-size: 0.72rem;
+}
+
+.hear-text {
+  min-height: 1.6em;
+  margin: 0;
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.hear-text--shown {
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+.hear-options {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 520px;
+}
+
+.hear-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  text-align: left;
+  font-size: clamp(1.05rem, 3.2vw, 1.3rem);
+  line-height: 1.25;
+}
+
+.hear-option .en {
+  color: var(--ink);
+}
+
+.hear-option__emoji {
+  flex: none;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
 .card-grid {
   display: grid;
   gap: clamp(12px, 2.5vw, 20px);

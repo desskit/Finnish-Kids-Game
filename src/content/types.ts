@@ -271,6 +271,7 @@ const DEFINITE_ARTICLE_IDS = new Set(['sun', 'moon', 'sky', 'sea']);
 // words that are uncountable in English only.
 const NO_ARTICLE_IDS = new Set([
   ...NOT_COUNTABLE.filter((id) => !DEFINITE_ARTICLE_IDS.has(id)),
+  'homework',
   'bread',
   'cheese',
   'hair',
@@ -296,6 +297,11 @@ function englishArticleFor(item: LexicalItem): string {
  * "This is a ___." + rain doesn't come out as "This is a rain."; any other
  * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
+// People who are "my" one, not "the" one, in English.
+const MY_PEOPLE: Record<string, string> = { brother: 'my brother', sister: 'my sister', friend: 'my friend' };
+// English plurals that aren't word + s (and aren't in the sourced data).
+const PLURAL_EN: Record<string, string> = { homework: 'homework tasks' };
+
 // Family members a child calls by name — "Grandpa", not "the grandfather".
 export const FAMILY_NAMES: Record<string, string> = {
   mother: 'Mom',
@@ -314,10 +320,13 @@ export function englishSentenceFor(item: LexicalItem, con: Construction): string
   // "Where is Mom?", not "Where is the mom?".
   const name = FAMILY_NAMES[item.id];
   if (name && /(?:a |the )___(?!s)/.test(con.en)) return con.en.replace(/(?:a |the )___/, name);
+  // "I see my brother", not "I see the brother".
+  const mine = MY_PEOPLE[item.id];
+  if (mine && /the ___(?!s)/.test(con.en)) return con.en.replace(/the ___/, mine);
   // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
   // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
   if (con.en.includes('___s')) {
-    return con.en.replace('___s', item.english?.plural ?? `${item.en}s`);
+    return con.en.replace('___s', PLURAL_EN[item.id] ?? item.english?.plural ?? `${item.en}s`);
   }
   if (con.en.includes('a ___')) {
     const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');

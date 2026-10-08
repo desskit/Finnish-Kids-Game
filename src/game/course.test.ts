@@ -4,6 +4,8 @@ import {
   UNITS,
   actionHref,
   checkpointPlan,
+  inCheckpoint,
+  MAX_CHECKPOINT_QUESTIONS,
   checkpointStatus,
   lessonForConstruction,
   nextAction,
@@ -105,14 +107,18 @@ describe('steps and checkpoints inside a unit', () => {
       if (u.checkpoint === false) return;
       const plan = checkpointPlan(u);
       const own = plan.filter((p) => p.kind === 'step');
-      expect(own).toHaveLength(u.skills.length);
+      // Every step but a story (read at story pace, not tested).
+      const tested = u.skills.filter(inCheckpoint);
+      expect(tested.every((s) => s.activity !== 'story')).toBe(true);
+      expect(own).toHaveLength(tested.length);
       own.forEach((p, i) => {
-        const step = u.skills[i];
+        const step = tested[i];
         // A Kertaus step contributes one of its EARLIER steps instead.
         if (step.content.mixOf) expect(step.content.mixOf).toContain(p.step.id);
         else expect(p.step.id).toBe(step.id);
       });
       expect(plan.reduce((n, p) => n + p.questions, 0)).toBeGreaterThanOrEqual(8);
+      expect(plan.reduce((n, p) => n + p.questions, 0)).toBeLessThanOrEqual(MAX_CHECKPOINT_QUESTIONS);
       // Asked at each step's TOP level — what the child proved.
       for (const p of plan) expect(p.level).toBe(p.step.maxLevel ?? 4);
       const remember = plan.filter((p) => p.kind === 'remember');

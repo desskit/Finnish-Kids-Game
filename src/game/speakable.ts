@@ -142,6 +142,13 @@ function routeTargets(
     case 'order':
       return keep(buildSayRound(items, constructionsForNode(skill), N, tier, weigh));
 
+    // Listening: say what was heard — the step's sentences, verbs or counts.
+    case 'hear':
+      if (skill.content.hear === 'verbs' || skill.content.hear === 'count') {
+        return routeTargets({ ...skill, activity: skill.content.hear === 'verbs' ? 'conjugate' : 'count' }, items, nouns, tier, band, weigh);
+      }
+      return keep(buildSayRound(items, constructionsForNode(skill), N, tier, weigh));
+
     // Counting: "kolme kissaa" (small counts stay sayable).
     case 'count':
       return keep(
@@ -266,9 +273,17 @@ function routeTargets(
     // Choose the right form: say the right answer ("Syön.", "Auta minua!").
     case 'choose':
       return keep(
-        buildChooseRound(skill.content.choose ?? 'answer', choosePoolsFor(skill.content.wordIds), N, 3).map(
-          (q) => ({ say: q.answer, gloss: q.cue, emoji: q.emoji }),
-        ),
+        buildChooseRound(
+          skill.content.choose ?? 'answer',
+          {
+            ...choosePoolsFor(skill.content.wordIds),
+            // "Which verb, which ending?" says its right sentences.
+            constructions: constructionsForNode(skill),
+            items: [...nouns],
+          },
+          N,
+          3,
+        ).map((q) => ({ say: q.answer, gloss: q.cue, emoji: q.emoji })),
       );
 
     // Vocab (listen / name / spell): say the bare word.
