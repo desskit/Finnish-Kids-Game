@@ -14,6 +14,11 @@ interface Props {
   onExit: () => void;
   /** Scope the stories to these ids (a course step); default = all. */
   ids?: string[];
+  /**
+   * From this level on, the English hides behind a "Show English" tap — a
+   * unit story is read with support first, then on its own.
+   */
+  hideGlossFrom?: number;
 }
 
 // Satuhetki (story time): a tiny illustrated story read page by page, then a
@@ -23,14 +28,17 @@ interface Props {
 // they alone feed the adaptive engine. Like the other communicative games the
 // English glosses drop away at the Finnish-only rung (showsGloss). No SRS
 // crediting — story lines are authored wholes, not single lexical items.
-export default function StoryTime({ onExit, ids }: Props) {
+export default function StoryTime({ onExit, ids, hideGlossFrom }: Props) {
   const pool = byIds(stories, ids);
   const { level, addStars } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { maxTier } = difficulty;
-  // Top rung: drop the English so the story is followed in Finnish alone.
-  const glossed = showsGloss(difficulty.level);
+  // Top rung: drop the English so the story is followed in Finnish alone. A
+  // unit story hides it earlier — behind a tap, so a stuck reader can peek.
+  const glossed = showsGloss(difficulty.level) && (!hideGlossFrom || difficulty.level < hideGlossFrom);
+  const peekable = !glossed && !!hideGlossFrom && showsGloss(difficulty.level);
+  const [peeked, setPeeked] = useState<string | null>(null);
 
   const missed = useRef(false);
   const firstTries = useRef(0);
@@ -156,7 +164,12 @@ export default function StoryTime({ onExit, ids }: Props) {
               {page.emoji}
             </span>
             <p className="story-page__fi">{page.fi}</p>
-            {glossed && <p className="en phrase-hint">{page.en}</p>}
+            {(glossed || peeked === page.fi) && <p className="en phrase-hint">{page.en}</p>}
+            {peekable && peeked !== page.fi && (
+              <button className="btn btn--ghost btn--sm" onClick={() => setPeeked(page.fi)}>
+                🇬🇧 <span className="en">Show English</span>
+              </button>
+            )}
             <button
               className="speaker speaker--inline"
               onClick={() => speak(page.fi)}
@@ -191,7 +204,7 @@ export default function StoryTime({ onExit, ids }: Props) {
         <>
           <p className="prompt">
             {q.question.promptFi}{' '}
-            {glossed && <span className="en">{q.question.promptEn}</span>}
+            {(glossed || peekable) && <span className="en">{q.question.promptEn}</span>}
           </p>
 
           <button

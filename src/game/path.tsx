@@ -50,6 +50,7 @@ import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
 import HearIt, { type HearSource } from '../components/HearIt';
+import { UNIT_STORIES, UNIT_STORY_IDS } from '../content/unitStories';
 
 // The learning PATH — the single source of truth for the guided course.
 //
@@ -155,6 +156,8 @@ export interface SkillContent {
    * number + thing ('count').
    */
   hear?: HearSource;
+  /** Story steps: from this level on, the English hides behind a tap. */
+  hideGlossFrom?: number;
 }
 
 export interface SkillNode {
@@ -2026,6 +2029,29 @@ const UNITS: Chapter[] = [
   },
 ];
 
+// --- A story at the end of (almost) every unit ---------------------------
+//
+// The unit's grammar in a little narrative (content/unitStories.ts): read with
+// the English the first time round, then without it (a tap shows it). Placed
+// last — before the unit's Kertaus, if it has one. Never in the checkpoint.
+for (const unit of UNITS) {
+  const storyId = UNIT_STORY_IDS[unit.id];
+  const s = UNIT_STORIES.find((x) => x.id === storyId);
+  if (!s) continue;
+  const step: SkillNode = {
+    id: `${unit.id}-story`,
+    titleFi: s.titleFi,
+    titleEn: `Story: ${s.titleEn}`,
+    icon: '📖',
+    activity: 'story',
+    maxLevel: 2,
+    content: { ids: [s.id], hideGlossFrom: 2 },
+  };
+  const mix = unit.skills.findIndex((x) => x.content.mix);
+  if (mix >= 0) unit.skills.splice(mix, 0, step);
+  else unit.skills.push(step);
+}
+
 // --- Resolve each step's word scope, default pins, and review mixes ------
 //
 // A unit's `newWords` accumulate into the "known" set; each step gets a STABLE
@@ -2567,7 +2593,7 @@ export function renderActivity(
       return <ReadAndListen items={items} onExit={onExit} />;
     case 'story':
       // A tiny illustrated story, page by page, then comprehension taps.
-      return <StoryTime ids={skill.content.ids} onExit={onExit} />;
+      return <StoryTime ids={skill.content.ids} hideGlossFrom={skill.content.hideGlossFrom} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

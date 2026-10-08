@@ -144,7 +144,7 @@ describe('course home', () => {
 
   it('ticks finished steps and opens the checkpoint once all are done', () => {
     seedChild(
-      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
+      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2), 'hello-story': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 } },
       warmedUpToday(),
@@ -152,13 +152,13 @@ describe('course home', () => {
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
     expect(cont.getAttribute('href')).toBe('/checkpoint/hello');
-    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(4); // lesson + 3 steps
+    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(5); // lesson + 4 steps
     expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
   });
 
   it('opens the next unit once the checkpoint is passed', () => {
     seedChild(
-      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
+      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2), 'hello-story': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 }, checkpoints: { 'hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
       warmedUpToday(),
@@ -180,7 +180,7 @@ describe('daily warm-up', () => {
     checkpoints: { hello: { passedAt: 1, best: 0.9, attempts: 1 } },
   };
   const progress = {
-    hello: { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) },
+    hello: { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2), 'hello-story': proven(2) },
     people: { 'people-words': proven(3) },
   };
   const day = (d: number) => dayKey(Date.now() - d * 864e5);

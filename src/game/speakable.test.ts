@@ -66,7 +66,7 @@ describe('speakableTargetsFor', () => {
     expect(ts.length).toBeGreaterThan(0);
     // Every target is a real story page line, glossed.
     ts.forEach((t) => {
-      expect(t.say).toMatch(/\.$/);
+      expect(t.say).toMatch(/[.!?]$/);
       expect(t.gloss).toBeTruthy();
     });
   });

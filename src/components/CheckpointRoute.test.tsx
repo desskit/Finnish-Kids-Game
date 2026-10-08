@@ -46,7 +46,7 @@ function seed() {
           level: 1,
           stars: 0,
           createdAt: 1,
-          progress: { 'hello': { greetings: lvl2, introduce: lvl2, 'hello-talk': lvl2 } },
+          progress: { 'hello': { greetings: lvl2, introduce: lvl2, 'hello-talk': lvl2, 'hello-story': lvl2 } },
           srs: {},
           course: { lessonsSeen: { sounds: 1 } },
         },
