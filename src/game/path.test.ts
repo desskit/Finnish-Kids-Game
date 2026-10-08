@@ -25,8 +25,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty-six units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(36);
+  it('is thirty-seven units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(37);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);

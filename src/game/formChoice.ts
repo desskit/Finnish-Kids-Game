@@ -355,8 +355,9 @@ const CASE_MEANING: Record<PronounCase, string> = {
   genitive: 'means "___\'s" — not this verb\'s ending.',
 };
 
-function pronounQuestion(optionCount: number): FormChoiceQuestion | null {
-  const frame = sample(PRONOUN_FRAMES, 1)[0];
+function pronounQuestion(optionCount: number, frameIds?: string[]): FormChoiceQuestion | null {
+  const frames = frameIds ? PRONOUN_FRAMES.filter((f) => frameIds.includes(f.id)) : PRONOUN_FRAMES;
+  const frame = sample(frames.length > 0 ? frames : PRONOUN_FRAMES, 1)[0];
   const persons = (Object.keys(PRONOUNS) as PersonId[]).filter(
     (p) => !frame.exclude.includes(p),
   );
@@ -545,6 +546,8 @@ export interface ChoosePools {
   /** "Which verb, which ending?": the verbs (carriers) mixed, and the words met. */
   constructions?: Construction[];
   items?: LexicalItem[];
+  /** "Me and you" rounds: only these pronoun frames (default: all). */
+  frames?: string[];
 }
 
 // --- Numbers, dates and age ------------------------------------------------------
@@ -900,7 +903,7 @@ export function buildChooseRound(
     guard++
   ) {
     let q: FormChoiceQuestion | null = null;
-    if (mode === "pronoun") q = pronounQuestion(optionCount);
+    if (mode === "pronoun") q = pronounQuestion(optionCount, pools.frames);
     else if (mode === "degree") {
       const adj = sample(pools.adjectives ?? [], 1)[0];
       if (!adj) break;

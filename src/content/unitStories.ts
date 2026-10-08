@@ -291,6 +291,40 @@ export const UNIT_STORIES: Story[] = [
       },
     ],
   }),
+  story('doing-kpt', {
+    id: 'evening',
+    titleFi: 'Ilta',
+    titleEn: 'Evening',
+    icon: '🌙',
+    tier: 3,
+    pages: [
+      { fi: 'Illalla luen kirjaa.', en: 'In the evening I read a book.', emoji: '📖' },
+      { fi: 'Isä lukee myös.', en: 'Dad reads too.', emoji: '👨' },
+      { fi: 'Vauva nukkuu jo.', en: 'The baby is already asleep.', emoji: '👶' },
+      { fi: 'Minä en nuku vielä.', en: "I'm not sleeping yet.", emoji: '🙈' },
+      { fi: 'Kirjoitan ja piirrän.', en: 'I write and draw.', emoji: '✏️' },
+    ],
+    questions: [
+      {
+        promptFi: 'Kuka nukkuu?',
+        promptEn: 'Who is sleeping?',
+        options: [
+          { fi: 'vauva', en: 'the baby', emoji: '👶', correct: true },
+          { fi: 'isä', en: 'Dad', emoji: '👨' },
+          { fi: 'minä', en: 'me', emoji: '🙋' },
+        ],
+      },
+      {
+        promptFi: 'Mitä isä tekee?',
+        promptEn: 'What is Dad doing?',
+        options: [
+          { fi: 'lukee', en: 'reading', emoji: '📖', correct: true },
+          { fi: 'nukkuu', en: 'sleeping', emoji: '😴' },
+          { fi: 'kirjoittaa', en: 'writing', emoji: '✏️' },
+        ],
+      },
+    ],
+  }),
   story('not-doing', {
     id: 'tired-cat',
     titleFi: 'Väsynyt kissa',

@@ -2,7 +2,7 @@ import type { BadgeEnv } from './badges';
 import ChooseForm from '../components/ChooseForm';
 import { choosePoolsFor, type ChooseMode, type ChoosePools } from './formChoice';
 import type { ReactElement } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
+import type { CaseId, Construction, LexicalItem } from '../content/types';
 import { matchesVerbFilter, typeByLook, verbType, type VerbFilter, type VerbType } from '../content/verbTypes';
 import {
   animals,
@@ -158,6 +158,10 @@ export interface SkillContent {
   hear?: HearSource;
   /** Story steps: from this level on, the English hides behind a tap. */
   hideGlossFrom?: number;
+  /** "Me and you" steps: only these pronoun frames (pronouns.ts). */
+  frames?: string[];
+  /** Agreement steps: ask only about these cases (e.g. the IN and ON forms). */
+  agreementCases?: CaseId[];
 }
 
 export interface SkillNode {
@@ -888,23 +892,38 @@ const UNITS: Chapter[] = [
     id: 'doing',
     titleFi: 'Mitä teet?',
     titleEn: 'Verbs, part 1: types 1–3',
-    blurbEn: 'Action words in three families — and the ending tells you WHO. Halfway: when k, p and t change.',
+    blurbEn: 'Action words in three families — and the ending tells you WHO.',
     accent: '#ea580c',
     icon: '🏃',
     lessonId: 'verb-persons',
-    midLessons: [{ lessonId: 'kpt-1-3', before: 'doing-kpt-words' }],
-    newWords: [...DOING_PLAIN, ...DOING_KPT],
+    newWords: DOING_PLAIN,
     skills: [
       wordsStep('doing', 'verbs', 'Action words', DOING_PLAIN),
       verbStep('verbs-type1', 'Tyyppi 1', 'Type 1: laulaa', '1️⃣', { types: [1], kpt: false }, [PRESENT_POS], 2, 'minä laulan, hän laulaa'),
       verbStep('verbs-type2', 'Tyyppi 2', 'Type 2: syödä', '2️⃣', { types: [2], kpt: false }, [PRESENT_POS], 2, 'minä syön, hän syö'),
       verbStep('verbs-type3', 'Tyyppi 3', 'Type 3: tulla', '3️⃣', { types: [3], kpt: false }, [PRESENT_POS], 2, 'minä tulen, hän tulee'),
       typeStep('which-type-1-3', [1, 2, 3], 2, false),
-      wordsStep('doing', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
-      verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
-      verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
       listenStep('doing-listen', 'Who is doing it?', 'verbs', { combos: [PRESENT_POS] }, 'Syön. · Syöt. · Hän syö.'),
       sceneStep('doing-talk', 'playdate', 'Leikitään!', 'Playing together'),
+    ],
+  },
+  {
+    // The first verb unit was the longest early unit (12 steps): types 1–3 AND
+    // the consonant change. Split, so a checkpoint consolidates the endings
+    // before a sound in the middle starts changing too.
+    id: 'doing-kpt',
+    titleFi: 'Nukun, nukkuu',
+    titleEn: 'Verbs, part 1b: k, p and t change',
+    blurbEn: 'Some verbs change a sound in the middle: nukkua → minä nukun, hän nukkuu.',
+    accent: '#c2410c',
+    icon: '🔀',
+    lessonId: 'kpt-1-3',
+    newWords: DOING_KPT,
+    skills: [
+      wordsStep('doing-kpt', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
+      verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
+      verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
+      listenStep('doing-kpt-listen', 'Nukun or nukkuu?', 'verbs', { verbs: { types: [1, 3], kpt: true }, combos: [PRESENT_POS] }, 'Nukun. · Hän nukkuu.'),
       sceneStep('doing-talk-2', 'what-everyone-does', 'Mitä teette?', 'What is everyone doing?'),
     ],
   },
@@ -1336,6 +1355,18 @@ const UNITS: Chapter[] = [
         exampleFi: 'talossani, huoneessasi',
       },
       listenStep('where-listen', 'In or on?', 'carriers', { constructionIds: ['in-it', 'on-it'], pool: 'places' }, 'laatikossa · pöydällä'),
+      {
+        // The describing word copies the place ending too: isossa talossa,
+        // pienellä pöydällä — the describing unit's rule, in the new endings.
+        id: 'big-house',
+        titleFi: 'Isossa talossa',
+        titleEn: 'In the big house',
+        icon: '🏠',
+        activity: 'match',
+        maxLevel: 3,
+        content: { pool: 'places', agreementCases: ['inessive', 'adessive'] },
+        exampleFi: 'isossa talossa · pienellä pöydällä',
+      },
       sceneStep('where-talk', 'tidy-up', 'Missä se on?', 'Where is it?'),
       sceneStep('where-talk-2', 'my-things', 'Missä tavarasi ovat?', 'Where are your things?'),
     ],
@@ -1352,6 +1383,15 @@ const UNITS: Chapter[] = [
     newWords: [],
     skills: [
       phraseStep('into-onto', 'Mihin?', 'Into & onto', '➡️', ['into-it', 'onto-it'], 'Kissa menee laatikkoon.', 'places'),
+      phraseStep(
+        'into-shapes',
+        'Laatikkoon, huoneeseen',
+        'Into: three shapes',
+        '📥',
+        ['into-it'],
+        'laatikkoon · huoneeseen · puuhun',
+        'places',
+      ),
       phraseStep('out-off', 'Mistä?', 'Out of & off', '⬅️', ['out-of-it', 'off-it'], 'Kissa tulee laatikosta.', 'places'),
       phraseStep(
         'six-cases',
@@ -1630,9 +1670,31 @@ const UNITS: Chapter[] = [
     newWords: [],
     skills: [
       {
+        // Help / wait for / love someone (-a) — but SEE someone whole (-t).
+        id: 'me-you-objects',
+        titleFi: 'Auta minua, näen sinut',
+        titleEn: 'Help me, I see you',
+        icon: '🤝',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'pronoun', frames: ['help', 'wait', 'love', 'see'] },
+        exampleFi: 'Auta minua! · Näen sinut.',
+      },
+      {
+        // TO / FOR someone (-lle) — and liking someone (-sta).
+        id: 'me-you-to',
+        titleFi: 'Sinulle, sinusta',
+        titleEn: 'To you, for you, I like you',
+        icon: '🎁',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'pronoun', frames: ['give', 'for-you', 'like'] },
+        exampleFi: 'Tämä on sinulle! · Pidän sinusta.',
+      },
+      {
         id: 'me-you-forms',
         titleFi: 'Minua, minulle',
-        titleEn: 'Me, to me, you…',
+        titleEn: 'All of them together',
         icon: '🫶',
         activity: 'choose',
         maxLevel: 3,
@@ -1685,6 +1747,14 @@ const UNITS: Chapter[] = [
     skills: [
       phraseStep('these-are', 'Nämä ovat…', 'These are…', '👐', ['these-are', 'where-are'], 'Nämä ovat kirjoja.'),
       phraseStep('some-any', 'Minulla on…ja', 'Some & any', '🧺', ['i-have-some', 'i-havent-any'], 'Minulla on palloja.'),
+      phraseStep(
+        'one-or-many',
+        'Yksi vai monta?',
+        'One, or several?',
+        '🔢',
+        ['i-have', 'i-have-some', 'i-havent', 'i-havent-any'],
+        'Minulla on pallo. · Minulla on palloja.',
+      ),
       phraseStep('in-them', '…issa', 'In the boxes', '📦', ['in-them'], 'Kissat ovat laatikoissa.', 'places'),
       listenStep('many-listen', 'One, or many?', 'carriers', { constructionIds: ['i-have', 'i-have-some', 'this-is', 'these-are'] }, 'Minulla on pallo. · Minulla on palloja.'),
       sceneStep('many-talk', 'lots-of-things', 'Paljon tavaraa', 'Lots of things'),
@@ -1727,6 +1797,7 @@ const UNITS: Chapter[] = [
     skills: [
       wordsStep('yesterday', 'verbs', 'More action words'),
       verbStep('verbs-past', 'Söin', 'What happened', '⏮️', undefined, [PAST_POS], 3, 'minä söin, hän nukkui'),
+      verbStep('verbs-past-4', 'Halusin', 'Type 4 past: -si-', '🔓', { types: [4] }, [PAST_POS], 3, 'minä halusin, hän avasi'),
       verbStep('verbs-past-not', 'En syönyt', "What didn't happen", '🙅', undefined, [PAST_NEG], 3, 'minä en syönyt'),
       verbStep('verbs-past-mix', 'Söin vai en syönyt?', 'Did or didn\'t', '🔀', undefined, [PAST_POS, PAST_NEG], 3),
       {
@@ -2356,7 +2427,9 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
   if (!cached) {
     const base = choosePools(skill.content.wordIds);
     const filter = skill.content.verbs;
-    if (skill.content.choose === 'verb-case') {
+    if (skill.content.frames) {
+      cached = { ...base, frames: skill.content.frames };
+    } else if (skill.content.choose === 'verb-case') {
       // "Which verb, which ending?": the step's carriers, over the words met.
       cached = {
         ...base,
@@ -2478,6 +2551,7 @@ export function renderActivity(
         <MatchTheWord
           adjectives={scoped(adjectives.items, wordIds, 4)}
           nouns={pictureItems}
+          targetCases={skill.content.agreementCases}
           onExit={onExit}
         />
       );

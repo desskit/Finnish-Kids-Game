@@ -47,6 +47,7 @@ export default function ChooseForm({
   months,
   constructions,
   items,
+  frames,
   onExit,
 }: Props) {
   const { level, addStars } = useProfile();
@@ -63,11 +64,11 @@ export default function ChooseForm({
     () =>
       buildChooseRound(
         mode,
-        { verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items },
+        { verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items, frames },
         QUESTIONS,
         Math.max(3, optionCount),
       ).slice(0, ctx?.roundQuestions),
-    [mode, verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items, optionCount, runId, ctx?.roundQuestions],
+    [mode, verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items, frames, optionCount, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

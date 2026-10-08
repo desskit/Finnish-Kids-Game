@@ -1099,11 +1099,15 @@ export function buildAgreementRound(
   maxCases: number = AGREEMENT_CASES.length,
   tricky = false,
   weigh?: WeighFn,
+  /** Ask only about these cases (a step on the IN / ON forms); distractors stay the whole set. */
+  targetCases?: readonly CaseId[],
 ): AgreementQuestion[] {
   // The case ramp: rotate through only the FIRST `maxCases` of the ordered
   // list — three cases at level 1, the full seven by the top of the ladder.
   // Floor at optionCount: a question needs (optionCount - 1) case distractors.
-  const allowedCases = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+  // A focused step keeps its target cases in, whatever the ramp.
+  const ramp = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+  const allowedCases = targetCases ? [...new Set([...targetCases, ...ramp])] : ramp;
 
   const out: AgreementQuestion[] = [];
   let guard = 0;
@@ -1125,7 +1129,9 @@ export function buildAgreementRound(
     if (!adjective) break;
 
     const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
-    const targetCandidates = nounCases.filter((c) => caseFormOf(adjective, c, number));
+    const targetCandidates = nounCases.filter(
+      (c) => caseFormOf(adjective, c, number) && (!targetCases || targetCases.includes(c)),
+    );
     if (!targetCandidates.length) continue;
 
     const targetCase = sample(targetCandidates, 1)[0];
