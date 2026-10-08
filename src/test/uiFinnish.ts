@@ -334,5 +334,6 @@ export function extractUiFinnish(files = uiSourceFiles(), lexicon = finnishLexic
 
   return [...found.entries()]
     .map(([fi, { en: glosses, where }]) => ({ fi, en: [...glosses].sort().join(' / '), where: [...where].sort() }))
-    .sort((a, b) => a.fi.localeCompare(b.fi, 'fi'));
+    // Plain code-point order (not a locale's): the same file on every machine.
+    .sort((a, b) => (a.fi < b.fi ? -1 : a.fi > b.fi ? 1 : 0));
 }

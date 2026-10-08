@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-08T05:08:38.825Z · regenerate with `npm run review:content`
+- Generated: 2026-10-08T05:10:18.659Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -1584,8 +1584,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 
 | Status | Key | Finnish | English |
 | --- | --- | --- | --- |
-| ⚠️ | `ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.` | ⟨Kyllä / Ei⟩, se on ⟨fi⟩. | (no English shown) |
-| ⚠️ | `ui:⟨streak⟩ päivää putkeen!` | ⟨streak⟩ päivää putkeen! | ⟨streak⟩-day streak |
 | ⚠️ | `ui:A vai Ä?` | A vai Ä? | a or ä, o or ö, u or y? |
 | ⚠️ | `ui:Aakkoset` | Aakkoset | Alphabet / Alphabet & sounds / Back to the alphabet / Listen to the whole alphabet |
 | ⚠️ | `ui:Aikuisille` | Aikuisille | Grown-ups |
@@ -1599,8 +1597,8 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Harjoittele!` | Harjoittele! | Start practicing |
 | ⚠️ | `ui:Hei⟨…⟩!` | Hei⟨…⟩! | Your Finnish course |
 | ⚠️ | `ui:Hienoa työtä tänään!` | Hienoa työtä tänään! | Great work today |
-| ⚠️ | `ui:Hienoa, juttelit suomeksi!` | Hienoa, juttelit suomeksi! | You had a conversation! |
 | ⚠️ | `ui:Hienoa!` | Hienoa! | Great job! / Great! / Nice listening! / You know your letters! |
+| ⚠️ | `ui:Hienoa, juttelit suomeksi!` | Hienoa, juttelit suomeksi! | You had a conversation! |
 | ⚠️ | `ui:Hitaasti` | Hitaasti | Slowly |
 | ⚠️ | `ui:Hyvä yritys!` | Hyvä yritys! | Good try! |
 | ⚠️ | `ui:Jatka` | Jatka | Continue / Keep going |
@@ -1701,3 +1699,5 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Välitesti` | Välitesti | Checkpoint |
 | ⚠️ | `ui:Yksi vai kaksi?` | Yksi vai kaksi? | One letter or two? |
 | ⚠️ | `ui:Yritä uudestaan` | Yritä uudestaan | Try again |
+| ⚠️ | `ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.` | ⟨Kyllä / Ei⟩, se on ⟨fi⟩. | (no English shown) |
+| ⚠️ | `ui:⟨streak⟩ päivää putkeen!` | ⟨streak⟩ päivää putkeen! | ⟨streak⟩-day streak |
