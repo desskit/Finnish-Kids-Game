@@ -2193,6 +2193,18 @@ button:focus-visible,
   font-weight: 600;
 }
 
+/* The new day's warm-up takes over the Continue button until it's done. */
+.continue-cta--warmup {
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+}
+
+.warmup-bar {
+  max-width: calc(100vw - 32px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .home-tiles {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2950,7 +2962,7 @@ a.badge-strip {
 
 .grownup__tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   padding: 5px;
   width: 100%;
@@ -2960,6 +2972,12 @@ a.badge-strip {
   background: var(--bg-card);
   box-shadow: var(--shadow);
   flex-wrap: nowrap;
+}
+
+@media (min-width: 640px) {
+  .grownup__tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .gtab {
@@ -3298,6 +3316,92 @@ a.badge-strip {
 .gchip--muted {
   background: #f1f5f9;
   color: var(--ink-soft);
+}
+
+.gchip--warn {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.gsteps--flat {
+  padding: 0;
+}
+
+.gstat__inline {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.gnote {
+  color: #b45309;
+}
+
+.glink {
+  color: var(--brand);
+  font-weight: 800;
+}
+
+/* Stats: the 14-day activity chart */
+.gchart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  align-items: end;
+  gap: 4px;
+  height: 140px;
+}
+
+.gchart__day {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: end;
+  justify-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+.gchart__n {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.gchart__bar {
+  width: 100%;
+  max-width: 26px;
+  min-height: 2px;
+  border-radius: 6px 6px 2px 2px;
+  background: var(--brand);
+  align-self: end;
+}
+
+.gchart__bar--shaky {
+  background: #f97316;
+}
+
+.gchart__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.gchart__key {
+  font-size: 0.8rem;
+}
+
+.gchart__swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--brand);
+  vertical-align: middle;
+}
+
+.gchart__swatch--shaky {
+  background: #f97316;
 }
 
 /* Buttons used in the grown-up area */

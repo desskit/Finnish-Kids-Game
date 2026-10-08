@@ -38,6 +38,7 @@ vi.mock('./audio/sfx', () => ({ playDing: vi.fn() }));
 import { AppRoutes } from './App';
 import ProgressView from './components/ProgressView';
 import { UNITS } from './game/course';
+import { dayKey } from './game/streak';
 import { ProfileProvider } from './state/profile';
 
 // Integration tests for the guided-course shell (home → lesson → step →
@@ -48,6 +49,7 @@ function seedChild(
   progress: Record<string, unknown> = {},
   srs: Record<string, unknown> = {},
   course: Record<string, unknown> = {},
+  extra: Record<string, unknown> = {},
 ) {
   localStorage.setItem(
     'fkg.profiles.v2',
@@ -65,6 +67,7 @@ function seedChild(
           progress,
           srs,
           course,
+          ...extra,
         },
       ],
       activeId: 'k',
@@ -98,6 +101,16 @@ const lvl = (level: number) => ({
 });
 /** A step whose TOP level has been proven — the only thing that counts as done. */
 const proven = (level: number) => ({ ...lvl(level), topProvenAt: 1 });
+
+/** Stats saying today's warm-up is already done (so Continue is the course). */
+const warmedUpToday = () => ({
+  stats: {
+    v: 1,
+    subjects: {},
+    days: {},
+    warmups: [{ day: dayKey(Date.now()), subject: 'greetings', right: 9, total: 10, at: Date.now() }],
+  },
+});
 
 describe('course home', () => {
   it('starts a new child on unit 1: Continue → its lesson, later units locked', () => {
@@ -134,6 +147,7 @@ describe('course home', () => {
       { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 } },
+      warmedUpToday(),
     );
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
@@ -147,6 +161,7 @@ describe('course home', () => {
       { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) } },
       {},
       { lessonsSeen: { sounds: 1 }, checkpoints: { 'hello': { passedAt: 1, best: 0.9, attempts: 1 } } },
+      warmedUpToday(),
     );
     renderAt('/');
     const units = document.querySelectorAll('.unit');
@@ -154,6 +169,80 @@ describe('course home', () => {
     expect(units[1].className).toContain('unit--current');
     expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
     expect(screen.getByText(`1 of ${UNITS.length - 1} units done`)).toBeInTheDocument();
+  });
+});
+
+describe('daily warm-up', () => {
+  // Hello passed; in People the words step is proven but shaky, "This is…" is
+  // the step Continue would open (so it is never the warm-up).
+  const course = {
+    lessonsSeen: { sounds: 1, 'no-articles': 1 },
+    checkpoints: { hello: { passedAt: 1, best: 0.9, attempts: 1 } },
+  };
+  const progress = {
+    hello: { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2) },
+    people: { 'people-words': proven(3) },
+  };
+  const day = (d: number) => dayKey(Date.now() - d * 864e5);
+  const weakWords = {
+    stats: {
+      v: 1,
+      days: {},
+      subjects: {
+        'people-words': { n: 20, right: 9, days: { [day(1)]: { n: 20, right: 9 } }, first: 1, last: Date.now() - 864e5 },
+        greetings: { n: 30, right: 29, days: { [day(2)]: { n: 30, right: 29 } }, first: 1, last: Date.now() - 2 * 864e5 },
+      },
+      warmups: [{ day: day(1), subject: 'greetings', right: 10, total: 10, at: Date.now() - 864e5 }],
+    },
+  };
+
+  it("makes a new day's first Continue the warm-up on the weakest subject", () => {
+    seedChild(progress, {}, course, weakWords);
+    renderAt('/');
+    const cont = screen.getByRole('link', { name: /Continue/ });
+    expect(cont.getAttribute('href')).toBe('/warmup');
+    expect(cont.textContent).toMatch(/today's warm-up/);
+    expect(cont.textContent).toMatch(/10 questions · Unit 2: New words/);
+  });
+
+  it('is the course again once today’s warm-up is done', () => {
+    seedChild(progress, {}, course, warmedUpToday());
+    renderAt('/');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/skill/this-is');
+  });
+
+  it('never shows for a brand-new player (nothing to judge yet)', () => {
+    seedChild();
+    renderAt('/');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/sounds');
+  });
+
+  it('plays ten questions of that subject, records it, then goes back to the course', async () => {
+    seedChild(progress, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } }, course, weakWords);
+    vi.useFakeTimers();
+    try {
+      renderAt('/warmup');
+      expect(screen.getByLabelText(/Warm-up: 0 of 10 questions/)).toBeInTheDocument();
+      for (let q = 0; q < 10; q++) {
+        // Listen & tap shows the picture; Name it shows the Finnish word.
+        const pick = screen.queryByText('🐱')?.closest('button') ?? screen.getByText('kissa').closest('button');
+        fireEvent.click(pick as HTMLButtonElement);
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(1000);
+        });
+      }
+      expect(screen.getByText(/Warm-up done/)).toBeInTheDocument();
+      expect(screen.getByLabelText('10 of 10 right first time')).toBeInTheDocument();
+      const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
+      const stats = saved.children[0].stats;
+      expect(stats.warmups.at(-1)).toMatchObject({ day: dayKey(Date.now()), subject: 'people-words', right: 10, total: 10 });
+      expect(stats.subjects['people-words'].src.warmup).toMatchObject({ n: 10, right: 10 });
+      // The step's own progress moved too — it was real practice.
+      expect(saved.children[0].progress.people['people-words'].plays).toBe(3 + 2);
+      fireEvent.click(screen.getByRole('button', { name: /Continue/ }));
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

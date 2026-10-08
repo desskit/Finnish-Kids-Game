@@ -23,6 +23,7 @@ import { recordRoundOnChild } from '../game/progress';
 import { bumpStreak, dayKey } from '../game/streak';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
+import { applyStatEvent, applyWarmup, statsOf, type StatEvent, type WarmupRecord } from '../game/stats';
 
 // Multi-child local profiles + per-topic progress + device settings. No
 // accounts, no server — persisted to localStorage via `storage.ts` (the seam a
@@ -81,6 +82,10 @@ interface ProfileContextValue {
   ) => void;
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
+  /** Fold a finished segment into the active child's practice stats. */
+  recordStats: (event: StatEvent) => void;
+  /** Log a finished daily warm-up for the active child. */
+  recordWarmup: (record: WarmupRecord) => void;
 
   // --- Guided course ---
   /** Mark a lesson as read to the end (idempotent; keeps the first time). */
@@ -218,6 +223,12 @@ export function ProfileProvider({
           srs: { ...c.srs, [itemId]: review(c.srs[itemId], correct, Date.now()) },
         })),
 
+      recordStats: (event) =>
+        updateActive((c) => ({ ...c, stats: applyStatEvent(statsOf(c), event, Date.now()) })),
+
+      recordWarmup: (record) =>
+        updateActive((c) => ({ ...c, stats: applyWarmup(statsOf(c), record) })),
+
       markLessonSeen: (lessonId) =>
         updateActive((c) =>
           c.course?.lessonsSeen?.[lessonId]
@@ -239,6 +250,7 @@ export function ProfileProvider({
             ...c,
             ...streak,
             bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
+            stats: applyStatEvent(statsOf(c), { right, total, source: 'sounds' }, Date.now()),
             course: {
               ...c.course,
               sounds: {

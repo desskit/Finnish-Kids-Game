@@ -15,6 +15,7 @@ import WhyTip from './WhyTip';
 import { whyForPhrasePick } from '../content/why';
 import { lessonForConstruction } from '../game/course';
 import RoundComplete from './RoundComplete';
+import { segmentMs } from '../game/stats';
 
 const QUESTIONS = 8;
 
@@ -59,11 +60,14 @@ interface Props {
 }
 
 export default function ReviewActivity({ embedded = false, onExit }: Props = {}) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+  const { level, addStars, recordAttempt, recordStats, activeChild } = useProfile();
   const navigate = useNavigate();
   const optionCount = level >= 2 ? 4 : 3;
 
   const missed = useRef(false);
+  // First-try answers and the round's start time, for the practice stats.
+  const firstTries = useRef(0);
+  const startedAt = useRef(Date.now());
   const [runId, setRunId] = useState(0);
 
   // Select due/new items once per run (snapshot at start, so answering during
@@ -157,6 +161,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     setStars((s) => s + 1);
     addStars(1);
     recordAttempt(question.srsId, !missed.current);
+    if (!missed.current) firstTries.current += 1;
     const next = index + 1;
     setTimeout(() => {
       if (next >= round.length) setDone(true);
@@ -285,7 +290,23 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     return () => window.removeEventListener('keydown', onKey);
   }, [question, done, choose, chooseForm, replay]);
 
+  // A finished Review round joins the day's practice totals (once per round).
+  const recorded = useRef(-1);
+  useEffect(() => {
+    if (!done || recorded.current === runId || round.length === 0) return;
+    recorded.current = runId;
+    const now = Date.now();
+    recordStats({
+      right: firstTries.current,
+      total: round.length,
+      ms: segmentMs(startedAt.current, now, round.length),
+      source: 'review',
+    });
+  }, [done, runId, round.length, recordStats]);
+
   function restart() {
+    firstTries.current = 0;
+    startedAt.current = Date.now();
     setIndex(0);
     setStars(0);
     setInput('');

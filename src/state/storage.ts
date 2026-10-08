@@ -7,6 +7,7 @@
 // provider — without changing any UI call sites.
 
 import type { ItemSchedule } from '../game/srs';
+import type { StatsState } from '../game/stats';
 
 export interface ActivityProgress {
   /** How many rounds of this activity were completed. */
@@ -85,6 +86,13 @@ export interface Child {
    * older stored profiles round-trip (readers treat missing as "nothing yet").
    */
   course?: CourseState;
+  /**
+   * Practice statistics per subject (course step) and per day, plus the daily
+   * warm-up log — see `src/game/stats.ts`. Optional + unbackfilled so older
+   * stored profiles round-trip unchanged; readers seed it from `progress`
+   * (`statsOf`) until the first new answer writes it.
+   */
+  stats?: StatsState;
 }
 
 export interface CheckpointRecord {

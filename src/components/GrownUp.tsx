@@ -4,6 +4,7 @@ import ParentGate from './ParentGate';
 
 const TABS = [
   { to: '/grown-up/progress', icon: '📊', en: 'Progress', fi: 'Edistyminen' },
+  { to: '/grown-up/stats', icon: '📈', en: 'Stats', fi: 'Tilastot' },
   { to: '/grown-up/profiles', icon: '👥', en: 'Players', fi: 'Pelaajat' },
   { to: '/grown-up/settings', icon: '⚙️', en: 'Settings', fi: 'Asetukset' },
   { to: '/grown-up/audit', icon: '🧪', en: 'Test games', fi: 'Testaus' },
