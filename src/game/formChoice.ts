@@ -9,7 +9,7 @@
 // forms (questions.ts) and pronoun forms (pronouns.ts) are small authored
 // tables checked by their own tests. Nothing is assembled from rules here.
 
-import type { LexicalItem, PersonId } from "../content/types";
+import type { Construction, LexicalItem, PersonId } from "../content/types";
 import {
   clothes,
   family,
@@ -56,10 +56,17 @@ import {
   caseFormOf,
   commandFor,
   dontForm,
+  englishSentenceFor,
+  formFor,
   letsForm,
   ownerGloss,
+  sentenceFor,
+  sentenceWithForm,
+  suitsSlot,
   verbForm,
 } from "../content/types";
+import { slipForms } from "../content/contrasts";
+import { whyForConstruction, whyForVerbCasePick } from "../content/why";
 import { YOU_QUESTION, questionFor } from "../content/questions";
 import {
   PRONOUNS,
@@ -99,7 +106,8 @@ export type ChooseMode =
   | "superlative"
   | "ordinal"
   | "date"
-  | "age";
+  | "age"
+  | "verb-case";
 
 export interface FormChoiceQuestion {
   /** Picture anchor, when there is one. */
@@ -534,6 +542,9 @@ export interface ChoosePools {
   numbers?: LexicalItem[];
   ordinals?: LexicalItem[];
   months?: LexicalItem[];
+  /** "Which verb, which ending?": the verbs (carriers) mixed, and the words met. */
+  constructions?: Construction[];
+  items?: LexicalItem[];
 }
 
 // --- Numbers, dates and age ------------------------------------------------------
@@ -837,6 +848,43 @@ function verbTypeQuestion(
   };
 }
 
+// --- Which verb, which ending? "Rakastan kissaa" · "Tykkään kissasta" · "Näen kissan"
+//
+// The same word after different verbs: each verb picks its own ending, and the
+// round MIXES them, so the child has to look at the verb every time. The wrong
+// options are the endings the OTHER verbs take (when those are wrong here —
+// content/contrasts.ts), and the "Why?" says whose ending that was.
+
+function verbCaseQuestion(
+  constructions: Construction[],
+  items: LexicalItem[],
+  optionCount: number,
+): FormChoiceQuestion | null {
+  const con = sample(constructions, 1)[0];
+  if (!con) return null;
+  const item = sample(
+    items.filter((i) => formFor(i, con) && suitsSlot(i, con)),
+    1,
+  )[0];
+  if (!item) return null;
+  const others = constructions.filter((c) => c.id !== con.id);
+  const otherCases = [...new Set(others.map((c) => c.case))];
+  const wrongForms = slipForms(item, con, otherCases).slice(0, Math.max(2, Math.min(optionCount, 4) - 1));
+  const answer = sentenceFor(item, con);
+  const options = finish(answer, wrongForms.map((f) => sentenceWithForm(con, f)), optionCount);
+  if (!options) return null;
+  const whyFor: Record<string, Why> = {};
+  for (const f of wrongForms) whyFor[sentenceWithForm(con, f)] = whyForVerbCasePick(con, item, f, others);
+  return {
+    emoji: item.emoji,
+    cue: englishSentenceFor(item, con),
+    answer,
+    options,
+    why: whyForConstruction(con, item),
+    whyFor,
+  };
+}
+
 export function buildChooseRound(
   mode: ChooseMode,
   pools: ChoosePools,
@@ -861,6 +909,8 @@ export function buildChooseRound(
       q = compareQuestion(pools.adjectives ?? [], pools.known);
     else if (mode === "superlative")
       q = superlativeQuestion(pools.adjectives ?? [], pools.known);
+    else if (mode === "verb-case")
+      q = verbCaseQuestion(pools.constructions ?? [], pools.items ?? [], optionCount);
     else if (mode === "ordinal") q = ordinalQuestion(pools);
     else if (mode === "date") q = dateQuestion(pools);
     else if (mode === "age") q = ageQuestion(pools);

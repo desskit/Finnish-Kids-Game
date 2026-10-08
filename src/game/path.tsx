@@ -65,6 +65,7 @@ export type ActivityKind =
   | 'listen-sentence'
   | 'say'
   | 'build'
+  | 'ending'
   | 'count'
   | 'match'
   | 'conjugate'
@@ -505,11 +506,43 @@ function typeStep(id: string, types: VerbType[], maxLevel: number, kpt?: boolean
   };
 }
 
-/** A carrier-phrase practice step. L1 recognizes (build); L2 mixes in
- *  ASSEMBLING the sentence (order); L3 is the same pair with harder tiles.
+/**
+ * Phrase steps whose grammar is the BASIC form (or a set word) — there's no
+ * ending to choose yet, so they skip the pick-the-ending round.
+ */
+const NO_ENDING_ROUND = new Set(['this-is', 'i-have', 'who-has', 'what-color', 'today-is', 'clock']);
+
+/** "Which verb, which ending?" — the same words after MIXED verbs (item 4 of
+ *  the parent's list): each verb picks its own ending, so every question means
+ *  looking at the verb first. Options are the other verbs' endings. */
+function verbCaseStep(
+  id: string,
+  titleFi: string,
+  titleEn: string,
+  constructionIds: string[],
+  maxLevel: number,
+  exampleFi?: string,
+): SkillNode {
+  return {
+    id,
+    titleFi,
+    titleEn,
+    icon: '🔀',
+    activity: 'choose',
+    maxLevel,
+    content: { choose: 'verb-case', constructionIds },
+    exampleFi,
+  };
+}
+
+/** A carrier-phrase practice step. L1 recognizes the meaning (build: which
+ *  word); L2 mixes in ASSEMBLING the sentence (order); L3 adds PICKING THE
+ *  ENDING — the same word in several real forms, only one right for this
+ *  sentence (content/contrasts.ts) — which is where Finnish is really hard.
  *  Done once L3 is proven. Typing (spell) is never required: from the
  *  `TYPING_FROM_UNIT` on it joins as a MINOR round (see `SkillNode.minor`).
- *  The checkpoint asks for an assembly question. */
+ *  The checkpoint asks a pick-the-ending question (assembly where there is
+ *  no ending to pick). */
 function phraseStep(
   id: string,
   titleFi: string,
@@ -519,15 +552,16 @@ function phraseStep(
   exampleFi?: string,
   pool?: Pool,
 ): SkillNode {
+  const ending = !NO_ENDING_ROUND.has(id);
   return {
     id,
     titleFi,
     titleEn,
     icon,
     activity: 'build',
-    activities: ['build', 'order', 'order'],
+    activities: ['build', 'order', ending ? 'ending' : 'order'],
     maxLevel: 3,
-    checkpoint: 'order',
+    checkpoint: ending ? 'ending' : 'order',
     content: { constructionIds, pool },
     exampleFi,
   };
@@ -1048,6 +1082,14 @@ const UNITS: Chapter[] = [
       wordsStep('seeing', 'nouns', 'Getting around'),
       phraseStep('i-see', 'Näen…n', 'I see…', '👀', ['i-see'], 'Näen bussin.'),
       phraseStep('watch-wait', 'Katson, odotan', 'Watching & waiting', '⏳', ['i-watch', 'i-wait-for'], 'Odotan bussia.'),
+      verbCaseStep(
+        'which-ending',
+        'Mikä pääte?',
+        'Which verb, which ending?',
+        ['i-like-tykkaan', 'i-love', 'i-see', 'i-watch', 'i-wait-for'],
+        3,
+        'Tykkään koirasta · Näen koiran · Odotan koiraa',
+      ),
       sceneStep('seeing-talk', 'bus-stop', 'Bussipysäkillä', 'At the bus stop'),
     ],
   },
@@ -1729,6 +1771,14 @@ const UNITS: Chapter[] = [
             },
           ]
         : []),
+      verbCaseStep(
+        'every-ending',
+        'Kaikki verbit',
+        'Every verb, every ending',
+        ['i-like-tykkaan', 'i-like', 'i-love', 'i-see', 'i-watch', 'i-wait-for', 'i-havent', 'i-dont-like-tykkaa'],
+        4,
+        'Pidän · Rakastan · Näen · Odotan',
+      ),
       {
         id: 'find-error',
         titleFi: 'Löydä virhe',
@@ -1965,7 +2015,7 @@ UNITS.forEach((unit, ui) => {
   );
   const knownBefore = knownByUnit[ui].filter((w) => !heldBack.has(w));
   unit.skills.forEach((step, si) => {
-    const isSentenceStep = step.activities?.join() === 'build,order,order';
+    const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
     if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
     const scope = step.content.words ?? 'known';
     if (step.content.only) step.content.wordIds = step.content.only;
@@ -2219,7 +2269,14 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
   if (!cached) {
     const base = choosePools(skill.content.wordIds);
     const filter = skill.content.verbs;
-    if (!filter) cached = base;
+    if (skill.content.choose === 'verb-case') {
+      // "Which verb, which ending?": the step's carriers, over the words met.
+      cached = {
+        ...base,
+        constructions: constructionsFor(skill.content.constructionIds),
+        items: scoped(NOUNS, skill.content.wordIds, 1),
+      };
+    } else if (!filter) cached = base;
     else {
       // "Which type?" asks only about verbs whose look matches their type
       // (kiivetä looks like type 6 but is type 4 — not a fair question).
@@ -2302,6 +2359,16 @@ export function renderActivity(
         <BuildAPhrase
           items={items}
           constructions={constructionsFor(skill.content.constructionIds)}
+          onExit={onExit}
+        />
+      );
+    case 'ending':
+      // Pick the ending: the same word in several real forms, one right here.
+      return (
+        <BuildAPhrase
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
+          endings
           onExit={onExit}
         />
       );

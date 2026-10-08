@@ -23,6 +23,7 @@ const TITLES: Record<ChooseMode, { fi: string; en: string; prompt: string; promp
   date: { fi: 'Päivämäärä', en: 'Dates', prompt: 'Miten sanot?', promptEn: 'How do you say it?' },
   age: { fi: 'Kuinka vanha?', en: 'How old?', prompt: 'Miten sanot?', promptEn: 'How do you say it?' },
   'verb-type': { fi: 'Mikä tyyppi?', en: 'Which type?', prompt: 'Mikä verbityyppi?', promptEn: 'Which verb type is it?' },
+  'verb-case': { fi: 'Mikä pääte?', en: 'Which ending?', prompt: 'Mikä on oikein?', promptEn: 'Look at the verb: which ending?' },
 };
 
 interface Props extends ChoosePools {
@@ -33,7 +34,21 @@ interface Props extends ChoosePools {
 // Valitse oikea muoto — the same word(s) in a few real forms; pick the one this
 // moment needs (see game/formChoice.ts). Someone's Finnish line (a question) is
 // read aloud; the English task is narrated; a wrong pick shows the "Why?" rule.
-export default function ChooseForm({ mode, verbs, owners, things, types, adjectives, known, numbers, ordinals, months, onExit }: Props) {
+export default function ChooseForm({
+  mode,
+  verbs,
+  owners,
+  things,
+  types,
+  adjectives,
+  known,
+  numbers,
+  ordinals,
+  months,
+  constructions,
+  items,
+  onExit,
+}: Props) {
   const { level, addStars } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -46,11 +61,13 @@ export default function ChooseForm({ mode, verbs, owners, things, types, adjecti
   const [runId, setRunId] = useState(0);
   const round = useMemo(
     () =>
-      buildChooseRound(mode, { verbs, owners, things, types, adjectives, known, numbers, ordinals, months }, QUESTIONS, Math.max(3, optionCount)).slice(
-        0,
-        ctx?.roundQuestions,
-      ),
-    [mode, verbs, owners, things, types, adjectives, known, numbers, ordinals, months, optionCount, runId, ctx?.roundQuestions],
+      buildChooseRound(
+        mode,
+        { verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items },
+        QUESTIONS,
+        Math.max(3, optionCount),
+      ).slice(0, ctx?.roundQuestions),
+    [mode, verbs, owners, things, types, adjectives, known, numbers, ordinals, months, constructions, items, optionCount, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

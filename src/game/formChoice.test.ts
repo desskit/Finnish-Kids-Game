@@ -3,6 +3,10 @@ import { buildChooseRound, choosePoolsFor, type ChooseMode } from './formChoice'
 import { verbs, family, freetime } from '../content';
 import { caseFormOf, commandFor, dontForm, letsForm, verbForm } from '../content/types';
 import { questionFor } from '../content/questions';
+import { nounConstructions } from '../content/constructions';
+import { itemById } from '../content/lookup';
+import { whyForVerbCasePick } from '../content/why';
+import { themes } from '../content';
 
 const RUNS = 40;
 const pools = choosePoolsFor(undefined);
@@ -95,5 +99,37 @@ describe('"Why?" explains the exact wrong pick', () => {
       return;
     }
     throw new Error('no NO question drawn');
+  });
+});
+
+describe('which verb, which ending?', () => {
+  const cons = nounConstructions.filter((c) =>
+    ['i-like-tykkaan', 'i-love', 'i-see', 'i-watch', 'i-wait-for'].includes(c.id),
+  );
+  const mixed = { ...pools, constructions: cons, items: themes.flatMap((t) => t.items) };
+
+  it('mixes the verbs; one right sentence, the others the wrong endings', () => {
+    const seen = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildChooseRound('verb-case', mixed, 6, 4)) {
+        expect(q.options).toContain(q.answer);
+        expect(new Set(q.options).size).toBe(q.options.length);
+        expect(q.options.length).toBeGreaterThanOrEqual(3);
+        expect(q.options.length).toBeLessThanOrEqual(4);
+        // Every option is the SAME verb — only the ending differs.
+        const verb = q.answer.split(' ')[0];
+        for (const o of q.options) expect(o.split(' ')[0]).toBe(verb);
+        seen.add(verb);
+        // Each wrong option says what it is.
+        for (const o of q.options) if (o !== q.answer) expect(q.whyFor?.[o]?.text.length).toBeGreaterThan(0);
+      }
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(4);
+  });
+
+  it('names the verb a wrong ending belongs to', () => {
+    const love = cons.find((c) => c.id === 'i-love')!;
+    const why = whyForVerbCasePick(love, itemById('dog')!, 'koirasta', cons);
+    expect(why.text).toMatch(/^\*koirasta\* has \*\*-sta \/ -stä\*\* — that's the ending \*Tykkään\* takes\. \*Rakastan\*/);
   });
 });

@@ -394,6 +394,48 @@ export function whyForPossessorPick(
   };
 }
 
+/** The ending a case adds, in kid notation — for "that's the ending X takes". */
+const CASE_ENDING: Partial<Record<CaseId, string>> = {
+  nominative: 'no ending at all',
+  genitive: '**-n**',
+  partitive: '**-a / -ä** (or **-ta / -tä**)',
+  inessive: '**-ssa / -ssä**',
+  elative: '**-sta / -stä**',
+  illative: 'the INTO ending',
+  adessive: '**-lla / -llä**',
+  ablative: '**-lta / -ltä**',
+  allative: '**-lle**',
+  essive: '**-na / -nä**',
+};
+
+/**
+ * "Which verb, which ending?": the child put the word in another ending. Say
+ * which verb of the round that ending belongs to (so the mix-up itself is the
+ * lesson), then this verb's rule.
+ */
+export function whyForVerbCasePick(
+  con: Construction,
+  item: LexicalItem,
+  pickedForm: string,
+  others: readonly Construction[],
+): Why {
+  const base = whyForConstruction(con, item);
+  const hit = caseOfForm(item, pickedForm);
+  const owners = others.filter(
+    (o) => o.id !== con.id && formFor(item, o)?.toLowerCase() === pickedForm.toLowerCase() && o.before,
+  );
+  const verbs = [...new Set(owners.map((o) => `*${o.before}*`))];
+  const ending = hit ? CASE_ENDING[hit.c] : undefined;
+  const whose =
+    verbs.length > 0
+      ? ` — that's the ending ${verbs.join(' and ')} ${verbs.length > 1 ? 'take' : 'takes'}`
+      : '';
+  return {
+    text: `*${pickedForm}* has ${ending ?? 'another ending'}${whose}. ${base.text}`,
+    example: base.example,
+  };
+}
+
 /** Counting: a wrong NUMBER is a miscount; a wrong THING is the wrong word. */
 export function whyForCountPick(
   count: number,

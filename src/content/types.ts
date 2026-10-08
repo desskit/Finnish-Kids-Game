@@ -249,7 +249,12 @@ export function suitsSlot(item: LexicalItem, con: Construction): boolean {
 
 /** Assemble the full human-authored sentence using only the sourced slot form. */
 export function sentenceFor(item: LexicalItem, con: Construction): string {
-  const form = formFor(item, con) ?? item.fi;
+  return sentenceWithForm(con, formFor(item, con) ?? item.fi);
+}
+
+/** The carrier with a given (looked-up) form in its slot — e.g. a WRONG form,
+ *  for a "which ending?" option. Presentation only: the form is never built. */
+export function sentenceWithForm(con: Construction, form: string): string {
   const parts = [con.before, form, con.after].filter(
     (p): p is string => typeof p === 'string' && p.length > 0,
   );
