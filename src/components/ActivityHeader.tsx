@@ -38,7 +38,8 @@ export default function ActivityHeader({ title, index, total, stars, onExit }: P
           ))}
         </div>
       ) : (
-        <div className="session-stars" aria-label={`${stars} tähteä`}>
+        // One star is "1 tähti"; any other count takes the partitive ("0 / 6 tähteä").
+        <div className="session-stars" aria-label={`${stars} ${stars === 1 ? 'tähti' : 'tähteä'}`}>
           ⭐ {stars}
         </div>
       )}

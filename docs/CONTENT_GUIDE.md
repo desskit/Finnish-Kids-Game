@@ -16,6 +16,29 @@ until the form is added to the source. This is what keeps the Finnish correct
 So adding content is usually two steps: **(1)** make sure the words exist in the
 sourced data, then **(2)** wire them into a construction / skill / sentence.
 
+### Hand-written Finnish goes to the native review
+
+Some Finnish can't be looked up: story pages, scene lines, carrier frames, the
+forms a pattern marks wrong, lesson quotes, titles, and the screens' own labels
+("Jatka", "Mitä kuulit?"). All of it is listed in ONE place,
+`src/game/reviewEntries.ts`, under stable keys. That list feeds both
+`docs/FINNISH_REVIEW.md` and the in-app review (Grown-ups → Finnish check),
+where a Finnish speaker marks each entry ✓ correct or ✎ needs a fix.
+
+- Run `npm run review:content` after adding authored Finnish. It first pulls
+  the screen labels out of the components (`data/ui-finnish.json`, via
+  `src/test/uiFinnish.ts`), then rewrites the review sheet. A test fails if the
+  labels file is out of date.
+- Tests check that every authored word is a real form: stories, scenes,
+  titles and labels are all checked against the vendored tables. A real word
+  the tables lack must be listed with its meaning.
+- The reviewer's downloaded file is merged with
+  `npm run review:import <file>.json`:
+  - approvals go into `data/finnish-vetted.json`;
+  - fixes go into `data/finnish-flags.json`, shown as 🚩 in the sheet.
+- An approval holds only while the text reads the same. Change the Finnish and
+  it needs checking again.
+
 ---
 
 ## 1. Add vocabulary (words)

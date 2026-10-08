@@ -18,12 +18,19 @@ const QUESTIONS = 6;
 interface Props {
   items: LexicalItem[];
   constructions: Construction[];
+  /**
+   * Pick-the-ending round: the tiles are forms of the SAME word — the right
+   * ending and the carrier's real slips — so the question is the ending, not
+   * the word. (The expert band does this too, without the English.)
+   */
+  endings?: boolean;
   onExit: () => void;
 }
 
 // Build-a-Phrase (Tier 2–3): hear a full carrier phrase, then pick the word
-// (in its correct sourced case form) that completes it.
-export default function BuildAPhrase({ items, constructions, onExit }: Props) {
+// (in its correct sourced case form) that completes it. With `endings`, pick
+// the right ENDING of the word instead.
+export default function BuildAPhrase({ items, constructions, endings = false, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // Harder levels add more options AND unlock higher-tier carrier phrases; the
@@ -52,8 +59,9 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
         tricky,
         weigh,
         formDistractors,
+        endings,
       ).slice(0, ctx?.roundQuestions),
-    [items, constructions, optionCount, maxTier, tricky, formDistractors, weigh, runId, ctx?.roundQuestions],
+    [items, constructions, optionCount, maxTier, tricky, formDistractors, endings, weigh, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);
@@ -203,7 +211,7 @@ export default function BuildAPhrase({ items, constructions, onExit }: Props) {
   return (
     <section className="screen activity">
       <ActivityHeader
-        title="Rakenna lause"
+        title={endings ? 'Valitse pääte · Pick the ending' : 'Rakenna lause'}
         index={index}
         total={round.length}
         stars={ctx?.sessionStars}

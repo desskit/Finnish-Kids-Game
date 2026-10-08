@@ -512,6 +512,66 @@ button:focus-visible,
   transform: scale(0.95);
 }
 
+/* ---------- Kuuntele (hear it, pick the meaning) ---------- */
+.hear-speakers {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.speaker--slow {
+  flex-direction: column;
+  width: clamp(76px, 18vw, 96px);
+  height: clamp(76px, 18vw, 96px);
+  font-size: clamp(1.8rem, 6vw, 2.2rem);
+  background: #0f766e;
+  box-shadow: var(--shadow);
+}
+
+.speaker--slow .speaker__hint {
+  font-size: 0.72rem;
+}
+
+.hear-text {
+  min-height: 1.6em;
+  margin: 0;
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.hear-text--shown {
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+.hear-options {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 520px;
+}
+
+.hear-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  text-align: left;
+  font-size: clamp(1.05rem, 3.2vw, 1.3rem);
+  line-height: 1.25;
+}
+
+.hear-option .en {
+  color: var(--ink);
+}
+
+.hear-option__emoji {
+  flex: none;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
 .card-grid {
   display: grid;
   gap: clamp(12px, 2.5vw, 20px);
@@ -2185,12 +2245,22 @@ button:focus-visible,
 }
 
 .continue-cta__title .en,
+.continue-cta__tag .en,
 .continue-cta__what {
   color: rgba(255, 255, 255, 0.85);
 }
 
+.continue-cta__tag {
+  font-weight: 800;
+}
+
 .continue-cta__what {
   font-weight: 600;
+}
+
+/* The new day's warm-up takes over the Continue button until it's done. */
+.continue-cta--warmup {
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
 }
 
 .home-tiles {
@@ -2671,18 +2741,29 @@ button:focus-visible,
   color: var(--good);
 }
 
+/* A route with a status strip above its game (checkpoint, warm-up, mixed
+   review). The strip sits in the flow, so however long its text, it never
+   covers the game's own header (the back button, the stars). */
+.app--barred {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app__game {
+  width: 100%;
+}
+
 .checkpoint-bar {
-  position: fixed;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
+  max-width: calc(100% - 32px);
+  margin: 10px 16px 0;
   padding: 4px 14px;
   border-radius: 99px;
   background: var(--bg-card);
   box-shadow: var(--shadow);
   font-weight: 700;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 /* ---------- "Why?" tip ---------- */
@@ -2950,7 +3031,7 @@ a.badge-strip {
 
 .grownup__tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   padding: 5px;
   width: 100%;
@@ -2960,6 +3041,12 @@ a.badge-strip {
   background: var(--bg-card);
   box-shadow: var(--shadow);
   flex-wrap: nowrap;
+}
+
+@media (min-width: 640px) {
+  .grownup__tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .gtab {
@@ -3298,6 +3385,273 @@ a.badge-strip {
 .gchip--muted {
   background: #f1f5f9;
   color: var(--ink-soft);
+}
+
+.gchip--warn {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.gsteps--flat {
+  padding: 0;
+}
+
+.gstat__inline {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.gnote {
+  color: #b45309;
+}
+
+.glink {
+  color: var(--brand);
+  font-weight: 800;
+}
+
+/* Finnish check (native review) */
+.rprogress {
+  height: 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.rprogress span {
+  display: block;
+  height: 100%;
+  background: var(--good);
+}
+
+.rfield {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.rfield input,
+.rsearch,
+.rselect,
+.rcard__edit textarea,
+.rcard__edit input {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  background: var(--bg-card);
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  width: 100%;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.rfilters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Four filters: wrap on a phone rather than hide "Correct" and "All" off-screen. */
+.rfilters .gswitch {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.rfilters .gswitch__btn {
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+.rlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rcard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--bg);
+  border-left: 5px solid #cbd5e1;
+}
+
+.rcard--ok,
+.rcard--ledger {
+  border-left-color: var(--good);
+}
+
+.rcard--fix {
+  border-left-color: #f97316;
+}
+
+.rcard--changed {
+  border-left-color: #a855f7;
+}
+
+.rcard__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rcard__status {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.rcard__status--ok,
+.rcard__status--ledger {
+  color: #15803d;
+}
+
+.rcard__status--fix {
+  color: #c2410c;
+}
+
+.rcard__fi {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.35;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.rcard__speak {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.rcard__en {
+  margin: 0;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.rcard__note {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #fff7ed;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.rcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rcard__en-inline {
+  font-weight: 600;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.rcard__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rcard__edit label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.rcard__key {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+
+.gerror {
+  margin: 0;
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+/* Stats: the 14-day activity chart */
+.gchart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  align-items: end;
+  gap: 4px;
+  height: 140px;
+}
+
+.gchart__day {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: end;
+  justify-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+.gchart__n {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.gchart__bar {
+  width: 100%;
+  max-width: 26px;
+  min-height: 2px;
+  border-radius: 6px 6px 2px 2px;
+  background: var(--brand);
+  align-self: end;
+}
+
+.gchart__bar--shaky {
+  background: #f97316;
+}
+
+.gchart__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.gchart__key {
+  font-size: 0.8rem;
+}
+
+.gchart__swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--brand);
+  vertical-align: middle;
+}
+
+.gchart__swatch--shaky {
+  background: #f97316;
 }
 
 /* Buttons used in the grown-up area */

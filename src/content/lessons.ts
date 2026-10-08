@@ -1135,6 +1135,18 @@ export const lessons: Lesson[] = [
         ],
         explain: '*Näen junan* — seeing it once → **-n**.',
       },
+      {
+        kind: 'examples',
+        title: 'One word, four verbs',
+        text:
+          'The VERB decides the ending — so look at the verb first: *tykkään* → **-sta**, *rakastan* → **-a**, *näen* → **-n**, *odotan* → **-a**.',
+        rows: [
+          { sentence: 'i-like-tykkaan', word: 'dog' },
+          { sentence: 'i-love', word: 'dog' },
+          { sentence: 'i-see', word: 'dog' },
+          { sentence: 'i-wait-for', word: 'dog' },
+        ],
+      },
     ],
   },
   {

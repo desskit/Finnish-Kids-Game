@@ -25,8 +25,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty-six units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(36);
+  it('is thirty-seven units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(37);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -344,8 +344,15 @@ describe('in-session game rotation', () => {
     expect(activitiesUpTo(skill, 99)).toEqual(['build', 'order']);
   });
 
-  it('makes a phrase step BUILD and ORDER sentences before it counts as done — typing never required', () => {
-    for (const id of ['this-is', 'i-like', 'in-on', 'where-i-am', 'today-is']) {
+  it('makes a phrase step BUILD and ORDER sentences, then PICK THE ENDING, before it counts as done — typing never required', () => {
+    for (const id of ['i-like', 'in-on', 'where-i-am', 'i-havent', 'go-by']) {
+      const { skill } = findSkill(id)!;
+      expect(activitiesUpTo(skill, skill.maxLevel!), id).toEqual(['build', 'order', 'ending']);
+      expect(activitiesUpTo(skill, 2), id).toEqual(['build', 'order']);
+      expect(skill.checkpoint, id).toBe('ending');
+    }
+    // Basic-form steps have no ending to pick: build + order, assembly checkpoint.
+    for (const id of ['this-is', 'i-have', 'today-is', 'clock']) {
       const { skill } = findSkill(id)!;
       expect(activitiesUpTo(skill, skill.maxLevel!), id).toEqual(['build', 'order']);
       expect(skill.checkpoint, id).toBe('order');
@@ -357,7 +364,8 @@ describe('in-session game rotation', () => {
     expect(start).toBeGreaterThan(10); // a base first
     PATH.forEach((u, i) => {
       for (const s of u.skills) {
-        if (s.activities?.join() !== 'build,order,order' || u.id === 'mestari') continue;
+        const phrase = s.activities?.[0] === 'build' && s.activities?.[1] === 'order' && s.maxLevel === 3;
+        if (!phrase || u.id === 'mestari') continue;
         if (i < start) expect(s.minor, `${u.id}/${s.id}`).toBeUndefined();
         else expect(s.minor, `${u.id}/${s.id}`).toEqual({ kind: 'spell', fromLevel: 2, every: 4 });
       }
@@ -386,11 +394,15 @@ describe('in-session game rotation', () => {
 
   it('serves a VARIED, deterministic mix across a session', () => {
     const { skill } = findSkill('where-is')!;
-    expect([0, 1, 2, 3].map((n) => activityForRound(skill, 3, n))).toEqual([
+    expect([0, 1, 2, 3, 4, 5, 6, 7].map((n) => activityForRound(skill, 3, n))).toEqual([
       'build',
       'order',
-      'build',
+      'ending',
       'spell', // the minor typing round
+      'order',
+      'ending',
+      'build',
+      'spell',
     ]);
   });
 

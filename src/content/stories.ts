@@ -10,6 +10,8 @@
 // authoring (talossa, kalaa, kouluun, menevät, omenan, …) — a pre-vetting
 // quality gate, not a substitute for the native pass.
 // ⚠️ NEEDS NATIVE FINNISH VETTING (all stories + questions below).
+
+import { UNIT_STORIES } from './unitStories';
 //
 // AUTHORING RULES:
 //  - Pages: 4–6 short sentences (≤ 5 words), each picturable with one emoji.
@@ -51,7 +53,7 @@ export interface Story {
   questions: StoryQuestion[];
 }
 
-export const stories: Story[] = [
+export const CORE_STORIES: Story[] = [
   {
     id: 'little-cat',
     titleFi: 'Pieni kissa',
@@ -253,3 +255,6 @@ export const stories: Story[] = [
     ],
   },
 ];
+
+/** Every story: the core five, then one per unit (unitStories.ts). */
+export const stories: Story[] = [...CORE_STORIES, ...UNIT_STORIES];

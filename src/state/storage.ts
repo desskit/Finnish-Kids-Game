@@ -7,6 +7,7 @@
 // provider — without changing any UI call sites.
 
 import type { ItemSchedule } from '../game/srs';
+import type { StatsState } from '../game/stats';
 
 export interface ActivityProgress {
   /** How many rounds of this activity were completed. */
@@ -85,6 +86,13 @@ export interface Child {
    * older stored profiles round-trip (readers treat missing as "nothing yet").
    */
   course?: CourseState;
+  /**
+   * Practice statistics per subject (course step) and per day, plus the daily
+   * warm-up log — see `src/game/stats.ts`. Optional + unbackfilled so older
+   * stored profiles round-trip unchanged; readers seed it from `progress`
+   * (`statsOf`) until the first new answer writes it.
+   */
+  stats?: StatsState;
 }
 
 export interface CheckpointRecord {
@@ -132,11 +140,36 @@ export interface Settings {
   unlockAll?: boolean;
 }
 
+/** One native reviewer's verdict on one authored-Finnish entry (Grown-ups → Finnish check). */
+export interface ReviewDecision {
+  status: 'ok' | 'fix';
+  /** The Finnish as it read when reviewed — if it changes later, the decision lapses. */
+  fi: string;
+  /** What's wrong (for 'fix'). */
+  note?: string;
+  /** How it should read. */
+  suggestion?: string;
+  /** Epoch ms of the decision. */
+  at: number;
+}
+
+/** The in-app review on this device (not per player — it's about the app's Finnish). */
+export interface ReviewState {
+  reviewer?: string;
+  /** entry key (game/reviewEntries.ts) → decision. */
+  decisions: Record<string, ReviewDecision>;
+}
+
 export interface ProfilesData {
   version: 2;
   children: Child[];
   activeId: string | null;
   settings: Settings;
+  /**
+   * The native reviewer's in-app Finnish check. Optional + unbackfilled, so
+   * older stores round-trip unchanged.
+   */
+  review?: ReviewState;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -230,11 +263,16 @@ function sanitize(data: ProfilesData): ProfilesData {
   const ids = new Set(children.map((c) => c.id));
   const activeId =
     data.activeId && ids.has(data.activeId) ? data.activeId : children[0]?.id ?? null;
+  const review =
+    data.review && typeof data.review === 'object' && data.review.decisions && typeof data.review.decisions === 'object'
+      ? { review: data.review }
+      : {};
   return {
     version: 2,
     children,
     activeId,
     settings: { ...DEFAULT_SETTINGS, ...(data.settings ?? {}) },
+    ...review,
   };
 }
 

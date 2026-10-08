@@ -2,7 +2,7 @@ import type { BadgeEnv } from './badges';
 import ChooseForm from '../components/ChooseForm';
 import { choosePoolsFor, type ChooseMode, type ChoosePools } from './formChoice';
 import type { ReactElement } from 'react';
-import type { Construction, LexicalItem } from '../content/types';
+import type { CaseId, Construction, LexicalItem } from '../content/types';
 import { matchesVerbFilter, typeByLook, verbType, type VerbFilter, type VerbType } from '../content/verbTypes';
 import {
   animals,
@@ -49,6 +49,8 @@ import PossessiveGame from '../components/PossessiveGame';
 import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
 import ReadAndListen from '../components/ReadAndListen';
+import HearIt, { type HearSource } from '../components/HearIt';
+import { UNIT_STORIES, UNIT_STORY_IDS } from '../content/unitStories';
 
 // The learning PATH — the single source of truth for the guided course.
 //
@@ -65,6 +67,8 @@ export type ActivityKind =
   | 'listen-sentence'
   | 'say'
   | 'build'
+  | 'ending'
+  | 'hear'
   | 'count'
   | 'match'
   | 'conjugate'
@@ -146,6 +150,18 @@ export interface SkillContent {
   /** A words step that meets only PART of its unit's new words (a unit that
    *  brings in its KPT verbs halfway through). Becomes `wordIds`. */
   only?: string[];
+  /**
+   * 'hear' steps: what is heard — the step's carrier patterns contrasted
+   * ('carriers'), verb forms by person / yes-no / tense ('verbs'), or a
+   * number + thing ('count').
+   */
+  hear?: HearSource;
+  /** Story steps: from this level on, the English hides behind a tap. */
+  hideGlossFrom?: number;
+  /** "Me and you" steps: only these pronoun frames (pronouns.ts). */
+  frames?: string[];
+  /** Agreement steps: ask only about these cases (e.g. the IN and ON forms). */
+  agreementCases?: CaseId[];
 }
 
 export interface SkillNode {
@@ -505,11 +521,70 @@ function typeStep(id: string, types: VerbType[], maxLevel: number, kpt?: boolean
   };
 }
 
-/** A carrier-phrase practice step. L1 recognizes (build); L2 mixes in
- *  ASSEMBLING the sentence (order); L3 is the same pair with harder tiles.
+/**
+ * Phrase steps whose grammar is the BASIC form (or a set word) — there's no
+ * ending to choose yet, so they skip the pick-the-ending round.
+ */
+const NO_ENDING_ROUND = new Set(['this-is', 'i-have', 'who-has', 'what-color', 'today-is', 'clock']);
+
+/** A listening step ("Kuuntele!"): hear a sentence, pick what it meant —
+ *  the meanings differ only by the unit's grammar (the ending, the person,
+ *  yes / no, now / yesterday, how many). Short ladder: 3 meanings, then 4. */
+function listenStep(
+  id: string,
+  titleEn: string,
+  hear: HearSource,
+  spec: { constructionIds?: string[]; verbs?: VerbFilter; combos?: VerbCombo[]; maxCount?: number; pool?: Pool },
+  exampleFi?: string,
+): SkillNode {
+  const pin: Partial<Difficulty> = {
+    ...(spec.combos ? { verbCombos: spec.combos } : {}),
+    ...(spec.maxCount ? { maxCount: spec.maxCount } : {}),
+  };
+  return {
+    id,
+    titleFi: 'Kuuntele!',
+    titleEn,
+    icon: '👂',
+    activity: 'hear',
+    maxLevel: 2,
+    content: { hear, constructionIds: spec.constructionIds, verbs: spec.verbs, pool: spec.pool },
+    ...(Object.keys(pin).length > 0 ? { pin } : {}),
+    exampleFi,
+  };
+}
+
+/** "Which verb, which ending?" — the same words after MIXED verbs (item 4 of
+ *  the parent's list): each verb picks its own ending, so every question means
+ *  looking at the verb first. Options are the other verbs' endings. */
+function verbCaseStep(
+  id: string,
+  titleFi: string,
+  titleEn: string,
+  constructionIds: string[],
+  maxLevel: number,
+  exampleFi?: string,
+): SkillNode {
+  return {
+    id,
+    titleFi,
+    titleEn,
+    icon: '🔀',
+    activity: 'choose',
+    maxLevel,
+    content: { choose: 'verb-case', constructionIds },
+    exampleFi,
+  };
+}
+
+/** A carrier-phrase practice step. L1 recognizes the meaning (build: which
+ *  word); L2 mixes in ASSEMBLING the sentence (order); L3 adds PICKING THE
+ *  ENDING — the same word in several real forms, only one right for this
+ *  sentence (content/contrasts.ts) — which is where Finnish is really hard.
  *  Done once L3 is proven. Typing (spell) is never required: from the
  *  `TYPING_FROM_UNIT` on it joins as a MINOR round (see `SkillNode.minor`).
- *  The checkpoint asks for an assembly question. */
+ *  The checkpoint asks a pick-the-ending question (assembly where there is
+ *  no ending to pick). */
 function phraseStep(
   id: string,
   titleFi: string,
@@ -519,15 +594,16 @@ function phraseStep(
   exampleFi?: string,
   pool?: Pool,
 ): SkillNode {
+  const ending = !NO_ENDING_ROUND.has(id);
   return {
     id,
     titleFi,
     titleEn,
     icon,
     activity: 'build',
-    activities: ['build', 'order', 'order'],
+    activities: ['build', 'order', ending ? 'ending' : 'order'],
     maxLevel: 3,
-    checkpoint: 'order',
+    checkpoint: ending ? 'ending' : 'order',
     content: { constructionIds, pool },
     exampleFi,
   };
@@ -664,6 +740,7 @@ const UNITS: Chapter[] = [
         content: { constructionIds: ['is-this'] },
         exampleFi: 'Onko tämä kirja?',
       },
+      listenStep('people-listen', 'Statement or question?', 'carriers', { constructionIds: ['this-is', 'is-this'] }, 'Tämä on kirja. · Onko tämä kirja?'),
       sceneStep('people-talk', 'at-school', 'Koulussa', 'At school'),
       sceneStep('people-talk-2', 'what-is-this', 'Mikä tämä on?', 'What is this?'),
     ],
@@ -703,6 +780,7 @@ const UNITS: Chapter[] = [
         content: {},
         exampleFi: 'kolme kirjaa',
       },
+      listenStep('numbers-listen', 'How many did you hear?', 'count', { maxCount: 12 }, 'kolme kirjaa'),
       sceneStep('numbers-talk', 'new-friend', 'Uusi kaveri', 'A new friend'),
       sceneStep('numbers-talk-2', 'how-many-things', 'Montako kynää?', 'How many pencils?'),
     ],
@@ -728,6 +806,7 @@ const UNITS: Chapter[] = [
         ['i-have', 'you-have', 'she-has', 'we-have', 'they-have'],
         'Hänellä on kitara.',
       ),
+      listenStep('having-listen', 'Who has it?', 'carriers', { constructionIds: ['i-have', 'you-have', 'she-has', 'we-have', 'they-have'] }, 'Minulla · sinulla · hänellä'),
       sceneStep('having-talk', 'what-you-have', 'Mitä sinulla on?', 'What have you got?'),
       sceneStep('having-talk-2', 'who-has-what', 'Onko teillä koira?', 'Have you all got a dog?'),
     ],
@@ -745,6 +824,7 @@ const UNITS: Chapter[] = [
       wordsStep('not-having', 'nouns', 'Clothes'),
       phraseStep('i-havent', 'Minulla ei ole…', "I don't have…", '🚫', ['i-havent'], 'Minulla ei ole hattua.'),
       phraseStep('have-or-not', 'On vai ei?', 'Have or not', '⚖️', ['i-have', 'i-havent', 'you-have']),
+      listenStep('not-having-listen', 'Have it or not?', 'carriers', { constructionIds: ['i-have', 'i-havent'] }, 'Minulla on hattu. · Minulla ei ole hattua.'),
       sceneStep('not-having-talk', 'going-out', 'Mennään ulos', 'Going outside'),
       reviewStep('not-having'),
     ],
@@ -779,6 +859,7 @@ const UNITS: Chapter[] = [
         ['this-is-mine', 'this-is-yours', 'this-is-theirs'],
         'Tämä on minun kirjani.',
       ),
+      listenStep('whose-listen', 'My, your or his / her?', 'carriers', { constructionIds: ['this-is-mine', 'this-is-yours', 'this-is-theirs'] }, 'kirjani · kirjasi · kirjansa'),
       sceneStep('whose-talk', 'whose-is-it', 'Kenen tämä on?', 'Whose is this?'),
     ],
   },
@@ -803,6 +884,7 @@ const UNITS: Chapter[] = [
         exampleFi: 'isän pyörä',
       },
       phraseStep('owner-sentences', 'Tämä on isän pyörä', 'Whose bike is it?', '🔑', ['owner-thing'], 'Tämä on isän pyörä.'),
+      listenStep('owners-listen', 'Whose bike?', 'carriers', { constructionIds: ['owner-thing'] }, 'isän pyörä · äidin pyörä'),
       sceneStep('owners-talk', 'whose-thing', 'Kenen pyörä?', 'Whose bike?'),
     ],
   },
@@ -810,22 +892,38 @@ const UNITS: Chapter[] = [
     id: 'doing',
     titleFi: 'Mitä teet?',
     titleEn: 'Verbs, part 1: types 1–3',
-    blurbEn: 'Action words in three families — and the ending tells you WHO. Halfway: when k, p and t change.',
+    blurbEn: 'Action words in three families — and the ending tells you WHO.',
     accent: '#ea580c',
     icon: '🏃',
     lessonId: 'verb-persons',
-    midLessons: [{ lessonId: 'kpt-1-3', before: 'doing-kpt-words' }],
-    newWords: [...DOING_PLAIN, ...DOING_KPT],
+    newWords: DOING_PLAIN,
     skills: [
       wordsStep('doing', 'verbs', 'Action words', DOING_PLAIN),
       verbStep('verbs-type1', 'Tyyppi 1', 'Type 1: laulaa', '1️⃣', { types: [1], kpt: false }, [PRESENT_POS], 2, 'minä laulan, hän laulaa'),
       verbStep('verbs-type2', 'Tyyppi 2', 'Type 2: syödä', '2️⃣', { types: [2], kpt: false }, [PRESENT_POS], 2, 'minä syön, hän syö'),
       verbStep('verbs-type3', 'Tyyppi 3', 'Type 3: tulla', '3️⃣', { types: [3], kpt: false }, [PRESENT_POS], 2, 'minä tulen, hän tulee'),
       typeStep('which-type-1-3', [1, 2, 3], 2, false),
-      wordsStep('doing', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
+      listenStep('doing-listen', 'Who is doing it?', 'verbs', { combos: [PRESENT_POS] }, 'Syön. · Syöt. · Hän syö.'),
+      sceneStep('doing-talk', 'playdate', 'Leikitään!', 'Playing together'),
+    ],
+  },
+  {
+    // The first verb unit was the longest early unit (12 steps): types 1–3 AND
+    // the consonant change. Split, so a checkpoint consolidates the endings
+    // before a sound in the middle starts changing too.
+    id: 'doing-kpt',
+    titleFi: 'Nukun, nukkuu',
+    titleEn: 'Verbs, part 1b: k, p and t change',
+    blurbEn: 'Some verbs change a sound in the middle: nukkua → minä nukun, hän nukkuu.',
+    accent: '#c2410c',
+    icon: '🔀',
+    lessonId: 'kpt-1-3',
+    newWords: DOING_KPT,
+    skills: [
+      wordsStep('doing-kpt', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
       verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
       verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
-      sceneStep('doing-talk', 'playdate', 'Leikitään!', 'Playing together'),
+      listenStep('doing-kpt-listen', 'Nukun or nukkuu?', 'verbs', { verbs: { types: [1, 3], kpt: true }, combos: [PRESENT_POS] }, 'Nukun. · Hän nukkuu.'),
       sceneStep('doing-talk-2', 'what-everyone-does', 'Mitä teette?', 'What is everyone doing?'),
     ],
   },
@@ -860,6 +958,7 @@ const UNITS: Chapter[] = [
         pin: { verbCombos: [PRESENT_POS, PRESENT_NEG] },
         content: {},
       },
+      listenStep('not-doing-listen', 'Yes or no?', 'verbs', { combos: [PRESENT_POS, PRESENT_NEG] }, 'Syön. · En syö.'),
       sceneStep('not-doing-talk', 'bedtime', 'Nukutko jo?', 'Are you asleep?'),
     ],
   },
@@ -925,6 +1024,7 @@ const UNITS: Chapter[] = [
       phraseStep('i-am', 'Olen…', "I'm…", '🙂', ['i-am', 'she-is'], 'Olen iloinen.', 'feelings'),
       phraseStep('i-am-not', 'En ole…', "I'm not…", '🙅', ['i-am-not', 'i-am'], 'En ole väsynyt.', 'feelings'),
       phraseStep('i-feel', 'Minulla on nälkä', 'Hungry, thirsty, cold', '🥶', ['i-feel'], 'Minulla on nälkä.', 'feelings'),
+      listenStep('feelings-listen', 'Who feels it?', 'carriers', { constructionIds: ['i-am', 'she-is', 'i-am-not'], pool: 'feelings' }, 'Olen iloinen. · En ole iloinen.'),
       sceneStep('feelings-talk', 'how-feel', 'Miltä tuntuu?', 'How do you feel?'),
     ],
   },
@@ -971,6 +1071,7 @@ const UNITS: Chapter[] = [
         'Pidän jalkapallosta.',
       ),
       phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like-tykkaan', 'i-like'], 'Rakastan pitsaa.'),
+      listenStep('likes-listen', 'Like, love or not?', 'carriers', { constructionIds: ['i-like-tykkaan', 'i-dont-like-tykkaa', 'i-love'] }, 'Tykkään pitsasta. · Rakastan pitsaa.'),
       sceneStep('likes-talk', 'favourite-things', 'Mistä tykkäät?', 'What do you like?'),
     ],
   },
@@ -986,6 +1087,7 @@ const UNITS: Chapter[] = [
     skills: [
       phraseStep('want-to', 'Haluan…', 'I want to…', '🎯', ['i-want-to', 'i-dont-want-to'], 'Haluan leikkiä.', 'verbs'),
       phraseStep('can-may', 'Osaan, saanko', 'Can & may', '🙋', ['i-can', 'may-i'], 'Osaan uida.', 'verbs'),
+      listenStep('wanting-listen', 'Want, can or not?', 'carriers', { constructionIds: ['i-want-to', 'i-dont-want-to', 'i-can'], pool: 'verbs' }, 'Haluan uida. · Osaan uida.'),
       sceneStep('wanting-talk', 'what-to-do', 'Mitä haluat tehdä?', 'What do you want to do?'),
     ],
   },
@@ -1008,6 +1110,7 @@ const UNITS: Chapter[] = [
       verbStep('verbs-kpt-4', 'Hyppään, hyppää', 'Type 4: p → pp', '🦘', { types: [4], kpt: true }, [PRESENT_POS], 3, 'minä hyppään, hän hyppää'),
       verbStep('verbs-kpt-mix', 'Nukun · hyppään', 'Weaker or stronger?', '🔀', { kpt: true }, [PRESENT_POS], 3, 'minä nukun, minä hyppään'),
       verbStep('verbs-1-4', 'Kaikki tyypit', 'Types 1–4, yes and no', '🏃', undefined, [PRESENT_POS, PRESENT_NEG], 3),
+      listenStep('verbs-4-listen', 'Who, and yes or no?', 'verbs', { verbs: { types: [4] }, combos: [PRESENT_POS, PRESENT_NEG] }, 'Avaan. · Hän ei avaa.'),
       sceneStep('verbs-4-talk', 'morning', 'Aamulla', 'In the morning'),
     ],
   },
@@ -1030,6 +1133,7 @@ const UNITS: Chapter[] = [
         ['i-like-tykkaan', 'i-dont-like-tykkaa', 'i-like', 'i-dont-like'],
         'En tykkää matematiikasta.',
       ),
+      listenStep('school-day-listen', 'Like it or not?', 'carriers', { constructionIds: ['i-like-tykkaan', 'i-dont-like-tykkaa'] }, 'En tykkää kokeesta.'),
       sceneStep('school-day-talk', 'school-day', 'Koulupäivä', 'A school day'),
       reviewStep('school-day'),
     ],
@@ -1048,6 +1152,15 @@ const UNITS: Chapter[] = [
       wordsStep('seeing', 'nouns', 'Getting around'),
       phraseStep('i-see', 'Näen…n', 'I see…', '👀', ['i-see'], 'Näen bussin.'),
       phraseStep('watch-wait', 'Katson, odotan', 'Watching & waiting', '⏳', ['i-watch', 'i-wait-for'], 'Odotan bussia.'),
+      verbCaseStep(
+        'which-ending',
+        'Mikä pääte?',
+        'Which verb, which ending?',
+        ['i-like-tykkaan', 'i-love', 'i-see', 'i-watch', 'i-wait-for'],
+        3,
+        'Tykkään koirasta · Näen koiran · Odotan koiraa',
+      ),
+      listenStep('seeing-listen', 'See, watch or wait?', 'carriers', { constructionIds: ['i-see', 'i-watch', 'i-wait-for'] }, 'Näen bussin. · Odotan bussia.'),
       sceneStep('seeing-talk', 'bus-stop', 'Bussipysäkillä', 'At the bus stop'),
     ],
   },
@@ -1066,6 +1179,7 @@ const UNITS: Chapter[] = [
       phraseStep('buy-one', 'Ostan omenan', 'One whole thing', '🍎', ['i-buy'], 'Ostan omenan.'),
       phraseStep('buy-some', 'Ostan maitoa', 'Some of something', '🥛', ['i-buy-some'], 'Ostan maitoa.'),
       phraseStep('buying', 'Ostan…', 'One, or some?', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
+      listenStep('shop-listen', 'One, or some?', 'carriers', { constructionIds: ['i-buy', 'i-buy-some'] }, 'Ostan omenan. · Ostan maitoa.'),
       sceneStep('shop-scene', 'shop', 'Kaupassa', 'At the till'),
       sceneStep('shop-scene-2', 'shopping-list', 'Ostoslista', 'The shopping list'),
     ],
@@ -1240,6 +1354,19 @@ const UNITS: Chapter[] = [
         content: { pool: 'places', possessiveCases: 'always' },
         exampleFi: 'talossani, huoneessasi',
       },
+      listenStep('where-listen', 'In or on?', 'carriers', { constructionIds: ['in-it', 'on-it'], pool: 'places' }, 'laatikossa · pöydällä'),
+      {
+        // The describing word copies the place ending too: isossa talossa,
+        // pienellä pöydällä — the describing unit's rule, in the new endings.
+        id: 'big-house',
+        titleFi: 'Isossa talossa',
+        titleEn: 'In the big house',
+        icon: '🏠',
+        activity: 'match',
+        maxLevel: 3,
+        content: { pool: 'places', agreementCases: ['inessive', 'adessive'] },
+        exampleFi: 'isossa talossa · pienellä pöydällä',
+      },
       sceneStep('where-talk', 'tidy-up', 'Missä se on?', 'Where is it?'),
       sceneStep('where-talk-2', 'my-things', 'Missä tavarasi ovat?', 'Where are your things?'),
     ],
@@ -1256,6 +1383,15 @@ const UNITS: Chapter[] = [
     newWords: [],
     skills: [
       phraseStep('into-onto', 'Mihin?', 'Into & onto', '➡️', ['into-it', 'onto-it'], 'Kissa menee laatikkoon.', 'places'),
+      phraseStep(
+        'into-shapes',
+        'Laatikkoon, huoneeseen',
+        'Into: three shapes',
+        '📥',
+        ['into-it'],
+        'laatikkoon · huoneeseen · puuhun',
+        'places',
+      ),
       phraseStep('out-off', 'Mistä?', 'Out of & off', '⬅️', ['out-of-it', 'off-it'], 'Kissa tulee laatikosta.', 'places'),
       phraseStep(
         'six-cases',
@@ -1266,6 +1402,7 @@ const UNITS: Chapter[] = [
         undefined,
         'places',
       ),
+      listenStep('moving-listen', 'Into, in or out of?', 'carriers', { constructionIds: ['in-it', 'on-it', 'into-it', 'onto-it', 'out-of-it', 'off-it'], pool: 'places' }, 'laatikkoon · laatikossa · laatikosta'),
       sceneStep('moving-talk', 'cat-moves', 'Mihin kissa menee?', "Where's the cat going?"),
       reviewStep('moving'),
     ],
@@ -1307,6 +1444,7 @@ const UNITS: Chapter[] = [
         'Menen kirjastoon.',
         'places',
       ),
+      listenStep('town-listen', 'Am, going or coming?', 'carriers', { constructionIds: ['i-am-in', 'i-go-into', 'i-come-from-in', 'i-am-on', 'i-go-onto', 'i-come-from-on'], pool: 'places' }, 'Olen puistossa. · Menen puistoon.'),
       sceneStep('town-talk', 'in-town', 'Kaupungilla', 'Out in town'),
     ],
   },
@@ -1339,6 +1477,7 @@ const UNITS: Chapter[] = [
         '🔀',
         ['go-by', 'write-with', 'eat-with', 'play-with-toy', 'with-someone'],
       ),
+      listenStep('by-with-listen', 'By bus, or onto the bus?', 'carriers', { constructionIds: ['go-by', 'i-go-into'] }, 'Menen bussilla. · Menen bussiin.'),
       sceneStep('by-with-talk', 'how-do-you-go', 'Miten menet?', 'How do you go?'),
     ],
   },
@@ -1382,6 +1521,7 @@ const UNITS: Chapter[] = [
         'time',
       ),
       phraseStep('clock', 'Kello on…', 'What time is it?', '⏰', ['clock-is'], 'Kello on kolme.', 'numbers'),
+      listenStep('when-listen', 'Today, or on a day?', 'carriers', { constructionIds: ['today-is', 'play-on-day', 'play-at-time'], pool: 'time' }, 'Tänään on maanantai. · Leikin maanantaina.'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
       sceneStep('when-talk-2', 'my-week', 'Minun viikkoni', 'My week'),
     ],
@@ -1421,6 +1561,7 @@ const UNITS: Chapter[] = [
         content: { choose: 'ordinal' },
         exampleFi: 'kolme · kolmas',
       },
+      listenStep('big-numbers-listen', 'How many did you hear?', 'count', { maxCount: 20 }, 'viisitoista palloa'),
       sceneStep('big-numbers-talk', 'race', 'Kilpajuoksu', 'A race'),
       sceneStep('big-numbers-talk-2', 'sweets', 'Karkkeja', 'Sweets'),
     ],
@@ -1468,6 +1609,7 @@ const UNITS: Chapter[] = [
         content: { choose: 'age' },
         exampleFi: 'Olen kahdeksan vuotta vanha.',
       },
+      listenStep('birthdays-listen', 'Now, or my birthday?', 'carriers', { constructionIds: ['now-month', 'birthday-in'], pool: 'time' }, 'Nyt on toukokuu. · Syntymäpäiväni on toukokuussa.'),
       sceneStep('birthdays-talk', 'birthday-party', 'Synttärit', 'A birthday party'),
     ],
   },
@@ -1528,9 +1670,31 @@ const UNITS: Chapter[] = [
     newWords: [],
     skills: [
       {
+        // Help / wait for / love someone (-a) — but SEE someone whole (-t).
+        id: 'me-you-objects',
+        titleFi: 'Auta minua, näen sinut',
+        titleEn: 'Help me, I see you',
+        icon: '🤝',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'pronoun', frames: ['help', 'wait', 'love', 'see'] },
+        exampleFi: 'Auta minua! · Näen sinut.',
+      },
+      {
+        // TO / FOR someone (-lle) — and liking someone (-sta).
+        id: 'me-you-to',
+        titleFi: 'Sinulle, sinusta',
+        titleEn: 'To you, for you, I like you',
+        icon: '🎁',
+        activity: 'choose',
+        maxLevel: 3,
+        content: { choose: 'pronoun', frames: ['give', 'for-you', 'like'] },
+        exampleFi: 'Tämä on sinulle! · Pidän sinusta.',
+      },
+      {
         id: 'me-you-forms',
         titleFi: 'Minua, minulle',
-        titleEn: 'Me, to me, you…',
+        titleEn: 'All of them together',
         icon: '🫶',
         activity: 'choose',
         maxLevel: 3,
@@ -1566,6 +1730,7 @@ const UNITS: Chapter[] = [
         ['is-under', 'is-behind', 'is-in-front-of', 'is-next-to'],
         'Kissa on tuolin alla.',
       ),
+      listenStep('around-listen', 'Where is the cat?', 'carriers', { constructionIds: ['is-under', 'is-behind', 'is-in-front-of', 'is-next-to'] }, 'Kissa on tuolin alla.'),
       sceneStep('around-talk', 'hiding', 'Piilossa', 'Hiding'),
     ],
   },
@@ -1582,7 +1747,16 @@ const UNITS: Chapter[] = [
     skills: [
       phraseStep('these-are', 'Nämä ovat…', 'These are…', '👐', ['these-are', 'where-are'], 'Nämä ovat kirjoja.'),
       phraseStep('some-any', 'Minulla on…ja', 'Some & any', '🧺', ['i-have-some', 'i-havent-any'], 'Minulla on palloja.'),
+      phraseStep(
+        'one-or-many',
+        'Yksi vai monta?',
+        'One, or several?',
+        '🔢',
+        ['i-have', 'i-have-some', 'i-havent', 'i-havent-any'],
+        'Minulla on pallo. · Minulla on palloja.',
+      ),
       phraseStep('in-them', '…issa', 'In the boxes', '📦', ['in-them'], 'Kissat ovat laatikoissa.', 'places'),
+      listenStep('many-listen', 'One, or many?', 'carriers', { constructionIds: ['i-have', 'i-have-some', 'this-is', 'these-are'] }, 'Minulla on pallo. · Minulla on palloja.'),
       sceneStep('many-talk', 'lots-of-things', 'Paljon tavaraa', 'Lots of things'),
       reviewStep('many'),
     ],
@@ -1606,6 +1780,7 @@ const UNITS: Chapter[] = [
       verbStep('verbs-kpt-6', 'Pakenen', 'Type 6: a k appears', '💨', { types: [6], kpt: true }, [PRESENT_POS], 2, 'minä pakenen, hän pakenee'),
       verbStep('verbs-kpt-all', 'Heikko vai vahva?', 'All the changing verbs', '🔀', { kpt: true }, [PRESENT_POS, PRESENT_NEG], 3, 'nukun · kuuntelen · hyppään · pakenen'),
       verbStep('verbs-all-types', 'Kaikki kuusi', 'All six types', '🏃', undefined, [PRESENT_POS, PRESENT_NEG], 3),
+      listenStep('verbs-5-6-listen', 'Who, and yes or no?', 'verbs', { verbs: { types: [5, 6] }, combos: [PRESENT_POS, PRESENT_NEG] }, 'Tarvitsen. · En tarvitse.'),
       sceneStep('verbs-5-6-talk', 'drawing-time', 'Piirretään!', "Let's draw!"),
     ],
   },
@@ -1622,6 +1797,7 @@ const UNITS: Chapter[] = [
     skills: [
       wordsStep('yesterday', 'verbs', 'More action words'),
       verbStep('verbs-past', 'Söin', 'What happened', '⏮️', undefined, [PAST_POS], 3, 'minä söin, hän nukkui'),
+      verbStep('verbs-past-4', 'Halusin', 'Type 4 past: -si-', '🔓', { types: [4] }, [PAST_POS], 3, 'minä halusin, hän avasi'),
       verbStep('verbs-past-not', 'En syönyt', "What didn't happen", '🙅', undefined, [PAST_NEG], 3, 'minä en syönyt'),
       verbStep('verbs-past-mix', 'Söin vai en syönyt?', 'Did or didn\'t', '🔀', undefined, [PAST_POS, PAST_NEG], 3),
       {
@@ -1633,6 +1809,7 @@ const UNITS: Chapter[] = [
         maxLevel: 4,
         content: { ids: ['lost-dog', 'birthday-surprise'] },
       },
+      listenStep('yesterday-listen', 'Now, or yesterday?', 'verbs', { combos: [PAST_POS, PRESENT_POS, PAST_NEG] }, 'Syön. · Söin. · En syönyt.'),
       sceneStep('yesterday-talk', 'yesterday', 'Mitä teit eilen?', 'What did you do yesterday?'),
     ],
   },
@@ -1729,6 +1906,14 @@ const UNITS: Chapter[] = [
             },
           ]
         : []),
+      verbCaseStep(
+        'every-ending',
+        'Kaikki verbit',
+        'Every verb, every ending',
+        ['i-like-tykkaan', 'i-like', 'i-love', 'i-see', 'i-watch', 'i-wait-for', 'i-havent', 'i-dont-like-tykkaa'],
+        4,
+        'Pidän · Rakastan · Näen · Odotan',
+      ),
       {
         id: 'find-error',
         titleFi: 'Löydä virhe',
@@ -1915,6 +2100,29 @@ const UNITS: Chapter[] = [
   },
 ];
 
+// --- A story at the end of (almost) every unit ---------------------------
+//
+// The unit's grammar in a little narrative (content/unitStories.ts): read with
+// the English the first time round, then without it (a tap shows it). Placed
+// last — before the unit's Kertaus, if it has one. Never in the checkpoint.
+for (const unit of UNITS) {
+  const storyId = UNIT_STORY_IDS[unit.id];
+  const s = UNIT_STORIES.find((x) => x.id === storyId);
+  if (!s) continue;
+  const step: SkillNode = {
+    id: `${unit.id}-story`,
+    titleFi: s.titleFi,
+    titleEn: `Story: ${s.titleEn}`,
+    icon: '📖',
+    activity: 'story',
+    maxLevel: 2,
+    content: { ids: [s.id], hideGlossFrom: 2 },
+  };
+  const mix = unit.skills.findIndex((x) => x.content.mix);
+  if (mix >= 0) unit.skills.splice(mix, 0, step);
+  else unit.skills.push(step);
+}
+
 // --- Resolve each step's word scope, default pins, and review mixes ------
 //
 // A unit's `newWords` accumulate into the "known" set; each step gets a STABLE
@@ -1965,7 +2173,7 @@ UNITS.forEach((unit, ui) => {
   );
   const knownBefore = knownByUnit[ui].filter((w) => !heldBack.has(w));
   unit.skills.forEach((step, si) => {
-    const isSentenceStep = step.activities?.join() === 'build,order,order';
+    const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
     if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
     const scope = step.content.words ?? 'known';
     if (step.content.only) step.content.wordIds = step.content.only;
@@ -2219,7 +2427,16 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
   if (!cached) {
     const base = choosePools(skill.content.wordIds);
     const filter = skill.content.verbs;
-    if (!filter) cached = base;
+    if (skill.content.frames) {
+      cached = { ...base, frames: skill.content.frames };
+    } else if (skill.content.choose === 'verb-case') {
+      // "Which verb, which ending?": the step's carriers, over the words met.
+      cached = {
+        ...base,
+        constructions: constructionsFor(skill.content.constructionIds),
+        items: scoped(NOUNS, skill.content.wordIds, 1),
+      };
+    } else if (!filter) cached = base;
     else {
       // "Which type?" asks only about verbs whose look matches their type
       // (kiivetä looks like type 6 but is type 4 — not a fair question).
@@ -2305,6 +2522,28 @@ export function renderActivity(
           onExit={onExit}
         />
       );
+    case 'hear':
+      // Kuuntele: hear a sentence, pick its meaning (game/hear.ts).
+      return (
+        <HearIt
+          source={skill.content.hear ?? 'carriers'}
+          items={skill.content.hear === 'count' ? pictureItems : items}
+          constructions={constructionsFor(skill.content.constructionIds)}
+          verbs={stepVerbs(skill)}
+          numbers={scoped(numbers.items, wordIds, 2)}
+          onExit={onExit}
+        />
+      );
+    case 'ending':
+      // Pick the ending: the same word in several real forms, one right here.
+      return (
+        <BuildAPhrase
+          items={items}
+          constructions={constructionsFor(skill.content.constructionIds)}
+          endings
+          onExit={onExit}
+        />
+      );
     case 'count':
       return <CountAndSay nouns={pictureItems} numbers={numbers.items} onExit={onExit} />;
     case 'match':
@@ -2312,6 +2551,7 @@ export function renderActivity(
         <MatchTheWord
           adjectives={scoped(adjectives.items, wordIds, 4)}
           nouns={pictureItems}
+          targetCases={skill.content.agreementCases}
           onExit={onExit}
         />
       );
@@ -2427,7 +2667,7 @@ export function renderActivity(
       return <ReadAndListen items={items} onExit={onExit} />;
     case 'story':
       // A tiny illustrated story, page by page, then comprehension taps.
-      return <StoryTime ids={skill.content.ids} onExit={onExit} />;
+      return <StoryTime ids={skill.content.ids} hideGlossFrom={skill.content.hideGlossFrom} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

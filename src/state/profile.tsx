@@ -15,6 +15,8 @@ import {
   sandboxProfiles,
   type Child,
   type ProfilesData,
+  type ReviewDecision,
+  type ReviewState,
   type Settings,
 } from './storage';
 import { setMuted } from '../audio/mute';
@@ -23,6 +25,7 @@ import { recordRoundOnChild } from '../game/progress';
 import { bumpStreak, dayKey } from '../game/streak';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
+import { applyStatEvent, applyWarmup, statsOf, type StatEvent, type WarmupRecord } from '../game/stats';
 
 // Multi-child local profiles + per-topic progress + device settings. No
 // accounts, no server — persisted to localStorage via `storage.ts` (the seam a
@@ -81,6 +84,10 @@ interface ProfileContextValue {
   ) => void;
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
+  /** Fold a finished segment into the active child's practice stats. */
+  recordStats: (event: StatEvent) => void;
+  /** Log a finished daily warm-up for the active child. */
+  recordWarmup: (record: WarmupRecord) => void;
 
   // --- Guided course ---
   /** Mark a lesson as read to the end (idempotent; keeps the first time). */
@@ -95,6 +102,14 @@ interface ProfileContextValue {
   // --- Settings (device-wide) ---
   settings: Settings;
   updateSettings: (patch: Partial<Settings>) => void;
+
+  // --- The native reviewer's Finnish check (device-wide) ---
+  review: ReviewState;
+  /** Record (or, with null, clear) a decision on one entry. */
+  setReviewDecision: (key: string, decision: ReviewDecision | null) => void;
+  setReviewer: (name: string) => void;
+  /** Replace the review state (e.g. after merging another device's file). */
+  replaceReview: (next: ReviewState) => void;
 
   // --- Danger zone ---
   resetAll: () => void;
@@ -218,6 +233,12 @@ export function ProfileProvider({
           srs: { ...c.srs, [itemId]: review(c.srs[itemId], correct, Date.now()) },
         })),
 
+      recordStats: (event) =>
+        updateActive((c) => ({ ...c, stats: applyStatEvent(statsOf(c), event, Date.now()) })),
+
+      recordWarmup: (record) =>
+        updateActive((c) => ({ ...c, stats: applyWarmup(statsOf(c), record) })),
+
       markLessonSeen: (lessonId) =>
         updateActive((c) =>
           c.course?.lessonsSeen?.[lessonId]
@@ -239,6 +260,7 @@ export function ProfileProvider({
             ...c,
             ...streak,
             bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
+            stats: applyStatEvent(statsOf(c), { right, total, source: 'sounds' }, Date.now()),
             course: {
               ...c.course,
               sounds: {
@@ -300,7 +322,21 @@ export function ProfileProvider({
       updateSettings: (patch) =>
         setData((d) => ({ ...d, settings: { ...d.settings, ...patch } })),
 
-      resetAll: () => setData(emptyProfiles()),
+      review: data.review ?? { decisions: {} },
+      setReviewDecision: (key, decision) =>
+        setData((d) => {
+          const decisions = { ...(d.review?.decisions ?? {}) };
+          if (decision) decisions[key] = decision;
+          else delete decisions[key];
+          return { ...d, review: { ...d.review, decisions } };
+        }),
+      setReviewer: (name) =>
+        setData((d) => ({ ...d, review: { decisions: {}, ...d.review, reviewer: name.trim() || undefined } })),
+      replaceReview: (next) => setData((d) => ({ ...d, review: next })),
+
+      // Players and settings go; a native reviewer's Finnish check is about the
+      // app, not a player, so it stays.
+      resetAll: () => setData((d) => ({ ...emptyProfiles(), ...(d.review ? { review: d.review } : {}) })),
       backup: () => exportBackup(data),
       restore: (next) => setData(next),
     };

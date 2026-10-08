@@ -29,6 +29,7 @@ import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 import type { Why } from '../content/why';
 import { FAMILY_NAMES } from '../content/types';
+import { slipForms } from '../content/contrasts';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
 // content — the Finnish slot forms come from the sourced inflection tables via
@@ -509,6 +510,11 @@ export function buildPhraseRound(
   tricky = false,
   weigh?: WeighFn,
   formDistractors = false,
+  /**
+   * Pick-the-ending round: EVERY question offers forms of the same word (one
+   * right ending, the carrier's real slips) — pairs that can't are skipped.
+   */
+  endingsOnly = false,
 ): PhraseQuestion[] {
   // Only pair a construction with items that have the needed form AND make
   // sense in the slot (semantic gate). Gate by tier when a skill mixes tiers,
@@ -519,10 +525,15 @@ export function buildPhraseRound(
   const pool: { construction: Construction; item: LexicalItem }[] = [];
   for (const construction of allowed) {
     for (const item of items) {
-      if (formFor(item, construction) && suitsSlot(item, construction))
+      if (
+        formFor(item, construction) &&
+        suitsSlot(item, construction) &&
+        (!endingsOnly || slipForms(item, construction).length >= 2)
+      )
         pool.push({ construction, item });
     }
   }
+  if (endingsOnly) formDistractors = true;
 
   const chosen = weightedSample(
     pool,
@@ -592,51 +603,30 @@ export function buildReviewRound(
 // exactly one option carries the case ending the carrier requires. All forms
 // are looked up (caseFormOf); nothing is generated.
 
-/** The case pool grammar-review distractors draw from (the everyday cases). */
-const GRAMMAR_REVIEW_CASES: CaseId[] = [
-  'nominative',
-  'genitive',
-  'partitive',
-  'elative',
-  'inessive',
-  'illative',
-  'adessive',
-  'allative',
-  'ablative',
-];
-
 /**
  * Shuffled form tiles for one item in one carrier: the sourced correct form
- * plus distinct case-forms of the SAME item as distractors. Null when the
- * paradigm can't fill the tiles distinctly (several cells spell alike).
- * Shared by grammar Review and the expert (formDistractors) build mode.
+ * plus forms of the SAME item that are WRONG for this sentence's meaning (the
+ * carrier's listed slips — content/contrasts.ts — never a form that would be
+ * fine Finnish here). The classic slip always shows; the rest are sampled.
+ * At most four tiles: this is about the ending, not a needle in a haystack.
+ * Null when fewer than two distinct slips exist. Shared by grammar Review,
+ * the pick-the-ending round and the expert (formDistractors) build mode.
+ * `extraCases` puts those slips first (the other verbs' endings in a
+ * "which verb, which ending?" round).
  */
-function caseFormOptions(
+export function caseFormOptions(
   item: LexicalItem,
   construction: Construction,
   optionCount: number,
+  extraCases: CaseId[] = [],
 ): string[] | null {
   const answer = formFor(item, construction);
   if (!answer) return null;
-  const seen = new Set([answer]);
-  const distractorForms: string[] = [];
-  const add = (form: string | undefined) => {
-    if (form && !seen.has(form)) {
-      seen.add(form);
-      distractorForms.push(form);
-    }
-  };
-  // A possessive carrier's real choice is WHOSE (the suffix): offer the other
-  // possessors' forms first, then the bare case form ("kirja" for "kirjani").
-  if (construction.possessor) {
-    for (const p of POSSESSORS) {
-      if (p.id !== construction.possessor) add(possessiveForm(item, p.id, construction.case));
-    }
-    add(caseFormOf(item, construction.case, 'singular'));
-  }
-  for (const c of GRAMMAR_REVIEW_CASES) add(caseFormOf(item, c, construction.number));
-  if (distractorForms.length < optionCount - 1) return null;
-  return shuffle([answer, ...sample(distractorForms, optionCount - 1)]);
+  const slips = slipForms(item, construction, extraCases);
+  const need = Math.max(2, Math.min(optionCount, 4) - 1);
+  if (slips.length < 2) return null;
+  const picked = [slips[0], ...sample(slips.slice(1), need - 1)];
+  return shuffle([answer, ...picked]);
 }
 
 export interface GrammarReviewQuestion {
@@ -841,14 +831,11 @@ export function buildErrorRound(
     let slotForm = correctForm;
     let isCorrect = true;
     if (wantWrong) {
-      // Tricky: prefer a wrong case whose form is CLOSE in length to the right
-      // one (a subtler ending swap), else any distinct sourced case.
-      const wrongCandidates: string[] = [];
-      for (const c of GRAMMAR_REVIEW_CASES) {
-        if (c === construction.case) continue;
-        const f = caseFormOf(item, c, construction.number);
-        if (f && f !== correctForm) wrongCandidates.push(f);
-      }
+      // Only a form that is WRONG for this meaning (the carrier's listed
+      // slips — "Minulla on vettä" is fine Finnish, so it's never the
+      // "mistake"). Tricky: prefer one CLOSE in length to the right form
+      // (a subtler ending swap).
+      const wrongCandidates = slipForms(item, construction);
       if (wrongCandidates.length > 0) {
         const near = tricky
           ? wrongCandidates.filter((f) => Math.abs(f.length - correctForm.length) <= 1)
@@ -1112,11 +1099,15 @@ export function buildAgreementRound(
   maxCases: number = AGREEMENT_CASES.length,
   tricky = false,
   weigh?: WeighFn,
+  /** Ask only about these cases (a step on the IN / ON forms); distractors stay the whole set. */
+  targetCases?: readonly CaseId[],
 ): AgreementQuestion[] {
   // The case ramp: rotate through only the FIRST `maxCases` of the ordered
   // list — three cases at level 1, the full seven by the top of the ladder.
   // Floor at optionCount: a question needs (optionCount - 1) case distractors.
-  const allowedCases = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+  // A focused step keeps its target cases in, whatever the ramp.
+  const ramp = AGREEMENT_CASES.slice(0, Math.max(optionCount, maxCases));
+  const allowedCases = targetCases ? [...new Set([...targetCases, ...ramp])] : ramp;
 
   const out: AgreementQuestion[] = [];
   let guard = 0;
@@ -1138,7 +1129,9 @@ export function buildAgreementRound(
     if (!adjective) break;
 
     const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
-    const targetCandidates = nounCases.filter((c) => caseFormOf(adjective, c, number));
+    const targetCandidates = nounCases.filter(
+      (c) => caseFormOf(adjective, c, number) && (!targetCases || targetCases.includes(c)),
+    );
     if (!targetCandidates.length) continue;
 
     const targetCase = sample(targetCandidates, 1)[0];

@@ -29,6 +29,13 @@ export type Status = 'locked' | 'open' | 'done';
 
 /** Checkpoint defaults: ~3 questions per step, at least 8 in all, 80% to pass. */
 export const DEFAULT_CHECKPOINT = { perStep: 3, minQuestions: 8, passRatio: 0.8 };
+/** A checkpoint never asks more than this (its own steps + the "Muistatko?" part). */
+export const MAX_CHECKPOINT_QUESTIONS = 18;
+
+/** Steps a checkpoint skips: a story is read at story pace, not tested. */
+export function inCheckpoint(step: SkillNode): boolean {
+  return step.activity !== 'story';
+}
 
 export const UNITS: readonly Unit[] = PATH;
 
@@ -250,32 +257,43 @@ function partFor(
  * earlier steps appear, deterministically, so a retry isn't a replay.
  */
 export function checkpointPlan(unit: Unit, attempt = 0): CheckpointPart[] {
-  if (!hasCheckpoint(unit) || unit.skills.length === 0) return [];
+  const tested = unit.skills.filter(inCheckpoint);
+  if (!hasCheckpoint(unit) || tested.length === 0) return [];
   const cfg = { ...DEFAULT_CHECKPOINT, ...(unit.checkpoint || {}) };
+  const ui = unitIndex(unit.id);
+  const remembers = ui >= 2;
   // A long unit asks fewer questions per step (so its checkpoint stays about
-  // as long as a short unit's), and its new-words and scene steps ask just one each.
-  const steps = unit.skills.length;
+  // as long as a short unit's), and its new-words, listening and scene steps
+  // ask just one each.
+  const steps = tested.length;
   const long = steps >= 5;
   const perStep = Math.max(
     long ? Math.min(cfg.perStep, 2) : cfg.perStep,
     Math.ceil(cfg.minQuestions / steps),
   );
   const light = (step: SkillNode) =>
-    long && (step.content.words === 'new' || step.activity === 'conversation');
-  const counts = unit.skills.map((step) => (light(step) ? 1 : perStep));
+    long && (step.content.words === 'new' || step.activity === 'conversation' || step.activity === 'hear');
+  const counts = tested.map((step) => (light(step) ? 1 : perStep));
+  const total = () => counts.reduce((a, b) => a + b, 0);
   // Never below the minimum: top up the grammar steps, one at a time.
-  const grammar = unit.skills.map((s, i) => (light(s) ? -1 : i)).filter((i) => i >= 0);
-  for (let k = 0; counts.reduce((a, b) => a + b, 0) < cfg.minQuestions && grammar.length > 0; k++) {
+  const grammar = tested.map((s, i) => (light(s) ? -1 : i)).filter((i) => i >= 0);
+  for (let k = 0; total() < cfg.minQuestions && grammar.length > 0; k++) {
     counts[grammar[k % grammar.length]] += 1;
   }
-  const parts = unit.skills.map((step, i) => {
+  // Never past the maximum: trim the grammar steps (latest first), never below one.
+  const cap = MAX_CHECKPOINT_QUESTIONS - (remembers ? REMEMBER_QUESTIONS : 0);
+  for (let k = 0; total() > cap && k < 200; k++) {
+    const i = [...grammar].reverse().find((g) => counts[g] === Math.max(...grammar.map((x) => counts[x])));
+    if (i === undefined || counts[i] <= 1) break;
+    counts[i] -= 1;
+  }
+  const parts = tested.map((step, i) => {
     const sub = mixStepFor(step, attempt);
     return sub
       ? partFor(sub.skill, lessonForStep(sub.chapter, sub.skill), counts[i], 'step')
       : partFor(step, lessonForStep(unit, step), counts[i], 'step');
   });
-  const ui = unitIndex(unit.id);
-  if (ui >= 2) {
+  if (remembers) {
     const earlier = UNITS.slice(0, ui).flatMap((u) =>
       u.skills.filter(isMixable).map((s) => ({ s, lessonId: lessonForStep(u, s) })),
     );

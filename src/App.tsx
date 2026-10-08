@@ -14,6 +14,7 @@ import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
+import { segmentMs } from './game/stats';
 import { useProfile } from './state/profile';
 import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
@@ -31,6 +32,9 @@ import ProgressView from './components/ProgressView';
 import Profiles from './components/Profiles';
 import Settings from './components/Settings';
 import AuditView from './components/AuditView';
+import WarmupRoute from './components/WarmupRoute';
+import StatsView from './components/StatsView';
+import FinnishReview from './components/FinnishReview';
 
 // Content facts the badge rules measure against (derived from the path).
 const BADGE_ENV = badgeEnv;
@@ -45,6 +49,7 @@ const BADGE_ENV = badgeEnv;
 //   /notebook           → Notebook      (re-read any opened unit's lesson)
 //   /skill/:skillId     → Activity      (a step's game, runs full-screen)
 //   /checkpoint/:unitId → Checkpoint    (the unit test that unlocks the next unit)
+//   /warmup             → Warm-up       (a new day's first Continue: the weakest subject)
 //   /review             → Review        (cross-topic spaced repetition)
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
 //   /grown-up/*         → math-gated Progress / Profiles / Settings
@@ -65,7 +70,7 @@ function SkillRouteHost() {
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, recordRound, activityDifficulty, stars, settings } = useProfile();
+  const { activeChild, recordRound, recordStats, activityDifficulty, stars, settings } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
   // `round.no` counts segments (drives game-type rotation); `round.level` is
@@ -80,6 +85,8 @@ function SkillRoute() {
   // is keyed per skillId — survives segment remounts, resets per skill.)
   const startStars = useRef(stars);
   const sessionStars = stars - startStars.current;
+  // When the current segment began — its practice time goes into the stats.
+  const segmentStart = useRef(Date.now());
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!found) return <Navigate to="/" replace />;
@@ -119,6 +126,17 @@ function SkillRoute() {
     const had = earnedBadgeIds(before, BADGE_ENV);
     const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
     recordRound(chapter.id, skill.id, segStars, total, maxLevel, bonus);
+    // Stats go to the subject actually practised: a Kertaus segment counts for
+    // the earlier step it replayed.
+    const now = Date.now();
+    recordStats({
+      subject: play.skill.id,
+      right: segStars,
+      total,
+      ms: segmentMs(segmentStart.current, now, total),
+      source: bonus ? 'bonus' : mix ? 'mix' : 'practice',
+    });
+    segmentStart.current = now;
     if (leveledUp || newBadges.length > 0) {
       setToast((t) => ({
         outcome: { leveledUp, level: afterLevel, newBadges },
@@ -132,7 +150,7 @@ function SkillRoute() {
   };
 
   return (
-    <main className="app">
+    <main className={'app' + (mix ? ' app--barred' : '')}>
       {mix && (
         <div className="checkpoint-bar" aria-label={`Mixed review: ${mix.skill.titleEn}`}>
           🔁 <span className="en">Kertaus · {mix.skill.titleEn}</span>
@@ -176,14 +194,17 @@ export function AppRoutes() {
       <Route path="/lesson/:lessonId" element={<LessonRoute />} />
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />
       <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
+      <Route path="/warmup" element={<WarmupRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/sounds/:mode" element={<SoundGame />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />
         <Route path="progress" element={<ProgressView />} />
+        <Route path="stats" element={<StatsView />} />
         <Route path="profiles" element={<Profiles />} />
         <Route path="settings" element={<Settings />} />
         <Route path="audit" element={<AuditView />} />
+        <Route path="review" element={<FinnishReview />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

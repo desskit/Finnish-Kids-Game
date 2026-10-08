@@ -15,6 +15,7 @@ import {
 } from '../game/course';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
+import { segmentMs } from '../game/stats';
 
 interface PartResult {
   correct: number;
@@ -29,7 +30,7 @@ interface PartResult {
 export default function CheckpointRoute() {
   const { unitId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, settings, recordCheckpoint, stars } = useProfile();
+  const { activeChild, settings, recordCheckpoint, recordStats, stars } = useProfile();
   const unit = unitId ? findUnit(unitId) : undefined;
   const [phase, setPhase] = useState<'intro' | 'run' | 'result'>('intro');
   const [part, setPart] = useState(0);
@@ -41,6 +42,8 @@ export default function CheckpointRoute() {
   const [runPlan, setRunPlan] = useState<CheckpointPart[] | null>(null);
   // Badges held just before this checkpoint was recorded — to celebrate new ones.
   const badgesBefore = useRef<Set<string> | null>(null);
+  // When the current part began — its practice time goes into the stats.
+  const partStart = useRef(Date.now());
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!unit) return <Navigate to="/" replace />;
@@ -63,6 +66,7 @@ export default function CheckpointRoute() {
     setRun((r) => r + 1);
     setStartStars(stars);
     setPhase('run');
+    partStart.current = Date.now();
   };
 
   if (phase === 'intro') {
@@ -176,6 +180,16 @@ export default function CheckpointRoute() {
   const onSegmentComplete = (correct: number, total: number) => {
     const next = [...results, { correct, total }];
     setResults(next);
+    // Every checkpoint answer counts in the stats, for the step it came from.
+    const now = Date.now();
+    recordStats({
+      subject: p.step.id,
+      right: correct,
+      total,
+      ms: segmentMs(partStart.current, now, total),
+      source: 'checkpoint',
+    });
+    partStart.current = now;
     if (part + 1 < plan.length) {
       setPart(part + 1);
       return;
@@ -191,7 +205,7 @@ export default function CheckpointRoute() {
   };
 
   return (
-    <main className="app">
+    <main className="app app--barred">
       <div className="checkpoint-bar" aria-label={`Checkpoint part ${part + 1} of ${plan.length}`}>
         🏁{' '}
         <span className="en">
@@ -208,7 +222,9 @@ export default function CheckpointRoute() {
           lessonId: p.lessonId,
         }}
       >
-        <div key={`${run}-${part}`}>{element}</div>
+        <div className="app__game" key={`${run}-${part}`}>
+          {element}
+        </div>
       </ActivityContext.Provider>
     </main>
   );

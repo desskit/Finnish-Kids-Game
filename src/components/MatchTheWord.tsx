@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { LexicalItem } from '../content/types';
+import type { CaseId, LexicalItem } from '../content/types';
 import { agreementPhrase } from '../content';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
@@ -34,6 +34,8 @@ function agreementGloss(caseId: string, adjEn: string, nounEn: string): string {
 interface Props {
   adjectives: LexicalItem[];
   nouns: LexicalItem[];
+  /** Ask only about these cases (e.g. "isossa talossa", "isolla pöydällä"). */
+  targetCases?: CaseId[];
   onExit: () => void;
 }
 
@@ -42,7 +44,7 @@ interface Props {
 // ending ("kissassa"). Distractors are the same noun in OTHER cases, so the
 // skill practised is the agreement itself. Every form is looked up from the
 // sourced inflection tables via buildAgreementRound — never generated.
-export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
+export default function MatchTheWord({ adjectives, nouns, targetCases, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
   const ctx = useActivityContext();
   // The case ramp (maxCases) is this game's main depth lever; tricky rounds
@@ -69,8 +71,9 @@ export default function MatchTheWord({ adjectives, nouns, onExit }: Props) {
         maxCases,
         tricky,
         weigh,
+        targetCases,
       ).slice(0, ctx?.roundQuestions),
-    [adjectives, nouns, optionCount, maxCases, tricky, weigh, runId, ctx?.roundQuestions],
+    [adjectives, nouns, optionCount, maxCases, tricky, weigh, targetCases, runId, ctx?.roundQuestions],
   );
 
   const [index, setIndex] = useState(0);

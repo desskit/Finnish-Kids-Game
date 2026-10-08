@@ -8,6 +8,8 @@ import { isDue } from '../game/srs';
 import { dayKey, displayStreak, playedToday } from '../game/streak';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { badgeEnv } from '../game/path';
+import { WARMUP_QUESTIONS, pickWarmupSubject } from '../game/warmup';
+import { statsOf, warmupDoneOn } from '../game/stats';
 import {
   UNITS,
   actionHref,
@@ -44,6 +46,10 @@ export default function CourseHome() {
   const streak = displayStreak(activeChild?.lastPlayedDay, activeChild?.streakDays, today);
   const doneToday = playedToday(activeChild?.lastPlayedDay, today);
   const earned = activeChild ? earnedBadgeIds(activeChild, badgeEnv) : new Set<string>();
+  // A new day's first Continue is the warm-up: ten questions on the weakest
+  // subject so far (game/warmup.ts). Once it's done, Continue is the course again.
+  const warmDone = activeChild ? warmupDoneOn(statsOf(activeChild), today) : true;
+  const warmup = activeChild && !warmDone ? pickWarmupSubject(activeChild, now) : undefined;
 
   // The current unit starts expanded; others toggle open on tap.
   const [open, setOpen] = useState<Set<string>>(() => new Set([next.unit.id]));
@@ -93,17 +99,36 @@ export default function CourseHome() {
         </span>
       </div>
 
-      <Link className="continue-cta" to={actionHref(next)}>
-        <span className="continue-cta__icon" aria-hidden="true">
-          ▶
-        </span>
-        <span className="continue-cta__label">
-          <span className="continue-cta__title">
-            Jatka <span className="en">Continue</span>
+      {warmup ? (
+        <Link className="continue-cta continue-cta--warmup" to="/warmup">
+          <span className="continue-cta__icon" aria-hidden="true">
+            ☀️
           </span>
-          <span className="continue-cta__what">{describe(next)}</span>
-        </span>
-      </Link>
+          <span className="continue-cta__label">
+            <span className="continue-cta__title">
+              Jatka <span className="en">Continue</span>
+            </span>
+            <span className="continue-cta__tag">
+              Päivän lämmittely <span className="en">today's warm-up · {WARMUP_QUESTIONS} questions</span>
+            </span>
+            <span className="continue-cta__what">
+              Unit {warmup.unitNo}: {warmup.step.titleEn}
+            </span>
+          </span>
+        </Link>
+      ) : (
+        <Link className="continue-cta" to={actionHref(next)}>
+          <span className="continue-cta__icon" aria-hidden="true">
+            ▶
+          </span>
+          <span className="continue-cta__label">
+            <span className="continue-cta__title">
+              Jatka <span className="en">Continue</span>
+            </span>
+            <span className="continue-cta__what">{describe(next)}</span>
+          </span>
+        </Link>
+      )}
 
       <div className="home-tiles">
         <Link className="home-tile" to="/review">

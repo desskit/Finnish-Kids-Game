@@ -7,6 +7,7 @@ import { isDue, isMastered, wordSchedules } from '../game/srs';
 import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadges } from '../game/badges';
 import { canDoSummary } from '../game/cando';
+import PlayerSwitcher from './PlayerSwitcher';
 import { badgeEnv } from '../game/path';
 import { UNITS, nextAction, stepDone, topLevel, unitsCompleted, type Unit } from '../game/course';
 
@@ -294,21 +295,7 @@ export default function ProgressView() {
 
   return (
     <div className="grownup__panel">
-      {children.length > 1 && (
-        <div className="gswitch" role="tablist" aria-label="Show progress for">
-          {children.map((c) => (
-            <button
-              key={c.id}
-              role="tab"
-              aria-selected={c.id === child.id}
-              className={'gswitch__btn' + (c.id === child.id ? ' gswitch__btn--on' : '')}
-              onClick={() => setPicked(c.id)}
-            >
-              <span aria-hidden="true">{c.avatar}</span> {c.name}
-            </button>
-          ))}
-        </div>
-      )}
+      <PlayerSwitcher players={children} shownId={child.id} onPick={setPicked} label="Show progress for" />
       <ChildReport c={child} />
     </div>
   );

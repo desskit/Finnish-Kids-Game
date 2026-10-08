@@ -29,13 +29,15 @@ function child(over: Partial<Child> = {}): Child {
   return { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {}, ...over } as Child;
 }
 const doing = UNITS.find((u) => u.id === 'doing')!;
-const prior = UNITS.slice(0, UNITS.indexOf(doing));
+// The part-way lesson example: type 4's consonant-change lesson.
+const v4 = UNITS.find((u) => u.id === 'verbs-4')!;
+const prior = UNITS.slice(0, UNITS.indexOf(v4));
 const passedAll = Object.fromEntries(prior.map((u) => [u.id, { passedAt: 1, best: 1, attempts: 1 }]));
 const done = (ids: string[]) => ({
-  doing: Object.fromEntries(ids.map((id) => [id, { plays: 3, level: 3, topProvenAt: 1, recent: [] }])),
+  'verbs-4': Object.fromEntries(ids.map((id) => [id, { plays: 3, level: 3, topProvenAt: 1, recent: [] }])),
 });
-const midAt = doing.skills.findIndex((s) => s.id === doing.midLessons![0].before);
-const before = doing.skills.slice(0, midAt).map((s) => s.id);
+const midAt = v4.skills.findIndex((s) => s.id === v4.midLessons![0].before);
+const before = v4.skills.slice(0, midAt).map((s) => s.id);
 
 const verbsOf = (stepId: string): LexicalItem[] => {
   const el = renderActivity(findSkill(stepId)!.skill, 'conjugate', () => {})!;
@@ -43,8 +45,11 @@ const verbsOf = (stepId: string): LexicalItem[] => {
 };
 
 describe('the verbs units', () => {
-  it('unit 8 introduces types 1–3; type 4 and types 5–6 come later, each a unit of its own', () => {
+  it('unit 8 introduces types 1–3 (8b their k / p / t changes); type 4 and types 5–6 come later', () => {
     expect(UNITS.indexOf(doing)).toBe(7);
+    expect(UNITS[8].id).toBe('doing-kpt');
+    expect(UNITS[8].newWords.every((w) => hasKpt(verbs.items.find((v) => v.id === w)!))).toBe(true);
+    expect(doing.newWords.some((w) => hasKpt(verbs.items.find((v) => v.id === w)!))).toBe(false);
     const v4 = UNITS.findIndex((u) => u.id === 'verbs-4');
     const v56 = UNITS.findIndex((u) => u.id === 'verbs-5-6');
     expect(v4).toBeGreaterThan(7);
@@ -115,17 +120,18 @@ describe('the verbs units', () => {
 });
 
 describe('a lesson part-way through a unit', () => {
-  const kptLesson = doing.midLessons![0];
+  const kptLesson = v4.midLessons![0];
+  const unitLesson = { [v4.lessonId]: 1 };
 
   it('stays locked until every step before it is done — and locks the steps after it', () => {
-    const fresh = child({ course: { checkpoints: passedAll, lessonsSeen: { 'verb-persons': 1 } } });
-    expect(midLessonStatus(fresh, doing, kptLesson)).toBe('locked');
-    expect(stepStatus(fresh, doing, doing.skills[0])).toBe('open');
-    expect(stepStatus(fresh, doing, doing.skills[midAt])).toBe('locked');
+    const fresh = child({ course: { checkpoints: passedAll, lessonsSeen: unitLesson } });
+    expect(midLessonStatus(fresh, v4, kptLesson)).toBe('locked');
+    expect(stepStatus(fresh, v4, v4.skills[0])).toBe('open');
+    expect(stepStatus(fresh, v4, v4.skills[midAt])).toBe('locked');
 
-    const halfway = child({ progress: done(before), course: { checkpoints: passedAll, lessonsSeen: { 'verb-persons': 1 } } });
-    expect(midLessonStatus(halfway, doing, kptLesson)).toBe('open');
-    expect(stepStatus(halfway, doing, doing.skills[midAt])).toBe('locked');
+    const halfway = child({ progress: done(before), course: { checkpoints: passedAll, lessonsSeen: unitLesson } });
+    expect(midLessonStatus(halfway, v4, kptLesson)).toBe('open');
+    expect(stepStatus(halfway, v4, v4.skills[midAt])).toBe('locked');
     // Continue points at the lesson…
     const next = nextAction(halfway);
     expect(next.kind).toBe('lesson');
@@ -134,18 +140,21 @@ describe('a lesson part-way through a unit', () => {
     // …and once read, the steps after it open.
     const read = child({
       progress: done(before),
-      course: { checkpoints: passedAll, lessonsSeen: { 'verb-persons': 1, [kptLesson.lessonId]: 1 } },
+      course: { checkpoints: passedAll, lessonsSeen: { ...unitLesson, [kptLesson.lessonId]: 1 } },
     });
-    expect(midLessonStatus(read, doing, kptLesson)).toBe('done');
-    expect(stepStatus(read, doing, doing.skills[midAt])).toBe('open');
-    expect(actionHref(nextAction(read))).toBe(`/skill/${doing.skills[midAt].id}`);
+    expect(midLessonStatus(read, v4, kptLesson)).toBe('done');
+    expect(stepStatus(read, v4, v4.skills[midAt])).toBe('open');
+    expect(actionHref(nextAction(read))).toBe(`/skill/${v4.skills[midAt].id}`);
   });
 
   it('leads into the step after it, and explains the steps after it', () => {
     expect(stepAfterLesson(kptLesson.lessonId)?.id).toBe(kptLesson.before);
-    expect(stepAfterLesson(doing.lessonId)?.id).toBe(doing.skills[0].id);
-    expect(lessonForStep(doing, doing.skills[0])).toBe(doing.lessonId);
-    expect(lessonForStep(doing, doing.skills[midAt + 1])).toBe(kptLesson.lessonId);
+    expect(stepAfterLesson(v4.lessonId)?.id).toBe(v4.skills[0].id);
+    expect(lessonForStep(v4, v4.skills[0])).toBe(v4.lessonId);
+    expect(lessonForStep(v4, v4.skills[midAt + 1])).toBe(kptLesson.lessonId);
+    // The first verbs' consonant change is now a unit of its own, with its own lesson.
+    const kptUnit = UNITS.find((u) => u.id === 'doing-kpt')!;
+    expect(stepAfterLesson(kptUnit.lessonId)?.id).toBe('doing-kpt-words');
   });
 });
 
