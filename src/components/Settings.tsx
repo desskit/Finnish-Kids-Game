@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useProfile } from '../state/profile';
 import { parseBackup } from '../state/storage';
 import { isSpeechRecognitionAvailable } from '../audio/speech';
+import { finnishVoiceName, useFinnishVoice } from '../audio/voices';
+import { speak } from '../audio/speak';
 
 function Toggle({
   label,
@@ -44,6 +46,7 @@ export default function Settings() {
   const { settings, updateSettings, resetAll, backup, restore, children } = useProfile();
   const navigate = useNavigate();
   const speechAvailable = isSpeechRecognitionAvailable();
+  const voice = useFinnishVoice();
   const fileRef = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<{ ok: boolean; text: string } | null>(null);
 
@@ -95,6 +98,33 @@ export default function Settings() {
           checked={settings.reducedMotion}
           onChange={(on) => updateSettings({ reducedMotion: on })}
         />
+        <div className="gvoice">
+          <p className="gtoggle__label">Finnish voice</p>
+          {voice === 'finnish' && (
+            <p className="gmuted">✓ {finnishVoiceName() ?? 'Found'} reads the Finnish aloud.</p>
+          )}
+          {voice === 'none' && (
+            <div className="gerror">
+              <p>
+                ⚠️ No Finnish voice on this device, so the app would read Finnish with an English voice — the child
+                would hear (and copy) the wrong sounds. Add one, then come back:
+              </p>
+              <ul>
+                <li>iPad / iPhone: Settings → Accessibility → Spoken Content → Voices → Finnish.</li>
+                <li>Android: Settings → Text-to-speech → (Google) → Install voice data → Finnish.</li>
+                <li>Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices → Finnish.</li>
+                <li>Windows: Settings → Time &amp; language → Language → Add Finnish (with speech).</li>
+              </ul>
+            </div>
+          )}
+          {voice === 'unknown' && <p className="gmuted">Checking this device's voices…</p>}
+          {voice === 'unsupported' && <p className="gmuted">This browser can't speak. Words still show as text.</p>}
+          {voice !== 'unsupported' && (
+            <button className="gbtn" onClick={() => speak('Hei! Mitä kuuluu?')}>
+              🔊 Test the voice
+            </button>
+          )}
+        </div>
       </section>
 
       <section className="gcard">

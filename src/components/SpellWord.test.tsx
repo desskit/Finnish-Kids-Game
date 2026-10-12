@@ -241,3 +241,24 @@ describe('SpellWord — dictation (the L9+ expert lever)', () => {
     expect(screen.getByTestId('stars')).toHaveTextContent('1');
   });
 });
+
+describe('the ä / ö keys (for keyboards without them)', () => {
+  it('type at the cursor and can finish the word', () => {
+    render(
+      <ProfileProvider>
+        <SpellWord buildRound={() => [{ text: 'tämä', gloss: 'this' }]} onExit={vi.fn()} />
+        <StarsProbe />
+      </ProfileProvider>,
+    );
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 't' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Type ä' }));
+    expect(input.value).toBe('tä');
+    fireEvent.change(input, { target: { value: 'täm' } });
+    input.setSelectionRange(3, 3);
+    fireEvent.click(screen.getByRole('button', { name: 'Type ä' }));
+    // The whole word typed → it counts.
+    expect(screen.getByTestId('stars').textContent).toBe('1');
+    expect(screen.getByRole('button', { name: 'Type ö' })).toBeInTheDocument();
+  });
+});

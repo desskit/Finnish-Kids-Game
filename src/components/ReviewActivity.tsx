@@ -7,9 +7,11 @@ import { nounConstructions } from '../content/constructions';
 import { useProfile } from '../state/profile';
 import { MAX_BOX, selectReviewItems, grammarSrsId, isGrammarId } from '../game/srs';
 import { buildGrammarReviewQuestion, type GrammarReviewQuestion } from '../game/round';
-import { sample, shuffle } from '../util/shuffle';
+import { shuffle } from '../util/shuffle';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import FinnishLetters from './FinnishLetters';
+import { answerMatches, readyToJudge, typeAt } from '../game/answer';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForPhrasePick } from '../content/why';
@@ -46,8 +48,6 @@ interface ReviewQ {
   /** The grammar question (format 'grammar' only). */
   grammar?: GrammarReviewQuestion;
 }
-
-const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
 
 // Review (spaced repetition): a cross-topic drill over the items the scheduler
 // says are due, backfilled with new words. The FORMAT of each question scales
@@ -97,16 +97,14 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         const target = reviewItemById[id];
         if (!target) return undefined;
         const format = formatForBox(schedules[target.id]?.box ?? 1);
-        const options =
-          format === 'spelling'
-            ? []
-            : shuffle([
-                target,
-                ...sample(
-                  reviewItems.filter((i) => i.id !== target.id && i.emoji),
-                  optionCount - 1,
-                ),
-              ]);
+        // Picture cards: never two the same (a table 🍽️ and "eat" 🍽️ share one).
+        const pictures = new Set([target.emoji]);
+        const others = shuffle(reviewItems.filter((i) => i.id !== target.id && i.emoji)).filter((i) => {
+          if (pictures.has(i.emoji)) return false;
+          pictures.add(i.emoji);
+          return true;
+        });
+        const options = format === 'spelling' ? [] : shuffle([target, ...others.slice(0, optionCount - 1)]);
         return { target, format, srsId: target.id, options };
       })
       .filter((q): q is ReviewQ => Boolean(q));
@@ -132,7 +130,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   // The wrong form picked last, for its own "Why?".
   const [whyForm, setWhyForm] = useState<string | undefined>(undefined);
   const spellingCorrect =
-    !!question && question.format === 'spelling' && norm(input) === norm(question.target.fi);
+    !!question && question.format === 'spelling' && answerMatches(input, question.target.fi);
 
   // Cue a new question: hear the Finnish (recognition), or the English prompt
   // for the production/spelling/grammar formats (which must be produced, not
@@ -218,8 +216,8 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   function onInputChange(value: string) {
     if (!question || locked || done) return;
     setInput(value);
-    if (value.length < norm(question.target.fi).length) return;
-    if (norm(value) === norm(question.target.fi)) {
+    if (!readyToJudge(value, question.target.fi)) return;
+    if (answerMatches(value, question.target.fi)) {
       succeed();
     } else {
       missed.current = true;
@@ -227,6 +225,17 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
       setShake(true);
       setTimeout(() => setShake(false), 400);
     }
+  }
+
+  // The on-screen ä / ö keys type at the cursor and keep the keyboard up.
+  function typeLetter(letter: string) {
+    const el = inputRef.current;
+    const next = typeAt(el, input, letter);
+    onInputChange(next.value);
+    requestAnimationFrame(() => {
+      el?.focus();
+      el?.setSelectionRange(next.caret, next.caret);
+    });
   }
 
   // Reveal the next needed letter of the Finnish answer (max 3, never the whole
@@ -500,6 +509,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                   enterKeyHint="done"
                   aria-label="Type the word in Finnish"
                 />
+                <FinnishLetters onLetter={typeLetter} disabled={locked} />
                 {/* Stuck-child helpers: reveal up to 3 leading letters, or skip. */}
                 <div className="stuck-help">
                   <button

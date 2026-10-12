@@ -84,6 +84,13 @@
       ]
     },
     {
+      "fi": "Hei!",
+      "en": "",
+      "where": [
+        "components/Settings.tsx"
+      ]
+    },
+    {
       "fi": "Hei⟨…⟩!",
       "en": "Your Finnish course",
       "where": [
@@ -214,6 +221,13 @@
       "where": [
         "components/LetterNameGame.tsx",
         "components/SoundsHub.tsx"
+      ]
+    },
+    {
+      "fi": "Kirjoita lause",
+      "en": "Write the sentence",
+      "where": [
+        "game/path.tsx"
       ]
     },
     {
@@ -404,6 +418,13 @@
       ]
     },
     {
+      "fi": "Lauseet",
+      "en": "Sentences",
+      "where": [
+        "game/path.tsx"
+      ]
+    },
+    {
       "fi": "Lue lause",
       "en": "Read",
       "where": [
@@ -586,6 +607,20 @@
       "en": "What did you hear?",
       "where": [
         "components/HearIt.tsx"
+      ]
+    },
+    {
+      "fi": "Mitä kuuluu?",
+      "en": "",
+      "where": [
+        "components/Settings.tsx"
+      ]
+    },
+    {
+      "fi": "Mitä pitää tehdä?",
+      "en": "Tap what the command says",
+      "where": [
+        "game/path.tsx"
       ]
     },
     {
@@ -857,6 +892,13 @@
       "en": "Finnish check",
       "where": [
         "components/GrownUp.tsx"
+      ]
+    },
+    {
+      "fi": "Tee näin!",
+      "en": "Do this!",
+      "where": [
+        "game/path.tsx"
       ]
     },
     {

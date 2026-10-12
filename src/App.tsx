@@ -5,7 +5,7 @@ import {
   findSkill,
   renderActivity,
   activityForRound,
-  isMinorRound,
+  isBonusRound,
   mixStepFor,
 } from './game/path';
 import { difficultyFor } from './game/adapt';
@@ -105,8 +105,8 @@ function SkillRoute() {
   // a grown-up hasn't switched it off.
   const speechOn = isSpeechRecognitionAvailable() && settings.speakingEnabled !== false;
   const activity = activityForRound(play.skill, round.level, round.no, speechOn);
-  // A minor bonus round (typing in later units): scored, never levelled.
-  const bonus = isMinorRound(play.skill, round.level, round.no);
+  // A bonus round (typing in later units, and speaking): scored, never levelled.
+  const bonus = isBonusRound(play.skill, round.level, round.no, activity);
   const onExit = () => navigate('/');
   const element = renderActivity(play.skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;

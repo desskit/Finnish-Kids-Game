@@ -886,6 +886,30 @@ button:focus-visible,
 }
 
 /* ---------- Spelling ---------- */
+/* Ä / Ö tap keys under a typing box (for keyboards without them). */
+.fi-letters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.fi-letters__key {
+  min-width: 56px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+.fi-letters__key:active {
+  transform: scale(0.95);
+}
+
 /* The child types into this directly with the device keyboard. */
 .spell-input {
   min-width: 6em;
@@ -3589,6 +3613,22 @@ a.badge-strip {
   margin: 0;
   color: #b91c1c;
   font-weight: 700;
+}
+
+.gerror ul {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Settings: is there a Finnish voice on this device? */
+.gvoice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 0 2px;
 }
 
 /* Stats: the 14-day activity chart */

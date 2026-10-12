@@ -116,6 +116,63 @@ export function canDescribeMovement(topic: string | undefined, itemId: string): 
   return isAnimateTopic(topic) || MOVEMENT_ITEM_IDS.includes(itemId);
 }
 
+// --- Adjectives on people, on ideas, and "tall" -----------------------------
+//
+// Colours describe things and animals: on a person ("valkoinen kaveri") a
+// colour would be about skin. Hot / cold describe only THINGS — "kylmä äiti" is
+// a cold heart, and "kuuma koira" would read as a hot dog. Nothing physical
+// describes an idea ("kylmä matematiikka", cold math; "sininen musiikki"), and
+// a school subject takes hardly anything ("iso matematiikka" is nonsense). Big
+// and small need something you can count ("iso kakku", never "iso riisi").
+// "Iso äiti" and "iso isä" SOUND like isoäiti and isoisä — grandma and grandpa
+// — so "big" leaves parents alone. And "pitkä" on an animal or object is LONG,
+// not tall ("pitkä koira" is a long dog; a tall house is "korkea"), so "tall"
+// stays with people and trees.
+export const THING_ONLY_ADJECTIVES = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'cold', 'hot'];
+/** Hot / cold: not on anything alive. */
+const TEMPERATURE_ADJECTIVES = ['cold', 'hot'];
+/** Ideas and activities, not things you can touch. */
+export const ABSTRACT_NOUNS = ['music', 'math', 'gym', 'english', 'hobby', 'task', 'homework', 'movie', 'game', 'test', 'class'];
+/** The adjectives that do fit an idea: a good game, a big test, an old movie. */
+const IDEA_ADJECTIVES = ['good', 'big', 'small', 'old'];
+/** School subjects: "hyvä englanti", "vanha musiikki" — and nothing else. */
+const SUBJECT_ADJECTIVES: Record<string, string[]> = { math: [], gym: [], english: ['good'], music: ['good', 'old'] };
+const SIZE_ADJECTIVES = ['big', 'small'];
+/** Uncountable, but each one thing with a size: "iso meri", "pieni kuu". */
+const ONE_BIG_THING = ['sky', 'sea', 'sun', 'moon'];
+/** "Iso äiti" / "iso isä" would be heard as isoäiti / isoisä. */
+const PARENTS = ['mother', 'father'];
+/** People outside the family topic. */
+const PEOPLE_IDS = ['teacher', 'friend', 'pupil'];
+/** Things that are tall — "pitkä puu" — rather than long. */
+const TALL_THINGS = ['tree'];
+
+/** Does this adjective make sense on this noun (beyond the animate / movement rules)? */
+export function adjectiveFitsNoun(adjId: string, noun: { id: string; topic?: string }): boolean {
+  const person = noun.topic === 'family' || PEOPLE_IDS.includes(noun.id);
+  const alive = person || isAnimateTopic(noun.topic);
+  if (THING_ONLY_ADJECTIVES.includes(adjId) && person) return false;
+  if (TEMPERATURE_ADJECTIVES.includes(adjId) && alive) return false;
+  if (ABSTRACT_NOUNS.includes(noun.id) && !IDEA_ADJECTIVES.includes(adjId)) return false;
+  const subject = SUBJECT_ADJECTIVES[noun.id];
+  if (subject && !subject.includes(adjId)) return false;
+  if (SIZE_ADJECTIVES.includes(adjId) && !isCountable(noun.id) && !ONE_BIG_THING.includes(noun.id)) return false;
+  if (adjId === 'big' && PARENTS.includes(noun.id)) return false;
+  if (adjId === 'tall' && !(person || TALL_THINGS.includes(noun.id))) return false;
+  return true;
+}
+
+/**
+ * A place ending only where it means something: IN / INTO / OUT OF a
+ * container, ON / ONTO / OFF a surface — "isossa talossa", "isolla pöydällä",
+ * never "into the black grandfather" or "on the green room".
+ */
+export function placeCaseFits(caseId: string, noun: { tags?: readonly string[] }): boolean {
+  if (caseId === 'inessive' || caseId === 'illative' || caseId === 'elative') return !!noun.tags?.includes(CONTAINER_TAG);
+  if (caseId === 'adessive' || caseId === 'allative' || caseId === 'ablative') return !!noun.tags?.includes(SURFACE_TAG);
+  return true;
+}
+
 // --- Verbs: kid-commandable actions ---------------------------------------
 //
 // The TPR commands game ("Tee näin!") speaks an imperative and the child taps

@@ -613,11 +613,11 @@ _Explain:_ Seeing the whole bus → **-n**: *bussin*.
 
 ### 1. Going on for a while: -a / -ä _(examples)_
 
-*katsoa* (to watch) and *odottaa* (to wait for) **take a while** — so the thing always gets **-a / -ä**, never **-n**.
+*katsoa* (to look at, to watch) and *odottaa* (to wait for) **take a while** — so the thing gets **-a / -ä**.
 
-- 🎞️ **Katson elokuva[a].** — I watch the movie.
-- 🚌 **Odotan bussi[a].** — I wait for the bus.
-- 🤝 **Odotan kaveri[a].** — I wait for my friend.
+- 🎞️ **Katson elokuva[a].** — I'm watching the movie.
+- 🚌 **Odotan bussi[a].** — I'm waiting for the bus.
+- 🤝 **Odotan kaveri[a].** — I'm waiting for my friend.
 
 ### 2. See it, or watch it? _(explain)_
 
@@ -630,7 +630,7 @@ _Explain:_ Seeing the whole bus → **-n**: *bussin*.
 **Q:** Which one means "I'm waiting for the train"?
 
 - ✘ 🚆 **Odotan juna[n].**
-- ✔ 🚆 **Odotan juna[a].** — I wait for the train.
+- ✔ 🚆 **Odotan juna[a].** — I'm waiting for the train.
 
 _Explain:_ Waiting goes on for a while → **-a**: *junaa*.
 
@@ -639,7 +639,7 @@ _Explain:_ Waiting goes on for a while → **-a**: *junaa*.
 **Q:** Which one means "I see the train"?
 
 - ✔ 🚆 **Näen juna[n].** — I see the train.
-- ✘ 🚆 **Odotan juna[a].** — I wait for the train.
+- ✘ 🚆 **Odotan juna[a].** — I'm waiting for the train.
 
 _Explain:_ *Näen junan* — seeing it once → **-n**.
 
@@ -650,7 +650,7 @@ The VERB decides the ending — so look at the verb first: *tykkään* → **-st
 - 🐶 **Tykkään koira[sta].** — I like the dog.
 - 🐶 **Rakastan koira[a].** — I love the dog.
 - 🐶 **Näen koira[n].** — I see the dog.
-- 🐶 **Odotan koira[a].** — I wait for the dog.
+- 🐶 **Odotan koira[a].** — I'm waiting for the dog.
 
 ## Unit 18: Buying one whole thing (Kaupassa) 🛒
 
@@ -1313,7 +1313,7 @@ You now know a lot of endings. In a Finnish sentence, **every word carries its e
 
 ### 3. Spotting mistakes _(explain)_
 
-If a sentence sounds wrong, **check the endings first**. *Kissa on laatikolla* means the cat is ON the box — if it should be IN the box, the ending must be **-ssa**.
+If a sentence sounds wrong, **check the endings first**. *Kissa on laatikolla* has the ON ending **-lla** — but if the cat is IN the box, the ending must be **-ssa**: *laatikossa*.
 
 
 ### 4. Try it _(check)_

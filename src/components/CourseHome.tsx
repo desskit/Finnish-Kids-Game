@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useFinnishVoice } from '../audio/voices';
 import { Link } from 'react-router-dom';
 import { reviewItems } from '../content';
 import { lessonById } from '../content/lessons';
@@ -43,6 +44,7 @@ export default function CourseHome() {
   const seenCount = reviewItems.filter((i) => srs[i.id]).length;
 
   const today = dayKey(now);
+  const voice = useFinnishVoice();
   const streak = displayStreak(activeChild?.lastPlayedDay, activeChild?.streakDays, today);
   const doneToday = playedToday(activeChild?.lastPlayedDay, today);
   const earned = activeChild ? earnedBadgeIds(activeChild, badgeEnv) : new Set<string>();
@@ -244,6 +246,12 @@ export default function CourseHome() {
 
       {!isSpeechAvailable() && (
         <p className="audio-note">🔇 Audio isn't available in this browser. Words still show as text.</p>
+      )}
+      {voice === 'none' && (
+        <p className="audio-note">
+          🔈 This device has no Finnish voice yet, so Finnish may be read with an English accent. Grown-ups:
+          Settings shows how to add one.
+        </p>
       )}
 
       <p className="data-credit">

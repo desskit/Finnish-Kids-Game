@@ -19,6 +19,8 @@ import {
   canDescribeMovement,
   isCommandVerb,
   isCountable,
+  adjectiveFitsNoun,
+  placeCaseFits,
 } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
 import { personalizeLine } from '../content/dialogues';
@@ -684,6 +686,13 @@ export interface PossessiveQuestion {
   gloss: string;
 }
 
+// Places a child calls "mine" or "yours": "talossani", "huoneessasi",
+// "pöydällään" — not "in my bus", "in his shop" or "in my forest".
+const OWN_PLACES = [
+  'house', 'room', 'bed', 'box', 'bag', 'basket', 'car', 'garden', 'kitchen', 'living-room', 'bedroom',
+  'bathroom', 'yard', 'sofa', 'table', 'chair', 'school', 'window', 'door',
+];
+
 export function buildPossessiveRound(
   items: readonly LexicalItem[],
   questionCount: number,
@@ -700,7 +709,9 @@ export function buildPossessiveRound(
   // reliably surfaces — places are a small slice of the mixed noun pool, so a
   // uniform draw would show them only rarely.
   const localePlaces = withCases
-    ? usable.filter((i) => i.topic === 'places' && possessiveForm(i, '1sg', 'inessive'))
+    ? usable.filter(
+        (i) => i.topic === 'places' && OWN_PLACES.includes(i.id) && possessiveForm(i, '1sg', 'inessive'),
+      )
     : [];
   const out: PossessiveQuestion[] = [];
   let guard = 0;
@@ -1043,7 +1054,8 @@ export function buildCountingRound(
       number,
       ...pickPreferring(otherCounts, nearCounts, optionCount - 1),
     ]);
-    const otherNouns = countable.filter((x) => x.id !== noun.id);
+    // The noun tiles are pictures: never two words on the same picture.
+    const otherNouns = countable.filter((x) => x.id !== noun.id && x.emoji !== noun.emoji);
     const nearNouns = tricky ? otherNouns.filter((x) => x.topic && x.topic === noun.topic) : [];
     const nounOptions = shuffle([noun, ...pickPreferring(otherNouns, nearNouns, optionCount - 1)]);
     out.push({ number, noun, numberOptions, nounOptions });
@@ -1123,14 +1135,18 @@ export function buildAgreementRound(
     const adjPool = adjectives.filter((a) => {
       if (isAnimateOnlyAdjective(a.id) && !isAnimateTopic(noun.topic)) return false;
       if (isMovementOnlyAdjective(a.id) && !canDescribeMovement(noun.topic, noun.id)) return false;
-      return true;
+      return adjectiveFitsNoun(a.id, noun);
     });
-    const adjective = sample(adjPool.length > 0 ? adjPool : adjectives, 1)[0];
-    if (!adjective) break;
+    // No adjective fits this noun ("cold math"): pick another noun.
+    if (adjPool.length === 0) continue;
+    const adjective = sample(adjPool, 1)[0];
 
     const nounCases = allowedCases.filter((c) => caseFormOf(noun, c, number));
+    // The phrase asked about must make sense: a place ending only on a place
+    // of that shape ("isossa talossa", never "in the tall friend").
     const targetCandidates = nounCases.filter(
-      (c) => caseFormOf(adjective, c, number) && (!targetCases || targetCases.includes(c)),
+      (c) =>
+        caseFormOf(adjective, c, number) && (!targetCases || targetCases.includes(c)) && placeCaseFits(c, noun),
     );
     if (!targetCandidates.length) continue;
 

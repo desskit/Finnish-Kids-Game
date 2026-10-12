@@ -47,8 +47,9 @@ const FEELING: Slip[] = [s('partitive'), s('genitive'), s('elative')];
 const LIKING: Slip[] = [s('partitive'), s('nominative'), s('genitive')];
 // Postpositions: the thing takes -n ("tuolin alla").
 const POSTPOSITION: Slip[] = [s('nominative'), s('partitive'), s('adessive')];
-// Tools and rides: -lla ("kynällä", "bussilla"). Going INTO the bus is the classic slip.
-const WITH_TOOL: Slip[] = [s('nominative'), s('partitive'), s('elative')];
+// Tools: -lla ("kynällä", "lusikalla"). Not -sta: "Syön lusikasta" (I eat FROM a
+// spoon) and "Kirjoitan puhelimesta" (writing from my phone) are fine Finnish.
+const WITH_TOOL: Slip[] = [s('nominative'), s('partitive'), s('genitive')];
 
 export const SLIPS: Record<string, Slip[]> = {
   'this-is': BASIC,
@@ -72,8 +73,9 @@ export const SLIPS: Record<string, Slip[]> = {
   // Watching → -a. (Not -n: "Katson elokuvan" = I'll watch the whole film — fine.)
   'i-watch': [s('nominative'), s('elative'), s('adessive')],
   'i-wait-for': [s('genitive'), s('nominative'), s('elative')],
-  // One whole thing → -n; some → -a: exactly the shop lesson's contrast.
-  'i-buy': [s('partitive', { countableOnly: true }), s('nominative'), s('elative')],
+  // One whole thing → -n. (Not -a: for food that's "some" — the shop lesson's
+  // other half — and "Ostan kelloa" is "I'm shopping for a clock", fine too.)
+  'i-buy': [s('nominative'), s('elative')],
   'i-buy-some': [s('genitive'), s('nominative'), s('elative')],
   'in-front-of': POSTPOSITION,
   behind: POSTPOSITION,
@@ -88,9 +90,11 @@ export const SLIPS: Record<string, Slip[]> = {
   'next-to-them': [pl('nominative'), sg('genitive'), pl('partitive')],
   'under-them': [pl('nominative'), sg('genitive'), pl('partitive')],
   // "Some" things → plural -ja. Not "the balls" (pallot): that's fine Finnish too.
-  'i-have-some': [sg('partitive'), sg('nominative')],
+  // The singular -a only for things you count: "Minulla on karkkia" (some
+  // candy) is as right as "karkkeja" (some candies).
+  'i-have-some': [sg('partitive', { countableOnly: true }), sg('nominative')],
   'i-havent-any': [pl('nominative'), sg('nominative')],
-  'these-are': [sg('partitive'), sg('nominative')],
+  'these-are': [sg('partitive', { countableOnly: true }), sg('nominative')],
   'where-are': [sg('nominative'), pl('partitive')],
   'on-it': [...PLACES_EXCEPT('adessive'), s('nominative')],
   'in-it': [...PLACES_EXCEPT('inessive'), s('nominative')],
@@ -138,11 +142,13 @@ export const SLIPS: Record<string, Slip[]> = {
 };
 
 // IN vs ON places: for most things the two endings mean different things
-// (laatikossa / laatikolla — in / at the box), and that contrast is the
+// (sängyssä / sängyllä — in bed / on the bed), and that contrast is the
 // lesson. But where YOU are, go or come from, both are often fine ("Olen
-// koululla" = at school; "Tulen koululta"), and a few places take either
-// ("pihassa / pihalla", "kaupungissa / kaupungilla"). There the in/on
-// counterpart is never offered as wrong.
+// koululla" = at school; "Tulen koululta"), and some places take either:
+// "pihassa / pihalla", "kaupungissa / kaupungilla", a cat "ikkunassa /
+// ikkunalla" (in / at the window), "tuolissa / tuolilla" (in / on a chair),
+// "laivassa / laivalla" (on board), and "tulee ovesta" (comes in through the
+// door) beside "ovelta". There the in/on counterpart is never offered as wrong.
 const IN_ON_PAIR: Partial<Record<CaseId, CaseId>> = {
   inessive: 'adessive',
   adessive: 'inessive',
@@ -152,16 +158,19 @@ const IN_ON_PAIR: Partial<Record<CaseId, CaseId>> = {
   ablative: 'elative',
 };
 const PERSON_PLACE_CARRIERS = new Set(['i-am-in', 'i-am-on', 'i-go-into', 'i-go-onto', 'i-come-from-in', 'i-come-from-on']);
-const EITHER_IN_OR_ON = new Set(['yard', 'city']);
+const EITHER_IN_OR_ON = new Set(['yard', 'city', 'window', 'chair', 'ship', 'door']);
 
 function counterpartIsFine(item: LexicalItem, con: Construction, slip: Slip): boolean {
   if (IN_ON_PAIR[con.case] !== slip.case) return false;
   return PERSON_PLACE_CARRIERS.has(con.id) || EITHER_IN_OR_ON.has(item.id);
 }
 
+/** Words English doesn't count either: "läksyä" (some homework) is fine Finnish. */
+const MASS_IN_ENGLISH = ['homework', 'hair'];
+
 /** Words that can mean "some of it" (mass) — partitive objects are fine for them. */
 export function massCapable(item: LexicalItem): boolean {
-  return !isCountable(item.id) || item.topic === 'food';
+  return !isCountable(item.id) || item.topic === 'food' || MASS_IN_ENGLISH.includes(item.id);
 }
 
 /** Verb carriers ("Haluan ___"): the slip is a finished verb — "Haluan leikin". */

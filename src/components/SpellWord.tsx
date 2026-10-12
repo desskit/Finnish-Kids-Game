@@ -7,6 +7,8 @@ import { useActivityContext, useSegmentComplete } from '../game/activityContext'
 import { difficultyFor } from '../game/adapt';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import FinnishLetters from './FinnishLetters';
+import { answerMatches, readyToJudge, typeAt } from '../game/answer';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForConstruction, type Why } from '../content/why';
@@ -132,11 +134,9 @@ export default function SpellWord({
   const target = round[index];
   // The question a wrong tap happened on — its "Why?" tip shows until it advances.
   const [whyAt, setWhyAt] = useState(-1);
-  // A forgotten trailing period/! /? shouldn't fail an otherwise-correct
-  // sentence — strip it from both sides before comparing (bare-word targets
-  // never have trailing punctuation, so this is a no-op there).
-  const norm = (s: string) => s.trim().toLowerCase().replace(/[.!?]+$/, '');
-  const correct = !!target && norm(input) === norm(target.text);
+  // Case, punctuation, spacing and how the keyboard encoded "ä" don't count —
+  // the letters do (game/answer.ts).
+  const correct = !!target && answerMatches(input, target.text);
 
   // Say the target word (Finnish) when a new question appears, and keep focus
   // on the input so the device keyboard stays up between words. Finnish is
@@ -157,8 +157,8 @@ export default function SpellWord({
   const checkIfComplete = useCallback(
     (value: string) => {
       if (!target || locked) return;
-      if (value.length < norm(target.text).length) return;
-      if (norm(value) === norm(target.text)) {
+      if (!readyToJudge(value, target.text)) return;
+      if (answerMatches(value, target.text)) {
         setLocked(true);
         playDing(true);
         if (speakFi) speak(target.text);
@@ -195,6 +195,17 @@ export default function SpellWord({
     if (!target || locked || done) return;
     setInput(value);
     checkIfComplete(value);
+  }
+
+  // The on-screen ä / ö keys type at the cursor and keep the keyboard up.
+  function typeLetter(letter: string) {
+    const el = inputRef.current;
+    const next = typeAt(el, input, letter);
+    onInputChange(next.value);
+    requestAnimationFrame(() => {
+      el?.focus();
+      el?.setSelectionRange(next.caret, next.caret);
+    });
   }
 
   // Reveal the next needed letter (max 3 per word), stopping one short of the
@@ -311,6 +322,7 @@ export default function SpellWord({
         enterKeyHint="done"
         aria-label="Type the word you hear"
       />
+      <FinnishLetters onLetter={typeLetter} disabled={locked} />
 
       {/* Stuck-child helpers: reveal up to 3 leading letters, or move on. Both
           keep the round from ever being a dead end. */}

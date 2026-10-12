@@ -36,12 +36,14 @@ export interface UiLabel {
   where: string[];
 }
 
-/** The component sources: every screen and game, and the app shell. */
+/** The component sources: every screen and game, the app shell, and the course
+ *  map (which hands some games their titles: "Tee näin!", "Lauseet" — only its
+ *  JSX is read; its step titles are listed with the course titles). */
 export function uiSourceFiles(): string[] {
   const components = readdirSync(join(SRC, 'components'))
     .filter((f) => f.endsWith('.tsx') && !f.includes('.test.'))
     .map((f) => `components/${f}`);
-  return [...components, 'App.tsx'].sort();
+  return [...components, 'App.tsx', 'game/path.tsx'].sort();
 }
 
 /** Small English words AGID doesn't list (it lists words that inflect). */
@@ -193,6 +195,14 @@ const PAIRS: Record<string, string[]> = {
   nameFi: ['nameEn'],
 };
 
+/** Is this node inside a JSX element (a prop or a child)? */
+function hasJsxAncestor(node: ts.Node): boolean {
+  for (let n: ts.Node | undefined = node.parent; n; n = n.parent) {
+    if (ts.isJsxAttribute(n) || ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n) || ts.isJsxFragment(n)) return true;
+  }
+  return false;
+}
+
 const isText = (n: ts.Node | undefined): n is ts.StringLiteral | ts.NoSubstitutionTemplateLiteral =>
   !!n && (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n));
 
@@ -239,6 +249,8 @@ export function extractUiFinnish(files = uiSourceFiles(), lexicon = finnishLexic
     const text = readFileSync(join(SRC, file), 'utf8');
     const sf = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
     const handled = new Set<ts.Node>();
+    // Outside the components, read only what's handed to a screen as JSX.
+    const jsxOnly = !file.startsWith('components/') && file !== 'App.tsx';
     const markAll = (n: ts.Node) => {
       handled.add(n);
       ts.forEachChild(n, markAll);
@@ -287,7 +299,7 @@ export function extractUiFinnish(files = uiSourceFiles(), lexicon = finnishLexic
         }
       }
       // Object fields: { fi: 'Edistyminen', en: 'Progress' }.
-      if (ts.isObjectLiteralExpression(node)) {
+      if (ts.isObjectLiteralExpression(node) && !jsxOnly) {
         const props = new Map<string, ts.Expression>();
         for (const p of node.properties) {
           if (ts.isPropertyAssignment(p) && (ts.isIdentifier(p.name) || ts.isStringLiteral(p.name))) {
@@ -309,6 +321,10 @@ export function extractUiFinnish(files = uiSourceFiles(), lexicon = finnishLexic
 
     // Every other string a person might read, kept if it reads as Finnish.
     const sweep = (node: ts.Node) => {
+      if (jsxOnly && !ts.isJsxAttributes(node) && !hasJsxAncestor(node)) {
+        ts.forEachChild(node, sweep);
+        return;
+      }
       if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) return;
       if (!handled.has(node)) {
         if (isText(node)) {

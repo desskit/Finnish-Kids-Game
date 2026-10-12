@@ -112,3 +112,27 @@ describe('pick-the-ending rounds', () => {
     expect(opts.filter((o) => o === 'laatikossa')).toHaveLength(1);
   });
 });
+
+describe('fine Finnish is never marked wrong (final QA)', () => {
+  it('in / at a window or chair, through a door, on board a ship: both endings fine', () => {
+    expect(slipForms(item('window'), con('on-it'))).not.toContain('ikkunassa');
+    expect(slipForms(item('chair'), con('on-it'))).not.toContain('tuolissa');
+    expect(slipForms(item('door'), con('off-it'))).not.toContain('ovesta');
+    expect(slipForms(item('ship'), con('on-it'))).not.toContain('laivassa');
+  });
+
+  it('a tool: "Syön lusikasta" (from a spoon) is fine, so -sta is never the slip', () => {
+    expect(slipForms(item('spoon'), con('eat-with'))).not.toContain('lusikasta');
+    expect(slipForms(item('phone'), con('write-with'))).not.toContain('puhelimesta');
+  });
+
+  it('buying one thing: "Ostan kelloa" (shopping for a clock) is fine too', () => {
+    expect(slipForms(item('clock'), con('i-buy'))).not.toContain('kelloa');
+  });
+
+  it('"some candy" and "some candies" are both right; homework is "some" in English', () => {
+    expect(slipForms(item('candy'), con('i-have-some'))).not.toContain('karkkia');
+    expect(slipForms(item('candy'), con('these-are'))).not.toContain('karkkia');
+    expect(massCapable(item('homework'))).toBe(true);
+  });
+});

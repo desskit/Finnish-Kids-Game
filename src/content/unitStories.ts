@@ -266,7 +266,7 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       { fi: 'Eero juoksee.', en: 'Eero runs.', emoji: '🏃' },
       { fi: 'Aino laulaa.', en: 'Aino sings.', emoji: '🎤' },
-      { fi: 'Me uimme.', en: 'We swim.', emoji: '🏊' },
+      { fi: 'Me syömme.', en: 'We eat.', emoji: '🧺' },
       { fi: 'Isä lukee.', en: 'Dad reads.', emoji: '📖' },
       { fi: 'Vauva nukkuu.', en: 'The baby sleeps.', emoji: '😴' },
     ],
