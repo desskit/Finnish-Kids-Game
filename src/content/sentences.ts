@@ -31,11 +31,11 @@ const ANIMALS = [
 // Animals other than the cat (so "the cat is behind the ___" never repeats it).
 const ANIMALS_NOT_CAT = ANIMALS.filter((id) => id !== 'cat');
 // Foods you EAT (no drinks) — keeps "I eat the big ___" sensible. (No 'cheese':
-// "I eat the big cheese" collides with the English idiom for a VIP.)
+// "I eat the big cheese" collides with the English idiom for a VIP; no 'bread':
+// English eats a big LOAF.)
 const EDIBLE = [
   'apple',
   'banana',
-  'bread',
   'cake',
   'cookie',
   'potato',

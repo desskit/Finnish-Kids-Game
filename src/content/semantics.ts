@@ -77,9 +77,9 @@ export function isCountable(id: string): boolean {
 }
 
 /** Foods and pastimes that you like or love AS A KIND, so English drops "the":
- *  "Pidän pitsasta" = "I like pizza", not "I like the pizza". (Countable
- *  things — an apple, a cat — keep "the": "Pidän kissasta" = "I like the cat".) */
-export const LIKED_AS_A_KIND = ['pizza', 'ice-cream', 'chocolate', 'bread', 'cheese', 'cake', 'football'];
+ *  "Pidän pitsasta" = "I like pizza", not "I like the pizza". (Other foods go
+ *  plural — "I like apples" — and animals keep "the": "I like the cat".) */
+export const LIKED_AS_A_KIND = ['pizza', 'ice-cream', 'chocolate', 'bread', 'cheese', 'cake', 'candy', 'football'];
 
 /** Topics whose words are living things an animate adjective can describe. */
 export const ANIMATE_TOPICS = ['animals', 'family'];
@@ -159,6 +159,8 @@ export function adjectiveFitsNoun(adjId: string, noun: { id: string; topic?: str
   if (SIZE_ADJECTIVES.includes(adjId) && !isCountable(noun.id) && !ONE_BIG_THING.includes(noun.id)) return false;
   if (adjId === 'big' && PARENTS.includes(noun.id)) return false;
   if (adjId === 'tall' && !(person || TALL_THINGS.includes(noun.id))) return false;
+  // "Vanha vauva" (an old baby) is a contradiction.
+  if (adjId === 'old' && noun.id === 'baby') return false;
   return true;
 }
 

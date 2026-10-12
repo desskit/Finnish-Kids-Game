@@ -548,13 +548,6 @@
       ]
     },
     {
-      "fi": "Mikä eläin?",
-      "en": "",
-      "where": [
-        "components/CountAndSay.tsx"
-      ]
-    },
-    {
       "fi": "Mikä kirjain?",
       "en": "Which letter does it start with?",
       "where": [
@@ -623,6 +616,7 @@
       "fi": "Mikä tämä on?",
       "en": "Which one did you hear?",
       "where": [
+        "components/CountAndSay.tsx",
         "components/ListenAndTap.tsx",
         "components/ReviewActivity.tsx"
       ]
@@ -681,6 +675,13 @@
       "en": "",
       "where": [
         "components/Settings.tsx"
+      ]
+    },
+    {
+      "fi": "Mitä nämä ovat?",
+      "en": "",
+      "where": [
+        "components/CountAndSay.tsx"
       ]
     },
     {

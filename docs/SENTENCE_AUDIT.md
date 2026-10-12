@@ -46,7 +46,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on kakku. _(cake)_
 - Tämä on kynttilä. _(candle)_
 - Tämä on karkki. _(candy)_
-- Tämä on ruokala. _(canteen)_
+- Tämä on ruokala. _(cafeteria)_
 - Tämä on lakki. _(cap)_
 - Tämä on auto. _(car)_
 - Tämä on porkkana. _(carrot)_
@@ -86,7 +86,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on kala. _(fish)_
 - Tämä on kukka. _(flower)_
 - Tämä on jalka. _(foot)_
-- Tämä on jalkapallo. _(football)_
+- Tämä on jalkapallo. _(soccer ball)_
 - Tämä on metsä. _(forest)_
 - Tämä on haarukka. _(fork)_
 - Tämä on kettu. _(fox)_
@@ -201,7 +201,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 
 Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge, rain, rice, snow, soup, water, wind
 
-### `where-is` — “Where is the ___?” (tier 2, nominative singular, 176 words)
+### `where-is` — “Where is the ___?” (tier 2, nominative singular, 174 words)
 
 - Missä on omena? _(apple)_
 - Missä on täti? _(aunt)_
@@ -236,7 +236,7 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on kakku? _(cake)_
 - Missä on kynttilä? _(candle)_
 - Missä on karkki? _(candy)_
-- Missä on ruokala? _(canteen)_
+- Missä on ruokala? _(cafeteria)_
 - Missä on lakki? _(cap)_
 - Missä on auto? _(car)_
 - Missä on porkkana? _(carrot)_
@@ -274,7 +274,7 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on kala? _(fish)_
 - Missä on kukka? _(flower)_
 - Missä on jalka? _(foot)_
-- Missä on jalkapallo? _(football)_
+- Missä on jalkapallo? _(soccer ball)_
 - Missä on metsä? _(forest)_
 - Missä on haarukka? _(fork)_
 - Missä on kettu? _(fox)_
@@ -316,7 +316,6 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on vuori? _(mountain)_
 - Missä on hiiri? _(mouse)_
 - Missä on suu? _(mouth)_
-- Missä on elokuva? _(movie)_
 - Missä on lihas? _(muscle)_
 - Missä on museo? _(museum)_
 - Missä on nenä? _(nose)_
@@ -361,7 +360,6 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on mansikka? _(strawberry)_
 - Missä on aurinko? _(sun)_
 - Missä on pöytä? _(table)_
-- Missä on tehtävä? _(task)_
 - Missä on taksi? _(taxi)_
 - Missä on opettaja? _(teacher)_
 - Missä on koe? _(test)_
@@ -380,12 +378,11 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on piha? _(yard)_
 - Missä on eläintarha? _(zoo)_
 
-Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
+Gated out: english, gym, hair, hobby, math, movie, music, rain, sky, task, wind
 
-### `is-this` — “Is this a ___?” (tier 2, nominative singular, 188 words)
+### `is-this` — “Is this a ___?” (tier 2, nominative singular, 180 words)
 
 - Onko tämä omena? _(apple)_
-- Onko tämä täti? _(aunt)_
 - Onko tämä vauva? _(baby)_
 - Onko tämä reppu? _(backpack)_
 - Onko tämä laukku? _(bag)_
@@ -411,7 +408,6 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä saapas? _(boot)_
 - Onko tämä laatikko? _(box)_
 - Onko tämä leipä? _(bread)_
-- Onko tämä veli? _(brother)_
 - Onko tämä ruskea? _(brown)_
 - Onko tämä pupu? _(bunny)_
 - Onko tämä bussi? _(bus)_
@@ -420,7 +416,7 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä kakku? _(cake)_
 - Onko tämä kynttilä? _(candle)_
 - Onko tämä karkki? _(candy)_
-- Onko tämä ruokala? _(canteen)_
+- Onko tämä ruokala? _(cafeteria)_
 - Onko tämä lakki? _(cap)_
 - Onko tämä auto? _(car)_
 - Onko tämä porkkana? _(carrot)_
@@ -438,9 +434,7 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä kylmä? _(cold)_
 - Onko tämä tietokone? _(computer)_
 - Onko tämä keksi? _(cookie)_
-- Onko tämä serkku? _(cousin)_
 - Onko tämä lehmä? _(cow)_
-- Onko tämä tytär? _(daughter)_
 - Onko tämä koira? _(dog)_
 - Onko tämä ovi? _(door)_
 - Onko tämä mekko? _(dress)_
@@ -460,7 +454,7 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä kala? _(fish)_
 - Onko tämä kukka? _(flower)_
 - Onko tämä jalka? _(foot)_
-- Onko tämä jalkapallo? _(football)_
+- Onko tämä jalkapallo? _(soccer ball)_
 - Onko tämä metsä? _(forest)_
 - Onko tämä haarukka? _(fork)_
 - Onko tämä kettu? _(fox)_
@@ -471,7 +465,6 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä puutarha? _(garden)_
 - Onko tämä käsine? _(glove)_
 - Onko tämä hyvä? _(good)_
-- Onko tämä lapsenlapsi? _(grandchild)_
 - Onko tämä isoisä? _(grandfather)_
 - Onko tämä isoäiti? _(grandmother)_
 - Onko tämä vihreä? _(green)_
@@ -534,7 +527,6 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä paita? _(shirt)_
 - Onko tämä kenkä? _(shoe)_
 - Onko tämä kauppa? _(shop)_
-- Onko tämä sisko? _(sister)_
 - Onko tämä hame? _(skirt)_
 - Onko tämä taivas? _(sky)_
 - Onko tämä hidas? _(slow)_
@@ -542,7 +534,6 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä käärme? _(snake)_
 - Onko tämä sukka? _(sock)_
 - Onko tämä sohva? _(sofa)_
-- Onko tämä poika? _(son)_
 - Onko tämä lusikka? _(spoon)_
 - Onko tämä tähti? _(star)_
 - Onko tämä asema? _(station)_
@@ -563,7 +554,6 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä juna? _(train)_
 - Onko tämä puu? _(tree)_
 - Onko tämä vatsa? _(tummy)_
-- Onko tämä setä? _(uncle)_
 - Onko tämä liivi? _(vest)_
 - Onko tämä valkoinen? _(white)_
 - Onko tämä ikkuna? _(window)_
@@ -573,9 +563,9 @@ Gated out: english, gym, hair, hobby, math, music, rain, sky, wind
 - Onko tämä nuori? _(young)_
 - Onko tämä eläintarha? _(zoo)_
 
-Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge, rain, rice, snow, soup, water, wind
+Gated out: aunt, brother, butter, cousin, daughter, english, grandchild, grass, gym, ice, juice, math, milk, music, porridge, rain, rice, sister, snow, son, soup, uncle, water, wind
 
-### `i-have` — “I have a ___.” (tier 2, nominative singular, 114 words)
+### `i-have` — “I have a ___.” (tier 2, nominative singular, 111 words)
 
 - Minulla on omena. _(apple)_
 - Minulla on täti. _(aunt)_
@@ -618,7 +608,6 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Minulla on serkku. _(cousin)_
 - Minulla on lehmä. _(cow)_
 - Minulla on koira. _(dog)_
-- Minulla on ovi. _(door)_
 - Minulla on mekko. _(dress)_
 - Minulla on ankka. _(duck)_
 - Minulla on korvakoru. _(earring)_
@@ -629,7 +618,7 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Minulla on isä. _(dad)_
 - Minulla on kala. _(fish)_
 - Minulla on kukka. _(flower)_
-- Minulla on jalkapallo. _(football)_
+- Minulla on jalkapallo. _(soccer ball)_
 - Minulla on haarukka. _(fork)_
 - Minulla on kettu. _(fox)_
 - Minulla on kaveri. _(friend)_
@@ -647,7 +636,6 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Minulla on talo. _(house)_
 - Minulla on jäätelö. _(ice cream)_
 - Minulla on avain. _(key)_
-- Minulla on keittiö. _(kitchen)_
 - Minulla on lehti. _(leaf)_
 - Minulla on leijona. _(lion)_
 - Minulla on apina. _(monkey)_
@@ -689,12 +677,11 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Minulla on puu. _(tree)_
 - Minulla on setä. _(uncle)_
 - Minulla on liivi. _(vest)_
-- Minulla on ikkuna. _(window)_
 - Minulla on susi. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, yard, zoo
+Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `you-have` — “You have a ___.” (tier 2, nominative singular, 114 words)
+### `you-have` — “You have a ___.” (tier 2, nominative singular, 111 words)
 
 - Sinulla on omena. _(apple)_
 - Sinulla on täti. _(aunt)_
@@ -737,7 +724,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Sinulla on serkku. _(cousin)_
 - Sinulla on lehmä. _(cow)_
 - Sinulla on koira. _(dog)_
-- Sinulla on ovi. _(door)_
 - Sinulla on mekko. _(dress)_
 - Sinulla on ankka. _(duck)_
 - Sinulla on korvakoru. _(earring)_
@@ -748,7 +734,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Sinulla on isä. _(dad)_
 - Sinulla on kala. _(fish)_
 - Sinulla on kukka. _(flower)_
-- Sinulla on jalkapallo. _(football)_
+- Sinulla on jalkapallo. _(soccer ball)_
 - Sinulla on haarukka. _(fork)_
 - Sinulla on kettu. _(fox)_
 - Sinulla on kaveri. _(friend)_
@@ -766,7 +752,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Sinulla on talo. _(house)_
 - Sinulla on jäätelö. _(ice cream)_
 - Sinulla on avain. _(key)_
-- Sinulla on keittiö. _(kitchen)_
 - Sinulla on lehti. _(leaf)_
 - Sinulla on leijona. _(lion)_
 - Sinulla on apina. _(monkey)_
@@ -808,12 +793,11 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Sinulla on puu. _(tree)_
 - Sinulla on setä. _(uncle)_
 - Sinulla on liivi. _(vest)_
-- Sinulla on ikkuna. _(window)_
 - Sinulla on susi. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, yard, zoo
+Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `she-has` — “He/she has a ___.” (tier 2, nominative singular, 114 words)
+### `she-has` — “He/she has a ___.” (tier 2, nominative singular, 111 words)
 
 - Hänellä on omena. _(apple)_
 - Hänellä on täti. _(aunt)_
@@ -856,7 +840,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Hänellä on serkku. _(cousin)_
 - Hänellä on lehmä. _(cow)_
 - Hänellä on koira. _(dog)_
-- Hänellä on ovi. _(door)_
 - Hänellä on mekko. _(dress)_
 - Hänellä on ankka. _(duck)_
 - Hänellä on korvakoru. _(earring)_
@@ -867,7 +850,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Hänellä on isä. _(dad)_
 - Hänellä on kala. _(fish)_
 - Hänellä on kukka. _(flower)_
-- Hänellä on jalkapallo. _(football)_
+- Hänellä on jalkapallo. _(soccer ball)_
 - Hänellä on haarukka. _(fork)_
 - Hänellä on kettu. _(fox)_
 - Hänellä on kaveri. _(friend)_
@@ -885,7 +868,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Hänellä on talo. _(house)_
 - Hänellä on jäätelö. _(ice cream)_
 - Hänellä on avain. _(key)_
-- Hänellä on keittiö. _(kitchen)_
 - Hänellä on lehti. _(leaf)_
 - Hänellä on leijona. _(lion)_
 - Hänellä on apina. _(monkey)_
@@ -927,12 +909,11 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Hänellä on puu. _(tree)_
 - Hänellä on setä. _(uncle)_
 - Hänellä on liivi. _(vest)_
-- Hänellä on ikkuna. _(window)_
 - Hänellä on susi. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, yard, zoo
+Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `we-have` — “We have a ___.” (tier 2, nominative singular, 114 words)
+### `we-have` — “We have a ___.” (tier 2, nominative singular, 111 words)
 
 - Meillä on omena. _(apple)_
 - Meillä on täti. _(aunt)_
@@ -975,7 +956,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Meillä on serkku. _(cousin)_
 - Meillä on lehmä. _(cow)_
 - Meillä on koira. _(dog)_
-- Meillä on ovi. _(door)_
 - Meillä on mekko. _(dress)_
 - Meillä on ankka. _(duck)_
 - Meillä on korvakoru. _(earring)_
@@ -986,7 +966,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Meillä on isä. _(dad)_
 - Meillä on kala. _(fish)_
 - Meillä on kukka. _(flower)_
-- Meillä on jalkapallo. _(football)_
+- Meillä on jalkapallo. _(soccer ball)_
 - Meillä on haarukka. _(fork)_
 - Meillä on kettu. _(fox)_
 - Meillä on kaveri. _(friend)_
@@ -1004,7 +984,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Meillä on talo. _(house)_
 - Meillä on jäätelö. _(ice cream)_
 - Meillä on avain. _(key)_
-- Meillä on keittiö. _(kitchen)_
 - Meillä on lehti. _(leaf)_
 - Meillä on leijona. _(lion)_
 - Meillä on apina. _(monkey)_
@@ -1046,12 +1025,11 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Meillä on puu. _(tree)_
 - Meillä on setä. _(uncle)_
 - Meillä on liivi. _(vest)_
-- Meillä on ikkuna. _(window)_
 - Meillä on susi. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, yard, zoo
+Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `they-have` — “They have a ___.” (tier 2, nominative singular, 114 words)
+### `they-have` — “They have a ___.” (tier 2, nominative singular, 111 words)
 
 - Heillä on omena. _(apple)_
 - Heillä on täti. _(aunt)_
@@ -1094,7 +1072,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Heillä on serkku. _(cousin)_
 - Heillä on lehmä. _(cow)_
 - Heillä on koira. _(dog)_
-- Heillä on ovi. _(door)_
 - Heillä on mekko. _(dress)_
 - Heillä on ankka. _(duck)_
 - Heillä on korvakoru. _(earring)_
@@ -1105,7 +1082,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Heillä on isä. _(dad)_
 - Heillä on kala. _(fish)_
 - Heillä on kukka. _(flower)_
-- Heillä on jalkapallo. _(football)_
+- Heillä on jalkapallo. _(soccer ball)_
 - Heillä on haarukka. _(fork)_
 - Heillä on kettu. _(fox)_
 - Heillä on kaveri. _(friend)_
@@ -1123,7 +1100,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Heillä on talo. _(house)_
 - Heillä on jäätelö. _(ice cream)_
 - Heillä on avain. _(key)_
-- Heillä on keittiö. _(kitchen)_
 - Heillä on lehti. _(leaf)_
 - Heillä on leijona. _(lion)_
 - Heillä on apina. _(monkey)_
@@ -1165,12 +1141,11 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Heillä on puu. _(tree)_
 - Heillä on setä. _(uncle)_
 - Heillä on liivi. _(vest)_
-- Heillä on ikkuna. _(window)_
 - Heillä on susi. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, yard, zoo
+Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `i-havent` — “I don't have a ___.” (tier 3, partitive singular, 126 words)
+### `i-havent` — “I don't have a ___.” (tier 3, partitive singular, 123 words)
 
 - Minulla ei ole omenaa. _(apple)_
 - Minulla ei ole tätiä. _(aunt)_
@@ -1216,7 +1191,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole serkkua. _(cousin)_
 - Minulla ei ole lehmää. _(cow)_
 - Minulla ei ole koiraa. _(dog)_
-- Minulla ei ole ovea. _(door)_
 - Minulla ei ole mekkoa. _(dress)_
 - Minulla ei ole ankkaa. _(duck)_
 - Minulla ei ole korvakorua. _(earring)_
@@ -1227,7 +1201,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole isää. _(dad)_
 - Minulla ei ole kalaa. _(fish)_
 - Minulla ei ole kukkaa. _(flower)_
-- Minulla ei ole jalkapalloa. _(football)_
+- Minulla ei ole jalkapalloa. _(soccer ball)_
 - Minulla ei ole haarukkaa. _(fork)_
 - Minulla ei ole kettua. _(fox)_
 - Minulla ei ole kaveria. _(friend)_
@@ -1248,7 +1222,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole jäätelöä. _(ice cream)_
 - Minulla ei ole mehua. _(juice)_
 - Minulla ei ole avainta. _(key)_
-- Minulla ei ole keittiötä. _(kitchen)_
 - Minulla ei ole lehteä. _(leaf)_
 - Minulla ei ole leijonaa. _(lion)_
 - Minulla ei ole maitoa. _(milk)_
@@ -1296,10 +1269,9 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole liiviä. _(vest)_
 - Minulla ei ole vettä. _(water)_
 - Minulla ei ole tuulta. _(wind)_
-- Minulla ei ole ikkunaa. _(window)_
 - Minulla ei ole sutta. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daughter, ear, english, eye, field, finger, fire, foot, forest, grandchild, gym, hair, hand, head, heart, hospital, island, knee, lake, library, living-room, market, math, moon, mountain, mouth, movie, muscle, museum, music, nose, park, pupil, rain, restaurant, school, sea, shop, sky, snow, son, star, station, sun, tongue, tooth, train, tummy, yard, zoo
+Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, gym, hair, hand, head, heart, hospital, island, kitchen, knee, lake, library, living-room, market, math, moon, mountain, mouth, movie, muscle, museum, music, nose, park, pupil, rain, restaurant, school, sea, shop, sky, snow, son, star, station, sun, tongue, tooth, train, tummy, window, yard, zoo
 
 ### `i-like` — “I like the ___.” (tier 3, elative singular, 169 words)
 
@@ -1335,7 +1307,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Pidän kakusta. _(cake)_
 - Pidän kynttilästä. _(candle)_
 - Pidän karkista. _(candy)_
-- Pidän ruokalasta. _(canteen)_
+- Pidän ruokalasta. _(cafeteria)_
 - Pidän lakista. _(cap)_
 - Pidän autosta. _(car)_
 - Pidän porkkanasta. _(carrot)_
@@ -1370,7 +1342,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Pidän tulesta. _(fire)_
 - Pidän kalasta. _(fish)_
 - Pidän kukasta. _(flower)_
-- Pidän jalkapallosta. _(football)_
+- Pidän jalkapallosta. _(soccer ball)_
 - Pidän metsästä. _(forest)_
 - Pidän haarukasta. _(fork)_
 - Pidän ketusta. _(fox)_
@@ -1507,7 +1479,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Tykkään kakusta. _(cake)_
 - Tykkään kynttilästä. _(candle)_
 - Tykkään karkista. _(candy)_
-- Tykkään ruokalasta. _(canteen)_
+- Tykkään ruokalasta. _(cafeteria)_
 - Tykkään lakista. _(cap)_
 - Tykkään autosta. _(car)_
 - Tykkään porkkanasta. _(carrot)_
@@ -1542,7 +1514,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Tykkään tulesta. _(fire)_
 - Tykkään kalasta. _(fish)_
 - Tykkään kukasta. _(flower)_
-- Tykkään jalkapallosta. _(football)_
+- Tykkään jalkapallosta. _(soccer ball)_
 - Tykkään metsästä. _(forest)_
 - Tykkään haarukasta. _(fork)_
 - Tykkään ketusta. _(fox)_
@@ -1645,11 +1617,9 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Tykkään pihasta. _(yard)_
 - Tykkään eläintarhasta. _(zoo)_
 
-### `i-dont-like-tykkaa` — “I don't like the ___.” (tier 3, elative singular, 169 words)
+### `i-dont-like-tykkaa` — “I don't like the ___.” (tier 3, elative singular, 151 words)
 
 - En tykkää omenasta. _(apple)_
-- En tykkää tädistä. _(aunt)_
-- En tykkää vauvasta. _(baby)_
 - En tykkää repusta. _(backpack)_
 - En tykkää laukusta. _(bag)_
 - En tykkää pallosta. _(ball)_
@@ -1670,7 +1640,6 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää saappaasta. _(boot)_
 - En tykkää laatikosta. _(box)_
 - En tykkää leivästä. _(bread)_
-- En tykkää veljestä. _(brother)_
 - En tykkää pupusta. _(bunny)_
 - En tykkää bussista. _(bus)_
 - En tykkää voista. _(butter)_
@@ -1679,7 +1648,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää kakusta. _(cake)_
 - En tykkää kynttilästä. _(candle)_
 - En tykkää karkista. _(candy)_
-- En tykkää ruokalasta. _(canteen)_
+- En tykkää ruokalasta. _(cafeteria)_
 - En tykkää lakista. _(cap)_
 - En tykkää autosta. _(car)_
 - En tykkää porkkanasta. _(carrot)_
@@ -1687,7 +1656,6 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää tuolista. _(chair)_
 - En tykkää juustosta. _(cheese)_
 - En tykkää kanasta. _(chicken)_
-- En tykkää lapsesta. _(child)_
 - En tykkää suklaasta. _(chocolate)_
 - En tykkää kaupungista. _(city)_
 - En tykkää luokasta. _(class)_
@@ -1696,9 +1664,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää takista. _(coat)_
 - En tykkää tietokoneesta. _(computer)_
 - En tykkää keksistä. _(cookie)_
-- En tykkää serkusta. _(cousin)_
 - En tykkää lehmästä. _(cow)_
-- En tykkää tyttärestä. _(daughter)_
 - En tykkää koirasta. _(dog)_
 - En tykkää ovesta. _(door)_
 - En tykkää mekosta. _(dress)_
@@ -1708,24 +1674,18 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää norsusta. _(elephant)_
 - En tykkää englannista. _(English)_
 - En tykkää kumista. _(eraser)_
-- En tykkää perheestä. _(family)_
-- En tykkää isästä. _(dad)_
 - En tykkää kentästä. _(field)_
 - En tykkää tulesta. _(fire)_
 - En tykkää kalasta. _(fish)_
 - En tykkää kukasta. _(flower)_
-- En tykkää jalkapallosta. _(football)_
+- En tykkää jalkapallosta. _(soccer ball)_
 - En tykkää metsästä. _(forest)_
 - En tykkää haarukasta. _(fork)_
 - En tykkää ketusta. _(fox)_
-- En tykkää kaverista. _(friend)_
 - En tykkää sammakosta. _(frog)_
 - En tykkää pelistä. _(game)_
 - En tykkää puutarhasta. _(garden)_
 - En tykkää käsineestä. _(glove)_
-- En tykkää lapsenlapsesta. _(grandchild)_
-- En tykkää isoisästä. _(grandfather)_
-- En tykkää isoäidistä. _(grandmother)_
 - En tykkää ruohosta. _(grass)_
 - En tykkää kitarasta. _(guitar)_
 - En tykkää liikunnasta. _(gym)_
@@ -1751,7 +1711,6 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää maidosta. _(milk)_
 - En tykkää apinasta. _(monkey)_
 - En tykkää kuusta. _(moon)_
-- En tykkää äidistä. _(mom)_
 - En tykkää vuoresta. _(mountain)_
 - En tykkää hiirestä. _(mouse)_
 - En tykkää elokuvasta. _(movie)_
@@ -1769,7 +1728,6 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää puurosta. _(porridge)_
 - En tykkää perunasta. _(potato)_
 - En tykkää lahjasta. _(present)_
-- En tykkää oppilaasta. _(pupil)_
 - En tykkää sateesta. _(rain)_
 - En tykkää ravintolasta. _(restaurant)_
 - En tykkää riisistä. _(rice)_
@@ -1784,14 +1742,12 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää paidasta. _(shirt)_
 - En tykkää kengästä. _(shoe)_
 - En tykkää kaupasta. _(shop)_
-- En tykkää siskosta. _(sister)_
 - En tykkää hameesta. _(skirt)_
 - En tykkää taivaasta. _(sky)_
 - En tykkää käärmeestä. _(snake)_
 - En tykkää lumesta. _(snow)_
 - En tykkää sukasta. _(sock)_
 - En tykkää sohvasta. _(sofa)_
-- En tykkää pojasta. _(son)_
 - En tykkää keitosta. _(soup)_
 - En tykkää lusikasta. _(spoon)_
 - En tykkää tähdestä. _(star)_
@@ -1802,13 +1758,11 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - En tykkää pöydästä. _(table)_
 - En tykkää tehtävästä. _(task)_
 - En tykkää taksista. _(taxi)_
-- En tykkää opettajasta. _(teacher)_
 - En tykkää kokeesta. _(test)_
 - En tykkää solmiosta. _(tie)_
 - En tykkää tomaatista. _(tomato)_
 - En tykkää junasta. _(train)_
 - En tykkää puusta. _(tree)_
-- En tykkää sedästä. _(uncle)_
 - En tykkää liivistä. _(vest)_
 - En tykkää vedestä. _(water)_
 - En tykkää tuulesta. _(wind)_
@@ -1852,7 +1806,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Näen kakun. _(cake)_
 - Näen kynttilän. _(candle)_
 - Näen karkin. _(candy)_
-- Näen ruokalan. _(canteen)_
+- Näen ruokalan. _(cafeteria)_
 - Näen lakin. _(cap)_
 - Näen auton. _(car)_
 - Näen porkkanan. _(carrot)_
@@ -1890,7 +1844,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Näen kalan. _(fish)_
 - Näen kukan. _(flower)_
 - Näen jalan. _(foot)_
-- Näen jalkapallon. _(football)_
+- Näen jalkapallon. _(soccer ball)_
 - Näen metsän. _(forest)_
 - Näen haarukan. _(fork)_
 - Näen ketun. _(fox)_
@@ -2001,7 +1955,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 
 Gated out: english, gym, hobby, math, music, task
 
-### `i-love` — “I love the ___.” (tier 3, partitive singular, 169 words)
+### `i-love` — “I love the ___.” (tier 3, partitive singular, 144 words)
 
 - Rakastan omenaa. _(apple)_
 - Rakastan tätiä. _(aunt)_
@@ -2011,8 +1965,6 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan palloa. _(ball)_
 - Rakastan ilmapalloa. _(balloon)_
 - Rakastan banaania. _(banana)_
-- Rakastan koria. _(basket)_
-- Rakastan kylpyhuonetta. _(bathroom)_
 - Rakastan karhua. _(bear)_
 - Rakastan sänkyä. _(bed)_
 - Rakastan makuuhuonetta. _(bedroom)_
@@ -2023,8 +1975,6 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan puseroa. _(blouse)_
 - Rakastan venettä. _(boat)_
 - Rakastan kirjaa. _(book)_
-- Rakastan saapasta. _(boot)_
-- Rakastan laatikkoa. _(box)_
 - Rakastan leipää. _(bread)_
 - Rakastan veljeä. _(brother)_
 - Rakastan pupua. _(bunny)_
@@ -2035,19 +1985,15 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan kakkua. _(cake)_
 - Rakastan kynttilää. _(candle)_
 - Rakastan karkkia. _(candy)_
-- Rakastan ruokalaa. _(canteen)_
 - Rakastan lakkia. _(cap)_
 - Rakastan autoa. _(car)_
 - Rakastan porkkanaa. _(carrot)_
 - Rakastan kissaa. _(cat)_
-- Rakastan tuolia. _(chair)_
 - Rakastan juustoa. _(cheese)_
 - Rakastan kanaa. _(chicken)_
 - Rakastan lasta. _(child)_
 - Rakastan suklaata. _(chocolate)_
 - Rakastan kaupunkia. _(city)_
-- Rakastan luokkaa. _(class)_
-- Rakastan kelloa. _(clock)_
 - Rakastan pilveä. _(cloud)_
 - Rakastan takkia. _(coat)_
 - Rakastan tietokonetta. _(computer)_
@@ -2056,29 +2002,24 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan lehmää. _(cow)_
 - Rakastan tytärtä. _(daughter)_
 - Rakastan koiraa. _(dog)_
-- Rakastan ovea. _(door)_
 - Rakastan mekkoa. _(dress)_
 - Rakastan ankkaa. _(duck)_
 - Rakastan korvakorua. _(earring)_
 - Rakastan munaa. _(egg)_
 - Rakastan norsua. _(elephant)_
 - Rakastan englantia. _(English)_
-- Rakastan kumia. _(eraser)_
 - Rakastan perhettä. _(family)_
 - Rakastan isää. _(dad)_
-- Rakastan kenttää. _(field)_
 - Rakastan tulta. _(fire)_
 - Rakastan kalaa. _(fish)_
 - Rakastan kukkaa. _(flower)_
-- Rakastan jalkapalloa. _(football)_
+- Rakastan jalkapalloa. _(soccer ball)_
 - Rakastan metsää. _(forest)_
-- Rakastan haarukkaa. _(fork)_
 - Rakastan kettua. _(fox)_
 - Rakastan kaveria. _(friend)_
 - Rakastan sammakkoa. _(frog)_
 - Rakastan peliä. _(game)_
 - Rakastan puutarhaa. _(garden)_
-- Rakastan käsinettä. _(glove)_
 - Rakastan lapsenlasta. _(grandchild)_
 - Rakastan isoisää. _(grandfather)_
 - Rakastan isoäitiä. _(grandmother)_
@@ -2089,20 +2030,17 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan harrastusta. _(hobby)_
 - Rakastan läksyä. _(homework)_
 - Rakastan hevosta. _(horse)_
-- Rakastan sairaalaa. _(hospital)_
 - Rakastan taloa. _(house)_
 - Rakastan jäätä. _(ice)_
 - Rakastan jäätelöä. _(ice cream)_
 - Rakastan saarta. _(island)_
 - Rakastan mehua. _(juice)_
-- Rakastan avainta. _(key)_
 - Rakastan keittiötä. _(kitchen)_
 - Rakastan järveä. _(lake)_
 - Rakastan lehteä. _(leaf)_
 - Rakastan kirjastoa. _(library)_
 - Rakastan leijonaa. _(lion)_
 - Rakastan olohuonetta. _(living room)_
-- Rakastan toria. _(market)_
 - Rakastan matematiikkaa. _(math)_
 - Rakastan maitoa. _(milk)_
 - Rakastan apinaa. _(monkey)_
@@ -2113,7 +2051,6 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan elokuvaa. _(movie)_
 - Rakastan museota. _(museum)_
 - Rakastan musiikkia. _(music)_
-- Rakastan paperia. _(paper)_
 - Rakastan puistoa. _(park)_
 - Rakastan kynää. _(pencil)_
 - Rakastan puhelinta. _(phone)_
@@ -2125,7 +2062,6 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan puuroa. _(porridge)_
 - Rakastan perunaa. _(potato)_
 - Rakastan lahjaa. _(present)_
-- Rakastan oppilasta. _(pupil)_
 - Rakastan sadetta. _(rain)_
 - Rakastan ravintolaa. _(restaurant)_
 - Rakastan riisiä. _(rice)_
@@ -2145,21 +2081,15 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan taivasta. _(sky)_
 - Rakastan käärmettä. _(snake)_
 - Rakastan lunta. _(snow)_
-- Rakastan sukkaa. _(sock)_
 - Rakastan sohvaa. _(sofa)_
 - Rakastan poikaa. _(son)_
 - Rakastan keittoa. _(soup)_
-- Rakastan lusikkaa. _(spoon)_
 - Rakastan tähteä. _(star)_
-- Rakastan asemaa. _(station)_
 - Rakastan kiveä. _(stone)_
 - Rakastan mansikkaa. _(strawberry)_
 - Rakastan aurinkoa. _(sun)_
-- Rakastan pöytää. _(table)_
-- Rakastan tehtävää. _(task)_
 - Rakastan taksia. _(taxi)_
 - Rakastan opettajaa. _(teacher)_
-- Rakastan koetta. _(test)_
 - Rakastan solmiota. _(tie)_
 - Rakastan tomaattia. _(tomato)_
 - Rakastan junaa. _(train)_
@@ -2168,7 +2098,6 @@ Gated out: english, gym, hobby, math, music, task
 - Rakastan liiviä. _(vest)_
 - Rakastan vettä. _(water)_
 - Rakastan tuulta. _(wind)_
-- Rakastan ikkunaa. _(window)_
 - Rakastan sutta. _(wolf)_
 - Rakastan pihaa. _(yard)_
 - Rakastan eläintarhaa. _(zoo)_
@@ -2193,7 +2122,7 @@ Gated out: english, gym, hobby, math, music, task
 - Katson perhosta. _(butterfly)_
 - Katson kahvilaa. _(cafe)_
 - Katson kynttilää. _(candle)_
-- Katson ruokalaa. _(canteen)_
+- Katson ruokalaa. _(cafeteria)_
 - Katson autoa. _(car)_
 - Katson kissaa. _(cat)_
 - Katson kanaa. _(chicken)_
@@ -2215,7 +2144,7 @@ Gated out: english, gym, hobby, math, music, task
 - Katson tulta. _(fire)_
 - Katson kalaa. _(fish)_
 - Katson kukkaa. _(flower)_
-- Katson jalkapalloa. _(football)_
+- Katson jalkapalloa. _(soccer ball)_
 - Katson metsää. _(forest)_
 - Katson haarukkaa. _(fork)_
 - Katson kettua. _(fox)_
@@ -2319,7 +2248,7 @@ Gated out: english, gym, hobby, math, music, task
 - kakun edessä _(cake)_
 - kynttilän edessä _(candle)_
 - karkin edessä _(candy)_
-- ruokalan edessä _(canteen)_
+- ruokalan edessä _(cafeteria)_
 - lakin edessä _(cap)_
 - auton edessä _(car)_
 - porkkanan edessä _(carrot)_
@@ -2350,7 +2279,7 @@ Gated out: english, gym, hobby, math, music, task
 - tulen edessä _(fire)_
 - kalan edessä _(fish)_
 - kukan edessä _(flower)_
-- jalkapallon edessä _(football)_
+- jalkapallon edessä _(soccer ball)_
 - metsän edessä _(forest)_
 - haarukan edessä _(fork)_
 - ketun edessä _(fox)_
@@ -2537,7 +2466,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - kakun vieressä _(cake)_
 - kynttilän vieressä _(candle)_
 - karkin vieressä _(candy)_
-- ruokalan vieressä _(canteen)_
+- ruokalan vieressä _(cafeteria)_
 - lakin vieressä _(cap)_
 - auton vieressä _(car)_
 - porkkanan vieressä _(carrot)_
@@ -2568,7 +2497,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - tulen vieressä _(fire)_
 - kalan vieressä _(fish)_
 - kukan vieressä _(flower)_
-- jalkapallon vieressä _(football)_
+- jalkapallon vieressä _(soccer ball)_
 - metsän vieressä _(forest)_
 - haarukan vieressä _(fork)_
 - ketun vieressä _(fox)_
@@ -2735,7 +2664,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - kenttien edessä _(field)_
 - kalojen edessä _(fish)_
 - kukkien edessä _(flower)_
-- jalkapallojen edessä _(football)_
+- jalkapallojen edessä _(soccer ball)_
 - metsien edessä _(forest)_
 - haarukoiden edessä _(fork)_
 - kettujen edessä _(fox)_
@@ -2929,7 +2858,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - kenttien vieressä _(field)_
 - kalojen vieressä _(fish)_
 - kukkien vieressä _(flower)_
-- jalkapallojen vieressä _(football)_
+- jalkapallojen vieressä _(soccer ball)_
 - metsien vieressä _(forest)_
 - haarukoiden vieressä _(fork)_
 - kettujen vieressä _(fox)_
@@ -3144,7 +3073,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - Kissa on kakun edessä. _(cake)_
 - Kissa on kynttilän edessä. _(candle)_
 - Kissa on karkin edessä. _(candy)_
-- Kissa on ruokalan edessä. _(canteen)_
+- Kissa on ruokalan edessä. _(cafeteria)_
 - Kissa on lakin edessä. _(cap)_
 - Kissa on auton edessä. _(car)_
 - Kissa on porkkanan edessä. _(carrot)_
@@ -3174,7 +3103,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - Kissa on tulen edessä. _(fire)_
 - Kissa on kalan edessä. _(fish)_
 - Kissa on kukan edessä. _(flower)_
-- Kissa on jalkapallon edessä. _(football)_
+- Kissa on jalkapallon edessä. _(soccer ball)_
 - Kissa on metsän edessä. _(forest)_
 - Kissa on haarukan edessä. _(fork)_
 - Kissa on ketun edessä. _(fox)_
@@ -3296,7 +3225,7 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Kissa on kakun vieressä. _(cake)_
 - Kissa on kynttilän vieressä. _(candle)_
 - Kissa on karkin vieressä. _(candy)_
-- Kissa on ruokalan vieressä. _(canteen)_
+- Kissa on ruokalan vieressä. _(cafeteria)_
 - Kissa on lakin vieressä. _(cap)_
 - Kissa on auton vieressä. _(car)_
 - Kissa on porkkanan vieressä. _(carrot)_
@@ -3326,7 +3255,7 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Kissa on tulen vieressä. _(fire)_
 - Kissa on kalan vieressä. _(fish)_
 - Kissa on kukan vieressä. _(flower)_
-- Kissa on jalkapallon vieressä. _(football)_
+- Kissa on jalkapallon vieressä. _(soccer ball)_
 - Kissa on metsän vieressä. _(forest)_
 - Kissa on haarukan vieressä. _(fork)_
 - Kissa on ketun vieressä. _(fox)_
@@ -3414,7 +3343,7 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 
 Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game, gym, hair, hand, head, heart, hobby, homework, ice, knee, math, moon, mouth, movie, muscle, music, nose, rain, sea, sky, snow, star, task, test, tongue, tooth, tummy, wind
 
-### `this-is-mine` — “This is my ___.” (tier 4, nominative singular, 150 words)
+### `this-is-mine` — “This is my ___.” (tier 4, nominative singular, 149 words)
 
 - Tämä on minun omenani. _(apple)_
 - Tämä on minun tätini. _(aunt)_
@@ -3478,7 +3407,7 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Tämä on minun kalani. _(fish)_
 - Tämä on minun kukkani. _(flower)_
 - Tämä on minun jalkani. _(foot)_
-- Tämä on minun jalkapalloni. _(football)_
+- Tämä on minun jalkapalloni. _(soccer ball)_
 - Tämä on minun metsäni. _(forest)_
 - Tämä on minun haarukkani. _(fork)_
 - Tämä on minun kettuni. _(fox)_
@@ -3529,7 +3458,6 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Tämä on minun puuroni. _(porridge)_
 - Tämä on minun perunani. _(potato)_
 - Tämä on minun lahjani. _(present)_
-- Tämä on minun oppilaani. _(pupil)_
 - Tämä on minun riisini. _(rice)_
 - Tämä on minun sormukseni. _(ring)_
 - Tämä on minun huoneeni. _(room)_
@@ -3567,9 +3495,9 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Tämä on minun ikkunani. _(window)_
 - Tämä on minun suteni. _(wolf)_
 
-Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
+Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, pupil, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
 
-### `this-is-yours` — “This is your ___.” (tier 4, nominative singular, 150 words)
+### `this-is-yours` — “This is your ___.” (tier 4, nominative singular, 149 words)
 
 - Tämä on sinun omenasi. _(apple)_
 - Tämä on sinun tätisi. _(aunt)_
@@ -3633,7 +3561,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Tämä on sinun kalasi. _(fish)_
 - Tämä on sinun kukkasi. _(flower)_
 - Tämä on sinun jalkasi. _(foot)_
-- Tämä on sinun jalkapallosi. _(football)_
+- Tämä on sinun jalkapallosi. _(soccer ball)_
 - Tämä on sinun metsäsi. _(forest)_
 - Tämä on sinun haarukkasi. _(fork)_
 - Tämä on sinun kettusi. _(fox)_
@@ -3684,7 +3612,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Tämä on sinun puurosi. _(porridge)_
 - Tämä on sinun perunasi. _(potato)_
 - Tämä on sinun lahjasi. _(present)_
-- Tämä on sinun oppilaasi. _(pupil)_
 - Tämä on sinun riisisi. _(rice)_
 - Tämä on sinun sormuksesi. _(ring)_
 - Tämä on sinun huoneesi. _(room)_
@@ -3722,7 +3649,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Tämä on sinun ikkunasi. _(window)_
 - Tämä on sinun sutesi. _(wolf)_
 
-Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
+Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, pupil, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
 
 ### `this-is-theirs` — “This is his/her ___.” (tier 4, nominative singular, 150 words)
 
@@ -3788,7 +3715,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Tämä on hänen kalansa. _(fish)_
 - Tämä on hänen kukkansa. _(flower)_
 - Tämä on hänen jalkansa. _(foot)_
-- Tämä on hänen jalkapallonsa. _(football)_
+- Tämä on hänen jalkapallonsa. _(soccer ball)_
 - Tämä on hänen metsänsä. _(forest)_
 - Tämä on hänen haarukkansa. _(fork)_
 - Tämä on hänen kettunsa. _(fox)_
@@ -3879,7 +3806,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 
 Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
 
-### `where-is-yours` — “Where is your ___?” (tier 4, nominative singular, 150 words)
+### `where-is-yours` — “Where is your ___?” (tier 4, nominative singular, 141 words)
 
 - Missä on sinun omenasi? _(apple)_
 - Missä on sinun tätisi? _(aunt)_
@@ -3927,7 +3854,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun lehmäsi? _(cow)_
 - Missä on sinun tyttäresi? _(daughter)_
 - Missä on sinun koirasi? _(dog)_
-- Missä on sinun ovesi? _(door)_
 - Missä on sinun mekkosi? _(dress)_
 - Missä on sinun ankkasi? _(duck)_
 - Missä on sinun korvasi? _(ear)_
@@ -3943,7 +3869,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun kalasi? _(fish)_
 - Missä on sinun kukkasi? _(flower)_
 - Missä on sinun jalkasi? _(foot)_
-- Missä on sinun jalkapallosi? _(football)_
+- Missä on sinun jalkapallosi? _(soccer ball)_
 - Missä on sinun metsäsi? _(forest)_
 - Missä on sinun haarukkasi? _(fork)_
 - Missä on sinun kettusi? _(fox)_
@@ -3957,12 +3883,10 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun isoäitisi? _(grandmother)_
 - Missä on sinun ruohosi? _(grass)_
 - Missä on sinun kitarasi? _(guitar)_
-- Missä on sinun tukkasi? _(hair)_
 - Missä on sinun kätesi? _(hand)_
 - Missä on sinun hattusi? _(hat)_
 - Missä on sinun pääsi? _(head)_
 - Missä on sinun sydämesi? _(heart)_
-- Missä on sinun harrastuksesi? _(hobby)_
 - Missä on sinun läksysi? _(homework)_
 - Missä on sinun hevosesi? _(horse)_
 - Missä on sinun talosi? _(house)_
@@ -3971,7 +3895,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun saaresi? _(island)_
 - Missä on sinun mehusi? _(juice)_
 - Missä on sinun avaimesi? _(key)_
-- Missä on sinun keittiösi? _(kitchen)_
 - Missä on sinun polvesi? _(knee)_
 - Missä on sinun lehtesi? _(leaf)_
 - Missä on sinun leijonasi? _(lion)_
@@ -3980,7 +3903,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun äitisi? _(mom)_
 - Missä on sinun hiiresi? _(mouse)_
 - Missä on sinun suusi? _(mouth)_
-- Missä on sinun elokuvasi? _(movie)_
 - Missä on sinun lihaksesi? _(muscle)_
 - Missä on sinun nenäsi? _(nose)_
 - Missä on sinun paperisi? _(paper)_
@@ -3994,7 +3916,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun puurosi? _(porridge)_
 - Missä on sinun perunasi? _(potato)_
 - Missä on sinun lahjasi? _(present)_
-- Missä on sinun oppilaasi? _(pupil)_
 - Missä on sinun riisisi? _(rice)_
 - Missä on sinun sormuksesi? _(ring)_
 - Missä on sinun huoneesi? _(room)_
@@ -4015,7 +3936,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun kivesi? _(stone)_
 - Missä on sinun mansikkasi? _(strawberry)_
 - Missä on sinun pöytäsi? _(table)_
-- Missä on sinun tehtäväsi? _(task)_
 - Missä on sinun taksisi? _(taxi)_
 - Missä on sinun opettajasi? _(teacher)_
 - Missä on sinun kokeesi? _(test)_
@@ -4028,11 +3948,9 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Missä on sinun setäsi? _(uncle)_
 - Missä on sinun liivisi? _(vest)_
 - Missä on sinun vetesi? _(water)_
-- Missä on sinun tuulesi? _(wind)_
-- Missä on sinun ikkunasi? _(window)_
 - Missä on sinun sutesi? _(wolf)_
 
-Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, field, gym, hospital, lake, library, living-room, market, math, moon, mountain, museum, music, park, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, train, yard, zoo
+Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, door, english, field, gym, hair, hobby, hospital, kitchen, lake, library, living-room, market, math, moon, mountain, movie, museum, music, park, pupil, rain, restaurant, school, sea, shop, sky, snow, star, station, sun, task, train, wind, window, yard, zoo
 
 ### `i-have-some` — “I have some ___s.” (tier 4, partitive plural, 87 words)
 
@@ -4077,7 +3995,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Minulla on norsuja. _(elephant)_
 - Minulla on kumeja. _(eraser)_
 - Minulla on kaloja. _(fish)_
-- Minulla on jalkapalloja. _(football)_
+- Minulla on jalkapalloja. _(soccer ball)_
 - Minulla on haarukoita. _(fork)_
 - Minulla on kettuja. _(fox)_
 - Minulla on kavereita. _(friend)_
@@ -4167,7 +4085,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Minulla ei ole norsuja. _(elephant)_
 - Minulla ei ole kumeja. _(eraser)_
 - Minulla ei ole kaloja. _(fish)_
-- Minulla ei ole jalkapalloja. _(football)_
+- Minulla ei ole jalkapalloja. _(soccer ball)_
 - Minulla ei ole haarukoita. _(fork)_
 - Minulla ei ole kettuja. _(fox)_
 - Minulla ei ole kavereita. _(friend)_
@@ -4214,10 +4132,9 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Minulla ei ole liivejä. _(vest)_
 - Minulla ei ole susia. _(wolf)_
 
-### `these-are` — “These are ___s.” (tier 5, partitive plural, 147 words)
+### `these-are` — “These are ___s.” (tier 5, partitive plural, 142 words)
 
 - Nämä ovat omenia. _(apple)_
-- Nämä ovat tätejä. _(aunt)_
 - Nämä ovat vauvoja. _(baby)_
 - Nämä ovat reppuja. _(backpack)_
 - Nämä ovat laukkuja. _(bag)_
@@ -4264,7 +4181,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Nämä ovat keksejä. _(cookie)_
 - Nämä ovat serkkuja. _(cousin)_
 - Nämä ovat lehmiä. _(cow)_
-- Nämä ovat tyttäriä. _(daughter)_
 - Nämä ovat koiria. _(dog)_
 - Nämä ovat ovia. _(door)_
 - Nämä ovat mekkoja. _(dress)_
@@ -4280,7 +4196,7 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Nämä ovat kaloja. _(fish)_
 - Nämä ovat kukkia. _(flower)_
 - Nämä ovat jalkoja. _(foot)_
-- Nämä ovat jalkapalloja. _(football)_
+- Nämä ovat jalkapalloja. _(soccer ball)_
 - Nämä ovat metsiä. _(forest)_
 - Nämä ovat haarukoita. _(fork)_
 - Nämä ovat kettuja. _(fox)_
@@ -4289,7 +4205,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Nämä ovat pelejä. _(game)_
 - Nämä ovat puutarhoja. _(garden)_
 - Nämä ovat käsineitä. _(glove)_
-- Nämä ovat lapsenlapsia. _(grandchild)_
 - Nämä ovat kitaroita. _(guitar)_
 - Nämä ovat käsiä. _(hand)_
 - Nämä ovat hattuja. _(hat)_
@@ -4341,7 +4256,6 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Nämä ovat käärmeitä. _(snake)_
 - Nämä ovat sukkia. _(sock)_
 - Nämä ovat sohvia. _(sofa)_
-- Nämä ovat poikia. _(son)_
 - Nämä ovat lusikoita. _(spoon)_
 - Nämä ovat tähtiä. _(star)_
 - Nämä ovat asemia. _(station)_
@@ -4357,14 +4271,13 @@ Gated out: bathroom, bedroom, bus, cafe, canteen, city, class, cloud, english, f
 - Nämä ovat hampaita. _(tooth)_
 - Nämä ovat junia. _(train)_
 - Nämä ovat puita. _(tree)_
-- Nämä ovat setiä. _(uncle)_
 - Nämä ovat liivejä. _(vest)_
 - Nämä ovat ikkunoita. _(window)_
 - Nämä ovat susia. _(wolf)_
 - Nämä ovat pihoja. _(yard)_
 - Nämä ovat eläintarhoja. _(zoo)_
 
-Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, grandfather, grandmother, grass, gym, hair, head, heart, ice, juice, kitchen, living-room, math, milk, moon, mother, mouth, music, nose, porridge, rain, rice, sea, sky, snow, soup, sun, tongue, tummy, water, wind
+Gated out: aunt, bathroom, bedroom, butter, canteen, daughter, english, family, father, fire, grandchild, grandfather, grandmother, grass, gym, hair, head, heart, ice, juice, kitchen, living-room, math, milk, moon, mother, mouth, music, nose, porridge, rain, rice, sea, sky, snow, son, soup, sun, tongue, tummy, uncle, water, wind
 
 ### `where-are` — “Where are the ___s?” (tier 5, nominative plural, 147 words)
 
@@ -4432,7 +4345,7 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Missä ovat kalat? _(fish)_
 - Missä ovat kukat? _(flower)_
 - Missä ovat jalat? _(foot)_
-- Missä ovat jalkapallot? _(football)_
+- Missä ovat jalkapallot? _(soccer ball)_
 - Missä ovat metsät? _(forest)_
 - Missä ovat haarukat? _(fork)_
 - Missä ovat ketut? _(fox)_
@@ -4518,15 +4431,13 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 
 Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, grandfather, grandmother, grass, gym, hair, head, heart, ice, juice, kitchen, living-room, math, milk, moon, mother, mouth, music, nose, porridge, rain, rice, sea, sky, snow, soup, sun, tongue, tummy, water, wind
 
-### `i-buy` — “I buy a ___.” (tier 6, genitive singular, 80 words)
+### `i-buy` — “I buy a ___.” (tier 6, genitive singular, 64 words)
 
 - Ostan omenan. _(apple)_
 - Ostan repun. _(backpack)_
 - Ostan pallon. _(ball)_
 - Ostan ilmapallon. _(balloon)_
 - Ostan banaanin. _(banana)_
-- Ostan karhun. _(bear)_
-- Ostan mehiläisen. _(bee)_
 - Ostan vyön. _(belt)_
 - Ostan pyörän. _(bike)_
 - Ostan linnun. _(bird)_
@@ -4536,7 +4447,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Ostan leivän. _(bread)_
 - Ostan pupun. _(bunny)_
 - Ostan voin. _(butter)_
-- Ostan perhosen. _(butterfly)_
 - Ostan kakun. _(cake)_
 - Ostan kynttilän. _(candle)_
 - Ostan karkin. _(candy)_
@@ -4549,36 +4459,26 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Ostan takin. _(coat)_
 - Ostan tietokoneen. _(computer)_
 - Ostan keksin. _(cookie)_
-- Ostan lehmän. _(cow)_
 - Ostan koiran. _(dog)_
 - Ostan mekon. _(dress)_
-- Ostan ankan. _(duck)_
 - Ostan korvakorun. _(earring)_
 - Ostan munan. _(egg)_
-- Ostan norsun. _(elephant)_
 - Ostan kumin. _(eraser)_
 - Ostan kalan. _(fish)_
-- Ostan jalkapallon. _(football)_
+- Ostan jalkapallon. _(soccer ball)_
 - Ostan haarukan. _(fork)_
-- Ostan ketun. _(fox)_
-- Ostan sammakon. _(frog)_
 - Ostan pelin. _(game)_
 - Ostan käsineen. _(glove)_
 - Ostan kitaran. _(guitar)_
 - Ostan hatun. _(hat)_
-- Ostan hevosen. _(horse)_
 - Ostan jäätelön. _(ice cream)_
 - Ostan avaimen. _(key)_
-- Ostan leijonan. _(lion)_
-- Ostan apinan. _(monkey)_
 - Ostan hiiren. _(mouse)_
 - Ostan elokuvan. _(movie)_
-- Ostan paperin. _(paper)_
 - Ostan kynän. _(pencil)_
 - Ostan puhelimen. _(phone)_
 - Ostan pianon. _(piano)_
 - Ostan kuvan. _(picture)_
-- Ostan sian. _(pig)_
 - Ostan pitsan. _(pizza)_
 - Ostan puuron. _(porridge)_
 - Ostan perunan. _(potato)_
@@ -4587,11 +4487,9 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Ostan sormuksen. _(ring)_
 - Ostan makkaran. _(sausage)_
 - Ostan huivin. _(scarf)_
-- Ostan lampaan. _(sheep)_
 - Ostan paidan. _(shirt)_
 - Ostan kengän. _(shoe)_
 - Ostan hameen. _(skirt)_
-- Ostan käärmeen. _(snake)_
 - Ostan sukan. _(sock)_
 - Ostan keiton. _(soup)_
 - Ostan lusikan. _(spoon)_
@@ -4599,7 +4497,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Ostan solmion. _(tie)_
 - Ostan tomaatin. _(tomato)_
 - Ostan liivin. _(vest)_
-- Ostan suden. _(wolf)_
 
 ### `i-buy-some` — “I buy some ___.” (tier 6, partitive singular, 10 words)
 
@@ -4614,10 +4511,9 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Ostan riisiä. _(rice)_
 - Ostan vettä. _(water)_
 
-### `i-wait-for` — “I'm waiting for the ___.” (tier 6, partitive singular, 46 words)
+### `i-wait-for` — “I'm waiting for the ___.” (tier 6, partitive singular, 44 words)
 
 - Odotan tätiä. _(aunt)_
-- Odotan vauvaa. _(baby)_
 - Odotan karhua. _(bear)_
 - Odotan mehiläistä. _(bee)_
 - Odotan lintua. _(bird)_
@@ -4628,7 +4524,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Odotan perhosta. _(butterfly)_
 - Odotan kissaa. _(cat)_
 - Odotan kanaa. _(chicken)_
-- Odotan lasta. _(child)_
 - Odotan serkkua. _(cousin)_
 - Odotan lehmää. _(cow)_
 - Odotan tytärtä. _(daughter)_
@@ -4950,11 +4845,9 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Minulla on nälkä. _(hunger)_
 - Minulla on jano. _(thirst)_
 
-### `i-dont-like` — “I don't like the ___.” (tier 3, elative singular, 169 words)
+### `i-dont-like` — “I don't like the ___.” (tier 3, elative singular, 151 words)
 
 - En pidä omenasta. _(apple)_
-- En pidä tädistä. _(aunt)_
-- En pidä vauvasta. _(baby)_
 - En pidä repusta. _(backpack)_
 - En pidä laukusta. _(bag)_
 - En pidä pallosta. _(ball)_
@@ -4975,7 +4868,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä saappaasta. _(boot)_
 - En pidä laatikosta. _(box)_
 - En pidä leivästä. _(bread)_
-- En pidä veljestä. _(brother)_
 - En pidä pupusta. _(bunny)_
 - En pidä bussista. _(bus)_
 - En pidä voista. _(butter)_
@@ -4984,7 +4876,7 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä kakusta. _(cake)_
 - En pidä kynttilästä. _(candle)_
 - En pidä karkista. _(candy)_
-- En pidä ruokalasta. _(canteen)_
+- En pidä ruokalasta. _(cafeteria)_
 - En pidä lakista. _(cap)_
 - En pidä autosta. _(car)_
 - En pidä porkkanasta. _(carrot)_
@@ -4992,7 +4884,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä tuolista. _(chair)_
 - En pidä juustosta. _(cheese)_
 - En pidä kanasta. _(chicken)_
-- En pidä lapsesta. _(child)_
 - En pidä suklaasta. _(chocolate)_
 - En pidä kaupungista. _(city)_
 - En pidä luokasta. _(class)_
@@ -5001,9 +4892,7 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä takista. _(coat)_
 - En pidä tietokoneesta. _(computer)_
 - En pidä keksistä. _(cookie)_
-- En pidä serkusta. _(cousin)_
 - En pidä lehmästä. _(cow)_
-- En pidä tyttärestä. _(daughter)_
 - En pidä koirasta. _(dog)_
 - En pidä ovesta. _(door)_
 - En pidä mekosta. _(dress)_
@@ -5013,24 +4902,18 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä norsusta. _(elephant)_
 - En pidä englannista. _(English)_
 - En pidä kumista. _(eraser)_
-- En pidä perheestä. _(family)_
-- En pidä isästä. _(dad)_
 - En pidä kentästä. _(field)_
 - En pidä tulesta. _(fire)_
 - En pidä kalasta. _(fish)_
 - En pidä kukasta. _(flower)_
-- En pidä jalkapallosta. _(football)_
+- En pidä jalkapallosta. _(soccer ball)_
 - En pidä metsästä. _(forest)_
 - En pidä haarukasta. _(fork)_
 - En pidä ketusta. _(fox)_
-- En pidä kaverista. _(friend)_
 - En pidä sammakosta. _(frog)_
 - En pidä pelistä. _(game)_
 - En pidä puutarhasta. _(garden)_
 - En pidä käsineestä. _(glove)_
-- En pidä lapsenlapsesta. _(grandchild)_
-- En pidä isoisästä. _(grandfather)_
-- En pidä isoäidistä. _(grandmother)_
 - En pidä ruohosta. _(grass)_
 - En pidä kitarasta. _(guitar)_
 - En pidä liikunnasta. _(gym)_
@@ -5056,7 +4939,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä maidosta. _(milk)_
 - En pidä apinasta. _(monkey)_
 - En pidä kuusta. _(moon)_
-- En pidä äidistä. _(mom)_
 - En pidä vuoresta. _(mountain)_
 - En pidä hiirestä. _(mouse)_
 - En pidä elokuvasta. _(movie)_
@@ -5074,7 +4956,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä puurosta. _(porridge)_
 - En pidä perunasta. _(potato)_
 - En pidä lahjasta. _(present)_
-- En pidä oppilaasta. _(pupil)_
 - En pidä sateesta. _(rain)_
 - En pidä ravintolasta. _(restaurant)_
 - En pidä riisistä. _(rice)_
@@ -5089,14 +4970,12 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä paidasta. _(shirt)_
 - En pidä kengästä. _(shoe)_
 - En pidä kaupasta. _(shop)_
-- En pidä siskosta. _(sister)_
 - En pidä hameesta. _(skirt)_
 - En pidä taivaasta. _(sky)_
 - En pidä käärmeestä. _(snake)_
 - En pidä lumesta. _(snow)_
 - En pidä sukasta. _(sock)_
 - En pidä sohvasta. _(sofa)_
-- En pidä pojasta. _(son)_
 - En pidä keitosta. _(soup)_
 - En pidä lusikasta. _(spoon)_
 - En pidä tähdestä. _(star)_
@@ -5107,13 +4986,11 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - En pidä pöydästä. _(table)_
 - En pidä tehtävästä. _(task)_
 - En pidä taksista. _(taxi)_
-- En pidä opettajasta. _(teacher)_
 - En pidä kokeesta. _(test)_
 - En pidä solmiosta. _(tie)_
 - En pidä tomaatista. _(tomato)_
 - En pidä junasta. _(train)_
 - En pidä puusta. _(tree)_
-- En pidä sedästä. _(uncle)_
 - En pidä liivistä. _(vest)_
 - En pidä vedestä. _(water)_
 - En pidä tuulesta. _(wind)_
@@ -5409,7 +5286,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 
 - minä syön ison omenan. _(I eat the big apple.)_
 - minä syön ison banaanin. _(I eat the big banana.)_
-- minä syön ison leivän. _(I eat the big bread.)_
 - minä syön ison kakun. _(I eat the big cake.)_
 - minä syön ison keksin. _(I eat the big cookie.)_
 - minä syön ison perunan. _(I eat the big potato.)_
@@ -5499,7 +5375,6 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 
 - minä haluan syödä omenan. _(I want to eat the apple.)_
 - minä haluan syödä banaanin. _(I want to eat the banana.)_
-- minä haluan syödä leivän. _(I want to eat the bread.)_
 - minä haluan syödä kakun. _(I want to eat the cake.)_
 - minä haluan syödä keksin. _(I want to eat the cookie.)_
 - minä haluan syödä perunan. _(I want to eat the potato.)_
@@ -5542,38 +5417,38 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - isä lukee talossa. _(Dad reads in the house.)_
 - isä lukee koulussa. _(Dad reads at school.)_
 - isä lukee metsässä. _(Dad reads in the forest.)_
-- veli laulaa huoneessa. _(The brother sings in the room.)_
-- veli laulaa talossa. _(The brother sings in the house.)_
-- veli laulaa koulussa. _(The brother sings at school.)_
-- veli laulaa metsässä. _(The brother sings in the forest.)_
-- veli tanssii huoneessa. _(The brother dances in the room.)_
-- veli tanssii talossa. _(The brother dances in the house.)_
-- veli tanssii koulussa. _(The brother dances at school.)_
-- veli tanssii metsässä. _(The brother dances in the forest.)_
-- veli nukkuu huoneessa. _(The brother sleeps in the room.)_
-- veli nukkuu talossa. _(The brother sleeps in the house.)_
-- veli nukkuu koulussa. _(The brother sleeps at school.)_
-- veli nukkuu metsässä. _(The brother sleeps in the forest.)_
-- veli lukee huoneessa. _(The brother reads in the room.)_
-- veli lukee talossa. _(The brother reads in the house.)_
-- veli lukee koulussa. _(The brother reads at school.)_
-- veli lukee metsässä. _(The brother reads in the forest.)_
-- sisko laulaa huoneessa. _(The sister sings in the room.)_
-- sisko laulaa talossa. _(The sister sings in the house.)_
-- sisko laulaa koulussa. _(The sister sings at school.)_
-- sisko laulaa metsässä. _(The sister sings in the forest.)_
-- sisko tanssii huoneessa. _(The sister dances in the room.)_
-- sisko tanssii talossa. _(The sister dances in the house.)_
-- sisko tanssii koulussa. _(The sister dances at school.)_
-- sisko tanssii metsässä. _(The sister dances in the forest.)_
-- sisko nukkuu huoneessa. _(The sister sleeps in the room.)_
-- sisko nukkuu talossa. _(The sister sleeps in the house.)_
-- sisko nukkuu koulussa. _(The sister sleeps at school.)_
-- sisko nukkuu metsässä. _(The sister sleeps in the forest.)_
-- sisko lukee huoneessa. _(The sister reads in the room.)_
-- sisko lukee talossa. _(The sister reads in the house.)_
-- sisko lukee koulussa. _(The sister reads at school.)_
-- sisko lukee metsässä. _(The sister reads in the forest.)_
+- veli laulaa huoneessa. _(My brother sings in the room.)_
+- veli laulaa talossa. _(My brother sings in the house.)_
+- veli laulaa koulussa. _(My brother sings at school.)_
+- veli laulaa metsässä. _(My brother sings in the forest.)_
+- veli tanssii huoneessa. _(My brother dances in the room.)_
+- veli tanssii talossa. _(My brother dances in the house.)_
+- veli tanssii koulussa. _(My brother dances at school.)_
+- veli tanssii metsässä. _(My brother dances in the forest.)_
+- veli nukkuu huoneessa. _(My brother sleeps in the room.)_
+- veli nukkuu talossa. _(My brother sleeps in the house.)_
+- veli nukkuu koulussa. _(My brother sleeps at school.)_
+- veli nukkuu metsässä. _(My brother sleeps in the forest.)_
+- veli lukee huoneessa. _(My brother reads in the room.)_
+- veli lukee talossa. _(My brother reads in the house.)_
+- veli lukee koulussa. _(My brother reads at school.)_
+- veli lukee metsässä. _(My brother reads in the forest.)_
+- sisko laulaa huoneessa. _(My sister sings in the room.)_
+- sisko laulaa talossa. _(My sister sings in the house.)_
+- sisko laulaa koulussa. _(My sister sings at school.)_
+- sisko laulaa metsässä. _(My sister sings in the forest.)_
+- sisko tanssii huoneessa. _(My sister dances in the room.)_
+- sisko tanssii talossa. _(My sister dances in the house.)_
+- sisko tanssii koulussa. _(My sister dances at school.)_
+- sisko tanssii metsässä. _(My sister dances in the forest.)_
+- sisko nukkuu huoneessa. _(My sister sleeps in the room.)_
+- sisko nukkuu talossa. _(My sister sleeps in the house.)_
+- sisko nukkuu koulussa. _(My sister sleeps at school.)_
+- sisko nukkuu metsässä. _(My sister sleeps in the forest.)_
+- sisko lukee huoneessa. _(My sister reads in the room.)_
+- sisko lukee talossa. _(My sister reads in the house.)_
+- sisko lukee koulussa. _(My sister reads at school.)_
+- sisko lukee metsässä. _(My sister reads in the forest.)_
 - isoäiti laulaa huoneessa. _(Grandma sings in the room.)_
 - isoäiti laulaa talossa. _(Grandma sings in the house.)_
 - isoäiti laulaa koulussa. _(Grandma sings at school.)_

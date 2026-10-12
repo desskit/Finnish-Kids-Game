@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { LexicalItem } from '../content/types';
+import { ALSO_EN, type LexicalItem } from '../content/types';
 import { speak } from '../audio/speak';
 
 interface Props {
@@ -32,7 +32,10 @@ export default function WordIntro({ item, onContinue }: Props) {
           {item.emoji}
         </span>
         <p className="word-intro__fi">{item.fi}</p>
-        <p className="en phrase-hint">{item.en}</p>
+        <p className="en phrase-hint">
+          {item.en}
+          {ALSO_EN[item.id] && <span className="word-intro__also"> · also “{ALSO_EN[item.id]}”</span>}
+        </p>
         <button
           className="speaker speaker--inline"
           onClick={() => speak(item.fi)}

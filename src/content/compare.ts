@@ -10,7 +10,7 @@
 // ⚠️ NEEDS NATIVE FINNISH VETTING (the frames; listed in FINNISH_REVIEW.md).
 
 import type { LexicalItem } from './types';
-import { FAMILY_NAMES } from './types';
+import { FAMILY_NAMES, MY_PEOPLE } from './types';
 import type { Segment } from './endings';
 import { itemById } from './lookup';
 
@@ -58,9 +58,11 @@ export const RANKINGS: Ranking[] = [
     people: true,
   },
   {
+    // People only: "pitkä" on an animal is LONG ("pitkä koira", a long dog),
+    // so "Norsu on pidempi kuin hevonen" would not mean "taller".
     adj: 'tall',
-    order: [['elephant'], ['horse', 'cow'], ['dog', 'sheep'], ['cat', 'bunny'], ['mouse', 'frog']],
-    minGap: 2,
+    order: [['father', 'mother', 'teacher'], ['pupil', 'child'], ['baby']],
+    people: true,
   },
   {
     adj: 'strong',
@@ -131,8 +133,8 @@ export function superlativeSegments(adj: LexicalItem, x: LexicalItem): Segment[]
   return [{ text: `${cap(x.fi)} on ` }, ...degreeSegments(f, 'superlative'), { text: '.' }];
 }
 
-/** "the elephant", "Grandma" — how the English names one of them. */
-export const enName = (x: LexicalItem) => FAMILY_NAMES[x.id] ?? `the ${x.en}`;
+/** "the elephant", "Grandma", "my brother" — how the English names one of them. */
+export const enName = (x: LexicalItem) => FAMILY_NAMES[x.id] ?? `${MY_PEOPLE.has(x.id) ? 'my' : 'the'} ${x.en}`;
 
 /** "The elephant is bigger than the mouse." */
 export function comparisonEnglish(adj: LexicalItem, x: LexicalItem, y: LexicalItem): string {

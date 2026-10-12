@@ -287,12 +287,12 @@ Finnish uses **-a / -ä** when something is *not all there* — "none of it", "s
 
 ### 4. Try it _(check)_
 
-**Q:** Which one means "I don't have a shoe"?
+**Q:** Which one means "I don't have a bike"?
 
-- ✘ 👟 **Minulla ei ole kenkä.**
-- ✔ 👟 **Minulla ei ole kenkä[ä].** — I don't have a shoe.
+- ✘ 🚲 **Minulla ei ole pyörä.**
+- ✔ 🚲 **Minulla ei ole pyörä[ä].** — I don't have a bike.
 
-_Explain:_ After *ei ole*, the thing takes **-a / -ä**: *kenkää*.
+_Explain:_ After *ei ole*, the thing takes **-a / -ä**: *pyörää*.
 
 ### 5. Try it _(check)_
 
@@ -497,7 +497,7 @@ In Finnish, the **verb decides which ending** the next word gets. You just have 
 
 "I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").
 
-- ⚽ **Tykkään jalkapallo[sta].** — I like football.
+- ⚽ **Tykkään jalkapallo[sta].** — I like soccer.
 - 🍕 **Tykkään pitsa[sta].** — I like pizza.
 - 🎵 **Tykkään musiiki[sta].** — I like music.
 - 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
@@ -536,9 +536,9 @@ _Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
 
 ### 3. Try it _(check)_
 
-**Q:** Which one means "I like football"?
+**Q:** Which one means "I like soccer"?
 
-- ✔ ⚽ **Pidän jalkapallo[sta].** — I like football.
+- ✔ ⚽ **Pidän jalkapallo[sta].** — I like soccer.
 - ✘ ⚽ **Pidän jalkapallo[a].**
 
 _Explain:_ *pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.
@@ -1306,7 +1306,7 @@ You now know a lot of endings. In a Finnish sentence, **every word carries its e
 
 ### 2. Look at the endings _(examples)_
 
-- ⚽ **Pidän jalkapallo[sta].** — I like football.
+- ⚽ **Pidän jalkapallo[sta].** — I like soccer.
 - 🎒 **Kissa on repu[ssa].** — The cat is in the backpack.
 - 🚌 **Näen bussi[n].** — I see the bus.
 - 📱 **Minulla ei ole puhelin[ta].** — I don't have a phone.
@@ -1327,9 +1327,9 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 ### 5. Try it _(check)_
 
-**Q:** "I like football." Which one is right?
+**Q:** "I like soccer." Which one is right?
 
-- ✔ ⚽ **Pidän jalkapallo[sta].** — I like football.
+- ✔ ⚽ **Pidän jalkapallo[sta].** — I like soccer.
 - ✘ ⚽ **Pidän jalkapallo[a].**
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
@@ -1631,8 +1631,8 @@ To say WHOSE something is, put the **owner first** and give it **-n**: *isä* �
 
 - 🚲 **isä[n] pyörä** — Dad's bike
 - 🧥 **äidi[n] takki** — Mom's coat
-- 📕 **opettaja[n] kirja** — The teacher's book
-- 🏐 **kissa[n] pallo** — The cat's ball
+- 📕 **opettaja[n] kirja** — the teacher's book
+- 🏐 **kissa[n] pallo** — the cat's ball
 
 ### 2. Kenen? — Whose? _(explain)_
 
@@ -1646,8 +1646,8 @@ You already know *minun* and *sinun* (my, your) — they end in **-n** too!
 Sometimes the middle of the word changes a little (*äiti* → *äidin*). The **-n** at the very end is what says "whose".
 
 - 📱 **äidi[n] puhelin** — Mom's phone
-- 🚲 **kaveri[n] pyörä** — The friend's bike
-- 👒 **sisko[n] hattu** — The sister's hat
+- 🚲 **kaveri[n] pyörä** — my friend's bike
+- 👒 **sisko[n] hattu** — my sister's hat
 
 ### 4. Try it _(check)_
 

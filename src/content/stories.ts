@@ -194,7 +194,7 @@ export const CORE_STORIES: Story[] = [
         sc('🏠 🌆', '👵 🍲 👧 🐱', 'evening'),
         tell('Illalla he syövät keittoa isoäidin kanssa.', 'In the evening they eat soup with Grandma.'),
         say('isoaiti', 'Hyvää keittoa! Kiitos!', 'Good soup! Thank you!'),
-        tell('Mirri saa vähän makkaraa.', 'Mirri gets a little sausage.'),
+        tell('Mirri saa vähän makkaraa.', 'Mirri gets a bit of sausage.'),
       ),
     ],
     questions: [

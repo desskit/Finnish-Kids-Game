@@ -323,7 +323,8 @@ const SCHOOL = [
   ['test', 'koe', 'test', '📋'],
   ['eraser', 'kumi', 'eraser'],
   ['task', 'tehtävä', 'task'],
-  ['canteen', 'ruokala', 'canteen'],
+  // US English: a "canteen" is a water bottle there.
+  ['canteen', 'ruokala', 'cafeteria'],
 ];
 
 // When? — days of the week (no single picture each, so their English shows on
@@ -397,7 +398,9 @@ const LESSON_WORDS = [['customs', 'tulli', 'customs', '🛂']];
 // about owning and liking ("Minulla on pyörä", "Pidän jalkapallosta").
 const FREETIME = [
   ['ball', 'pallo', 'ball', '🏐'],
-  ['football', 'jalkapallo', 'football', '⚽'],
+  // The ball (⚽). In US English "football" is another game, so the ball is a
+  // "soccer ball" — and liking or watching it is "soccer" (see KIND_EN).
+  ['football', 'jalkapallo', 'soccer ball', '⚽'],
   ['bike', 'pyörä', 'bike', '🚲'],
   ['game', 'peli', 'game', '🎮'],
   ['guitar', 'kitara', 'guitar', '🎸'],

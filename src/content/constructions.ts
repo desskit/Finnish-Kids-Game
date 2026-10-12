@@ -66,8 +66,17 @@ const SUBSTANCE = NOT_COUNTABLE.filter((id) => !["sky", "sea", "sun", "moon"].in
 const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese"];
 
 // "Missä on ___?" needs a thing you could look for — not a school subject,
-// the weather, the sky or a hobby ("Where is the math?").
-const NOT_FINDABLE = ["music", "math", "gym", "english", "wind", "rain", "sky", "hobby", "hair"];
+// the weather, the sky, a hobby or a film ("Where is the math?").
+const NOT_FINDABLE = ["music", "math", "gym", "english", "wind", "rain", "sky", "hobby", "hair", "movie", "task"];
+
+// Parts of a home nobody "has" on their own ("Minulla on ovi", I have a door)
+// or keeps track of ("Missä on sinun ikkunasi?", where is your window?).
+const FIXTURES = ["door", "window", "kitchen"];
+
+// Relatives English names as SOMEONE'S — "my aunt", never "an aunt": "Onko
+// tämä täti?" (is this an aunt?) and "Nämä ovat tyttäriä" (these are
+// daughters) are odd in both languages.
+const RELATIVES = ["brother", "sister", "cousin", "aunt", "uncle", "son", "daughter", "grandchild"];
 
 // Things it makes sense to LIKE/LOVE — everything except body parts
 // ("Rakastan polvea", I love the knee, is nobody's flashcard).
@@ -81,9 +90,19 @@ const LIKABLE_TOPICS = [
   "school",
   "freetime",
 ];
+// Not LIKING someone is no flashcard for a child ("En pidä äidistä", I don't
+// like Mom): dislikes are about things, food, places and school.
+const DISLIKABLE_TOPICS = LIKABLE_TOPICS.filter((t) => t !== "family");
+const PEOPLE = ["teacher", "friend", "pupil"];
+// Everyday things nobody LOVES ("Rakastan haarukkaa", I love the fork; "I
+// love the pupil", "I love the test").
+const NOT_LOVABLE = [
+  "fork", "spoon", "eraser", "paper", "sock", "boot", "glove", "box", "basket", "clock", "key", "table", "chair",
+  "door", "window", "bathroom", "canteen", "station", "hospital", "market", "field", "class", "task", "test", "pupil",
+];
 
 // Things one WATCHES — living beings and scenery, not food or socks; plus a
-// movie, a game, a picture, a football match.
+// movie, a game, a picture, a soccer match.
 const WATCHABLE_TOPICS = [
   "animals",
   "family",
@@ -127,8 +146,8 @@ const BODY = ["eye", "ear", "nose", "mouth", "hand", "foot", "head", "tooth", "h
 
 // "Minulla on ___" / "Minulla ei ole ___": owned things only — not body parts
 // ("Minulla on silmä", I have an eye), substances or odd possessions.
-const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS];
-const HAVENT_EXCLUDE = [...UNOWNABLE, ...BODY, ...NOT_A_CHILDS.filter((id) => id !== "bread" && id !== "cheese")];
+const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS, ...FIXTURES];
+const HAVENT_EXCLUDE = [...UNOWNABLE, ...BODY, ...FIXTURES, ...NOT_A_CHILDS.filter((id) => id !== "bread" && id !== "cheese")];
 
 // Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
 const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
@@ -177,6 +196,12 @@ const BEHIND_OK = [
   "mother", "father", "brother", "sister", "grandmother", "grandfather", "child", "teacher", "friend",
   "pupil", "aunt", "uncle", "cousin", "son", "daughter",
   "dog", "horse", "cow", "pig", "sheep", "bear", "elephant", "lion", "wolf", "fox", "monkey",
+];
+
+// Animals a child can't buy at a pet shop or a market.
+const NOT_PETS = [
+  "bear", "horse", "cow", "pig", "fox", "duck", "frog", "sheep", "elephant", "lion", "monkey", "wolf", "snake",
+  "butterfly", "bee",
 ];
 
 // The feelings the "Olen ___" carriers describe (all animate-only adjectives).
@@ -390,7 +415,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: SUBSTANCE,
+    excludeIds: [...SUBSTANCE, ...RELATIVES],
   },
   {
     id: "i-have",
@@ -454,6 +479,8 @@ export const nounConstructions: Construction[] = [
     before: "Minulla ei ole",
     punct: ".",
     en: "I don't have a ___.",
+    // A treat you have none OF, not one: "I don't have any candy".
+    glossById: { chocolate: "any chocolate", candy: "any candy" },
     tier: 3,
     case: "partitive",
     number: "singular",
@@ -491,7 +518,8 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: "elative",
     number: "singular",
-    topics: LIKABLE_TOPICS,
+    topics: DISLIKABLE_TOPICS,
+    excludeIds: PEOPLE,
   },
   {
     id: "i-see", // total object = genitive (accusative) singular: "Näen kissan."
@@ -512,6 +540,7 @@ export const nounConstructions: Construction[] = [
     case: "partitive",
     number: "singular",
     topics: LIKABLE_TOPICS,
+    excludeIds: NOT_LOVABLE,
   },
   {
     id: "i-watch", // katsoa always governs the partitive: "Katson kissaa."
@@ -523,7 +552,7 @@ export const nounConstructions: Construction[] = [
     sentenceById: {
       movie: "I'm watching the movie.",
       game: "I'm watching the game.",
-      football: "I'm watching football.",
+      football: "I'm watching soccer.",
     },
     tier: 3,
     case: "partitive",
@@ -698,7 +727,8 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "1sg",
-    excludeIds: UNOWNABLE,
+    // "This is my pupil" reads as the eye's pupil.
+    excludeIds: [...UNOWNABLE, "pupil"],
   },
   {
     id: "this-is-yours",
@@ -709,7 +739,7 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "2sg",
-    excludeIds: UNOWNABLE,
+    excludeIds: [...UNOWNABLE, "pupil"],
   },
   {
     id: "this-is-theirs",
@@ -731,7 +761,7 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "2sg",
-    excludeIds: UNOWNABLE,
+    excludeIds: [...UNOWNABLE, ...NOT_FINDABLE, ...FIXTURES, "pupil"],
   },
 
   // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
@@ -775,7 +805,7 @@ export const nounConstructions: Construction[] = [
     tier: 5,
     case: "partitive",
     number: "plural",
-    excludeIds: [...NO_PLURAL, ...ONE_EACH],
+    excludeIds: [...NO_PLURAL, ...ONE_EACH, "aunt", "uncle", "son", "daughter", "grandchild"],
   },
   {
     id: "where-are",
@@ -805,12 +835,17 @@ export const nounConstructions: Construction[] = [
       cheese: "a whole cheese",
       rice: "a bag of rice",
       butter: "a pack of butter",
+      soup: "a bowl of soup",
     },
     // Mass nouns take the partitive when bought ("Ostan maitoa"), so keep them
     // out of this genitive total-object frame — they get their own carrier
     // below (i-buy-some), making the pair the Shopping node's real lesson.
-    // People, homework, music and hobbies aren't bought.
+    // People, homework, music and hobbies aren't bought; nor are wild or farm
+    // animals ("Ostan norsun", I buy an elephant) — a pet shop sells pets.
+    // "Ostan paperin" would be a newspaper.
     excludeIds: [
+      ...NOT_PETS,
+      "paper",
       "water",
       "milk",
       "juice",
@@ -868,9 +903,12 @@ export const nounConstructions: Construction[] = [
     case: "partitive",
     number: "singular",
     // People, pets and rides: "Odotan opettajaa / bussia". Every other place
-    // and school thing is filtered out (nobody waits for a pencil).
+    // and school thing is filtered out (nobody waits for a pencil). "Odotan
+    // vauvaa / lasta" means "I'm expecting a baby", so those two stay out.
     topics: ["animals", "family", "school", "places"],
     excludeIds: [
+      "baby",
+      "child",
       "box",
       "table",
       "house",
@@ -1139,7 +1177,8 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: "elative",
     number: "singular",
-    topics: LIKABLE_TOPICS,
+    topics: DISLIKABLE_TOPICS,
+    excludeIds: PEOPLE,
   },
 
   // --- Town & home: YOU are / go / come (person-subject locatives) ---

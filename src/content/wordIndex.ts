@@ -7,7 +7,7 @@
 import { themes, verbs, adjectives, numbers, ordinals, time, states } from '.';
 import { PRONOUNS } from './pronouns';
 import { CAST } from './storyKit';
-import type { PersonId } from './types';
+import { glossWithAlso, type PersonId } from './types';
 
 export interface WordMeaning {
   /** The word's basic form ("hattu"). */
@@ -32,7 +32,7 @@ const SMALL_WORDS: Record<string, string> = {
   taas: 'again',
   sitten: 'then',
   ensin: 'first',
-  lopuksi: 'at the end',
+  lopuksi: 'in the end, finally',
   tänään: 'today',
   huomenna: 'tomorrow',
   eilen: 'yesterday',
@@ -113,10 +113,10 @@ function build(): Map<string, WordMeaning> {
   // A word's own basic form wins over another word's inflected form that looks the same.
   for (const item of items) {
     const key = item.fi.toLowerCase();
-    if (!map.has(key)) map.set(key, { base: item.fi, en: item.en });
+    if (!map.has(key)) map.set(key, { base: item.fi, en: glossWithAlso(item) });
   }
   for (const item of items) {
-    for (const f of forms(item.inflections)) if (!map.has(f)) map.set(f, { base: item.fi, en: item.en });
+    for (const f of forms(item.inflections)) if (!map.has(f)) map.set(f, { base: item.fi, en: glossWithAlso(item) });
   }
   for (const [person, table] of Object.entries(PRONOUNS) as [PersonId, (typeof PRONOUNS)[PersonId]][]) {
     const en = `${SUBJECTS[person]} / ${table.enObject}`;

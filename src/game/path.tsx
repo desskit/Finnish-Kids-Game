@@ -805,8 +805,8 @@ const UNITS: Chapter[] = [
         'Hänellä on kitara.',
       ),
       listenStep('having-listen', 'Who has it?', 'carriers', { constructionIds: ['i-have', 'you-have', 'she-has', 'we-have', 'they-have'] }, 'Minulla · sinulla · hänellä'),
-      sceneStep('having-talk', 'what-you-have', 'Mitä sinulla on?', 'What have you got?'),
-      sceneStep('having-talk-2', 'who-has-what', 'Onko teillä koira?', 'Have you all got a dog?'),
+      sceneStep('having-talk', 'what-you-have', 'Mitä sinulla on?', 'What do you have?'),
+      sceneStep('having-talk-2', 'who-has-what', 'Onko teillä koira?', 'Do you all have a dog?'),
     ],
   },
   {
@@ -1561,7 +1561,7 @@ const UNITS: Chapter[] = [
       },
       listenStep('big-numbers-listen', 'How many did you hear?', 'count', { maxCount: 20 }, 'viisitoista palloa'),
       sceneStep('big-numbers-talk', 'race', 'Kilpajuoksu', 'A race'),
-      sceneStep('big-numbers-talk-2', 'sweets', 'Karkkeja', 'Sweets'),
+      sceneStep('big-numbers-talk-2', 'sweets', 'Karkkeja', 'Candy'),
     ],
   },
   {

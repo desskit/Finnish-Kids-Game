@@ -867,7 +867,7 @@ describe('buildPossessiveRound (Kenen? — possessive suffixes)', () => {
         if (q.caseId !== 'nominative') {
           sawLocative = true;
           expect(q.item.topic).toBe('places'); // never "in my cat"
-          expect(q.gloss).toMatch(/^(in|on) /); // glossed with a preposition
+          expect(q.gloss).toMatch(/^(in|on|at) /); // glossed with a preposition ("at my window")
         }
       }
     }

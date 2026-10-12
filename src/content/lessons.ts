@@ -20,10 +20,12 @@ import type {
 } from './types';
 import {
   caseFormOf,
+  countedEn,
   countingNounForm,
   englishSentenceFor,
   formFor,
   PERSONS,
+  pluralEn,
   possessiveForm,
   possessiveGloss,
   verbForm,
@@ -246,7 +248,7 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     const gloss = ownerGloss(owner, thing);
     return {
       segments: segs,
-      en: ref.en ?? (ref.wrong ? undefined : gloss.charAt(0).toUpperCase() + gloss.slice(1)),
+      en: ref.en ?? (ref.wrong ? undefined : gloss),
       emoji: thing.emoji,
       speak: segmentsText(segs),
     };
@@ -385,7 +387,7 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
       { text: num.fi + ' ' },
       ...(ref.count > 1 && !ref.wrong ? caseSegments(nounForm, 'partitive') : [{ text: nounForm }]),
     ];
-    const enNoun = ref.count === 1 ? noun.en : (noun.english?.plural ?? noun.en);
+    const enNoun = countedEn(noun, ref.count);
     return {
       segments: segs,
       en: ref.en ?? (ref.wrong ? undefined : `${num.en} ${enNoun}`),
@@ -418,7 +420,7 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
   return {
     segments: caseSegments(form, c, number === 'plural'),
     base: changed ? item.fi : undefined,
-    en: ref.en ?? (number === 'plural' ? (item.english?.plural ?? item.en) : item.en),
+    en: ref.en ?? (number === 'plural' ? pluralEn(item) : item.en),
     emoji: item.emoji,
     speak: form,
   };
@@ -738,12 +740,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'Which one means "I don\'t have a shoe"?',
+        question: 'Which one means "I don\'t have a bike"?',
         options: [
-          { ref: { sentence: 'i-havent', word: 'shoe', asCase: 'nominative' } },
-          { ref: { sentence: 'i-havent', word: 'shoe' }, correct: true },
+          { ref: { sentence: 'i-havent', word: 'bike', asCase: 'nominative' } },
+          { ref: { sentence: 'i-havent', word: 'bike' }, correct: true },
         ],
-        explain: 'After *ei ole*, the thing takes **-a / -ä**: *kenkää*.',
+        explain: 'After *ei ole*, the thing takes **-a / -ä**: *pyörää*.',
       },
       {
         kind: 'check',
@@ -1006,7 +1008,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'Which one means "I like football"?',
+        question: 'Which one means "I like soccer"?',
         options: [
           { ref: { sentence: 'i-like', word: 'football' }, correct: true },
           { ref: { sentence: 'i-like', word: 'football', asCase: 'partitive' } },
@@ -1957,7 +1959,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: '"I like football." Which one is right?',
+        question: '"I like soccer." Which one is right?',
         options: [
           { ref: { sentence: 'i-like', word: 'football' }, correct: true },
           { ref: { sentence: 'i-like', word: 'football', asCase: 'partitive' } },

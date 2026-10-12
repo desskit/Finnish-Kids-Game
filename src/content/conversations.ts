@@ -333,7 +333,7 @@ export const conversations: Conversation[] = [
       },
       {
         partner: { fi: 'Mitä otamme mukaan?', en: 'What shall we take along?' },
-        reply: { fi: 'Otetaan eväät ja lämmin takki.', en: "Let's take a picnic and a warm coat." },
+        reply: { fi: 'Otetaan eväät ja lämmin takki.', en: "Let's take snacks and a warm coat." },
         distractors: [
           { fi: 'Näkemiin!', en: 'Goodbye!' },
           { fi: 'Kolme euroa.', en: 'Three euros.' },
@@ -366,7 +366,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Ai, minä sanoin sen varmaan epäselvästi.', en: 'Oh, I probably said it unclearly.' },
+        partner: { fi: 'Ai, minä sanoin sen varmaan epäselvästi.', en: "Oh, I guess I didn't say it clearly." },
         reply: { fi: 'Ei se mitään. Leikitään nyt!', en: "It's okay. Let's play now!" },
         distractors: [
           { fi: 'Paljonko se maksaa?', en: 'How much does it cost?' },
@@ -403,13 +403,13 @@ export const conversations: Conversation[] = [
     // Unit: having
     id: 'what-you-have',
     titleFi: 'Mitä sinulla on?',
-    titleEn: 'What have you got?',
+    titleEn: 'What do you have?',
     icon: '🎒',
     partnerIcon: '🧒',
     tier: 3,
     turns: [
       {
-        partner: { fi: 'Hei! Mitä sinulla on?', en: 'Hi! What have you got?' },
+        partner: { fi: 'Hei! Mitä sinulla on?', en: 'Hi! What do you have?' },
         reply: { fi: 'Minulla on pallo.', en: 'I have a ball.' },
         distractors: [
           { fi: 'Hyvää yötä.', en: 'Good night.' },
@@ -565,7 +565,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Mennään ruokalaan!', en: "Let's go to the canteen!" },
+        partner: { fi: 'Mennään ruokalaan!', en: "Let's go to the cafeteria!" },
         reply: { fi: 'Mennään! Minulla on nälkä.', en: "Let's go! I'm hungry." },
         distractors: [
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
@@ -1196,14 +1196,14 @@ export const conversations: Conversation[] = [
     turns: [
       {
         partner: { fi: 'Mitä tarvitset?', en: 'What do you need?' },
-        reply: { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+        reply: { fi: 'Tarvitsen kynän.', en: 'I need a pencil.' },
         distractors: [
-          { fi: 'Tarvitset kynän.', en: 'You need a pen.', why: '*tarvitset* = YOU need (**-t**). Answer about yourself: *Tarvitsen kynän*.' },
+          { fi: 'Tarvitset kynän.', en: 'You need a pencil.', why: '*tarvitset* = YOU need (**-t**). Answer about yourself: *Tarvitsen kynän*.' },
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
         ],
       },
       {
-        partner: { fi: 'Valitsetko punaisen vai sinisen?', en: 'Do you choose the red one or the blue one?' },
+        partner: { fi: 'Valitsetko punaisen vai sinisen?', en: 'Will you choose the red one or the blue one?' },
         reply: { fi: 'Valitsen punaisen!', en: 'I choose the red one!' },
         distractors: [
           { fi: 'Valitsee punaisen.', en: 'He chooses the red one.', why: '*valitsee* = he / she chooses. You → *Valitsen punaisen*.' },
@@ -1223,7 +1223,7 @@ export const conversations: Conversation[] = [
         reply: { fi: 'Nähdään!', en: 'See you!' },
         distractors: [
           { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
-          { fi: 'Tarvitsen kynän.', en: 'I need a pen.' },
+          { fi: 'Tarvitsen kynän.', en: 'I need a pencil.' },
         ],
       },
     ],
@@ -1453,7 +1453,7 @@ export const conversations: Conversation[] = [
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils have you got?' },
+        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils do you have?' },
         reply: { fi: 'Kolme kynää.', en: 'Three pencils.' },
         distractors: [
           { fi: 'Kolme kynä.', en: 'Three pencils.', why: 'After 2, 3, 4… the thing gets **-a / -ä**: *kolme kynää*.' },
@@ -1490,13 +1490,13 @@ export const conversations: Conversation[] = [
   {
     id: 'who-has-what',
     titleFi: 'Onko teillä koira?',
-    titleEn: 'Have you all got a dog?',
+    titleEn: 'Do you all have a dog?',
     icon: '👪',
     partnerIcon: '👧',
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Onko teillä koira?', en: 'Have you all got a dog?' },
+        partner: { fi: 'Onko teillä koira?', en: 'Do you all have a dog?' },
         reply: { fi: 'Ei, meillä on kissa.', en: 'No, we have a cat.' },
         distractors: [
           { fi: 'Ei, heillä on kissa.', en: 'No, they have a cat.', why: '*heillä* = they have. They asked about you all — *meillä* (we have).' },
@@ -1504,7 +1504,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Mitä Eerolla on?', en: 'What has Eero got?' },
+        partner: { fi: 'Mitä Eerolla on?', en: 'What does Eero have?' },
         reply: { fi: 'Hänellä on kitara.', en: 'He has a guitar.' },
         distractors: [
           { fi: 'Minulla on kitara.', en: 'I have a guitar.', why: '*minulla* = I have. They asked about Eero — *hänellä* (he has).' },
@@ -1660,7 +1660,7 @@ export const conversations: Conversation[] = [
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Millainen pallo sinulla on?', en: 'What kind of ball have you got?' },
+        partner: { fi: 'Millainen pallo sinulla on?', en: 'What kind of ball do you have?' },
         reply: { fi: 'Minulla on punainen pallo.', en: 'I have a red ball.' },
         distractors: [
           { fi: 'Minulla on punaista pallo.', en: 'I have a red ball.', why: 'After *Minulla on*, both words stay in their basic form: *punainen pallo*.' },
@@ -1668,7 +1668,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Montako punaista palloa sinulla on?', en: 'How many red balls have you got?' },
+        partner: { fi: 'Montako punaista palloa sinulla on?', en: 'How many red balls do you have?' },
         reply: { fi: 'Kolme punaista palloa.', en: 'Three red balls.' },
         distractors: [
           { fi: 'Kolme punainen palloa.', en: 'Three red balls.', why: 'After 3, BOTH words get **-a / -ä** — the describing word copies: *kolme punaista palloa*.' },
@@ -1676,7 +1676,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Onko sinulla sininen pallo?', en: 'Have you got a blue ball?' },
+        partner: { fi: 'Onko sinulla sininen pallo?', en: 'Do you have a blue ball?' },
         reply: { fi: 'Ei ole. Minulla ei ole sinistä palloa.', en: 'No. I don\'t have a blue ball.' },
         distractors: [
           { fi: 'Minulla ei ole sininen palloa.', en: 'I don\'t have a blue ball.', why: 'After *ei ole*, BOTH words get **-a / -ä**: *sinistä palloa*.' },
@@ -1759,16 +1759,16 @@ export const conversations: Conversation[] = [
   {
     id: 'sweets',
     titleFi: 'Karkkeja',
-    titleEn: 'Sweets',
+    titleEn: 'Candy',
     icon: '🍬',
     partnerIcon: '🧒',
     tier: 4,
     turns: [
       {
-        partner: { fi: 'Montako karkkia sinulla on?', en: 'How many sweets have you got?' },
-        reply: { fi: 'Minulla on viisitoista karkkia.', en: 'I have fifteen sweets.' },
+        partner: { fi: 'Montako karkkia sinulla on?', en: 'How many candies do you have?' },
+        reply: { fi: 'Minulla on viisitoista karkkia.', en: 'I have fifteen candies.' },
         distractors: [
-          { fi: 'Minulla on viisitoista karkki.', en: 'I have fifteen sweets.', why: 'After a number (2 or more) the thing gets **-a / -ä**: *viisitoista karkkia*.' },
+          { fi: 'Minulla on viisitoista karkki.', en: 'I have fifteen candies.', why: 'After a number (2 or more) the thing gets **-a / -ä**: *viisitoista karkkia*.' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
         ],
       },
@@ -1808,7 +1808,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils have you got?' },
+        partner: { fi: 'Montako kynää sinulla on?', en: 'How many pencils do you have?' },
         reply: { fi: 'Kaksi.', en: 'Two.' },
         distractors: [
           { fi: 'Koulussa.', en: 'At school.' },
@@ -1816,7 +1816,7 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Miksi sinulla on kaksi kynää?', en: 'Why have you got two pencils?' },
+        partner: { fi: 'Miksi sinulla on kaksi kynää?', en: 'Why do you have two pencils?' },
         reply: { fi: 'Koska piirrän paljon!', en: 'Because I draw a lot!' },
         distractors: [
           { fi: 'Kaksi.', en: 'Two.' },

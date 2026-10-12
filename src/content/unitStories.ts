@@ -213,8 +213,8 @@ export const UNIT_STORIES: Story[] = [
     ],
     facts: [
       falseFact('Mirri on lapsi.', 'Mirri is a child.'),
-      trueFact('Eero on luokassa.', 'Eero is in the class.'),
-      falseFact('Luokassa on kaksi lasta.', 'There are two children in the class.'),
+      trueFact('Eero on luokassa.', 'Eero is in the classroom.'),
+      falseFact('Luokassa on kaksi lasta.', 'There are two children in the classroom.'),
     ],
   }),
 
@@ -222,7 +222,7 @@ export const UNIT_STORIES: Story[] = [
   story('having', {
     id: 'what-we-have',
     titleFi: 'Mitä meillä on?',
-    titleEn: 'What have we got?',
+    titleEn: 'What do we have?',
     icon: '🎒',
     tier: 2,
     pages: [
@@ -528,13 +528,13 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏠 🌙', '👧 ✏️ 👶', 'evening'),
         tell('On ilta.', "It's evening."),
-        tell('Minä piirrän.', 'I draw.'),
+        tell('Minä piirrän.', "I'm drawing."),
         tell('Vauva nukkuu.', 'The baby is asleep.'),
       ),
       page(
         sc('🏠 🌙', '👨 📕 👧', 'evening'),
         tell('Isä lukee kirjaa.', 'Dad is reading a book.'),
-        tell('Minä kuuntelen.', 'I listen.'),
+        tell('Minä kuuntelen.', "I'm listening."),
       ),
       page(
         sc('🏠 🌙', '👨 😴 📕', 'night'),
@@ -544,7 +544,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏠 🌙', '👧 📕 👨 😴', 'night'),
         say('aino', 'Hyvää yötä, isä!', 'Good night, Dad!'),
-        tell('Nyt minä luen.', 'Now I read.'),
+        tell('Nyt minä luen.', "Now I'm reading."),
       ),
     ],
     questions: [
@@ -951,7 +951,7 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       page(
         sc(CLASSROOM, '👧 📋 ➗', 'inside'),
-        say('aino', 'Tänään on koe.', 'Today there is a test.'),
+        say('aino', 'Tänään on koe.', "There's a test today."),
         say('aino', 'En tykkää matematiikasta!', "I don't like math!"),
       ),
       page(
@@ -984,7 +984,7 @@ export const UNIT_STORIES: Story[] = [
         'What is there today?',
         right('koe', 'a test', '📋'),
         wrong('syntymäpäivä', 'a birthday', '🎂'),
-        wrong('karkkipäivä', 'sweets day', '🍬'),
+        wrong('karkkipäivä', 'candy day', '🍬'),
       ),
       ask(
         'Kuka tykkää matematiikasta?',
@@ -1086,7 +1086,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏪', '👧 🍬 👨', 'inside'),
         say('aino', 'Isä, saanko karkkia?', 'Dad, may I have some candy?'),
-        say('isa', 'Et saa. Tänään ei ole karkkipäivä.', "No, you may not. Today isn't sweets day."),
+        say('isa', 'Et saa. Tänään ei ole karkkipäivä.', "No, you may not. Today isn't candy day."),
       ),
       page(
         sc('🏪', '👨 🍦 👧', 'inside'),
@@ -1119,7 +1119,7 @@ export const UNIT_STORIES: Story[] = [
     ],
     facts: [
       falseFact('Aino saa karkkia.', 'Aino gets candy.'),
-      trueFact('Tänään ei ole karkkipäivä.', "Today isn't sweets day."),
+      trueFact('Tänään ei ole karkkipäivä.', "Today isn't candy day."),
       falseFact('Isä ostaa juustoa.', 'Dad buys cheese.'),
     ],
   }),
@@ -1134,7 +1134,7 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       page(
         sc('🏟️ ☀️', '👧 👦 ⚽'),
-        say('eero', 'Pelataan jalkapalloa!', "Let's play football!"),
+        say('eero', 'Pelataan jalkapalloa!', "Let's play soccer!"),
         say('aino', 'Joo! Pelataan!', "Yes! Let's play!"),
       ),
       page(
@@ -1157,7 +1157,7 @@ export const UNIT_STORIES: Story[] = [
       ask(
         'Mitä he pelaavat?',
         'What do they play?',
-        right('jalkapalloa', 'football', '⚽'),
+        right('jalkapalloa', 'soccer', '⚽'),
         wrong('pianoa', 'the piano', '🎹'),
         wrong('kitaraa', 'the guitar', '🎸'),
       ),
@@ -1253,7 +1253,7 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       page(
         sc('🦒 🌳 ☀️', '🐘 🐴 🐭'),
-        tell('Eläintarhassa on norsu, hevonen ja hiiri.', 'At the zoo there are an elephant, a horse and a mouse.'),
+        tell('Eläintarhassa on norsu, hevonen ja hiiri.', "At the zoo, there's an elephant, a horse and a mouse."),
         tell('Norsu on isoin.', 'The elephant is the biggest.'),
       ),
       page(
@@ -1451,7 +1451,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏠 🌆', '👨 👧 👦 🍦', 'evening'),
         say('aino', 'Haluamme!', 'We do!'),
-        tell('Lopuksi tulemme kotiin.', 'At last we come home.'),
+        tell('Lopuksi tulemme kotiin.', 'In the end we come home.'),
         say('eero', 'Huomenna taas puistoon!', 'Tomorrow, the park again!'),
       ),
     ],
@@ -1481,7 +1481,7 @@ export const UNIT_STORIES: Story[] = [
     facts: [
       trueFact('Isä on puistossa.', 'Dad is in the park.'),
       falseFact('Eero on hiljaa kirjastossa.', 'Eero is quiet in the library.'),
-      falseFact('Lopuksi menemme kouluun.', 'At the end we go to school.'),
+      falseFact('Lopuksi menemme kouluun.', 'In the end we go to school.'),
     ],
   }),
 
@@ -1609,13 +1609,13 @@ export const UNIT_STORIES: Story[] = [
   story('big-numbers', {
     id: 'sweets-day',
     titleFi: 'Karkkipäivä',
-    titleEn: 'Sweets day',
+    titleEn: 'Candy day',
     icon: '🍬',
     tier: 4,
     pages: [
       page(
         sc('🏠 🍬', '👧 🍬', 'inside'),
-        tell('Lauantaina on karkkipäivä.', 'Saturday is sweets day.'),
+        tell('Lauantaina on karkkipäivä.', 'Saturday is candy day.'),
         say('aino', 'Minulla on viisitoista karkkia!', 'I have fifteen candies!'),
       ),
       page(
@@ -1651,7 +1651,7 @@ export const UNIT_STORIES: Story[] = [
       ),
       ask(
         'Milloin on karkkipäivä?',
-        'When is sweets day?',
+        'When is candy day?',
         right('lauantaina', 'on Saturday', 'la'),
         wrong('maanantaina', 'on Monday', 'ma'),
         wrong('perjantaina', 'on Friday', 'pe'),
@@ -1747,7 +1747,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc(CLASSROOM, '👧 🧒 ⚽ 👦', 'inside'),
         say('aino', 'Mistä sinä tykkäät?', 'What do you like?'),
-        say('leo', 'Tykkään jalkapallosta!', 'I like football!'),
+        say('leo', 'Tykkään jalkapallosta!', 'I like soccer!'),
         say('eero', 'Minäkin!', 'Me too!'),
       ),
       page(
@@ -1774,13 +1774,13 @@ export const UNIT_STORIES: Story[] = [
       ask(
         'Mistä Leo tykkää?',
         'What does Leo like?',
-        right('jalkapallosta', 'football', '⚽'),
+        right('jalkapallosta', 'soccer', '⚽'),
         wrong('musiikista', 'music', '🎵'),
         wrong('matematiikasta', 'math', '➗'),
       ),
     ],
     facts: [
-      trueFact('Eero tykkää myös jalkapallosta.', 'Eero likes football too.'),
+      trueFact('Eero tykkää myös jalkapallosta.', 'Eero likes soccer too.'),
       falseFact('Leo asuu koulussa.', 'Leo lives at the school.'),
       falseFact('He pelaavat huomenna.', 'They play tomorrow.'),
     ],
@@ -1918,7 +1918,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏠 🛏️', '👩 👧 🧸', 'inside'),
         tell('Huoneessani on paljon tavaraa.', 'There are lots of things in my room.'),
-        say('aiti', 'Aino, siivoa huone!', 'Aino, tidy the room!'),
+        say('aiti', 'Aino, siivoa huone!', 'Aino, clean the room!'),
       ),
       page(
         sc('🏠 🛏️', '📕 📕 📦 ⚽ 🧺', 'inside'),
@@ -1963,7 +1963,7 @@ export const UNIT_STORIES: Story[] = [
     facts: [
       trueFact('Pallot ovat korissa.', 'The balls are in the basket.'),
       falseFact('Kengät ovat laatikossa.', 'The shoes are in the box.'),
-      falseFact('Äiti siivoaa huoneen.', 'Mom tidies the room.'),
+      falseFact('Äiti siivoaa huoneen.', 'Mom cleans the room.'),
     ],
   }),
 
@@ -2022,7 +2022,7 @@ export const UNIT_STORIES: Story[] = [
       ),
     ],
     facts: [
-      trueFact('Lopuksi talo on sininen.', 'At the end the house is blue.'),
+      trueFact('Lopuksi talo on sininen.', 'In the end the house is blue.'),
       falseFact('Mirri auttaa minua.', 'Mirri helps me.'),
       falseFact('Piirrän koiran.', 'I draw a dog.'),
     ],

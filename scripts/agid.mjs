@@ -53,11 +53,22 @@ function rawFor(agid, lemma, pos) {
   return posMap?.get(pos)?.raw ?? null;
 }
 
+// AGID lists the rarer variant first for a few verbs ("wake V: … | waked,
+// woken 1, …"); a child says the other one. The override must be one of
+// AGID's own listed variants.
+const PREFERRED_VARIANT = { wake: { pastParticiple: 'woken' } };
+
 /** Verb slots → normalized forms (3 slots = regular, 4 = irregular past≠pastPart). */
-function verbFormsFromRaw(raw) {
+function verbFormsFromRaw(raw, lemma) {
   const slots = raw.split('|').map(cleanForm).filter(Boolean);
+  const prefer = PREFERRED_VARIANT[lemma.toLowerCase()];
   if (slots.length === 4) {
-    return { past: slots[0], pastParticiple: slots[1], gerund: slots[2], thirdSg: slots[3] };
+    const forms = { past: slots[0], pastParticiple: slots[1], gerund: slots[2], thirdSg: slots[3] };
+    for (const [slot, form] of Object.entries(prefer ?? {})) {
+      if (!raw.split(/[|,\s]+/).includes(form)) throw new Error(`AGID has no "${form}" for ${lemma}`);
+      forms[slot] = form;
+    }
+    return forms;
   }
   if (slots.length === 3) {
     return { past: slots[0], pastParticiple: slots[0], gerund: slots[1], thirdSg: slots[2] };
@@ -108,7 +119,7 @@ export function englishFormsFor(agid, lemma, pos) {
   }
   if (pos === 'V') {
     const raw = rawFor(agid, lemma, 'V');
-    return raw ? verbFormsFromRaw(raw) : null;
+    return raw ? verbFormsFromRaw(raw, lemma) : null;
   }
   if (pos === 'A') {
     const raw = rawFor(agid, lemma, 'A');

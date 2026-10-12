@@ -94,7 +94,7 @@ body {
 
 .top-bar__name .en {
   display: block;
-  font-size: 0.6em;
+  font-size: max(0.75rem, 0.6em);
   font-weight: 700;
 }
 
@@ -242,7 +242,7 @@ button:focus-visible,
 }
 
 .btn .en {
-  font-size: 0.7em;
+  font-size: max(0.75rem, 0.7em);
   font-weight: 700;
   opacity: 0.8;
 }
@@ -472,7 +472,8 @@ button:focus-visible,
 
 .prompt .en {
   display: block;
-  font-size: 0.62em;
+  /* Helper English never drops below 12px, even where the prompt shrinks. */
+  font-size: max(0.75rem, 0.62em);
 }
 
 /* ---------- Listen & Tap ---------- */
@@ -529,7 +530,7 @@ button:focus-visible,
 }
 
 .speaker--slow .speaker__hint {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .hear-text {
@@ -1168,6 +1169,11 @@ button:focus-visible,
   color: var(--brand);
   text-align: center;
 }
+/* "poika · son · also “boy”": the second meaning, quieter than the first. */
+.word-intro__also {
+  font-weight: 400;
+  opacity: 0.8;
+}
 
 /* ---------- Say it (speaking) ---------- */
 .say-target {
@@ -1438,7 +1444,7 @@ button:focus-visible,
 
 .story-line__name {
   margin-top: 3px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--ink-soft);
 }
@@ -1985,7 +1991,7 @@ button:focus-visible,
 
 .top-bar__name .en {
   display: block;
-  font-size: 0.55em;
+  font-size: max(0.75rem, 0.55em);
   font-weight: 700;
 }
 
@@ -2390,7 +2396,7 @@ button:focus-visible,
 
 .streak__text .en {
   display: block;
-  font-size: 0.62em;
+  font-size: max(0.75rem, 0.62em);
   font-weight: 600;
   opacity: 0.7;
 }
@@ -2828,7 +2834,7 @@ button:focus-visible,
 }
 
 .home-tile__meta {
-  font-size: 0.82em;
+  font-size: max(0.75rem, 0.82em);
 }
 
 .course-progress {
@@ -4640,7 +4646,7 @@ a.badge-strip {
 }
 
 .letter-tile__name {
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--brand);
   line-height: 1.1;
