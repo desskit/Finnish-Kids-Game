@@ -30,6 +30,11 @@ export function recordRoundOnChild(
   maxLevel: number = MAX_LEVEL,
   /** A minor bonus round (see ActivityProgress.bonus): counted, never levelled. */
   bonus = false,
+  /**
+   * The round met the step's own finishing rule (a story step: each of its
+   * stories read well) — the step is done now, whatever the level says.
+   */
+  proven = false,
 ): Child {
   const topic = child.progress[topicId] ?? {};
   const prev = topic[activityId];
@@ -61,9 +66,9 @@ export function recordRoundOnChild(
     recent: adapt.recent,
     ...(prev?.bonus ? { bonus: prev.bonus } : {}),
   };
-  const proven =
-    prev?.topProvenAt ?? (provesTop(adapt.level, adapt.recent, maxLevel) ? Date.now() : undefined);
-  if (proven) entry.topProvenAt = proven;
+  const provenAt =
+    prev?.topProvenAt ?? (proven || provesTop(adapt.level, adapt.recent, maxLevel) ? Date.now() : undefined);
+  if (provenAt) entry.topProvenAt = provenAt;
 
   return {
     ...child,

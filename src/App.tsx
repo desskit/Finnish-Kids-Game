@@ -9,10 +9,13 @@ import {
   mixStepFor,
 } from './game/path';
 import { difficultyFor } from './game/adapt';
-import { lessonForStep } from './game/course';
+import { actionHref, lessonForStep, nextAction } from './game/course';
 import { isSpeechRecognitionAvailable } from './audio/speech';
-import { ActivityContext, type RoundOutcome } from './game/activityContext';
+import { ActivityContext, type RoundOutcome, type SegmentMeta } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
+import { recordStoryOnChild, storyStepDone } from './game/storyLog';
+import { stories, storyById } from './content/stories';
+import StoryTime from './components/StoryTime';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { segmentMs } from './game/stats';
 import { useProfile } from './state/profile';
@@ -70,7 +73,7 @@ function SkillRouteHost() {
 function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, recordRound, recordStats, activityDifficulty, stars, settings } = useProfile();
+  const { activeChild, recordRound, recordStory, recordStats, activityDifficulty, stars, settings } = useProfile();
   const found = skillId ? findSkill(skillId) : undefined;
 
   // `round.no` counts segments (drives game-type rotation); `round.level` is
@@ -114,21 +117,27 @@ function SkillRoute() {
   // Silent segment recording + advance, in one commit: fold the segment's
   // first-try accuracy into the adaptive level, queue a toast if something was
   // earned, and bump the segment counter — the key change below swaps the
-  // finished game for the next one instantly.
-  const onSegmentComplete = (segStars: number, total: number) => {
+  // finished game for the next one instantly. (A story records its read too,
+  // and stays on screen for its own result: `meta.stay`.)
+  const onSegmentComplete = (segStars: number, total: number, meta?: SegmentMeta) => {
     const before = activeChild;
+    const now = Date.now();
     // This node's own ladder depth caps the adaptive climb (default 4).
     const maxLevel = skill.maxLevel ?? 4;
-    const after = recordRoundOnChild(before, chapter.id, skill.id, segStars, total, maxLevel, bonus);
+    // A story step is done once each of its stories has had one good read.
+    const read = meta?.story;
+    const logged = read ? recordStoryOnChild(before, read.id, segStars, total, read.asked, now) : before;
+    const proven = read ? storyStepDone(logged, play.skill.content.ids ?? stories.map((s) => s.id)) : false;
+    const after = recordRoundOnChild(logged, chapter.id, skill.id, segStars, total, maxLevel, bonus, proven);
     const afterLevel = activityLevel(after, chapter.id, skill.id);
     const leveledUp =
       before.adaptive !== false && afterLevel > activityLevel(before, chapter.id, skill.id);
     const had = earnedBadgeIds(before, BADGE_ENV);
     const newBadges = earnedBadges(after, BADGE_ENV).filter((b) => !had.has(b.id));
-    recordRound(chapter.id, skill.id, segStars, total, maxLevel, bonus);
+    if (read) recordStory(read.id, segStars, total, read.asked);
+    recordRound(chapter.id, skill.id, segStars, total, maxLevel, bonus, proven);
     // Stats go to the subject actually practised: a Kertaus segment counts for
     // the earlier step it replayed.
-    const now = Date.now();
     recordStats({
       subject: play.skill.id,
       right: segStars,
@@ -143,6 +152,8 @@ function SkillRoute() {
         id: (t?.id ?? 0) + 1,
       }));
     }
+    // A game showing its own result stays put; it moves on itself.
+    if (meta?.stay) return;
     // Manual mode keeps its pinned level; adaptive uses the just-recorded one
     // (the pure look-ahead — the context re-render lands after this commit).
     const nextLevel = before.adaptive === false ? round.level : afterLevel;
@@ -179,6 +190,28 @@ function ReviewRoute() {
   return <ReviewActivity />;
 }
 
+// "Continue" from inside a game that ends with its own result (a story): on
+// to whatever the course offers next.
+function NextRoute() {
+  const { activeChild } = useProfile();
+  if (!activeChild) return <Navigate to="/profiles" replace />;
+  return <Navigate to={actionHref(nextAction(activeChild))} replace />;
+}
+
+// A story from the bookshelf, read just for the joy of it: no questions, no score.
+function StoryRoute() {
+  const { storyId } = useParams();
+  const navigate = useNavigate();
+  const { activeChild } = useProfile();
+  if (!activeChild) return <Navigate to="/profiles" replace />;
+  if (!storyId || !storyById[storyId]) return <Navigate to="/notebook" replace />;
+  return (
+    <main className="app">
+      <StoryTime key={storyId} mode="free" storyId={storyId} onExit={() => navigate('/notebook')} />
+    </main>
+  );
+}
+
 // Route tree, separated from the router so it can be mounted in a MemoryRouter
 // for tests (the smoke spec drives navigation through these routes).
 export function AppRoutes() {
@@ -196,6 +229,8 @@ export function AppRoutes() {
       <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
       <Route path="/warmup" element={<WarmupRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
+      <Route path="/next" element={<NextRoute />} />
+      <Route path="/story/:storyId" element={<StoryRoute />} />
       <Route path="/sounds/:mode" element={<SoundGame />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />

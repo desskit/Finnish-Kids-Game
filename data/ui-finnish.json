@@ -56,6 +56,13 @@
       ]
     },
     {
+      "fi": "Edellinen sivu",
+      "en": "Previous page",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
       "fi": "Edistyminen",
       "en": "Progress",
       "where": [
@@ -111,7 +118,8 @@
         "components/LetterNameGame.tsx",
         "components/RoundComplete.tsx",
         "components/SayIt.tsx",
-        "components/SoundGame.tsx"
+        "components/SoundGame.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -151,6 +159,7 @@
         "components/PhraseIntro.tsx",
         "components/PossessiveGame.tsx",
         "components/RoundComplete.tsx",
+        "components/StoryTime.tsx",
         "components/WarmupRoute.tsx",
         "components/WordIntro.tsx"
       ]
@@ -198,6 +207,14 @@
       "en": "Conversation",
       "where": [
         "components/DialogueGame.tsx"
+      ]
+    },
+    {
+      "fi": "Kirjahylly",
+      "en": "Bookshelf",
+      "where": [
+        "components/Notebook.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -307,6 +324,13 @@
       ]
     },
     {
+      "fi": "Kuka sanoo näin?",
+      "en": "Who says this?",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
       "fi": "Kuka tekee?",
       "en": "Who's doing it?",
       "where": [
@@ -336,7 +360,7 @@
     },
     {
       "fi": "Kuuntele",
-      "en": "Listen / Listen: ⟨form⟩ / Listen: ⟨speak⟩",
+      "en": "Listen / Listen: ⟨fi⟩ / Listen: ⟨form⟩ / Listen: ⟨speak⟩",
       "where": [
         "components/HearIt.tsx",
         "components/LessonView.tsx",
@@ -366,6 +390,13 @@
       "en": "Listen",
       "where": [
         "components/ListenSentence.tsx"
+      ]
+    },
+    {
+      "fi": "Kuuntele uudestaan",
+      "en": "Hear it again",
+      "where": [
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -404,6 +435,13 @@
       ]
     },
     {
+      "fi": "Laita kuvat järjestykseen!",
+      "en": "What happened first? Tap them in order.",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
       "fi": "Laita sanat järjestykseen",
       "en": "Put the words in order",
       "where": [
@@ -425,6 +463,34 @@
       ]
     },
     {
+      "fi": "Loppu",
+      "en": "The end",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Loppu!",
+      "en": "The end",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Lue",
+      "en": "Read",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Lue ensin",
+      "en": "Read it first",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
       "fi": "Lue lause",
       "en": "Read",
       "where": [
@@ -432,8 +498,8 @@
       ]
     },
     {
-      "fi": "Luetaan!",
-      "en": "Story time",
+      "fi": "Lue uudestaan",
+      "en": "Read it again",
       "where": [
         "components/StoryTime.tsx"
       ]
@@ -470,7 +536,8 @@
       "fi": "Melkein!",
       "en": "",
       "where": [
-        "components/CheckpointRoute.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -648,9 +715,13 @@
     },
     {
       "fi": "Muistatko?",
-      "en": "Remember?",
+      "en": "Do you remember this story? / Remember?",
       "where": [
-        "components/CheckpointRoute.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/CourseHome.tsx",
+        "components/StatsView.tsx",
+        "components/StoryTime.tsx",
+        "components/WarmupRoute.tsx"
       ]
     },
     {
@@ -717,6 +788,13 @@
       "en": "Is this…?",
       "where": [
         "components/YesNoGame.tsx"
+      ]
+    },
+    {
+      "fi": "Oppitunnit",
+      "en": "Lessons",
+      "where": [
+        "components/Notebook.tsx"
       ]
     },
     {
@@ -852,7 +930,27 @@
       "fi": "Seuraava",
       "en": "Next",
       "where": [
-        "components/LessonView.tsx",
+        "components/LessonView.tsx"
+      ]
+    },
+    {
+      "fi": "Seuraava sivu",
+      "en": "Next page",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Seuraava tarina",
+      "en": "Next story",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Sivu ⟨…⟩ / ⟨length⟩",
+      "en": "",
+      "where": [
         "components/StoryTime.tsx"
       ]
     },
@@ -895,6 +993,20 @@
       ]
     },
     {
+      "fi": "Tarua",
+      "en": "False",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Tarua!",
+      "en": "",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
       "fi": "Tee näin!",
       "en": "Do this!",
       "where": [
@@ -920,6 +1032,27 @@
       "en": "Stats",
       "where": [
         "components/GrownUp.tsx"
+      ]
+    },
+    {
+      "fi": "Totta",
+      "en": "True",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Totta vai tarua?",
+      "en": "True or false?",
+      "where": [
+        "components/StoryTime.tsx"
+      ]
+    },
+    {
+      "fi": "Totta!",
+      "en": "",
+      "where": [
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -1094,6 +1227,13 @@
       "en": "",
       "where": [
         "components/YesNoGame.tsx"
+      ]
+    },
+    {
+      "fi": "⟨nameFi⟩ kertoo.",
+      "en": "⟨nameEn⟩ tells the story.",
+      "where": [
+        "components/StoryTime.tsx"
       ]
     },
     {

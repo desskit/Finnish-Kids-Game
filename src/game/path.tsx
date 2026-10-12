@@ -156,8 +156,6 @@ export interface SkillContent {
    * number + thing ('count').
    */
   hear?: HearSource;
-  /** Story steps: from this level on, the English hides behind a tap. */
-  hideGlossFrom?: number;
   /** "Me and you" steps: only these pronoun frames (pronouns.ts). */
   frames?: string[];
   /** Agreement steps: ask only about these cases (e.g. the IN and ON forms). */
@@ -1806,7 +1804,7 @@ const UNITS: Chapter[] = [
         titleEn: 'Stories',
         icon: '📚',
         activity: 'story',
-        maxLevel: 4,
+        maxLevel: 1,
         content: { ids: ['lost-dog', 'birthday-surprise'] },
       },
       listenStep('yesterday-listen', 'Now, or yesterday?', 'verbs', { combos: [PAST_POS, PRESENT_POS, PAST_NEG] }, 'Syön. · Söin. · En syönyt.'),
@@ -1867,7 +1865,7 @@ const UNITS: Chapter[] = [
         titleEn: 'Stories',
         icon: '📖',
         activity: 'story',
-        maxLevel: 4,
+        maxLevel: 1,
         content: { ids: ['morning', 'at-the-shop'] },
       },
     ],
@@ -2104,9 +2102,10 @@ const UNITS: Chapter[] = [
 
 // --- A story at the end of (almost) every unit ---------------------------
 //
-// The unit's grammar in a little narrative (content/unitStories.ts): read with
-// the English the first time round, then without it (a tap shows it). Placed
-// last — before the unit's Kertaus, if it has one. Never in the checkpoint.
+// The unit's grammar in a little picture book (content/unitStories.ts). One
+// good read finishes it (see game/storyLog.ts) — a story is read for meaning,
+// not ground through level by level. Placed last — before the unit's Kertaus,
+// if it has one. Never in the checkpoint.
 for (const unit of UNITS) {
   const storyId = UNIT_STORY_IDS[unit.id];
   const s = UNIT_STORIES.find((x) => x.id === storyId);
@@ -2117,8 +2116,8 @@ for (const unit of UNITS) {
     titleEn: `Story: ${s.titleEn}`,
     icon: '📖',
     activity: 'story',
-    maxLevel: 2,
-    content: { ids: [s.id], hideGlossFrom: 2 },
+    maxLevel: 1,
+    content: { ids: [s.id] },
   };
   const mix = unit.skills.findIndex((x) => x.content.mix);
   if (mix >= 0) unit.skills.splice(mix, 0, step);
@@ -2267,10 +2266,10 @@ export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] 
 // Speaking is woven into EVERY content node automatically (see `activityForRound`
 // + `speakableTargetsFor`): each node's own Finnish — a word, a carrier phrase, a
 // counting/agreement/verb phrase, a read example, a dialogue reply — becomes
-// something the child says. Only `review` is excluded (cross-topic, no single
-// spoken target). Injected rather than hand-added to each ramp, so it never
-// bloats the ramps.
-const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review']);
+// something the child says. Excluded: `review` (cross-topic, no single spoken
+// target) and `story` (a story is read for meaning, once — see storyLog.ts).
+// Injected rather than hand-added to each ramp, so it never bloats the ramps.
+const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review', 'story']);
 
 /** Does this node have a spoken target the `say` game can drill? */
 export function isSpeakable(skill: SkillNode): boolean {
@@ -2678,8 +2677,8 @@ export function renderActivity(
       // Read/hear a real (kid-safe) example sentence, tap the picture it's about.
       return <ReadAndListen items={items} onExit={onExit} />;
     case 'story':
-      // A tiny illustrated story, page by page, then comprehension taps.
-      return <StoryTime ids={skill.content.ids} hideGlossFrom={skill.content.hideGlossFrom} onExit={onExit} />;
+      // A little picture book, read page by page, then questions about it.
+      return <StoryTime ids={skill.content.ids} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
   }

@@ -5,6 +5,7 @@ import type { Child } from '../state/storage';
 import { statsOf, warmupDoneOn } from '../game/stats';
 import { dayKey } from '../game/streak';
 import { pickWarmupSubject, subjectRef } from '../game/warmup';
+import { storyById } from '../content/stories';
 import {
   dayRows,
   daysCsv,
@@ -125,6 +126,12 @@ function SubjectLine({ r, now, note, practise }: { r: SubjectRow; now: number; n
   );
 }
 
+/** A warm-up's subject for display: a course step, or a story's "Muistatko?". */
+function warmupLabel(subject: string): string {
+  if (subject.startsWith('story:')) return `📖 Muistatko? ${storyById[subject.slice(6)]?.titleEn ?? ''}`.trim();
+  return subjectRef(subject)?.step.titleEn ?? subject;
+}
+
 function ChildStats({ c }: { c: Child }) {
   const now = Date.now();
   const stats = statsOf(c);
@@ -204,7 +211,7 @@ function ChildStats({ c }: { c: Child }) {
             {warmups.map((w) => (
               <li key={`${w.day}-${w.at}`} className="gstep">
                 <span className="gstep__title">
-                  {w.day} · {subjectRef(w.subject)?.step.titleEn ?? w.subject}
+                  {w.day} · {warmupLabel(w.subject)}
                 </span>
                 <span className={'gchip' + (w.total && w.right / w.total >= 0.8 ? ' gchip--good' : '')}>
                   {w.right}/{w.total}

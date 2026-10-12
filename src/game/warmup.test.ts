@@ -112,6 +112,16 @@ describe('picking the warm-up subject', () => {
     expect(warmupDue(null, NOW)).toBe(false);
   });
 
+  it('is due when a finished story is back for its "Muistatko?", even with nothing else to judge', () => {
+    const c = child({});
+    c.course = { ...c.course, stories: { 'hello-eero': { reads: 1, goodAt: NOW - 4 * DAY, last: 1 } } };
+    expect(pickWarmupSubject(c, NOW)).toBeUndefined();
+    expect(warmupDue(c, NOW)).toBe(true);
+    // Once it has been revisited, it isn't back again.
+    c.course.stories!['hello-eero'].revisitedAt = NOW - DAY;
+    expect(warmupDue(c, NOW)).toBe(false);
+  });
+
   it('works for a player who played before stats existed (seeded from progress)', () => {
     const c = child({});
     delete c.stats;

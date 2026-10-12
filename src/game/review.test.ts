@@ -23,7 +23,7 @@ describe('review entries', () => {
   });
 
   it('include every unit story and the forms each pattern marks wrong', () => {
-    for (const s of UNIT_STORIES) expect(e(`story:${s.id}:page-1`)?.fi).toBe(s.pages[0].fi);
+    for (const s of UNIT_STORIES) expect(e(`story:${s.id}:page-1`)?.fi).toContain(s.pages[0].lines[0].fi);
     expect(e('slip:i-havent').fi).toMatch(/✓ — marked wrong: .*/);
   });
 });

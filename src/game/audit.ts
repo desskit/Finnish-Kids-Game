@@ -196,7 +196,7 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
     skillId: 'stories-expert',
     titleFi: 'Satuhetki',
     titleEn: 'Story time',
-    desc: 'Read a tiny illustrated story page by page, then answer comprehension taps.',
+    desc: 'Read a little picture book, then answer questions about it: pictures, true or false, who said it, and what happened first.',
   },
   {
     id: 'review',

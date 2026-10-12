@@ -119,6 +119,24 @@ export interface CourseState {
    * kept apart from the course: they never gate a unit or move a level.
    */
   sounds?: Record<string, { plays: number; right: number; total: number; best: number }>;
+  /** storyId → how that story has gone (see `src/game/storyLog.ts`). */
+  stories?: Record<string, StoryRecord>;
+}
+
+/** One story in a child's story log. */
+export interface StoryRecord {
+  /** Reads finished (the story, then its questions). */
+  reads: number;
+  /** The first read with 3 of 4 (or better) right first time: the story is read. */
+  goodAt?: number;
+  /** The last read's first-try ratio, 0..1 — a weak read brings the English back. */
+  last?: number;
+  /** The questions asked last time (the next read asks others). */
+  asked?: string[];
+  /** Every question asked so far (the "Muistatko?" revisit picks new ones). */
+  seen?: string[];
+  /** When the one "Muistatko?" revisit happened. */
+  revisitedAt?: number;
 }
 
 export interface Settings {

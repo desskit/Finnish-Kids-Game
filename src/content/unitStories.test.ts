@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { UNIT_STORIES, UNIT_STORY_IDS } from './unitStories';
-import { stories } from './stories';
+import { CAST, stories } from './stories';
 import { conversations } from './conversations';
 import { dialogues } from './dialogues';
 import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
@@ -17,8 +17,10 @@ describe('authored Finnish uses only real word forms', () => {
 
   it('stories', () => {
     const lines: [string, string][] = stories.flatMap((s) => [
-      ...s.pages.map((p): [string, string] => [s.id, p.fi]),
+      [s.id, s.titleFi] as [string, string],
+      ...s.pages.flatMap((p) => p.lines.map((l): [string, string] => [s.id, l.fi])),
       ...s.questions.flatMap((q) => [[s.id, q.promptFi] as [string, string], ...q.options.map((o): [string, string] => [s.id, o.fi])]),
+      ...s.facts.map((f): [string, string] => [s.id, f.fi]),
     ]);
     expect(check(lines)).toEqual([]);
   }, 60_000);
@@ -47,17 +49,39 @@ describe('unit stories', () => {
     expect(new Set(UNIT_STORIES.map((s) => s.id)).size).toBe(UNIT_STORIES.length);
   });
 
-  it('ask two or three questions, each with one right answer that the story says', () => {
-    for (const s of UNIT_STORIES) {
-      expect(s.questions.length).toBeGreaterThanOrEqual(2);
-      expect(s.questions.length).toBeLessThanOrEqual(3);
-      const text = s.pages.map((p) => p.fi.toLowerCase()).join(' ');
+  it('ask at least three picture questions, each with one right answer that the story says', () => {
+    for (const s of stories) {
+      expect(s.questions.length, s.id).toBeGreaterThanOrEqual(3);
+      // The story as read: who says each line counts too ("Eero: Minulla on koira.").
+      const text = s.pages
+        .flatMap((p) => p.lines.map((l) => (l.by ? `${CAST[l.by].nameFi}: ` : '') + l.fi))
+        .join(' ')
+        .toLowerCase();
+      const names = Object.values(CAST).map((c) => c.nameFi.toLowerCase());
       for (const q of s.questions) {
         const right = q.options.find((o) => o.correct)!;
-        // The right answer's key word appears in the story (no outside knowledge needed).
-        const key = right.fi.toLowerCase().replace(/[.!?]/g, '').split(' ').filter((w) => w.length >= 2);
-        expect(key.some((w) => text.includes(w)), `${s.id}: ${q.promptFi} → ${right.fi}`).toBe(true);
+        // The right answer's key word appears in the story — no outside knowledge
+        // needed. (Its stem: the answer may be another form, "kuvan" for "kuva",
+        // or a name's, "Eerolla" for Eero.)
+        const words = right.fi
+          .toLowerCase()
+          .replace(/[.,!?]/g, '')
+          .split(' ')
+          .filter((w) => w.length >= 2);
+        const found = words.some(
+          (w) => text.includes(w.slice(0, Math.max(3, w.length - 2))) || names.some((n) => w.startsWith(n) && text.includes(n)),
+        );
+        expect(found, `${s.id}: ${q.promptFi} → ${right.fi}`).toBe(true);
       }
+    }
+  });
+
+  it('give every story after the first a few true-or-false statements, both true and false', () => {
+    for (const s of stories) {
+      if (s.id === 'hello-eero') continue; // unit 1: greetings only
+      expect(s.facts.length, s.id).toBeGreaterThanOrEqual(2);
+      expect(s.facts.some((f) => f.isTrue), s.id).toBe(true);
+      expect(s.facts.some((f) => !f.isTrue), s.id).toBe(true);
     }
   });
 });

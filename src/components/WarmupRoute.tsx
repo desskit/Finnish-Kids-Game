@@ -1,15 +1,18 @@
 import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { difficultyFor } from '../game/adapt';
-import { ActivityContext } from '../game/activityContext';
+import { ActivityContext, type SegmentMeta } from '../game/activityContext';
 import { renderActivity } from '../game/path';
 import { actionHref, lessonForStep, nextAction } from '../game/course';
 import { segmentMs } from '../game/stats';
 import { activityLevel, recordRoundOnChild } from '../game/progress';
 import { dayKey } from '../game/streak';
 import { WARMUP_QUESTIONS, pickWarmupSubject, warmupActivity, warmupLevel } from '../game/warmup';
+import { dueStoryRevisit } from '../game/storyLog';
+import { storyById } from '../content/stories';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
+import StoryTime from './StoryTime';
 
 /** A warm-up stops trying after this many segments, even if short (an empty game). */
 const MAX_SEGMENTS = 6;
@@ -20,51 +23,71 @@ const MAX_SEGMENTS = 6;
 // child's level for it, then a short result and back to the course. Every
 // segment is real practice of the step, so it records like normal play (level,
 // stats) — plus the warm-up log that makes today's Continue go back to normal.
+//
+// When a finished story is due back (game/storyLog.ts), the warm-up opens with
+// it: "Muistatko?" — its cover, a re-read if she likes, and two questions it
+// hasn't asked before. Once per story, ever.
 export default function WarmupRoute() {
   const navigate = useNavigate();
-  const { activeChild, recordRound, recordStats, recordWarmup, stars } = useProfile();
-  // The subject is chosen once, on arrival — a warm-up never changes under the child.
+  const { activeChild, recordRound, recordStats, recordStory, recordWarmup, stars } = useProfile();
+  // Chosen once, on arrival — a warm-up never changes under the child.
   const [subject] = useState(() => (activeChild ? pickWarmupSubject(activeChild, Date.now()) : undefined));
+  const [revisitId] = useState(() => (activeChild ? dueStoryRevisit(activeChild, Date.now()) : undefined));
   const [seg, setSeg] = useState(0);
   const [segLevel, setSegLevel] = useState(() =>
     activeChild && subject ? warmupLevel(activeChild, subject) : 1,
   );
   const [tally, setTally] = useState({ right: 0, total: 0 });
-  const [phase, setPhase] = useState<'run' | 'result'>('run');
+  const [storyTally, setStoryTally] = useState<{ right: number; total: number } | null>(null);
+  const [phase, setPhase] = useState<'story' | 'run' | 'result'>(() => (revisitId ? 'story' : 'run'));
   const segStart = useRef(Date.now());
   const startStars = useRef(stars);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
-  if (!subject) return <Navigate to="/" replace />;
-  const { unit, step, unitNo } = subject;
+  const revisit = revisitId ? storyById[revisitId] : undefined;
+  if (!subject && !revisit) return <Navigate to="/" replace />;
   const exit = () => navigate('/');
 
   if (phase === 'result') {
     const ratio = tally.total > 0 ? tally.right / tally.total : 0;
+    const storyGood = storyTally ? storyTally.total > 0 && storyTally.right / storyTally.total >= 0.5 : true;
+    const good = (subject ? ratio >= 0.8 : true) && storyGood;
     const next = nextAction(activeChild);
     return (
       <main className="app">
-        <section className={'screen checkpoint warmup-result' + (ratio >= 0.8 ? ' checkpoint--pass' : '')}>
+        <section className={'screen checkpoint warmup-result' + (good ? ' checkpoint--pass' : '')}>
           <div className="checkpoint__badge" aria-hidden="true">
-            {ratio >= 0.8 ? '🌞' : '💪'}
+            {good ? '🌞' : '💪'}
           </div>
           <h1 className="title">
             Lämmittely tehty! <span className="en">Warm-up done</span>
           </h1>
-          <p className="checkpoint__score" aria-label={`${tally.right} of ${tally.total} right first time`}>
-            {tally.right} / {tally.total}
-          </p>
-          <p className="checkpoint__text en">
-            {ratio >= 0.8
-              ? `“${step.titleEn}” is getting stronger. On with the course!`
-              : `“${step.titleEn}” is a tricky one — it will come back to practise again.`}
-          </p>
+          {revisit && storyTally && (
+            <p className="warmup-result__story" aria-label={`Story: ${storyTally.right} of ${storyTally.total} right first time`}>
+              📖 Muistatko? {revisit.titleFi} —{' '}
+              <span className="nowrap">
+                {storyTally.right} / {storyTally.total}
+              </span>
+            </p>
+          )}
+          {subject && (
+            <>
+              <p className="checkpoint__score" aria-label={`${tally.right} of ${tally.total} right first time`}>
+                {tally.right} / {tally.total}
+              </p>
+              <p className="checkpoint__text en">
+                {ratio >= 0.8
+                  ? `“${subject.step.titleEn}” is getting stronger. On with the course!`
+                  : `“${subject.step.titleEn}” is a tricky one — it will come back to practise again.`}
+              </p>
+            </>
+          )}
           <div className="button-row">
             <button className="btn btn--primary" onClick={() => navigate(actionHref(next))} autoFocus>
               Jatka <span className="en">Continue</span>
             </button>
-            {ratio < 0.8 && (
-              <Link className="btn" to={`/lesson/${lessonForStep(unit, step)}`} state={{ from: 'notebook' }}>
+            {subject && ratio < 0.8 && (
+              <Link className="btn" to={`/lesson/${lessonForStep(subject.unit, subject.step)}`} state={{ from: 'notebook' }}>
                 📖 Oppitunti <span className="en">Read the lesson</span>
               </Link>
             )}
@@ -76,6 +99,43 @@ export default function WarmupRoute() {
       </main>
     );
   }
+
+  // "Muistatko?" — a finished story, back once.
+  if (phase === 'story' && revisit) {
+    const onStoryDone = (right: number, total: number, meta?: SegmentMeta) => {
+      const now = Date.now();
+      recordStory(revisit.id, right, total, meta?.story?.asked ?? [], 'revisit');
+      // Counted in the day's practice; a story isn't a subject to rank.
+      recordStats({ right, total, ms: segmentMs(segStart.current, now, total), source: 'warmup' });
+      segStart.current = now;
+      setStoryTally({ right, total });
+      if (subject) {
+        setPhase('run');
+        return;
+      }
+      // Only the story today: that was the warm-up.
+      recordWarmup({ day: dayKey(now), subject: `story:${revisit.id}`, right, total, at: now });
+      playDing(total > 0 && right / total >= 0.5);
+      setPhase('result');
+    };
+    return (
+      <main className="app app--barred">
+        <div className="checkpoint-bar warmup-bar" aria-label="Warm-up: a story to remember">
+          ☀️ Lämmittely <span className="en">Warm-up · Muistatko? A story to remember</span>
+        </div>
+        <ActivityContext.Provider
+          value={{ onSegmentComplete: onStoryDone, difficulty: difficultyFor(1), sessionStars: stars - startStars.current }}
+        >
+          <div className="app__game">
+            <StoryTime mode="revisit" storyId={revisit.id} onExit={exit} />
+          </div>
+        </ActivityContext.Provider>
+      </main>
+    );
+  }
+
+  if (!subject) return <Navigate to="/" replace />;
+  const { unit, step, unitNo } = subject;
 
   const remaining = Math.max(1, WARMUP_QUESTIONS - tally.total);
   const activity = warmupActivity(step, segLevel, seg);
