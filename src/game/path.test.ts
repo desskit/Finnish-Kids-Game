@@ -13,6 +13,7 @@ import {
   mixStepFor,
   badgeEnv,
   isMinorRound,
+  isBonusRound,
   TYPING_FROM_UNIT,
 } from './path';
 import { nounConstructions } from '../content/constructions';
@@ -418,5 +419,15 @@ describe('in-session game rotation', () => {
       expect(isSpeakable(skill), skill.id).toBe(true);
       expect(renderActivity(skill, 'say', () => {}), skill.id).not.toBeNull();
     }
+  });
+});
+
+describe('bonus rounds never decide a step (final QA)', () => {
+  it('speaking and typing rounds are bonus rounds; the step’s own games are not', () => {
+    const step = allSkills().find(({ skill }) => skill.minor)!.skill;
+    expect(isBonusRound(step, 3, 0, 'say')).toBe(true);
+    const minorNo = Array.from({ length: 8 }, (_, i) => i).find((n) => isMinorRound(step, 3, n))!;
+    expect(isBonusRound(step, 3, minorNo, step.minor!.kind)).toBe(true);
+    expect(isBonusRound(step, 3, minorNo + 1, activityForRound(step, 3, minorNo + 1))).toBe(false);
   });
 });

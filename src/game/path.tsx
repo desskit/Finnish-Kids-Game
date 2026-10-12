@@ -1888,8 +1888,9 @@ const UNITS: Chapter[] = [
         titleEn: 'Word order',
         icon: '🔀',
         activity: 'order',
-        activities: ['order', 'order', 'spell'],
         maxLevel: 4,
+        // Typing is a bonus round here too, never needed to finish (see TYPING_MINOR).
+        minor: { kind: 'spell', fromLevel: 2, every: 4 },
         content: { constructionIds: TAUGHT_CONSTRUCTIONS },
       },
       ...(HAS_SENTENCES
@@ -1900,8 +1901,9 @@ const UNITS: Chapter[] = [
               titleEn: 'Build sentences',
               icon: '📝',
               activity: 'sentence' as ActivityKind,
-              activities: ['sentence', 'sentence', 'sentence-type'] as ActivityKind[],
               maxLevel: 4,
+              // Typing a whole sentence is a bonus round, never needed to finish.
+              minor: { kind: 'sentence-type' as ActivityKind, fromLevel: 2, every: 4 },
               content: {},
             },
           ]
@@ -2298,6 +2300,16 @@ export function activityForRound(
   }
   const i = ((Math.trunc(roundNo) % unlocked.length) + unlocked.length) % unlocked.length;
   return unlocked[i];
+}
+
+/**
+ * Is this round a BONUS — scored and starred, but never moving the level or
+ * deciding whether the step is done? The step's minor rounds (typing), and
+ * every speaking round: a speech recognizer can miss a child's voice however
+ * well she says it, and that must never hold a step back.
+ */
+export function isBonusRound(skill: SkillNode, level: number, roundNo: number, activity: ActivityKind): boolean {
+  return activity === 'say' || isMinorRound(skill, level, roundNo);
 }
 
 /** Is round `roundNo` one of the step's minor (bonus) rounds? */
