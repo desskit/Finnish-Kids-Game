@@ -331,6 +331,36 @@ dictionary form (the sourced infinitive). Use `topics: ['verbs']` plus an
   step × game × level and fails if any step can't fill a real question (too
   few known words, places without the right tags, …).
 
+### The English side
+
+The English a child reads is assembled too, so it follows a few rules
+(`englishSentenceFor` and its helpers in `src/content/types.ts`). The app
+writes **US English**: Mom, candy, soccer, cafeteria, "Do you have…?".
+
+- **Family by name, relatives as "my":** Mom, Dad, Grandma, Grandpa
+  (`FAMILY_NAMES`); brother, sister, friend, aunt, uncle, cousin, son,
+  daughter and grandchild are "my ___" (`MY_PEOPLE`): "I see my aunt",
+  "Where are my cousins?".
+- **Liking a food is liking the kind:** *Pidän omenasta* → "I like apples".
+  Mass foods and one-dish foods (`LIKED_AS_A_KIND` in `semantics.ts`) take no
+  article: "I love pizza". Animals and things keep "the": "I like the cat".
+- **Plurals and counting** go through `pluralEn` / `countedEn`: the sourced
+  plural, except words English counts in pieces ("loaves of bread", "1
+  homework task", "sheets of paper").
+- **One word reads oddly in one carrier?** Use that carrier's `glossById`
+  ("I don't have any candy") or `sentenceById` ("I'm watching soccer."). If
+  the Finnish itself is odd for a word ("Odotan vauvaa" means expecting a
+  baby), gate the word out with `excludeIds` instead.
+- **Second meanings** (`ALSO_EN`): *poika* is "son, boy", *kynä* "pencil,
+  pen". They show on the new-word card and in the story glossary.
+- **Real example sentences** (the "Lue lause" game) come from Tatoeba but show
+  only when listed in `APPROVED` in `src/content/examples.ts`, after a person
+  has read them. Leave out a word used in another sense, spoken forms (*mä,
+  haluun*), and sayings.
+- `src/content/english.test.ts` pins these rules. Before a release, re-read
+  `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`), which lists every
+  carrier sentence with its English.
+
 ### Writing a story (`unitStories.ts`, `stories.ts`)
 
 A story is a little picture book: a cover, three or four pages, "Loppu!", then

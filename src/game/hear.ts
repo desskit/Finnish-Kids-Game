@@ -17,6 +17,7 @@ import {
   PERSONS,
   countingNounForm,
   englishSentenceFor,
+  countedEn,
   formFor,
   sentenceFor,
   suitsSlot,
@@ -308,7 +309,7 @@ export function buildCountHearRound(
   const out: HearQuestion[] = [];
   const used = new Set<string>();
   const label = (n: LexicalItem, noun: LexicalItem) =>
-    `${n.value} ${n.value === 1 ? noun.en : noun.english?.plural ?? `${noun.en}s`}`;
+    `${n.value} ${countedEn(noun, n.value!)}`;
   for (let guard = 0; out.length < questionCount && guard < questionCount * 8; guard++) {
     const num = sample(nums, 1)[0];
     const noun = weightedSample(things, 1, weigh)[0];

@@ -391,7 +391,7 @@ export const dialogues: DialogueExchange[] = [
   {
     id: 'who-calling',
     prompt: { fi: 'Kenelle sinä soitat?', en: 'Who are you calling?' },
-    reply: { fi: 'Soitan isoäidille.', en: "I'm calling grandma." },
+    reply: { fi: 'Soitan isoäidille.', en: "I'm calling Grandma." },
     distractors: [
       { fi: 'Näkemiin!', en: 'Goodbye!' },
       { fi: 'Tervetuloa!', en: 'Welcome!' },
@@ -431,7 +431,7 @@ export const dialogues: DialogueExchange[] = [
   {
     id: 'weekend-plans',
     prompt: { fi: 'Mitä teette viikonloppuna?', en: 'What are you doing on the weekend?' },
-    reply: { fi: 'Menemme isoäidille kylään.', en: "We're going to visit grandma." },
+    reply: { fi: 'Menemme isoäidille kylään.', en: "We're going to visit Grandma." },
     distractors: [
       { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
       { fi: 'Se on koira.', en: "It's a dog." },

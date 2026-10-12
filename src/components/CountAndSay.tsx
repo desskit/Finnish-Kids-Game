@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LexicalItem } from '../content/types';
 import { countingNounForm, countingPhrase } from '../content';
+import { countedEn } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -169,15 +170,16 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
       />
 
       <p className="prompt">
-        {phase === 'number' ? 'Montako?' : 'Mikä eläin?'}{' '}
-        <span className="en">{phase === 'number' ? 'How many?' : 'Which animal?'}</span>
+        {/* Not "Mikä eläin?" — the things counted are books and balls too. */}
+        {phase === 'number' ? 'Montako?' : count === 1 ? 'Mikä tämä on?' : 'Mitä nämä ovat?'}{' '}
+        <span className="en">{phase === 'number' ? 'How many?' : count === 1 ? 'What is this?' : 'What are these?'}</span>
       </p>
 
       {count > 20 ? (
         // The tens (30, 40, … 100): nobody counts 70 emoji, so the scene shows
         // the NUMERAL — the skill shifts from counting to reading a big number
         // and still producing the same partitive noun grammar.
-        <div className="count-scene count-scene--numeral" aria-label={`${count} ${q.noun.en}`}>
+        <div className="count-scene count-scene--numeral" aria-label={`${count} ${countedEn(q.noun, count)}`}>
           <span className="count-numeral">{count}</span>
           <span className="count-numeral__times" aria-hidden="true">
             ×
@@ -187,7 +189,7 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
           </span>
         </div>
       ) : (
-        <div className="count-scene" aria-label={`${count} ${q.noun.en}`}>
+        <div className="count-scene" aria-label={`${count} ${countedEn(q.noun, count)}`}>
           {Array.from({ length: count }, (_, i) => (
             <span key={i} className="count-emoji" aria-hidden="true">
               {q.noun.emoji}

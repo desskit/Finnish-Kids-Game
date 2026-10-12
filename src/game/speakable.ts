@@ -28,7 +28,7 @@ import { sentenceConstructions } from '../content/sentences';
 import { kidSafeExamples } from '../content/examples';
 import { dialogues, NAME_PLACEHOLDER } from '../content/dialogues';
 import { conversations } from '../content/conversations';
-import { countingPhrase } from '../content/types';
+import { countedEn, countingPhrase } from '../content/types';
 import { englishVerbClause } from '../content/englishVerb';
 import { sample } from '../util/shuffle';
 import { buildChooseRound, choosePoolsFor } from './formChoice';
@@ -70,7 +70,6 @@ export const saySafe = (fi: string): boolean => !!fi && wordCount(fi) <= SAY_MAX
 // must never become say targets (the child would be told to say "{name}").
 const keep = (targets: SayTarget[]): SayTarget[] =>
   targets.filter((t) => saySafe(t.say) && !t.say.includes(NAME_PLACEHOLDER));
-const pluralEn = (noun: LexicalItem) => noun.english?.plural ?? `${noun.en}s`;
 
 function constructionsForNode(skill: SkillNode) {
   const ids = skill.content.constructionIds;
@@ -150,10 +149,7 @@ function routeTargets(
       return keep(
         buildCountingRound(numbers.items, nouns, N, 3, 5, false, weigh).map((q) => ({
           say: countingPhrase(q.number, q.noun),
-          gloss:
-            (q.number.value ?? 0) === 1
-              ? `${q.number.en} ${q.noun.en}`
-              : `${q.number.en} ${pluralEn(q.noun)}`,
+          gloss: `${q.number.en} ${countedEn(q.noun, q.number.value ?? 0)}`,
           emoji: q.noun.emoji,
           attemptId: q.noun.id,
         })),

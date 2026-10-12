@@ -13,7 +13,7 @@ import type {
   PossessorId,
   VerbTense,
 } from './types';
-import { caseFormOf, countingNounForm, formFor, possessiveForm, verbForm, PERSONS } from './types';
+import { caseFormOf, countingNounForm, formFor, pluralEn, possessiveForm, verbForm, PERSONS } from './types';
 import { caseSegments, possessiveSegments, verbSegments, type Segment } from './endings';
 import { gradation, gradationLabel, isSpecialVerb, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
@@ -279,7 +279,7 @@ export function formMeaning(item: LexicalItem, form: string): string | undefined
   if (!hit) return undefined;
   if (hit.n === 'plural') {
     return hit.c === 'nominative'
-      ? `the plural with **-t** ("the ${item.english?.plural ?? `${item.en}s`}")`
+      ? `the plural with **-t** ("the ${pluralEn(item)}")`
       : `${FORM_NAME[hit.c]}, for MANY things`;
   }
   return FORM_NAME[hit.c]!;

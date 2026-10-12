@@ -275,10 +275,14 @@ const NO_ARTICLE_IDS = new Set([
   'bread',
   'cheese',
   'hair',
+  'paper',
 ]);
 // Carriers about liking something: English talks about a KIND of food or
 // pastime without "the" ("I like pizza", "I love chocolate").
 const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like', 'i-like-tykkaan', 'i-dont-like-tykkaa']);
+// A word liked as a kind can name something else: jalkapallo, a soccer ball,
+// is the GAME in "Pidän jalkapallosta" — "I like soccer".
+const KIND_EN: Record<string, string> = { football: 'soccer' };
 
 function englishArticleFor(item: LexicalItem): string {
   // A describing word after "is" takes no article: "This is red", not "a red".
@@ -297,13 +301,47 @@ function englishArticleFor(item: LexicalItem): string {
  * "This is a ___." + rain doesn't come out as "This is a rain."; any other
  * placeholder (e.g. "the ___", "___s") is filled in as-is.
  */
-// People who are "my" one, not "the" one, in English.
-const MY_PEOPLE: Record<string, string> = { brother: 'my brother', sister: 'my sister', friend: 'my friend' };
-// English plurals that aren't word + s (and aren't in the sourced data).
-const PLURAL_EN: Record<string, string> = { homework: 'homework tasks' };
+// People who are "my" one, not "the" one, in English: "I see my brother",
+// "Where are my cousins?" — and "This is my aunt", not "This is an aunt".
+export const MY_PEOPLE = new Set(['brother', 'sister', 'friend', 'aunt', 'uncle', 'cousin', 'son', 'daughter', 'grandchild']);
+// Words English counts in pieces: not "two breads" or "one homework" but two
+// LOAVES of bread, one homework TASK, a SHEET of paper.
+const ONE_EN: Record<string, string> = { homework: 'homework task', bread: 'loaf of bread', paper: 'sheet of paper' };
+const PLURAL_EN: Record<string, string> = { homework: 'homework tasks', bread: 'loaves of bread', paper: 'sheets of paper' };
+
+/** A noun's English plural — the sourced one ("children", "mice"), bar the
+ *  few English counts in pieces. Every "___s" in a gloss goes through this. */
+export function pluralEn(item: Pick<LexicalItem, 'id' | 'en' | 'english'>): string {
+  return PLURAL_EN[item.id] ?? item.english?.plural ?? `${item.en}s`;
+}
+
+/** The noun after a number: "1 loaf of bread", "3 loaves of bread". */
+export function countedEn(item: Pick<LexicalItem, 'id' | 'en' | 'english'>, count: number): string {
+  return count === 1 ? (ONE_EN[item.id] ?? item.en) : pluralEn(item);
+}
 
 // "I have a ___" / "I don't have a ___" — owning one, where a name won't do.
 const HAVING_CARRIERS = new Set(['i-have', 'you-have', 'she-has', 'we-have', 'they-have', 'i-havent']);
+
+// A word's everyday second meaning, for the "new word" card and the story
+// glossary: *poika* is a son AND any boy, *kynä* any pen or pencil. Only the
+// sentence games' English uses the main gloss.
+export const ALSO_EN: Record<string, string> = {
+  football: 'soccer',
+  son: 'boy',
+  pencil: 'pen',
+  bike: 'wheel',
+  moon: 'month',
+  tongue: 'language',
+  class: 'classroom',
+  gym: 'PE',
+  shop: 'store',
+  clock: 'watch',
+};
+
+/** "son, boy" — the gloss with any second meaning. */
+export const glossWithAlso = (item: Pick<LexicalItem, 'id' | 'en'>): string =>
+  ALSO_EN[item.id] ? `${item.en}, ${ALSO_EN[item.id]}` : item.en;
 
 // Family members a child calls by name — "Grandpa", not "the grandfather".
 export const FAMILY_NAMES: Record<string, string> = {
@@ -327,27 +365,29 @@ export function englishSentenceFor(item: LexicalItem, con: Construction): string
     return con.en.replace(/a ___/, `a ${name.toLowerCase()}`);
   }
   if (name && /(?:a |the )___(?!s)/.test(con.en)) return con.en.replace(/(?:a |the )___/, name);
-  // "I see my brother", not "I see the brother".
-  const mine = MY_PEOPLE[item.id];
-  if (mine && /the ___(?!s)/.test(con.en)) return con.en.replace(/the ___/, mine);
+  // "I see my brother", not "I see the brother"; "behind my cousins".
+  if (MY_PEOPLE.has(item.id)) {
+    if (con.en.includes('the ___s')) return con.en.replace('the ___s', `my ${pluralEn(item)}`);
+    if (/the ___(?!s)/.test(con.en) || (con.id === 'this-is' && /a ___(?!s)/.test(con.en))) {
+      return con.en.replace(/(?:a|the) ___/, `my ${item.en}`);
+    }
+  }
   // Plural predicatives ("These are ___s.", "Where are the ___s?") use the
   // SOURCED plural — so "fish"/"child" become "fish"/"children", not "fishs".
-  if (con.en.includes('___s')) {
-    return con.en.replace('___s', PLURAL_EN[item.id] ?? item.english?.plural ?? `${item.en}s`);
-  }
+  if (con.en.includes('___s')) return con.en.replace('___s', pluralEn(item));
   if (con.en.includes('a ___')) {
     const filled = [englishArticleFor(item), item.en].filter(Boolean).join(' ');
     return con.en.replace('a ___', filled);
   }
-  // Liking something uncountable, or a kind of food / pastime → no "the":
-  // "I like music", "I don't like math", "I love pizza" — but "I love the
-  // cat", and "Where is the rain?" keeps its "the".
-  if (
-    con.en.includes('the ___') &&
-    LIKING_CARRIERS.has(con.id) &&
-    (NO_ARTICLE_IDS.has(item.id) || LIKED_AS_A_KIND.includes(item.id))
-  ) {
-    return con.en.replace('the ___', item.en);
+  // Liking a food is liking the KIND, so English drops "the": "I like music",
+  // "I love pizza", and a countable food goes plural — "Pidän omenasta" is
+  // "I like apples". But "I love the cat", and "Where is the rain?" keeps
+  // its "the".
+  if (con.en.includes('the ___') && LIKING_CARRIERS.has(con.id)) {
+    if (NO_ARTICLE_IDS.has(item.id) || LIKED_AS_A_KIND.includes(item.id)) {
+      return con.en.replace('the ___', KIND_EN[item.id] ?? item.en);
+    }
+    if (item.topic === 'food') return con.en.replace('the ___', pluralEn(item));
   }
   return con.en.replace('___', item.en);
 }
@@ -465,9 +505,9 @@ const OWNER_EN: Record<string, string> = {
   grandfather: "Grandpa's",
 };
 
-/** English for "isän pyörä": "Dad's bike", "the teacher's book". */
+/** English for "isän pyörä": "Dad's bike", "my friend's bike", "the teacher's book". */
 export function ownerGloss(owner: LexicalItem, thing: LexicalItem): string {
-  return `${OWNER_EN[owner.id] ?? `the ${owner.en}'s`} ${thing.en}`;
+  return `${OWNER_EN[owner.id] ?? `${MY_PEOPLE.has(owner.id) ? 'my' : 'the'} ${owner.en}'s`} ${thing.en}`;
 }
 
 /** "Don't…!" — the sourced negative command, e.g. "älä juokse". */
@@ -538,6 +578,8 @@ const POSSESSIVE_CASE_PREP: Partial<Record<CaseId, string>> = {
   inessive: 'in',
   adessive: 'on',
 };
+// "-lla" on a window or a door is AT it ("ikkunallani", at my window).
+const AT_NOT_ON = new Set(['window', 'door', 'station', 'market']);
 
 /** "my cat" / "in your house" — the English side of a possessive prompt. */
 export function possessiveGloss(
@@ -546,7 +588,7 @@ export function possessiveGloss(
   c: CaseId = 'nominative',
 ): string {
   const poss = POSSESSORS.find((p) => p.id === possessor)!;
-  const prep = POSSESSIVE_CASE_PREP[c];
+  const prep = c === 'adessive' && AT_NOT_ON.has(item.id) ? 'at' : POSSESSIVE_CASE_PREP[c];
   return [prep, poss.en, item.en].filter(Boolean).join(' ');
 }
 

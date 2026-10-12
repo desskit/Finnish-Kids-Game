@@ -1007,7 +1007,7 @@
     {
       "id": "canteen",
       "word": "ruokala",
-      "en": "canteen",
+      "en": "cafeteria",
       "inflections": {
         "nominative_singular": "ruokala",
         "nominative_plural": "ruokalat",
@@ -1046,7 +1046,7 @@
         "poss_3rd_adessive_singular": "ruokalallaan"
       },
       "english": {
-        "plural": "canteens"
+        "plural": "cafeterias"
       },
       "kotusType": 12,
       "group": "a_ae",

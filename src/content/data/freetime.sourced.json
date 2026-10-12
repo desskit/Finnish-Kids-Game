@@ -70,7 +70,7 @@
     {
       "id": "football",
       "word": "jalkapallo",
-      "en": "football",
+      "en": "soccer ball",
       "emoji": "⚽",
       "inflections": {
         "nominative_singular": "jalkapallo",
@@ -110,7 +110,7 @@
         "poss_3rd_adessive_singular": "jalkapallollaan"
       },
       "english": {
-        "plural": "footballs"
+        "plural": "soccer balls"
       },
       "kotusType": 1,
       "group": "o_oe",

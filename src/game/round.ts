@@ -29,7 +29,7 @@ import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 import type { Why } from '../content/why';
-import { FAMILY_NAMES } from '../content/types';
+import { FAMILY_NAMES, MY_PEOPLE } from '../content/types';
 import { slipForms } from '../content/contrasts';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -169,6 +169,17 @@ export interface ReadingQuestion {
   options: LexicalItem[];
 }
 
+/** Does a sentence use some form of this word? Any sourced form counts, and so
+ *  does a longer word built on its stem ("veljeni" on velje-, "sormustaan" on
+ *  sormus) — a false hit only drops one wrong answer. */
+export function sentenceUses(sentence: string, item: LexicalItem): boolean {
+  const words = sentence.toLowerCase().split(/[^a-zåäö]+/).filter(Boolean);
+  const forms = Object.values(item.inflections).filter(Boolean).map((f) => f!.toLowerCase());
+  const gen = item.inflections.genitive_singular?.toLowerCase();
+  const stems = [item.fi.toLowerCase(), ...(gen?.endsWith('n') ? [gen.slice(0, -1)] : [])].filter((s) => s.length >= 4);
+  return words.some((w) => forms.includes(w) || stems.some((s) => w.startsWith(s)));
+}
+
 export function buildReadingRound(
   items: readonly LexicalItem[],
   questionCount: number,
@@ -181,7 +192,9 @@ export function buildReadingRound(
   const chosen = weightedSample(withExamples, Math.min(questionCount, withExamples.length), weigh);
   return chosen.map((item) => {
     const sentence = sample(kidSafeExamples(item), 1)[0];
-    const others = picturable.filter((i) => i.id !== item.id);
+    // "Koira on tuolilla" is about the chair AND the dog: never offer a second
+    // word the sentence also uses as a wrong answer.
+    const others = picturable.filter((i) => i.id !== item.id && !sentenceUses(sentence.fi, i));
     const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
     const distractors = pickPreferring(others, near, optionCount - 1);
     return { sentence, item, options: shuffle([item, ...distractors]) };
@@ -1458,6 +1471,8 @@ function glossFor(template: SentenceConstruction, picks: Record<string, SlotPick
     .replace(/\b([Tt]he|in the) \{(\w+)\}/g, (whole, the: string, id: string) => {
       const item = picks[id]?.item;
       if (item && FAMILY_NAMES[item.id]) return the === 'in the' ? whole : `{${id}}`;
+      // "My brother sings", not "The brother sings".
+      if (item && MY_PEOPLE.has(item.id) && the !== 'in the') return `${the === 'The' ? 'My' : 'my'} {${id}}`;
       // "at school", not "in the school".
       if (item?.id === 'school' && the === 'in the') return 'at school';
       return whole;
