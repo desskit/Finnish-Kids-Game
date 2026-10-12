@@ -886,6 +886,30 @@ button:focus-visible,
 }
 
 /* ---------- Spelling ---------- */
+/* Ä / Ö tap keys under a typing box (for keyboards without them). */
+.fi-letters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.fi-letters__key {
+  min-width: 56px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+.fi-letters__key:active {
+  transform: scale(0.95);
+}
+
 /* The child types into this directly with the device keyboard. */
 .spell-input {
   min-width: 6em;
