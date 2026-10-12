@@ -54,7 +54,6 @@
         "plural": "boxes"
       },
       "tags": [
-        "surface",
         "container"
       ],
       "kotusType": 4,
@@ -305,7 +304,6 @@
         "plural": "cars"
       },
       "tags": [
-        "surface",
         "container",
         "person-in"
       ],
@@ -683,7 +681,6 @@
         "plural": "baskets"
       },
       "tags": [
-        "surface",
         "container"
       ],
       "kotusType": 5,

@@ -232,22 +232,24 @@ const PLACES = [
 // Locative SHAPE tags for places — which "where" cases each one makes sense in:
 //   'surface'   → you can be ON / ONTO / OFF it   (adessive/allative/ablative)
 //   'container' → you can be IN / INTO / OUT-OF it (inessive/illative/elative)
-// Many are BOTH (a box, a bed, a car — a cat sits on top OR climbs inside).
-// A flat table/chair is a surface only; a room/forest is a container only.
+// A bed is BOTH ("sängyllä" on the bed, "sängyssä" in bed). A flat table/chair
+// is a surface only; a room/forest is a container only. A box, a car and a
+// basket are containers only: a cat on top of one is "laatikon / auton / korin
+// päällä" — "autolla" would read as "by car", "korilla" / "laatikolla" as odd.
 // The locative carrier phrases require the matching tag (see constructions.ts),
 // so "the cat is on the room" can never be generated.
 const PLACE_TAGS = {
-  box: ['surface', 'container'],
+  box: ['container'],
   table: ['surface'],
   house: ['container'],
   room: ['container'],
-  car: ['surface', 'container'],
+  car: ['container'],
   bed: ['surface', 'container'],
   chair: ['surface'],
   school: ['container'],
   tree: ['container'],
   forest: ['container'],
-  basket: ['surface', 'container'],
+  basket: ['container'],
   bag: ['container'],
   // The 4 emoji-less places (see PLACES above) — "ikkunalla"/"ovella" (at the
   // window/door) is idiomatic adessive, so surface; "keittiössä"/"puutarhassa"
@@ -423,7 +425,8 @@ const FAMILY = [
   ['sister', 'sisko', 'sister', '👧'],
   ['baby', 'vauva', 'baby', '👶'],
   ['son', 'poika', 'son', '👦'],
-  ['daughter', 'tyttö', 'daughter', '👧'],
+  // "daughter" is tytär (tyttö is "girl"). No picture: 👧 is the sister's.
+  ['daughter', 'tytär', 'daughter'],
   ['grandmother', 'isoäiti', 'grandmother', '👵'],
   ['grandfather', 'isoisä', 'grandfather', '👴'],
   ['family', 'perhe', 'family', '👪'],
@@ -498,7 +501,8 @@ const CLOTHES = [
   ['sock', 'sukka', 'sock', '🧦'],
   ['hat', 'hattu', 'hat', '👒'],
   ['dress', 'mekko', 'dress', '👗'],
-  ['skirt', 'hame', 'skirt', '👗'],
+  // No picture: 👗 is the dress's, and two words on one picture can't be told apart.
+  ['skirt', 'hame', 'skirt'],
   ['glove', 'käsine', 'glove', '🧤'],
   ['scarf', 'huivi', 'scarf', '🧣'],
   ['cap', 'lakki', 'cap', '🧢'],

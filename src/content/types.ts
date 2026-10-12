@@ -302,6 +302,9 @@ const MY_PEOPLE: Record<string, string> = { brother: 'my brother', sister: 'my s
 // English plurals that aren't word + s (and aren't in the sourced data).
 const PLURAL_EN: Record<string, string> = { homework: 'homework tasks' };
 
+// "I have a ___" / "I don't have a ___" — owning one, where a name won't do.
+const HAVING_CARRIERS = new Set(['i-have', 'you-have', 'she-has', 'we-have', 'they-have', 'i-havent']);
+
 // Family members a child calls by name — "Grandpa", not "the grandfather".
 export const FAMILY_NAMES: Record<string, string> = {
   mother: 'Mom',
@@ -317,8 +320,12 @@ export function englishSentenceFor(item: LexicalItem, con: Construction): string
   // An override is the whole noun phrase ("at the station", "school"), so it
   // also replaces any article baked into the template.
   if (override) return con.en.replace(/(?:a |the )?___s?/, override);
-  // "Where is Mom?", not "Where is the mom?".
+  // "Where is Mom?", not "Where is the mom?" — but having one is "I have a
+  // mom" ("I have Mom" says something else).
   const name = FAMILY_NAMES[item.id];
+  if (name && HAVING_CARRIERS.has(con.id) && /a ___(?!s)/.test(con.en)) {
+    return con.en.replace(/a ___/, `a ${name.toLowerCase()}`);
+  }
   if (name && /(?:a |the )___(?!s)/.test(con.en)) return con.en.replace(/(?:a |the )___/, name);
   // "I see my brother", not "I see the brother".
   const mine = MY_PEOPLE[item.id];

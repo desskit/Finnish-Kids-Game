@@ -53,6 +53,22 @@ const UNOWNABLE = [
   "canteen",
 ];
 
+// Substances and school subjects. In "This is ___ / I have ___" Finnish says
+// these with -a: "Tämä on vettä" (this is water), "Minulla on maitoa" (I have
+// milk). The basic form would teach "Tämä on vesi" — "this is THE water" — for
+// "This is water", so those carriers skip them. ("Missä on vesi?" — where is
+// the water? — is right, and stays.)
+const SUBSTANCE = NOT_COUNTABLE.filter((id) => !["sky", "sea", "sun", "moon"].includes(id));
+
+// Things a child doesn't "have" ("Minulla on metsä", I have a forest): odd
+// possessions, and family a child can't have yet. Plus bread and cheese,
+// which English says without "a" — "I have bread" is "Minulla on leipää".
+const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese"];
+
+// "Missä on ___?" needs a thing you could look for — not a school subject,
+// the weather, the sky or a hobby ("Where is the math?").
+const NOT_FINDABLE = ["music", "math", "gym", "english", "wind", "rain", "sky", "hobby", "hair"];
+
 // Things it makes sense to LIKE/LOVE — everything except body parts
 // ("Rakastan polvea", I love the knee, is nobody's flashcard).
 const LIKABLE_TOPICS = [
@@ -109,6 +125,11 @@ const NO_PLURAL = [
 // Body parts you have anyway — "Minulla on silmiä" (I have some eyes) is odd.
 const BODY = ["eye", "ear", "nose", "mouth", "hand", "foot", "head", "tooth", "hair", "tummy", "finger", "knee", "tongue", "heart", "bone", "muscle"];
 
+// "Minulla on ___" / "Minulla ei ole ___": owned things only — not body parts
+// ("Minulla on silmä", I have an eye), substances or odd possessions.
+const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS];
+const HAVENT_EXCLUDE = [...UNOWNABLE, ...BODY, ...NOT_A_CHILDS.filter((id) => id !== "bread" && id !== "cheese")];
+
 // Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
 const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
 // People a child doesn't "have some of": "Minulla on poikia" (I have sons).
@@ -129,6 +150,33 @@ const NO_LANDMARK = [
   "english",
   "task",
   "test",
+  // Nothing a cat sits beside ("tuulen vieressä", next to the wind; "elokuvan
+  // edessä", in front of the movie), and no body parts ("sydämen vieressä").
+  "wind",
+  "ice",
+  "moon",
+  "star",
+  "cloud",
+  "movie",
+  "game",
+  ...BODY,
+];
+
+// UNDER and BEHIND need something big enough: a cat is under the table or
+// the car, behind the sofa, the house or Grandpa — never under the movie,
+// under Mom or behind a cookie ("keksin takana").
+const UNDER_OK = [
+  "table", "chair", "bed", "sofa", "car", "bus", "train", "taxi", "tree", "box", "basket", "window",
+  "bike", "piano", "coat", "hat", "paper", "cloud", "sun",
+];
+const BEHIND_OK = [
+  ...UNDER_OK.filter((id) => id !== "paper" && id !== "hat" && id !== "cloud" && id !== "sun"),
+  "boat", "ship", "plane", "bag", "backpack", "door", "computer", "present",
+  "house", "school", "shop", "library", "cafe", "restaurant", "museum", "hospital", "station", "market",
+  "mountain", "stone", "forest",
+  "mother", "father", "brother", "sister", "grandmother", "grandfather", "child", "teacher", "friend",
+  "pupil", "aunt", "uncle", "cousin", "son", "daughter",
+  "dog", "horse", "cow", "pig", "sheep", "bear", "elephant", "lion", "wolf", "fox", "monkey",
 ];
 
 // The feelings the "Olen ___" carriers describe (all animate-only adjectives).
@@ -318,6 +366,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
+    excludeIds: SUBSTANCE,
   },
   {
     id: "where-is",
@@ -327,6 +376,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
+    excludeIds: NOT_FINDABLE,
   },
   {
     // The -ko yes/no question form of this-is: "Onko tämä kissa?" — the child's
@@ -340,6 +390,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
+    excludeIds: SUBSTANCE,
   },
   {
     id: "i-have",
@@ -349,7 +400,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVE_EXCLUDE,
   },
 
   // --- Possession by other persons (Tier 2, nominative singular) — see
@@ -363,7 +414,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVE_EXCLUDE,
   },
   {
     id: "she-has",
@@ -373,7 +424,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVE_EXCLUDE,
   },
   {
     id: "we-have",
@@ -383,7 +434,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVE_EXCLUDE,
   },
   {
     id: "they-have",
@@ -393,7 +444,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVE_EXCLUDE,
   },
 
   // --- Negated possession → partitive singular (Tier 3) — negation always
@@ -406,7 +457,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: "partitive",
     number: "singular",
-    excludeIds: UNOWNABLE,
+    excludeIds: HAVENT_EXCLUDE,
   },
 
   // --- Verb rection: real cases unlocked by the tagged data (Tier 3) ---
@@ -466,7 +517,14 @@ export const nounConstructions: Construction[] = [
     id: "i-watch", // katsoa always governs the partitive: "Katson kissaa."
     before: "Katson",
     punct: ".",
-    en: "I watch the ___.",
+    // "Katson kirjaa" is "I'm looking at the book", not "I watch the book";
+    // a film or a match is watched.
+    en: "I'm looking at the ___.",
+    sentenceById: {
+      movie: "I'm watching the movie.",
+      game: "I'm watching the game.",
+      football: "I'm watching football.",
+    },
     tier: 3,
     case: "partitive",
     number: "singular",
@@ -510,6 +568,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     excludeIds: NO_LANDMARK,
+    onlyIds: BEHIND_OK,
   },
   {
     id: "next-to",
@@ -528,6 +587,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     excludeIds: NO_LANDMARK,
+    onlyIds: UNDER_OK,
   },
 
   // --- The same postpositions over the GENITIVE PLURAL ("kissojen takana") —
@@ -551,6 +611,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "plural",
     excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
+    onlyIds: BEHIND_OK,
   },
   {
     id: "next-to-them",
@@ -569,6 +630,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "plural",
     excludeIds: [...NO_LANDMARK, ...NO_PLURAL, ...BODY],
+    onlyIds: UNDER_OK,
   },
 
   // --- Postpositions in a whole sentence (the "Around things" unit): the same
@@ -586,6 +648,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     excludeIds: [...NO_LANDMARK, "cat"],
+    onlyIds: UNDER_OK,
   },
   {
     id: "is-behind",
@@ -597,6 +660,7 @@ export const nounConstructions: Construction[] = [
     case: "genitive",
     number: "singular",
     excludeIds: [...NO_LANDMARK, "cat"],
+    onlyIds: BEHIND_OK,
   },
   {
     id: "is-in-front-of",
@@ -799,7 +863,7 @@ export const nounConstructions: Construction[] = [
     id: "i-wait-for", // odottaa always governs the partitive: "Odotan äitiä."
     before: "Odotan",
     punct: ".",
-    en: "I wait for the ___.",
+    en: "I'm waiting for the ___.",
     tier: 6,
     case: "partitive",
     number: "singular",

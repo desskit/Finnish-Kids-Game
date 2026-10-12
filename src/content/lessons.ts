@@ -1105,7 +1105,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Going on for a while: -a / -ä',
         text:
-          '*katsoa* (to watch) and *odottaa* (to wait for) **take a while** — so the thing always gets **-a / -ä**, never **-n**.',
+          '*katsoa* (to look at, to watch) and *odottaa* (to wait for) **take a while** — so the thing gets **-a / -ä**.',
         rows: [
           { sentence: 'i-watch', word: 'movie' },
           { sentence: 'i-wait-for', word: 'bus' },
@@ -1944,7 +1944,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Spotting mistakes',
         text:
-          'If a sentence sounds wrong, **check the endings first**. *Kissa on laatikolla* means the cat is ON the box — if it should be IN the box, the ending must be **-ssa**.',
+          'If a sentence sounds wrong, **check the endings first**. *Kissa on laatikolla* has the ON ending **-lla** — but if the cat is IN the box, the ending must be **-ssa**: *laatikossa*.',
       },
       {
         kind: 'check',

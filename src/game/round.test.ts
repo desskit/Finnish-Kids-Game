@@ -22,7 +22,7 @@ import {
   buildErrorRound,
 } from './round';
 import { stories } from '../content/stories';
-import { COMMAND_VERB_IDS } from '../content/semantics';
+import { COMMAND_VERB_IDS, adjectiveFitsNoun } from '../content/semantics';
 import { commandFor, suitsSlot } from '../content/types';
 import { dialogues } from '../content/dialogues';
 import { conversations } from '../content/conversations';
@@ -38,9 +38,11 @@ import {
   body,
   nature,
   clothes,
+  themes,
 } from '../content';
 import { nounConstructions } from '../content/constructions';
-import { formFor, possessiveForm, POSSESSORS } from '../content/types';
+import { englishSentenceFor, formFor, possessiveForm, POSSESSORS } from '../content/types';
+import { itemById } from '../content/lookup';
 
 // Round builders are random, so each invariant is checked over many runs. They
 // use the real sourced content, so these double as an integration check that the
@@ -713,10 +715,16 @@ describe('semantic gating (suitsSlot) in the pairing builders', () => {
     }
   });
 
-  it('lets a BOTH-tagged place (car) play in surface AND container cases', () => {
-    // The point of tags over exclude-lists: car is on-top-able and in-able.
-    const car = places.items.find((i) => i.id === 'car')!;
-    expect(car.tags).toEqual(expect.arrayContaining(['surface', 'container']));
+  it('lets a BOTH-tagged place (bed) play in surface AND container cases', () => {
+    // The point of tags over exclude-lists: a bed is on-top-able ("sängyllä")
+    // and in-able ("sängyssä").
+    const bed = places.items.find((i) => i.id === 'bed')!;
+    expect(bed.tags).toEqual(expect.arrayContaining(['surface', 'container']));
+    // A cat on top of a car / box / basket is "auton päällä", not "autolla"
+    // (by car) — those are containers only.
+    for (const id of ['car', 'box', 'basket']) {
+      expect(places.items.find((i) => i.id === id)!.tags).not.toContain('surface');
+    }
   });
 });
 
@@ -934,6 +942,86 @@ describe('buildErrorRound (Löydä virhe — grammatical judgment)', () => {
       expect(q.gloss).toBeTruthy();
       // The gloss reflects the CONSTRUCTION's meaning, regardless of the error.
       expect(q.gloss).toContain(q.item.en);
+    }
+  });
+});
+
+describe('sentences that make sense (final QA)', () => {
+  const con = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const all = themes.flatMap((t) => t.items);
+  const fits = (conId: string) => all.filter((i) => formFor(i, con(conId)) && suitsSlot(i, con(conId))).map((i) => i.id);
+
+  it('"This is / I have" never take a substance ("Tämä on vesi" is "this is THE water")', () => {
+    for (const id of ['this-is', 'is-this', 'i-have', 'you-have', 'she-has', 'we-have', 'they-have']) {
+      for (const w of ['water', 'milk', 'juice', 'rice', 'butter', 'snow', 'music', 'math']) {
+        expect(fits(id), `${id}/${w}`).not.toContain(w);
+      }
+    }
+    // "Missä on vesi?" — where is the water? — is right.
+    expect(fits('where-is')).toContain('water');
+    expect(fits('where-is')).not.toContain('math');
+  });
+
+  it('nobody "has" a body part, a forest or a pupil; nobody "has Mom"', () => {
+    for (const w of ['eye', 'heart', 'forest', 'pupil']) expect(fits('i-have')).not.toContain(w);
+    expect(englishSentenceFor(itemById('mother')!, con('i-have'))).toBe('I have a mom.');
+    expect(englishSentenceFor(itemById('grandfather')!, con('i-havent'))).toBe("I don't have a grandpa.");
+    expect(englishSentenceFor(itemById('mother')!, con('where-is'))).toBe('Where is Mom?');
+  });
+
+  it('looking at a book, watching a film', () => {
+    expect(englishSentenceFor(itemById('book')!, con('i-watch'))).toBe("I'm looking at the book.");
+    expect(englishSentenceFor(itemById('movie')!, con('i-watch'))).toBe("I'm watching the movie.");
+  });
+
+  it('a cat is under the table or the car — not under the movie, Mom or a cookie', () => {
+    expect(fits('is-under')).toEqual(expect.arrayContaining(['table', 'car', 'bed']));
+    for (const w of ['movie', 'mother', 'cookie', 'house', 'milk']) expect(fits('is-under'), w).not.toContain(w);
+    expect(fits('is-behind')).toEqual(expect.arrayContaining(['house', 'grandfather', 'sofa']));
+    for (const w of ['cookie', 'candy', 'pencil']) expect(fits('is-behind'), w).not.toContain(w);
+    for (const w of ['wind', 'heart', 'movie']) expect(fits('is-next-to'), w).not.toContain(w);
+  });
+
+  it('describing: place endings only on places of that shape; no colour on a person; no "cold math"', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const qs = buildAgreementRound(adjectives.items, all.filter((i) => i.emoji), 6, 4, 'singular', 7, true);
+      for (const q of qs) {
+        if (['inessive', 'illative'].includes(q.case)) expect(q.noun.tags, `${q.adjForm} ${q.answer}`).toContain('container');
+        if (['adessive', 'allative'].includes(q.case)) expect(q.noun.tags, `${q.adjForm} ${q.answer}`).toContain('surface');
+        const person = q.noun.topic === 'family' || ['teacher', 'friend', 'pupil'].includes(q.noun.id);
+        if (person) expect(['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'cold', 'hot']).not.toContain(q.adjective.id);
+        if (['math', 'music', 'movie'].includes(q.noun.id)) expect(['good', 'big', 'small', 'old']).toContain(q.adjective.id);
+      }
+    }
+  });
+
+  it('describing words that would mislead are never paired', () => {
+    const fitsNoun = (adj: string, id: string) => adjectiveFitsNoun(adj, itemById(id)!);
+    // "Iso äiti" / "iso isä" sound like isoäiti / isoisä (grandma / grandpa).
+    expect(fitsNoun('big', 'mother')).toBe(false);
+    expect(fitsNoun('big', 'father')).toBe(false);
+    expect(fitsNoun('big', 'brother')).toBe(true); // iso veli — big brother
+    // "Pitkä koira" is a long dog: "tall" only on people and trees.
+    expect(fitsNoun('tall', 'dog')).toBe(false);
+    expect(fitsNoun('tall', 'house')).toBe(false);
+    expect(fitsNoun('tall', 'teacher')).toBe(true);
+    expect(fitsNoun('tall', 'tree')).toBe(true);
+    // "Kuuma koira" would read as a hot dog; hot / cold are for things.
+    expect(fitsNoun('hot', 'dog')).toBe(false);
+    expect(fitsNoun('cold', 'soup')).toBe(true);
+    // No size on a substance or a school subject.
+    for (const w of ['rice', 'water', 'butter', 'math', 'music']) expect(fitsNoun('big', w), w).toBe(false);
+    expect(fitsNoun('big', 'cake')).toBe(true);
+    expect(fitsNoun('old', 'music')).toBe(true);
+  });
+
+  it('counting never shows two nouns on one picture', () => {
+    const nouns = all.filter((i) => i.emoji);
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildCountingRound(numbers.items, nouns, 6, 6, 20, true)) {
+        const pics = q.nounOptions.map((o) => o.emoji);
+        expect(new Set(pics).size).toBe(pics.length);
+      }
     }
   });
 });
