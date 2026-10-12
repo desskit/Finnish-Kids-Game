@@ -1,54 +1,70 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ProfileProvider, useProfile } from '../state/profile';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { storyById } from '../content/stories';
 
-// A deterministic two-page, two-question story so the flow is fully scripted.
-const fx = vi.hoisted(() => {
-  const story = {
-    id: 'test-story',
-    titleFi: 'Testitarina',
-    titleEn: 'Test story',
-    icon: '📚',
-    tier: 2,
-    pages: [
-      { fi: 'Tämä on kissa.', en: 'This is a cat.', emoji: '🐱' },
-      { fi: 'Kissa nukkuu.', en: 'The cat sleeps.', emoji: '😴' },
-    ],
-    questions: [] as unknown[],
-  };
-  const q1 = {
-    promptFi: 'Mikä nukkuu?',
-    promptEn: 'What sleeps?',
-    options: [
-      { fi: 'kissa', en: 'cat', emoji: '🐱', correct: true },
-      { fi: 'koira', en: 'dog', emoji: '🐶' },
-    ],
-  };
-  return {
-    ROUND: {
-      story,
-      questions: [{ question: q1, options: q1.options }],
-    },
-  };
-});
+// A fixed quiz for "Missä hattu on?" so each question kind is scripted.
+const fx = vi.hoisted(() => ({ calls: [] as { n: number; avoid: string[] }[] }));
 
-vi.mock('../game/round', () => ({ buildStory: () => fx.ROUND }));
-vi.mock('../audio/speak', () => ({ speak: vi.fn(), isSpeechAvailable: () => true }));
+vi.mock('../game/storyQuiz', () => ({
+  drawQuiz: (story: { pages: { scene: unknown; lines: { fi: string; en: string }[] }[] }, n: number, avoid: string[] = []) => {
+    fx.calls.push({ n, avoid });
+    const choice = {
+      kind: 'choice',
+      id: 'c0',
+      promptFi: 'Kenellä on hattu?',
+      promptEn: 'Who has the hat?',
+      options: [
+        { fi: 'Mirrillä', en: 'Mirri', emoji: '🐱', correct: true },
+        { fi: 'äidillä', en: 'Mom', emoji: '👩' },
+      ],
+    };
+    const tf = { kind: 'truefalse', id: 't0', fi: 'Eerolla on lakki.', en: 'Eero has a cap.', answer: true };
+    const who = {
+      kind: 'who',
+      id: 'w1-1',
+      line: { fi: 'Onko Eerolla hattu?', en: 'Does Eero have a hat?', by: 'aiti' },
+      speaker: 'aiti',
+      options: ['aiti', 'aino', 'eero'],
+    };
+    const order = {
+      kind: 'order',
+      id: 'order',
+      cards: [0, 1, 2].map((page) => ({ page, scene: story.pages[page].scene, line: story.pages[page].lines[0] })),
+    };
+    return n === 2 ? [choice, tf] : [choice, tf, who, order];
+  },
+}));
+vi.mock('../util/shuffle', () => ({
+  shuffle: <T,>(a: readonly T[]) => [...a].reverse(),
+  sample: <T,>(a: readonly T[], n: number) => a.slice(0, n),
+}));
+vi.mock('../audio/speak', () => ({ speak: vi.fn(), stopSpeaking: vi.fn(), isSpeechAvailable: () => true }));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 
 import StoryTime from './StoryTime';
 import { speak } from '../audio/speak';
-import { playDing } from '../audio/sfx';
 
-function seedChild() {
+function seedChild(stories?: Record<string, unknown>) {
   localStorage.setItem(
     'fkg.profiles.v2',
     JSON.stringify({
       version: 2,
       children: [
-        { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {} },
+        {
+          id: 'k',
+          name: 'K',
+          avatar: '🦊',
+          level: 1,
+          stars: 0,
+          createdAt: 1,
+          progress: {},
+          srs: {},
+          ...(stories ? { course: { stories } } : {}),
+        },
       ],
       activeId: 'k',
       settings: { muted: false, reducedMotion: false },
@@ -61,16 +77,23 @@ function StarsProbe() {
   return <output data-testid="stars">{stars}</output>;
 }
 
-function renderStory(level = 1) {
+const onSegmentComplete = vi.fn();
+
+function renderStory(props: Partial<Parameters<typeof StoryTime>[0]> = {}, withContext = true) {
+  const story = <StoryTime onExit={vi.fn()} ids={['no-hat']} {...props} />;
   return render(
-    <ProfileProvider>
-      <ActivityContext.Provider
-        value={{ onSegmentComplete: vi.fn(), difficulty: difficultyFor(level), sessionStars: 0 }}
-      >
-        <StoryTime onExit={vi.fn()} />
+    <MemoryRouter>
+      <ProfileProvider>
+        {withContext ? (
+          <ActivityContext.Provider value={{ onSegmentComplete, difficulty: difficultyFor(1), sessionStars: 0 }}>
+            {story}
+          </ActivityContext.Provider>
+        ) : (
+          story
+        )}
         <StarsProbe />
-      </ActivityContext.Provider>
-    </ProfileProvider>,
+      </ProfileProvider>
+    </MemoryRouter>,
   );
 }
 
@@ -80,65 +103,156 @@ async function advance(ms: number) {
   });
 }
 
+const click = (name: RegExp) => fireEvent.click(screen.getByRole('button', { name }));
+const STORY = storyById['no-hat'];
+
+/** Read through every page to "Loppu!". */
+function readToEnd() {
+  click(/lue/i);
+  for (let i = 0; i < STORY.pages.length; i++) click(/seuraava sivu|loppu/i);
+}
+
+/** Answer the scripted quiz, every answer right the first time. */
+async function answerAllRight() {
+  fireEvent.click(screen.getByText('Mirrillä').closest('button')!);
+  await advance(1200);
+  click(/totta true/i);
+  await advance(1200);
+  fireEvent.click(screen.getByText('Äiti').closest('button')!);
+  await advance(1200);
+  // Tap the three page cards in story order.
+  for (const p of [0, 1, 2]) fireEvent.click(screen.getByText(STORY.pages[p].lines[0].fi).closest('button')!);
+  await advance(1200);
+}
+
 beforeEach(() => {
   localStorage.clear();
   seedChild();
   vi.clearAllMocks();
+  fx.calls = [];
   vi.useFakeTimers();
 });
 afterEach(() => {
   vi.useRealTimers();
 });
 
-describe('StoryTime (Satuhetki)', () => {
-  it('reads page by page: shows the page, speaks it, and Next advances', async () => {
+describe('StoryTime (the picture book)', () => {
+  it('opens on a cover with the title and who is in it', () => {
     renderStory();
-    expect(screen.getByText('Tämä on kissa.')).toBeInTheDocument();
-    expect(screen.getByText('This is a cat.')).toBeInTheDocument(); // glossed at L1
-    await advance(400);
-    expect(speak).toHaveBeenCalledWith('Tämä on kissa.', { queue: true });
-
-    fireEvent.click(screen.getByRole('button', { name: /seuraava/i }));
-    expect(screen.getByText('Kissa nukkuu.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Missä hattu on?' })).toBeInTheDocument();
+    expect(screen.getByText('Aino')).toBeInTheDocument();
+    expect(speak).toHaveBeenCalledWith('Missä hattu on?');
   });
 
-  it('after the last page, asks the comprehension question with labeled picture options', async () => {
+  it('reads each page aloud, line by line, lighting up the line being read', async () => {
     renderStory();
-    fireEvent.click(screen.getByRole('button', { name: /seuraava/i }));
-    // Last page → the button becomes "Kysymykset" (questions).
-    fireEvent.click(screen.getByRole('button', { name: /kysymykset/i }));
-
-    expect(screen.getByText('Mikä nukkuu?')).toBeInTheDocument();
-    const cards = document.querySelectorAll('.pic-card');
-    expect(cards).toHaveLength(2);
-    expect(screen.getByText('kissa')).toBeInTheDocument(); // the fi label on the card
-    await advance(400);
-    expect(speak).toHaveBeenCalledWith('Mikä nukkuu?', { queue: true });
+    click(/lue/i);
+    const first = STORY.pages[0].lines[0];
+    // (Each word is its own tappable button, so compare the whole line's text.)
+    expect(document.querySelector('.story-line__fi')?.textContent).toBe(first.fi);
+    await advance(500);
+    expect(speak).toHaveBeenCalledWith(first.fi, expect.objectContaining({ onEnd: expect.any(Function) }));
+    expect(document.querySelector('.story-line--reading')).not.toBeNull();
+    // With no "ended" from the voice, it moves on by itself.
+    await advance(6000);
+    expect(speak).toHaveBeenCalledWith(STORY.pages[0].lines[1].fi, expect.anything());
   });
 
-  it('a correct tap dings, speaks the answer, and awards a star', () => {
+  it('speaks a talking line in that character\'s voice, and shows who says it', async () => {
     renderStory();
-    fireEvent.click(screen.getByRole('button', { name: /seuraava/i }));
-    fireEvent.click(screen.getByRole('button', { name: /kysymykset/i }));
-    fireEvent.click(screen.getByText('kissa').closest('button')!);
-    expect(playDing).toHaveBeenCalledWith(true);
-    expect(speak).toHaveBeenCalledWith('kissa');
-    expect(screen.getByTestId('stars')).toHaveTextContent('1');
+    click(/lue/i);
+    await advance(500);
+    await advance(6000);
+    const aino = STORY.pages[0].lines[1];
+    expect(aino.by).toBe('aino');
+    expect(speak).toHaveBeenCalledWith(aino.fi, expect.objectContaining({ pitch: 1.3 }));
+    expect(document.querySelectorAll('.story-line--talk').length).toBeGreaterThan(0);
   });
 
-  it('a wrong tap buzzes without advancing; pages are never scored', () => {
+  it('hides the English until peeked, and a tapped word shows what it means', () => {
     renderStory();
-    fireEvent.click(screen.getByRole('button', { name: /seuraava/i }));
-    fireEvent.click(screen.getByRole('button', { name: /kysymykset/i }));
-    fireEvent.click(screen.getByText('koira').closest('button')!);
-    expect(playDing).toHaveBeenCalledWith(false);
-    expect(screen.getByText('Mikä nukkuu?')).toBeInTheDocument(); // same question
-    expect(screen.getByTestId('stars')).toHaveTextContent('0');
+    click(/lue/i);
+    expect(screen.queryByText(STORY.pages[0].lines[0].en)).not.toBeInTheDocument();
+    click(/english/i);
+    expect(screen.getByText(STORY.pages[0].lines[0].en)).toBeInTheDocument();
+    click(/seuraava sivu/i);
+    // Page 2: "Äiti! Minulla ei ole hattua!" — tap "hattua".
+    fireEvent.click(screen.getAllByRole('button', { name: 'hattua' })[0]);
+    const tip = document.querySelector('.story-tip');
+    expect(tip).toHaveTextContent('hattua → hattu');
+    expect(tip).toHaveTextContent('hat');
   });
 
-  it('drops the English gloss at the Finnish-only rung (L5)', () => {
-    renderStory(5);
-    expect(screen.getByText('Tämä on kissa.')).toBeInTheDocument();
-    expect(screen.queryByText('This is a cat.')).not.toBeInTheDocument();
+  it('ends with "Loppu!", then asks its questions; a good read is recorded and stays for its result', async () => {
+    renderStory();
+    readToEnd();
+    expect(screen.getByText('Loppu!', { exact: false })).toBeInTheDocument();
+    click(/kysymykset/i);
+    expect(screen.getByText('Kenellä on hattu?', { exact: false })).toBeInTheDocument();
+    await answerAllRight();
+    expect(onSegmentComplete).toHaveBeenCalledWith(4, 4, {
+      story: { id: 'no-hat', asked: ['c0', 't0', 'w1-1', 'order'] },
+      stay: true,
+    });
+    expect(screen.getByText('Hienoa!', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('4 / 4')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /jatka/i })).toBeInTheDocument();
+    expect(screen.getByTestId('stars')).toHaveTextContent('4');
+  });
+
+  it('a wrong tap buzzes and costs the first try, but the question waits for the right answer', async () => {
+    renderStory();
+    readToEnd();
+    click(/kysymykset/i);
+    fireEvent.click(screen.getByText('äidillä').closest('button')!);
+    expect(screen.getByText('Kenellä on hattu?', { exact: false })).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Mirrillä').closest('button')!);
+    await advance(1200);
+    click(/tarua false/i); // wrong
+    click(/totta true/i);
+    await advance(1200);
+    fireEvent.click(screen.getByText('Aino').closest('button')!); // wrong
+    fireEvent.click(screen.getByText('Äiti').closest('button')!);
+    await advance(1200);
+    // Tapping a later page first is a slip too.
+    fireEvent.click(screen.getByText(STORY.pages[2].lines[0].fi).closest('button')!);
+    for (const p of [0, 1, 2]) fireEvent.click(screen.getByText(STORY.pages[p].lines[0].fi).closest('button')!);
+    await advance(1200);
+    expect(onSegmentComplete).toHaveBeenCalledWith(0, 4, expect.objectContaining({ stay: true }));
+    // A weak read: read it again, this time with the English — and other questions.
+    expect(screen.getByText('Melkein!', { exact: false })).toBeInTheDocument();
+    click(/lue uudestaan/i);
+    expect(screen.getByText(STORY.pages[0].lines[0].en)).toBeInTheDocument();
+  });
+
+  it('a weak last read brings the English back, and asks other questions than last time', () => {
+    seedChild({ 'no-hat': { reads: 1, last: 0.25, asked: ['c0', 't1'] } });
+    renderStory();
+    // Straight in with support: the English is showing on the first page.
+    click(/lue/i);
+    expect(screen.getByText(STORY.pages[0].lines[0].en)).toBeInTheDocument();
+    for (let i = 0; i < STORY.pages.length; i++) click(/seuraava sivu|loppu/i);
+    click(/kysymykset/i);
+    expect(fx.calls[fx.calls.length - 1]).toEqual({ n: 4, avoid: ['c0', 't1'] });
+  });
+
+  it('from the bookshelf it is just the book: no questions at the end', () => {
+    renderStory({ mode: 'free', storyId: 'no-hat', ids: undefined }, false);
+    readToEnd();
+    expect(screen.queryByRole('button', { name: /kysymykset/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /kirjahylly/i })).toBeInTheDocument();
+  });
+
+  it('"Muistatko?" asks two questions it has not asked before, then hands back to the warm-up', async () => {
+    seedChild({ 'no-hat': { reads: 1, goodAt: 1, last: 1, seen: ['c1', 't2'] } });
+    renderStory({ mode: 'revisit', storyId: 'no-hat', ids: undefined });
+    expect(screen.getByText('Muistatko?', { exact: false })).toBeInTheDocument();
+    click(/^kysymykset/i);
+    expect(fx.calls[fx.calls.length - 1]).toEqual({ n: 2, avoid: ['c1', 't2'] });
+    fireEvent.click(screen.getByText('Mirrillä').closest('button')!);
+    await advance(1200);
+    click(/totta true/i);
+    await advance(1200);
+    expect(onSegmentComplete).toHaveBeenCalledWith(2, 2, { story: { id: 'no-hat', asked: ['c0', 't0'] } });
   });
 });

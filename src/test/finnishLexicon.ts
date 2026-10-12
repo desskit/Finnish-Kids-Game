@@ -43,7 +43,7 @@ export const FUNCTION_WORDS = [
   // verb forms outside the tables (the -maan "to go and do" form)
   'leikkimään', 'uimaan', 'syömään', 'nukkumaan', 'pelaamaan',
   // everyday compounds
-  'lempiruokasi', 'lempivärisi', 'seitsemänvuotias', 'karkkipäivä', 'koulupäivä',
+  'lempiruokasi', 'lempivärisi', 'seitsemänvuotias', 'karkkipäivä', 'koulupäivä', 'syntymäpäiväyllätys', 'kauppareissu',
   // question words
   'mikä', 'mitä', 'missä', 'mihin', 'minne', 'mistä', 'kuka', 'ketä', 'kenen', 'kenellä', 'kenelle', 'keneltä',
   'milloin', 'miksi', 'miten', 'montako', 'monta', 'kuinka', 'millainen', 'kumpi', 'mikä',
@@ -57,6 +57,10 @@ export const FUNCTION_WORDS = [
   'liisa', 'eero', 'aino', 'veikko', 'mira', 'otto', 'lumi', 'musti', 'mirri', 'pekka', 'anna', 'leo', 'ella', 'onni',
   // names in their case forms
   'eerolla', 'eerolle', 'eerosta', 'eeron', 'ainolla', 'ainolle', 'ainon', 'leon',
+  'eeroa', 'eerolta', 'ainoa', 'ainolta', 'mirrin', 'mirriä', 'mirrillä', 'mirrille', 'mirristä',
+  'mustin', 'mustia', 'mustille',
+  // a cat's word
+  'miau',
 ];
 
 let cache: Set<string> | null = null;

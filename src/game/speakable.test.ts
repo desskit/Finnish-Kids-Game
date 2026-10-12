@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { speakableTargetsFor, saySafe } from './speakable';
-import { findSkill } from './path';
+import { findSkill, isSpeakable } from './path';
 import { animals, food, verbs } from '../content';
 import { dialogues } from '../content/dialogues';
 
@@ -61,14 +61,9 @@ describe('speakableTargetsFor', () => {
     expect(ts.some((t) => /^Onko tämä .*\?$/.test(t.say))).toBe(true);
   });
 
-  it('story node speaks the story pages themselves', () => {
-    const ts = targets('stories-expert', []);
-    expect(ts.length).toBeGreaterThan(0);
-    // Every target is a real story page line, glossed.
-    ts.forEach((t) => {
-      expect(t.say).toMatch(/[.!?]$/);
-      expect(t.gloss).toBeTruthy();
-    });
+  it('a story step is never a speaking round: it is read for meaning, once', () => {
+    expect(isSpeakable(findSkill('stories-expert')!.skill)).toBe(false);
+    expect(isSpeakable(findSkill('hello-story')!.skill)).toBe(false);
   });
 
   it('never returns an empty round when the node has a pool (falls back to bare words)', () => {

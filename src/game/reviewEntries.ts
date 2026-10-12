@@ -14,7 +14,7 @@
 
 import { dialogues } from '../content/dialogues';
 import { conversations } from '../content/conversations';
-import { stories } from '../content/stories';
+import { CAST, stories } from '../content/stories';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import { lessons } from '../content/lessons';
@@ -63,12 +63,22 @@ function collect(): ReviewSection[] {
     })),
   );
 
+  // A page is its lines in order, each with who says it ("Aino: Hei!").
   const storyRows: ReviewEntry[] = stories.flatMap((s) => [
-    ...s.pages.map((p, i) => ({ key: `story:${s.id}:page-${i + 1}`, fi: p.fi, en: p.en })),
+    ...s.pages.map((p, i) => ({
+      key: `story:${s.id}:page-${i + 1}`,
+      fi: p.lines.map((l) => (l.by ? `${CAST[l.by].nameFi}: ` : '') + l.fi).join(' / '),
+      en: p.lines.map((l) => (l.by ? `${CAST[l.by].nameEn}: ` : '') + l.en).join(' / '),
+    })),
     ...s.questions.map((q, i) => ({
       key: `story:${s.id}:q${i + 1}`,
-      fi: `${q.promptFi} (${q.options.map((o) => o.fi).join(' / ')})`,
+      fi: `${q.promptFi} (${q.options.map((o) => (o.correct ? `✓ ${o.fi}` : o.fi)).join(' / ')})`,
       en: `${q.promptEn} (${q.options.map((o) => o.en).join(' / ')})`,
+    })),
+    ...s.facts.map((f, i) => ({
+      key: `story:${s.id}:t${i + 1}`,
+      fi: `${f.fi} (${f.isTrue ? 'totta' : 'tarua'})`,
+      en: `True or false: ${f.en} (${f.isTrue ? 'true' : 'false'})`,
     })),
   ]);
 
@@ -204,7 +214,7 @@ function collect(): ReviewSection[] {
   return [
     { id: 'dialogues', title: 'Greetings & dialogues', hint: 'A line someone says → the reply.', rows: dialogueRows },
     { id: 'conversations', title: 'Scenes, turn by turn', hint: 'Each turn of a short conversation.', rows: conversationRows },
-    { id: 'stories', title: 'Stories', hint: 'Story pages, then each question with its options.', rows: storyRows },
+    { id: 'stories', title: 'Stories', hint: 'Each page (who says what), then the questions (✓ = the right answer) and the true-or-false statements.', rows: storyRows },
     { id: 'carriers', title: 'Sentence patterns', hint: 'The fixed words around the slot, with one example.', rows: carrierRows },
     { id: 'slips', title: 'Forms marked wrong', hint: 'Flag any "wrong" form that is actually fine Finnish for this meaning.', rows: slipRows },
     { id: 'templates', title: 'Sentence templates', hint: 'Longer sentence skeletons.', rows: templateRows },

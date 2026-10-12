@@ -22,6 +22,7 @@ import {
 import { setMuted } from '../audio/mute';
 import { review } from '../game/srs';
 import { recordRoundOnChild } from '../game/progress';
+import { recordStoryOnChild, type StoryReadKind } from '../game/storyLog';
 import { bumpStreak, dayKey } from '../game/streak';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
@@ -81,7 +82,14 @@ interface ProfileContextValue {
     maxLevel?: number,
     /** A minor bonus round (typing): counted, never moves the level. */
     bonus?: boolean,
+    /** The step's own finishing rule was met (a story step: its stories read well). */
+    proven?: boolean,
   ) => void;
+  /**
+   * Log a finished story read (or "Muistatko?" revisit) for the active child:
+   * first-try right / total, and the questions it asked.
+   */
+  recordStory: (storyId: string, right: number, total: number, asked: string[], kind?: StoryReadKind) => void;
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
   /** Fold a finished segment into the active child's practice stats. */
@@ -308,15 +316,18 @@ export function ProfileProvider({
           };
         }),
 
-      recordRound: (topicId, activityId, stars, total, maxLevel, bonus) =>
+      recordRound: (topicId, activityId, stars, total, maxLevel, bonus, proven) =>
         updateActive((c) => {
           const streak = bumpStreak(c.lastPlayedDay, c.streakDays, dayKey(Date.now()));
           return {
-            ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel, bonus),
+            ...recordRoundOnChild(c, topicId, activityId, stars, total, maxLevel, bonus, proven),
             ...streak,
             bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
           };
         }),
+
+      recordStory: (storyId, right, total, asked, kind) =>
+        updateActive((c) => recordStoryOnChild(c, storyId, right, total, asked, Date.now(), kind)),
 
       settings: data.settings,
       updateSettings: (patch) =>

@@ -173,9 +173,14 @@ roughly one build session.
     sourced).
 
 ### Phase D — Input flood (the ceiling raiser)
-12. ✅ **Story time ("Satuhetki")**: authored 3–6 sentence illustrated
-    mini-stories read page by page, with comprehension taps at the end
-    (`src/content/stories.ts`, `StoryTime.tsx`; Finnish-only at L5).
+12. ✅ **Story time ("Satuhetki")**: little picture books with a recurring
+    cast (Aino, Eero, the family, Mirri the cat), read aloud page by page with
+    the line being read lit up, then four questions of mixed kinds drawn from
+    a bank (pictures, true or false, who said it, put it in order). One good
+    read finishes a story; a weak one is re-read with the English; finished
+    stories come back once a few days later ("Muistatko?") and wait on a
+    bookshelf (`src/content/stories.ts`, `unitStories.ts`, `StoryTime.tsx`,
+    `game/storyQuiz.ts`, `game/storyLog.ts`).
 13. ⏳ **Minimal-pair ear training**: phonemic-length discrimination built ONLY
     from real sourced word pairs; honest only with recorded audio → still
     gated on Phase E item 15 (recorded native audio, user-owned).

@@ -50,6 +50,7 @@ function speakIn(
   onStart?: () => void,
   onEnd?: () => void,
   slow = false,
+  pitch = 1.05,
 ): void {
   if (isMuted() || !isSpeechAvailable()) return;
   const synth = window.speechSynthesis;
@@ -62,7 +63,7 @@ function speakIn(
   const voice = pickVoice(langPrefix);
   if (voice) u.voice = voice;
   u.rate = slow ? 0.6 : 0.85; // a touch slower for young learners (much slower on request)
-  u.pitch = 1.05;
+  u.pitch = pitch;
   if (onStart) u.onstart = onStart;
   if (onEnd) u.onend = onEnd;
   synth.speak(u);
@@ -71,13 +72,19 @@ function speakIn(
 /**
  * Speak Finnish — the target language, so this is what's being learned. Pass
  * `{ queue: true }` to append after any line still playing (back-to-back
- * conversation turns) instead of interrupting it.
+ * conversation turns) instead of interrupting it. `pitch` gives a story's
+ * characters their own voices (the same Finnish voice, higher or lower).
  */
 export function speak(
   text: string,
-  opts?: { queue?: boolean; onStart?: () => void; onEnd?: () => void; slow?: boolean },
+  opts?: { queue?: boolean; onStart?: () => void; onEnd?: () => void; slow?: boolean; pitch?: number },
 ): void {
-  speakIn(text, FINNISH, 'fi', opts?.queue, opts?.onStart, opts?.onEnd, opts?.slow);
+  speakIn(text, FINNISH, 'fi', opts?.queue, opts?.onStart, opts?.onEnd, opts?.slow, opts?.pitch);
+}
+
+/** Stop whatever is being spoken (leaving a story mid-page). */
+export function stopSpeaking(): void {
+  if (isSpeechAvailable()) window.speechSynthesis.cancel();
 }
 
 /**

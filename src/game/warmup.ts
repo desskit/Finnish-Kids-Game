@@ -25,6 +25,7 @@ import {
   type Strength,
 } from './stats';
 import { dayKey } from './streak';
+import { dueStoryRevisit } from './storyLog';
 
 /** At least this many questions in a warm-up. */
 export const WARMUP_QUESTIONS = 10;
@@ -114,11 +115,15 @@ export function pickWarmupSubject(child: Child, now: number): RankedSubject | un
   );
 }
 
-/** Is a warm-up waiting? (A new day, none done yet today, and a subject to practise.) */
+/**
+ * Is a warm-up waiting? A new day, none done yet today, and something to do:
+ * a subject to practise, or a finished story due back for its "Muistatko?"
+ * (see storyLog.ts) — that opens the warm-up.
+ */
 export function warmupDue(child: Child | null | undefined, now: number): boolean {
   if (!child) return false;
   if (warmupDoneOn(statsOf(child), dayKey(now))) return false;
-  return !!pickWarmupSubject(child, now);
+  return !!pickWarmupSubject(child, now) || !!dueStoryRevisit(child, now);
 }
 
 /** The warm-up subject a child will get, for grown-up displays (same rules). */

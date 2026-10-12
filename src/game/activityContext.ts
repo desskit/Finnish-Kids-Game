@@ -19,6 +19,17 @@ export interface RoundOutcome {
   newBadges: Badge[];
 }
 
+/** Extra facts a game can report with a finished segment. */
+export interface SegmentMeta {
+  /** A story read: which story, and which of its questions were asked. */
+  story?: { id: string; asked: string[] };
+  /**
+   * Record the segment, but keep this game on screen: it shows its own result
+   * and decides what comes next (a story: "Continue", or "Read it again").
+   */
+  stay?: boolean;
+}
+
 export interface ActivityContextValue {
   /**
    * Record a finished question segment silently AND advance the session to the
@@ -26,9 +37,9 @@ export interface ActivityContextValue {
    * unmounts right after (key bump) and the next segment — possibly a
    * different game type — mounts with no interstitial. `stars` here is the
    * segment's FIRST-TRY count (real accuracy for the adaptive engine), not the
-   * visible star economy.
+   * visible star economy. (`meta.stay` records without advancing.)
    */
-  onSegmentComplete: (stars: number, total: number) => void;
+  onSegmentComplete: (stars: number, total: number, meta?: SegmentMeta) => void;
   /** Difficulty levers for this (topic, activity), from the active child's level. */
   difficulty: Difficulty;
   /** Stars earned so far in this sitting (drives the header counter). */

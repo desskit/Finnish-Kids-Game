@@ -54,7 +54,7 @@ describe('the Finnish in the app’s screens', () => {
     // An object field pair (the grown-ups' tabs).
     expect(label('Tilastot')?.en).toBe('Stats');
     // A mixed string, split by sentence.
-    expect(label('Muistatko?')?.en).toBe('Remember?');
+    expect(label('Muistatko?')?.en).toMatch(/(^| \/ )Remember\?$/);
     // A Finnish word the tables lack is still caught.
     expect(label('Kertaus')?.en).toMatch(/Review/);
     // A template with a yes / no choice.

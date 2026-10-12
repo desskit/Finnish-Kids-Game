@@ -18,7 +18,7 @@ sourced data, then **(2)** wire them into a construction / skill / sentence.
 
 ### Hand-written Finnish goes to the native review
 
-Some Finnish can't be looked up: story pages, scene lines, carrier frames, the
+Some Finnish can't be looked up: stories, scene lines, carrier frames, the
 forms a pattern marks wrong, lesson quotes, titles, and the screens' own labels
 ("Jatka", "Mitä kuulit?"). All of it is listed in ONE place,
 `src/game/reviewEntries.ts`, under stable keys. That list feeds both
@@ -330,6 +330,44 @@ dictionary form (the sourced infinitive). Use `topics: ['verbs']` plus an
 - Run `npx vitest run src/game/course.viability.test.tsx`. It renders every
   step × game × level and fails if any step can't fill a real question (too
   few known words, places without the right tags, …).
+
+### Writing a story (`unitStories.ts`, `stories.ts`)
+
+A story is a little picture book: a cover, three or four pages, "Loppu!", then
+questions about what happened. It is read for meaning, once — not drilled.
+
+- **Write it with the kit** (`src/content/storyKit.ts`): `page(sc(setting, who),
+  ...lines)`, `tell(fi, en)` for narration, `say(castId, fi, en)` for a
+  character talking (a speech bubble, in their voice), `ask(...)` with
+  `right(...)` / `wrong(...)` for picture questions, and `trueFact` /
+  `falseFact` for true-or-false statements.
+- **The same people every time** (`CAST`): Aino (the main character, and the
+  teller of first-person stories: `narrator: 'aino'`), her friend Eero, Äiti,
+  Isä, Isoäiti, Aino's cat Mirri, Eero's dog Musti, the teacher, and Leo. Each
+  has a speech pitch, so they sound different with the one Finnish voice.
+- **Something happens.** Someone wants something, something goes wrong or
+  surprises, and it ends — not a list of sentences. Three or four pages, one to
+  three short lines each (at most six or seven words), each page a scene of a
+  few emoji: the setting small (`bg`), who and what big (`fg`), and a `tone`
+  for inside, evening, night or snow.
+- **Only the unit's grammar and the words met by then.** Every word must be a
+  real form (`unitStories.test.ts` checks them all, titles and questions
+  included); a name's case forms go in the lexicon's name list.
+- **Questions — a bank, not a fixed quiz.** At least three picture questions,
+  each with exactly one right answer that the story itself says, and (from
+  unit 2) two or three true-or-false statements, both kinds, whose truth
+  doesn't change during the story. "Put the pictures in order" and "Who says
+  this?" are built from the pages (`src/game/storyQuiz.ts`) — a line that names
+  its own speaker, or that two people say, is never asked. A read asks four, of
+  mixed kinds; a re-read asks others.
+- **One good read finishes it** (`src/game/storyLog.ts`): 3 of 4 right first
+  time. A weak read is read again with the English showing. A few days after
+  it's finished, a story comes back once in the daily warm-up ("Muistatko?",
+  two questions it hasn't asked), and it waits on the Notebook's bookshelf.
+- A unit's story step is made from `UNIT_STORY_IDS` (one story per unit); a
+  step can also list several stories in `content.ids` (it is done once each
+  has had a good read). New stories are ⚠️-flagged for native vetting and
+  appear in the Finnish check under Stories.
 
 ### Writing a lesson
 

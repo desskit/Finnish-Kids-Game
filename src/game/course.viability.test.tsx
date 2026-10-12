@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, cleanup, act } from '@testing-library/react';
 import { cloneElement } from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { ProfileProvider } from '../state/profile';
 import { ActivityContext } from './activityContext';
 import { difficultyFor } from './adapt';
@@ -9,6 +10,7 @@ import { allSkills, activitiesUpTo, renderActivity } from './path';
 vi.mock('../audio/speak', () => ({
   speak: vi.fn(),
   speakEnglish: vi.fn(),
+  stopSpeaking: vi.fn(),
   isSpeechAvailable: () => true,
 }));
 vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
@@ -35,24 +37,26 @@ describe('every course step is playable at every level', () => {
             }
             const onSegmentComplete = vi.fn();
             const { container, unmount } = render(
-              <ProfileProvider ephemeral>
-                <ActivityContext.Provider
-                  value={{
-                    onSegmentComplete,
-                    difficulty: { ...difficultyFor(level), ...skill.pin },
-                    sessionStars: 0,
-                    lessonId: chapter.lessonId,
-                  }}
-                >
-                  {cloneElement(el)}
-                </ActivityContext.Provider>
-              </ProfileProvider>,
+              <MemoryRouter>
+                <ProfileProvider ephemeral>
+                  <ActivityContext.Provider
+                    value={{
+                      onSegmentComplete,
+                      difficulty: { ...difficultyFor(level), ...skill.pin },
+                      sessionStars: 0,
+                      lessonId: chapter.lessonId,
+                    }}
+                  >
+                    {cloneElement(el)}
+                  </ActivityContext.Provider>
+                </ProfileProvider>
+              </MemoryRouter>,
             );
             await act(async () => {});
             const emptyRound = onSegmentComplete.mock.calls.some(([, total]) => total === 0);
             // A question shows SOME answer control beyond the header's back button.
             const controls = container.querySelectorAll(
-              '.word-tile, .card-grid button, .spell-input, .reply-tile, .story-page, .error-word, .count-scene, button.btn--primary, .yesno-tiles button',
+              '.word-tile, .card-grid button, .spell-input, .reply-tile, .story-cover, .error-word, .count-scene, button.btn--primary, .yesno-tiles button',
             );
             if (emptyRound || controls.length === 0) {
               failures.push(

@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import type { Child } from '../state/storage';
 import { nextAction, UNITS } from './course';
 import { recordRoundOnChild } from './progress';
+import { recordStoryOnChild, storyStepDone, nextStoryId } from './storyLog';
+import { stories } from '../content/stories';
 
 // Walk a simulated child through the WHOLE course the way Continue leads them —
 // read each lesson, play each step until it's done, pass each checkpoint — and
@@ -48,6 +50,15 @@ function walk(score: (round: number) => number) {
     const n = (rounds.get(key) ?? 0) + 1;
     rounds.set(key, n);
     if (n > 40) throw new Error(`stuck on ${key}`);
+    if (a.step.activity === 'story') {
+      // A story read: its four questions, scored like the rest (6 of 6 → 4 of 4).
+      const ids = a.step.content.ids ?? stories.map((s) => s.id);
+      const id = nextStoryId(child, ids)!;
+      const right = Math.round((score(n) / 6) * 4);
+      child = recordStoryOnChild(child, id, right, 4, [], n);
+      child = recordRoundOnChild(child, a.unit.id, a.step.id, right, 4, a.step.maxLevel ?? 4, false, storyStepDone(child, ids));
+      continue;
+    }
     child = recordRoundOnChild(child, a.unit.id, a.step.id, score(n), 6, a.step.maxLevel ?? 4);
   }
   return { child, rounds };
@@ -60,6 +71,12 @@ describe('the whole course can be finished (no dead ends)', () => {
     for (const s of courseSteps) expect(rounds.get(s), s).toBeGreaterThan(0);
     // The longest climb at full marks: 2 + 2 + 3 + 3 rounds for a four-level step.
     expect(Math.max(...rounds.values())).toBeLessThanOrEqual(10);
+    // A story is read once: one read per story in the step, never a grind.
+    for (const u of UNITS) {
+      for (const s of u.skills.filter((x) => x.activity === 'story' && u.id !== 'mestari')) {
+        expect(rounds.get(`${u.id}/${s.id}`), s.id).toBe(s.content.ids?.length);
+      }
+    }
   });
 
   it('a child who slips now and then (one miss every few rounds) still finishes everything', () => {

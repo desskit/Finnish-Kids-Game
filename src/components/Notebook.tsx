@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom';
 import { lessonById } from '../content/lessons';
+import { stories, storyById, type Story } from '../content/stories';
 import { UNITS, midLessonStatus, unitStatus } from '../game/course';
+import { storyReadWell } from '../game/storyLog';
 import { useProfile } from '../state/profile';
 
-// The Notebook (Vihko): every lesson from the units the child has opened, to
+/** Every story in the order the course meets it (then any the course doesn't). */
+function storiesInCourseOrder(): Story[] {
+  const ids = UNITS.flatMap((u) => u.skills.filter((s) => s.activity === 'story').flatMap((s) => s.content.ids ?? []));
+  const ordered = [...new Set(ids)].map((id) => storyById[id]).filter(Boolean);
+  return [...ordered, ...stories.filter((s) => !ordered.includes(s))];
+}
+
+// The Notebook (Vihko): the bookshelf — every story she has finished, to read
+// again just for fun — and every lesson from the units she has opened, to
 // re-read any time ("how did -ssa work again?"). Locked units' lessons stay
 // hidden so the course keeps its order.
 export default function Notebook() {
@@ -13,6 +23,7 @@ export default function Notebook() {
     ({ u }) => unitStatus(activeChild, u, unlockAll) !== 'locked',
   );
   const locked = UNITS.length - open.length;
+  const shelf = storiesInCourseOrder().filter((s) => storyReadWell(activeChild, s.id));
 
   return (
     <section className="screen notebook">
@@ -24,6 +35,30 @@ export default function Notebook() {
           📓 Vihko <span className="en">Notebook</span>
         </h1>
       </div>
+      {/* Finished books first: the fun part, never buried under the lessons. */}
+      {shelf.length > 0 && (
+        <>
+          <h2 className="notebook__shelf-title">
+            📚 Kirjahylly <span className="en">Bookshelf</span>
+          </h2>
+          <ul className="bookshelf">
+            {shelf.map((s) => (
+              <li key={s.id}>
+                <Link className="book" to={`/story/${s.id}`}>
+                  <span className="book__icon" aria-hidden="true">
+                    {s.icon}
+                  </span>
+                  <span className="book__title">{s.titleFi}</span>
+                  <span className="book__en en">{s.titleEn}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <h2 className="notebook__shelf-title">
+            📖 Oppitunnit <span className="en">Lessons</span>
+          </h2>
+        </>
+      )}
       <p className="notebook__intro en">Every rule you've learned, ready to read again.</p>
       <ol className="notebook__list">
         {open.flatMap(({ u, i }) =>
@@ -63,6 +98,10 @@ export default function Notebook() {
           🔒 {locked} more {locked === 1 ? 'lesson unlocks' : 'lessons unlock'} as you go.
         </p>
       )}
+      {shelf.length === 0 && (
+        <p className="notebook__locked en">📚 Every story you finish goes on a bookshelf here, to read again whenever you like.</p>
+      )}
+
     </section>
   );
 }

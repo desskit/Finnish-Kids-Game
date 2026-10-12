@@ -1,57 +1,54 @@
-// Satuhetki (story time) — tiny illustrated Finnish stories read page by page,
-// then a couple of comprehension taps. This is the app's CONNECTED input: where
-// every drill serves one utterance at a time, a story strings 4–6 simple
-// sentences into a little narrative the child follows for meaning.
+// Satuhetki (story time) — little picture-book stories, read page by page and
+// then talked about. This is the app's CONNECTED input: where every drill
+// serves one utterance at a time, a story strings a dozen short sentences into
+// something that happens — someone wants something, something goes wrong, and
+// it ends — and the child follows it for meaning.
 //
-// Same content discipline as dialogues.ts/conversations.ts: every sentence is
-// HUMAN-AUTHORED (never rule-generated in code), built from the game's own
-// vetted carrier patterns and vocabulary. Additionally, every inflected form
-// used below was CHECKED against the vendored sourced inflection tables before
-// authoring (talossa, kalaa, kouluun, menevät, omenan, …) — a pre-vetting
-// quality gate, not a substitute for the native pass.
-// ⚠️ NEEDS NATIVE FINNISH VETTING (all stories + questions below).
-
-import { UNIT_STORIES } from './unitStories';
+// The same people come back in every story (see storyKit.ts): Aino, her friend
+// Eero, her mom, dad and grandma, her cat Mirri and Eero's dog Musti.
+//
+// Same content discipline as dialogues.ts / conversations.ts: every sentence is
+// HUMAN-AUTHORED (never rule-generated in code), and every word must be a real
+// form in the vendored tables (`unitStories.test.ts` fails the build if not).
+// ⚠️ NEEDS NATIVE FINNISH VETTING (all stories, questions and statements; listed
+// in FINNISH_REVIEW.md).
 //
 // AUTHORING RULES:
-//  - Pages: 4–6 short sentences (≤ 5 words), each picturable with one emoji.
-//  - Vocabulary: stick to words the game already teaches (they carry sourced
-//    paradigms and SRS histories) plus the already-vetted set phrases.
-//  - Questions: wh-questions ABOUT the story, exactly one correct option, all
-//    options real Finnish forms that appeared in (or fit) the story's frame.
+//  - Three or four pages, one to three lines each, a line at most six or seven
+//    words; each page picturable as a small emoji scene.
+//  - A story stays inside its unit's grammar and the words met by then.
+//  - Questions: at least three picture questions, each with exactly one right
+//    option that the story itself says; and (from unit 2 on) at least two
+//    true-or-false statements whose truth doesn't change during the story.
+//    "Put the pictures in order" and "who says this?" come from the pages.
 
-export interface StoryPage {
-  fi: string;
-  en: string;
-  /** The page's illustration. */
-  emoji: string;
-}
+import { UNIT_STORIES } from './unitStories';
+import {
+  ask,
+  falseFact,
+  page,
+  right,
+  say,
+  sc,
+  tell,
+  trueFact,
+  wrong,
+  type Story,
+} from './storyKit';
 
-export interface StoryOption {
-  fi: string;
-  en: string;
-  emoji: string;
-  /** Exactly one option per question carries this. */
-  correct?: boolean;
-}
-
-export interface StoryQuestion {
-  promptFi: string;
-  promptEn: string;
-  options: StoryOption[];
-}
-
-export interface Story {
-  id: string;
-  titleFi: string;
-  titleEn: string;
-  /** Cover emoji (map/header). */
-  icon: string;
-  tier: number;
-  pages: StoryPage[];
-  /** Asked after the last page, in order. */
-  questions: StoryQuestion[];
-}
+export type {
+  CastId,
+  CastMember,
+  SceneTone,
+  Story,
+  StoryFact,
+  StoryLine,
+  StoryOption,
+  StoryPage,
+  StoryQuestion,
+  StoryScene,
+} from './storyKit';
+export { CAST, NARRATOR_PITCH, storyLines } from './storyKit';
 
 export const CORE_STORIES: Story[] = [
   {
@@ -61,31 +58,55 @@ export const CORE_STORIES: Story[] = [
     icon: '🐱',
     tier: 2,
     pages: [
-      { fi: 'Tämä on kissa.', en: 'This is a cat.', emoji: '🐱' },
-      { fi: 'Kissa on pieni.', en: 'The cat is small.', emoji: '🐾' },
-      { fi: 'Kissa on talossa.', en: 'The cat is in the house.', emoji: '🏠' },
-      { fi: 'Kissa syö kalaa.', en: 'The cat eats fish.', emoji: '🐟' },
-      { fi: 'Kissa nukkuu.', en: 'The cat sleeps.', emoji: '😴' },
+      page(
+        sc('🌲 🌧️ 🌲', '🐱'),
+        tell('Tämä on pieni kissa.', 'This is a little cat.'),
+        tell('Kissa on metsässä.', 'The cat is in the forest.'),
+        tell('Sillä on nälkä.', "It's hungry."),
+      ),
+      page(
+        sc('🌲 🌲 🌲', '👧 🐱'),
+        say('aino', 'Hei, pieni kissa!', 'Hi, little cat!'),
+        say('aino', 'Onko sinulla koti?', 'Do you have a home?'),
+      ),
+      page(
+        sc('🏠', '👧 🐱 🥛', 'inside'),
+        tell('Aino vie kissan kotiin.', 'Aino takes the cat home.'),
+        tell('Kissa juo maitoa.', 'The cat drinks milk.'),
+      ),
+      page(
+        sc('🏠 🌙', '👧 🐱 🛏️', 'night'),
+        say('aino', 'Sinun nimesi on Mirri!', 'Your name is Mirri!'),
+        tell('Mirri nukkuu Ainon sängyssä.', "Mirri sleeps in Aino's bed."),
+      ),
     ],
     questions: [
-      {
-        promptFi: 'Missä kissa on?',
-        promptEn: 'Where is the cat?',
-        options: [
-          { fi: 'talossa', en: 'in the house', emoji: '🏠', correct: true },
-          { fi: 'metsässä', en: 'in the forest', emoji: '🌲' },
-          { fi: 'autossa', en: 'in the car', emoji: '🚗' },
-        ],
-      },
-      {
-        promptFi: 'Mitä kissa syö?',
-        promptEn: 'What does the cat eat?',
-        options: [
-          { fi: 'kalaa', en: 'fish', emoji: '🐟', correct: true },
-          { fi: 'leipää', en: 'bread', emoji: '🍞' },
-          { fi: 'omenaa', en: 'apple', emoji: '🍎' },
-        ],
-      },
+      ask(
+        'Missä kissa on ensin?',
+        'Where is the cat at first?',
+        right('metsässä', 'in the forest', '🌲'),
+        wrong('talossa', 'in the house', '🏠'),
+        wrong('koulussa', 'at school', '🏫'),
+      ),
+      ask(
+        'Mitä kissa juo?',
+        'What does the cat drink?',
+        right('maitoa', 'milk', '🥛'),
+        wrong('vettä', 'water', '💧'),
+        wrong('mehua', 'juice', '🧃'),
+      ),
+      ask(
+        'Mikä kissan nimi on?',
+        "What is the cat's name?",
+        right('Mirri', 'Mirri', '🐱'),
+        wrong('Musti', 'Musti', '🐶'),
+        wrong('Leo', 'Leo', '🧒'),
+      ),
+    ],
+    facts: [
+      trueFact('Kissalla on nälkä.', 'The cat is hungry.'),
+      falseFact('Eero vie kissan kotiin.', 'Eero takes the cat home.'),
+      falseFact('Mirri nukkuu metsässä.', 'Mirri sleeps in the forest.'),
     ],
   },
   {
@@ -95,31 +116,56 @@ export const CORE_STORIES: Story[] = [
     icon: '🌅',
     tier: 3,
     pages: [
-      { fi: 'Aurinko paistaa.', en: 'The sun is shining.', emoji: '☀️' },
-      { fi: 'Lapsi herää.', en: 'The child wakes up.', emoji: '⏰' },
-      { fi: 'Lapsi syö leipää.', en: 'The child eats bread.', emoji: '🍞' },
-      { fi: 'Lapsi juo maitoa.', en: 'The child drinks milk.', emoji: '🥛' },
-      { fi: 'Lapsi menee kouluun.', en: 'The child goes to school.', emoji: '🏫' },
+      page(
+        sc('🏠 🌅', '👧 🛏️ ⏰', 'inside'),
+        tell('Aurinko paistaa.', 'The sun is shining.'),
+        tell('Kello on kahdeksan.', "It's eight o'clock."),
+        say('aiti', 'Aino, herää! Koulu alkaa!', 'Aino, wake up! School is starting!'),
+      ),
+      page(
+        sc('🏠 🌅', '👧 🥣 🥛', 'inside'),
+        tell('Aino syö puuroa.', 'Aino eats porridge.'),
+        tell('Hän juo maitoa nopeasti.', 'She drinks her milk quickly.'),
+      ),
+      page(
+        sc('🏡 ☀️', '👦 👧'),
+        say('eero', 'Hei, Aino! Mennään!', "Hi, Aino! Let's go!"),
+        tell('He juoksevat kouluun.', 'They run to school.'),
+      ),
+      page(
+        sc('🏫', '👧 😮 👦', 'inside'),
+        say('aino', 'Voi ei! Missä reppuni on?', 'Oh no! Where is my backpack?'),
+        tell('Reppu on kotona.', 'The backpack is at home.'),
+        say('eero', 'Ei hätää! Ota minun kynäni.', 'No worries! Take my pencil.'),
+      ),
     ],
     questions: [
-      {
-        promptFi: 'Mitä lapsi juo?',
-        promptEn: 'What does the child drink?',
-        options: [
-          { fi: 'maitoa', en: 'milk', emoji: '🥛', correct: true },
-          { fi: 'vettä', en: 'water', emoji: '💧' },
-          { fi: 'mehua', en: 'juice', emoji: '🧃' },
-        ],
-      },
-      {
-        promptFi: 'Minne lapsi menee?',
-        promptEn: 'Where does the child go?',
-        options: [
-          { fi: 'kouluun', en: 'to school', emoji: '🏫', correct: true },
-          { fi: 'kotiin', en: 'home', emoji: '🏠' },
-          { fi: 'metsään', en: 'to the forest', emoji: '🌲' },
-        ],
-      },
+      ask(
+        'Mitä Aino syö?',
+        'What does Aino eat?',
+        right('puuroa', 'porridge', '🥣'),
+        wrong('leipää', 'bread', '🍞'),
+        wrong('pitsaa', 'pizza', '🍕'),
+      ),
+      ask(
+        'Paljonko kello on?',
+        'What time is it?',
+        right('kahdeksan', 'eight', '🕗'),
+        wrong('kaksi', 'two', '🕑'),
+        wrong('kuusi', 'six', '🕕'),
+      ),
+      ask(
+        'Missä Ainon reppu on?',
+        "Where is Aino's backpack?",
+        right('kotona', 'at home', '🏠'),
+        wrong('koulussa', 'at school', '🏫'),
+        wrong('puistossa', 'in the park', '🛝'),
+      ),
+    ],
+    facts: [
+      trueFact('Eero auttaa Ainoa.', 'Eero helps Aino.'),
+      falseFact('Aino syö jäätelöä.', 'Aino eats ice cream.'),
+      falseFact('Reppu on koulussa.', 'The backpack is at school.'),
     ],
   },
   {
@@ -129,41 +175,60 @@ export const CORE_STORIES: Story[] = [
     icon: '🛒',
     tier: 4,
     pages: [
-      { fi: 'Äiti ja lapsi menevät kauppaan.', en: 'Mom and the child go to the shop.', emoji: '🛒' },
-      { fi: 'Äiti ostaa maitoa.', en: 'Mom buys some milk.', emoji: '🥛' },
-      { fi: 'Lapsi ostaa omenan.', en: 'The child buys an apple.', emoji: '🍎' },
-      { fi: 'Omena on punainen.', en: 'The apple is red.', emoji: '🟥' },
-      { fi: 'He menevät kotiin.', en: 'They go home.', emoji: '🏠' },
-      { fi: 'Lapsi syö omenan.', en: 'The child eats the apple.', emoji: '😋' },
+      page(
+        sc('🏪', '👩 👧 🛒', 'inside'),
+        tell('Äiti ja Aino menevät kauppaan.', 'Mom and Aino go to the shop.'),
+        say('aiti', 'Teemme keittoa isoäidille.', "We're making soup for Grandma."),
+      ),
+      page(
+        sc('🏪', '🥕 🥔 🍅', 'inside'),
+        say('aiti', 'Ostamme porkkanoita ja perunoita.', 'We buy carrots and potatoes.'),
+        tell('Aino ostaa yhden tomaatin.', 'Aino buys one tomato.'),
+      ),
+      page(
+        sc('🏪', '🐱 🛒 👧', 'inside'),
+        tell('Kaupassa on kissa!', "There's a cat in the shop!"),
+        say('aino', 'Mirri! Mitä sinä teet täällä?', 'Mirri! What are you doing here?'),
+      ),
+      page(
+        sc('🏠 🌆', '👵 🍲 👧 🐱', 'evening'),
+        tell('Illalla he syövät keittoa isoäidin kanssa.', 'In the evening they eat soup with Grandma.'),
+        say('isoaiti', 'Hyvää keittoa! Kiitos!', 'Good soup! Thank you!'),
+        tell('Mirri saa vähän makkaraa.', 'Mirri gets a little sausage.'),
+      ),
     ],
     questions: [
-      {
-        promptFi: 'Mitä äiti ostaa?',
-        promptEn: 'What does mom buy?',
-        options: [
-          { fi: 'maitoa', en: 'milk', emoji: '🥛', correct: true },
-          { fi: 'leipää', en: 'bread', emoji: '🍞' },
-          { fi: 'juustoa', en: 'cheese', emoji: '🧀' },
-        ],
-      },
-      {
-        promptFi: 'Millainen omena on?',
-        promptEn: 'What is the apple like?',
-        options: [
-          { fi: 'punainen', en: 'red', emoji: '🟥', correct: true },
-          { fi: 'sininen', en: 'blue', emoji: '🟦' },
-          { fi: 'vihreä', en: 'green', emoji: '🟩' },
-        ],
-      },
+      ask(
+        'Mitä äiti ja Aino tekevät isoäidille?',
+        'What are Mom and Aino making for Grandma?',
+        right('keittoa', 'soup', '🍲'),
+        wrong('kakkua', 'cake', '🍰'),
+        wrong('pitsaa', 'pizza', '🍕'),
+      ),
+      ask(
+        'Mitä Aino ostaa?',
+        'What does Aino buy?',
+        right('tomaatin', 'a tomato', '🍅'),
+        wrong('omenan', 'an apple', '🍎'),
+        wrong('banaanin', 'a banana', '🍌'),
+      ),
+      ask(
+        'Mikä eläin on kaupassa?',
+        'Which animal is in the shop?',
+        right('kissa', 'a cat', '🐱'),
+        wrong('koira', 'a dog', '🐶'),
+        wrong('hiiri', 'a mouse', '🐭'),
+      ),
+    ],
+    facts: [
+      trueFact('Mirri saa makkaraa.', 'Mirri gets some sausage.'),
+      falseFact('He ostavat jäätelöä.', 'They buy ice cream.'),
+      falseFact('Isoäiti tekee keittoa.', 'Grandma makes the soup.'),
     ],
   },
 
-  // --- Tier 5: the expert-band stories — longer (7 pages), PAST-TENSE
-  // narration, and a third question that asks about sequence or motive, not
-  // just facts. Every past form checked against the vendored tables before
-  // authoring (etsi, näki, leikki, antoi, kävelivät, nukkui, tekivät, auttoi,
-  // tuli, lauloivat, söi, nauroi; metsästä, koulun, isoäidille…).
-  // ⚠️ NEEDS NATIVE FINNISH VETTING (both stories + questions below).
+  // --- The past-tense stories (the Yesterday unit): longer, told in the past,
+  // and with a question about WHY, not just what.
   {
     id: 'lost-dog',
     titleFi: 'Kadonnut koira',
@@ -171,42 +236,62 @@ export const CORE_STORIES: Story[] = [
     icon: '🐶',
     tier: 5,
     pages: [
-      { fi: 'Aamulla koira ei ollut kotona.', en: "In the morning the dog wasn't home.", emoji: '🌅' },
-      { fi: 'Liisa etsi koiraa metsästä.', en: 'Liisa looked for the dog in the forest.', emoji: '🌲' },
-      { fi: 'Hän näki jotain puun takana.', en: 'She saw something behind a tree.', emoji: '👀' },
-      { fi: 'Koira leikki siellä kissan kanssa.', en: 'The dog was playing there with a cat.', emoji: '🐱' },
-      { fi: 'Liisa antoi koiralle luun.', en: 'Liisa gave the dog a bone.', emoji: '🦴' },
-      { fi: 'He kävelivät yhdessä kotiin.', en: 'They walked home together.', emoji: '🏠' },
-      { fi: 'Illalla koira nukkui hyvin.', en: 'In the evening the dog slept well.', emoji: '😴' },
+      page(
+        sc('🏡 🌅', '👦 😟'),
+        tell('Aamulla Musti ei ollut kotona.', "In the morning Musti wasn't home."),
+        say('eero', 'Musti! Missä olet?', 'Musti! Where are you?'),
+      ),
+      page(
+        sc('🌲 🌲 🌲', '👧 👦'),
+        tell('Aino ja Eero etsivät Mustia metsästä.', 'Aino and Eero looked for Musti in the forest.'),
+        tell('He näkivät jotain puun takana.', 'They saw something behind a tree.'),
+      ),
+      page(
+        sc('🌲 🌳 🌲', '🐶 🐱'),
+        tell('Musti leikki siellä Mirrin kanssa!', 'Musti was playing there with Mirri!'),
+        say('aino', 'Mirri! Sinä olit täällä!', 'Mirri! You were here!'),
+      ),
+      page(
+        sc('🏡 🌆', '👦 🐶 🦴 👧 🐱', 'evening'),
+        tell('Eero antoi Mustille luun.', 'Eero gave Musti a bone.'),
+        tell('He kävelivät yhdessä kotiin.', 'They walked home together.'),
+        tell('Illalla Musti nukkui hyvin.', 'In the evening Musti slept well.'),
+      ),
     ],
     questions: [
-      {
-        promptFi: 'Missä koira leikki?',
-        promptEn: 'Where was the dog playing?',
-        options: [
-          { fi: 'puun takana', en: 'behind the tree', emoji: '🌳', correct: true },
-          { fi: 'pöydän alla', en: 'under the table', emoji: '🪑' },
-          { fi: 'autossa', en: 'in the car', emoji: '🚗' },
-        ],
-      },
-      {
-        promptFi: 'Mitä tapahtui ensin?',
-        promptEn: 'What happened first?',
-        options: [
-          { fi: 'Koira ei ollut kotona.', en: "The dog wasn't home.", emoji: '🌅', correct: true },
-          { fi: 'He kävelivät kotiin.', en: 'They walked home.', emoji: '🏠' },
-          { fi: 'Liisa antoi luun.', en: 'Liisa gave a bone.', emoji: '🦴' },
-        ],
-      },
-      {
-        promptFi: 'Miksi Liisa etsi koiraa?',
-        promptEn: 'Why did Liisa look for the dog?',
-        options: [
-          { fi: 'Koska koira ei ollut kotona.', en: "Because the dog wasn't home.", emoji: '🐶', correct: true },
-          { fi: 'Koska koira söi.', en: 'Because the dog was eating.', emoji: '🍖' },
-          { fi: 'Koska oli yö.', en: 'Because it was night.', emoji: '🌙' },
-        ],
-      },
+      ask(
+        'Missä Musti leikki?',
+        'Where was Musti playing?',
+        right('puun takana', 'behind a tree', '🌳'),
+        wrong('pöydän alla', 'under the table', '🍽️'),
+        wrong('autossa', 'in the car', '🚗'),
+      ),
+      ask(
+        'Kenen kanssa Musti leikki?',
+        'Who was Musti playing with?',
+        right('Mirrin kanssa', 'with Mirri', '🐱'),
+        wrong('Ainon kanssa', 'with Aino', '👧'),
+        wrong('isän kanssa', 'with Dad', '👨'),
+      ),
+      ask(
+        'Mitä Eero antoi Mustille?',
+        'What did Eero give Musti?',
+        right('luun', 'a bone', '🦴'),
+        wrong('pallon', 'a ball', '⚽'),
+        wrong('makkaran', 'a sausage', '🌭'),
+      ),
+      ask(
+        'Miksi Aino ja Eero etsivät Mustia?',
+        'Why did Aino and Eero look for Musti?',
+        right('Koska Musti ei ollut kotona.', "Because Musti wasn't home.", '🏡'),
+        wrong('Koska Musti söi.', 'Because Musti was eating.', '🍖'),
+        wrong('Koska oli yö.', 'Because it was night.', '🌙'),
+      ),
+    ],
+    facts: [
+      trueFact('Mirri oli metsässä.', 'Mirri was in the forest.'),
+      falseFact('Musti oli aamulla kotona.', 'Musti was home in the morning.'),
+      falseFact('He menivät kotiin autolla.', 'They went home by car.'),
     ],
   },
   {
@@ -216,45 +301,67 @@ export const CORE_STORIES: Story[] = [
     icon: '🎂',
     tier: 5,
     pages: [
-      { fi: 'Lauantaina oli isän syntymäpäivä.', en: "Saturday was Dad's birthday.", emoji: '📅' },
-      { fi: 'Lapset tekivät kakun salaa.', en: 'The children made a cake in secret.', emoji: '🎂' },
-      { fi: 'Äiti auttoi keittiössä.', en: 'Mom helped in the kitchen.', emoji: '👩‍🍳' },
-      { fi: 'Isä tuli kotiin kello kuusi.', en: "Dad came home at six o'clock.", emoji: '🚪' },
-      { fi: 'Kaikki lauloivat isälle.', en: 'Everyone sang for Dad.', emoji: '🎶' },
-      { fi: 'Isä söi kakkua ja nauroi.', en: 'Dad ate cake and laughed.', emoji: '😄' },
-      { fi: 'Se oli hauska päivä.', en: 'It was a fun day.', emoji: '🌟' },
+      page(
+        sc('🏠 📅', '👧 👩 🎂', 'inside'),
+        tell('Lauantaina oli isän syntymäpäivä.', "Saturday was Dad's birthday."),
+        tell('Aino ja äiti tekivät kakun salaa.', 'Aino and Mom made a cake in secret.'),
+      ),
+      page(
+        sc('🏠', '👵 🎈 🐱 🎂', 'inside'),
+        tell('Isoäiti toi ilmapalloja.', 'Grandma brought balloons.'),
+        tell('Mirri halusi syödä kakkua!', 'Mirri wanted to eat the cake!'),
+        say('aino', 'Ei, Mirri! Se on isälle!', "No, Mirri! It's for Dad!"),
+      ),
+      page(
+        sc('🏠 🚪', '👨 😮 🎈', 'inside'),
+        tell('Isä tuli kotiin kello kuusi.', "Dad came home at six o'clock."),
+        tell('Kaikki lauloivat isälle.', 'Everyone sang to Dad.'),
+      ),
+      page(
+        sc('🏠 🎈', '👨 🎂 😄 🐱', 'inside'),
+        tell('Isä söi kakkua ja nauroi.', 'Dad ate cake and laughed.'),
+        say('isa', 'Kiitos! Tämä on paras päivä!', 'Thank you! This is the best day!'),
+      ),
     ],
     questions: [
-      {
-        promptFi: 'Kenen syntymäpäivä oli?',
-        promptEn: 'Whose birthday was it?',
-        options: [
-          { fi: 'isän', en: "dad's", emoji: '👨', correct: true },
-          { fi: 'äidin', en: "mom's", emoji: '👩' },
-          { fi: 'kissan', en: "the cat's", emoji: '🐱' },
-        ],
-      },
-      {
-        promptFi: 'Mitä lapset tekivät ensin?',
-        promptEn: 'What did the children do first?',
-        options: [
-          { fi: 'He tekivät kakun.', en: 'They made a cake.', emoji: '🎂', correct: true },
-          { fi: 'He lauloivat.', en: 'They sang.', emoji: '🎶' },
-          { fi: 'He söivät kakkua.', en: 'They ate cake.', emoji: '🍰' },
-        ],
-      },
-      {
-        promptFi: 'Miksi lapset tekivät kakun salaa?',
-        promptEn: 'Why did the children make the cake in secret?',
-        options: [
-          { fi: 'Koska se oli yllätys.', en: 'Because it was a surprise.', emoji: '🎁', correct: true },
-          { fi: 'Koska heillä oli nälkä.', en: 'Because they were hungry.', emoji: '🍽️' },
-          { fi: 'Koska oli maanantai.', en: 'Because it was Monday.', emoji: '📅' },
-        ],
-      },
+      ask(
+        'Kenen syntymäpäivä oli?',
+        'Whose birthday was it?',
+        right('isän', "Dad's", '👨'),
+        wrong('äidin', "Mom's", '👩'),
+        wrong('Ainon', "Aino's", '👧'),
+      ),
+      ask(
+        'Mitä isoäiti toi?',
+        'What did Grandma bring?',
+        right('ilmapalloja', 'balloons', '🎈'),
+        wrong('kakun', 'a cake', '🎂'),
+        wrong('lahjan', 'a present', '🎁'),
+      ),
+      ask(
+        'Milloin isä tuli kotiin?',
+        'When did Dad come home?',
+        right('kello kuusi', "at six o'clock", '🕕'),
+        wrong('kello kaksi', "at two o'clock", '🕑'),
+        wrong('kello yhdeksän', "at nine o'clock", '🕘'),
+      ),
+      ask(
+        'Miksi Aino ja äiti tekivät kakun salaa?',
+        'Why did Aino and Mom make the cake in secret?',
+        right('Koska se oli yllätys.', 'Because it was a surprise.', '🎁'),
+        wrong('Koska heillä oli nälkä.', 'Because they were hungry.', '🍽️'),
+        wrong('Koska oli maanantai.', 'Because it was Monday.', '📅'),
+      ),
+    ],
+    facts: [
+      trueFact('Mirri halusi kakkua.', 'Mirri wanted some cake.'),
+      falseFact('Isä teki kakun.', 'Dad made the cake.'),
+      falseFact('Isä itki.', 'Dad cried.'),
     ],
   },
 ];
 
 /** Every story: the core five, then one per unit (unitStories.ts). */
 export const stories: Story[] = [...CORE_STORIES, ...UNIT_STORIES];
+
+export const storyById: Record<string, Story> = Object.fromEntries(stories.map((s) => [s.id, s]));

@@ -10,6 +10,8 @@ import { dayKey, displayStreak, playedToday } from '../game/streak';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { badgeEnv } from '../game/path';
 import { WARMUP_QUESTIONS, pickWarmupSubject } from '../game/warmup';
+import { dueStoryRevisit } from '../game/storyLog';
+import { storyById } from '../content/stories';
 import { statsOf, warmupDoneOn } from '../game/stats';
 import {
   UNITS,
@@ -52,6 +54,9 @@ export default function CourseHome() {
   // subject so far (game/warmup.ts). Once it's done, Continue is the course again.
   const warmDone = activeChild ? warmupDoneOn(statsOf(activeChild), today) : true;
   const warmup = activeChild && !warmDone ? pickWarmupSubject(activeChild, now) : undefined;
+  // A finished story due back for its one "Muistatko?" opens the warm-up too.
+  const revisitId = activeChild && !warmDone ? dueStoryRevisit(activeChild, now) : undefined;
+  const revisit = revisitId ? storyById[revisitId] : undefined;
 
   // The current unit starts expanded; others toggle open on tap.
   const [open, setOpen] = useState<Set<string>>(() => new Set([next.unit.id]));
@@ -101,7 +106,7 @@ export default function CourseHome() {
         </span>
       </div>
 
-      {warmup ? (
+      {warmup || revisit ? (
         <Link className="continue-cta continue-cta--warmup" to="/warmup">
           <span className="continue-cta__icon" aria-hidden="true">
             ☀️
@@ -111,11 +116,22 @@ export default function CourseHome() {
               Jatka <span className="en">Continue</span>
             </span>
             <span className="continue-cta__tag">
-              Päivän lämmittely <span className="en">today's warm-up · {WARMUP_QUESTIONS} questions</span>
+              Päivän lämmittely{' '}
+              <span className="en">
+                today's warm-up ·{' '}
+                {[revisit && 'a story to remember', warmup && `${WARMUP_QUESTIONS} questions`].filter(Boolean).join(' + ')}
+              </span>
             </span>
-            <span className="continue-cta__what">
-              Unit {warmup.unitNo}: {warmup.step.titleEn}
-            </span>
+            {revisit && (
+              <span className="continue-cta__what">
+                📖 Muistatko? {revisit.titleFi}
+              </span>
+            )}
+            {warmup && (
+              <span className="continue-cta__what">
+                Unit {warmup.unitNo}: {warmup.step.titleEn}
+              </span>
+            )}
           </span>
         </Link>
       ) : (
@@ -171,7 +187,7 @@ export default function CourseHome() {
           <span className="home-tile__label">
             Vihko <span className="en">Notebook</span>
           </span>
-          <span className="home-tile__meta en">Re-read the rules</span>
+          <span className="home-tile__meta en">Rules &amp; stories to re-read</span>
         </Link>
       </div>
 
