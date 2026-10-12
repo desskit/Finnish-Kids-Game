@@ -3615,6 +3615,22 @@ a.badge-strip {
   font-weight: 700;
 }
 
+.gerror ul {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Settings: is there a Finnish voice on this device? */
+.gvoice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 0 2px;
+}
+
 /* Stats: the 14-day activity chart */
 .gchart {
   list-style: none;
