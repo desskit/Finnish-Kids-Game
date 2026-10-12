@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-08T05:10:18.659Z · regenerate with `npm run review:content`
+- Generated: 2026-10-12T00:22:46.867Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1589 entries.** Flagged: 0.
+- **Approved: 28 of 1591 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -323,7 +323,7 @@ _Story pages, then each question with its options._
 | ⚠️ | `story:dads-bike:q2` | Kenen pallo se on? (koiran / isän / vauvan) | Whose ball is it? (the dog's / Dad's / the baby's) |
 | ⚠️ | `story:busy-park:page-1` | Eero juoksee. | Eero runs. |
 | ⚠️ | `story:busy-park:page-2` | Aino laulaa. | Aino sings. |
-| ⚠️ | `story:busy-park:page-3` | Me uimme. | We swim. |
+| ⚠️ | `story:busy-park:page-3` | Me syömme. | We eat. |
 | ⚠️ | `story:busy-park:page-4` | Isä lukee. | Dad reads. |
 | ⚠️ | `story:busy-park:page-5` | Vauva nukkuu. | The baby sleeps. |
 | ⚠️ | `story:busy-park:q1` | Mitä Aino tekee? (laulaa / juoksee / nukkuu) | What is Aino doing? (sings / runs / sleeps) |
@@ -526,17 +526,17 @@ _The fixed words around the slot, with one example._
 | ⚠️ | `carrier:i-dont-like-tykkaa` | En tykkää ___. — e.g. En tykkää omenasta. | I don't like the ___. |
 | ⚠️ | `carrier:i-see` | Näen ___. — e.g. Näen omenan. | I see the ___. |
 | ⚠️ | `carrier:i-love` | Rakastan ___. — e.g. Rakastan omenaa. | I love the ___. |
-| ⚠️ | `carrier:i-watch` | Katson ___. — e.g. Katson tätiä. | I watch the ___. |
+| ⚠️ | `carrier:i-watch` | Katson ___. — e.g. Katson tätiä. | I'm looking at the ___. |
 | ⚠️ | `carrier:in-front-of` | ___ edessä — e.g. omenan edessä | in front of the ___ |
-| ⚠️ | `carrier:behind` | ___ takana — e.g. omenan takana | behind the ___ |
+| ⚠️ | `carrier:behind` | ___ takana — e.g. tädin takana | behind the ___ |
 | ⚠️ | `carrier:next-to` | ___ vieressä — e.g. omenan vieressä | next to the ___ |
-| ⚠️ | `carrier:under` | ___ alla — e.g. omenan alla | under the ___ |
+| ⚠️ | `carrier:under` | ___ alla — e.g. korin alla | under the ___ |
 | ⚠️ | `carrier:in-front-of-them` | ___ edessä — e.g. omenien edessä | in front of the ___s |
-| ⚠️ | `carrier:behind-them` | ___ takana — e.g. omenien takana | behind the ___s |
+| ⚠️ | `carrier:behind-them` | ___ takana — e.g. tätien takana | behind the ___s |
 | ⚠️ | `carrier:next-to-them` | ___ vieressä — e.g. omenien vieressä | next to the ___s |
-| ⚠️ | `carrier:under-them` | ___ alla — e.g. omenien alla | under the ___s |
-| ⚠️ | `carrier:is-under` | Kissa on ___ alla. — e.g. Kissa on omenan alla. | The cat is under the ___. |
-| ⚠️ | `carrier:is-behind` | Kissa on ___ takana. — e.g. Kissa on omenan takana. | The cat is behind the ___. |
+| ⚠️ | `carrier:under-them` | ___ alla — e.g. korien alla | under the ___s |
+| ⚠️ | `carrier:is-under` | Kissa on ___ alla. — e.g. Kissa on korin alla. | The cat is under the ___. |
+| ⚠️ | `carrier:is-behind` | Kissa on ___ takana. — e.g. Kissa on tädin takana. | The cat is behind the ___. |
 | ⚠️ | `carrier:is-in-front-of` | Kissa on ___ edessä. — e.g. Kissa on omenan edessä. | The cat is in front of the ___. |
 | ⚠️ | `carrier:is-next-to` | Kissa on ___ vieressä. — e.g. Kissa on omenan vieressä. | The cat is next to the ___. |
 | ⚠️ | `carrier:this-is-mine` | Tämä on minun ___. — e.g. Tämä on minun omenani. | This is my ___. |
@@ -549,18 +549,18 @@ _The fixed words around the slot, with one example._
 | ⚠️ | `carrier:where-are` | Missä ovat ___? — e.g. Missä ovat omenat? | Where are the ___s? |
 | ⚠️ | `carrier:i-buy` | Ostan ___. — e.g. Ostan omenan. | I buy a ___. |
 | ⚠️ | `carrier:i-buy-some` | Ostan ___. — e.g. Ostan leipää. | I buy some ___. |
-| ⚠️ | `carrier:i-wait-for` | Odotan ___. — e.g. Odotan tätiä. | I wait for the ___. |
-| ⚠️ | `carrier:on-it` | Kissa on ___. — e.g. Kissa on korilla. | The cat is on the ___. |
+| ⚠️ | `carrier:i-wait-for` | Odotan ___. — e.g. Odotan tätiä. | I'm waiting for the ___. |
+| ⚠️ | `carrier:on-it` | Kissa on ___. — e.g. Kissa on sängyllä. | The cat is on the ___. |
 | ⚠️ | `carrier:in-it` | Kissa on ___. — e.g. Kissa on laukussa. | The cat is in the ___. |
 | ⚠️ | `carrier:into-it` | Kissa menee ___. — e.g. Kissa menee laukkuun. | The cat goes into the ___. |
-| ⚠️ | `carrier:onto-it` | Kissa menee ___. — e.g. Kissa menee korille. | The cat goes onto the ___. |
+| ⚠️ | `carrier:onto-it` | Kissa menee ___. — e.g. Kissa menee sängylle. | The cat goes onto the ___. |
 | ⚠️ | `carrier:out-of-it` | Kissa tulee ___. — e.g. Kissa tulee laukusta. | The cat comes out of the ___. |
-| ⚠️ | `carrier:off-it` | Kissa tulee ___. — e.g. Kissa tulee korilta. | The cat comes off the ___. |
+| ⚠️ | `carrier:off-it` | Kissa tulee ___. — e.g. Kissa tulee sängyltä. | The cat comes off the ___. |
 | ⚠️ | `carrier:in-them` | Kissat ovat ___. — e.g. Kissat ovat laukuissa. | The cats are in the ___s. |
-| ⚠️ | `carrier:on-them` | Kissat ovat ___. — e.g. Kissat ovat koreilla. | The cats are on the ___s. |
-| ⚠️ | `carrier:onto-them` | Kissat menevät ___. — e.g. Kissat menevät koreille. | The cats go onto the ___s. |
+| ⚠️ | `carrier:on-them` | Kissat ovat ___. — e.g. Kissat ovat sängyillä. | The cats are on the ___s. |
+| ⚠️ | `carrier:onto-them` | Kissat menevät ___. — e.g. Kissat menevät sängyille. | The cats go onto the ___s. |
 | ⚠️ | `carrier:out-of-them` | Kissat tulevat ___. — e.g. Kissat tulevat laukuista. | The cats come out of the ___s. |
-| ⚠️ | `carrier:off-them` | Kissat tulevat ___. — e.g. Kissat tulevat koreilta. | The cats come off the ___s. |
+| ⚠️ | `carrier:off-them` | Kissat tulevat ___. — e.g. Kissat tulevat sängyiltä. | The cats come off the ___s. |
 | ⚠️ | `carrier:i-am` | Olen ___. | I'm ___. |
 | ⚠️ | `carrier:she-is` | Hän on ___. | He/she is ___. |
 | ⚠️ | `carrier:i-am-not` | En ole ___. | I'm not ___. |
@@ -611,41 +611,41 @@ _Flag any "wrong" form that is actually fine Finnish for this meaning._
 | ⚠️ | `slip:i-dont-like-tykkaa` | En tykkää omenasta. ✓ — marked wrong: omenaa, omena, omenan | I don't like the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-see` | Näen omenan. ✓ — marked wrong: omena, omenasta | I see the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-love` | Rakastan omenaa. ✓ — marked wrong: omenasta, omena, omenan | I love the ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:i-watch` | Katson tätiä. ✓ — marked wrong: täti, tädistä, tädillä | I watch the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:i-watch` | Katson tätiä. ✓ — marked wrong: täti, tädistä, tädillä | I'm looking at the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:in-front-of` | omenan edessä ✓ — marked wrong: omena, omenaa, omenalla | in front of the ___ (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:behind` | omenan takana ✓ — marked wrong: omena, omenaa, omenalla | behind the ___ (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:behind` | tädin takana ✓ — marked wrong: täti, tätiä, tädillä | behind the ___ (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:next-to` | omenan vieressä ✓ — marked wrong: omena, omenaa, omenalla | next to the ___ (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:under` | omenan alla ✓ — marked wrong: omena, omenaa, omenalla | under the ___ (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:under` | korin alla ✓ — marked wrong: kori, koria, korilla | under the ___ (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:in-front-of-them` | omenien edessä ✓ — marked wrong: omenat, omenan, omenia | in front of the ___s (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:behind-them` | omenien takana ✓ — marked wrong: omenat, omenan, omenia | behind the ___s (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:behind-them` | tätien takana ✓ — marked wrong: tädit, tädin, tätejä | behind the ___s (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:next-to-them` | omenien vieressä ✓ — marked wrong: omenat, omenan, omenia | next to the ___s (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:under-them` | omenien alla ✓ — marked wrong: omenat, omenan, omenia | under the ___s (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:is-under` | Kissa on omenan alla. ✓ — marked wrong: omena, omenaa, omenalla | The cat is under the ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:is-behind` | Kissa on omenan takana. ✓ — marked wrong: omena, omenaa, omenalla | The cat is behind the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:under-them` | korien alla ✓ — marked wrong: korit, korin, koreja | under the ___s (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:is-under` | Kissa on korin alla. ✓ — marked wrong: kori, koria, korilla | The cat is under the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:is-behind` | Kissa on tädin takana. ✓ — marked wrong: täti, tätiä, tädillä | The cat is behind the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:is-in-front-of` | Kissa on omenan edessä. ✓ — marked wrong: omena, omenaa, omenalla | The cat is in front of the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:is-next-to` | Kissa on omenan vieressä. ✓ — marked wrong: omena, omenaa, omenalla | The cat is next to the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:this-is-mine` | Tämä on minun omenani. ✓ — marked wrong: omenasi, omenansa, omena | This is my ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:this-is-yours` | Tämä on sinun omenasi. ✓ — marked wrong: omenani, omenansa, omena | This is your ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:this-is-theirs` | Tämä on hänen omenansa. ✓ — marked wrong: omenani, omenasi, omena | This is his/her ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:where-is-yours` | Missä on sinun omenasi? ✓ — marked wrong: omenani, omenansa, omena | Where is your ___? (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:i-have-some` | Minulla on omenia. ✓ — marked wrong: omenaa, omena | I have some ___s. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:i-have-some` | Minulla on omenia. ✓ — marked wrong: omena | I have some ___s. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-havent-any` | Minulla ei ole omenia. ✓ — marked wrong: omenat, omena | I don't have any ___s. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:these-are` | Nämä ovat omenia. ✓ — marked wrong: omenaa, omena | These are ___s. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:these-are` | Nämä ovat omenia. ✓ — marked wrong: omena | These are ___s. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:where-are` | Missä ovat omenat? ✓ — marked wrong: omena, omenia | Where are the ___s? (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-buy` | Ostan omenan. ✓ — marked wrong: omena, omenasta | I buy a ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-buy-some` | Ostan leipää. ✓ — marked wrong: leivän, leipä, leivästä | I buy some ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:i-wait-for` | Odotan tätiä. ✓ — marked wrong: tädin, täti, tädistä | I wait for the ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:on-it` | Kissa on korilla. ✓ — marked wrong: korissa, korista, koriin, korilta, korille, kori | The cat is on the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:i-wait-for` | Odotan tätiä. ✓ — marked wrong: tädin, täti, tädistä | I'm waiting for the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:on-it` | Kissa on sängyllä. ✓ — marked wrong: sängyssä, sängystä, sänkyyn, sängyltä, sängylle, sänky | The cat is on the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:in-it` | Kissa on laukussa. ✓ — marked wrong: laukusta, laukkuun, laukulla, laukulta, laukulle, laukku | The cat is in the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:into-it` | Kissa menee laukkuun. ✓ — marked wrong: laukussa, laukusta, laukulla, laukulta, laukulle, laukku | The cat goes into the ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:onto-it` | Kissa menee korille. ✓ — marked wrong: korissa, korista, koriin, korilla, korilta, kori | The cat goes onto the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:onto-it` | Kissa menee sängylle. ✓ — marked wrong: sängyssä, sängystä, sänkyyn, sängyllä, sängyltä, sänky | The cat goes onto the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:out-of-it` | Kissa tulee laukusta. ✓ — marked wrong: laukussa, laukkuun, laukulla, laukulta, laukulle, laukku | The cat comes out of the ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:off-it` | Kissa tulee korilta. ✓ — marked wrong: korissa, korista, koriin, korilla, korille, kori | The cat comes off the ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:off-it` | Kissa tulee sängyltä. ✓ — marked wrong: sängyssä, sängystä, sänkyyn, sängyllä, sängylle, sänky | The cat comes off the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:in-them` | Kissat ovat laukuissa. ✓ — marked wrong: laukussa, laukuista, laukkuihin, laukuilla, laukuilta, laukuille | The cats are in the ___s. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:on-them` | Kissat ovat koreilla. ✓ — marked wrong: korilla, koreissa, koreista, koreihin, koreilta, koreille | The cats are on the ___s. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:onto-them` | Kissat menevät koreille. ✓ — marked wrong: korille, koreissa, koreista, koreihin, koreilla, koreilta | The cats go onto the ___s. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:on-them` | Kissat ovat sängyillä. ✓ — marked wrong: sängyllä, sängyissä, sängyistä, sänkyihin, sängyiltä, sängyille | The cats are on the ___s. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:onto-them` | Kissat menevät sängyille. ✓ — marked wrong: sängylle, sängyissä, sängyistä, sänkyihin, sängyillä, sängyiltä | The cats go onto the ___s. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:out-of-them` | Kissat tulevat laukuista. ✓ — marked wrong: laukusta, laukuissa, laukkuihin, laukuilla, laukuilta, laukuille | The cats come out of the ___s. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:off-them` | Kissat tulevat koreilta. ✓ — marked wrong: korilta, koreissa, koreista, koreihin, koreilla, koreille | The cats come off the ___s. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:off-them` | Kissat tulevat sängyiltä. ✓ — marked wrong: sängyltä, sängyissä, sängyistä, sänkyihin, sängyillä, sängyille | The cats come off the ___s. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-dont-like` | En pidä omenasta. ✓ — marked wrong: omenaa, omena, omenan | I don't like the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-am-in` | Olen kylpyhuoneessa. ✓ — marked wrong: kylpyhuoneesta, kylpyhuoneeseen, kylpyhuoneelta, kylpyhuoneelle | I'm in the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-am-on` | Olen ovella. ✓ — marked wrong: ovesta, oveen, ovelta, ovelle | I'm ___. (the other forms must NOT fit this meaning) |
@@ -655,11 +655,11 @@ _Flag any "wrong" form that is actually fine Finnish for this meaning._
 | ⚠️ | `slip:i-come-from-on` | Tulen ovelta. ✓ — marked wrong: ovessa, oveen, ovella, ovelle | I'm coming from the ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:owner-thing` | Tämä on veljen pyörä. ✓ — marked wrong: veli, veljellä, veljeä | This is ___ bike. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:go-by` | Menen pyörällä. ✓ — marked wrong: pyörään, pyörä, pyörää | I'm going by ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:write-with` | Kirjoitan tietokoneella. ✓ — marked wrong: tietokone, tietokonetta, tietokoneesta | I write with a ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:draw-with` | Piirrän tietokoneella. ✓ — marked wrong: tietokone, tietokonetta, tietokoneesta | I draw with a ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:eat-with` | Syön haarukalla. ✓ — marked wrong: haarukka, haarukkaa, haarukasta | I eat with a ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:play-with-toy` | Leikin pallolla. ✓ — marked wrong: pallo, palloa, pallosta | I play with a ___. (the other forms must NOT fit this meaning) |
-| ⚠️ | `slip:open-with` | Avaan oven avaimella. ✓ — marked wrong: avain, avainta, avaimesta | I open the door with a ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:write-with` | Kirjoitan tietokoneella. ✓ — marked wrong: tietokone, tietokonetta, tietokoneen | I write with a ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:draw-with` | Piirrän tietokoneella. ✓ — marked wrong: tietokone, tietokonetta, tietokoneen | I draw with a ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:eat-with` | Syön haarukalla. ✓ — marked wrong: haarukka, haarukkaa, haarukan | I eat with a ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:play-with-toy` | Leikin pallolla. ✓ — marked wrong: pallo, palloa, pallon | I play with a ___. (the other forms must NOT fit this meaning) |
+| ⚠️ | `slip:open-with` | Avaan oven avaimella. ✓ — marked wrong: avain, avainta, avaimen | I open the door with a ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:with-someone` | Leikin veljen kanssa. ✓ — marked wrong: veljellä, veli, veljeä | I play with my ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-want-to` | Haluan rakentaa. ✓ — marked wrong: rakennan, rakennat | I want to ___. (the other forms must NOT fit this meaning) |
 | ⚠️ | `slip:i-dont-want-to` | En halua siivota. ✓ — marked wrong: siivoan, siivoaa, siivoat | I don't want to ___. (the other forms must NOT fit this meaning) |
@@ -982,7 +982,7 @@ _Words quoted in the explanations._
 | ⚠️ | `lesson:conversation:4` | Mitä? · Missä? · Kuka? · Paljonko? | Having a real conversation — Question words |
 | ⚠️ | `lesson:conversation:5` | Kiitos! · Ole hyvä! | Having a real conversation — check |
 | ⚠️ | `lesson:conversation:6` | Anteeksi! · Ei se mitään | Having a real conversation — check |
-| ⚠️ | `lesson:word-order:3` | Kissa on laatikolla | Building sentences — Spotting mistakes |
+| ⚠️ | `lesson:word-order:3` | Kissa on laatikolla · laatikossa | Building sentences — Spotting mistakes |
 | ⚠️ | `lesson:word-order:4` | laatikossa | Building sentences — check |
 | ⚠️ | `lesson:word-order:5` | Pidän · jalkapallosta | Building sentences — check |
 | ⚠️ | `lesson:expert:1` | olla | Expert Finnish — "Have done" — olen syönyt |
@@ -1578,7 +1578,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | `title:Äänitutkija` | Äänitutkija | Sound explorer |
 
-## Buttons & screen labels (117)
+## Buttons & screen labels (119)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -1644,6 +1644,8 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Miten kysyt?` | Miten kysyt? | How do you ask? |
 | ⚠️ | `ui:Miten sanot?` | Miten sanot? | How do you say it? |
 | ⚠️ | `ui:Mitä kuulit?` | Mitä kuulit? | What did you hear? |
+| ⚠️ | `ui:Mitä kuuluu?` | Mitä kuuluu? | (no English shown) |
+| ⚠️ | `ui:Mitä pitää tehdä?` | Mitä pitää tehdä? | Tap what the command says |
 | ⚠️ | `ui:Mitä sanot?` | Mitä sanot? | What do you say? |
 | ⚠️ | `ui:Mitä vastaat?` | Mitä vastaat? | What do you answer? / What do you reply? |
 | ⚠️ | `ui:Muistatko?` | Muistatko? | Remember? |
