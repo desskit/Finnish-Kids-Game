@@ -20,11 +20,11 @@ export default [
         const o1 = polar(cx, cy, r, a - 27);
         const o2 = polar(cx, cy, r, a + 27);
         out.push(k.line(`M${pt(pent[i])}L${pt(inner)}M${pt(s2)}L${pt(polar(cx, cy, 16.8, a + 51))}`, { sw: 1.5 }));
-        out.push(k.path(`M${pt(inner)}L${pt(s2)}L${pt(o2)}A${fmt(r)} ${fmt(r)} 0 0 0 ${pt(o1)}L${pt(s1)}Z`, c.charcoal, { sw: 1.5, inRim: false }));
+        out.push(k.path(`M${pt(inner)}L${pt(s2)}L${pt(o2)}A${fmt(r)} ${fmt(r)} 0 0 0 ${pt(o1)}L${pt(s1)}Z`, c.charcoal, { sw: 1.5 }));
       }
-      out.push(k.poly(pent, 1.2, c.charcoal, { sw: 1.5, inRim: false }));
+      out.push(k.poly(pent, 1.2, c.charcoal, { sw: 1.5 }));
       out.push(k.shineDot(30.2, 29.6, 1.1));
-      out.push(k.circle(cx, cy, R, 'none', { inRim: false }));
+      out.push(k.circle(cx, cy, R, 'none'));
       return out.join('');
     },
   },

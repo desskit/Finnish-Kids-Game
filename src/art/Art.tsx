@@ -3,12 +3,19 @@
 // it takes the font-size the emoji had. Short text in a picture's place — a
 // keycap (1️⃣), a number ("11") or an ordinal ("1.") — sits on the number tile.
 //
+// Pictures can move. `motion="loop"` plays everything the picture does (Leo
+// runs, Mirri's tail sways, faces blink): for the main picture on a screen.
+// `motion="idle"` only blinks: for answer cards. Without it, the picture is
+// still: for small icons. Nothing moves when reduced motion is on.
+//
 // Until every picture is drawn, an emoji with no picture yet shows as itself.
 
 import { Fragment, useEffect } from 'react';
-import { ART, GLYPH_ART, type ArtId } from './generated/manifest';
+import { ART, ART_MOTION, GLYPH_ART, type ArtId } from './generated/manifest';
 import { glyphKey, isEmoji, keycapText, splitEmoji } from './glyph';
-import { ensureSprite } from './sprites';
+import { useMotion } from './motion';
+import { ensureSprite, useSpriteReady, type Sprite } from './sprites';
+import './generated/art.css';
 
 interface Props {
   /** A word: its own picture if it has one, otherwise its emoji's. */
@@ -18,6 +25,17 @@ interface Props {
   className?: string;
   /** Says what the picture is to a screen reader (otherwise it's decorative). */
   label?: string;
+  /** 'loop': all its motion; 'idle': just its blink; unset: still. */
+  motion?: 'loop' | 'idle';
+}
+
+/** Which moving symbol a picture uses for a kind of motion, if any. */
+export function motionSymbol(art: ArtId, motion: 'loop' | 'idle' | undefined): string | undefined {
+  const m = ART_MOTION[art];
+  if (!m || !motion) return undefined;
+  if (motion === 'loop') return `art-${art}--m`;
+  if (!m.blink) return undefined;
+  return m.loop ? `art-${art}--b` : `art-${art}--m`;
 }
 
 /** The picture drawn for an emoji, if there is one. */
@@ -38,21 +56,29 @@ function tileText(glyph: string | undefined): string | undefined {
   return !isEmoji(glyph) && glyph.trim().length > 0 && glyph.length <= 3 ? glyph : undefined;
 }
 
-export default function Art({ item, id, glyph, className, label }: Props) {
+export default function Art({ item, id, glyph, className, label, motion }: Props) {
   const emoji = glyph ?? item?.emoji;
   const art = id ?? (item ? artForItem(item) : artForGlyph(glyph));
   const tile = art ? undefined : tileText(emoji);
   const group = art ? ART[art].group : tile ? ART.tile.group : undefined;
+  const moving = useMotion();
+  const wanted = art && moving ? motionSymbol(art, motion) : undefined;
+  const motionReady = useSpriteReady('motion');
   useEffect(() => {
-    if (group) void ensureSprite(group);
-  }, [group]);
+    const sprites: Sprite[] = [];
+    if (group) sprites.push(group);
+    if (wanted) sprites.push('motion');
+    for (const s of sprites) void ensureSprite(s);
+  }, [group, wanted]);
+  // the still picture stands in until the moving one has arrived
+  const symbolId = wanted && motionReady ? wanted : `art-${art}`;
 
   const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true as const };
   const cls = (base: string) => (className ? `${base} ${className}` : base);
   if (art) {
     return (
-      <svg className={cls('art')} data-art={art} data-emoji={emoji} {...a11y}>
-        <use href={`#art-${art}`} />
+      <svg className={cls('art')} data-art={art} data-emoji={emoji} data-motion={symbolId !== `art-${art}` ? motion : undefined} {...a11y}>
+        <use href={`#${symbolId}`} />
       </svg>
     );
   }

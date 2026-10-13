@@ -36,6 +36,8 @@ export const CAST = {
  * - arms/legs: [shoulder|hip, elbow|knee?, hand|foot] for the picture's left
  *   (back) and right (front) limb. Legs are always behind the body; the back
  *   arm is too, unless `armsInFront` (a person facing us);
+ * - toes: how far the shoes point forward (0 when facing us);
+ * - bob: how far the body and head rise (negative) this frame, in canvas units;
  * - face: 'smile' | 'grin' | 'laugh' | 'o' | 'sleepy' | 'sad'.
  */
 export const POSES = {
@@ -48,6 +50,7 @@ export const POSES = {
     armsInFront: true,
     legBack: [[28.6, 46], [28.2, 55.4]],
     legFront: [[35.4, 46], [35.8, 55.4]],
+    toes: 0,
     face: 'smile',
   },
   run: {
@@ -58,10 +61,48 @@ export const POSES = {
     armFront: [[39.4, 35.6], [43.4, 41.4], [48.6, 38.6]],
     legBack: [[30, 46.2], [23.8, 49.4], [18.6, 45.2]],
     legFront: [[35.6, 46.4], [41.8, 50.4], [40.6, 55.8]],
+    toes: 0.8,
     face: 'grin',
     speed: true,
   },
 };
+
+/**
+ * A run cycle (4 frames: contact, passing, contact, passing). Legs and arms
+ * swing in opposition; on the passing frames the body rises one pixel.
+ */
+export function runPose(k) {
+  const f = k.frame % 4;
+  const up = f % 2 ? -k.px : 0;
+  const hip = { back: [30, 46.2 + up], front: [35.6, 46.4 + up] };
+  const sh = { back: [28.4, 35.4 + up], front: [39.4, 35.6 + up] };
+  const ground = 56.2;
+  const legs = {
+    fwd: (h) => [h, [h[0] + 6.2, h[1] + 4], [h[0] + 5, ground - 0.4]],
+    back: (h) => [h, [h[0] - 6.2, h[1] + 3.2], [h[0] - 11.4, h[1] - 1]],
+    support: (h) => [h, [h[0] + 1, h[1] + 5], [h[0] + 0.4, ground]],
+    lift: (h) => [h, [h[0] + 5.6, h[1] + 2.6], [h[0] + 1.2, h[1] + 6.4]],
+  };
+  const arms = {
+    fwd: (s) => [s, [s[0] + 4, s[1] + 6], [s[0] + 9.2, s[1] + 3.2]],
+    back: (s) => [s, [s[0] - 5.2, s[1] + 4.2], [s[0] - 7.8, s[1] - 1]],
+    mid: (s) => [s, [s[0] + 1.2, s[1] + 6.2], [s[0] + 4.6, s[1] + 8]],
+  };
+  const [legFront, legBack, armFront, armBack] = [
+    ['fwd', 'back', 'back', 'fwd'],
+    ['support', 'lift', 'mid', 'mid'],
+    ['back', 'fwd', 'fwd', 'back'],
+    ['lift', 'support', 'mid', 'mid'],
+  ][f];
+  return {
+    ...POSES.run,
+    bob: up,
+    legFront: legs[legFront](hip.front),
+    legBack: legs[legBack](hip.back),
+    armFront: arms[armFront](sh.front),
+    armBack: arms[armBack](sh.back),
+  };
+}
 
 // --- Drawing -------------------------------------------------------------------
 
@@ -81,17 +122,21 @@ const limbPath = (pts) => (pts.length === 2 ? `M${pt(pts[0])}L${pt(pts[1])}` : `
 export function person(k, look, pose = POSES.stand) {
   const c = k.P;
   const skin = c[look.skin];
-  const [hx, hy] = pose.head;
+  const bob = pose.bob ?? 0;
+  const [hx, hy] = [pose.head[0], pose.head[1] + bob];
   const pivot = [32, 46];
-  const lean = (p) => rot(p, pivot, pose.torso);
+  const lean = (p) => {
+    const [x, y] = rot(p, pivot, pose.torso);
+    return [x, y + bob];
+  };
   const out = [];
 
   out.push(k.ground(pose.speed ? 31 : 32, 58.6, pose.speed ? 15 : 13.5, 2.4));
   if (pose.speed) out.push(k.speed(15, [27, 32.5, 38], 6));
 
   // Legs (and a turned-away arm) behind the body
-  out.push(leg(k, look, pose.legBack, skin));
-  out.push(leg(k, look, pose.legFront, skin));
+  out.push(leg(k, look, pose.legBack, skin, pose.toes));
+  out.push(leg(k, look, pose.legFront, skin, pose.toes));
   if (!pose.armsInFront) out.push(arm(k, look, pose.armBack, skin));
 
   out.push(body(k, look, lean));
@@ -104,16 +149,16 @@ export function person(k, look, pose = POSES.stand) {
   return out.join('');
 }
 
-function leg(k, look, pts, skin) {
+function leg(k, look, pts, skin, toes = 0) {
   const c = k.P;
   const legColor = look.bottom?.kind === 'trousers' ? c[look.bottom.color] : look.legs ? c[look.legs] : skin;
   const foot = pts[pts.length - 1];
   const from = pts[pts.length - 2];
-  // the shoe points along the last bone, toes forward (to the right)
+  // the shoe lines up with the last bone; toes point forward (right) when walking
   const ang = (Math.atan2(foot[1] - from[1], foot[0] - from[0]) * 180) / Math.PI - 90;
   return (
     k.limb(limbPath(pts), legColor, 8.6) +
-    k.g(`rotate(${Math.round(ang)} ${pt(foot)})`, k.ellipse(foot[0] + 0.8, foot[1] + 1.4, 4.3, 2.7, c[look.shoes]))
+    k.g(`rotate(${Math.round(ang)} ${pt(foot)})`, k.ellipse(foot[0] + toes, foot[1] + 1.4, 3.9, 2.7, c[look.shoes]))
   );
 }
 
@@ -183,7 +228,7 @@ function faceOf(k, x, y, face) {
   }
   out.push(k.blush(x - 7.6, y + 6.2), k.blush(x + 7.6, y + 6.2));
   if (face === 'grin' || face === 'laugh') out.push(k.openSmile(x, y + 6.4, 5.6, 2.6));
-  else if (face === 'o') out.push(k.ellipse(x, y + 7.4, 1.6, 2, k.P.mouth, { sw: 1.5, inRim: false }));
+  else if (face === 'o') out.push(k.ellipse(x, y + 7.4, 1.6, 2, k.P.mouth, { sw: 1.5 }));
   else if (face === 'sad') out.push(k.smile(x, y + 8.4, 4, -1.1));
   else out.push(k.smile(x, y + 6.6, 4.2, 1.3));
   return out.join('');
@@ -234,7 +279,7 @@ function hairFront(k, hair, hx, hy, color, shade) {
   };
   switch (hair.style) {
     case 'pigtails': {
-      const tie = (s) => k.circle(...at(s * -12.4, -3.4), 2.3, k.P[hair.tie ?? 'red'], { inRim: false });
+      const tie = (s) => k.circle(...at(s * -12.4, -3.4), k.px >= 2 ? 1.3 : 2.3, k.P[hair.tie ?? 'red']);
       return (
         cap(
           `Q${pt(at(12.6, -3.6))} ${pt(at(10.4, -6.2))}Q${pt(at(7.6, -3.2))} ${pt(at(4.2, -6.8))}Q${pt(at(0.4, -3))} ${pt(at(-3.6, -6.8))}Q${pt(at(-7, -3.2))} ${pt(at(-10.4, -6.2))}Q${pt(at(-12.8, -3.4))} ${pt(polar(hx, hy, R + 1, 172))}`,

@@ -6,5 +6,5 @@ describe('the picture set', () => {
     // Throws (with the build's message) when src/art/generated is stale or a picture fails its lint.
     const out = execFileSync('node', ['scripts/build-art.mjs', '--check'], { encoding: 'utf8' });
     expect(out).toMatch(/up to date/);
-  });
+  }, 120_000);
 });

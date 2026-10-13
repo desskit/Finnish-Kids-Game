@@ -9,13 +9,16 @@ export default [
     title: 'speaker (listen)',
     group: 'ui',
     glyphs: ['🔊'],
+    // the sound waves pulse outward: both, none, the near one
+    motion: { frames: 3, fps: 3 },
     draw: (k) => {
       const c = k.P;
+      const waves = [2, 0, 1][k.frame % 3];
       return [
         k.rect(10.6, 24.4, 10.4, 15.2, 2.4, c.silver),
         k.path('M20.2 25.2L31.4 15.8C33 14.4 34.6 15.2 34.6 17.2V46.8C34.6 48.8 33 49.6 31.4 48.2L20.2 38.8Z', c.white),
-        k.path(ringSector(35.4, 32, 6.6, 11.6, -44, 44), c.amber),
-        k.path(ringSector(35.4, 32, 15, 20, -44, 44), c.amber),
+        waves >= 1 ? k.path(ringSector(35.4, 32, 6.6, 11.6, -44, 44), c.amber) : '',
+        waves >= 2 ? k.path(ringSector(35.4, 32, 15, 20, -44, 44), c.amber) : '',
       ].join('');
     },
   },
@@ -24,6 +27,8 @@ export default [
     title: 'trophy',
     group: 'ui',
     glyphs: ['🏆'],
+    // a glint sweeps across the cup
+    motion: { frames: 5, fps: 6 },
     draw: (k) => {
       const c = k.P;
       return [
@@ -34,9 +39,10 @@ export default [
         k.path('M16.6 12.4H47.4V21.4C47.4 32.4 40.6 39.4 32 39.4C23.4 39.4 16.6 32.4 16.6 21.4Z', c.yellow),
         k.flat('M41.8 14.2H45.6V21.4C45.6 28.4 42.6 33.6 38.4 36.2C40.8 32 41.8 27.2 41.8 21.4Z', c.yellowShade),
         k.flat(roundPoly(starPoints(32, 24.6, 6.6, 3, 5, -90), 0.8), c.amber),
+        k.frame >= 1 && k.frame <= 3 ? k.flat(`M${14 + k.frame * 7} 13L${19 + k.frame * 7} 13L${11 + k.frame * 7} 38L${6 + k.frame * 7} 38Z`, c.white) : '',
         k.shine('M21.4 17.8V24.6', 2.4),
         k.poly([[20.6, 45.4], [43.4, 45.4], [45.6, 55.4], [18.4, 55.4]], 2.2, c.wood),
-        k.rect(25.6, 48.4, 12.8, 4, 1.2, c.cream, { sw: 1.5, inRim: false }),
+        k.rect(25.6, 48.4, 12.8, 4, 1.2, c.cream, { sw: 1.5 }),
       ].join('');
     },
   },

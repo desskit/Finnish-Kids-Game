@@ -1,10 +1,10 @@
 // Verb words. Actions are Leo (the "action kid") doing them; a few verbs keep
 // the object their emoji showed (close = a shut padlock).
 
-import { CAST, person, POSES } from '../people.mjs';
+import { CAST, person, runPose } from '../people.mjs';
 
 export default [
-  { id: 'run', title: 'run', draw: (k) => person(k, CAST.leo, POSES.run) },
+  { id: 'run', title: 'run', motion: { frames: 4, fps: 8 }, draw: (k) => person(k, CAST.leo, runPose(k)) },
   {
     id: 'close',
     title: 'close (a shut padlock)',

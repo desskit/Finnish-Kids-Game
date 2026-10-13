@@ -4,11 +4,14 @@
 
 import { pt, roundPoly } from './kit.mjs';
 
-/** A sitting body (pear shape) with paws, centred under the head. */
-function sittingBody(k, fur, { chest, paws = 'white', tail } = {}) {
+/** A sitting body (pear shape) with paws, centred under the head. `tailTurn` swings the tail about its base (degrees). */
+function sittingBody(k, fur, { chest, paws = 'white', tail, tailTurn = 0 } = {}) {
   const c = k.P;
   const out = [];
-  if (tail) out.push(k.limb(tail, fur, 7.4));
+  if (tail) {
+    const [, bx, by] = /^M([\d.]+) ([\d.]+)/.exec(tail);
+    out.push(tailTurn ? k.g(`rotate(${tailTurn} ${bx} ${by})`, k.limb(tail, fur, 7.4)) : k.limb(tail, fur, 7.4));
+  }
   out.push(k.path('M22.6 56.6C19 50 21.2 40.4 26.8 36.4H37.2C42.8 40.4 45 50 41.4 56.6Z', fur));
   if (chest) out.push(k.flatEllipse(32, 47.4, 5.6, 7, chest));
   out.push(k.ellipse(27.2, 56.2, 3.8, 2.6, c[paws] ?? paws));
@@ -40,10 +43,10 @@ export function catHead(k, x = 32, y = 26) {
     k.eye(x + 5.6, y - 0.4, 2.5),
     k.blush(x - 9.6, y + 4.4, 2.4, 1.5),
     k.blush(x + 9.6, y + 4.4, 2.4, 1.5),
-    k.poly([at(-2.2, 2.8), at(2.2, 2.8), at(0, 5.4)], 0.9, c.pink, { sw: 1.5, inRim: false }),
+    k.poly([at(-2.2, 2.8), at(2.2, 2.8), at(0, 5.4)], 0.9, c.pink, { sw: 1.5 }),
     k.line(`M${pt(at(-2.6, 6.6))}Q${pt(at(-1.2, 7.8))} ${pt(at(0, 6.2))}Q${pt(at(1.2, 7.8))} ${pt(at(2.6, 6.6))}`, { sw: 1.5 }),
-    whiskers(1),
-    whiskers(-1),
+    // whiskers need a fine grid; on a coarse one they're only clutter
+    k.px < 2 ? whiskers(1) + whiskers(-1) : '',
   ].join('');
 }
 
@@ -68,9 +71,9 @@ export function dogHead(k, x = 32, y = 24.5) {
     k.blush(x + 9.4, y + 4.2, 2.2, 1.4),
     k.flatEllipse(x - 3, y + 6, 4, 3.6, c.tan),
     k.flatEllipse(x + 3, y + 6, 4, 3.6, c.tan),
-    k.path(`M${pt(at(0.4, 8.2))}L${pt(at(0.4, 9.8))}Q${pt(at(1.8, 11.6))} ${pt(at(3.2, 9.8))}L${pt(at(3.2, 8.2))}Z`, c.tongue, { sw: 1.5, inRim: false }),
-    k.line(`M${pt(at(0, 5.4))}L${pt(at(0, 7.4))}M${pt(at(-3, 7.2))}Q${pt(at(-1.5, 9))} ${pt(at(0, 7.4))}Q${pt(at(1.5, 9))} ${pt(at(3, 7.2))}`, { sw: 1.5 }),
-    k.ellipse(x, y + 3.6, 3, 2.2, c.ink, { stroke: false, inRim: false }),
+    k.path(`M${pt(at(0.4, 8.2))}L${pt(at(0.4, 9.8))}Q${pt(at(1.8, 11.6))} ${pt(at(3.2, 9.8))}L${pt(at(3.2, 8.2))}Z`, c.tongue, { sw: 1.5 }),
+    k.px < 2 ? k.line(`M${pt(at(0, 5.4))}L${pt(at(0, 7.4))}M${pt(at(-3, 7.2))}Q${pt(at(-1.5, 9))} ${pt(at(0, 7.4))}Q${pt(at(1.5, 9))} ${pt(at(3, 7.2))}`, { sw: 1.5 }) : '',
+    k.ellipse(x, y + 3.6, 3, 2.2, c.ink, { stroke: false }),
     k.shineDot(x - 1.1, y + 2.9, 0.8),
   ].join('');
 }
@@ -88,28 +91,36 @@ export function foxHead(k, x = 32, y = 31) {
     innerEar(1),
     innerEar(-1),
     k.flat(cheeks, c.white),
-    k.path(face, 'none', { inRim: false }),
+    k.path(face, 'none'),
     k.eye(x - 6.6, y + 0.4, 2.4),
     k.eye(x + 6.6, y + 0.4, 2.4),
     k.blush(x - 10.4, y + 6.2, 2.4, 1.4),
     k.blush(x + 10.4, y + 6.2, 2.4, 1.4),
-    k.ellipse(x, y + 15.2, 2.8, 2, c.ink, { stroke: false, inRim: false }),
+    k.ellipse(x, y + 15.2, 2.8, 2, c.ink, { stroke: false }),
     k.shineDot(x - 0.9, y + 14.6, 0.7),
   ].join('');
 }
 
+/** Mirri: sitting, her tail swaying slowly (4 frames). */
 export function cat(k) {
-  return [k.ground(32, 58.6, 14, 2.4), sittingBody(k, k.P.grey, { chest: k.P.white, tail: 'M41.6 53.4C49.6 53.6 52.4 46.6 50.6 40.6C49.8 38.2 47.6 37.6 46.4 39' }), catHead(k)].join('');
-}
-
-export function dog(k) {
-  const c = k.P;
+  const sway = [0, -6, -11, -6][k.frame % 4];
   return [
     k.ground(32, 58.6, 14, 2.4),
-    sittingBody(k, c.charcoal, { chest: c.white, paws: 'tan', tail: 'M41.6 52.6C47.6 52.2 50.6 47 50.8 41.4' }),
+    sittingBody(k, k.P.grey, { chest: k.P.white, tail: 'M41.6 53.4C49.6 53.6 52.4 46.6 50.6 40.6C49.8 38.2 47.6 37.6 46.4 39', tailTurn: sway }),
+    catHead(k),
+  ].join('');
+}
+
+/** Musti: sitting, wagging (2 frames, quick). */
+export function dog(k) {
+  const c = k.P;
+  const wag = [-6, 14][k.frame % 2];
+  return [
+    k.ground(32, 58.6, 14, 2.4),
+    sittingBody(k, c.charcoal, { chest: c.white, paws: 'tan', tail: 'M41.6 52.6C47.6 52.2 50.6 47 50.8 41.4', tailTurn: k.frames > 1 ? wag : 0 }),
     // collar and tag
-    k.poly([[24.8, 36.6], [39.2, 36.6], [38.8, 40.4], [25.2, 40.4]], 1.6, c.red, { inRim: false }),
-    k.circle(32, 42.6, 2.3, c.yellow, { sw: 1.5, inRim: false }),
+    k.poly([[24.8, 36.6], [39.2, 36.6], [38.8, 40.4], [25.2, 40.4]], 1.6, c.red),
+    k.circle(32, 42.6, 2.3, c.yellow, { sw: 1.5 }),
     dogHead(k),
   ].join('');
 }

@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react';
-import Art, { ArtText, artForGlyph, artForItem } from './Art';
+import { act, render } from '@testing-library/react';
+import Art, { ArtText, artForGlyph, artForItem, motionSymbol } from './Art';
+import { backdropUrl } from './backdrops';
 import { glyphKey, isEmoji, keycapText, splitEmoji } from './glyph';
-import { ART, GLYPH_ART } from './generated/manifest';
+import { ART, ART_MOTION, BACKDROP_MOTION, BACKDROPS, GLYPH_ART } from './generated/manifest';
 
 describe('emoji in text', () => {
   it('splits words from emoji, keeping joined emoji, keycaps and flags whole', () => {
@@ -81,11 +82,65 @@ describe('<Art>', () => {
   });
 });
 
+describe('moving pictures', () => {
+  afterEach(() => {
+    delete document.documentElement.dataset.reducedMotion;
+  });
+
+  it('picks the moving symbol for each kind of motion', () => {
+    // Mirri's tail sways and she blinks; Aino only blinks; the sun only shimmers; the apple is still
+    expect(ART_MOTION.cat).toEqual({ loop: true, blink: true });
+    expect(motionSymbol('cat', 'loop')).toBe('art-cat--m');
+    expect(motionSymbol('cat', 'idle')).toBe('art-cat--b');
+    expect(motionSymbol('sister', 'idle')).toBe('art-sister--m');
+    expect(motionSymbol('sun', 'idle')).toBeUndefined();
+    expect(motionSymbol('apple', 'loop')).toBeUndefined();
+    expect(motionSymbol('cat', undefined)).toBeUndefined();
+  });
+
+  it('plays a picture that moves', () => {
+    const { container } = render(<Art glyph="🐱" motion="loop" />);
+    const svg = container.querySelector('svg.art')!;
+    expect(svg.querySelector('use')).toHaveAttribute('href', '#art-cat--m');
+    expect(svg).toHaveAttribute('data-motion', 'loop');
+  });
+
+  it('only blinks on an answer card', () => {
+    const { container } = render(<Art glyph="🐱" motion="idle" />);
+    expect(container.querySelector('use')).toHaveAttribute('href', '#art-cat--b');
+  });
+
+  it('stays still without motion, and when reduced motion is on', () => {
+    const { container, rerender } = render(<Art glyph="🐱" />);
+    expect(container.querySelector('use')).toHaveAttribute('href', '#art-cat');
+    rerender(<Art glyph="🐱" motion="loop" />);
+    expect(container.querySelector('use')).toHaveAttribute('href', '#art-cat--m');
+    // the grown-up setting (src/state/profile.tsx sets this on the root)
+    act(() => {
+      document.documentElement.dataset.reducedMotion = 'true';
+    });
+    rerender(<Art glyph="🐱" motion="loop" />);
+    expect(container.querySelector('use')).toHaveAttribute('href', '#art-cat');
+    expect(container.querySelector('svg.art')).not.toHaveAttribute('data-motion');
+  });
+
+  it('finds each backdrop, still and moving', () => {
+    for (const [id, tones] of Object.entries(BACKDROPS)) {
+      for (const tone of tones) {
+        expect(backdropUrl(id as keyof typeof BACKDROPS, tone, false)).toMatch(new RegExp(`${id}-${tone}\\.svg`));
+      }
+    }
+    expect(BACKDROP_MOTION.park).toContain('night');
+    expect(backdropUrl('park', 'night', true)).toMatch(/park-night\.moving\.svg/);
+  });
+});
+
 describe('the manifest', () => {
   it('only maps emoji to pictures that exist', () => {
     for (const [glyph, id] of Object.entries(GLYPH_ART)) {
       expect(ART[id], glyph).toBeDefined();
       expect(glyph).toBe(glyphKey(glyph));
     }
+    for (const id of Object.keys(ART_MOTION)) expect(ART[id as keyof typeof ART], id).toBeDefined();
   });
 });
