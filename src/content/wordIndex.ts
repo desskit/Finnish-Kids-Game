@@ -7,7 +7,7 @@
 import { themes, verbs, adjectives, numbers, ordinals, time, states } from '.';
 import { PRONOUNS } from './pronouns';
 import { CAST } from './storyKit';
-import { glossWithAlso, type PersonId } from './types';
+import { glossWithAlso, possessiveGloss, type CaseId, type PersonId, type PossessorId } from './types';
 
 export interface WordMeaning {
   /** The word's basic form ("hattu"). */
@@ -85,6 +85,64 @@ const SMALL_WORDS: Record<string, string> = {
   kaikki: 'everyone, all',
   jotain: 'something',
   minäkin: 'me too',
+  // the "not" verb and "don't!"
+  en: "I don't",
+  et: "you don't",
+  emme: "we don't",
+  ette: "you (all) don't",
+  eivät: "they don't",
+  älä: "don't!",
+  // place words that come after their noun ("tuolin alla")
+  alla: 'under',
+  takana: 'behind',
+  edessä: 'in front of',
+  vieressä: 'next to',
+  kanssa: 'with',
+  mukaan: 'along',
+  pois: 'away',
+  takaisin: 'back',
+  // asking
+  onko: 'is …? / does … have?',
+  entä: 'and …? / what about …?',
+  // everyday words that aren't vocabulary items (yet)
+  koti: 'home',
+  kuuluu: 'is going (Mitä kuuluu? = How are you?)',
+  hätää: 'trouble (Ei hätää! = No worries!)',
+  alkaa: 'starts',
+  paistaa: 'shines',
+  käy: 'runs, works',
+  karkkipäivä: 'candy day',
+  kaunis: 'beautiful',
+  tavaraa: 'things, stuff',
+  ruokaa: 'food',
+  täytän: 'I turn (… years old)',
+  uusi: 'new',
+  hiljaista: 'quiet',
+  ollut: 'been',
+  pidän: 'I like',
+  pidät: 'you like',
+  pitää: 'likes',
+  osaan: 'I can',
+  osaat: 'you can',
+  osaa: 'can',
+  pelaa: 'plays (a game)',
+  pelataan: "let's play (a game)",
+  pelata: 'to play (a game)',
+  oikein: 'right, correct',
+  nimesi: 'your name',
+  nimeni: 'my name',
+  syntymäpäiväni: 'my birthday',
+  no: 'well',
+  saanko: 'may I?',
+  saan: 'I may, I get',
+  saat: 'you may, you get',
+  saa: 'may, gets',
+  // "go and do" forms: "Mennään uimaan!" (let's go swimming)
+  uimaan: 'to swim (go swimming)',
+  leikkimään: 'to play',
+  syömään: 'to eat',
+  nukkumaan: 'to sleep (go to bed)',
+  pelaamaan: 'to play (a game)',
 };
 
 const SUBJECTS: Record<PersonId, string> = {
@@ -98,38 +156,67 @@ const SUBJECTS: Record<PersonId, string> = {
 
 let index: Map<string, WordMeaning> | null = null;
 
-function forms(value: unknown, out: string[] = []): string[] {
-  if (typeof value === 'string') {
-    if (!/\s/.test(value)) out.push(value.toLowerCase());
-  } else if (value && typeof value === 'object') {
-    for (const v of Object.values(value as Record<string, unknown>)) forms(v, out);
-  }
-  return out;
-}
-
 function build(): Map<string, WordMeaning> {
   const map = new Map<string, WordMeaning>();
+  // The first meaning found for a spelling wins.
+  const put = (form: string | undefined, meaning: WordMeaning) => {
+    const key = form?.toLowerCase();
+    if (key && !/\s/.test(key) && !map.has(key)) map.set(key, meaning);
+  };
   const items = [...themes.flatMap((t) => t.items), ...verbs.items, ...adjectives.items, ...numbers.items, ...ordinals.items, ...time.items, ...states.items];
   // A word's own basic form wins over another word's inflected form that looks the same.
-  for (const item of items) {
-    const key = item.fi.toLowerCase();
-    if (!map.has(key)) map.set(key, { base: item.fi, en: glossWithAlso(item) });
-  }
-  for (const item of items) {
-    for (const f of forms(item.inflections)) if (!map.has(f)) map.set(f, { base: item.fi, en: glossWithAlso(item) });
-  }
+  for (const item of items) put(item.fi, { base: item.fi, en: glossWithAlso(item) });
+  // Pronouns next: in a story "heitä" is THEM, not the command "throw!".
   for (const [person, table] of Object.entries(PRONOUNS) as [PersonId, (typeof PRONOUNS)[PersonId]][]) {
     const en = `${SUBJECTS[person]} / ${table.enObject}`;
-    for (const [k, f] of Object.entries(table)) {
-      if (k !== 'enObject' && !map.has(f.toLowerCase())) map.set(f.toLowerCase(), { base: table.nominative, en });
+    for (const [k, f] of Object.entries(table)) if (k !== 'enObject') put(f, { base: table.nominative, en });
+  }
+  // "nopeampi" is faster, "paras" best — the sourced degrees, with their English.
+  for (const item of items) {
+    if (!item.degrees) continue;
+    put(item.degrees.comparative, { base: item.fi, en: item.english?.comparative ?? item.en });
+    put(item.degrees.superlative, { base: item.fi, en: item.english?.superlative ?? item.en });
+  }
+  // Every other sourced form. A possessive one says whose: "repussani" → in my backpack.
+  for (const item of items) {
+    for (const [key, f] of Object.entries(item.inflections)) {
+      const poss = /^poss_(1sg|2sg|3rd)_(\w+)_singular$/.exec(key);
+      put(f, {
+        base: item.fi,
+        en: poss ? possessiveGloss(item, poss[1] as PossessorId, poss[2] as CaseId) : glossWithAlso(item),
+      });
     }
   }
   return map;
 }
 
+/** Endings a word can carry on top of its form: "Laulatko?" is laulat + -ko. */
+const CLITICS: [string, string][] = [
+  ['ko', 'asking'],
+  ['kö', 'asking'],
+  ['kin', 'too'],
+  ['kaan', 'not … either'],
+  ['kään', 'not … either'],
+  ['han', ''],
+  ['hän', ''],
+  ['pa', ''],
+  ['pä', ''],
+];
+
 /** What a word in a story means — or undefined for a word we can't look up. */
 export function lookupWord(word: string): WordMeaning | undefined {
   const w = word.toLowerCase();
+  const found = meaningOf(w);
+  if (found) return found;
+  for (const [clitic, note] of CLITICS) {
+    if (w.length <= clitic.length + 1 || !w.endsWith(clitic)) continue;
+    const m = meaningOf(w.slice(0, -clitic.length));
+    if (m) return { base: m.base, en: note ? `${m.en} (${note})` : m.en };
+  }
+  return undefined;
+}
+
+function meaningOf(w: string): WordMeaning | undefined {
   if (SMALL_WORDS[w]) return { base: w, en: SMALL_WORDS[w] };
   // A cast member's name, in any form (Aino, Ainolla, Mirrille…).
   for (const c of Object.values(CAST)) {

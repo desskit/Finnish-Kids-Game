@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-12T21:12:57.935Z · regenerate with `npm run review:content`
+- Generated: 2026-10-13T01:36:00.346Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1715 entries.** Flagged: 0.
+- **Approved: 28 of 1728 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -224,7 +224,7 @@ _Each turn of a short conversation._
 | ⚠️ | `conversation:whose-and-why:3` | Miksi sinulla on kaksi kynää? → Koska piirrän paljon! | Why do you have two pencils? → Because I draw a lot! |
 | ⚠️ | `conversation:whose-and-why:4` | Mitä piirrät? → Piirrän koiran. | What are you drawing? → I'm drawing a dog. |
 
-## Stories (379)
+## Stories (393)
 
 _Each page (who says what), then the questions (✓ = the right answer) and the true-or-false statements._
 
@@ -250,19 +250,20 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:morning:t1` | Eero auttaa Ainoa. (totta) | True or false: Eero helps Aino. (true) |
 | ⚠️ | `story:morning:t2` | Aino syö jäätelöä. (tarua) | True or false: Aino eats ice cream. (false) |
 | ⚠️ | `story:morning:t3` | Reppu on koulussa. (tarua) | True or false: The backpack is at school. (false) |
-| ⚠️ | `story:at-the-shop:page-1` | Äiti ja Aino menevät kauppaan. / Äiti: Teemme keittoa isoäidille. | Mom and Aino go to the shop. / Mom: We're making soup for Grandma. |
+| ⚠️ | `story:at-the-shop:page-1` | Äiti ja Aino menevät kauppaan. / Äiti: Teemme keittoa isoäidille. / Mirri tulee salaa mukaan. | Mom and Aino go to the shop. / Mom: We're making soup for Grandma. / Mirri secretly comes along. |
 | ⚠️ | `story:at-the-shop:page-2` | Äiti: Ostamme porkkanoita ja perunoita. / Aino ostaa yhden tomaatin. | Mom: We buy carrots and potatoes. / Aino buys one tomato. |
-| ⚠️ | `story:at-the-shop:page-3` | Kaupassa on kissa! / Aino: Mirri! Mitä sinä teet täällä? | There's a cat in the shop! / Aino: Mirri! What are you doing here? |
-| ⚠️ | `story:at-the-shop:page-4` | Illalla he syövät keittoa isoäidin kanssa. / Isoäiti: Hyvää keittoa! Kiitos! / Mirri saa vähän makkaraa. | In the evening they eat soup with Grandma. / Grandma: Good soup! Thank you! / Mirri gets a bit of sausage. |
+| ⚠️ | `story:at-the-shop:page-3` | Kaupassa on kissa! / Aino: Mirri! Mitä sinä teet täällä? / Äiti: No, ostetaan Mirrille makkaraa. | There's a cat in the shop! / Aino: Mirri! What are you doing here? / Mom: Well, let's buy Mirri some sausage. |
+| ⚠️ | `story:at-the-shop:page-4` | Illalla he syövät keittoa isoäidin kanssa. / Isoäiti: Hyvää keittoa! Kiitos! / Ja Mirri syö makkaraa. | In the evening they eat soup with Grandma. / Grandma: Good soup! Thank you! / And Mirri eats her sausage. |
 | ⚠️ | `story:at-the-shop:q1` | Mitä äiti ja Aino tekevät isoäidille? (✓ keittoa / kakkua / pitsaa) | What are Mom and Aino making for Grandma? (soup / cake / pizza) |
 | ⚠️ | `story:at-the-shop:q2` | Mitä Aino ostaa? (✓ tomaatin / omenan / banaanin) | What does Aino buy? (a tomato / an apple / a banana) |
 | ⚠️ | `story:at-the-shop:q3` | Mikä eläin on kaupassa? (✓ kissa / koira / hiiri) | Which animal is in the shop? (a cat / a dog / a mouse) |
+| ⚠️ | `story:at-the-shop:q4` | Mitä äiti ostaa Mirrille? (✓ makkaraa / maitoa / kalaa) | What does Mom buy for Mirri? (sausage / milk / fish) |
 | ⚠️ | `story:at-the-shop:t1` | Mirri saa makkaraa. (totta) | True or false: Mirri gets some sausage. (true) |
 | ⚠️ | `story:at-the-shop:t2` | He ostavat jäätelöä. (tarua) | True or false: They buy ice cream. (false) |
 | ⚠️ | `story:at-the-shop:t3` | Isoäiti tekee keittoa. (tarua) | True or false: Grandma makes the soup. (false) |
 | ⚠️ | `story:lost-dog:page-1` | Aamulla Musti ei ollut kotona. / Eero: Musti! Missä olet? | In the morning Musti wasn't home. / Eero: Musti! Where are you? |
 | ⚠️ | `story:lost-dog:page-2` | Aino ja Eero etsivät Mustia metsästä. / He näkivät jotain puun takana. | Aino and Eero looked for Musti in the forest. / They saw something behind a tree. |
-| ⚠️ | `story:lost-dog:page-3` | Musti leikki siellä Mirrin kanssa! / Aino: Mirri! Sinä olit täällä! | Musti was playing there with Mirri! / Aino: Mirri! You were here! |
+| ⚠️ | `story:lost-dog:page-3` | Musti leikki siellä Mirrin kanssa! / Aino: Mirri! Sinäkin olet täällä! | Musti was playing there with Mirri! / Aino: Mirri! You're here too! |
 | ⚠️ | `story:lost-dog:page-4` | Eero antoi Mustille luun. / He kävelivät yhdessä kotiin. / Illalla Musti nukkui hyvin. | Eero gave Musti a bone. / They walked home together. / In the evening Musti slept well. |
 | ⚠️ | `story:lost-dog:q1` | Missä Musti leikki? (✓ puun takana / pöydän alla / autossa) | Where was Musti playing? (behind a tree / under the table / in the car) |
 | ⚠️ | `story:lost-dog:q2` | Kenen kanssa Musti leikki? (✓ Mirrin kanssa / Ainon kanssa / isän kanssa) | Who was Musti playing with? (with Mirri / with Aino / with Dad) |
@@ -290,15 +291,17 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:hello-eero:q2` | Mitä Mirri sanoo? (✓ Miau! / Moi! / Kiitos!) | What does Mirri say? (Meow! / Hi! / Thank you!) |
 | ⚠️ | `story:hello-eero:q3` | Mitä Eero sanoo lopuksi? (✓ Näkemiin! / Hyvää huomenta! / Mitä kuuluu?) | What does Eero say at the end? (Goodbye! / Good morning! / How are you?) |
 | ⚠️ | `story:in-class:page-1` | Tämä on luokka. / Tämä on opettaja. / Opettaja: Tämä on kirja. | This is a classroom. / This is the teacher. / The teacher: This is a book. |
-| ⚠️ | `story:in-class:page-2` | Aino: Onko tämä kirja? / Aino: Ei. Tämä on kynä. | Aino: Is this a book? / Aino: No. This is a pencil. |
+| ⚠️ | `story:in-class:page-2` | Aino etsii kirjaa repusta. / Aino: Onko tämä kirja? / Aino: Ei. Tämä on kynä. | Aino looks in her backpack for her book. / Aino: Is this a book? / Aino: No. This is a pencil. |
 | ⚠️ | `story:in-class:page-3` | Aino: Onko tämä kirja? / Aino: Ei. Tämä on kuva. | Aino: Is this a book? / Aino: No. This is a picture. |
-| ⚠️ | `story:in-class:page-4` | Aino: Onko tämä kirja? / Mirri: Miau! / Aino: Ei! Tämä on Mirri! | Aino: Is this a book? / Mirri the cat: Meow! / Aino: No! This is Mirri! |
-| ⚠️ | `story:in-class:q1` | Kuka on repussa? (✓ Mirri / opettaja / vauva) | Who is in the backpack? (Mirri / the teacher / the baby) |
-| ⚠️ | `story:in-class:q2` | Mikä tulee ensin? (✓ kynä / kuva / kello) | What comes out first? (a pencil / a picture / a clock) |
-| ⚠️ | `story:in-class:q3` | Mitä opettaja sanoo? (✓ Tämä on kirja. / Tämä on kello. / Tämä on kynä.) | What does the teacher say? (This is a book. / This is a clock. / This is a pencil.) |
+| ⚠️ | `story:in-class:page-4` | Mirri: Miau! / Aino: Ei! Tämä on Mirri! / Aino: Ja tässä on kirja! | Mirri the cat: Meow! / Aino: No! This is Mirri! / Aino: And here is the book! |
+| ⚠️ | `story:in-class:q1` | Mitä Aino etsii? (✓ kirjaa / kynää / kuvaa) | What is Aino looking for? (her book / a pencil / a picture) |
+| ⚠️ | `story:in-class:q2` | Kuka on repussa? (✓ Mirri / opettaja / vauva) | Who is in the backpack? (Mirri / the teacher / the baby) |
+| ⚠️ | `story:in-class:q3` | Mikä tulee ensin? (✓ kynä / kuva / kello) | What comes out first? (a pencil / a picture / a clock) |
+| ⚠️ | `story:in-class:q4` | Mitä opettaja sanoo? (✓ Tämä on kirja. / Tämä on kello. / Tämä on kynä.) | What does the teacher say? (This is a book. / This is a clock. / This is a pencil.) |
 | ⚠️ | `story:in-class:t1` | Aino on luokassa. (totta) | True or false: Aino is in the classroom. (true) |
-| ⚠️ | `story:in-class:t2` | Mirri on kirja. (tarua) | True or false: Mirri is a book. (false) |
-| ⚠️ | `story:in-class:t3` | Opettaja on Mirri. (tarua) | True or false: The teacher is Mirri. (false) |
+| ⚠️ | `story:in-class:t2` | Mirri on repussa. (totta) | True or false: Mirri is in the backpack. (true) |
+| ⚠️ | `story:in-class:t3` | Mirri on kirja. (tarua) | True or false: Mirri is a book. (false) |
+| ⚠️ | `story:in-class:t4` | Opettaja on Mirri. (tarua) | True or false: The teacher is Mirri. (false) |
 | ⚠️ | `story:three-cats:page-1` | Opettaja: Montako lasta? / Aino: Kymmenen lasta! | The teacher: How many children? / Aino: Ten children! |
 | ⚠️ | `story:three-cats:page-2` | Tässä on Eero. / Eero: Hei! Anteeksi! / Aino: Nyt yksitoista lasta! | Here's Eero. / Eero: Hi! Sorry! / Aino: Now eleven children! |
 | ⚠️ | `story:three-cats:page-3` | Mirri: Miau! / Opettaja: Mikä tämä on? / Aino: Tämä on Mirri! | Mirri the cat: Meow! / The teacher: What is this? / Aino: This is Mirri! |
@@ -309,16 +312,18 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:three-cats:t1` | Mirri on lapsi. (tarua) | True or false: Mirri is a child. (false) |
 | ⚠️ | `story:three-cats:t2` | Eero on luokassa. (totta) | True or false: Eero is in the classroom. (true) |
 | ⚠️ | `story:three-cats:t3` | Luokassa on kaksi lasta. (tarua) | True or false: There are two children in the classroom. (false) |
-| ⚠️ | `story:what-we-have:page-1` | Aino: Minulla on kissa. / Eero: Minulla on koira. | Aino: I have a cat. / Eero: I have a dog. |
-| ⚠️ | `story:what-we-have:page-2` | Aino: Minulla on pallo. Entä sinulla? / Eero: Minulla on kitara. | Aino: I have a ball. And you? / Eero: I have a guitar. |
-| ⚠️ | `story:what-we-have:page-3` | Aino: Isoäiti, onko sinulla kissa? / Isoäiti: Ei. Minulla on pupu! | Aino: Grandma, do you have a cat? / Grandma: No. I have a bunny! |
-| ⚠️ | `story:what-we-have:page-4` | Meillä on kissa, koira ja pupu. / Eero: Ja pallo ja kitara! | We have a cat, a dog and a bunny. / Eero: And a ball and a guitar! |
+| ⚠️ | `story:what-we-have:page-1` | Eerolla on koira. / Ainolla on kissa. / Eero: Aino, onko sinulla pallo? | Eero has a dog. / Aino has a cat. / Eero: Aino, do you have a ball? |
+| ⚠️ | `story:what-we-have:page-2` | Aino: Ei. Minulla on kitara. / Aino: Onko isoäidillä pallo? | Aino: No. I have a guitar. / Aino: Does Grandma have a ball? |
+| ⚠️ | `story:what-we-have:page-3` | Isoäiti: Hei! Minulla on pupu. / Isoäidillä on pupu ja pallo! | Grandma: Hi! I have a bunny. / Grandma has a bunny and a ball! |
+| ⚠️ | `story:what-we-have:page-4` | Nyt meillä on pallo! / Eero: Kiitos, isoäiti! | Now we have a ball! / Eero: Thank you, Grandma! |
 | ⚠️ | `story:what-we-have:q1` | Kenellä on koira? (✓ Eerolla / Ainolla / isoäidillä) | Who has a dog? (Eero / Aino / Grandma) |
-| ⚠️ | `story:what-we-have:q2` | Mitä isoäidillä on? (✓ pupu / kissa / koira) | What does Grandma have? (a bunny / a cat / a dog) |
-| ⚠️ | `story:what-we-have:q3` | Kenellä on pallo? (✓ Ainolla / Eerolla / isoäidillä) | Who has a ball? (Aino / Eero / Grandma) |
+| ⚠️ | `story:what-we-have:q2` | Mitä Ainolla on? (✓ kitara / pallo / pupu) | What does Aino have? (a guitar / a ball / a bunny) |
+| ⚠️ | `story:what-we-have:q3` | Kenellä on pallo? (✓ isoäidillä / Ainolla / Eerolla) | Who has a ball? (Grandma / Aino / Eero) |
+| ⚠️ | `story:what-we-have:q4` | Mitä isoäidillä on? (✓ pupu / kissa / koira) | What does Grandma have? (a bunny / a cat / a dog) |
 | ⚠️ | `story:what-we-have:t1` | Ainolla on kissa. (totta) | True or false: Aino has a cat. (true) |
-| ⚠️ | `story:what-we-have:t2` | Eerolla on pupu. (tarua) | True or false: Eero has a bunny. (false) |
-| ⚠️ | `story:what-we-have:t3` | Isoäidillä on kitara. (tarua) | True or false: Grandma has a guitar. (false) |
+| ⚠️ | `story:what-we-have:t2` | Isoäidillä on pallo. (totta) | True or false: Grandma has a ball. (true) |
+| ⚠️ | `story:what-we-have:t3` | Ainolla on pallo. (tarua) | True or false: Aino has a ball. (false) |
+| ⚠️ | `story:what-we-have:t4` | Eerolla on pupu. (tarua) | True or false: Eero has a bunny. (false) |
 | ⚠️ | `story:no-hat:page-1` | On kuuma. / Aino: Minulla on mekko. / Aino: Mutta minulla ei ole hattua! | It's hot. / Aino: I have a dress. / Aino: But I don't have a hat! |
 | ⚠️ | `story:no-hat:page-2` | Aino: Äiti! Minulla ei ole hattua! / Äiti: Onko Eerolla hattu? | Aino: Mom! I don't have my hat! / Mom: Does Eero have a hat? |
 | ⚠️ | `story:no-hat:page-3` | Eero: Minulla on lakki. / Eero: Minulla ei ole hattua. | Eero: I have a cap. / Eero: I don't have a hat. |
@@ -332,15 +337,16 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:my-backpack:page-1` | Tässä on kaksi reppua. / Eero: Kumpi on minun reppuni? | Here are two backpacks. / Eero: Which one is my backpack? |
 | ⚠️ | `story:my-backpack:page-2` | Aino: Tämä on minun kirjani! / Aino: Tämä on minun reppuni. | Aino: This is my book! / Aino: This is my backpack. |
 | ⚠️ | `story:my-backpack:page-3` | Eero: Ja tämä on minun palloni! / Eero: Tämä on minun reppuni. | Eero: And this is my ball! / Eero: This is my backpack. |
-| ⚠️ | `story:my-backpack:page-4` | Aino: Onko tämä sinun puhelimesi? / Eero: On! Kiitos, Aino! | Aino: Is this your phone? / Eero: Yes! Thanks, Aino! |
+| ⚠️ | `story:my-backpack:page-4` | Ainon repussa on puhelin. / Aino: Onko tämä sinun puhelimesi? / Eero: On! Kiitos, Aino! | There's a phone in Aino's backpack. / Aino: Is this your phone? / Eero: Yes! Thanks, Aino! |
 | ⚠️ | `story:my-backpack:q1` | Kenen kirja se on? (✓ Ainon / Eeron / opettajan) | Whose book is it? (Aino's / Eero's / the teacher's) |
 | ⚠️ | `story:my-backpack:q2` | Kenen pallo se on? (✓ Eeron / Ainon / isän) | Whose ball is it? (Eero's / Aino's / Dad's) |
 | ⚠️ | `story:my-backpack:q3` | Montako reppua on? (✓ kaksi reppua / yksi reppu / kolme reppua) | How many backpacks are there? (two backpacks / one backpack / three backpacks) |
+| ⚠️ | `story:my-backpack:q4` | Kenen repussa puhelin on? (✓ Ainon / Eeron / opettajan) | Whose backpack is the phone in? (Aino's / Eero's / the teacher's) |
 | ⚠️ | `story:my-backpack:t1` | Puhelin on Eeron. (totta) | True or false: The phone is Eero's. (true) |
 | ⚠️ | `story:my-backpack:t2` | Kirja on Eeron. (tarua) | True or false: The book is Eero's. (false) |
 | ⚠️ | `story:my-backpack:t3` | Pallo on Ainon. (tarua) | True or false: The ball is Aino's. (false) |
-| ⚠️ | `story:dads-bike:page-1` | Isä: Onko tämä äidin pyörä? / Aino: Ei. Se on isän pyörä! | Dad: Is this Mom's bike? / Aino: No. It's Dad's bike! |
-| ⚠️ | `story:dads-bike:page-2` | Äiti: Onko tämä isän takki? / Aino: Ei. Se on äidin takki! | Mom: Is this Dad's coat? / Aino: No. It's Mom's coat! |
+| ⚠️ | `story:dads-bike:page-1` | Isä: Aino, onko tämä äidin pyörä? / Aino: Ei! Se on isän pyörä! / Isä: Oikein! | Dad: Aino, is this Mom's bike? / Aino: No! It's Dad's bike! / Dad: Right! |
+| ⚠️ | `story:dads-bike:page-2` | Äiti: Onko tämä isän takki? / Aino: Ei! Se on äidin takki! / Äiti: Oikein! | Mom: Is this Dad's coat? / Aino: No! It's Mom's coat! / Mom: Right! |
 | ⚠️ | `story:dads-bike:page-3` | Vauvalla on puhelin. / Isä: Hei! Se on isän puhelin! | The baby has a phone. / Dad: Hey! That's Dad's phone! |
 | ⚠️ | `story:dads-bike:page-4` | Isä: Tässä on vauvan pallo. / Nyt vauvalla on pallo. / Aino: Ja isällä on puhelin! | Dad: Here's the baby's ball. / Now the baby has a ball. / Aino: And Dad has his phone! |
 | ⚠️ | `story:dads-bike:q1` | Kenen pyörä se on? (✓ isän / äidin / Ainon) | Whose bike is it? (Dad's / Mom's / Aino's) |
@@ -349,18 +355,20 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:dads-bike:t1` | Puhelin on isän. (totta) | True or false: The phone is Dad's. (true) |
 | ⚠️ | `story:dads-bike:t2` | Pyörä on äidin. (tarua) | True or false: The bike is Mom's. (false) |
 | ⚠️ | `story:dads-bike:t3` | Takki on vauvan. (tarua) | True or false: The coat is the baby's. (false) |
-| ⚠️ | `story:busy-park:page-1` | Aino, Eero ja isoäiti kävelevät. / Eero: Minä juoksen! | Aino, Eero and Grandma go for a walk. / Eero: I'm running! |
-| ⚠️ | `story:busy-park:page-2` | Musti juoksee myös. / Aino: Minä laulan! | Musti runs too. / Aino: I'm singing! |
-| ⚠️ | `story:busy-park:page-3` | Isoäiti tanssii. / Isoäiti: Minä tanssin! / Eero: Isoäiti tanssii hyvin! | Grandma dances. / Grandma: I'm dancing! / Eero: Grandma dances well! |
+| ⚠️ | `story:busy-park:page-1` | Aino, Eero ja isoäiti kävelevät. / Eero: Minä juoksen! / Musti juoksee myös. | Aino, Eero and Grandma go for a walk. / Eero: I'm running! / Musti runs too. |
+| ⚠️ | `story:busy-park:page-2` | Aino: Minä laulan! / Aino laulaa ja isoäiti kuuntelee. | Aino: I'm singing! / Aino sings and Grandma listens. |
+| ⚠️ | `story:busy-park:page-3` | Isoäiti alkaa tanssia! / Isoäiti: Minä tanssin! / Eero: Isoäiti tanssii hyvin! | Grandma starts to dance! / Grandma: I'm dancing! / Eero: Grandma dances well! |
 | ⚠️ | `story:busy-park:page-4` | Nyt kaikki tanssivat. / Aino: Musti tanssii myös! | Now everyone is dancing. / Aino: Musti is dancing too! |
 | ⚠️ | `story:busy-park:q1` | Mitä isoäiti tekee? (✓ Hän tanssii. / Hän ui. / Hän syö.) | What does Grandma do? (She dances. / She swims. / She eats.) |
 | ⚠️ | `story:busy-park:q2` | Mitä Aino tekee? (✓ Hän laulaa. / Hän juoksee. / Hän ui.) | What does Aino do? (She sings. / She runs. / She swims.) |
 | ⚠️ | `story:busy-park:q3` | Kuka juoksee myös? (✓ Musti / isoäiti / Aino) | Who runs too? (Musti / Grandma / Aino) |
+| ⚠️ | `story:busy-park:q4` | Kuka kuuntelee? (✓ isoäiti / Eero / Musti) | Who listens? (Grandma / Eero / Musti) |
 | ⚠️ | `story:busy-park:t1` | Isoäiti tanssii hyvin. (totta) | True or false: Grandma dances well. (true) |
-| ⚠️ | `story:busy-park:t2` | Eero laulaa. (tarua) | True or false: Eero sings. (false) |
-| ⚠️ | `story:busy-park:t3` | Musti ui. (tarua) | True or false: Musti swims. (false) |
+| ⚠️ | `story:busy-park:t2` | Isoäiti kuuntelee. (totta) | True or false: Grandma listens. (true) |
+| ⚠️ | `story:busy-park:t3` | Eero laulaa. (tarua) | True or false: Eero sings. (false) |
+| ⚠️ | `story:busy-park:t4` | Musti ui. (tarua) | True or false: Musti swims. (false) |
 | ⚠️ | `story:evening:page-1` | On ilta. / Minä piirrän. / Vauva nukkuu. | It's evening. / I'm drawing. / The baby is asleep. |
-| ⚠️ | `story:evening:page-2` | Isä lukee kirjaa. / Minä kuuntelen. | Dad is reading a book. / I'm listening. |
+| ⚠️ | `story:evening:page-2` | Isä: Luen sinulle kirjaa. / Isä lukee. Minä kuuntelen. | Dad: I'll read you a book. / Dad reads. I listen. |
 | ⚠️ | `story:evening:page-3` | Isä lukee ja lukee… / Nyt isä nukkuu! | Dad reads and reads… / Now Dad is asleep! |
 | ⚠️ | `story:evening:page-4` | Aino: Hyvää yötä, isä! / Nyt minä luen. | Aino: Good night, Dad! / Now I'm reading. |
 | ⚠️ | `story:evening:q1` | Mitä minä teen ensin? (✓ Piirrän. / Nukun. / Kirjoitan.) | What do I do first? (I draw. / I sleep. / I write.) |
@@ -371,21 +379,22 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:evening:t3` | Isä laulaa. (tarua) | True or false: Dad sings. (false) |
 | ⚠️ | `story:tired-cat:page-1` | Aino leikkii. / Mirri ei leiki. / Aino: Mirri, sinä et leiki! | Aino is playing. / Mirri doesn't play. / Aino: Mirri, you're not playing! |
 | ⚠️ | `story:tired-cat:page-2` | Mirri ei syö. / Mirri ei juo. / Aino: Äiti! Mirri ei syö! | Mirri doesn't eat. / Mirri doesn't drink. / Aino: Mom! Mirri isn't eating! |
-| ⚠️ | `story:tired-cat:page-3` | Äiti: Mirri nukkuu. / Mirri nukkuu ja nukkuu. | Mom: Mirri is sleeping. / Mirri sleeps and sleeps. |
+| ⚠️ | `story:tired-cat:page-3` | Äiti: Mirri on väsynyt. / Mirri nukkuu ja nukkuu. | Mom: Mirri is tired. / Mirri sleeps and sleeps. |
 | ⚠️ | `story:tired-cat:page-4` | Nyt Mirri syö ja juo. / Aino: Ja nyt Mirri leikkii! / Mirri: Miau! | Now Mirri eats and drinks. / Aino: And now Mirri plays! / Mirri the cat: Meow! |
-| ⚠️ | `story:tired-cat:q1` | Mitä äiti sanoo? (✓ Mirri nukkuu. / Mirri ui. / Mirri laulaa.) | What does Mom say? (Mirri is sleeping. / Mirri is swimming. / Mirri is singing.) |
+| ⚠️ | `story:tired-cat:q1` | Mitä äiti sanoo? (✓ Mirri on väsynyt. / Mirri ui. / Mirri laulaa.) | What does Mom say? (Mirri is tired. / Mirri is swimming. / Mirri is singing.) |
 | ⚠️ | `story:tired-cat:q2` | Mitä Aino tekee alussa? (✓ Hän leikkii. / Hän nukkuu. / Hän syö.) | What is Aino doing at the start? (She's playing. / She's sleeping. / She's eating.) |
 | ⚠️ | `story:tired-cat:q3` | Leikkiikö Mirri lopuksi? (✓ Kyllä, se leikkii. / Ei, se ei leiki.) | Does Mirri play at the end? (Yes, she plays. / No, she doesn't play.) |
 | ⚠️ | `story:tired-cat:t1` | Aino ei leiki. (tarua) | True or false: Aino doesn't play. (false) |
 | ⚠️ | `story:tired-cat:t2` | Mirri nukkuu ja nukkuu. (totta) | True or false: Mirri sleeps and sleeps. (true) |
 | ⚠️ | `story:tired-cat:t3` | Mirri laulaa. (tarua) | True or false: Mirri sings. (false) |
-| ⚠️ | `story:do-you-sing:page-1` | Isoäiti tulee! / Aino: Eero, laulatko? / Eero: En laula. | Grandma is coming! / Aino: Eero, do you sing? / Eero: I don't sing. |
+| ⚠️ | `story:do-you-sing:page-1` | Isoäiti tulee tänään! / Aino: Laulamme isoäidille! Eero, laulatko? / Eero: En laula. | Grandma is coming today! / Aino: We'll sing for Grandma! Eero, do you sing? / Eero: I don't sing. |
 | ⚠️ | `story:do-you-sing:page-2` | Aino: Tanssitko? / Eero: Tanssin! | Aino: Do you dance? / Eero: I do! |
 | ⚠️ | `story:do-you-sing:page-3` | Eero: Aino, laulatko sinä? / Aino: Laulan! | Eero: Aino, do you sing? / Aino: I do! |
 | ⚠️ | `story:do-you-sing:page-4` | Isoäiti tulee. / Aino laulaa ja Eero tanssii. / Isoäiti: Laulanko minäkin? | Grandma comes. / Aino sings and Eero dances. / Grandma: Shall I sing too? |
 | ⚠️ | `story:do-you-sing:q1` | Laulaako Eero? (✓ Ei, hän ei laula. / Kyllä, hän laulaa.) | Does Eero sing? (No, he doesn't sing. / Yes, he sings.) |
 | ⚠️ | `story:do-you-sing:q2` | Mitä Eero tekee? (✓ Hän tanssii. / Hän laulaa. / Hän ui.) | What does Eero do? (He dances. / He sings. / He swims.) |
 | ⚠️ | `story:do-you-sing:q3` | Kuka tulee lopuksi? (✓ isoäiti / opettaja / isä) | Who comes at the end? (Grandma / the teacher / Dad) |
+| ⚠️ | `story:do-you-sing:q4` | Kenelle Aino laulaa? (✓ isoäidille / opettajalle / Mirrille) | Who does Aino sing for? (for Grandma / for the teacher / for Mirri) |
 | ⚠️ | `story:do-you-sing:t1` | Aino laulaa. (totta) | True or false: Aino sings. (true) |
 | ⚠️ | `story:do-you-sing:t2` | Eero laulaa. (tarua) | True or false: Eero sings. (false) |
 | ⚠️ | `story:do-you-sing:t3` | Eero tanssii. (totta) | True or false: Eero dances. (true) |
@@ -421,14 +430,15 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:swim-or-play:t3` | Lopuksi Eero osaa uida. (totta) | True or false: In the end Eero can swim. (true) |
 | ⚠️ | `story:open-window:page-1` | Minä herään. / Haluan nukkua… / Mutta Mirri herää myös! | I wake up. / I want to sleep… / But Mirri wakes up too! |
 | ⚠️ | `story:open-window:page-2` | Mirri hyppää. / Mirri haluaa leikkiä! | Mirri jumps. / Mirri wants to play! |
-| ⚠️ | `story:open-window:page-3` | Avaan ikkunan. / Mirri kiipeää ulos. | I open the window. / Mirri climbs out. |
-| ⚠️ | `story:open-window:page-4` | Ulkona on Eero. / Eero: Huomenta, Aino! Huomenta, Mirri! / Mirri: Miau! | Eero is outside. / Eero: Morning, Aino! Morning, Mirri! / Mirri the cat: Meow! |
+| ⚠️ | `story:open-window:page-3` | Avaan ikkunan. / Mirri kiipeää ulos. / Ulkona on Eero ja Musti. | I open the window. / Mirri climbs out. / Eero and Musti are outside. |
+| ⚠️ | `story:open-window:page-4` | Eero: Huomenta, Aino! Huomenta, Mirri! / Nyt Mirri ja Musti leikkivät. / Ja minä nukun taas. | Eero: Morning, Aino! Morning, Mirri! / Now Mirri and Musti play. / And I go back to sleep. |
 | ⚠️ | `story:open-window:q1` | Kuka herää myös? (✓ Mirri / isä / vauva) | Who wakes up too? (Mirri / Dad / the baby) |
 | ⚠️ | `story:open-window:q2` | Mitä minä avaan? (✓ ikkunan / oven / repun) | What do I open? (the window / the door / the backpack) |
 | ⚠️ | `story:open-window:q3` | Kuka on ulkona? (✓ Eero / isoäiti / opettaja) | Who is outside? (Eero / Grandma / the teacher) |
 | ⚠️ | `story:open-window:t1` | Mirri haluaa leikkiä. (totta) | True or false: Mirri wants to play. (true) |
-| ⚠️ | `story:open-window:t2` | Avaan oven. (tarua) | True or false: I open the door. (false) |
-| ⚠️ | `story:open-window:t3` | Mirri nukkuu. (tarua) | True or false: Mirri sleeps. (false) |
+| ⚠️ | `story:open-window:t2` | Mirri ja Musti leikkivät. (totta) | True or false: Mirri and Musti play. (true) |
+| ⚠️ | `story:open-window:t3` | Avaan oven. (tarua) | True or false: I open the door. (false) |
+| ⚠️ | `story:open-window:t4` | Mirri nukkuu. (tarua) | True or false: Mirri sleeps. (false) |
 | ⚠️ | `story:math-and-gym:page-1` | Aino: Tänään on koe. / Aino: En tykkää matematiikasta! | Aino: There's a test today. / Aino: I don't like math! |
 | ⚠️ | `story:math-and-gym:page-2` | Eero: Minä tykkään matematiikasta. / Eero: Autan! | Eero: I like math. / Eero: I'll help! |
 | ⚠️ | `story:math-and-gym:page-3` | Sitten on liikuntaa. / Aino: Tykkään liikunnasta! / Eero: Minä en tykkää liikunnasta. | Then there is gym. / Aino: I like gym! / Eero: I don't like gym. |
@@ -450,7 +460,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:waiting-bus:t2` | Näen koiran. (tarua) | True or false: I see a dog. (false) |
 | ⚠️ | `story:waiting-bus:t3` | Bussi ei tule. (tarua) | True or false: The bus doesn't come. (false) |
 | ⚠️ | `story:shopping-trip:page-1` | Menemme kauppaan. / Isä: Ostamme maitoa ja leipää. | We go to the shop. / Dad: We buy milk and bread. |
-| ⚠️ | `story:shopping-trip:page-2` | Aino: Ostanko omenan? / Aino ostaa omenan. | Aino: Shall I buy an apple? / Aino buys an apple. |
+| ⚠️ | `story:shopping-trip:page-2` | Aino: Ostanko omenan? / Isä: Osta vain! / Ostan omenan. | Aino: Shall I buy an apple? / Dad: Go ahead! / I buy an apple. |
 | ⚠️ | `story:shopping-trip:page-3` | Aino: Isä, saanko karkkia? / Isä: Et saa. Tänään ei ole karkkipäivä. | Aino: Dad, may I have some candy? / Dad: No, you may not. Today isn't candy day. |
 | ⚠️ | `story:shopping-trip:page-4` | Mutta isä ostaa jäätelön! / Aino: Kiitos, isä! | But Dad buys an ice cream! / Aino: Thank you, Dad! |
 | ⚠️ | `story:shopping-trip:q1` | Mitä me ostamme ensin? (✓ maitoa ja leipää / karkkia / jäätelöä) | What do we buy first? (milk and bread / candy / ice cream) |
@@ -469,18 +479,20 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:lets-play-ball:t1` | Lopuksi Musti pelaa. (totta) | True or false: In the end Musti plays. (true) |
 | ⚠️ | `story:lets-play-ball:t2` | Eero ei halua pelata. (tarua) | True or false: Eero doesn't want to play. (false) |
 | ⚠️ | `story:lets-play-ball:t3` | Musti syö pallon. (tarua) | True or false: Musti eats the ball. (false) |
-| ⚠️ | `story:big-and-small:page-1` | Musti on iso koira. / Mirri on pieni kissa. | Musti is a big dog. / Mirri is a small cat. |
-| ⚠️ | `story:big-and-small:page-2` | Musti on ruskea. / Mirri on valkoinen. | Musti is brown. / Mirri is white. |
-| ⚠️ | `story:big-and-small:page-3` | Pieni Mirri on vihainen. / Iso Musti juoksee! | Little Mirri is angry. / Big Musti runs! |
+| ⚠️ | `story:big-and-small:page-1` | Musti on iso koira. / Mirri on pieni kissa. / Musti on ruskea ja Mirri on valkoinen. | Musti is a big dog. / Mirri is a small cat. / Musti is brown and Mirri is white. |
+| ⚠️ | `story:big-and-small:page-2` | Musti syö Mirrin ruokaa! / Pieni Mirri on vihainen. | Musti eats Mirri's food! / Little Mirri is angry. |
+| ⚠️ | `story:big-and-small:page-3` | Iso Musti juoksee pois! / Aino: Musti, tule takaisin! | Big Musti runs away! / Aino: Musti, come back! |
 | ⚠️ | `story:big-and-small:page-4` | Aino: Tässä on punainen pallo. / Nyt Musti ja Mirri leikkivät. / Aino: Kiltti koira, kiltti kissa! | Aino: Here's a red ball. / Now Musti and Mirri play. / Aino: Good dog, good cat! |
 | ⚠️ | `story:big-and-small:q1` | Millainen Musti on? (✓ iso ja ruskea / pieni ja valkoinen / pieni ja musta) | What is Musti like? (big and brown / small and white / small and black) |
 | ⚠️ | `story:big-and-small:q2` | Kuka on vihainen? (✓ Mirri / Musti / Aino) | Who is angry? (Mirri / Musti / Aino) |
 | ⚠️ | `story:big-and-small:q3` | Millainen pallo on? (✓ punainen / sininen / vihreä) | What is the ball like? (red / blue / green) |
+| ⚠️ | `story:big-and-small:q4` | Mitä Musti syö? (✓ Mirrin ruokaa / palloa / kakkua) | What does Musti eat? (Mirri's food / a ball / cake) |
 | ⚠️ | `story:big-and-small:t1` | Mirri on valkoinen. (totta) | True or false: Mirri is white. (true) |
-| ⚠️ | `story:big-and-small:t2` | Musti on pieni. (tarua) | True or false: Musti is small. (false) |
-| ⚠️ | `story:big-and-small:t3` | Mirri on iso. (tarua) | True or false: Mirri is big. (false) |
-| ⚠️ | `story:zoo-race:page-1` | Eläintarhassa on norsu, hevonen ja hiiri. / Norsu on isoin. | At the zoo, there's an elephant, a horse and a mouse. / The elephant is the biggest. |
-| ⚠️ | `story:zoo-race:page-2` | Hevonen on pienempi kuin norsu. / Hiiri on pienin. | The horse is smaller than the elephant. / The mouse is the smallest. |
+| ⚠️ | `story:big-and-small:t2` | Musti juoksee pois. (totta) | True or false: Musti runs away. (true) |
+| ⚠️ | `story:big-and-small:t3` | Musti on pieni. (tarua) | True or false: Musti is small. (false) |
+| ⚠️ | `story:big-and-small:t4` | Mirri on iso. (tarua) | True or false: Mirri is big. (false) |
+| ⚠️ | `story:zoo-race:page-1` | Aino ja Eero ovat eläintarhassa. / Siellä on norsu, hevonen ja hiiri. | Aino and Eero are at the zoo. / There's an elephant, a horse and a mouse there. |
+| ⚠️ | `story:zoo-race:page-2` | Norsu on isoin. / Hevonen on pienempi kuin norsu. / Hiiri on pienin. | The elephant is the biggest. / The horse is smaller than the elephant. / The mouse is the smallest. |
 | ⚠️ | `story:zoo-race:page-3` | Eero: Kuka on nopein? / Aino: Minä olen nopeampi kuin sinä! | Eero: Who is the fastest? / Aino: I'm faster than you! |
 | ⚠️ | `story:zoo-race:page-4` | Eero ja Aino juoksevat. / Mutta hevonen on nopein! | Eero and Aino run. / But the horse is the fastest! |
 | ⚠️ | `story:zoo-race:q1` | Mikä on isoin? (✓ norsu / hevonen / hiiri) | Which is the biggest? (the elephant / the horse / the mouse) |
@@ -509,7 +521,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:cat-and-box:t1` | Mirri menee laatikkoon. (totta) | True or false: Mirri goes into the box. (true) |
 | ⚠️ | `story:cat-and-box:t2` | Mirri rakastaa palloa. (tarua) | True or false: Mirri loves the ball. (false) |
 | ⚠️ | `story:cat-and-box:t3` | Mirri hyppää sängylle. (tarua) | True or false: Mirri jumps onto the bed. (false) |
-| ⚠️ | `story:park-and-library:page-1` | Menemme puistoon. / Puistossa on paljon lapsia. | We go to the park. / There are lots of children in the park. |
+| ⚠️ | `story:park-and-library:page-1` | Isä, Eero ja minä menemme puistoon. / Puistossa on paljon lapsia. | Dad, Eero and I go to the park. / There are lots of children in the park. |
 | ⚠️ | `story:park-and-library:page-2` | Sitten menemme kirjastoon. / Kirjastossa on hiljaista. / Eero: MOI! | Then we go to the library. / It's quiet in the library. / Eero: HI! |
 | ⚠️ | `story:park-and-library:page-3` | Aino: Eero! Hiljaa! / Sitten olemme kahvilassa. / Isä: Haluatteko jäätelöä? | Aino: Eero! Quiet! / Then we are at the café. / Dad: Do you want ice cream? |
 | ⚠️ | `story:park-and-library:page-4` | Aino: Haluamme! / Lopuksi tulemme kotiin. / Eero: Huomenna taas puistoon! | Aino: We do! / In the end we come home. / Eero: Tomorrow, the park again! |
@@ -522,7 +534,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:how-we-go:page-1` | Aino: Miten menemme isoäidille? / Isä: Menemme autolla. | Aino: How do we get to Grandma's? / Dad: We go by car. |
 | ⚠️ | `story:how-we-go:page-2` | Isä: Voi ei! Auto ei käy. / Äiti: Menemme junalla! | Dad: Oh no! The car won't start. / Mom: We'll go by train! |
 | ⚠️ | `story:how-we-go:page-3` | Menemme junalla. / Sitten menemme veneellä. | We go by train. / Then we go by boat. |
-| ⚠️ | `story:how-we-go:page-4` | Isoäiti odottaa saaressa. / Isoäiti: Tervetuloa! / Aino menee isoäidin kanssa sisään. | Grandma is waiting on the island. / Grandma: Welcome! / Aino goes inside with Grandma. |
+| ⚠️ | `story:how-we-go:page-4` | Isoäiti odottaa saaressa. / Isoäiti: Tervetuloa! / Menen isoäidin kanssa sisään. | Grandma is waiting on the island. / Grandma: Welcome! / I go inside with Grandma. |
 | ⚠️ | `story:how-we-go:q1` | Miten menemme ensin? (✓ junalla / autolla / bussilla) | How do we travel first? (by train / by car / by bus) |
 | ⚠️ | `story:how-we-go:q2` | Miten menemme lopuksi? (✓ veneellä / junalla / lentokoneella) | How do we travel at the end? (by boat / by train / by plane) |
 | ⚠️ | `story:how-we-go:q3` | Kuka odottaa saaressa? (✓ isoäiti / Eero / opettaja) | Who is waiting on the island? (Grandma / Eero / the teacher) |
@@ -530,7 +542,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:how-we-go:t2` | Auto käy hyvin. (tarua) | True or false: The car runs well. (false) |
 | ⚠️ | `story:how-we-go:t3` | Isä menee bussilla. (tarua) | True or false: Dad goes by bus. (false) |
 | ⚠️ | `story:my-saturday:page-1` | Tänään on lauantai. / Aamulla syön puuroa. | Today is Saturday. / In the morning I eat porridge. |
-| ⚠️ | `story:my-saturday:page-2` | Kello on kymmenen. / Päivällä uin isän kanssa. | It's ten o'clock. / In the daytime I swim with Dad. |
+| ⚠️ | `story:my-saturday:page-2` | Kello on kymmenen. / Isä: Mennään uimaan! / Päivällä uin isän kanssa. | It's ten o'clock. / Dad: Let's go swimming! / In the daytime I swim with Dad. |
 | ⚠️ | `story:my-saturday:page-3` | Illalla luen kirjaa. / Mirri nukkuu jo. | In the evening I read a book. / Mirri is already asleep. |
 | ⚠️ | `story:my-saturday:page-4` | Sunnuntaina isoäiti tulee! / Aino: Hyvää yötä! Huomenna on sunnuntai! | On Sunday Grandma comes! / Aino: Good night! Tomorrow is Sunday! |
 | ⚠️ | `story:my-saturday:q1` | Mitä syön aamulla? (✓ puuroa / pitsaa / jäätelöä) | What do I eat in the morning? (porridge / pizza / ice cream) |
@@ -602,13 +614,15 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:drawing-a-house:page-1` | Piirrän talon isoäidille. / Tarvitsen kynän. | I draw a house for Grandma. / I need a pencil. |
 | ⚠️ | `story:drawing-a-house:page-2` | Valitsen punaisen kynän. / Piirrän ison talon. | I choose the red pencil. / I draw a big house. |
 | ⚠️ | `story:drawing-a-house:page-3` | Mirri häiritsee minua! / Mirri ottaa kynän ja pakenee! | Mirri is bothering me! / Mirri takes the pencil and runs away! |
-| ⚠️ | `story:drawing-a-house:page-4` | Valitsen sinisen kynän. / Nyt talo on sininen. / Isoäiti: Kiitos! Kaunis talo! | I choose the blue pencil. / Now the house is blue. / Grandma: Thank you! A beautiful house! |
+| ⚠️ | `story:drawing-a-house:page-4` | Valitsen sinisen kynän. / Piirrän taivaan. / Isoäiti: Punainen talo ja sininen taivas! Kaunis! | I choose the blue pencil. / I draw the sky. / Grandma: A red house and a blue sky! Beautiful! |
 | ⚠️ | `story:drawing-a-house:q1` | Minkä kynän valitsen ensin? (✓ punaisen / sinisen / vihreän) | Which pencil do I choose first? (the red one / the blue one / the green one) |
 | ⚠️ | `story:drawing-a-house:q2` | Mitä Mirri tekee? (✓ Se ottaa kynän. / Se nukkuu. / Se piirtää.) | What does Mirri do? (She takes the pencil. / She sleeps. / She draws.) |
 | ⚠️ | `story:drawing-a-house:q3` | Kenelle piirrän talon? (✓ isoäidille / opettajalle / Eerolle) | Who do I draw the house for? (for Grandma / for the teacher / for Eero) |
-| ⚠️ | `story:drawing-a-house:t1` | Lopuksi talo on sininen. (totta) | True or false: In the end the house is blue. (true) |
-| ⚠️ | `story:drawing-a-house:t2` | Mirri auttaa minua. (tarua) | True or false: Mirri helps me. (false) |
-| ⚠️ | `story:drawing-a-house:t3` | Piirrän koiran. (tarua) | True or false: I draw a dog. (false) |
+| ⚠️ | `story:drawing-a-house:q4` | Mitä piirrän sinisellä kynällä? (✓ taivaan / talon / koiran) | What do I draw with the blue pencil? (the sky / the house / a dog) |
+| ⚠️ | `story:drawing-a-house:t1` | Talo on punainen. (totta) | True or false: The house is red. (true) |
+| ⚠️ | `story:drawing-a-house:t2` | Taivas on sininen. (totta) | True or false: The sky is blue. (true) |
+| ⚠️ | `story:drawing-a-house:t3` | Mirri auttaa minua. (tarua) | True or false: Mirri helps me. (false) |
+| ⚠️ | `story:drawing-a-house:t4` | Piirrän koiran. (tarua) | True or false: I draw a dog. (false) |
 
 ## Sentence patterns (78)
 
@@ -1298,7 +1312,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | `line:97-yksi-kirjaa-` | Yksi kirjaa. | One book. |
 | ⚠️ | `line:98-älä-leiki-` | Älä leiki! | Don't play! |
 
-## Course titles (378)
+## Course titles (377)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -1451,7 +1465,6 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Leikkipuistossa` | Leikkipuistossa | At the playground |
 | ⚠️ | `title:Lue lause` | Lue lause | Real sentences / Read a sentence |
 | ⚠️ | `title:Lukutoukka` | Lukutoukka | Bookworm |
-| ⚠️ | `title:Luokassa` | Luokassa | Story: In the classroom |
 | ⚠️ | `title:Löydä virhe` | Löydä virhe | Find the mistake |
 | ⚠️ | `title:Matikka ja liikunta` | Matikka ja liikunta | Story: Math and gym |
 | ⚠️ | `title:Menen bussilla` | Menen bussilla | By bus, by car |
@@ -1525,7 +1538,6 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Miten menemme?` | Miten menemme? | Story: How do we get there? |
 | ⚠️ | `title:Miten menet?` | Miten menet? | How do you go? |
 | ⚠️ | `title:Mitä haluat tehdä?` | Mitä haluat tehdä? | What do you want to do? |
-| ⚠️ | `title:Mitä meillä on?` | Mitä meillä on? | Story: What do we have? |
 | ⚠️ | `title:Mitä sinulla on?` | Mitä sinulla on? | What do you have? |
 | ⚠️ | `title:Mitä teet?` | Mitä teet? | Verbs, part 1: types 1–3 |
 | ⚠️ | `title:Mitä teette?` | Mitä teette? | What is everyone doing? |
@@ -1563,8 +1575,9 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Olen puistossa. · Menen puistoon.` | Olen puistossa. · Menen puistoon. | Am, going or coming? — example |
 | ⚠️ | `title:Olen…` | Olen… | I'm… |
 | ⚠️ | `title:On vai ei?` | On vai ei? | Have or not |
+| ⚠️ | `title:Onko sinulla pallo?` | Onko sinulla pallo? | Story: Do you have a ball? |
 | ⚠️ | `title:Onko teillä koira?` | Onko teillä koira? | Do you all have a dog? |
-| ⚠️ | `title:Onko tämä kirja?` | Onko tämä kirja? | Is this…? — example |
+| ⚠️ | `title:Onko tämä kirja?` | Onko tämä kirja? | Is this…? — example / Story: Is this a book? |
 | ⚠️ | `title:Onko tämä…?` | Onko tämä…? | Is this…? / Yes/no questions |
 | ⚠️ | `title:Osaan uida.` | Osaan uida. | Can & may — example |
 | ⚠️ | `title:Osaan, saanko` | Osaan, saanko | Can & may |

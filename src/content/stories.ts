@@ -179,6 +179,7 @@ export const CORE_STORIES: Story[] = [
         sc('🏪', '👩 👧 🛒', 'inside'),
         tell('Äiti ja Aino menevät kauppaan.', 'Mom and Aino go to the shop.'),
         say('aiti', 'Teemme keittoa isoäidille.', "We're making soup for Grandma."),
+        tell('Mirri tulee salaa mukaan.', 'Mirri secretly comes along.'),
       ),
       page(
         sc('🏪', '🥕 🥔 🍅', 'inside'),
@@ -186,15 +187,16 @@ export const CORE_STORIES: Story[] = [
         tell('Aino ostaa yhden tomaatin.', 'Aino buys one tomato.'),
       ),
       page(
-        sc('🏪', '🐱 🛒 👧', 'inside'),
+        sc('🏪', '🐱 🌭 👧 👩', 'inside'),
         tell('Kaupassa on kissa!', "There's a cat in the shop!"),
         say('aino', 'Mirri! Mitä sinä teet täällä?', 'Mirri! What are you doing here?'),
+        say('aiti', 'No, ostetaan Mirrille makkaraa.', "Well, let's buy Mirri some sausage."),
       ),
       page(
         sc('🏠 🌆', '👵 🍲 👧 🐱', 'evening'),
         tell('Illalla he syövät keittoa isoäidin kanssa.', 'In the evening they eat soup with Grandma.'),
         say('isoaiti', 'Hyvää keittoa! Kiitos!', 'Good soup! Thank you!'),
-        tell('Mirri saa vähän makkaraa.', 'Mirri gets a bit of sausage.'),
+        tell('Ja Mirri syö makkaraa.', 'And Mirri eats her sausage.'),
       ),
     ],
     questions: [
@@ -218,6 +220,13 @@ export const CORE_STORIES: Story[] = [
         right('kissa', 'a cat', '🐱'),
         wrong('koira', 'a dog', '🐶'),
         wrong('hiiri', 'a mouse', '🐭'),
+      ),
+      ask(
+        'Mitä äiti ostaa Mirrille?',
+        'What does Mom buy for Mirri?',
+        right('makkaraa', 'sausage', '🌭'),
+        wrong('maitoa', 'milk', '🥛'),
+        wrong('kalaa', 'fish', '🐟'),
       ),
     ],
     facts: [
@@ -249,7 +258,7 @@ export const CORE_STORIES: Story[] = [
       page(
         sc('🌲 🌳 🌲', '🐶 🐱'),
         tell('Musti leikki siellä Mirrin kanssa!', 'Musti was playing there with Mirri!'),
-        say('aino', 'Mirri! Sinä olit täällä!', 'Mirri! You were here!'),
+        say('aino', 'Mirri! Sinäkin olet täällä!', "Mirri! You're here too!"),
       ),
       page(
         sc('🏡 🌆', '👦 🐶 🦴 👧 🐱', 'evening'),
