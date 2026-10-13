@@ -1,4 +1,6 @@
-// School words.
+// School words (and customs, from the lesson words).
+
+import * as school from '../school.mjs';
 
 export default [
   {
@@ -19,4 +21,19 @@ export default [
       ].join('');
     },
   },
+  { id: 'teacher', title: 'teacher (Opettaja)', draw: school.teacher },
+  { id: 'friend', title: 'friend (Eero and Aino holding hands)', motion: { frames: 2, fps: 2 }, draw: school.friend },
+  { id: 'pencil', title: 'pencil', draw: school.pencil },
+  { id: 'backpack', title: 'backpack (with a reflector)', draw: school.backpack },
+  { id: 'paper', title: 'paper', draw: school.paper },
+  { id: 'picture', title: 'picture', draw: school.picture },
+  // the long hand ticks round once every four seconds
+  { id: 'clock', title: 'clock (ticking)', motion: { frames: 4, fps: 1 }, draw: school.clock },
+  { id: 'homework', title: 'homework (the pencil writing)', motion: { frames: 3, fps: 3 }, draw: school.homework },
+  { id: 'math', title: 'math (an abacus)', motion: { frames: 2, fps: 1.5 }, draw: school.math },
+  { id: 'gym', title: 'gym (Leo doing jumping jacks)', motion: { frames: 2, fps: 3 }, draw: school.gym },
+  { id: 'english', title: 'English (the flag waving)', motion: { frames: 2, fps: 2 }, draw: school.english },
+  { id: 'pupil', title: 'pupil (Eero with his backpack)', draw: school.pupil },
+  { id: 'test', title: 'test (the ticks going in)', motion: { frames: 4, fps: 1.5 }, draw: school.test },
+  { id: 'customs', title: 'customs (a passport)', draw: school.customs },
 ];

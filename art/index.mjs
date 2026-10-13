@@ -11,6 +11,7 @@ import nature from './recipes/nature.mjs';
 import people from './recipes/people.mjs';
 import places from './recipes/places.mjs';
 import school from './recipes/school.mjs';
+import time from './recipes/time.mjs';
 import ui from './recipes/ui.mjs';
 import verbs from './recipes/verbs.mjs';
 import park from './scenes/park.mjs';
@@ -22,7 +23,7 @@ import park from './scenes/park.mjs';
  * Optional `motion: { frames, fps }` makes it loop; `blink: false` keeps the
  * eyes of something that doesn't blink (a fish) open.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
 export const SCENES = [park];
