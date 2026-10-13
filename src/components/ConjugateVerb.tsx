@@ -11,6 +11,7 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForVerb, whyForVerbPick } from '../content/why';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -166,7 +167,7 @@ export default function ConjugateVerb({ verbs, onExit }: Props) {
           onClick={() => speak(chosen ? q.clause : q.pronoun)}
           aria-label="Hear it again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

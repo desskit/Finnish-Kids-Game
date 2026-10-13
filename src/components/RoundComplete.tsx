@@ -1,3 +1,5 @@
+import Art from '../art/Art';
+
 interface Props {
   stars: number;
   total: number;
@@ -17,13 +19,16 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
   return (
     <section className="screen complete">
       <div className="mascot mascot--big" aria-hidden="true">
-        {allCorrect ? '🦊🎉' : '🦊'}
+        <Art glyph="🦊" motion="loop" />
+        {allCorrect && <Art glyph="🎉" motion="loop" />}
       </div>
       <h2 className="title">
         Hienoa! <span className="en">Great job!</span>
       </h2>
       <p className="score" aria-label={`${stars} of ${total} stars`}>
-        {'⭐'.repeat(stars)}
+        {Array.from({ length: stars }, (_, i) => (
+          <Art key={i} glyph="⭐" />
+        ))}
         {'·'.repeat(Math.max(0, total - stars))}
       </p>
       <p className="score-count">

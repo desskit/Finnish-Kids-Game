@@ -40,6 +40,7 @@ import ProgressView from './components/ProgressView';
 import { UNITS } from './game/course';
 import { dayKey } from './game/streak';
 import { ProfileProvider } from './state/profile';
+import { getByPicture, queryByPicture } from './test/pictures';
 
 // Integration tests for the guided-course shell (home → lesson → step →
 // checkpoint) and the progression UI on top of it (badges, step levels, the
@@ -225,7 +226,7 @@ describe('daily warm-up', () => {
       expect(screen.getByLabelText(/Warm-up: 0 of 10 questions/)).toBeInTheDocument();
       for (let q = 0; q < 10; q++) {
         // Listen & tap shows the picture; Name it shows the Finnish word.
-        const pick = screen.queryByText('🐱')?.closest('button') ?? screen.getByText('kissa').closest('button');
+        const pick = queryByPicture('🐱')?.closest('button') ?? screen.getByText('kissa').closest('button');
         fireEvent.click(pick as HTMLButtonElement);
         await act(async () => {
           await vi.advanceTimersByTimeAsync(1000);
@@ -339,7 +340,7 @@ describe('playing a step', () => {
       renderAt('/skill/having-words');
       expect(screen.getByLabelText('0 tähteä')).toBeInTheDocument();
       const tapCorrect = async () => {
-        fireEvent.click(screen.getByText('🐱').closest('button') as HTMLButtonElement);
+        fireEvent.click(getByPicture('🐱').closest('button') as HTMLButtonElement);
         await act(async () => {
           await vi.advanceTimersByTimeAsync(800);
         });

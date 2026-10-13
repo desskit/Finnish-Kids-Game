@@ -10,6 +10,8 @@ import { canDoSummary } from '../game/cando';
 import PlayerSwitcher from './PlayerSwitcher';
 import { badgeEnv } from '../game/path';
 import { UNITS, nextAction, stepDone, topLevel, unitsCompleted, type Unit } from '../game/course';
+import Art from '../art/Art';
+import Avatar from '../art/Avatar';
 
 // Parent dashboard. One player at a time (a switcher when there are several):
 // the headline numbers a grown-up actually wants, what needs a little help, the
@@ -79,7 +81,7 @@ function UnitBreakdown({ c, unit, n, open }: { c: Child; unit: Unit; n: number; 
     <details className="gunit" open={open}>
       <summary className="gunit__summary">
         <span className="gunit__icon" aria-hidden="true">
-          {unit.icon}
+          <Art glyph={unit.icon} />
         </span>
         <span className="gunit__name">
           <span className="gunit__n">Unit {n}</span> {unit.titleEn}
@@ -98,7 +100,7 @@ function UnitBreakdown({ c, unit, n, open }: { c: Child; unit: Unit; n: number; 
           return (
             <li key={s.id} className="gstep">
               <span className="gstep__title">
-                <span aria-hidden="true">{s.icon}</span> {s.titleEn}
+                <span aria-hidden="true"><Art glyph={s.icon} /></span> {s.titleEn}
               </span>
               <span className={'gchip' + (finished ? ' gchip--good' : p ? '' : ' gchip--muted')}>
                 {finished ? '✓ Done' : p ? `Level ${p.level ?? 1} of ${top}` : 'Not started'}
@@ -107,7 +109,12 @@ function UnitBreakdown({ c, unit, n, open }: { c: Child; unit: Unit; n: number; 
                 <span className="gstep__meta">
                   {p.plays} {p.plays === 1 ? 'round' : 'rounds'} · {pct(acc)} right first time
                   {recent.length > 0 && ` (lately ${pct(windowAccuracy(recent))})`}
-                  {p.bonus && ` · ⌨️ ${p.bonus.right} typed`}
+                  {p.bonus && (
+                <>
+                  {' '}
+                  · <Art glyph="⌨️" /> {p.bonus.right} typed
+                </>
+              )}
                 </span>
               )}
             </li>
@@ -115,7 +122,7 @@ function UnitBreakdown({ c, unit, n, open }: { c: Child; unit: Unit; n: number; 
         })}
         <li className="gstep gstep--checkpoint">
           <span className="gstep__title">
-            <span aria-hidden="true">🏁</span> Checkpoint
+            <span aria-hidden="true"><Art glyph="🏁" /></span> Checkpoint
           </span>
           <span className={'gchip' + (cp?.passedAt ? ' gchip--good' : ' gchip--muted')}>
             {cp?.passedAt ? `✓ Passed · ${pct(cp.best)}` : cp ? `Best ${pct(cp.best)}` : 'Not tried'}
@@ -159,7 +166,7 @@ function ChildReport({ c }: { c: Child }) {
     <article className="greport">
       <header className="greport__head">
         <span className="greport__avatar" aria-hidden="true">
-          {c.avatar}
+          <Avatar glyph={c.avatar} still />
         </span>
         <div>
           <h2 className="greport__name">{c.name}</h2>
@@ -168,7 +175,7 @@ function ChildReport({ c }: { c: Child }) {
             {c.adaptive === false ? `fixed at level ${c.level}` : 'adapts automatically'}
           </p>
         </div>
-        <span className="greport__stars">⭐ {c.stars}</span>
+        <span className="greport__stars"><Art glyph="⭐" /> {c.stars}</span>
       </header>
 
       <div className="gstats">
@@ -181,7 +188,7 @@ function ChildReport({ c }: { c: Child }) {
         </div>
         <div className="gstat">
           <span className="gstat__value gstat__value--text">
-            {next.unit.icon} Unit {currentN}
+            <Art glyph={next.unit.icon} /> Unit {currentN}
           </span>
           <span className="gstat__label">{next.unit.titleEn}</span>
         </div>
@@ -200,14 +207,14 @@ function ChildReport({ c }: { c: Child }) {
           <span className="gstat__label">words right first time</span>
         </div>
         <div className="gstat">
-          <span className="gstat__value">🔥 {c.streakDays ?? 0}</span>
+          <span className="gstat__value"><Art glyph="🔥" /> {c.streakDays ?? 0}</span>
           <span className="gstat__label">day streak · best {Math.max(c.bestStreakDays ?? 0, c.streakDays ?? 0)}</span>
         </div>
       </div>
 
       {help.length > 0 && (
         <section className="gsection gsection--help">
-          <h3 className="gsection__title">💡 Could use a little help</h3>
+          <h3 className="gsection__title"><Art glyph="💡" /> Could use a little help</h3>
           <ul className="ghelp">
             {help.map((h) => (
               <li key={h.key}>
@@ -229,7 +236,7 @@ function ChildReport({ c }: { c: Child }) {
           <ul className="gcando">
             {cando.achieved.map((s) => (
               <li key={s.id} className="gcando__row" title={`Based on: ${s.basisEn}`}>
-                <span aria-hidden="true">{s.emoji}</span> {s.en}
+                <span aria-hidden="true"><Art glyph={s.emoji} /></span> {s.en}
               </li>
             ))}
           </ul>
@@ -240,7 +247,7 @@ function ChildReport({ c }: { c: Child }) {
             <ul className="gcando">
               {cando.upNext.slice(0, 2).map((s) => (
                 <li key={s.id} className="gcando__row gcando__row--next" title={`Unlocks with: ${s.basisEn}`}>
-                  <span aria-hidden="true">{s.emoji}</span> {s.en}
+                  <span aria-hidden="true"><Art glyph={s.emoji} /></span> {s.en}
                 </li>
               ))}
             </ul>
@@ -258,7 +265,7 @@ function ChildReport({ c }: { c: Child }) {
           <p className="gbadges">
             {badges.map((b) => (
               <span key={b.id} className="gbadge" title={`${b.titleEn}: ${b.hintEn}`}>
-                {b.emoji} {b.titleEn}
+                <Art glyph={b.emoji} /> {b.titleEn}
               </span>
             ))}
           </p>
@@ -268,7 +275,7 @@ function ChildReport({ c }: { c: Child }) {
       <section className="gsection">
         <h3 className="gsection__title">Unit by unit</h3>
         <p className="gmuted">
-          A step is done when its top level is passed. Typing (⌨️) is a bonus and never holds a step
+          A step is done when its top level is passed. Typing (<Art glyph="⌨️" />) is a bonus and never holds a step
           back.
         </p>
         {shown.map(({ u, i }) => (

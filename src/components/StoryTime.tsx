@@ -27,6 +27,8 @@ import { speak, stopSpeaking } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { sample, shuffle } from '../util/shuffle';
 import ActivityHeader from './ActivityHeader';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 // Satuhetki (story time): a little picture book. A cover, three or four pages
 // — each a scene with a few short lines, read aloud one by one (the line being
@@ -78,12 +80,12 @@ function Scene({ scene, small = false, animate = true }: { scene: StoryScene; sm
     >
       <div className="story-stage__bg">
         {scene.bg.map((e, i) => (
-          <span key={i}>{e}</span>
+          <Art key={i} glyph={e} />
         ))}
       </div>
       <div className={'story-stage__fg' + (animate ? ' story-stage__fg--enter' : '')}>
         {scene.fg.map((e, i) => (
-          <span key={i}>{e}</span>
+          <Art key={i} glyph={e} motion={animate ? 'loop' : undefined} />
         ))}
       </div>
     </div>
@@ -335,7 +337,8 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
   const headerTotal = phase === 'quiz' ? quiz.length : story.pages.length;
   const header = (
     <ActivityHeader
-      title={`${story.icon} ${story.titleFi} · ${story.titleEn}`}
+      icon={story.icon}
+        title={`${story.titleFi} · ${story.titleEn}`}
       index={headerIndex}
       total={headerTotal}
       stars={ctx?.sessionStars}
@@ -361,7 +364,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             </p>
           )}
           <div className="story-cover__icon" aria-hidden="true">
-            {story.icon}
+            <Art glyph={story.icon} motion="loop" />
           </div>
           <h1 className="story-cover__title">{story.titleFi}</h1>
           <p className="story-cover__en en">{story.titleEn}</p>
@@ -369,7 +372,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             <p className="story-cover__cast" aria-label={cast.map((c) => CAST[c].nameFi).join(', ')}>
               {cast.map((c) => (
                 <span key={c} className="story-cover__who">
-                  <span aria-hidden="true">{CAST[c].emoji}</span>
+                  <span aria-hidden="true"><Art glyph={CAST[c].emoji} motion="idle" /></span>
                   <span className="story-cover__name">{CAST[c].nameFi}</span>
                 </span>
               ))}
@@ -388,12 +391,12 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 Kysymykset <span className="en">Questions</span>
               </button>
               <button className="btn" onClick={start}>
-                📖 Lue ensin <span className="en">Read it first</span>
+                <Art glyph="📖" /> Lue ensin <span className="en">Read it first</span>
               </button>
             </>
           ) : (
             <button className="btn btn--primary" onClick={start} autoFocus>
-              📖 Lue <span className="en">Read</span>
+              <Art glyph="📖" /> Lue <span className="en">Read</span>
             </button>
           )}
         </div>
@@ -418,7 +421,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             >
               {line.by && (
                 <span className="story-line__who" title={CAST[line.by].nameFi}>
-                  <span aria-hidden="true">{CAST[line.by].emoji}</span>
+                  <span aria-hidden="true"><Art glyph={CAST[line.by].emoji} motion="idle" /></span>
                   <span className="story-line__name">{CAST[line.by].nameFi}</span>
                 </span>
               )}
@@ -449,7 +452,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 }}
                 aria-label={`Kuuntele · Listen: ${line.fi}`}
               >
-                🔊
+                <SpeakerIcon />
               </button>
             </li>
           ))}
@@ -462,7 +465,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             disabled={pageIndex === 0}
             aria-label="Edellinen sivu · Previous page"
           >
-            ◀
+            <Art glyph="◀" />
           </button>
           <div className="story-dots" aria-label={`Sivu ${pageIndex + 1} / ${story.pages.length}`}>
             {story.pages.map((_, i) => (
@@ -476,7 +479,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
               onClick={() => setPeek((p) => !p)}
               aria-pressed={peek}
             >
-              🇬🇧 <span className="en">English</span>
+              <Art glyph="🇬🇧" /> <span className="en">English</span>
             </button>
           )}
           <button
@@ -486,7 +489,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             aria-label={last ? 'Loppu · The end' : 'Seuraava sivu · Next page'}
             autoFocus
           >
-            ▶
+            <Art glyph="▶" />
           </button>
         </div>
       </section>
@@ -509,10 +512,10 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
           {mode === 'free' ? (
             <>
               <button className="btn btn--primary" onClick={start} autoFocus>
-                📖 Lue uudestaan <span className="en">Read it again</span>
+                <Art glyph="📖" /> Lue uudestaan <span className="en">Read it again</span>
               </button>
               <button className="btn" onClick={onExit}>
-                📚 Kirjahylly <span className="en">Bookshelf</span>
+                <Art glyph="📚" /> Kirjahylly <span className="en">Bookshelf</span>
               </button>
             </>
           ) : (
@@ -521,7 +524,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 Kysymykset <span className="en">Questions</span>
               </button>
               <button className="btn" onClick={start}>
-                📖 Lue uudestaan <span className="en">Read it again</span>
+                <Art glyph="📖" /> Lue uudestaan <span className="en">Read it again</span>
               </button>
             </>
           )}
@@ -539,7 +542,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
         {header}
         <div className={'story-result' + (good ? ' story-result--good' : '')}>
           <div className="story-result__badge" aria-hidden="true">
-            {good ? '🌟' : '💪'}
+            <Art glyph={good ? '🌟' : '💪'} motion="loop" />
           </div>
           <p className="story-result__title">
             {good ? 'Hienoa!' : 'Melkein!'}{' '}
@@ -563,7 +566,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             )
           ) : (
             <button className="btn btn--primary" onClick={() => readAgain(story.id, true)} autoFocus>
-              📖 Lue uudestaan <span className="en">Read it again</span>
+              <Art glyph="📖" /> Lue uudestaan <span className="en">Read it again</span>
             </button>
           )}
         </div>
@@ -596,7 +599,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
               >
                 <span className="pic-card__num">{i + 1}</span>
                 <span className="pic-card__emoji" aria-hidden="true">
-                  {opt.emoji}
+                  <Art glyph={opt.emoji} motion="idle" />
                 </span>
                 <span className="pic-card__label">{opt.fi}</span>
               </button>
@@ -621,14 +624,14 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
               onClick={() => answered(q.answer === true, 'tf-true', 'Totta!')}
               disabled={locked}
             >
-              👍 Totta <span className="en">True</span>
+              <Art glyph="👍" /> Totta <span className="en">True</span>
             </button>
             <button
               className={'tf-button tf-button--false' + (wrongKey === 'tf-false' ? ' pic-card--wrong' : '') + (locked && !q.answer ? ' pic-card--correct' : '')}
               onClick={() => answered(q.answer === false, 'tf-false', 'Tarua!')}
               disabled={locked}
             >
-              👎 Tarua <span className="en">False</span>
+              <Art glyph="👎" /> Tarua <span className="en">False</span>
             </button>
           </div>
         </>
@@ -663,7 +666,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
               >
                 <span className="pic-card__num">{i + 1}</span>
                 <span className="pic-card__emoji" aria-hidden="true">
-                  {CAST[c].emoji}
+                  <Art glyph={CAST[c].emoji} motion="idle" />
                 </span>
                 <span className="pic-card__label">{CAST[c].nameFi}</span>
               </button>
@@ -696,7 +699,9 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                       {at >= 0 ? at + 1 : '?'}
                     </span>
                     <span className="order-card__pics" aria-hidden="true">
-                      {card.scene.fg.slice(0, 3).join(' ')}
+                      {card.scene.fg.slice(0, 3).map((e, i) => (
+                        <Art key={i} glyph={e} />
+                      ))}
                     </span>
                     <span className="order-card__line" lang="fi">
                       {card.line.fi}
@@ -710,7 +715,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
           {!supported && (
             <div className="story-tools">
               <button type="button" className={'story-peek' + (peek ? ' story-peek--on' : '')} onClick={() => setPeek((p) => !p)} aria-pressed={peek}>
-                🇬🇧 <span className="en">English</span>
+                <Art glyph="🇬🇧" /> <span className="en">English</span>
               </button>
             </div>
           )}
@@ -735,11 +740,11 @@ function QuestionTools({
   return (
     <div className="story-tools">
       <button type="button" className="speaker speaker--inline" onClick={onHear} aria-label="Kuuntele uudestaan · Hear it again">
-        🔊 <span className="en">Listen</span>
+        <SpeakerIcon /> <span className="en">Listen</span>
       </button>
       {!supported && (
         <button type="button" className={'story-peek' + (peek ? ' story-peek--on' : '')} onClick={onPeek} aria-pressed={peek}>
-          🇬🇧 <span className="en">English</span>
+          <Art glyph="🇬🇧" /> <span className="en">English</span>
         </button>
       )}
     </div>

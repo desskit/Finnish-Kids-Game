@@ -12,6 +12,8 @@ import {
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -170,7 +172,7 @@ export default function ListenSentence({
         onClick={() => speak(question.sentence)}
         aria-label="Hear the sentence again"
       >
-        🔊
+        <SpeakerIcon />
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
 
@@ -188,7 +190,7 @@ export default function ListenSentence({
           >
             <span className="pic-card__num">{i + 1}</span>
             <span className="pic-card__emoji" aria-hidden="true">
-              {opt.emoji}
+              <Art glyph={opt.emoji} motion="idle" />
             </span>
           </button>
         ))}

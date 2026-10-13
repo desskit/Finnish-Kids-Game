@@ -13,6 +13,8 @@ import { whyForPossessor, whyForPossessorPick } from '../content/why';
 import { POSSESSORS, possessiveForm, possessiveGloss } from '../content/types';
 import { possessiveSegments } from '../content/endings';
 import { Segments } from './LessonView';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -178,7 +180,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
             {introRows.map((r) => (
               <li className="lesson-row" key={r.id}>
                 <span className="lesson-row__emoji" aria-hidden="true">
-                  {q.item.emoji}
+                  <Art item={q.item} />
                 </span>
                 <span className="lesson-row__text">
                   <span className="lesson-row__fi" lang="fi">
@@ -191,7 +193,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
                   onClick={() => speak(r.form!)}
                   aria-label={`Kuuntele · Listen: ${r.form}`}
                 >
-                  🔊
+                  <SpeakerIcon />
                 </button>
               </li>
             ))}
@@ -229,7 +231,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
       <div className="phrase-card">
         {q.item.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {q.item.emoji}
+            <Art item={q.item} motion="loop" />
           </span>
         )}
         <p className="en phrase-hint">{q.gloss}</p>
@@ -238,7 +240,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
           onClick={() => speakEnglish(q.gloss)}
           aria-label="Hear the prompt again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

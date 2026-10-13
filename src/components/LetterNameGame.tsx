@@ -6,6 +6,8 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 10;
 
@@ -74,7 +76,7 @@ export default function LetterNameGame() {
       <main className="app">
         <section className="screen checkpoint checkpoint--pass">
           <div className="checkpoint__badge" aria-hidden="true">
-            {right / round.length >= 0.8 ? '🌟' : '🔤'}
+            <Art glyph={right / round.length >= 0.8 ? '🌟' : '🔤'} motion="loop" />
           </div>
           <h1 className="title">
             Hienoa! <span className="en">You know your letters!</span>
@@ -120,7 +122,7 @@ export default function LetterNameGame() {
         <div className="phrase-card">
           {q.ask === 'hear' ? (
             <button className="speaker name-speaker" onClick={() => speak(q.letter.nameFi)} aria-label="Hear the name again">
-              🔊
+              <SpeakerIcon />
             </button>
           ) : (
             <p className="letter-card__big" lang="fi">

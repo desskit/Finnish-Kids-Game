@@ -11,6 +11,8 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { isSpeechRecognitionAvailable, listenOnce, type ListenSession } from '../audio/speech';
 import ActivityHeader from './ActivityHeader';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 const INTRO_KEY = 'fkg.speak.introSeen';
@@ -238,7 +240,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         />
         <div className="phrase-card say-intro">
           <span className="phrase-emoji" aria-hidden="true">
-            🎤
+            <Art glyph="🎤" />
           </span>
           <p className="prompt">Puheharjoittelu · Speaking practice</p>
           <p className="en">
@@ -292,7 +294,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
       <div className="phrase-card">
         {target.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {target.emoji}
+            <Art glyph={target.emoji} motion="loop" />
           </span>
         )}
         {/* After an attempt, map the per-sound feedback onto the word (revealing
@@ -315,7 +317,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
             onClick={() => speak(target.say)}
             aria-label="Hear it again"
           >
-            🔊 <span className="en">Listen</span>
+            <SpeakerIcon /> <span className="en">Listen</span>
           </button>
         )}
       </div>
@@ -326,7 +328,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         disabled={locked}
         aria-label={available ? 'Tap and say the word' : 'I said it'}
       >
-        🎤
+        <Art glyph="🎤" />
         <span className="mic-button__hint">
           {available ? 'Paina ja puhu · Tap & speak' : 'Sanoin sen · I said it'}
         </span>

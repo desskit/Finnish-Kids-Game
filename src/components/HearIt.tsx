@@ -10,6 +10,8 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { Segments } from './LessonView';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -157,11 +159,11 @@ export default function HearIt({ source, items, constructions, verbs, numbers, o
 
       <div className="hear-speakers">
         <button className="speaker speaker--hero" onClick={() => speak(q.fi)} aria-label="Hear it again">
-          🔊
+          <SpeakerIcon />
           <span className="speaker__hint">Kuuntele · Listen</span>
         </button>
         <button className="speaker speaker--slow" onClick={() => speak(q.fi, { slow: true })} aria-label="Hear it slowly">
-          🐢
+          <Art glyph="🐢" />
           <span className="speaker__hint">Hitaasti · Slowly</span>
         </button>
       </div>
@@ -185,7 +187,7 @@ export default function HearIt({ source, items, constructions, verbs, numbers, o
             <span className="word-tile__num">{i + 1}</span>
             {o.emoji && (
               <span className="hear-option__emoji" aria-hidden="true">
-                {o.emoji}
+                <Art glyph={o.emoji} motion="idle" />
               </span>
             )}
             <span className="en">{o.en}</span>

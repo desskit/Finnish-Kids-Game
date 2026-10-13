@@ -8,6 +8,8 @@ import { buildReadingRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -136,7 +138,7 @@ export default function ReadAndListen({ items, onExit }: Props) {
           onClick={() => speak(q.sentence.fi)}
           aria-label="Hear it again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
         {/* The meaning is the payoff — shown only once answered. */}
         <p className={'en reading-gloss' + (revealed ? ' reading-gloss--shown' : '')}>
@@ -158,7 +160,7 @@ export default function ReadAndListen({ items, onExit }: Props) {
           >
             <span className="pic-card__num">{i + 1}</span>
             <span className="pic-card__emoji" aria-hidden="true">
-              {opt.emoji}
+              <Art glyph={opt.emoji} motion="idle" />
             </span>
           </button>
         ))}

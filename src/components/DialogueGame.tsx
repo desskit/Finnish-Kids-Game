@@ -9,6 +9,7 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import PhraseIntro from './PhraseIntro';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -179,7 +180,7 @@ export default function DialogueGame({ onExit, ids }: Props) {
           onClick={() => speak(q.prompt.fi)}
           aria-label="Hear it again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

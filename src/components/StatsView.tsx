@@ -18,6 +18,8 @@ import {
   type SubjectRow,
 } from '../game/statsReport';
 import PlayerSwitcher from './PlayerSwitcher';
+import Art, { ArtText } from '../art/Art';
+import Avatar from '../art/Avatar';
 
 // The grown-ups' Stats tab: how much was practised, how well, and exactly
 // which subjects are shaky — every number derived from the per-subject stats
@@ -101,7 +103,7 @@ function SubjectLine({ r, now, note, practise }: { r: SubjectRow; now: number; n
   return (
     <li className="gstep">
       <span className="gstep__title">
-        <span aria-hidden="true">{r.step.icon}</span> {r.step.titleEn}{' '}
+        <span aria-hidden="true"><Art glyph={r.step.icon} /></span> {r.step.titleEn}{' '}
         <span className="gmuted gstat__inline">
           · Unit {r.unitNo} {r.unit.titleEn}
         </span>
@@ -156,7 +158,7 @@ function ChildStats({ c }: { c: Child }) {
     <article className="greport">
       <header className="greport__head">
         <span className="greport__avatar" aria-hidden="true">
-          {c.avatar}
+          <Avatar glyph={c.avatar} still />
         </span>
         <div>
           <h2 className="greport__name">{c.name}</h2>
@@ -198,7 +200,7 @@ function ChildStats({ c }: { c: Child }) {
       <ActivityChart c={c} now={now} />
 
       <section className="gsection">
-        <h3 className="gsection__title">☀️ Daily warm-up</h3>
+        <h3 className="gsection__title"><Art glyph="☀️" /> Daily warm-up</h3>
         <p className="gmuted">
           On a new day, the Continue button first gives {c.name} ten questions on the weakest subject so far, then
           goes back to the course.{' '}
@@ -211,7 +213,7 @@ function ChildStats({ c }: { c: Child }) {
             {warmups.map((w) => (
               <li key={`${w.day}-${w.at}`} className="gstep">
                 <span className="gstep__title">
-                  {w.day} · {warmupLabel(w.subject)}
+                  {w.day} · <ArtText text={warmupLabel(w.subject)} />
                 </span>
                 <span className={'gchip' + (w.total && w.right / w.total >= 0.8 ? ' gchip--good' : '')}>
                   {w.right}/{w.total}
@@ -290,7 +292,7 @@ function ChildStats({ c }: { c: Child }) {
             <details key={list[0].unit.id} className="gunit">
               <summary className="gunit__summary">
                 <span className="gunit__icon" aria-hidden="true">
-                  {list[0].unit.icon}
+                  <Art glyph={list[0].unit.icon} />
                 </span>
                 <span className="gunit__name">
                   <span className="gunit__n">Unit {list[0].unitNo}</span> {list[0].unit.titleEn}
@@ -328,10 +330,10 @@ function ChildStats({ c }: { c: Child }) {
         </p>
         <div className="gdata">
           <button className="gbtn" onClick={() => download(`${c.name}-subjects.csv`, subjectsCsv(c, now))}>
-            ⬇ Subjects (CSV)
+            <Art glyph="⬇" /> Subjects (CSV)
           </button>
           <button className="gbtn" onClick={() => download(`${c.name}-days.csv`, daysCsv(c))}>
-            ⬇ Daily log (CSV)
+            <Art glyph="⬇" /> Daily log (CSV)
           </button>
         </div>
       </section>

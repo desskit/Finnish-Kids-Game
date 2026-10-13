@@ -13,6 +13,7 @@ import { storyById } from '../content/stories';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
 import StoryTime from './StoryTime';
+import Art from '../art/Art';
 
 /** A warm-up stops trying after this many segments, even if short (an empty game). */
 const MAX_SEGMENTS = 6;
@@ -57,14 +58,14 @@ export default function WarmupRoute() {
       <main className="app">
         <section className={'screen checkpoint warmup-result' + (good ? ' checkpoint--pass' : '')}>
           <div className="checkpoint__badge" aria-hidden="true">
-            {good ? '🌞' : '💪'}
+            <Art glyph={good ? '🌞' : '💪'} motion="loop" />
           </div>
           <h1 className="title">
             Lämmittely tehty! <span className="en">Warm-up done</span>
           </h1>
           {revisit && storyTally && (
             <p className="warmup-result__story" aria-label={`Story: ${storyTally.right} of ${storyTally.total} right first time`}>
-              📖 Muistatko? {revisit.titleFi} —{' '}
+              <Art glyph="📖" /> Muistatko? {revisit.titleFi} —{' '}
               <span className="nowrap">
                 {storyTally.right} / {storyTally.total}
               </span>
@@ -88,7 +89,7 @@ export default function WarmupRoute() {
             </button>
             {subject && ratio < 0.8 && (
               <Link className="btn" to={`/lesson/${lessonForStep(subject.unit, subject.step)}`} state={{ from: 'notebook' }}>
-                📖 Oppitunti <span className="en">Read the lesson</span>
+                <Art glyph="📖" /> Oppitunti <span className="en">Read the lesson</span>
               </Link>
             )}
             <Link className="btn" to="/">
@@ -121,7 +122,7 @@ export default function WarmupRoute() {
     return (
       <main className="app app--barred">
         <div className="checkpoint-bar warmup-bar" aria-label="Warm-up: a story to remember">
-          ☀️ Lämmittely <span className="en">Warm-up · Muistatko? A story to remember</span>
+          <Art glyph="☀️" /> Lämmittely <span className="en">Warm-up · Muistatko? A story to remember</span>
         </div>
         <ActivityContext.Provider
           value={{ onSegmentComplete: onStoryDone, difficulty: difficultyFor(1), sessionStars: stars - startStars.current }}
@@ -168,7 +169,7 @@ export default function WarmupRoute() {
   return (
     <main className="app app--barred">
       <div className="checkpoint-bar warmup-bar" aria-label={`Warm-up: ${tally.total} of ${WARMUP_QUESTIONS} questions`}>
-        ☀️ Lämmittely{' '}
+        <Art glyph="☀️" /> Lämmittely{' '}
         <span className="en">
           Warm-up · Unit {unitNo}: {step.titleEn} · {Math.min(tally.total, WARMUP_QUESTIONS)}/{WARMUP_QUESTIONS}
         </span>

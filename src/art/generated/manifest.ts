@@ -7,20 +7,103 @@ export const ART_GRID = 48;
 export type ArtId =
   | 'apple'
   | 'avatar-fox'
+  | 'baby'
+  | 'banana'
+  | 'bear'
+  | 'bee'
+  | 'bird'
+  | 'bone'
   | 'book'
+  | 'bread'
+  | 'brother'
+  | 'bunny'
+  | 'butter'
+  | 'butterfly'
+  | 'cake'
+  | 'candy'
+  | 'carrot'
   | 'cat'
+  | 'cheese'
+  | 'chicken'
+  | 'child'
+  | 'chocolate'
   | 'close'
+  | 'cloud'
+  | 'cookie'
+  | 'cow'
   | 'dog'
+  | 'duck'
+  | 'ear'
+  | 'egg'
+  | 'elephant'
+  | 'eye'
+  | 'family'
+  | 'father'
+  | 'finger'
+  | 'fire'
+  | 'fish'
+  | 'flower'
+  | 'foot'
   | 'football'
+  | 'fox'
+  | 'frog'
+  | 'grandfather'
+  | 'grandmother'
+  | 'grass'
+  | 'hair'
+  | 'hand'
   | 'happy'
+  | 'head'
+  | 'heart'
+  | 'horse'
   | 'house'
+  | 'ice'
+  | 'ice-cream'
+  | 'island'
+  | 'juice'
+  | 'knee'
+  | 'lake'
+  | 'leaf'
+  | 'lion'
+  | 'milk'
+  | 'monkey'
+  | 'moon'
+  | 'mother'
+  | 'mountain'
+  | 'mouse'
+  | 'mouth'
+  | 'muscle'
+  | 'nose'
+  | 'pig'
+  | 'pizza'
+  | 'porridge'
+  | 'potato'
+  | 'rain'
+  | 'rice'
   | 'run'
+  | 'sausage'
+  | 'sea'
+  | 'sheep'
   | 'sister'
+  | 'sky'
+  | 'snake'
+  | 'snow'
+  | 'son'
+  | 'soup'
   | 'speaker'
   | 'star'
+  | 'stone'
+  | 'strawberry'
   | 'sun'
   | 'tile'
-  | 'trophy';
+  | 'tomato'
+  | 'tongue'
+  | 'tooth'
+  | 'trophy'
+  | 'tummy'
+  | 'water'
+  | 'wind'
+  | 'wolf';
 
 export type ArtGroup = 'ui' | 'words';
 
@@ -28,20 +111,103 @@ export type ArtGroup = 'ui' | 'words';
 export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = {
   apple: { group: 'words', title: 'apple' },
   'avatar-fox': { group: 'ui', title: 'fox (avatar)' },
+  baby: { group: 'words', title: 'baby' },
+  banana: { group: 'words', title: 'banana' },
+  bear: { group: 'words', title: 'bear' },
+  bee: { group: 'words', title: 'bee' },
+  bird: { group: 'words', title: 'bird' },
+  bone: { group: 'words', title: 'bone' },
   book: { group: 'words', title: 'book' },
+  bread: { group: 'words', title: 'bread' },
+  brother: { group: 'words', title: 'brother' },
+  bunny: { group: 'words', title: 'bunny' },
+  butter: { group: 'words', title: 'butter' },
+  butterfly: { group: 'words', title: 'butterfly' },
+  cake: { group: 'words', title: 'cake' },
+  candy: { group: 'words', title: 'candy' },
+  carrot: { group: 'words', title: 'carrot' },
   cat: { group: 'words', title: 'Mirri the cat' },
+  cheese: { group: 'words', title: 'cheese' },
+  chicken: { group: 'words', title: 'chicken' },
+  child: { group: 'words', title: 'Leo (child)' },
+  chocolate: { group: 'words', title: 'chocolate' },
   close: { group: 'words', title: 'close (a shut padlock)' },
+  cloud: { group: 'words', title: 'cloud' },
+  cookie: { group: 'words', title: 'cookie' },
+  cow: { group: 'words', title: 'cow' },
   dog: { group: 'words', title: 'Musti the dog' },
+  duck: { group: 'words', title: 'duck (a mallard)' },
+  ear: { group: 'words', title: 'ear (hearing)' },
+  egg: { group: 'words', title: 'egg' },
+  elephant: { group: 'words', title: 'elephant' },
+  eye: { group: 'words', title: 'eye' },
+  family: { group: 'words', title: 'family (Isä, Äiti and Aino)' },
+  father: { group: 'words', title: 'Isä (dad)' },
+  finger: { group: 'words', title: 'finger' },
+  fire: { group: 'words', title: 'fire (a campfire)' },
+  fish: { group: 'words', title: 'fish' },
+  flower: { group: 'words', title: 'flower' },
+  foot: { group: 'words', title: 'foot (wiggling its toes)' },
   football: { group: 'words', title: 'soccer ball' },
+  fox: { group: 'words', title: 'fox (also the mascot)' },
+  frog: { group: 'words', title: 'frog' },
+  grandfather: { group: 'words', title: 'grandfather' },
+  grandmother: { group: 'words', title: 'Isoäiti (grandmother)' },
+  grass: { group: 'words', title: 'grass' },
+  hair: { group: 'words', title: 'hair (a comb going through it)' },
+  hand: { group: 'words', title: 'hand (waving)' },
   happy: { group: 'words', title: 'happy' },
+  head: { group: 'words', title: 'head (Eero)' },
+  heart: { group: 'words', title: 'heart (beating)' },
+  horse: { group: 'words', title: 'horse (a Finnhorse)' },
   house: { group: 'words', title: 'house' },
+  ice: { group: 'words', title: 'ice' },
+  'ice-cream': { group: 'words', title: 'ice cream' },
+  island: { group: 'words', title: 'island (in a lake)' },
+  juice: { group: 'words', title: 'juice' },
+  knee: { group: 'words', title: 'knee (with a plaster)' },
+  lake: { group: 'words', title: 'lake (in the forest)' },
+  leaf: { group: 'words', title: 'leaf' },
+  lion: { group: 'words', title: 'lion' },
+  milk: { group: 'words', title: 'milk' },
+  monkey: { group: 'words', title: 'monkey' },
+  moon: { group: 'words', title: 'moon (stars twinkling by it)' },
+  mother: { group: 'words', title: 'Äiti (mom)' },
+  mountain: { group: 'words', title: 'mountain' },
+  mouse: { group: 'words', title: 'mouse' },
+  mouth: { group: 'words', title: 'mouth' },
+  muscle: { group: 'words', title: 'muscle (flexing)' },
+  nose: { group: 'words', title: 'nose' },
+  pig: { group: 'words', title: 'pig' },
+  pizza: { group: 'words', title: 'pizza' },
+  porridge: { group: 'words', title: 'porridge (a butter eye and blueberries, steaming)' },
+  potato: { group: 'words', title: 'potato' },
+  rain: { group: 'words', title: 'rain' },
+  rice: { group: 'words', title: 'rice' },
   run: { group: 'words', title: 'run' },
+  sausage: { group: 'words', title: 'sausage (with mustard)' },
+  sea: { group: 'words', title: 'sea (a wave)' },
+  sheep: { group: 'words', title: 'sheep' },
   sister: { group: 'words', title: 'Aino (sister)' },
+  sky: { group: 'words', title: 'sky' },
+  snake: { group: 'words', title: 'snake' },
+  snow: { group: 'words', title: 'snow (a snowflake, turning)' },
+  son: { group: 'words', title: 'Eero (son, boy)' },
+  soup: { group: 'words', title: 'soup (steaming)' },
   speaker: { group: 'ui', title: 'speaker (listen)' },
   star: { group: 'words', title: 'star' },
+  stone: { group: 'words', title: 'stone' },
+  strawberry: { group: 'words', title: 'strawberry' },
   sun: { group: 'words', title: 'sun' },
   tile: { group: 'ui', title: 'number tile (the numeral is live text on top)' },
+  tomato: { group: 'words', title: 'tomato' },
+  tongue: { group: 'words', title: 'tongue' },
+  tooth: { group: 'words', title: 'tooth' },
   trophy: { group: 'ui', title: 'trophy' },
+  tummy: { group: 'words', title: 'tummy (Leo patting his)' },
+  water: { group: 'words', title: 'water' },
+  wind: { group: 'words', title: 'wind' },
+  wolf: { group: 'words', title: 'wolf' },
 };
 
 /**
@@ -50,33 +216,172 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
  */
 export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: boolean }>>> = {
   'avatar-fox': { loop: false, blink: true },
+  baby: { loop: true, blink: true },
+  bear: { loop: false, blink: true },
+  bee: { loop: true, blink: true },
+  bird: { loop: true, blink: true },
+  brother: { loop: false, blink: true },
+  bunny: { loop: true, blink: true },
+  butterfly: { loop: true, blink: false },
   cat: { loop: true, blink: true },
+  chicken: { loop: true, blink: true },
+  child: { loop: false, blink: true },
+  cloud: { loop: true, blink: false },
+  cow: { loop: true, blink: true },
   dog: { loop: true, blink: true },
+  duck: { loop: true, blink: true },
+  ear: { loop: true, blink: false },
+  elephant: { loop: true, blink: true },
+  eye: { loop: true, blink: false },
+  family: { loop: false, blink: true },
+  father: { loop: false, blink: true },
+  fire: { loop: true, blink: false },
+  fish: { loop: true, blink: false },
+  flower: { loop: true, blink: false },
+  foot: { loop: true, blink: false },
+  fox: { loop: true, blink: true },
+  frog: { loop: true, blink: true },
+  grandfather: { loop: false, blink: true },
+  grandmother: { loop: false, blink: true },
+  grass: { loop: true, blink: false },
+  hair: { loop: true, blink: true },
+  hand: { loop: true, blink: false },
   happy: { loop: true, blink: false },
+  head: { loop: false, blink: true },
+  heart: { loop: true, blink: false },
+  horse: { loop: true, blink: true },
+  ice: { loop: true, blink: false },
+  island: { loop: true, blink: false },
+  lake: { loop: true, blink: false },
+  leaf: { loop: true, blink: false },
+  lion: { loop: true, blink: true },
+  monkey: { loop: true, blink: true },
+  moon: { loop: true, blink: false },
+  mother: { loop: false, blink: true },
+  mouse: { loop: true, blink: true },
+  muscle: { loop: true, blink: false },
+  pig: { loop: true, blink: true },
+  porridge: { loop: true, blink: false },
+  rain: { loop: true, blink: false },
   run: { loop: true, blink: false },
+  sea: { loop: true, blink: false },
+  sheep: { loop: true, blink: true },
   sister: { loop: false, blink: true },
+  sky: { loop: true, blink: false },
+  snake: { loop: true, blink: false },
+  snow: { loop: true, blink: false },
+  son: { loop: false, blink: true },
+  soup: { loop: true, blink: false },
   speaker: { loop: true, blink: false },
   star: { loop: true, blink: false },
   sun: { loop: true, blink: false },
+  tongue: { loop: true, blink: false },
+  tooth: { loop: true, blink: true },
   trophy: { loop: true, blink: false },
+  tummy: { loop: true, blink: true },
+  wind: { loop: true, blink: false },
+  wolf: { loop: true, blink: true },
 };
 
 /** An emoji (variation selectors removed) → the picture drawn for it. */
 export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🍎': 'apple',
+  '👶': 'baby',
+  '🍌': 'banana',
+  '🐻': 'bear',
+  '🐝': 'bee',
+  '🐦': 'bird',
+  '🦴': 'bone',
   '📕': 'book',
+  '🍞': 'bread',
+  '🧑': 'brother',
+  '🐰': 'bunny',
+  '🧈': 'butter',
+  '🦋': 'butterfly',
+  '🍰': 'cake',
+  '🍬': 'candy',
+  '🥕': 'carrot',
   '🐱': 'cat',
+  '🧀': 'cheese',
+  '🐔': 'chicken',
+  '🧒': 'child',
+  '🍫': 'chocolate',
   '🔒': 'close',
+  '☁': 'cloud',
+  '🍪': 'cookie',
+  '🐮': 'cow',
   '🐶': 'dog',
+  '🦆': 'duck',
+  '👂': 'ear',
+  '🥚': 'egg',
+  '🐘': 'elephant',
+  '👁': 'eye',
+  '👪': 'family',
+  '👨': 'father',
+  '👆': 'finger',
+  '🔥': 'fire',
+  '🐟': 'fish',
+  '🌸': 'flower',
+  '🦶': 'foot',
   '⚽': 'football',
+  '🦊': 'fox',
+  '🐸': 'frog',
+  '👴': 'grandfather',
+  '👵': 'grandmother',
+  '🌿': 'grass',
+  '💇': 'hair',
+  '✋': 'hand',
   '😄': 'happy',
+  '🙂': 'head',
+  '❤': 'heart',
+  '🐴': 'horse',
   '🏠': 'house',
+  '🧊': 'ice',
+  '🍦': 'ice-cream',
+  '🏝': 'island',
+  '🧃': 'juice',
+  '🦵': 'knee',
+  '🏞': 'lake',
+  '🍃': 'leaf',
+  '🦁': 'lion',
+  '🥛': 'milk',
+  '🐵': 'monkey',
+  '🌙': 'moon',
+  '👩': 'mother',
+  '⛰': 'mountain',
+  '🐭': 'mouse',
+  '👄': 'mouth',
+  '💪': 'muscle',
+  '👃': 'nose',
+  '🐷': 'pig',
+  '🍕': 'pizza',
+  '🥣': 'porridge',
+  '🥔': 'potato',
+  '🌧': 'rain',
+  '🍚': 'rice',
   '🏃': 'run',
+  '🌭': 'sausage',
+  '🌊': 'sea',
+  '🐑': 'sheep',
   '👧': 'sister',
+  '🌌': 'sky',
+  '🐍': 'snake',
+  '❄': 'snow',
+  '👦': 'son',
+  '🍲': 'soup',
   '🔊': 'speaker',
   '⭐': 'star',
+  '🪨': 'stone',
+  '🍓': 'strawberry',
   '☀': 'sun',
+  '🍅': 'tomato',
+  '👅': 'tongue',
+  '🦷': 'tooth',
   '🏆': 'trophy',
+  '🤰': 'tummy',
+  '💧': 'water',
+  '💨': 'wind',
+  '🐺': 'wolf',
 };
 
 /** Story backdrops, and the tones each is drawn in. */

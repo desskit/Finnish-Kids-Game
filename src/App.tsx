@@ -38,6 +38,7 @@ import AuditView from './components/AuditView';
 import WarmupRoute from './components/WarmupRoute';
 import StatsView from './components/StatsView';
 import FinnishReview from './components/FinnishReview';
+import Art from './art/Art';
 
 // Content facts the badge rules measure against (derived from the path).
 const BADGE_ENV = badgeEnv;
@@ -164,7 +165,7 @@ function SkillRoute() {
     <main className={'app' + (mix ? ' app--barred' : '')}>
       {mix && (
         <div className="checkpoint-bar" aria-label={`Mixed review: ${mix.skill.titleEn}`}>
-          🔁 <span className="en">Kertaus · {mix.skill.titleEn}</span>
+          <Art glyph="🔁" /> <span className="en">Kertaus · {mix.skill.titleEn}</span>
         </div>
       )}
       <ActivityContext.Provider

@@ -172,7 +172,10 @@ export function makeKit({ px = 2, frame = 0, frames = 1, blink = false, moving =
     flatEllipse: (cx, cy, rx, ry, fill, o = {}) => shape('ellipse', { cx, cy, rx, ry }, fill, { ...o, stroke: false }),
 
     line,
-    /** A group, e.g. to rotate or move a part (never scale: lines would change width). */
+    /**
+     * A group, to move, turn or shrink a part (a whole person, for a family
+     * picture). Outlines stay one pixel: they're drawn as each shape's edge.
+     */
     g: (transform, ...children) => {
       const inner = children.join('');
       return inner ? `<g transform="${transform}">${inner}</g>` : '';
@@ -188,11 +191,16 @@ export function makeKit({ px = 2, frame = 0, frames = 1, blink = false, moving =
       return el('path', { d, fill: 'none', stroke: P.ink, 'stroke-width': T }) + el('path', { d, fill: 'none', stroke: color, 'stroke-width': T - 2 * line1 });
     },
 
-    /** An open eye: an ink oval with a catchlight. In the blink frame, shut: a short line. */
+    /**
+     * An open eye: an ink oval with a catchlight. In the blink frame, shut: a
+     * short line. The pixel art draws every eye as the same few pixels, snapped
+     * to the grid (data-eye says where), so a pair always matches.
+     */
     eye(cx, cy, r = 2.2) {
       used.eyes++;
-      if (blink) return line(`M${pt([cx - r * 0.95, cy + r * 0.2])}H${fmt(cx + r * 0.95)}`);
-      return el('ellipse', { cx, cy, rx: r * 0.82, ry: r, fill: P.ink }) + el('circle', { cx: cx - r * 0.3, cy: cy - r * 0.4, r: r * 0.36, fill: P.white });
+      const at = `${fmt(cx)} ${fmt(cy)} ${fmt(r)}`;
+      if (blink) return el('path', { d: `M${pt([cx - r * 0.6, cy + r * 0.2])}H${fmt(cx + r * 0.6)}`, fill: 'none', stroke: P.ink, 'stroke-width': line1, 'data-eye': at });
+      return el('ellipse', { cx, cy, rx: r * 0.82, ry: r, fill: P.ink, 'data-eye': at }) + el('circle', { cx: cx - r * 0.3, cy: cy - r * 0.4, r: r * 0.36, fill: P.white, 'data-glint': 'eye' });
     },
     /** A happy closed eye (^). */
     happyEye: (cx, cy, w = 4.4) => line(`M${pt([cx - w / 2, cy + w * 0.12])}Q${pt([cx, cy - w * 0.62])} ${pt([cx + w / 2, cy + w * 0.12])}`),

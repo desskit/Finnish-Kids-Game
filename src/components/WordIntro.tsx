@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { ALSO_EN, type LexicalItem } from '../content/types';
 import { speak } from '../audio/speak';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 interface Props {
   item: LexicalItem;
@@ -29,7 +31,7 @@ export default function WordIntro({ item, onContinue }: Props) {
 
       <div className="phrase-card word-intro">
         <span className="phrase-emoji" aria-hidden="true">
-          {item.emoji}
+          <Art item={item} motion="loop" />
         </span>
         <p className="word-intro__fi">{item.fi}</p>
         <p className="en phrase-hint">
@@ -41,7 +43,7 @@ export default function WordIntro({ item, onContinue }: Props) {
           onClick={() => speak(item.fi)}
           aria-label="Hear it again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

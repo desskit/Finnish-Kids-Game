@@ -10,6 +10,7 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForErrorPick } from '../content/why';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -173,7 +174,7 @@ export default function FindError({ items, constructions, onExit }: Props) {
           onClick={() => speakEnglish(q.gloss)}
           aria-label="Hear the meaning again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

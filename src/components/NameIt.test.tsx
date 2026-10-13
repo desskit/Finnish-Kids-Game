@@ -31,6 +31,7 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 // All three fixture words pre-seeded as already-seen, so ordinary quiz-flow
 // tests never hit the "meet the word" intro card — that flow has its own
@@ -84,7 +85,7 @@ afterEach(() => {
 describe('NameIt (production recall)', () => {
   it('shows the picture + English cue and Finnish word tiles', () => {
     renderActivity();
-    expect(document.querySelector('.phrase-emoji')).toHaveTextContent('🐱');
+    expect(getByPicture('🐱', document.querySelector('.phrase-emoji')!)).toBeInTheDocument();
     expect(screen.getByText('cat')).toBeInTheDocument();
     expect(document.querySelectorAll('.word-tile')).toHaveLength(3);
     expect(wordTile('kissa')).toBeInTheDocument();

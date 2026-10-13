@@ -1,21 +1,29 @@
 // Food words.
 
+import * as food from '../food.mjs';
+
 export default [
-  {
-    id: 'apple',
-    title: 'apple',
-    draw: (k) => {
-      const c = k.P;
-      return [
-        k.ground(32, 58.4, 15, 2.4),
-        k.path('M30.6 22.6C30.4 17.6 31.4 13.2 33.8 10L37.6 12.2C35.8 14.8 35.4 18.2 35.6 22.6Z', c.brown),
-        k.path('M32 21.6C26 15.6 11.6 16.6 11.6 32.6C11.6 45.6 20.6 56.2 27.6 55.2C29.8 54.8 30.8 54.2 32 54.2C33.2 54.2 34.2 54.8 36.4 55.2C43.4 56.2 52.4 45.6 52.4 32.6C52.4 16.6 38 15.6 32 21.6Z', c.red),
-        k.flat('M47.4 22.8C51.8 28.4 51.6 41.4 43.6 50.4C40.8 53.4 38.2 54 36.6 53.8C42.6 47.6 46.8 37.4 45 24.8C45.8 24.2 46.6 23.6 47.4 22.8Z', c.redShade),
-        k.shine('M17.8 31.2C18 27 20.6 23.6 24.6 22.6'),
-        k.shineDot(17.8, 35.6, 1.3),
-        k.path('M35.2 15.4C38.2 9.4 45.2 7.4 51 9.2C48.6 15.4 41.4 18.4 35.2 15.4Z', c.green),
-        k.line('M37.4 14.2Q43 12.4 47.6 10.4', { color: c.greenShade, sw: 1.5 }),
-      ].join('');
-    },
-  },
+  { id: 'bread', title: 'bread', draw: food.bread },
+  { id: 'milk', title: 'milk', draw: food.milk },
+  { id: 'water', title: 'water', draw: food.water },
+  { id: 'apple', title: 'apple', draw: food.apple },
+  { id: 'banana', title: 'banana', draw: food.banana },
+  { id: 'cheese', title: 'cheese', draw: food.cheese },
+  { id: 'cake', title: 'cake', draw: food.cake },
+  { id: 'cookie', title: 'cookie', draw: food.cookie },
+  { id: 'juice', title: 'juice', draw: food.juice },
+  { id: 'ice-cream', title: 'ice cream', draw: food.iceCream },
+  { id: 'chocolate', title: 'chocolate', draw: food.chocolate },
+  { id: 'potato', title: 'potato', draw: food.potato },
+  { id: 'strawberry', title: 'strawberry', draw: food.strawberry },
+  { id: 'carrot', title: 'carrot', draw: food.carrot },
+  { id: 'egg', title: 'egg', draw: food.egg },
+  { id: 'rice', title: 'rice', draw: food.rice },
+  { id: 'soup', title: 'soup (steaming)', motion: { frames: 3, fps: 3 }, draw: food.soup },
+  { id: 'sausage', title: 'sausage (with mustard)', draw: food.sausage },
+  { id: 'tomato', title: 'tomato', draw: food.tomato },
+  { id: 'candy', title: 'candy', draw: food.candy },
+  { id: 'porridge', title: 'porridge (a butter eye and blueberries, steaming)', motion: { frames: 3, fps: 3 }, draw: food.porridge },
+  { id: 'butter', title: 'butter', draw: food.butter },
+  { id: 'pizza', title: 'pizza', draw: food.pizza },
 ];

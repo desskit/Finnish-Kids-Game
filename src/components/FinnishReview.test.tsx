@@ -60,7 +60,8 @@ describe('Grown-ups → Finnish check', () => {
     renderReview();
     expect(screen.getByText(/approved earlier/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: /Correct/ }));
-    expect(screen.getAllByText('✅ Approved').length).toBeGreaterThan(0);
+    // the status is the ✅ picture and the word
+    expect([...document.querySelectorAll('.rcard__status--ledger')].some((el) => el.textContent?.includes('Approved'))).toBe(true);
   });
 
   it('remembers the reviewer’s name for the file', () => {

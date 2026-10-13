@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BADGES, BADGE_CATEGORIES, badgeProgress } from '../game/badges';
 import { badgeEnv } from '../game/path';
 import { useProfile } from '../state/profile';
+import Art from '../art/Art';
 
 // Saavutukset (Achievements): every badge, what EXACTLY earns it, and how far
 // along the child is ("7 / 10 words") — so a goal is something to aim at, not a
@@ -18,10 +19,10 @@ export default function Achievements() {
     <section className="screen achievements">
       <div className="notebook__head">
         <Link className="icon-btn" to="/" aria-label="Koti · Home">
-          ⬅︎
+          <Art glyph="⬅︎" />
         </Link>
         <h1 className="title">
-          🏅 Saavutukset <span className="en">Achievements</span>
+          <Art glyph="🏅" /> Saavutukset <span className="en">Achievements</span>
         </h1>
       </div>
       <p className="notebook__intro en">
@@ -45,7 +46,7 @@ export default function Achievements() {
                   aria-label={`${b.titleEn}: ${earned ? 'earned' : `${p.have} of ${p.need} ${p.unit}`}`}
                 >
                   <span className="achievement__emoji" aria-hidden="true">
-                    {b.emoji}
+                    <Art glyph={b.emoji} />
                   </span>
                   <span className="achievement__body">
                     <span className="achievement__title">

@@ -10,6 +10,9 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
+import Art from '../art/Art';
+import Avatar from '../art/Avatar';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 interface Props {
   onExit: () => void;
@@ -173,7 +176,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
             <div className="chat-row" key={i}>
               <div className="chat-bubble chat-bubble--partner">
                 <span className="chat-avatar" aria-hidden="true">
-                  {scene.partnerIcon}
+                  <Art glyph={scene.partnerIcon} motion="idle" />
                 </span>
                 <span className="chat-lines">
                   <span className="chat-fi">{t.partner.fi}</span>
@@ -186,14 +189,14 @@ export default function ConversationScene({ onExit, ids }: Props) {
                   <span className="en chat-en">{t.reply.en}</span>
                 </span>
                 <span className="chat-avatar" aria-hidden="true">
-                  {avatar || '🙂'}
+                  <Avatar glyph={avatar || '🙂'} />
                 </span>
               </div>
             </div>
           ))}
         </div>
         <button className="speaker speaker--inline" onClick={playModel} aria-label="Hear it again">
-          🔊 <span className="en">Listen again</span>
+          <SpeakerIcon /> <span className="en">Listen again</span>
         </button>
         <button
           className="btn btn--primary"
@@ -224,7 +227,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
           <div className="chat-row" key={i}>
             <div className="chat-bubble chat-bubble--partner">
               <span className="chat-avatar" aria-hidden="true">
-                {scene.partnerIcon}
+                <Art glyph={scene.partnerIcon} motion="idle" />
               </span>
               <span className="chat-lines">
                 <span className="chat-fi">{t.partner.fi}</span>
@@ -236,7 +239,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
                   onClick={() => speak(t.partner.fi)}
                   aria-label="Hear it again"
                 >
-                  🔊
+                  <SpeakerIcon />
                 </button>
               )}
             </div>
@@ -247,7 +250,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
                   {glossed && <span className="en chat-en">{answered[i].en}</span>}
                 </span>
                 <span className="chat-avatar" aria-hidden="true">
-                  {avatar || '🙂'}
+                  <Avatar glyph={avatar || '🙂'} />
                 </span>
               </div>
             )}
@@ -257,7 +260,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
 
       {finished ? (
         <p className="chat-done" role="status">
-          🎉 Hienoa, juttelit suomeksi! <span className="en">You had a conversation!</span>
+          <Art glyph="🎉" /> Hienoa, juttelit suomeksi! <span className="en">You had a conversation!</span>
         </p>
       ) : (
         turn && (

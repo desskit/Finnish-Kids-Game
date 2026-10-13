@@ -4,6 +4,7 @@ import { stories, storyById, type Story } from '../content/stories';
 import { UNITS, midLessonStatus, unitStatus } from '../game/course';
 import { storyReadWell } from '../game/storyLog';
 import { useProfile } from '../state/profile';
+import Art from '../art/Art';
 
 /** Every story in the order the course meets it (then any the course doesn't). */
 function storiesInCourseOrder(): Story[] {
@@ -29,24 +30,24 @@ export default function Notebook() {
     <section className="screen notebook">
       <div className="notebook__head">
         <Link className="icon-btn" to="/" aria-label="Koti · Home">
-          ⬅︎
+          <Art glyph="⬅︎" />
         </Link>
         <h1 className="title">
-          📓 Vihko <span className="en">Notebook</span>
+          <Art glyph="📓" /> Vihko <span className="en">Notebook</span>
         </h1>
       </div>
       {/* Finished books first: the fun part, never buried under the lessons. */}
       {shelf.length > 0 && (
         <>
           <h2 className="notebook__shelf-title">
-            📚 Kirjahylly <span className="en">Bookshelf</span>
+            <Art glyph="📚" /> Kirjahylly <span className="en">Bookshelf</span>
           </h2>
           <ul className="bookshelf">
             {shelf.map((s) => (
               <li key={s.id}>
                 <Link className="book" to={`/story/${s.id}`}>
                   <span className="book__icon" aria-hidden="true">
-                    {s.icon}
+                    <Art glyph={s.icon} />
                   </span>
                   <span className="book__title">{s.titleFi}</span>
                   <span className="book__en en">{s.titleEn}</span>
@@ -55,7 +56,7 @@ export default function Notebook() {
             ))}
           </ul>
           <h2 className="notebook__shelf-title">
-            📖 Oppitunnit <span className="en">Lessons</span>
+            <Art glyph="📖" /> Oppitunnit <span className="en">Lessons</span>
           </h2>
         </>
       )}
@@ -80,7 +81,7 @@ export default function Notebook() {
                 style={{ '--accent': u.accent } as React.CSSProperties}
               >
                 <span className="notebook__emoji" aria-hidden="true">
-                  {lesson.emoji}
+                  <Art glyph={lesson.emoji} />
                 </span>
                 <span className="notebook__label">
                   <span className="notebook__unit en">Unit {i + 1}</span>
@@ -95,11 +96,11 @@ export default function Notebook() {
       </ol>
       {locked > 0 && (
         <p className="notebook__locked en">
-          🔒 {locked} more {locked === 1 ? 'lesson unlocks' : 'lessons unlock'} as you go.
+          <Art glyph="🔒" /> {locked} more {locked === 1 ? 'lesson unlocks' : 'lessons unlock'} as you go.
         </p>
       )}
       {shelf.length === 0 && (
-        <p className="notebook__locked en">📚 Every story you finish goes on a bookshelf here, to read again whenever you like.</p>
+        <p className="notebook__locked en"><Art glyph="📚" /> Every story you finish goes on a bookshelf here, to read again whenever you like.</p>
       )}
 
     </section>

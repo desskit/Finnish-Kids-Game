@@ -5,6 +5,8 @@ import type { Segment } from '../content/endings';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
 import Prose from './Prose';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 interface Props {
   lesson: Lesson;
@@ -33,7 +35,7 @@ export default function LessonView({ lesson, onDone, onClose, doneLabel }: Props
         </button>
         <div className="lesson__title">
           <span className="lesson__emoji" aria-hidden="true">
-            {lesson.emoji}
+            <Art glyph={lesson.emoji} motion="loop" />
           </span>
           <span>
             {lesson.titleFi} <span className="en">{lesson.titleEn}</span>
@@ -162,7 +164,7 @@ function ExampleRow({ r }: { r: ResolvedRef }) {
     <li className="lesson-row">
       {r.emoji && (
         <span className="lesson-row__emoji" aria-hidden="true">
-          {r.emoji}
+          <Art glyph={r.emoji} />
         </span>
       )}
       <span className="lesson-row__text">
@@ -186,7 +188,7 @@ function ExampleRow({ r }: { r: ResolvedRef }) {
         onClick={() => speak(r.speak)}
         aria-label={`Kuuntele · Listen: ${r.speak}`}
       >
-        🔊
+        <SpeakerIcon />
       </button>
     </li>
   );
@@ -221,7 +223,7 @@ function CheckCard({
           onClick={() => speak(heard.speak)}
           aria-label="Kuuntele · Listen"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       )}
       <div className="lesson-check">

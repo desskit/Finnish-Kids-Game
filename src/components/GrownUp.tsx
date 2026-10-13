@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import ParentGate from './ParentGate';
+import Art from '../art/Art';
 
 const TABS = [
   { to: '/grown-up/progress', icon: '📊', en: 'Progress', fi: 'Edistyminen' },
@@ -24,7 +25,7 @@ export default function GrownUp() {
       <section className="screen grownup">
         <header className="grownup__head">
           <Link className="icon-btn" to="/" aria-label="Back to the course">
-            ⬅︎
+            <Art glyph="⬅︎" />
           </Link>
           <div className="grownup__titles">
             <h1 className="grownup__title">Grown-ups</h1>
@@ -42,7 +43,7 @@ export default function GrownUp() {
               className={({ isActive }) => 'gtab' + (isActive ? ' gtab--on' : '')}
             >
               <span className="gtab__icon" aria-hidden="true">
-                {t.icon}
+                <Art glyph={t.icon} />
               </span>
               <span className="gtab__label">{t.en}</span>
               <span className="gtab__fi" lang="fi">

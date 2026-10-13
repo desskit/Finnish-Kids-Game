@@ -194,14 +194,25 @@ body {
 }
 
 /* ---------- Pictures (src/art) ---------- */
-/* A picture takes the font-size the emoji had: 1em square. */
+/* A picture takes the font-size the emoji had. It takes up 1em, as the emoji
+   did, but draws a little bigger: an emoji fills its whole box, a picture
+   leaves a margin round its edges. */
 .art {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 1.2em;
+  height: 1.2em;
+  margin: -0.1em;
   vertical-align: -0.125em;
   flex: none;
   overflow: visible;
+}
+
+/* An emoji that has no picture yet shows as itself, at its own size. */
+.art--emoji {
+  width: auto;
+  height: auto;
+  margin: 0;
+  vertical-align: baseline;
 }
 
 /* The number tile: a drawn tile with the numeral as live text on top. */
@@ -1960,6 +1971,10 @@ button:focus-visible,
   font-size: clamp(1.6rem, 6vw, 2.4rem);
   letter-spacing: 4px;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .score-count {

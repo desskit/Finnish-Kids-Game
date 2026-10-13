@@ -33,6 +33,7 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import ListenSentence from './ListenSentence';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 function seedChild() {
   localStorage.setItem(
@@ -60,7 +61,7 @@ function renderActivity() {
   );
 }
 
-const card = (emoji: string) => screen.getByText(emoji).closest('button') as HTMLButtonElement;
+const card = (emoji: string) => getByPicture(emoji).closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
   await act(async () => {
