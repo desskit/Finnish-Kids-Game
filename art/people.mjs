@@ -3,7 +3,7 @@
 // same picture book. A person is a LOOK (who: skin, hair, clothes) in a POSE
 // (what they're doing: where the limbs go, which face).
 
-import { polar, pt, roundPoly, scallops } from './kit.mjs';
+import { fmt, polar, pt, roundPoly, scallops } from './kit.mjs';
 
 // --- The cast (fixed looks: keep these when drawing them anywhere) ---------
 
@@ -200,6 +200,20 @@ export function person(k, look, pose = POSES.stand) {
   out.push(head(k, look, hx, hy, pose.look, pose.face));
   return out.join('');
 }
+
+/**
+ * A person shrunk (or not) and placed: `x` is where their middle goes,
+ * `ground` where their feet go. `extra` is drawn with them, in their own
+ * coordinates (a hat, an arm drawn again over something they hold).
+ */
+export const placed = (k, look, pose, x, ground, s, ...extra) =>
+  k.g(`translate(${fmt(x - 32 * s)} ${fmt(ground - 60 * s)}) scale(${fmt(s)})`, person(k, look, { ...POSES.stand, ...pose }), ...extra);
+
+/** For a person placed like that: the point of their pose that lands on a point of the picture. */
+export const poseAt = (x, ground, s) => ([cx, cy]) => [(cx - x + 32 * s) / s, (cy - ground + 60 * s) / s];
+
+/** A hand on its own, drawn again over something it holds (its size scaled with a placed person). */
+export const hand = (k, [x, y], skin = 'skin3', s = 1) => k.circle(x, y, 2.9 * s, k.P[skin]);
 
 /** Just the head (and any hair that falls behind it), where a standing person's head goes: (32, 20.5). */
 export function portrait(k, look, face = 'smile') {

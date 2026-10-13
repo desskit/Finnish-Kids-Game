@@ -4,41 +4,20 @@
 // are the thing their emoji shows, at work: an hourglass running, scissors
 // cutting, a padlock springing open, a speech bubble.
 
-import { arcPath, fmt, polar, pt, roundPoly, starPoints } from './kit.mjs';
+import { arcPath, fmt, heartPath, polar, pt, roundPoly, starPoints } from './kit.mjs';
 import { cheeks, faceBase, tear } from './faces.mjs';
 import { steam } from './food.mjs';
 import { note } from './freetime.mjs';
 import { fire as campfire } from './nature.mjs';
-import { arm, CAST, person, portrait, POSES, runPose, walkPose } from './people.mjs';
+import { arm, CAST, hand, person, placed, poseAt, portrait, POSES, runPose, walkPose } from './people.mjs';
 
 const leo = (k, pose) => person(k, CAST.leo, { ...POSES.stand, ...pose });
-
-/**
- * A person shrunk (or not) and placed: `x` is where their middle goes,
- * `ground` where their feet go. `extra` is drawn with them, in their own
- * coordinates (a hat, an arm drawn again over something they hold).
- */
-const placed = (k, look, pose, x, ground, s, ...extra) =>
-  k.g(`translate(${fmt(x - 32 * s)} ${fmt(ground - 60 * s)}) scale(${fmt(s)})`, person(k, look, { ...POSES.stand, ...pose }), ...extra);
-
-/** For a person placed like that: the point of their pose that lands on a point of the picture. */
-const poseAt = (x, ground, s) => ([cx, cy]) => [(cx - x + 32 * s) / s, (cy - ground + 60 * s) / s];
 
 /** A pose moved down by dy (up when negative), arms and legs too: a hop, or sinking into water. */
 function lifted(pose, dy) {
   const mv = (pts) => pts.map(([x, y]) => [x, y + dy]);
   const base = { ...POSES.stand, ...pose };
   return { ...base, bob: (base.bob ?? 0) + dy, armBack: mv(base.armBack), armFront: mv(base.armFront), legBack: mv(base.legBack), legFront: mv(base.legFront) };
-}
-
-/** A hand on its own (drawn again over something it holds). */
-const hand = (k, [x, y], skin = 'skin3', s = 1) => k.circle(x, y, 2.9 * s, k.P[skin]);
-
-/** A heart, its top at `top`, w wide and h tall, centred on cx. */
-function heartPath(cx, top, w, h) {
-  const y = (f) => fmt(top + h * f);
-  const x = (f) => fmt(cx + w * f);
-  return `M${x(0)} ${y(1)}C${x(-0.3)} ${y(0.74)} ${x(-0.5)} ${y(0.6)} ${x(-0.5)} ${y(0.3)}C${x(-0.5)} ${y(0.08)} ${x(-0.36)} ${y(0)} ${x(-0.24)} ${y(0)}C${x(-0.1)} ${y(0)} ${x(0)} ${y(0.08)} ${x(0)} ${y(0.22)}C${x(0)} ${y(0.08)} ${x(0.1)} ${y(0)} ${x(0.24)} ${y(0)}C${x(0.36)} ${y(0)} ${x(0.5)} ${y(0.08)} ${x(0.5)} ${y(0.3)}C${x(0.5)} ${y(0.6)} ${x(0.3)} ${y(0.74)} ${x(0)} ${y(1)}Z`;
 }
 
 /** A wavy water line across the picture at height y (moved along by `shift`), as the start of a path. */
@@ -863,8 +842,8 @@ export function smile(k) {
   const f = k.frame % 2;
   return [
     faceBase(k),
-    k.eye(24.4, 27.4, 2.8),
-    k.eye(39.6, 27.4, 2.8),
+    k.eye(24.4, 27.4, 3.2),
+    k.eye(39.6, 27.4, 3.2),
     cheeks(k),
     k.line(f ? 'M25 38.6Q32 44.4 39 38.6' : 'M22 37.4Q32 46.4 42 37.4', { sw: 1.8 }),
   ].join('');
@@ -890,8 +869,8 @@ export function cry(k) {
   return [
     faceBase(k),
     k.line('M19.4 22.2L27.2 19.6M44.6 22.2L36.8 19.6', { sw: 1.6 }),
-    k.eye(24.4, 28, 2.8),
-    k.eye(39.6, 28, 2.8),
+    k.eye(24.4, 28, 3.2),
+    k.eye(39.6, 28, 3.2),
     k.line('M24.4 44.4Q32 37.6 39.6 44.4', { sw: 1.8 }),
     tear(k, 41, 36.6, 2.2),
     tear(k, 22.6, [37, 42.4, 47.8][f], 2.6),
