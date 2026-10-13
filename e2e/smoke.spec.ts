@@ -55,22 +55,31 @@ async function answerUntilStarAdvance(page: Page, optionSelector = '.pic-card') 
   throw new Error('Could not advance past the question');
 }
 
-/** Answer one Review question by watching the question dots advance. */
+/**
+ * Answer one Review question by watching the question dots advance. The
+ * header goes when the celebration comes, so every read of it gives up
+ * quickly rather than waiting for a header that will never come back.
+ */
 async function answerUntilDotAdvance(page: Page) {
   const header = page.getByLabel(/Question \d+ of \d+/);
-  const before = await header.getAttribute('aria-label');
+  const label = () => header.getAttribute('aria-label', { timeout: 500 }).catch(() => null);
+  const before = await label();
+  if (before === null) return;
 
   for (let attempt = 0; attempt < 5; attempt++) {
-    const cards = page.locator('.pic-card');
+    // Only enabled cards, and a best-effort click: after the last right
+    // answer the cards linger disabled, then the celebration replaces them.
+    const cards = page.locator('.pic-card:not([disabled])');
     const count = await cards.count();
     for (let i = 0; i < count; i++) {
-      await cards.nth(i).click();
+      if (await isRoundComplete(page)) return;
+      await cards.nth(i).click({ timeout: 2000 }).catch(() => {});
 
       for (let ms = 0; ms < 900; ms += 100) {
         await page.waitForTimeout(100);
         if (await isRoundComplete(page)) return;
-        const after = await header.getAttribute('aria-label').catch(() => null);
-        if (after && after !== before) return;
+        const after = await label();
+        if (after !== before) return;
       }
     }
   }

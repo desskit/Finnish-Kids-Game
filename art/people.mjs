@@ -27,6 +27,14 @@ export const CAST = {
   opettaja: { skin: 'skin2', hair: { style: 'bob', color: 'darkHair' }, top: { kind: 'cardigan', color: 'amber', trim: 'cream' }, bottom: { kind: 'trousers', color: 'charcoal' }, shoes: 'charcoal', glasses: true },
 };
 
+/** Family words that aren't story characters. */
+export const FAMILY = {
+  // brother (🧑): an older boy in a red cap and a yellow hoodie.
+  brother: { skin: 'skin1', hair: { style: 'cap', color: 'hazel', cap: 'red' }, top: { kind: 'shirt', color: 'yellow' }, bottom: { kind: 'trousers', color: 'brand' }, shoes: 'charcoal' },
+  // grandfather (👴): grey tufts and a moustache, glasses, a brown cardigan.
+  grandfather: { skin: 'skin1', hair: { style: 'bald', color: 'greyHair' }, top: { kind: 'cardigan', color: 'wood', trim: 'cream' }, bottom: { kind: 'trousers', color: 'grey' }, shoes: 'brown', glasses: true },
+};
+
 // --- Poses -------------------------------------------------------------------
 
 /**
@@ -134,7 +142,9 @@ export function person(k, look, pose = POSES.stand) {
   out.push(k.ground(pose.speed ? 31 : 32, 58.6, pose.speed ? 15 : 13.5, 2.4));
   if (pose.speed) out.push(k.speed(15, [27, 32.5, 38], 6));
 
-  // Legs (and a turned-away arm) behind the body
+  // Long hair and pigtails, the legs (and a turned-away arm) go behind the body
+  const hair = c[look.hair.color];
+  out.push(hairBack(k, look.hair, hx, hy, hair, c[`${look.hair.color}Shade`] ?? hair));
   out.push(leg(k, look, pose.legBack, skin, pose.toes));
   out.push(leg(k, look, pose.legFront, skin, pose.toes));
   if (!pose.armsInFront) out.push(arm(k, look, pose.armBack, skin));
@@ -147,6 +157,14 @@ export function person(k, look, pose = POSES.stand) {
   // Head
   out.push(head(k, look, hx, hy, pose.look, pose.face));
   return out.join('');
+}
+
+/** Just the head (and any hair that falls behind it), where a standing person's head goes: (32, 20.5). */
+export function portrait(k, look, face = 'smile') {
+  const c = k.P;
+  const [hx, hy] = POSES.stand.head;
+  const hair = c[look.hair.color];
+  return hairBack(k, look.hair, hx, hy, hair, c[`${look.hair.color}Shade`] ?? hair) + head(k, look, hx, hy, 0, face);
 }
 
 function leg(k, look, pts, skin, toes = 0) {
@@ -205,7 +223,6 @@ function head(k, look, hx, hy, lookDx, face) {
   const hair = c[look.hair.color];
   const hairShade = c[`${look.hair.color}Shade`] ?? hair;
   const out = [];
-  out.push(hairBack(k, look.hair, hx, hy, hair, hairShade));
   // ears
   out.push(k.circle(hx - R + 0.3 + lookDx * 0.3, hy + 2, 2.8, skin));
   out.push(k.circle(hx + R - 0.3 + lookDx * 0.3, hy + 2, 2.8, skin));
@@ -234,13 +251,12 @@ function faceOf(k, x, y, face) {
   return out.join('');
 }
 
+/** Round glasses: one-pixel rims wide enough to show the eyes inside. */
 function glasses(k, x, y) {
   const ey = y + 2.2;
-  return (
-    k.line(`M${pt([x - 7.6, ey])}A3.4 3.4 0 1 0 ${pt([x - 0.8, ey])}A3.4 3.4 0 1 0 ${pt([x - 7.6, ey])}`, { sw: 1.5 }) +
-    k.line(`M${pt([x + 0.8, ey])}A3.4 3.4 0 1 0 ${pt([x + 7.6, ey])}A3.4 3.4 0 1 0 ${pt([x + 0.8, ey])}`, { sw: 1.5 }) +
-    k.line(`M${pt([x - 0.8, ey - 0.6])}Q${pt([x, ey - 1.6])} ${pt([x + 0.8, ey - 0.6])}`, { sw: 1.5 })
-  );
+  const r = 4.1;
+  const rim = (cx) => k.line(`M${pt([cx - r, ey])}A${r} ${r} 0 1 0 ${pt([cx + r, ey])}A${r} ${r} 0 1 0 ${pt([cx - r, ey])}`);
+  return rim(x - 4.4) + rim(x + 4.4);
 }
 
 /** Hair that sits behind the head (pigtails, long hair, a bun). */
@@ -313,7 +329,58 @@ function hairFront(k, hair, hx, hy, color, shade) {
       return cap(`Q${pt(at(12.4, -6))} ${pt(at(7, -8.4))}Q${pt(at(0, -9.6))} ${pt(at(-7, -8.4))}Q${pt(at(-12.4, -6))} ${pt(polar(hx, hy, R + 1, 172))}`);
     case 'bob':
       return cap(`Q${pt(at(13.2, -3.6))} ${pt(at(11.2, -5.6))}L${pt(at(-11.2, -5.6))}Q${pt(at(-13.2, -3.6))} ${pt(polar(hx, hy, R + 1, 172))}`);
+    case 'cap': {
+      // short hair showing at the sides, a cap on top with its peak to the front (right)
+      const capColor = k.P[hair.cap ?? 'red'];
+      return (
+        k.path(`M${pt(at(-12.8, 2))}Q${pt(at(-13.4, -4))} ${pt(at(-10, -6))}L${pt(at(-8.6, -1))}Q${pt(at(-11, 0))} ${pt(at(-12.8, 2))}Z`, color) +
+        k.path(`M${pt(at(12.8, 2))}Q${pt(at(13.4, -4))} ${pt(at(10, -6))}L${pt(at(8.6, -1))}Q${pt(at(11, 0))} ${pt(at(12.8, 2))}Z`, color) +
+        k.path(`M${pt(at(-13.4, -3))}A13.6 13.6 0 0 1 ${pt(at(13.4, -3))}Q${pt(at(0, -6.2))} ${pt(at(-13.4, -3))}Z`, capColor) +
+        k.poly([at(4, -5.6), at(19.4, -4), at(18.6, -1.2), at(3.6, -2.6)], [1, 1.8, 1.8, 1], capColor) +
+        k.circle(...at(0, -13.4), 1.6, capColor)
+      );
+    }
+    case 'bald':
+      // grey tufts over the ears, and a moustache
+      return (
+        k.ellipse(...at(-12, -0.6), 3.2, 4.6, color) +
+        k.ellipse(...at(12, -0.6), 3.2, 4.6, color) +
+        k.shine(`M${pt(at(-5.6, -9.6))}Q${pt(at(-3.4, -11.4))} ${pt(at(-0.4, -11.6))}`, 2) +
+        k.path(`M${pt(at(-5.6, 6.4))}Q${pt(at(-3, 3.8))} ${pt(at(0, 5))}Q${pt(at(3, 3.8))} ${pt(at(5.6, 6.4))}Q${pt(at(3, 7.6))} ${pt(at(0, 6.4))}Q${pt(at(-3, 7.6))} ${pt(at(-5.6, 6.4))}Z`, color)
+      );
     default:
       return '';
   }
+}
+
+/** The baby: sitting in a sky-blue onesie, one curl on top. Waves its arms on the second frame. */
+export function baby(k) {
+  const c = k.P;
+  const skin = c.skin1;
+  const up = k.frame % 2 === 1;
+  const arm = (s) => {
+    const sh = [32 + s * 8.6, 41];
+    const hand = up ? [32 + s * 15, 33.6] : [32 + s * 13.4, 46.6];
+    return k.limb(`M${pt(sh)}L${pt(hand)}`, c.sky, 7.6) + k.circle(...hand, 2.8, skin);
+  };
+  return [
+    k.ground(32, 58.6, 15, 2.4),
+    k.limb('M27.6 50.6L22.4 56.4', c.sky, 8.2),
+    k.limb('M36.4 50.6L41.6 56.4', c.sky, 8.2),
+    k.circle(21.6, 57, 2.9, skin),
+    k.circle(42.4, 57, 2.9, skin),
+    k.path('M21.6 53.6C20 44.6 23.6 38.4 32 38.4C40.4 38.4 44 44.6 42.4 53.6C38.8 55.6 25.2 55.6 21.6 53.6Z', c.sky),
+    k.flatEllipse(32, 46.6, 3, 2.2, c.white),
+    arm(-1),
+    arm(1),
+    k.circle(19.2, 27.4, 2.8, skin),
+    k.circle(44.8, 27.4, 2.8, skin),
+    k.circle(32, 25.6, 13.6, skin),
+    k.path('M30.6 12.4C29 9 31.8 6.4 34.6 7.6C36.6 8.6 36 11.2 34 11.2C32.8 11.2 32.6 10 33.4 9.6', 'none'),
+    k.eye(27.2, 27.6, 2.2),
+    k.eye(36.8, 27.6, 2.2),
+    k.blush(23.4, 32, 2.6, 1.6),
+    k.blush(40.6, 32, 2.6, 1.6),
+    k.ellipse(32, 34, 1.7, 1.5, c.mouth, { sw: 1.5 }),
+  ].join('');
 }

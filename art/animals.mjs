@@ -5,7 +5,7 @@
 import { pt, roundPoly } from './kit.mjs';
 
 /** A sitting body (pear shape) with paws, centred under the head. `tailTurn` swings the tail about its base (degrees). */
-function sittingBody(k, fur, { chest, paws = 'white', tail, tailTurn = 0 } = {}) {
+export function sittingBody(k, fur, { chest, paws = 'white', tail, tailTurn = 0 } = {}) {
   const c = k.P;
   const out = [];
   if (tail) {

@@ -39,17 +39,33 @@ const GEN = join(ROOT, 'src', 'art', 'generated');
 const GALLERY = join(ROOT, 'art-gallery');
 const CHECK = process.argv.includes('--check');
 
-/** The pixel grids the gallery compares (the app uses STYLE.grid). */
-const COMPARE = [
-  { key: 'L', grid: 48, name: 'Light', blurb: '48 pixels across a picture. Pixel edges you notice up close, with rounder shapes and finer faces.' },
-  { key: 'M', grid: 32, name: 'Medium', blurb: '32 pixels across a picture. Clearly pixel art, like a classic handheld game, but not chunky.' },
-];
-
 /** Bytes a picture or backdrop may take once it's pixel art (still, and with its motion). */
 const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 };
 
 /** How fast a backdrop's clouds drift, in pixels a second. */
 const DRIFT_PX_PER_S = 2;
+
+/** The order the gallery shows the themes in (anything else after these). */
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'app'];
+const THEME_NAMES = {
+  family: 'Family and the cast',
+  animals: 'Animals',
+  body: 'Body',
+  food: 'Food',
+  nature: 'Nature and weather',
+  places: 'Places',
+  clothes: 'Clothes',
+  school: 'School',
+  freetime: 'Free time',
+  time: 'Time',
+  verbs: 'Doing things',
+  adjectives: 'Describing words',
+  states: 'How things are',
+  numbers: 'Numbers',
+  ordinals: 'First, second, third',
+  'lesson-words': 'Lesson words',
+  app: 'The app',
+};
 
 const VS = String.fromCharCode(0xfe0e) + String.fromCharCode(0xfe0f);
 const KEYCAP = String.fromCharCode(0x20e3);
@@ -98,7 +114,8 @@ function picture(recipe, grid) {
     if (frames.some((f) => !sameGrid(f.grid, frames[0].grid))) loop = { grids: frames.map((f) => f.grid), fps: recipe.motion.fps ?? 4 };
   }
   let blink = null;
-  if (still.eyes > 0) {
+  // anything with the kit's eyes blinks, unless it's a creature that doesn't (a fish)
+  if (still.eyes > 0 && recipe.blink !== false) {
     const shut = drawPicture(recipe, grid, { blink: true });
     vectors.push(shut.vector);
     const patch = changes(still.grid, shut.grid);
@@ -212,8 +229,7 @@ function build() {
   const pictures = [];
   const glyphs = new Map(); // key → id
   const seen = new Set();
-  // checking only needs the app's grid; the gallery compares more
-  const grids = CHECK ? [STYLE.grid] : [...new Set([STYLE.grid, ...COMPARE.map((c) => c.grid)])];
+  const grids = [STYLE.grid];
 
   for (const r of RECIPES) {
     const where = `picture "${r.id}"`;
@@ -242,7 +258,7 @@ function build() {
     const p = byGrid[STYLE.grid];
     if (p.still.length > BUDGET.picture) problems.push(`${where}: ${p.still.length} bytes (budget ${BUDGET.picture})`);
     if (p.motion && p.motion.length > BUDGET.motion) problems.push(`${where}: moving, ${p.motion.length} bytes (budget ${BUDGET.motion})`);
-    pictures.push({ id: r.id, title: r.title, group, glyphs: claims, byGrid });
+    pictures.push({ id: r.id, title: r.title, group, theme: word?.theme ?? 'app', glyphs: claims, byGrid });
   }
 
   const scenes = [];
@@ -433,117 +449,85 @@ if (CHECK) {
 
 // --- The review gallery ------------------------------------------------------
 
+/** Every picture drawn so far, moving, grouped by theme, plus the app screens they appear in. */
 function gallery(pictures, scenes) {
-  const [one, two] = COMPARE;
-  const sprite = COMPARE.map(({ key, grid }) => {
-    const box = `0 0 ${grid} ${grid}`;
-    return (
-      pictures
-        .map((p) => {
-          const v = p.byGrid[grid];
-          return symbol(`${key}-${p.id}`, box, v.still) + (v.motion ? symbol(`${key}-${p.id}--m`, box, v.motion) : '') + (v.blinkOnly ? symbol(`${key}-${p.id}--b`, box, v.blinkOnly) : '');
-        })
-        .join('') +
-      scenes
-        .map((s) => {
-          const b = s.byGrid[grid];
-          const vb = `0 0 ${b.cols} ${b.rows}`;
-          return symbol(`scene-${key}-${s.id}-${s.tone}`, vb, b.still) + (b.moving ? symbol(`scene-${key}-${s.id}-${s.tone}--m`, vb, b.moving) : '');
-        })
-        .join('')
-    );
-  }).join('');
+  const grid = STYLE.grid;
+  const box = `0 0 ${grid} ${grid}`;
+  const sprite =
+    pictures
+      .map((p) => {
+        const v = p.byGrid[grid];
+        return symbol(`P-${p.id}`, box, v.still) + (v.motion ? symbol(`P-${p.id}--m`, box, v.motion) : '') + (v.blinkOnly ? symbol(`P-${p.id}--b`, box, v.blinkOnly) : '');
+      })
+      .join('') +
+    scenes
+      .map((s) => {
+        const b = s.byGrid[grid];
+        const vb = `0 0 ${b.cols} ${b.rows}`;
+        return symbol(`scene-${s.id}-${s.tone}`, vb, b.still) + (b.moving ? symbol(`scene-${s.id}-${s.tone}--m`, vb, b.moving) : '');
+      })
+      .join('');
+  const byId = new Map(pictures.map((p) => [p.id, p]));
   /** A picture: `mode` 'loop' (all its motion), 'idle' (just its blink), or still. */
-  const art = (v, id, cls = '', mode) => {
-    const p = pictures.find((x) => x.id === id);
-    const grid = COMPARE.find((c) => c.key === v).grid;
+  const art = (id, cls = '', mode) => {
+    const p = byId.get(id);
+    if (!p) return '';
     const m = p.byGrid[grid];
-    let ref = `${v}-${id}`;
+    let ref = `P-${id}`;
     if (mode === 'loop' && m.motion) ref += '--m';
     if (mode === 'idle' && m.blink) ref += m.blinkOnly ? '--b' : '--m';
-    return `<svg class="art${cls ? ` ${cls}` : ''}" data-grid="${grid}" aria-hidden="true"><use href="#${ref}"/></svg>`;
+    return `<svg class="art${cls ? ` ${cls}` : ''}" aria-hidden="true"><use href="#${ref}"/></svg>`;
   };
-  const shown = (p) => p.glyphs.map((gl) => `<span class="was" title="The emoji it replaces">${gl}</span>`).join('');
+  const pick = (ids) => ids.filter((id) => byId.has(id));
   const movesNote = (p) => {
-    const m = p.byGrid[STYLE.grid];
-    const what = [m.loop && 'moves', m.blink && 'blinks'].filter(Boolean).join(' and ');
+    const m = p.byGrid[grid];
+    const what = [m.loop && 'moves', m.blink && 'blinks'].filter(Boolean).join(' · ');
     return what ? `<span class="moves">${what}</span>` : '';
   };
-
-  const cards = pictures
-    .map(
-      (p) => `
+  const themes = [...new Set(pictures.map((p) => p.theme))].sort((a, b) => (THEME_ORDER.indexOf(a) + 1 || 99) - (THEME_ORDER.indexOf(b) + 1 || 99));
+  const sections = themes
+    .map((t) => {
+      const ps = pictures.filter((p) => p.theme === t);
+      return `
+  <section>
+    <div class="section-head"><h2>${THEME_NAMES[t] ?? t}</h2><span class="count">${ps.length}</span></div>
+    <div class="pics">${ps
+      .map(
+        (p) => `
       <figure class="pic">
-        <figcaption><span class="pic__name">${esc(p.title)}</span>${movesNote(p)}${shown(p)}</figcaption>
-        <div class="pic__pair">
-          ${COMPARE.map(
-            ({ key }) => `<div class="pic__one">
-            <span class="tag tag--${key}">${key}</span>
-            ${art(key, p.id, 'art--96', 'loop')}
-            <div class="pic__small">${art(key, p.id, 'art--40')}${art(key, p.id, 'art--24')}</div>
-          </div>`,
-          ).join('')}
-        </div>
+        <div class="pic__big">${art(p.id, 'art--big', 'loop')}</div>
+        <div class="pic__small">${art(p.id, 'art--40')}${art(p.id, 'art--24')}</div>
+        <figcaption><span class="pic__name">${esc(p.title)}</span>${p.glyphs.map((g) => `<span class="was" title="The emoji it replaces">${g}</span>`).join('')}${movesNote(p)}</figcaption>
       </figure>`,
-    )
+      )
+      .join('')}
+    </div>
+  </section>`;
+    })
     .join('');
 
-  const question = (v) => `
-      <div class="mock mock--question">
-        <div class="speaker">${art(v, 'speaker', 'art--speaker', 'loop')}<span>Kuuntele</span></div>
-        <div class="cards">${['cat', 'dog', 'apple', 'football'].map((id) => `<div class="card">${art(v, id, '', 'idle')}</div>`).join('')}</div>
-        <p class="hint">The cards only blink. The speaker plays its loop while the word is spoken.</p>
-      </div>`;
-  const stage = (v, tone) => {
+  const stage = (tone) => {
     const s = scenes.find((x) => x.id === 'park' && x.tone === tone);
-    const b = s.byGrid[COMPARE.find((c) => c.key === v).grid];
+    if (!s) return '';
+    const b = s.byGrid[grid];
+    const cast = pick(['sister', 'son', 'dog', 'cat']).map((id) => art(id, '', 'loop')).join('');
     return `
       <div class="stage">
-        <svg class="stage__bg" viewBox="0 0 ${b.cols} ${b.rows}" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#scene-${v}-park-${tone}${b.moving ? '--m' : ''}"/></svg>
-        <div class="stage__cast">${art(v, 'sister', '', 'loop')}${art(v, 'dog', '', 'loop')}${art(v, 'cat', '', 'loop')}</div>
+        <svg class="stage__bg" viewBox="0 0 ${b.cols} ${b.rows}" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#scene-park-${tone}${b.moving ? '--m' : ''}"/></svg>
+        <div class="stage__cast">${cast}</div>
         <span class="stage__tone">${tone}</span>
       </div>`;
   };
-  const map = (v) => `
-      <div class="mock mock--map">
-        <div class="topbar">${art(v, 'avatar-fox', 'art--avatar', 'idle')}<span class="topbar__name">Lilli</span><span class="topbar__stars">${art(v, 'star')} 24</span></div>
-        ${[
-          ['house', 'Koti ja perhe', 'Home and family'],
-          ['sun', 'Mitä teet?', 'Doing things'],
-          ['book', 'Koulupäivä', 'School day'],
-        ]
-          .map(([id, fi, en]) => `<div class="unit"><span class="unit__icon">${art(v, id)}</span><span class="unit__text"><b>${fi}</b><small>${en}</small></span>${art(v, 'close', 'unit__lock')}</div>`)
-          .join('')}
-        <div class="badges">${['trophy', 'star', 'happy'].map((id) => `<span class="badge">${art(v, id)}</span>`).join('')}</div>
-        <p class="hint">Small icons stay still.</p>
-      </div>`;
-  const counting = (v) => `
-      <div class="mock mock--count">
-        <div class="count">${Array.from({ length: 5 }, () => art(v, 'apple')).join('')}</div>
-        <div class="tiles">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => `<span class="tile">${art(v, 'tile')}<b>${n}</b></span>`).join('')}</div>
-        <div class="count count--doing">${art(v, 'run', '', 'loop')}${art(v, 'happy', '', 'loop')}${art(v, 'sun', '', 'loop')}${art(v, 'trophy', '', 'loop')}</div>
-      </div>`;
-  const reactions = (v) => `
-      <div class="mock mock--react" data-react>
-        <div class="react__row">${art(v, 'apple', 'react__pic', 'idle')}${art(v, 'cat', 'react__pic', 'idle')}${art(v, 'star', 'react__pic', 'idle')}</div>
-        <div class="react__buttons">
-          <button type="button" data-anim="art--pop">Pop in</button>
-          <button type="button" data-anim="art--hop">Right answer</button>
-          <button type="button" data-anim="art--shake">Wrong answer</button>
-        </div>
-      </div>`;
+  const cards = pick(['cat', 'dog', 'bear', 'apple', 'football', 'fox']).slice(0, 4);
+  const moving = pictures.filter((p) => p.byGrid[grid].motion).length;
 
-  const swatches = Object.entries(P)
-    .filter(([name]) => !/Shade$/.test(name))
-    .map(([name, hex]) => `<span class="swatch"><i style="background:${hex}"></i>${name}</span>`)
-    .join('');
-
-  const body = `<title>Kielipesä Art Sample</title>
+  const body = `<title>Kielipesä Picture Set</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;800&display=swap">
 <style>
-/* Layout: the app's own light-blue ground and white cards, one column of review sections; every comparison shows the light grid beside the medium grid. */
+/* Layout: the app's own light-blue ground and white cards; one section per theme, every picture moving at card size and still at map sizes.
+   One light theme on purpose: the pictures are shown on the same light screens the app gives them. */
 :root {
   --bg: #eff6ff;
   --card: #ffffff;
@@ -551,7 +535,11 @@ function gallery(pictures, scenes) {
   --ink-soft: #475569;
   --brand: #1d4ed8;
   --brand-soft: #dbeafe;
+  --on-brand: #ffffff;
   --accent: #f59e0b;
+  --chip: #fef3c7;
+  --chip-ink: #92400e;
+  --veil: rgba(255, 255, 255, 0.85);
   --line: #d6e4fa;
   --radius: 22px;
   --shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
@@ -561,143 +549,89 @@ function gallery(pictures, scenes) {
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
-.page { max-width: 1080px; margin: 0 auto; padding: 28px 16px 72px; display: grid; gap: 44px; }
+.page { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 72px; display: grid; gap: 40px; }
 h1, h2 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; }
 h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; color: var(--brand); }
 h2 { font-size: 1.5rem; font-weight: 800; }
 p { margin: 0; max-width: 64ch; }
 .eyebrow { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
-.intro { display: grid; gap: 14px; }
+.intro { display: grid; gap: 12px; }
 .lead { font-size: 1.15rem; }
-.done { display: flex; flex-wrap: wrap; gap: 8px; }
-.done span { font-size: .85rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand); }
-.finishes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-.finish { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; display: grid; gap: 4px; }
-.finish b { font-family: var(--display); font-size: 1.2rem; }
-.tag { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-weight: 800; font-size: .9rem; color: #fff; background: var(--brand); }
-.tag--M { background: var(--accent); color: var(--ink); }
-section { display: grid; gap: 16px; }
-.section-head { display: grid; gap: 6px; }
+section { display: grid; gap: 14px; }
+.section-head { display: flex; align-items: baseline; gap: 10px; }
+.count { font-weight: 600; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .art { display: block; width: 1em; height: 1em; overflow: visible; }
-.art--96 { font-size: 96px; }
+.art--big { font-size: 112px; }
 .art--40 { font-size: 40px; }
 .art--24 { font-size: 24px; }
-.pics { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
-.pic { margin: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px 16px; display: grid; gap: 10px; }
-.pic figcaption { display: flex; align-items: center; gap: 8px; min-width: 0; }
-.pic__name { font-weight: 600; flex: 1; min-width: 0; }
-.moves { font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 8px; border-radius: 999px; background: #fef3c7; color: #92400e; }
-.was { font-size: 1.4rem; line-height: 1; }
-.pic__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.pic__one { position: relative; display: grid; justify-items: center; gap: 8px; padding: 10px 6px 8px; border-radius: 16px; background: var(--bg); }
-.pic__one .tag { position: absolute; top: 8px; left: 8px; width: 22px; height: 22px; font-size: .75rem; }
-.pic__small { display: flex; align-items: end; gap: 12px; }
-.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
-.col { display: grid; gap: 12px; align-content: start; }
-.col__head { display: flex; align-items: center; gap: 8px; font-weight: 600; }
-.mock { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; display: grid; gap: 14px; }
-.mock--question { justify-items: center; }
+.pics { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 12px; }
+.pic { margin: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 12px 10px; display: grid; justify-items: center; gap: 6px; }
+.pic__small { display: flex; align-items: end; gap: 10px; }
+.pic figcaption { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 8px; text-align: center; min-width: 0; }
+.pic__name { font-weight: 600; line-height: 1.25; }
+.was { font-size: 1.1rem; line-height: 1; }
+.moves { font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); }
+.mocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px; }
+.mock { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; display: grid; gap: 12px; justify-items: center; align-content: start; }
 .hint { font-size: .85rem; color: var(--ink-soft); text-align: center; }
-.speaker { width: 124px; height: 124px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; align-content: center; gap: 2px; font-weight: 800; font-size: 3.2rem; box-shadow: var(--shadow); }
-.speaker span { font-size: .9rem; }
-.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 320px; }
-.card { aspect-ratio: 1; background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); display: grid; place-items: center; font-size: clamp(4rem, 17vw, 5.6rem); }
-.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 2 / 1; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--brand-soft); }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 300px; }
+.card { aspect-ratio: 1; background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); display: grid; place-items: center; font-size: clamp(4rem, 17vw, 5.4rem); }
+.stage { position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--brand-soft); }
 .stage__bg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.stage__cast { position: absolute; left: 0; right: 0; bottom: 3%; display: flex; justify-content: center; align-items: flex-end; gap: 2%; }
+.stage__cast { position: absolute; left: 0; right: 0; bottom: 3%; display: flex; justify-content: center; align-items: flex-end; gap: 1%; }
 .stage__cast .art { width: 16%; height: auto; aspect-ratio: 1; }
-.stage__tone { position: absolute; top: 10px; left: 12px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 10px; border-radius: 999px; background: rgba(255, 255, 255, .85); color: var(--ink); }
-.topbar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 999px; background: var(--bg); }
-.art--avatar { font-size: 40px; }
-.topbar__name { font-weight: 800; flex: 1; }
-.topbar__stars { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 1.4rem; }
-.topbar__stars .art { font-size: 1.3rem; }
-.unit { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; border: 2px solid var(--line); }
-.unit__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--brand-soft); font-size: 1.7rem; flex: none; }
-.unit__text { display: grid; flex: 1; min-width: 0; line-height: 1.2; }
-.unit__text small { color: var(--ink-soft); }
-.unit__lock { font-size: 1.4rem; }
-.badges { display: flex; gap: 10px; }
-.badge { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: #fff7e0; border: 3px solid #f6c453; font-size: 2.3rem; }
-.count { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: clamp(2.6rem, 10vw, 3.4rem); }
-.count--doing { font-size: 4rem; gap: 14px; }
-.tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.tile { position: relative; font-size: 52px; }
-.tile b { position: absolute; left: 0; right: 0; top: 0; height: 83%; display: grid; place-items: center; color: #fff; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
-.mock--react { justify-items: center; }
-.react__row { display: flex; gap: 18px; font-size: 4.4rem; }
+.stage__tone { position: absolute; top: 10px; left: 12px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 10px; border-radius: 999px; background: var(--veil); color: var(--ink); }
+.react__row { display: flex; gap: 18px; font-size: 4.2rem; }
 .react__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .react__buttons button { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
 .react__buttons button:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
-.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
-.swatch { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; padding: 3px 10px 3px 4px; border-radius: 999px; background: var(--card); box-shadow: 0 1px 3px rgba(15, 23, 42, .12); }
-.swatch i { width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgba(15, 23, 42, .25); }
-.ask { background: var(--brand); color: #fff; border-radius: var(--radius); padding: 22px; display: grid; gap: 10px; }
-.ask h2 { color: #fff; }
-.ask ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
-${artCss(32)
-  .replace(/^\/\*.*\*\/\n/, '')
-  .replace(/\.art \{\n  --art-px: calc\(1em \/ 32\);\n\}\n/, '')}
-.art[data-grid="48"] { --art-px: calc(1em / 48); }
-.art[data-grid="32"] { --art-px: calc(1em / 32); }
+.ask { background: var(--brand); color: var(--on-brand); border-radius: var(--radius); padding: 22px; display: grid; gap: 10px; }
+.ask h2 { color: var(--on-brand); }
+@media (prefers-reduced-motion: reduce) { .art--pop, .art--hop, .art--shake { animation: none !important; } }
+${artCss(grid).replace(/^\/\*.*\*\/\n/, '')}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${sprite}</defs></svg>
 <main class="page">
   <header class="intro">
-    <span class="eyebrow">Kielipesä · the picture set · sample 2</span>
-    <h1>How much pixel?</h1>
-    <p class="lead">The same ${pictures.length} pictures and story backdrop, redrawn the way you asked: the classic finish, thinner one-pixel outlines, softer colors, pixel art, and now animation. Faces blink, Mirri's tail sways, Musti wags, Leo runs, the sun shimmers, and the park's clouds drift. Here are two levels of pixel. Pick one, and I'll draw the rest in it.</p>
-    <div class="done"><span>Classic finish</span><span>Thinner outlines</span><span>Softer colors</span><span>Pixel art</span><span>Animated</span></div>
-    <div class="finishes">
-      ${COMPARE.map(({ key, name, blurb }) => `<div class="finish"><span class="tag tag--${key}">${key}</span><b>${name}</b><span>${blurb}</span></div>`).join('\n      ')}
-    </div>
+    <span class="eyebrow">Kielipesä · the picture set</span>
+    <h1>The picture set so far</h1>
+    <p class="lead">${pictures.length} of the roughly 370 pictures are drawn, in the style you picked: ${grid}-pixel art with soft colors and one-pixel outlines. ${moving} of them move, and every face blinks. Each picture is shown moving at card size and still at the small sizes the course map uses.</p>
   </header>
-
+${sections}
   <section>
-    <div class="section-head">
-      <h2>Side by side</h2>
-      <p>Each picture at card size, moving, and at the two small sizes the course map uses, where pictures stay still. The emoji in the corner is the one it replaces.</p>
+    <div class="section-head"><h2>In the app</h2></div>
+    <div class="mocks">
+      <div class="mock">
+        <div class="cards">${cards.map((id) => `<div class="card">${art(id, '', 'idle')}</div>`).join('')}</div>
+        <p class="hint">Answer cards only blink.</p>
+      </div>
+      <div class="mock" data-react>
+        <div class="react__row">${pick(['apple', 'cat', 'star']).map((id) => art(id, 'react__pic', 'idle')).join('')}</div>
+        <div class="react__buttons">
+          <button type="button" data-anim="art--pop">Pop in</button>
+          <button type="button" data-anim="art--hop">Right answer</button>
+          <button type="button" data-anim="art--shake">Wrong answer</button>
+        </div>
+      </div>
     </div>
-    <div class="pics">${cards}
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2>In the app</h2>
-      <p>A listening question, a story page in the three light settings, the course map, a counting game, and the little reactions to an answer. The backdrop's pixels are the same size as the pictures', so the cast belongs in the scene.</p>
-    </div>
-    <div class="pair">
-      ${COMPARE.map(
-        ({ key, name }) => `<div class="col">
-        <div class="col__head"><span class="tag tag--${key}">${key}</span>${name}</div>
-        ${question(key)}
-        ${stage(key, 'day')}${stage(key, 'evening')}${stage(key, 'night')}
-        ${map(key)}
-        ${counting(key)}
-        ${reactions(key)}
-      </div>`,
-      ).join('')}
-    </div>
-  </section>
-
-  <section>
-    <div class="section-head">
-      <h2>The same either way</h2>
-      <p>Both levels use one softer palette, one-pixel outlines, the same eyes, blush and shine, and the same big-head people. Pictures stay still for anyone who has reduced motion turned on. Mirri is a grey tabby. Musti is black with tan markings, because his name means "blackie". The rest of the cast (Eero, Leo, Äiti, Isä, Isoäiti and the teacher) has a fixed look too, drawn in the next batch.</p>
-    </div>
-    <div class="swatches">${swatches}</div>
+    ${stage('day')}${stage('evening')}${stage('night')}
   </section>
 
   <section class="ask">
-    <h2>What I need from you</h2>
-    <ul>
-      <li>${one.key} (${one.name.toLowerCase()}) or ${two.key} (${two.name.toLowerCase()}).</li>
-      <li>Anything else to change before the other ~350 get drawn.</li>
-    </ul>
+    <h2>Anything to redraw?</h2>
+    <p>Tell me which picture and what to change: its look, its colors, how it moves. I'll fold it into the next batch.</p>
   </section>
 </main>
 <script>
+// Reduced motion: every picture and backdrop shows its still version.
+try {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('use').forEach(function (u) {
+      var h = u.getAttribute('href') || '';
+      if (/--[mb]$/.test(h)) u.setAttribute('href', h.replace(/--[mb]$/, ''));
+    });
+  }
+} catch (e) {}
 document.querySelectorAll('[data-react]').forEach(function (box) {
   box.querySelectorAll('button[data-anim]').forEach(function (button) {
     button.addEventListener('click', function () {

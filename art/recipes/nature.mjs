@@ -1,6 +1,7 @@
-// Nature words.
+// Nature and weather words.
 
 import { crescentPath, polar, pt, roundPoly, starPoints } from '../kit.mjs';
+import * as nature from '../nature.mjs';
 
 export default [
   {
@@ -45,4 +46,21 @@ export default [
       ].join('');
     },
   },
+  { id: 'moon', title: 'moon (stars twinkling by it)', motion: { frames: 4, fps: 4 }, draw: nature.moon },
+  { id: 'cloud', title: 'cloud', motion: { frames: 2, fps: 1.5 }, draw: nature.cloud },
+  { id: 'rain', title: 'rain', motion: { frames: 3, fps: 6 }, draw: nature.rain },
+  { id: 'snow', title: 'snow (a snowflake, turning)', motion: { frames: 3, fps: 2.5 }, draw: nature.snow },
+  { id: 'flower', title: 'flower', motion: { frames: 2, fps: 1.5 }, draw: nature.flower },
+  { id: 'mountain', title: 'mountain', draw: nature.mountain },
+  { id: 'stone', title: 'stone', draw: nature.stone },
+  { id: 'lake', title: 'lake (in the forest)', motion: { frames: 2, fps: 1.5 }, draw: nature.lake },
+  { id: 'sea', title: 'sea (a wave)', motion: { frames: 2, fps: 2 }, draw: nature.sea },
+  { id: 'sky', title: 'sky', motion: { frames: 4, fps: 2.5 }, draw: nature.sky },
+  { id: 'wind', title: 'wind', motion: { frames: 4, fps: 4 }, draw: nature.wind },
+  // the glint crosses the cube, then a pause
+  { id: 'ice', title: 'ice', motion: { frames: 8, fps: 6 }, draw: nature.ice },
+  { id: 'leaf', title: 'leaf', motion: { frames: 2, fps: 1.5 }, draw: nature.leaf },
+  { id: 'fire', title: 'fire (a campfire)', motion: { frames: 3, fps: 6 }, draw: nature.fire },
+  { id: 'grass', title: 'grass', motion: { frames: 2, fps: 1.5 }, draw: nature.grass },
+  { id: 'island', title: 'island (in a lake)', motion: { frames: 2, fps: 1.5 }, draw: nature.island },
 ];

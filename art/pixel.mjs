@@ -198,13 +198,19 @@ export function parseMarkup(markup) {
     else if (tag === 'rect') subs = [{ pts: roundRectPoints(n('x'), n('y'), n('width'), n('height'), n('rx')), closed: true }];
     else if (tag === 'path') subs = pathPoints(a.d);
     else continue;
+    // an eye: where it is and how big, once the groups around it have moved and scaled it
+    const scale = Math.sqrt(Math.abs(state.m[0] * state.m[3] - state.m[1] * state.m[2]));
+    const eyeAt = a['data-eye']?.split(' ').map(Number);
     items.push({
+      eye: eyeAt ? { c: apply(state.m, [eyeAt[0], eyeAt[1]]), r: eyeAt[2] * scale, shut: tag === 'path' } : null,
+      glint: a['data-glint'] !== undefined,
       tint: a.class === 'tint',
       d: tag === 'path' ? a.d : null,
       subs: subs.map((sp) => ({ pts: sp.pts.map((p) => apply(state.m, p)), closed: sp.closed })),
       fill: a.fill && a.fill !== 'none' ? a.fill : null,
       stroke: a.stroke && a.stroke !== 'none' ? a.stroke : null,
-      width: state.width,
+      // a line in a scaled group is drawn scaled too
+      width: state.width * scale,
       opacity: state.opacity,
     });
   }
@@ -348,10 +354,50 @@ export function rasterize(markup, { cols, rows, width, height }) {
     for (const c of keep) paint(c % cols, Math.floor(c / cols), rgb, opacity);
   }
 
+  /**
+   * An eye, as a fixed pattern of pixels snapped to the grid, so both eyes of
+   * a face come out the same shape. Open: two pixels wide and three tall with
+   * a catchlight at its top left (one wide and two tall on a small face);
+   * shut: a line as wide as the eye.
+   */
+  function eyePixels({ c: [cx, cy], r, shut }, ink, light) {
+    const R = r / s;
+    const put = (x, y, rgb) => {
+      if (x >= 0 && y >= 0 && x < cols && y < rows) paint(x, y, rgb, 1);
+    };
+    if (R < 1.4) {
+      const [col, row] = [Math.round(cx / s - 0.5), Math.round(cy / s)];
+      if (shut) put(col, row, ink);
+      else for (const dy of [-1, 0]) put(col, row + dy, ink);
+      return;
+    }
+    // bigger eyes grow the same oval (wider by a pixel each side, taller by two)
+    const grow = R < 2.2 ? 0 : Math.round((R - 1.6) / 1.2);
+    const [w, h] = [2 + 2 * grow, 3 + 2 * grow];
+    const left = Math.round(cx / s - w / 2);
+    const top = Math.round(cy / s - h / 2);
+    if (shut) {
+      for (let x = 0; x < w; x++) put(left + x, top + h - 2, ink);
+      return;
+    }
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const corner = grow > 0 && (x === 0 || x === w - 1) && (y === 0 || y === h - 1);
+        if (!corner) put(left + x, top + y, ink);
+      }
+    }
+    if (light) put(left + (grow > 0 ? 1 : 0), top + (grow > 0 ? 1 : 0), light);
+  }
+
   for (let i = 0; i < items.length; i++) {
     const it = items[i];
     const next = items[i + 1];
     const half = Math.max(it.width, s) / 2;
+    if (it.glint) continue;
+    if (it.eye) {
+      eyePixels(it.eye, hexToRgb(it.eye.shut ? it.stroke : it.fill), next?.glint ? hexToRgb(next.fill) : null);
+      continue;
+    }
     if (it.fill && it.stroke) {
       const cells = cover(it, (x, y) => windingAt(it.subs, x, y) !== 0 || distanceTo(it.subs, x, y, true) <= half + 1e-9, half);
       outlined(cells, it.fill, it.stroke, it.opacity);
