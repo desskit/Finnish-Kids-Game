@@ -193,6 +193,44 @@ body {
   text-align: center;
 }
 
+/* ---------- Pictures (src/art) ---------- */
+/* A picture takes the font-size the emoji had: 1em square. */
+.art {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  flex: none;
+  overflow: visible;
+}
+
+/* The number tile: a drawn tile with the numeral as live text on top. */
+.art-tile {
+  position: relative;
+}
+
+.art-tile > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.art-tile__text {
+  position: absolute;
+  inset: 0 0 17% 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 0.5em;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.art-tile--long .art-tile__text {
+  font-size: 0.38em;
+}
+
 /* ---------- Buttons / shared ---------- */
 button {
   font-family: inherit;
