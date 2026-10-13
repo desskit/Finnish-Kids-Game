@@ -19,3 +19,6 @@ test-results/
 
 # Picture-set review gallery (npm run art)
 art-gallery/
+
+# Wiktionary downloads (scripts/fetch-wiktionary.mjs)
+data/wiktionary/.cache/

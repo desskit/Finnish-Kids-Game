@@ -185,7 +185,15 @@ node scripts/build-kids-data.mjs data/finnish-inflection-drill
 
 Edit the curation lists (`ANIMALS`, `NUMBERS`, `ADJECTIVES`, `VERBS`, `FOOD`, `FAMILY`)
 in `scripts/build-kids-data.mjs` to add words; the script copies verified forms + tags
-from the source. Adding a new construction is a few lines in `constructions.ts`
+from the source.
+
+A word the snapshot doesn't have (it keeps only the ~5,600 most common nouns) comes
+from the **Wiktionary supplement** in `data/wiktionary/`: run
+`npm run fetch:wiktionary` on a computer that can reach kaikki.org. It applies the
+upstream pipeline's own rules with a wider frequency net, plus every word listed in
+`data/wiktionary/keep.txt`, and writes only the new lemmas (gzipped). The build
+looks a word up in the snapshot first, then in the supplement. See
+`data/wiktionary/README.md`. Adding a new construction is a few lines in `constructions.ts`
 (`nounConstructions`, used by every noun theme) — no code changes elsewhere.
 
 ## Project structure

@@ -1,0 +1,6 @@
+# Words scripts/fetch-wiktionary.mjs always keeps, however rare they are in the
+# frequency list. One Finnish dictionary form per line; # starts a comment.
+# A word not found is listed as "not found" in report.md (check the spelling).
+
+# wild duck — the mallard on the lake (ankka, the farmyard duck, is already in)
+sorsa

@@ -25,8 +25,8 @@ export function bird(k) {
   ].join('');
 }
 
-/** A mallard drake afloat, the water rippling past. */
-export function duck(k) {
+/** A sorsa: a wild mallard drake afloat, the water rippling past. */
+export function mallard(k) {
   const c = k.P;
   const shift = k.frame % 2 ? 2.6 : 0;
   const ripple = (x, y, w) => k.line(`M${pt([x + shift, y])}H${fmt(x + shift + w)}`, { color: c.waterShade, sw: 1.4 });
@@ -44,6 +44,35 @@ export function duck(k) {
     ripple(10, 52.6, 7),
     ripple(27, 55, 8),
     ripple(42, 52.4, 7),
+  ].join('');
+}
+
+/**
+ * An ankka: a white farmyard duck standing on its orange feet, quacking now
+ * and then. (The wild duck on the lake is the sorsa, drawn above.)
+ */
+export function farmDuck(k) {
+  const c = k.P;
+  const quack = k.frame % 2 === 1;
+  return [
+    k.ground(29, 58.6, 17, 2.2),
+    k.limb('M25 48V55.2M34 48V55.2', c.orange, 3.8),
+    k.ellipse(28, 56.4, 4.4, 1.7, c.orange),
+    k.ellipse(37, 56.4, 4.4, 1.7, c.orange),
+    quack
+      ? k.path('M52.6 20.4C56 17.6 60.4 16.4 62 17.8C63 19 60.6 21.4 56.6 22.6L53.4 23.4Z', c.orange) +
+        k.path('M53.4 24.6L57 25.6C59.6 26.4 60.6 28 59.2 28.8C57.6 29.6 54.6 28.6 53 26.6Z', c.orange) +
+        k.line('M59.6 13.6L61.6 11.6M61 23.6H63.4', { sw: 1.4 })
+      : k.path('M52.6 20.6C56.4 19.6 60.6 20 61.8 22.2C62.6 24 60 25.6 56.4 25.6C55 25.6 53.8 25.2 53 24.6Z', c.orange),
+    k.path(
+      'M8.6 29C10.6 33 15 35 20 35H33.6C33.6 33 33.2 31.4 33.4 29.4C34 20.4 39 14 45.4 14C51.6 14 55.6 19 54.6 25.4C54 29 51.6 31.6 48.6 32.4C48.4 34.4 49 36.4 49.8 38.4C51.4 42.6 50.6 47 47.2 50C44.2 52.6 39.6 53.6 34.6 53.6H22C14 53.6 9 49.2 8 42.6C7.4 38.4 7.6 33.4 8.6 29Z',
+      c.white,
+    ),
+    k.flat('M45.6 39.6C48.4 42.6 48.4 47.4 45 50.2C42.2 52.6 38.4 53.4 34.4 53.4C40.4 50.6 44.6 45.8 45.6 39.6Z', c.silver),
+    k.path('M17.6 39.6C23.6 36.6 33.6 36.6 37.6 40.6C35.6 46.6 27.6 49.6 19.6 47.6C15.6 46.6 14.6 42.6 17.6 39.6Z', c.white),
+    k.flat('M16.4 44C20.4 47.6 28.6 48.6 35 45.4C32 48.4 25.6 49.6 19.6 48C17.8 47.4 16.8 45.8 16.4 44Z', c.creamShade),
+    k.eye(46.6, 21.6, 2.3),
+    k.blush(50, 27.2, 1.8, 1.2),
   ].join('');
 }
 

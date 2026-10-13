@@ -8,7 +8,7 @@ import { crescentPath, fmt, polar, pt, roundPoly, starPoints } from './kit.mjs';
 const twinkle = (k, x, y, r, color) => (r ? k.flat(roundPoly(starPoints(x, y, r, r * 0.34, 4), 0.3), color) : '');
 
 /** A puffy cloud, its flat bottom at y, centred on x; `s` sizes it. */
-function puff(k, x, y, s, color, shade) {
+export function puff(k, x, y, s, color, shade) {
   const c = k.P;
   const P = (dx, dy) => pt([x + dx * s, y + dy * s]);
   const r = (n) => fmt(n * s);
@@ -19,8 +19,8 @@ function puff(k, x, y, s, color, shade) {
   );
 }
 
-/** A pine tree: tiers of dark green on a short trunk, its top at `top`. */
-function pine(k, x, base, h) {
+/** A pine tree on (x, base), h tall: tiers of dark green on a short trunk. */
+export function pine(k, x, base, h) {
   const c = k.P;
   const w = h * 0.36;
   const y = (f) => base - h + h * f;

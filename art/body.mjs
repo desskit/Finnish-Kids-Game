@@ -156,14 +156,28 @@ export function tooth(k) {
   ].join('');
 }
 
-/** Hair: long ginger hair, a comb sliding down it. */
+/**
+ * Hair: the back of a head of long ginger hair (just the ears peeking out),
+ * falling over the shoulders, a comb going down it.
+ */
 export function hair(k) {
   const c = k.P;
-  const look = { skin: 'skin1', hair: { style: 'long', color: 'ginger' }, top: { kind: 'shirt', color: 'teal' } };
   const y = k.frame % 2 ? 6 : 0;
-  const teeth = [23.6, 26.6, 29.6, 32.6, 35.6].map((t) => `M46.4 ${t + y}H43.4`).join('');
-  const comb = k.g(`rotate(-16 50 ${30 + y})`, k.line(teeth, { sw: 1.4 }), k.rect(46.4, 21.4 + y, 6.4, 17, 2, c.purple));
-  return [k.path('M14.6 64C14.6 55 21.6 51 32 51C42.4 51 49.4 55 49.4 64Z', c[look.top.color]), bigHead(k, look, 1.38, 26.4), comb].join('');
+  const teeth = [23.6, 26.6, 29.6, 32.6, 35.6].map((t) => `M47.4 ${t + y}H44.4`).join('');
+  const comb = k.g(`rotate(-16 51 ${30 + y})`, k.line(teeth, { sw: 1.4 }), k.rect(47.4, 21.4 + y, 6.4, 17, 2, c.purple));
+  return [
+    k.path('M8 64C8 54.6 17 49 32 49C47 49 56 54.6 56 64Z', c.teal),
+    k.circle(18, 24, 3.2, c.skin1),
+    k.circle(46, 24, 3.2, c.skin1),
+    // a round crown, then the hair falls straight down the back to a wavy end
+    k.path('M32 7C41 7 46.6 13.4 46.6 22V44.6Q49.4 50.4 45.4 52.6Q42.4 57 38.6 53.2Q35.4 58 32 53.8Q28.6 58 25.4 53.2Q21.6 57 18.6 52.6Q14.6 50.4 17.4 44.6V22C17.4 13.4 23 7 32 7Z', c.ginger),
+    k.flat('M42 10C45 13 46.6 17 46.6 22V44.6Q48.6 48.6 46.4 51.6C44 48 43.6 42 43.4 36V22C43.4 17 43 13 42 10Z', c.gingerShade),
+    k.line('M32 7.8V15.6', { color: c.gingerShade, sw: 1.4 }),
+    k.line('M27.6 13C24.6 22 23.6 34 23.6 48M36.4 13C39.4 22 40.4 34 40.4 48M32 18.6V50', { color: c.gingerShade, sw: 1.4 }),
+    k.shine('M22.4 16.6Q24.6 11.6 29.4 10', 2),
+    k.rect(34, 10, 6.4, 3.2, 1.2, c.pink),
+    comb,
+  ].join('');
 }
 
 /** A tummy: Leo with his shirt pulled up, patting it. */
