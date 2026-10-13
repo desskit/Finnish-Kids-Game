@@ -8,7 +8,7 @@ import { fmt, polar, pt, roundPoly, starPoints } from './kit.mjs';
 const squash = (k, sy, y, inner) => k.g(`translate(0 ${y}) scale(1 ${sy}) translate(0 ${-y})`, inner);
 
 /** Steam: soft wavy lines rising off something hot, shifting with each frame. */
-function steam(k, xs, base) {
+export function steam(k, xs, base) {
   const c = k.P;
   return xs
     .map((x, i) => {

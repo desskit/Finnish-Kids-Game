@@ -5,7 +5,7 @@
 import { fmt, polar, pt } from './kit.mjs';
 
 /** A floating note (♪) at (x, y). */
-const note = (k, x, y, color = 'navy') =>
+export const note = (k, x, y, color = 'navy') =>
   k.ellipse(x, y, 2.6, 2, k.P[color]) + k.limb(`M${pt([x + 2, y])}V${fmt(y - 9)}L${pt([x + 5.4, y - 6.6])}`, k.P[color], 3.8);
 
 /** A beach ball, bouncing: down (squashed), up, coming down. */

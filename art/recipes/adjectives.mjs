@@ -1,16 +1,6 @@
 // Adjective words. Feelings are one round face with the kit's eyes and mouths.
 
-import { crescentPath, polar, pt } from '../kit.mjs';
-
-/** The round face every feeling is drawn on. */
-export function faceBase(k) {
-  const c = k.P;
-  return [
-    k.circle(32, 32, 24, c.yellow),
-    k.flat(crescentPath(32, 32, 24, -10, 120, 0.2), c.yellowShade),
-    k.shine(`M${pt(polar(32, 32, 19, 200))}A19 19 0 0 1 ${pt(polar(32, 32, 19, 238))}`, 2.6),
-  ].join('');
-}
+import { faceBase } from '../faces.mjs';
 
 export default [
   {
