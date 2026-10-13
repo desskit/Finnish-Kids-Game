@@ -4,6 +4,7 @@ import { CAST, stories } from './stories';
 import { conversations } from './conversations';
 import { dialogues } from './dialogues';
 import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
+import { lookupWord } from './wordIndex';
 import { PATH } from '../game/path';
 
 // Hand-written Finnish is the one place a wrong form can slip in. Every word of
@@ -34,6 +35,28 @@ describe('authored Finnish uses only real word forms', () => {
     ];
     expect(check(lines)).toEqual([]);
   }, 60_000);
+});
+
+describe('the story glossary', () => {
+  it('explains every word a child can tap in a story', () => {
+    const missing = stories.flatMap((s) =>
+      s.pages.flatMap((p) =>
+        p.lines.flatMap((l) =>
+          // The words StoryTime makes tappable.
+          (l.fi.match(/[\p{L}-]+/gu) ?? []).filter((w) => !lookupWord(w)).map((w) => `${s.id}: "${w}" in "${l.fi}"`),
+        ),
+      ),
+    );
+    expect(missing).toEqual([]);
+  });
+
+  it('reads a pronoun as a pronoun, and knows the endings on top of a form', () => {
+    expect(lookupWord('heitä')?.en).toMatch(/them/);
+    expect(lookupWord('laulatko')?.en).toMatch(/sing.*asking/);
+    expect(lookupWord('sinäkin')?.en).toMatch(/you.*too/);
+    expect(lookupWord('nopeampi')?.en).toBe('faster');
+    expect(lookupWord('repussani')?.en).toBe('in my backpack');
+  });
 });
 
 describe('unit stories', () => {

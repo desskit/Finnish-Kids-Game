@@ -95,11 +95,12 @@ export const UNIT_STORIES: Story[] = [
     facts: [],
   }),
 
-  // 2. People & things — Tämä on… / Onko tämä…?
+  // 2. People & things — Tämä on… / Onko tämä…? The teacher shows a book; Aino
+  // digs through her backpack for hers, and finds Mirri sitting on it.
   story('people', {
     id: 'in-class',
-    titleFi: 'Luokassa',
-    titleEn: 'In the classroom',
+    titleFi: 'Onko tämä kirja?',
+    titleEn: 'Is this a book?',
     icon: '🏫',
     tier: 2,
     pages: [
@@ -111,6 +112,7 @@ export const UNIT_STORIES: Story[] = [
       ),
       page(
         sc(CLASSROOM, '👧 🎒 ✏️', 'inside'),
+        tell('Aino etsii kirjaa repusta.', 'Aino looks in her backpack for her book.'),
         say('aino', 'Onko tämä kirja?', 'Is this a book?'),
         say('aino', 'Ei. Tämä on kynä.', 'No. This is a pencil.'),
       ),
@@ -120,13 +122,20 @@ export const UNIT_STORIES: Story[] = [
         say('aino', 'Ei. Tämä on kuva.', 'No. This is a picture.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 🐱', 'inside'),
-        say('aino', 'Onko tämä kirja?', 'Is this a book?'),
+        sc(CLASSROOM, '👧 🎒 🐱 📕', 'inside'),
         say('mirri', 'Miau!', 'Meow!'),
         say('aino', 'Ei! Tämä on Mirri!', 'No! This is Mirri!'),
+        say('aino', 'Ja tässä on kirja!', 'And here is the book!'),
       ),
     ],
     questions: [
+      ask(
+        'Mitä Aino etsii?',
+        'What is Aino looking for?',
+        right('kirjaa', 'her book', '📕'),
+        wrong('kynää', 'a pencil', '✏️'),
+        wrong('kuvaa', 'a picture', '🖼️'),
+      ),
       ask(
         'Kuka on repussa?',
         'Who is in the backpack?',
@@ -151,6 +160,7 @@ export const UNIT_STORIES: Story[] = [
     ],
     facts: [
       trueFact('Aino on luokassa.', 'Aino is in the classroom.'),
+      trueFact('Mirri on repussa.', 'Mirri is in the backpack.'),
       falseFact('Mirri on kirja.', 'Mirri is a book.'),
       falseFact('Opettaja on Mirri.', 'The teacher is Mirri.'),
     ],
@@ -218,33 +228,35 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 4. Having — Minulla on / Kenellä on?
+  // 4. Having — Minulla on / Onko sinulla…? / Kenellä on? Eero needs a ball
+  // for Musti; Aino has none, but Grandma does.
   story('having', {
     id: 'what-we-have',
-    titleFi: 'Mitä meillä on?',
-    titleEn: 'What do we have?',
-    icon: '🎒',
+    titleFi: 'Onko sinulla pallo?',
+    titleEn: 'Do you have a ball?',
+    icon: '⚽',
     tier: 2,
     pages: [
       page(
-        sc(HOME, '👧 🐱 👦 🐶'),
-        say('aino', 'Minulla on kissa.', 'I have a cat.'),
-        say('eero', 'Minulla on koira.', 'I have a dog.'),
+        sc(PLAYGROUND, '👦 🐶 👧 🐱'),
+        tell('Eerolla on koira.', 'Eero has a dog.'),
+        tell('Ainolla on kissa.', 'Aino has a cat.'),
+        say('eero', 'Aino, onko sinulla pallo?', 'Aino, do you have a ball?'),
       ),
       page(
-        sc(HOME, '👧 ⚽ 👦 🎸'),
-        say('aino', 'Minulla on pallo. Entä sinulla?', 'I have a ball. And you?'),
-        say('eero', 'Minulla on kitara.', 'I have a guitar.'),
+        sc(HOME, '👧 🎸 👦', 'inside'),
+        say('aino', 'Ei. Minulla on kitara.', 'No. I have a guitar.'),
+        say('aino', 'Onko isoäidillä pallo?', 'Does Grandma have a ball?'),
       ),
       page(
-        sc(HOME, '👵 🐰 👧'),
-        say('aino', 'Isoäiti, onko sinulla kissa?', 'Grandma, do you have a cat?'),
-        say('isoaiti', 'Ei. Minulla on pupu!', 'No. I have a bunny!'),
+        sc('🏡 ☀️', '👵 🐰 ⚽'),
+        say('isoaiti', 'Hei! Minulla on pupu.', 'Hi! I have a bunny.'),
+        tell('Isoäidillä on pupu ja pallo!', 'Grandma has a bunny and a ball!'),
       ),
       page(
-        sc(HOME, '👧 🐱 👦 🐶 👵 🐰'),
-        tell('Meillä on kissa, koira ja pupu.', 'We have a cat, a dog and a bunny.'),
-        say('eero', 'Ja pallo ja kitara!', 'And a ball and a guitar!'),
+        sc(PLAYGROUND, '👧 👦 👵 🐶 ⚽ 🐰'),
+        tell('Nyt meillä on pallo!', 'Now we have a ball!'),
+        say('eero', 'Kiitos, isoäiti!', 'Thank you, Grandma!'),
       ),
     ],
     questions: [
@@ -256,24 +268,32 @@ export const UNIT_STORIES: Story[] = [
         wrong('isoäidillä', 'Grandma', '👵'),
       ),
       ask(
+        'Mitä Ainolla on?',
+        'What does Aino have?',
+        right('kitara', 'a guitar', '🎸'),
+        wrong('pallo', 'a ball', '⚽'),
+        wrong('pupu', 'a bunny', '🐰'),
+      ),
+      ask(
+        'Kenellä on pallo?',
+        'Who has a ball?',
+        right('isoäidillä', 'Grandma', '👵'),
+        wrong('Ainolla', 'Aino', '👧'),
+        wrong('Eerolla', 'Eero', '👦'),
+      ),
+      ask(
         'Mitä isoäidillä on?',
         'What does Grandma have?',
         right('pupu', 'a bunny', '🐰'),
         wrong('kissa', 'a cat', '🐱'),
         wrong('koira', 'a dog', '🐶'),
       ),
-      ask(
-        'Kenellä on pallo?',
-        'Who has a ball?',
-        right('Ainolla', 'Aino', '👧'),
-        wrong('Eerolla', 'Eero', '👦'),
-        wrong('isoäidillä', 'Grandma', '👵'),
-      ),
     ],
     facts: [
       trueFact('Ainolla on kissa.', 'Aino has a cat.'),
+      trueFact('Isoäidillä on pallo.', 'Grandma has a ball.'),
+      falseFact('Ainolla on pallo.', 'Aino has a ball.'),
       falseFact('Eerolla on pupu.', 'Eero has a bunny.'),
-      falseFact('Isoäidillä on kitara.', 'Grandma has a guitar.'),
     ],
   }),
 
@@ -337,7 +357,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 6. Whose? — reppuni, palloni, puhelimesi.
+  // 6. Whose? — reppuni, palloni, puhelimesi. Two backpacks look the same;
+  // what's inside says whose is whose — and Eero's phone is in Aino's.
   story('whose', {
     id: 'my-backpack',
     titleFi: 'Kaksi reppua',
@@ -361,7 +382,8 @@ export const UNIT_STORIES: Story[] = [
         say('eero', 'Tämä on minun reppuni.', 'This is my backpack.'),
       ),
       page(
-        sc(CLASSROOM, '👧 📱 👦', 'inside'),
+        sc(CLASSROOM, '👧 🎒 📱 👦', 'inside'),
+        tell('Ainon repussa on puhelin.', "There's a phone in Aino's backpack."),
         say('aino', 'Onko tämä sinun puhelimesi?', 'Is this your phone?'),
         say('eero', 'On! Kiitos, Aino!', 'Yes! Thanks, Aino!'),
       ),
@@ -388,6 +410,13 @@ export const UNIT_STORIES: Story[] = [
         wrong('yksi reppu', 'one backpack', '🎒'),
         wrong('kolme reppua', 'three backpacks', '🎒🎒🎒'),
       ),
+      ask(
+        'Kenen repussa puhelin on?',
+        "Whose backpack is the phone in?",
+        right('Ainon', "Aino's", '👧'),
+        wrong('Eeron', "Eero's", '👦'),
+        wrong('opettajan', "the teacher's", '🧑‍🏫'),
+      ),
     ],
     facts: [
       trueFact('Puhelin on Eeron.', "The phone is Eero's."),
@@ -396,7 +425,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 7. Mom's bike — isän pyörä, äidin takki.
+  // 7. Mom's bike — isän pyörä, äidin takki. Dad and Mom quiz Aino with
+  // trick questions; then the baby grabs Dad's phone and gets a ball instead.
   story('owners', {
     id: 'dads-bike',
     titleFi: 'Kenen tämä on?',
@@ -406,13 +436,15 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       page(
         sc('🏡 ☀️', '👨 🚲 👧'),
-        say('isa', 'Onko tämä äidin pyörä?', "Is this Mom's bike?"),
-        say('aino', 'Ei. Se on isän pyörä!', "No. It's Dad's bike!"),
+        say('isa', 'Aino, onko tämä äidin pyörä?', "Aino, is this Mom's bike?"),
+        say('aino', 'Ei! Se on isän pyörä!', "No! It's Dad's bike!"),
+        say('isa', 'Oikein!', 'Right!'),
       ),
       page(
         sc(HOME, '👩 🧥 👧', 'inside'),
         say('aiti', 'Onko tämä isän takki?', "Is this Dad's coat?"),
-        say('aino', 'Ei. Se on äidin takki!', "No. It's Mom's coat!"),
+        say('aino', 'Ei! Se on äidin takki!', "No! It's Mom's coat!"),
+        say('aiti', 'Oikein!', 'Right!'),
       ),
       page(
         sc(HOME, '👶 📱 👨', 'inside'),
@@ -456,7 +488,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 8. Verbs, part 1 — types 1–3: juoksen, laulan, tanssii.
+  // 8. Verbs, part 1 — types 1–3: juoksen, laulan, tanssii. A walk in the
+  // park: Aino sings, Grandma listens — and starts to dance, then everyone does.
   story('doing', {
     id: 'busy-park',
     titleFi: 'Puistossa',
@@ -468,15 +501,16 @@ export const UNIT_STORIES: Story[] = [
         sc(PLAYGROUND, '👧 👦 👵 🐶'),
         tell('Aino, Eero ja isoäiti kävelevät.', 'Aino, Eero and Grandma go for a walk.'),
         say('eero', 'Minä juoksen!', "I'm running!"),
+        tell('Musti juoksee myös.', 'Musti runs too.'),
       ),
       page(
-        sc(PLAYGROUND, '👦 🐶 👧'),
-        tell('Musti juoksee myös.', 'Musti runs too.'),
+        sc(PLAYGROUND, '👧 🎤 👵'),
         say('aino', 'Minä laulan!', "I'm singing!"),
+        tell('Aino laulaa ja isoäiti kuuntelee.', 'Aino sings and Grandma listens.'),
       ),
       page(
         sc(PLAYGROUND, '👵 💃 👦'),
-        tell('Isoäiti tanssii.', 'Grandma dances.'),
+        tell('Isoäiti alkaa tanssia!', 'Grandma starts to dance!'),
         say('isoaiti', 'Minä tanssin!', "I'm dancing!"),
         say('eero', 'Isoäiti tanssii hyvin!', 'Grandma dances well!'),
       ),
@@ -508,15 +542,24 @@ export const UNIT_STORIES: Story[] = [
         wrong('isoäiti', 'Grandma', '👵'),
         wrong('Aino', 'Aino', '👧'),
       ),
+      ask(
+        'Kuka kuuntelee?',
+        'Who listens?',
+        right('isoäiti', 'Grandma', '👵'),
+        wrong('Eero', 'Eero', '👦'),
+        wrong('Musti', 'Musti', '🐶'),
+      ),
     ],
     facts: [
       trueFact('Isoäiti tanssii hyvin.', 'Grandma dances well.'),
+      trueFact('Isoäiti kuuntelee.', 'Grandma listens.'),
       falseFact('Eero laulaa.', 'Eero sings.'),
       falseFact('Musti ui.', 'Musti swims.'),
     ],
   }),
 
-  // 9. Verbs, part 1b — k, p, t change: luen, lukee, nukkuu, piirrän.
+  // 9. Verbs, part 1b — k, p, t change: luen, lukee, nukkuu, piirrän. Dad
+  // reads Aino a bedtime book — and falls asleep before she does.
   story('doing-kpt', {
     id: 'evening',
     titleFi: 'Ilta',
@@ -533,8 +576,8 @@ export const UNIT_STORIES: Story[] = [
       ),
       page(
         sc('🏠 🌙', '👨 📕 👧', 'evening'),
-        tell('Isä lukee kirjaa.', 'Dad is reading a book.'),
-        tell('Minä kuuntelen.', "I'm listening."),
+        say('isa', 'Luen sinulle kirjaa.', "I'll read you a book."),
+        tell('Isä lukee. Minä kuuntelen.', 'Dad reads. I listen.'),
       ),
       page(
         sc('🏠 🌙', '👨 😴 📕', 'night'),
@@ -577,7 +620,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 10. Saying no — ei syö, ei juo, ei leiki.
+  // 10. Saying no — ei syö, ei juo, ei leiki. Mirri won't play or eat; Aino
+  // worries, Mom knows why: Mirri is tired. A long sleep, and she's back.
   story('not-doing', {
     id: 'tired-cat',
     titleFi: 'Mirri ei leiki',
@@ -599,7 +643,7 @@ export const UNIT_STORIES: Story[] = [
       ),
       page(
         sc(HOME, '👩 🐱 😴', 'inside'),
-        say('aiti', 'Mirri nukkuu.', 'Mirri is sleeping.'),
+        say('aiti', 'Mirri on väsynyt.', 'Mirri is tired.'),
         tell('Mirri nukkuu ja nukkuu.', 'Mirri sleeps and sleeps.'),
       ),
       page(
@@ -613,7 +657,7 @@ export const UNIT_STORIES: Story[] = [
       ask(
         'Mitä äiti sanoo?',
         'What does Mom say?',
-        right('Mirri nukkuu.', 'Mirri is sleeping.', '😴'),
+        right('Mirri on väsynyt.', 'Mirri is tired.', '😴'),
         wrong('Mirri ui.', 'Mirri is swimming.', '🏊'),
         wrong('Mirri laulaa.', 'Mirri is singing.', '🎤'),
       ),
@@ -638,7 +682,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 11. Asking — Laulatko? – Laulan! / En laula.
+  // 11. Asking — Laulatko? – Laulan! / En laula. Grandma is coming, so Aino
+  // and Eero get a show ready: who sings, who dances?
   story('asking', {
     id: 'do-you-sing',
     titleFi: 'Laulatko?',
@@ -648,8 +693,8 @@ export const UNIT_STORIES: Story[] = [
     pages: [
       page(
         sc(HOME, '👧 👦', 'inside'),
-        tell('Isoäiti tulee!', 'Grandma is coming!'),
-        say('aino', 'Eero, laulatko?', 'Eero, do you sing?'),
+        tell('Isoäiti tulee tänään!', 'Grandma is coming today!'),
+        say('aino', 'Laulamme isoäidille! Eero, laulatko?', "We'll sing for Grandma! Eero, do you sing?"),
         say('eero', 'En laula.', "I don't sing."),
       ),
       page(
@@ -689,6 +734,13 @@ export const UNIT_STORIES: Story[] = [
         right('isoäiti', 'Grandma', '👵'),
         wrong('opettaja', 'the teacher', '🧑‍🏫'),
         wrong('isä', 'Dad', '👨'),
+      ),
+      ask(
+        'Kenelle Aino laulaa?',
+        'Who does Aino sing for?',
+        right('isoäidille', 'for Grandma', '👵'),
+        wrong('opettajalle', 'for the teacher', '🧑‍🏫'),
+        wrong('Mirrille', 'for Mirri', '🐱'),
       ),
     ],
     facts: [
@@ -766,6 +818,8 @@ export const UNIT_STORIES: Story[] = [
     titleEn: 'What we like',
     icon: '😋',
     tier: 3,
+    // Aino tells it: "we" are Aino, Eero and Grandma.
+    narrator: 'aino',
     pages: [
       page(
         sc(PLAYGROUND, '👧 👦 👵 🧺'),
@@ -879,7 +933,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 15. Verbs, part 2 — type 4: herään, avaan, hyppää, kiipeää.
+  // 15. Verbs, part 2 — type 4: herään, avaan, hyppää, kiipeää. Mirri wakes
+  // Aino to play; Aino lets her out to Musti — and goes back to sleep.
   story('verbs-4', {
     id: 'open-window',
     titleFi: 'Herään',
@@ -903,12 +958,13 @@ export const UNIT_STORIES: Story[] = [
         sc('🏠 🌅', '👧 🪟 🐱', 'inside'),
         tell('Avaan ikkunan.', 'I open the window.'),
         tell('Mirri kiipeää ulos.', 'Mirri climbs out.'),
+        tell('Ulkona on Eero ja Musti.', 'Eero and Musti are outside.'),
       ),
       page(
-        sc('🌳 🏠 ☀️', '🐱 👦'),
-        tell('Ulkona on Eero.', 'Eero is outside.'),
+        sc('🌳 🏠 ☀️', '🐱 🐶 👦'),
         say('eero', 'Huomenta, Aino! Huomenta, Mirri!', 'Morning, Aino! Morning, Mirri!'),
-        say('mirri', 'Miau!', 'Meow!'),
+        tell('Nyt Mirri ja Musti leikkivät.', 'Now Mirri and Musti play.'),
+        tell('Ja minä nukun taas.', 'And I go back to sleep.'),
       ),
     ],
     questions: [
@@ -936,6 +992,7 @@ export const UNIT_STORIES: Story[] = [
     ],
     facts: [
       trueFact('Mirri haluaa leikkiä.', 'Mirri wants to play.'),
+      trueFact('Mirri ja Musti leikkivät.', 'Mirri and Musti play.'),
       falseFact('Avaan oven.', 'I open the door.'),
       falseFact('Mirri nukkuu.', 'Mirri sleeps.'),
     ],
@@ -1072,6 +1129,8 @@ export const UNIT_STORIES: Story[] = [
     titleEn: 'The shopping trip',
     icon: '🛒',
     tier: 3,
+    // Aino tells it: "we" are Dad and Aino.
+    narrator: 'aino',
     pages: [
       page(
         sc('🏪', '👨 👧 🛒', 'inside'),
@@ -1081,7 +1140,8 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('🏪', '🥛 🍞 🍎 👧', 'inside'),
         say('aino', 'Ostanko omenan?', 'Shall I buy an apple?'),
-        tell('Aino ostaa omenan.', 'Aino buys an apple.'),
+        say('isa', 'Osta vain!', 'Go ahead!'),
+        tell('Ostan omenan.', 'I buy an apple.'),
       ),
       page(
         sc('🏪', '👧 🍬 👨', 'inside'),
@@ -1183,7 +1243,8 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 20. Describing — iso koira, pieni kissa; Musti on ruskea.
+  // 20. Describing — iso koira, pieni kissa; Musti on ruskea. Big Musti eats
+  // little Mirri's food; she's angry, he runs away; a red ball makes peace.
   story('describing', {
     id: 'big-and-small',
     titleFi: 'Iso ja pieni',
@@ -1195,16 +1256,17 @@ export const UNIT_STORIES: Story[] = [
         sc('🏡 ☀️', '🐶 🐱'),
         tell('Musti on iso koira.', 'Musti is a big dog.'),
         tell('Mirri on pieni kissa.', 'Mirri is a small cat.'),
+        tell('Musti on ruskea ja Mirri on valkoinen.', 'Musti is brown and Mirri is white.'),
       ),
       page(
-        sc('🏡 ☀️', '🐶 🟫 🐱 ⬜'),
-        tell('Musti on ruskea.', 'Musti is brown.'),
-        tell('Mirri on valkoinen.', 'Mirri is white.'),
+        sc('🏡 ☀️', '🐶 🍽️ 🐱'),
+        tell('Musti syö Mirrin ruokaa!', "Musti eats Mirri's food!"),
+        tell('Pieni Mirri on vihainen.', 'Little Mirri is angry.'),
       ),
       page(
         sc('🏡 ☀️', '🐱 😠 🐶 💨'),
-        tell('Pieni Mirri on vihainen.', 'Little Mirri is angry.'),
-        tell('Iso Musti juoksee!', 'Big Musti runs!'),
+        tell('Iso Musti juoksee pois!', 'Big Musti runs away!'),
+        say('aino', 'Musti, tule takaisin!', 'Musti, come back!'),
       ),
       page(
         sc('🏡 ☀️', '👧 🐶 🐱 🔴'),
@@ -1235,9 +1297,17 @@ export const UNIT_STORIES: Story[] = [
         wrong('sininen', 'blue', '🟦'),
         wrong('vihreä', 'green', '🟩'),
       ),
+      ask(
+        'Mitä Musti syö?',
+        'What does Musti eat?',
+        right('Mirrin ruokaa', "Mirri's food", '🍽️'),
+        wrong('palloa', 'a ball', '🔴'),
+        wrong('kakkua', 'cake', '🍰'),
+      ),
     ],
     facts: [
       trueFact('Mirri on valkoinen.', 'Mirri is white.'),
+      trueFact('Musti juoksee pois.', 'Musti runs away.'),
       falseFact('Musti on pieni.', 'Musti is small.'),
       falseFact('Mirri on iso.', 'Mirri is big.'),
     ],
@@ -1252,12 +1322,13 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc('🦒 🌳 ☀️', '🐘 🐴 🐭'),
-        tell('Eläintarhassa on norsu, hevonen ja hiiri.', "At the zoo, there's an elephant, a horse and a mouse."),
-        tell('Norsu on isoin.', 'The elephant is the biggest.'),
+        sc('🦒 🌳 ☀️', '👧 👦 🐘 🐴 🐭'),
+        tell('Aino ja Eero ovat eläintarhassa.', 'Aino and Eero are at the zoo.'),
+        tell('Siellä on norsu, hevonen ja hiiri.', "There's an elephant, a horse and a mouse there."),
       ),
       page(
-        sc('🦒 🌳 ☀️', '🐴 🐭'),
+        sc('🦒 🌳 ☀️', '🐘 🐴 🐭'),
+        tell('Norsu on isoin.', 'The elephant is the biggest.'),
         tell('Hevonen on pienempi kuin norsu.', 'The horse is smaller than the elephant.'),
         tell('Hiiri on pienin.', 'The mouse is the smallest.'),
       ),
@@ -1423,17 +1494,19 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 24. Around town & home — puistoon, kirjastossa, kahvilassa, kotiin.
+  // 24. Around town & home — puistoon, kirjastossa, kahvilassa, kotiin. A day
+  // out with Dad, told by Aino: loud Eero is fine in the park — not in the library.
   story('town', {
     id: 'park-and-library',
     titleFi: 'Puisto ja kirjasto',
     titleEn: 'The park and the library',
     icon: '🛝',
     tier: 4,
+    narrator: 'aino',
     pages: [
       page(
         sc('🛝 🌳 ☀️', '👨 👧 👦'),
-        tell('Menemme puistoon.', 'We go to the park.'),
+        tell('Isä, Eero ja minä menemme puistoon.', 'Dad, Eero and I go to the park.'),
         tell('Puistossa on paljon lapsia.', 'There are lots of children in the park.'),
       ),
       page(
@@ -1492,6 +1565,7 @@ export const UNIT_STORIES: Story[] = [
     titleEn: 'How do we get there?',
     icon: '🚆',
     tier: 4,
+    narrator: 'aino',
     pages: [
       page(
         sc('🏡 ☀️', '👨 👩 👧 🚗'),
@@ -1512,7 +1586,7 @@ export const UNIT_STORIES: Story[] = [
         sc('🏝️ 🌊 ☀️', '🚤 👵 👧'),
         tell('Isoäiti odottaa saaressa.', 'Grandma is waiting on the island.'),
         say('isoaiti', 'Tervetuloa!', 'Welcome!'),
-        tell('Aino menee isoäidin kanssa sisään.', 'Aino goes inside with Grandma.'),
+        tell('Menen isoäidin kanssa sisään.', 'I go inside with Grandma.'),
       ),
     ],
     questions: [
@@ -1562,6 +1636,7 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc('☀️ 🌊 ☀️', '👧 🏊 👨'),
         tell('Kello on kymmenen.', "It's ten o'clock."),
+        say('isa', 'Mennään uimaan!', "Let's go swimming!"),
         tell('Päivällä uin isän kanssa.', 'In the daytime I swim with Dad.'),
       ),
       page(
@@ -1968,6 +2043,8 @@ export const UNIT_STORIES: Story[] = [
   }),
 
   // 33. Verbs, part 3 — types 5 & 6: tarvitsen, valitsen, häiritsee, pakenee.
+  // Aino draws Grandma a red house; Mirri runs off with the red pencil, so the
+  // blue one draws the sky.
   story('verbs-5-6', {
     id: 'drawing-a-house',
     titleFi: 'Piirrän talon',
@@ -1994,8 +2071,8 @@ export const UNIT_STORIES: Story[] = [
       page(
         sc(HOME, '🟦 🏠 👵 👧', 'inside'),
         tell('Valitsen sinisen kynän.', 'I choose the blue pencil.'),
-        tell('Nyt talo on sininen.', 'Now the house is blue.'),
-        say('isoaiti', 'Kiitos! Kaunis talo!', 'Thank you! A beautiful house!'),
+        tell('Piirrän taivaan.', 'I draw the sky.'),
+        say('isoaiti', 'Punainen talo ja sininen taivas! Kaunis!', 'A red house and a blue sky! Beautiful!'),
       ),
     ],
     questions: [
@@ -2020,9 +2097,17 @@ export const UNIT_STORIES: Story[] = [
         wrong('opettajalle', 'for the teacher', '🧑‍🏫'),
         wrong('Eerolle', 'for Eero', '👦'),
       ),
+      ask(
+        'Mitä piirrän sinisellä kynällä?',
+        'What do I draw with the blue pencil?',
+        right('taivaan', 'the sky', '🟦'),
+        wrong('talon', 'the house', '🏠'),
+        wrong('koiran', 'a dog', '🐶'),
+      ),
     ],
     facts: [
-      trueFact('Lopuksi talo on sininen.', 'In the end the house is blue.'),
+      trueFact('Talo on punainen.', 'The house is red.'),
+      trueFact('Taivas on sininen.', 'The sky is blue.'),
       falseFact('Mirri auttaa minua.', 'Mirri helps me.'),
       falseFact('Piirrän koiran.', 'I draw a dog.'),
     ],
