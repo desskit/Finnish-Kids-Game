@@ -238,7 +238,10 @@ function build() {
     seen.add(r.id);
     const group = r.group ?? 'words';
     const word = words.get(r.id);
-    if (group === 'words' && !word) problems.push(`${where}: a word picture's id must be a word id (src/content/data)`);
+    // a picture drawn ahead of its word's data (awaitingWord: the Finnish word)
+    // shows in the gallery but stays out of the app until the word arrives
+    const awaiting = group === 'words' && !word && r.awaitingWord ? r.awaitingWord : null;
+    if (group === 'words' && !word && !awaiting) problems.push(`${where}: a word picture's id must be a word id (src/content/data)`);
     if (group !== 'words' && word) problems.push(`${where}: "${r.id}" is a word id — draw it as a word picture, or rename it`);
     if (r.motion && !(r.motion.frames >= 2 && r.motion.frames <= 8 && r.motion.fps > 0 && r.motion.fps <= 12)) problems.push(`${where}: motion needs 2–8 frames at up to 12 fps`);
     const claims = [...(r.glyphs ?? [])];
@@ -258,7 +261,7 @@ function build() {
     const p = byGrid[STYLE.grid];
     if (p.still.length > BUDGET.picture) problems.push(`${where}: ${p.still.length} bytes (budget ${BUDGET.picture})`);
     if (p.motion && p.motion.length > BUDGET.motion) problems.push(`${where}: moving, ${p.motion.length} bytes (budget ${BUDGET.motion})`);
-    pictures.push({ id: r.id, title: r.title, group, theme: word?.theme ?? 'app', glyphs: claims, byGrid });
+    pictures.push({ id: r.id, title: r.title, group, theme: word?.theme ?? r.theme ?? 'app', glyphs: claims, byGrid, awaiting });
   }
 
   const scenes = [];
@@ -282,16 +285,18 @@ function build() {
   }
 
   pictures.sort((a, b) => a.id.localeCompare(b.id));
+  // the app gets only the pictures whose words it has
+  const live = pictures.filter((p) => !p.awaiting);
   const files = new Map();
   const g = STYLE.grid;
   const box = `0 0 ${g} ${g}`;
   for (const group of ['ui', 'words']) {
-    const inGroup = pictures.filter((p) => p.group === group);
+    const inGroup = live.filter((p) => p.group === group);
     files.set(`${group}.svg`, `<svg xmlns="http://www.w3.org/2000/svg">${inGroup.map((p) => symbol(`art-${p.id}`, box, p.byGrid[g].still)).join('')}</svg>\n`);
   }
   files.set(
     'motion.svg',
-    `<svg xmlns="http://www.w3.org/2000/svg">${pictures
+    `<svg xmlns="http://www.w3.org/2000/svg">${live
       .map((p) => {
         const { motion, blinkOnly } = p.byGrid[g];
         return (motion ? symbol(`art-${p.id}--m`, box, motion) : '') + (blinkOnly ? symbol(`art-${p.id}--b`, box, blinkOnly) : '');
@@ -303,7 +308,7 @@ function build() {
     files.set(`scenes/${s.id}-${s.tone}.svg`, sceneFile(cols, rows, still));
     if (moving) files.set(`scenes/${s.id}-${s.tone}.moving.svg`, sceneFile(cols, rows, moving));
   }
-  files.set('manifest.ts', manifest(pictures, glyphs, scenes));
+  files.set('manifest.ts', manifest(live, glyphs, scenes));
   files.set('art.css', artCss(g));
   return { files, pictures, scenes };
 }
@@ -482,7 +487,8 @@ function gallery(pictures, scenes) {
   const movesNote = (p) => {
     const m = p.byGrid[grid];
     const what = [m.loop && 'moves', m.blink && 'blinks'].filter(Boolean).join(' · ');
-    return what ? `<span class="moves">${what}</span>` : '';
+    const wait = p.awaiting ? `<span class="moves moves--wait" title="Drawn; it joins the app once the word data for ${esc(p.awaiting)} is fetched">waiting for “${esc(p.awaiting)}”</span>` : '';
+    return (what ? `<span class="moves">${what}</span>` : '') + wait;
   };
   const themes = [...new Set(pictures.map((p) => p.theme))].sort((a, b) => (THEME_ORDER.indexOf(a) + 1 || 99) - (THEME_ORDER.indexOf(b) + 1 || 99));
   const sections = themes
@@ -571,6 +577,7 @@ section { display: grid; gap: 14px; }
 .pic__name { font-weight: 600; line-height: 1.25; }
 .was { font-size: 1.1rem; line-height: 1; }
 .moves { font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); }
+.moves--wait { background: var(--brand-soft); color: var(--brand); text-transform: none; letter-spacing: 0; }
 .mocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px; }
 .mock { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; display: grid; gap: 12px; justify-items: center; align-content: start; }
 .hint { font-size: .85rem; color: var(--ink-soft); text-align: center; }

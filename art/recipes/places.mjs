@@ -1,25 +1,43 @@
-// Place words.
+// Place words: buildings, rooms, furniture and ways to travel.
+
+import * as places from '../places.mjs';
+
+/** Vehicles bob along (two frames). */
+const going = { frames: 2, fps: 3 };
 
 export default [
-  {
-    id: 'house',
-    title: 'house',
-    draw: (k) => {
-      const c = k.P;
-      return [
-        k.ground(32, 57.4, 23, 2.2),
-        k.rect(39.6, 10.6, 7, 13, 1.4, c.brown),
-        k.poly([[14.6, 26], [49.4, 26], [49.4, 55.4], [14.6, 55.4]], 2.4, c.cream),
-        k.flat('M43.6 30H48.2V54.2H43.6Z', c.creamShade),
-        k.poly([[32, 7.6], [56, 30.6], [8, 30.6]], [3.4, 2.6, 2.6], c.red),
-        k.flat('M9.8 29.4H54.2L52.4 27.6H11.6Z', c.redShade),
-        k.shine('M21.6 22.4L29.4 15', 2.2),
-        k.path('M26.4 55.4V45.2A5.6 5.6 0 0 1 37.6 45.2V55.4Z', c.blue),
-        k.flatCircle(34.6, 50, 1.2, c.yellow),
-        k.rect(17.4, 35, 6.8, 6.8, 1.4, c.sky, { sw: 2 }),
-        k.rect(39.8, 35, 6.8, 6.8, 1.4, c.sky, { sw: 2 }),
-        k.px < 2 ? k.line('M20.8 35V41.8M17.4 38.4H24.2M43.2 35V41.8M39.8 38.4H46.6', { sw: 1.5 }) : '',
-      ].join('');
-    },
-  },
+  { id: 'box', title: 'box', draw: places.box },
+  { id: 'table', title: 'table', draw: places.table },
+  { id: 'house', title: 'house', draw: places.house },
+  { id: 'room', title: 'room', draw: places.room },
+  { id: 'car', title: 'car', motion: going, draw: places.car },
+  { id: 'bed', title: 'bed', draw: places.bed },
+  { id: 'chair', title: 'chair', draw: places.chair },
+  { id: 'school', title: 'school (a Finnish flag on top)', draw: places.school },
+  { id: 'tree', title: 'tree', motion: { frames: 2, fps: 1.5 }, draw: places.tree },
+  { id: 'forest', title: 'forest', draw: places.forest },
+  { id: 'basket', title: 'basket (of blueberries)', draw: places.basket },
+  { id: 'bag', title: 'bag', draw: places.bag },
+  { id: 'bus', title: 'bus (a blue city bus)', motion: going, draw: places.bus },
+  { id: 'train', title: 'train', motion: going, draw: places.train },
+  { id: 'boat', title: 'boat (a rowboat)', motion: { frames: 2, fps: 1.5 }, draw: places.boat },
+  { id: 'plane', title: 'plane', motion: going, draw: places.plane },
+  { id: 'ship', title: 'ship (a ferry)', motion: { frames: 2, fps: 1.5 }, draw: places.ship },
+  { id: 'taxi', title: 'taxi', motion: going, draw: places.taxi },
+  { id: 'shop', title: 'shop', draw: places.shop },
+  { id: 'library', title: 'library (a pile of books)', draw: places.library },
+  { id: 'park', title: 'park (a slide)', draw: places.park },
+  { id: 'hospital', title: 'hospital', draw: places.hospital },
+  { id: 'station', title: 'station', draw: places.station },
+  { id: 'museum', title: 'museum', draw: places.museum },
+  { id: 'restaurant', title: 'restaurant', draw: places.restaurant },
+  { id: 'cafe', title: 'café (coffee and a cinnamon bun)', motion: { frames: 3, fps: 3 }, draw: places.cafe },
+  { id: 'city', title: 'city', draw: places.city },
+  { id: 'market', title: 'market (a stall)', draw: places.market },
+  { id: 'zoo', title: 'zoo (a giraffe over the fence)', motion: { frames: 2, fps: 1.5 }, draw: places.zoo },
+  { id: 'field', title: 'field (a sports field)', draw: places.field },
+  { id: 'bedroom', title: 'bedroom (someone asleep)', motion: { frames: 3, fps: 1.5 }, draw: places.bedroom },
+  { id: 'bathroom', title: 'bathroom (a bubble bath)', motion: { frames: 2, fps: 2 }, draw: places.bathroom },
+  { id: 'sofa', title: 'sofa', draw: places.sofa },
+  { id: 'yard', title: 'yard', draw: places.yard },
 ];

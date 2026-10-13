@@ -9,7 +9,8 @@
 // Usage:
 //   node scripts/build-kids-data.mjs [path-to-FID/data]
 // Source dir resolution: argv[2] -> $FID_DATA_DIR -> ../Finnish-Inflection-Drill/data
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { loadAgid, englishFormsFor } from './agid.mjs';
@@ -42,6 +43,19 @@ const LICENSE = 'CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)'
 
 const load = (file) => JSON.parse(readFileSync(join(SRC_DIR, file), 'utf-8'));
 
+// The Wiktionary supplement (data/wiktionary/, fetched by
+// scripts/fetch-wiktionary.mjs with the upstream pipeline's own rules): words
+// the vendored snapshot doesn't have. The snapshot always wins for a word it has.
+const SUPPLEMENT_DIR = resolve(__dirname, '..', 'data', 'wiktionary');
+function withSupplement(words, file) {
+  const path = join(SUPPLEMENT_DIR, `${file}.gz`);
+  if (!existsSync(path)) return words;
+  const have = new Set(words.map((w) => w.word));
+  const extra = JSON.parse(gunzipSync(readFileSync(path)).toString('utf-8')).words.filter((w) => !have.has(w.word));
+  console.log(`  + ${extra.length} ${file.replace('.json', '')} from the Wiktionary supplement`);
+  return [...words, ...extra];
+}
+
 // Curation: human-authored {id, fi, en, emoji}; everything else is sourced.
 const ANIMALS = [
   ['cat', 'kissa', 'cat', '🐱'],
@@ -66,6 +80,8 @@ const ANIMALS = [
   ['snake', 'käärme', 'snake', '🐍'],
   ['butterfly', 'perhonen', 'butterfly', '🦋'],
   ['bee', 'mehiläinen', 'bee', '🐝'],
+  // the wild duck (a mallard): from the Wiktionary supplement (data/wiktionary/)
+  ['wild-duck', 'sorsa', 'wild duck', '🦆'],
 ];
 
 // Numbers carry a numeric `value` (5th field) used for counting scenes and the
@@ -687,7 +703,7 @@ function buildTheme({ id, fi, en, emoji, curation, sourceWords, inflectionKeys, 
   };
 }
 
-const nounWords = load('nouns.json').words;
+const nounWords = withSupplement(load('nouns.json').words, 'nouns.json');
 const numeralWords = load('numerals.json').words;
 
 // Possessive suffixes ("kissani" = my cat, "talossasi" = in your house). A
@@ -695,7 +711,7 @@ const numeralWords = load('numerals.json').words;
 // possessors × a few teachable cases, singular. Attached to noun items under
 // `poss_{possessor}_{case}_singular` keys (namespaced so they never collide
 // with the plain case forms). Every form is SOURCED — never assembled in code.
-const possessiveWords = load('possessives.json').words;
+const possessiveWords = withSupplement(load('possessives.json').words, 'possessives.json');
 const POSS_POSSESSORS = ['1sg', '2sg', '3rd'];
 const POSS_CASES = ['nominative', 'inessive', 'adessive'];
 
@@ -773,7 +789,7 @@ function attachDegrees(theme) {
 }
 attachDegrees(adjectives);
 
-const verbWords = load('verbs.json').words;
+const verbWords = withSupplement(load('verbs.json').words, 'verbs.json');
 const verbs = buildTheme({
   id: 'verbs',
   fi: 'Verbit',

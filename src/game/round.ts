@@ -1,3 +1,4 @@
+import { apartFrom, rivals } from '../content/apart';
 import type {
   CaseId,
   Construction,
@@ -60,9 +61,26 @@ function pickPreferring<T extends { id: string }>(
   n: number,
 ): T[] {
   const fromNear = sample(near, n);
-  if (fromNear.length >= n) return fromNear;
+  if (fromNear.length >= n) return keepApart(fromNear, others);
   const taken = new Set(fromNear.map((i) => i.id));
-  return [...fromNear, ...sample(others.filter((i) => !taken.has(i.id)), n - fromNear.length)];
+  return keepApart([...fromNear, ...sample(others.filter((i) => !taken.has(i.id)), n - fromNear.length)], others);
+}
+
+/**
+ * Wrong answers with no two rivals among them (see content/apart.ts): a later
+ * rival is swapped for the first unused word from `pool` that clashes with none.
+ */
+function keepApart<T extends { id: string }>(picked: T[], pool: readonly T[]): T[] {
+  const out: T[] = [];
+  for (const item of picked) {
+    if (!out.some((o) => rivals(o.id, item.id))) {
+      out.push(item);
+      continue;
+    }
+    const swap = pool.find((p) => !picked.some((q) => q.id === p.id) && !out.some((o) => o.id === p.id || rivals(o.id, p.id)));
+    if (swap) out.push(swap);
+  }
+  return out;
 }
 
 export function buildListenRound(
@@ -74,7 +92,7 @@ export function buildListenRound(
 ): ListenQuestion[] {
   const targets = weightedSample(items, Math.min(questionCount, items.length), weigh);
   return targets.map((target) => {
-    const others = items.filter((i) => i.id !== target.id);
+    const others = apartFrom(target.id, items.filter((i) => i.id !== target.id));
     // Tricky: prefer same-topic distractors (cat vs dog, not cat vs sock) so
     // the wrong answers are actually confusable.
     const near = tricky ? others.filter((i) => i.topic && i.topic === target.topic) : [];
@@ -194,7 +212,7 @@ export function buildReadingRound(
     const sentence = sample(kidSafeExamples(item), 1)[0];
     // "Koira on tuolilla" is about the chair AND the dog: never offer a second
     // word the sentence also uses as a wrong answer.
-    const others = picturable.filter((i) => i.id !== item.id && !sentenceUses(sentence.fi, i));
+    const others = apartFrom(item.id, picturable.filter((i) => i.id !== item.id && !sentenceUses(sentence.fi, i)));
     const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
     const distractors = pickPreferring(others, near, optionCount - 1);
     return { sentence, item, options: shuffle([item, ...distractors]) };
@@ -375,7 +393,7 @@ export function buildComprehensionRound(
     weigh && ((p) => weigh(p.item)),
   );
   return chosen.map(({ construction, item }) => {
-    const others = picturable.filter((i) => i.id !== item.id);
+    const others = apartFrom(item.id, picturable.filter((i) => i.id !== item.id));
     const near = tricky ? others.filter((i) => i.topic && i.topic === item.topic) : [];
     const distractors = pickPreferring(others, near, optionCount - 1);
     return {
@@ -406,7 +424,7 @@ export function buildCommandRound(
   const pool = verbs.filter((v) => v.emoji && isCommandVerb(v.id) && commandFor(v));
   const targets = weightedSample(pool, Math.min(questionCount, pool.length), weigh);
   return targets.map((target) => {
-    const others = pool.filter((v) => v.id !== target.id);
+    const others = apartFrom(target.id, pool.filter((v) => v.id !== target.id));
     // Tricky: prefer commands that SOUND confusable — imperatives sharing the
     // first letter ("juokse" vs "juo"), so the child must hear the whole word.
     const initial = commandFor(target)!.charAt(0).toLowerCase();
@@ -537,8 +555,9 @@ export function buildPhraseRound(
     }
     // Distractors pass the same gate, so every tile plausibly fits the phrase
     // and the challenge stays about the grammar, not spotting the absurd word.
-    const others = items.filter(
-      (i) => i.id !== item.id && formFor(i, construction) && suitsSlot(i, construction),
+    const others = apartFrom(
+      item.id,
+      items.filter((i) => i.id !== item.id && formFor(i, construction) && suitsSlot(i, construction)),
     );
     // Tricky: prefer confusable tiles — same topic, or a similar word shape
     // (the slot form's length within ±2 of the answer's).
@@ -573,10 +592,11 @@ export function buildReviewRound(
   optionCount: number,
 ): ReviewQuestion[] {
   return targets.map((target) => {
-    const distractors = sample(
+    const others = apartFrom(
+      target.id,
       pool.filter((i) => i.id !== target.id),
-      optionCount - 1,
     );
+    const distractors = keepApart(sample(others, optionCount - 1), others);
     return { target, options: shuffle([target, ...distractors]) };
   });
 }
