@@ -6,6 +6,7 @@
   "description": "A playful PWA that teaches everyday Finnish to early readers.",
   "scripts": {
     "icons": "node scripts/make-icons.mjs",
+    "art": "node scripts/build-art.mjs",
     "art:manifest": "node scripts/art-manifest.mjs",
     "audit:sentences": "vite-node scripts/audit-sentences.ts",
     "review:content": "vite-node scripts/ui-finnish.ts && vite-node scripts/content-review.ts",

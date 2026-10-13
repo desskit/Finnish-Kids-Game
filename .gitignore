@@ -16,3 +16,6 @@ npm-debug.log*
 # PWA generated service worker output
 dev-dist
 test-results/
+
+# Picture-set review gallery (npm run art)
+art-gallery/
