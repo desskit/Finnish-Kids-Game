@@ -172,6 +172,7 @@ export type ArtId =
   | 'paint'
   | 'paper'
   | 'park'
+  | 'party-popper'
   | 'pencil'
   | 'phone'
   | 'piano'
@@ -384,7 +385,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   green: { group: 'words', title: 'green (a crayon)' },
   'grow-old': { group: 'words', title: 'grow old (girl, woman, grandma)' },
   guitar: { group: 'words', title: 'guitar' },
-  gym: { group: 'words', title: 'gym (Leo doing jumping jacks)' },
+  gym: { group: 'words', title: 'gym (the gym hall, a ball bouncing)' },
   hair: { group: 'words', title: 'hair (a comb going through it)' },
   hand: { group: 'words', title: 'hand (waving)' },
   happy: { group: 'words', title: 'happy' },
@@ -439,6 +440,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   paint: { group: 'words', title: 'paint (a palette)' },
   paper: { group: 'words', title: 'paper' },
   park: { group: 'words', title: 'park (a slide)' },
+  'party-popper': { group: 'ui', title: 'party popper (well done!)' },
   pencil: { group: 'words', title: 'pencil' },
   phone: { group: 'words', title: 'phone' },
   piano: { group: 'words', title: 'piano (a keyboard)' },
@@ -525,11 +527,11 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   'warm-up': { group: 'words', title: 'warm up (by the campfire)' },
   wash: { group: 'words', title: 'wash (hands, with soap)' },
   water: { group: 'words', title: 'water' },
-  weekend: { group: 'words', title: 'weekend (a party popper)' },
+  weekend: { group: 'words', title: 'weekend (a week, Saturday and Sunday circled)' },
   white: { group: 'words', title: 'white (a crayon)' },
   wind: { group: 'words', title: 'wind' },
   winter: { group: 'words', title: 'winter (a snowman in the snow)' },
-  wolf: { group: 'words', title: 'wolf (howling at the moon)' },
+  wolf: { group: 'words', title: 'wolf (under the moon, its tail swishing)' },
   write: { group: 'words', title: 'write (at his desk)' },
   yard: { group: 'words', title: 'yard' },
   yellow: { group: 'words', title: 'yellow (a crayon)' },
@@ -654,6 +656,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   night: { loop: true, blink: false },
   open: { loop: true, blink: false },
   paint: { loop: true, blink: false },
+  'party-popper': { loop: true, blink: false },
   piano: { loop: true, blink: false },
   pig: { loop: true, blink: true },
   plane: { loop: true, blink: false },
@@ -716,7 +719,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   weekend: { loop: true, blink: false },
   wind: { loop: true, blink: false },
   winter: { loop: true, blink: true },
-  wolf: { loop: true, blink: false },
+  wolf: { loop: true, blink: true },
   write: { loop: true, blink: true },
   zoo: { loop: true, blink: true },
 };
@@ -883,6 +886,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🎨': 'paint',
   '📄': 'paper',
   '🛝': 'park',
+  '🎉': 'party-popper',
   '✏': 'pencil',
   '📱': 'phone',
   '🎹': 'piano',
@@ -963,7 +967,6 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '♨': 'warm-up',
   '🧼': 'wash',
   '💧': 'water',
-  '🎉': 'weekend',
   '⬜': 'white',
   '💨': 'wind',
   '⛄': 'winter',

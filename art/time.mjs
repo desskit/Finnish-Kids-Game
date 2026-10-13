@@ -3,7 +3,7 @@
 // and a birthday. Most of them move a little: the sun rises, the cloud drifts,
 // windows light up, stars twinkle, leaves and snow fall, candles flicker.
 
-import { fmt, polar, pt, roundPoly, starPoints } from './kit.mjs';
+import { fmt, heartPath, polar, pt, roundPoly, starPoints } from './kit.mjs';
 import { pine, puff } from './nature.mjs';
 
 /** A rounded window onto a scene: its sky bands, whatever's in it, its frame. */
@@ -30,29 +30,46 @@ function houses(k, lit, wall = 'charcoal') {
   return out.join('');
 }
 
-/** The weekend: a party popper going off, confetti flying. */
+/**
+ * The weekend: one week on a calendar page, Monday to Sunday. The five school
+ * days have things written in them; Saturday and Sunday are empty and sunny
+ * yellow, and someone keeps drawing a red circle round them.
+ */
 export function weekend(k) {
   const c = k.P;
-  const f = k.frame % 3;
-  const spread = [0.72, 0.86, 1][f];
-  const bits = [
-    [42, 8, 'red', 20],
-    [54, 22, 'blue', -30],
-    [30, 6, 'yellow', 45],
-    [56, 38, 'green', 10],
-    [44, 26, 'purple', -15],
-  ];
+  // the circle round the weekend: all of it (the still picture), then drawn again
+  const drawn = [360, 130, 250][k.frame % 3];
+  // seven days of 8 (six pixels) each; the lines between them sit on a pixel
+  const [x0, w, top, bottom] = [4, 8, 21.4, 53.4];
+  const col = (i) => x0 + i * w;
+  const dividers = [1, 2, 3, 4, 5, 6].map((i) => `M${fmt(col(i) + 0.67)} ${top}V${bottom}`).join('');
+  // a few notes on each school day
+  const notes = [
+    [3.6, 2.4, 3],
+    [2.4, 3.6],
+    [3.6, 3, 2.4],
+    [3, 2.4],
+    [2.4, 3.6, 3],
+  ]
+    .map((lens, i) => lens.map((len, j) => `M${fmt(col(i) + 2.2)} ${fmt(27.33 + j * 5.33)}h${fmt(len)}`).join(''))
+    .join('');
+  const ring = (a) => {
+    const [cx, cy, rx, ry] = [col(6) + 0.6, 37.4, 11, 18.6];
+    const p = (deg) => pt([cx + rx * Math.cos((deg * Math.PI) / 180), cy + ry * Math.sin((deg * Math.PI) / 180)]);
+    if (a >= 360) return `M${p(-90)}A${rx} ${ry} 0 1 1 ${p(89.9)}A${rx} ${ry} 0 1 1 ${p(-90)}`;
+    return `M${p(-90)}A${rx} ${ry} 0 ${a > 180 ? 1 : 0} 1 ${p(a - 90)}`;
+  };
   return [
-    k.ground(20, 58.6, 14, 2),
-    ...bits.map(([x, y, col, a]) => {
-      const [bx, by] = [20 + (x - 20) * spread, 44 + (y - 44) * spread];
-      return k.g(`rotate(${a + f * 30} ${fmt(bx)} ${fmt(by)})`, k.rect(bx - 3.4, by - 2, 6.8, 4, 0.6, c[col]));
-    }),
-    k.limb(`M26 36Q${fmt(32 + f * 2)} 22 ${fmt(40 + f * 3)} 26Q${fmt(46 + f * 2)} 30 ${fmt(48 + f * 3)} 16`, c.pink, 3.8),
-    k.limb(`M28 42Q${fmt(38 + f * 2)} 38 ${fmt(44 + f * 3)} 46`, c.teal, 3.8),
-    k.path('M4 58L16 30L34 46Z', c.yellow),
-    k.flat('M8 50.4L20.4 56.6L15.6 57.4L6.6 53.6ZM11.4 42.4L28 50.6L23.6 52L9.6 46Z', c.red),
-    k.g('rotate(39 25 38)', k.ellipse(25, 38, 11, 3.4, c.yellowShade)),
+    k.ground(32, 59.4, 26, 1.8),
+    k.rect(x0, 11, 7 * w, bottom - 11, 2.2, c.white),
+    k.flat(`M${x0} 11H${col(7)}V${top}H${x0}Z`, c.red),
+    k.flat(`M${col(5)} ${top}H${col(7)}V${bottom}H${col(5)}Z`, c.yellow),
+    k.line(`M${x0} ${top}H${col(7)}`, { sw: 1 }),
+    k.line(dividers, { color: c.silverShade, sw: 1 }),
+    k.line(notes, { color: c.grey, sw: 1 }),
+    k.rect(15, 7.4, 3.4, 7.4, 1.6, c.silverShade),
+    k.rect(45.6, 7.4, 3.4, 7.4, 1.6, c.silverShade),
+    k.line(ring(drawn), { color: c.red, sw: 2 }),
   ].join('');
 }
 

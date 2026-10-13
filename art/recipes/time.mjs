@@ -3,7 +3,8 @@
 import * as time from '../time.mjs';
 
 export default [
-  { id: 'weekend', title: 'weekend (a party popper)', motion: { frames: 3, fps: 4 }, draw: time.weekend },
+  // 🎉 stays the app's "well done!" party popper
+  { id: 'weekend', title: 'weekend (a week, Saturday and Sunday circled)', glyph: false, motion: { frames: 3, fps: 2 }, draw: time.weekend },
   { id: 'morning', title: 'morning (sunrise over the lake)', motion: { frames: 2, fps: 1 }, draw: time.morning },
   { id: 'daytime', title: 'daytime', motion: { frames: 2, fps: 1 }, draw: time.daytime },
   { id: 'evening', title: 'evening (windows lighting up)', motion: { frames: 2, fps: 1 }, draw: time.evening },

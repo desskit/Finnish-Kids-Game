@@ -161,22 +161,41 @@ export function math(k) {
   ].join('');
 }
 
-/** Gym: Leo doing jumping jacks. */
+/**
+ * Gym (PE): the school gym hall, with wall bars down one side (every Finnish
+ * school gym has them), a basketball hoop, a blue mat and a ball, bouncing.
+ */
 export function gym(k) {
-  // arms up first: that's the still picture, too
-  const open = k.frame % 2 === 0;
-  const pose = open
-    ? {
-        ...POSES.stand,
-        face: 'grin',
-        bob: -k.px,
-        armBack: [[25.6, 34.8], [17.6, 25]],
-        armFront: [[38.4, 34.8], [46.4, 25]],
-        legBack: [[28.6, 46], [22.6, 55]],
-        legFront: [[35.4, 46], [41.4, 55]],
-      }
-    : { ...POSES.stand, face: 'grin', armBack: [[25.6, 34.8], [19.6, 43.6]], armFront: [[38.4, 34.8], [44.4, 43.6]] };
-  return person(k, CAST.leo, pose);
+  const c = k.P;
+  // the ball: just under the hoop (the still picture), lower, on the floor
+  const f = k.frame % 3;
+  const by = [33.4, 42, 49.6][f];
+  const rungs = [13.6, 17.4, 21.2, 25, 28.8, 32.6, 36.4].map((y) => `M12.6 ${y}H23.4`).join('');
+  return [
+    k.rect(6, 6, 52, 52, 4, c.wall),
+    // the floor: boards, and a line of the court painted on them
+    k.flat('M7 41.4H57V57H7Z', c.floor),
+    k.line('M7 41.4H57', { color: c.floorShade, sw: 1.4 }),
+    k.line('M7 47.4H57M7 52.8H57', { color: c.floorShade, sw: 1 }),
+    k.line('M33.4 57Q40 49.6 46.6 57', { color: c.red, sw: 1.4 }),
+    // the wall bars
+    k.line(rungs, { color: c.woodShade, sw: 1.4 }),
+    k.rect(9.6, 9.6, 3.2, 32, 0.8, c.wood),
+    k.rect(23.2, 9.6, 3.2, 32, 0.8, c.wood),
+    // the hoop: a backboard, a ring and its net
+    k.rect(36.6, 11.6, 16.8, 11, 1, c.white),
+    k.line('M41.4 15.4H48.6V20H41.4Z', { color: c.red, sw: 1.2 }),
+    k.line('M41.6 24.6L42.8 29.4H47.2L48.4 24.6M43.8 24.6L44.4 29.4M46.2 24.6L45.6 29.4', { color: c.grey, sw: 1 }),
+    k.ellipse(45, 24, 4.6, 1.5, c.orange),
+    // the mat
+    k.poly([[9.4, 48.6], [28.4, 48.6], [30.4, 53.6], [8, 53.6]], 1, c.blue),
+    k.flat('M9 52H29.6V53H9Z', c.blueShade),
+    // the ball and its shadow
+    k.ground(45, 55, [3, 4, 5.4][f], 1.2),
+    k.circle(45, by, 4.4, c.orange),
+    k.line(`M${45 - 4.4} ${by}H${45 + 4.4}M45 ${by - 4.4}V${by + 4.4}`, { sw: 1 }),
+    k.rect(6, 6, 52, 52, 4, 'none'),
+  ].join('');
 }
 
 /** English: a British flag on its pole, waving. */

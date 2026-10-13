@@ -1,9 +1,9 @@
 // Animal words. The cat is Mirri and the dog is Musti from the stories.
 
 import { cat, dog } from '../animals.mjs';
-import { bear, bunny, fox, frog, lion, monkey, mouse, wolf } from '../animals-sitting.mjs';
+import { bear, bunny, fox, frog, lion, monkey, mouse } from '../animals-sitting.mjs';
 import { bee, bird, butterfly, chicken, farmDuck, fish, mallard, snake } from '../animals-small.mjs';
-import { cow, elephant, horse, pig, sheep } from '../animals-standing.mjs';
+import { cow, elephant, horse, pig, sheep, wolf } from '../animals-standing.mjs';
 
 export default [
   { id: 'cat', title: 'Mirri the cat', motion: { frames: 4, fps: 4 }, draw: cat },
@@ -14,7 +14,7 @@ export default [
   { id: 'mouse', title: 'mouse', motion: { frames: 2, fps: 3 }, draw: mouse },
   { id: 'lion', title: 'lion', motion: { frames: 2, fps: 2 }, draw: lion },
   { id: 'monkey', title: 'monkey', motion: { frames: 2, fps: 2 }, draw: monkey },
-  { id: 'wolf', title: 'wolf (howling at the moon)', motion: { frames: 3, fps: 3 }, draw: wolf },
+  { id: 'wolf', title: 'wolf (under the moon, its tail swishing)', motion: { frames: 4, fps: 4 }, draw: wolf },
   { id: 'frog', title: 'frog', motion: { frames: 2, fps: 2 }, draw: frog },
   { id: 'horse', title: 'horse (a Finnhorse)', motion: { frames: 4, fps: 4 }, draw: horse },
   { id: 'cow', title: 'cow', motion: { frames: 4, fps: 4 }, draw: cow },

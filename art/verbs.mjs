@@ -233,13 +233,15 @@ export function sit(k) {
     ? { legBack: [[28.6, 46], [38, 48.4], [36.4, 56.4]], legFront: [[35.4, 46], [44, 48.4], [48.4, 54]] }
     : { legBack: [[28.6, 46], [38, 48.4], [39.4, 56.4]], legFront: [[35.4, 46], [44, 48.4], [44.4, 56.6]] };
   return [
-    // the chair, turned a little: its back behind him, the seat under him, two legs
-    k.rect(11.4, 52, 4, 6.6, 1, c.woodShade),
-    k.rect(37, 52, 4, 6.6, 1, c.woodShade),
-    k.rect(10.6, 18.6, 12, 30, 2.4, c.wood),
-    k.flat('M13 23.4H20.4V27H13Z', c.woodShade),
-    k.poly([[12.6, 46.4], [40, 46.4], [42.6, 50.2], [10.4, 50.2]], 1, c.wood),
-    k.rect(10.4, 50.2, 32.2, 2.6, 0.8, c.woodShade),
+    // the chair, side on (the same chair as the word's): the back leg going on
+    // up as the backrest, with its rail and slat; the seat; the front leg
+    k.rect(15.8, 14.6, 4.6, 44, 1.4, c.wood),
+    k.rect(14, 13.4, 8.2, 5.4, 2, c.wood),
+    k.rect(14.8, 27, 6.6, 3.6, 1.2, c.wood),
+    k.rect(20.4, 53.6, 21.6, 2.2, 0.6, c.woodShade),
+    k.rect(42, 50.8, 4.4, 7.8, 1, c.wood),
+    k.rect(15.8, 46.6, 30.6, 4.4, 1.2, c.wood),
+    k.flat('M17 47.6H45.2V48.4H17Z', c.tan),
     leo(k, { face: 'smile', look: 1.4, toes: 0.8, ...legs, armBack: [[25.6, 34.8], [24.6, 42], [29.4, 46]], armFront: [[38.4, 34.8], [41.6, 41], [40.4, 45.6]] }),
   ].join('');
 }
