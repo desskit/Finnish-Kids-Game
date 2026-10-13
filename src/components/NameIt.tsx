@@ -9,6 +9,8 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WordIntro from './WordIntro';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -205,7 +207,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
       <div className="phrase-card">
         {question.target.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {question.target.emoji}
+            <Art item={question.target} motion="loop" />
           </span>
         )}
         <p className={'en phrase-hint' + (question.target.emoji ? '' : ' phrase-hint--solo')}>
@@ -216,7 +218,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
           onClick={() => speakEnglish(question.target.en)}
           aria-label="Hear the prompt again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

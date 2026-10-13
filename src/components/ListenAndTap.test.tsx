@@ -36,6 +36,7 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 // A child must exist for addStars() to land on someone. All three fixture
 // words pre-seeded as already-seen by default, so ordinary quiz-flow tests
@@ -71,8 +72,8 @@ function renderActivity() {
   );
 }
 
-const correctCard = () => screen.getByText('🐱').closest('button') as HTMLButtonElement;
-const wrongCard = () => screen.getByText('🐶').closest('button') as HTMLButtonElement;
+const correctCard = () => getByPicture('🐱').closest('button') as HTMLButtonElement;
+const wrongCard = () => getByPicture('🐶').closest('button') as HTMLButtonElement;
 
 async function advance(ms: number) {
   await act(async () => {

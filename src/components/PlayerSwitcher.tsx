@@ -1,4 +1,5 @@
 import type { Child } from '../state/storage';
+import Avatar from '../art/Avatar';
 
 // The grown-up tabs' "show this player" switcher (shown only with 2+ players).
 export default function PlayerSwitcher({
@@ -23,7 +24,7 @@ export default function PlayerSwitcher({
           className={'gswitch__btn' + (c.id === shownId ? ' gswitch__btn--on' : '')}
           onClick={() => onPick(c.id)}
         >
-          <span aria-hidden="true">{c.avatar}</span> {c.name}
+          <span aria-hidden="true"><Avatar glyph={c.avatar} still /></span> {c.name}
         </button>
       ))}
     </div>

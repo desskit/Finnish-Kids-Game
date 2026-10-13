@@ -15,6 +15,8 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForConstruction } from '../content/why';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 
 const QUESTIONS = 6;
@@ -216,7 +218,7 @@ export default function WordOrder({
       <div className="phrase-card">
         {q.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {q.emoji}
+            <Art glyph={q.emoji} motion="loop" />
           </span>
         )}
         {!drillGlossFree && <p className="en phrase-hint">{q.hintEn}</p>}
@@ -226,7 +228,7 @@ export default function WordOrder({
             onClick={replay}
             aria-label={complete && !buildRound ? 'Hear the sentence again' : 'Hear the prompt again'}
           >
-            🔊 <span className="en">Listen</span>
+            <SpeakerIcon /> <span className="en">Listen</span>
           </button>
         )}
       </div>

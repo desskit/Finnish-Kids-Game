@@ -7,6 +7,8 @@ import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -171,7 +173,7 @@ export default function ChooseForm({
       <div className="phrase-card">
         {q.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {q.emoji}
+            <Art glyph={q.emoji} motion="loop" />
           </span>
         )}
         {q.said && (
@@ -188,7 +190,7 @@ export default function ChooseForm({
           onClick={() => (q.said ? speak(q.said.fi) : speakEnglish(q.cue))}
           aria-label="Hear it again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

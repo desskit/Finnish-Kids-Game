@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { RoundOutcome } from '../game/activityContext';
+import Art from '../art/Art';
 
 interface Props {
   outcome: RoundOutcome;
@@ -32,12 +33,12 @@ export default function RewardToast({ outcome, onDismiss }: Props) {
     <div className="reward-toast" role="status">
       {outcome.leveledUp && (
         <p className="reward-toast__line">
-          🚀 Uusi taso {outcome.level}! <span className="en">Level up!</span>
+          <Art glyph="🚀" /> Uusi taso {outcome.level}! <span className="en">Level up!</span>
         </p>
       )}
       {outcome.newBadges.map((b) => (
         <p key={b.id} className="reward-toast__line">
-          <span aria-hidden="true">{b.emoji}</span> Uusi mitali! {b.titleFi}{' '}
+          <span aria-hidden="true"><Art glyph={b.emoji} /></span> Uusi mitali! {b.titleFi}{' '}
           <span className="en">{b.titleEn}</span>
         </p>
       ))}

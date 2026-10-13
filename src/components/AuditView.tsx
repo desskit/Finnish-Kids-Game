@@ -17,6 +17,7 @@ import {
   type Grade,
 } from '../game/audit';
 import ReviewActivity from './ReviewActivity';
+import Art from '../art/Art';
 
 // Grown-up → Audit. A QA harness: pick which game functions to review (left
 // checklist), play each real game in the middle (rendered from a representative
@@ -198,7 +199,7 @@ export default function AuditView() {
     if (!g) return null;
     return (
       <span className={'audit-chip audit-chip--' + g.grade}>
-        {g.grade === 'pass' ? '✅' : '⚠️'} {g.tests}×
+        <Art glyph={g.grade === 'pass' ? '✅' : '⚠️'} /> {g.tests}×
       </span>
     );
   };
@@ -233,13 +234,13 @@ export default function AuditView() {
           <span className="audit-level__val">{level}</span>
         </label>
         <span className="audit-summary">
-          ✅ {summary.pass} · ⚠️ {summary.needs} · {summary.total - summary.pass - summary.needs} left
+          <Art glyph="✅" /> {summary.pass} · <Art glyph="⚠️" /> {summary.needs} · {summary.total - summary.pass - summary.needs} left
         </span>
         <button className="btn btn--sm" onClick={doDownload}>
-          ⬇︎ Download report
+          <Art glyph="⬇︎" /> Download report
         </button>
         <button className="btn btn--sm btn--ghost" onClick={clearAll}>
-          🗑 Clear data
+          <Art glyph="🗑" /> Clear data
         </button>
       </div>
 
@@ -268,19 +269,19 @@ export default function AuditView() {
         <div className="audit-stage">
           {showComplete ? (
             <div className="audit-complete">
-              <p className="audit-complete__title">✅ Audit complete</p>
+              <p className="audit-complete__title"><Art glyph="✅" /> Audit complete</p>
               <p>
                 All {scoped.length} in-scope function{scoped.length === 1 ? '' : 's'} graded.
               </p>
               <p className="audit-complete__stats">
-                ✅ {summary.pass} Pass · ⚠️ {summary.needs} Needs work
+                <Art glyph="✅" /> {summary.pass} Pass · <Art glyph="⚠️" /> {summary.needs} Needs work
               </p>
               <div className="audit-buttons">
                 <button className="btn btn--sm" onClick={doDownload}>
-                  ⬇︎ Download report
+                  <Art glyph="⬇︎" /> Download report
                 </button>
                 <button className="btn btn--sm btn--ghost" onClick={clearAll}>
-                  🗑 Clear &amp; restart
+                  <Art glyph="🗑" /> Clear &amp; restart
                 </button>
               </div>
               <p className="en">Pick a function on the left to re-test it.</p>

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProfile } from '../state/profile';
 import { AVATARS } from '../state/storage';
+import Art from '../art/Art';
+import Avatar, { avatarName } from '../art/Avatar';
 
 // Kid-accessible profile picker (launch + top-bar avatar). Choose an existing
 // child, or add a new one (pick a name + avatar). Editing/removing lives in the
@@ -29,7 +31,7 @@ export default function ProfilePicker() {
     <main className="app">
       <section className="screen profile-picker">
         <div className="mascot" aria-hidden="true">
-          🦊
+          <Art glyph="🦊" motion="loop" />
         </div>
         <h1 className="greeting">
           Kuka pelaa? <span className="en">Who's playing?</span>
@@ -59,10 +61,10 @@ export default function ProfilePicker() {
                   key={a}
                   className={'avatar-choice' + (a === avatar ? ' avatar-choice--on' : '')}
                   onClick={() => setAvatar(a)}
-                  aria-label={`Avatar ${a}`}
+                  aria-label={`Avatar: ${avatarName(a)}`}
                   aria-pressed={a === avatar}
                 >
-                  {a}
+                  <Avatar glyph={a} still />
                 </button>
               ))}
             </div>
@@ -87,10 +89,10 @@ export default function ProfilePicker() {
                 onClick={() => choose(c.id)}
               >
                 <span className="profile-card__avatar" aria-hidden="true">
-                  {c.avatar}
+                  <Avatar glyph={c.avatar} />
                 </span>
                 <span className="profile-card__name">{c.name}</span>
-                <span className="profile-card__stars">⭐ {c.stars}</span>
+                <span className="profile-card__stars"><Art glyph="⭐" /> {c.stars}</span>
               </button>
             ))}
             <button
@@ -102,7 +104,7 @@ export default function ProfilePicker() {
               }}
             >
               <span className="profile-card__avatar" aria-hidden="true">
-                ➕
+                <Art glyph="➕" />
               </span>
               <span className="profile-card__name">
                 Uusi <span className="en">New</span>
@@ -115,7 +117,7 @@ export default function ProfilePicker() {
             being forced to pick someone. Hidden at first launch (no child yet). */}
         {!adding && children.length > 0 && (
           <button className="btn" onClick={() => navigate('/')}>
-            ⬅︎ Takaisin <span className="en">Back home</span>
+            <Art glyph="⬅︎" /> Takaisin <span className="en">Back home</span>
           </button>
         )}
       </section>

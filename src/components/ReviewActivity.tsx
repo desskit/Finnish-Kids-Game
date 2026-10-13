@@ -18,6 +18,8 @@ import { whyForPhrasePick } from '../content/why';
 import { lessonForConstruction } from '../game/course';
 import RoundComplete from './RoundComplete';
 import { segmentMs } from '../game/stats';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 8;
 
@@ -377,7 +379,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
               onClick={replay}
               aria-label="Hear the word again"
             >
-              🔊
+              <SpeakerIcon />
               <span className="speaker__hint">Kuuntele · Listen</span>
             </button>
 
@@ -391,11 +393,12 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                     (locked && opt.id === question.target.id ? ' pic-card--correct' : '')
                   }
                   onClick={() => choose(opt)}
+                  aria-label={opt.en}
                   disabled={locked}
                 >
                   <span className="pic-card__num">{i + 1}</span>
                   <span className="pic-card__emoji" aria-hidden="true">
-                    {opt.emoji}
+                    <Art item={opt} motion="idle" />
                   </span>
                 </button>
               ))}
@@ -406,7 +409,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
             {/* The carrier with its slot blank + the item to fill it with. */}
             <div className="phrase-card">
               <span className="phrase-emoji" aria-hidden="true">
-                {question.grammar.item.emoji}
+                <Art item={question.grammar.item} motion="loop" />
               </span>
               <div className="phrase-line">
                 {question.grammar.construction.before && (
@@ -430,7 +433,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                 onClick={replay}
                 aria-label="Hear the prompt again"
               >
-                🔊 <span className="en">Listen</span>
+                <SpeakerIcon /> <span className="en">Listen</span>
               </button>
             </div>
 
@@ -456,7 +459,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
           <>
             <div className="phrase-card">
               <span className="phrase-emoji" aria-hidden="true">
-                {question.target.emoji}
+                <Art item={question.target} motion="loop" />
               </span>
               <p className="en phrase-hint">{question.target.en}</p>
               <button
@@ -464,7 +467,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                 onClick={replay}
                 aria-label="Hear the prompt again"
               >
-                🔊 <span className="en">Listen</span>
+                <SpeakerIcon /> <span className="en">Listen</span>
               </button>
             </div>
 
@@ -517,7 +520,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                     onClick={revealNext}
                     disabled={locked || revealed >= MAX_REVEALS}
                   >
-                    💡 Kirjain <span className="en">Letter</span>
+                    <Art glyph="💡" /> Kirjain <span className="en">Letter</span>
                     <span className="stuck-help__count">{MAX_REVEALS - revealed}</span>
                   </button>
                   <button className="btn btn--ghost" onClick={skip} disabled={locked}>

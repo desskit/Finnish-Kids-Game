@@ -1,5 +1,8 @@
+import Art from '../art/Art';
 interface Props {
   title: string;
+  /** A picture before the title (a story's cover emoji). */
+  icon?: string;
   index: number;
   total: number;
   /**
@@ -15,17 +18,24 @@ interface Props {
 }
 
 /** Shared top bar for an activity: home button + progress dots / star count. */
-export default function ActivityHeader({ title, index, total, stars, onExit }: Props) {
+export default function ActivityHeader({ title, icon, index, total, stars, onExit }: Props) {
   return (
     <header className="activity-header">
       {onExit ? (
         <button className="icon-btn" onClick={onExit} aria-label="Back home">
-          ⬅︎
+          <Art glyph="⬅︎" />
         </button>
       ) : (
         <span className="icon-btn icon-btn--placeholder" aria-hidden="true" />
       )}
-      <h2 className="activity-title">{title}</h2>
+      <h2 className="activity-title">
+        {icon && (
+          <>
+            <Art glyph={icon} />{' '}
+          </>
+        )}
+        {title}
+      </h2>
       {stars === undefined ? (
         <div className="progress-dots" aria-label={`Question ${index + 1} of ${total}`}>
           {Array.from({ length: total }, (_, i) => (
@@ -40,7 +50,7 @@ export default function ActivityHeader({ title, index, total, stars, onExit }: P
       ) : (
         // One star is "1 tähti"; any other count takes the partitive ("0 / 6 tähteä").
         <div className="session-stars" aria-label={`${stars} ${stars === 1 ? 'tähti' : 'tähteä'}`}>
-          ⭐ {stars}
+          <Art glyph="⭐" /> {stars}
         </div>
       )}
     </header>

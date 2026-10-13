@@ -12,6 +12,8 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForPhrasePick } from '../content/why';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -231,7 +233,7 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
       <div className="phrase-card">
         {item.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {item.emoji}
+            <Art item={item} motion="loop" />
           </span>
         )}
         <div className="phrase-line">
@@ -248,7 +250,7 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
             onClick={replay}
             aria-label={chosen ? 'Hear the sentence again' : 'Hear the prompt again'}
           >
-            🔊 <span className="en">Listen</span>
+            <SpeakerIcon /> <span className="en">Listen</span>
           </button>
         )}
       </div>

@@ -8,6 +8,8 @@ import { buildYesNoRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -151,7 +153,7 @@ export default function YesNoGame({ items, construction, onExit }: Props) {
 
       <div className="phrase-card">
         <span className="phrase-emoji" aria-hidden="true">
-          {q.shown.emoji}
+          <Art item={q.shown} motion="loop" />
         </span>
         <p className="yesno-question">{q.question}</p>
         <button
@@ -159,7 +161,7 @@ export default function YesNoGame({ items, construction, onExit }: Props) {
           onClick={() => speak(q.question)}
           aria-label="Hear the question again"
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

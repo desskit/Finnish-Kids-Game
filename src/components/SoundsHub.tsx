@@ -5,6 +5,8 @@ import { itemByFi } from '../content/lookup';
 import { speak } from '../audio/speak';
 import { useProfile } from '../state/profile';
 import Prose from './Prose';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 export const SOUND_GAMES = [
   { mode: 'names', icon: '🗣️', fi: 'Kirjainten nimet', en: 'What is each letter called?' },
@@ -28,7 +30,7 @@ function ExampleWord({ fi, ch }: { fi: string; ch?: string }) {
   return (
     <li className="lesson-row">
       <span className="lesson-row__emoji" aria-hidden="true">
-        {item.emoji}
+        <Art item={item} />
       </span>
       <span className="lesson-row__text">
         <span className="lesson-row__fi" lang="fi">
@@ -37,7 +39,7 @@ function ExampleWord({ fi, ch }: { fi: string; ch?: string }) {
         <span className="en lesson-row__en">{item.en}</span>
       </span>
       <button className="speaker speaker--inline lesson-row__speak" onClick={() => speak(fi)} aria-label={`Listen: ${fi}`}>
-        🔊
+        <SpeakerIcon />
       </button>
     </li>
   );
@@ -56,7 +58,7 @@ function LetterCard({ letter, onClose }: { letter: Letter; onClose: () => void }
       <button className="letter-card__name" onClick={() => speak(letter.nameFi)} lang="fi">
         <span className="letter-card__name-label en">It's called</span>
         <span className="letter-card__name-fi">“{letter.nameFi}”</span>
-        <span aria-hidden="true">🔊</span>
+        <span aria-hidden="true"><SpeakerIcon /></span>
       </button>
       <p className="letter-card__tip">{letter.tip}</p>
       {letter.examples.length > 0 ? (
@@ -96,10 +98,10 @@ export default function SoundsHub() {
     <section className="screen sounds">
       <div className="notebook__head">
         <Link className="icon-btn" to="/" aria-label="Koti · Home">
-          ⬅︎
+          <Art glyph="⬅︎" />
         </Link>
         <h1 className="title">
-          🔤 Aakkoset <span className="en">Alphabet & sounds</span>
+          <Art glyph="🔤" /> Aakkoset <span className="en">Alphabet & sounds</span>
         </h1>
       </div>
       <p className="notebook__intro en">Explore the letters and how they sound — any time you like.</p>
@@ -113,7 +115,7 @@ export default function SoundsHub() {
           return (
             <Link key={g.mode} className="home-tile sounds__game" to={`/sounds/${g.mode}`}>
               <span className="home-tile__icon" aria-hidden="true">
-                {g.icon}
+                <Art glyph={g.icon} />
               </span>
               <span className="home-tile__label">{g.fi}</span>
               <span className="home-tile__meta en">{g.en}</span>
@@ -127,7 +129,7 @@ export default function SoundsHub() {
         Kirjaimet <span className="en">The letters — tap one to hear its name</span>
       </h2>
       <button className="btn sounds__readall" onClick={readAlphabet}>
-        🔊 Aakkoset <span className="en">Listen to the whole alphabet</span>
+        <SpeakerIcon /> Aakkoset <span className="en">Listen to the whole alphabet</span>
       </button>
       {open && <LetterCard letter={open} onClose={() => setOpen(null)} />}
       <div className="letter-grid">
@@ -168,7 +170,7 @@ export default function SoundsHub() {
         {SOUND_GUIDES.map((g) => (
           <details key={g.id} className="sound-guide">
             <summary>
-              <span aria-hidden="true">{g.icon}</span> {g.title}
+              <span aria-hidden="true"><Art glyph={g.icon} /></span> {g.title}
             </summary>
             <Prose text={g.text} />
             <ul className="lesson-rows">

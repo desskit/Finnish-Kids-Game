@@ -4,6 +4,7 @@
 // the same content data — callers won't need to change.
 
 import { isMuted } from './mute';
+import { speechCleared, speechEnded, speechStarted } from './speaking';
 
 const FINNISH = 'fi-FI';
 const ENGLISH = 'en-US';
@@ -57,15 +58,25 @@ function speakIn(
   // Default: cut off anything mid-utterance so a fresh prompt feels responsive.
   // Queued: let the current line finish first, so a SEQUENCE of lines (a
   // conversation) plays one after another instead of clobbering each other.
-  if (!queue) synth.cancel();
+  if (!queue) {
+    synth.cancel();
+    speechCleared();
+  }
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
   const voice = pickVoice(langPrefix);
   if (voice) u.voice = voice;
   u.rate = slow ? 0.6 : 0.85; // a touch slower for young learners (much slower on request)
   u.pitch = pitch;
-  if (onStart) u.onstart = onStart;
-  if (onEnd) u.onend = onEnd;
+  u.onstart = () => {
+    speechStarted(u);
+    onStart?.();
+  };
+  u.onend = () => {
+    speechEnded(u);
+    onEnd?.();
+  };
+  u.onerror = () => speechEnded(u);
   synth.speak(u);
 }
 
@@ -85,6 +96,7 @@ export function speak(
 /** Stop whatever is being spoken (leaving a story mid-page). */
 export function stopSpeaking(): void {
   if (isSpeechAvailable()) window.speechSynthesis.cancel();
+  speechCleared();
 }
 
 /**

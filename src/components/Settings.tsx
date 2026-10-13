@@ -5,6 +5,8 @@ import { parseBackup } from '../state/storage';
 import { isSpeechRecognitionAvailable } from '../audio/speech';
 import { finnishVoiceName, useFinnishVoice } from '../audio/voices';
 import { speak } from '../audio/speak';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 function Toggle({
   label,
@@ -106,7 +108,7 @@ export default function Settings() {
           {voice === 'none' && (
             <div className="gerror">
               <p>
-                ⚠️ No Finnish voice on this device, so the app would read Finnish with an English voice — the child
+                <Art glyph="⚠️" /> No Finnish voice on this device, so the app would read Finnish with an English voice — the child
                 would hear (and copy) the wrong sounds. Add one, then come back:
               </p>
               <ul>
@@ -121,7 +123,7 @@ export default function Settings() {
           {voice === 'unsupported' && <p className="gmuted">This browser can't speak. Words still show as text.</p>}
           {voice !== 'unsupported' && (
             <button className="gbtn" onClick={() => speak('Hei! Mitä kuuluu?')}>
-              🔊 Test the voice
+              <SpeakerIcon /> Test the voice
             </button>
           )}
         </div>
@@ -160,10 +162,10 @@ export default function Settings() {
         </p>
         <div className="gdata">
           <button className="gbtn gbtn--primary" onClick={download}>
-            ⬇ Save a backup
+            <Art glyph="⬇" /> Save a backup
           </button>
           <button className="gbtn" onClick={() => fileRef.current?.click()}>
-            ⬆ Restore from a backup
+            <Art glyph="⬆" /> Restore from a backup
           </button>
           <input
             ref={fileRef}

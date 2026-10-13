@@ -12,6 +12,7 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForCount, whyForCountPick } from '../content/why';
+import Art from '../art/Art';
 
 const QUESTIONS = 6;
 
@@ -185,14 +186,14 @@ export default function CountAndSay({ nouns, numbers, onExit }: Props) {
             ×
           </span>
           <span className="count-emoji" aria-hidden="true">
-            {q.noun.emoji}
+            <Art item={q.noun} />
           </span>
         </div>
       ) : (
         <div className="count-scene" aria-label={`${count} ${countedEn(q.noun, count)}`}>
           {Array.from({ length: count }, (_, i) => (
             <span key={i} className="count-emoji" aria-hidden="true">
-              {q.noun.emoji}
+              <Art item={q.noun} />
             </span>
           ))}
         </div>

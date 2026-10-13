@@ -41,6 +41,7 @@ import PossessiveGame from './PossessiveGame';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 function seedChild(seen = true) {
   localStorage.setItem(
@@ -115,7 +116,7 @@ describe('PossessiveGame (Kenen?)', () => {
 
   it('shows the picture + English gloss and the possessor form tiles', async () => {
     renderGame();
-    expect(screen.getByText('🐱')).toBeInTheDocument();
+    expect(getByPicture('🐱')).toBeInTheDocument();
     expect(screen.getByText('my cat')).toBeInTheDocument();
     for (const form of ['kissani', 'kissasi', 'kissansa']) {
       expect(screen.getByText(form, { selector: '.word-tile' })).toBeInTheDocument();

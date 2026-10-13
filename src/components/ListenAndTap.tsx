@@ -9,6 +9,8 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WordIntro from './WordIntro';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -214,7 +216,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
         onClick={() => speak(question.target.fi)}
         aria-label="Hear the word again"
       >
-        🔊
+        <SpeakerIcon />
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
 
@@ -242,11 +244,13 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
             }
             onClick={() => choose(opt)}
             disabled={locked}
+            // the picture is all a card shows, so it's named for a screen reader
+            aria-label={opt.en}
           >
             <span className="pic-card__num">{i + 1}</span>
             {opt.emoji ? (
               <span className="pic-card__emoji" aria-hidden="true">
-                {opt.emoji}
+                <Art item={opt} motion="idle" />
               </span>
             ) : (
               // A word with no single picture (a weekday, "kind", "hobby")

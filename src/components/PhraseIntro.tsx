@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import type { DialogueLine } from '../content/dialogues';
 import { speak } from '../audio/speak';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 interface Props {
   prompt: DialogueLine;
@@ -36,7 +37,7 @@ export default function PhraseIntro({ prompt, reply, onContinue }: Props) {
         </p>
         <p className="en phrase-hint">{prompt.en}</p>
         <button className="speaker speaker--inline" onClick={() => speak(prompt.fi)} aria-label="Hear what they say">
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
 
         <p className="phrase-intro__arrow" aria-hidden="true">
@@ -49,7 +50,7 @@ export default function PhraseIntro({ prompt, reply, onContinue }: Props) {
         </p>
         <p className="en phrase-hint">{reply.en}</p>
         <button className="speaker speaker--inline" onClick={() => speak(reply.fi)} aria-label="Hear what you say">
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 

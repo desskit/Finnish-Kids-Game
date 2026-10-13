@@ -8,6 +8,8 @@ import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { SOUND_GAMES } from './SoundsHub';
 import LetterNameGame from './LetterNameGame';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 8;
 
@@ -88,7 +90,7 @@ function WordSoundGame({ mode }: { mode: string }) {
       <main className="app">
         <section className="screen checkpoint checkpoint--pass">
           <div className="checkpoint__badge" aria-hidden="true">
-            {right / round.length >= 0.8 ? '🌟' : '👂'}
+            <Art glyph={right / round.length >= 0.8 ? '🌟' : '👂'} motion="loop" />
           </div>
           <h1 className="title">
             Hienoa! <span className="en">Nice listening!</span>
@@ -135,7 +137,7 @@ function WordSoundGame({ mode }: { mode: string }) {
         </p>
         <div className="phrase-card">
           <span className="phrase-emoji" aria-hidden="true">
-            {q.item.emoji}
+            <Art item={q.item} motion="loop" />
           </span>
           <p className="sound-word" lang="fi">
             {q.before}
@@ -144,7 +146,7 @@ function WordSoundGame({ mode }: { mode: string }) {
           </p>
           <p className="en phrase-hint">{q.item.en}</p>
           <button className="speaker speaker--inline" onClick={() => speak(q.item.fi)} aria-label="Hear it again">
-            🔊 <span className="en">Listen</span>
+            <SpeakerIcon /> <span className="en">Listen</span>
           </button>
         </div>
         <div className="word-tiles">

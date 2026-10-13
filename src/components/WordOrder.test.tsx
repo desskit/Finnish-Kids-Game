@@ -44,6 +44,7 @@ vi.mock('../game/round', async (importOriginal) => {
 import WordOrder from './WordOrder';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 // Two words: "minä" (id 0, correct-first) and "menen." (id 1). Shuffled so the
 // WRONG tile ("menen.") renders first — every test taps it to drive misses.
@@ -185,7 +186,7 @@ describe('WordOrder TTS + picture', () => {
         <WordOrder items={[phraseFx.ITEM]} constructions={[phraseFx.CONSTRUCTION]} onExit={vi.fn()} />
       </ProfileProvider>,
     );
-    expect(screen.getByText('🐱')).toBeInTheDocument();
+    expect(getByPicture('🐱')).toBeInTheDocument();
   });
 
   it('single-slot carrier-phrase mode narrates the filled-in English hint up front', async () => {

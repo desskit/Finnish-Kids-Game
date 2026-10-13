@@ -31,6 +31,7 @@ import YesNoGame from './YesNoGame';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { ActivityContext } from '../game/activityContext';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 const IS_THIS: Construction = {
   id: 'is-this',
@@ -93,7 +94,7 @@ afterEach(() => {
 describe('YesNoGame (Onko tämä…?)', () => {
   it('shows the picture, the question, and Kyllä/Ei tiles; speaks the QUESTION in Finnish', async () => {
     renderGame();
-    expect(screen.getByText('🐱')).toBeInTheDocument();
+    expect(getByPicture('🐱')).toBeInTheDocument();
     expect(screen.getByText('Onko tämä kissa?')).toBeInTheDocument();
     expect(kylla()).toBeInTheDocument();
     expect(ei()).toBeInTheDocument();

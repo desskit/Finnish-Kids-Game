@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useProfile } from '../state/profile';
 import { AVATARS } from '../state/storage';
 import { UNITS, unitsCompleted } from '../game/course';
+import Art from '../art/Art';
+import Avatar, { avatarName } from '../art/Avatar';
 
 // Grown-up player management: rename, switch, remove, add. (Adding and
 // switching are also on the kid-side player picker; removing lives only here,
@@ -35,7 +37,7 @@ export default function Profiles() {
           return (
             <li key={c.id} className={'gplayer' + (active ? ' gplayer--active' : '')}>
               <span className="gplayer__avatar" aria-hidden="true">
-                {c.avatar}
+                <Avatar glyph={c.avatar} still />
               </span>
               <div className="gplayer__body">
                 <label className="gplayer__namefield">
@@ -48,7 +50,7 @@ export default function Profiles() {
                   />
                 </label>
                 <span className="gplayer__meta">
-                  ⭐ {c.stars} · {unitsCompleted(c)} of {total} units
+                  <Art glyph="⭐" /> {c.stars} · {unitsCompleted(c)} of {total} units
                 </span>
               </div>
               <div className="gplayer__actions">
@@ -92,10 +94,10 @@ export default function Profiles() {
                 key={a}
                 className={'avatar-choice' + (a === avatar ? ' avatar-choice--on' : '')}
                 onClick={() => setAvatar(a)}
-                aria-label={`Avatar ${a}`}
+                aria-label={`Avatar: ${avatarName(a)}`}
                 aria-pressed={a === avatar}
               >
-                {a}
+                <Avatar glyph={a} still />
               </button>
             ))}
           </div>
@@ -110,7 +112,7 @@ export default function Profiles() {
         </form>
       ) : (
         <button className="gbtn gbtn--wide" onClick={() => setAdding(true)}>
-          ➕ Add a player
+          <Art glyph="➕" /> Add a player
         </button>
       )}
     </div>

@@ -12,6 +12,8 @@ import { answerMatches, readyToJudge, typeAt } from '../game/answer';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import { whyForConstruction, type Why } from '../content/why';
+import Art from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 
@@ -286,7 +288,7 @@ export default function SpellWord({
       <div className="phrase-card">
         {showHint && target.emoji && (
           <span className="phrase-emoji" aria-hidden="true">
-            {target.emoji}
+            <Art glyph={target.emoji} motion="loop" />
           </span>
         )}
         {showHint && <p className="en phrase-hint">{target.gloss}</p>}
@@ -295,7 +297,7 @@ export default function SpellWord({
           onClick={() => (speakFi ? speak(target.text) : speakEnglish(target.gloss))}
           aria-label={speakFi ? 'Hear the word again' : 'Hear the prompt again'}
         >
-          🔊 <span className="en">Listen</span>
+          <SpeakerIcon /> <span className="en">Listen</span>
         </button>
       </div>
 
@@ -332,7 +334,7 @@ export default function SpellWord({
           onClick={revealNext}
           disabled={locked || revealed >= MAX_REVEALS}
         >
-          💡 Kirjain <span className="en">Letter</span>
+          <Art glyph="💡" /> Kirjain <span className="en">Letter</span>
           <span className="stuck-help__count">{MAX_REVEALS - revealed}</span>
         </button>
         <button className="btn btn--ghost" onClick={advanceUnsolved} disabled={locked}>

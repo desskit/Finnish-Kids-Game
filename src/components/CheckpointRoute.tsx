@@ -16,6 +16,7 @@ import {
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
 import { segmentMs } from '../game/stats';
+import Art from '../art/Art';
 
 interface PartResult {
   correct: number;
@@ -74,7 +75,7 @@ export default function CheckpointRoute() {
       <main className="app">
         <section className="screen checkpoint">
           <div className="checkpoint__badge" aria-hidden="true">
-            🏁
+            <Art glyph="🏁" />
           </div>
           <h1 className="title">
             Välitesti <span className="en">Checkpoint · Unit {n}</span>
@@ -116,7 +117,7 @@ export default function CheckpointRoute() {
       <main className="app">
         <section className={'screen checkpoint checkpoint--' + (passed ? 'pass' : 'fail')}>
           <div className="checkpoint__badge" aria-hidden="true">
-            {passed ? '🏆' : '💪'}
+            <Art glyph={passed ? '🏆' : '💪'} motion="loop" />
           </div>
           <h1 className="title">
             {passed ? 'Läpäisty!' : 'Melkein!'}{' '}
@@ -139,7 +140,7 @@ export default function CheckpointRoute() {
             <ul className="checkpoint__new-badges" aria-label="New achievements">
               {newBadges.map((b) => (
                 <li key={b.id}>
-                  <span aria-hidden="true">{b.emoji}</span> Uusi saavutus! <span className="en">{b.titleEn}</span>
+                  <span aria-hidden="true"><Art glyph={b.emoji} /></span> Uusi saavutus! <span className="en">{b.titleEn}</span>
                 </li>
               ))}
             </ul>
@@ -207,7 +208,7 @@ export default function CheckpointRoute() {
   return (
     <main className="app app--barred">
       <div className="checkpoint-bar" aria-label={`Checkpoint part ${part + 1} of ${plan.length}`}>
-        🏁{' '}
+        <Art glyph="🏁" />{' '}
         <span className="en">
           {p.kind === 'remember' ? 'Muistatko? Remember?' : 'Checkpoint'} · part {part + 1}/
           {plan.length}

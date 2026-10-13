@@ -4,6 +4,8 @@ import { reviewEntries, reviewSections, type ReviewEntry } from '../game/reviewE
 import { entryStatus, mergeReview, parseReviewFile, reviewCounts, reviewFile, type EntryStatus } from '../game/review';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
+import Art, { ArtText } from '../art/Art';
+import SpeakerIcon from '../art/SpeakerIcon';
 
 // Grown-ups → Finnish check. For a Finnish speaker (a parent, a teacher): every
 // piece of Finnish the app's authors wrote by hand — stories, scenes, sentence
@@ -66,12 +68,12 @@ function EntryCard({ e, sectionTitle }: { e: ReviewEntry; sectionTitle: string }
     <li className={`rcard rcard--${status}`}>
       <div className="rcard__top">
         <span className="gchip gchip--muted">{sectionTitle}</span>
-        <span className={'rcard__status rcard__status--' + status}>{STATUS_LABEL[status]}</span>
+        <span className={'rcard__status rcard__status--' + status}><ArtText text={STATUS_LABEL[status]} /></span>
       </div>
       <p className="rcard__fi" lang="fi">
         {e.fi}{' '}
         <button className="rcard__speak" onClick={() => speak(spoken(e.fi))} aria-label="Hear it">
-          🔊
+          <SpeakerIcon />
         </button>
       </p>
       <p className="rcard__en">{e.en}</p>
@@ -268,7 +270,13 @@ export default function FinnishReview() {
         {section !== 'all' && <p className="gmuted">{sections.find((s) => s.id === section)?.hint}</p>}
 
         {list.length === 0 ? (
-          <p className="gmuted">{filter === 'todo' ? 'Nothing left to check here — kiitos! 🎉' : 'Nothing here.'}</p>
+          <p className="gmuted">{filter === 'todo' ? (
+            <>
+              Nothing left to check here — kiitos! <Art glyph="🎉" />
+            </>
+          ) : (
+            'Nothing here.'
+          )}</p>
         ) : (
           <ul className="rlist">
             {list.slice(0, shown).map((e) => (
@@ -290,10 +298,10 @@ export default function FinnishReview() {
           </p>
           <div className="gdata">
             <button className="gbtn gbtn--primary" onClick={download} disabled={Object.keys(review.decisions).length === 0}>
-              ⬇ Download review
+              <Art glyph="⬇" /> Download review
             </button>
             <button className="gbtn" onClick={() => fileRef.current?.click()}>
-              ⬆ Load a review file
+              <Art glyph="⬆" /> Load a review file
             </button>
             <input
               ref={fileRef}

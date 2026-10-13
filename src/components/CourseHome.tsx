@@ -30,6 +30,7 @@ import {
   type NextAction,
   type Unit,
 } from '../game/course';
+import Art from '../art/Art';
 
 // The course home: one big "Continue" button (the next lesson / step /
 // checkpoint), Review and the Notebook, then the units in order — finished
@@ -87,7 +88,7 @@ export default function CourseHome() {
 
       <div className={'streak' + (doneToday ? ' streak--today' : '')} aria-label="Practice streak">
         <span className="streak__flame" aria-hidden="true">
-          {streak >= 2 ? '🔥' : doneToday ? '🌟' : '👋'}
+          <Art glyph={streak >= 2 ? '🔥' : doneToday ? '🌟' : '👋'} />
         </span>
         <span className="streak__text">
           {streak >= 2 ? (
@@ -109,7 +110,7 @@ export default function CourseHome() {
       {warmup || revisit ? (
         <Link className="continue-cta continue-cta--warmup" to="/warmup">
           <span className="continue-cta__icon" aria-hidden="true">
-            ☀️
+            <Art glyph="☀️" />
           </span>
           <span className="continue-cta__label">
             <span className="continue-cta__title">
@@ -124,7 +125,7 @@ export default function CourseHome() {
             </span>
             {revisit && (
               <span className="continue-cta__what">
-                📖 Muistatko? {revisit.titleFi}
+                <Art glyph="📖" /> Muistatko? {revisit.titleFi}
               </span>
             )}
             {warmup && (
@@ -137,7 +138,7 @@ export default function CourseHome() {
       ) : (
         <Link className="continue-cta" to={actionHref(next)}>
           <span className="continue-cta__icon" aria-hidden="true">
-            ▶
+            <Art glyph="▶" />
           </span>
           <span className="continue-cta__label">
             <span className="continue-cta__title">
@@ -151,7 +152,7 @@ export default function CourseHome() {
       <div className="home-tiles">
         <Link className="home-tile" to="/review">
           <span className="home-tile__icon" aria-hidden="true">
-            🔁
+            <Art glyph="🔁" />
           </span>
           <span className="home-tile__label">
             Kertaus <span className="en">Review</span>
@@ -162,7 +163,7 @@ export default function CourseHome() {
         </Link>
         <Link className="home-tile" to="/achievements">
           <span className="home-tile__icon" aria-hidden="true">
-            🏅
+            <Art glyph="🏅" />
           </span>
           <span className="home-tile__label">
             Saavutukset <span className="en">Achievements</span>
@@ -173,7 +174,7 @@ export default function CourseHome() {
         </Link>
         <Link className="home-tile" to="/sounds">
           <span className="home-tile__icon" aria-hidden="true">
-            🔤
+            <Art glyph="🔤" />
           </span>
           <span className="home-tile__label">
             Aakkoset <span className="en">Alphabet</span>
@@ -182,7 +183,7 @@ export default function CourseHome() {
         </Link>
         <Link className="home-tile" to="/notebook">
           <span className="home-tile__icon" aria-hidden="true">
-            📓
+            <Art glyph="📓" />
           </span>
           <span className="home-tile__label">
             Vihko <span className="en">Notebook</span>
@@ -199,7 +200,7 @@ export default function CourseHome() {
         >
           {BADGES.filter((b) => earned.has(b.id)).map((b) => (
             <span key={b.id} className="badge" title={`${b.titleEn} — earned`}>
-              {b.emoji}
+              <Art glyph={b.emoji} />
             </span>
           ))}
         </Link>
@@ -234,7 +235,7 @@ export default function CourseHome() {
                 disabled={status === 'locked'}
               >
                 <span className="unit__icon" aria-hidden="true">
-                  {status === 'locked' ? '🔒' : status === 'done' ? '✓' : unit.icon}
+                  {status === 'done' ? '✓' : <Art glyph={status === 'locked' ? '🔒' : unit.icon} />}
                 </span>
                 <span className="unit__label">
                   <span className="unit__num en">Unit {i + 1}</span>
@@ -256,16 +257,16 @@ export default function CourseHome() {
       </ol>
       {hidden > 0 && (
         <button className="btn units-more" onClick={() => setShowAll(true)}>
-          🔒 {hidden} more units <span className="en">Show them all</span>
+          <Art glyph="🔒" /> {hidden} more units <span className="en">Show them all</span>
         </button>
       )}
 
       {!isSpeechAvailable() && (
-        <p className="audio-note">🔇 Audio isn't available in this browser. Words still show as text.</p>
+        <p className="audio-note"><Art glyph="🔇" /> Audio isn't available in this browser. Words still show as text.</p>
       )}
       {voice === 'none' && (
         <p className="audio-note">
-          🔈 This device has no Finnish voice yet, so Finnish may be read with an English accent. Grown-ups:
+          <Art glyph="🔈" /> This device has no Finnish voice yet, so Finnish may be read with an English accent. Grown-ups:
           Settings shows how to add one.
         </p>
       )}
@@ -291,7 +292,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
         <li>
           <Link className={'unit-step' + (read ? ' unit-step--done' : ' unit-step--next')} to={`/lesson/${lesson.id}`}>
             <span className="unit-step__icon" aria-hidden="true">
-              📖
+              <Art glyph="📖" />
             </span>
             <span className="unit-step__label">
               <span className="unit-step__title">
@@ -313,7 +314,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
         const body = (
           <>
             <span className="unit-step__icon" aria-hidden="true">
-              {step.icon}
+              <Art glyph={step.icon} />
             </span>
             <span className="unit-step__label">
               <span className="unit-step__title">
@@ -335,7 +336,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
               )}
             </span>
             <span className="unit-step__state" aria-hidden="true">
-              {st === 'done' ? '✓' : st === 'locked' ? '🔒' : '•'}
+              {st === 'locked' ? <Art glyph="🔒" /> : st === 'done' ? '✓' : '•'}
             </span>
           </>
         );
@@ -359,7 +360,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
           {cp === 'locked' ? (
             <span className="unit-step unit-step--locked unit-step--checkpoint" aria-disabled="true">
               <span className="unit-step__icon" aria-hidden="true">
-                🏁
+                <Art glyph="🏁" />
               </span>
               <span className="unit-step__label">
                 <span className="unit-step__title">
@@ -368,7 +369,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
                 <span className="unit-step__meta en">Finish every step to unlock</span>
               </span>
               <span className="unit-step__state" aria-hidden="true">
-                🔒
+                <Art glyph="🔒" />
               </span>
             </span>
           ) : (
@@ -377,7 +378,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
               to={`/checkpoint/${unit.id}`}
             >
               <span className="unit-step__icon" aria-hidden="true">
-                🏁
+                <Art glyph="🏁" />
               </span>
               <span className="unit-step__label">
                 <span className="unit-step__title">
@@ -409,7 +410,7 @@ function MidLessonRow({ unit, lessonId, unlockAll }: { unit: Unit; lessonId: str
   const body = (
     <>
       <span className="unit-step__icon" aria-hidden="true">
-        📖
+        <Art glyph="📖" />
       </span>
       <span className="unit-step__label">
         <span className="unit-step__title">
@@ -418,7 +419,7 @@ function MidLessonRow({ unit, lessonId, unlockAll }: { unit: Unit; lessonId: str
         {st === 'locked' && <span className="unit-step__meta en">Finish the steps above to open it</span>}
       </span>
       <span className="unit-step__state" aria-hidden="true">
-        {st === 'done' ? '✓' : st === 'locked' ? '🔒' : '•'}
+        {st === 'locked' ? <Art glyph="🔒" /> : st === 'done' ? '✓' : '•'}
       </span>
     </>
   );

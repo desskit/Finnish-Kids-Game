@@ -22,6 +22,7 @@ vi.mock('../audio/sfx', () => ({ playDing: vi.fn() }));
 import ReviewActivity from './ReviewActivity';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
+import { getByPicture, queryByPicture } from '../test/pictures';
 
 // cat/dog/bear are real animals items; their sourced Finnish forms are stable.
 function seedChild(extraSrs: Record<string, unknown> = {}) {
@@ -93,7 +94,7 @@ describe('ReviewActivity — format escalates with SRS box', () => {
   it('box 3 → production pick (English cue, choose the Finnish word)', async () => {
     renderReview();
     // Answer the box-1 recognition question (tap the cat picture) to advance.
-    fireEvent.click(screen.getByText('🐱').closest('button')!);
+    fireEvent.click(getByPicture('🐱').closest('button')!);
     await advance(1000);
 
     // Now the box-3 word: production tiles + English gloss, cued in English.
@@ -105,7 +106,7 @@ describe('ReviewActivity — format escalates with SRS box', () => {
 
   it('box 5 → spelling (type the Finnish from the English cue)', async () => {
     renderReview();
-    fireEvent.click(screen.getByText('🐱').closest('button')!); // box-1 done
+    fireEvent.click(getByPicture('🐱').closest('button')!); // box-1 done
     await advance(1000);
     fireEvent.click(screen.getByText('koira').closest('button')!); // box-3 done
     await advance(1000); // clear the advance timeout → mount box-5
@@ -125,7 +126,7 @@ describe('ReviewActivity — format escalates with SRS box', () => {
 
   it('box 5 spelling offers reveal-a-letter (max 3) + skip for a stuck child', async () => {
     renderReview();
-    fireEvent.click(screen.getByText('🐱').closest('button')!);
+    fireEvent.click(getByPicture('🐱').closest('button')!);
     await advance(1000);
     fireEvent.click(screen.getByText('koira').closest('button')!);
     await advance(1000);

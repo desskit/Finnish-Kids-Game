@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Art from '../art/Art';
 
 // Lightweight "are you a grown-up?" gate: a small addition a young child can't
 // easily do. Not real security — just a speed bump in front of settings/data,
@@ -25,7 +26,7 @@ export default function ParentGate({ onPass }: { onPass: () => void }) {
     <main className="app">
       <section className="screen parent-gate">
         <div className="mascot" aria-hidden="true">
-          🔒
+          <Art glyph="🔒" />
         </div>
         <h1 className="greeting">
           Vain aikuisille <span className="en">Grown-ups only</span>

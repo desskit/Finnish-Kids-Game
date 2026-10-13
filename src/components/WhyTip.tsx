@@ -4,6 +4,7 @@ import { lessonById } from '../content/lessons';
 import { useActivityContext } from '../game/activityContext';
 import LessonView, { Segments } from './LessonView';
 import Prose from './Prose';
+import Art from '../art/Art';
 
 interface Props {
   why: Why | null | undefined;
@@ -24,7 +25,7 @@ export default function WhyTip({ why, lessonId }: Props) {
   return (
     <>
       <div className="why-tip" role="note">
-        <span className="why-tip__head">💡 Miksi? <span className="en">Why?</span></span>
+        <span className="why-tip__head"><Art glyph="💡" /> Miksi? <span className="en">Why?</span></span>
         <Prose text={why.text} />
         {why.example && (
           <span className="why-tip__example" lang="fi">
@@ -33,7 +34,7 @@ export default function WhyTip({ why, lessonId }: Props) {
         )}
         {lesson && (
           <button className="btn btn--sm why-tip__lesson" onClick={() => setReading(true)}>
-            📓 <span className="en">Read the lesson</span>
+            <Art glyph="📓" /> <span className="en">Read the lesson</span>
           </button>
         )}
       </div>
