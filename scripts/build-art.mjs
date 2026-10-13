@@ -46,7 +46,7 @@ const COMPARE = [
 ];
 
 /** Bytes a picture or backdrop may take once it's pixel art (still, and with its motion). */
-const BUDGET = { picture: 6000, motion: 12000, scene: 40000, sceneMotion: 60000 };
+const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 };
 
 /** How fast a backdrop's clouds drift, in pixels a second. */
 const DRIFT_PX_PER_S = 2;
