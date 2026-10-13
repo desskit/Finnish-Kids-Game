@@ -60,6 +60,13 @@ export function starPoints(cx, cy, R, r, n = 5, rot = -90) {
   return pts;
 }
 
+/** A heart, its top at `top`, w wide and h tall, centred on cx. */
+export function heartPath(cx, top, w, h) {
+  const y = (f) => fmt(top + h * f);
+  const x = (f) => fmt(cx + w * f);
+  return `M${x(0)} ${y(1)}C${x(-0.3)} ${y(0.74)} ${x(-0.5)} ${y(0.6)} ${x(-0.5)} ${y(0.3)}C${x(-0.5)} ${y(0.08)} ${x(-0.36)} ${y(0)} ${x(-0.24)} ${y(0)}C${x(-0.1)} ${y(0)} ${x(0)} ${y(0.08)} ${x(0)} ${y(0.22)}C${x(0)} ${y(0.08)} ${x(0.1)} ${y(0)} ${x(0.24)} ${y(0)}C${x(0.36)} ${y(0)} ${x(0.5)} ${y(0.08)} ${x(0.5)} ${y(0.3)}C${x(0.5)} ${y(0.6)} ${x(0.3)} ${y(0.74)} ${x(0)} ${y(1)}Z`;
+}
+
 /** An open arc along a circle, from angle a1 to a2 (degrees, clockwise when a2 > a1). */
 export function arcPath(cx, cy, r, a1, a2) {
   const s = polar(cx, cy, r, a1);

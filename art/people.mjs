@@ -3,7 +3,7 @@
 // same picture book. A person is a LOOK (who: skin, hair, clothes) in a POSE
 // (what they're doing: where the limbs go, which face).
 
-import { polar, pt, roundPoly, scallops } from './kit.mjs';
+import { fmt, polar, pt, roundPoly, scallops } from './kit.mjs';
 
 // --- The cast (fixed looks: keep these when drawing them anywhere) ---------
 
@@ -112,6 +112,47 @@ export function runPose(k) {
   };
 }
 
+/**
+ * A walk cycle (4 frames), seen from the side going right: smaller steps than
+ * the run, the body upright, the arms swinging a little.
+ */
+export function walkPose(k) {
+  const f = k.frame % 4;
+  const up = f % 2 ? -k.px : 0;
+  const hip = { back: [30.4, 46.2 + up], front: [34.8, 46.4 + up] };
+  const sh = { back: [29, 35.4 + up], front: [38.6, 35.4 + up] };
+  const ground = 55.8;
+  const legs = {
+    fwd: (h) => [h, [h[0] + 3.6, h[1] + 5], [h[0] + 4.8, ground]],
+    back: (h) => [h, [h[0] - 2.4, h[1] + 5], [h[0] - 4.6, ground - 0.4]],
+    support: (h) => [h, [h[0] + 0.6, h[1] + 5], [h[0] + 0.4, ground]],
+    lift: (h) => [h, [h[0] + 3.4, h[1] + 3.6], [h[0] + 1, h[1] + 8]],
+  };
+  const arms = {
+    fwd: (s) => [s, [s[0] + 2.6, s[1] + 5], [s[0] + 5.2, s[1] + 8]],
+    back: (s) => [s, [s[0] - 2.4, s[1] + 5], [s[0] - 4.4, s[1] + 7.8]],
+    mid: (s) => [s, [s[0] + 0.4, s[1] + 5.4], [s[0] + 1.2, s[1] + 9]],
+  };
+  const [legFront, legBack, armFront, armBack] = [
+    ['fwd', 'back', 'back', 'fwd'],
+    ['support', 'lift', 'mid', 'mid'],
+    ['back', 'fwd', 'fwd', 'back'],
+    ['lift', 'support', 'mid', 'mid'],
+  ][f];
+  return {
+    ...POSES.stand,
+    head: [33, 20.5],
+    look: 2,
+    toes: 0.8,
+    armsInFront: false,
+    bob: up,
+    legFront: legs[legFront](hip.front),
+    legBack: legs[legBack](hip.back),
+    armFront: arms[armFront](sh.front),
+    armBack: arms[armBack](sh.back),
+  };
+}
+
 // --- Drawing -------------------------------------------------------------------
 
 const R = 12.5; // head radius
@@ -139,7 +180,8 @@ export function person(k, look, pose = POSES.stand) {
   };
   const out = [];
 
-  out.push(k.ground(pose.speed ? 31 : 32, 58.6, pose.speed ? 15 : 13.5, 2.4));
+  // the shadow on the ground (none when they're up off it, on a climbing wall)
+  if (pose.shadow !== false) out.push(k.ground(pose.speed ? 31 : 32, 58.6, pose.speed ? 15 : 13.5, 2.4));
   if (pose.speed) out.push(k.speed(15, [27, 32.5, 38], 6));
 
   // Long hair and pigtails, the legs (and a turned-away arm) go behind the body
@@ -158,6 +200,20 @@ export function person(k, look, pose = POSES.stand) {
   out.push(head(k, look, hx, hy, pose.look, pose.face));
   return out.join('');
 }
+
+/**
+ * A person shrunk (or not) and placed: `x` is where their middle goes,
+ * `ground` where their feet go. `extra` is drawn with them, in their own
+ * coordinates (a hat, an arm drawn again over something they hold).
+ */
+export const placed = (k, look, pose, x, ground, s, ...extra) =>
+  k.g(`translate(${fmt(x - 32 * s)} ${fmt(ground - 60 * s)}) scale(${fmt(s)})`, person(k, look, { ...POSES.stand, ...pose }), ...extra);
+
+/** For a person placed like that: the point of their pose that lands on a point of the picture. */
+export const poseAt = (x, ground, s) => ([cx, cy]) => [(cx - x + 32 * s) / s, (cy - ground + 60 * s) / s];
+
+/** A hand on its own, drawn again over something it holds (its size scaled with a placed person). */
+export const hand = (k, [x, y], skin = 'skin3', s = 1) => k.circle(x, y, 2.9 * s, k.P[skin]);
 
 /** Just the head (and any hair that falls behind it), where a standing person's head goes: (32, 20.5). */
 export function portrait(k, look, face = 'smile') {
@@ -180,7 +236,8 @@ function leg(k, look, pts, skin, toes = 0) {
   );
 }
 
-function arm(k, look, pts, skin) {
+/** An arm ([shoulder, elbow?, hand]) in the look's sleeve, with its hand: for drawing one again over something held. */
+export function arm(k, look, pts, skin = k.P[look.skin]) {
   const c = k.P;
   const sleeve = look.top.kind === 'dress' ? skin : c[look.top.color];
   const hand = pts[pts.length - 1];

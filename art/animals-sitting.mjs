@@ -2,7 +2,7 @@
 // (sittingBody), each with its own head and tail. All of them blink; most
 // move their tail, ears or throat a little.
 
-import { pt, polar, roundPoly, scallops } from './kit.mjs';
+import { pt, polar, scallops } from './kit.mjs';
 import { foxHead, sittingBody } from './animals.mjs';
 
 /** The usual face: eyes, blush, a nose and a small mouth, centred on (x, y). */
@@ -119,50 +119,6 @@ export function monkey(k) {
     k.ellipse(32, 25.6, 13, 12, c.brown),
     k.flat('M32 22.6C29 18.6 22.4 19.6 22.6 25.4C22.8 30.6 26.6 34.2 32 34.2C37.4 34.2 41.2 30.6 41.4 25.4C41.6 19.6 35 18.6 32 22.6Z', c.tan),
     face(k, 32, 26.4, { nose: 'brown', noseW: 1.6, eyeGap: 4.6, eyeY: -1.6 }),
-  ].join('');
-}
-
-/**
- * The wolf: sitting side on, head thrown back, howling at the moon. Its eyes
- * are shut while it howls (so it doesn't blink); the howl ripples out and the
- * bushy tail lifts.
- */
-export function wolf(k) {
-  const c = k.P;
-  const f = k.frame % 3;
-  // the howl ripples out from the snout's tip
-  const howl = (r) => k.line(`M${pt(polar(55.4, 2.8, r, -10))}A${r} ${r} 0 0 1 ${pt(polar(55.4, 2.8, r, 80))}`, { color: c.greyShade, sw: 1.6 });
-  return [
-    k.path('M15.4 6.2A7.4 7.4 0 1 0 15.4 20.2A9 9 0 0 1 15.4 6.2Z', c.yellow),
-    k.ground(28, 58.6, 21, 2.4),
-    swing(
-      k,
-      f === 2 ? -7 : 0,
-      [21, 51.6],
-      k.path('M22 55.6C15 57 8 55.2 5.4 50.2C4.2 47.8 5.6 45.6 8 46.6C10.6 48 14.6 49.2 21 48.6Z', c.grey) +
-        k.flat('M5.4 50.2C4.2 47.8 5.6 45.6 8 46.6C9.2 47.2 10.4 47.8 11.6 48.2L9.6 54C7.6 53.2 6.2 51.8 5.4 50.2Z', c.charcoal),
-    ),
-    k.limb('M42.8 42V55.6', c.greyShade, 5.2),
-    k.path('M16 56C14 50 15 44 19 40C23 36 27 33 30 28C32 25 33 22 34 18H42C43.4 23 44 29 43.4 34C43 38 42 42 42 46V56Z', c.grey),
-    k.flat('M41.6 20C43.4 24 44 30 43 35C42.4 38.6 41 41 39.6 43C39 35 39.4 27 41.6 20Z', c.silver),
-    k.flat('M16 44C19 39 24 36 28 32.6C30.4 30.4 32 27 33.4 22.6L35.4 23.2C34.4 27.6 32.4 31.6 29.6 34.4C25.4 38.4 20.6 41 17 46Z', c.greyShade),
-    k.ellipse(22.4, 48.6, 8.6, 7.6, c.grey),
-    k.ellipse(29.6, 56, 4.6, 2, c.grey),
-    k.limb('M38.4 42V55.6', c.grey, 5.2),
-    k.ellipse(39.6, 56.2, 3.6, 1.8, c.grey),
-    // the head, a little bigger than life, thrown back
-    k.g(
-      'translate(38 22) scale(1.22) translate(-38 -21)',
-      k.poly([[35.4, 13], [33.2, 4.4], [39.8, 9.4]], [1, 1.2, 1], c.grey),
-      k.flat(roundPoly([[35.8, 11.4], [34.6, 6.8], [38.2, 9.4]], 0.6), c.silver),
-      k.path('M33.6 20C32.6 14.6 35 9.6 39.6 8.4L47.6 3.4C49.6 2.2 52 3 52.4 5C52.8 6.8 51.6 8.2 50 9L46.6 11.4C47.4 15.4 45.6 19.4 42.4 21.4Z', c.grey),
-      k.flat('M42.4 21.4C45.6 19.4 47.4 15.4 46.6 11.4L50 9C48.6 13.6 46.6 18 43.4 21.6Z', c.silver),
-      k.flat('M45 10.8L50.4 8.4L47.2 12.8Z', c.mouth),
-      k.flatCircle(52.2, 4.4, 1.3, c.ink),
-      k.line('M39.4 12.6Q41.4 14 43.2 12', { sw: 1.6 }),
-    ),
-    f >= 1 ? howl(4) : '',
-    f >= 2 ? howl(7) : '',
   ].join('');
 }
 

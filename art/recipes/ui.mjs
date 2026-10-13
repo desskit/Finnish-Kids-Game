@@ -1,9 +1,37 @@
 // The app's own pictures: buttons, rewards, the number tile, avatars.
 
-import { ringSector, roundPoly, starPoints } from '../kit.mjs';
+import { fmt, ringSector, roundPoly, starPoints } from '../kit.mjs';
 import { foxHead } from '../animals.mjs';
 
+/** A party popper going off: the app's "well done!" (🎉). */
+function popper(k) {
+  const c = k.P;
+  const f = k.frame % 3;
+  const spread = [0.72, 0.86, 1][f];
+  const bits = [
+    [42, 8, 'red', 20],
+    [54, 22, 'blue', -30],
+    [30, 6, 'yellow', 45],
+    [56, 38, 'green', 10],
+    [44, 26, 'purple', -15],
+  ];
+  return [
+    k.ground(20, 58.6, 14, 2),
+    ...bits.map(([x, y, col, a]) => {
+      const [bx, by] = [20 + (x - 20) * spread, 44 + (y - 44) * spread];
+      return k.g(`rotate(${a + f * 30} ${fmt(bx)} ${fmt(by)})`, k.rect(bx - 3.4, by - 2, 6.8, 4, 0.6, c[col]));
+    }),
+    k.limb(`M26 36Q${fmt(32 + f * 2)} 22 ${fmt(40 + f * 3)} 26Q${fmt(46 + f * 2)} 30 ${fmt(48 + f * 3)} 16`, c.pink, 3.8),
+    k.limb(`M28 42Q${fmt(38 + f * 2)} 38 ${fmt(44 + f * 3)} 46`, c.teal, 3.8),
+    k.path('M4 58L16 30L34 46Z', c.yellow),
+    k.flat('M8 50.4L20.4 56.6L15.6 57.4L6.6 53.6ZM11.4 42.4L28 50.6L23.6 52L9.6 46Z', c.red),
+    k.g('rotate(39 25 38)', k.ellipse(25, 38, 11, 3.4, c.yellowShade)),
+  ].join('');
+}
+
 export default [
+  // well done! (a round all right, a conversation finished): it goes off
+  { id: 'party-popper', title: 'party popper (well done!)', group: 'ui', glyphs: ['🎉'], motion: { frames: 3, fps: 4 }, draw: popper },
   {
     id: 'speaker',
     title: 'speaker (listen)',

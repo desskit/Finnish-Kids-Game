@@ -1,6 +1,7 @@
 // Free-time words.
 
 import { crescentPath, polar, pt, fmt } from '../kit.mjs';
+import * as freetime from '../freetime.mjs';
 
 export default [
   {
@@ -28,4 +29,17 @@ export default [
       return out.join('');
     },
   },
+  { id: 'ball', title: 'ball (a beach ball, bouncing)', motion: { frames: 4, fps: 6 }, draw: freetime.ball },
+  { id: 'bike', title: 'bike (wheels spinning)', motion: { frames: 2, fps: 6 }, draw: freetime.bike },
+  { id: 'game', title: 'game (a controller)', draw: freetime.game },
+  { id: 'guitar', title: 'guitar', motion: { frames: 2, fps: 2 }, draw: freetime.guitar },
+  { id: 'piano', title: 'piano (a keyboard)', motion: { frames: 2, fps: 2 }, draw: freetime.piano },
+  { id: 'music', title: 'music (two notes, bobbing)', motion: { frames: 2, fps: 2.5 }, draw: freetime.music },
+  { id: 'movie', title: 'movie (a clapperboard)', motion: { frames: 2, fps: 2 }, draw: freetime.movie },
+  { id: 'phone', title: 'phone', draw: freetime.phone },
+  { id: 'computer', title: 'computer (a laptop)', draw: freetime.computer },
+  { id: 'spoon', title: 'spoon', draw: freetime.spoon },
+  { id: 'key', title: 'key', draw: freetime.key },
+  { id: 'balloon', title: 'balloon (swaying)', motion: { frames: 2, fps: 1.5 }, draw: freetime.balloon },
+  { id: 'candle', title: 'candle (flickering)', motion: { frames: 3, fps: 5 }, draw: freetime.candle },
 ];

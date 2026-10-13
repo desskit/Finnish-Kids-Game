@@ -149,21 +149,31 @@ export function bed(k) {
   ].join('');
 }
 
-/** A wooden chair. */
+/**
+ * A wooden chair, its back to the wall and its seat toward you, seen a little
+ * from above and to the left: the back legs go on up to hold the backrest.
+ */
 export function chair(k) {
   const c = k.P;
   return [
-    k.ground(32, 58.6, 16, 2),
-    k.rect(19, 36, 4, 21, 1, c.woodShade),
-    k.rect(40, 36, 4, 21, 1, c.woodShade),
-    k.rect(17, 8, 4.4, 30, 1.6, c.wood),
-    k.rect(36.6, 8, 4.4, 30, 1.6, c.wood),
-    k.rect(17, 10, 24, 6, 1.6, c.wood),
-    k.rect(17, 20, 24, 4, 1.4, c.wood),
-    k.poly([[14, 33], [44, 33], [49, 38.6], [19, 38.6]], 1, c.wood),
-    k.rect(19, 38.6, 30, 3.6, 1, c.woodShade),
-    k.rect(19, 42, 4.4, 15, 1, c.wood),
-    k.rect(44.6, 42, 4.4, 15, 1, c.wood),
+    k.ground(29, 58.4, 21, 2),
+    // the back legs (further away, so their feet stand higher)
+    k.rect(18.4, 33, 4.4, 19.6, 1, c.woodShade),
+    k.rect(43.6, 33, 4.4, 19.6, 1, c.woodShade),
+    // the backrest: two posts, a top rail over them and two slats
+    k.rect(18.4, 7, 4.4, 27, 1, c.wood),
+    k.rect(43.6, 7, 4.4, 27, 1, c.wood),
+    k.rect(22.8, 15.6, 20.8, 4, 1, c.wood),
+    k.rect(22.8, 23.4, 20.8, 4, 1, c.wood),
+    k.rect(16.6, 4.6, 33.2, 7, 2.6, c.wood),
+    k.flat('M18 9.6H48.4V10.8H18Z', c.woodShade),
+    // the seat: its top, its side, its front edge
+    k.path('M10 38.6L18.4 32.4H48L39.6 38.6Z', c.tan),
+    k.path('M39.6 38.6L48 32.4V36.6L39.6 42.8Z', c.woodShade),
+    k.rect(10, 38.6, 29.6, 4.2, 0.8, c.wood),
+    // the front legs
+    k.rect(10.4, 42.6, 4.4, 15.6, 1.2, c.wood),
+    k.rect(35, 42.6, 4.4, 15.6, 1.2, c.wood),
   ].join('');
 }
 
