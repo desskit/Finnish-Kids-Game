@@ -9,7 +9,9 @@
 [data-look] {
   color-scheme: light;
 
-  /* The page: sky at the top, cream below, with soft glows of light. */
+  /* The page: sky at the top, cream below, with soft glows of light and a
+     faint pixel pattern (art/patterns.mjs). */
+  --pattern: url('../art/generated/patterns/day.svg');
   --page: #faf2e3;
   --page-top: #d8ecf9;
   --glow-1: rgb(239 212 122 / 0.4);
@@ -90,6 +92,7 @@
 :root[data-theme='night'],
 [data-look='night'] {
   color-scheme: dark;
+  --pattern: url('../art/generated/patterns/night.svg');
   --page: #161c36;
   --page-top: #1e2550;
   --glow-1: rgb(110 220 170 / 0.1);
@@ -140,6 +143,7 @@
 /* Pink: pastel pink paper, plum text, raspberry and lavender. */
 :root[data-theme='pink'],
 [data-look='pink'] {
+  --pattern: url('../art/generated/patterns/pink.svg');
   --page: #ffe6f1;
   --page-top: #ffd3e7;
   --glow-1: rgb(255 255 255 / 0.55);
@@ -192,6 +196,7 @@ body,
 
 body {
   background:
+    var(--pattern) 0 0 / 96px 96px repeat,
     radial-gradient(55vw 38vw at 82% -4%, var(--glow-1), transparent 60%),
     radial-gradient(50vw 40vw at -8% 8%, var(--glow-2), transparent 55%),
     radial-gradient(45vw 35vw at 110% 70%, var(--glow-3), transparent 55%),
@@ -356,6 +361,43 @@ body {
   align-items: center;
   gap: clamp(14px, 2.4vw, 24px);
   text-align: center;
+}
+
+/* ---------- The app's scenery (src/art/Scenery.tsx) ---------- */
+/* The cottage by the lake in the look on screen, framed like a picture at the
+   top of home and the player screen. The sky's color shows while it loads;
+   short frames crop the top of the sky, narrow ones the sides. */
+.hero-banner {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  max-height: 210px;
+  overflow: hidden;
+  border: 4px solid var(--surface);
+  border-radius: var(--radius);
+  background: var(--page-top);
+  box-shadow: var(--shadow);
+}
+
+.scenery {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  image-rendering: pixelated;
+  user-select: none;
+}
+
+/* The player screen while a player's colors are picked: their avatar and name. */
+.greeting--player {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.greeting__avatar {
+  font-size: 1.4em;
+  line-height: 1;
 }
 
 /* ---------- Pictures (src/art) ---------- */
@@ -2391,58 +2433,16 @@ button:focus-visible,
 }
 
 .look-card__sky {
-  position: relative;
   display: block;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   border-radius: calc(var(--radius) - 6px);
-  background:
-    radial-gradient(70% 60% at 85% 0%, var(--glow-1), transparent 70%),
-    linear-gradient(var(--page-top), var(--page));
+  background: var(--page-top);
   overflow: hidden;
 }
 
-.look-card__sign {
-  position: absolute;
-  top: 7%;
-  right: 9%;
-  font-size: clamp(1.3rem, 6vw, 1.9rem);
-  line-height: 1;
-}
-
-.look-card__sample {
-  position: absolute;
-  left: 11%;
-  right: 11%;
-  bottom: 11%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 7px;
-  border-radius: 9px;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
-.look-card__line {
-  display: block;
-  height: 5px;
-  border-radius: 99px;
-  background: var(--ink);
-}
-
-.look-card__line--short {
-  width: 60%;
-  background: var(--ink-soft);
-}
-
-.look-card__button {
-  display: block;
-  align-self: flex-end;
-  width: 46%;
-  height: 10px;
-  margin-top: 2px;
-  border-radius: 99px;
-  background: var(--brand);
+/* The middle of the scene: the fox, the cottage, the balloons. */
+.look-card__sky .scenery {
+  object-position: 56% 100%;
 }
 
 .look-card__name {

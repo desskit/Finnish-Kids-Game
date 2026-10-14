@@ -16,6 +16,8 @@
 //                                         blink, art-<id>--b (the blink alone)
 //   src/art/generated/scenes/             each story backdrop, still (<id>-<tone>.svg)
 //                                         and moving (<id>-<tone>.moving.svg)
+//   src/art/generated/scenery/            the app's own scenery (UI scenes), the same way
+//   src/art/generated/patterns/           the tile behind the page in each look
 //   src/art/generated/manifest.ts         ids, groups, titles, emoji → picture, motion
 //   src/art/generated/art.css             the pixel size and the reaction animations
 //   art-gallery/index.html                the review gallery (and publish.html, the
@@ -27,9 +29,10 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { RECIPES, SCENES } from '../art/index.mjs';
+import { RECIPES, SCENES, UI_SCENES } from '../art/index.mjs';
 import { fmt, makeKit } from '../art/kit.mjs';
 import { P, PALETTE } from '../art/palette.mjs';
+import { PATTERNS, patternRuns } from '../art/patterns.mjs';
 import { changes, gridToSvg, patchFits, rasterize, sameGrid, splitFrames } from '../art/pixel.mjs';
 import { SCENE_H, SCENE_W } from '../art/scenes/parts.mjs';
 import { STYLE } from '../art/style.mjs';
@@ -39,7 +42,7 @@ const GEN = join(ROOT, 'src', 'art', 'generated');
 const GALLERY = join(ROOT, 'art-gallery');
 const CHECK = process.argv.includes('--check');
 
-/** Bytes a picture or backdrop may take once it's pixel art (still, and with its motion). */
+/** Bytes a picture or backdrop may take once it's pixel art (still, and with its motion; a bigger scene gets more). */
 const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 };
 
 /** How fast a backdrop's clouds drift, in pixels a second. */
@@ -166,11 +169,12 @@ function blinkMarkup(patch, id) {
 /** One frame of a backdrop: its vector drawing and its pixels (pixels the same size as the pictures'). */
 function drawScene(scene, tone, grid, opts = {}, layer = 'draw') {
   const px = 64 / grid;
-  const [cols, rows] = [Math.round(SCENE_W / px), Math.round(SCENE_H / px)];
+  const [width, height] = [scene.w ?? SCENE_W, scene.h ?? SCENE_H];
+  const [cols, rows] = [Math.round(width / px), Math.round(height / px)];
   const k = makeKit({ px, ...opts });
   const inner = scene[layer](k, tone);
   const vector = `<g stroke-width="${fmt(px)}">${inner}</g>`;
-  return { vector, cols, rows, empty: !inner, grid: rasterize(vector, { cols, rows, width: SCENE_W, height: SCENE_H }) };
+  return { vector, cols, rows, empty: !inner, grid: rasterize(vector, { cols, rows, width, height }) };
 }
 
 /** A backdrop on a grid: still, and moving (its frames, plus what drifts across the sky). */
@@ -272,18 +276,30 @@ function build() {
   }
 
   const scenes = [];
-  for (const s of SCENES) {
-    for (const tone of s.tones) {
-      const byGrid = {};
-      for (const grid of grids) {
-        byGrid[grid] = backdrop(s, tone, grid);
-        for (const v of byGrid[grid].vectors) for (const e of lint(v)) problems.push(`backdrop "${s.id}-${tone}" (${grid}px): ${e}`);
+  const scenery = [];
+  for (const [list, out, kind] of [[SCENES, scenes, 'backdrop'], [UI_SCENES, scenery, 'UI scene']]) {
+    for (const s of list) {
+      // a bigger scene gets a bigger budget
+      const area = ((s.w ?? SCENE_W) * (s.h ?? SCENE_H)) / (SCENE_W * SCENE_H);
+      for (const tone of s.tones) {
+        const where = `${kind} "${s.id}-${tone}"`;
+        const byGrid = {};
+        for (const grid of grids) {
+          byGrid[grid] = backdrop(s, tone, grid);
+          for (const v of byGrid[grid].vectors) for (const e of lint(v)) problems.push(`${where} (${grid}px): ${e}`);
+        }
+        const b = byGrid[STYLE.grid];
+        if (b.still.length > BUDGET.scene * area) problems.push(`${where}: ${b.still.length} bytes (budget ${Math.round(BUDGET.scene * area)})`);
+        if (b.moving && b.moving.length > BUDGET.sceneMotion * area) problems.push(`${where}: moving, ${b.moving.length} bytes (budget ${Math.round(BUDGET.sceneMotion * area)})`);
+        out.push({ id: s.id, title: s.title, tone, byGrid });
       }
-      const b = byGrid[STYLE.grid];
-      if (b.still.length > BUDGET.scene) problems.push(`backdrop "${s.id}-${tone}": ${b.still.length} bytes (budget ${BUDGET.scene})`);
-      if (b.moving && b.moving.length > BUDGET.sceneMotion) problems.push(`backdrop "${s.id}-${tone}": moving, ${b.moving.length} bytes (budget ${BUDGET.sceneMotion})`);
-      scenes.push({ id: s.id, title: s.title, tone, byGrid });
     }
+  }
+  if (new Set([...SCENES, ...UI_SCENES].map((s) => s.id)).size !== SCENES.length + UI_SCENES.length) problems.push('a backdrop and a UI scene share an id');
+
+  for (const [look, p] of Object.entries(PATTERNS)) {
+    if (!P[p.color]) problems.push(`pattern "${look}": ${p.color} is not in the palette`);
+    if (!(p.opacity > 0 && p.opacity <= 0.6)) problems.push(`pattern "${look}": opacity ${p.opacity} (a pattern stays faint: up to 0.6)`);
   }
 
   if (problems.length) {
@@ -310,26 +326,43 @@ function build() {
       })
       .join('')}</svg>\n`,
   );
-  for (const s of scenes) {
-    const { cols, rows, still, moving } = s.byGrid[g];
-    files.set(`scenes/${s.id}-${s.tone}.svg`, sceneFile(cols, rows, still));
-    if (moving) files.set(`scenes/${s.id}-${s.tone}.moving.svg`, sceneFile(cols, rows, moving));
+  for (const [dir, list] of [['scenes', scenes], ['scenery', scenery]]) {
+    for (const s of list) {
+      const { cols, rows, still, moving } = s.byGrid[g];
+      files.set(`${dir}/${s.id}-${s.tone}.svg`, sceneFile(cols, rows, still));
+      if (moving) files.set(`${dir}/${s.id}-${s.tone}.moving.svg`, sceneFile(cols, rows, moving));
+    }
   }
-  files.set('manifest.ts', manifest(live, glyphs, scenes));
+  for (const [look, p] of Object.entries(PATTERNS)) files.set(`patterns/${look}.svg`, patternFile(p));
+  files.set('manifest.ts', manifest(live, glyphs, scenes, scenery));
   files.set('art.css', artCss(g));
-  return { files, pictures, scenes };
+  return { files, pictures, scenes, scenery };
 }
 
-function manifest(pictures, glyphs, scenes) {
+/** A pattern tile: its pixels in one color, faint. */
+function patternFile(p) {
+  const d = patternRuns(p)
+    .map(([x, y, n]) => `M${x} ${y}h${n}v1h-${n}z`)
+    .join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${p.size} ${p.size}" shape-rendering="crispEdges"><path fill="${P[p.color]}" opacity="${p.opacity}" d="${d}"/></svg>\n`;
+}
+
+function manifest(pictures, glyphs, scenes, scenery) {
   const g = STYLE.grid;
   const q = (s) => `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
   const key = (s) => (/^[a-z]+$/.test(s) ? s : q(s));
-  const tones = new Map();
-  const moving = new Map();
-  for (const s of scenes) {
-    tones.set(s.id, [...(tones.get(s.id) ?? []), s.tone]);
-    if (s.byGrid[g].moving) moving.set(s.id, [...(moving.get(s.id) ?? []), s.tone]);
-  }
+  /** Each scene's tones, and the tones with a moving version. */
+  const toneMaps = (list) => {
+    const tones = new Map();
+    const moving = new Map();
+    for (const s of list) {
+      tones.set(s.id, [...(tones.get(s.id) ?? []), s.tone]);
+      if (s.byGrid[g].moving) moving.set(s.id, [...(moving.get(s.id) ?? []), s.tone]);
+    }
+    return { tones, moving };
+  };
+  const { tones, moving } = toneMaps(scenes);
+  const ui = toneMaps(scenery);
   const moves = pictures.filter((p) => p.byGrid[g].motion);
   return [
     '// Generated by scripts/build-art.mjs from the recipes in art/. Do not edit.',
@@ -370,6 +403,18 @@ function manifest(pictures, glyphs, scenes) {
     '/** The backdrops (and tones) with a moving version: scenes/<id>-<tone>.moving.svg. */',
     'export const BACKDROP_MOTION: Readonly<Partial<Record<BackdropId, readonly string[]>>> = {',
     ...[...moving.entries()].map(([id, ts]) => `  ${key(id)}: [${ts.map(q).join(', ')}],`),
+    '};',
+    '',
+    "/** The app's own scenery (UI scenes), and the looks each is drawn in: scenery/<id>-<look>.svg. */",
+    'export const UI_BACKDROPS = {',
+    ...[...ui.tones.entries()].map(([id, ts]) => `  ${key(id)}: [${ts.map(q).join(', ')}],`),
+    '} as const;',
+    '',
+    'export type UiBackdropId = keyof typeof UI_BACKDROPS;',
+    '',
+    '/** The UI scenes (and looks) with a moving version: scenery/<id>-<look>.moving.svg. */',
+    'export const UI_BACKDROP_MOTION: Readonly<Partial<Record<UiBackdropId, readonly string[]>>> = {',
+    ...[...ui.moving.entries()].map(([id, ts]) => `  ${key(id)}: [${ts.map(q).join(', ')}],`),
     '};',
     '',
   ].join('\n');
@@ -429,7 +474,7 @@ function listGenerated(dir, prefix = '') {
   return readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? listGenerated(join(dir, e.name), `${prefix}${e.name}/`) : [`${prefix}${e.name}`]));
 }
 
-const { files, pictures, scenes } = build();
+const { files, pictures, scenes, scenery } = build();
 
 if (CHECK) {
   const stale = [];
@@ -442,7 +487,7 @@ if (CHECK) {
     console.error(`src/art/generated is out of date — run \`npm run art\`:\n  ${stale.join('\n  ')}`);
     process.exit(1);
   }
-  console.log(`src/art/generated is up to date (${pictures.length} pictures, ${scenes.length} backdrops).`);
+  console.log(`src/art/generated is up to date (${pictures.length} pictures, ${scenes.length} backdrops, ${scenery.length} UI scenes).`);
 } else {
   rmSync(GEN, { recursive: true, force: true });
   for (const [name, content] of files) {
@@ -450,11 +495,11 @@ if (CHECK) {
     writeFileSync(join(GEN, name), content);
   }
   mkdirSync(GALLERY, { recursive: true });
-  const { page, body } = gallery(pictures, scenes);
+  const { page, body } = gallery(pictures, scenes, scenery);
   writeFileSync(join(GALLERY, 'index.html'), page);
   writeFileSync(join(GALLERY, 'publish.html'), body);
   const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
-  console.log(`Built ${pictures.length} pictures (${pictures.filter((p) => p.byGrid[STYLE.grid].motion).length} moving) and ${scenes.length} backdrops as ${STYLE.grid}-pixel art.`);
+  console.log(`Built ${pictures.length} pictures (${pictures.filter((p) => p.byGrid[STYLE.grid].motion).length} moving), ${scenes.length} backdrops and ${scenery.length} UI scenes as ${STYLE.grid}-pixel art.`);
   for (const [n, c] of files) console.log(`  ${n.padEnd(34)} ${kb(c.length)}`);
   console.log('Gallery: art-gallery/index.html');
 }
@@ -462,7 +507,7 @@ if (CHECK) {
 // --- The review gallery ------------------------------------------------------
 
 /** Every picture drawn so far, moving, grouped by theme, plus the app screens they appear in. */
-function gallery(pictures, scenes) {
+function gallery(pictures, scenes, scenery) {
   const grid = STYLE.grid;
   const box = `0 0 ${grid} ${grid}`;
   const sprite =
@@ -472,7 +517,7 @@ function gallery(pictures, scenes) {
         return symbol(`P-${p.id}`, box, v.still) + (v.motion ? symbol(`P-${p.id}--m`, box, v.motion) : '') + (v.blinkOnly ? symbol(`P-${p.id}--b`, box, v.blinkOnly) : '');
       })
       .join('') +
-    scenes
+    [...scenes, ...scenery]
       .map((s) => {
         const b = s.byGrid[grid];
         const vb = `0 0 ${b.cols} ${b.rows}`;
@@ -547,6 +592,26 @@ function gallery(pictures, scenes) {
       .join('')}
     </div>
   </section>`;
+  // the app's own scenery in each look, with the look's pattern tile beside it
+  const tile = (look) => `url('data:image/svg+xml;base64,${Buffer.from(patternFile(PATTERNS[look])).toString('base64')}')`;
+  const uiScenery = `
+  <section>
+    <div class="section-head"><h2>The app's scenery</h2><span class="count">${scenery.length}</span></div>
+    <p class="note">The home screen, the player screen and the look picker show this scene in the look on screen. Beside each is that look's page, with its pattern tile.</p>
+    <div class="scenery">${scenery
+      .map((s) => {
+        const b = s.byGrid[grid];
+        const page = { day: '#faf2e3', night: '#161c36', pink: '#ffe6f1' }[s.tone] ?? '#faf2e3';
+        return `
+      <figure class="backdrop backdrop--wide">
+        <svg viewBox="0 0 ${b.cols} ${b.rows}" aria-hidden="true"><use href="#scene-${s.id}-${s.tone}${b.moving ? '--m' : ''}"/></svg>
+        <div class="tile" style="background: ${tile(s.tone)} 0 0 / 96px 96px repeat, ${page}"></div>
+        <figcaption><span class="pic__name">${esc(s.title)}</span><span class="moves">${s.tone}${b.moving ? ' · moves' : ''}</span></figcaption>
+      </figure>`;
+      })
+      .join('')}
+    </div>
+  </section>`;
   const cards = pick(['cat', 'dog', 'bear', 'apple', 'football', 'fox']).slice(0, 4);
   const moving = pictures.filter((p) => p.byGrid[grid].motion).length;
 
@@ -615,6 +680,12 @@ section { display: grid; gap: 14px; }
 .backdrop { margin: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: grid; }
 .backdrop svg { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; }
 .backdrop figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 8px 14px 10px; }
+.scenery { display: grid; gap: 14px; }
+.backdrop--wide { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); }
+.backdrop--wide svg { aspect-ratio: 3 / 1; }
+.backdrop--wide figcaption { grid-column: 1 / -1; }
+.tile { min-height: 100%; }
+.note { margin: 0 0 12px; color: var(--soft, #475569); max-width: 70ch; }
 .react__row { display: flex; gap: 18px; font-size: 4.2rem; }
 .react__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .react__buttons button { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
@@ -633,6 +704,7 @@ ${artCss(grid).replace(/^\/\*.*\*\/\n/, '')}
   </header>
 ${sections}
 ${backdrops}
+${uiScenery}
   <section>
     <div class="section-head"><h2>In the app</h2></div>
     <div class="mocks">

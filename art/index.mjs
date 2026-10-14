@@ -35,6 +35,7 @@ import shop from './scenes/shop.mjs';
 import station from './scenes/station.mjs';
 import yard from './scenes/yard.mjs';
 import zoo from './scenes/zoo.mjs';
+import hero from './scenes/hero.mjs';
 
 /**
  * A picture: `id` (a word's id for word pictures), `title`, `group` ('words'
@@ -49,3 +50,10 @@ export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
 export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, park, playground, yard, field, beach, busStop, zoo, forest, station];
+
+/**
+ * The app's own scenery (UI scenes): drawn like a backdrop, in the looks'
+ * tones (day, night, pink), but shown by the app's screens, not by stories.
+ * A UI scene may set its own size (`w`, `h`; a backdrop is 400 × 200).
+ */
+export const UI_SCENES = [hero];

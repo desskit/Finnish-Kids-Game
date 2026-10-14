@@ -31,6 +31,7 @@ import {
   type Unit,
 } from '../game/course';
 import Art from '../art/Art';
+import Scenery from '../art/Scenery';
 
 // The course home: one big "Continue" button (the next lesson / step /
 // checkpoint), Review and the Notebook, then the units in order — finished
@@ -82,6 +83,9 @@ export default function CourseHome() {
 
   return (
     <section className="screen course-home">
+      <div className="hero-banner">
+        <Scenery />
+      </div>
       <h1 className="greeting">
         Hei{name ? `, ${name}` : ''}! <span className="en">Your Finnish course</span>
       </h1>

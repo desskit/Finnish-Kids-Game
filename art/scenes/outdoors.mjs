@@ -28,39 +28,43 @@ export function morningLight(k, tone) {
   return tone === 'morning' ? k.tint(k.P.yellow, 0.08, SCENE_W, 200) : '';
 }
 
+/** The usual red house's colors (palette names); a house in another look changes some. */
+const RED_HOUSE = { wall: 'red', wallShade: 'redShade', roof: 'charcoal', roofShade: 'charcoalShade', window: 'skyDay', door: 'blue' };
+
 /** A red Finnish wooden house with white corners and window frames, a dark roof and a chimney; door at the front. */
-export function redHouse(k, x, gy, w = 120, h = 66, smoke = '') {
+export function redHouse(k, x, gy, w = 120, h = 66, smoke = '', colors = {}) {
   const c = k.P;
+  const hc = { ...RED_HOUSE, ...colors };
   const top = gy - h;
   const roofTop = top - 36;
-  const win = (wx) => k.rect(wx, top + 16, 18, 20, 1, c.skyDay) + k.line(`M${wx + 9} ${top + 16}V${top + 36}M${wx} ${top + 26}H${wx + 18}`, { color: c.white, sw: 2 });
+  const win = (wx) => k.rect(wx, top + 16, 18, 20, 1, c[hc.window]) + k.line(`M${wx + 9} ${top + 16}V${top + 36}M${wx} ${top + 26}H${wx + 18}`, { color: c.white, sw: 2 });
   return [
     k.rect(x + w - 34, roofTop - 6, 12, 26, 1, c.charcoal),
     smoke,
-    k.rect(x, top, w, h, 1.4, c.red),
-    k.flat(`M${x + w - 14} ${top + 2}H${x + w - 2}V${gy - 2}H${x + w - 14}Z`, c.redShade),
+    k.rect(x, top, w, h, 1.4, c[hc.wall]),
+    k.flat(`M${x + w - 14} ${top + 2}H${x + w - 2}V${gy - 2}H${x + w - 14}Z`, c[hc.wallShade]),
     k.rect(x - 2, top, 6, h, 0.6, c.white),
     k.rect(x + w - 4, top, 6, h, 0.6, c.white),
-    k.poly([[x - 10, top + 2], [x + w / 2, roofTop], [x + w + 10, top + 2]], [1.6, 2, 1.6], c.charcoal),
-    k.flat(`M${x - 6} ${top}L${x + w / 2} ${roofTop + 4}L${x + w / 2 + 6} ${roofTop + 8}L${x + 4} ${top}Z`, c.charcoalShade),
+    k.poly([[x - 10, top + 2], [x + w / 2, roofTop], [x + w + 10, top + 2]], [1.6, 2, 1.6], c[hc.roof]),
+    k.flat(`M${x - 6} ${top}L${x + w / 2} ${roofTop + 4}L${x + w / 2 + 6} ${roofTop + 8}L${x + 4} ${top}Z`, c[hc.roofShade]),
     win(x + 14),
     win(x + w - 32),
     k.rect(x + w / 2 - 11, gy - 34, 22, 34, 1.4, c.white),
-    k.rect(x + w / 2 - 8, gy - 31, 16, 31, 1, c.blue),
+    k.rect(x + w / 2 - 8, gy - 31, 16, 31, 1, c[hc.door]),
     k.flatCircle(x + w / 2 + 4.6, gy - 15, 1.4, c.yellow),
     k.rect(x + w / 2 - 15, gy - 3, 30, 5, 1, c.grey),
   ].join('');
 }
 
-/** A birch: a white trunk with black marks, a light round crown. */
-export function birch(k, x, gy, h = 92) {
+/** A birch: a white trunk with black marks, a light round crown (`crown` names its color). */
+export function birch(k, x, gy, h = 92, crown = 'lime') {
   const c = k.P;
   const top = gy - h;
   return [
     k.rect(x - 4, top + 30, 8, h - 30, 1.6, c.white),
     k.flat(`M${x - 3} ${top + 46}H${x + 1}V${top + 49}H${x - 3}ZM${x} ${top + 64}H${x + 3}V${top + 67}H${x}ZM${x - 3} ${top + 80}H${x}V${top + 83}H${x - 3}Z`, c.charcoal),
-    k.ellipse(x, top + 24, 26, 30, c.lime),
-    k.flatEllipse(x + 8, top + 32, 14, 18, c.limeShade),
+    k.ellipse(x, top + 24, 26, 30, c[crown]),
+    k.flatEllipse(x + 8, top + 32, 14, 18, c[`${crown}Shade`]),
   ].join('');
 }
 

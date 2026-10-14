@@ -8,7 +8,8 @@ loads. Every emoji the app used to show is now one of these pictures.
 - **Look:** 48-pixel art. One-pixel outlines, a soft palette, flat colors with
   one shade each, and a soft ground shadow under things that stand.
 - **Motion:** faces blink, and actions, animals, weather and rewards play short
-  loops. Story backdrops move gently. Small icons stay still.
+  loops. Story backdrops and the app's scenery move gently. Small icons stay
+  still.
 - **Review:** `npm run art` also writes a gallery to `art-gallery/index.html`
   (and `publish.html`, the same page for sharing). It shows every picture
   moving and every backdrop. The folder is git-ignored.
@@ -26,12 +27,14 @@ loads. Every emoji the app used to show is now one of these pictures.
 | `art/animals*.mjs` | Sitting, standing and small animals, and their heads. |
 | `art/*.mjs` (others) | Drawings by subject: food, places, verbs, props, icons, badges, avatars… |
 | `art/recipes/*.mjs` | The recipes: id, title, what emoji each replaces, motion, `draw`. |
-| `art/scenes/*.mjs` | The story backdrops (and `parts.mjs`, `rooms.mjs`, `outdoors.mjs`, shared pieces). |
-| `art/index.mjs` | Lists every recipe module and backdrop. Add new ones here. |
+| `art/scenes/*.mjs` | The story backdrops (and `parts.mjs`, `rooms.mjs`, `outdoors.mjs`, shared pieces), and `hero.mjs`, the app's scenery. |
+| `art/patterns.mjs` | The tile behind the page in each look. |
+| `art/index.mjs` | Lists every recipe module, backdrop and UI scene. Add new ones here. |
 | `scripts/build-art.mjs` | The build: lint, rasterize, budgets, sprites, manifest, gallery. |
 | `src/art/generated/` | What the build writes. Never edit by hand. |
 | `src/art/Art.tsx` | `<Art>`, which draws a picture in place of an emoji, and `ArtText`. |
 | `src/art/Avatar.tsx` | A player's avatar: the `avatar-<name>` head for their emoji. |
+| `src/art/Scenery.tsx` | The app's scenery in the look on screen. |
 | `scripts/make-icons.mjs` | The app icons and favicon, drawn from the pixel fox. |
 
 ## The pixel rules
@@ -179,6 +182,43 @@ checks that every page's setting is drawn in its tone. A new setting needs its
 backdrop, an entry in `SCENES` (`art/index.mjs`), and `INDOORS` if it's
 indoors.
 
+## The app's scenery
+
+`art/scenes/hero.mjs` is the cottage by the lake with the fox on the shore,
+drawn once for each look (`src/theme`):
+
+| Look | The scene |
+| --- | --- |
+| day | a Finnish summer: the red cottage, birches, a dock, the sun |
+| night | a snowy night: lit windows, a snowman, the moon, the northern lights |
+| pink | candy hills, a pink cottage, birches in blossom, a rainbow, the fox holding heart balloons |
+
+- **It's a UI scene,** listed in `UI_SCENES` (`art/index.mjs`), not `SCENES`.
+  The build writes it to `src/art/generated/scenery/` and lists it in
+  `UI_BACKDROPS`, so a story can't pick it.
+- **Its size:** 600 × 200, wider than a backdrop. A scene may set its own
+  `w` and `h`, and its budget grows with its area.
+- **Where it shows:** `<Scenery>` draws it in the look on screen: the banner
+  on the home screen and the player screen, and (still) on the look picker's
+  cards.
+- **Cropping:** narrow frames crop its sides and short ones the top of the
+  sky, so it keeps the fox and the cottage in the middle.
+- **Motion:** it moves where motion is allowed: clouds drift, the fox's tail
+  swings, the lake glints, stars twinkle, the northern lights shimmer, and
+  balloons bob.
+
+## Background patterns
+
+`art/patterns.mjs` holds one small tile per look:
+- **Day:** sparkles and clover dots.
+- **Night:** stars.
+- **Pink:** hearts.
+
+Each tile is a square of pixels in one palette color at a low opacity (at
+most 0.6, and in practice much less). The build writes
+`src/art/generated/patterns/<look>.svg`. Each look sets `--pattern` in
+`global.css`, and the page tiles it at 2 screen pixels per pixel.
+
 ## Budgets and sprites
 
 | | Budget |
@@ -188,14 +228,17 @@ indoors.
 | A still backdrop | 40,000 bytes |
 | A moving backdrop | 60,000 bytes |
 
-The build fails a picture over budget. Simpler shapes or fewer changing pixels
+A UI scene's budget is a backdrop's, times its area over a backdrop's (the
+600 × 200 scenery gets 1.5 times as much). The build fails a picture over
+budget. Simpler shapes or fewer changing pixels
 per frame bring it down.
 
 - **`ui.svg`** holds the UI pictures: buttons, badges, the course map's icons
   and the avatars. Nearly every screen shows some.
 - **`words.svg`** holds the word pictures and story props.
 - **`motion.svg`** holds the moving versions.
-- **Backdrops** are separate files under `src/art/generated/scenes/`.
+- **Backdrops** are separate files under `src/art/generated/scenes/`, and the
+  app's scenery under `src/art/generated/scenery/`.
 
 Each sprite is fetched the first time a picture from it is drawn, and
 `motion.svg` the first time something moves. The service worker caches them

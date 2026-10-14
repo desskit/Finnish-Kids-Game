@@ -73,6 +73,8 @@ interface ProfileContextValue {
   removeChild: (id: string) => void;
 
   // --- The look on screen ---
+  /** The look on screen: a preview, or the active player's (or the device's). */
+  look: ThemeId;
   /**
    * Show a look for now instead of the active player's (the player screen
    * shows the device's, or the one being picked). null: back to the player's.
@@ -182,9 +184,10 @@ export function ProfileProvider({
   const deviceDark = useDeviceDark();
   const [preview, setPreview] = useState<ThemeId | null>(null);
   const activeTheme = data.children.find((c) => c.id === data.activeId)?.theme;
+  const look = preview ?? resolveTheme(activeTheme, deviceDark);
   useEffect(() => {
-    if (!ephemeral) applyTheme(preview ?? resolveTheme(activeTheme, deviceDark));
-  }, [preview, activeTheme, deviceDark, ephemeral]);
+    if (!ephemeral) applyTheme(look);
+  }, [look, ephemeral]);
 
   const value = useMemo<ProfileContextValue>(() => {
     const active = data.children.find((c) => c.id === data.activeId) ?? null;
@@ -257,6 +260,7 @@ export function ProfileProvider({
             return theme ? { ...rest, theme } : rest;
           }),
         })),
+      look,
       previewTheme: setPreview,
       removeChild: (id) =>
         setData((d) => {
@@ -381,7 +385,7 @@ export function ProfileProvider({
       backup: () => exportBackup(data),
       restore: (next) => setData(next),
     };
-  }, [data]);
+  }, [data, look]);
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;
 }
