@@ -8,8 +8,9 @@
 // UI scene (UI_SCENES in art/index.mjs): the home screen, the player screen and
 // the look picker show it; stories can't pick it. Keep what matters in the
 // middle: narrow frames crop the sides, short ones the top of the sky.
-// It moves gently: clouds drift, the fox's tail swings, the lake glints, the
-// stars twinkle and the northern lights shimmer, the balloons bob.
+// It moves gently: the clouds bob (they stay inside the frame), the fox's tail
+// swings, the lake glints, the stars twinkle and the northern lights shimmer,
+// the balloons bob.
 
 import { heartPath, roundPoly, starPoints } from '../kit.mjs';
 import { fox } from '../animals-sitting.mjs';
@@ -29,10 +30,6 @@ export default {
   h: H,
   tones: ['day', 'night', 'pink'],
   motion: { frames: 2, fps: 1.2 },
-  /** What drifts across the sky (drawn here in the still version). */
-  drift(k, tone) {
-    return tone === 'night' ? '' : clouds(k);
-  },
   draw(k, tone) {
     const c = k.P;
     const night = tone === 'night';
@@ -40,7 +37,7 @@ export default {
     const out = [sky(k, tone)];
     if (tone === 'day') out.push(sun(k, 92, 46, 17));
     if (pink) out.push(rainbow(k), sparkles(k));
-    if (!k.moving && !night) out.push(clouds(k));
+    if (!night) out.push(clouds(k));
     out.push(pink ? candyHills(k) : farForest(k));
     out.push(lake(k, tone));
     out.push(meadow(k, tone));
@@ -75,8 +72,10 @@ function sky(k, tone) {
   return k.flat(`M0 0H${W}V${H}H0Z`, c[top]) + k.flat(`M0 88C120 82 230 84 330 88C430 92 520 88 600 84V200H0Z`, c[low]);
 }
 
+/** The clouds, all well inside the frame; when the scene moves they bob a pixel. */
 function clouds(k) {
-  return cloud(k, 214, 34, 1) + cloud(k, 472, 24, 0.78) + cloud(k, 596, 44, 0.9);
+  const dy = k.frames > 1 && k.frame % 2 ? k.px : 0;
+  return cloud(k, 200, 34 - dy, 1) + cloud(k, 420, 26 + dy, 0.8) + cloud(k, 538, 42 - dy, 0.85);
 }
 
 /** The lake on the left, from the far shore to the near one. */
@@ -149,7 +148,7 @@ function rainbow(k) {
 
 /** Little four-point sparkles in Pink's sky; they twinkle (half of them shrink in turn). */
 function sparkles(k) {
-  const spots = [[44, 30], [252, 18], [318, 52], [402, 22], [540, 30], [176, 60], [600 - 30, 76]];
+  const spots = [[44, 30], [168, 24], [300, 18], [352, 62], [478, 20], [588, 70]];
   return spots
     .map(([x, y], i) => {
       const dim = k.frames > 1 && (i + k.frame) % 2 === 1;
@@ -222,28 +221,36 @@ function nightLight(k) {
 }
 
 /**
- * The northern lights: soft curtains rising across the sky, a wavy top and a
- * bright lower edge, with fainter streaks down through them. The streaks move
- * along to shimmer.
+ * The northern lights: soft curtains across the sky, each tapering out to
+ * nothing at both ends. A wavy top and a bright lower edge, brighter in the
+ * middle, with fainter streaks down through it that move along to shimmer.
  */
 function aurora(k) {
   const c = k.P;
   const f = k.frames > 1 ? k.frame % 2 : 0;
   const out = [];
-  const curtain = (x0, lift, tall, color, opacity) => {
+  const curtain = (x0, x1, lift, tall, color, opacity) => {
+    // 0 at the ends, 1 in the middle
+    const taper = (x) => Math.max(0, Math.sin((Math.PI * (x - x0)) / (x1 - x0))) ** 0.8;
     const edge = (x) => 78 - lift - (x - x0) * 0.08 + Math.sin(x / 40) * 7;
-    const top = (x) => edge(x) - tall - Math.sin(x / 23 + 1) * 9 - Math.sin(x / 9) * 3;
+    const height = (x) => taper(x) * (tall + Math.sin(x / 23 + 1) * 9 + Math.sin(x / 9) * 3);
     const xs = [];
-    for (let x = x0; x <= W + 8; x += 8) xs.push(x);
-    const d = `M${x0} ${top(x0)}${xs.map((x) => `L${x} ${top(x)}`).join('')}${[...xs].reverse().map((x) => `L${x} ${edge(x)}`).join('')}Z`;
-    out.push(k.flat(d, c[color], { opacity }));
-    // streaks down through it, moving along
-    for (let x = x0 + 4 + f * 5; x < W; x += 13) out.push(k.flat(`M${x} ${top(x + 1) + 2}H${x + 3}V${edge(x + 1)}H${x}Z`, c[color], { opacity: opacity * 0.7 }));
-    // the bright edge
-    out.push(k.flat(`M${x0} ${edge(x0) - 3}${xs.map((x) => `L${x} ${edge(x) - 3}`).join('')}${[...xs].reverse().map((x) => `L${x} ${edge(x) + 1}`).join('')}Z`, c.lime, { opacity: opacity * 1.5 }));
+    for (let x = x0; x < x1; x += 6) xs.push(x);
+    xs.push(x1);
+    const band = (upper, lower) => `M${xs.map((x) => `${x} ${upper(x)}`).join('L')}L${[...xs].reverse().map((x) => `${x} ${lower(x)}`).join('L')}Z`;
+    // the curtain, and its middle again on top, so it fades toward the ends
+    out.push(k.flat(band((x) => edge(x) - height(x), edge), c[color], { opacity: opacity * 0.6 }));
+    out.push(k.flat(band((x) => edge(x) - height(x) * taper(x), edge), c[color], { opacity: opacity * 0.6 }));
+    // streaks down through it, moving along, fainter toward the ends
+    for (let x = x0 + 10 + f * 5; x < x1 - 10; x += 13) {
+      const t = taper(x + 1);
+      if (t > 0.3) out.push(k.flat(`M${x} ${edge(x + 1) - height(x + 1) + 2}H${x + 3}V${edge(x + 1)}H${x}Z`, c[color], { opacity: opacity * 0.7 * t }));
+    }
+    // the bright lower edge, thinning out with the curtain
+    out.push(k.flat(band((x) => edge(x) - 1 - 3 * taper(x), (x) => edge(x) + taper(x)), c.lime, { opacity: opacity * 1.5 }));
   };
-  curtain(260, 22, 22, 'teal', 0.18);
-  curtain(150, 0, 30, 'green', 0.24);
+  curtain(236, 590, 22, 22, 'teal', 0.18);
+  curtain(132, 566, 0, 30, 'green', 0.24);
   return out.join('');
 }
 

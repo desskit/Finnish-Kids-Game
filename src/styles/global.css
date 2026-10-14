@@ -365,12 +365,12 @@ body {
 
 /* ---------- The app's scenery (src/art/Scenery.tsx) ---------- */
 /* The cottage by the lake in the look on screen, framed like a picture at the
-   top of home and the player screen. The sky's color shows while it loads;
-   short frames crop the top of the sky, narrow ones the sides. */
+   top of home and the player screen. The frame has the scene's own shape
+   (3 : 1), so nothing is cropped; the sky's color shows while it loads. */
 .hero-banner {
   width: 100%;
+  max-width: 720px;
   aspect-ratio: 3 / 1;
-  max-height: 210px;
   overflow: hidden;
   border: 4px solid var(--surface);
   border-radius: var(--radius);

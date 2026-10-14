@@ -201,11 +201,12 @@ drawn once for each look (`src/theme`):
 - **Where it shows:** `<Scenery>` draws it in the look on screen: the banner
   on the home screen and the player screen, and (still) on the look picker's
   cards.
-- **Cropping:** narrow frames crop its sides and short ones the top of the
-  sky, so it keeps the fox and the cottage in the middle.
-- **Motion:** it moves where motion is allowed: clouds drift, the fox's tail
-  swings, the lake glints, stars twinkle, the northern lights shimmer, and
-  balloons bob.
+- **Cropping:** the banner has the scene's own shape, so it shows all of it.
+  The look picker's small cards show only the middle, so the fox and the
+  cottage stay there, and the clouds stay well inside the frame.
+- **Motion:** it moves where motion is allowed: the clouds bob, the fox's tail
+  swings, the lake glints, stars twinkle, the northern lights shimmer (they
+  taper out at both ends), and the balloons bob.
 
 ## Background patterns
 
