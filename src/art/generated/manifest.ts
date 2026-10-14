@@ -1341,3 +1341,15 @@ export const BACKDROP_MOTION: Readonly<Partial<Record<BackdropId, readonly strin
   forest: ['day', 'rain'],
   station: ['day'],
 };
+
+/** The app's own scenery (UI scenes), and the looks each is drawn in: scenery/<id>-<look>.svg. */
+export const UI_BACKDROPS = {
+  hero: ['day', 'night', 'pink'],
+} as const;
+
+export type UiBackdropId = keyof typeof UI_BACKDROPS;
+
+/** The UI scenes (and looks) with a moving version: scenery/<id>-<look>.moving.svg. */
+export const UI_BACKDROP_MOTION: Readonly<Partial<Record<UiBackdropId, readonly string[]>>> = {
+  hero: ['day', 'night', 'pink'],
+};

@@ -1,8 +1,9 @@
 import { act, render } from '@testing-library/react';
 import Art, { ArtText, artForGlyph, artForItem, motionSymbol } from './Art';
-import { backdropUrl } from './backdrops';
+import { backdropUrl, uiBackdropUrl } from './backdrops';
 import { glyphKey, isEmoji, keycapText, splitEmoji } from './glyph';
-import { ART, ART_MOTION, BACKDROP_MOTION, BACKDROPS, GLYPH_ART } from './generated/manifest';
+import { ART, ART_MOTION, BACKDROP_MOTION, BACKDROPS, GLYPH_ART, UI_BACKDROP_MOTION, UI_BACKDROPS } from './generated/manifest';
+import { THEMES } from '../theme/theme';
 
 describe('emoji in text', () => {
   it('splits words from emoji, keeping joined emoji, keycaps and flags whole', () => {
@@ -130,6 +131,17 @@ describe('moving pictures', () => {
     }
     expect(BACKDROP_MOTION.park).toContain('night');
     expect(backdropUrl('park', 'night', true)).toMatch(/park-night\.moving\.svg/);
+  });
+
+  it("draws the app's scenery in every look, still and moving, apart from the story backdrops", () => {
+    for (const { id: look } of THEMES) {
+      expect(UI_BACKDROPS.hero).toContain(look);
+      expect(UI_BACKDROP_MOTION.hero).toContain(look);
+      expect(uiBackdropUrl('hero', look, false)).toMatch(new RegExp(`scenery/hero-${look}\\.svg`));
+      expect(uiBackdropUrl('hero', look, true)).toMatch(new RegExp(`scenery/hero-${look}\\.moving\\.svg`));
+    }
+    // a story can't pick it
+    expect(Object.keys(BACKDROPS)).not.toContain('hero');
   });
 });
 

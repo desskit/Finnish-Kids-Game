@@ -5,6 +5,7 @@ import { AVATARS } from '../state/storage';
 import { resolveTheme, useDeviceDark, type ThemeId } from '../theme/theme';
 import Art from '../art/Art';
 import Avatar, { avatarName } from '../art/Avatar';
+import Scenery from '../art/Scenery';
 import LookPicker from './LookPicker';
 
 // Kid-accessible profile picker (launch + top-bar avatar). Choose an existing
@@ -13,7 +14,8 @@ import LookPicker from './LookPicker';
 // math-gated grown-up area.
 //
 // This is everyone's screen, so it's in the device's look, with each card in
-// its player's own. While colors are being picked, the screen shows them.
+// its player's own. While colors are being picked, the screen (and its
+// scenery) shows them.
 export default function ProfilePicker() {
   const { children, activeId, switchChild, addChild, setChildTheme, previewTheme } = useProfile();
   const navigate = useNavigate();
@@ -47,26 +49,26 @@ export default function ProfilePicker() {
   return (
     <main className="app">
       <section className="screen profile-picker">
+        <div className="hero-banner">
+          <Scenery />
+        </div>
         {painted ? (
           <>
-            <div className="mascot" aria-hidden="true">
-              <Avatar glyph={painted.avatar} />
-            </div>
-            <h1 className="greeting">{painted.name}</h1>
+            <h1 className="greeting greeting--player">
+              <span className="greeting__avatar" aria-hidden="true">
+                <Avatar glyph={painted.avatar} />
+              </span>
+              {painted.name}
+            </h1>
             <LookPicker value={painted.theme} onPick={(t) => setChildTheme(painted.id, t)} />
             <button className="btn btn--primary" onClick={() => setPainting(null)}>
               Valmis <span className="en">Done</span>
             </button>
           </>
         ) : (
-          <>
-            <div className="mascot" aria-hidden="true">
-              <Art glyph="🦊" motion="loop" />
-            </div>
-            <h1 className="greeting">
-              Kuka pelaa? <span className="en">Who's playing?</span>
-            </h1>
-          </>
+          <h1 className="greeting">
+            Kuka pelaa? <span className="en">Who's playing?</span>
+          </h1>
         )}
 
         {adding ? (

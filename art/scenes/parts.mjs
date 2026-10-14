@@ -58,12 +58,12 @@ export function crescentMoon(k, cx, cy, r) {
 }
 
 /** A puffy cloud centred on (x, y); `s` sizes it (outlines stay the same width). */
-export function cloud(k, x, y, s = 1) {
+export function cloud(k, x, y, s = 1, color = 'white') {
   const P = (dx, dy) => pt([x + dx * s, y + dy * s]);
   const r = (n) => fmt(n * s);
   return k.path(
     `M${P(-30, 10)}H${fmt(x + 30 * s)}A${r(9)} ${r(9)} 0 0 0 ${P(24, -4)}A${r(12)} ${r(12)} 0 0 0 ${P(4, -12)}A${r(14)} ${r(14)} 0 0 0 ${P(-20, -4)}A${r(10)} ${r(10)} 0 0 0 ${P(-30, 10)}Z`,
-    k.P.white,
+    k.P[color],
   );
 }
 

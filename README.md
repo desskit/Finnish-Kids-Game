@@ -7,7 +7,8 @@ React + Vite + TypeScript. Works on tablets (touch) and laptops/Chromebooks
 Finnish** — the app never generates or inflects Finnish by rule.
 
 > Every picture is pixel art drawn in code, most of it animated: words, the
-> cast, story backdrops, the app's icons and the fox mascot. See
+> cast, story backdrops, the app's scenery in each look, its icons and the fox
+> mascot. See
 > [`docs/ART_GUIDE.md`](docs/ART_GUIDE.md). Recorded native voiceover is still
 > planned. See "Roadmap" below.
 
@@ -212,7 +213,7 @@ src/
   state/        # local profiles + per-item SRS state (localStorage)
   components/   # screens & mini-games
   styles/       # global responsive styles
-art/            # the picture recipes, drawing kit and story backdrops
+art/            # the picture recipes, drawing kit, story backdrops, scenery and patterns
 scripts/
   build-kids-data.mjs  # curates Finnish data from Finnish-Inflection-Drill
   build-art.mjs        # npm run art: draws the picture set into src/art/generated
