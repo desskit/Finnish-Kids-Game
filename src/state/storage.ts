@@ -7,6 +7,7 @@
 // provider — without changing any UI call sites.
 
 import type { ItemSchedule } from '../game/srs';
+import { isThemeId, type ThemeId } from '../theme/theme';
 import type { StatsState } from '../game/stats';
 
 export interface ActivityProgress {
@@ -51,8 +52,13 @@ export type SrsState = Record<string, ItemSchedule>;
 export interface Child {
   id: string;
   name: string;
-  /** Emoji avatar (a "mascot variant" until Phase 1 art lands). */
+  /** Emoji avatar: src/art/Avatar.tsx draws its head picture. */
   avatar: string;
+  /**
+   * The look this player picked (src/theme/theme.ts). Optional + unbackfilled:
+   * missing means "follow the device's light or dark setting".
+   */
+  theme?: ThemeId;
   /**
    * Manual difficulty when `adaptive` is off: 1 = easier, 2 = harder.
    * (Kept for the legacy v1 migration and the manual Easy/Hard override.)
@@ -273,11 +279,16 @@ function sanitize(data: ProfilesData): ProfilesData {
   const rawChildren = Array.isArray(data.children) ? data.children : [];
   // Backfill fields added in later versions so older stored profiles keep
   // working (per the graceful-migration convention).
-  const children = rawChildren.map((c) => ({
-    ...c,
-    progress: c.progress ?? {},
-    srs: c.srs ?? {},
-  }));
+  const children = rawChildren.map((c) => {
+    const { theme, ...rest } = c;
+    return {
+      ...rest,
+      progress: c.progress ?? {},
+      srs: c.srs ?? {},
+      // a look we don't know (an older or edited file) falls back to the device's
+      ...(isThemeId(theme) ? { theme } : {}),
+    };
+  });
   const ids = new Set(children.map((c) => c.id));
   const activeId =
     data.activeId && ids.has(data.activeId) ? data.activeId : children[0]?.id ?? null;

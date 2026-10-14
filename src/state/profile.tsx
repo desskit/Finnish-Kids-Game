@@ -19,6 +19,7 @@ import {
   type ReviewState,
   type Settings,
 } from './storage';
+import { applyTheme, resolveTheme, useDeviceDark, type ThemeId } from '../theme/theme';
 import { setMuted } from '../audio/mute';
 import { review } from '../game/srs';
 import { recordRoundOnChild } from '../game/progress';
@@ -64,10 +65,19 @@ interface ProfileContextValue {
   activeChild: Child | null;
   activeId: string | null;
   /** Create a child and make it active; returns the new id. */
-  addChild: (name: string, avatar?: string) => string;
+  addChild: (name: string, avatar?: string, theme?: ThemeId) => string;
   switchChild: (id: string) => void;
   renameChild: (id: string, name: string) => void;
+  /** Pick a player's look (undefined: follow the device's light or dark). */
+  setChildTheme: (id: string, theme: ThemeId | undefined) => void;
   removeChild: (id: string) => void;
+
+  // --- The look on screen ---
+  /**
+   * Show a look for now instead of the active player's (the player screen
+   * shows the device's, or the one being picked). null: back to the player's.
+   */
+  previewTheme: (theme: ThemeId | null) => void;
 
   // --- Progress ---
   /**
@@ -167,6 +177,15 @@ export function ProfileProvider({
     }
   }, [data.settings.reducedMotion, ephemeral]);
 
+  // The look: the active player's (or the device's light or dark), unless a
+  // screen is showing another for now. Skipped in the sandbox, like motion.
+  const deviceDark = useDeviceDark();
+  const [preview, setPreview] = useState<ThemeId | null>(null);
+  const activeTheme = data.children.find((c) => c.id === data.activeId)?.theme;
+  useEffect(() => {
+    if (!ephemeral) applyTheme(preview ?? resolveTheme(activeTheme, deviceDark));
+  }, [preview, activeTheme, deviceDark, ephemeral]);
+
   const value = useMemo<ProfileContextValue>(() => {
     const active = data.children.find((c) => c.id === data.activeId) ?? null;
 
@@ -203,12 +222,13 @@ export function ProfileProvider({
       activeChild: active,
       activeId: data.activeId,
 
-      addChild: (name, avatar) => {
+      addChild: (name, avatar, theme) => {
         const id = newId();
         const child: Child = {
           id,
           name: name.trim() || 'Pelaaja',
           avatar: avatar || AVATARS[data.children.length % AVATARS.length],
+          ...(theme ? { theme } : {}),
           level: 1,
           adaptive: true,
           stars: 0,
@@ -228,6 +248,16 @@ export function ProfileProvider({
             c.id === id ? { ...c, name: name.trim() || c.name } : c,
           ),
         })),
+      setChildTheme: (id, theme) =>
+        setData((d) => ({
+          ...d,
+          children: d.children.map((c) => {
+            if (c.id !== id) return c;
+            const { theme: _old, ...rest } = c;
+            return theme ? { ...rest, theme } : rest;
+          }),
+        })),
+      previewTheme: setPreview,
       removeChild: (id) =>
         setData((d) => {
           const remaining = d.children.filter((c) => c.id !== id);

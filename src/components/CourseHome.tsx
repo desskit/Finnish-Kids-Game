@@ -226,7 +226,7 @@ export default function CourseHome() {
               className={
                 'unit unit--' + status + (isCurrent ? ' unit--current' : '') + (expanded ? ' unit--open' : '')
               }
-              style={{ '--accent': unit.accent } as React.CSSProperties}
+              style={{ '--unit-accent': unit.accent } as React.CSSProperties}
             >
               <button
                 className="unit__head"
