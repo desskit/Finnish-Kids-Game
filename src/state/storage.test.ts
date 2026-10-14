@@ -63,6 +63,26 @@ describe('localProfileStore', () => {
     expect(localProfileStore.load()).toEqual(data);
   });
 
+  it("keeps a player's look, and drops one it doesn't know", () => {
+    localStorage.setItem(
+      V2_KEY,
+      JSON.stringify({
+        version: 2,
+        children: [
+          { id: 'a', name: 'Aino', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {}, theme: 'pink' },
+          { id: 'b', name: 'Eero', avatar: '🐻', level: 1, stars: 0, createdAt: 2, progress: {}, srs: {}, theme: 'neon' },
+          { id: 'c', name: 'Leo', avatar: '🐼', level: 1, stars: 0, createdAt: 3, progress: {}, srs: {} },
+        ],
+        activeId: 'a',
+        settings: { muted: false, reducedMotion: false },
+      }),
+    );
+    const [aino, eero, leo] = localProfileStore.load().children;
+    expect(aino.theme).toBe('pink');
+    expect(eero).not.toHaveProperty('theme');
+    expect(leo).not.toHaveProperty('theme');
+  });
+
   it('backfills a missing per-child srs map for older v2 profiles', () => {
     localStorage.setItem(
       V2_KEY,

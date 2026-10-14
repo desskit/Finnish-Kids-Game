@@ -78,7 +78,7 @@ export default function Notebook() {
                 className="notebook__item"
                 to={`/lesson/${lesson.id}`}
                 state={{ from: 'notebook' }}
-                style={{ '--accent': u.accent } as React.CSSProperties}
+                style={{ '--unit-accent': u.accent } as React.CSSProperties}
               >
                 <span className="notebook__emoji" aria-hidden="true">
                   <Art glyph={lesson.emoji} />

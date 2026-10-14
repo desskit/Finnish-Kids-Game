@@ -23,8 +23,8 @@ export default defineConfig({
         short_name: 'Kielipesä',
         description: 'A playful game for kids learning everyday Finnish.',
         lang: 'en',
-        theme_color: '#1d4ed8',
-        background_color: '#eff6ff',
+        theme_color: '#d8ecf9',
+        background_color: '#faf2e3',
         display: 'standalone',
         orientation: 'any',
         // Relative so the installed app starts correctly whether served from

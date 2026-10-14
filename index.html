@@ -6,11 +6,30 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
     />
-    <meta name="theme-color" content="#1d4ed8" />
+    <meta name="theme-color" content="#d8ecf9" />
     <meta name="description" content="A playful game for kids learning everyday Finnish." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <title>Kielipesä – Finnish for Kids</title>
+    <script>
+      // Paint in the right look from the start: the active player's (or, on
+      // the player screen and for a player who hasn't picked, the device's).
+      // The app then keeps it up to date (src/theme/theme.ts; the bar colors
+      // here match THEMES there).
+      (function () {
+        var look = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+        try {
+          var data = JSON.parse(localStorage.getItem('fkg.profiles.v2') || 'null');
+          var active = data && data.children && data.children.filter(function (c) { return c.id === data.activeId; })[0];
+          var picked = active && active.theme;
+          if (/^(day|night|pink)$/.test(picked) && location.hash.indexOf('#/profiles') !== 0) look = picked;
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', look);
+        var bar = { day: '#d8ecf9', night: '#1e2550', pink: '#ffd3e7' }[look];
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', bar);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

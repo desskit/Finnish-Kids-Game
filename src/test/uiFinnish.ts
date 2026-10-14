@@ -36,14 +36,15 @@ export interface UiLabel {
   where: string[];
 }
 
-/** The component sources: every screen and game, the app shell, and the course
+/** The component sources: every screen and game, the app shell, the course
  *  map (which hands some games their titles: "Tee näin!", "Lauseet" — only its
- *  JSX is read; its step titles are listed with the course titles). */
+ *  JSX is read; its step titles are listed with the course titles), and the
+ *  looks' names (theme/theme.ts). */
 export function uiSourceFiles(): string[] {
   const components = readdirSync(join(SRC, 'components'))
     .filter((f) => f.endsWith('.tsx') && !f.includes('.test.'))
     .map((f) => `components/${f}`);
-  return [...components, 'App.tsx', 'game/path.tsx'].sort();
+  return [...components, 'App.tsx', 'game/path.tsx', 'theme/theme.ts'].sort();
 }
 
 /** Small English words AGID doesn't list (it lists words that inflect). */
@@ -249,8 +250,9 @@ export function extractUiFinnish(files = uiSourceFiles(), lexicon = finnishLexic
     const text = readFileSync(join(SRC, file), 'utf8');
     const sf = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
     const handled = new Set<ts.Node>();
-    // Outside the components, read only what's handed to a screen as JSX.
-    const jsxOnly = !file.startsWith('components/') && file !== 'App.tsx';
+    // The course map: only what it hands a screen as JSX (its step titles are
+    // listed with the course titles).
+    const jsxOnly = file === 'game/path.tsx';
     const markAll = (n: ts.Node) => {
       handled.add(n);
       ts.forEachChild(n, markAll);

@@ -849,11 +849,25 @@
       ]
     },
     {
+      "fi": "Pinkki",
+      "en": "Pink",
+      "where": [
+        "theme/theme.ts"
+      ]
+    },
+    {
       "fi": "Puheharjoittelu",
       "en": "Speaking practice",
       "where": [
         "components/SayIt.tsx",
         "components/Settings.tsx"
+      ]
+    },
+    {
+      "fi": "Päivä",
+      "en": "Day",
+      "where": [
+        "theme/theme.ts"
       ]
     },
     {
@@ -1151,6 +1165,13 @@
       ]
     },
     {
+      "fi": "Valmis",
+      "en": "Done",
+      "where": [
+        "components/ProfilePicker.tsx"
+      ]
+    },
+    {
       "fi": "Valmis!",
       "en": "Got it",
       "where": [
@@ -1202,6 +1223,13 @@
       ]
     },
     {
+      "fi": "Väri",
+      "en": "Colors",
+      "where": [
+        "components/LookPicker.tsx"
+      ]
+    },
+    {
       "fi": "Yhdistä sanat",
       "en": "",
       "where": [
@@ -1221,6 +1249,13 @@
       "where": [
         "components/ParentGate.tsx",
         "components/SayIt.tsx"
+      ]
+    },
+    {
+      "fi": "Yö",
+      "en": "Night",
+      "where": [
+        "theme/theme.ts"
       ]
     },
     {
