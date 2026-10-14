@@ -6,7 +6,14 @@ import { test, expect, type Page } from '@playwright/test';
 // challenges (no round-complete interstitial) → home with the lesson ticked;
 // then Review, which still ends in a celebration. Round content/options are
 // randomized, so each question is answered by trying options in order until
-// the app reacts (a wrong tap just flashes red and stays put).
+// the app reacts (a wrong tap just flashes red and stays put). Along the way,
+// no emoji may show as text: every one is drawn as a picture.
+
+/** No emoji reaches the screen as text: every one is drawn as a picture. */
+async function expectNoEmojiText(page: Page) {
+  const text = await page.locator('body').innerText();
+  expect(text.match(/\p{Extended_Pictographic}/gu) ?? []).toEqual([]);
+}
 
 async function isRoundComplete(page: Page) {
   return page.getByText(/Hienoa|Great job/i).isVisible().catch(() => false);
@@ -97,10 +104,12 @@ test('full happy path: create profile, read the first lesson, practise as one un
   // Lands on the course home with the new player's greeting.
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
+  await expectNoEmojiText(page);
 
   // Continue → unit 1's lesson.
   await page.getByRole('link', { name: /Continue/ }).click();
   await expect(page).toHaveURL(/#\/lesson\/sounds$/);
+  await expectNoEmojiText(page);
   for (let i = 0; i < 10; i++) {
     const next = page.getByRole('button', { name: /Next/ });
     if (!(await next.isVisible().catch(() => false))) break;
@@ -111,6 +120,7 @@ test('full happy path: create profile, read the first lesson, practise as one un
   // Straight into the unit's first step.
   await expect(page).toHaveURL(/#\/skill\/greetings$/);
   await expect(page.getByLabel('0 tähteä')).toBeVisible();
+  await expectNoEmojiText(page);
 
   // Play PAST the old 6-question boundary: the stream never stops.
   for (let q = 0; q < 7; q++) {
@@ -123,6 +133,7 @@ test('full happy path: create profile, read the first lesson, practise as one un
   await page.getByRole('button', { name: 'Back home' }).click();
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.locator('.unit--current .unit-step--done').first()).toBeVisible();
+  await expectNoEmojiText(page);
 
   // Browser history works across a step.
   await page.goto(`${page.url()}`.replace(/#.*$/, '#/skill/greetings'));
@@ -141,6 +152,7 @@ test('spaced-repetition Review is reachable from home and completes', async ({ p
   await page.getByRole('link', { name: /Kertaus|Review/i }).click();
   await expect(page).toHaveURL(/#\/review$/);
   await expect(page.getByLabel(/Question 1 of \d+/)).toBeVisible();
+  await expectNoEmojiText(page);
 
   // Review keeps its finite round + celebration (the "due today" set is real).
   for (let guard = 0; guard < 20; guard++) {
@@ -149,6 +161,7 @@ test('spaced-repetition Review is reachable from home and completes', async ({ p
   }
 
   await expect(page.getByText(/Hienoa|Great job/i)).toBeVisible();
+  await expectNoEmojiText(page);
   await page.getByRole('button', { name: /Koti|Home/i }).click();
   await expect(page).toHaveURL(/#\/$/);
 });

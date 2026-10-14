@@ -24,6 +24,8 @@ export default [
   { id: 'christmas-tree', title: 'Christmas tree (December, lights blinking)', glyphs: ['🎄'], ...prop, motion: { frames: 2, fps: 2 }, draw: props.christmasTree },
   { id: 'bow', title: 'sorry! (Leo bowing)', glyphs: ['🙇'], ...prop, motion: { frames: 2, fps: 1.2 }, draw: props.bow },
   { id: 'thanks', title: 'thank you (hands pressed together)', glyphs: ['🙏'], ...prop, motion: { frames: 2, fps: 2 }, draw: props.thanks },
+  // the animal words' sign (each word list has one)
+  { id: 'paw-prints', title: 'paw prints (the animal words)', glyphs: ['🐾'], prop: true, theme: 'animals', draw: props.pawPrints },
   { id: 'wave', title: 'hi! bye! (a hand waving)', glyphs: ['👋'], ...ui, motion: { frames: 2, fps: 3 }, draw: props.wave },
   { id: 'microphone', title: 'microphone (notes when someone sings)', glyphs: ['🎤'], ...ui, motion: { frames: 3, fps: 2 }, draw: props.microphone },
   { id: 'calendar', title: 'calendar page', glyphs: ['📅'], ...ui, draw: props.calendar },

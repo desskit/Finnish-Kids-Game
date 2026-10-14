@@ -19,17 +19,16 @@ audio hook) and `LexicalItem.emoji` (art hook) already exist in `src/content/typ
 ### Decisions baked into these plans (from user)
 - **Hosting = Netlify** (most feature-rich/scalable; deploy previews, branch deploys, room for
   serverless later). Keep Vite `base` configurable so **GitHub Pages remains a documented fallback**.
-- **Art = AI-generated via Recraft** (not Claude): owl "teacher" mascot, flat-&-rounded style,
-  transparent PNG → WebP for raster characters, **SVG for flat icons**. See Phase 1 for the full locked
-  spec. (Recraft replaces the earlier Midjourney plan: native transparency + reusable custom **Styles**
-  for set consistency + vector export.)
+- **Art = pixel art drawn in code** (replacing the earlier plan of generated WebP art and an owl
+  mascot): one 48-pixel set with a fox mascot, animated. See Phase 1 and `docs/ART_GUIDE.md`.
 
 ### Cross-cutting conventions (apply in every phase)
 - **Reference all runtime assets via `import.meta.env.BASE_URL`** (e.g. `${import.meta.env.BASE_URL}art/animals/cat.webp`).
   This keeps art/audio portable across Netlify (`/`), a GitHub Pages subpath, and a Capacitor webview.
 - **Never rule-generate Finnish.** Every inflected form stays hand-authored in `src/content/*`
   (this is an existing, deliberate constraint — keep it). Validation checks *presence*, not grammar.
-- **Graceful fallback everywhere:** image → emoji; recorded audio → TTS; new profile schema → migrate old.
+- **Graceful fallback everywhere:** recorded audio → TTS; new profile schema → migrate old. (Pictures
+  have no fallback: every emoji has one, and a test keeps it that way.)
 - Keep the strict TypeScript + data-driven content model intact.
 
 ### Current file map (reference for all phases)
@@ -51,162 +50,19 @@ Each plan still stands alone if you prefer the original order.
 
 ---
 
-## Phase 1 — Real Artwork + Mascot (replace emoji)
+## Phase 1 — The picture set (done)
 
-**Status:** Decisions locked — ready to hand to a breakout session. **Canonical, always-current asset
-checklist + live status: `docs/art/art-tracker.csv`** (regenerate with `npm run art:manifest`; human-readable
-mirror `docs/art/art-tracker.md`).
+**Status:** Done. Every emoji the app showed is now a picture from one pixel-art set, drawn in code:
+- 357 pictures, most of them animated: faces blink, actions, animals and weather loop;
+- 28 story backdrops for 16 settings;
+- the app's icons, avatars, the fox mascot, and the app icon.
 
-**Goal:** Replace all placeholder emoji with a cohesive flat-and-rounded illustration set + an owl
-mascot, keeping the data-driven model and the emoji fallback intact.
+**How it works and how to add to it:** [`docs/ART_GUIDE.md`](ART_GUIDE.md). It covers the palette and the
+drawing kit, the pixel rules, the cast, recipes and animation, backdrops, budgets, and the checks that keep
+the set complete.
 
-### Locked decisions
-- **Mascot:** an **owl "teacher"** (pöllö) — friendly, wise-but-playful; doesn't clash with any vocab
-  word. Working name TBD (suggestions: *Uula*, *Otto*, *Viisas*). Used on Home, RoundComplete, app icon.
-  Poses **already produced**: `idle`, `celebrate`, `wave`, `icon-master`.
-- **Style:** **flat & rounded** — bold clean outlines, bright flat colors, simple rounded shapes; matches
-  the 22px-radius cards + Baloo 2 font already in `global.css`. Palette: blue `#1d4ed8` + amber `#f59e0b`.
-- **Format:** **transparent assets**, ~512×512. **Raster characters → WebP**; **flat icons → SVG**
-  (crisp at any size, recolorable, a few KB each).
-- **Tool:** **Recraft** (V3), commercial-plan license. Lock one reusable **Style** (from the owl / a hero
-  animal) and apply it to every later generation — this is the consistency anchor (replaces Midjourney's
-  `--sref`). Recraft exports transparency natively, so **there is no background-removal step**.
-- **Numbers art:** **styled numerals** (big on-brand digits), *not* counting scenes — clearest for early
-  readers. May be Recraft SVG **or** done purely in CSS (Baloo 2 digit on a brand card, zero assets);
-  implementer's choice at wiring time.
-- **Family art:** **kawaii human characters** in the same locked Style (chibi/rounded, matching outline
-  weight + palette) — the consistency-critical set; keep them on-Style so they don't drift from the animals.
-- **Animation:** planned from the start (see "Animation" below) but **layered on later** — static art ships
-  first; nothing blocks on it.
-
-### Two tracks (run in parallel)
-Track B (code) can ship before art is final because the emoji fallback stays in place; drop WebP files in
-as Track A produces them.
-
-#### Track A — Art production (human, in Recraft — NOT Claude)
-1. **Lock a Style.** Create a reusable Recraft **Style** from the best owl / hero animal and apply it to
-   **every** later generation so the whole set stays on-model — the consistency anchor (most important for
-   the human Family set). Generate all assets **transparent** (Recraft does this natively; no remove.bg
-   step). Keep the palette blue `#1d4ed8` + amber `#f59e0b`. See Appendix A for the prompt pack.
-2. **Mascot — already produced** (`idle`, `celebrate`, `wave`, `icon-master`). Re-cut the existing
-   white-background animals onto transparent. **Expand the mascot's range** (same Style, same canvas):
-   `happy/approve` (correct answer), `encourage` (wrong — warm, never sad/scolding), `listening` (wing to
-   ear, ties to the 🔊 prompt), `reading` (book; Spelling/Word-order), `pointing`, `sleeping` (idle/attract).
-   Confirm `icon-master` is a **high-res transparent PNG** (feeds the Track-B icon generator).
-3. **Item illustrations** — one per id, raster **WebP**, named by id (match the `*.sourced.json` ids). The
-   app now has **8 themes / 9 activities**. **Canonical, always-current list: `docs/art/art-tracker.csv`**
-   (run `npm run art:manifest` — item rows are derived straight from `src/content/data/*.sourced.json`, so
-   the list never drifts as themes grow). Summary — **84 required illustrations**:
-   - **Animals (12):** `cat, dog, bear, bunny, bird, fish, horse, cow` *(8 already drawn — re-cut to
-     transparent)* **+** `pig, fox, duck, frog`. (`fox` 🦊 is also today's placeholder mascot/avatar; the
-     owl replaces the mascot, so `fox` is just a normal animal card — both assets are needed.)
-   - **Food (14)**, **Places (12)**, **Body (12)**, **Nature (12)**, **Clothes (12)** — everyday objects.
-   - **Family (10):** **kawaii humans**, consistency-critical.
-   - **Numbers (10):** `one…ten` as **styled numerals** (SVG) — or skip and render in CSS.
-   - **Optional:** 7 color swatches (`red, blue, …`). **No art for the other `adjectives` or any `verbs`** —
-     never rendered as pictures (Match shows the *noun*; Conjugate is text-only).
-4. **Icons — SVG** (vector, recolorable):
-   - **Theme icons (8):** `animals` (paw), `numbers`, `food`, `family`, `places`, `body`, `nature`, `clothes`.
-   - **Chapter banner icons (8):** the journey-path chapters — `first-words, naming, where, likes,
-     numbers-describe, actions, together, sentences` (`src/game/path.tsx`).
-   - **Activity icons (9):** `listen, build, count, match, conjugate, order, spell, review, sentence`. Make
-     `count` visually distinct from the `numbers` theme icon (both render 🔢 today).
-   - **Optional UI glyphs** — speaker/replay (every game), back, gear, lock, add, check, crown, sparkle,
-     star, mute.
-5. **Polish / engagement art (optional/future, tiered):**
-   - **Player avatars (12)** — the profile-picker set `🦊🦉🐻🐱🐶🐰🐸🐼🦁🐯🐨🐧` (`src/state/storage.ts`);
-     6 reuse animal/mascot art, net-new: `panda, lion, tiger, koala, penguin`.
-   - **Achievement badges (9)** — `first-steps, stars-25, stars-100, words-10, mastered-10, sharp, level-up,
-     explorer, all-games` (`src/game/badges.ts`); shown on the path, RoundComplete, and parent dashboard.
-   - **Backgrounds** — a subtle Home scene (the owl's treehouse classroom) + low-contrast per-theme tints;
-     keep them from competing with card legibility.
-   - **Journey-path / map art** — the home is a winding **path** of chapters → skill nodes
-     (`src/game/path.tsx`, already art-ready via per-node/chapter `art`+`accent`): node/chapter art, the
-     serpentine, progress rings, crown (mastered), coming-soon sparkle.
-6. **Generate-for-animation (while producing static art):** keep mascot expression **frames on an identical
-   canvas** (eyes open/closed, wings up/down, mouth states) so they register; export anything meant to move
-   (a wing, ripple, the owl's book) and each confetti/sparkle piece on its **own transparent layer** so it
-   can move independently later. See "Animation".
-7. **Normalize** raster characters with `scripts/optimize-art.mjs` (Track B): trim → pad → center on a
-   **512×512** canvas with consistent padding → **WebP**, from a `raw-art/` drop folder. SVG icons skip this.
-8. **License note:** record in `README.md` that art was made on a paid **Recraft** plan (commercial use) —
-   matters for the Phase 7 store wrap.
-
-**Naming = ids, so wiring is trivial** (full per-asset paths + live status live in `docs/art/art-tracker.csv`):
-- `public/art/{animals,food,family,places,body,nature,clothes}/<id>.webp` · `public/art/numbers/<id>.svg`
-  *(or CSS)* · `public/art/colors/<id>.svg` *(optional)*
-- `public/art/mascot/owl-{idle,celebrate,wave,happy,encourage,listening,reading,pointing,sleeping}.webp`
-  + `public/art/mascot/owl-icon-master.png`
-- `public/art/themes/<themeId>.svg` · `public/art/chapters/<chapterId>.svg` · `public/art/ui/<activity>.svg`
-- `public/art/avatars/<id>.webp` · `public/art/badges/<id>.svg` · *(later)* `backgrounds/`, `map/`
-
-#### Animation (plan now, layer in later)
-Recraft is image-only — animation is done **downstream** from its static/vector output. Three tiers:
-- **Micro (CSS transforms — no new art, no lib):** card pop/stagger on entrance, button press, star
-  fly-into-counter on correct, gentle owl tilt / soft card nudge on wrong, mascot idle bob. Ship first.
-- **Hero (Lottie — vector JSON, one small runtime dep, bundles offline):** mascot `celebrate`, confetti
-  burst at `RoundComplete`, animated 🔊 sound-wave pulse while audio plays (shows pre-readers *when* to
-  listen), Count & Say items appearing one-by-one (animation that teaches counting).
-- **Reactive (Rive — state-machine mascot): deferred** — only if we later want the owl to react to live
-  game state (idle→correct→celebrate).
-
-**Recommended stack:** CSS now → add Lottie for the few hero moments → hold Rive.
-
-**Guardrails (ages 6–8):** every animation must freeze to a static frame under `prefers-reduced-motion`
-(already respected in `global.css`); **no rapid flashing** (WCAG/seizure safety); keep motion **off the
-reading path** — animate feedback + mascot, keep content cards still while they're being read.
-
-**Where it pays off (priority order):** mascot life (idle + correct/wrong reactions) · answer feedback ·
-RoundComplete celebration · listen/speaker pulse · Count & Say counting · screen/card transitions ·
-(future) Map-home path-draw + node bounce on unlock.
-
-#### Track B — Code integration (the Claude breakout session)
-1. **Schema** (`src/content/types.ts`): add optional `image?: string` to **`LexicalItem`** and **`Theme`**
-   (path relative to `BASE_URL`). Keep `emoji` as the fallback.
-2. **`src/components/Illustration.tsx`** (new): props `{ image?: string; emoji: string; className?: string }`.
-   Render `<img src={`${import.meta.env.BASE_URL}${image}`} alt="" loading="lazy" decoding="async">` when
-   `image` is set, else the existing emoji span. One place owns the fallback.
-3. **`src/components/Mascot.tsx`** (new): props `{ pose?: 'idle' | 'celebrate'; big?: boolean }`. Maps
-   pose→art file with a 🦉 emoji fallback; reused by `HomeScreen` and `RoundComplete`.
-4. **Swap call sites** to the new components (exact lines today):
-   - `HomeScreen.tsx:24` mascot · `:90` theme icon (`theme.image`) · `:96`/`:106` activity icons
-   - `ListenAndTap.tsx:131` picture cards (`opt.image`)
-   - `BuildAPhrase.tsx:126` phrase illustration (`question.item.image`)
-   - `RoundComplete.tsx:12` mascot → `pose={allCorrect ? 'celebrate' : 'idle'}` `big`
-   - Leave the speaker `🔊` glyphs unless you also produced speaker art.
-5. **CSS** (`src/styles/global.css`): emoji are sized by the **parent's `font-size`** today; images aren't,
-   so add `width/height` + `object-fit: contain` rules **keyed to the same clamps** — e.g.
-   `.pic-card__img { width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); object-fit:contain }`,
-   `.phrase-card__img { width:clamp(3.5rem,14vw,5.5rem) }`,
-   `.mascot__img { width:clamp(3.5rem,12vw,6rem) }`, `.mascot--big .mascot__img { width:clamp(4.5rem,16vw,8rem) }`,
-   `.activity-card__img { width:2.6rem }`, theme-banner icon ~1.4rem. This preserves exact current scale.
-6. **App icons:** rewrite `scripts/make-icons.mjs` to use **`sharp`** (new devDependency) to generate
-   `public/icons/icon-192.png`, `icon-512.png`, a **maskable** 512 (~20% safe padding), and
-   `apple-touch-icon.png` from `owl-icon-master.png`; refresh `public/favicon.svg`. The `vite.config.ts`
-   manifest already references these names — no manifest change needed (optionally update
-   `theme_color`/`background_color` to the art palette). `index.html` icon links are auto-rebased by Vite.
-7. **Data:** the model is data-driven — items are built in `src/content/index.ts` (`toItem`) from the
-   `*.sourced.json` files (which carry `emoji`). Two options for `image`: (a) add an `image` field to the
-   sourced JSON / `toItem`, or (b) **derive paths by convention** from the strict id naming
-   (`art/<themeId>/<id>.webp`, theme icon `art/themes/<themeId>.svg`, activity icon `art/ui/<activity>.svg`)
-   so no per-item data edits are needed. **Prefer (b).** **Numbers** may skip image art and render styled
-   numerals in CSS. Keep the emoji fallback everywhere.
-
-### Sequencing note
-The app already has **8 themes (animals, numbers, food, family, places, body, nature, clothes) + 9
-activities**, so this phase covers the mascot + all theme/chapter/activity icons + the item art for all 8
-themes (full live list in `docs/art/art-tracker.csv`). Suggested production order: re-cut existing animals
-→ remaining animals (`pig, fox, duck, frog`) → Food/Places/Body/Nature/Clothes → Family (humans, hardest)
-→ icons → numerals/CSS → optional polish (avatars/badges/backgrounds/path) → animation. Each new theme
-adds its rows to the tracker automatically via the same id-based naming checklist.
-
-### Verification
-- `npm run dev`: every screen shows real art; blank one `image` value → emoji fallback appears (no layout shift).
-- `npm run build && npm run preview`: no 404s in console; check a narrow phone viewport and a wide tablet;
-  reduced-motion still fine.
-- `BASE_PATH=/sub/ npm run build && npm run preview` (Phase 5 mechanism): art still loads → confirms
-  `BASE_URL` usage, nothing hardcoded to `/`.
-- Reinstall the PWA and confirm the new standard + maskable app icons render on a device home screen.
+The earlier plan for this phase (flat illustrated WebP assets and an owl mascot) was replaced by this
+pixel-art set, and its tracker files are gone.
 
 ---
 
@@ -451,60 +307,6 @@ already backend-free and offline-capable, so this is mostly packaging.
   every call site that needs updating.
 - Keep `README.md` updated per phase (it currently advertises emoji/TTS placeholders and the roadmap).
 - Develop on branch `claude/admiring-gauss-an28w5`; commit + push per phase; open a PR only if asked.
-
----
-
-## Appendix A — Phase 1 Track A: Recraft style + prompt pack
-
-Palette: blue `#1d4ed8` + amber `#f59e0b`. Workflow: generate the **owl first**, pick the best, and use it
-(plus a couple of the strongest animals) to **create a reusable Recraft Style**. Apply that Style to every
-later generation so the whole set stays on-model — this replaces Midjourney's `--sref`/`--cref`. Request a
-**transparent background** and a **square** canvas; Recraft exports transparency natively (no cutout step).
-Generate **flat icons in vector/SVG** mode; generate **characters as raster → WebP**.
-
-**Shared prompt tail** (append to each subject, with the locked Style applied):
-```
-, cute kawaii children's-app style, thick uniform clean outline, bright cheerful flat colors, simple rounded shapes, minimal flat shading, single centered subject, generous even margin, transparent background, no text, no letters, no watermark, no drop shadow, not 3d, not photorealistic
-```
-
-**Mascot** (done — keep for re-gen / expansion): base =
-`a friendly cartoon owl teacher mascot, round chubby body, big round eyeglasses, big friendly eyes, warm
-gentle smile, soft little wings` + a pose, then the shared tail. Poses: `standing waving one wing hello`
-(idle/wave) · `cheering with both wings raised, small sparkles` (celebrate) · `one wing cupped to its ear,
-listening` · `holding a small book` (reading) · `pointing one wing to the side, encouraging` · `eyes closed
-asleep, little zzz` (sleeping). Icon master: `front-facing head-and-shoulders bust, symmetrical, filling the
-frame` → export a high-res transparent PNG.
-
-**Animals** (match ids): `cat` sitting · `dog` floppy ears · `bear` brown standing · `bunny` long ears
-sitting · `bird` small round songbird side-profile (NOT an owl, no glasses) · `fish` round body · `horse`
-flowing mane · `cow` b/w spots · `pig` · `fox` · `duck` · `frog`. + shared tail.
-
-**Food** (match ids): `bread, milk, water, apple, banana, cheese, cake, cookie, juice, ice-cream, chocolate,
-potato, strawberry, carrot` — each a single rounded appetising object. + shared tail.
-
-**Family** (match ids, **kawaii humans**): `mother, father, brother, sister, baby, son, daughter,
-grandmother, grandfather, family (group)` — chibi/rounded people, consistent proportions, same Style and
-outline weight. + shared tail.
-
-**Places** (match ids): `box, table, house, room, car, bed, chair, school, tree, forest, basket, bag`. + shared tail.
-
-**Body** (match ids): `eye, ear, nose, mouth, hand, foot, head, tooth, hair, tummy, finger, knee` — friendly + simple. + shared tail.
-
-**Nature** (match ids): `sun, moon, star, cloud, rain, snow, flower, mountain, stone, lake, sea, sky`. + shared tail.
-
-**Clothes** (match ids): `shirt, blouse, coat, shoe, sock, hat, dress, skirt, glove, scarf, cap, boot`. + shared tail.
-
-**Icons (SVG):** **theme (8)** → paw (`animals`), digits (`numbers`), apple (`food`), people (`family`),
-pin (`places`), body (`body`), tree (`nature`), shirt (`clothes`); **chapter (8)** → `first-words, naming,
-where, likes, numbers-describe, actions, together, sentences`; **activity (9)** → speaker (`listen`),
-jigsaw (`build`), 1-2-3 counter (`count`, distinct from the numbers theme icon), palette (`match`), running
-figure (`conjugate`), shuffle arrows (`order`), keyboard (`spell`), loop (`review`), sentence (`sentence`);
-plus optional UI glyphs (speaker / back / gear / lock / add / check / crown / sparkle / star / mute).
-
-**Numbers:** styled numerals `1…10` (SVG) — or render in CSS (Baloo 2 digit on a brand card).
-
-**Output → files:** transparent export → (raster) normalize to 512² WebP via `optimize-art.mjs`; (icons)
-keep as SVG. Save per the id-based paths in Track A. Names match ids so Track B is a drop-in.
 
 ---
 

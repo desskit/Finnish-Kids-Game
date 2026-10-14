@@ -419,3 +419,18 @@ export function finishFlag(k) {
     k.circle(16, 6, 3, c.yellow),
   ].join('');
 }
+
+/** Paw prints (the animal words' sign): two prints, one step apart. */
+export function pawPrints(k) {
+  const c = k.P;
+  const paw = (x, y, turn) =>
+    k.g(
+      `rotate(${turn} ${x} ${y})`,
+      k.path(`M${fmt(x)} ${fmt(y - 2.6)}C${fmt(x + 6)} ${fmt(y - 2.6)} ${fmt(x + 8.4)} ${fmt(y + 4.6)} ${fmt(x + 5.4)} ${fmt(y + 7)}C${fmt(x + 3.4)} ${fmt(y + 8.6)} ${fmt(x - 3.4)} ${fmt(y + 8.6)} ${fmt(x - 5.4)} ${fmt(y + 7)}C${fmt(x - 8.4)} ${fmt(y + 4.6)} ${fmt(x - 6)} ${fmt(y - 2.6)} ${fmt(x)} ${fmt(y - 2.6)}Z`, c.brown),
+      k.ellipse(x - 9, y - 6.6, 2.4, 3, c.brown),
+      k.ellipse(x - 3.8, y - 12, 2.4, 3, c.brown),
+      k.ellipse(x + 3.8, y - 12, 2.4, 3, c.brown),
+      k.ellipse(x + 9, y - 6.6, 2.4, 3, c.brown),
+    );
+  return [paw(21.6, 46, -16), paw(42.4, 25, 14)].join('');
+}

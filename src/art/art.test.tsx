@@ -59,11 +59,9 @@ describe('<Art>', () => {
     }
   });
 
-  it('shows an emoji that has no picture yet as itself', () => {
+  it('draws nothing for an emoji with no picture (never the emoji itself)', () => {
     const { container } = render(<Art glyph="🦄" />);
-    const fallback = container.querySelector('.art--emoji')!;
-    expect(fallback).toHaveTextContent('🦄');
-    expect(fallback).toHaveAttribute('data-emoji', '🦄');
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('can name the picture for a screen reader', () => {

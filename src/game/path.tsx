@@ -220,13 +220,6 @@ export interface SkillNode {
    * already scoped) and conjugation steps pin `verbCombos` to their lesson's tense.
    */
   pin?: Partial<Difficulty>;
-  // --- art-ready (Phase 1) ---
-  /** Node image path under BASE_URL; the emoji `icon` is the fallback. */
-  art?: string;
-  /** Optional layout hint for the serpentine. */
-  side?: 'left' | 'right';
-  /** Optional exact placement (percent) for an illustrated map background. */
-  pos?: { x: number; y: number };
 }
 
 export interface Chapter {
@@ -255,9 +248,6 @@ export interface Chapter {
   unpinned?: boolean;
   /** A not-yet-filled chapter (advanced content authored later). */
   comingSoon?: boolean;
-  // --- art-ready ---
-  bannerArt?: string;
-  bgArt?: string;
 }
 
 // --- Content resolution ---------------------------------------------------
