@@ -235,26 +235,26 @@ export function strong(k) {
   ].join('');
 }
 
+/** Leo's hand with its thumb up, lifted by `b` (the thumbs down turns it over). */
+export function thumbHand(k, b = 0) {
+  const c = k.P;
+  return k.g(
+    `translate(0 ${fmt(b)})`,
+    k.rect(21, 50, 22, 12, 2, c.green),
+    k.flat('M22 53H42V55H22Z', c.greenShade),
+    k.rect(15.6, 27.6, 30, 25, 7.6, c.skin3),
+    ...[28.8, 34.8, 40.8].map((y) => k.rect(29.6, y, 17.6, 6.4, 3.2, c.skin3)),
+    k.rect(29.6, 46.8, 15.4, 5.8, 2.9, c.skin3),
+    k.rect(16.6, 7.6, 10.6, 26.4, 5.3, c.skin3),
+    k.flat('M19 10.4H24.8V14.6H19Z', c.skin3Shade),
+    k.flat('M16.8 40H28.4V51.6H22.4C19 51.6 16.8 49.6 16.8 46Z', c.skin3Shade),
+  );
+}
+
 /** Good: a thumbs up, bouncing, with a sparkle. */
 export function good(k) {
-  const c = k.P;
   const f = k.frame % 2;
-  const b = f ? -k.px : 0;
-  return [
-    k.ground(31, 60, 16, 1.8),
-    k.g(
-      `translate(0 ${fmt(b)})`,
-      k.rect(21, 50, 22, 12, 2, c.green),
-      k.flat('M22 53H42V55H22Z', c.greenShade),
-      k.rect(15.6, 27.6, 30, 25, 7.6, c.skin3),
-      ...[28.8, 34.8, 40.8].map((y) => k.rect(29.6, y, 17.6, 6.4, 3.2, c.skin3)),
-      k.rect(29.6, 46.8, 15.4, 5.8, 2.9, c.skin3),
-      k.rect(16.6, 7.6, 10.6, 26.4, 5.3, c.skin3),
-      k.flat('M19 10.4H24.8V14.6H19Z', c.skin3Shade),
-      k.flat('M16.8 40H28.4V51.6H22.4C19 51.6 16.8 49.6 16.8 46Z', c.skin3Shade),
-    ),
-    f ? '' : sparkle(k, 36, 9.4, 3.4) + sparkle(k, 8.4, 14, 2.4),
-  ].join('');
+  return [k.ground(31, 60, 16, 1.8), thumbHand(k, f ? -k.px : 0), f ? '' : sparkle(k, 36, 9.4, 3.4) + sparkle(k, 8.4, 14, 2.4)].join('');
 }
 
 // --- Colors: a crayon and a scribble ------------------------------------------

@@ -90,6 +90,8 @@ export default [
     id: 'avatar-fox',
     title: 'fox (avatar)',
     group: 'ui',
-    draw: (k) => foxHead(k),
+    theme: 'avatars',
+    // eyes as big as the other avatars'
+    draw: (k) => foxHead(k, 32, 31, 3.2),
   },
 ];

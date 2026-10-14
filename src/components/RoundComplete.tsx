@@ -19,8 +19,8 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
   return (
     <section className="screen complete">
       <div className="mascot mascot--big" aria-hidden="true">
-        <Art glyph="🦊" motion="loop" />
-        {allCorrect && <Art glyph="🎉" motion="loop" />}
+        {/* a perfect round: the fox jumps for joy */}
+        {allCorrect ? <Art id="mascot-cheer" motion="loop" /> : <Art glyph="🦊" motion="loop" />}
       </div>
       <h2 className="title">
         Hienoa! <span className="en">Great job!</span>

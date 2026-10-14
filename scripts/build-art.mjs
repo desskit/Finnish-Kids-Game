@@ -46,9 +46,13 @@ const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 
 const DRIFT_PX_PER_S = 2;
 
 /** The order the gallery shows the themes in (anything else after these). */
-const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'app'];
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
 const THEME_NAMES = {
   'story-props': 'Story props',
+  buttons: 'Buttons and signs',
+  rewards: 'Rewards and badges',
+  'lesson-icons': 'Lesson and unit icons',
+  avatars: 'Avatars and the mascot',
   family: 'Family and the cast',
   animals: 'Animals',
   body: 'Body',
@@ -624,8 +628,8 @@ ${artCss(grid).replace(/^\/\*.*\*\/\n/, '')}
 <main class="page">
   <header class="intro">
     <span class="eyebrow">Kielipesä · the picture set</span>
-    <h1>The picture set so far</h1>
-    <p class="lead">${pictures.length} of the roughly 370 pictures are drawn, in the style you picked: ${grid}-pixel art with soft colors and one-pixel outlines. ${moving} of them move, and every face blinks. Each picture is shown moving at card size and still at the small sizes the course map uses. After them come the stories' ${new Set(scenes.map((s) => s.id)).size} settings, as ${scenes.length} backdrops.</p>
+    <h1>The picture set</h1>
+    <p class="lead">${pictures.length} pictures, so every emoji the app showed now has one, in the style you picked: ${grid}-pixel art with soft colors and one-pixel outlines. ${moving} of them move, and every face blinks. Each picture is shown moving at card size and still at the small sizes the course map uses. After them come the stories' ${new Set(scenes.map((s) => s.id)).size} settings, as ${scenes.length} backdrops.</p>
   </header>
 ${sections}
 ${backdrops}
