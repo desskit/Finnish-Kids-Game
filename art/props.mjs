@@ -277,24 +277,28 @@ export function bow(k) {
   );
 }
 
-/** Hi! and bye!: a hand waving, wave lines beside it. */
-export function wave(k) {
+/** An open hand, palm to you, fingers up, in its blue cuff (on the 64 canvas, wrist at the bottom). */
+export function palm(k) {
   const c = k.P;
   const skin = c.skin2;
+  return [
+    k.g('rotate(-38 22.6 41)', k.rect(16.4, 27, 7, 17, 3.5, skin)),
+    k.rect(19.4, 11.4, 6.6, 24, 3.3, skin),
+    k.rect(26.6, 7.6, 6.6, 26, 3.3, skin),
+    k.rect(33.8, 9.4, 6.6, 24, 3.3, skin),
+    k.rect(40.6, 15, 6, 19, 3, skin),
+    k.rect(19, 27, 28, 25.6, 9, skin),
+    k.flat('M42 31.6C45 38 44.6 46 39.4 51.6C44.6 50 47 45 47 38.6Z', c.skin2Shade),
+    k.line('M26 40.6Q31.4 43.6 37.4 41.4', { color: c.skin2Shade, sw: 1.4 }),
+    k.rect(21, 49.6, 22, 8, 2.4, c.blue),
+  ].join('');
+}
+
+/** Hi! and bye!: a hand waving, wave lines beside it. */
+export function wave(k) {
   const f = k.frames > 1 ? k.frame % 2 : 0;
   return [
-    k.g(
-      `rotate(${f ? 12 : -14} 32 56)`,
-      k.g('rotate(-38 22.6 41)', k.rect(16.4, 27, 7, 17, 3.5, skin)),
-      k.rect(19.4, 11.4, 6.6, 24, 3.3, skin),
-      k.rect(26.6, 7.6, 6.6, 26, 3.3, skin),
-      k.rect(33.8, 9.4, 6.6, 24, 3.3, skin),
-      k.rect(40.6, 15, 6, 19, 3, skin),
-      k.rect(19, 27, 28, 25.6, 9, skin),
-      k.flat('M42 31.6C45 38 44.6 46 39.4 51.6C44.6 50 47 45 47 38.6Z', c.skin2Shade),
-      k.line('M26 40.6Q31.4 43.6 37.4 41.4', { color: c.skin2Shade, sw: 1.4 }),
-      k.rect(21, 49.6, 22, 8, 2.4, c.blue),
-    ),
+    k.g(`rotate(${f ? 12 : -14} 32 56)`, palm(k)),
     f
       ? k.line('M8.6 12.6Q5.6 18.6 7.6 25.4M13.4 9.6Q9.6 15.6 11.4 21.4', { sw: 1.8 })
       : k.line('M53.6 8.6Q58.6 13.6 58 21M48.6 6.6Q53 10.6 53.4 16.6', { sw: 1.8 }),

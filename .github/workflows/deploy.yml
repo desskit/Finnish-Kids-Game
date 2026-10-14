@@ -36,7 +36,6 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run icons
       - name: Build (with GitHub Pages base path)
         run: npm run build
         env:

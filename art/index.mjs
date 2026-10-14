@@ -3,10 +3,14 @@
 
 import adjectives from './recipes/adjectives.mjs';
 import animals from './recipes/animals.mjs';
+import avatars from './recipes/avatars.mjs';
+import badges from './recipes/badges.mjs';
 import body from './recipes/body.mjs';
 import clothes from './recipes/clothes.mjs';
 import food from './recipes/food.mjs';
 import freetime from './recipes/freetime.mjs';
+import icons from './recipes/icons.mjs';
+import lessonIcons from './recipes/lesson-icons.mjs';
 import nature from './recipes/nature.mjs';
 import people from './recipes/people.mjs';
 import places from './recipes/places.mjs';
@@ -41,7 +45,7 @@ import zoo from './scenes/zoo.mjs';
  * a story shows that isn't a word) has `prop: true`: it goes in the words
  * sprite, under its own `theme` in the gallery.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...props, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
 export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, park, playground, yard, field, beach, busStop, zoo, forest, station];

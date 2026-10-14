@@ -79,7 +79,7 @@ export function dogHead(k, x = 32, y = 24.5) {
 }
 
 /** The fox's head: orange, white cheeks, dark ear tips. Fills the canvas (avatar size). */
-export function foxHead(k, x = 32, y = 31) {
+export function foxHead(k, x = 32, y = 31, eyeR = 2.4) {
   const c = k.P;
   const at = (dx, dy) => [x + dx, y + dy];
   const P = (dx, dy) => pt(at(dx, dy));
@@ -92,8 +92,8 @@ export function foxHead(k, x = 32, y = 31) {
     innerEar(-1),
     k.flat(cheeks, c.white),
     k.path(face, 'none'),
-    k.eye(x - 6.6, y + 0.4, 2.4),
-    k.eye(x + 6.6, y + 0.4, 2.4),
+    k.eye(x - 6.6, y + 0.4, eyeR),
+    k.eye(x + 6.6, y + 0.4, eyeR),
     k.blush(x - 10.4, y + 6.2, 2.4, 1.4),
     k.blush(x + 10.4, y + 6.2, 2.4, 1.4),
     k.ellipse(x, y + 15.2, 2.8, 2, c.ink, { stroke: false }),

@@ -5,26 +5,50 @@ export const ART_GRID = 48;
 
 /** Every picture in the set. */
 export type ArtId =
+  | 'abacus'
+  | 'abc'
+  | 'add'
+  | 'again'
   | 'angry'
   | 'answer'
   | 'apple'
+  | 'arms-crossed'
+  | 'arrow-down'
+  | 'arrow-left'
+  | 'arrow-right'
+  | 'arrow-up'
   | 'ask'
   | 'autumn'
+  | 'avatar-bear'
+  | 'avatar-bunny'
+  | 'avatar-cat'
+  | 'avatar-dog'
   | 'avatar-fox'
+  | 'avatar-frog'
+  | 'avatar-koala'
+  | 'avatar-lion'
+  | 'avatar-owl'
+  | 'avatar-panda'
+  | 'avatar-penguin'
+  | 'avatar-test-tube'
+  | 'avatar-tiger'
   | 'baby'
   | 'backpack'
   | 'bag'
   | 'ball'
   | 'balloon'
   | 'banana'
+  | 'bar-chart'
   | 'basket'
   | 'bathroom'
   | 'bear'
   | 'bed'
   | 'bedroom'
   | 'bee'
+  | 'bell'
   | 'big'
   | 'bike'
+  | 'bin'
   | 'bird'
   | 'birthday'
   | 'black'
@@ -42,6 +66,7 @@ export type ArtId =
   | 'build'
   | 'bunny'
   | 'bus'
+  | 'bus-stop-sign'
   | 'butter'
   | 'butterfly'
   | 'buy'
@@ -70,10 +95,12 @@ export type ArtId =
   | 'cloud'
   | 'coat'
   | 'cold'
+  | 'compass'
   | 'computer'
   | 'cook'
   | 'cookie'
   | 'cow'
+  | 'crown'
   | 'cry'
   | 'customs'
   | 'cut'
@@ -81,10 +108,12 @@ export type ArtId =
   | 'dance'
   | 'daytime'
   | 'dog'
+  | 'done'
   | 'draw'
   | 'dress'
   | 'drink'
   | 'drive'
+  | 'drum'
   | 'duck'
   | 'ear'
   | 'eat'
@@ -100,6 +129,7 @@ export type ArtId =
   | 'field'
   | 'finger'
   | 'finish-flag'
+  | 'finland'
   | 'fire'
   | 'fish'
   | 'fix'
@@ -115,6 +145,8 @@ export type ArtId =
   | 'game'
   | 'give'
   | 'glove'
+  | 'glowing-star'
+  | 'gold-medal'
   | 'good'
   | 'grandfather'
   | 'grandmother'
@@ -129,6 +161,8 @@ export type ArtId =
   | 'hat'
   | 'head'
   | 'heart'
+  | 'heart-eyes'
+  | 'heart-hands'
   | 'help'
   | 'homework'
   | 'horse'
@@ -136,13 +170,16 @@ export type ArtId =
   | 'hot'
   | 'house'
   | 'hug'
+  | 'hundred-points'
   | 'hungry'
   | 'ice'
   | 'ice-cream'
+  | 'into-box'
   | 'island'
   | 'juice'
   | 'jump'
   | 'key'
+  | 'keyboard'
   | 'kind'
   | 'knee'
   | 'lake'
@@ -150,18 +187,26 @@ export type ArtId =
   | 'leaf'
   | 'learn'
   | 'library'
+  | 'light-bulb'
   | 'like'
+  | 'line-chart'
   | 'lion'
   | 'listen'
+  | 'location-pin'
   | 'lock'
   | 'look'
   | 'love'
+  | 'magnifier'
   | 'make'
   | 'market'
+  | 'mascot-cheer'
   | 'math'
   | 'meat'
+  | 'medal'
   | 'microphone'
   | 'milk'
+  | 'mirror'
+  | 'mix'
   | 'monkey'
   | 'moon'
   | 'morning'
@@ -173,17 +218,22 @@ export type ArtId =
   | 'muscle'
   | 'museum'
   | 'music'
+  | 'music-notes'
+  | 'new-sticker'
   | 'night'
   | 'nine-oclock'
   | 'no-sign'
   | 'nose'
+  | 'notebook'
   | 'one-two-three'
   | 'open'
+  | 'open-hands'
   | 'paint'
   | 'paper'
   | 'park'
   | 'party-popper'
   | 'pencil'
+  | 'people'
   | 'phone'
   | 'piano'
   | 'picture'
@@ -191,6 +241,9 @@ export type ArtId =
   | 'pizza'
   | 'plane'
   | 'play'
+  | 'play-back'
+  | 'play-button'
+  | 'pointing-at-you'
   | 'porridge'
   | 'potato'
   | 'proud'
@@ -199,25 +252,33 @@ export type ArtId =
   | 'read'
   | 'red'
   | 'red-ball'
+  | 'reply'
   | 'restaurant'
+  | 'rewind'
   | 'rice'
   | 'ring'
+  | 'rocket'
   | 'room'
+  | 'ruler'
   | 'run'
   | 'run-away'
   | 'sad'
   | 'sausage'
   | 'say'
+  | 'scales'
   | 'scarf'
   | 'school'
   | 'sea'
   | 'search'
   | 'see'
+  | 'see-no-evil'
+  | 'settings'
   | 'sheep'
   | 'ship'
   | 'shirt'
   | 'shoe'
   | 'shop'
+  | 'shopkeeper'
   | 'shush'
   | 'sick'
   | 'sing'
@@ -234,9 +295,13 @@ export type ArtId =
   | 'sock'
   | 'sofa'
   | 'son'
+  | 'sound-low'
+  | 'sound-off'
   | 'soup'
+  | 'sparkles'
   | 'speak'
   | 'speaker'
+  | 'spiral-calendar'
   | 'spoon'
   | 'spring'
   | 'stand'
@@ -251,12 +316,15 @@ export type ArtId =
   | 'swim'
   | 'table'
   | 'tall'
+  | 'target'
   | 'taxi'
   | 'teach'
   | 'teacher'
   | 'test'
   | 'thanks'
+  | 'thinking'
   | 'throw'
+  | 'thumbs-down'
   | 'tie'
   | 'tile'
   | 'tired'
@@ -264,16 +332,20 @@ export type ArtId =
   | 'tongue'
   | 'tooth'
   | 'train'
+  | 'treasure-map'
   | 'tree'
   | 'trophy'
   | 'tulip'
   | 'tummy'
+  | 'two-hearts'
   | 'two-oclock'
   | 'vest'
   | 'wait'
   | 'wake-up'
   | 'walk'
+  | 'walking-cat'
   | 'warm-up'
+  | 'warning'
   | 'wash'
   | 'water'
   | 'wave'
@@ -293,26 +365,50 @@ export type ArtGroup = 'ui' | 'words';
 
 /** Which sprite each picture is in, and what it shows. */
 export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = {
+  abacus: { group: 'ui', title: 'abacus (counting)' },
+  abc: { group: 'ui', title: 'abc (the alphabet)' },
+  add: { group: 'ui', title: 'add a player' },
+  again: { group: 'ui', title: 'review, again (arrows round a loop)' },
   angry: { group: 'words', title: 'angry' },
   answer: { group: 'words', title: 'answer (hand up)' },
   apple: { group: 'words', title: 'apple' },
+  'arms-crossed': { group: 'ui', title: 'arms crossed (I\'m not, didn\'t)' },
+  'arrow-down': { group: 'ui', title: 'save a file (an arrow down)' },
+  'arrow-left': { group: 'ui', title: 'back (an arrow)' },
+  'arrow-right': { group: 'ui', title: 'into, onward (an arrow)' },
+  'arrow-up': { group: 'ui', title: 'load a file (an arrow up)' },
   ask: { group: 'words', title: 'ask (a question mark)' },
   autumn: { group: 'words', title: 'autumn (falling leaves)' },
+  'avatar-bear': { group: 'ui', title: 'bear (avatar)' },
+  'avatar-bunny': { group: 'ui', title: 'bunny (avatar)' },
+  'avatar-cat': { group: 'ui', title: 'cat (avatar)' },
+  'avatar-dog': { group: 'ui', title: 'dog (avatar)' },
   'avatar-fox': { group: 'ui', title: 'fox (avatar)' },
+  'avatar-frog': { group: 'ui', title: 'frog (avatar)' },
+  'avatar-koala': { group: 'ui', title: 'koala (avatar)' },
+  'avatar-lion': { group: 'ui', title: 'lion (avatar)' },
+  'avatar-owl': { group: 'ui', title: 'owl (avatar)' },
+  'avatar-panda': { group: 'ui', title: 'panda (avatar)' },
+  'avatar-penguin': { group: 'ui', title: 'penguin (avatar)' },
+  'avatar-test-tube': { group: 'ui', title: 'test tube (the test profile; test games)' },
+  'avatar-tiger': { group: 'ui', title: 'tiger (avatar)' },
   baby: { group: 'words', title: 'baby' },
   backpack: { group: 'words', title: 'backpack (with a reflector)' },
   bag: { group: 'words', title: 'bag' },
   ball: { group: 'words', title: 'ball (a beach ball, bouncing)' },
   balloon: { group: 'words', title: 'balloon (swaying)' },
   banana: { group: 'words', title: 'banana' },
+  'bar-chart': { group: 'ui', title: 'progress (a bar chart)' },
   basket: { group: 'words', title: 'basket (of blueberries)' },
   bathroom: { group: 'words', title: 'bathroom (a bubble bath)' },
   bear: { group: 'words', title: 'bear' },
   bed: { group: 'words', title: 'bed' },
   bedroom: { group: 'words', title: 'bedroom (someone asleep)' },
   bee: { group: 'words', title: 'bee' },
+  bell: { group: 'ui', title: 'a bell, ringing' },
   big: { group: 'words', title: 'big (a dinosaur)' },
   bike: { group: 'words', title: 'bike (wheels spinning)' },
+  bin: { group: 'ui', title: 'clear (a wastebasket)' },
   bird: { group: 'words', title: 'bird' },
   birthday: { group: 'words', title: 'birthday (a cake, candles flickering)' },
   black: { group: 'words', title: 'black (a crayon)' },
@@ -330,6 +426,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   build: { group: 'words', title: 'build (the last brick)' },
   bunny: { group: 'words', title: 'bunny' },
   bus: { group: 'words', title: 'bus (a blue city bus)' },
+  'bus-stop-sign': { group: 'ui', title: 'bus stop sign' },
   butter: { group: 'words', title: 'butter' },
   butterfly: { group: 'words', title: 'butterfly' },
   buy: { group: 'words', title: 'buy (a shopping cart)' },
@@ -358,10 +455,12 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   cloud: { group: 'words', title: 'cloud' },
   coat: { group: 'words', title: 'coat (a winter jacket)' },
   cold: { group: 'words', title: 'cold (shivering)' },
+  compass: { group: 'ui', title: 'compass (around: in front, behind, next to)' },
   computer: { group: 'words', title: 'computer (a laptop)' },
   cook: { group: 'words', title: 'cook (stirring a pot)' },
   cookie: { group: 'words', title: 'cookie' },
   cow: { group: 'words', title: 'cow' },
+  crown: { group: 'ui', title: 'crown (50 words mastered)' },
   cry: { group: 'words', title: 'cry' },
   customs: { group: 'words', title: 'customs (a passport)' },
   cut: { group: 'words', title: 'cut (scissors)' },
@@ -369,10 +468,12 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   dance: { group: 'words', title: 'dance (Aino)' },
   daytime: { group: 'words', title: 'daytime' },
   dog: { group: 'words', title: 'Musti the dog' },
+  done: { group: 'ui', title: 'done, passed (a tick)' },
   draw: { group: 'words', title: 'draw (a sun at the easel)' },
   dress: { group: 'words', title: 'dress' },
   drink: { group: 'words', title: 'drink (juice through a straw)' },
   drive: { group: 'words', title: 'drive (Leo at the wheel)' },
+  drum: { group: 'ui', title: 'a drum (the beat)' },
   duck: { group: 'words', title: 'duck (ankka: a farmyard duck)' },
   ear: { group: 'words', title: 'ear (hearing)' },
   eat: { group: 'words', title: 'eat (soup, spoon to mouth)' },
@@ -388,6 +489,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   field: { group: 'words', title: 'field (a sports field)' },
   finger: { group: 'words', title: 'finger' },
   'finish-flag': { group: 'ui', title: 'finish flag (flapping)' },
+  finland: { group: 'ui', title: 'the Finnish check (Finland\'s flag)' },
   fire: { group: 'words', title: 'fire (a campfire)' },
   fish: { group: 'words', title: 'fish' },
   fix: { group: 'words', title: 'fix (a wrench turning)' },
@@ -403,6 +505,8 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   game: { group: 'words', title: 'game (a controller)' },
   give: { group: 'words', title: 'give (a present to Aino)' },
   glove: { group: 'words', title: 'glove (mittens)' },
+  'glowing-star': { group: 'ui', title: 'shining star (a great round, 500 stars)' },
+  'gold-medal': { group: 'ui', title: 'gold medal (first)' },
   good: { group: 'words', title: 'good (thumbs up)' },
   grandfather: { group: 'words', title: 'grandfather' },
   grandmother: { group: 'words', title: 'Isoäiti (grandmother)' },
@@ -417,6 +521,8 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   hat: { group: 'words', title: 'hat' },
   head: { group: 'words', title: 'head (Eero)' },
   heart: { group: 'words', title: 'heart (beating)' },
+  'heart-eyes': { group: 'ui', title: 'heart eyes (loving things)' },
+  'heart-hands': { group: 'ui', title: 'hands holding a heart (me and you)' },
   help: { group: 'words', title: 'help (carrying a box together)' },
   homework: { group: 'words', title: 'homework (the pencil writing)' },
   horse: { group: 'words', title: 'horse (a Finnhorse)' },
@@ -424,13 +530,16 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   hot: { group: 'words', title: 'hot (sweating)' },
   house: { group: 'words', title: 'house' },
   hug: { group: 'words', title: 'hug (Leo and his teddy)' },
+  'hundred-points': { group: 'ui', title: '100 (big numbers)' },
   hungry: { group: 'words', title: 'hungry (drooling)' },
   ice: { group: 'words', title: 'ice' },
   'ice-cream': { group: 'words', title: 'ice cream' },
+  'into-box': { group: 'ui', title: 'into it (an arrow into a box)' },
   island: { group: 'words', title: 'island (in a lake)' },
   juice: { group: 'words', title: 'juice' },
   jump: { group: 'words', title: 'jump' },
   key: { group: 'words', title: 'key' },
+  keyboard: { group: 'ui', title: 'keyboard (typing)' },
   kind: { group: 'words', title: 'kind (a halo)' },
   knee: { group: 'words', title: 'knee (with a plaster)' },
   lake: { group: 'words', title: 'lake (in the forest)' },
@@ -438,18 +547,26 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   leaf: { group: 'words', title: 'leaf' },
   learn: { group: 'words', title: 'learn (a graduation cap)' },
   library: { group: 'words', title: 'library (a pile of books)' },
+  'light-bulb': { group: 'ui', title: 'light bulb (a tip, why?)' },
   like: { group: 'words', title: 'like (yum)' },
+  'line-chart': { group: 'ui', title: 'stats (a line going up)' },
   lion: { group: 'words', title: 'lion' },
   listen: { group: 'words', title: 'listen (headphones on)' },
+  'location-pin': { group: 'ui', title: 'map pin (where)' },
   lock: { group: 'words', title: 'lock (the key turning)' },
   look: { group: 'words', title: 'look (watching TV)' },
   love: { group: 'words', title: 'love (a beating heart)' },
+  magnifier: { group: 'ui', title: 'look closely (a magnifying glass)' },
   make: { group: 'words', title: 'make (hammering)' },
   market: { group: 'words', title: 'market (a stall)' },
+  'mascot-cheer': { group: 'ui', title: 'the fox cheering (a perfect round)' },
   math: { group: 'words', title: 'math (an abacus)' },
   meat: { group: 'words', title: 'meat on the bone' },
+  medal: { group: 'ui', title: 'medal (achievements)' },
   microphone: { group: 'ui', title: 'microphone (notes when someone sings)' },
   milk: { group: 'words', title: 'milk' },
+  mirror: { group: 'ui', title: 'mirror (describing words copy)' },
+  mix: { group: 'ui', title: 'mixed, changing (crossing arrows)' },
   monkey: { group: 'words', title: 'monkey' },
   moon: { group: 'words', title: 'moon (stars twinkling by it)' },
   morning: { group: 'words', title: 'morning (sunrise over the lake)' },
@@ -461,17 +578,22 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   muscle: { group: 'words', title: 'muscle (flexing)' },
   museum: { group: 'words', title: 'museum' },
   music: { group: 'words', title: 'music (two notes, bobbing)' },
+  'music-notes': { group: 'ui', title: 'music notes (a song)' },
+  'new-sticker': { group: 'ui', title: 'new words (a NEW sticker)' },
   night: { group: 'words', title: 'night (stars twinkling)' },
   'nine-oclock': { group: 'words', title: 'nine o\'clock' },
   'no-sign': { group: 'ui', title: 'no! (a red ring with a bar)' },
   nose: { group: 'words', title: 'nose' },
+  notebook: { group: 'ui', title: 'notebook (Vihko)' },
   'one-two-three': { group: 'ui', title: '1 2 3 (numbers)' },
   open: { group: 'words', title: 'open (a padlock springing open)' },
+  'open-hands': { group: 'ui', title: 'open hands (these are…)' },
   paint: { group: 'words', title: 'paint (a palette)' },
   paper: { group: 'words', title: 'paper' },
   park: { group: 'words', title: 'park (a slide)' },
   'party-popper': { group: 'ui', title: 'party popper (well done!)' },
   pencil: { group: 'words', title: 'pencil' },
+  people: { group: 'ui', title: 'players, who (two people)' },
   phone: { group: 'words', title: 'phone' },
   piano: { group: 'words', title: 'piano (a keyboard)' },
   picture: { group: 'words', title: 'picture' },
@@ -479,6 +601,9 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   pizza: { group: 'words', title: 'pizza' },
   plane: { group: 'words', title: 'plane' },
   play: { group: 'words', title: 'play (a yo-yo)' },
+  'play-back': { group: 'ui', title: 'previous page' },
+  'play-button': { group: 'ui', title: 'continue, next page' },
+  'pointing-at-you': { group: 'ui', title: 'pointing at you (mine and yours)' },
   porridge: { group: 'words', title: 'porridge (a butter eye and blueberries, steaming)' },
   potato: { group: 'words', title: 'potato' },
   proud: { group: 'words', title: 'proud (Leo with a medal)' },
@@ -487,25 +612,33 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   read: { group: 'words', title: 'read (a page turning)' },
   red: { group: 'words', title: 'red (a crayon)' },
   'red-ball': { group: 'words', title: 'red ball (bouncing)' },
+  reply: { group: 'ui', title: 'the reply (an arrow hooking round)' },
   restaurant: { group: 'words', title: 'restaurant' },
+  rewind: { group: 'ui', title: 'rewind (what happened)' },
   rice: { group: 'words', title: 'rice' },
   ring: { group: 'words', title: 'ring' },
+  rocket: { group: 'ui', title: 'rocket (level up!)' },
   room: { group: 'words', title: 'room' },
+  ruler: { group: 'ui', title: 'ruler (one letter or two?)' },
   run: { group: 'words', title: 'run' },
   'run-away': { group: 'words', title: 'run away (from a bee)' },
   sad: { group: 'words', title: 'sad' },
   sausage: { group: 'words', title: 'sausage (with mustard)' },
   say: { group: 'words', title: 'say (a speech bubble)' },
+  scales: { group: 'ui', title: 'scales (have or not, which is more)' },
   scarf: { group: 'words', title: 'scarf' },
   school: { group: 'words', title: 'school (a Finnish flag on top)' },
   sea: { group: 'words', title: 'sea (a wave)' },
   search: { group: 'words', title: 'look for (a magnifying glass)' },
   see: { group: 'words', title: 'see (eyes looking around)' },
+  'see-no-evil': { group: 'ui', title: 'monkey hiding its eyes (hiding)' },
+  settings: { group: 'ui', title: 'settings (a cog)' },
   sheep: { group: 'words', title: 'sheep' },
   ship: { group: 'words', title: 'ship (a ferry)' },
   shirt: { group: 'words', title: 'shirt' },
   shoe: { group: 'words', title: 'shoe' },
   shop: { group: 'words', title: 'shop' },
+  shopkeeper: { group: 'ui', title: 'the shopkeeper' },
   shush: { group: 'words', title: 'shh! (a finger to the lips, eyes glancing round)' },
   sick: { group: 'words', title: 'sick (a thermometer)' },
   sing: { group: 'words', title: 'sing (into a microphone)' },
@@ -522,9 +655,13 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   sock: { group: 'words', title: 'sock' },
   sofa: { group: 'words', title: 'sofa' },
   son: { group: 'words', title: 'Eero (son, boy)' },
+  'sound-low': { group: 'ui', title: 'no Finnish voice (a quiet speaker)' },
+  'sound-off': { group: 'ui', title: 'no sound' },
   soup: { group: 'words', title: 'soup (steaming)' },
+  sparkles: { group: 'ui', title: 'sparkles (flawless)' },
   speak: { group: 'words', title: 'speak' },
   speaker: { group: 'ui', title: 'speaker (listen)' },
+  'spiral-calendar': { group: 'ui', title: 'spiral calendar (days and dates)' },
   spoon: { group: 'words', title: 'spoon' },
   spring: { group: 'words', title: 'spring (a sprout)' },
   stand: { group: 'words', title: 'stand (on a spot)' },
@@ -539,12 +676,15 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   swim: { group: 'words', title: 'swim' },
   table: { group: 'words', title: 'table' },
   tall: { group: 'words', title: 'tall (a giraffe next to Leo)' },
+  target: { group: 'ui', title: 'target (sharp; wanting)' },
   taxi: { group: 'words', title: 'taxi' },
   teach: { group: 'words', title: 'teach (at the blackboard)' },
   teacher: { group: 'words', title: 'teacher (Opettaja)' },
   test: { group: 'words', title: 'test (the ticks going in)' },
   thanks: { group: 'words', title: 'thank you (hands pressed together)' },
+  thinking: { group: 'ui', title: 'thinking (question words)' },
   throw: { group: 'words', title: 'throw (a frisbee)' },
+  'thumbs-down': { group: 'ui', title: 'false (a thumbs down)' },
   tie: { group: 'words', title: 'tie' },
   tile: { group: 'ui', title: 'number tile (the numeral is live text on top)' },
   tired: { group: 'words', title: 'tired (yawning)' },
@@ -552,16 +692,20 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   tongue: { group: 'words', title: 'tongue' },
   tooth: { group: 'words', title: 'tooth' },
   train: { group: 'words', title: 'train' },
+  'treasure-map': { group: 'ui', title: 'treasure map (halfway)' },
   tree: { group: 'words', title: 'tree' },
   trophy: { group: 'ui', title: 'trophy' },
   tulip: { group: 'words', title: 'tulip (May)' },
   tummy: { group: 'words', title: 'tummy (Leo patting his)' },
+  'two-hearts': { group: 'ui', title: 'two hearts (I love…)' },
   'two-oclock': { group: 'words', title: 'two o\'clock' },
   vest: { group: 'words', title: 'vest (a reflective vest)' },
   wait: { group: 'words', title: 'wait (an hourglass)' },
   'wake-up': { group: 'words', title: 'wake up (stretching, the alarm ringing)' },
   walk: { group: 'words', title: 'walk' },
+  'walking-cat': { group: 'ui', title: 'Mirri walking (where\'s the cat going?)' },
   'warm-up': { group: 'words', title: 'warm up (by the campfire)' },
+  warning: { group: 'ui', title: 'careful (a warning sign)' },
   wash: { group: 'words', title: 'wash (hands, with soap)' },
   water: { group: 'words', title: 'water' },
   wave: { group: 'ui', title: 'hi! bye! (a hand waving)' },
@@ -585,9 +729,22 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
 export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: boolean }>>> = {
   angry: { loop: true, blink: true },
   answer: { loop: true, blink: true },
+  'arms-crossed': { loop: false, blink: true },
   ask: { loop: true, blink: false },
   autumn: { loop: true, blink: false },
+  'avatar-bear': { loop: false, blink: true },
+  'avatar-bunny': { loop: false, blink: true },
+  'avatar-cat': { loop: false, blink: true },
+  'avatar-dog': { loop: false, blink: true },
   'avatar-fox': { loop: false, blink: true },
+  'avatar-frog': { loop: false, blink: true },
+  'avatar-koala': { loop: false, blink: true },
+  'avatar-lion': { loop: false, blink: true },
+  'avatar-owl': { loop: false, blink: true },
+  'avatar-panda': { loop: false, blink: true },
+  'avatar-penguin': { loop: false, blink: true },
+  'avatar-test-tube': { loop: true, blink: false },
+  'avatar-tiger': { loop: false, blink: true },
   baby: { loop: true, blink: true },
   ball: { loop: true, blink: false },
   balloon: { loop: true, blink: false },
@@ -595,6 +752,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   bear: { loop: false, blink: true },
   bedroom: { loop: true, blink: false },
   bee: { loop: true, blink: true },
+  bell: { loop: true, blink: false },
   big: { loop: true, blink: false },
   bike: { loop: true, blink: false },
   bird: { loop: true, blink: true },
@@ -621,8 +779,10 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   clock: { loop: true, blink: false },
   cloud: { loop: true, blink: false },
   cold: { loop: true, blink: false },
+  compass: { loop: true, blink: false },
   cook: { loop: true, blink: true },
   cow: { loop: true, blink: true },
+  crown: { loop: true, blink: false },
   cry: { loop: true, blink: true },
   cut: { loop: true, blink: false },
   cute: { loop: true, blink: false },
@@ -632,6 +792,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   draw: { loop: true, blink: true },
   drink: { loop: true, blink: true },
   drive: { loop: true, blink: true },
+  drum: { loop: true, blink: false },
   duck: { loop: true, blink: true },
   ear: { loop: true, blink: false },
   eat: { loop: true, blink: true },
@@ -654,6 +815,8 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   frog: { loop: true, blink: true },
   funny: { loop: true, blink: false },
   give: { loop: true, blink: true },
+  'glowing-star': { loop: true, blink: false },
+  'gold-medal': { loop: true, blink: false },
   good: { loop: true, blink: false },
   grandfather: { loop: false, blink: true },
   grandmother: { loop: false, blink: true },
@@ -666,6 +829,8 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   happy: { loop: true, blink: false },
   head: { loop: false, blink: true },
   heart: { loop: true, blink: false },
+  'heart-eyes': { loop: true, blink: false },
+  'heart-hands': { loop: true, blink: false },
   help: { loop: true, blink: false },
   homework: { loop: true, blink: false },
   horse: { loop: true, blink: true },
@@ -680,15 +845,20 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   laugh: { loop: true, blink: false },
   leaf: { loop: true, blink: false },
   learn: { loop: true, blink: true },
+  'light-bulb': { loop: true, blink: false },
   like: { loop: true, blink: false },
   lion: { loop: true, blink: true },
   listen: { loop: true, blink: false },
+  'location-pin': { loop: true, blink: false },
   lock: { loop: true, blink: false },
   look: { loop: true, blink: true },
   love: { loop: true, blink: false },
   make: { loop: true, blink: true },
+  'mascot-cheer': { loop: true, blink: false },
   math: { loop: true, blink: false },
+  medal: { loop: true, blink: false },
   microphone: { loop: true, blink: false },
+  mirror: { loop: true, blink: false },
   monkey: { loop: true, blink: true },
   moon: { loop: true, blink: false },
   morning: { loop: true, blink: false },
@@ -697,6 +867,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   movie: { loop: true, blink: false },
   muscle: { loop: true, blink: false },
   music: { loop: true, blink: false },
+  'music-notes': { loop: true, blink: false },
   night: { loop: true, blink: false },
   open: { loop: true, blink: false },
   paint: { loop: true, blink: false },
@@ -712,15 +883,19 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   read: { loop: true, blink: true },
   'red-ball': { loop: true, blink: false },
   ring: { loop: true, blink: false },
+  rocket: { loop: true, blink: false },
   run: { loop: true, blink: false },
   'run-away': { loop: true, blink: false },
   sad: { loop: true, blink: true },
   say: { loop: true, blink: false },
+  scales: { loop: true, blink: false },
   sea: { loop: true, blink: false },
   search: { loop: true, blink: false },
   see: { loop: true, blink: false },
+  'see-no-evil': { loop: true, blink: false },
   sheep: { loop: true, blink: true },
   ship: { loop: true, blink: false },
+  shopkeeper: { loop: false, blink: true },
   shush: { loop: true, blink: false },
   sick: { loop: true, blink: true },
   sing: { loop: true, blink: false },
@@ -735,6 +910,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   snow: { loop: true, blink: false },
   son: { loop: false, blink: true },
   soup: { loop: true, blink: false },
+  sparkles: { loop: true, blink: false },
   speak: { loop: true, blink: true },
   speaker: { loop: true, blink: false },
   spring: { loop: true, blink: false },
@@ -746,12 +922,15 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   surprised: { loop: true, blink: true },
   swim: { loop: true, blink: false },
   tall: { loop: true, blink: true },
+  target: { loop: true, blink: false },
   taxi: { loop: true, blink: false },
   teach: { loop: true, blink: true },
   teacher: { loop: false, blink: true },
   test: { loop: true, blink: false },
   thanks: { loop: true, blink: false },
+  thinking: { loop: true, blink: true },
   throw: { loop: true, blink: true },
+  'thumbs-down': { loop: true, blink: false },
   tired: { loop: true, blink: true },
   tongue: { loop: true, blink: false },
   tooth: { loop: true, blink: true },
@@ -760,9 +939,11 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   trophy: { loop: true, blink: false },
   tulip: { loop: true, blink: false },
   tummy: { loop: true, blink: true },
+  'two-hearts': { loop: true, blink: false },
   wait: { loop: true, blink: false },
   'wake-up': { loop: true, blink: false },
   walk: { loop: true, blink: false },
+  'walking-cat': { loop: true, blink: true },
   'warm-up': { loop: true, blink: false },
   wash: { loop: true, blink: false },
   wave: { loop: true, blink: false },
@@ -777,25 +958,43 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
 
 /** An emoji (variation selectors removed) → the picture drawn for it. */
 export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
+  '🧮': 'abacus',
+  '🔤': 'abc',
+  '➕': 'add',
+  '🔁': 'again',
   '😠': 'angry',
   '🙋': 'answer',
   '🍎': 'apple',
+  '🙅': 'arms-crossed',
+  '⬇': 'arrow-down',
+  '⬅': 'arrow-left',
+  '➡': 'arrow-right',
+  '⬆': 'arrow-up',
   '❓': 'ask',
   '🍂': 'autumn',
+  '🐨': 'avatar-koala',
+  '🦉': 'avatar-owl',
+  '🐼': 'avatar-panda',
+  '🐧': 'avatar-penguin',
+  '🧪': 'avatar-test-tube',
+  '🐯': 'avatar-tiger',
   '👶': 'baby',
   '🎒': 'backpack',
   '👜': 'bag',
   '🏐': 'ball',
   '🎈': 'balloon',
   '🍌': 'banana',
+  '📊': 'bar-chart',
   '🧺': 'basket',
   '🛁': 'bathroom',
   '🐻': 'bear',
   '🛏': 'bed',
   '🛌': 'bedroom',
   '🐝': 'bee',
+  '🔔': 'bell',
   '🦕': 'big',
   '🚲': 'bike',
+  '🗑': 'bin',
   '🐦': 'bird',
   '🎂': 'birthday',
   '⬛': 'black',
@@ -813,6 +1012,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🧱': 'build',
   '🐰': 'bunny',
   '🚌': 'bus',
+  '🚏': 'bus-stop-sign',
   '🧈': 'butter',
   '🦋': 'butterfly',
   '🛒': 'buy',
@@ -841,10 +1041,12 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '☁': 'cloud',
   '🧥': 'coat',
   '🥶': 'cold',
+  '🧭': 'compass',
   '💻': 'computer',
   '🍳': 'cook',
   '🍪': 'cookie',
   '🐮': 'cow',
+  '👑': 'crown',
   '😢': 'cry',
   '🛂': 'customs',
   '✂': 'cut',
@@ -852,8 +1054,10 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '💃': 'dance',
   '🌞': 'daytime',
   '🐶': 'dog',
+  '✅': 'done',
   '👗': 'dress',
   '🥤': 'drink',
+  '🥁': 'drum',
   '🦆': 'duck',
   '👂': 'ear',
   '🥚': 'egg',
@@ -868,6 +1072,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🏟': 'field',
   '👆': 'finger',
   '🏁': 'finish-flag',
+  '🇫🇮': 'finland',
   '🔥': 'fire',
   '🐟': 'fish',
   '🔧': 'fix',
@@ -883,6 +1088,8 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🎮': 'game',
   '🎁': 'give',
   '🧤': 'glove',
+  '🌟': 'glowing-star',
+  '🥇': 'gold-medal',
   '👍': 'good',
   '👴': 'grandfather',
   '👵': 'grandmother',
@@ -896,19 +1103,24 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '👒': 'hat',
   '🙂': 'head',
   '❤': 'heart',
+  '😍': 'heart-eyes',
+  '🫶': 'heart-hands',
   '📝': 'homework',
   '🐴': 'horse',
   '🏥': 'hospital',
   '🥵': 'hot',
   '🏠': 'house',
   '🤗': 'hug',
+  '💯': 'hundred-points',
   '🤤': 'hungry',
   '🧊': 'ice',
   '🍦': 'ice-cream',
+  '📥': 'into-box',
   '🏝': 'island',
   '🧃': 'juice',
   '🦘': 'jump',
   '🔑': 'key',
+  '⌨': 'keyboard',
   '😇': 'kind',
   '🦵': 'knee',
   '🏞': 'lake',
@@ -916,17 +1128,24 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🍃': 'leaf',
   '🎓': 'learn',
   '📚': 'library',
+  '💡': 'light-bulb',
   '😋': 'like',
+  '📈': 'line-chart',
   '🦁': 'lion',
   '🎧': 'listen',
+  '📍': 'location-pin',
   '🔐': 'lock',
   '📺': 'look',
+  '🔎': 'magnifier',
   '🔨': 'make',
   '🛍': 'market',
   '➗': 'math',
   '🍖': 'meat',
+  '🏅': 'medal',
   '🎤': 'microphone',
   '🥛': 'milk',
+  '🪞': 'mirror',
+  '🔀': 'mix',
   '🐵': 'monkey',
   '🌙': 'moon',
   '🌅': 'morning',
@@ -938,17 +1157,22 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '💪': 'muscle',
   '🏛': 'museum',
   '🎵': 'music',
+  '🎶': 'music-notes',
+  '🆕': 'new-sticker',
   '🌃': 'night',
   '🕘': 'nine-oclock',
   '🚫': 'no-sign',
   '👃': 'nose',
+  '📓': 'notebook',
   '🔢': 'one-two-three',
   '🔓': 'open',
+  '👐': 'open-hands',
   '🎨': 'paint',
   '📄': 'paper',
   '🛝': 'park',
   '🎉': 'party-popper',
   '✏': 'pencil',
+  '👥': 'people',
   '📱': 'phone',
   '🎹': 'piano',
   '🖼': 'picture',
@@ -956,6 +1180,9 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🍕': 'pizza',
   '🛩': 'plane',
   '🧸': 'play',
+  '◀': 'play-back',
+  '▶': 'play-button',
+  '🫵': 'pointing-at-you',
   '🥣': 'porridge',
   '🥔': 'potato',
   '😤': 'proud',
@@ -964,24 +1191,32 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '📖': 'read',
   '🟥': 'red',
   '🔴': 'red-ball',
+  '↪': 'reply',
   '🍴': 'restaurant',
+  '⏮': 'rewind',
   '🍚': 'rice',
   '💍': 'ring',
+  '🚀': 'rocket',
   '🚪': 'room',
+  '📏': 'ruler',
   '🏃': 'run',
   '😞': 'sad',
   '🌭': 'sausage',
   '💬': 'say',
+  '⚖': 'scales',
   '🧣': 'scarf',
   '🏫': 'school',
   '🌊': 'sea',
   '🔍': 'search',
   '👀': 'see',
+  '🙈': 'see-no-evil',
+  '⚙': 'settings',
   '🐑': 'sheep',
   '🚢': 'ship',
   '👕': 'shirt',
   '👟': 'shoe',
   '🏪': 'shop',
+  '🧑‍💼': 'shopkeeper',
   '🤫': 'shush',
   '🤒': 'sick',
   '👧': 'sister',
@@ -996,9 +1231,13 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🧦': 'sock',
   '🛋': 'sofa',
   '👦': 'son',
+  '🔈': 'sound-low',
+  '🔇': 'sound-off',
   '🍲': 'soup',
+  '✨': 'sparkles',
   '🗣': 'speak',
   '🔊': 'speaker',
+  '🗓': 'spiral-calendar',
   '🥄': 'spoon',
   '🌱': 'spring',
   '🧍': 'stand',
@@ -1012,27 +1251,34 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '😮': 'surprised',
   '🏊': 'swim',
   '🍽': 'table',
+  '🎯': 'target',
   '🚕': 'taxi',
   '👩‍🏫': 'teach',
   '🧑‍🏫': 'teacher',
   '📋': 'test',
   '🙏': 'thanks',
+  '🤔': 'thinking',
   '🥏': 'throw',
+  '👎': 'thumbs-down',
   '👔': 'tie',
   '🥱': 'tired',
   '🍅': 'tomato',
   '👅': 'tongue',
   '🦷': 'tooth',
   '🚆': 'train',
+  '🗺': 'treasure-map',
   '🌳': 'tree',
   '🏆': 'trophy',
   '🌷': 'tulip',
   '🤰': 'tummy',
+  '💕': 'two-hearts',
   '🕑': 'two-oclock',
   '🦺': 'vest',
   '⏳': 'wait',
   '🚶': 'walk',
+  '🐈': 'walking-cat',
   '♨': 'warm-up',
+  '⚠': 'warning',
   '🧼': 'wash',
   '💧': 'water',
   '👋': 'wave',

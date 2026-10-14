@@ -11,6 +11,15 @@ describe('RoundComplete', () => {
     expect(onHome).toHaveBeenCalled();
   });
 
+  it('shows the fox cheering after a perfect round, and sitting otherwise', () => {
+    const { container, unmount } = render(<RoundComplete stars={4} total={4} onAgain={vi.fn()} />);
+    expect(container.querySelector('.mascot [data-art="mascot-cheer"]')).not.toBeNull();
+    unmount();
+    const again = render(<RoundComplete stars={3} total={4} onAgain={vi.fn()} />);
+    expect(again.container.querySelector('.mascot [data-art="fox"]')).not.toBeNull();
+    expect(again.container.querySelector('[data-art="mascot-cheer"]')).toBeNull();
+  });
+
   it('hides Home when onHome is omitted (embedded, e.g. the audit harness)', () => {
     render(<RoundComplete stars={3} total={4} onAgain={vi.fn()} />);
     expect(screen.queryByText('Koti')).toBeNull();

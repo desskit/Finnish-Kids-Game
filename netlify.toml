@@ -6,8 +6,8 @@
 # (that's only for the GitHub Pages fallback in .github/workflows/deploy.yml).
 
 [build]
-  # Icons are committed, but regenerate them so a fresh checkout always has them.
-  command = "npm run icons && npm run build"
+  # The icons are committed (npm run icons draws them from the pixel fox).
+  command = "npm run build"
   publish = "dist"
 
 [build.environment]

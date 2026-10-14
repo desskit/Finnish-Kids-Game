@@ -22,33 +22,33 @@ function face(k, x, y, { nose = 'ink', noseW = 2.4, eyeGap = 5.6, eyeY = -1.4, m
 /** A tail that swings about its base by `turn` degrees. */
 const swing = (k, turn, base, inner) => (turn ? k.g(`rotate(${turn} ${pt(base)})`, inner) : inner);
 
-export function bear(k) {
+/** The bear's head: round ears, a tan muzzle. (The avatar draws it bigger.) */
+export function bearHead(k) {
   const c = k.P;
   const ear = (s) => k.circle(32 + s * 11, 15.4, 4.6, c.brown) + k.flatCircle(32 + s * 11, 15.4, 2.2, c.tan);
-  return [
-    k.ground(32, 58.6, 14, 2.4),
-    sittingBody(k, c.brown, { chest: c.tan, paws: 'tan' }),
-    ear(-1),
-    ear(1),
-    k.ellipse(32, 26, 14, 12.6, c.brown),
-    k.flatEllipse(32, 31.2, 6.4, 4.8, c.tan),
-    face(k, 32, 26.6, { eyeY: -2.2 }),
-  ].join('');
+  return [ear(-1), ear(1), k.ellipse(32, 26, 14, 12.6, c.brown), k.flatEllipse(32, 31.2, 6.4, 4.8, c.tan), face(k, 32, 26.6, { eyeY: -2.2 })].join('');
+}
+
+export function bear(k) {
+  const c = k.P;
+  return [k.ground(32, 58.6, 14, 2.4), sittingBody(k, c.brown, { chest: c.tan, paws: 'tan' }), bearHead(k)].join('');
+}
+
+/** The bunny's head, its right ear turned by `twitch` degrees. */
+export function bunnyHead(k, twitch = 6) {
+  const c = k.P;
+  const ear = (s, turn) =>
+    k.g(`rotate(${s * turn} ${pt([32 + s * 5.6, 17])})`, k.ellipse(32 + s * 5.6, 8.6, 3.8, 9.4, c.white) + k.flatEllipse(32 + s * 5.6, 9.4, 1.8, 6.6, c.pink));
+  return [ear(-1, 6), ear(1, twitch), k.ellipse(32, 27, 13.4, 11.8, c.white), face(k, 32, 27.6, { nose: 'pink', noseW: 1.8, eyeY: -2 })].join('');
 }
 
 export function bunny(k) {
   const c = k.P;
-  const twitch = k.frame % 2 ? 14 : 6;
-  const ear = (s, turn) =>
-    k.g(`rotate(${s * turn} ${pt([32 + s * 5.6, 17])})`, k.ellipse(32 + s * 5.6, 8.6, 3.8, 9.4, c.white) + k.flatEllipse(32 + s * 5.6, 9.4, 1.8, 6.6, c.pink));
   return [
     k.ground(32, 58.6, 14, 2.4),
     k.circle(43, 52.4, 3.6, c.white),
     sittingBody(k, c.white, { chest: c.cream, paws: 'white' }),
-    ear(-1, 6),
-    ear(1, twitch),
-    k.ellipse(32, 27, 13.4, 11.8, c.white),
-    face(k, 32, 27.6, { nose: 'pink', noseW: 1.8, eyeY: -2 }),
+    bunnyHead(k, k.frame % 2 ? 14 : 6),
   ].join('');
 }
 
@@ -89,20 +89,28 @@ export function mouse(k) {
   ].join('');
 }
 
-export function lion(k) {
+/** The lion's head in its mane. */
+export function lionHead(k) {
   const c = k.P;
-  const tuft = k.frame % 2 ? -12 : 0;
   const mane = `M${pt(polar(32, 25.4, 17, -90))}${scallops(32, 25.4, 17, -90, 270, 12, 1.2)}Z`;
   return [
-    k.ground(32, 58.6, 15, 2.4),
-    swing(k, tuft, [40.6, 54.6], k.limb('M40.6 54.6C47.6 55.2 51 50 50.2 44', c.blonde, 5.4) + k.circle(50.2, 42.6, 3.2, c.orange)),
-    sittingBody(k, c.blonde, { chest: c.cream, paws: 'blonde' }),
     k.path(mane, c.orange),
     k.circle(22.4, 15.6, 3.6, c.blonde),
     k.circle(41.6, 15.6, 3.6, c.blonde),
     k.ellipse(32, 26.4, 11.6, 10.6, c.blonde),
     k.flatEllipse(32, 31, 5.6, 4.2, c.cream),
     face(k, 32, 26.8, { nose: 'brown', noseW: 2.2, eyeGap: 5, eyeY: -2.2 }),
+  ].join('');
+}
+
+export function lion(k) {
+  const c = k.P;
+  const tuft = k.frame % 2 ? -12 : 0;
+  return [
+    k.ground(32, 58.6, 15, 2.4),
+    swing(k, tuft, [40.6, 54.6], k.limb('M40.6 54.6C47.6 55.2 51 50 50.2 44', c.blonde, 5.4) + k.circle(50.2, 42.6, 3.2, c.orange)),
+    sittingBody(k, c.blonde, { chest: c.cream, paws: 'blonde' }),
+    lionHead(k),
   ].join('');
 }
 
@@ -122,16 +130,11 @@ export function monkey(k) {
   ].join('');
 }
 
-export function frog(k) {
+/** The frog's head: wide, its eyes up on top; `puff` blows its throat out. */
+export function frogHead(k, puff = false) {
   const c = k.P;
-  const puff = k.frame % 2 === 1;
   const eyeBump = (s) => k.circle(32 + s * 8.6, 20.4, 5.8, c.green) + k.circle(32 + s * 8.6, 20.6, 3.9, c.white, { stroke: false }) + k.eye(32 + s * 8.6, 20.8, 2.1);
   return [
-    k.ground(32, 58.6, 16, 2.4),
-    k.path('M21.6 56.6C17.6 50.2 19.4 41.6 25.8 37.6H38.2C44.6 41.6 46.4 50.2 42.4 56.6Z', c.green),
-    k.flatEllipse(32, 48.6, 7, 6.6, c.lime),
-    k.ellipse(23.4, 56.4, 5, 2.6, c.green),
-    k.ellipse(40.6, 56.4, 5, 2.6, c.green),
     k.ellipse(32, 30.6, 15.6, 10.4, c.green),
     puff ? k.ellipse(32, 38.6, 5.4, 3.4, c.lime) : '',
     eyeBump(-1),
@@ -139,5 +142,17 @@ export function frog(k) {
     k.blush(21.6, 32.6, 2.6, 1.5),
     k.blush(42.4, 32.6, 2.6, 1.5),
     k.line('M25.4 32.6Q32 37.4 38.6 32.6'),
+  ].join('');
+}
+
+export function frog(k) {
+  const c = k.P;
+  return [
+    k.ground(32, 58.6, 16, 2.4),
+    k.path('M21.6 56.6C17.6 50.2 19.4 41.6 25.8 37.6H38.2C44.6 41.6 46.4 50.2 42.4 56.6Z', c.green),
+    k.flatEllipse(32, 48.6, 7, 6.6, c.lime),
+    k.ellipse(23.4, 56.4, 5, 2.6, c.green),
+    k.ellipse(40.6, 56.4, 5, 2.6, c.green),
+    frogHead(k, k.frame % 2 === 1),
   ].join('');
 }

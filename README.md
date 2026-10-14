@@ -57,7 +57,6 @@ Finnish** — the app never generates or inflects Finnish by rule.
 
 ```bash
 npm install
-npm run icons   # generate placeholder PWA icons (one time / after changes)
 npm run dev     # http://localhost:5173
 ```
 
@@ -76,7 +75,7 @@ it (it's offline-capable once installed).
 
 ### Netlify (primary)
 
-`netlify.toml` configures the build (`npm run icons && npm run build`, publish
+`netlify.toml` configures the build (`npm run build`, publish
 `dist`, Node 20), an SPA fallback redirect, and no-cache headers on the service
 worker so clients always pick up new deploys. Connect the GitHub repo in Netlify
 once and you get **production deploys on the default branch, a deploy preview on
@@ -213,7 +212,7 @@ src/
   styles/       # global responsive styles
 scripts/
   build-kids-data.mjs  # curates Finnish data from Finnish-Inflection-Drill
-  make-icons.mjs       # generates placeholder PWA icons
+  make-icons.mjs       # draws the app icons and favicon from the pixel fox
 ```
 
 ## Roadmap (planned follow-up sessions)
