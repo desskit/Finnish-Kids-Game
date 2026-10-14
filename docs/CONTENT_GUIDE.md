@@ -377,9 +377,16 @@ questions about what happened. It is read for meaning, once — not drilled.
   has a speech pitch, so they sound different with the one Finnish voice.
 - **Something happens.** Someone wants something, something goes wrong or
   surprises, and it ends — not a list of sentences. Three or four pages, one to
-  three short lines each (at most six or seven words), each page a scene of a
-  few emoji: the setting small (`bg`), who and what big (`fg`), and a `tone`
-  for inside, evening, night or snow.
+  three short lines each (at most six or seven words), each page a scene: its
+  setting, one of the drawn backdrops (`home`, `kitchen`, `bedroom`, `party`,
+  `classroom`, `library`, `shop`, `park`, `playground`, `yard`, `field`,
+  `beach`, `bus-stop`, `zoo`, `forest`, `station`), who and what stand in
+  front (`fg`, a few emoji, each shown as its picture), and a `tone` only when
+  it isn't the usual one (inside for rooms, day outdoors): morning, evening,
+  night or rain. A setting comes only in the tones it's drawn in
+  (`stories.test.ts` checks); a new setting or tone is a new backdrop in
+  `art/scenes/`. Something in front that isn't a word needs a story prop
+  (`art/recipes/props.mjs`).
 - **Only the unit's grammar and the words met by then.** Every word must be a
   real form (`unitStories.test.ts` checks them all, titles and questions
   included); a name's case forms go in the lexicon's name list.

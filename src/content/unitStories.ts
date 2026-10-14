@@ -32,9 +32,6 @@ const story = (unitId: string, s: Story): Story => {
   return s;
 };
 
-const PLAYGROUND = '🌳 ☀️ 🌳';
-const CLASSROOM = '🏫';
-const HOME = '🏠';
 
 export const UNIT_STORIES: Story[] = [
   // 1. Hello — greetings only: how Aino and Eero met.
@@ -46,24 +43,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc(PLAYGROUND, '👧 🐱 👦'),
+        sc('park', '👧 🐱 👦'),
         say('aino', 'Hei! Minä olen Aino.', "Hi! I'm Aino."),
         say('eero', 'Moi! Minä olen Eero.', "Hi! I'm Eero."),
       ),
       page(
-        sc(PLAYGROUND, '👧 👦'),
+        sc('park', '👧 👦'),
         say('eero', 'Mitä kuuluu, Aino?', 'How are you, Aino?'),
         say('aino', 'Hyvää, kiitos! Entä sinulle?', 'Good, thanks! And you?'),
         say('eero', 'Hyvää, kiitos!', 'Good, thanks!'),
       ),
       page(
-        sc(PLAYGROUND, '👦 🐱'),
+        sc('park', '👦 🐱'),
         say('eero', 'Hei! Kuka sinä olet?', 'Hi! Who are you?'),
         say('mirri', 'Miau!', 'Meow!'),
         say('aino', 'Se on Mirri!', "That's Mirri!"),
       ),
       page(
-        sc('🌳 🌙 🌳', '👧 🐱 👦', 'evening'),
+        sc('park', '👧 🐱 👦', 'evening'),
         say('eero', 'Näkemiin, Aino! Näkemiin, Mirri!', 'Goodbye, Aino! Goodbye, Mirri!'),
         say('mirri', 'Miau!', 'Meow!'),
       ),
@@ -105,24 +102,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc(CLASSROOM, '🧑‍🏫 📕 👧', 'inside'),
+        sc('classroom', '🧑‍🏫 📕 👧'),
         tell('Tämä on luokka.', 'This is a classroom.'),
         tell('Tämä on opettaja.', 'This is the teacher.'),
         say('opettaja', 'Tämä on kirja.', 'This is a book.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 ✏️', 'inside'),
+        sc('classroom', '👧 🎒 ✏️'),
         tell('Aino etsii kirjaa repusta.', 'Aino looks in her backpack for her book.'),
         say('aino', 'Onko tämä kirja?', 'Is this a book?'),
         say('aino', 'Ei. Tämä on kynä.', 'No. This is a pencil.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 🖼️', 'inside'),
+        sc('classroom', '👧 🎒 🖼️'),
         say('aino', 'Onko tämä kirja?', 'Is this a book?'),
         say('aino', 'Ei. Tämä on kuva.', 'No. This is a picture.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 🐱 📕', 'inside'),
+        sc('classroom', '👧 🎒 🐱 📕'),
         say('mirri', 'Miau!', 'Meow!'),
         say('aino', 'Ei! Tämä on Mirri!', 'No! This is Mirri!'),
         say('aino', 'Ja tässä on kirja!', 'And here is the book!'),
@@ -175,24 +172,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc(CLASSROOM, '🧑‍🏫 🧒 🧒 👧', 'inside'),
+        sc('classroom', '🧑‍🏫 🧒 🧒 👧'),
         say('opettaja', 'Montako lasta?', 'How many children?'),
         say('aino', 'Kymmenen lasta!', 'Ten children!'),
       ),
       page(
-        sc(CLASSROOM, '👦 🧒 🧒 👧', 'inside'),
+        sc('classroom', '👦 🧒 🧒 👧'),
         tell('Tässä on Eero.', "Here's Eero."),
         say('eero', 'Hei! Anteeksi!', 'Hi! Sorry!'),
         say('aino', 'Nyt yksitoista lasta!', 'Now eleven children!'),
       ),
       page(
-        sc(CLASSROOM, '🐱 🧒 🧒 🧑‍🏫', 'inside'),
+        sc('classroom', '🐱 🧒 🧒 🧑‍🏫'),
         say('mirri', 'Miau!', 'Meow!'),
         say('opettaja', 'Mikä tämä on?', 'What is this?'),
         say('aino', 'Tämä on Mirri!', 'This is Mirri!'),
       ),
       page(
-        sc(CLASSROOM, '🧑‍🏫 🐱 👧 👦', 'inside'),
+        sc('classroom', '🧑‍🏫 🐱 👧 👦'),
         say('opettaja', 'Montako lasta nyt?', 'How many children now?'),
         say('eero', 'Kaksitoista lasta!', 'Twelve children!'),
         say('aino', 'Ei! Yksitoista lasta ja Mirri!', 'No! Eleven children and Mirri!'),
@@ -238,23 +235,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc(PLAYGROUND, '👦 🐶 👧 🐱'),
+        sc('park', '👦 🐶 👧 🐱'),
         tell('Eerolla on koira.', 'Eero has a dog.'),
         tell('Ainolla on kissa.', 'Aino has a cat.'),
         say('eero', 'Aino, onko sinulla pallo?', 'Aino, do you have a ball?'),
       ),
       page(
-        sc(HOME, '👧 🎸 👦', 'inside'),
+        sc('home', '👧 🎸 👦'),
         say('aino', 'Ei. Minulla on kitara.', 'No. I have a guitar.'),
         say('aino', 'Onko isoäidillä pallo?', 'Does Grandma have a ball?'),
       ),
       page(
-        sc('🏡 ☀️', '👵 🐰 ⚽'),
+        sc('yard', '👵 🐰 ⚽'),
         say('isoaiti', 'Hei! Minulla on pupu.', 'Hi! I have a bunny.'),
         tell('Isoäidillä on pupu ja pallo!', 'Grandma has a bunny and a ball!'),
       ),
       page(
-        sc(PLAYGROUND, '👧 👦 👵 🐶 ⚽ 🐰'),
+        sc('park', '👧 👦 👵 🐶 ⚽ 🐰'),
         tell('Nyt meillä on pallo!', 'Now we have a ball!'),
         say('eero', 'Kiitos, isoäiti!', 'Thank you, Grandma!'),
       ),
@@ -306,23 +303,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc('☀️ 🏠 🌳', '👧 👗'),
+        sc('yard', '👧 👗'),
         tell('On kuuma.', "It's hot."),
         say('aino', 'Minulla on mekko.', 'I have a dress.'),
         say('aino', 'Mutta minulla ei ole hattua!', "But I don't have a hat!"),
       ),
       page(
-        sc(HOME, '👧 👩', 'inside'),
+        sc('home', '👧 👩'),
         say('aino', 'Äiti! Minulla ei ole hattua!', "Mom! I don't have my hat!"),
         say('aiti', 'Onko Eerolla hattu?', 'Does Eero have a hat?'),
       ),
       page(
-        sc('☀️ 🏡', '👦 🧢'),
+        sc('yard', '👦 🧢'),
         say('eero', 'Minulla on lakki.', 'I have a cap.'),
         say('eero', 'Minulla ei ole hattua.', "I don't have a hat."),
       ),
       page(
-        sc(HOME, '🐱 👒 👧', 'inside'),
+        sc('home', '🐱 👒 👧'),
         say('aino', 'Mirri! Sinulla on hattu!', 'Mirri! You have the hat!'),
         say('mirri', 'Miau!', 'Meow!'),
       ),
@@ -367,22 +364,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(CLASSROOM, '🎒 🎒 👦', 'inside'),
+        sc('classroom', '🎒 🎒 👦'),
         tell('Tässä on kaksi reppua.', 'Here are two backpacks.'),
         say('eero', 'Kumpi on minun reppuni?', 'Which one is my backpack?'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 📕', 'inside'),
+        sc('classroom', '👧 🎒 📕'),
         say('aino', 'Tämä on minun kirjani!', 'This is my book!'),
         say('aino', 'Tämä on minun reppuni.', 'This is my backpack.'),
       ),
       page(
-        sc(CLASSROOM, '👦 🎒 ⚽', 'inside'),
+        sc('classroom', '👦 🎒 ⚽'),
         say('eero', 'Ja tämä on minun palloni!', 'And this is my ball!'),
         say('eero', 'Tämä on minun reppuni.', 'This is my backpack.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🎒 📱 👦', 'inside'),
+        sc('classroom', '👧 🎒 📱 👦'),
         tell('Ainon repussa on puhelin.', "There's a phone in Aino's backpack."),
         say('aino', 'Onko tämä sinun puhelimesi?', 'Is this your phone?'),
         say('eero', 'On! Kiitos, Aino!', 'Yes! Thanks, Aino!'),
@@ -435,24 +432,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('🏡 ☀️', '👨 🚲 👧'),
+        sc('yard', '👨 🚲 👧'),
         say('isa', 'Aino, onko tämä äidin pyörä?', "Aino, is this Mom's bike?"),
         say('aino', 'Ei! Se on isän pyörä!', "No! It's Dad's bike!"),
         say('isa', 'Oikein!', 'Right!'),
       ),
       page(
-        sc(HOME, '👩 🧥 👧', 'inside'),
+        sc('home', '👩 🧥 👧'),
         say('aiti', 'Onko tämä isän takki?', "Is this Dad's coat?"),
         say('aino', 'Ei! Se on äidin takki!', "No! It's Mom's coat!"),
         say('aiti', 'Oikein!', 'Right!'),
       ),
       page(
-        sc(HOME, '👶 📱 👨', 'inside'),
+        sc('home', '👶 📱 👨'),
         tell('Vauvalla on puhelin.', 'The baby has a phone.'),
         say('isa', 'Hei! Se on isän puhelin!', "Hey! That's Dad's phone!"),
       ),
       page(
-        sc(HOME, '👶 ⚽ 👨 📱', 'inside'),
+        sc('home', '👶 ⚽ 👨 📱'),
         say('isa', 'Tässä on vauvan pallo.', "Here's the baby's ball."),
         tell('Nyt vauvalla on pallo.', 'Now the baby has a ball.'),
         say('aino', 'Ja isällä on puhelin!', 'And Dad has his phone!'),
@@ -498,24 +495,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(PLAYGROUND, '👧 👦 👵 🐶'),
+        sc('park', '👧 👦 👵 🐶'),
         tell('Aino, Eero ja isoäiti kävelevät.', 'Aino, Eero and Grandma go for a walk.'),
         say('eero', 'Minä juoksen!', "I'm running!"),
         tell('Musti juoksee myös.', 'Musti runs too.'),
       ),
       page(
-        sc(PLAYGROUND, '👧 🎤 👵'),
+        sc('park', '👧 🎤 👵'),
         say('aino', 'Minä laulan!', "I'm singing!"),
         tell('Aino laulaa ja isoäiti kuuntelee.', 'Aino sings and Grandma listens.'),
       ),
       page(
-        sc(PLAYGROUND, '👵 💃 👦'),
+        sc('park', '👵 💃 👦'),
         tell('Isoäiti alkaa tanssia!', 'Grandma starts to dance!'),
         say('isoaiti', 'Minä tanssin!', "I'm dancing!"),
         say('eero', 'Isoäiti tanssii hyvin!', 'Grandma dances well!'),
       ),
       page(
-        sc(PLAYGROUND, '👧 👦 👵 🐶 💃'),
+        sc('park', '👧 👦 👵 🐶 💃'),
         tell('Nyt kaikki tanssivat.', 'Now everyone is dancing.'),
         say('aino', 'Musti tanssii myös!', 'Musti is dancing too!'),
       ),
@@ -569,23 +566,23 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏠 🌙', '👧 ✏️ 👶', 'evening'),
+        sc('home', '👧 ✏️ 👶', 'evening'),
         tell('On ilta.', "It's evening."),
         tell('Minä piirrän.', "I'm drawing."),
         tell('Vauva nukkuu.', 'The baby is asleep.'),
       ),
       page(
-        sc('🏠 🌙', '👨 📕 👧', 'evening'),
+        sc('home', '👨 📕 👧', 'evening'),
         say('isa', 'Luen sinulle kirjaa.', "I'll read you a book."),
         tell('Isä lukee. Minä kuuntelen.', 'Dad reads. I listen.'),
       ),
       page(
-        sc('🏠 🌙', '👨 😴 📕', 'night'),
+        sc('home', '👨 😴 📕', 'night'),
         tell('Isä lukee ja lukee…', 'Dad reads and reads…'),
         tell('Nyt isä nukkuu!', 'Now Dad is asleep!'),
       ),
       page(
-        sc('🏠 🌙', '👧 📕 👨 😴', 'night'),
+        sc('home', '👧 📕 👨 😴', 'night'),
         say('aino', 'Hyvää yötä, isä!', 'Good night, Dad!'),
         tell('Nyt minä luen.', "Now I'm reading."),
       ),
@@ -630,24 +627,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(HOME, '👧 ⚽ 🐱', 'inside'),
+        sc('home', '👧 ⚽ 🐱'),
         tell('Aino leikkii.', 'Aino is playing.'),
         tell('Mirri ei leiki.', "Mirri doesn't play."),
         say('aino', 'Mirri, sinä et leiki!', "Mirri, you're not playing!"),
       ),
       page(
-        sc(HOME, '🐱 🍽️', 'inside'),
+        sc('kitchen', '🐱 🍽️'),
         tell('Mirri ei syö.', "Mirri doesn't eat."),
         tell('Mirri ei juo.', "Mirri doesn't drink."),
         say('aino', 'Äiti! Mirri ei syö!', "Mom! Mirri isn't eating!"),
       ),
       page(
-        sc(HOME, '👩 🐱 😴', 'inside'),
+        sc('home', '👩 🐱 😴'),
         say('aiti', 'Mirri on väsynyt.', 'Mirri is tired.'),
         tell('Mirri nukkuu ja nukkuu.', 'Mirri sleeps and sleeps.'),
       ),
       page(
-        sc(HOME, '🐱 ⚽ 👧', 'inside'),
+        sc('home', '🐱 ⚽ 👧'),
         tell('Nyt Mirri syö ja juo.', 'Now Mirri eats and drinks.'),
         say('aino', 'Ja nyt Mirri leikkii!', 'And now Mirri plays!'),
         say('mirri', 'Miau!', 'Meow!'),
@@ -692,23 +689,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(HOME, '👧 👦', 'inside'),
+        sc('home', '👧 👦'),
         tell('Isoäiti tulee tänään!', 'Grandma is coming today!'),
         say('aino', 'Laulamme isoäidille! Eero, laulatko?', "We'll sing for Grandma! Eero, do you sing?"),
         say('eero', 'En laula.', "I don't sing."),
       ),
       page(
-        sc(HOME, '👧 👦 💃', 'inside'),
+        sc('home', '👧 👦 💃'),
         say('aino', 'Tanssitko?', 'Do you dance?'),
         say('eero', 'Tanssin!', 'I do!'),
       ),
       page(
-        sc(HOME, '👦 👧 🎤', 'inside'),
+        sc('home', '👦 👧 🎤'),
         say('eero', 'Aino, laulatko sinä?', 'Aino, do you sing?'),
         say('aino', 'Laulan!', 'I do!'),
       ),
       page(
-        sc(HOME, '👵 👧 🎤 👦 💃', 'inside'),
+        sc('home', '👵 👧 🎤 👦 💃'),
         tell('Isoäiti tulee.', 'Grandma comes.'),
         tell('Aino laulaa ja Eero tanssii.', 'Aino sings and Eero dances.'),
         say('isoaiti', 'Laulanko minäkin?', 'Shall I sing too?'),
@@ -759,24 +756,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(HOME, '👦 🤒 🛏️', 'inside'),
+        sc('bedroom', '👦 🤒'),
         say('eero', 'Olen sairas.', "I'm sick."),
         say('eero', 'Minulla on kylmä.', "I'm cold."),
         say('eero', 'Olen surullinen.', "I'm sad."),
       ),
       page(
-        sc(HOME, '👩 👦', 'inside'),
+        sc('home', '👩 👦'),
         say('aiti', 'Onko sinulla nälkä?', 'Are you hungry?'),
         say('eero', 'Ei ole. Minulla on jano.', "No. I'm thirsty."),
       ),
       page(
-        sc(HOME, '👧 🖼️ 👦', 'inside'),
+        sc('home', '👧 🖼️ 👦'),
         tell('Aino tulee.', 'Aino comes.'),
         say('aino', 'Hei, Eero! Tämä on sinulle.', 'Hi, Eero! This is for you.'),
         tell('Se on kuva.', "It's a picture."),
       ),
       page(
-        sc(HOME, '👦 😄 👧', 'inside'),
+        sc('home', '👦 😄 👧'),
         say('eero', 'Kiitos, Aino! Nyt olen iloinen!', "Thanks, Aino! Now I'm happy!"),
         say('aino', 'Minäkin olen iloinen!', "I'm happy too!"),
       ),
@@ -822,24 +819,24 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc(PLAYGROUND, '👧 👦 👵 🧺'),
+        sc('park', '👧 👦 👵 🧺'),
         tell('Me syömme ulkona.', 'We eat outside.'),
         say('aino', 'Tykkään jäätelöstä!', 'I like ice cream!'),
         say('eero', 'Minä pidän kakusta.', 'I like cake.'),
       ),
       page(
-        sc(PLAYGROUND, '👵 🍫 👧'),
+        sc('park', '👵 🍫 👧'),
         say('isoaiti', 'Minä rakastan suklaata!', 'I love chocolate!'),
         say('aino', 'Isoäiti, tykkäätkö jäätelöstä?', 'Grandma, do you like ice cream?'),
         say('isoaiti', 'En tykkää. Rakastan suklaata!', "No. I love chocolate!"),
       ),
       page(
-        sc(PLAYGROUND, '🐱 🥛'),
+        sc('park', '🐱 🥛'),
         tell('Mirri tulee.', 'Mirri comes.'),
         tell('Mirri rakastaa maitoa.', 'Mirri loves milk.'),
       ),
       page(
-        sc(PLAYGROUND, '🐱 🥛 👵'),
+        sc('park', '🐱 🥛 👵'),
         say('isoaiti', 'Hei! Se on minun maitoni!', "Hey! That's my milk!"),
         tell('Mirri juo maitoa.', 'Mirri drinks the milk.'),
         say('mirri', 'Miau!', 'Meow!'),
@@ -884,22 +881,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('☀️ 🌊 ☀️', '👧 👦 👨'),
+        sc('beach', '👧 👦 👨'),
         say('aino', 'Haluan uida!', 'I want to swim!'),
         say('eero', 'Minä en halua uida.', "I don't want to swim."),
       ),
       page(
-        sc('☀️ 🌊 ☀️', '👨 👦 😟'),
+        sc('beach', '👨 👦 😟'),
         say('isa', 'Eero, osaatko uida?', 'Eero, can you swim?'),
         say('eero', 'En osaa.', "I can't."),
       ),
       page(
-        sc('☀️ 🌊 ☀️', '👨 👦 🏊'),
+        sc('beach', '👨 👦 🏊'),
         say('isa', 'Minä autan!', "I'll help!"),
         tell('Isä ja Eero uivat.', 'Dad and Eero swim.'),
       ),
       page(
-        sc('☀️ 🌊 ☀️', '👦 😄 👧 🏊'),
+        sc('beach', '👦 😄 👧 🏊'),
         say('eero', 'Nyt osaan uida!', 'Now I can swim!'),
         say('eero', 'Haluan uida taas!', 'I want to swim again!'),
       ),
@@ -944,24 +941,24 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏠 🌅', '👧 🛏️ ⏰', 'inside'),
+        sc('bedroom', '👧 ⏰', 'morning'),
         tell('Minä herään.', 'I wake up.'),
         tell('Haluan nukkua…', 'I want to sleep…'),
         tell('Mutta Mirri herää myös!', 'But Mirri wakes up too!'),
       ),
       page(
-        sc('🏠 🌅', '🐱 🛏️ 👧', 'inside'),
+        sc('bedroom', '🐱 👧', 'morning'),
         tell('Mirri hyppää.', 'Mirri jumps.'),
         tell('Mirri haluaa leikkiä!', 'Mirri wants to play!'),
       ),
       page(
-        sc('🏠 🌅', '👧 🪟 🐱', 'inside'),
+        sc('home', '👧 🪟 🐱', 'morning'),
         tell('Avaan ikkunan.', 'I open the window.'),
         tell('Mirri kiipeää ulos.', 'Mirri climbs out.'),
         tell('Ulkona on Eero ja Musti.', 'Eero and Musti are outside.'),
       ),
       page(
-        sc('🌳 🏠 ☀️', '🐱 🐶 👦'),
+        sc('yard', '🐱 🐶 👦'),
         say('eero', 'Huomenta, Aino! Huomenta, Mirri!', 'Morning, Aino! Morning, Mirri!'),
         tell('Nyt Mirri ja Musti leikkivät.', 'Now Mirri and Musti play.'),
         tell('Ja minä nukun taas.', 'And I go back to sleep.'),
@@ -1007,23 +1004,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(CLASSROOM, '👧 📋 ➗', 'inside'),
+        sc('classroom', '👧 📋 ➗'),
         say('aino', 'Tänään on koe.', "There's a test today."),
         say('aino', 'En tykkää matematiikasta!', "I don't like math!"),
       ),
       page(
-        sc(CLASSROOM, '👦 ➗ 👧', 'inside'),
+        sc('classroom', '👦 ➗ 👧'),
         say('eero', 'Minä tykkään matematiikasta.', 'I like math.'),
         say('eero', 'Autan!', "I'll help!"),
       ),
       page(
-        sc('🏟️ ☀️', '👧 🤸 👦'),
+        sc('field', '👧 🏃 👦'),
         tell('Sitten on liikuntaa.', 'Then there is gym.'),
         say('aino', 'Tykkään liikunnasta!', 'I like gym!'),
         say('eero', 'Minä en tykkää liikunnasta.', "I don't like gym."),
       ),
       page(
-        sc('🏟️ ☀️', '👧 👦 ⚽'),
+        sc('field', '👧 👦 ⚽'),
         say('aino', 'Autan!', "I'll help!"),
         tell('Kaverit auttavat.', 'Friends help each other.'),
       ),
@@ -1068,25 +1065,25 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🚏 ☀️', '👧 👵'),
+        sc('bus-stop', '👧 👵'),
         tell('Odotan bussia.', "I'm waiting for the bus."),
         tell('Isoäiti odottaa myös.', 'Grandma is waiting too.'),
         tell('Isoäiti ei näe hyvin.', "Grandma can't see well."),
       ),
       page(
-        sc('🚏 ☀️', '🚗 👵 👧'),
+        sc('bus-stop', '🚗 👵 👧'),
         tell('Näen auton.', 'I see a car.'),
         say('isoaiti', 'Onko tuo bussi?', 'Is that the bus?'),
         say('aino', 'Ei. Se on auto.', "No. It's a car."),
       ),
       page(
-        sc('🚏 ☀️', '🚆 👵 👧'),
+        sc('bus-stop', '🚆 👵 👧'),
         tell('Nyt näen junan.', 'Now I see a train.'),
         say('isoaiti', 'Onko tuo bussi?', 'Is that the bus?'),
         say('aino', 'Ei! Se on juna!', "No! It's a train!"),
       ),
       page(
-        sc('🚏 ☀️', '🚌 👵 👧'),
+        sc('bus-stop', '🚌 👵 👧'),
         tell('Ja nyt näen bussin!', 'And now I see the bus!'),
         say('aino', 'Isoäiti, bussi tulee!', 'Grandma, the bus is coming!'),
         say('isoaiti', 'Hyvä! Kiitos, Aino!', 'Good! Thank you, Aino!'),
@@ -1133,23 +1130,23 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏪', '👨 👧 🛒', 'inside'),
+        sc('shop', '👨 👧 🛒'),
         tell('Menemme kauppaan.', 'We go to the shop.'),
         say('isa', 'Ostamme maitoa ja leipää.', 'We buy milk and bread.'),
       ),
       page(
-        sc('🏪', '🥛 🍞 🍎 👧', 'inside'),
+        sc('shop', '🥛 🍞 🍎 👧'),
         say('aino', 'Ostanko omenan?', 'Shall I buy an apple?'),
         say('isa', 'Osta vain!', 'Go ahead!'),
         tell('Ostan omenan.', 'I buy an apple.'),
       ),
       page(
-        sc('🏪', '👧 🍬 👨', 'inside'),
+        sc('shop', '👧 🍬 👨'),
         say('aino', 'Isä, saanko karkkia?', 'Dad, may I have some candy?'),
         say('isa', 'Et saa. Tänään ei ole karkkipäivä.', "No, you may not. Today isn't candy day."),
       ),
       page(
-        sc('🏪', '👨 🍦 👧', 'inside'),
+        sc('shop', '👨 🍦 👧'),
         tell('Mutta isä ostaa jäätelön!', 'But Dad buys an ice cream!'),
         say('aino', 'Kiitos, isä!', 'Thank you, Dad!'),
       ),
@@ -1193,22 +1190,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('🏟️ ☀️', '👧 👦 ⚽'),
+        sc('field', '👧 👦 ⚽'),
         say('eero', 'Pelataan jalkapalloa!', "Let's play soccer!"),
         say('aino', 'Joo! Pelataan!', "Yes! Let's play!"),
       ),
       page(
-        sc('🏟️ ☀️', '👧 ⚽ 👦'),
+        sc('field', '👧 ⚽ 👦'),
         say('aino', 'Juokse, Eero!', 'Run, Eero!'),
         say('eero', 'Hyppää, Aino!', 'Jump, Aino!'),
       ),
       page(
-        sc('🏟️ ☀️', '🐶 ⚽ 👦'),
+        sc('field', '🐶 ⚽ 👦'),
         tell('Musti ottaa pallon!', 'Musti takes the ball!'),
         say('eero', 'Musti! Älä syö palloa!', "Musti! Don't eat the ball!"),
       ),
       page(
-        sc('🏟️ ☀️', '👧 👦 🐶 ⚽'),
+        sc('field', '👧 👦 🐶 ⚽'),
         say('aino', 'Tule, Musti! Juostaan yhdessä!', "Come, Musti! Let's run together!"),
         tell('Nyt Musti pelaa myös.', 'Now Musti plays too.'),
       ),
@@ -1253,23 +1250,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('🏡 ☀️', '🐶 🐱'),
+        sc('yard', '🐶 🐱'),
         tell('Musti on iso koira.', 'Musti is a big dog.'),
         tell('Mirri on pieni kissa.', 'Mirri is a small cat.'),
         tell('Musti on ruskea ja Mirri on valkoinen.', 'Musti is brown and Mirri is white.'),
       ),
       page(
-        sc('🏡 ☀️', '🐶 🍽️ 🐱'),
+        sc('yard', '🐶 🍽️ 🐱'),
         tell('Musti syö Mirrin ruokaa!', "Musti eats Mirri's food!"),
         tell('Pieni Mirri on vihainen.', 'Little Mirri is angry.'),
       ),
       page(
-        sc('🏡 ☀️', '🐱 😠 🐶 💨'),
+        sc('yard', '🐱 😠 🐶 💨'),
         tell('Iso Musti juoksee pois!', 'Big Musti runs away!'),
         say('aino', 'Musti, tule takaisin!', 'Musti, come back!'),
       ),
       page(
-        sc('🏡 ☀️', '👧 🐶 🐱 🔴'),
+        sc('yard', '👧 🐶 🐱 🔴'),
         say('aino', 'Tässä on punainen pallo.', "Here's a red ball."),
         tell('Nyt Musti ja Mirri leikkivät.', 'Now Musti and Mirri play.'),
         say('aino', 'Kiltti koira, kiltti kissa!', 'Good dog, good cat!'),
@@ -1322,23 +1319,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc('🦒 🌳 ☀️', '👧 👦 🐘 🐴 🐭'),
+        sc('zoo', '👧 👦 🐘 🐴 🐭'),
         tell('Aino ja Eero ovat eläintarhassa.', 'Aino and Eero are at the zoo.'),
         tell('Siellä on norsu, hevonen ja hiiri.', "There's an elephant, a horse and a mouse there."),
       ),
       page(
-        sc('🦒 🌳 ☀️', '🐘 🐴 🐭'),
+        sc('zoo', '🐘 🐴 🐭'),
         tell('Norsu on isoin.', 'The elephant is the biggest.'),
         tell('Hevonen on pienempi kuin norsu.', 'The horse is smaller than the elephant.'),
         tell('Hiiri on pienin.', 'The mouse is the smallest.'),
       ),
       page(
-        sc('🦒 🌳 ☀️', '👦 👧'),
+        sc('zoo', '👦 👧'),
         say('eero', 'Kuka on nopein?', 'Who is the fastest?'),
         say('aino', 'Minä olen nopeampi kuin sinä!', "I'm faster than you!"),
       ),
       page(
-        sc('🦒 🌳 ☀️', '🐴 💨 👦 👧'),
+        sc('zoo', '🐴 💨 👦 👧'),
         tell('Eero ja Aino juoksevat.', 'Eero and Aino run.'),
         tell('Mutta hevonen on nopein!', 'But the horse is the fastest!'),
       ),
@@ -1382,22 +1379,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(HOME, '👧 ❓ 📦', 'inside'),
+        sc('home', '👧 ❓ 📦'),
         say('aino', 'Missä Mirri on?', 'Where is Mirri?'),
         tell('Mirri ei ole laatikossa.', "Mirri isn't in the box."),
       ),
       page(
-        sc(HOME, '🍽️ 📕', 'inside'),
+        sc('kitchen', '🍽️ 📕'),
         tell('Mirri ei ole pöydällä.', "Mirri isn't on the table."),
         tell('Pöydällä on vain kirja.', "There's only a book on the table."),
       ),
       page(
-        sc(HOME, '🧺 ⚽ 👧', 'inside'),
+        sc('home', '🧺 ⚽ 👧'),
         say('aino', 'Onko Mirri korissa?', 'Is Mirri in the basket?'),
         tell('Ei ole. Korissa on pallo.', "No. There's a ball in the basket."),
       ),
       page(
-        sc('🏠 🌙', '🛏️ 🐱 👧', 'night'),
+        sc('bedroom', '🐱 👧', 'night'),
         tell('Mirri on sängyssä!', 'Mirri is in the bed!'),
         tell('Mirri nukkuu siellä.', "Mirri is sleeping there."),
         say('aino', 'Hyvää yötä, Mirri!', 'Good night, Mirri!'),
@@ -1442,24 +1439,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc(HOME, '👧 📦', 'inside'),
+        sc('home', '👧 📦'),
         tell('Tässä on iso laatikko.', 'Here is a big box.'),
         say('aino', 'Mitä laatikossa on?', "What's in the box?"),
         tell('Laatikossa on pallo.', "There's a ball in the box."),
       ),
       page(
-        sc(HOME, '👧 ⚽ 🐱 📦', 'inside'),
+        sc('home', '👧 ⚽ 🐱 📦'),
         tell('Aino ottaa pallon laatikosta.', 'Aino takes the ball out of the box.'),
         tell('Mirri menee laatikkoon!', 'Mirri goes into the box!'),
       ),
       page(
-        sc(HOME, '🐱 📦 🍽️', 'inside'),
+        sc('kitchen', '🐱 📦 🍽️'),
         tell('Mirri tulee laatikosta.', 'Mirri comes out of the box.'),
         tell('Mirri hyppää pöydälle.', 'Mirri jumps onto the table.'),
         tell('Ja sitten pöydältä laatikkoon!', 'And then off the table, into the box!'),
       ),
       page(
-        sc(HOME, '👧 ⚽ 🐱 📦', 'inside'),
+        sc('home', '👧 ⚽ 🐱 📦'),
         say('aino', 'Mirri, tässä on pallo!', "Mirri, here's the ball!"),
         tell('Mutta Mirri rakastaa laatikkoa.', 'But Mirri loves the box.'),
       ),
@@ -1505,24 +1502,24 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🛝 🌳 ☀️', '👨 👧 👦'),
+        sc('playground', '👨 👧 👦'),
         tell('Isä, Eero ja minä menemme puistoon.', 'Dad, Eero and I go to the park.'),
         tell('Puistossa on paljon lapsia.', 'There are lots of children in the park.'),
       ),
       page(
-        sc('📚', '👧 👦 📕', 'inside'),
+        sc('library', '👧 👦 📕'),
         tell('Sitten menemme kirjastoon.', 'Then we go to the library.'),
         tell('Kirjastossa on hiljaista.', "It's quiet in the library."),
         say('eero', 'MOI!', 'HI!'),
       ),
       page(
-        sc('📚', '👧 🤫 👦', 'inside'),
+        sc('library', '👧 🤫 👦'),
         say('aino', 'Eero! Hiljaa!', 'Eero! Quiet!'),
         tell('Sitten olemme kahvilassa.', 'Then we are at the café.'),
         say('isa', 'Haluatteko jäätelöä?', 'Do you want ice cream?'),
       ),
       page(
-        sc('🏠 🌆', '👨 👧 👦 🍦', 'evening'),
+        sc('kitchen', '👨 👧 👦 🍦', 'evening'),
         say('aino', 'Haluamme!', 'We do!'),
         tell('Lopuksi tulemme kotiin.', 'In the end we come home.'),
         say('eero', 'Huomenna taas puistoon!', 'Tomorrow, the park again!'),
@@ -1568,22 +1565,22 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏡 ☀️', '👨 👩 👧 🚗'),
+        sc('yard', '👨 👩 👧 🚗'),
         say('aino', 'Miten menemme isoäidille?', "How do we get to Grandma's?"),
         say('isa', 'Menemme autolla.', 'We go by car.'),
       ),
       page(
-        sc('🏡 ☀️', '🚗 😟 👨 👩'),
+        sc('yard', '🚗 😟 👨 👩'),
         say('isa', 'Voi ei! Auto ei käy.', "Oh no! The car won't start."),
         say('aiti', 'Menemme junalla!', "We'll go by train!"),
       ),
       page(
-        sc('🚉 🌲 🌊', '🚆 👧 👩 👨 🚤'),
+        sc('station', '🚆 👧 👩 👨 🚤'),
         tell('Menemme junalla.', 'We go by train.'),
         tell('Sitten menemme veneellä.', 'Then we go by boat.'),
       ),
       page(
-        sc('🏝️ 🌊 ☀️', '🚤 👵 👧'),
+        sc('beach', '🚤 👵 👧'),
         tell('Isoäiti odottaa saaressa.', 'Grandma is waiting on the island.'),
         say('isoaiti', 'Tervetuloa!', 'Welcome!'),
         tell('Menen isoäidin kanssa sisään.', 'I go inside with Grandma.'),
@@ -1629,23 +1626,23 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏠 🌅', '👧 🥣', 'inside'),
+        sc('kitchen', '👧 🥣', 'morning'),
         tell('Tänään on lauantai.', 'Today is Saturday.'),
         tell('Aamulla syön puuroa.', 'In the morning I eat porridge.'),
       ),
       page(
-        sc('☀️ 🌊 ☀️', '👧 🏊 👨'),
+        sc('beach', '👧 🏊 👨'),
         tell('Kello on kymmenen.', "It's ten o'clock."),
         say('isa', 'Mennään uimaan!', "Let's go swimming!"),
         tell('Päivällä uin isän kanssa.', 'In the daytime I swim with Dad.'),
       ),
       page(
-        sc('🏠 🌆', '👧 📕 🐱 😴', 'evening'),
+        sc('home', '👧 📕 🐱 😴', 'evening'),
         tell('Illalla luen kirjaa.', 'In the evening I read a book.'),
         tell('Mirri nukkuu jo.', 'Mirri is already asleep.'),
       ),
       page(
-        sc('🏠 🌙', '👧 🛏️ 👵', 'night'),
+        sc('bedroom', '👧 👵', 'night'),
         tell('Sunnuntaina isoäiti tulee!', 'On Sunday Grandma comes!'),
         say('aino', 'Hyvää yötä! Huomenna on sunnuntai!', 'Good night! Tomorrow is Sunday!'),
       ),
@@ -1689,22 +1686,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc('🏠 🍬', '👧 🍬', 'inside'),
+        sc('home', '👧 🍬'),
         tell('Lauantaina on karkkipäivä.', 'Saturday is candy day.'),
         say('aino', 'Minulla on viisitoista karkkia!', 'I have fifteen candies!'),
       ),
       page(
-        sc('🏠 🍬', '👦 🍬', 'inside'),
+        sc('home', '👦 🍬'),
         say('eero', 'Minulla on vain yksitoista karkkia.', 'I only have eleven candies.'),
       ),
       page(
-        sc('🏠 🍬', '👧 🍬 👦', 'inside'),
+        sc('home', '👧 🍬 👦'),
         tell('Aino antaa Eerolle kaksi karkkia.', 'Aino gives Eero two candies.'),
         say('eero', 'Kiitos! Nyt minulla on kolmetoista!', 'Thanks! Now I have thirteen!'),
         say('aino', 'Ja minulla on kolmetoista!', 'And I have thirteen!'),
       ),
       page(
-        sc('🏠 🍬', '🐱 🍬 👧', 'inside'),
+        sc('home', '🐱 🍬 👧'),
         tell('Mirri haluaa myös karkkia.', 'Mirri wants some candy too.'),
         say('aino', 'Ei, Mirri! Karkki ei ole kissalle!', "No, Mirri! Candy isn't for cats!"),
       ),
@@ -1749,23 +1746,23 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🎈 🏠 🎈', '👧 🎂', 'inside'),
+        sc('party', '👧 🎂'),
         tell('Syntymäpäiväni on toukokuussa.', 'My birthday is in May.'),
         tell('Tänään on viides toukokuuta.', 'Today is the fifth of May.'),
         tell('Täytän yhdeksän vuotta!', "I'm turning nine!"),
       ),
       page(
-        sc('🎈 🏠 🎈', '🎂 🕯️ 👨 👩 👵', 'inside'),
+        sc('party', '🎂 🕯️ 👨 👩 👵'),
         tell('Kakussa on yhdeksän kynttilää.', 'There are nine candles on the cake.'),
         tell('Kaikki laulavat minulle.', 'Everyone sings to me.'),
       ),
       page(
-        sc('🎈 🏠 🎈', '👨 🎁 👧', 'inside'),
+        sc('party', '👨 🎁 👧'),
         say('isa', 'Tässä on lahja sinulle!', "Here's a present for you!"),
         tell('Lahja on iso laatikko.', 'The present is a big box.'),
       ),
       page(
-        sc('🎈 🏠 🎈', '📦 🚲 🐱', 'inside'),
+        sc('party', '📦 🚲 🐱'),
         tell('Laatikossa on uusi pyörä!', "There's a new bike in the box!"),
         tell('Ja Mirri hyppää laatikkoon.', 'And Mirri jumps into the box.'),
       ),
@@ -1809,24 +1806,24 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc(CLASSROOM, '🧑‍🏫 🧒 👧', 'inside'),
+        sc('classroom', '🧑‍🏫 🧒 👧'),
         tell('Luokkaan tulee uusi oppilas.', 'A new pupil comes into the class.'),
         say('aino', 'Kuka sinä olet?', 'Who are you?'),
         say('leo', 'Minä olen Leo.', "I'm Leo."),
       ),
       page(
-        sc(CLASSROOM, '👧 🧒 🛝', 'inside'),
+        sc('classroom', '👧 🧒 🛝'),
         say('aino', 'Missä sinä asut?', 'Where do you live?'),
         say('leo', 'Asun ison puiston vieressä.', 'I live next to the big park.'),
       ),
       page(
-        sc(CLASSROOM, '👧 🧒 ⚽ 👦', 'inside'),
+        sc('classroom', '👧 🧒 ⚽ 👦'),
         say('aino', 'Mistä sinä tykkäät?', 'What do you like?'),
         say('leo', 'Tykkään jalkapallosta!', 'I like soccer!'),
         say('eero', 'Minäkin!', 'Me too!'),
       ),
       page(
-        sc('🏟️ ☀️', '🧒 👦 👧 ⚽'),
+        sc('field', '🧒 👦 👧 ⚽'),
         say('leo', 'Milloin pelataan?', 'When do we play?'),
         say('eero', 'Nyt! Pelataan yhdessä!', "Now! Let's play together!"),
       ),
@@ -1870,23 +1867,23 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc('🌳 ☀️ 🏡', '🐱 🌳'),
+        sc('yard', '🐱 🌳'),
         tell('Mirri on puussa.', 'Mirri is up in a tree.'),
         say('mirri', 'Miau! Auta minua!', 'Meow! Help me!'),
       ),
       page(
-        sc('🌳 ☀️ 🏡', '👧 🌳 🐱'),
+        sc('yard', '👧 🌳 🐱'),
         say('aino', 'Mirri, tule alas!', 'Mirri, come down!'),
         tell('Mirri ei tule.', "Mirri doesn't come."),
         say('aino', 'Eero! Auta minua!', 'Eero! Help me!'),
       ),
       page(
-        sc('🌳 ☀️ 🏡', '👦 🌳 🐱'),
+        sc('yard', '👦 🌳 🐱'),
         tell('Eero kiipeää puuhun.', 'Eero climbs the tree.'),
         tell('Eero auttaa Mirriä.', 'Eero helps Mirri.'),
       ),
       page(
-        sc('🌳 ☀️ 🏡', '👦 🐱 👧'),
+        sc('yard', '👦 🐱 👧'),
         say('aino', 'Kiitos, Eero! Pidän sinusta!', 'Thanks, Eero! I like you!'),
         say('eero', 'Minäkin pidän sinusta!', 'I like you too!'),
         say('mirri', 'Miau!', 'Meow!'),
@@ -1931,22 +1928,22 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc(HOME, '👦 ❓ 👧', 'inside'),
+        sc('home', '👦 ❓ 👧'),
         say('eero', 'Missä pallo on?', 'Where is the ball?'),
         say('aino', 'Onko se sängyn alla?', 'Is it under the bed?'),
       ),
       page(
-        sc(HOME, '🛏️ 🪑', 'inside'),
+        sc('bedroom', '🪑'),
         tell('Pallo ei ole sängyn alla.', "The ball isn't under the bed."),
         tell('Se ei ole tuolin takana.', "It isn't behind the chair."),
       ),
       page(
-        sc(HOME, '🚪 ⚽ 🐶', 'inside'),
+        sc('home', '🚪 ⚽ 🐶'),
         tell('Pallo on oven vieressä!', 'The ball is next to the door!'),
         tell('Mutta Musti istuu pallon edessä.', 'But Musti is sitting in front of the ball.'),
       ),
       page(
-        sc(HOME, '🐶 ⚽ 💨 👦 👧', 'inside'),
+        sc('home', '🐶 ⚽ 💨 👦 👧'),
         say('eero', 'Musti, anna pallo!', 'Musti, give me the ball!'),
         tell('Musti ottaa pallon ja juoksee!', 'Musti takes the ball and runs!'),
       ),
@@ -1991,23 +1988,23 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc('🏠 🛏️', '👩 👧 🧸', 'inside'),
+        sc('bedroom', '👩 👧 🧸'),
         tell('Huoneessani on paljon tavaraa.', 'There are lots of things in my room.'),
         say('aiti', 'Aino, siivoa huone!', 'Aino, clean the room!'),
       ),
       page(
-        sc('🏠 🛏️', '📕 📕 📦 ⚽ 🧺', 'inside'),
+        sc('bedroom', '📕 📕 📦 ⚽ 🧺'),
         tell('Kirjat menevät laatikkoon.', 'The books go into the box.'),
         tell('Minulla on kolme palloa.', 'I have three balls.'),
         tell('Pallot menevät koriin.', 'The balls go into the basket.'),
       ),
       page(
-        sc('🏠 🛏️', '👧 ❓ 📦', 'inside'),
+        sc('bedroom', '👧 ❓ 📦'),
         say('aino', 'Missä ovat kenkäni?', 'Where are my shoes?'),
         tell('Kengät eivät ole laatikossa.', "The shoes aren't in the box."),
       ),
       page(
-        sc('🏠 🛏️', '👟 🐱 👟', 'inside'),
+        sc('bedroom', '👟 🐱 👟'),
         tell('Kengät ovat sängyn alla.', 'The shoes are under the bed.'),
         tell('Ja kenkien vieressä nukkuu Mirri!', 'And next to the shoes, Mirri is sleeping!'),
       ),
@@ -2054,22 +2051,22 @@ export const UNIT_STORIES: Story[] = [
     narrator: 'aino',
     pages: [
       page(
-        sc(HOME, '👧 📄', 'inside'),
+        sc('home', '👧 📄'),
         tell('Piirrän talon isoäidille.', 'I draw a house for Grandma.'),
         tell('Tarvitsen kynän.', 'I need a pencil.'),
       ),
       page(
-        sc(HOME, '✏️ 🟥 🏠', 'inside'),
+        sc('home', '✏️ 🟥 🏠'),
         tell('Valitsen punaisen kynän.', 'I choose the red pencil.'),
         tell('Piirrän ison talon.', 'I draw a big house.'),
       ),
       page(
-        sc(HOME, '🐱 ✏️ 💨', 'inside'),
+        sc('home', '🐱 ✏️ 💨'),
         tell('Mirri häiritsee minua!', 'Mirri is bothering me!'),
         tell('Mirri ottaa kynän ja pakenee!', 'Mirri takes the pencil and runs away!'),
       ),
       page(
-        sc(HOME, '🟦 🏠 👵 👧', 'inside'),
+        sc('home', '🟦 🏠 👵 👧'),
         tell('Valitsen sinisen kynän.', 'I choose the blue pencil.'),
         tell('Piirrän taivaan.', 'I draw the sky.'),
         say('isoaiti', 'Punainen talo ja sininen taivas! Kaunis!', 'A red house and a blue sky! Beautiful!'),

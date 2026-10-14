@@ -10,20 +10,38 @@ import freetime from './recipes/freetime.mjs';
 import nature from './recipes/nature.mjs';
 import people from './recipes/people.mjs';
 import places from './recipes/places.mjs';
+import props from './recipes/props.mjs';
 import school from './recipes/school.mjs';
 import time from './recipes/time.mjs';
 import ui from './recipes/ui.mjs';
 import verbs from './recipes/verbs.mjs';
+import beach from './scenes/beach.mjs';
+import bedroom from './scenes/bedroom.mjs';
+import busStop from './scenes/busStop.mjs';
+import classroom from './scenes/classroom.mjs';
+import field from './scenes/field.mjs';
+import forest from './scenes/forest.mjs';
+import home from './scenes/home.mjs';
+import kitchen from './scenes/kitchen.mjs';
+import library from './scenes/library.mjs';
 import park from './scenes/park.mjs';
+import party from './scenes/party.mjs';
+import playground from './scenes/playground.mjs';
+import shop from './scenes/shop.mjs';
+import station from './scenes/station.mjs';
+import yard from './scenes/yard.mjs';
+import zoo from './scenes/zoo.mjs';
 
 /**
  * A picture: `id` (a word's id for word pictures), `title`, `group` ('words'
  * by default, or 'ui'), optional `glyphs` (the emoji it replaces; a word
  * picture claims its word's emoji unless `glyph: false`), and `draw(kit)`.
  * Optional `motion: { frames, fps }` makes it loop; `blink: false` keeps the
- * eyes of something that doesn't blink (a fish) open.
+ * eyes of something that doesn't blink (a fish) open. A story prop (something
+ * a story shows that isn't a word) has `prop: true`: it goes in the words
+ * sprite, under its own `theme` in the gallery.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...props, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
-export const SCENES = [park];
+export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, park, playground, yard, field, beach, busStop, zoo, forest, station];

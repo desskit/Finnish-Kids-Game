@@ -5,6 +5,7 @@ import {
   NARRATOR_PITCH,
   stories,
   storyById,
+  toneOf,
   type CastId,
   type Story,
   type StoryLine,
@@ -28,6 +29,8 @@ import { playDing } from '../audio/sfx';
 import { sample, shuffle } from '../util/shuffle';
 import ActivityHeader from './ActivityHeader';
 import Art from '../art/Art';
+import { backdropUrl } from '../art/backdrops';
+import { useMotion } from '../art/motion';
 import SpeakerIcon from '../art/SpeakerIcon';
 
 // Satuhetki (story time): a little picture book. A cover, three or four pages
@@ -72,17 +75,14 @@ function castOf(story: Story): CastId[] {
   return [...new Set([...(story.narrator ? [story.narrator] : []), ...talkers])];
 }
 
+/** A page's picture: its setting drawn right across the back (moving, if pictures may), who and what in front. */
 function Scene({ scene, small = false, animate = true }: { scene: StoryScene; small?: boolean; animate?: boolean }) {
+  const moving = useMotion() && animate;
+  const tone = toneOf(scene);
+  const backdrop = backdropUrl(scene.setting, tone, moving);
   return (
-    <div
-      className={`story-stage story-stage--${scene.tone ?? 'day'}${small ? ' story-stage--small' : ''}`}
-      aria-hidden="true"
-    >
-      <div className="story-stage__bg">
-        {scene.bg.map((e, i) => (
-          <Art key={i} glyph={e} />
-        ))}
-      </div>
+    <div className={`story-stage story-stage--${tone}${small ? ' story-stage--small' : ''}`} aria-hidden="true">
+      {backdrop && <img className="story-stage__backdrop" src={backdrop} alt="" draggable={false} />}
       <div className={'story-stage__fg' + (animate ? ' story-stage__fg--enter' : '')}>
         {scene.fg.map((e, i) => (
           <Art key={i} glyph={e} motion={animate ? 'loop' : undefined} />

@@ -3,10 +3,13 @@
 // Kept apart from both so they can share it without importing each other.
 //
 // A story is a little picture book: a cover, three or four pages — each a
-// scene (a few emoji: where, then who and what) with one to three short lines —
+// scene (a drawn setting, with who and what in front of it) with one to three
+// short lines —
 // "Loppu!", and then questions about it. Lines are narration or a character
 // talking (`by`), which plays in that character's voice and shows as a speech
 // bubble. Every Finnish word is HUMAN-AUTHORED, never generated.
+
+import type { BackdropId } from '../art/generated/manifest';
 
 /** The recurring cast: Aino, her friend Eero, her family, her cat and his dog. */
 export type CastId = 'aino' | 'eero' | 'aiti' | 'isa' | 'isoaiti' | 'mirri' | 'musti' | 'opettaja' | 'leo';
@@ -34,16 +37,26 @@ export const CAST: Record<CastId, CastMember> = {
 /** The narrator's voice (a story told by a character uses theirs). */
 export const NARRATOR_PITCH = 1;
 
-/** The light of a scene: it sets the picture's background. */
-export type SceneTone = 'day' | 'evening' | 'night' | 'inside' | 'snow';
+/** Where a page happens: one of the drawn backdrops (art/scenes/). */
+export type SettingId = BackdropId;
+
+/** The light of a scene: daytime outdoors or indoors, the morning, the evening, the night, the rain. */
+export type SceneTone = 'day' | 'inside' | 'morning' | 'evening' | 'night' | 'rain';
 
 export interface StoryScene {
-  /** The setting, drawn small across the back (🌳 ☀️ 🌳). */
-  bg: string[];
+  /** Where it happens: drawn right across the back of the page. */
+  setting: SettingId;
   /** Who and what the page is about, drawn big in front. */
   fg: string[];
+  /** The light, if not the setting's usual one (see toneOf). */
   tone?: SceneTone;
 }
+
+/** The settings indoors (their usual light is 'inside'; outdoors it's the 'day'). */
+const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'party', 'classroom', 'library', 'shop']);
+
+/** The light a scene is in: its own, or its setting's usual one. */
+export const toneOf = (scene: StoryScene): SceneTone => scene.tone ?? (INDOORS.has(scene.setting) ? 'inside' : 'day');
 
 export interface StoryLine {
   fi: string;
@@ -100,8 +113,8 @@ export interface Story {
 
 const emojis = (s: string): string[] => s.split(/\s+/).filter(Boolean);
 
-/** A scene: the setting, then who and what (space-separated emoji). */
-export const sc = (bg: string, fg: string, tone?: SceneTone): StoryScene => ({ bg: emojis(bg), fg: emojis(fg), ...(tone ? { tone } : {}) });
+/** A scene: the setting, then who and what (space-separated emoji), and the light if it isn't the usual. */
+export const sc = (setting: SettingId, fg: string, tone?: SceneTone): StoryScene => ({ setting, fg: emojis(fg), ...(tone ? { tone } : {}) });
 export const page = (scene: StoryScene, ...lines: StoryLine[]): StoryPage => ({ scene, lines });
 /** Narration. */
 export const tell = (fi: string, en: string): StoryLine => ({ fi, en });

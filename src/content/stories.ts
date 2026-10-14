@@ -47,8 +47,9 @@ export type {
   StoryPage,
   StoryQuestion,
   StoryScene,
+  SettingId,
 } from './storyKit';
-export { CAST, NARRATOR_PITCH, storyLines } from './storyKit';
+export { CAST, NARRATOR_PITCH, storyLines, toneOf } from './storyKit';
 
 export const CORE_STORIES: Story[] = [
   {
@@ -59,23 +60,23 @@ export const CORE_STORIES: Story[] = [
     tier: 2,
     pages: [
       page(
-        sc('🌲 🌧️ 🌲', '🐱'),
+        sc('forest', '🐱', 'rain'),
         tell('Tämä on pieni kissa.', 'This is a little cat.'),
         tell('Kissa on metsässä.', 'The cat is in the forest.'),
         tell('Sillä on nälkä.', "It's hungry."),
       ),
       page(
-        sc('🌲 🌲 🌲', '👧 🐱'),
+        sc('forest', '👧 🐱'),
         say('aino', 'Hei, pieni kissa!', 'Hi, little cat!'),
         say('aino', 'Onko sinulla koti?', 'Do you have a home?'),
       ),
       page(
-        sc('🏠', '👧 🐱 🥛', 'inside'),
+        sc('kitchen', '👧 🐱 🥛'),
         tell('Aino vie kissan kotiin.', 'Aino takes the cat home.'),
         tell('Kissa juo maitoa.', 'The cat drinks milk.'),
       ),
       page(
-        sc('🏠 🌙', '👧 🐱 🛏️', 'night'),
+        sc('bedroom', '👧 🐱', 'night'),
         say('aino', 'Sinun nimesi on Mirri!', 'Your name is Mirri!'),
         tell('Mirri nukkuu Ainon sängyssä.', "Mirri sleeps in Aino's bed."),
       ),
@@ -117,23 +118,23 @@ export const CORE_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('🏠 🌅', '👧 🛏️ ⏰', 'inside'),
+        sc('bedroom', '👧 ⏰', 'morning'),
         tell('Aurinko paistaa.', 'The sun is shining.'),
         tell('Kello on kahdeksan.', "It's eight o'clock."),
         say('aiti', 'Aino, herää! Koulu alkaa!', 'Aino, wake up! School is starting!'),
       ),
       page(
-        sc('🏠 🌅', '👧 🥣 🥛', 'inside'),
+        sc('kitchen', '👧 🥣 🥛', 'morning'),
         tell('Aino syö puuroa.', 'Aino eats porridge.'),
         tell('Hän juo maitoa nopeasti.', 'She drinks her milk quickly.'),
       ),
       page(
-        sc('🏡 ☀️', '👦 👧'),
+        sc('yard', '👦 👧'),
         say('eero', 'Hei, Aino! Mennään!', "Hi, Aino! Let's go!"),
         tell('He juoksevat kouluun.', 'They run to school.'),
       ),
       page(
-        sc('🏫', '👧 😮 👦', 'inside'),
+        sc('classroom', '👧 😮 👦'),
         say('aino', 'Voi ei! Missä reppuni on?', 'Oh no! Where is my backpack?'),
         tell('Reppu on kotona.', 'The backpack is at home.'),
         say('eero', 'Ei hätää! Ota minun kynäni.', 'No worries! Take my pencil.'),
@@ -176,24 +177,24 @@ export const CORE_STORIES: Story[] = [
     tier: 4,
     pages: [
       page(
-        sc('🏪', '👩 👧 🛒', 'inside'),
+        sc('shop', '👩 👧 🛒'),
         tell('Äiti ja Aino menevät kauppaan.', 'Mom and Aino go to the shop.'),
         say('aiti', 'Teemme keittoa isoäidille.', "We're making soup for Grandma."),
         tell('Mirri tulee salaa mukaan.', 'Mirri secretly comes along.'),
       ),
       page(
-        sc('🏪', '🥕 🥔 🍅', 'inside'),
+        sc('shop', '🥕 🥔 🍅'),
         say('aiti', 'Ostamme porkkanoita ja perunoita.', 'We buy carrots and potatoes.'),
         tell('Aino ostaa yhden tomaatin.', 'Aino buys one tomato.'),
       ),
       page(
-        sc('🏪', '🐱 🌭 👧 👩', 'inside'),
+        sc('shop', '🐱 🌭 👧 👩'),
         tell('Kaupassa on kissa!', "There's a cat in the shop!"),
         say('aino', 'Mirri! Mitä sinä teet täällä?', 'Mirri! What are you doing here?'),
         say('aiti', 'No, ostetaan Mirrille makkaraa.', "Well, let's buy Mirri some sausage."),
       ),
       page(
-        sc('🏠 🌆', '👵 🍲 👧 🐱', 'evening'),
+        sc('kitchen', '👵 🍲 👧 🐱', 'evening'),
         tell('Illalla he syövät keittoa isoäidin kanssa.', 'In the evening they eat soup with Grandma.'),
         say('isoaiti', 'Hyvää keittoa! Kiitos!', 'Good soup! Thank you!'),
         tell('Ja Mirri syö makkaraa.', 'And Mirri eats her sausage.'),
@@ -246,22 +247,22 @@ export const CORE_STORIES: Story[] = [
     tier: 5,
     pages: [
       page(
-        sc('🏡 🌅', '👦 😟'),
+        sc('yard', '👦 😟', 'morning'),
         tell('Aamulla Musti ei ollut kotona.', "In the morning Musti wasn't home."),
         say('eero', 'Musti! Missä olet?', 'Musti! Where are you?'),
       ),
       page(
-        sc('🌲 🌲 🌲', '👧 👦'),
+        sc('forest', '👧 👦'),
         tell('Aino ja Eero etsivät Mustia metsästä.', 'Aino and Eero looked for Musti in the forest.'),
         tell('He näkivät jotain puun takana.', 'They saw something behind a tree.'),
       ),
       page(
-        sc('🌲 🌳 🌲', '🐶 🐱'),
+        sc('forest', '🐶 🐱'),
         tell('Musti leikki siellä Mirrin kanssa!', 'Musti was playing there with Mirri!'),
         say('aino', 'Mirri! Sinäkin olet täällä!', "Mirri! You're here too!"),
       ),
       page(
-        sc('🏡 🌆', '👦 🐶 🦴 👧 🐱', 'evening'),
+        sc('yard', '👦 🐶 🦴 👧 🐱', 'evening'),
         tell('Eero antoi Mustille luun.', 'Eero gave Musti a bone.'),
         tell('He kävelivät yhdessä kotiin.', 'They walked home together.'),
         tell('Illalla Musti nukkui hyvin.', 'In the evening Musti slept well.'),
@@ -311,23 +312,23 @@ export const CORE_STORIES: Story[] = [
     tier: 5,
     pages: [
       page(
-        sc('🏠 📅', '👧 👩 🎂', 'inside'),
+        sc('home', '👧 👩 🎂'),
         tell('Lauantaina oli isän syntymäpäivä.', "Saturday was Dad's birthday."),
         tell('Aino ja äiti tekivät kakun salaa.', 'Aino and Mom made a cake in secret.'),
       ),
       page(
-        sc('🏠', '👵 🎈 🐱 🎂', 'inside'),
+        sc('home', '👵 🎈 🐱 🎂'),
         tell('Isoäiti toi ilmapalloja.', 'Grandma brought balloons.'),
         tell('Mirri halusi syödä kakkua!', 'Mirri wanted to eat the cake!'),
         say('aino', 'Ei, Mirri! Se on isälle!', "No, Mirri! It's for Dad!"),
       ),
       page(
-        sc('🏠 🚪', '👨 😮 🎈', 'inside'),
+        sc('home', '👨 😮 🎈'),
         tell('Isä tuli kotiin kello kuusi.', "Dad came home at six o'clock."),
         tell('Kaikki lauloivat isälle.', 'Everyone sang to Dad.'),
       ),
       page(
-        sc('🏠 🎈', '👨 🎂 😄 🐱', 'inside'),
+        sc('party', '👨 🎂 😄 🐱'),
         tell('Isä söi kakkua ja nauroi.', 'Dad ate cake and laughed.'),
         say('isa', 'Kiitos! Tämä on paras päivä!', 'Thank you! This is the best day!'),
       ),

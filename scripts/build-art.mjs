@@ -46,8 +46,9 @@ const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 
 const DRIFT_PX_PER_S = 2;
 
 /** The order the gallery shows the themes in (anything else after these). */
-const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'app'];
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'app'];
 const THEME_NAMES = {
+  'story-props': 'Story props',
   family: 'Family and the cast',
   animals: 'Animals',
   body: 'Body',
@@ -241,7 +242,9 @@ function build() {
     // a picture drawn ahead of its word's data (awaitingWord: the Finnish word)
     // shows in the gallery but stays out of the app until the word arrives
     const awaiting = group === 'words' && !word && r.awaitingWord ? r.awaitingWord : null;
-    if (group === 'words' && !word && !awaiting) problems.push(`${where}: a word picture's id must be a word id (src/content/data)`);
+    // a story prop (prop: true) is no word: it rides along in the words sprite
+    if (group === 'words' && !word && !awaiting && !r.prop) problems.push(`${where}: a word picture's id must be a word id (src/content/data)`);
+    if (r.prop && word) problems.push(`${where}: "${r.id}" is a word id — draw it as a word picture, not a prop`);
     if (group !== 'words' && word) problems.push(`${where}: "${r.id}" is a word id — draw it as a word picture, or rename it`);
     if (r.motion && !(r.motion.frames >= 2 && r.motion.frames <= 8 && r.motion.fps > 0 && r.motion.fps <= 12)) problems.push(`${where}: motion needs 2–8 frames at up to 12 fps`);
     const claims = [...(r.glyphs ?? [])];
@@ -524,6 +527,22 @@ function gallery(pictures, scenes) {
         <span class="stage__tone">${tone}</span>
       </div>`;
   };
+  // every story backdrop in every tone it's drawn in, moving where it moves
+  const backdrops = `
+  <section>
+    <div class="section-head"><h2>Story backdrops</h2><span class="count">${scenes.length}</span></div>
+    <div class="backdrops">${scenes
+      .map((s) => {
+        const b = s.byGrid[grid];
+        return `
+      <figure class="backdrop">
+        <svg viewBox="0 0 ${b.cols} ${b.rows}" aria-hidden="true"><use href="#scene-${s.id}-${s.tone}${b.moving ? '--m' : ''}"/></svg>
+        <figcaption><span class="pic__name">${esc(s.title)}</span><span class="moves">${s.tone}${b.moving ? ' · moves' : ''}</span></figcaption>
+      </figure>`;
+      })
+      .join('')}
+    </div>
+  </section>`;
   const cards = pick(['cat', 'dog', 'bear', 'apple', 'football', 'fox']).slice(0, 4);
   const moving = pictures.filter((p) => p.byGrid[grid].motion).length;
 
@@ -588,6 +607,10 @@ section { display: grid; gap: 14px; }
 .stage__cast { position: absolute; left: 0; right: 0; bottom: 3%; display: flex; justify-content: center; align-items: flex-end; gap: 1%; }
 .stage__cast .art { width: 16%; height: auto; aspect-ratio: 1; }
 .stage__tone { position: absolute; top: 10px; left: 12px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 10px; border-radius: 999px; background: var(--veil); color: var(--ink); }
+.backdrops { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.backdrop { margin: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: grid; }
+.backdrop svg { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; }
+.backdrop figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 8px 14px 10px; }
 .react__row { display: flex; gap: 18px; font-size: 4.2rem; }
 .react__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .react__buttons button { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
@@ -602,9 +625,10 @@ ${artCss(grid).replace(/^\/\*.*\*\/\n/, '')}
   <header class="intro">
     <span class="eyebrow">Kielipesä · the picture set</span>
     <h1>The picture set so far</h1>
-    <p class="lead">${pictures.length} of the roughly 370 pictures are drawn, in the style you picked: ${grid}-pixel art with soft colors and one-pixel outlines. ${moving} of them move, and every face blinks. Each picture is shown moving at card size and still at the small sizes the course map uses.</p>
+    <p class="lead">${pictures.length} of the roughly 370 pictures are drawn, in the style you picked: ${grid}-pixel art with soft colors and one-pixel outlines. ${moving} of them move, and every face blinks. Each picture is shown moving at card size and still at the small sizes the course map uses. After them come the stories' ${new Set(scenes.map((s) => s.id)).size} settings, as ${scenes.length} backdrops.</p>
   </header>
 ${sections}
+${backdrops}
   <section>
     <div class="section-head"><h2>In the app</h2></div>
     <div class="mocks">
