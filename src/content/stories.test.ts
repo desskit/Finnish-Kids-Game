@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { CAST, stories, storyById } from './stories';
+import { CAST, stories, storyById, toneOf } from './stories';
+import { BACKDROPS } from '../art/generated/manifest';
 import { questionBank } from '../game/storyQuiz';
 
 describe('story content integrity', () => {
@@ -17,6 +18,8 @@ describe('story content integrity', () => {
       expect(s.pages.length, s.id).toBeLessThanOrEqual(4);
       for (const p of s.pages) {
         expect(p.scene.fg.length, s.id).toBeGreaterThan(0);
+        // its setting is drawn, in its light
+        expect(BACKDROPS[p.scene.setting] as readonly string[], `${s.id}: ${p.scene.setting}`).toContain(toneOf(p.scene));
         expect(p.lines.length, s.id).toBeGreaterThanOrEqual(1);
         expect(p.lines.length, s.id).toBeLessThanOrEqual(3);
         for (const l of p.lines) {

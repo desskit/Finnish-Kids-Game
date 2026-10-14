@@ -46,7 +46,9 @@ export const FAMILY = {
  *   arm is too, unless `armsInFront` (a person facing us);
  * - toes: how far the shoes point forward (0 when facing us);
  * - bob: how far the body and head rise (negative) this frame, in canvas units;
- * - face: 'smile' | 'grin' | 'laugh' | 'o' | 'sleepy' | 'sad'.
+ * - hips: degrees the shorts or skirt turn (default: with the torso; a bow keeps them low);
+ * - tilt: degrees the head tips about its centre (a bow), if any;
+ * - face: 'smile' | 'grin' | 'laugh' | 'o' | 'sleepy' | 'sad' | 'shut' (eyes squeezed shut, a small frown).
  */
 export const POSES = {
   stand: {
@@ -174,11 +176,13 @@ export function person(k, look, pose = POSES.stand) {
   const bob = pose.bob ?? 0;
   const [hx, hy] = [pose.head[0], pose.head[1] + bob];
   const pivot = [32, 46];
-  const lean = (p) => {
-    const [x, y] = rot(p, pivot, pose.torso);
+  const turned = (deg) => (p) => {
+    const [x, y] = rot(p, pivot, deg);
     return [x, y + bob];
   };
+  const lean = turned(pose.torso);
   const out = [];
+  const tipped = (s) => (pose.tilt ? k.g(`rotate(${fmt(pose.tilt)} ${pt([hx, hy])})`, s) : s);
 
   // the shadow on the ground (none when they're up off it, on a climbing wall)
   if (pose.shadow !== false) out.push(k.ground(pose.speed ? 31 : 32, 58.6, pose.speed ? 15 : 13.5, 2.4));
@@ -186,18 +190,18 @@ export function person(k, look, pose = POSES.stand) {
 
   // Long hair and pigtails, the legs (and a turned-away arm) go behind the body
   const hair = c[look.hair.color];
-  out.push(hairBack(k, look.hair, hx, hy, hair, c[`${look.hair.color}Shade`] ?? hair));
+  out.push(tipped(hairBack(k, look.hair, hx, hy, hair, c[`${look.hair.color}Shade`] ?? hair)));
   out.push(leg(k, look, pose.legBack, skin, pose.toes));
   out.push(leg(k, look, pose.legFront, skin, pose.toes));
   if (!pose.armsInFront) out.push(arm(k, look, pose.armBack, skin));
 
-  out.push(body(k, look, lean));
+  out.push(body(k, look, lean, turned(pose.hips ?? pose.torso)));
 
   if (pose.armsInFront) out.push(arm(k, look, pose.armBack, skin));
   out.push(arm(k, look, pose.armFront, skin));
 
   // Head
-  out.push(head(k, look, hx, hy, pose.look, pose.face));
+  out.push(tipped(head(k, look, hx, hy, pose.look, pose.face)));
   return out.join('');
 }
 
@@ -244,18 +248,19 @@ export function arm(k, look, pts, skin = k.P[look.skin]) {
   return k.limb(limbPath(pts), sleeve, 8.2) + k.circle(hand[0], hand[1], 2.9, skin);
 }
 
-function body(k, look, lean) {
+function body(k, look, lean, hips) {
   const c = k.P;
   const top = c[look.top.color];
   const out = [];
   const poly = (pts, r, fill, o) => k.poly(pts.map(lean), r, fill, o);
+  const hipPoly = (pts, r, fill, o) => k.poly(pts.map(hips), r, fill, o);
   // bottoms first (under the shirt hem)
   if (look.bottom?.kind === 'shorts') {
-    out.push(poly([[23, 45], [41, 45], [41.8, 51.6], [33.4, 51.6], [32, 48.6], [30.6, 51.6], [22.2, 51.6]], 1.6, c[look.bottom.color]));
+    out.push(hipPoly([[23, 45], [41, 45], [41.8, 51.6], [33.4, 51.6], [32, 48.6], [30.6, 51.6], [22.2, 51.6]], 1.6, c[look.bottom.color]));
   } else if (look.bottom?.kind === 'skirt') {
-    out.push(poly([[23.4, 44.5], [40.6, 44.5], [43.8, 52], [20.2, 52]], [1.5, 1.5, 2.5, 2.5], c[look.bottom.color]));
+    out.push(hipPoly([[23.4, 44.5], [40.6, 44.5], [43.8, 52], [20.2, 52]], [1.5, 1.5, 2.5, 2.5], c[look.bottom.color]));
   } else if (look.bottom?.kind === 'trousers') {
-    out.push(poly([[23, 45], [41, 45], [41, 48.5], [23, 48.5]], 1.6, c[look.bottom.color]));
+    out.push(hipPoly([[23, 45], [41, 45], [41, 48.5], [23, 48.5]], 1.6, c[look.bottom.color]));
   }
   if (look.top.kind === 'dress') {
     out.push(poly([[25.2, 31.4], [38.8, 31.4], [45, 51], [19, 51]], [4, 4, 3, 3], top));
@@ -293,7 +298,7 @@ function head(k, look, hx, hy, lookDx, face) {
 function faceOf(k, x, y, face) {
   const out = [];
   const ey = y + 2.2;
-  if (face === 'sleepy') {
+  if (face === 'sleepy' || face === 'shut') {
     out.push(k.sleepyEye(x - 4.4, ey, 4), k.sleepyEye(x + 4.4, ey, 4));
   } else if (face === 'laugh') {
     out.push(k.happyEye(x - 4.4, ey, 4.2), k.happyEye(x + 4.4, ey, 4.2));
@@ -303,7 +308,7 @@ function faceOf(k, x, y, face) {
   out.push(k.blush(x - 7.6, y + 6.2), k.blush(x + 7.6, y + 6.2));
   if (face === 'grin' || face === 'laugh') out.push(k.openSmile(x, y + 6.4, 5.6, 2.6));
   else if (face === 'o') out.push(k.ellipse(x, y + 7.4, 1.6, 2, k.P.mouth, { sw: 1.5 }));
-  else if (face === 'sad') out.push(k.smile(x, y + 8.4, 4, -1.1));
+  else if (face === 'sad' || face === 'shut') out.push(k.smile(x, y + 8.4, 4, -1.1));
   else out.push(k.smile(x, y + 6.6, 4.2, 1.3));
   return out.join('');
 }

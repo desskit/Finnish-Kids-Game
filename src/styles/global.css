@@ -1392,59 +1392,71 @@ button:focus-visible,
 }
 
 /* A page's picture: the setting small across the back, who and what in front. */
+/* A page's picture: the setting's backdrop right across it (pixel art, the same
+   size of pixel as the pictures in front), who and what standing at the bottom.
+   The tone's colors only show while the backdrop loads. */
 .story-stage {
   position: relative;
   width: 100%;
-  min-height: clamp(150px, 34vw, 210px);
-  padding: 12px 16px 16px;
+  aspect-ratio: 2 / 1;
+  min-height: 150px;
+  max-height: 300px;
+  padding: 12px 16px 10px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(#bfe3ff 0%, #e6f5ff 58%, #c9ebc4 58%, #aedca8 100%);
+  justify-content: flex-end;
+  background: linear-gradient(#d1eaf8 0%, #ebf6fc 58%, #c8e3b0 58%, #a7d28e 100%);
 }
 
-.story-stage--inside {
-  background: linear-gradient(#fff3dc 0%, #ffe8c4 62%, #e8c79c 62%, #d9b386 100%);
+.story-stage--inside,
+.story-stage--morning {
+  background: linear-gradient(#fcf1e0 0%, #fcf1e0 74%, #e3c4a1 74%, #e3c4a1 100%);
 }
 
 .story-stage--evening {
-  background: linear-gradient(#ffb48c 0%, #ffd8b0 56%, #b7d6a3 56%, #98c387 100%);
+  background: linear-gradient(#f7d2b9 0%, #fae7d4 58%, #c8e3b0 58%, #a7d28e 100%);
 }
 
 .story-stage--night {
-  background: linear-gradient(#1f2b5c 0%, #3a4784 60%, #2d3b55 60%, #243149 100%);
+  background: linear-gradient(#39487f 0%, #4e5c93 60%, #2d3b55 60%, #243149 100%);
 }
 
-.story-stage--snow {
-  background: linear-gradient(#d6e5f5 0%, #eef5fc 56%, #ffffff 56%, #e9f0f7 100%);
+.story-stage--rain {
+  background: linear-gradient(#c7cfda 0%, #ebf6fc 58%, #c8e3b0 58%, #a7d28e 100%);
 }
 
 .story-stage--small {
   min-height: 120px;
 }
 
-.story-stage__bg {
-  display: flex;
-  justify-content: space-around;
-  font-size: clamp(1.5rem, 6vw, 2.1rem);
-  opacity: 0.85;
+.story-stage__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
 }
 
 .story-stage__fg {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-end;
-  gap: 4px 14px;
-  font-size: clamp(2.4rem, 11vw, 3.6rem);
-  line-height: 1.1;
+  gap: 2px 10px;
+  font-size: clamp(2.9rem, 14vw, 4.6rem);
+  line-height: 1;
 }
 
 .story-stage--small .story-stage__fg {
-  font-size: clamp(2rem, 9vw, 2.8rem);
+  font-size: clamp(2.3rem, 11vw, 3.4rem);
 }
 
 .story-stage__fg--enter {
