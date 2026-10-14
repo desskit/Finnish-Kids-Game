@@ -232,6 +232,7 @@ export type ArtId =
   | 'paper'
   | 'park'
   | 'party-popper'
+  | 'paw-prints'
   | 'pencil'
   | 'people'
   | 'phone'
@@ -592,6 +593,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   paper: { group: 'words', title: 'paper' },
   park: { group: 'words', title: 'park (a slide)' },
   'party-popper': { group: 'ui', title: 'party popper (well done!)' },
+  'paw-prints': { group: 'words', title: 'paw prints (the animal words)' },
   pencil: { group: 'words', title: 'pencil' },
   people: { group: 'ui', title: 'players, who (two people)' },
   phone: { group: 'words', title: 'phone' },
@@ -1171,6 +1173,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '📄': 'paper',
   '🛝': 'park',
   '🎉': 'party-popper',
+  '🐾': 'paw-prints',
   '✏': 'pencil',
   '👥': 'people',
   '📱': 'phone',

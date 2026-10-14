@@ -8,7 +8,8 @@
 // `motion="idle"` only blinks: for answer cards. Without it, the picture is
 // still: for small icons. Nothing moves when reduced motion is on.
 //
-// Until every picture is drawn, an emoji with no picture yet shows as itself.
+// Every emoji the app uses has a picture (src/art/coverage.test.ts checks), so
+// an emoji with none draws nothing rather than showing as itself.
 
 import { Fragment, useEffect } from 'react';
 import { ART, ART_MOTION, GLYPH_ART, type ArtId } from './generated/manifest';
@@ -92,12 +93,7 @@ export default function Art({ item, id, glyph, className, label, motion }: Props
       </span>
     );
   }
-  if (!emoji) return null;
-  return (
-    <span className={cls('art art--emoji')} data-emoji={emoji} {...a11y}>
-      {emoji}
-    </span>
-  );
+  return null;
 }
 
 /** Text with its emoji drawn as pictures ("🔊 Kuuntele", "3 × 🍎"). */

@@ -158,21 +158,23 @@ the resolver returns nothing for a slot whose form is missing in the data (so ma
 sure the needed case/conjugation exists). The shape is **v1** — expect it to gain
 fields (optional slots, alternate word orders) as real templates arrive.
 
-## 5. Art integration (later)
+## 5. Pictures
 
-The path is built to drop art in as a **data/CSS change, not a rewrite**:
+Content still names its pictures by emoji (a word's `emoji`, a story's `fg`, an
+answer's picture), and the app draws each as its picture from the pixel-art
+set. How the set works, and how to add a picture, is in
+[`docs/ART_GUIDE.md`](ART_GUIDE.md).
 
-- **Node / chapter art:** set `art` on a `SkillNode`, or `bannerArt` / `bgArt` on a
-  `Chapter`. The emoji `icon` stays as the fallback. Reference assets via
-  `import.meta.env.BASE_URL` (e.g. `art/path/this-is.webp`) so they work on
-  Netlify, a Pages subpath, and a Capacitor `file://` build. Use WebP, ~512²,
-  transparent — matching the Phase 1 art conventions in `ROADMAP.md`.
-- **Per-chapter color:** change a chapter's `accent`; it themes the band, node
-  rings and the "next" highlight.
-- **Re-fitting the layout to an illustrated map:** nodes auto-arrange into the
-  serpentine now. Each node also accepts an optional `pos: { x, y }` (percent) and
-  `side` hint, so once you have a painted map you can place nodes at exact
-  coordinates over it by editing data only (the renderer prefers `pos` when set).
+- **A new emoji needs its picture first.** `src/art/coverage.test.ts` fails
+  for an emoji in the content or the code that has no picture. Without one,
+  the app shows nothing in its place, never the emoji itself.
+- **A new word with an emoji** gets a word picture with the word's id.
+  Something a story shows that isn't a word is a story prop
+  (`art/recipes/props.mjs`).
+- **Numbers and keycaps** (`3️⃣`, `11`, `1.`) need no picture: they sit on the
+  number tile.
+- **Per-chapter color:** change a chapter's `accent`. It themes the band, the
+  node rings and the "next" highlight.
 
 ## Where your help is most valuable (content wishlist)
 

@@ -275,7 +275,11 @@ function ChildStats({ c }: { c: Child }) {
           <p className="gbadges">
             {words.map((w) => (
               <span key={w.id} className="gbadge" title={`${w.correct} of ${w.seen} right first time`}>
-                {w.emoji ? `${w.emoji} ` : ''}
+                {w.emoji ? (
+                  <>
+                    <Art item={w} />{' '}
+                  </>
+                ) : null}
                 <span lang="fi">{w.fi}</span> · {w.en} · {w.correct}/{w.seen}
               </span>
             ))}

@@ -31,7 +31,9 @@ vi.mock('./game/round', async (importOriginal) => {
 vi.mock('./audio/speak', () => ({
   speak: vi.fn(),
   speakEnglish: vi.fn(),
+  stopSpeaking: vi.fn(),
   isSpeechAvailable: () => true,
+  hasFinnishVoice: () => true,
 }));
 vi.mock('./audio/sfx', () => ({ playDing: vi.fn() }));
 
@@ -41,6 +43,7 @@ import { UNITS } from './game/course';
 import { dayKey } from './game/streak';
 import { ProfileProvider } from './state/profile';
 import { getByPicture, queryByPicture } from './test/pictures';
+import { splitEmoji } from './art/glyph';
 
 // Integration tests for the guided-course shell (home → lesson → step →
 // checkpoint) and the progression UI on top of it (badges, step levels, the
@@ -356,6 +359,17 @@ describe('playing a step', () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+describe('no emoji left as text', () => {
+  // Every emoji is drawn as a picture (src/art/coverage.test.ts makes sure each
+  // has one), so none may reach the screen as text.
+  const textEmoji = (root: HTMLElement) => splitEmoji(root.textContent ?? '').flatMap((p) => ('glyph' in p ? [p.glyph] : []));
+  it.each(['/', '/profiles', '/achievements', '/notebook', '/sounds', '/review', '/lesson/sounds', '/story/morning', '/grown-up'])('on %s', (path) => {
+    seedChild();
+    const { container } = renderAt(path);
+    expect(textEmoji(container)).toEqual([]);
   });
 });
 

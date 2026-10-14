@@ -1,6 +1,6 @@
 :root {
   --bg: #eff6ff;
-  --sky: #d3e8f3; /* journey-map backdrop sky — sampled from public/art/backgrounds/path.webp */
+  --sky: #d3e8f3; /* the course map's sky */
   --bg-card: #ffffff;
   --ink: #0f172a;
   --ink-soft: #475569;
@@ -205,14 +205,6 @@ body {
   vertical-align: -0.125em;
   flex: none;
   overflow: visible;
-}
-
-/* An emoji that has no picture yet shows as itself, at its own size. */
-.art--emoji {
-  width: auto;
-  height: auto;
-  margin: 0;
-  vertical-align: baseline;
 }
 
 /* The number tile: a drawn tile with the numeral as live text on top. */

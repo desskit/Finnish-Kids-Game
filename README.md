@@ -6,9 +6,10 @@ React + Vite + TypeScript. Works on tablets (touch) and laptops/Chromebooks
 (keyboard), runs offline, and uses **only human-authored, native-checked
 Finnish** — the app never generates or inflects Finnish by rule.
 
-> This is the first vertical slice. Artwork is intentionally placeholder
-> (emoji); real art and recorded native voiceover are planned for later,
-> art-focused sessions. See "Roadmap" below.
+> Every picture is pixel art drawn in code, most of it animated: words, the
+> cast, story backdrops, the app's icons and the fox mascot. See
+> [`docs/ART_GUIDE.md`](docs/ART_GUIDE.md). Recorded native voiceover is still
+> planned. See "Roadmap" below.
 
 ## What's in this slice
 
@@ -206,12 +207,15 @@ src/
     index.ts    # loads data into themes
   game/         # round builders (select/shuffle only — never generate Finnish)
                 #   + srs.ts (Leitner-lite spaced-repetition scheduler, pure)
+  art/          # <Art>, sprites and the generated picture set (see docs/ART_GUIDE.md)
   audio/        # TTS placeholder + Web Audio reward sounds
   state/        # local profiles + per-item SRS state (localStorage)
   components/   # screens & mini-games
   styles/       # global responsive styles
+art/            # the picture recipes, drawing kit and story backdrops
 scripts/
   build-kids-data.mjs  # curates Finnish data from Finnish-Inflection-Drill
+  build-art.mjs        # npm run art: draws the picture set into src/art/generated
   make-icons.mjs       # draws the app icons and favicon from the pixel fox
 ```
 
@@ -223,7 +227,6 @@ scripts/
 - More themes curated from the same tagged source (e.g. colors as a
   standalone topic, clothing, weather).
 - A kid-safety review pass before surfacing the sourced example sentences in the UI.
-- Real artwork + a mascot character (dedicated art session).
 - Recorded native-speaker voiceover to replace TTS.
 - Higher tiers (spelling/typing, word-ordering, short dialogues) for older kids.
 - Multi-child profiles and a simple progress/parent view.
