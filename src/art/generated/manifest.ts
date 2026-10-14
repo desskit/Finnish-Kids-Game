@@ -63,6 +63,7 @@ export type ArtId =
   | 'bread'
   | 'brother'
   | 'brown'
+  | 'brush'
   | 'build'
   | 'bunny'
   | 'bus'
@@ -424,6 +425,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   bread: { group: 'words', title: 'bread' },
   brother: { group: 'words', title: 'brother' },
   brown: { group: 'words', title: 'brown (a crayon)' },
+  brush: { group: 'ui', title: 'pick your colors (a paintbrush)' },
   build: { group: 'words', title: 'build (the last brick)' },
   bunny: { group: 'words', title: 'bunny' },
   bus: { group: 'words', title: 'bus (a blue city bus)' },
@@ -1011,6 +1013,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🍞': 'bread',
   '🧑': 'brother',
   '🟫': 'brown',
+  '🖌': 'brush',
   '🧱': 'build',
   '🐰': 'bunny',
   '🚌': 'bus',

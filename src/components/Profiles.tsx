@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useProfile } from '../state/profile';
 import { AVATARS } from '../state/storage';
 import { UNITS, unitsCompleted } from '../game/course';
+import { THEMES } from '../theme/theme';
 import Art from '../art/Art';
 import Avatar, { avatarName } from '../art/Avatar';
 
-// Grown-up player management: rename, switch, remove, add. (Adding and
-// switching are also on the kid-side player picker; removing lives only here,
-// behind the gate, with a confirmation.)
+// Grown-up player management: rename, colors, switch, remove, add. (Adding,
+// switching and colors are also on the kid-side player picker; removing lives
+// only here, behind the gate, with a confirmation.)
 export default function Profiles() {
-  const { children, activeId, addChild, renameChild, removeChild, switchChild } = useProfile();
+  const { children, activeId, addChild, renameChild, setChildTheme, removeChild, switchChild } = useProfile();
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(AVATARS[0]);
@@ -53,6 +54,26 @@ export default function Profiles() {
                   <Art glyph="⭐" /> {c.stars} · {unitsCompleted(c)} of {total} units
                 </span>
               </div>
+              <div className="glook" role="group" aria-label={`Colors for ${c.name}`}>
+                <span className="glook__label">Colors</span>
+                <button
+                  className={'gswitch__btn' + (c.theme ? '' : ' gswitch__btn--on')}
+                  aria-pressed={!c.theme}
+                  onClick={() => setChildTheme(c.id, undefined)}
+                >
+                  Follow device
+                </button>
+                {THEMES.map((t) => (
+                  <button
+                    key={t.id}
+                    className={'gswitch__btn' + (c.theme === t.id ? ' gswitch__btn--on' : '')}
+                    aria-pressed={c.theme === t.id}
+                    onClick={() => setChildTheme(c.id, t.id)}
+                  >
+                    <Art glyph={t.glyph} /> {t.en}
+                  </button>
+                ))}
+              </div>
               <div className="gplayer__actions">
                 {active ? (
                   <span className="gchip gchip--good">✓ Playing now</span>
@@ -73,6 +94,10 @@ export default function Profiles() {
           );
         })}
       </ul>
+      <p className="gmuted">
+        Each player can pick their colors with the brush on the player screen. Follow device shows Day, or Night when
+        this device is set to dark mode.
+      </p>
 
       {adding ? (
         <form className="gcard gadd" onSubmit={add}>

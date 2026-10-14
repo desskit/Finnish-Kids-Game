@@ -1,7 +1,8 @@
 // The three looks a player can pick: Day (the regular look), Night (dark) and
 // Pink. A player who hasn't picked one follows the device's light or dark
 // setting. A look is the data-theme attribute on <html>; src/styles/global.css
-// holds each look's colors.
+// holds each look's colors. An element with data-look shows one look inside
+// another (the look picker's cards, each player's card).
 
 import { useSyncExternalStore } from 'react';
 
@@ -12,14 +13,16 @@ export interface Theme {
   /** What the look is called (shown with its English). */
   fi: string;
   en: string;
+  /** Its sign in the sky: the sun, the moon, hearts. */
+  glyph: string;
   /** The browser bar's color: the top of the page in this look. */
   bar: string;
 }
 
 export const THEMES: readonly Theme[] = [
-  { id: 'day', fi: 'Päivä', en: 'Day', bar: '#d8ecf9' },
-  { id: 'night', fi: 'Yö', en: 'Night', bar: '#1e2550' },
-  { id: 'pink', fi: 'Pinkki', en: 'Pink', bar: '#ffd3e7' },
+  { id: 'day', fi: 'Päivä', en: 'Day', glyph: '☀️', bar: '#d8ecf9' },
+  { id: 'night', fi: 'Yö', en: 'Night', glyph: '🌙', bar: '#1e2550' },
+  { id: 'pink', fi: 'Pinkki', en: 'Pink', glyph: '💕', bar: '#ffd3e7' },
 ];
 
 export const isThemeId = (v: unknown): v is ThemeId => v === 'day' || v === 'night' || v === 'pink';

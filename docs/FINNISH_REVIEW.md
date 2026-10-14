@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-13T01:36:00.346Z · regenerate with `npm run review:content`
+- Generated: 2026-10-14T11:38:55.675Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1728 entries.** Flagged: 0.
+- **Approved: 28 of 1733 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -1696,7 +1696,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | `title:Äänitutkija` | Äänitutkija | Sound explorer |
 
-## Buttons & screen labels (138)
+## Buttons & screen labels (143)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -1792,7 +1792,9 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Pelataan tänään!` | Pelataan tänään! | Let's practice today |
 | ⚠️ | `ui:Pelit` | Pelit | Listening games |
 | ⚠️ | `ui:Pidennä pitkää ääntä` | Pidennä pitkää ääntä | mind the long sound, hold the doubled letter |
+| ⚠️ | `ui:Pinkki` | Pinkki | Pink |
 | ⚠️ | `ui:Puheharjoittelu` | Puheharjoittelu | Speaking practice |
+| ⚠️ | `ui:Päivä` | Päivä | Day |
 | ⚠️ | `ui:Päivän lämmittely` | Päivän lämmittely | today's warm-up |
 | ⚠️ | `ui:Saavutukset` | Saavutukset | Achievements |
 | ⚠️ | `ui:Salli mikrofoni ja yritä uudestaan` | Salli mikrofoni ja yritä uudestaan | Allow the mic and try again |
@@ -1828,6 +1830,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Uusi taso ⟨level⟩!` | Uusi taso ⟨level⟩! | Level up! |
 | ⚠️ | `ui:Vaihda pelaaja` | Vaihda pelaaja | Switch player |
 | ⚠️ | `ui:Vain aikuisille` | Vain aikuisille | Grown-ups only |
+| ⚠️ | `ui:Valmis` | Valmis | Done |
 | ⚠️ | `ui:Valmis!` | Valmis! | Got it |
 | ⚠️ | `ui:Vastaa` | Vastaa | Answer it |
 | ⚠️ | `ui:Vastaa kysymykseen` | Vastaa kysymykseen | Answer the question |
@@ -1835,8 +1838,10 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Vinkit` | Vinkit | Tricky sounds |
 | ⚠️ | `ui:Vähennä liikettä` | Vähennä liikettä | Reduce motion |
 | ⚠️ | `ui:Välitesti` | Välitesti | Checkpoint |
+| ⚠️ | `ui:Väri` | Väri | Colors |
 | ⚠️ | `ui:Yksi vai kaksi?` | Yksi vai kaksi? | One letter or two? |
 | ⚠️ | `ui:Yritä uudestaan` | Yritä uudestaan | Try again |
+| ⚠️ | `ui:Yö` | Yö | Night |
 | ⚠️ | `ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.` | ⟨Kyllä / Ei⟩, se on ⟨fi⟩. | (no English shown) |
 | ⚠️ | `ui:⟨nameFi⟩ kertoo.` | ⟨nameFi⟩ kertoo. | ⟨nameEn⟩ tells the story. |
 | ⚠️ | `ui:⟨streak⟩ päivää putkeen!` | ⟨streak⟩ päivää putkeen! | ⟨streak⟩-day streak |

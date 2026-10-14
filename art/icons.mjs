@@ -376,3 +376,30 @@ export function thumbsDown(k) {
   const f = k.frames > 1 ? k.frame % 2 : 0;
   return k.ground(33, 60.4, 12, 1.6) + k.g(`rotate(${180 + (f ? 6 : 0)} 32 34)`, thumbHand(k));
 }
+
+/** Pick your colors: a paintbrush, its tip dipped in pink. */
+export function brush(k) {
+  const c = k.P;
+  return [
+    k.ground(30, 58.6, 17, 2),
+    k.g(
+      'rotate(-38 32 32)',
+      k.poly(
+        [
+          [30, 27.4],
+          [58.4, 28.6],
+          [58.4, 35.4],
+          [30, 36.6],
+        ],
+        [0.6, 3, 3, 0.6],
+        c.wood,
+      ),
+      k.flat('M31 34.2L57.6 33.2V35L31 36Z', c.woodShade),
+      k.rect(21, 25, 10, 14, 1.2, c.silver),
+      k.flat('M21.6 35H30.4V38.4H21.6Z', c.silverShade),
+      k.path('M21.6 25C13 25 7 28.6 2.4 32C7 35.4 13 39 21.6 39Z', c.pink),
+      k.flat('M21 34.6C14 34.8 9 35 4.6 33.6C9 36.6 14 38.4 21 38.4Z', c.pinkShade),
+      k.shine('M34 30.2H53', 1.8),
+    ),
+  ].join('');
+}

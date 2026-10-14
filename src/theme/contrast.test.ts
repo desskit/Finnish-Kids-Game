@@ -16,9 +16,9 @@ const ROOT = join(__dirname, '..', '..');
 const CSS = readFileSync(join(ROOT, 'src/styles/global.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
 
 const SELECTORS: Record<ThemeId, string> = {
-  day: ':root',
-  night: ":root[data-theme='night']",
-  pink: ":root[data-theme='pink']",
+  day: ':root,\n[data-look]',
+  night: ":root[data-theme='night'],\n[data-look='night']",
+  pink: ":root[data-theme='pink'],\n[data-look='pink']",
 };
 
 /** Where a look's block starts and ends in the stylesheet. */

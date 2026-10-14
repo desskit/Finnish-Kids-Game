@@ -1,9 +1,12 @@
 /* ---------- The looks: Day, Night and Pink ----------
    Every color on a screen comes from these tokens. :root holds Day (the
    regular look); html[data-theme] picks a look (src/theme/theme.ts), and
-   Night and Pink override what they change. src/theme/contrast.test.ts checks
-   that text on each look's colors is easy to read. */
-:root {
+   Night and Pink override what they change. An element with data-look shows
+   one look inside another: it takes Day's tokens, then its look's.
+   src/theme/contrast.test.ts checks that text on each look's colors is easy
+   to read. */
+:root,
+[data-look] {
   color-scheme: light;
 
   /* The page: sky at the top, cream below, with soft glows of light. */
@@ -84,7 +87,8 @@
 }
 
 /* Night: deep indigo, soft white text, periwinkle and warm gold. */
-:root[data-theme='night'] {
+:root[data-theme='night'],
+[data-look='night'] {
   color-scheme: dark;
   --page: #161c36;
   --page-top: #1e2550;
@@ -134,7 +138,8 @@
 }
 
 /* Pink: pastel pink paper, plum text, raspberry and lavender. */
-:root[data-theme='pink'] {
+:root[data-theme='pink'],
+[data-look='pink'] {
   --page: #ffe6f1;
   --page-top: #ffd3e7;
   --glow-1: rgb(255 255 255 / 0.55);
@@ -167,6 +172,11 @@
   --unit-tint: #b8306f;
   --unit-tint-amount: 20%;
   --radius: 24px;
+}
+
+/* Text in a look shown inside another takes that look's ink. */
+[data-look] {
+  color: var(--ink);
 }
 
 * {
@@ -2228,6 +2238,7 @@ button:focus-visible,
 }
 
 .profile-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2241,8 +2252,42 @@ button:focus-visible,
   transition: transform 0.1s ease;
 }
 
-.profile-card:active {
+.profile-card--add:active,
+.profile-card--player:has(.profile-card__play:active) {
   transform: scale(0.97);
+}
+
+/* A player's card, in the player's own colors: the card plays, and the brush
+   in its corner changes the colors. */
+.profile-card--player {
+  padding: 0;
+}
+
+.profile-card__play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 140px;
+  padding: clamp(16px, 4vw, 24px);
+  border-radius: inherit;
+  background: none;
+}
+
+.profile-card__paint {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface-sunk);
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .profile-card--on {
@@ -2292,6 +2337,123 @@ button:focus-visible,
 .avatar-choice--on {
   outline: 4px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* ---------- Look picker: Day, Night and Pink ---------- */
+.look-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.look-picker__label {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-weight: 800;
+}
+
+.look-picker__label .en {
+  font-size: 0.7em;
+}
+
+.look-picker__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 2.4vw, 14px);
+  width: 100%;
+  max-width: 460px;
+}
+
+/* Each card in its own look (data-look): a little sky with a card and a button
+   on it, and the look's name. */
+.look-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 6px 8px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-weight: 800;
+  transition: transform 0.12s ease;
+}
+
+.look-card:active {
+  transform: scale(0.96);
+}
+
+.look-card--on {
+  outline: 4px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.look-card__sky {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: calc(var(--radius) - 6px);
+  background:
+    radial-gradient(70% 60% at 85% 0%, var(--glow-1), transparent 70%),
+    linear-gradient(var(--page-top), var(--page));
+  overflow: hidden;
+}
+
+.look-card__sign {
+  position: absolute;
+  top: 7%;
+  right: 9%;
+  font-size: clamp(1.3rem, 6vw, 1.9rem);
+  line-height: 1;
+}
+
+.look-card__sample {
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  bottom: 11%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 7px;
+  border-radius: 9px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.look-card__line {
+  display: block;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--ink);
+}
+
+.look-card__line--short {
+  width: 60%;
+  background: var(--ink-soft);
+}
+
+.look-card__button {
+  display: block;
+  align-self: flex-end;
+  width: 46%;
+  height: 10px;
+  margin-top: 2px;
+  border-radius: 99px;
+  background: var(--brand);
+}
+
+.look-card__name {
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  line-height: 1.1;
+  text-align: center;
+}
+
+.look-card__name .en {
+  display: block;
+  font-size: 0.75em;
 }
 
 /* ---------- Grown-up area ---------- */
@@ -4540,6 +4702,28 @@ a.badge-strip {
   gap: 8px;
   align-items: center;
   justify-content: flex-end;
+}
+
+/* A player's colors: follow the device, or Day, Night or Pink. */
+.glook {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.glook__label {
+  flex-basis: 100%;
+  color: var(--ink-soft);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.glook .gswitch__btn {
+  min-height: 40px;
+  padding: 0 10px;
+  font-size: 0.85rem;
 }
 
 .gadd__actions,

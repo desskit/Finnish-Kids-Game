@@ -99,10 +99,20 @@ test('full happy path: create profile, read the first lesson, practise as one un
   // Fresh data with no profile bounces to the picker.
   await expect(page).toHaveURL(/#\/profiles/);
   await page.getByLabel(/^Nimi/).fill('Aino');
+  // Picking the Pink look shows it at once.
+  const html = page.locator('html');
+  await expect(html).toHaveAttribute('data-theme', 'day');
+  await page.getByRole('button', { name: /Pinkki/ }).click();
+  await expect(html).toHaveAttribute('data-theme', 'pink');
   await page.getByRole('button', { name: /Aloita/i }).click();
 
-  // Lands on the course home with the new player's greeting.
+  // Lands on the course home with the new player's greeting, in her look,
+  // which is there from the first paint after a reload too.
   await expect(page).toHaveURL(/#\/$/);
+  await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
+  await expect(html).toHaveAttribute('data-theme', 'pink');
+  await page.reload();
+  expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('pink');
   await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
   await expectNoEmojiText(page);
 
