@@ -90,6 +90,41 @@ describe('applyTheme', () => {
   });
 });
 
+describe('changing the look', () => {
+  const fade = vi.fn((update: () => void) => {
+    update();
+    return {} as ViewTransition;
+  });
+
+  beforeEach(() => {
+    fade.mockClear();
+    Object.defineProperty(document, 'startViewTransition', { value: fade, configurable: true });
+  });
+
+  afterEach(() => {
+    delete (document as { startViewTransition?: unknown }).startViewTransition;
+    delete document.documentElement.dataset.reducedMotion;
+  });
+
+  it('cross-fades a change of look, but not the first one', () => {
+    applyTheme('day');
+    expect(fade).not.toHaveBeenCalled();
+    applyTheme('pink');
+    expect(fade).toHaveBeenCalledTimes(1);
+    expect(look()).toBe('pink');
+    applyTheme('pink');
+    expect(fade).toHaveBeenCalledTimes(1);
+  });
+
+  it('switches at once when motion is reduced', () => {
+    document.documentElement.dataset.reducedMotion = 'true';
+    applyTheme('day');
+    applyTheme('night');
+    expect(fade).not.toHaveBeenCalled();
+    expect(look()).toBe('night');
+  });
+});
+
 describe('useDeviceDark', () => {
   it('follows the device when it switches', () => {
     const device = fakeDevice(false);

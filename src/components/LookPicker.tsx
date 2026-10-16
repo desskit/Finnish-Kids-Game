@@ -19,7 +19,7 @@ export default function LookPicker({
       <p className="look-picker__label" id={labelId}>
         Väri <span className="en">Colors</span>
       </p>
-      <div className="look-picker__cards" role="group" aria-labelledby={labelId}>
+      <div className="look-picker__cards stagger" role="group" aria-labelledby={labelId}>
         {THEMES.map((t) => (
           <button
             type="button"

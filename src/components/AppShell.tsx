@@ -27,7 +27,10 @@ export default function AppShell() {
           </span>
         </Link>
         <span className="top-bar__stars" aria-label={`${stars} stars earned`}>
-          <Art glyph="⭐" /> {stars}
+          <Art glyph="⭐" />{' '}
+          <span className="bump" key={stars}>
+            {stars}
+          </span>
         </span>
         <Link
           className="icon-btn top-bar__grownup"

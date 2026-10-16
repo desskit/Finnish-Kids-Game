@@ -118,7 +118,7 @@ export default function ProfilePicker() {
           </form>
         ) : (
           !painted && (
-            <div className="profile-grid">
+            <div className="profile-grid stagger">
               {children.map((c) => (
                 <div
                   key={c.id}

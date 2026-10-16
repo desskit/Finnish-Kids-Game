@@ -50,7 +50,10 @@ export default function ActivityHeader({ title, icon, index, total, stars, onExi
       ) : (
         // One star is "1 tähti"; any other count takes the partitive ("0 / 6 tähteä").
         <div className="session-stars" aria-label={`${stars} ${stars === 1 ? 'tähti' : 'tähteä'}`}>
-          <Art glyph="⭐" /> {stars}
+          <Art glyph="⭐" />{' '}
+          <span className="bump" key={stars}>
+            {stars}
+          </span>
         </div>
       )}
     </header>

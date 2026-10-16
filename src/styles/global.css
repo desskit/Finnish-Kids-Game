@@ -77,6 +77,30 @@
   --drop: 0 4px 6px color-mix(in srgb, var(--shade) 20%, transparent);
   --drop-lg: 0 8px 10px color-mix(in srgb, var(--shade) 20%, transparent);
 
+  /* Tactile: what you can press stands on a thick bottom edge, like a card
+     of thick paper or a chunky button. --edge is paper's; a colored button
+     uses its own darker color. --raise is a card at rest, --raise-press a
+     card pushed down onto its edge. */
+  --edge: #e6d3b1;
+  --brand-edge: #2b4699;
+  --brand-2-edge: #155f59;
+  --warm-edge: #8b3a12;
+  --raise: 0 4px 0 var(--edge), var(--shadow-sm);
+  --raise-press: 0 1px 0 var(--edge), var(--shadow-sm);
+
+  /* Right and wrong: a ring in the look's color with a soft glow. */
+  --ring-good: 0 0 0 5px var(--good), 0 0 22px 4px color-mix(in srgb, var(--good) 35%, transparent);
+  --ring-bad: 0 0 0 4px var(--bad), 0 0 18px 3px color-mix(in srgb, var(--bad) 28%, transparent);
+
+  /* Soft tints behind the home tiles' icons. */
+  --well-teal: #d3efe9;
+  --well-gold: #fbe9bf;
+  --well-lilac: #e7defb;
+  --well-green: #dbefd3;
+
+  /* The light that sweeps across the Continue button. */
+  --sheen: rgb(255 255 255 / 0.32);
+
   /* A unit's own color is mixed toward this, by this much (Night lightens
      the darker ones, Pink blushes them toward its raspberry). */
   --unit-tint: #ffffff;
@@ -137,6 +161,15 @@
   --shadow-lift: 0 14px 30px rgb(0 0 0 / 0.45);
   --drop: 0 4px 6px rgb(0 0 0 / 0.4);
   --drop-lg: 0 8px 10px rgb(0 0 0 / 0.4);
+  --edge: #111733;
+  --brand-edge: #5c74d4;
+  --brand-2-edge: #3a9f91;
+  --warm-edge: #b9662a;
+  --well-teal: #1d4248;
+  --well-gold: #47402a;
+  --well-lilac: #36305e;
+  --well-green: #22422f;
+  --sheen: rgb(255 255 255 / 0.28);
   --unit-tint-amount: 45%;
 }
 
@@ -173,6 +206,14 @@
   --bar: rgb(255 240 247 / 0.86);
   --scrim: rgb(90 42 78 / 0.45);
   --shade: #8a2a5c;
+  --edge: #f2c2d7;
+  --brand-edge: #8c1f53;
+  --brand-2-edge: #52369e;
+  --warm-edge: #8e2643;
+  --well-teal: #d5f2ea;
+  --well-gold: #fde7c4;
+  --well-lilac: #ebe0ff;
+  --well-green: #dcf3d8;
   --unit-tint: #b8306f;
   --unit-tint-amount: 20%;
   --radius: 24px;
@@ -236,7 +277,7 @@ body {
   background: var(--bar);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 0 var(--line), var(--shadow-sm);
 }
 
 .top-bar__brand {
@@ -271,8 +312,15 @@ body {
 .top-bar__stars {
   font-weight: 800;
   color: var(--accent-ink);
-  font-size: clamp(1.2rem, 3.4vw, 1.6rem);
+  font-size: clamp(1.1rem, 3.2vw, 1.35rem);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px 4px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 3px 0 var(--edge), var(--shadow-sm);
 }
 
 .shell-main {
@@ -325,20 +373,17 @@ body {
   color: var(--ink);
   background: var(--surface);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   padding: clamp(16px, 3.5vw, 24px);
   min-height: 132px;
   position: relative;
   transition: transform 0.1s ease;
 }
 
-.activity-tile:active {
-  transform: scale(0.97);
-}
-
 .activity-tile__emoji {
   font-size: clamp(2.2rem, 8vw, 3rem);
   line-height: 1;
+  display: inline-block;
 }
 
 .activity-tile__title {
@@ -459,7 +504,7 @@ button:focus-visible,
   min-height: var(--tap);
   padding: 0 clamp(20px, 4vw, 32px);
   border-radius: 999px;
-  background: var(--brand-soft);
+  background: var(--surface);
   color: var(--brand);
   font-size: clamp(1.1rem, 2.6vw, 1.4rem);
   font-weight: 800;
@@ -467,15 +512,13 @@ button:focus-visible,
   align-items: center;
   gap: 8px;
   transition: transform 0.08s ease;
-}
-
-.btn:active {
-  transform: scale(0.96);
+  box-shadow: var(--raise);
 }
 
 .btn--primary {
   background: var(--brand);
   color: var(--brand-ink);
+  box-shadow: 0 4px 0 var(--brand-edge), var(--shadow-sm);
 }
 
 .btn--sm {
@@ -486,7 +529,7 @@ button:focus-visible,
 
 .btn--ghost {
   background: transparent;
-  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  box-shadow: inset 0 0 0 2px var(--line);
 }
 
 .btn .en {
@@ -544,9 +587,9 @@ button:focus-visible,
 .icon-btn {
   min-width: var(--tap);
   min-height: var(--tap);
-  border-radius: 18px;
+  border-radius: 50%;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: 1.6rem;
   /* Many icon buttons are router LINKS — center the glyph and drop the link
      look (blue, underlined, top-left) so they match the real buttons. */
@@ -625,7 +668,7 @@ button:focus-visible,
   font-size: 1.4rem;
   font-weight: 800;
   text-align: center;
-  border: 3px solid var(--brand-soft);
+  border: 3px solid var(--line);
   border-radius: 16px;
   padding: 0 16px;
   width: min(260px, 70vw);
@@ -633,12 +676,16 @@ button:focus-visible,
   color: var(--ink);
 }
 
+.name-input:focus {
+  border-color: var(--brand);
+}
+
 .chip {
   min-height: 52px;
   padding: 0 18px;
   border-radius: 999px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-weight: 800;
   display: inline-flex;
   flex-direction: column;
@@ -692,17 +739,22 @@ button:focus-visible,
 .session-stars {
   font-weight: 800;
   font-size: 1.1rem;
-  background: var(--brand-soft);
+  background: var(--surface);
   border-radius: 999px;
-  padding: 4px 12px;
+  padding: 4px 14px 4px 10px;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 0 var(--edge), var(--shadow-sm);
 }
 
 .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--brand-soft);
+  width: 12px;
+  height: 12px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--ink-soft) 28%, transparent);
+  transition: width 0.25s ease, background-color 0.25s ease;
 }
 
 .dot--done {
@@ -711,7 +763,7 @@ button:focus-visible,
 
 .dot--current {
   background: var(--brand);
-  transform: scale(1.25);
+  width: 28px;
 }
 
 .prompt {
@@ -735,6 +787,7 @@ button:focus-visible,
   align-items: center;
   gap: 8px;
   font-weight: 800;
+  box-shadow: 0 4px 0 var(--brand-edge), var(--shadow-sm);
 }
 
 .speaker--hero {
@@ -742,7 +795,7 @@ button:focus-visible,
   width: clamp(110px, 26vw, 150px);
   height: clamp(110px, 26vw, 150px);
   font-size: clamp(2.6rem, 8vw, 3.6rem);
-  box-shadow: var(--shadow);
+  box-shadow: 0 5px 0 var(--brand-edge), var(--shadow);
 }
 
 .speaker__hint {
@@ -759,10 +812,6 @@ button:focus-visible,
   color: color-mix(in srgb, var(--brand-ink) 85%, transparent);
 }
 
-.speaker:active {
-  transform: scale(0.95);
-}
-
 /* ---------- Kuuntele (hear it, pick the meaning) ---------- */
 .hear-speakers {
   display: flex;
@@ -777,7 +826,7 @@ button:focus-visible,
   font-size: clamp(1.8rem, 6vw, 2.2rem);
   background: var(--brand-2);
   color: var(--brand-2-ink);
-  box-shadow: var(--shadow);
+  box-shadow: 0 5px 0 var(--brand-2-edge), var(--shadow);
 }
 
 .speaker--slow .speaker__hint {
@@ -867,16 +916,12 @@ button:focus-visible,
   aspect-ratio: 1 / 1;
   background: var(--surface);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: clamp(3rem, 12vw, 5rem);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.08s ease;
-}
-
-.pic-card:active {
-  transform: scale(0.95);
 }
 
 .pic-card:disabled {
@@ -906,7 +951,7 @@ button:focus-visible,
 
 .pic-card--wrong {
   animation: wiggle 0.4s ease;
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 /* A big, unmissable pop for a correct answer — the positive-feedback
@@ -928,7 +973,7 @@ button:focus-visible,
 
 .pic-card--correct {
   animation: correctpop 0.45s ease-out;
-  box-shadow: 0 0 0 5px var(--good);
+  box-shadow: var(--ring-good);
 }
 
 /* The L5+ gentle-timer nudge: when the countdown lapses without an answer,
@@ -1037,14 +1082,10 @@ button:focus-visible,
   padding: 0 clamp(18px, 4vw, 28px);
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: clamp(1.2rem, 3.6vw, 1.7rem);
   font-weight: 800;
   transition: transform 0.08s ease;
-}
-
-.word-tile:active {
-  transform: scale(0.95);
 }
 
 .word-tile__num {
@@ -1055,12 +1096,12 @@ button:focus-visible,
 
 .word-tile--wrong {
   animation: wiggle 0.4s ease;
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 .word-tile--correct {
   animation: correctpop 0.45s ease-out;
-  box-shadow: 0 0 0 5px var(--good);
+  box-shadow: var(--ring-good);
 }
 
 /* A gentle nudge toward the correct next tile after a few misses (sentence
@@ -1089,41 +1130,37 @@ button:focus-visible,
   padding: 0 clamp(12px, 3vw, 20px);
   border-radius: 14px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: clamp(1.1rem, 3.2vw, 1.5rem);
   font-weight: 800;
   transition: transform 0.08s ease;
 }
 
-.error-word:active {
-  transform: scale(0.95);
-}
-
 .error-word--wrong {
   animation: wiggle 0.4s ease;
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 .error-word--fixed {
   animation: correctpop 0.45s ease-out;
-  box-shadow: 0 0 0 5px var(--good);
+  box-shadow: var(--ring-good);
   color: var(--good);
 }
 
 .error-ok {
   margin-top: 12px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
 }
 
 .error-ok--wrong {
   animation: wiggle 0.4s ease;
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 .error-ok--right {
   animation: correctpop 0.45s ease-out;
-  box-shadow: 0 0 0 5px var(--good);
+  box-shadow: var(--ring-good);
   color: var(--good);
 }
 
@@ -1152,14 +1189,10 @@ button:focus-visible,
   padding: 0 14px;
   border-radius: 14px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--brand);
-}
-
-.fi-letters__key:active {
-  transform: scale(0.95);
 }
 
 /* The child types into this directly with the device keyboard. */
@@ -1168,7 +1201,7 @@ button:focus-visible,
   max-width: 90%;
   min-height: 1.6em;
   padding: 10px 16px;
-  border: 3px solid var(--brand-soft);
+  border: 3px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -1187,13 +1220,13 @@ button:focus-visible,
 .spell-input--wrong {
   animation: wiggle 0.4s ease;
   border-color: var(--bad);
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 .spell-input--correct {
   color: var(--good);
   border-color: var(--good);
-  box-shadow: 0 0 0 4px var(--good);
+  box-shadow: var(--ring-good);
   animation: correctpop 0.45s ease-out;
 }
 
@@ -1273,13 +1306,9 @@ button:focus-visible,
   padding-left: clamp(40px, 9vw, 52px);
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   text-align: left;
   transition: transform 0.08s ease;
-}
-
-.reply-tile:active {
-  transform: scale(0.98);
 }
 
 .reply-tile__num {
@@ -1303,12 +1332,12 @@ button:focus-visible,
 
 .reply-tile--wrong {
   animation: wiggle 0.4s ease;
-  box-shadow: 0 0 0 4px var(--bad);
+  box-shadow: var(--ring-bad);
 }
 
 .reply-tile--correct {
   animation: correctpop 0.45s ease-out;
-  box-shadow: 0 0 0 5px var(--good);
+  box-shadow: var(--ring-good);
 }
 
 /* ---------- Small talk: a building chat transcript ---------- */
@@ -1447,13 +1476,9 @@ button:focus-visible,
   border-radius: 999px;
   background: var(--brand);
   color: var(--brand-ink);
-  box-shadow: var(--shadow);
+  box-shadow: 0 5px 0 var(--brand-edge), var(--shadow);
   font-size: clamp(2rem, 8vw, 3rem);
   transition: transform 0.08s ease;
-}
-
-.mic-button:active {
-  transform: scale(0.95);
 }
 
 .mic-button:disabled {
@@ -1605,12 +1630,13 @@ button:focus-visible,
   max-height: 300px;
   padding: 12px 16px 10px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 0 var(--edge), var(--shadow);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   background: linear-gradient(#d1eaf8 0%, #ebf6fc 58%, #c8e3b0 58%, #a7d28e 100%);
+  border: 5px solid var(--surface);
 }
 
 .story-stage--inside,
@@ -1757,8 +1783,9 @@ button:focus-visible,
   height: 44px;
   margin-top: 4px;
   border-radius: 50%;
-  background: var(--brand-soft);
+  background: var(--surface);
   font-size: 1.1rem;
+  box-shadow: var(--raise);
 }
 
 /* Every word can be tapped: hear it, and see what it means. */
@@ -1798,15 +1825,17 @@ button:focus-visible,
   min-width: var(--tap);
   min-height: 56px;
   border-radius: 18px;
-  background: var(--brand-soft);
+  background: var(--surface);
   color: var(--brand);
   font-size: 1.5rem;
   font-weight: 800;
+  box-shadow: var(--raise);
 }
 
 .story-nav--next {
   background: var(--brand);
   color: var(--brand-ink);
+  box-shadow: 0 4px 0 var(--brand-edge), var(--shadow-sm);
 }
 
 .story-nav:disabled {
@@ -1833,12 +1862,13 @@ button:focus-visible,
   padding: 0 14px;
   border-radius: 999px;
   background: var(--surface);
-  box-shadow: inset 0 0 0 2px var(--brand-soft);
+  box-shadow: var(--raise);
   font-weight: 800;
 }
 
 .story-peek--on {
   background: var(--brand-soft);
+  box-shadow: inset 0 0 0 2px var(--brand), var(--raise);
 }
 
 /* The cover and the end page. */
@@ -1957,7 +1987,7 @@ button:focus-visible,
   min-height: 96px;
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: clamp(1.3rem, 4.4vw, 1.6rem);
   font-weight: 800;
   display: flex;
@@ -1991,7 +2021,7 @@ button:focus-visible,
   padding: 10px 14px;
   border-radius: 18px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   text-align: left;
 }
 
@@ -2088,15 +2118,16 @@ button:focus-visible,
   padding: 14px 10px;
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
-  border-bottom: 5px solid var(--brand);
+  box-shadow: var(--raise);
   color: var(--ink);
   text-decoration: none;
   text-align: center;
+  border-left: 8px solid var(--brand);
 }
 
 .book__icon {
   font-size: 2.4rem;
+  display: inline-block;
 }
 
 .book__title {
@@ -2171,6 +2202,67 @@ button:focus-visible,
 }
 
 /* ---------- Round complete ---------- */
+.complete {
+  position: relative;
+}
+
+/* A short burst of confetti in the look's colors (src/components/RoundComplete.tsx
+   places each piece). It plays once; with reduced motion it doesn't show. */
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti > span {
+  position: absolute;
+  top: -16px;
+  width: 10px;
+  height: 14px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: confetti-fall 1.7s cubic-bezier(0.22, 0.7, 0.4, 1) both;
+}
+
+.confetti > span:nth-child(6n + 1) {
+  background: var(--accent);
+}
+
+.confetti > span:nth-child(6n + 2) {
+  background: var(--brand);
+}
+
+.confetti > span:nth-child(6n + 3) {
+  background: var(--good);
+}
+
+.confetti > span:nth-child(6n + 4) {
+  background: var(--bad);
+}
+
+.confetti > span:nth-child(6n + 5) {
+  background: var(--brand-2);
+}
+
+.confetti > span:nth-child(6n) {
+  background: var(--accent-line);
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), 72vh) rotate(var(--turn));
+  }
+}
+
 .complete .title {
   font-size: clamp(1.8rem, 6vw, 3rem);
   margin: 0;
@@ -2223,7 +2315,9 @@ button:focus-visible,
   * {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
   }
 }
 
@@ -2231,7 +2325,9 @@ button:focus-visible,
 :root[data-reduced-motion='true'] * {
   animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
+  animation-delay: 0ms !important;
   transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
 }
 
 /* ---------- Top bar: profile + grown-up ---------- */
@@ -2246,9 +2342,17 @@ button:focus-visible,
 }
 
 .top-bar__avatar {
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 1;
-  filter: drop-shadow(var(--drop));
+  filter: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface-sunk);
+  border: 3px solid var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .top-bar__name {
@@ -2288,15 +2392,10 @@ button:focus-visible,
   gap: 6px;
   background: var(--surface);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   padding: clamp(16px, 4vw, 24px);
   min-height: 140px;
   transition: transform 0.1s ease;
-}
-
-.profile-card--add:active,
-.profile-card--player:has(.profile-card__play:active) {
-  transform: scale(0.97);
 }
 
 /* A player's card, in the player's own colors: the card plays, and the brush
@@ -2371,7 +2470,7 @@ button:focus-visible,
   height: 52px;
   border-radius: 14px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: 1.7rem;
   line-height: 1;
 }
@@ -2418,13 +2517,9 @@ button:focus-visible,
   padding: 6px 6px 8px;
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-weight: 800;
   transition: transform 0.12s ease;
-}
-
-.look-card:active {
-  transform: scale(0.96);
 }
 
 .look-card--on {
@@ -2490,7 +2585,7 @@ button:focus-visible,
   padding: 0 18px;
   border-radius: 999px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-weight: 800;
   display: inline-flex;
   flex-direction: column;
@@ -2507,6 +2602,7 @@ button:focus-visible,
 .tab--on {
   background: var(--brand);
   color: var(--brand-ink);
+  box-shadow: 0 4px 0 var(--brand-edge), var(--shadow-sm);
 }
 
 .tab--on .en {
@@ -2682,7 +2778,7 @@ button:focus-visible,
   font-family: inherit;
   font-size: 1.1rem;
   font-weight: 800;
-  border: 2px solid var(--brand-soft);
+  border: 2px solid var(--line);
   border-radius: 12px;
   padding: 0 10px;
   background: var(--surface);
@@ -2761,13 +2857,15 @@ button:focus-visible,
   margin: 6px auto 2px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  background: var(--surface);
   font-weight: 800;
   font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+  box-shadow: 0 3px 0 var(--edge), var(--shadow-sm);
 }
 
 .streak--today {
-  background: color-mix(in srgb, var(--brand) 22%, transparent);
+  background: var(--accent-soft);
+  box-shadow: 0 3px 0 var(--accent-line), var(--shadow-sm);
 }
 
 .streak__flame {
@@ -2815,7 +2913,7 @@ button:focus-visible,
   color: var(--brand-ink);
   border-radius: 999px;
   padding: 10px 20px;
-  box-shadow: var(--shadow-lift);
+  box-shadow: 0 4px 0 var(--brand-edge), var(--shadow-lift);
   pointer-events: none;
   animation: toastin 0.35s ease-out;
 }
@@ -3134,23 +3232,20 @@ button:focus-visible,
   background: var(--brand);
   color: var(--brand-ink);
   text-decoration: none;
-  box-shadow: var(--shadow);
+  box-shadow: 0 6px 0 var(--brand-edge), var(--shadow);
   transition: transform 0.08s ease;
-}
-
-.continue-cta:active {
-  transform: scale(0.98);
 }
 
 .continue-cta__icon {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   flex: none;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--brand-ink) 18%, transparent);
-  font-size: 1.4rem;
+  background: var(--surface);
+  font-size: 1.5rem;
+  box-shadow: 0 3px 0 var(--brand-edge);
 }
 
 .continue-cta__label {
@@ -3180,9 +3275,14 @@ button:focus-visible,
 }
 
 /* The new day's warm-up takes over the Continue button until it's done. */
+.continue-cta--warmup .continue-cta__icon {
+  box-shadow: 0 3px 0 var(--warm-edge);
+}
+
 .continue-cta--warmup {
   background: linear-gradient(135deg, var(--warm-1), var(--warm-2));
   color: var(--warm-ink);
+  box-shadow: 0 6px 0 var(--warm-edge), var(--shadow);
 }
 
 .continue-cta--warmup .continue-cta__title .en,
@@ -3207,13 +3307,36 @@ button:focus-visible,
   font-size: clamp(0.88rem, 3.3vw, 1rem);
   border-radius: 18px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   color: var(--ink);
   text-decoration: none;
 }
 
 .home-tile__icon {
-  font-size: 1.5rem;
+  font-size: 1.55rem;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 4px;
+  border-radius: 50%;
+  background: var(--well, var(--surface-sunk));
+}
+
+.home-tile--review {
+  --well: var(--well-teal);
+}
+
+.home-tile--badges {
+  --well: var(--well-gold);
+}
+
+.home-tile--alphabet {
+  --well: var(--well-lilac);
+}
+
+.home-tile--notebook {
+  --well: var(--well-green);
 }
 
 .home-tile__label {
@@ -3256,9 +3379,20 @@ button:focus-visible,
 }
 
 .unit--locked {
-  opacity: 0.6;
   box-shadow: none;
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  border: 2px dashed var(--line);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.unit--locked .unit__label {
+  opacity: 0.62;
+}
+
+.unit--locked .unit__icon {
+  background: var(--surface-sunk);
+  box-shadow: none;
 }
 
 .unit--current {
@@ -3281,6 +3415,10 @@ button:focus-visible,
   cursor: pointer;
 }
 
+.unit__head:not(:disabled) {
+  background: linear-gradient(100deg, color-mix(in srgb, var(--unit) 13%, transparent), transparent 62%);
+}
+
 .unit__head:disabled {
   cursor: default;
 }
@@ -3291,8 +3429,9 @@ button:focus-visible,
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--brand-soft);
+  background: color-mix(in srgb, var(--unit) 18%, var(--surface));
   font-size: 1.3rem;
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px color-mix(in srgb, var(--unit) 40%, transparent);
 }
 
 .unit--done .unit__icon {
@@ -3324,16 +3463,16 @@ button:focus-visible,
 
 .unit__bar {
   grid-column: 2;
-  height: 6px;
+  height: 8px;
   border-radius: 99px;
-  background: var(--brand-soft);
+  background: var(--surface-sunk);
   overflow: hidden;
 }
 
 .unit__bar > span {
   display: block;
   height: 100%;
-  background: var(--unit);
+  background: repeating-linear-gradient(-45deg, var(--unit) 0 6px, color-mix(in srgb, var(--unit) 78%, var(--surface)) 6px 12px);
   border-radius: inherit;
 }
 
@@ -3356,6 +3495,7 @@ button:focus-visible,
   background: var(--surface-sunk);
   color: var(--ink);
   text-decoration: none;
+  box-shadow: 0 2px 0 var(--edge);
 }
 
 .unit-step--locked {
@@ -3439,12 +3579,14 @@ button:focus-visible,
 .lesson__dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
-  background: var(--brand-soft);
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--ink-soft) 28%, transparent);
+  transition: width 0.25s ease, background-color 0.25s ease;
 }
 
 .lesson__dot--on {
   background: var(--brand);
+  width: 24px;
 }
 
 .lesson-card {
@@ -3551,7 +3693,7 @@ button:focus-visible,
   min-height: var(--tap);
   padding: 8px 16px;
   border-radius: 14px;
-  border: 2px solid var(--brand-soft);
+  border: 2px solid var(--line);
   background: var(--surface);
   font: inherit;
   font-size: 1.2rem;
@@ -3559,11 +3701,12 @@ button:focus-visible,
   text-align: left;
   color: inherit;
   cursor: pointer;
+  box-shadow: var(--raise);
 }
 
 .lesson-check__option--right {
   border-color: var(--good);
-  box-shadow: 0 0 0 3px var(--good);
+  box-shadow: var(--ring-good);
 }
 
 .lesson-check__option--wrong {
@@ -3625,7 +3768,7 @@ button:focus-visible,
   padding: 12px 16px;
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   border-left: 5px solid var(--unit);
   color: var(--ink);
   text-decoration: none;
@@ -3633,6 +3776,7 @@ button:focus-visible,
 
 .notebook__emoji {
   font-size: 1.6rem;
+  display: inline-block;
 }
 
 .notebook__label {
@@ -3714,6 +3858,7 @@ button:focus-visible,
   background: var(--accent-soft);
   border: 2px solid var(--accent-line);
   text-align: left;
+  box-shadow: var(--shadow-sm);
 }
 
 .why-tip__head {
@@ -3845,6 +3990,19 @@ button:focus-visible,
   box-shadow: var(--shadow);
 }
 
+.achievement:not(.achievement--earned) {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  box-shadow: none;
+  border: 2px dashed var(--line);
+}
+
+.achievement--earned {
+  box-shadow:
+    0 0 0 2px var(--accent-line),
+    0 0 22px color-mix(in srgb, var(--accent) 28%, transparent),
+    var(--shadow-sm);
+}
+
 .achievement__emoji {
   font-size: 2.2rem;
   filter: grayscale(1);
@@ -3853,7 +4011,7 @@ button:focus-visible,
 }
 
 .achievement--earned .achievement__emoji {
-  filter: none;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
   opacity: 1;
 }
 
@@ -3896,7 +4054,7 @@ button:focus-visible,
 .achievement__bar > span {
   display: block;
   height: 100%;
-  background: var(--brand);
+  background: repeating-linear-gradient(-45deg, var(--brand) 0 6px, color-mix(in srgb, var(--brand) 78%, var(--surface)) 6px 12px);
   border-radius: 99px;
 }
 
@@ -4896,7 +5054,7 @@ a.badge-strip {
   min-height: 64px;
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   font-size: 1.6rem;
   font-weight: 800;
   color: var(--ink);
@@ -5008,7 +5166,7 @@ a.badge-strip {
   padding: 12px 14px;
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: var(--raise);
   text-align: left;
 }
 
@@ -5112,4 +5270,267 @@ a.badge-strip {
 /* Keep a short run (a score, "2 / 2") on one line. */
 .nowrap {
   white-space: nowrap;
+}
+
+/* =====================================================================
+   Motion: small and quick, and only where it helps. Menus rise in; what you
+   can press lifts under the pointer and pushes down onto its edge; the
+   Continue button gets a sweep of light; a new star count bumps.
+   Reduced motion (the device's setting or the app's own) ends every
+   animation at once (see "Animations"), and the sweep, which loops, waits
+   for prefers-reduced-motion: no-preference as well.
+   ===================================================================== */
+
+/* What you can press moves on its edge, quickly. */
+:is(
+  .activity-tile,
+  .icon-btn,
+  .chip,
+  .btn,
+  .pic-card,
+  .word-tile,
+  .error-word,
+  .error-ok,
+  .fi-letters__key,
+  .reply-tile,
+  .tf-button,
+  .order-card,
+  .avatar-choice,
+  .tab,
+  .home-tile,
+  .notebook__item,
+  .letter-tile,
+  .look-card,
+  .story-nav,
+  .story-line__play,
+  .story-peek,
+  .lesson-check__option,
+  .book,
+  .profile-card--add,
+  .profile-card,
+  .speaker,
+  .mic-button,
+  .continue-cta,
+  .unit-step
+) {
+  transition:
+    transform 0.14s ease,
+    box-shadow 0.14s ease,
+    background-color 0.2s ease;
+}
+
+/* With a mouse or a trackpad, it lifts a little under the pointer, and the
+   icon on a menu tile gives a small wiggle. */
+@media (hover: hover) {
+  :is(
+    .activity-tile,
+  .icon-btn,
+  .chip,
+  .btn,
+  .pic-card,
+  .word-tile,
+  .error-word,
+  .error-ok,
+  .fi-letters__key,
+  .reply-tile,
+  .tf-button,
+  .order-card,
+  .avatar-choice,
+  .tab,
+  .home-tile,
+  .notebook__item,
+  .letter-tile,
+  .look-card,
+  .story-nav,
+  .story-line__play,
+  .story-peek,
+  .lesson-check__option,
+  .book,
+  .profile-card--add,
+    .speaker,
+    .mic-button,
+    .continue-cta,
+    .unit-step
+  ):not(:disabled):hover,
+  .profile-card--player:hover {
+    transform: translateY(-2px);
+  }
+
+  :is(.home-tile, .activity-tile, .notebook__item, .book):hover
+    :is(.home-tile__icon, .activity-tile__emoji, .notebook__emoji, .book__icon),
+  .unit__head:not(:disabled):hover .unit__icon {
+    animation: icon-wiggle 0.5s ease;
+  }
+}
+
+/* Pressing pushes it down onto its edge (after the hover rules, so it wins). */
+:is(
+  .activity-tile,
+  .icon-btn,
+  .chip,
+  .btn,
+  .pic-card,
+  .word-tile,
+  .error-word,
+  .error-ok,
+  .fi-letters__key,
+  .reply-tile,
+  .tf-button,
+  .order-card,
+  .avatar-choice,
+  .tab,
+  .home-tile,
+  .notebook__item,
+  .letter-tile,
+  .look-card,
+  .story-nav,
+  .story-line__play,
+  .story-peek,
+  .lesson-check__option,
+  .book,
+  .profile-card--add
+):not(:disabled):active,
+.profile-card--player:has(.profile-card__play:active) {
+  transform: translateY(3px);
+  box-shadow: var(--raise-press);
+}
+
+:is(.btn--primary, .speaker, .mic-button, .story-nav--next, .tab--on):not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--brand-edge), var(--shadow-sm);
+}
+
+.speaker--slow:not(:disabled):active {
+  box-shadow: 0 1px 0 var(--brand-2-edge), var(--shadow-sm);
+}
+
+.continue-cta:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--brand-edge), var(--shadow-sm);
+}
+
+.continue-cta--warmup:active {
+  box-shadow: 0 2px 0 var(--warm-edge), var(--shadow-sm);
+}
+
+.unit-step:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+@keyframes icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  60% {
+    transform: rotate(7deg);
+  }
+}
+
+/* A menu (a list with class "stagger") rises in, one item after another. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.stagger > * {
+  animation: rise-in 0.36s ease-out backwards;
+}
+
+.stagger > :nth-child(2) {
+  animation-delay: 45ms;
+}
+
+.stagger > :nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.stagger > :nth-child(4) {
+  animation-delay: 135ms;
+}
+
+.stagger > :nth-child(5) {
+  animation-delay: 180ms;
+}
+
+.stagger > :nth-child(6) {
+  animation-delay: 225ms;
+}
+
+.stagger > :nth-child(7) {
+  animation-delay: 270ms;
+}
+
+.stagger > :nth-child(8) {
+  animation-delay: 315ms;
+}
+
+.stagger > :nth-child(9) {
+  animation-delay: 360ms;
+}
+
+.stagger > :nth-child(10) {
+  animation-delay: 405ms;
+}
+
+.stagger > :nth-child(11) {
+  animation-delay: 450ms;
+}
+
+.stagger > :nth-child(n + 12) {
+  animation-delay: 495ms;
+}
+
+/* A star count that just changed gives a little bump (it's keyed on the count). */
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bump {
+  display: inline-block;
+  animation: bump 0.45s ease-out;
+}
+
+/* A soft sweep of light across the Continue button every few seconds. */
+.continue-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-reduced-motion='true']) .continue-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(100deg, transparent 30%, var(--sheen) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: sheen 6.5s ease-in-out 1.2s infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  22%,
+  100% {
+    transform: translateX(120%);
+  }
 }
