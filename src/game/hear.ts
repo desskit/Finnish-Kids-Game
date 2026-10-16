@@ -26,6 +26,7 @@ import {
 import { englishVerbClause } from '../content/englishVerb';
 import { caseSegments, possessiveSegments, verbSegments, type Segment } from '../content/endings';
 import { formMeaning, whyForConstruction, whyForVerb, type Why } from '../content/why';
+import { apartFrom, keepApart } from '../content/apart';
 import { grammarSrsId } from './srs';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 import { isCountable } from '../content/semantics';
@@ -97,13 +98,18 @@ function carrierQuestion(
     wrong.push(c);
   }
   const picked = wrong.slice(0, Math.max(1, optionCount - 1));
-  // Fewer patterns than tiles: fill with the same pattern and another word,
-  // so the whole sentence has to be heard.
-  const others = shuffle(
-    items.filter(
-      (i) => i.id !== item.id && formFor(i, target) && suitsSlot(i, target) && !seen.has(englishSentenceFor(i, target)),
+  // Fewer patterns than tiles: fill with the same pattern and other words, so
+  // the whole sentence has to be heard (never two words a child couldn't tell
+  // apart: content/apart.ts).
+  const fillers = shuffle(
+    apartFrom(
+      item.id,
+      items.filter(
+        (i) => i.id !== item.id && formFor(i, target) && suitsSlot(i, target) && !seen.has(englishSentenceFor(i, target)),
+      ),
     ),
-  ).slice(0, Math.max(0, optionCount - 1 - picked.length));
+  );
+  const others = keepApart(fillers.slice(0, Math.max(0, optionCount - 1 - picked.length)), fillers);
   if (picked.length + others.length === 0) return null;
   const heard = formFor(item, target)!;
   const meaning = target.possessor || target.verb ? undefined : formMeaning(item, heard);

@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-14T11:38:55.675Z · regenerate with `npm run review:content`
+- Generated: 2026-10-16T21:41:14.422Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -255,7 +255,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:at-the-shop:page-3` | Kaupassa on kissa! / Aino: Mirri! Mitä sinä teet täällä? / Äiti: No, ostetaan Mirrille makkaraa. | There's a cat in the shop! / Aino: Mirri! What are you doing here? / Mom: Well, let's buy Mirri some sausage. |
 | ⚠️ | `story:at-the-shop:page-4` | Illalla he syövät keittoa isoäidin kanssa. / Isoäiti: Hyvää keittoa! Kiitos! / Ja Mirri syö makkaraa. | In the evening they eat soup with Grandma. / Grandma: Good soup! Thank you! / And Mirri eats her sausage. |
 | ⚠️ | `story:at-the-shop:q1` | Mitä äiti ja Aino tekevät isoäidille? (✓ keittoa / kakkua / pitsaa) | What are Mom and Aino making for Grandma? (soup / cake / pizza) |
-| ⚠️ | `story:at-the-shop:q2` | Mitä Aino ostaa? (✓ tomaatin / omenan / banaanin) | What does Aino buy? (a tomato / an apple / a banana) |
+| ⚠️ | `story:at-the-shop:q2` | Mitä Aino ostaa? (✓ tomaatin / banaanin / juuston) | What does Aino buy? (a tomato / a banana / a cheese) |
 | ⚠️ | `story:at-the-shop:q3` | Mikä eläin on kaupassa? (✓ kissa / koira / hiiri) | Which animal is in the shop? (a cat / a dog / a mouse) |
 | ⚠️ | `story:at-the-shop:q4` | Mitä äiti ostaa Mirrille? (✓ makkaraa / maitoa / kalaa) | What does Mom buy for Mirri? (sausage / milk / fish) |
 | ⚠️ | `story:at-the-shop:t1` | Mirri saa makkaraa. (totta) | True or false: Mirri gets some sausage. (true) |

@@ -208,7 +208,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
       />
 
       <p className="prompt">
-        Mikä tämä on? <span className="en">Which one did you hear?</span>
+        Mitä kuulit? <span className="en">What did you hear?</span>
       </p>
 
       <button

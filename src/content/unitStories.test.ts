@@ -4,7 +4,8 @@ import { CAST, stories } from './stories';
 import { conversations } from './conversations';
 import { dialogues } from './dialogues';
 import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
-import { lookupWord } from './wordIndex';
+import { lookupWord, TWO_WORDS } from './wordIndex';
+import { adjectives, numbers, ordinals, states, themes, time, verbs } from '.';
 import { PATH } from '../game/path';
 
 // Hand-written Finnish is the one place a wrong form can slip in. Every word of
@@ -48,6 +49,31 @@ describe('the story glossary', () => {
       ),
     );
     expect(missing).toEqual([]);
+  });
+
+  it('shows both meanings of a spelling two words share ("Isä tuli" is Dad came, not fire)', () => {
+    const words = [...themes.flatMap((t) => t.items), ...verbs.items, ...adjectives.items, ...numbers.items, ...ordinals.items, ...time.items, ...states.items];
+    const bases = new Map<string, Set<string>>();
+    for (const w of words) {
+      for (const [key, form] of [['basic', w.fi], ...Object.entries(w.inflections)]) {
+        // "kuusi" is also kuu + -si (your moon): a possessive reading isn't another word.
+        if (key.startsWith('poss_')) continue;
+        const k = form.toLowerCase();
+        bases.set(k, (bases.get(k) ?? new Set()).add(w.fi));
+      }
+    }
+    const unexplained = stories.flatMap((s) =>
+      s.pages.flatMap((p) =>
+        p.lines.flatMap((l) =>
+          (l.fi.match(/[\p{L}-]+/gu) ?? [])
+            .map((w) => w.toLowerCase())
+            .filter((w) => (bases.get(w)?.size ?? 0) > 1 && !TWO_WORDS[w] && !lookupWord(w)?.en.includes(' · '))
+            .map((w) => `${s.id}: "${w}" is ${[...bases.get(w)!].join(' and ')}`),
+        ),
+      ),
+    );
+    expect(unexplained).toEqual([]);
+    expect(lookupWord('tuli')?.en).toMatch(/came.*fire/);
   });
 
   it('reads a pronoun as a pronoun, and knows the endings on top of a form', () => {

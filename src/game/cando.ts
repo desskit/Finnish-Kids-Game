@@ -75,7 +75,7 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('me-you', '🫶', 'Can say help me, give it to me, I like you'),
   unitClaim('around', '🧭', "Can say what's in front of, behind, next to or under something"),
   unitClaim('many', '👐', 'Can talk about more than one thing'),
-  unitClaim('verbs-5-6', '👵', 'Can tell all six verb types apart and use types 5 and 6 (tarvitsen, vanhenen)'),
+  unitClaim('verbs-5-6', '🧓', 'Can tell all six verb types apart and use types 5 and 6 (tarvitsen, vanhenen)'),
   unitClaim('yesterday', '⏮️', 'Can talk about what happened yesterday'),
   unitClaim('chatting', '🗣️', 'Can hold a short conversation and follow a story'),
   unitClaim('sentences', '📝', 'Can build whole sentences and spot mistakes in them'),

@@ -321,15 +321,25 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
     setTip({ word, meaning: lookupWord(word), line });
   };
 
-  // Words in a line are tappable: tap one to hear it and see what it means.
+  // Words in a line are tappable: tap one to hear it and see what it means. A
+  // word and the punctuation right after it ("sinulle?", "Näkemiin,") stay on
+  // one line; the line only wraps at the spaces.
   const words = (text: string, line: number): ReactNode[] =>
-    text.split(/([\p{L}-]+)/u).map((part, i) =>
-      /\p{L}/u.test(part) ? (
-        <button key={i} type="button" className="story-word" onClick={() => tapWord(part, line)}>
-          {part}
-        </button>
+    text.split(/(\s+)/).map((chunk, i) =>
+      /^\s*$/.test(chunk) ? (
+        chunk
       ) : (
-        <span key={i}>{part}</span>
+        <span key={i} className="story-chunk">
+          {chunk.split(/([\p{L}-]+)/u).map((part, j) =>
+            /\p{L}/u.test(part) ? (
+              <button key={j} type="button" className="story-word" onClick={() => tapWord(part, line)}>
+                {part}
+              </button>
+            ) : (
+              part
+            ),
+          )}
+        </span>
       ),
     );
 

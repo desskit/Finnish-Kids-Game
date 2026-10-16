@@ -817,7 +817,7 @@ export const lessons: Lesson[] = [
         kind: 'check',
         question: 'Which family is *mennä* (to go)?',
         options: [{ text: 'Type 1' }, { text: 'Type 2' }, { text: 'Type 3', correct: true }],
-        explain: '*mennä* ends in **-nna** — two consonants and a vowel: **type 3** (*menen*).',
+        explain: '*mennä* ends in **-nnä** (the ä twin of -nna) — two consonants and a vowel: **type 3** (*menen*).',
       },
     ],
   },
@@ -2761,7 +2761,7 @@ export const lessons: Lesson[] = [
     id: 'verb-types-5-6',
     titleFi: 'Verbityypit 5 ja 6',
     titleEn: 'Verb types 5 and 6',
-    emoji: '👵',
+    emoji: '🧓',
     cards: [
       {
         kind: 'examples',
@@ -2827,7 +2827,7 @@ export const lessons: Lesson[] = [
     id: 'kpt-6',
     titleFi: 'Tyyppi 6 ja KPT',
     titleEn: 'Type 6: a sound gets stronger too',
-    emoji: '💨',
+    emoji: '😱',
     cards: [
       {
         kind: 'examples',

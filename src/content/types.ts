@@ -6,7 +6,7 @@
 // generates or inflects Finnish by rule. Carrier phrases below are
 // human-authored; only the slot form is filled from the tagged data.
 
-import { LIKED_AS_A_KIND, NOT_COUNTABLE } from './semantics';
+import { ANIMATE_ONLY_ADJECTIVES, LIKED_AS_A_KIND, NOT_COUNTABLE } from './semantics';
 
 export type Tier = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -210,27 +210,16 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // generic carrier ("Minulla on ___", "Näen ___n") never takes them — so
 // "Minulla on maanantai" or "Näen punaisen" can't be assembled even if a pool
 // ever mixed them in. The one exception: a thing-describing adjective is a
-// fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not a
-// feeling, which needs a living subject ("Tämä on iloinen" is wrong).
+// fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
+// one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
+// wrong). Fun is fine: "Tämä on hauska." is "This is fun."
 const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
-const FEELING_ADJECTIVES = [
-  'happy',
-  'sad',
-  'angry',
-  'tired',
-  'hungry',
-  'thirsty',
-  'sick',
-  'calm',
-  'proud',
-  'kind',
-  'cute',
-];
+const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 
 export function suitsSlot(item: LexicalItem, con: Construction): boolean {
   const predicate =
-    item.topic === 'adjectives' && PREDICATE_CARRIERS.includes(con.id) && !FEELING_ADJECTIVES.includes(item.id);
+    item.topic === 'adjectives' && PREDICATE_CARRIERS.includes(con.id) && !NEEDS_A_LIVING_THING.includes(item.id);
   if (
     item.topic &&
     OPT_IN_TOPICS.includes(item.topic) &&
@@ -337,6 +326,8 @@ export const ALSO_EN: Record<string, string> = {
   gym: 'PE',
   shop: 'store',
   clock: 'watch',
+  small: 'little',
+  kind: 'nice, good',
 };
 
 /** "son, boy" — the gloss with any second meaning. */

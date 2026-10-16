@@ -614,11 +614,9 @@
     },
     {
       "fi": "Mikä tämä on?",
-      "en": "Which one did you hear?",
+      "en": "",
       "where": [
-        "components/CountAndSay.tsx",
-        "components/ListenAndTap.tsx",
-        "components/ReviewActivity.tsx"
+        "components/CountAndSay.tsx"
       ]
     },
     {
@@ -667,7 +665,9 @@
       "fi": "Mitä kuulit?",
       "en": "What did you hear?",
       "where": [
-        "components/HearIt.tsx"
+        "components/HearIt.tsx",
+        "components/ListenAndTap.tsx",
+        "components/ReviewActivity.tsx"
       ]
     },
     {

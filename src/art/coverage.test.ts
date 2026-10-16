@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import ts from 'typescript';
-import { GLYPH_ART } from './generated/manifest';
+import { ART, GLYPH_ART } from './generated/manifest';
 import { glyphKey, keycapText, splitEmoji } from './glyph';
 
 const SRC = join(__dirname, '..');
@@ -67,5 +67,17 @@ describe('every emoji has a picture', () => {
   it('notices one that has none', () => {
     expect(undrawn('🦄 Yksisarvinen')).toEqual(['🦄']);
     expect(undrawn('🐱 3️⃣ 🔟')).toEqual([]);
+  });
+
+  // A screen that draws a word by its emoji must draw THAT word: "Syö!" is the
+  // eating picture, not the table that once shared 🍽️ with it.
+  it("draws each word's own picture from the word's emoji", () => {
+    const dir = join(SRC, 'content', 'data');
+    const wrong = readdirSync(dir)
+      .filter((name) => name.endsWith('.json'))
+      .flatMap((name) => (JSON.parse(readFileSync(join(dir, name), 'utf8')).words ?? []) as { id: string; emoji?: string }[])
+      .filter((w) => w.emoji && w.id in ART && GLYPH_ART[glyphKey(w.emoji)] !== w.id)
+      .map((w) => `${w.id}: ${w.emoji} draws "${GLYPH_ART[glyphKey(w.emoji!)]}"`);
+    expect(wrong).toEqual([]);
   });
 });

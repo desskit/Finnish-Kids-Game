@@ -118,7 +118,7 @@ export const CORE_STORIES: Story[] = [
     tier: 3,
     pages: [
       page(
-        sc('bedroom', '👧 ⏰', 'morning'),
+        sc('bedroom', '👧 👩 🕗', 'morning'),
         tell('Aurinko paistaa.', 'The sun is shining.'),
         tell('Kello on kahdeksan.', "It's eight o'clock."),
         say('aiti', 'Aino, herää! Koulu alkaa!', 'Aino, wake up! School is starting!'),
@@ -129,7 +129,7 @@ export const CORE_STORIES: Story[] = [
         tell('Hän juo maitoa nopeasti.', 'She drinks her milk quickly.'),
       ),
       page(
-        sc('yard', '👦 👧'),
+        sc('yard', '👦 👧', 'morning'),
         say('eero', 'Hei, Aino! Mennään!', "Hi, Aino! Let's go!"),
         tell('He juoksevat kouluun.', 'They run to school.'),
       ),
@@ -183,7 +183,7 @@ export const CORE_STORIES: Story[] = [
         tell('Mirri tulee salaa mukaan.', 'Mirri secretly comes along.'),
       ),
       page(
-        sc('shop', '🥕 🥔 🍅'),
+        sc('shop', '👩 👧 🥕 🥔 🍅'),
         say('aiti', 'Ostamme porkkanoita ja perunoita.', 'We buy carrots and potatoes.'),
         tell('Aino ostaa yhden tomaatin.', 'Aino buys one tomato.'),
       ),
@@ -212,8 +212,8 @@ export const CORE_STORIES: Story[] = [
         'Mitä Aino ostaa?',
         'What does Aino buy?',
         right('tomaatin', 'a tomato', '🍅'),
-        wrong('omenan', 'an apple', '🍎'),
         wrong('banaanin', 'a banana', '🍌'),
+        wrong('juuston', 'a cheese', '🧀'),
       ),
       ask(
         'Mikä eläin on kaupassa?',
@@ -257,7 +257,7 @@ export const CORE_STORIES: Story[] = [
         tell('He näkivät jotain puun takana.', 'They saw something behind a tree.'),
       ),
       page(
-        sc('forest', '🐶 🐱'),
+        sc('forest', '👧 👦 🐶 🐱'),
         tell('Musti leikki siellä Mirrin kanssa!', 'Musti was playing there with Mirri!'),
         say('aino', 'Mirri! Sinäkin olet täällä!', "Mirri! You're here too!"),
       ),
@@ -317,7 +317,7 @@ export const CORE_STORIES: Story[] = [
         tell('Aino ja äiti tekivät kakun salaa.', 'Aino and Mom made a cake in secret.'),
       ),
       page(
-        sc('home', '👵 🎈 🐱 🎂'),
+        sc('home', '👧 👵 🎈 🐱 🎂'),
         tell('Isoäiti toi ilmapalloja.', 'Grandma brought balloons.'),
         tell('Mirri halusi syödä kakkua!', 'Mirri wanted to eat the cake!'),
         say('aino', 'Ei, Mirri! Se on isälle!', "No, Mirri! It's for Dad!"),
@@ -359,7 +359,7 @@ export const CORE_STORIES: Story[] = [
         'Miksi Aino ja äiti tekivät kakun salaa?',
         'Why did Aino and Mom make the cake in secret?',
         right('Koska se oli yllätys.', 'Because it was a surprise.', '🎁'),
-        wrong('Koska heillä oli nälkä.', 'Because they were hungry.', '🍽️'),
+        wrong('Koska heillä oli nälkä.', 'Because they were hungry.', '🤤'),
         wrong('Koska oli maanantai.', 'Because it was Monday.', '📅'),
       ),
     ],
