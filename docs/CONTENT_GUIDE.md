@@ -173,6 +173,16 @@ set. How the set works, and how to add a picture, is in
   (`art/recipes/props.mjs`).
 - **Numbers and keycaps** (`3️⃣`, `11`, `1.`) need no picture: they sit on the
   number tile.
+- **A word draws its own picture.** A word with its own picture uses an emoji
+  no other word's picture has (`coverage.test.ts`): "Syö!" must show eating,
+  not the table that once shared 🍽️ with it.
+- **Look-alikes never share a question.** A listening card shows only the
+  picture, so two that a child can't tell apart (son, brother and child; soup
+  and porridge; draw and paint; smile and laugh) are never offered side by side.
+  `NEVER_TOGETHER` in `src/content/apart.ts` lists these groups, and every game
+  that offers pictures keeps them apart (`apart.test.ts` sweeps them all). A
+  new word that looks like, or means nearly the same as, another goes into a
+  group there.
 - **Per-chapter color:** change a chapter's `accent`. It themes the band, the
   node rings and the "next" highlight.
 
@@ -333,6 +343,15 @@ dictionary form (the sourced infinitive). Use `topics: ['verbs']` plus an
   step × game × level and fails if any step can't fill a real question (too
   few known words, places without the right tags, …).
 
+### Nothing sad or unkind
+
+A child builds these sentences about themselves, so the generated ones never
+make them say something hurtful or sad: never that they have no mom, dad,
+grandparent, family or friend (`NOT_TO_DENY` in `constructions.ts`), never
+that they don't like a person (the dislikes skip `PEOPLE`), and never that
+they own a baby, a child or the sun. The example sentences from Tatoeba are
+shown only once a person has approved them (`APPROVED` in `examples.ts`).
+
 ### The English side
 
 The English a child reads is assembled too, so it follows a few rules
@@ -389,13 +408,22 @@ questions about what happened. It is read for meaning, once — not drilled.
   (`stories.test.ts` checks); a new setting or tone is a new backdrop in
   `art/scenes/`. Something in front that isn't a word needs a story prop
   (`art/recipes/props.mjs`).
+- **The picture agrees with the text** (`stories.test.ts` checks): everyone
+  who speaks on a page is in its `fg`; a page that says *Huomenta* is in the
+  morning, *Hyvää yötä* at night, and rain comes with the rain tone; a page
+  stays in one place. Check a new story on its storyboard too: the backdrop,
+  the time of day and who's there.
 - **Only the unit's grammar and the words met by then.** Every word must be a
   real form (`unitStories.test.ts` checks them all, titles and questions
   included); a name's case forms go in the lexicon's name list.
 - **Questions — a bank, not a fixed quiz.** At least three picture questions,
   each with exactly one right answer that the story itself says, and (from
   unit 2) two or three true-or-false statements, both kinds, whose truth
-  doesn't change during the story. "Put the pictures in order" and "Who says
+  doesn't change during the story. Watch for things that change hands: if
+  Grandma's ball is the children's by the last page, nothing may ask who has
+  the ball. Each option's picture is different from the others', and a wrong
+  option's picture is never a near-twin of the right one's (`stories.test.ts`;
+  the cast's own pictures are exempt). "Put the pictures in order" and "Who says
   this?" are built from the pages (`src/game/storyQuiz.ts`) — a line that names
   its own speaker, or that two people say, is never asked. A read asks four, of
   mixed kinds; a re-read asks others.

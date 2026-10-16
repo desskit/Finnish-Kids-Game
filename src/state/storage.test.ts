@@ -6,6 +6,7 @@ import {
   AVATARS,
   type ProfilesData,
 } from './storage';
+import { emptyStats } from '../game/stats';
 
 const V2_KEY = 'fkg.profiles.v2';
 const V1_KEY = 'fkg.profile.v1';
@@ -54,6 +55,7 @@ describe('localProfileStore', () => {
           createdAt: 1,
           progress: {},
           srs: {},
+          stats: emptyStats(),
         },
       ],
       activeId: 'a',
@@ -61,6 +63,18 @@ describe('localProfileStore', () => {
     };
     localProfileStore.save(data);
     expect(localProfileStore.load()).toEqual(data);
+  });
+
+  it('gives a player from before stats existed their stats as it loads them, once', () => {
+    const played = { plays: 1, bestStars: 5, totalStars: 5, totalPossible: 6, lastPlayed: 1, level: 1 };
+    localProfileStore.save({
+      version: 2,
+      children: [{ id: 'a', name: 'Aino', avatar: '🦊', level: 1, stars: 5, createdAt: 1, progress: { hello: { greetings: played } }, srs: {} }],
+      activeId: 'a',
+      settings: { muted: false, reducedMotion: false },
+    });
+    // seeded now, from what was played: not later, when the next game would be counted twice
+    expect(localProfileStore.load().children[0].stats?.subjects.greetings).toMatchObject({ n: 6, right: 5 });
   });
 
   it("keeps a player's look, and drops one it doesn't know", () => {

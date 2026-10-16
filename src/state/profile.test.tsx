@@ -160,6 +160,23 @@ describe('ProfileProvider / useProfile', () => {
     expect(result.current.activeChild?.streakDays).toBe(1);
   });
 
+  it("counts a new player's first game once, dated today", () => {
+    const { result } = renderProfile();
+    act(() => {
+      result.current.addChild('Aino');
+    });
+    // As a step records it: the progress first, then the stats.
+    act(() => {
+      result.current.recordRound('hello', 'greetings', 5, 6);
+    });
+    act(() => {
+      result.current.recordStats({ subject: 'greetings', right: 5, total: 6, source: 'practice' });
+    });
+    const s = result.current.activeChild?.stats?.subjects.greetings;
+    expect(s?.n).toBe(6);
+    expect(s?.days[dayKey(Date.now())]?.n).toBe(6);
+  });
+
   it('recordAttempt builds per-item SRS state on the active child', () => {
     const { result } = renderProfile();
     act(() => {

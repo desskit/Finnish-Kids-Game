@@ -107,6 +107,17 @@ describe('picking the warm-up subject', () => {
     expect(warmupDue(done, NOW)).toBe(false);
   });
 
+  it('never sends a child back over what they first played today', () => {
+    // A new player's first day: twenty answers on greetings, all today.
+    const today = { n: 20, right: 9, days: { [ago(0)]: { n: 20, right: 9 } }, first: NOW - 3600e3, last: NOW - 60e3 };
+    expect(warmupDue(child({ subjects: { 'people-words': today } }), NOW)).toBe(false);
+    // Tomorrow, the same answers open the day.
+    expect(warmupDue(child({ subjects: { 'people-words': today } }), NOW + DAY)).toBe(true);
+    // A subject judged before today still counts after more practice today.
+    const both = { n: 30, right: 12, days: { [ago(1)]: { n: 10, right: 3 }, [ago(0)]: { n: 20, right: 9 } }, first: NOW - DAY, last: NOW };
+    expect(pickWarmupSubject(child({ subjects: { 'people-words': both } }), NOW)?.step.id).toBe('people-words');
+  });
+
   it('is never due for a player with nothing to judge', () => {
     expect(warmupDue(child({}), NOW)).toBe(false);
     expect(warmupDue(null, NOW)).toBe(false);
