@@ -9,7 +9,9 @@ Finnish** — the app never generates or inflects Finnish by rule.
 > Every picture is pixel art drawn in code, most of it animated: words, the
 > cast, story backdrops, the app's scenery in each look, its icons and the fox
 > mascot. See
-> [`docs/ART_GUIDE.md`](docs/ART_GUIDE.md). Recorded native voiceover is still
+> [`docs/ART_GUIDE.md`](docs/ART_GUIDE.md). The app comes in three looks (Day,
+> Night and Pink), each player's own pick; see
+> [`docs/UI_GUIDE.md`](docs/UI_GUIDE.md). Recorded native voiceover is still
 > planned. See "Roadmap" below.
 
 ## What's in this slice
@@ -52,6 +54,12 @@ Finnish** — the app never generates or inflects Finnish by rule.
   profile management, and settings (mute audio, reduce motion, reset). Profile
   storage is funnelled through one module (`src/state/storage.ts`) so a cloud
   backend can be added later without touching the UI.
+- **Three looks: Day, Night and Pink.** Each player picks one with the brush on
+  their card (a player who hasn't picked follows the device's light or dark
+  mode). Each look has its own colors, pixel scenery and background pattern,
+  and every color is checked for contrast. Cards and buttons are tactile, and
+  menus move a little; all of it stops with reduced motion. See
+  [`docs/UI_GUIDE.md`](docs/UI_GUIDE.md).
 - **Placeholder audio** via the browser's Finnish text-to-speech voice.
 - **PWA**: installable, offline-capable, orientation unlocked.
 
@@ -212,7 +220,8 @@ src/
   audio/        # TTS placeholder + Web Audio reward sounds
   state/        # local profiles + per-item SRS state (localStorage)
   components/   # screens & mini-games
-  styles/       # global responsive styles
+  styles/       # global styles: the three looks' tokens, the screens, motion
+  theme/        # the looks (Day, Night, Pink) and their contrast test
 art/            # the picture recipes, drawing kit, story backdrops, scenery and patterns
 scripts/
   build-kids-data.mjs  # curates Finnish data from Finnish-Inflection-Drill

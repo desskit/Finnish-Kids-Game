@@ -38,7 +38,7 @@ export default function Achievements() {
             <h2 className="achievements__heading">
               {cat.titleFi} <span className="en">{cat.titleEn}</span>
             </h2>
-            <ul className="achievements__list">
+            <ul className="achievements__list stagger">
               {sorted.map(({ b, p, earned }) => (
                 <li
                   key={b.id}

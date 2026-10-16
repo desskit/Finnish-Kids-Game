@@ -153,8 +153,8 @@ export default function CourseHome() {
         </Link>
       )}
 
-      <div className="home-tiles">
-        <Link className="home-tile" to="/review">
+      <div className="home-tiles stagger">
+        <Link className="home-tile home-tile--review" to="/review">
           <span className="home-tile__icon" aria-hidden="true">
             <Art glyph="🔁" />
           </span>
@@ -165,7 +165,7 @@ export default function CourseHome() {
             {seenCount === 0 ? 'Nothing yet' : dueCount > 0 ? `${dueCount} due` : 'All caught up'}
           </span>
         </Link>
-        <Link className="home-tile" to="/achievements">
+        <Link className="home-tile home-tile--badges" to="/achievements">
           <span className="home-tile__icon" aria-hidden="true">
             <Art glyph="🏅" />
           </span>
@@ -176,7 +176,7 @@ export default function CourseHome() {
             {earned.size} of {BADGES.length} earned
           </span>
         </Link>
-        <Link className="home-tile" to="/sounds">
+        <Link className="home-tile home-tile--alphabet" to="/sounds">
           <span className="home-tile__icon" aria-hidden="true">
             <Art glyph="🔤" />
           </span>
@@ -185,7 +185,7 @@ export default function CourseHome() {
           </span>
           <span className="home-tile__meta en">Letters & sounds</span>
         </Link>
-        <Link className="home-tile" to="/notebook">
+        <Link className="home-tile home-tile--notebook" to="/notebook">
           <span className="home-tile__icon" aria-hidden="true">
             <Art glyph="📓" />
           </span>
@@ -214,7 +214,7 @@ export default function CourseHome() {
         {completed} of {total} units done
       </h2>
 
-      <ol className="units">
+      <ol className="units stagger">
         {UNITS.slice(0, cutoff + 1).map((unit, i) => {
           const status = unitStatus(activeChild, unit, unlockAll);
           const isCurrent = unit.id === next.unit.id;
@@ -291,7 +291,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
   const cpQuestions = checkpointPlan(unit).reduce((n, p) => n + p.questions, 0);
 
   return (
-    <ol className="unit-steps">
+    <ol className="unit-steps stagger">
       {lesson && (
         <li>
           <Link className={'unit-step' + (read ? ' unit-step--done' : ' unit-step--next')} to={`/lesson/${lesson.id}`}>

@@ -42,7 +42,7 @@ export default function Notebook() {
           <h2 className="notebook__shelf-title">
             <Art glyph="📚" /> Kirjahylly <span className="en">Bookshelf</span>
           </h2>
-          <ul className="bookshelf">
+          <ul className="bookshelf stagger">
             {shelf.map((s) => (
               <li key={s.id}>
                 <Link className="book" to={`/story/${s.id}`}>
@@ -61,7 +61,7 @@ export default function Notebook() {
         </>
       )}
       <p className="notebook__intro en">Every rule you've learned, ready to read again.</p>
-      <ol className="notebook__list">
+      <ol className="notebook__list stagger">
         {open.flatMap(({ u, i }) =>
           [
             u.lessonId,

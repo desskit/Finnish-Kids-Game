@@ -20,6 +20,18 @@ describe('RoundComplete', () => {
     expect(again.container.querySelector('[data-art="mascot-cheer"]')).toBeNull();
   });
 
+  it('bursts confetti, hidden from screen readers, each piece placed and timed', () => {
+    const { container } = render(<RoundComplete stars={3} total={4} onAgain={vi.fn()} />);
+    const confetti = container.querySelector('.confetti');
+    expect(confetti).toHaveAttribute('aria-hidden', 'true');
+    const pieces = [...confetti!.querySelectorAll('span')];
+    expect(pieces.length).toBeGreaterThan(10);
+    for (const piece of pieces) {
+      expect(piece.style.left).toMatch(/%$/);
+      expect(piece.style.getPropertyValue('--dx')).toMatch(/px$/);
+    }
+  });
+
   it('hides Home when onHome is omitted (embedded, e.g. the audit harness)', () => {
     render(<RoundComplete stars={3} total={4} onAgain={vi.fn()} />);
     expect(screen.queryByText('Koti')).toBeNull();

@@ -35,7 +35,7 @@ export default function GrownUp() {
           </div>
         </header>
 
-        <nav className="grownup__tabs" aria-label="Grown-up sections">
+        <nav className="grownup__tabs stagger" aria-label="Grown-up sections">
           {TABS.map((t) => (
             <NavLink
               key={t.to}

@@ -1,4 +1,13 @@
+import type { CSSProperties } from 'react';
 import Art from '../art/Art';
+
+/** Confetti pieces: where each starts, how far it drifts and turns, when it falls. */
+const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
+  left: `${(i * 37 + 7) % 100}%`,
+  '--dx': `${((i * 53) % 90) - 45}px`,
+  '--turn': `${((i * 97) % 600) - 300}deg`,
+  animationDelay: `${(i % 6) * 70}ms`,
+})) as CSSProperties[];
 
 interface Props {
   stars: number;
@@ -18,6 +27,11 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
 
   return (
     <section className="screen complete">
+      <div className="confetti" aria-hidden="true">
+        {CONFETTI.map((style, i) => (
+          <span key={i} style={style} />
+        ))}
+      </div>
       <div className="mascot mascot--big" aria-hidden="true">
         {/* a perfect round: the fox jumps for joy */}
         {allCorrect ? <Art id="mascot-cheer" motion="loop" /> : <Art glyph="🦊" motion="loop" />}

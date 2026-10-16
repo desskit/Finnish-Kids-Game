@@ -109,7 +109,7 @@ export default function SoundsHub() {
       <h2 className="sounds__heading">
         Pelit <span className="en">Listening games</span>
       </h2>
-      <div className="sounds__games">
+      <div className="sounds__games stagger">
         {SOUND_GAMES.map((g) => {
           const rec = played[g.mode];
           return (
@@ -132,7 +132,7 @@ export default function SoundsHub() {
         <SpeakerIcon /> Aakkoset <span className="en">Listen to the whole alphabet</span>
       </button>
       {open && <LetterCard letter={open} onClose={() => setOpen(null)} />}
-      <div className="letter-grid">
+      <div className="letter-grid stagger">
         {ALPHABET.map((l) => (
           <button
             key={l.ch}
