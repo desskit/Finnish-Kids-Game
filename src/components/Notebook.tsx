@@ -23,7 +23,13 @@ export default function Notebook() {
   const open = UNITS.map((u, i) => ({ u, i })).filter(
     ({ u }) => unitStatus(activeChild, u, unlockAll) !== 'locked',
   );
-  const locked = UNITS.length - open.length;
+  // the lessons still to come: every lesson of a locked unit, and the part-way
+  // lessons of an open unit that the child hasn't reached yet
+  const locked = UNITS.reduce((n, u) => {
+    const mids = u.midLessons ?? [];
+    if (unitStatus(activeChild, u, unlockAll) === 'locked') return n + 1 + mids.length;
+    return n + mids.filter((m) => midLessonStatus(activeChild, u, m, unlockAll) === 'locked').length;
+  }, 0);
   const shelf = storiesInCourseOrder().filter((s) => storyReadWell(activeChild, s.id));
 
   return (

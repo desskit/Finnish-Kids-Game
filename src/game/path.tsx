@@ -1178,7 +1178,7 @@ const UNITS: Chapter[] = [
     titleEn: "Do it, don't, let's",
     blurbEn: "Tell someone what to do — or not to — and say let's!",
     accent: '#ea580c',
-    icon: '🏃',
+    icon: '🫵',
     lessonId: 'commands',
     newWords: [],
     skills: [
@@ -1643,7 +1643,7 @@ const UNITS: Chapter[] = [
           ids: ['qw-who', 'qw-what', 'qw-what-doing', 'qw-where', 'qw-where-to', 'qw-where-from', 'qw-when', 'qw-how-many', 'qw-whose', 'qw-why'],
         },
       },
-      sceneStep('question-words-talk', 'new-pupil', 'Uusi oppilas', 'The new pupil'),
+      sceneStep('question-words-talk', 'new-pupil', 'Uusi oppilas', 'The new student'),
       sceneStep('question-words-talk-2', 'whose-and-why', 'Kenen? Miksi?', 'Whose? Why?'),
     ],
   },

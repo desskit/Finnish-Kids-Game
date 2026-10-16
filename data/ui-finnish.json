@@ -78,7 +78,7 @@
     },
     {
       "fi": "Harjoittele",
-      "en": "Practise",
+      "en": "Practice",
       "where": [
         "components/CheckpointRoute.tsx"
       ]
@@ -829,7 +829,7 @@
     },
     {
       "fi": "Pelataan tänään!",
-      "en": "Let's practice today",
+      "en": "Let's play today",
       "where": [
         "components/CourseHome.tsx"
       ]

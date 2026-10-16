@@ -65,7 +65,7 @@ function ActivityChart({ c, now }: { c: Child; now: number }) {
     <section className="gsection">
       <h3 className="gsection__title">The last two weeks</h3>
       <p className="gmuted">
-        Practised on {active} of the last 14 days. Each bar is one day's questions.
+        Practiced on {active} of the last 14 days. Each bar is one day's questions.
       </p>
       <ol className="gchart" aria-label="Questions answered per day, last 14 days">
         {rows.map(({ day, bucket }) => {
@@ -112,14 +112,14 @@ function SubjectLine({ r, now, note, practise }: { r: SubjectRow; now: number; n
         {pct(r.lately)} lately
       </span>
       <span className="gstep__meta">
-        {r.stats.n} questions · {pct(r.overall)} right first time overall · practised {ago(r.stats.last, now)}
+        {r.stats.n} questions · {pct(r.overall)} right first time overall · practiced {ago(r.stats.last, now)}
         {r.trend && ` · ${TREND[r.trend]}`}
         {note && <strong className="gnote"> · {note}</strong>}
         {practise && (
           <>
             {' · '}
             <Link to={`/skill/${r.step.id}`} className="glink">
-              Practise it →
+              Practice it →
             </Link>
           </>
         )}
@@ -189,7 +189,7 @@ function ChildStats({ c }: { c: Child }) {
         </div>
         <div className="gstat">
           <span className="gstat__value">{s.subjectsPractised}</span>
-          <span className="gstat__label">subjects practised</span>
+          <span className="gstat__label">subjects practiced</span>
         </div>
         <div className="gstat">
           <span className="gstat__value">{s.warmupsThisWeek}</span>
@@ -231,7 +231,7 @@ function ChildStats({ c }: { c: Child }) {
         ) : (
           <>
             <p className="gmuted">
-              “Lately” weighs recent answers most (an answer from two weeks ago counts half). “Practise it” opens
+              “Lately” weighs recent answers most (an answer from two weeks ago counts half). “Practice it” opens
               the step, to try it together.
             </p>
             <ul className="gsteps gsteps--flat">
@@ -271,7 +271,7 @@ function ChildStats({ c }: { c: Child }) {
 
       {words.length > 0 && (
         <section className="gsection">
-          <h3 className="gsection__title">Words to practise</h3>
+          <h3 className="gsection__title">Words to practice</h3>
           <p className="gbadges">
             {words.map((w) => (
               <span key={w.id} className="gbadge" title={`${w.correct} of ${w.seen} right first time`}>
@@ -290,7 +290,7 @@ function ChildStats({ c }: { c: Child }) {
       <section className="gsection">
         <h3 className="gsection__title">Every subject, unit by unit</h3>
         {rows.length === 0 ? (
-          <p className="gmuted">Nothing practised yet.</p>
+          <p className="gmuted">Nothing practiced yet.</p>
         ) : (
           [...byUnit.values()].map((list) => (
             <details key={list[0].unit.id} className="gunit">

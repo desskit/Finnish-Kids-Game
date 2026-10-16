@@ -133,7 +133,7 @@ export default function CheckpointRoute() {
           ) : (
             <p className="checkpoint__text en">
               You need {Math.ceil(passRatio * total)} to pass.
-              {weakStep && <> Practise “{weakStep.titleEn}” a little more, then try again.</>}
+              {weakStep && <> Practice “{weakStep.titleEn}” a little more, then try again.</>}
             </p>
           )}
           {newBadges.length > 0 && (
@@ -158,7 +158,7 @@ export default function CheckpointRoute() {
               <>
                 {weakStep && (
                   <Link className="btn btn--primary" to={`/skill/${weakStep.id}`}>
-                    Harjoittele <span className="en">Practise</span>
+                    Harjoittele <span className="en">Practice</span>
                   </Link>
                 )}
                 <button className="btn" onClick={start}>

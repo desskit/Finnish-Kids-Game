@@ -777,7 +777,7 @@
     {
       "id": "pupil",
       "word": "oppilas",
-      "en": "pupil",
+      "en": "student",
       "emoji": "🧑‍🎓",
       "inflections": {
         "nominative_singular": "oppilas",
@@ -817,7 +817,7 @@
         "poss_3rd_adessive_singular": "oppilaallaan"
       },
       "english": {
-        "plural": "pupils"
+        "plural": "students"
       },
       "kotusType": 41,
       "group": "s",

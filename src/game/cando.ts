@@ -61,7 +61,7 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('school-day', '🏫', "Can talk about school subjects they like and don't like"),
   unitClaim('seeing', '👀', 'Can say what they see, watch and wait for'),
   unitClaim('shop', '🛒', 'Can buy things in a shop'),
-  unitClaim('commands', '🏃', "Can say do it, don't, and let's (Juokse! Älä juokse! Juostaan!)"),
+  unitClaim('commands', '🫵', "Can say do it, don't, and let's (Juokse! Älä juokse! Juostaan!)"),
   unitClaim('describing', '🎨', 'Can describe things with colors and describing words'),
   unitClaim('comparing', '🐘', 'Can compare things — "Norsu on isompi kuin hiiri" — and say which is the biggest'),
   unitClaim('where', '📍', 'Can say where things are (in / on)'),

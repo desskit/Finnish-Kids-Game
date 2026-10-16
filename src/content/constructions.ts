@@ -150,9 +150,10 @@ const MY_HAVE_EXCLUDE = [...HAVE_EXCLUDE, "baby", "child"];
 const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi"];
 /** Nouns a child never calls "my" or "your" (the Kenen? game skips them too). */
 export const NOT_MY_OWN = [...NATURE_NOBODY_OWNS, ...NOT_MINE];
-// A child may really be without a mom, a dad, a grandparent or a family: the
-// app never has them say so ("Minulla ei ole äitiä").
-const NOT_TO_DENY = ["mother", "father", "grandmother", "grandfather", "family"];
+// A child may really be without a mom, a dad, a grandparent, a family or a
+// friend: the app never has them say so ("Minulla ei ole äitiä", "Minulla ei
+// ole kavereita").
+const NOT_TO_DENY = ["mother", "father", "grandmother", "grandfather", "family", "friend"];
 const HAVENT_EXCLUDE = [
   ...UNOWNABLE,
   ...BODY,
@@ -739,7 +740,7 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "1sg",
-    // "This is my pupil" reads as the eye's pupil.
+    // "This is my student" is a teacher's line, not a child's.
     excludeIds: [...UNOWNABLE, ...NOT_MINE, "pupil"],
   },
   {
@@ -802,7 +803,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     // Things a child has a few of — not islands, forests or grandchildren.
     topics: ["animals", "food", "clothes", "school", "freetime", "family"],
-    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL],
+    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL, ...NOT_TO_DENY],
   },
 
   // --- Plural predicatives (Tier 5) — the "many things" mirror of this-is/

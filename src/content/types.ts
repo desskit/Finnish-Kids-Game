@@ -328,6 +328,7 @@ export const ALSO_EN: Record<string, string> = {
   clock: 'watch',
   small: 'little',
   kind: 'nice, good',
+  autumn: 'fall',
 };
 
 /** "son, boy" — the gloss with any second meaning. */

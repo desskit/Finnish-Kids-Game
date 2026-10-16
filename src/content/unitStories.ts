@@ -164,7 +164,7 @@ export const UNIT_STORIES: Story[] = [
   }),
 
   // 3. Numbers — kymmenen lasta (a number + -a). The classmates are drawn as
-  // other children, not as Leo: he comes to the class later, as the new pupil.
+  // other children, not as Leo: he comes to the class later, as the new student.
   story('numbers', {
     id: 'three-cats',
     titleFi: 'Montako lasta?',
@@ -253,7 +253,9 @@ export const UNIT_STORIES: Story[] = [
       ),
       page(
         sc('park', '👧 👦 👵 🐶 ⚽ 🐰'),
-        tell('Nyt meillä on pallo!', 'Now we have a ball!'),
+        // Aino says it: "we" is the children, who have Grandma's ball now — so
+        // no question or statement below asks who has the ball.
+        say('aino', 'Nyt meillä on pallo!', 'Now we have a ball!'),
         say('eero', 'Kiitos, isoäiti!', 'Thank you, Grandma!'),
       ),
     ],
@@ -269,15 +271,8 @@ export const UNIT_STORIES: Story[] = [
         'Mitä Ainolla on?',
         'What does Aino have?',
         right('kitara', 'a guitar', '🎸'),
-        wrong('pallo', 'a ball', '⚽'),
+        wrong('koira', 'a dog', '🐶'),
         wrong('pupu', 'a bunny', '🐰'),
-      ),
-      ask(
-        'Kenellä on pallo?',
-        'Who has a ball?',
-        right('isoäidillä', 'Grandma', '👵'),
-        wrong('Ainolla', 'Aino', '👧'),
-        wrong('Eerolla', 'Eero', '👦'),
       ),
       ask(
         'Mitä isoäidillä on?',
@@ -289,8 +284,7 @@ export const UNIT_STORIES: Story[] = [
     ],
     facts: [
       trueFact('Ainolla on kissa.', 'Aino has a cat.'),
-      trueFact('Isoäidillä on pallo.', 'Grandma has a ball.'),
-      falseFact('Ainolla on pallo.', 'Aino has a ball.'),
+      trueFact('Eerolla on koira.', 'Eero has a dog.'),
       falseFact('Eerolla on pupu.', 'Eero has a bunny.'),
     ],
   }),
@@ -1802,13 +1796,13 @@ export const UNIT_STORIES: Story[] = [
   story('question-words', {
     id: 'new-boy',
     titleFi: 'Uusi oppilas',
-    titleEn: 'The new pupil',
+    titleEn: 'The new student',
     icon: '🧒',
     tier: 4,
     pages: [
       page(
         sc('classroom', '🧑‍🏫 🧒 👧'),
-        tell('Luokkaan tulee uusi oppilas.', 'A new pupil comes into the class.'),
+        tell('Luokkaan tulee uusi oppilas.', 'A new student comes into the class.'),
         say('aino', 'Kuka sinä olet?', 'Who are you?'),
         say('leo', 'Minä olen Leo.', "I'm Leo."),
       ),

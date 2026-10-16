@@ -146,7 +146,7 @@ Review the Finnish below; fix oddities by tightening a construction's
 - Tämä on lentokone. _(plane)_
 - Tämä on peruna. _(potato)_
 - Tämä on lahja. _(present)_
-- Tämä on oppilas. _(pupil)_
+- Tämä on oppilas. _(student)_
 - Tämä on punainen. _(red)_
 - Tämä on ravintola. _(restaurant)_
 - Tämä on sormus. _(ring)_
@@ -329,7 +329,7 @@ Gated out: butter, english, grass, gym, ice, juice, math, milk, music, porridge,
 - Missä on puuro? _(porridge)_
 - Missä on peruna? _(potato)_
 - Missä on lahja? _(present)_
-- Missä on oppilas? _(pupil)_
+- Missä on oppilas? _(student)_
 - Missä on ravintola? _(restaurant)_
 - Missä on riisi? _(rice)_
 - Missä on sormus? _(ring)_
@@ -511,7 +511,7 @@ Gated out: english, gym, hair, hobby, math, movie, music, rain, sky, task, wind
 - Onko tämä lentokone? _(plane)_
 - Onko tämä peruna? _(potato)_
 - Onko tämä lahja? _(present)_
-- Onko tämä oppilas? _(pupil)_
+- Onko tämä oppilas? _(student)_
 - Onko tämä punainen? _(red)_
 - Onko tämä ravintola? _(restaurant)_
 - Onko tämä sormus? _(ring)_
@@ -1137,7 +1137,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 
 Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, city, class, cloud, daughter, door, ear, english, eye, field, finger, fire, foot, forest, grandchild, grass, gym, hair, hand, head, heart, hospital, ice, island, juice, kitchen, knee, lake, library, living-room, market, math, milk, moon, mountain, mouth, movie, muscle, museum, music, nose, park, porridge, pupil, rain, restaurant, rice, school, sea, shop, sky, snow, son, soup, star, station, sun, tongue, tooth, train, tummy, water, wind, window, yard, zoo
 
-### `i-havent` — “I don't have a ___.” (tier 3, partitive singular, 116 words)
+### `i-havent` — “I don't have a ___.” (tier 3, partitive singular, 115 words)
 
 - Minulla ei ole omenaa. _(apple)_
 - Minulla ei ole tätiä. _(aunt)_
@@ -1194,7 +1194,6 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole jalkapalloa. _(soccer ball)_
 - Minulla ei ole haarukkaa. _(fork)_
 - Minulla ei ole kettua. _(fox)_
-- Minulla ei ole kaveria. _(friend)_
 - Minulla ei ole sammakkoa. _(frog)_
 - Minulla ei ole peliä. _(game)_
 - Minulla ei ole puutarhaa. _(garden)_
@@ -1256,7 +1255,7 @@ Gated out: bathroom, bedroom, bone, bread, bus, butter, cafe, canteen, cheese, c
 - Minulla ei ole vettä. _(water)_
 - Minulla ei ole sutta. _(wolf)_
 
-Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daughter, door, ear, english, eye, family, father, field, finger, fire, foot, forest, grandchild, grandfather, grandmother, grass, gym, hair, hand, head, heart, hospital, island, kitchen, knee, lake, library, living-room, market, math, moon, mother, mountain, mouth, movie, muscle, museum, music, nose, park, pupil, rain, restaurant, school, sea, shop, sky, snow, son, star, station, sun, tongue, tooth, train, tummy, wind, window, yard, zoo
+Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daughter, door, ear, english, eye, family, father, field, finger, fire, foot, forest, friend, grandchild, grandfather, grandmother, grass, gym, hair, hand, head, heart, hospital, island, kitchen, knee, lake, library, living-room, market, math, moon, mother, mountain, mouth, movie, muscle, museum, music, nose, park, pupil, rain, restaurant, school, sea, shop, sky, snow, son, star, station, sun, tongue, tooth, train, tummy, wind, window, yard, zoo
 
 ### `i-like` — “I like the ___.” (tier 3, elative singular, 169 words)
 
@@ -1382,7 +1381,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Pidän puurosta. _(porridge)_
 - Pidän perunasta. _(potato)_
 - Pidän lahjasta. _(present)_
-- Pidän oppilaasta. _(pupil)_
+- Pidän oppilaasta. _(student)_
 - Pidän sateesta. _(rain)_
 - Pidän ravintolasta. _(restaurant)_
 - Pidän riisistä. _(rice)_
@@ -1554,7 +1553,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Tykkään puurosta. _(porridge)_
 - Tykkään perunasta. _(potato)_
 - Tykkään lahjasta. _(present)_
-- Tykkään oppilaasta. _(pupil)_
+- Tykkään oppilaasta. _(student)_
 - Tykkään sateesta. _(rain)_
 - Tykkään ravintolasta. _(restaurant)_
 - Tykkään riisistä. _(rice)_
@@ -1888,7 +1887,7 @@ Gated out: bathroom, bedroom, bone, bus, cafe, canteen, city, class, cloud, daug
 - Näen puuron. _(porridge)_
 - Näen perunan. _(potato)_
 - Näen lahjan. _(present)_
-- Näen oppilaan. _(pupil)_
+- Näen oppilaan. _(student)_
 - Näen sateen. _(rain)_
 - Näen ravintolan. _(restaurant)_
 - Näen riisin. _(rice)_
@@ -2169,7 +2168,7 @@ Gated out: english, gym, hobby, math, music, task
 - Katson sikaa. _(pig)_
 - Katson lentokonetta. _(plane)_
 - Katson lahjaa. _(present)_
-- Katson oppilasta. _(pupil)_
+- Katson oppilasta. _(student)_
 - Katson sadetta. _(rain)_
 - Katson ravintolaa. _(restaurant)_
 - Katson huonetta. _(room)_
@@ -2310,7 +2309,7 @@ Gated out: english, gym, hobby, math, music, task
 - puuron edessä _(porridge)_
 - perunan edessä _(potato)_
 - lahjan edessä _(present)_
-- oppilaan edessä _(pupil)_
+- oppilaan edessä _(student)_
 - ravintolan edessä _(restaurant)_
 - riisin edessä _(rice)_
 - sormuksen edessä _(ring)_
@@ -2397,7 +2396,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - sian takana _(pig)_
 - lentokoneen takana _(plane)_
 - lahjan takana _(present)_
-- oppilaan takana _(pupil)_
+- oppilaan takana _(student)_
 - ravintolan takana _(restaurant)_
 - koulun takana _(school)_
 - lampaan takana _(sheep)_
@@ -2528,7 +2527,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - puuron vieressä _(porridge)_
 - perunan vieressä _(potato)_
 - lahjan vieressä _(present)_
-- oppilaan vieressä _(pupil)_
+- oppilaan vieressä _(student)_
 - ravintolan vieressä _(restaurant)_
 - riisin vieressä _(rice)_
 - sormuksen vieressä _(ring)_
@@ -2686,7 +2685,7 @@ Gated out: bone, city, class, cloud, ear, english, eye, finger, foot, game, gym,
 - lentokoneiden edessä _(plane)_
 - perunoiden edessä _(potato)_
 - lahjojen edessä _(present)_
-- oppilaiden edessä _(pupil)_
+- oppilaiden edessä _(student)_
 - ravintoloiden edessä _(restaurant)_
 - sormusten edessä _(ring)_
 - huoneiden edessä _(room)_
@@ -2765,7 +2764,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - sikojen takana _(pig)_
 - lentokoneiden takana _(plane)_
 - lahjojen takana _(present)_
-- oppilaiden takana _(pupil)_
+- oppilaiden takana _(student)_
 - ravintoloiden takana _(restaurant)_
 - koulujen takana _(school)_
 - lampaiden takana _(sheep)_
@@ -2880,7 +2879,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - lentokoneiden vieressä _(plane)_
 - perunoiden vieressä _(potato)_
 - lahjojen vieressä _(present)_
-- oppilaiden vieressä _(pupil)_
+- oppilaiden vieressä _(student)_
 - ravintoloiden vieressä _(restaurant)_
 - sormusten vieressä _(ring)_
 - huoneiden vieressä _(room)_
@@ -3004,7 +3003,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - Kissa on sian takana. _(pig)_
 - Kissa on lentokoneen takana. _(plane)_
 - Kissa on lahjan takana. _(present)_
-- Kissa on oppilaan takana. _(pupil)_
+- Kissa on oppilaan takana. _(student)_
 - Kissa on ravintolan takana. _(restaurant)_
 - Kissa on koulun takana. _(school)_
 - Kissa on lampaan takana. _(sheep)_
@@ -3134,7 +3133,7 @@ Gated out: bathroom, bedroom, bone, butter, canteen, city, class, cloud, ear, en
 - Kissa on puuron edessä. _(porridge)_
 - Kissa on perunan edessä. _(potato)_
 - Kissa on lahjan edessä. _(present)_
-- Kissa on oppilaan edessä. _(pupil)_
+- Kissa on oppilaan edessä. _(student)_
 - Kissa on ravintolan edessä. _(restaurant)_
 - Kissa on riisin edessä. _(rice)_
 - Kissa on sormuksen edessä. _(ring)_
@@ -3286,7 +3285,7 @@ Gated out: bone, cat, city, class, cloud, ear, english, eye, finger, foot, game,
 - Kissa on puuron vieressä. _(porridge)_
 - Kissa on perunan vieressä. _(potato)_
 - Kissa on lahjan vieressä. _(present)_
-- Kissa on oppilaan vieressä. _(pupil)_
+- Kissa on oppilaan vieressä. _(student)_
 - Kissa on ravintolan vieressä. _(restaurant)_
 - Kissa on riisin vieressä. _(rice)_
 - Kissa on sormuksen vieressä. _(ring)_
@@ -3728,7 +3727,7 @@ Gated out: baby, bathroom, bedroom, bus, cafe, canteen, child, city, class, clou
 - Tämä on hänen puuronsa. _(porridge)_
 - Tämä on hänen perunansa. _(potato)_
 - Tämä on hänen lahjansa. _(present)_
-- Tämä on hänen oppilaansa. _(pupil)_
+- Tämä on hänen oppilaansa. _(student)_
 - Tämä on hänen riisinsä. _(rice)_
 - Tämä on hänen sormuksensa. _(ring)_
 - Tämä on hänen huoneensa. _(room)_
@@ -3993,7 +3992,7 @@ Gated out: baby, bathroom, bedroom, bus, cafe, canteen, child, city, class, clou
 - Minulla on liivejä. _(vest)_
 - Minulla on susia. _(wolf)_
 
-### `i-havent-any` — “I don't have any ___s.” (tier 5, partitive plural, 87 words)
+### `i-havent-any` — “I don't have any ___s.” (tier 5, partitive plural, 86 words)
 
 - Minulla ei ole omenia. _(apple)_
 - Minulla ei ole tätejä. _(aunt)_
@@ -4039,7 +4038,6 @@ Gated out: baby, bathroom, bedroom, bus, cafe, canteen, child, city, class, clou
 - Minulla ei ole jalkapalloja. _(soccer ball)_
 - Minulla ei ole haarukoita. _(fork)_
 - Minulla ei ole kettuja. _(fox)_
-- Minulla ei ole kavereita. _(friend)_
 - Minulla ei ole sammakkoja. _(frog)_
 - Minulla ei ole pelejä. _(game)_
 - Minulla ei ole käsineitä. _(glove)_
@@ -4190,7 +4188,7 @@ Gated out: baby, bathroom, bedroom, bus, cafe, canteen, child, city, class, clou
 - Nämä ovat lentokoneita. _(plane)_
 - Nämä ovat perunoita. _(potato)_
 - Nämä ovat lahjoja. _(present)_
-- Nämä ovat oppilaita. _(pupil)_
+- Nämä ovat oppilaita. _(student)_
 - Nämä ovat ravintoloita. _(restaurant)_
 - Nämä ovat sormuksia. _(ring)_
 - Nämä ovat huoneita. _(room)_
@@ -4340,7 +4338,7 @@ Gated out: aunt, bathroom, bedroom, butter, canteen, daughter, english, family, 
 - Missä ovat lentokoneet? _(plane)_
 - Missä ovat perunat? _(potato)_
 - Missä ovat lahjat? _(present)_
-- Missä ovat oppilaat? _(pupil)_
+- Missä ovat oppilaat? _(student)_
 - Missä ovat ravintolat? _(restaurant)_
 - Missä ovat sormukset? _(ring)_
 - Missä ovat huoneet? _(room)_
@@ -4497,7 +4495,7 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - Odotan hiirtä. _(mouse)_
 - Odotan sikaa. _(pig)_
 - Odotan lentokonetta. _(plane)_
-- Odotan oppilasta. _(pupil)_
+- Odotan oppilasta. _(student)_
 - Odotan lammasta. _(sheep)_
 - Odotan laivaa. _(ship)_
 - Odotan siskoa. _(sister)_

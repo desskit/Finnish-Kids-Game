@@ -771,7 +771,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Verbs come in families',
         text:
-          'Finnish verbs belong to **types** (families). Look at the END of the "to…" word to see which one:\n\n- **Type 1** ends in two vowels: *laulaa*, *puhua*\n- **Type 2** ends in **-da / -dä**: *syödä*\n- **Type 3** ends in **-lla, -nna, -sta**: *tulla*, *mennä*',
+          'Finnish verbs belong to **types** (families). Look at the END of the "to…" word to see which one:\n\n- **Type 1** ends in two vowels: *laulaa*, *puhua*\n- **Type 2** ends in **-da / -dä**: *syödä*\n- **Type 3** ends in **-lla, -nna, -sta** (or -llä, -nnä, -stä): *tulla*, *mennä*',
         rows: [{ vtype: 'sing' }, { vtype: 'eat' }, { vtype: 'come' }],
       },
       {
@@ -2465,7 +2465,7 @@ export const lessons: Lesson[] = [
     id: 'commands',
     titleFi: 'Tee! Älä! Tehdään!',
     titleEn: "Do it, don't, let's",
-    emoji: '🏃',
+    emoji: '🫵',
     cards: [
       {
         kind: 'examples',

@@ -335,7 +335,7 @@ const SCHOOL = [
   ['math', 'matematiikka', 'math', '➗'],
   ['gym', 'liikunta', 'gym', '🤸'],
   ['english', 'englanti', 'English', '🇬🇧'],
-  ['pupil', 'oppilas', 'pupil', '🧑‍🎓'],
+  ['pupil', 'oppilas', 'student', '🧑‍🎓'],
   ['test', 'koe', 'test', '📋'],
   ['eraser', 'kumi', 'eraser'],
   ['task', 'tehtävä', 'task'],

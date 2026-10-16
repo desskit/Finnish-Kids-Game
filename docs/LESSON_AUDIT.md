@@ -416,7 +416,7 @@ Finnish verbs belong to **types** (families). Look at the END of the "to…" wor
 
 - **Type 1** ends in two vowels: *laulaa*, *puhua*
 - **Type 2** ends in **-da / -dä**: *syödä*
-- **Type 3** ends in **-lla, -nna, -sta**: *tulla*, *mennä*
+- **Type 3** ends in **-lla, -nna, -sta** (or -llä, -nnä, -stä): *tulla*, *mennä*
 
 - 🎙️ **laul[aa]** — to sing · type 1
 - 🍜 **syö[dä]** — to eat · type 2
@@ -476,7 +476,7 @@ _Explain:_ **-mme** means "we".
 - ✘ Type 2
 - ✔ Type 3
 
-_Explain:_ *mennä* ends in **-nna** — two consonants and a vowel: **type 3** (*menen*).
+_Explain:_ *mennä* ends in **-nnä** (the ä twin of -nna) — two consonants and a vowel: **type 3** (*menen*).
 
 ## Unit 9: When k, p and t change (K, P ja T vaihtuvat) 🔀
 
@@ -1122,7 +1122,7 @@ _Explain:_ **-a** (*maitoa*) means "some of it".
 
 _Explain:_ Some bread → **-ä**: *leipää*.
 
-## Unit 19: Do it, don't, let's (Tee! Älä! Tehdään!) 🏃
+## Unit 19: Do it, don't, let's (Tee! Älä! Tehdään!) 🫵
 
 ### 1. Telling someone to do it _(examples)_
 

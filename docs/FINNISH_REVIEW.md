@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-16T21:41:14.422Z · regenerate with `npm run review:content`
+- Generated: 2026-10-16T23:19:45.692Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1733 entries.** Flagged: 0.
+- **Approved: 28 of 1731 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -224,7 +224,7 @@ _Each turn of a short conversation._
 | ⚠️ | `conversation:whose-and-why:3` | Miksi sinulla on kaksi kynää? → Koska piirrän paljon! | Why do you have two pencils? → Because I draw a lot! |
 | ⚠️ | `conversation:whose-and-why:4` | Mitä piirrät? → Piirrän koiran. | What are you drawing? → I'm drawing a dog. |
 
-## Stories (393)
+## Stories (391)
 
 _Each page (who says what), then the questions (✓ = the right answer) and the true-or-false statements._
 
@@ -315,15 +315,13 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:what-we-have:page-1` | Eerolla on koira. / Ainolla on kissa. / Eero: Aino, onko sinulla pallo? | Eero has a dog. / Aino has a cat. / Eero: Aino, do you have a ball? |
 | ⚠️ | `story:what-we-have:page-2` | Aino: Ei. Minulla on kitara. / Aino: Onko isoäidillä pallo? | Aino: No. I have a guitar. / Aino: Does Grandma have a ball? |
 | ⚠️ | `story:what-we-have:page-3` | Isoäiti: Hei! Minulla on pupu. / Isoäidillä on pupu ja pallo! | Grandma: Hi! I have a bunny. / Grandma has a bunny and a ball! |
-| ⚠️ | `story:what-we-have:page-4` | Nyt meillä on pallo! / Eero: Kiitos, isoäiti! | Now we have a ball! / Eero: Thank you, Grandma! |
+| ⚠️ | `story:what-we-have:page-4` | Aino: Nyt meillä on pallo! / Eero: Kiitos, isoäiti! | Aino: Now we have a ball! / Eero: Thank you, Grandma! |
 | ⚠️ | `story:what-we-have:q1` | Kenellä on koira? (✓ Eerolla / Ainolla / isoäidillä) | Who has a dog? (Eero / Aino / Grandma) |
-| ⚠️ | `story:what-we-have:q2` | Mitä Ainolla on? (✓ kitara / pallo / pupu) | What does Aino have? (a guitar / a ball / a bunny) |
-| ⚠️ | `story:what-we-have:q3` | Kenellä on pallo? (✓ isoäidillä / Ainolla / Eerolla) | Who has a ball? (Grandma / Aino / Eero) |
-| ⚠️ | `story:what-we-have:q4` | Mitä isoäidillä on? (✓ pupu / kissa / koira) | What does Grandma have? (a bunny / a cat / a dog) |
+| ⚠️ | `story:what-we-have:q2` | Mitä Ainolla on? (✓ kitara / koira / pupu) | What does Aino have? (a guitar / a dog / a bunny) |
+| ⚠️ | `story:what-we-have:q3` | Mitä isoäidillä on? (✓ pupu / kissa / koira) | What does Grandma have? (a bunny / a cat / a dog) |
 | ⚠️ | `story:what-we-have:t1` | Ainolla on kissa. (totta) | True or false: Aino has a cat. (true) |
-| ⚠️ | `story:what-we-have:t2` | Isoäidillä on pallo. (totta) | True or false: Grandma has a ball. (true) |
-| ⚠️ | `story:what-we-have:t3` | Ainolla on pallo. (tarua) | True or false: Aino has a ball. (false) |
-| ⚠️ | `story:what-we-have:t4` | Eerolla on pupu. (tarua) | True or false: Eero has a bunny. (false) |
+| ⚠️ | `story:what-we-have:t2` | Eerolla on koira. (totta) | True or false: Eero has a dog. (true) |
+| ⚠️ | `story:what-we-have:t3` | Eerolla on pupu. (tarua) | True or false: Eero has a bunny. (false) |
 | ⚠️ | `story:no-hat:page-1` | On kuuma. / Aino: Minulla on mekko. / Aino: Mutta minulla ei ole hattua! | It's hot. / Aino: I have a dress. / Aino: But I don't have a hat! |
 | ⚠️ | `story:no-hat:page-2` | Aino: Äiti! Minulla ei ole hattua! / Äiti: Onko Eerolla hattu? | Aino: Mom! I don't have my hat! / Mom: Does Eero have a hat? |
 | ⚠️ | `story:no-hat:page-3` | Eero: Minulla on lakki. / Eero: Minulla ei ole hattua. | Eero: I have a cap. / Eero: I don't have a hat. |
@@ -571,7 +569,7 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | `story:my-birthday:t1` | Tänään on syntymäpäiväni. (totta) | True or false: Today is my birthday. (true) |
 | ⚠️ | `story:my-birthday:t2` | Syntymäpäiväni on kesäkuussa. (tarua) | True or false: My birthday is in June. (false) |
 | ⚠️ | `story:my-birthday:t3` | Täytän kymmenen vuotta. (tarua) | True or false: I'm turning ten. (false) |
-| ⚠️ | `story:new-boy:page-1` | Luokkaan tulee uusi oppilas. / Aino: Kuka sinä olet? / Leo: Minä olen Leo. | A new pupil comes into the class. / Aino: Who are you? / Leo: I'm Leo. |
+| ⚠️ | `story:new-boy:page-1` | Luokkaan tulee uusi oppilas. / Aino: Kuka sinä olet? / Leo: Minä olen Leo. | A new student comes into the class. / Aino: Who are you? / Leo: I'm Leo. |
 | ⚠️ | `story:new-boy:page-2` | Aino: Missä sinä asut? / Leo: Asun ison puiston vieressä. | Aino: Where do you live? / Leo: I live next to the big park. |
 | ⚠️ | `story:new-boy:page-3` | Aino: Mistä sinä tykkäät? / Leo: Tykkään jalkapallosta! / Eero: Minäkin! | Aino: What do you like? / Leo: I like soccer! / Eero: Me too! |
 | ⚠️ | `story:new-boy:page-4` | Leo: Milloin pelataan? / Eero: Nyt! Pelataan yhdessä! | Leo: When do we play? / Eero: Now! Let's play together! |
@@ -1678,7 +1676,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | `title:Tänään on…` | Tänään on… | Today is… |
 | ⚠️ | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Clothes / Action words / Verbs that change / Feelings / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Getting around / Shopping list / Colors & describing words / Comparing words / Animals / Places / Town & home / Rides and tools / Days & times / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Type 5 & 6 verbs / Type 6 verbs that change / More action words |
 | ⚠️ | `title:Uusi kaveri` | Uusi kaveri | A new friend |
-| ⚠️ | `title:Uusi oppilas` | Uusi oppilas | The new pupil / Story: The new pupil |
+| ⚠️ | `title:Uusi oppilas` | Uusi oppilas | The new student / Story: The new student |
 | ⚠️ | `title:Vahvempi kirjain` | Vahvempi kirjain | Type 4: the sound gets STRONGER |
 | ⚠️ | `title:Valitse pääte` | Valitse pääte | Pick the ending |
 | ⚠️ | `title:Vauhdissa` | Vauhdissa | On a roll |
@@ -1712,7 +1710,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Edellinen sivu` | Edellinen sivu | Previous page |
 | ⚠️ | `ui:Edistyminen` | Edistyminen | Progress |
 | ⚠️ | `ui:Ei!` | Ei! | No |
-| ⚠️ | `ui:Harjoittele` | Harjoittele | Practise |
+| ⚠️ | `ui:Harjoittele` | Harjoittele | Practice |
 | ⚠️ | `ui:Harjoittele!` | Harjoittele! | Start practicing |
 | ⚠️ | `ui:Hei⟨…⟩!` | Hei⟨…⟩! | Your Finnish course |
 | ⚠️ | `ui:Hienoa työtä tänään!` | Hienoa työtä tänään! | Great work today |
@@ -1789,7 +1787,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | `ui:Paina ja puhu` | Paina ja puhu | Tap & speak |
 | ⚠️ | `ui:Paljonko on ⟨a⟩ + ⟨b⟩?` | Paljonko on ⟨a⟩ + ⟨b⟩? | Solve to continue |
 | ⚠️ | `ui:Pelaajat` | Pelaajat | Players |
-| ⚠️ | `ui:Pelataan tänään!` | Pelataan tänään! | Let's practice today |
+| ⚠️ | `ui:Pelataan tänään!` | Pelataan tänään! | Let's play today |
 | ⚠️ | `ui:Pelit` | Pelit | Listening games |
 | ⚠️ | `ui:Pidennä pitkää ääntä` | Pidennä pitkää ääntä | mind the long sound, hold the doubled letter |
 | ⚠️ | `ui:Pinkki` | Pinkki | Pink |
