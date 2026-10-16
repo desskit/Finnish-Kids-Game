@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import vettedLedger from '../../data/finnish-vetted.json';
-import { reviewEntries, reviewSections, type ReviewEntry } from '../game/reviewEntries';
+import { placeLabel, placeRank, reviewEntries, reviewSections, type ReviewEntry, type ReviewPlace } from '../game/reviewEntries';
+import { PATH } from '../game/path';
 import { entryStatus, mergeReview, parseReviewFile, reviewCounts, reviewFile, type EntryStatus } from '../game/review';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
@@ -14,12 +15,20 @@ import SpeakerIcon from '../art/SpeakerIcon';
 // right, ✎ if it needs fixing (with a note). Decisions stay on this device;
 // "Download" makes a file to send to the developer, who folds it into the
 // app (`npm run review:import`). Generated from the same list as
-// docs/FINNISH_REVIEW.md, under the same keys.
+// docs/FINNISH_REVIEW.md, under the same keys. In course order by default —
+// the screens, then unit 1, unit 2… — so what the children meet first is
+// checked first; the "Where" menu narrows it to one unit.
 
 const PAGE = 20;
 const LEDGER: ReadonlySet<string> = new Set((vettedLedger as { vetted: string[] }).vetted);
 
 type Filter = 'todo' | 'fix' | 'done' | 'all';
+type Order = 'course' | 'section';
+
+/** "Unit 3 · Kuka? Mikä?" — a place with its unit's Finnish title. */
+function placeName(place: ReviewPlace): string {
+  return typeof place === 'number' ? `${placeLabel(place)} · ${PATH[place - 1]?.titleFi ?? ''}` : placeLabel(place);
+}
 
 const STATUS_LABEL: Record<EntryStatus, string> = {
   ledger: '✅ Approved',
@@ -67,7 +76,10 @@ function EntryCard({ e, sectionTitle }: { e: ReviewEntry; sectionTitle: string }
   return (
     <li className={`rcard rcard--${status}`}>
       <div className="rcard__top">
-        <span className="gchip gchip--muted">{sectionTitle}</span>
+        <span className="rcard__chips">
+          <span className="gchip">{placeLabel(e.where)}</span>
+          <span className="gchip gchip--muted">{sectionTitle}</span>
+        </span>
         <span className={'rcard__status rcard__status--' + status}><ArtText text={STATUS_LABEL[status]} /></span>
       </div>
       <p className="rcard__fi" lang="fi">
@@ -133,6 +145,8 @@ export default function FinnishReview() {
   const titleOf = useMemo(() => new Map(sections.map((s) => [s.id, s.title])), [sections]);
   const [filter, setFilter] = useState<Filter>('todo');
   const [section, setSection] = useState<string>('all');
+  const [where, setWhere] = useState<string>('all');
+  const [order, setOrder] = useState<Order>('course');
   const [query, setQuery] = useState('');
   const [shown, setShown] = useState(PAGE);
   const [notice, setNotice] = useState<{ ok: boolean; text: string } | null>(null);
@@ -141,12 +155,26 @@ export default function FinnishReview() {
   const counts = reviewCounts(entries, review.decisions, LEDGER);
   const checked = counts.ok + counts.ledger + counts.fix;
   const q = query.trim().toLowerCase();
-  const list = entries.filter(
+  const filtered = entries.filter(
     (e) =>
       (section === 'all' || e.section === section) &&
+      (where === 'all' || String(e.where) === where) &&
       matches(filter, entryStatus(e, review.decisions, LEDGER)) &&
       (!q || e.fi.toLowerCase().includes(q) || e.en.toLowerCase().includes(q) || e.key.includes(q)),
   );
+  // course order keeps each place's entries in their sections' order (a stable sort)
+  const list = order === 'course' ? [...filtered].sort((a, b) => placeRank(a.where) - placeRank(b.where)) : filtered;
+  // Every place, in course order, with how many of its entries are left to check.
+  const places = useMemo(() => {
+    const left = new Map<string, { place: ReviewPlace; todo: number }>();
+    for (const e of entries) {
+      const k = String(e.where);
+      const p = left.get(k) ?? { place: e.where, todo: 0 };
+      if (matches('todo', entryStatus(e, review.decisions, LEDGER))) p.todo++;
+      left.set(k, p);
+    }
+    return [...left.values()].sort((a, b) => placeRank(a.place) - placeRank(b.place));
+  }, [entries, review.decisions]);
 
   function download() {
     try {
@@ -180,7 +208,8 @@ export default function FinnishReview() {
           <h2 className="greport__name">Suomen tarkistus · Finnish check</h2>
           <p className="gmuted">
             For a Finnish speaker. Every word form the games use comes from Wiktionary; the sentences, stories,
-            explanations, titles and button labels below were written by hand, so they need a native ear. Tap{' '}
+            explanations, titles and button labels below were written by hand, so they need a native ear. They come
+            in course order: the words on every screen first, then unit by unit, as the children meet them. Tap{' '}
             <strong>✓ Oikein</strong> if it's
             right, or <strong>✎ Korjattava</strong> to say what's wrong. Your answers are saved on this device —
             download them and send the file to the app's developer.
@@ -241,6 +270,22 @@ export default function FinnishReview() {
           </div>
           <select
             className="rselect"
+            value={where}
+            onChange={(ev) => {
+              setWhere(ev.target.value);
+              setShown(PAGE);
+            }}
+            aria-label="Where in the course"
+          >
+            <option value="all">The whole course</option>
+            {places.map(({ place, todo }) => (
+              <option key={String(place)} value={String(place)}>
+                {placeName(place)} ({todo} to check)
+              </option>
+            ))}
+          </select>
+          <select
+            className="rselect"
             value={section}
             onChange={(ev) => {
               setSection(ev.target.value);
@@ -266,6 +311,24 @@ export default function FinnishReview() {
             placeholder="Search Finnish or English"
             aria-label="Search"
           />
+          <div className="gswitch" role="tablist" aria-label="Order">
+            {(
+              [
+                ['course', 'Course order'],
+                ['section', 'By section'],
+              ] as [Order, string][]
+            ).map(([o, label]) => (
+              <button
+                key={o}
+                role="tab"
+                aria-selected={order === o}
+                className={'gswitch__btn' + (order === o ? ' gswitch__btn--on' : '')}
+                onClick={() => setOrder(o)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
         {section !== 'all' && <p className="gmuted">{sections.find((s) => s.id === section)?.hint}</p>}
 

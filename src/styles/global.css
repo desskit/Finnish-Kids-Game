@@ -4608,6 +4608,13 @@ a.badge-strip {
   flex-wrap: wrap;
 }
 
+/* Where in the course, then which section. */
+.rcard__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .rcard__status {
   font-size: 0.8rem;
   font-weight: 800;

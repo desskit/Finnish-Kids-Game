@@ -8,13 +8,15 @@
 // data/finnish-vetted.json) or in the app (then `npm run review:import
 // <downloaded file>` merges the approvals into that ledger). Approved entries
 // show ✅; entries a reviewer flagged (data/finnish-flags.json) show 🚩 with
-// their note.
+// their note. "Start here" counts what's left to check unit by unit, in the
+// order the children meet it.
 //
 // Run: npm run review:content  (vite-node — imports the real TS content)
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { reviewSections, type ReviewEntry } from '../src/game/reviewEntries';
+import { placeLabel, placeRank, reviewSections, type ReviewEntry, type ReviewPlace } from '../src/game/reviewEntries';
+import { PATH } from '../src/game/path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -35,15 +37,45 @@ const flagText = (key: string) => {
   return ` 🚩 ${esc([f.note, f.suggestion && `→ ${f.suggestion}`].filter(Boolean).join(' '))}`;
 };
 const table = (rows: ReviewEntry[]) => [
-  '| Status | Key | Finnish | English |',
-  '| --- | --- | --- | --- |',
-  ...rows.map((r) => `| ${status(r.key)} | \`${r.key}\` | ${esc(r.fi)}${flagText(r.key)} | ${esc(r.en)} |`),
+  '| Status | Where | Key | Finnish | English |',
+  '| --- | --- | --- | --- | --- |',
+  ...rows.map((r) => `| ${status(r.key)} | ${placeLabel(r.where)} | \`${r.key}\` | ${esc(r.fi)}${flagText(r.key)} | ${esc(r.en)} |`),
 ];
 
 const sections = reviewSections();
 const all = sections.flatMap((s) => s.rows);
 const approved = all.filter((r) => vetted.has(r.key)).length;
 const flagged = all.filter((r) => flags[r.key]).length;
+
+// What's left to check, place by place, in course order — and in which sections.
+const places = new Map<string, { place: ReviewPlace; total: number; left: number; where: Map<string, number> }>();
+for (const s of sections) {
+  for (const r of s.rows) {
+    const p = places.get(String(r.where)) ?? { place: r.where, total: 0, left: 0, where: new Map<string, number>() };
+    p.total++;
+    if (!vetted.has(r.key)) {
+      p.left++;
+      p.where.set(s.title, (p.where.get(s.title) ?? 0) + 1);
+    }
+    places.set(String(r.where), p);
+  }
+}
+const placeName = (p: ReviewPlace) =>
+  typeof p === 'number' ? `${placeLabel(p)}: ${PATH[p - 1].titleEn} (*${PATH[p - 1].titleFi}*)` : placeLabel(p);
+const startHere = [
+  '## Start here',
+  '',
+  'In the order the children meet it: the words on every screen first, then unit by unit. The kids start with',
+  'the first units, so check those first. The app (Grown-ups → Finnish check) lists entries in this same order,',
+  'and its **Where** menu shows one unit at a time.',
+  '',
+  '| Where | Entries | Left to check | In |',
+  '| --- | --- | --- | --- |',
+  ...[...places.values()]
+    .sort((a, b) => placeRank(a.place) - placeRank(b.place))
+    .map((p) => `| ${placeName(p.place)} | ${p.total} | ${p.left} | ${[...p.where].map(([t, n]) => `${t} ${n}`).join(', ')} |`),
+  '',
+];
 
 const lines: string[] = [
   '# Finnish content review sheet',
@@ -56,6 +88,7 @@ const lines: string[] = [
   '- The exhaustive carrier × word and template × candidate expansions are in',
   '  `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.',
   '',
+  ...startHere,
   ...sections.flatMap((s) => [`## ${s.title} (${s.rows.length})`, '', `_${s.hint}_`, '', ...table(s.rows), '']),
 ];
 

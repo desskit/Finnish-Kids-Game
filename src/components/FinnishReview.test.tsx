@@ -64,6 +64,22 @@ describe('Grown-ups → Finnish check', () => {
     expect([...document.querySelectorAll('.rcard__status--ledger')].some((el) => el.textContent?.includes('Approved'))).toBe(true);
   });
 
+  it('runs in course order, and shows one unit at a time', () => {
+    renderReview();
+    // the words on every screen come first, before any unit's
+    const chips = () => [...document.querySelectorAll('.rcard .rcard__chips .gchip:first-child')].map((el) => el.textContent);
+    expect(chips()[0]).toBe('Everywhere');
+    const where = screen.getByRole('combobox', { name: 'Where in the course' });
+    expect(within(where).getByRole('option', { name: /^Unit 1 · Hei! \(\d+ to check\)$/ })).toBeInTheDocument();
+    fireEvent.change(where, { target: { value: '4' } });
+    expect(chips().length).toBeGreaterThan(0);
+    expect(new Set(chips())).toEqual(new Set(['Unit 4']));
+    // by section: the sections' own order again, the dialogues first
+    fireEvent.change(where, { target: { value: 'all' } });
+    fireEvent.click(screen.getByRole('tab', { name: 'By section' }));
+    expect(document.querySelector('.rcard .gchip--muted')?.textContent).toBe('Greetings & dialogues');
+  });
+
   it('remembers the reviewer’s name for the file', () => {
     renderReview();
     fireEvent.change(screen.getByPlaceholderText('e.g. Maija'), { target: { value: 'Maija' } });
