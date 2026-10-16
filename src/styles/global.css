@@ -3483,7 +3483,7 @@ button:focus-visible,
 .unit-steps {
   list-style: none;
   margin: 0;
-  padding: 0 12px 12px;
+  padding: 10px 12px 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
