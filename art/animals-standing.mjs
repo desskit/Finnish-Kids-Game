@@ -1,7 +1,8 @@
 // Standing animals, side on and facing right: a long body on four short legs
 // (the far two a shade darker), the head at the front. The farm animals turn
 // their faces to you; the horse and the elephant show their profile, since
-// that's how you know them. Each one swishes, wiggles or swings something.
+// that's how you know them. The wolf sits, howling at the moon. Each one
+// swishes, wiggles or swings something.
 
 import { fmt, polar, pt, roundPoly, scallops, starPoints } from './kit.mjs';
 
@@ -121,42 +122,55 @@ export function horse(k) {
   ].join('');
 }
 
+/** The wolf's head, level (the snout along +x from the skull at 0 0), for wolf() to tip up: eyes shut, jaws apart. */
+function howlingHead(k) {
+  const c = k.P;
+  return [
+    k.path('M-7.6 1.4C-8.4 -4.6 -4 -7.8 0.6 -7.4C3.4 -7.2 5 -5.4 7 -4.2C10.4 -3.2 14 -2.6 17.4 -1.8C19.4 -1.2 19.4 1.4 17.6 1.8L8.6 3.2L15.2 6.6C11 8.6 5 9.4 0 9C-4.6 9 -7.2 5.4 -7.6 1.4Z', c.grey),
+    k.flat('M-7.2 3.2C-5.2 7.4 1 9.4 9.4 8L7.2 4.8C2.4 5.2 -2.8 4.8 -7.2 3.2Z', c.silver),
+    k.flat('M7.6 3.4L17.2 1.8L15 6.2Z', c.ink),
+    k.flatEllipse(18, -0.4, 1.7, 1.4, c.ink),
+    k.sleepyEye(2.4, -2.8, 4),
+    k.blush(4.2, 2, 2, 1.2),
+  ].join('');
+}
+
 /**
- * The wolf: grey, long-legged, side on, under the moon. What makes it a wolf
- * and not a dog: the long snout, the tall pointed ears, the pale muzzle and
- * chest, the darker saddle on its back and the big bushy tail, dark at the tip.
- * The tail swishes.
+ * The wolf sits side on, not standing like the others: standing, it looked like
+ * a grey pony. Sitting, it howls at the moon, which is what every child knows a
+ * wolf does. And it isn't a dog: tall pointed ears, a long snout, a pale ruff
+ * down its chest, a darker saddle on its back and a big bushy tail, dark at the
+ * tip. The tail sweeps along the ground.
  */
 export function wolf(k) {
   const c = k.P;
+  const sweep = [0, 6, 12, 6][k.frame % 4];
   return [
-    k.path('M13.6 4.2A7 7 0 1 0 13.6 17.8A8.6 8.6 0 0 1 13.6 4.2Z', c.yellow),
-    k.flat(roundPoly(starPoints(25, 7.4, 3.4, 1.2, 4), 0.3), c.yellow),
-    k.ground(31, 58.6, 22, 2.4),
-    legs(k, [15.6, 33.6], 40, 56.6, c.grey, c.greyShade, { hoof: 'silver', w: 5 }),
+    k.path('M60.4 5.4A6.4 6.4 0 1 0 60.4 18.2A8 8 0 0 1 60.4 5.4Z', c.yellow),
+    k.flat(roundPoly(starPoints(10, 10, 3.4, 1.2, 4), 0.3), c.yellow),
+    k.ground(26, 58.6, 22, 2.4),
     swing(
       k,
-      [0, 8, 14, 8][k.frame % 4],
-      [12.6, 31],
-      k.path('M13.6 29.6C6.4 31 3.2 39.4 4.6 47.6C5.4 51.4 9 51.6 10 48C11.4 42.6 13 37.4 16.4 32.8Z', c.grey) +
-        k.flat('M4.6 47.6C4.2 45 4.4 42.6 5 40.6L11.4 43.4C10.8 45 10.4 46.6 10 48C9 51.6 5.4 51.4 4.6 47.6Z', c.charcoal),
+      sweep,
+      [14, 55],
+      k.path('M14 49.6C9 49 4.8 47.6 3.8 43.4C3 40.4 0.4 41.6 0.6 45.6C0.8 52.6 5.6 57.4 14.4 57.2Z', c.grey) +
+        k.flat('M3.8 43.4C3 40.4 0.4 41.6 0.6 45.6C0.7 47.4 1 48.8 1.6 50.2L5.6 46.6C4.8 45.8 4.2 44.8 3.8 43.4Z', c.charcoal),
     ),
-    k.rect(10.6, 27.6, 33.6, 15.8, 7.6, c.grey),
-    k.flat('M14 28.6H37C39.4 28.6 41.4 30 42 31.6H12C12.4 29.8 13 28.6 14 28.6Z', c.greyShade),
-    k.flat('M16 40.4H36.6V42.6H16Z', c.silver),
-    // the neck and chest, pale down the front
-    k.path('M33 35C34 28 37 22 41.6 17.6L50.4 21.4C47.6 25.4 46 30.4 45.8 36.4Z', c.grey),
-    k.flat('M47.4 22.4C49 26.4 48.6 31.6 46 36.4L42.8 36.4C44.6 31.8 45.6 26.6 46 22Z', c.silver),
-    // the far ear, then the head with its long snout, then the near ear
-    k.poly([[42.4, 13.6], [42.4, 4.6], [46.6, 11]], [0.8, 1, 0.8], c.greyShade),
-    k.path('M41 15.6C41 10.6 45.4 7.4 50 8.6C52.6 9.4 54.6 10.8 57.2 12.6L60.4 14.8C62.2 16.2 61.8 19.4 59.4 19.8C56 20.6 52.6 20.6 49.4 20.2L45 19.8C42.6 19.4 41 17.8 41 15.6Z', c.grey),
-    k.flat('M47.6 17.6C51.4 18.4 55.6 18.6 60.4 17.6C60.8 18.8 60.4 19.6 59.4 19.8C56 20.6 52.4 20.6 48.6 20.2Z', c.silver),
-    k.poly([[45.6, 12.4], [47, 3], [51, 10.4]], [0.8, 1, 0.8], c.grey),
-    k.flat(roundPoly([[46.6, 10.6], [47.4, 5.6], [49.4, 9.8]], 0.4), c.silver),
-    k.flatEllipse(60.6, 15.4, 1.5, 1.3, c.ink),
-    k.eye(51.6, 13, 2.2),
-    k.blush(53.2, 17.6, 1.8, 1.1),
-    k.line('M55.4 19.4Q57.4 20.4 59.2 19.2', { sw: 1.2 }),
+    // the far front leg, the body rising to the shoulders, the haunch, the near front leg
+    k.limb('M31 40V55.4', c.greyShade, 5.6),
+    k.ellipse(32, 56.2, 3.2, 2.2, c.greyShade),
+    k.path('M11 55C8.6 44 14.6 32.6 24 28L27.6 21L39.6 22.6C41.6 29 41 36 37.6 42L35 55Z', c.grey),
+    k.flat('M12.4 44.4C13.6 37.6 17.6 32.4 23.6 29L27.6 30.4C21.8 33.6 17.8 38.6 16.4 45Z', c.greyShade),
+    k.flat('M38.4 24L41.6 26.6L39.2 29.4L41.6 32.2L39 35.2L40.4 38L37.6 42L33.6 41.6C35.6 35.6 35.6 30 33.4 25.6Z', c.silver),
+    k.ellipse(19, 47.4, 9.4, 9.4, c.grey),
+    k.ellipse(25.6, 56.2, 5.4, 2.3, c.grey),
+    k.limb('M35.6 40V55.4', c.grey, 5.6),
+    k.ellipse(36.8, 56.2, 3.4, 2.3, c.grey),
+    // the ears stand up behind the head, which tips up to howl
+    k.poly([[29.6, 15.6], [31.4, 4.6], [35.6, 13]], [0.8, 1.2, 0.8], c.greyShade),
+    k.poly([[24.6, 18.6], [24.8, 6.6], [31, 14.4]], [0.8, 1.2, 0.8], c.grey),
+    k.flat(roundPoly([[26, 16.4], [26.2, 9.8], [29.4, 14.4]], 0.4), c.charcoal),
+    k.g('translate(33.6 19.8) rotate(-42) scale(1.06)', howlingHead(k)),
   ].join('');
 }
 
