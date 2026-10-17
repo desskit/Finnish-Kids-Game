@@ -45,6 +45,13 @@ describe('choose-the-form rounds', () => {
     for (const q of buildChooseRound('ask', pools, 6, 3)) expect(q.answer).toMatch(/k[oö]\?$/);
   });
 
+  it('never tells anyone to like, love or cry', () => {
+    const cues = new Set<string>();
+    for (let r = 0; r < RUNS; r++) for (const q of buildChooseRound('mood', pools, 12, 3)) cues.add(q.cue);
+    expect(cues.size).toBeGreaterThan(20);
+    for (const cue of cues) expect(cue).not.toMatch(/\b(like|love|cry|want)\b/i);
+  });
+
   it("uses the sourced do / don't / let's forms", () => {
     for (let r = 0; r < RUNS; r++) {
       for (const q of buildChooseRound('mood', pools, 6, 3)) {

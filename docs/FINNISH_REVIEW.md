@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-16T23:27:58.868Z · regenerate with `npm run review:content`
+- Generated: 2026-10-17T15:09:05.150Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -526,15 +526,15 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | Unit 19 | `story:lets-play-ball:t1` | Lopuksi Musti pelaa. (totta) | True or false: In the end Musti plays. (true) |
 | ⚠️ | Unit 19 | `story:lets-play-ball:t2` | Eero ei halua pelata. (tarua) | True or false: Eero doesn't want to play. (false) |
 | ⚠️ | Unit 19 | `story:lets-play-ball:t3` | Musti syö pallon. (tarua) | True or false: Musti eats the ball. (false) |
-| ⚠️ | Unit 20 | `story:big-and-small:page-1` | Musti on iso koira. / Mirri on pieni kissa. / Musti on ruskea ja Mirri on valkoinen. | Musti is a big dog. / Mirri is a small cat. / Musti is brown and Mirri is white. |
+| ⚠️ | Unit 20 | `story:big-and-small:page-1` | Musti on iso koira. / Mirri on pieni kissa. / Musti on musta. | Musti is a big dog. / Mirri is a small cat. / Musti is black. |
 | ⚠️ | Unit 20 | `story:big-and-small:page-2` | Musti syö Mirrin ruokaa! / Pieni Mirri on vihainen. | Musti eats Mirri's food! / Little Mirri is angry. |
 | ⚠️ | Unit 20 | `story:big-and-small:page-3` | Iso Musti juoksee pois! / Aino: Musti, tule takaisin! | Big Musti runs away! / Aino: Musti, come back! |
 | ⚠️ | Unit 20 | `story:big-and-small:page-4` | Aino: Tässä on punainen pallo. / Nyt Musti ja Mirri leikkivät. / Aino: Kiltti koira, kiltti kissa! | Aino: Here's a red ball. / Now Musti and Mirri play. / Aino: Good dog, good cat! |
-| ⚠️ | Unit 20 | `story:big-and-small:q1` | Millainen Musti on? (✓ iso ja ruskea / pieni ja valkoinen / pieni ja musta) | What is Musti like? (big and brown / small and white / small and black) |
+| ⚠️ | Unit 20 | `story:big-and-small:q1` | Millainen Musti on? (✓ iso ja musta / pieni ja valkoinen / pieni ja ruskea) | What is Musti like? (big and black / small and white / small and brown) |
 | ⚠️ | Unit 20 | `story:big-and-small:q2` | Kuka on vihainen? (✓ Mirri / Musti / Aino) | Who is angry? (Mirri / Musti / Aino) |
 | ⚠️ | Unit 20 | `story:big-and-small:q3` | Millainen pallo on? (✓ punainen / sininen / vihreä) | What is the ball like? (red / blue / green) |
 | ⚠️ | Unit 20 | `story:big-and-small:q4` | Mitä Musti syö? (✓ Mirrin ruokaa / palloa / kakkua) | What does Musti eat? (Mirri's food / a ball / cake) |
-| ⚠️ | Unit 20 | `story:big-and-small:t1` | Mirri on valkoinen. (totta) | True or false: Mirri is white. (true) |
+| ⚠️ | Unit 20 | `story:big-and-small:t1` | Musti on musta. (totta) | True or false: Musti is black. (true) |
 | ⚠️ | Unit 20 | `story:big-and-small:t2` | Musti juoksee pois. (totta) | True or false: Musti runs away. (true) |
 | ⚠️ | Unit 20 | `story:big-and-small:t3` | Musti on pieni. (tarua) | True or false: Musti is small. (false) |
 | ⚠️ | Unit 20 | `story:big-and-small:t4` | Mirri on iso. (tarua) | True or false: Mirri is big. (false) |
@@ -1330,7 +1330,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | Unit 28 | `line:68-olen-kahdeksas-` | Olen kahdeksas. | I'm eighth. |
 | ⚠️ | Unit 29 | `line:69-olen-koulussa-` | Olen koulussa. | I'm at school. |
 | ⚠️ | Unit 24 | `line:70-olen-puistossa-` | Olen puistossa. | I'm in the park. |
-| ⚠️ | Unit 18 | `line:71-ostetaan-maito-ja-leipä-` | Ostetaan maito ja leipä. | Let's buy some milk and bread. |
+| ⚠️ | Unit 18 | `line:71-ostan-maito-` | Ostan maito. | I buy some milk. |
 | ⚠️ | Unit 13 | `line:72-pidän-musiikkia-` | Pidän musiikkia. | I like music. |
 | ⚠️ | Unit 14 | `line:73-pidän-pitsasta-` | Pidän pitsasta. | I like pizza. |
 | ⚠️ | Unit 30 | `line:74-pidän-sinusta-` | Pidän sinusta. | I like you. |
@@ -1769,7 +1769,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Hyvä yritys!` | Hyvä yritys! | Good try! |
 | ⚠️ | Everywhere | `ui:Jatka` | Jatka | Continue / Keep going |
 | ⚠️ | Everywhere | `ui:Kaikki oikein` | Kaikki oikein | All correct |
-| ⚠️ | Everywhere | `ui:Kenen se on?` | Kenen se on? | Which one is it? |
+| ⚠️ | Everywhere | `ui:Kenen se on?` | Kenen se on? | Whose is it? |
 | ⚠️ | Everywhere | `ui:Keskustelu` | Keskustelu | Conversation |
 | ⚠️ | Everywhere | `ui:Kirjahylly` | Kirjahylly | Bookshelf |
 | ⚠️ | Everywhere | `ui:Kirjaimet` | Kirjaimet | The letters — tap one to hear its name |
@@ -1786,7 +1786,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Kuka sanoo näin?` | Kuka sanoo näin? | Who says this? |
 | ⚠️ | Everywhere | `ui:Kuka voittaa?` | Kuka voittaa? | Who wins? |
 | ⚠️ | Everywhere | `ui:Kumpi on oikein?` | Kumpi on oikein? | Which one is right? |
-| ⚠️ | Everywhere | `ui:Kumpi?` | Kumpi? | Which is more? |
+| ⚠️ | Everywhere | `ui:Kumpi?` | Kumpi? | Which of the two? |
 | ⚠️ | Everywhere | `ui:Kuuntele ensin` | Kuuntele ensin | Listen first — then it's your turn |
 | ⚠️ | Everywhere | `ui:Kuuntele uudestaan` | Kuuntele uudestaan | Hear it again |
 | ⚠️ | Everywhere | `ui:Kuuntelen…` | Kuuntelen… | Listening… |
@@ -1805,7 +1805,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Melkein!` | Melkein! | (no English shown) |
 | ⚠️ | Everywhere | `ui:Miksi?` | Miksi? | Why? |
 | ⚠️ | Everywhere | `ui:Mikä kirjain?` | Mikä kirjain? | Which letter does it start with? |
-| ⚠️ | Everywhere | `ui:Mikä on oikein?` | Mikä on oikein? | Look at the verb: which ending? |
+| ⚠️ | Everywhere | `ui:Mikä on oikein?` | Mikä on oikein? | Which one is right? |
 | ⚠️ | Everywhere | `ui:Mikä on totta?` | Mikä on totta? | Which one is true? |
 | ⚠️ | Everywhere | `ui:Mikä sana?` | Mikä sana? | Which word is it? |
 | ⚠️ | Everywhere | `ui:Mikä sen nimi on?` | Mikä sen nimi on? | (no English shown) |
@@ -1859,7 +1859,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Grown-ups only | `ui:Tarkistus` | Tarkistus | Finnish check |
 | ⚠️ | Everywhere | `ui:Tarua` | Tarua | False |
 | ⚠️ | Everywhere | `ui:Tarua!` | Tarua! | (no English shown) |
-| ⚠️ | Everywhere | `ui:Tee! Älä!` | Tee! Älä! | Do, don't, let's |
+| ⚠️ | Everywhere | `ui:Tee! Älä!` | Tee! Älä! | Do! Don't! |
 | ⚠️ | Grown-ups only | `ui:Testaus` | Testaus | Test games |
 | ⚠️ | Grown-ups only | `ui:Tilastot` | Tilastot | Stats |
 | ⚠️ | Everywhere | `ui:Totta` | Totta | True |

@@ -182,7 +182,7 @@
     },
     {
       "fi": "Kenen se on?",
-      "en": "Which one is it?",
+      "en": "Whose is it?",
       "where": [
         "components/ChooseForm.tsx",
         "components/PossessiveGame.tsx"
@@ -355,7 +355,7 @@
     },
     {
       "fi": "Kumpi?",
-      "en": "Which is more?",
+      "en": "Which of the two?",
       "where": [
         "components/ChooseForm.tsx"
       ]
@@ -559,7 +559,7 @@
     },
     {
       "fi": "Mikä on oikein?",
-      "en": "Look at the verb: which ending?",
+      "en": "Which one is right?",
       "where": [
         "components/ChooseForm.tsx"
       ]
@@ -1032,7 +1032,7 @@
     },
     {
       "fi": "Tee! Älä!",
-      "en": "Do, don't, let's",
+      "en": "Do! Don't!",
       "where": [
         "components/ChooseForm.tsx"
       ]

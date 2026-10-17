@@ -1628,7 +1628,9 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Mitä me ostamme?', en: 'What are we buying?' },
         reply: { fi: 'Ostetaan maitoa ja leipää.', en: 'Let\'s buy some milk and bread.' },
         distractors: [
-          { fi: 'Ostetaan maito ja leipä.', en: 'Let\'s buy some milk and bread.', why: 'Buying SOME of something → **-a / -ä**: *maitoa*, *leipää*.' },
+          // Not "Ostetaan maito ja leipä.": that's fine for the milk and bread
+          // on the list. A plain "Ostan maito." is wrong whatever it means.
+          { fi: 'Ostan maito.', en: 'I buy some milk.', why: 'Buying SOME of something → **-a / -ä**: *Ostan maitoa.*' },
           { fi: 'Hyvää yötä.', en: 'Good night.' },
         ],
       },

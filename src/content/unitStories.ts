@@ -690,7 +690,7 @@ export const UNIT_STORIES: Story[] = [
         say('eero', 'En laula.', "I don't sing."),
       ),
       page(
-        sc('home', '👧 👦 💃'),
+        sc('home', '👧 👦 🎵'),
         say('aino', 'Tanssitko?', 'Do you dance?'),
         say('eero', 'Tanssin!', 'I do!'),
       ),
@@ -700,7 +700,7 @@ export const UNIT_STORIES: Story[] = [
         say('aino', 'Laulan!', 'I do!'),
       ),
       page(
-        sc('home', '👵 👧 🎤 👦 💃'),
+        sc('home', '👵 👧 🎤 👦 🎵'),
         tell('Isoäiti tulee.', 'Grandma comes.'),
         tell('Aino laulaa ja Eero tanssii.', 'Aino sings and Eero dances.'),
         say('isoaiti', 'Laulanko minäkin?', 'Shall I sing too?'),
@@ -1235,8 +1235,9 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
-  // 20. Describing — iso koira, pieni kissa; Musti on ruskea. Big Musti eats
-  // little Mirri's food; she's angry, he runs away; a red ball makes peace.
+  // 20. Describing — iso koira, pieni kissa; Musti on musta (as he's drawn,
+  // and as his name says). Big Musti eats little Mirri's food; she's angry, he
+  // runs away; a red ball makes peace.
   story('describing', {
     id: 'big-and-small',
     titleFi: 'Iso ja pieni',
@@ -1248,10 +1249,10 @@ export const UNIT_STORIES: Story[] = [
         sc('yard', '🐶 🐱'),
         tell('Musti on iso koira.', 'Musti is a big dog.'),
         tell('Mirri on pieni kissa.', 'Mirri is a small cat.'),
-        tell('Musti on ruskea ja Mirri on valkoinen.', 'Musti is brown and Mirri is white.'),
+        tell('Musti on musta.', 'Musti is black.'),
       ),
       page(
-        sc('yard', '🐶 🍽️ 🐱'),
+        sc('yard', '🐶 🍖 🐱'),
         tell('Musti syö Mirrin ruokaa!', "Musti eats Mirri's food!"),
         tell('Pieni Mirri on vihainen.', 'Little Mirri is angry.'),
       ),
@@ -1271,9 +1272,9 @@ export const UNIT_STORIES: Story[] = [
       ask(
         'Millainen Musti on?',
         'What is Musti like?',
-        right('iso ja ruskea', 'big and brown', '🐶'),
-        wrong('pieni ja valkoinen', 'small and white', '🐱'),
-        wrong('pieni ja musta', 'small and black', '⬛'),
+        right('iso ja musta', 'big and black', '🐶'),
+        wrong('pieni ja valkoinen', 'small and white', '⬜'),
+        wrong('pieni ja ruskea', 'small and brown', '🟫'),
       ),
       ask(
         'Kuka on vihainen?',
@@ -1292,13 +1293,13 @@ export const UNIT_STORIES: Story[] = [
       ask(
         'Mitä Musti syö?',
         'What does Musti eat?',
-        right('Mirrin ruokaa', "Mirri's food", '🍽️'),
+        right('Mirrin ruokaa', "Mirri's food", '🍖'),
         wrong('palloa', 'a ball', '🔴'),
         wrong('kakkua', 'cake', '🍰'),
       ),
     ],
     facts: [
-      trueFact('Mirri on valkoinen.', 'Mirri is white.'),
+      trueFact('Musti on musta.', 'Musti is black.'),
       trueFact('Musti juoksee pois.', 'Musti runs away.'),
       falseFact('Musti on pieni.', 'Musti is small.'),
       falseFact('Mirri on iso.', 'Mirri is big.'),
