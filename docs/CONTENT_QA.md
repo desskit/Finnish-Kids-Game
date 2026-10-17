@@ -68,6 +68,7 @@ The rules for the pass:
 | Course map | Units 8 and 19 had the same runner icon | Unit 19 (do it, don't, let's) points at you |
 | Notebook | "N more lessons unlock" counted locked *units* | Counts the lessons still to come |
 | Unit 8 lesson | Type 3 named only -lla, -nna, -sta, then gave *mennä* | Also -llä, -nnä, -stä |
+| Unit 1 lesson, Alphabet corner | "y is "ee" said with round lips": read quickly, it says y sounds like "ee", which it doesn't | "y sounds a bit like the "ew" in "few"" (the corner adds: lips in a small, tight circle) |
 | Teacher scenes | The teacher shown as the *teach* picture | The teacher's own picture |
 | The wolf | Standing side on, it looked like a grey pony | Sits and howls at the moon |
 | Reply questions (dialogues and scenes) | Two options could differ only by punctuation: "Ole hyvä!" and "Ole hyvä.", or "Hyvää, kiitos!" and "Hyvää, kiitos." (3 of the 5 reply questions in one unit 1 checkpoint) | Options are compared as they're heard, so only one of each shows |
@@ -175,17 +176,52 @@ Each question names the entry key, as the Finnish check shows it.
    `src/content/dialogues.ts`. *good-night* now offers *Ole hyvä.* as a wrong
    reply, in place of *Kiitos!*.
 
-### Noted for later parts
+## Part 2: units 9–22
 
-- **Unit 11, *do-you-sing*:** Eero's "Hän tanssii" option shows the
-  dancing-Aino picture.
-- **Unit 20, *big-and-small*:**
-  - The text calls Musti brown and Mirri white, but the pictures are a black
-    and tan dog and a grey cat.
-  - "Mirrin ruokaa" shows a table.
-- **Unit 20 scene:** "iso, ruskea koira", against Musti's colors.
+### What was checked
+
+The same checklist as part 1, for verbs, saying no, asking, feelings, likes,
+want/can/may, the school day, seeing and waiting, the shop, do/don't/let's,
+describing, comparing and "where". Also:
+
+- **Choose the form:** all 1,258 questions these units can ask: answering,
+  asking, verb types, "which ending?", do/don't/let's, and the degree,
+  compare and "the most" games.
+- **Generated tables:** the 72 -ko questions; every comparison is true; every
+  form marked wrong ("slip") is wrong for the sentence's meaning.
+- **Verb carriers:** every "Haluan / En halua / Osaan / Saanko ___" sentence.
+- **A game-by-game sweep:** every game first met in units 4–22, played at
+  phone width as a child would, with what's spoken logged beside what's shown.
+
+### Fixed
+
+| Where | Was | Now |
+| --- | --- | --- |
+| Unit 15, verb types | The tiles said "-lla, -nna, -sta" and "-ata, -ota, -uta", but the game asks about *mennä*, *kävellä* and *herätä* | Each tile shows an ä ending too, as the lessons do |
+| Unit 19, do / don't / let's | It could ask for "Like!", "Don't like!", "Let's like!" | Never: feelings and states (like, love, want, cry, see, hear…) aren't commands |
+| Unit 18 scene, *shopping-list* | The wrong reply *Ostetaan maito ja leipä.* is fine for the milk and bread on the list | *Ostan maito.*, which is wrong whatever it means |
+| Unit 11 story, *do-you-sing* | A third, dancing girl on two pages | Music notes |
+| Unit 20 story, *big-and-small* | Musti was "brown" and Mirri "white", but they're drawn as a black dog and a grey cat; "Mirrin ruokaa" showed a table | *Musti on musta.*, as he's drawn (and as his name says), and the questions follow; Mirri's food is food |
+| Words | *pitkä* = "tall"; *hauska* = "funny" | Also "long"; also "fun" |
+| Game labels | The English beside the Finnish wasn't its meaning: *Kenen se on?* · "Which one is it?" (units 6, 7, 22); *Kumpi?* · "Which is more?" (unit 21); *Mikä on oikein?* · "Look at the verb: which ending?" (units 17, 36); *Tee! Älä!* · "Do, don't, let's" and *Mitä pitää tehdä?* · "Tap what the command says" (unit 19); *Mikä sopii yhteen?* · "Pick the word with the matching ending" (units 20, 22) | "Whose is it?", "Which of the two?", "Which one is right?", "Do! Don't!", "What do you have to do?", "Which one goes with it?" |
+
+### Questions for the Finnish speaker (units 9–22)
+
+1. **`conversation:shopping-list:1`.** The wrong reply is now *Ostan maito.*
+   Is that clearly wrong to you, as an answer to *Mitä me ostamme?*
+2. **`story:big-and-small:page-1`.** *Musti on musta.* replaces *Musti on
+   ruskea ja Mirri on valkoinen.*, to match the pictures. Fine?
+3. **Commands (unit 19).** Do any of these sound odd as a bare command:
+   *Älä auta!*, *Älä herää!*, *Älä vastaa!*, *Leikataan!*, *Korjataan!*?
+4. **`slip:i-buy-some`.** For "I buy some bread", *Ostan leivän* (a whole
+   loaf) is marked wrong. Is that right for the meaning?
+
+## Still to check (part 3)
+
 - **Unit 24, *park-and-library*:** the page moves from the library to a café,
   which has no backdrop.
 - ***viedä*:** glossed "carry".
 - **Two titles shared by a scene and a story:** *Uusi oppilas* (unit 29) and
   *Paljon tavaraa* (unit 32).
+- **Unit 30's title:** *Minua, minulle* is "Me and you" (unit, game, lesson)
+  and "All of them together" (a step).

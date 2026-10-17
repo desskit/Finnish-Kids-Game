@@ -27,7 +27,7 @@ When a letter is written **twice**, you hold that sound longer — a vowel *or* 
 
 - **ä** sounds like the a in "cat"
 - **ö** sounds a bit like the u in "fur"
-- **y** is "ee" said with round lips
+- **y** sounds a bit like the "ew" in "few"
 
 - 👩 **äiti** — mom
 - 🍽️ **pöytä** — table

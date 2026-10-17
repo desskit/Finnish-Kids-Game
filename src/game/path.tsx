@@ -2571,7 +2571,7 @@ export function renderActivity(
           }
           title="Tee näin! · Do this!"
           promptFi="Mitä pitää tehdä?"
-          promptEn="Tap what the command says"
+          promptEn="What do you have to do?"
           onExit={onExit}
         />
       );

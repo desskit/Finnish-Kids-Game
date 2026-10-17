@@ -380,6 +380,12 @@ writes **US English**: Mom, candy, soccer, cafeteria, "Do you have…?".
   baby), gate the word out with `excludeIds` instead.
 - **Second meanings** (`ALSO_EN`): *poika* is "son, boy", *kynä* "pencil,
   pen". They show on the new-word card and in the story glossary.
+- **A label's English is what its Finnish means.** A child learns from the
+  pair, so *Mitä pitää tehdä?* is "What do you have to do?", never "Tap what
+  the command says". An extra hint can follow a dash ("Listen first — then
+  it's your turn").
+- **A prompt shows the sentence the voice reads**: "This is my brother.",
+  not the carrier's "This is a ___." beside "brother".
 - **Real example sentences** (the "Lue lause" game) come from Tatoeba but show
   only when listed in `APPROVED` in `src/content/examples.ts`, after a person
   has read them. Leave out a word used in another sense, spoken forms (*mä,

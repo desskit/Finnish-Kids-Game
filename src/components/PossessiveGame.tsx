@@ -225,7 +225,7 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
       />
 
       <p className="prompt">
-        Kenen se on? <span className="en">Which one is it?</span>
+        Kenen se on? <span className="en">Whose is it?</span>
       </p>
 
       <div className="phrase-card">

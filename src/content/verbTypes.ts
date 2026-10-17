@@ -33,18 +33,21 @@ export function verbType(v: LexicalItem): VerbType | undefined {
 export const TYPE_LOOKS: Record<VerbType, string> = {
   1: 'two vowels at the end: -aa, -ea, -ia, -ua…',
   2: '-da / -dä',
-  3: '-lla, -nna, -rra, -sta (two consonants + a)',
+  3: '-lla, -nna, -rra, -sta, -llä… (two consonants + a or ä)',
   4: '-ata, -ota, -uta, -ätä…',
   5: '-ita / -itä',
   6: '-eta / -etä',
 };
 
-/** The short label on a "which type?" tile. */
+/**
+ * The short label on a "which type?" tile. Each shows an ä ending too, as the
+ * lessons do: the game asks about *mennä*, *kävellä* and *herätä*.
+ */
 export const TYPE_TILE: Record<VerbType, string> = {
   1: 'Tyyppi 1 · -aa, -ua, -iä…',
   2: 'Tyyppi 2 · -da, -dä',
-  3: 'Tyyppi 3 · -lla, -nna, -sta',
-  4: 'Tyyppi 4 · -ata, -ota, -uta',
+  3: 'Tyyppi 3 · -lla, -nna, -sta, -llä…',
+  4: 'Tyyppi 4 · -ata, -ota, -uta, -ätä…',
   5: 'Tyyppi 5 · -ita, -itä',
   6: 'Tyyppi 6 · -eta, -etä',
 };

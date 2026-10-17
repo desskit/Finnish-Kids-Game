@@ -15,17 +15,17 @@ const QUESTIONS = 6;
 const TITLES: Record<ChooseMode, { fi: string; en: string; prompt: string; promptEn: string }> = {
   answer: { fi: 'Vastaa', en: 'Answer it', prompt: 'Mitä vastaat?', promptEn: 'What do you answer?' },
   ask: { fi: 'Kysy', en: 'Ask it', prompt: 'Miten kysyt?', promptEn: 'How do you ask?' },
-  mood: { fi: 'Tee! Älä!', en: "Do, don't, let's", prompt: 'Mitä sanot?', promptEn: 'What do you say?' },
+  mood: { fi: 'Tee! Älä!', en: "Do! Don't!", prompt: 'Mitä sanot?', promptEn: 'What do you say?' },
   pronoun: { fi: 'Minua, minulle', en: 'Me and you', prompt: 'Kumpi on oikein?', promptEn: 'Which one is right?' },
-  owner: { fi: 'Kenen?', en: 'Whose is it?', prompt: 'Kenen se on?', promptEn: 'Which one is it?' },
+  owner: { fi: 'Kenen?', en: 'Whose is it?', prompt: 'Kenen se on?', promptEn: 'Whose is it?' },
   degree: { fi: 'Iso, isompi, isoin', en: 'Big, bigger, biggest', prompt: 'Mikä sana?', promptEn: 'Which word is it?' },
-  compare: { fi: 'Kumpi?', en: 'Which is more?', prompt: 'Mikä on totta?', promptEn: 'Which one is true?' },
+  compare: { fi: 'Kumpi?', en: 'Which of the two?', prompt: 'Mikä on totta?', promptEn: 'Which one is true?' },
   superlative: { fi: 'Kuka voittaa?', en: 'Who wins?', prompt: 'Mikä on totta?', promptEn: 'Which one is true?' },
   ordinal: { fi: 'Kolme vai kolmas?', en: 'Three or third?', prompt: 'Mikä sana?', promptEn: 'Which word is it?' },
   date: { fi: 'Päivämäärä', en: 'Dates', prompt: 'Miten sanot?', promptEn: 'How do you say it?' },
   age: { fi: 'Kuinka vanha?', en: 'How old?', prompt: 'Miten sanot?', promptEn: 'How do you say it?' },
   'verb-type': { fi: 'Mikä tyyppi?', en: 'Which type?', prompt: 'Mikä verbityyppi?', promptEn: 'Which verb type is it?' },
-  'verb-case': { fi: 'Mikä pääte?', en: 'Which ending?', prompt: 'Mikä on oikein?', promptEn: 'Look at the verb: which ending?' },
+  'verb-case': { fi: 'Mikä pääte?', en: 'Which ending?', prompt: 'Mikä on oikein?', promptEn: 'Which one is right?' },
 };
 
 interface Props extends ChoosePools {

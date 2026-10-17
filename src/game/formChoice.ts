@@ -270,6 +270,12 @@ function askQuestion(
 
 // --- Do it! / Don't! / Let's! -------------------------------------------------------
 
+// Never told to a child, or by one: feelings and states ("Tykkää!", "Rakasta!",
+// "Itke!"), and what needs something to see, hear or get. Each is grammatical
+// on its own, but no one says it. (The picture game has its own short list of
+// actions, `COMMAND_VERB_IDS`.)
+const NOT_A_COMMAND = ["be", "like", "love", "want", "cry", "see", "hear", "get", "find"];
+
 function moodQuestion(
   verb: LexicalItem,
   optionCount: number,
@@ -896,7 +902,9 @@ export function buildChooseRound(
 ): FormChoiceQuestion[] {
   const out: FormChoiceQuestion[] = [];
   const used = new Set<string>();
-  const verbs = pools.verbs.filter((v) => v.emoji);
+  const verbs = pools.verbs.filter(
+    (v) => v.emoji && !(mode === "mood" && NOT_A_COMMAND.includes(v.id)),
+  );
   for (
     let guard = 0;
     out.length < questionCount && guard < questionCount * 10;

@@ -45,7 +45,7 @@ export const ALPHABET: Letter[] = [
   { ch: 'v', nameFi: 'vee', tip: 'Like the v in "van".', examples: ['vuori', 'viisi', 'väsynyt'] },
   { ch: 'w', nameFi: 'kaksois-vee', borrowed: true, tip: 'Only in names. Sounds like v.', examples: [] },
   { ch: 'x', nameFi: 'äks', borrowed: true, tip: 'Only in names and borrowed words. Sounds like ks.', examples: [] },
-  { ch: 'y', nameFi: 'yy', vowel: true, tip: 'Say "ee" — then make your lips round like for "oo". That\'s y!', examples: ['yksi', 'yö', 'kynä'] },
+  { ch: 'y', nameFi: 'yy', vowel: true, tip: 'A bit like the "ew" in "few", with your lips in a small, tight circle.', examples: ['yksi', 'yö', 'kynä'] },
   { ch: 'z', nameFi: 'tset', borrowed: true, tip: 'Only in borrowed words. Sounds like ts.', examples: [] },
   { ch: 'å', nameFi: 'ruotsalainen oo', borrowed: true, tip: 'Only in Swedish names. Sounds like o.', examples: [] },
   { ch: 'ä', nameFi: 'ää', vowel: true, tip: 'Like the a in "cat".', examples: ['äiti', 'jäätelö', 'isä'] },
@@ -75,7 +75,7 @@ export const SOUND_GUIDES: SoundGuide[] = [
     id: 'vowel-pairs',
     icon: '👄',
     title: 'a or ä · o or ö · u or y',
-    text: 'The dots change the sound: **a** (father) vs **ä** (cat), **o** vs **ö** (fur), **u** (book) vs **y** (ee with round lips). A word usually keeps to ONE team: *a o u* or *ä ö y*.',
+    text: 'The dots change the sound: **a** (father) vs **ä** (cat), **o** vs **ö** (fur), **u** (book) vs **y** (few). A word usually keeps to ONE team: *a o u* or *ä ö y*.',
     examples: ['talo', 'tähti', 'koulu', 'pöytä', 'kynä'],
   },
   {
