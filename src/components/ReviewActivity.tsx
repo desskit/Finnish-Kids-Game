@@ -6,8 +6,7 @@ import { reviewItems, reviewItemById } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { useProfile } from '../state/profile';
 import { MAX_BOX, selectReviewItems, grammarSrsId, isGrammarId } from '../game/srs';
-import { buildGrammarReviewQuestion, type GrammarReviewQuestion } from '../game/round';
-import { shuffle } from '../util/shuffle';
+import { buildGrammarReviewQuestion, reviewOptions, type GrammarReviewQuestion } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import FinnishLetters from './FinnishLetters';
@@ -99,14 +98,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
         const target = reviewItemById[id];
         if (!target) return undefined;
         const format = formatForBox(schedules[target.id]?.box ?? 1);
-        // Picture cards: never two the same (a table 🍽️ and "eat" 🍽️ share one).
-        const pictures = new Set([target.emoji]);
-        const others = shuffle(reviewItems.filter((i) => i.id !== target.id && i.emoji)).filter((i) => {
-          if (pictures.has(i.emoji)) return false;
-          pictures.add(i.emoji);
-          return true;
-        });
-        const options = format === 'spelling' ? [] : shuffle([target, ...others.slice(0, optionCount - 1)]);
+        const options = format === 'spelling' ? [] : reviewOptions(target, reviewItems, optionCount);
         return { target, format, srsId: target.id, options };
       })
       .filter((q): q is ReviewQ => Boolean(q));
@@ -349,7 +341,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
   const prompt =
     question.format === 'recognition' ? (
       <>
-        Mikä tämä on? <span className="en">Which one did you hear?</span>
+        Mitä kuulit? <span className="en">What did you hear?</span>
       </>
     ) : question.format === 'production' ? (
       <>

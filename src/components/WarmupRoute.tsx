@@ -79,7 +79,7 @@ export default function WarmupRoute() {
               <p className="checkpoint__text en">
                 {ratio >= 0.8
                   ? `“${subject.step.titleEn}” is getting stronger. On with the course!`
-                  : `“${subject.step.titleEn}” is a tricky one — it will come back to practise again.`}
+                  : `“${subject.step.titleEn}” is a tricky one — it will come back for more practice.`}
               </p>
             </>
           )}

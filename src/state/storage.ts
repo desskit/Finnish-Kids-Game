@@ -8,7 +8,7 @@
 
 import type { ItemSchedule } from '../game/srs';
 import { isThemeId, type ThemeId } from '../theme/theme';
-import type { StatsState } from '../game/stats';
+import { seedFromProgress, type StatsState } from '../game/stats';
 
 export interface ActivityProgress {
   /** How many rounds of this activity were completed. */
@@ -285,6 +285,9 @@ function sanitize(data: ProfilesData): ProfilesData {
       ...rest,
       progress: c.progress ?? {},
       srs: c.srs ?? {},
+      // Stats from what was played before stats existed, seeded once on load:
+      // seeded later, on the next game, they would count that game twice.
+      stats: c.stats ?? seedFromProgress(c.progress),
       // a look we don't know (an older or edited file) falls back to the device's
       ...(isThemeId(theme) ? { theme } : {}),
     };

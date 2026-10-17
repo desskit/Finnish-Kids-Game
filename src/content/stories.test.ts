@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { CAST, stories, storyById, toneOf } from './stories';
-import { BACKDROPS } from '../art/generated/manifest';
+import { CAST, stories, storyById, toneOf, type SceneTone } from './stories';
+import { rivals } from './apart';
+import { BACKDROPS, GLYPH_ART } from '../art/generated/manifest';
+import { glyphKey, splitEmoji } from '../art/glyph';
 import { questionBank } from '../game/storyQuiz';
 
 describe('story content integrity', () => {
@@ -57,5 +59,56 @@ describe('story content integrity', () => {
 
   it('spans more than one tier', () => {
     expect(new Set(stories.map((s) => s.tier)).size).toBeGreaterThan(1);
+  });
+});
+
+// A page's picture has to agree with its words: a child looks at the picture
+// first.
+describe('story pages agree with their pictures', () => {
+  it('pictures everyone who speaks on a page', () => {
+    for (const s of stories) {
+      s.pages.forEach((p, i) => {
+        for (const l of p.lines) {
+          if (l.by) expect(p.scene.fg, `${s.id} page ${i + 1}: ${CAST[l.by].nameEn} speaks`).toContain(CAST[l.by].emoji);
+        }
+      });
+    }
+  });
+
+  it('greets the morning in the morning light, and says "it rains" in the rain', () => {
+    const wants: [RegExp, SceneTone[]][] = [
+      [/huomenta/i, ['morning']],
+      [/hyvää iltaa/i, ['evening']],
+      [/hyvää yötä/i, ['evening', 'night']],
+      [/\bsataa\b/i, ['rain']],
+    ];
+    for (const s of stories) {
+      s.pages.forEach((p, i) => {
+        for (const l of p.lines) {
+          for (const [words, tones] of wants) {
+            if (words.test(l.fi)) expect(tones, `${s.id} page ${i + 1}: "${l.fi}"`).toContain(toneOf(p.scene));
+          }
+        }
+      });
+    }
+  });
+
+  it('gives every answer to a question its own picture, and no wrong one that looks like the right one', () => {
+    const pictures = (emoji: string) =>
+      splitEmoji(emoji).map((piece) => ('glyph' in piece ? (GLYPH_ART[glyphKey(piece.glyph)] ?? piece.glyph) : piece.text.trim()));
+    for (const s of stories) {
+      for (const q of s.questions) {
+        const drawn = q.options.map((o) => pictures(o.emoji));
+        expect(new Set(drawn.map((d) => d.join(' '))).size, `${s.id}: ${q.promptFi}`).toBe(q.options.length);
+        const right = drawn[q.options.findIndex((o) => o.correct)];
+        // The cast are people, not words: Leo and Eero are two different boys.
+        const cast = new Set(Object.values(CAST).map((c) => GLYPH_ART[glyphKey(c.emoji)]));
+        for (const wrong of drawn) {
+          if (wrong !== right && wrong.length === 1 && right.length === 1 && !cast.has(right[0]) && !cast.has(wrong[0])) {
+            expect(rivals(right[0], wrong[0]), `${s.id}: ${q.promptFi} (${right[0]} / ${wrong[0]})`).toBe(false);
+          }
+        }
+      }
+    }
   });
 });

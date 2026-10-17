@@ -1,4 +1,5 @@
-import { apartFrom, rivals } from '../content/apart';
+import { apartFrom, keepApart } from '../content/apart';
+import { NOT_MY_OWN } from '../content/constructions';
 import type {
   CaseId,
   Construction,
@@ -24,7 +25,7 @@ import {
   placeCaseFits,
 } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
-import { personalizeLine } from '../content/dialogues';
+import { personalizeLine, replyKey } from '../content/dialogues';
 import type { Conversation } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
@@ -64,23 +65,6 @@ function pickPreferring<T extends { id: string }>(
   if (fromNear.length >= n) return keepApart(fromNear, others);
   const taken = new Set(fromNear.map((i) => i.id));
   return keepApart([...fromNear, ...sample(others.filter((i) => !taken.has(i.id)), n - fromNear.length)], others);
-}
-
-/**
- * Wrong answers with no two rivals among them (see content/apart.ts): a later
- * rival is swapped for the first unused word from `pool` that clashes with none.
- */
-function keepApart<T extends { id: string }>(picked: T[], pool: readonly T[]): T[] {
-  const out: T[] = [];
-  for (const item of picked) {
-    if (!out.some((o) => rivals(o.id, item.id))) {
-      out.push(item);
-      continue;
-    }
-    const swap = pool.find((p) => !picked.some((q) => q.id === p.id) && !out.some((o) => o.id === p.id || rivals(o.id, p.id)));
-    if (swap) out.push(swap);
-  }
-  return out;
 }
 
 export function buildListenRound(
@@ -249,12 +233,15 @@ export function buildDialogueRound(
   const chosen = sample(allowed, Math.min(questionCount, allowed.length));
   return chosen.map((ex) => {
     // The exchange's own wrong replies, backfilled with other exchanges' correct
-    // replies (real Finnish, just wrong for THIS prompt). Deduped by text.
-    const seen = new Set([ex.reply.fi]);
+    // replies (real Finnish, just wrong for THIS prompt) — never one that fits
+    // it too (`alsoFits`). Deduped as heard, so "Ole hyvä!" and "Ole hyvä."
+    // don't both show.
+    const seen = new Set([ex.reply.fi, ...(ex.alsoFits ?? [])].map(replyKey));
     const pool: DialogueLine[] = [];
     for (const r of [...ex.distractors, ...allowed.filter((e) => e.id !== ex.id).map((e) => e.reply)]) {
-      if (!seen.has(r.fi)) {
-        seen.add(r.fi);
+      const key = replyKey(r.fi);
+      if (!seen.has(key)) {
+        seen.add(key);
         pool.push(r);
       }
     }
@@ -311,8 +298,9 @@ export function buildConversation(
   const poolSeen = new Set<string>();
   for (const t of scene.turns) {
     for (const line of [t.reply, ...t.distractors]) {
-      if (!poolSeen.has(line.fi)) {
-        poolSeen.add(line.fi);
+      const key = replyKey(line.fi);
+      if (!poolSeen.has(key)) {
+        poolSeen.add(key);
         scenePool.push(line);
       }
     }
@@ -320,12 +308,13 @@ export function buildConversation(
 
   const turns = scene.turns.map((t) => {
     // Prefer the turn's own distractors, then backfill from the scene pool —
-    // never the correct reply, deduped by text.
-    const seen = new Set([t.reply.fi]);
+    // never the correct reply, deduped as heard (see replyKey).
+    const seen = new Set([replyKey(t.reply.fi)]);
     const pool: DialogueLine[] = [];
     for (const line of [...t.distractors, ...scenePool]) {
-      if (!seen.has(line.fi)) {
-        seen.add(line.fi);
+      const key = replyKey(line.fi);
+      if (!seen.has(key)) {
+        seen.add(key);
         pool.push(line);
       }
     }
@@ -477,7 +466,8 @@ export function buildYesNoRound(
     const isMatch = i % 2 === 0;
     let asked = shown;
     if (!isMatch) {
-      const others = pool.filter((it) => it.id !== shown.id);
+      // Never ask about a word the picture could also be (a brother is a child).
+      const others = apartFrom(shown.id, pool.filter((it) => it.id !== shown.id));
       // Tricky: the asked word shares the shown item's topic (cat shown, "Onko
       // tämä koira?") — same-neighborhood, so the word must really be parsed.
       const near = tricky ? others.filter((it) => it.topic && it.topic === shown.topic) : [];
@@ -586,19 +576,40 @@ export interface ReviewQuestion {
   options: LexicalItem[];
 }
 
+/** What kind of word a picture card shows: an action, a number, or a thing. */
+const cardKind = (i: LexicalItem) => (i.topic === 'verbs' ? 'action' : i.topic === 'numbers' ? 'number' : 'thing');
+
+/**
+ * Review's picture cards for one word: the word and wrong answers of its own
+ * kind (actions with actions, numbers with numbers, things with things — the
+ * kid in a "swim" picture is a child too), each on a picture of its own, and
+ * never a rival a child couldn't tell apart (content/apart.ts).
+ */
+export function reviewOptions(
+  target: LexicalItem,
+  pool: readonly LexicalItem[],
+  optionCount: number,
+): LexicalItem[] {
+  const others = apartFrom(
+    target.id,
+    pool.filter((i) => i.id !== target.id && i.emoji && i.emoji !== target.emoji && cardKind(i) === cardKind(target)),
+  );
+  const pictures = new Set<string | undefined>();
+  const distinct = shuffle(others).filter((i) => {
+    if (pictures.has(i.emoji)) return false;
+    pictures.add(i.emoji);
+    return true;
+  });
+  const distractors = keepApart(distinct.slice(0, optionCount - 1), distinct);
+  return shuffle([target, ...distractors]);
+}
+
 export function buildReviewRound(
   targets: readonly LexicalItem[],
   pool: readonly LexicalItem[],
   optionCount: number,
 ): ReviewQuestion[] {
-  return targets.map((target) => {
-    const others = apartFrom(
-      target.id,
-      pool.filter((i) => i.id !== target.id),
-    );
-    const distractors = keepApart(sample(others, optionCount - 1), others);
-    return { target, options: shuffle([target, ...distractors]) };
-  });
+  return targets.map((target) => ({ target, options: reviewOptions(target, pool, optionCount) }));
 }
 
 // --- Grammar review (a due construction's spaced-repetition question) ------
@@ -707,8 +718,9 @@ export function buildPossessiveRound(
   /** Share of questions that go to a place + locative case when `withCases`. */
   locativeShare = 0.4,
 ): PossessiveQuestion[] {
-  // Only nouns that actually carry the possessive paradigm can play.
-  const usable = items.filter((i) => possessiveForm(i, '1sg'));
+  // Only nouns that actually carry the possessive paradigm can play, and that a
+  // child would call "my" or "your" (not "my sky" or "your grandchild").
+  const usable = items.filter((i) => possessiveForm(i, '1sg') && !NOT_MY_OWN.includes(i.id));
   // Places that carry the locative possessive forms, for the "in my house"
   // reach. Kept as a dedicated sub-pool so the higher-level locative variant
   // reliably surfaces — places are a small slice of the mixed noun pool, so a
@@ -1059,8 +1071,9 @@ export function buildCountingRound(
       number,
       ...pickPreferring(otherCounts, nearCounts, optionCount - 1),
     ]);
-    // The noun tiles are pictures: never two words on the same picture.
-    const otherNouns = countable.filter((x) => x.id !== noun.id && x.emoji !== noun.emoji);
+    // The noun tiles are pictures: never two words on the same picture, or on
+    // pictures a child couldn't tell apart.
+    const otherNouns = apartFrom(noun.id, countable.filter((x) => x.id !== noun.id && x.emoji !== noun.emoji));
     const nearNouns = tricky ? otherNouns.filter((x) => x.topic && x.topic === noun.topic) : [];
     const nounOptions = shuffle([noun, ...pickPreferring(otherNouns, nearNouns, optionCount - 1)]);
     out.push({ number, noun, numberOptions, nounOptions });

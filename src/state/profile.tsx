@@ -27,7 +27,7 @@ import { recordStoryOnChild, type StoryReadKind } from '../game/storyLog';
 import { bumpStreak, dayKey } from '../game/streak';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
-import { applyStatEvent, applyWarmup, statsOf, type StatEvent, type WarmupRecord } from '../game/stats';
+import { applyStatEvent, applyWarmup, emptyStats, statsOf, type StatEvent, type WarmupRecord } from '../game/stats';
 
 // Multi-child local profiles + per-topic progress + device settings. No
 // accounts, no server — persisted to localStorage via `storage.ts` (the seam a
@@ -238,6 +238,10 @@ export function ProfileProvider({
           createdAt: Date.now(),
           progress: {},
           srs: {},
+          // From the first answer on: stats seeded from progress are only for
+          // players from before stats existed (seeding a new player would count
+          // their first game twice, undated).
+          stats: emptyStats(),
         };
         setData((d) => ({ ...d, children: [...d.children, child], activeId: id }));
         return id;

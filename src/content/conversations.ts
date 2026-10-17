@@ -121,7 +121,7 @@ export const conversations: Conversation[] = [
     titleFi: 'Koulussa',
     titleEn: 'At school',
     icon: '🏫',
-    partnerIcon: '👩‍🏫',
+    partnerIcon: '🧑‍🏫',
     tier: 3,
     turns: [
       {
@@ -825,7 +825,7 @@ export const conversations: Conversation[] = [
     titleFi: 'Kenen tämä on?',
     titleEn: 'Whose is this?',
     icon: '🙋',
-    partnerIcon: '👩‍🏫',
+    partnerIcon: '🧑‍🏫',
     tier: 4,
     turns: [
       {
@@ -1076,7 +1076,7 @@ export const conversations: Conversation[] = [
     // Unit: question-words
     id: 'new-pupil',
     titleFi: 'Uusi oppilas',
-    titleEn: 'The new pupil',
+    titleEn: 'The new student',
     icon: '🧑‍🎓',
     partnerIcon: '👦',
     tier: 4,

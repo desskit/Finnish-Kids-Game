@@ -78,7 +78,7 @@
     },
     {
       "fi": "Harjoittele",
-      "en": "Practise",
+      "en": "Practice",
       "where": [
         "components/CheckpointRoute.tsx"
       ]
@@ -140,7 +140,9 @@
       "fi": "Hyvä yritys!",
       "en": "Good try!",
       "where": [
-        "components/SayIt.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/SayIt.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -614,11 +616,9 @@
     },
     {
       "fi": "Mikä tämä on?",
-      "en": "Which one did you hear?",
+      "en": "",
       "where": [
-        "components/CountAndSay.tsx",
-        "components/ListenAndTap.tsx",
-        "components/ReviewActivity.tsx"
+        "components/CountAndSay.tsx"
       ]
     },
     {
@@ -667,7 +667,9 @@
       "fi": "Mitä kuulit?",
       "en": "What did you hear?",
       "where": [
-        "components/HearIt.tsx"
+        "components/HearIt.tsx",
+        "components/ListenAndTap.tsx",
+        "components/ReviewActivity.tsx"
       ]
     },
     {
@@ -829,7 +831,7 @@
     },
     {
       "fi": "Pelataan tänään!",
-      "en": "Let's practice today",
+      "en": "Let's play today",
       "where": [
         "components/CourseHome.tsx"
       ]

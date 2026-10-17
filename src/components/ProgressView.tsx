@@ -171,7 +171,7 @@ function ChildReport({ c }: { c: Child }) {
         <div>
           <h2 className="greport__name">{c.name}</h2>
           <p className="greport__sub">
-            Last practised {ago(lastPlayed(c))} · difficulty{' '}
+            Last practiced {ago(lastPlayed(c))} · difficulty{' '}
             {c.adaptive === false ? `fixed at level ${c.level}` : 'adapts automatically'}
           </p>
         </div>

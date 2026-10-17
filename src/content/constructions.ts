@@ -11,19 +11,13 @@ import { SURFACE_TAG, CONTAINER_TAG, NOT_COUNTABLE } from "./semantics";
 // ALL constructions, so without gates they'd serve lines like "Minulla on
 // taivas" or "Kissa menee äitiin".
 
-// Words nobody (least of all a child) can own or deny owning ("Minulla on
-// taivas" is nonsense; flower and stone stay — those fit in a pocket).
+// Nature nobody owns: "Minulla on taivas", "minun tuuleni" are nonsense
+// (flower and stone stay — those fit in a pocket).
+const NATURE_NOBODY_OWNS = ["sun", "moon", "star", "cloud", "rain", "snow", "sky", "sea", "lake", "mountain", "wind", "grass"];
+
+// Words nobody (least of all a child) can own or deny owning.
 const UNOWNABLE = [
-  "sun",
-  "moon",
-  "star",
-  "cloud",
-  "rain",
-  "snow",
-  "sky",
-  "sea",
-  "lake",
-  "mountain",
+  ...NATURE_NOBODY_OWNS,
   "school",
   // Course vocabulary: things you go to / listen to, not things you own.
   "class",
@@ -147,7 +141,26 @@ const BODY = ["eye", "ear", "nose", "mouth", "hand", "foot", "head", "tooth", "h
 // "Minulla on ___" / "Minulla ei ole ___": owned things only — not body parts
 // ("Minulla on silmä", I have an eye), substances or odd possessions.
 const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS, ...FIXTURES];
-const HAVENT_EXCLUDE = [...UNOWNABLE, ...BODY, ...FIXTURES, ...NOT_A_CHILDS.filter((id) => id !== "bread" && id !== "cheese")];
+// A child says "Minulla on…" about themselves, and hears "Sinulla on…" about
+// themselves: not "I have a baby" or "You have a child" ("We have a baby" is
+// fine — a family can).
+const MY_HAVE_EXCLUDE = [...HAVE_EXCLUDE, "baby", "child"];
+// What a child calls "my" or "your" — not their son or grandchild, a fire, a
+// forest or a taxi ("Tämä on minun poikani" is a parent talking).
+const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi"];
+/** Nouns a child never calls "my" or "your" (the Kenen? game skips them too). */
+export const NOT_MY_OWN = [...NATURE_NOBODY_OWNS, ...NOT_MINE];
+// A child may really be without a mom, a dad, a grandparent, a family or a
+// friend: the app never has them say so ("Minulla ei ole äitiä", "Minulla ei
+// ole kavereita").
+const NOT_TO_DENY = ["mother", "father", "grandmother", "grandfather", "family", "friend"];
+const HAVENT_EXCLUDE = [
+  ...UNOWNABLE,
+  ...BODY,
+  ...FIXTURES,
+  ...NOT_A_CHILDS.filter((id) => id !== "bread" && id !== "cheese"),
+  ...NOT_TO_DENY,
+];
 
 // Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
 const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
@@ -425,7 +438,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: HAVE_EXCLUDE,
+    excludeIds: MY_HAVE_EXCLUDE,
   },
 
   // --- Possession by other persons (Tier 2, nominative singular) — see
@@ -439,7 +452,7 @@ export const nounConstructions: Construction[] = [
     tier: 2,
     case: "nominative",
     number: "singular",
-    excludeIds: HAVE_EXCLUDE,
+    excludeIds: MY_HAVE_EXCLUDE,
   },
   {
     id: "she-has",
@@ -727,8 +740,8 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "1sg",
-    // "This is my pupil" reads as the eye's pupil.
-    excludeIds: [...UNOWNABLE, "pupil"],
+    // "This is my student" is a teacher's line, not a child's.
+    excludeIds: [...UNOWNABLE, ...NOT_MINE, "pupil"],
   },
   {
     id: "this-is-yours",
@@ -739,7 +752,7 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "2sg",
-    excludeIds: [...UNOWNABLE, "pupil"],
+    excludeIds: [...UNOWNABLE, ...NOT_MINE, "pupil"],
   },
   {
     id: "this-is-theirs",
@@ -761,7 +774,7 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     possessor: "2sg",
-    excludeIds: [...UNOWNABLE, ...NOT_FINDABLE, ...FIXTURES, "pupil"],
+    excludeIds: [...UNOWNABLE, ...NOT_FINDABLE, ...FIXTURES, ...NOT_MINE, "pupil"],
   },
 
   // --- Apex: indefinite quantity → partitive plural (Tier 4) — see
@@ -790,7 +803,7 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     // Things a child has a few of — not islands, forests or grandchildren.
     topics: ["animals", "food", "clothes", "school", "freetime", "family"],
-    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL],
+    excludeIds: [...UNOWNABLE, ...NO_PLURAL, ...BODY, ...NOT_YOURS_IN_PLURAL, ...NOT_TO_DENY],
   },
 
   // --- Plural predicatives (Tier 5) — the "many things" mirror of this-is/

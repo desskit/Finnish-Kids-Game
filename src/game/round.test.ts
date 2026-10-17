@@ -22,7 +22,7 @@ import {
 } from './round';
 import { COMMAND_VERB_IDS, adjectiveFitsNoun } from '../content/semantics';
 import { commandFor, suitsSlot } from '../content/types';
-import { dialogues } from '../content/dialogues';
+import { dialogues, replyKey } from '../content/dialogues';
 import { conversations } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import {
@@ -474,12 +474,25 @@ describe('buildDialogueRound', () => {
       for (const q of round) {
         expect(q.options).toHaveLength(3);
         expect(q.options.filter((o) => o.fi === q.reply.fi)).toHaveLength(1); // answer present once
-        expect(new Set(q.options.map((o) => o.fi)).size).toBe(q.options.length); // distinct
+        expect(new Set(q.options.map((o) => replyKey(o.fi))).size).toBe(q.options.length); // distinct as heard
         // Every option is a real authored reply/distractor (has fi + en).
         q.options.forEach((o) => {
           expect(o.fi).toBeTruthy();
           expect(o.en).toBeTruthy();
         });
+      }
+    }
+  });
+
+  it('never offers a reply that fits the prompt too as a wrong one', () => {
+    // The whole registry, as the Mestari step plays it: every reply can be
+    // backfilled, so "Kiitos!" could meet "Hyvää ruokahalua!".
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildDialogueRound(dialogues, dialogues.length, 4, 5)) {
+        const fits = new Set((dialogues.find((d) => d.id === q.id)!.alsoFits ?? []).map(replyKey));
+        const wrong = q.options.filter((o) => replyKey(o.fi) !== replyKey(q.reply.fi));
+        expect(wrong).toHaveLength(3);
+        for (const o of wrong) expect(fits.has(replyKey(o.fi)), `${q.prompt.fi} → ${o.fi}`).toBe(false);
       }
     }
   });
@@ -533,7 +546,7 @@ describe('buildConversation', () => {
       for (const t of scene.turns) {
         expect(t.options).toHaveLength(3);
         expect(t.options.filter((o) => o.fi === t.reply.fi)).toHaveLength(1); // answer present once
-        expect(new Set(t.options.map((o) => o.fi)).size).toBe(t.options.length); // distinct
+        expect(new Set(t.options.map((o) => replyKey(o.fi))).size).toBe(t.options.length); // distinct as heard
         t.options.forEach((o) => {
           expect(o.fi).toBeTruthy();
           expect(o.en).toBeTruthy();

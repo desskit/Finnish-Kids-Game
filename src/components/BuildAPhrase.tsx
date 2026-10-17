@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
 import { englishSentenceFor, formFor, sentenceFor } from '../content';
-import { glossFor } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -225,9 +224,9 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
         // whole prompt, and (in form mode) the ENDING is the question.
         <p className="prompt">Täydennä lause</p>
       ) : (
-        <p className="prompt">
-          {construction.en} <span className="en">{glossFor(item, construction)}</span>
-        </p>
+        // The sentence the narration reads ("This is my brother."), not the
+        // carrier's template beside the word ("This is a ___." · "brother").
+        <p className="prompt">{englishPrompt}</p>
       )}
 
       <div className="phrase-card">

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { reviewEntries, reviewSections } from './reviewEntries';
+import { placeRank, reviewEntries, reviewSections } from './reviewEntries';
 import { UNIT_STORIES } from '../content/unitStories';
+import { PATH } from './path';
 import {
   applyReviewToLedger,
   entryStatus,
@@ -25,6 +26,33 @@ describe('review entries', () => {
   it('include every unit story and the forms each pattern marks wrong', () => {
     for (const s of UNIT_STORIES) expect(e(`story:${s.id}:page-1`)?.fi).toContain(s.pages[0].lines[0].fi);
     expect(e('slip:i-havent').fi).toMatch(/✓ — marked wrong: .*/);
+  });
+
+  // The Finnish check runs in course order, so a reviewer checks first what
+  // the children meet first.
+  it('each say where a child first meets it', () => {
+    const unitOf = (id: string) => PATH.findIndex((u) => u.id === id) + 1;
+    for (const x of entries) {
+      expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= PATH.length : ['everywhere', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
+    }
+    expect(e('dialogue:how-are-you').where).toBe(unitOf('hello'));
+    expect(e('lesson:sounds:2').where).toBe(unitOf('hello'));
+    expect(e('carrier:this-is').where).toBe(unitOf('people'));
+    expect(e('slip:i-havent').where).toBe(unitOf('not-having'));
+    expect(e('story:what-we-have:page-1').where).toBe(unitOf('having'));
+    expect(e('conversation:whose-thing:1').where).toBe(unitOf('owners'));
+    expect(e('pronoun-frame:help').where).toBe(unitOf('me-you'));
+    expect(e('pattern:compare').where).toBe(unitOf('comparing'));
+    expect(e('ordinal:eleventh').where).toBe(unitOf('birthdays'));
+    // "Syötkö?" is asked from the asking unit on; a verb met only later is never asked
+    expect(e('question:eat').where).toBe(unitOf('asking'));
+    expect(e('question:need').where).toBe('not-yet');
+    // the screens' own words come first, the grown-ups' section last
+    expect(e('letter:a').where).toBe('everywhere');
+    expect(e('ui:Jatka').where).toBe('everywhere');
+    expect(e('ui:Mykistä äänet').where).toBe('grown-ups');
+    expect(placeRank('everywhere')).toBeLessThan(placeRank(1));
+    expect(placeRank(PATH.length)).toBeLessThan(placeRank('not-yet'));
   });
 });
 

@@ -14,7 +14,7 @@ export default [
   { id: 'mouse', title: 'mouse', motion: { frames: 2, fps: 3 }, draw: mouse },
   { id: 'lion', title: 'lion', motion: { frames: 2, fps: 2 }, draw: lion },
   { id: 'monkey', title: 'monkey', motion: { frames: 2, fps: 2 }, draw: monkey },
-  { id: 'wolf', title: 'wolf (under the moon, its tail swishing)', motion: { frames: 4, fps: 4 }, draw: wolf },
+  { id: 'wolf', title: 'wolf (howling at the moon, its tail sweeping)', motion: { frames: 4, fps: 4 }, draw: wolf },
   { id: 'frog', title: 'frog', motion: { frames: 2, fps: 2 }, draw: frog },
   { id: 'horse', title: 'horse (a Finnhorse)', motion: { frames: 4, fps: 4 }, draw: horse },
   { id: 'cow', title: 'cow', motion: { frames: 4, fps: 4 }, draw: cow },

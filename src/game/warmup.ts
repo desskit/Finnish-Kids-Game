@@ -90,9 +90,12 @@ const MAX_SAME_IN_A_ROW = 3;
 
 /**
  * The subject for today's warm-up, or undefined when there's nothing to judge
- * yet (a new player). Skips the step Continue is about to open (practised
- * there anyway), yesterday's subject if that warm-up went well, and a subject
- * that has already been the warm-up three times running.
+ * yet (a new player). Only a subject with enough answers BEFORE today counts:
+ * the warm-up opens a new day with what came before it, so a child who has
+ * just played their first step today isn't sent straight back over it. Skips
+ * the step Continue is about to open (practised there anyway), yesterday's
+ * subject if that warm-up went well, and a subject that has already been the
+ * warm-up three times running.
  */
 export function pickWarmupSubject(child: Child, now: number): RankedSubject | undefined {
   const stats = statsOf(child);
@@ -105,13 +108,17 @@ export function pickWarmupSubject(child: Child, now: number): RankedSubject | un
     last && dayGap(last.day, today) === 1 && last.total > 0 && last.right / last.total >= FIXED_RATIO
       ? last.subject
       : undefined;
+  const judgedBeforeToday = (id: string) => {
+    const s = stats.subjects[id];
+    return !!s && s.n - (s.days[today]?.n ?? 0) >= MIN_ANSWERS_TO_JUDGE;
+  };
   const tail = history.slice(-MAX_SAME_IN_A_ROW);
   const overused =
     tail.length === MAX_SAME_IN_A_ROW && tail.every((w) => w.subject === tail[0].subject)
       ? tail[0].subject
       : undefined;
   return rankSubjects(stats, now).find(
-    (r) => r.step.id !== frontier && r.step.id !== fixed && r.step.id !== overused,
+    (r) => judgedBeforeToday(r.step.id) && r.step.id !== frontier && r.step.id !== fixed && r.step.id !== overused,
   );
 }
 

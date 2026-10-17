@@ -72,7 +72,7 @@ describe('grown-up Stats tab', () => {
       </ProfileProvider>,
     );
     expect(screen.getByText(/questions today · 75% right · 4 min/)).toBeInTheDocument();
-    expect(screen.getByText(/Practised on 3 of the last 14 days/)).toBeInTheDocument();
+    expect(screen.getByText(/Practiced on 3 of the last 14 days/)).toBeInTheDocument();
     expect(document.querySelectorAll('.gchart__day')).toHaveLength(14);
     // The shaky subject leads the weakest list, with a link to practise it.
     const weakest = screen.getByText('Weakest right now').closest('section')!;

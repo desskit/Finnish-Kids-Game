@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { dialogues } from './dialogues';
+import { dialogues, replyKey } from './dialogues';
 
 describe('dialogue content integrity', () => {
   it('ships a non-empty registry with unique ids and valid tiers', () => {
@@ -31,5 +31,22 @@ describe('dialogue content integrity', () => {
       // A distractor must never equal the correct reply (that'd be two answers).
       expect(d.distractors.some((x) => x.fi === d.reply.fi)).toBe(false);
     }
+  });
+
+  it('lists as "also fits" only replies the app already has, never its own wrong ones', () => {
+    const replies = new Set(dialogues.map((d) => replyKey(d.reply.fi)));
+    for (const d of dialogues) {
+      for (const fits of d.alsoFits ?? []) {
+        expect(replies.has(replyKey(fits)), `${d.id}: ${fits}`).toBe(true);
+        expect(fits === d.reply.fi, d.id).toBe(false);
+        expect(d.distractors.some((x) => replyKey(x.fi) === replyKey(fits)), `${d.id}: ${fits}`).toBe(false);
+      }
+    }
+  });
+
+  it('hears a line without its case and punctuation', () => {
+    expect(replyKey('Ole hyvä!')).toBe(replyKey('Ole hyvä.'));
+    expect(replyKey('Hyvää, kiitos!')).toBe('hyvää kiitos');
+    expect(replyKey('Kiitos samoin!')).not.toBe(replyKey('Kiitos!'));
   });
 });

@@ -33,11 +33,20 @@ import { PATH } from './path';
 import { BADGES, BADGE_CATEGORIES } from './badges';
 import { AUDIT_ENTRIES } from './audit';
 
+/**
+ * Where a child first meets an entry, so a reviewer can check the course in
+ * the order the children play it: a unit (its number on the course map), the
+ * screens all around the games ("everywhere": buttons, badges, the alphabet),
+ * only the grown-ups' section, or nowhere yet (written, but no game shows it).
+ */
+export type ReviewPlace = number | 'everywhere' | 'grown-ups' | 'not-yet';
+
 export interface ReviewEntry {
   /** Stable key — what the reviewer's ledger (data/finnish-vetted.json) lists. */
   key: string;
   fi: string;
   en: string;
+  where: ReviewPlace;
 }
 
 export interface ReviewSection {
@@ -48,14 +57,112 @@ export interface ReviewSection {
   rows: ReviewEntry[];
 }
 
+/** Course order: the screens first, then unit by unit, then what no game shows yet, then the grown-ups' own. */
+export function placeRank(place: ReviewPlace): number {
+  if (typeof place === 'number') return place;
+  return { everywhere: 0, 'not-yet': 1000, 'grown-ups': 1001 }[place];
+}
+
+/** "Unit 3", "Everywhere"… */
+export function placeLabel(place: ReviewPlace): string {
+  if (typeof place === 'number') return `Unit ${place}`;
+  return { everywhere: 'Everywhere', 'not-yet': 'Not in the course yet', 'grown-ups': 'Grown-ups only' }[place];
+}
+
+/** The earliest of some places, in course order. */
+const earliest = (places: ReviewPlace[]): ReviewPlace | undefined =>
+  [...places].sort((a, b) => placeRank(a) - placeRank(b))[0];
+
+// The screens only a grown-up opens; a label found only in these is "grown-ups only".
+const GROWN_UP_SCREENS = new Set(
+  ['FinnishReview', 'GrownUp', 'Settings', 'StatsView', 'ProgressView', 'AuditView', 'ParentGate'].map((c) => `components/${c}.tsx`),
+);
+
+// The game each comparison and date pattern is played in.
+const PATTERN_GAME: Record<string, string> = {
+  compare: 'choose:compare',
+  'which-of-two': 'choose:compare',
+  superlative: 'choose:superlative',
+  'which-most': 'choose:superlative',
+  date: 'choose:date',
+  'birthday-date': 'choose:date',
+  age: 'choose:age',
+};
+
+/** Where each thing first turns up in the course: its lessons, steps, games and words. */
+function courseMap() {
+  const firstAt = new Map<string, number>();
+  // PATH is in course order, so the first unit to list a thing is where it's met
+  const meet = (what: string, unit: number) => {
+    if (!firstAt.has(what)) firstAt.set(what, unit);
+  };
+  PATH.forEach((unit, i) => {
+    const n = i + 1;
+    meet(`lesson:${unit.lessonId}`, n);
+    for (const m of unit.midLessons ?? []) meet(`lesson:${m.lessonId}`, n);
+    for (const step of unit.skills) {
+      const c = step.content;
+      // a dialogue, scene or story step lists its ids; the expert band's plays every one
+      if (step.activity === 'dialogue' || step.activity === 'conversation' || step.activity === 'story') {
+        for (const id of c.ids ?? ['*']) meet(`${step.activity}:${id}`, n);
+      }
+      for (const id of c.constructionIds ?? []) meet(`carrier:${id}`, n);
+      if (c.choose) meet(`choose:${c.choose}`, n);
+      for (const kind of [step.activity, ...(step.activities ?? [])]) meet(`activity:${kind}`, n);
+      for (const id of c.wordIds ?? []) meet(`word:${id}`, n);
+    }
+  });
+  const at = (what: string | undefined): ReviewPlace => (what && firstAt.get(what)) || 'not-yet';
+  // "Syötkö?" is asked only of the verbs known by the asking unit
+  const askedFrom = PATH.flatMap((unit, i) =>
+    unit.skills
+      .filter((step) => step.content.choose === 'ask' || step.content.choose === 'answer')
+      .map((step) => ({ unit: i + 1, verbs: new Set(step.content.wordIds ?? []) })),
+  );
+
+  /** Where an entry is first met, from its key (undefined: a kind of key this doesn't know). */
+  return (key: string): ReviewPlace | undefined => {
+    const [kind, id] = key.split(':');
+    switch (kind) {
+      case 'dialogue':
+      case 'conversation':
+      case 'story':
+        return firstAt.get(`${kind}:${id}`) ?? at(`${kind}:*`);
+      case 'carrier':
+      case 'slip':
+        return at(`carrier:${id}`);
+      case 'template':
+        return at('activity:sentence');
+      case 'question':
+        return askedFrom.find((a) => a.verbs.has(id))?.unit ?? 'not-yet';
+      case 'pronoun':
+      case 'pronoun-frame':
+        return at('choose:pronoun');
+      case 'ordinal':
+        return firstAt.get(`word:${id}`) ?? at('choose:date');
+      case 'pattern':
+        return at(PATTERN_GAME[id]);
+      case 'letter':
+        return 'everywhere';
+      case 'lesson':
+        return at(`lesson:${id}`);
+      default:
+        return undefined;
+    }
+  };
+}
+
+type Row = Omit<ReviewEntry, 'where'> & { where?: ReviewPlace };
+
 function collect(): ReviewSection[] {
-  const dialogueRows: ReviewEntry[] = dialogues.map((d) => ({
+  const placeOf = courseMap();
+  const dialogueRows: Row[] = dialogues.map((d) => ({
     key: `dialogue:${d.id}`,
     fi: `${d.prompt.fi} → ${d.reply.fi}`,
     en: `${d.prompt.en} → ${d.reply.en}`,
   }));
 
-  const conversationRows: ReviewEntry[] = conversations.flatMap((c) =>
+  const conversationRows: Row[] = conversations.flatMap((c) =>
     c.turns.map((t, i) => ({
       key: `conversation:${c.id}:${i + 1}`,
       fi: `${t.partner.fi} → ${t.reply.fi}`,
@@ -64,7 +171,7 @@ function collect(): ReviewSection[] {
   );
 
   // A page is its lines in order, each with who says it ("Aino: Hei!").
-  const storyRows: ReviewEntry[] = stories.flatMap((s) => [
+  const storyRows: Row[] = stories.flatMap((s) => [
     ...s.pages.map((p, i) => ({
       key: `story:${s.id}:page-${i + 1}`,
       fi: p.lines.map((l) => (l.by ? `${CAST[l.by].nameFi}: ` : '') + l.fi).join(' / '),
@@ -91,7 +198,7 @@ function collect(): ReviewSection[] {
   const slipSampleFor = (con: Con) =>
     ALL.find((i) => formFor(i, con) && suitsSlot(i, con) && slipForms(i, con).length > 0);
 
-  const carrierRows: ReviewEntry[] = nounConstructions.map((con) => {
+  const carrierRows: Row[] = nounConstructions.map((con) => {
     const item = sampleFor(con);
     const skeleton = [con.before, '___', con.after].filter(Boolean).join(' ') + (con.punct ?? '');
     return { key: `carrier:${con.id}`, fi: `${skeleton}${item ? ` — e.g. ${sentenceFor(item, con)}` : ''}`, en: con.en };
@@ -99,7 +206,7 @@ function collect(): ReviewSection[] {
 
   // The forms each carrier marks WRONG (pick-the-ending, Review, Find the
   // mistake). A native should flag any that would actually be fine here.
-  const slipRows: ReviewEntry[] = nounConstructions.flatMap((con) => {
+  const slipRows: Row[] = nounConstructions.flatMap((con) => {
     const item = slipSampleFor(con);
     const slips = item ? slipForms(item, con) : [];
     if (!item || slips.length === 0) return [];
@@ -112,13 +219,13 @@ function collect(): ReviewSection[] {
     ];
   });
 
-  const questionRows: ReviewEntry[] = verbs.items.map((v) => ({
+  const questionRows: Row[] = verbs.items.map((v) => ({
     key: `question:${v.id}`,
     fi: `${YOU_QUESTION[v.id]}?`,
     en: `Do you ${v.en}?`,
   }));
 
-  const pronounRows: ReviewEntry[] = [
+  const pronounRows: Row[] = [
     ...Object.entries(PRONOUNS).map(([person, f]) => ({
       key: `pronoun:${person}`,
       fi: [f.nominative, f.partitive, f.accusative, f.allative, f.elative, f.adessive, f.genitive].join(', '),
@@ -127,14 +234,14 @@ function collect(): ReviewSection[] {
     ...PRONOUN_FRAMES.map((fr) => ({ key: `pronoun-frame:${fr.id}`, fi: `${fr.before} ___${fr.punct}`, en: fr.en })),
   ];
 
-  const letterRows: ReviewEntry[] = ALPHABET.map((l) => ({
+  const letterRows: Row[] = ALPHABET.map((l) => ({
     key: `letter:${l.ch}`,
     fi: `${l.ch.toUpperCase()}${l.ch} — "${l.nameFi}"`,
     en: l.tip,
   }));
 
   const w = (id: string) => itemById(id)!;
-  const patternRows: ReviewEntry[] = [
+  const patternRows: Row[] = [
     { key: 'pattern:compare', fi: `${comparisonSentence(w('big'), w('elephant'), w('mouse'))} (X on ⟨-mpi⟩ kuin Y)`, en: 'The elephant is bigger than the mouse.' },
     { key: 'pattern:superlative', fi: `${superlativeSentence(w('big'), w('elephant'))} (X on ⟨-in⟩)`, en: 'The elephant is the biggest.' },
     { key: 'pattern:which-of-two', fi: whichOfTwo(w('big'))!, en: 'Which one is bigger?' },
@@ -144,13 +251,13 @@ function collect(): ReviewSection[] {
     { key: 'pattern:age', fi: ageSentence(w('eight'))!, en: "I'm 8 years old." },
   ];
 
-  const ordinalRows: ReviewEntry[] = HIGHER_ORDINALS.map((o) => ({
+  const ordinalRows: Row[] = HIGHER_ORDINALS.map((o) => ({
     key: `ordinal:${o.id}`,
     fi: o.fi,
     en: `${o.en} (${o.value}.)`,
   }));
 
-  const templateRows: ReviewEntry[] = sentenceConstructions.map((t) => ({
+  const templateRows: Row[] = sentenceConstructions.map((t) => ({
     key: `template:${t.id}`,
     fi: t.tokens.map((tok) => ('fixed' in tok && tok.fixed ? tok.fixed : `⟨${'slot' in tok ? tok.slot : '?'}⟩`)).join(' '),
     en: t.en,
@@ -158,7 +265,7 @@ function collect(): ReviewSection[] {
 
   // Finnish quoted in lesson prose (*like this*), one row per card that has any.
   const fiSnippets = (text: string) => [...text.matchAll(/(?<!\*)\*([^*]+)\*(?!\*)/g)].map((m) => m[1]);
-  const lessonRows: ReviewEntry[] = lessons.flatMap((l) =>
+  const lessonRows: Row[] = lessons.flatMap((l) =>
     l.cards.flatMap((c, i) => {
       const prose = ['text' in c ? (c.text ?? '') : '', c.kind === 'check' ? `${c.question}\n${c.explain}` : ''].join('\n');
       const snippets = [...new Set(fiSnippets(prose))];
@@ -170,48 +277,71 @@ function collect(): ReviewSection[] {
   // Distractor lines that never appear as a reply elsewhere.
   const knownFi = new Set([...dialogueRows, ...conversationRows].flatMap((r) => r.fi.split(' → ')));
   const strayLines = new Map<string, string>();
-  for (const d of dialogues) for (const line of d.distractors) if (!knownFi.has(line.fi)) strayLines.set(line.fi, line.en);
+  // …and where each is offered: it's met where its dialogue or scene first is
+  const offeredIn = new Map<string, ReviewPlace[]>();
+  const stray = (fi: string, en: string, from: string) => {
+    if (knownFi.has(fi)) return;
+    strayLines.set(fi, en);
+    offeredIn.set(fi, [...(offeredIn.get(fi) ?? []), placeOf(from) ?? 'not-yet']);
+  };
+  for (const d of dialogues) for (const line of d.distractors) stray(line.fi, line.en, `dialogue:${d.id}`);
   for (const c of conversations) {
-    for (const t of c.turns) for (const line of t.distractors) if (!knownFi.has(line.fi)) strayLines.set(line.fi, line.en);
+    for (const t of c.turns) for (const line of t.distractors) stray(line.fi, line.en, `conversation:${c.id}`);
   }
-  const strayRows: ReviewEntry[] = [...strayLines.entries()]
+  const strayRows: Row[] = [...strayLines.entries()]
     .sort(([a], [b]) => (a < b ? -1 : 1))
-    .map(([fi, en], i) => ({ key: `line:${i + 1}-${fi.toLowerCase().replace(/[^a-zäöå]+/g, '-').slice(0, 24)}`, fi, en }));
+    .map(([fi, en], i) => ({
+      key: `line:${i + 1}-${fi.toLowerCase().replace(/[^a-zäöå]+/g, '-').slice(0, 24)}`,
+      fi,
+      en,
+      where: earliest(offeredIn.get(fi) ?? []),
+    }));
 
   // What the child reads around the content: unit, step and lesson titles, the
   // examples under steps, badge and game names. One entry per distinct Finnish
   // text (every words step is "Uudet sanat"), keyed by the text itself — so a
   // changed title is a new entry to check.
-  const byText = (pairs: [string | undefined, string][]): ReviewEntry[] => {
-    const glosses = new Map<string, Set<string>>();
-    for (const [fi, en] of pairs) {
+  // The screens' own labels: on every screen, or only in the grown-ups' section.
+  const labels = (uiFinnish as { labels: { fi: string; en: string; where: string[] }[] }).labels;
+  const labelPlace = new Map<string, ReviewPlace>(
+    labels.map((l) => [l.fi, l.where.every((file) => GROWN_UP_SCREENS.has(file)) ? 'grown-ups' : 'everywhere']),
+  );
+  const byText = (pairs: [string | undefined, string, ReviewPlace][]): Row[] => {
+    const glosses = new Map<string, { ens: Set<string>; places: ReviewPlace[] }>();
+    for (const [fi, en, place] of pairs) {
       if (!fi) continue;
-      glosses.set(fi, (glosses.get(fi) ?? new Set<string>()).add(en));
+      const g = glosses.get(fi) ?? { ens: new Set<string>(), places: [] };
+      g.ens.add(en);
+      g.places.push(place);
+      glosses.set(fi, g);
     }
     return [...glosses]
       .sort(([a], [b]) => a.localeCompare(b, 'fi'))
-      .map(([fi, ens]) => ({ key: fi, fi, en: [...ens].join(' / ') }));
+      .map(([fi, g]) => {
+        const label = labelPlace.get(fi);
+        return { key: fi, fi, en: [...g.ens].join(' / '), where: earliest(label ? [...g.places, label] : g.places) };
+      });
   };
   const titleRows = byText([
-    ...PATH.flatMap((unit) => [
-      [unit.titleFi, unit.titleEn] as [string, string],
-      ...unit.skills.flatMap((s): [string | undefined, string][] => [
-        [s.titleFi, s.titleEn],
-        [s.exampleFi, `${s.titleEn} — example`],
+    ...PATH.flatMap((unit, i) => [
+      [unit.titleFi, unit.titleEn, i + 1] as [string, string, ReviewPlace],
+      ...unit.skills.flatMap((s): [string | undefined, string, ReviewPlace][] => [
+        [s.titleFi, s.titleEn, i + 1],
+        [s.exampleFi, `${s.titleEn} — example`, i + 1],
       ]),
     ]),
-    ...lessons.map((l): [string, string] => [l.titleFi, l.titleEn]),
-    ...BADGE_CATEGORIES.map((c): [string, string] => [c.titleFi, c.titleEn]),
-    ...BADGES.map((b): [string, string] => [b.titleFi, b.titleEn]),
-    ...AUDIT_ENTRIES.map((a): [string, string] => [a.titleFi, a.titleEn]),
+    ...lessons.map((l): [string, string, ReviewPlace] => [l.titleFi, l.titleEn, placeOf(`lesson:${l.id}`) ?? 'not-yet']),
+    ...BADGE_CATEGORIES.map((c): [string, string, ReviewPlace] => [c.titleFi, c.titleEn, 'everywhere']),
+    ...BADGES.map((b): [string, string, ReviewPlace] => [b.titleFi, b.titleEn, 'everywhere']),
+    ...AUDIT_ENTRIES.map((a): [string, string, ReviewPlace] => [a.titleFi, a.titleEn, 'grown-ups']),
   ]).map((r) => ({ ...r, key: `title:${r.key}` }));
   // The screens' own labels, minus any already listed as a title.
   const titled = new Set(titleRows.map((r) => r.fi));
-  const uiRows: ReviewEntry[] = (uiFinnish as { labels: { fi: string; en: string }[] }).labels
+  const uiRows: Row[] = labels
     .filter((l) => !titled.has(l.fi))
-    .map((l) => ({ key: `ui:${l.fi}`, fi: l.fi, en: l.en || '(no English shown)' }));
+    .map((l) => ({ key: `ui:${l.fi}`, fi: l.fi, en: l.en || '(no English shown)', where: labelPlace.get(l.fi) }));
 
-  return [
+  const sections: (Omit<ReviewSection, 'rows'> & { rows: Row[] })[] = [
     { id: 'dialogues', title: 'Greetings & dialogues', hint: 'A line someone says → the reply.', rows: dialogueRows },
     { id: 'conversations', title: 'Scenes, turn by turn', hint: 'Each turn of a short conversation.', rows: conversationRows },
     { id: 'stories', title: 'Stories', hint: 'Each page (who says what), then the questions (✓ = the right answer) and the true-or-false statements.', rows: storyRows },
@@ -238,6 +368,11 @@ function collect(): ReviewSection[] {
       rows: uiRows,
     },
   ];
+  // Every row says where a child first meets it (review.test.ts checks none is left out).
+  return sections.map((section) => ({
+    ...section,
+    rows: section.rows.map((row) => ({ ...row, where: (row.where ?? placeOf(row.key))! })),
+  }));
 }
 
 let cached: ReviewSection[] | null = null;

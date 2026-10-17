@@ -104,6 +104,7 @@ const SMALL_WORDS: Record<string, string> = {
   // asking
   onko: 'is …? / does … have?',
   entä: 'and …? / what about …?',
+  paljonko: 'how much (Paljonko kello on? = What time is it?)',
   // everyday words that aren't vocabulary items (yet)
   koti: 'home',
   kuuluu: 'is going (Mitä kuuluu? = How are you?)',
@@ -143,6 +144,15 @@ const SMALL_WORDS: Record<string, string> = {
   syömään: 'to eat',
   nukkumaan: 'to sleep (go to bed)',
   pelaamaan: 'to play (a game)',
+};
+
+/**
+ * Spellings two words share, and what each means: "Isä tuli kotiin" is Dad
+ * CAME home, not "fire". A story word that is a form of two words needs an
+ * entry here (unitStories.test.ts checks).
+ */
+export const TWO_WORDS: Record<string, WordMeaning> = {
+  tuli: { base: 'tulla / tuli', en: 'came (tulla) · fire (tuli)' },
 };
 
 const SUBJECTS: Record<PersonId, string> = {
@@ -218,6 +228,7 @@ export function lookupWord(word: string): WordMeaning | undefined {
 
 function meaningOf(w: string): WordMeaning | undefined {
   if (SMALL_WORDS[w]) return { base: w, en: SMALL_WORDS[w] };
+  if (TWO_WORDS[w]) return TWO_WORDS[w];
   // A cast member's name, in any form (Aino, Ainolla, Mirrille…).
   for (const c of Object.values(CAST)) {
     const name = c.nameFi.toLowerCase();

@@ -1,8 +1,8 @@
 // Verb words. Actions are Leo (the "action kid") doing them, each in a short
 // loop; feelings are the round face; a few verbs keep the object their emoji
-// showed (close = a shut padlock). A verb whose emoji is also another word's
-// (eat and table both 🍽️) has `glyph: false`: the emoji stays the other
-// word's picture, and the verb is still drawn wherever the verb is shown.
+// showed (close = a shut padlock). Every word has an emoji of its own (eat is
+// 🍜, not the table's 🍽️), so a screen that draws a word by its emoji draws
+// the word's own picture.
 
 import { CAST, person, runPose } from '../people.mjs';
 import * as verb from '../verbs.mjs';
@@ -25,31 +25,31 @@ export default [
     },
   },
   // Eating, sleeping, playing
-  { id: 'eat', title: 'eat (soup, spoon to mouth)', glyph: false, motion: { frames: 2, fps: 2.5 }, draw: verb.eat },
+  { id: 'eat', title: 'eat (soup, spoon to mouth)', motion: { frames: 2, fps: 2.5 }, draw: verb.eat },
   { id: 'drink', title: 'drink (juice through a straw)', motion: { frames: 3, fps: 1.5 }, draw: verb.drink },
   { id: 'sleep', title: 'sleep (Zzz)', motion: { frames: 3, fps: 1.5 }, draw: verb.sleep },
   { id: 'play', title: 'play (a yo-yo)', motion: { frames: 4, fps: 4 }, draw: verb.play },
   { id: 'hug', title: 'hug (Leo and his teddy)', motion: { frames: 2, fps: 2 }, draw: verb.hug },
-  { id: 'love', title: 'love (a beating heart)', glyph: false, motion: { frames: 2, fps: 2.5 }, draw: verb.love },
+  { id: 'love', title: 'love (a beating heart)', motion: { frames: 2, fps: 2.5 }, draw: verb.love },
   // Moving about
   { id: 'jump', title: 'jump', motion: { frames: 2, fps: 2.5 }, draw: verb.jump },
   { id: 'walk', title: 'walk', motion: { frames: 4, fps: 4 }, draw: verb.walk },
   { id: 'stand', title: 'stand (on a spot)', draw: verb.stand },
-  { id: 'sit', title: 'sit (swinging his legs)', glyph: false, motion: { frames: 2, fps: 2.5 }, draw: verb.sit },
+  { id: 'sit', title: 'sit (swinging his legs)', motion: { frames: 2, fps: 2.5 }, draw: verb.sit },
   { id: 'dance', title: 'dance (Aino)', motion: { frames: 2, fps: 3 }, draw: verb.dance },
   { id: 'swim', title: 'swim', motion: { frames: 2, fps: 2.5 }, draw: verb.swim },
   { id: 'climb', title: 'climb (a climbing wall)', motion: { frames: 2, fps: 2 }, draw: verb.climb },
   { id: 'fly', title: 'fly (a bird flapping)', motion: { frames: 3, fps: 5 }, draw: verb.fly },
-  { id: 'drive', title: 'drive (Leo at the wheel)', glyph: false, motion: { frames: 2, fps: 4 }, draw: verb.drive },
-  { id: 'run-away', title: 'run away (from a bee)', glyph: false, motion: { frames: 4, fps: 8 }, draw: verb.runAway },
+  { id: 'drive', title: 'drive (Leo at the wheel)', motion: { frames: 2, fps: 4 }, draw: verb.drive },
+  { id: 'run-away', title: 'run away (from a bee)', motion: { frames: 4, fps: 8 }, draw: verb.runAway },
   // Using the hands
   { id: 'give', title: 'give (a present to Aino)', motion: { frames: 2, fps: 1.5 }, draw: verb.give },
-  { id: 'help', title: 'help (carrying a box together)', glyph: false, motion: { frames: 2, fps: 2.5 }, draw: verb.help },
+  { id: 'help', title: 'help (carrying a box together)', motion: { frames: 2, fps: 2.5 }, draw: verb.help },
   { id: 'throw', title: 'throw (a frisbee)', motion: { frames: 2, fps: 2 }, draw: verb.toss },
   { id: 'make', title: 'make (hammering)', motion: { frames: 2, fps: 3 }, draw: verb.make },
   { id: 'build', title: 'build (the last brick)', motion: { frames: 2, fps: 1.5 }, draw: verb.build },
   { id: 'fix', title: 'fix (a wrench turning)', motion: { frames: 2, fps: 2 }, draw: verb.fix },
-  { id: 'draw', title: 'draw (a sun at the easel)', glyph: false, motion: { frames: 3, fps: 2 }, draw: verb.draw },
+  { id: 'draw', title: 'draw (a sun at the easel)', motion: { frames: 3, fps: 2 }, draw: verb.draw },
   { id: 'write', title: 'write (at his desk)', motion: { frames: 3, fps: 3 }, draw: verb.write },
   { id: 'paint', title: 'paint (a palette)', motion: { frames: 2, fps: 2 }, draw: verb.paint },
   { id: 'cook', title: 'cook (stirring a pot)', motion: { frames: 3, fps: 3 }, draw: verb.cook },
@@ -63,7 +63,7 @@ export default [
   { id: 'read', title: 'read (a page turning)', motion: { frames: 2, fps: 1 }, draw: verb.read },
   { id: 'search', title: 'look for (a magnifying glass)', motion: { frames: 2, fps: 1.5 }, draw: verb.search },
   // the 🎤 emoji stays free for the record button's own picture
-  { id: 'sing', title: 'sing (into a microphone)', glyph: false, motion: { frames: 2, fps: 2.5 }, draw: verb.sing },
+  { id: 'sing', title: 'sing (into a microphone)', motion: { frames: 2, fps: 2.5 }, draw: verb.sing },
   { id: 'listen', title: 'listen (headphones on)', motion: { frames: 2, fps: 2.5 }, draw: verb.listen },
   { id: 'speak', title: 'speak', motion: { frames: 2, fps: 3 }, draw: verb.speak },
   { id: 'say', title: 'say (a speech bubble)', motion: { frames: 3, fps: 2.5 }, draw: verb.say },
@@ -80,8 +80,8 @@ export default [
   { id: 'choose', title: 'choose (which balloon?)', motion: { frames: 2, fps: 1 }, draw: verb.choose },
   { id: 'teach', title: 'teach (at the blackboard)', motion: { frames: 2, fps: 1.5 }, draw: verb.teach },
   { id: 'learn', title: 'learn (a graduation cap)', motion: { frames: 2, fps: 1.5 }, draw: verb.learn },
-  { id: 'wake-up', title: 'wake up (stretching, the alarm ringing)', glyph: false, motion: { frames: 2, fps: 3 }, draw: verb.wakeUp },
-  { id: 'grow-old', title: 'grow old (girl, woman, grandma)', glyph: false, motion: { frames: 3, fps: 1.2 }, draw: verb.growOld },
+  { id: 'wake-up', title: 'wake up (stretching, the alarm ringing)', motion: { frames: 2, fps: 3 }, draw: verb.wakeUp },
+  { id: 'grow-old', title: 'grow old (girl, woman, grandma)', motion: { frames: 3, fps: 1.2 }, draw: verb.growOld },
   { id: 'warm-up', title: 'warm up (by the campfire)', motion: { frames: 3, fps: 4 }, draw: verb.warmUp },
   { id: 'buy', title: 'buy (a shopping cart)', motion: { frames: 4, fps: 4 }, draw: verb.buy },
 ];

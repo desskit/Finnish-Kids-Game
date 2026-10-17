@@ -27,9 +27,19 @@ const row = (ref: LessonRef) => {
   const marked = x.segments.map((s) => (s.mark ? `[${s.text}]` : s.text)).join('');
   return `${x.emoji ? x.emoji + ' ' : ''}${x.base ? x.base + ' → ' : ''}**${marked}**${x.en ? ' — ' + x.en : ''}`;
 };
-lessons.forEach((l) => {
-  const unit = PATH.findIndex((u) => u.lessonId === l.id);
-  out.push('', `## Unit ${unit + 1}: ${l.titleEn} (${l.titleFi}) ${l.emoji}`);
+// In course order: each unit's opening lesson, then its part-way lessons.
+const unitOf = (id: string) =>
+  PATH.findIndex((u) => u.lessonId === id || (u.midLessons ?? []).some((m) => m.lessonId === id));
+const ordered = [...lessons].sort((a, b) => {
+  const ua = unitOf(a.id);
+  const ub = unitOf(b.id);
+  if (ua !== ub) return (ua < 0 ? Infinity : ua) - (ub < 0 ? Infinity : ub);
+  return (PATH[ua]?.lessonId === a.id ? 0 : 1) - (PATH[ub]?.lessonId === b.id ? 0 : 1);
+});
+ordered.forEach((l) => {
+  const unit = unitOf(l.id);
+  const where = unit < 0 ? 'Not in a unit' : PATH[unit].lessonId === l.id ? `Unit ${unit + 1}` : `Unit ${unit + 1}, part-way`;
+  out.push('', `## ${where}: ${l.titleEn} (${l.titleFi}) ${l.emoji}`);
   l.cards.forEach((c, ci) => {
     out.push('', `### ${ci + 1}. ${c.title ?? (c.kind === 'check' ? 'Try it' : '')} _(${c.kind})_`, '');
     if ('text' in c && c.text) out.push(c.text, '');

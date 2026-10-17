@@ -274,7 +274,10 @@ describe('lessons + notebook', () => {
     seedChild({}, {}, { checkpoints: { 'hello': { passedAt: 1, best: 1, attempts: 1 } } });
     renderAt('/notebook');
     expect(document.querySelectorAll('.notebook__item')).toHaveLength(2);
-    expect(screen.getByText(new RegExp(`${UNITS.length - 2} more lessons unlock`))).toBeInTheDocument();
+    // every lesson of the units still locked, part-way lessons too
+    const toCome = UNITS.slice(2).reduce((n, u) => n + 1 + (u.midLessons?.length ?? 0), 0);
+    expect(toCome).toBeGreaterThan(UNITS.length - 2);
+    expect(screen.getByText(new RegExp(`${toCome} more lessons unlock`))).toBeInTheDocument();
   });
 });
 

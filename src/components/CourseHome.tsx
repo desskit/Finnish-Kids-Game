@@ -105,7 +105,7 @@ export default function CourseHome() {
             </>
           ) : (
             <>
-              Pelataan tänään! <span className="en">Let's practice today</span>
+              Pelataan tänään! <span className="en">Let's play today</span>
             </>
           )}
         </span>

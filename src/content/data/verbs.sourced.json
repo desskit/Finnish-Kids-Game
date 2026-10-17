@@ -90,7 +90,7 @@
       "id": "eat",
       "word": "syödä",
       "en": "eat",
-      "emoji": "🍽️",
+      "emoji": "🍜",
       "inflections": {
         "present_active_positive_1sg": "syön",
         "present_active_positive_2sg": "syöt",
@@ -1035,7 +1035,7 @@
       "id": "sing",
       "word": "laulaa",
       "en": "sing",
-      "emoji": "🎤",
+      "emoji": "🎙️",
       "inflections": {
         "present_active_positive_1sg": "laulan",
         "present_active_positive_2sg": "laulat",
@@ -1350,7 +1350,7 @@
       "id": "love",
       "word": "rakastaa",
       "en": "love",
-      "emoji": "❤️",
+      "emoji": "💞",
       "inflections": {
         "present_active_positive_1sg": "rakastan",
         "present_active_positive_2sg": "rakastat",
@@ -1508,7 +1508,7 @@
       "id": "help",
       "word": "auttaa",
       "en": "help",
-      "emoji": "🤝",
+      "emoji": "🙌",
       "inflections": {
         "present_active_positive_1sg": "autan",
         "present_active_positive_2sg": "autat",
@@ -1587,7 +1587,7 @@
       "id": "sit",
       "word": "istua",
       "en": "sit",
-      "emoji": "🪑",
+      "emoji": "💺",
       "inflections": {
         "present_active_positive_1sg": "istun",
         "present_active_positive_2sg": "istut",
@@ -1903,7 +1903,7 @@
       "id": "draw",
       "word": "piirtää",
       "en": "draw",
-      "emoji": "✏️",
+      "emoji": "🖍️",
       "inflections": {
         "present_active_positive_1sg": "piirrän",
         "present_active_positive_2sg": "piirrät",
@@ -3316,7 +3316,7 @@
       "id": "drive",
       "word": "ajaa",
       "en": "drive",
-      "emoji": "🚗",
+      "emoji": "🚙",
       "inflections": {
         "present_active_positive_1sg": "ajan",
         "present_active_positive_2sg": "ajat",
@@ -4814,7 +4814,7 @@
       "id": "wake-up",
       "word": "herätä",
       "en": "wake up",
-      "emoji": "⏰",
+      "emoji": "⏲️",
       "inflections": {
         "present_active_positive_1sg": "herään",
         "present_active_positive_2sg": "heräät",
@@ -5442,7 +5442,7 @@
       "id": "grow-old",
       "word": "vanheta",
       "en": "grow old",
-      "emoji": "👵",
+      "emoji": "🧓",
       "inflections": {
         "present_active_positive_1sg": "vanhenen",
         "present_active_positive_2sg": "vanhenet",
@@ -5600,7 +5600,7 @@
       "id": "run-away",
       "word": "paeta",
       "en": "run away",
-      "emoji": "💨",
+      "emoji": "😱",
       "inflections": {
         "present_active_positive_1sg": "pakenen",
         "present_active_positive_2sg": "pakenet",

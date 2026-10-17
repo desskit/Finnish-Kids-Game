@@ -220,7 +220,9 @@ describe('StoryTime (the picture book)', () => {
     await advance(1200);
     expect(onSegmentComplete).toHaveBeenCalledWith(0, 4, expect.objectContaining({ stay: true }));
     // A weak read: read it again, this time with the English — and other questions.
-    expect(screen.getByText('Melkein!', { exact: false })).toBeInTheDocument();
+    // Nothing right first time is a good try, not "almost".
+    expect(screen.getByText('Hyvä yritys!', { exact: false })).toBeInTheDocument();
+    expect(screen.queryByText('Melkein!', { exact: false })).not.toBeInTheDocument();
     click(/lue uudestaan/i);
     expect(screen.getByText(STORY.pages[0].lines[0].en)).toBeInTheDocument();
   });

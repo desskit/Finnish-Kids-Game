@@ -28,8 +28,10 @@ const DENY_EN = /\b(die|dead|death|kill|blood|gun|weapon|war|hunt|drunk|alcohol|
 // spoken Finnish a learner can't parse yet ("Mä haluun jäätelön"), slang
 // translations ("Kiva peli!" — "Nice wheels!") and sayings ("Silmä silmästä").
 // So a sentence is shown only once a person has read it: these were picked in
-// a QA pass for meaning, child-suitability and standard written Finnish. New
-// source data adds nothing until someone adds its good sentences here.
+// a QA pass for meaning, child-suitability and standard written Finnish — and
+// for US English, the app's English, so not "in hospital", "sweets", "colour"
+// or a yard called a garden. New source data adds nothing until someone adds
+// its good sentences here.
 const APPROVED = new Set([
   'Sinä näytät vihaiselta.',
   'Tom näyttää vihaiselta.',
@@ -42,7 +44,6 @@ const APPROVED = new Set([
   'Yannilla on pieni reppu.',
   'Mikä painava laukku!',
   'Se on Ginan laukku.',
-  'Hän löysi pihalta pallon.',
   'Mayuko tiputti pallon.',
   'Ilmapallo tyhjentyi äkisti.',
   'Tom täyttää ilmapalloa.',
@@ -85,7 +86,6 @@ const APPROVED = new Set([
   'Sytytin kynttilät.',
   'Sytytä kynttilät.',
   'Pidän myös karkista.',
-  'Ota karkkeja, jos maistuu.',
   'Veljeni tykkää autoista.',
   'Tom tietää kaiken autoista.',
   'Jänikset tykkäävät porkkanoista.',
@@ -119,7 +119,6 @@ const APPROVED = new Set([
   'Kuinka sanotaan ’rotta’ englanniksi?',
   'Puhutteko englantia?',
   'Sain sen isältä.',
-  'Herra Wood tuli kentälle.',
   'Tom ei saa sormustaan pois sormesta.',
   'Hauki on kala.',
   'Tässä järvessä on paljon kalaa.',
@@ -137,7 +136,6 @@ const APPROVED = new Set([
   'Tomin isoäiti näyttää terveeltä.',
   'Lammas syö ruohoa.',
   'Minä pidän vihreästä teestä.',
-  'Pidän vihreästä.',
   'Se ei vanhene koskaan.',
   'Vanhenemme päivä päivältä.',
   'Katkaisin kielen kitarasta.',
@@ -149,7 +147,6 @@ const APPROVED = new Set([
   'Hän auttaa naapuria remontissa.',
   'Onko sinulla paljon läksyjä?',
   'Minä pidän hevosista.',
-  'Hän on sairaalassa.',
   'Olen sairaalassa.',
   'Halasin Tomia.',
   'He halasivat.',

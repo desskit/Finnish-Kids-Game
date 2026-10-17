@@ -51,5 +51,5 @@ export default [
   { id: 'fast', title: 'fast (a race car)', motion: { frames: 2, fps: 6 }, draw: adj.fast },
   { id: 'slow', title: 'slow (a turtle)', motion: { frames: 2, fps: 1 }, draw: adj.slow },
   // the giraffe emoji 🦒 stays the zoo's
-  { id: 'tall', title: 'tall (a giraffe next to Leo)', glyph: false, motion: { frames: 2, fps: 1.2 }, draw: adj.tall },
+  { id: 'tall', title: 'tall (a giraffe next to Leo)', motion: { frames: 2, fps: 1.2 }, draw: adj.tall },
 ];

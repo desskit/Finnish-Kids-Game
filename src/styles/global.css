@@ -1803,6 +1803,11 @@ button:focus-visible,
   outline: none;
 }
 
+/* A word and its punctuation ("sinulle?") never part at a line break. */
+.story-chunk {
+  white-space: nowrap;
+}
+
 .story-tip {
   margin: 8px 0 0;
   padding: 6px 10px;
@@ -4601,6 +4606,13 @@ a.badge-strip {
   justify-content: space-between;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+/* Where in the course, then which section. */
+.rcard__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .rcard__status {
