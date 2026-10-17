@@ -155,11 +155,14 @@ export default function YesNoGame({ items, construction, onExit }: Props) {
         <span className="phrase-emoji" aria-hidden="true">
           <Art item={q.shown} motion="loop" />
         </span>
-        <p className="yesno-question">{q.question}</p>
+        {/* Once answered, the line shows what's spoken: "Ei, se on kynä." */}
+        <p className="yesno-question" aria-live="polite">
+          {locked ? confirmation : q.question}
+        </p>
         <button
           className="speaker speaker--inline"
-          onClick={() => speak(q.question)}
-          aria-label="Hear the question again"
+          onClick={() => speak(locked ? confirmation : q.question)}
+          aria-label={locked ? 'Hear the answer again' : 'Hear the question again'}
         >
           <SpeakerIcon /> <span className="en">Listen</span>
         </button>

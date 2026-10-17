@@ -140,6 +140,12 @@ describe('BuildAPhrase', () => {
     expect(speakEnglish).toHaveBeenCalledWith('This is a cat.');
   });
 
+  it('shows the English sentence it reads, not the carrier template', () => {
+    renderActivity();
+    expect(screen.getByText('This is a cat.', { selector: '.prompt' })).toBeInTheDocument();
+    expect(screen.queryByText(/___/)).not.toBeInTheDocument();
+  });
+
   it('offers a Listen button before an answer that replays English, not Finnish', () => {
     renderActivity();
     const btn = screen.getByRole('button', { name: /hear the prompt again/i });

@@ -25,7 +25,7 @@ import {
   placeCaseFits,
 } from '../content/semantics';
 import type { DialogueExchange, DialogueLine } from '../content/dialogues';
-import { personalizeLine } from '../content/dialogues';
+import { personalizeLine, replyKey } from '../content/dialogues';
 import type { Conversation } from '../content/conversations';
 import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
@@ -233,12 +233,15 @@ export function buildDialogueRound(
   const chosen = sample(allowed, Math.min(questionCount, allowed.length));
   return chosen.map((ex) => {
     // The exchange's own wrong replies, backfilled with other exchanges' correct
-    // replies (real Finnish, just wrong for THIS prompt). Deduped by text.
-    const seen = new Set([ex.reply.fi]);
+    // replies (real Finnish, just wrong for THIS prompt) — never one that fits
+    // it too (`alsoFits`). Deduped as heard, so "Ole hyvä!" and "Ole hyvä."
+    // don't both show.
+    const seen = new Set([ex.reply.fi, ...(ex.alsoFits ?? [])].map(replyKey));
     const pool: DialogueLine[] = [];
     for (const r of [...ex.distractors, ...allowed.filter((e) => e.id !== ex.id).map((e) => e.reply)]) {
-      if (!seen.has(r.fi)) {
-        seen.add(r.fi);
+      const key = replyKey(r.fi);
+      if (!seen.has(key)) {
+        seen.add(key);
         pool.push(r);
       }
     }
@@ -295,8 +298,9 @@ export function buildConversation(
   const poolSeen = new Set<string>();
   for (const t of scene.turns) {
     for (const line of [t.reply, ...t.distractors]) {
-      if (!poolSeen.has(line.fi)) {
-        poolSeen.add(line.fi);
+      const key = replyKey(line.fi);
+      if (!poolSeen.has(key)) {
+        poolSeen.add(key);
         scenePool.push(line);
       }
     }
@@ -304,12 +308,13 @@ export function buildConversation(
 
   const turns = scene.turns.map((t) => {
     // Prefer the turn's own distractors, then backfill from the scene pool —
-    // never the correct reply, deduped by text.
-    const seen = new Set([t.reply.fi]);
+    // never the correct reply, deduped as heard (see replyKey).
+    const seen = new Set([replyKey(t.reply.fi)]);
     const pool: DialogueLine[] = [];
     for (const line of [...t.distractors, ...scenePool]) {
-      if (!seen.has(line.fi)) {
-        seen.add(line.fi);
+      const key = replyKey(line.fi);
+      if (!seen.has(key)) {
+        seen.add(key);
         pool.push(line);
       }
     }

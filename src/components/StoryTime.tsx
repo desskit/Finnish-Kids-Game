@@ -18,12 +18,14 @@ import { drawQuiz, type OrderItem, type QuizItem } from '../game/storyQuiz';
 import {
   READ_QUESTIONS,
   REVISIT_QUESTIONS,
+  STORY_PASS,
   isGoodRead,
   needsSupport,
   nextStoryId,
   storyReadWell,
   storyRecord,
 } from '../game/storyLog';
+import { nearPass } from '../game/score';
 import { speak, stopSpeaking } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { sample, shuffle } from '../util/shuffle';
@@ -547,6 +549,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
   if (phase === 'result') {
     const total = quiz.length;
     const good = isGoodRead(right, total);
+    const close = nearPass(right, total, STORY_PASS);
     return (
       <section className="screen activity storybook">
         {header}
@@ -555,8 +558,8 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             <Art glyph={good ? '🌟' : '💪'} motion="loop" />
           </div>
           <p className="story-result__title">
-            {good ? 'Hienoa!' : 'Melkein!'}{' '}
-            <span className="en">{good ? 'You followed the story!' : 'Almost!'}</span>
+            {good ? 'Hienoa!' : close ? 'Melkein!' : 'Hyvä yritys!'}{' '}
+            <span className="en">{good ? 'You followed the story!' : close ? 'Almost!' : 'Good try!'}</span>
           </p>
           <p className="story-result__score" aria-label={`${right} of ${total} right first time`}>
             {right} / {total}

@@ -16,7 +16,9 @@
 // AUTHORING RULE: every prompt must have exactly ONE pragmatically fitting
 // reply. Distractors are backfilled from OTHER exchanges' replies, so a second
 // valid answer (e.g. a bare "yes"/"no" to a polar question) could slip into the
-// options — hence only wh-questions and ritual adjacency pairs live here.
+// options — hence only wh-questions and ritual adjacency pairs live here. Where
+// another exchange's reply fits a prompt too ("Kiitos!" to "Hyvää yötä!"), list
+// it in the prompt's `alsoFits`, and it's never offered as a wrong one there.
 
 export interface DialogueLine {
   fi: string;
@@ -43,6 +45,18 @@ export function personalizeLine(line: DialogueLine, name: string): DialogueLine 
   };
 }
 
+/**
+ * A line as a child hears it: case and punctuation dropped, so "Ole hyvä!" and
+ * "Ole hyvä." are one reply and never sit side by side as two options.
+ */
+export function replyKey(fi: string): string {
+  return fi
+    .toLocaleLowerCase('fi')
+    .replace(/[.,!?…:;"“”'’()·—–-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export interface DialogueExchange {
   id: string;
   /** The line the child hears/reads (the other person speaks first). */
@@ -51,6 +65,11 @@ export interface DialogueExchange {
   reply: DialogueLine;
   /** Correct Finnish for OTHER moments — wrong as a reply HERE. */
   distractors: DialogueLine[];
+  /**
+   * Other exchanges' replies that fit this prompt too ("Kiitos!" to "Hyvää
+   * ruokahalua!"), so the backfill never offers them as wrong ones here.
+   */
+  alsoFits?: string[];
   tier: number;
 }
 
@@ -63,6 +82,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Näkemiin!', en: 'Goodbye!' },
       { fi: 'Ole hyvä.', en: "You're welcome." },
     ],
+    alsoFits: ['Olen iloinen!'],
     tier: 1,
   },
   {
@@ -73,6 +93,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Anteeksi.', en: 'Sorry.' },
       { fi: 'Hyvää huomenta.', en: 'Good morning.' },
     ],
+    alsoFits: ['Ei se mitään.'],
     tier: 1,
   },
   {
@@ -93,16 +114,19 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Hyvää päivää.', en: 'Good day.' },
       { fi: 'Anteeksi.', en: 'Excuse me.' },
     ],
+    alsoFits: ['Nähdään!'],
     tier: 1,
   },
   {
     id: 'good-night',
     prompt: { fi: 'Hyvää yötä!', en: 'Good night!' },
     reply: { fi: 'Hyvää yötä!', en: 'Good night!' },
+    // Not "Kiitos!": thanking someone for a good-night wish is fine.
     distractors: [
       { fi: 'Hyvää huomenta!', en: 'Good morning!' },
-      { fi: 'Kiitos!', en: 'Thank you!' },
+      { fi: 'Ole hyvä.', en: "You're welcome." },
     ],
+    alsoFits: ['Kiitos!', 'Kiitos samoin!'],
     tier: 1,
   },
   {
@@ -155,6 +179,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Ole hyvä.', en: "You're welcome." },
       { fi: 'Hyvää yötä.', en: 'Good night.' },
     ],
+    alsoFits: ['Kiitos samoin!'],
     tier: 2,
   },
 
@@ -169,6 +194,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Hyvää yötä.', en: 'Good night.' },
       { fi: 'Ole hyvä.', en: "You're welcome." },
     ],
+    alsoFits: ['Menen puistoon.', 'Menemme isoäidille kylään.'],
     tier: 3,
   },
   {
@@ -179,6 +205,8 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Näkemiin!', en: 'Goodbye!' },
       { fi: 'Anteeksi.', en: 'Sorry.' },
     ],
+    // With no picture to point at, any thing named answers "What is this?".
+    alsoFits: ['Tämä on kirja.', 'Se on isän pallo.', 'Pitsa.'],
     tier: 3,
   },
   {
@@ -199,6 +227,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Ei se mitään.', en: "It's okay." },
       { fi: 'Ole hyvä.', en: "You're welcome." },
     ],
+    alsoFits: ['Hei hei!'],
     tier: 3,
   },
   {
@@ -286,6 +315,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Anteeksi.', en: 'Sorry.' },
       { fi: 'Hyvää yötä.', en: 'Good night.' },
     ],
+    alsoFits: ['Kiitos!'],
     tier: 3,
   },
   {
@@ -406,6 +436,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Asun Suomessa.', en: 'I live in Finland.' },
       { fi: 'Kolme euroa.', en: 'Three euros.' },
     ],
+    alsoFits: ['Lauantaina.'],
     tier: 5,
   },
   {
@@ -463,6 +494,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Kaksi.', en: 'Two.' },
       { fi: 'Menen puistoon.', en: "I'm going to the park." },
     ],
+    alsoFits: ['Se on kirja.', 'Se on isän pallo.', 'Pitsa.'],
     tier: 3,
   },
   {
@@ -473,6 +505,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Koulussa.', en: 'At school.' },
       { fi: 'Se on isän pallo.', en: "It's Dad's ball." },
     ],
+    alsoFits: ['Menen puistoon.', 'Menen kotiin.', 'Tulen koulusta.', 'Soitan isoäidille.'],
     tier: 3,
   },
   {
@@ -483,6 +516,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Lauantaina.', en: 'On Saturday.' },
       { fi: 'Tuo on minun opettajani.', en: "That's my teacher." },
     ],
+    alsoFits: ['Se on tuolla, koulun vieressä.'],
     tier: 3,
   },
   {
@@ -494,6 +528,7 @@ export const dialogues: DialogueExchange[] = [
       { fi: 'Olen puistossa.', en: "I'm in the park." },
       { fi: 'Kaksi.', en: 'Two.' },
     ],
+    alsoFits: ['Menen kotiin.', 'Menemme isoäidille kylään.'],
     tier: 3,
   },
   {

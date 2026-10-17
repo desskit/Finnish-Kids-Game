@@ -123,6 +123,9 @@ describe('YesNoGame (Onko tämä…?)', () => {
     fireEvent.click(ei());
     expect(playDing).toHaveBeenCalledWith(true);
     expect(speak).toHaveBeenCalledWith('Ei, se on kissa.');
+    // What's heard is shown, in place of the question.
+    expect(screen.getByText('Ei, se on kissa.')).toBeInTheDocument();
+    expect(screen.queryByText('Onko tämä koira?')).not.toBeInTheDocument();
   });
 
   it('a wrong answer buzzes without advancing or awarding a star', () => {

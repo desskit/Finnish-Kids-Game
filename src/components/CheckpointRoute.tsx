@@ -16,6 +16,7 @@ import {
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
 import { segmentMs } from '../game/stats';
+import { nearPass, passMark } from '../game/score';
 import Art from '../art/Art';
 
 interface PartResult {
@@ -102,6 +103,7 @@ export default function CheckpointRoute() {
     const total = results.reduce((s, r) => s + r.total, 0);
     const ratio = total > 0 ? correct / total : 0;
     const passed = ratio >= passRatio;
+    const close = nearPass(correct, total, passRatio);
     // The weakest part — where to practise before trying again.
     let weakest = 0;
     results.forEach((r, i) => {
@@ -120,8 +122,8 @@ export default function CheckpointRoute() {
             <Art glyph={passed ? '🏆' : '💪'} motion="loop" />
           </div>
           <h1 className="title">
-            {passed ? 'Läpäisty!' : 'Melkein!'}{' '}
-            <span className="en">{passed ? 'Checkpoint passed!' : 'Almost there'}</span>
+            {passed ? 'Läpäisty!' : close ? 'Melkein!' : 'Hyvä yritys!'}{' '}
+            <span className="en">{passed ? 'Checkpoint passed!' : close ? 'Almost there' : 'Good try!'}</span>
           </h1>
           <p className="checkpoint__score" aria-label={`${correct} of ${total} right`}>
             {correct} / {total}
@@ -132,7 +134,7 @@ export default function CheckpointRoute() {
             </p>
           ) : (
             <p className="checkpoint__text en">
-              You need {Math.ceil(passRatio * total)} to pass.
+              You need {passMark(total, passRatio)} to pass.
               {weakStep && <> Practice “{weakStep.titleEn}” a little more, then try again.</>}
             </p>
           )}

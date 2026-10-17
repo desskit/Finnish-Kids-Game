@@ -240,6 +240,12 @@ The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
   that unit's grammar and the words met so far. Distractors are real Finnish
   that is the wrong move — ideally the unit's own contrast ("Olen puistossa"
   for *Mihin menet?*). New scenes are ⚠️-flagged for native vetting.
+- **Only one right reply.** The reply games fill their options with other
+  exchanges' replies. Where one of those fits a prompt too ("Kiitos!" to
+  *Hyvää ruokahalua!*, "Pitsa." to *Mikä tämä on?*), add it to the prompt's
+  `alsoFits` in `dialogues.ts`, and it's never offered there as a wrong one.
+  Options are compared as heard, so "Ole hyvä!" and "Ole hyvä." never both
+  show.
 - **Kertaus (mixed review).** `reviewStep(unitId)` creates a step with
   `content.mix`. The course resolves it to `content.mixOf`: every *mixable*
   step of the EARLIER units (phrase, conjugation, count, match, possessive —

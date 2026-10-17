@@ -140,7 +140,9 @@
       "fi": "Hyvä yritys!",
       "en": "Good try!",
       "where": [
-        "components/SayIt.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/SayIt.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {

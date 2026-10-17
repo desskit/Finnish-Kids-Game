@@ -70,6 +70,11 @@ The rules for the pass:
 | Unit 8 lesson | Type 3 named only -lla, -nna, -sta, then gave *mennä* | Also -llä, -nnä, -stä |
 | Teacher scenes | The teacher shown as the *teach* picture | The teacher's own picture |
 | The wolf | Standing side on, it looked like a grey pony | Sits and howls at the moon |
+| Reply questions (dialogues and scenes) | Two options could differ only by punctuation: "Ole hyvä!" and "Ole hyvä.", or "Hyvää, kiitos!" and "Hyvää, kiitos." (3 of the 5 reply questions in one unit 1 checkpoint) | Options are compared as they're heard, so only one of each shows |
+| Reply questions | A reply that also fits could be marked wrong: "Kiitos!" to "Hyvää ruokahalua!" or "Hyvää yötä!", "Pitsa." to "Mikä tämä on?", "Menen kotiin." to "Mihin sinä menet?" | Each prompt lists the other replies that fit it (`alsoFits`), and they're never offered as wrong answers. *good-night* no longer offers "Kiitos!" as wrong |
+| Build a sentence | The prompt read "This is a ___." beside "brother", while the voice said "This is my brother." | The prompt shows the sentence it reads |
+| Is this…? (yes/no) | The answer was spoken ("Ei, se on kynä.") but never shown | It replaces the question once answered |
+| Checkpoint and story results | "Melkein! · Almost there" even at 0 of 9 | "Almost there" only when a child is one or two short; otherwise "Hyvä yritys! · Good try!" (already in the app) |
 
 ### How it stays fixed
 
@@ -88,6 +93,30 @@ These rules are now tests:
   meets it (`review.test.ts`).
 - **The warm-up:** never sends a child back over what they first played today
   (`warmup.test.ts`).
+- **Reply options:** no two read alike, and no reply that fits is offered as a
+  wrong one, across the whole set the Mestari step plays (`round.test.ts`,
+  `dialogues.test.ts`).
+- **Results:** "Almost there" only near the pass mark (`score.test.ts`).
+
+### Live play
+
+A bot played as a new player at phone width, from the first screen to unit
+4's lesson: every lesson, step, story and checkpoint of units 1–3. It logged
+what was spoken beside what was shown. Then the clock moved forward a day, and
+then another:
+
+- **The next day,** home offered "today's warm-up · a story to remember + 10
+  questions". The warm-up opened with *Hei, Eero!*'s "Muistatko?" and its two
+  questions, then asked about unit 2's new words.
+- **The day after,** it was a plain 10-question warm-up: the story had had its
+  one revisit.
+- No screen threw an error or scrolled sideways.
+- Once a question is answered, the Finnish it speaks is on screen. The
+  listening games are the exception: they say a word for the child to find.
+
+The bugs it found are in the table above: the warm-up on a first day, the
+stats counted twice, the look-alike replies, "Almost there", the Build a
+sentence prompt and the unshown yes/no answer.
 
 ### The Finnish check, in course order
 
@@ -130,6 +159,21 @@ Each question names the entry key, as the Finnish check shows it.
    elsewhere *Kiitos, hyvää.* Which punctuation do you prefer?
 6. **`story:what-we-have:page-4`.** *Nyt meillä on pallo!* is now Aino's line
    rather than the narrator's, so "we" is the children. Is it natural from her?
+7. **Replies that also fit.** These are never offered as wrong answers. Do you
+   agree with each, and is any other reply right for a prompt?
+
+   | Prompt | Its reply | Also fits |
+   | --- | --- | --- |
+   | `dialogue:how-are-you` *Mitä kuuluu?* | *Hyvää, kiitos!* | *Olen iloinen!* |
+   | `dialogue:thanks` *Kiitos!* | *Ole hyvä!* | *Ei se mitään.* |
+   | `dialogue:goodbye` *Näkemiin!* | *Hei hei!* | *Nähdään!* |
+   | `dialogue:good-night` *Hyvää yötä!* | *Hyvää yötä!* | *Kiitos!*, *Kiitos samoin!* |
+   | `dialogue:nice-to-meet` *Hauska tutustua!* | *Niin sinuunkin!* | *Kiitos samoin!* |
+
+   Later units have more (`see-tomorrow`, `enjoy-meal`, `where-going`,
+   `what-is-this`, `when-home` and the question words); they're in
+   `src/content/dialogues.ts`. *good-night* now offers *Ole hyvä.* as a wrong
+   reply, in place of *Kiitos!*.
 
 ### Noted for later parts
 
