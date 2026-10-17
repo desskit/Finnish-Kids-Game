@@ -45,6 +45,15 @@ describe('the course (units × steps)', () => {
     expect(new Set(steps).size).toBe(steps.length);
   });
 
+  it("never gives a unit's story the same title as another of its steps", () => {
+    for (const unit of PATH) {
+      const story = unit.skills.find((s) => s.activity === 'story');
+      if (!story) continue;
+      const others = unit.skills.filter((s) => s !== story).map((s) => s.titleFi);
+      expect(others, unit.id).not.toContain(story.titleFi);
+    }
+  });
+
   it('gives every unit a real lesson (each lesson used once) and at least one step', () => {
     const lessonIds = PATH.map((u) => u.lessonId);
     expect(new Set(lessonIds).size).toBe(lessonIds.length);

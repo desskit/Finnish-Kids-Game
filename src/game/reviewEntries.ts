@@ -288,10 +288,13 @@ function collect(): ReviewSection[] {
   for (const c of conversations) {
     for (const t of c.turns) for (const line of t.distractors) stray(line.fi, line.en, `conversation:${c.id}`);
   }
+  // Keyed by the line itself, like the titles below: a key that counted its
+  // place in the list moved whenever a line came or went, and the reviewer's
+  // ticks were lost with it.
   const strayRows: Row[] = [...strayLines.entries()]
     .sort(([a], [b]) => (a < b ? -1 : 1))
-    .map(([fi, en], i) => ({
-      key: `line:${i + 1}-${fi.toLowerCase().replace(/[^a-zäöå]+/g, '-').slice(0, 24)}`,
+    .map(([fi, en]) => ({
+      key: `line:${fi}`,
       fi,
       en,
       where: earliest(offeredIn.get(fi) ?? []),

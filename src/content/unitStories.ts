@@ -1797,8 +1797,9 @@ export const UNIT_STORIES: Story[] = [
   // 29. Question words — kuka, missä, mistä, milloin.
   story('question-words', {
     id: 'new-boy',
-    titleFi: 'Uusi oppilas',
-    titleEn: 'The new student',
+    // Its own line, not "Uusi oppilas": that's the unit's scene.
+    titleFi: 'Minä olen Leo',
+    titleEn: "I'm Leo",
     icon: '🧒',
     tier: 4,
     pages: [
@@ -1858,8 +1859,9 @@ export const UNIT_STORIES: Story[] = [
   // 30. Me and you — Auta minua! Pidän sinusta.
   story('me-you', {
     id: 'help-the-cat',
-    titleFi: 'Auta minua!',
-    titleEn: 'Help me!',
+    // Its own line, not "Auta minua!": that's the unit's scene.
+    titleFi: 'Mirri, tule alas!',
+    titleEn: 'Mirri, come down!',
     icon: '🌳',
     tier: 4,
     pages: [
@@ -1978,8 +1980,9 @@ export const UNIT_STORIES: Story[] = [
   // 32. Many — kirjat, palloa, kengät, kenkien.
   story('many', {
     id: 'my-things',
-    titleFi: 'Paljon tavaraa',
-    titleEn: 'Lots of things',
+    // Its own line, not "Paljon tavaraa": that's the unit's scene.
+    titleFi: 'Missä ovat kenkäni?',
+    titleEn: 'Where are my shoes?',
     icon: '🧸',
     tier: 4,
     narrator: 'aino',
@@ -1990,7 +1993,8 @@ export const UNIT_STORIES: Story[] = [
         say('aiti', 'Aino, siivoa huone!', 'Aino, clean the room!'),
       ),
       page(
-        sc('bedroom', '📕 📕 📦 ⚽ 🧺'),
+        // The three balls she counts, all of them in the picture.
+        sc('bedroom', '📕 📕 📦 ⚽ ⚽ ⚽ 🧺'),
         tell('Kirjat menevät laatikkoon.', 'The books go into the box.'),
         tell('Minulla on kolme palloa.', 'I have three balls.'),
         tell('Pallot menevät koriin.', 'The balls go into the basket.'),

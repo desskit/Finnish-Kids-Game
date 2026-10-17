@@ -58,7 +58,8 @@ const SOLO_VERBS = ['sing', 'dance', 'sleep', 'read'];
 const DOING_PLACES = ['room', 'house', 'school', 'forest'];
 // Someone/something a child could plausibly HELP ("I help the horse").
 const HELPABLE = ['cat', 'dog', 'bunny', 'bird', 'baby', 'horse'];
-// Things a child draws (all picturable, all with clean genitive forms).
+// Things a child draws (all picturable, all with clean genitive forms). The
+// English draws "a ___" (a new picture), so each starts with a consonant.
 const DRAWABLE = ['flower', 'house', 'car', 'cat', 'dog', 'sun', 'star', 'tree'];
 
 export const sentenceConstructions: SentenceConstruction[] = [
@@ -320,7 +321,7 @@ export const sentenceConstructions: SentenceConstruction[] = [
   // ("piirrän kukan"), swapping over everyday drawable things.
   {
     id: 'i-draw-thing',
-    en: 'I draw the {obj}.',
+    en: 'I draw a {obj}.',
     tier: 8,
     punct: '.',
     tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],

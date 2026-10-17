@@ -1682,7 +1682,7 @@ const UNITS: Chapter[] = [
       {
         id: 'me-you-forms',
         titleFi: 'Minua, minulle',
-        titleEn: 'All of them together',
+        titleEn: 'Me and you — all together',
         icon: '🫶',
         activity: 'choose',
         maxLevel: 3,

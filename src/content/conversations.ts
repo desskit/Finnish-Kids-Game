@@ -1207,7 +1207,8 @@ export const conversations: Conversation[] = [
         reply: { fi: 'Valitsen punaisen!', en: 'I choose the red one!' },
         distractors: [
           { fi: 'Valitsee punaisen.', en: 'He chooses the red one.', why: '*valitsee* = he / she chooses. You → *Valitsen punaisen*.' },
-          { fi: 'Ei kiitos.', en: 'No thanks.' },
+          // Not "Ei kiitos.": turning the pencils down could fit.
+          { fi: 'Valitset punaisen.', en: 'You choose the red one.', why: '*valitset* = YOU choose (**-t**). Answer about yourself: *Valitsen punaisen*.' },
         ],
       },
       {
@@ -1300,7 +1301,9 @@ export const conversations: Conversation[] = [
         partner: { fi: 'Mitä teet koulussa?', en: 'What do you do at school?' },
         reply: { fi: 'Piirrän kynällä.', en: 'I draw with a pencil.' },
         distractors: [
-          { fi: 'Piirrän kynää.', en: 'I\'m drawing a pencil.', why: '*Piirrän kynää* means you\'re drawing a picture OF a pencil! WITH a pencil → *kynällä*.' },
+          // Not "Piirrän kynää." (I'm drawing a pencil): that's a fine answer
+          // to "What do you do at school?". IN a pencil answers nothing.
+          { fi: 'Piirrän kynässä.', en: 'I draw in the pencil.', why: '*kynässä* = IN a pencil. WITH a pencil → *kynällä*.' },
           { fi: 'Anteeksi.', en: 'Sorry.' },
         ],
       },

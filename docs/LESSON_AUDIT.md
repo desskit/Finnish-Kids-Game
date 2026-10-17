@@ -26,7 +26,7 @@ When a letter is written **twice**, you hold that sound longer — a vowel *or* 
 ### 3. Three new letters _(examples)_
 
 - **ä** sounds like the a in "cat"
-- **ö** sounds a bit like the u in "fur"
+- **ö** sounds a bit like the u in "fur", without the r
 - **y** sounds a bit like the "ew" in "few"
 
 - 👩 **äiti** — mom
@@ -1489,7 +1489,7 @@ _Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
 
 ### 5. Try it _(check)_
 
-**Q:** The cat jumps OFF the table. Which is right?
+**Q:** The cat comes OFF the table. Which is right?
 
 - ✔ 🍽️ **Kissa tulee pöydä[ltä].** — The cat comes off the table.
 - ✘ 🍽️ **Kissa tulee pöydä[lle].**

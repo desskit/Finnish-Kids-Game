@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-17T20:19:27.135Z · regenerate with `npm run review:content`
+- Generated: 2026-10-17T20:43:28.097Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 1731 entries.** Flagged: 0.
+- **Approved: 28 of 1733 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -45,10 +45,10 @@ and its **Where** menu shows one unit at a time.
 | Unit 26: When? (*Milloin?*) | 43 | 43 | Scenes, turn by turn 6, Stories 10, Sentence patterns 4, Finnish in the lessons 6, Other lines (wrong replies) 5, Course titles 12 |
 | Unit 27: Big numbers · first, second (*Isot numerot*) | 38 | 38 | Scenes, turn by turn 7, Stories 10, Finnish in the lessons 9, Other lines (wrong replies) 5, Course titles 7 |
 | Unit 28: Months & birthdays (*Syntymäpäivä*) | 67 | 67 | Scenes, turn by turn 4, Stories 10, Sentence patterns 2, Comparisons & dates 3, Ordinals 11th–31st 21, Finnish in the lessons 14, Other lines (wrong replies) 2, Course titles 11 |
-| Unit 29: Question words (*Kysymyssanat*) | 48 | 48 | Greetings & dialogues 10, Scenes, turn by turn 7, Stories 10, Finnish in the lessons 6, Other lines (wrong replies) 7, Course titles 8 |
+| Unit 29: Question words (*Kysymyssanat*) | 49 | 49 | Greetings & dialogues 10, Scenes, turn by turn 7, Stories 10, Finnish in the lessons 6, Other lines (wrong replies) 7, Course titles 9 |
 | Unit 30: Me and you (*Minua, minulle*) | 37 | 37 | Scenes, turn by turn 3, Stories 10, Pronoun forms & frames 13, Finnish in the lessons 4, Other lines (wrong replies) 2, Course titles 5 |
 | Unit 31: Around things (*Edessä, takana*) | 41 | 41 | Scenes, turn by turn 3, Stories 10, Sentence patterns 8, Forms marked wrong 8, Finnish in the lessons 4, Other lines (wrong replies) 1, Course titles 7 |
-| Unit 32: Many (*Monta*) | 48 | 48 | Scenes, turn by turn 3, Stories 10, Sentence patterns 5, Forms marked wrong 5, Finnish in the lessons 12, Other lines (wrong replies) 1, Course titles 12 |
+| Unit 32: Many (*Monta*) | 49 | 49 | Scenes, turn by turn 3, Stories 10, Sentence patterns 5, Forms marked wrong 5, Finnish in the lessons 12, Other lines (wrong replies) 1, Course titles 13 |
 | Unit 33: Verbs, part 3: types 5 & 6 (*Tarvitsen, vanhenen*) | 42 | 42 | Scenes, turn by turn 4, Stories 12, Finnish in the lessons 8, Other lines (wrong replies) 3, Course titles 15 |
 | Unit 34: Yesterday (*Eilen*) | 45 | 45 | Scenes, turn by turn 3, Stories 22, Finnish in the lessons 8, Other lines (wrong replies) 1, Course titles 11 |
 | Unit 35: Real conversations (*Jutellaan*) | 59 | 42 | Scenes, turn by turn 14, Stories 21, Finnish in the lessons 3, Other lines (wrong replies) 2, Course titles 2 |
@@ -848,7 +848,7 @@ _Longer sentence skeletons._
 | ⚠️ | Unit 36 | `template:want-to-eat-food` | ⟨subj⟩ ⟨verb⟩ ⟨verb2⟩ ⟨obj⟩ | I want to eat the {obj}. |
 | ⚠️ | Unit 36 | `template:family-does-somewhere` | ⟨subj⟩ ⟨verb⟩ ⟨loc⟩ | The {subj} {verb}s in the {loc}. |
 | ⚠️ | Unit 36 | `template:i-help-someone` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I help the {obj}. |
-| ⚠️ | Unit 36 | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw the {obj}. |
+| ⚠️ | Unit 36 | `template:i-draw-thing` | ⟨subj⟩ ⟨verb⟩ ⟨obj⟩ | I draw a {obj}. |
 
 ## Comparisons & dates (7)
 
@@ -1260,106 +1260,106 @@ _Lines only offered as wrong answers._
 
 | Status | Where | Key | Finnish | English |
 | --- | --- | --- | --- | --- |
-| ⚠️ | Unit 26 | `line:1-aamussa-syön-puuroa-` | Aamussa syön puuroa. | In the morning I eat porridge. |
-| ⚠️ | Unit 1 | `line:2-anteeksi-` | Anteeksi. | Sorry. |
-| ⚠️ | Unit 15 | `line:3-avaa-` | Avaa. | Open it. |
-| ⚠️ | Unit 33 | `line:4-ei-kiitos-` | Ei kiitos. | No thanks. |
-| ⚠️ | Unit 7 | `line:5-ei-ole-` | Ei ole. | No. |
-| ⚠️ | Unit 4 | `line:6-ei-heillä-on-kissa-` | Ei, heillä on kissa. | No, they have a cat. |
-| ⚠️ | Unit 14 | `line:7-en-halua-nukkua-` | En halua nukkua. | I don't want to sleep. |
-| ⚠️ | Unit 17 | `line:8-en-pidä-matematiikasta-` | En pidä matematiikasta. | I don't like math. |
-| ⚠️ | Unit 16 | `line:9-en-piirrä-` | En piirrä. | I'm not drawing. |
-| ⚠️ | Unit 34 | `line:10-en-syö-` | En syö. | I don't eat. |
-| ⚠️ | Unit 11 | `line:11-et-ui-` | Et ui. | You don't swim. |
-| ⚠️ | Unit 15 | `line:12-haluaa-puuroa-` | Haluaa puuroa. | He wants porridge. |
-| ⚠️ | Unit 14 | `line:13-haluan-nukkua-` | Haluan nukkua. | I want to sleep. |
-| ⚠️ | Unit 9 | `line:14-he-laulavat-` | He laulavat. | They're singing. |
-| ⚠️ | Unit 21 | `line:15-hevonen-on-isompi-` | Hevonen on isompi. | The horse is bigger. |
-| ⚠️ | Unit 29 | `line:16-huomenna-` | Huomenna. | Tomorrow. |
-| ⚠️ | Unit 1 | `line:17-hyvää-huomenta-` | Hyvää huomenta. | Good morning. |
-| ⚠️ | Unit 1 | `line:18-hyvää-päivää-` | Hyvää päivää. | Good day. |
-| ⚠️ | Unit 1 | `line:19-hyvää-yötä-` | Hyvää yötä. | Good night. |
-| ⚠️ | Unit 1 | `line:20-hyvää-kiitos-` | Hyvää, kiitos. | Good, thanks. |
-| ⚠️ | Unit 9 | `line:21-hän-nukun-` | Hän nukun. | He's sleeping. |
-| ⚠️ | Unit 4 | `line:22-hänellä-on-pallo-` | Hänellä on pallo. | He has a ball. |
-| ⚠️ | Unit 15 | `line:23-joo-heräät-` | Joo, heräät. | Yes, you're waking up. |
-| ⚠️ | Unit 18 | `line:24-joo-ostan-omena-` | Joo, ostan omena. | Yes, I'll buy an apple. |
-| ⚠️ | Unit 15 | `line:25-joo-siivoat-` | Joo, siivoat! | Yes, you'll clean it! |
-| ⚠️ | Unit 19 | `line:26-juokse-` | Juokse! | Run! |
-| ⚠️ | Unit 25 | `line:27-kaverilla-` | Kaverilla. | At my friend's. |
-| ⚠️ | Unit 26 | `line:28-kello-on-kolme-` | Kello on kolme. | It's three o'clock. |
-| ⚠️ | Unit 29 | `line:29-kenen-` | Kenen? | Whose? |
-| ⚠️ | Unit 1 | `line:30-kiitos-hyvää-` | Kiitos hyvää. | Fine, thanks. |
-| ⚠️ | Unit 1 | `line:31-kiitos-ruoasta-` | Kiitos ruoasta. | Thanks for the food. |
-| ⚠️ | Unit 27 | `line:32-kiitos-nyt-minulla-on-ky` | Kiitos! Nyt minulla on kymmenen. | Thanks! Now I have ten. |
-| ⚠️ | Unit 3 | `line:33-kiitos-hyvää-` | Kiitos, hyvää. | Fine, thanks. |
-| ⚠️ | Unit 22 | `line:34-kirja-on-pöydällä-` | Kirja on pöydällä. | The book is on the table. |
-| ⚠️ | Unit 23 | `line:35-kissa-on-iloinen-` | Kissa on iloinen. | The cat is happy. |
-| ⚠️ | Unit 31 | `line:36-koira-on-iso-` | Koira on iso. | The dog is big. |
-| ⚠️ | Unit 27 | `line:37-koira-on-kolme-` | Koira on kolme! | The dog is three! |
-| ⚠️ | Unit 3 | `line:38-kolme-kynä-` | Kolme kynä. | Three pencils. |
-| ⚠️ | Unit 20 | `line:39-kolme-punainen-palloa-` | Kolme punainen palloa. | Three red balls. |
-| ⚠️ | Unit 29 | `line:40-kotona-` | Kotona. | At home. |
-| ⚠️ | Unit 29 | `line:41-koulussa-` | Koulussa. | At school. |
-| ⚠️ | Unit 26 | `line:42-lauantailla-uin-` | Lauantailla uin. | On Saturday I swim. |
-| ⚠️ | Unit 11 | `line:43-laulat-` | Laulat. | You sing. |
-| ⚠️ | Unit 21 | `line:44-lehmä-on-nopeampi-kuin-h` | Lehmä on nopeampi kuin hevonen. | The cow is faster than the horse. |
-| ⚠️ | Unit 19 | `line:45-leikin-` | Leikin. | I play. |
-| ⚠️ | Unit 11 | `line:46-leikit-` | Leikit. | You play. |
-| ⚠️ | Unit 14 | `line:47-leikitkö-` | Leikitkö? | Do you play? |
-| ⚠️ | Unit 25 | `line:48-menen-bussiin-` | Menen bussiin. | I'm going into the bus. |
-| ⚠️ | Unit 29 | `line:49-menen-kirjastoon-` | Menen kirjastoon. | I'm going to the library. |
-| ⚠️ | Unit 24 | `line:50-menen-kouluun-` | Menen kouluun. | I'm going to school. |
-| ⚠️ | Unit 6 | `line:51-minulla-ei-ole-hattua-` | Minulla ei ole hattua. | I don't have a hat. |
-| ⚠️ | Unit 20 | `line:52-minulla-ei-ole-sininen-p` | Minulla ei ole sininen palloa. | I don't have a blue ball. |
-| ⚠️ | Unit 27 | `line:53-minulla-on-enemmän-` | Minulla on enemmän! | I have more! |
-| ⚠️ | Unit 37 | `line:54-minulla-on-jano-` | Minulla on jano. | I'm thirsty. |
-| ⚠️ | Unit 4 | `line:55-minulla-on-kitara-` | Minulla on kitara. | I have a guitar. |
-| ⚠️ | Unit 16 | `line:56-minulla-on-kumi-` | Minulla on kumi. | I have an eraser. |
-| ⚠️ | Unit 20 | `line:57-minulla-on-nälkä-` | Minulla on nälkä. | I'm hungry. |
-| ⚠️ | Unit 32 | `line:58-minulla-on-palloja-` | Minulla on palloja. | I have some balls. |
-| ⚠️ | Unit 20 | `line:59-minulla-on-punaista-pall` | Minulla on punaista pallo. | I have a red ball. |
-| ⚠️ | Unit 27 | `line:60-minulla-on-viisitoista-k` | Minulla on viisitoista karkki. | I have fifteen candies. |
-| ⚠️ | Unit 27 | `line:61-minä-olen-kaksi-` | Minä olen kaksi. | I am two. |
-| ⚠️ | Unit 21 | `line:62-norsu-on-pienin-` | Norsu on pienin! | The elephant is the smallest! |
-| ⚠️ | Unit 30 | `line:63-näen-sinut-` | Näen sinut. | I see you. |
-| ⚠️ | Unit 1 | `line:64-nähdään-huomenna-` | Nähdään huomenna. | See you tomorrow. |
-| ⚠️ | Unit 1 | `line:65-näkemiin-` | Näkemiin. | Goodbye. |
-| ⚠️ | Unit 1 | `line:66-ole-hyvä-` | Ole hyvä. | Here you go. |
-| ⚠️ | Unit 16 | `line:67-olen-iloinen-` | Olen iloinen. | I'm happy. |
-| ⚠️ | Unit 28 | `line:68-olen-kahdeksas-` | Olen kahdeksas. | I'm eighth. |
-| ⚠️ | Unit 29 | `line:69-olen-koulussa-` | Olen koulussa. | I'm at school. |
-| ⚠️ | Unit 24 | `line:70-olen-puistossa-` | Olen puistossa. | I'm in the park. |
-| ⚠️ | Unit 18 | `line:71-ostan-maito-` | Ostan maito. | I buy some milk. |
-| ⚠️ | Unit 13 | `line:72-pidän-musiikkia-` | Pidän musiikkia. | I like music. |
-| ⚠️ | Unit 14 | `line:73-pidän-pitsasta-` | Pidän pitsasta. | I like pizza. |
-| ⚠️ | Unit 30 | `line:74-pidän-sinusta-` | Pidän sinusta. | I like you. |
-| ⚠️ | Unit 25 | `line:75-piirrän-kynää-` | Piirrän kynää. | I'm drawing a pencil. |
-| ⚠️ | Unit 29 | `line:76-puistossa-` | Puistossa. | In the park. |
-| ⚠️ | Unit 13 | `line:77-rakastan-suklaasta-` | Rakastan suklaasta. | I love chocolate! |
-| ⚠️ | Unit 35 | `line:78-samoin-` | Samoin! | You too! |
-| ⚠️ | Unit 22 | `line:79-se-on-hidas-` | Se on hidas. | It's slow. |
-| ⚠️ | Unit 6 | `line:80-se-on-hänen-kirjansa-` | Se on hänen kirjansa. | It's his book. |
-| ⚠️ | Unit 37 | `line:81-se-on-koira-` | Se on koira. | It's a dog. |
-| ⚠️ | Unit 7 | `line:82-se-on-minun-reppuni-` | Se on minun reppuni. | It's my backpack. |
-| ⚠️ | Unit 23 | `line:83-se-on-pöydällä-` | Se on pöydällä. | It's on the table. |
-| ⚠️ | Unit 22 | `line:84-se-on-pöytäni-` | Se on pöytäni. | It's my table. |
-| ⚠️ | Unit 22 | `line:85-se-on-reppuni-` | Se on reppuni. | It's my backpack. |
-| ⚠️ | Unit 35 | `line:86-se-on-sininen-` | Se on sininen. | It's blue. |
-| ⚠️ | Unit 22 | `line:87-se-on-sänkyni-` | Se on sänkyni! | It's my bed! |
-| ⚠️ | Unit 9 | `line:88-sinä-luet-` | Sinä luet. | You're reading. |
-| ⚠️ | Unit 26 | `line:89-talvessa-leikin-lumessa-` | Talvessa leikin lumessa. | In winter I play in the snow. |
-| ⚠️ | Unit 33 | `line:90-tarvitset-kynän-` | Tarvitset kynän. | You need a pencil. |
-| ⚠️ | Unit 28 | `line:91-toukokuuta-` | Toukokuuta. | In May. |
-| ⚠️ | Unit 13 | `line:92-tykkään-pitsaa-` | Tykkään pitsaa. | I like pizza. |
-| ⚠️ | Unit 26 | `line:93-tänään-on-maanantai-` | Tänään on maanantai. | Today is Monday. |
-| ⚠️ | Unit 14 | `line:94-uitko-` | Uitko? | Do you swim? |
-| ⚠️ | Unit 33 | `line:95-valitsee-punaisen-` | Valitsee punaisen. | He chooses the red one. |
-| ⚠️ | Unit 3 | `line:96-viisi-kaveri-` | Viisi kaveri. | Five friends. |
-| ⚠️ | Unit 3 | `line:97-yksi-kirjaa-` | Yksi kirjaa. | One book. |
-| ⚠️ | Unit 19 | `line:98-älä-leiki-` | Älä leiki! | Don't play! |
+| ⚠️ | Unit 26 | `line:Aamussa syön puuroa.` | Aamussa syön puuroa. | In the morning I eat porridge. |
+| ⚠️ | Unit 1 | `line:Anteeksi.` | Anteeksi. | Sorry. |
+| ⚠️ | Unit 15 | `line:Avaa.` | Avaa. | Open it. |
+| ⚠️ | Unit 7 | `line:Ei ole.` | Ei ole. | No. |
+| ⚠️ | Unit 4 | `line:Ei, heillä on kissa.` | Ei, heillä on kissa. | No, they have a cat. |
+| ⚠️ | Unit 14 | `line:En halua nukkua.` | En halua nukkua. | I don't want to sleep. |
+| ⚠️ | Unit 17 | `line:En pidä matematiikasta.` | En pidä matematiikasta. | I don't like math. |
+| ⚠️ | Unit 16 | `line:En piirrä.` | En piirrä. | I'm not drawing. |
+| ⚠️ | Unit 34 | `line:En syö.` | En syö. | I don't eat. |
+| ⚠️ | Unit 11 | `line:Et ui.` | Et ui. | You don't swim. |
+| ⚠️ | Unit 15 | `line:Haluaa puuroa.` | Haluaa puuroa. | He wants porridge. |
+| ⚠️ | Unit 14 | `line:Haluan nukkua.` | Haluan nukkua. | I want to sleep. |
+| ⚠️ | Unit 9 | `line:He laulavat.` | He laulavat. | They're singing. |
+| ⚠️ | Unit 21 | `line:Hevonen on isompi.` | Hevonen on isompi. | The horse is bigger. |
+| ⚠️ | Unit 29 | `line:Huomenna.` | Huomenna. | Tomorrow. |
+| ⚠️ | Unit 1 | `line:Hyvää huomenta.` | Hyvää huomenta. | Good morning. |
+| ⚠️ | Unit 1 | `line:Hyvää päivää.` | Hyvää päivää. | Good day. |
+| ⚠️ | Unit 1 | `line:Hyvää yötä.` | Hyvää yötä. | Good night. |
+| ⚠️ | Unit 1 | `line:Hyvää, kiitos.` | Hyvää, kiitos. | Good, thanks. |
+| ⚠️ | Unit 9 | `line:Hän nukun.` | Hän nukun. | He's sleeping. |
+| ⚠️ | Unit 4 | `line:Hänellä on pallo.` | Hänellä on pallo. | He has a ball. |
+| ⚠️ | Unit 15 | `line:Joo, heräät.` | Joo, heräät. | Yes, you're waking up. |
+| ⚠️ | Unit 18 | `line:Joo, ostan omena.` | Joo, ostan omena. | Yes, I'll buy an apple. |
+| ⚠️ | Unit 15 | `line:Joo, siivoat!` | Joo, siivoat! | Yes, you'll clean it! |
+| ⚠️ | Unit 19 | `line:Juokse!` | Juokse! | Run! |
+| ⚠️ | Unit 25 | `line:Kaverilla.` | Kaverilla. | At my friend's. |
+| ⚠️ | Unit 26 | `line:Kello on kolme.` | Kello on kolme. | It's three o'clock. |
+| ⚠️ | Unit 29 | `line:Kenen?` | Kenen? | Whose? |
+| ⚠️ | Unit 1 | `line:Kiitos hyvää.` | Kiitos hyvää. | Fine, thanks. |
+| ⚠️ | Unit 1 | `line:Kiitos ruoasta.` | Kiitos ruoasta. | Thanks for the food. |
+| ⚠️ | Unit 27 | `line:Kiitos! Nyt minulla on kymmenen.` | Kiitos! Nyt minulla on kymmenen. | Thanks! Now I have ten. |
+| ⚠️ | Unit 3 | `line:Kiitos, hyvää.` | Kiitos, hyvää. | Fine, thanks. |
+| ⚠️ | Unit 22 | `line:Kirja on pöydällä.` | Kirja on pöydällä. | The book is on the table. |
+| ⚠️ | Unit 23 | `line:Kissa on iloinen.` | Kissa on iloinen. | The cat is happy. |
+| ⚠️ | Unit 31 | `line:Koira on iso.` | Koira on iso. | The dog is big. |
+| ⚠️ | Unit 27 | `line:Koira on kolme!` | Koira on kolme! | The dog is three! |
+| ⚠️ | Unit 3 | `line:Kolme kynä.` | Kolme kynä. | Three pencils. |
+| ⚠️ | Unit 20 | `line:Kolme punainen palloa.` | Kolme punainen palloa. | Three red balls. |
+| ⚠️ | Unit 29 | `line:Kotona.` | Kotona. | At home. |
+| ⚠️ | Unit 29 | `line:Koulussa.` | Koulussa. | At school. |
+| ⚠️ | Unit 26 | `line:Lauantailla uin.` | Lauantailla uin. | On Saturday I swim. |
+| ⚠️ | Unit 11 | `line:Laulat.` | Laulat. | You sing. |
+| ⚠️ | Unit 21 | `line:Lehmä on nopeampi kuin hevonen.` | Lehmä on nopeampi kuin hevonen. | The cow is faster than the horse. |
+| ⚠️ | Unit 19 | `line:Leikin.` | Leikin. | I play. |
+| ⚠️ | Unit 11 | `line:Leikit.` | Leikit. | You play. |
+| ⚠️ | Unit 14 | `line:Leikitkö?` | Leikitkö? | Do you play? |
+| ⚠️ | Unit 25 | `line:Menen bussiin.` | Menen bussiin. | I'm going into the bus. |
+| ⚠️ | Unit 29 | `line:Menen kirjastoon.` | Menen kirjastoon. | I'm going to the library. |
+| ⚠️ | Unit 24 | `line:Menen kouluun.` | Menen kouluun. | I'm going to school. |
+| ⚠️ | Unit 6 | `line:Minulla ei ole hattua.` | Minulla ei ole hattua. | I don't have a hat. |
+| ⚠️ | Unit 20 | `line:Minulla ei ole sininen palloa.` | Minulla ei ole sininen palloa. | I don't have a blue ball. |
+| ⚠️ | Unit 27 | `line:Minulla on enemmän!` | Minulla on enemmän! | I have more! |
+| ⚠️ | Unit 37 | `line:Minulla on jano.` | Minulla on jano. | I'm thirsty. |
+| ⚠️ | Unit 4 | `line:Minulla on kitara.` | Minulla on kitara. | I have a guitar. |
+| ⚠️ | Unit 16 | `line:Minulla on kumi.` | Minulla on kumi. | I have an eraser. |
+| ⚠️ | Unit 20 | `line:Minulla on nälkä.` | Minulla on nälkä. | I'm hungry. |
+| ⚠️ | Unit 32 | `line:Minulla on palloja.` | Minulla on palloja. | I have some balls. |
+| ⚠️ | Unit 20 | `line:Minulla on punaista pallo.` | Minulla on punaista pallo. | I have a red ball. |
+| ⚠️ | Unit 27 | `line:Minulla on viisitoista karkki.` | Minulla on viisitoista karkki. | I have fifteen candies. |
+| ⚠️ | Unit 27 | `line:Minä olen kaksi.` | Minä olen kaksi. | I am two. |
+| ⚠️ | Unit 21 | `line:Norsu on pienin!` | Norsu on pienin! | The elephant is the smallest! |
+| ⚠️ | Unit 30 | `line:Näen sinut.` | Näen sinut. | I see you. |
+| ⚠️ | Unit 1 | `line:Nähdään huomenna.` | Nähdään huomenna. | See you tomorrow. |
+| ⚠️ | Unit 1 | `line:Näkemiin.` | Näkemiin. | Goodbye. |
+| ⚠️ | Unit 1 | `line:Ole hyvä.` | Ole hyvä. | Here you go. |
+| ⚠️ | Unit 16 | `line:Olen iloinen.` | Olen iloinen. | I'm happy. |
+| ⚠️ | Unit 28 | `line:Olen kahdeksas.` | Olen kahdeksas. | I'm eighth. |
+| ⚠️ | Unit 29 | `line:Olen koulussa.` | Olen koulussa. | I'm at school. |
+| ⚠️ | Unit 24 | `line:Olen puistossa.` | Olen puistossa. | I'm in the park. |
+| ⚠️ | Unit 18 | `line:Ostan maito.` | Ostan maito. | I buy some milk. |
+| ⚠️ | Unit 13 | `line:Pidän musiikkia.` | Pidän musiikkia. | I like music. |
+| ⚠️ | Unit 14 | `line:Pidän pitsasta.` | Pidän pitsasta. | I like pizza. |
+| ⚠️ | Unit 30 | `line:Pidän sinusta.` | Pidän sinusta. | I like you. |
+| ⚠️ | Unit 25 | `line:Piirrän kynässä.` | Piirrän kynässä. | I draw in the pencil. |
+| ⚠️ | Unit 29 | `line:Puistossa.` | Puistossa. | In the park. |
+| ⚠️ | Unit 13 | `line:Rakastan suklaasta.` | Rakastan suklaasta. | I love chocolate! |
+| ⚠️ | Unit 35 | `line:Samoin!` | Samoin! | You too! |
+| ⚠️ | Unit 22 | `line:Se on hidas.` | Se on hidas. | It's slow. |
+| ⚠️ | Unit 6 | `line:Se on hänen kirjansa.` | Se on hänen kirjansa. | It's his book. |
+| ⚠️ | Unit 37 | `line:Se on koira.` | Se on koira. | It's a dog. |
+| ⚠️ | Unit 7 | `line:Se on minun reppuni.` | Se on minun reppuni. | It's my backpack. |
+| ⚠️ | Unit 23 | `line:Se on pöydällä.` | Se on pöydällä. | It's on the table. |
+| ⚠️ | Unit 22 | `line:Se on pöytäni.` | Se on pöytäni. | It's my table. |
+| ⚠️ | Unit 22 | `line:Se on reppuni.` | Se on reppuni. | It's my backpack. |
+| ⚠️ | Unit 35 | `line:Se on sininen.` | Se on sininen. | It's blue. |
+| ⚠️ | Unit 22 | `line:Se on sänkyni!` | Se on sänkyni! | It's my bed! |
+| ⚠️ | Unit 9 | `line:Sinä luet.` | Sinä luet. | You're reading. |
+| ⚠️ | Unit 26 | `line:Talvessa leikin lumessa.` | Talvessa leikin lumessa. | In winter I play in the snow. |
+| ⚠️ | Unit 33 | `line:Tarvitset kynän.` | Tarvitset kynän. | You need a pencil. |
+| ⚠️ | Unit 28 | `line:Toukokuuta.` | Toukokuuta. | In May. |
+| ⚠️ | Unit 13 | `line:Tykkään pitsaa.` | Tykkään pitsaa. | I like pizza. |
+| ⚠️ | Unit 26 | `line:Tänään on maanantai.` | Tänään on maanantai. | Today is Monday. |
+| ⚠️ | Unit 14 | `line:Uitko?` | Uitko? | Do you swim? |
+| ⚠️ | Unit 33 | `line:Valitsee punaisen.` | Valitsee punaisen. | He chooses the red one. |
+| ⚠️ | Unit 33 | `line:Valitset punaisen.` | Valitset punaisen. | You choose the red one. |
+| ⚠️ | Unit 3 | `line:Viisi kaveri.` | Viisi kaveri. | Five friends. |
+| ⚠️ | Unit 3 | `line:Yksi kirjaa.` | Yksi kirjaa. | One book. |
+| ⚠️ | Unit 19 | `line:Älä leiki!` | Älä leiki! | Don't play! |
 
-## Course titles (377)
+## Course titles (379)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -1370,7 +1370,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Alku` | Alku | Getting started |
 | ⚠️ | Unit 35 | `title:Arkipuhetta` | Arkipuhetta | Everyday talk |
 | ⚠️ | Unit 30 | `title:Auta minua, näen sinut` | Auta minua, näen sinut | Help me, I see you |
-| ⚠️ | Unit 30 | `title:Auta minua!` | Auta minua! | All of them together — example / Help me! / Story: Help me! |
+| ⚠️ | Unit 30 | `title:Auta minua!` | Auta minua! | Me and you — all together — example / Help me! / Story: Help me! |
 | ⚠️ | Unit 30 | `title:Auta minua! · Näen sinut.` | Auta minua! · Näen sinut. | Help me, I see you — example |
 | ⚠️ | Unit 15 | `title:Avaan, haluan` | Avaan, haluan | Verbs, part 2: type 4 |
 | ⚠️ | Unit 15 | `title:Avaan. · Hän ei avaa.` | Avaan. · Hän ei avaa. | Who, and yes or no? — example |
@@ -1533,7 +1533,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 26 | `title:Milloin?` | Milloin? | When? / Days and times |
 | ⚠️ | Unit 1 | `title:Miltä suomi kuulostaa?` | Miltä suomi kuulostaa? | How Finnish sounds |
 | ⚠️ | Unit 12 | `title:Miltä tuntuu?` | Miltä tuntuu? | Feelings / How do you feel? / Saying how you feel |
-| ⚠️ | Everywhere | `title:Minua, minulle` | Minua, minulle | Me and you / All of them together |
+| ⚠️ | Everywhere | `title:Minua, minulle` | Minua, minulle | Me and you / Me and you — all together |
 | ⚠️ | Unit 4 | `title:Minulla · sinulla · hänellä` | Minulla · sinulla · hänellä | Who has it? — example |
 | ⚠️ | Unit 5 | `title:Minulla ei ole` | Minulla ei ole | Saying you don't have it |
 | ⚠️ | Unit 5 | `title:Minulla ei ole hattua.` | Minulla ei ole hattua. | I don't have… — example |
@@ -1558,6 +1558,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 8 | `title:minä laulan, hän laulaa` | minä laulan, hän laulaa | Type 1: laulaa — example |
 | ⚠️ | Unit 9 | `title:minä nukun, hän nukkuu` | minä nukun, hän nukkuu | k, p, t change — example |
 | ⚠️ | Unit 15 | `title:minä nukun, minä hyppään` | minä nukun, minä hyppään | Weaker or stronger? — example |
+| ⚠️ | Unit 29 | `title:Minä olen Leo` | Minä olen Leo | Story: I'm Leo |
 | ⚠️ | Unit 33 | `title:minä pakenen, hän pakenee` | minä pakenen, hän pakenee | Type 6: a k appears — example |
 | ⚠️ | Unit 8 | `title:minä syön, hän syö` | minä syön, hän syö | Type 2: syödä — example |
 | ⚠️ | Unit 9 | `title:minä syön, sinä nukut` | minä syön, sinä nukut | All three types — example |
@@ -1573,6 +1574,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 22 | `title:Missä Mirri on?` | Missä Mirri on? | Story: Where's Mirri? |
 | ⚠️ | Unit 22 | `title:Missä on sinun reppusi?` | Missä on sinun reppusi? | Where is…? — example |
 | ⚠️ | Unit 22 | `title:Missä on…?` | Missä on…? | Where is…? |
+| ⚠️ | Unit 32 | `title:Missä ovat kenkäni?` | Missä ovat kenkäni? | Story: Where are my shoes? |
 | ⚠️ | Unit 31 | `title:Missä pallo on?` | Missä pallo on? | Story: Where's the ball? |
 | ⚠️ | Unit 22 | `title:Missä se on?` | Missä se on? | Where is it? |
 | ⚠️ | Unit 22 | `title:Missä tavarasi ovat?` | Missä tavarasi ovat? | Where are your things? |
@@ -1638,7 +1640,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 18 | `title:Ostan…` | Ostan… | One, or some? |
 | ⚠️ | Unit 18 | `title:Ostoslista` | Ostoslista | The shopping list |
 | ⚠️ | Unit 33 | `title:Pakenen` | Pakenen | Type 6: a k appears |
-| ⚠️ | Unit 32 | `title:Paljon tavaraa` | Paljon tavaraa | Lots of things / Story: Lots of things |
+| ⚠️ | Unit 32 | `title:Paljon tavaraa` | Paljon tavaraa | Lots of things |
 | ⚠️ | Unit 26 | `title:Paljonko kello on?` | Paljonko kello on? | What time is it? |
 | ⚠️ | Unit 32 | `title:Palloja` | Palloja | Some things, any things |
 | ⚠️ | Unit 19 | `title:Pelataan!` | Pelataan! | Story: Let's play! |
@@ -1725,7 +1727,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 26 | `title:Tänään on…` | Tänään on… | Today is… |
 | ⚠️ | Unit 2 | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Clothes / Action words / Verbs that change / Feelings / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Getting around / Shopping list / Colors & describing words / Comparing words / Animals / Places / Town & home / Rides and tools / Days & times / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Type 5 & 6 verbs / Type 6 verbs that change / More action words |
 | ⚠️ | Unit 3 | `title:Uusi kaveri` | Uusi kaveri | A new friend |
-| ⚠️ | Unit 29 | `title:Uusi oppilas` | Uusi oppilas | The new student / Story: The new student |
+| ⚠️ | Unit 29 | `title:Uusi oppilas` | Uusi oppilas | The new student |
 | ⚠️ | Unit 15 | `title:Vahvempi kirjain` | Vahvempi kirjain | Type 4: the sound gets STRONGER |
 | ⚠️ | Everywhere | `title:Valitse pääte` | Valitse pääte | Pick the ending |
 | ⚠️ | Everywhere | `title:Vauhdissa` | Vauhdissa | On a roll |

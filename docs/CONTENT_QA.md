@@ -216,21 +216,87 @@ describing, comparing and "where". Also:
 4. **`slip:i-buy-some`.** For "I buy some bread", *Ostan leivän* (a whole
    loaf) is marked wrong. Is that right for the meaning?
 
-## Part 3: units 23–37 (in progress)
+## Part 3: units 23–37, the expert band, and the speaking game
 
-### Fixed so far
+### What was checked
+
+The same checklist as parts 1 and 2, for going and coming, around town, by
+bus, when, big numbers, months and birthdays, question words, me and you,
+around things, many, verbs part 3, yesterday, real conversations, sentences
+and Mestari. Also:
+
+- **The stories:** all fifteen in these units (four are the core stories in
+  `stories.ts`), and the fifth core story, *little-cat*, on the bookshelf.
+  This covered each plot, every line, question and true-or-false statement,
+  and who and what is in each picture.
+- **Hand-written Finnish:**
+  - the ordinals 11th–31st and the date patterns;
+  - the pronoun table and its sentence frames;
+  - the sentence templates (`docs/SENTENCE_AUDIT.md`, part 2).
+- **Choose the form:** every question these units ask: three or third, dates,
+  ages and me and you.
+- **A game-by-game sweep** at phone width of the games first met here:
+  building sentences, find the mistake, real sentences (Tatoeba), dates, ages,
+  ordinals and me and you, with what's spoken beside what's shown.
+- **The real sentences:** all 168 approved Tatoeba sentences, and their
+  English.
+- **The speaking game,** after you saw it move on too fast and struggle in a
+  loud room.
+
+### Fixed
 
 | Where | Was | Now |
 | --- | --- | --- |
 | *Sano se* (speaking), every unit | Each try's result flashed for a second, then the game moved on by itself, so nobody saw which sounds were right. In a noisy room, silence or a recognizer error counted as a wrong try, and two ended the word | The result stays until **Jatka · Continue**, with a key to the colors (right, length, not yet). Silence and recognizer errors don't count as a try. A second tap on the mic says "done", and listening stops by itself after 8 seconds. After a miss, **Sanoin sen · I said it** lets a grown-up vouch for the try (a star, but no review credit). The app stops its own voice before listening, and stray words around the answer are ignored |
 | *Sano se*, the length tip | "Hold the doubled letter" also showed when a child held a single letter too long | That case says "Keep the single letter short" |
 | Alphabet corner and lesson, **ö** | Like the u in "fur" (which, in US English, comes with an r) | Like the u in "fur" without the r |
+| Unit 23 lesson, *Mistä?* | "The cat jumps OFF the table", for *Kissa tulee pöydältä* | "The cat comes OFF the table" |
 | Unit 24 story, *park-and-library* | Page 3 moved from the library to a café partway through, all drawn as the library | One place a page: the park, the library, the café (a new backdrop) and home. The lines are the same, regrouped |
+| Unit 25 scene, *how-do-you-go* | The wrong reply *Piirrän kynää.* ("I'm drawing a pencil") is a fine answer to *Mitä teet koulussa?* | *Piirrän kynässä.* (in the pencil), which answers nothing |
+| Unit 33 scene, *drawing-time* | The wrong reply *Ei kiitos.* could be a polite answer to "red or blue?" | *Valitset punaisen.* (YOU choose), the same kind of slip as the scene's first question |
+| Units 29, 30, 32 | The story had the same title as the unit's scene: *Uusi oppilas*, *Auta minua!*, *Paljon tavaraa* | Each story is named with one of its own lines: *Minä olen Leo*, *Mirri, tule alas!*, *Missä ovat kenkäni?* A test keeps a unit's titles apart |
+| Unit 30, a step | *Minua, minulle* was "Me and you" for the unit and "All of them together" for a step | "Me and you — all together" |
+| Unit 32 story, *my-things* | Aino has three balls (and the question asks how many), but the picture showed one | Three balls |
+| *viedä* | "carry" only, while the story says *Aino vie kissan kotiin* = "Aino takes the cat home" | Also "take (somewhere)", on the word card and in the story glossary |
+| Unit 36, sentences | "I draw the flower" | "I draw a flower" (a new picture) |
+| Real sentences (Mestari) | Five that broke the rules: *Hänestä tuli tähti* (a film star, not a star in the sky); a saying about a frog in a well; *Tavataan kahvilassa* as "Meet me down in the coffee shop"; *Hän loistaa matematiikassa* as "he is an ace"; *Jänikset tykkäävät porkkanoista* as "love" | Left out |
+| The Finnish check | A wrong reply's key counted its place in the list, so adding or removing one renumbered the rest and lost the reviewer's ticks | Keyed by its own words (`line:Kaverilla.`), like the titles. A test keeps it so |
 
-## Still to check (part 3)
+### Questions for the Finnish speaker (units 23–37)
 
-- ***viedä*:** glossed "carry".
-- **Two titles shared by a scene and a story:** *Uusi oppilas* (unit 29) and
-  *Paljon tavaraa* (unit 32).
-- **Unit 30's title:** *Minua, minulle* is "Me and you" (unit, game, lesson)
-  and "All of them together" (a step).
+1. **`line:Piirrän kynässä.`** (`conversation:how-do-you-go:3`). The wrong
+   reply is now *Piirrän kynässä.* Clearly wrong to you, as an answer to
+   *Mitä teet koulussa?*
+2. **`line:Valitset punaisen.`** (`conversation:drawing-time:2`). The wrong
+   reply is now *Valitset punaisen.* Fine?
+3. **Story titles:** `title:Minä olen Leo`, `title:Mirri, tule alas!` and
+   `title:Missä ovat kenkäni?`. Each is a line from its own story. Do they
+   work as titles?
+4. **`title:Minua, minulle`.** Unit 30 is "Me and you" in English, but the
+   Finnish says "me, to me". Is there a better Finnish title?
+5. **"I see him", "I see the dog".** The app marks *Näen häntä* and *Näen
+   koiraa* wrong: in the "me and you" game (unit 30), in unit 17, and in find
+   the mistake. That's the textbook rule, but a native speaker can say *Näen
+   häntä joka päivä*. Right to keep them wrong for children?
+6. **The ordinals 11th–31st** (`ordinal:eleventh` … `ordinal:thirty-first`,
+   unit 28) are hand-written, e.g. *kahdeskymmenesensimmäinen*. Please check them, and say whether children
+   would say *kahdeskymmenesyhdes* instead.
+7. **`story:at-the-shop:page-4`.** Grandma says *Hyvää keittoa!* for "Good
+   soup!" Natural, or *Onpa hyvää keittoa!*?
+8. ***viedä*** is glossed "carry, take (somewhere)". Is "carry" a fair first
+   meaning?
+
+### For you, as the parent
+
+- **The scripted replies give the child an age.** It's seven in unit 1 (*Olen
+  seitsemänvuotias*) and eight at the birthday party in unit 28. Your
+  children can say their own ages aloud. The games only ask them to pick the
+  well-formed sentence.
+
+## Where things stand
+
+Every unit has been through the checklist. What's left is the Finnish
+speaker's pass. The Grown-ups → Finnish check lists every entry in course
+order, with a unit filter, so they can start with units 1–8, the part the
+children meet first. The questions above, and those in parts 1 and 2, are the
+places I'd like them to look first.
