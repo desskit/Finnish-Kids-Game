@@ -37,20 +37,37 @@ export function matchTolerance(target: string): number {
 }
 
 /**
+ * The runs of words in `heard` about as long as the target (one word fewer to
+ * one more): where the attempt sits when a noisy room or an "öö" adds words
+ * around it.
+ */
+function windowsOf(heard: string, targetWords: number): string[] {
+  const words = heard.split(' ');
+  const out: string[] = [];
+  for (let k = Math.max(1, targetWords - 1); k <= targetWords + 1; k++) {
+    for (let i = 0; i + k <= words.length; i++) out.push(words.slice(i, i + k).join(' '));
+  }
+  return out;
+}
+
+/**
  * Does any recognition alternative acceptably match the Finnish target? Accepts
  * an exact match, an alternative that CONTAINS the target (the child said it
  * plus filler), or one within the edit-distance tolerance (mispronunciation /
- * ASR slip). Intentionally lenient — see the module note.
+ * ASR slip) — as a whole, or in a run of words about the target's length (a
+ * slip plus background words). Intentionally lenient — see the module note.
  */
 export function matchSpeech(heard: readonly string[], target: string): boolean {
   const t = normalizeSpoken(target);
   if (!t) return false;
   const tol = matchTolerance(target);
+  const targetWords = t.split(' ').length;
   return heard.some((raw) => {
     const h = normalizeSpoken(raw);
     if (!h) return false;
     if (h === t) return true;
     if (h.includes(t)) return true; // said the target plus extra words
-    return editDistance(h, t) <= tol;
+    if (editDistance(h, t) <= tol) return true;
+    return windowsOf(h, targetWords).some((w) => editDistance(w, t) <= tol);
   });
 }

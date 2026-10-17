@@ -1497,26 +1497,27 @@ export const UNIT_STORIES: Story[] = [
     tier: 4,
     narrator: 'aino',
     pages: [
+      // One place a page: the park, the library, the café, home.
       page(
         sc('playground', '👨 👧 👦'),
         tell('Isä, Eero ja minä menemme puistoon.', 'Dad, Eero and I go to the park.'),
         tell('Puistossa on paljon lapsia.', 'There are lots of children in the park.'),
+        tell('Sitten menemme kirjastoon.', 'Then we go to the library.'),
       ),
       page(
-        sc('library', '👧 👦 📕'),
-        tell('Sitten menemme kirjastoon.', 'Then we go to the library.'),
+        sc('library', '👨 👧 🤫 👦 📕'),
         tell('Kirjastossa on hiljaista.', "It's quiet in the library."),
         say('eero', 'MOI!', 'HI!'),
+        say('aino', 'Eero! Hiljaa!', 'Eero! Quiet!'),
       ),
       page(
-        sc('library', '👨 👧 🤫 👦'),
-        say('aino', 'Eero! Hiljaa!', 'Eero! Quiet!'),
+        sc('cafe', '👨 👧 👦 🍦'),
         tell('Sitten olemme kahvilassa.', 'Then we are at the café.'),
         say('isa', 'Haluatteko jäätelöä?', 'Do you want ice cream?'),
+        say('aino', 'Haluamme!', 'We do!'),
       ),
       page(
-        sc('kitchen', '👨 👧 👦 🍦', 'evening'),
-        say('aino', 'Haluamme!', 'We do!'),
+        sc('kitchen', '👨 👧 👦', 'evening'),
         tell('Lopuksi tulemme kotiin.', 'In the end we come home.'),
         say('eero', 'Huomenna taas puistoon!', 'Tomorrow, the park again!'),
       ),

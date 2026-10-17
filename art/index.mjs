@@ -22,6 +22,7 @@ import verbs from './recipes/verbs.mjs';
 import beach from './scenes/beach.mjs';
 import bedroom from './scenes/bedroom.mjs';
 import busStop from './scenes/busStop.mjs';
+import cafe from './scenes/cafe.mjs';
 import classroom from './scenes/classroom.mjs';
 import field from './scenes/field.mjs';
 import forest from './scenes/forest.mjs';
@@ -49,7 +50,7 @@ import hero from './scenes/hero.mjs';
 export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
-export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, park, playground, yard, field, beach, busStop, zoo, forest, station];
+export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, cafe, park, playground, yard, field, beach, busStop, zoo, forest, station];
 
 /**
  * The app's own scenery (UI scenes): drawn like a backdrop, in the looks'

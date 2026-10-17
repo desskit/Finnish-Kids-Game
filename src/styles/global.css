@@ -1521,6 +1521,41 @@ button:focus-visible,
   text-align: center;
 }
 
+/* Not the child's slip (the mic heard nothing): quieter than a sound hint. */
+.say-hint--soft {
+  max-width: 34ch;
+  color: var(--ink-soft);
+}
+
+/* What the strip's colors mean, under it. */
+.sound-key {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px 14px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.sound-key__dot {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+}
+
+.sound-key__dot--good {
+  background: var(--good);
+}
+
+.sound-key__dot--length {
+  background: var(--warn);
+}
+
+.sound-key__dot--off {
+  background: var(--bad);
+}
+
 /* Per-sound pronunciation feedback: the target word tinted by how each Finnish
    sound was said. */
 .pron-strip {

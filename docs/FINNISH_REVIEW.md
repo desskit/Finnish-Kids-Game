@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-17T15:19:35.656Z · regenerate with `npm run review:content`
+- Generated: 2026-10-17T20:19:27.135Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -568,10 +568,10 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | Unit 23 | `story:cat-and-box:t1` | Mirri menee laatikkoon. (totta) | True or false: Mirri goes into the box. (true) |
 | ⚠️ | Unit 23 | `story:cat-and-box:t2` | Mirri rakastaa palloa. (tarua) | True or false: Mirri loves the ball. (false) |
 | ⚠️ | Unit 23 | `story:cat-and-box:t3` | Mirri hyppää sängylle. (tarua) | True or false: Mirri jumps onto the bed. (false) |
-| ⚠️ | Unit 24 | `story:park-and-library:page-1` | Isä, Eero ja minä menemme puistoon. / Puistossa on paljon lapsia. | Dad, Eero and I go to the park. / There are lots of children in the park. |
-| ⚠️ | Unit 24 | `story:park-and-library:page-2` | Sitten menemme kirjastoon. / Kirjastossa on hiljaista. / Eero: MOI! | Then we go to the library. / It's quiet in the library. / Eero: HI! |
-| ⚠️ | Unit 24 | `story:park-and-library:page-3` | Aino: Eero! Hiljaa! / Sitten olemme kahvilassa. / Isä: Haluatteko jäätelöä? | Aino: Eero! Quiet! / Then we are at the café. / Dad: Do you want ice cream? |
-| ⚠️ | Unit 24 | `story:park-and-library:page-4` | Aino: Haluamme! / Lopuksi tulemme kotiin. / Eero: Huomenna taas puistoon! | Aino: We do! / In the end we come home. / Eero: Tomorrow, the park again! |
+| ⚠️ | Unit 24 | `story:park-and-library:page-1` | Isä, Eero ja minä menemme puistoon. / Puistossa on paljon lapsia. / Sitten menemme kirjastoon. | Dad, Eero and I go to the park. / There are lots of children in the park. / Then we go to the library. |
+| ⚠️ | Unit 24 | `story:park-and-library:page-2` | Kirjastossa on hiljaista. / Eero: MOI! / Aino: Eero! Hiljaa! | It's quiet in the library. / Eero: HI! / Aino: Eero! Quiet! |
+| ⚠️ | Unit 24 | `story:park-and-library:page-3` | Sitten olemme kahvilassa. / Isä: Haluatteko jäätelöä? / Aino: Haluamme! | Then we are at the café. / Dad: Do you want ice cream? / Aino: We do! |
+| ⚠️ | Unit 24 | `story:park-and-library:page-4` | Lopuksi tulemme kotiin. / Eero: Huomenna taas puistoon! | In the end we come home. / Eero: Tomorrow, the park again! |
 | ⚠️ | Unit 24 | `story:park-and-library:q1` | Mihin menemme ensin? (✓ puistoon / kirjastoon / kahvilaan) | Where do we go first? (to the park / to the library / to the café) |
 | ⚠️ | Unit 24 | `story:park-and-library:q2` | Missä on hiljaista? (✓ kirjastossa / puistossa / kahvilassa) | Where is it quiet? (in the library / in the park / in the café) |
 | ⚠️ | Unit 24 | `story:park-and-library:q3` | Mitä isä tarjoaa kahvilassa? (✓ jäätelöä / pitsaa / keittoa) | What does Dad offer at the café? (ice cream / pizza / soup) |
@@ -1025,7 +1025,7 @@ _Letter names and sound tips._
 | ⚠️ | Everywhere | `letter:z` | Zz — "tset" | Only in borrowed words. Sounds like ts. |
 | ⚠️ | Everywhere | `letter:å` | Åå — "ruotsalainen oo" | Only in Swedish names. Sounds like o. |
 | ⚠️ | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
-| ⚠️ | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur", with round lips. |
+| ⚠️ | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
 ## Finnish in the lessons (220)
 

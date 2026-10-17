@@ -412,8 +412,8 @@ questions about what happened. It is read for meaning, once — not drilled.
   surprises, and it ends — not a list of sentences. Three or four pages, one to
   three short lines each (at most six or seven words), each page a scene: its
   setting, one of the drawn backdrops (`home`, `kitchen`, `bedroom`, `party`,
-  `classroom`, `library`, `shop`, `park`, `playground`, `yard`, `field`,
-  `beach`, `bus-stop`, `zoo`, `forest`, `station`), who and what stand in
+  `classroom`, `library`, `shop`, `cafe`, `park`, `playground`, `yard`,
+  `field`, `beach`, `bus-stop`, `zoo`, `forest`, `station`), who and what stand in
   front (`fg`, a few emoji, each shown as its picture), and a `tone` only when
   it isn't the usual one (inside for rooms, day outdoors): morning, evening,
   night or rain. A setting comes only in the tones it's drawn in
