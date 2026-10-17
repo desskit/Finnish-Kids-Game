@@ -331,6 +331,7 @@ export const ALSO_EN: Record<string, string> = {
   autumn: 'fall',
   tall: 'long',
   funny: 'fun',
+  carry: 'take (somewhere)',
 };
 
 /** "son, boy" — the gloss with any second meaning. */

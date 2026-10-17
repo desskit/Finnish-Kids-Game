@@ -5440,14 +5440,14 @@ Gated out: bathroom, bedroom, butter, canteen, english, family, father, fire, gr
 - minä autan vauvaa. _(I help the baby.)_
 - minä autan hevosta. _(I help the horse.)_
 
-### `i-draw-thing` — “I draw the {obj}.” (tier 8)
+### `i-draw-thing` — “I draw a {obj}.” (tier 8)
 
-- minä piirrän kukan. _(I draw the flower.)_
-- minä piirrän talon. _(I draw the house.)_
-- minä piirrän auton. _(I draw the car.)_
-- minä piirrän kissan. _(I draw the cat.)_
-- minä piirrän koiran. _(I draw the dog.)_
-- minä piirrän auringon. _(I draw the sun.)_
-- minä piirrän tähden. _(I draw the star.)_
-- minä piirrän puun. _(I draw the tree.)_
+- minä piirrän kukan. _(I draw a flower.)_
+- minä piirrän talon. _(I draw a house.)_
+- minä piirrän auton. _(I draw a car.)_
+- minä piirrän kissan. _(I draw a cat.)_
+- minä piirrän koiran. _(I draw a dog.)_
+- minä piirrän auringon. _(I draw a sun.)_
+- minä piirrän tähden. _(I draw a star.)_
+- minä piirrän puun. _(I draw a tree.)_
 

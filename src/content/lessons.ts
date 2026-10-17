@@ -1524,7 +1524,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'The cat jumps OFF the table. Which is right?',
+        question: 'The cat comes OFF the table. Which is right?',
         options: [
           { ref: { sentence: 'off-it', word: 'table' }, correct: true },
           { ref: { sentence: 'off-it', word: 'table', asCase: 'allative' } },

@@ -30,8 +30,10 @@ const DENY_EN = /\b(die|dead|death|kill|blood|gun|weapon|war|hunt|drunk|alcohol|
 // So a sentence is shown only once a person has read it: these were picked in
 // a QA pass for meaning, child-suitability and standard written Finnish — and
 // for US English, the app's English, so not "in hospital", "sweets", "colour"
-// or a yard called a garden. New source data adds nothing until someone adds
-// its good sentences here.
+// or a yard called a garden. The English must say what the Finnish says, so
+// not "Meet me down in the coffee shop" for "Tavataan kahvilassa", or "love"
+// for "tykkäävät". New source data adds nothing until someone adds its good
+// sentences here.
 const APPROVED = new Set([
   'Sinä näytät vihaiselta.',
   'Tom näyttää vihaiselta.',
@@ -78,7 +80,6 @@ const APPROVED = new Set([
   'Katso, perhonen!',
   'Pidän perhosista.',
   'Mitä pitikään ostaa kaupasta?',
-  'Tavataan kahvilassa.',
   'Pidimme hauskaa kahvilassa.',
   'Leivon kakkuja melkein joka päivä.',
   'Hän on hyväntuulinen ja rauhallinen.',
@@ -88,7 +89,6 @@ const APPROVED = new Set([
   'Pidän myös karkista.',
   'Veljeni tykkää autoista.',
   'Tom tietää kaiken autoista.',
-  'Jänikset tykkäävät porkkanoista.',
   'Pidän kissoista.',
   'Pidätkö kissoista?',
   'Koira on tuolilla.',
@@ -126,7 +126,6 @@ const APPROVED = new Set([
   'Hän on hyvä jalkapallossa.',
   'Olen hyvä jalkapallossa.',
   'Näetkö sinä sitä kettua?',
-  'Sammakko kaivossa ei tiedä mitään merestä.',
   'Kuulostaa hauskalta.',
   'Eikö sinun kannattaisi käyttää käsineitä?',
   'Hän osti uudet käsineet.',
@@ -173,7 +172,6 @@ const APPROVED = new Set([
   'Katsoin sitä.',
   'Minä rakastan sinua.',
   'Xavier myy kurpitsaleipää torilla.',
-  'Hän loistaa matematiikassa.',
   'Hän on ässä matematiikassa.',
   'On satanut aamusta lähtien.',
   'Japani on tunnettu Fuji-vuoresta.',
@@ -238,7 +236,6 @@ const APPROVED = new Set([
   'Pidän keväästä.',
   'Seiso tässä.',
   'Seisoin laiturilla odottamassa junaa.',
-  'Hänestä tuli tähti.',
   'Mansikoista tehdään hilloa.',
   'Pidän enemmän kirsikoista kuin mansikoista.',
   'Pahinta kesässä on lämpö.',

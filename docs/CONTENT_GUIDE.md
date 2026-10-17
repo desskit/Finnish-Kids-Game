@@ -389,7 +389,7 @@ writes **US English**: Mom, candy, soccer, cafeteria, "Do you have…?".
 - **Real example sentences** (the "Lue lause" game) come from Tatoeba but show
   only when listed in `APPROVED` in `src/content/examples.ts`, after a person
   has read them. Leave out a word used in another sense, spoken forms (*mä,
-  haluun*), and sayings.
+  haluun*), sayings, and any whose English doesn't say what the Finnish says.
 - `src/content/english.test.ts` pins these rules. Before a release, re-read
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`), which lists every
   carrier sentence with its English.

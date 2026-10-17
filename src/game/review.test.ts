@@ -23,6 +23,12 @@ describe('review entries', () => {
     );
   });
 
+  it('key a wrong reply by its own words, so adding or removing another never moves it', () => {
+    const lines = entries.filter((x) => x.key.startsWith('line:'));
+    expect(lines.length).toBeGreaterThan(20);
+    for (const x of lines) expect(x.key).toBe(`line:${x.fi}`);
+  });
+
   it('include every unit story and the forms each pattern marks wrong', () => {
     for (const s of UNIT_STORIES) expect(e(`story:${s.id}:page-1`)?.fi).toContain(s.pages[0].lines[0].fi);
     expect(e('slip:i-havent').fi).toMatch(/✓ — marked wrong: .*/);
