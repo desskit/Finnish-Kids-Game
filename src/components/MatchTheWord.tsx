@@ -191,7 +191,7 @@ export default function MatchTheWord({ adjectives, nouns, targetCases, onExit }:
 
       <p className="prompt">
         Mikä sopii yhteen?{' '}
-        <span className="en">Pick the word with the matching ending</span>
+        <span className="en">Which one goes with it?</span>
       </p>
 
       <div className="phrase-card">

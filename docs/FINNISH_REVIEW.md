@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-17T15:09:05.150Z · regenerate with `npm run review:content`
+- Generated: 2026-10-17T15:19:35.656Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -1021,7 +1021,7 @@ _Letter names and sound tips._
 | ⚠️ | Everywhere | `letter:v` | Vv — "vee" | Like the v in "van". |
 | ⚠️ | Everywhere | `letter:w` | Ww — "kaksois-vee" | Only in names. Sounds like v. |
 | ⚠️ | Everywhere | `letter:x` | Xx — "äks" | Only in names and borrowed words. Sounds like ks. |
-| ⚠️ | Everywhere | `letter:y` | Yy — "yy" | Say "ee" — then make your lips round like for "oo". That's y! |
+| ⚠️ | Everywhere | `letter:y` | Yy — "yy" | A bit like the "ew" in "few", with your lips in a small, tight circle. |
 | ⚠️ | Everywhere | `letter:z` | Zz — "tset" | Only in borrowed words. Sounds like ts. |
 | ⚠️ | Everywhere | `letter:å` | Åå — "ruotsalainen oo" | Only in Swedish names. Sounds like o. |
 | ⚠️ | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
@@ -1809,7 +1809,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Mikä on totta?` | Mikä on totta? | Which one is true? |
 | ⚠️ | Everywhere | `ui:Mikä sana?` | Mikä sana? | Which word is it? |
 | ⚠️ | Everywhere | `ui:Mikä sen nimi on?` | Mikä sen nimi on? | (no English shown) |
-| ⚠️ | Everywhere | `ui:Mikä sopii yhteen?` | Mikä sopii yhteen? | Pick the word with the matching ending |
+| ⚠️ | Everywhere | `ui:Mikä sopii yhteen?` | Mikä sopii yhteen? | Which one goes with it? |
 | ⚠️ | Everywhere | `ui:Mikä tämä on suomeksi?` | Mikä tämä on suomeksi? | What is this in Finnish? |
 | ⚠️ | Everywhere | `ui:Mikä verbityyppi?` | Mikä verbityyppi? | Which verb type is it? |
 | ⚠️ | Everywhere | `ui:Mistä lause kertoo?` | Mistä lause kertoo? | What is the sentence about? |
@@ -1819,7 +1819,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Mitä kuulit?` | Mitä kuulit? | What did you hear? |
 | ⚠️ | Grown-ups only | `ui:Mitä kuuluu?` | Mitä kuuluu? | (no English shown) |
 | ⚠️ | Everywhere | `ui:Mitä nämä ovat?` | Mitä nämä ovat? | (no English shown) |
-| ⚠️ | Everywhere | `ui:Mitä pitää tehdä?` | Mitä pitää tehdä? | Tap what the command says |
+| ⚠️ | Everywhere | `ui:Mitä pitää tehdä?` | Mitä pitää tehdä? | What do you have to do? |
 | ⚠️ | Everywhere | `ui:Mitä sanot?` | Mitä sanot? | What do you say? |
 | ⚠️ | Everywhere | `ui:Mitä vastaat?` | Mitä vastaat? | What do you answer? / What do you reply? |
 | ⚠️ | Everywhere | `ui:Muistatko?` | Muistatko? | Do you remember this story? / Remember? |

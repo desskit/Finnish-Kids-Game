@@ -68,6 +68,7 @@ The rules for the pass:
 | Course map | Units 8 and 19 had the same runner icon | Unit 19 (do it, don't, let's) points at you |
 | Notebook | "N more lessons unlock" counted locked *units* | Counts the lessons still to come |
 | Unit 8 lesson | Type 3 named only -lla, -nna, -sta, then gave *mennä* | Also -llä, -nnä, -stä |
+| Unit 1 lesson, Alphabet corner | "y is "ee" said with round lips": read quickly, it says y sounds like "ee", which it doesn't | "y sounds a bit like the "ew" in "few"" (the corner adds: lips in a small, tight circle) |
 | Teacher scenes | The teacher shown as the *teach* picture | The teacher's own picture |
 | The wolf | Standing side on, it looked like a grey pony | Sits and howls at the moon |
 | Reply questions (dialogues and scenes) | Two options could differ only by punctuation: "Ole hyvä!" and "Ole hyvä.", or "Hyvää, kiitos!" and "Hyvää, kiitos." (3 of the 5 reply questions in one unit 1 checkpoint) | Options are compared as they're heard, so only one of each shows |
@@ -202,7 +203,7 @@ describing, comparing and "where". Also:
 | Unit 11 story, *do-you-sing* | A third, dancing girl on two pages | Music notes |
 | Unit 20 story, *big-and-small* | Musti was "brown" and Mirri "white", but they're drawn as a black dog and a grey cat; "Mirrin ruokaa" showed a table | *Musti on musta.*, as he's drawn (and as his name says), and the questions follow; Mirri's food is food |
 | Words | *pitkä* = "tall"; *hauska* = "funny" | Also "long"; also "fun" |
-| Game labels | *Kenen se on?* · "Which one is it?" (units 6, 7, 22); *Kumpi?* · "Which is more?" (unit 21); *Mikä on oikein?* · "Look at the verb: which ending?" (units 17, 36); *Tee! Älä!* · "Do, don't, let's" (unit 19) | "Whose is it?", "Which of the two?", "Which one is right?", "Do! Don't!" |
+| Game labels | The English beside the Finnish wasn't its meaning: *Kenen se on?* · "Which one is it?" (units 6, 7, 22); *Kumpi?* · "Which is more?" (unit 21); *Mikä on oikein?* · "Look at the verb: which ending?" (units 17, 36); *Tee! Älä!* · "Do, don't, let's" and *Mitä pitää tehdä?* · "Tap what the command says" (unit 19); *Mikä sopii yhteen?* · "Pick the word with the matching ending" (units 20, 22) | "Whose is it?", "Which of the two?", "Which one is right?", "Do! Don't!", "What do you have to do?", "Which one goes with it?" |
 
 ### Questions for the Finnish speaker (units 9–22)
 

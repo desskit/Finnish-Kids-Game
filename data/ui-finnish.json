@@ -594,7 +594,7 @@
     },
     {
       "fi": "Mikä sopii yhteen?",
-      "en": "Pick the word with the matching ending",
+      "en": "Which one goes with it?",
       "where": [
         "components/MatchTheWord.tsx"
       ]
@@ -688,7 +688,7 @@
     },
     {
       "fi": "Mitä pitää tehdä?",
-      "en": "Tap what the command says",
+      "en": "What do you have to do?",
       "where": [
         "game/path.tsx"
       ]

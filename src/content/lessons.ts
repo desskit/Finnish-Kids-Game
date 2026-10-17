@@ -459,7 +459,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Three new letters',
         text:
-          '- **ä** sounds like the a in "cat"\n- **ö** sounds a bit like the u in "fur"\n- **y** is "ee" said with round lips',
+          '- **ä** sounds like the a in "cat"\n- **ö** sounds a bit like the u in "fur"\n- **y** sounds a bit like the "ew" in "few"',
         rows: [{ word: 'mother' }, { word: 'table' }, { word: 'pencil' }],
       },
       {
