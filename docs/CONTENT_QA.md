@@ -216,10 +216,19 @@ describing, comparing and "where". Also:
 4. **`slip:i-buy-some`.** For "I buy some bread", *Ostan leivän* (a whole
    loaf) is marked wrong. Is that right for the meaning?
 
+## Part 3: units 23–37 (in progress)
+
+### Fixed so far
+
+| Where | Was | Now |
+| --- | --- | --- |
+| *Sano se* (speaking), every unit | Each try's result flashed for a second, then the game moved on by itself, so nobody saw which sounds were right. In a noisy room, silence or a recognizer error counted as a wrong try, and two ended the word | The result stays until **Jatka · Continue**, with a key to the colors (right, length, not yet). Silence and recognizer errors don't count as a try. A second tap on the mic says "done", and listening stops by itself after 8 seconds. After a miss, **Sanoin sen · I said it** lets a grown-up vouch for the try (a star, but no review credit). The app stops its own voice before listening, and stray words around the answer are ignored |
+| *Sano se*, the length tip | "Hold the doubled letter" also showed when a child held a single letter too long | That case says "Keep the single letter short" |
+| Alphabet corner and lesson, **ö** | Like the u in "fur" (which, in US English, comes with an r) | Like the u in "fur" without the r |
+| Unit 24 story, *park-and-library* | Page 3 moved from the library to a café partway through, all drawn as the library | One place a page: the park, the library, the café (a new backdrop) and home. The lines are the same, regrouped |
+
 ## Still to check (part 3)
 
-- **Unit 24, *park-and-library*:** the page moves from the library to a café,
-  which has no backdrop.
 - ***viedä*:** glossed "carry".
 - **Two titles shared by a scene and a story:** *Uusi oppilas* (unit 29) and
   *Paljon tavaraa* (unit 32).

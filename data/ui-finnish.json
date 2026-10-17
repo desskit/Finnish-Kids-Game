@@ -161,6 +161,7 @@
         "components/PhraseIntro.tsx",
         "components/PossessiveGame.tsx",
         "components/RoundComplete.tsx",
+        "components/SayIt.tsx",
         "components/StoryTime.tsx",
         "components/WarmupRoute.tsx",
         "components/WordIntro.tsx"
@@ -1170,7 +1171,8 @@
       "fi": "Valmis",
       "en": "Done",
       "where": [
-        "components/ProfilePicker.tsx"
+        "components/ProfilePicker.tsx",
+        "components/SayIt.tsx"
       ]
     },
     {

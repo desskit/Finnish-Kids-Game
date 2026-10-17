@@ -53,7 +53,7 @@ export interface StoryScene {
 }
 
 /** The settings indoors (their usual light is 'inside'; outdoors it's the 'day'). */
-const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'party', 'classroom', 'library', 'shop']);
+const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'party', 'classroom', 'library', 'shop', 'cafe']);
 
 /** The light a scene is in: its own, or its setting's usual one. */
 export const toneOf = (scene: StoryScene): SceneTone => scene.tone ?? (INDOORS.has(scene.setting) ? 'inside' : 'day');

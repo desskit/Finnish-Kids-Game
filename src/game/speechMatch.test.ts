@@ -54,4 +54,11 @@ describe('matchSpeech', () => {
   it('does not accept one short word as a whole phrase (only heard⊇target)', () => {
     expect(matchSpeech(['on'], 'tämä on kissa')).toBe(false);
   });
+  it('finds a near-miss among background words (a noisy room)', () => {
+    expect(matchSpeech(['no kisa joo'], 'kissa')).toBe(true);
+    expect(matchSpeech(['äiti kolme kisaa tänne'], 'kolme kissaa')).toBe(true);
+    // …but background words alone are still a miss.
+    expect(matchSpeech(['no koira joo'], 'kissa')).toBe(false);
+    expect(matchSpeech(['tule tänne nyt'], 'kolme kissaa')).toBe(false);
+  });
 });

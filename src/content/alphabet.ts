@@ -49,7 +49,7 @@ export const ALPHABET: Letter[] = [
   { ch: 'z', nameFi: 'tset', borrowed: true, tip: 'Only in borrowed words. Sounds like ts.', examples: [] },
   { ch: 'å', nameFi: 'ruotsalainen oo', borrowed: true, tip: 'Only in Swedish names. Sounds like o.', examples: [] },
   { ch: 'ä', nameFi: 'ää', vowel: true, tip: 'Like the a in "cat".', examples: ['äiti', 'jäätelö', 'isä'] },
-  { ch: 'ö', nameFi: 'öö', vowel: true, tip: 'Like the u in "fur", with round lips.', examples: ['pöytä', 'söpö', 'yö'] },
+  { ch: 'ö', nameFi: 'öö', vowel: true, tip: 'Like the u in "fur" without the r, with round lips.', examples: ['pöytä', 'söpö', 'yö'] },
 ];
 
 /** A short guide to one of the tricky sound patterns. */

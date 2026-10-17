@@ -61,19 +61,36 @@ export interface ListenHandlers {
   onError: (kind: ListenError) => void;
 }
 
-/** A running recognition session; call stop() to cancel (e.g. on unmount). */
+/** A running recognition session. */
 export interface ListenSession {
+  /**
+   * Stop listening and use what was heard so far: resolves through onResult,
+   * or onError('no-speech') if nothing was. The "I'm done" tap — in a noisy
+   * room the recognizer may never hear the child stop.
+   */
+  finish(): void;
+  /** Cancel (e.g. on unmount): resolves through onError('aborted'). */
   stop(): void;
 }
 
+export interface ListenOptions {
+  maxAlternatives?: number;
+  /** Finish on its own after this long (ms); 0 = wait for the recognizer. */
+  maxMs?: number;
+}
+
+/** How long a finished session may take to hand back its result. */
+const FINISH_GRACE_MS = 3000;
+
 /**
- * Start ONE push-to-talk recognition in Finnish. Returns a session with stop(),
- * or null if unavailable (callers should have hidden the mic already, but this
- * makes misuse safe). Resolves through exactly one of onResult/onError.
+ * Start ONE push-to-talk recognition in Finnish. Returns a session with
+ * finish() and stop(), or null if unavailable (callers should have hidden the
+ * mic already, but this makes misuse safe). Resolves through exactly one of
+ * onResult/onError.
  */
 export function listenOnce(
   { onResult, onError }: ListenHandlers,
-  maxAlternatives = 5,
+  { maxAlternatives = 5, maxMs = 0 }: ListenOptions = {},
 ): ListenSession | null {
   const Ctor = getCtor();
   if (!Ctor) return null;
@@ -85,10 +102,30 @@ export function listenOnce(
   rec.maxAlternatives = maxAlternatives;
 
   let settled = false;
+  let timer: ReturnType<typeof setTimeout> | undefined;
   const settle = (fn: () => void) => {
     if (settled) return;
     settled = true;
+    clearTimeout(timer);
     fn();
+  };
+  const finish = () => {
+    if (settled) return;
+    clearTimeout(timer);
+    // If the browser never hands anything back, don't stay "listening".
+    timer = setTimeout(() => {
+      settle(() => onError('no-speech'));
+      try {
+        rec.abort();
+      } catch {
+        /* ignore */
+      }
+    }, FINISH_GRACE_MS);
+    try {
+      rec.stop();
+    } catch {
+      settle(() => onError('error'));
+    }
   };
 
   rec.onresult = (e) => {
@@ -111,10 +148,12 @@ export function listenOnce(
     rec.start();
   } catch {
     settle(() => onError('error'));
-    return { stop() {} };
+    return { finish() {}, stop() {} };
   }
+  if (maxMs > 0) timer = setTimeout(finish, maxMs);
 
   return {
+    finish,
     stop() {
       settle(() => onError('aborted'));
       try {

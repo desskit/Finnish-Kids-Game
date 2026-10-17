@@ -5,9 +5,9 @@ import { useActivityContext, useSegmentComplete } from '../game/activityContext'
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildSayRound, type SayTarget, type WeighFn } from '../game/round';
-import { matchSpeech } from '../game/speechMatch';
+import { matchSpeech, normalizeSpoken } from '../game/speechMatch';
 import { scorePronunciation, type PronunciationScore } from '../game/phonemes';
-import { speak } from '../audio/speak';
+import { speak, stopSpeaking } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { isSpeechRecognitionAvailable, listenOnce, type ListenSession } from '../audio/speech';
 import ActivityHeader from './ActivityHeader';
@@ -16,6 +16,18 @@ import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
 const INTRO_KEY = 'fkg.speak.introSeen';
+// Stop listening on its own after this long: in a noisy room the recognizer
+// may never hear the child stop. (A tap on the mic stops it sooner.)
+const MAX_LISTEN_MS = 8000;
+
+type SayResult =
+  | 'none'
+  | 'good' // recognized: the result stays up until Continue
+  | 'giveup' // two tries that didn't match: the result stays up until Continue
+  | 'tryagain' // one try that didn't match
+  | 'unheard' // silence, noise or a browser hiccup: not counted as a try
+  | 'denied' // the mic isn't allowed
+  | 'said'; // "I said it": moves on by itself
 
 // Speaking presentation ramps with the measured level, like every other game:
 //   model  (≤3): the Finnish is shown AND modeled aloud (TTS) — repeat-after-me.
@@ -45,10 +57,14 @@ interface Props {
 }
 
 // Sano se (speaking): see + hear the Finnish (model TTS), tap the mic, say it.
-// Push-to-talk only. Matching is deliberately generous and the round NEVER
-// blocks — two unrecognized tries advances anyway with warm copy, so a young
-// child (or an unreliable recognizer) is never stuck. When speech recognition
-// isn't available the mic becomes a self-paced "I said it" — the repeat-after-me
+// Push-to-talk only; a second tap says "done" (a noisy room can keep the
+// recognizer listening). Each judged try shows its result — every sound tinted
+// by how it was heard — until the child taps Continue. Matching is deliberately
+// generous and the round NEVER blocks: two tries that don't match end warmly;
+// silence or a recognizer error isn't counted as a try at all; and after a miss
+// "I said it" lets a grown-up vouch for an attempt the mic couldn't hear (a
+// star, but no SRS credit — nothing was verified). When speech recognition
+// isn't available the mic itself becomes "I said it" — the repeat-after-me
 // still happens; it just isn't scored.
 export default function SayIt({ items, constructions, buildRound, title, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
@@ -81,7 +97,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   const [index, setIndex] = useState(0);
   const [attempts, setAttempts] = useState(0);
   const [listening, setListening] = useState(false);
-  const [result, setResult] = useState<'none' | 'tryagain' | 'good' | 'giveup' | 'denied'>('none');
+  const [result, setResult] = useState<SayResult>('none');
   // Per-sound pronunciation feedback for the latest attempt (null before any).
   const [score, setScore] = useState<PronunciationScore | null>(null);
   const [locked, setLocked] = useState(false);
@@ -92,14 +108,16 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   );
 
   const target = round[index];
+  const judged = result === 'good' || result === 'giveup';
+  const modelTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Model the pronunciation when a new question appears — but only in the
   // `model` band (repeat-after-me). Higher levels drop the TTS so the child
   // produces the word themselves.
   useEffect(() => {
     if (!target || done || !introSeen || presentation !== 'model') return;
-    const t = setTimeout(() => speak(target.say), 400);
-    return () => clearTimeout(t);
+    modelTimer.current = setTimeout(() => speak(target.say), 400);
+    return () => clearTimeout(modelTimer.current);
   }, [target, done, introSeen, index, presentation]);
 
   // Stop any live recognition if the component unmounts (segment swap).
@@ -113,7 +131,23 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
     if (round.length === 0) setDone(true);
   }, [round.length]);
 
-  const advance = useCallback(
+  /** On to the next thing to say (or the end of the round). */
+  const next = useCallback(() => {
+    const n = index + 1;
+    if (n >= round.length) setDone(true);
+    else {
+      setIndex(n);
+      setAttempts(0);
+      setResult('none');
+      setScore(null);
+    }
+    missed.current = false;
+    setLocked(false);
+    setListening(false);
+  }, [index, round.length]);
+
+  /** Score a finished try. The result stays on screen until Continue. */
+  const judge = useCallback(
     (success: boolean) => {
       setLocked(true);
       if (success) {
@@ -122,24 +156,8 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
       }
       if (target?.attemptId) recordAttempt(target.attemptId, success);
       if (success && !missed.current) firstTries.current += 1;
-      const next = index + 1;
-      setTimeout(
-        () => {
-          if (next >= round.length) setDone(true);
-          else {
-            setIndex(next);
-            setAttempts(0);
-            setResult('none');
-            setScore(null);
-          }
-          missed.current = false;
-          setLocked(false);
-          setListening(false);
-        },
-        success ? 900 : 1300,
-      );
     },
-    [target, index, round.length, addStars, recordAttempt],
+    [target, addStars, recordAttempt],
   );
 
   const registerMiss = useCallback(() => {
@@ -149,58 +167,77 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
     setAttempts(n);
     if (n >= 2) {
       setResult('giveup');
-      advance(false); // never a dead end — move on with encouragement
+      judge(false); // never a dead end — Continue moves on with encouragement
     } else {
       setResult('tryagain');
     }
-  }, [attempts, advance]);
+  }, [attempts, judge]);
+
+  /**
+   * "I said it": the word was practiced but nothing heard it — no recognition
+   * in this browser, or a room too noisy for it. Kind: a star, then on to the
+   * next; no SRS credit (nothing was actually verified).
+   */
+  const selfReport = useCallback(() => {
+    if (locked || done) return;
+    session.current?.stop();
+    setListening(false);
+    setResult('said');
+    addStars(1);
+    setLocked(true);
+    setTimeout(next, 700);
+  }, [locked, done, addStars, next]);
 
   const startListening = useCallback(() => {
-    if (locked || done || listening || !introSeen) return;
-    if (!available) {
-      // Self-report fallback: the modeled word was practiced; advance kindly
-      // but don't credit SRS (nothing was actually verified).
-      setResult('good');
-      addStars(1);
-      const next = index + 1;
-      setLocked(true);
-      setTimeout(() => {
-        if (next >= round.length) setDone(true);
-        else {
-          setIndex(next);
-          setResult('none');
-        }
-        setLocked(false);
-      }, 700);
+    if (locked || done || !introSeen) return;
+    if (listening) {
+      // The second tap: "I'm done" — score what was heard so far.
+      session.current?.finish();
       return;
     }
+    if (!available) {
+      selfReport();
+      return;
+    }
+    // Don't let the recognizer hear the app's own voice.
+    clearTimeout(modelTimer.current);
+    stopSpeaking();
     setResult('none');
     setScore(null);
     setListening(true);
-    session.current = listenOnce({
-      onResult: (transcripts) => {
-        setListening(false);
-        if (!target) return;
-        // Rich per-sound feedback either way; matchSpeech stays the (kind) gate.
-        setScore(scorePronunciation(target.say, transcripts));
-        if (matchSpeech(transcripts, target.say)) {
-          setResult('good');
-          advance(true);
-        } else {
-          registerMiss();
-        }
+    session.current = listenOnce(
+      {
+        onResult: (transcripts) => {
+          setListening(false);
+          if (!target) return;
+          if (!transcripts.some((t) => normalizeSpoken(t))) {
+            setResult('unheard');
+            return;
+          }
+          // Rich per-sound feedback either way; matchSpeech stays the (kind) gate.
+          setScore(scorePronunciation(target.say, transcripts));
+          if (matchSpeech(transcripts, target.say)) {
+            setResult('good');
+            judge(true);
+          } else {
+            registerMiss();
+          }
+        },
+        onError: (kind) => {
+          setListening(false);
+          if (kind === 'aborted') return;
+          if (kind === 'not-allowed') {
+            setResult('denied'); // let them enable the mic and tap again
+            return;
+          }
+          // Silence, a room too loud to pick the child out, or a recognizer
+          // hiccup: not the child's mistake, so it isn't counted as a try.
+          setResult('unheard');
+        },
       },
-      onError: (kind) => {
-        setListening(false);
-        if (kind === 'aborted') return;
-        if (kind === 'not-allowed') {
-          setResult('denied'); // let them enable the mic and tap again
-          return;
-        }
-        registerMiss();
-      },
-    });
-  }, [locked, done, listening, introSeen, available, target, index, round.length, addStars, advance, registerMiss]);
+      { maxMs: MAX_LISTEN_MS },
+    );
+  }, [locked, done, listening, introSeen, available, target, judge, registerMiss, selfReport]);
 
   function restart() {
     setIndex(0);
@@ -257,17 +294,24 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   }
 
   const status =
-    result === 'good'
+    result === 'good' || result === 'said'
       ? 'Hienoa! · Great!'
       : result === 'giveup'
         ? 'Hyvä yritys! · Good try!'
-        : result === 'tryagain'
+        : result === 'tryagain' || result === 'unheard'
           ? 'Yritä uudestaan · Try again'
           : result === 'denied'
             ? 'Salli mikrofoni ja yritä uudestaan · Allow the mic and try again'
             : listening
               ? 'Kuuntelen… · Listening…'
               : '​';
+  // Which way a length slip went: a long (doubled) sound said short, or a
+  // single one held too long.
+  const heldShort = score?.sounds.some((s) => s.status === 'length' && s.sound.long);
+  const heldLong = score?.sounds.some((s) => s.status === 'length' && !s.sound.long);
+  // After a try that didn't land (or a mic that can't hear), a grown-up can
+  // vouch for it.
+  const canVouch = available && !listening && (result === 'tryagain' || result === 'unheard' || result === 'denied');
 
   return (
     <section className="screen activity">
@@ -301,7 +345,10 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
             the Finnish even in the recall band). Before: the Finnish to say
             (model/read), or — at the highest levels — only the ENGLISH prompt. */}
         {score ? (
-          <PronunciationStrip score={score} />
+          <>
+            <PronunciationStrip score={score} />
+            <SoundKey score={score} />
+          </>
         ) : (
           <p className="say-target">{presentation === 'recall' ? target.gloss : target.say}</p>
         )}
@@ -310,11 +357,13 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         {(presentation !== 'recall' || score) && (
           <p className="en phrase-hint">{target.gloss}</p>
         )}
-        {/* Listen (manual TTS) only in the model band — higher levels are TTS-free. */}
-        {presentation === 'model' && (
+        {/* Listen (manual TTS) in the model band — higher levels are TTS-free
+            until the child has had a go. */}
+        {(presentation === 'model' || score) && (
           <button
             className="speaker speaker--inline"
             onClick={() => speak(target.say)}
+            disabled={listening}
             aria-label="Hear it again"
           >
             <SpeakerIcon /> <span className="en">Listen</span>
@@ -322,27 +371,67 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         )}
       </div>
 
-      <button
-        className={'mic-button' + (listening ? ' mic-button--listening' : '')}
-        onClick={startListening}
-        disabled={locked}
-        aria-label={available ? 'Tap and say the word' : 'I said it'}
-      >
-        <Art glyph="🎤" />
-        <span className="mic-button__hint">
-          {available ? 'Paina ja puhu · Tap & speak' : 'Sanoin sen · I said it'}
-        </span>
-      </button>
+      {judged ? (
+        <button className="btn btn--primary say-next" onClick={next} autoFocus>
+          Jatka <span className="en">Continue</span>
+        </button>
+      ) : (
+        <button
+          className={'mic-button' + (listening ? ' mic-button--listening' : '')}
+          onClick={startListening}
+          disabled={locked}
+          aria-label={!available ? 'I said it' : listening ? "I'm done" : 'Tap and say the word'}
+        >
+          <Art glyph="🎤" />
+          <span className="mic-button__hint">
+            {!available ? 'Sanoin sen · I said it' : listening ? 'Valmis · Done' : 'Paina ja puhu · Tap & speak'}
+          </span>
+        </button>
+      )}
 
       <p className="say-status" role="status" aria-live="polite">
         {status}
       </p>
-      {score?.hasLengthError && (
+      {heldShort && (
         <p className="say-hint">
           Pidennä pitkää ääntä <span className="en">— mind the long sound, hold the doubled letter</span>
         </p>
       )}
+      {heldLong && <p className="say-hint en">Keep the single letter short</p>}
+      {result === 'unheard' && (
+        <p className="say-hint say-hint--soft en">The mic didn't catch that — hold the device close and try again.</p>
+      )}
+      {canVouch && (
+        <button className="btn btn--ghost btn--sm say-vouch" onClick={selfReport}>
+          Sanoin sen <span className="en">I said it</span>
+        </button>
+      )}
     </section>
+  );
+}
+
+/** What the colors in the strip mean — only the ones it shows, once a sound slipped. */
+function SoundKey({ score }: { score: PronunciationScore }) {
+  const shown = new Set(score.sounds.map((s) => s.status));
+  if (shown.size === 1 && shown.has('good')) return null;
+  return (
+    <p className="sound-key en">
+      {shown.has('good') && (
+        <span>
+          <i className="sound-key__dot sound-key__dot--good" /> right
+        </span>
+      )}
+      {shown.has('length') && (
+        <span>
+          <i className="sound-key__dot sound-key__dot--length" /> length
+        </span>
+      )}
+      {(shown.has('off') || shown.has('missing')) && (
+        <span>
+          <i className="sound-key__dot sound-key__dot--off" /> not yet
+        </span>
+      )}
+    </p>
   );
 }
 
