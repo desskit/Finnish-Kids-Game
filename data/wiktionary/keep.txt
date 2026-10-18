@@ -4,3 +4,65 @@
 
 # wild duck — the mallard on the lake (ankka, the farmyard duck, is already in)
 sorsa
+
+# Taught in the new units and expansions
+pipo            # beanie
+lapanen         # mitten
+haalari         # snowsuit
+villapaita      # sweater
+sadetakki       # raincoat
+välitunti       # recess
+päiväkoti       # daycare
+vihko           # notebook
+iltapala        # evening snack
+joulukuusi      # Christmas tree
+piparkakku      # gingerbread cookie
+lumiukko        # snowman
+pääsiäinen      # Easter
+pajunkissa      # pussy willow
+juhannus        # Midsummer
+kokko           # Midsummer bonfire
+sauna           # sauna
+pulla           # sweet bun
+mustikka        # blueberry
+laastari        # bandage
+hiihtää         # to ski
+luistella       # to skate
+
+# Words the new stories and scenes use
+koivu           # birch
+pulkka          # sled
+lumipallo       # snowball
+vitsa           # twig (the Easter willow twig)
+kiuas           # sauna stove
+löyly           # sauna steam
+keinu           # swing
+liukumäki       # slide
+hiekkalaatikko  # sandbox
+penaali         # pencil case
+sateenvarjo     # umbrella
+lätäkkö         # puddle
+kumisaapas      # rubber boot
+hammasharja     # toothbrush
+riisipuuro      # rice porridge
+joulukortti     # Christmas card
+reki            # sleigh
+joutsen         # swan
+hyttynen        # mosquito
+käpy            # pine cone
+siili           # hedgehog
+puolukka        # lingonberry
+terveydenhoitaja  # school nurse
+virpoa          # to go Easter-twig visiting
+saunoa          # to have a sauna
+soutaa          # to row
+koristella      # to decorate
+
+# The math section
+vaaka           # scale
+noppa           # die (dice)
+helmitaulu      # abacus
+palikka         # block
+nippu           # bundle
+viipale         # slice
+omenapuu        # apple tree
