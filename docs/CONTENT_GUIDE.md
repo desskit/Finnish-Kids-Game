@@ -105,9 +105,12 @@ The path is data in `src/game/path.tsx`. A **skill node** picks an existing game
 - `activity`: `listen | build | count | match | conjugate | order | spell | sentence | review`
 - `content.pool`: which words — `'nouns'` (all noun topics mixed, default),
   `'animals' | 'food' | 'family' | 'numbers' | 'places' | 'body' | 'nature' | 'clothes'`,
-  `'verbs'` (the emoji-bearing action verbs, for picture-card games), or
-  `'mixed'` (every word, nouns and verbs alike — for a words step whose
-  `only` list holds both, like *rakastaa* beside the Likes unit's things).
+  `'verbs'` (the emoji-bearing action verbs, for picture-card games),
+  `'money'` (the euro, for counting prices: *kaksi euroa*), or `'mixed'`
+  (every word, nouns and verbs alike — for a words step whose `only` list
+  holds both, like *rakastaa* beside the Likes unit's things). Money's topic
+  is opt-in like days and numbers, so *euro* fills no carrier phrase unless
+  one names it.
 - `content.constructionIds`: for `build`/`order`, which carrier phrases to drill
   (omit = all).
 
@@ -306,7 +309,8 @@ pronoun paradigm).
   infinitive with the sourced *minä* form (*nukkua → nukun*). Nothing is built:
   the KPT test only compares, and `markGradation` only marks letters.
 - A conjugate or choose step narrows its verbs with
-  `content.verbs: { types: [1, 3], kpt: true }`.
+  `content.verbs: { types: [1, 3], kpt: true }`, or names them with
+  `content.verbs: { ids: ['play', 'play-game', 'play-music'] }`.
 - `Chapter.midLessons: [{ lessonId, before }]` puts a lesson PART-WAY through a
   unit. It opens once the steps before `before` are done, and the steps from
   `before` on wait until it's read. Words listed in a later words step's
@@ -346,6 +350,18 @@ forms (*Minua pelotan*), which are wrong in every reading.
 A carrier with no `before` and a `punct` starts with its slot, and the slot's
 form is capitalized: *Aurinko paistaa.* (`sentenceWithForm`; the listening
 games' carrier text does the same).
+
+### Which play? (`choose: 'play'`)
+
+English has one "play"; Finnish has three: *leikkiä* + **-lla** for toys
+(*Leikin nukella*), *pelata* + **-a** for games and sports (*Pelaan
+jalkapalloa*), *soittaa* + **-a** for music (*Soitan pianoa*). The choose
+game asks which, over the step's three frames (`play-with-toy`,
+`i-play-game`, `i-play-music`). The wrong options are the other verbs with
+their **-a** — but *leikkiä* is never offered as wrong for a ball or an
+instrument (*Leikin pallolla*, *Leikin rummulla* are right Finnish), a ball
+is never asked about (*Pelaan palloa* is right too), and a toy's second wrong
+option is the ending slip, since *Soitan lelua* can be said of a musical toy.
 
 ### Kapteeni käskee (`activity: 'captain'`)
 

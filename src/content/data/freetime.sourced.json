@@ -997,6 +997,470 @@
           "en": "Thank you for your gift!"
         }
       ]
+    },
+    {
+      "id": "teddy",
+      "word": "nalle",
+      "en": "teddy bear",
+      "emoji": "🧸",
+      "inflections": {
+        "nominative_singular": "nalle",
+        "nominative_plural": "nallet",
+        "genitive_singular": "nallen",
+        "genitive_plural": "nallejen",
+        "partitive_singular": "nallea",
+        "partitive_plural": "nalleja",
+        "inessive_singular": "nallessa",
+        "inessive_plural": "nalleissa",
+        "elative_singular": "nallesta",
+        "elative_plural": "nalleista",
+        "illative_singular": "nalleen",
+        "illative_plural": "nalleihin",
+        "adessive_singular": "nallella",
+        "adessive_plural": "nalleilla",
+        "ablative_singular": "nallelta",
+        "ablative_plural": "nalleilta",
+        "allative_singular": "nallelle",
+        "allative_plural": "nalleille",
+        "essive_singular": "nallena",
+        "essive_plural": "nalleina",
+        "translative_singular": "nalleksi",
+        "translative_plural": "nalleiksi",
+        "abessive_singular": "nalletta",
+        "abessive_plural": "nalleitta",
+        "instructive_plural": "nallein",
+        "comitative_plural": "nalleineen",
+        "poss_1sg_nominative_singular": "nalleni",
+        "poss_1sg_inessive_singular": "nallessani",
+        "poss_1sg_adessive_singular": "nallellani",
+        "poss_2sg_nominative_singular": "nallesi",
+        "poss_2sg_inessive_singular": "nallessasi",
+        "poss_2sg_adessive_singular": "nallellasi",
+        "poss_3rd_nominative_singular": "nallensa",
+        "poss_3rd_inessive_singular": "nallessaan",
+        "poss_3rd_adessive_singular": "nallellaan"
+      },
+      "english": {
+        "plural": "teddy bears"
+      },
+      "kotusType": 8,
+      "group": "e",
+      "frequencyRank": 17060,
+      "examples": [
+        {
+          "fi": "Tomi ei saa unta ilman nallea.",
+          "en": "Tom can't sleep without his teddy bear."
+        }
+      ]
+    },
+    {
+      "id": "doll",
+      "word": "nukke",
+      "en": "doll",
+      "emoji": "🪆",
+      "inflections": {
+        "nominative_singular": "nukke",
+        "nominative_plural": "nuket",
+        "genitive_singular": "nuken",
+        "genitive_plural": "nukkejen",
+        "partitive_singular": "nukkea",
+        "partitive_plural": "nukkeja",
+        "inessive_singular": "nukessa",
+        "inessive_plural": "nukeissa",
+        "elative_singular": "nukesta",
+        "elative_plural": "nukeista",
+        "illative_singular": "nukkeen",
+        "illative_plural": "nukkeihin",
+        "adessive_singular": "nukella",
+        "adessive_plural": "nukeilla",
+        "ablative_singular": "nukelta",
+        "ablative_plural": "nukeilta",
+        "allative_singular": "nukelle",
+        "allative_plural": "nukeille",
+        "essive_singular": "nukkena",
+        "essive_plural": "nukkeina",
+        "translative_singular": "nukeksi",
+        "translative_plural": "nukeiksi",
+        "abessive_singular": "nuketta",
+        "abessive_plural": "nukeitta",
+        "instructive_plural": "nukein",
+        "comitative_plural": "nukkeineen",
+        "poss_1sg_nominative_singular": "nukkeni",
+        "poss_1sg_inessive_singular": "nukessani",
+        "poss_1sg_adessive_singular": "nukellani",
+        "poss_2sg_nominative_singular": "nukkesi",
+        "poss_2sg_inessive_singular": "nukessasi",
+        "poss_2sg_adessive_singular": "nukellasi",
+        "poss_3rd_nominative_singular": "nukkensa",
+        "poss_3rd_inessive_singular": "nukessaan",
+        "poss_3rd_adessive_singular": "nukellaan"
+      },
+      "english": {
+        "plural": "dolls"
+      },
+      "kotusType": 8,
+      "group": "e",
+      "frequencyRank": 7152,
+      "examples": [
+        {
+          "fi": "Pikkusiskoni leikkii nukella.",
+          "en": "My younger sister is playing with a doll."
+        },
+        {
+          "fi": "Tällä nukella on suuret silmät.",
+          "en": "This doll has big eyes."
+        }
+      ]
+    },
+    {
+      "id": "toy",
+      "word": "lelu",
+      "en": "toy",
+      "emoji": "🚂",
+      "inflections": {
+        "nominative_singular": "lelu",
+        "nominative_plural": "lelut",
+        "genitive_singular": "lelun",
+        "genitive_plural": "lelujen",
+        "partitive_singular": "lelua",
+        "partitive_plural": "leluja",
+        "inessive_singular": "lelussa",
+        "inessive_plural": "leluissa",
+        "elative_singular": "lelusta",
+        "elative_plural": "leluista",
+        "illative_singular": "leluun",
+        "illative_plural": "leluihin",
+        "adessive_singular": "lelulla",
+        "adessive_plural": "leluilla",
+        "ablative_singular": "lelulta",
+        "ablative_plural": "leluilta",
+        "allative_singular": "lelulle",
+        "allative_plural": "leluille",
+        "essive_singular": "leluna",
+        "essive_plural": "leluina",
+        "translative_singular": "leluksi",
+        "translative_plural": "leluiksi",
+        "abessive_singular": "lelutta",
+        "abessive_plural": "leluitta",
+        "instructive_plural": "leluin",
+        "comitative_plural": "leluineen",
+        "poss_1sg_nominative_singular": "leluni",
+        "poss_1sg_inessive_singular": "lelussani",
+        "poss_1sg_adessive_singular": "lelullani",
+        "poss_2sg_nominative_singular": "lelusi",
+        "poss_2sg_inessive_singular": "lelussasi",
+        "poss_2sg_adessive_singular": "lelullasi",
+        "poss_3rd_nominative_singular": "lelunsa",
+        "poss_3rd_inessive_singular": "lelussaan",
+        "poss_3rd_adessive_singular": "lelullaan"
+      },
+      "english": {
+        "plural": "toys"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 9498,
+      "examples": [
+        {
+          "fi": "Hän rakastaa leluja.",
+          "en": "He loves toys."
+        },
+        {
+          "fi": "Kenen leluja nuo ovat?",
+          "en": "Whose toys are those?"
+        }
+      ]
+    },
+    {
+      "id": "drum",
+      "word": "rumpu",
+      "en": "drum",
+      "emoji": "🥁",
+      "inflections": {
+        "nominative_singular": "rumpu",
+        "nominative_plural": "rummut",
+        "genitive_singular": "rummun",
+        "genitive_plural": "rumpujen",
+        "partitive_singular": "rumpua",
+        "partitive_plural": "rumpuja",
+        "inessive_singular": "rummussa",
+        "inessive_plural": "rummuissa",
+        "elative_singular": "rummusta",
+        "elative_plural": "rummuista",
+        "illative_singular": "rumpuun",
+        "illative_plural": "rumpuihin",
+        "adessive_singular": "rummulla",
+        "adessive_plural": "rummuilla",
+        "ablative_singular": "rummulta",
+        "ablative_plural": "rummuilta",
+        "allative_singular": "rummulle",
+        "allative_plural": "rummuille",
+        "essive_singular": "rumpuna",
+        "essive_plural": "rumpuina",
+        "translative_singular": "rummuksi",
+        "translative_plural": "rummuiksi",
+        "abessive_singular": "rummutta",
+        "abessive_plural": "rummuitta",
+        "instructive_plural": "rummuin",
+        "comitative_plural": "rumpuineen",
+        "poss_1sg_nominative_singular": "rumpuni",
+        "poss_1sg_inessive_singular": "rummussani",
+        "poss_1sg_adessive_singular": "rummullani",
+        "poss_2sg_nominative_singular": "rumpusi",
+        "poss_2sg_inessive_singular": "rummussasi",
+        "poss_2sg_adessive_singular": "rummullasi",
+        "poss_3rd_nominative_singular": "rumpunsa",
+        "poss_3rd_inessive_singular": "rummussaan",
+        "poss_3rd_adessive_singular": "rummullaan"
+      },
+      "english": {
+        "plural": "drums"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 22753,
+      "examples": [
+        {
+          "fi": "Soitan rumpuja.",
+          "en": "I play the drums."
+        },
+        {
+          "fi": "Osaatko soittaa rumpuja?",
+          "en": "Can you play the drums?"
+        }
+      ]
+    },
+    {
+      "id": "violin",
+      "word": "viulu",
+      "en": "violin",
+      "emoji": "🎻",
+      "inflections": {
+        "nominative_singular": "viulu",
+        "nominative_plural": "viulut",
+        "genitive_singular": "viulun",
+        "genitive_plural": "viulujen",
+        "partitive_singular": "viulua",
+        "partitive_plural": "viuluja",
+        "inessive_singular": "viulussa",
+        "inessive_plural": "viuluissa",
+        "elative_singular": "viulusta",
+        "elative_plural": "viuluista",
+        "illative_singular": "viuluun",
+        "illative_plural": "viuluihin",
+        "adessive_singular": "viululla",
+        "adessive_plural": "viuluilla",
+        "ablative_singular": "viululta",
+        "ablative_plural": "viuluilta",
+        "allative_singular": "viululle",
+        "allative_plural": "viuluille",
+        "essive_singular": "viuluna",
+        "essive_plural": "viuluina",
+        "translative_singular": "viuluksi",
+        "translative_plural": "viuluiksi",
+        "abessive_singular": "viulutta",
+        "abessive_plural": "viuluitta",
+        "instructive_plural": "viuluin",
+        "comitative_plural": "viuluineen",
+        "poss_1sg_nominative_singular": "viuluni",
+        "poss_1sg_inessive_singular": "viulussani",
+        "poss_1sg_adessive_singular": "viulullani",
+        "poss_2sg_nominative_singular": "viulusi",
+        "poss_2sg_inessive_singular": "viulussasi",
+        "poss_2sg_adessive_singular": "viulullasi",
+        "poss_3rd_nominative_singular": "viulunsa",
+        "poss_3rd_inessive_singular": "viulussaan",
+        "poss_3rd_adessive_singular": "viulullaan"
+      },
+      "english": {
+        "plural": "violins"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 25519,
+      "examples": [
+        {
+          "fi": "Kuka maksaa viulut?",
+          "en": "Who will pay the bill?"
+        },
+        {
+          "fi": "Soitan viulua.",
+          "en": "I play violin."
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "word": "kortti",
+      "en": "card",
+      "emoji": "🃏",
+      "inflections": {
+        "nominative_singular": "kortti",
+        "nominative_plural": "kortit",
+        "genitive_singular": "kortin",
+        "genitive_plural": "korttien",
+        "partitive_singular": "korttia",
+        "partitive_plural": "kortteja",
+        "inessive_singular": "kortissa",
+        "inessive_plural": "korteissa",
+        "elative_singular": "kortista",
+        "elative_plural": "korteista",
+        "illative_singular": "korttiin",
+        "illative_plural": "kortteihin",
+        "adessive_singular": "kortilla",
+        "adessive_plural": "korteilla",
+        "ablative_singular": "kortilta",
+        "ablative_plural": "korteilta",
+        "allative_singular": "kortille",
+        "allative_plural": "korteille",
+        "essive_singular": "korttina",
+        "essive_plural": "kortteina",
+        "translative_singular": "kortiksi",
+        "translative_plural": "korteiksi",
+        "abessive_singular": "kortitta",
+        "abessive_plural": "korteitta",
+        "instructive_plural": "kortein",
+        "comitative_plural": "kortteineen",
+        "poss_1sg_nominative_singular": "korttini",
+        "poss_1sg_inessive_singular": "kortissani",
+        "poss_1sg_adessive_singular": "kortillani",
+        "poss_2sg_nominative_singular": "korttisi",
+        "poss_2sg_inessive_singular": "kortissasi",
+        "poss_2sg_adessive_singular": "kortillasi",
+        "poss_3rd_nominative_singular": "korttinsa",
+        "poss_3rd_inessive_singular": "kortissaan",
+        "poss_3rd_adessive_singular": "kortillaan"
+      },
+      "english": {
+        "plural": "cards"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 4371,
+      "examples": [
+        {
+          "fi": "kortilla",
+          "en": "subject to rationing; (by extension) in short supply"
+        },
+        {
+          "fi": "Kahvi ja sokeri olivat kortilla.",
+          "en": "Coffee and sugar were rationed."
+        }
+      ]
+    },
+    {
+      "id": "chess",
+      "word": "shakki",
+      "en": "chess set",
+      "emoji": "♟️",
+      "inflections": {
+        "nominative_singular": "shakki",
+        "nominative_plural": "shakit",
+        "genitive_singular": "shakin",
+        "genitive_plural": "shakkien",
+        "partitive_singular": "shakkia",
+        "partitive_plural": "shakkeja",
+        "inessive_singular": "shakissa",
+        "inessive_plural": "shakeissa",
+        "elative_singular": "shakista",
+        "elative_plural": "shakeista",
+        "illative_singular": "shakkiin",
+        "illative_plural": "shakkeihin",
+        "adessive_singular": "shakilla",
+        "adessive_plural": "shakeilla",
+        "ablative_singular": "shakilta",
+        "ablative_plural": "shakeilta",
+        "allative_singular": "shakille",
+        "allative_plural": "shakeille",
+        "essive_singular": "shakkina",
+        "essive_plural": "shakkeina",
+        "translative_singular": "shakiksi",
+        "translative_plural": "shakeiksi",
+        "abessive_singular": "shakitta",
+        "abessive_plural": "shakeitta",
+        "instructive_plural": "shakein",
+        "comitative_plural": "shakkeineen",
+        "poss_1sg_nominative_singular": "shakkini",
+        "poss_1sg_inessive_singular": "shakissani",
+        "poss_1sg_adessive_singular": "shakillani",
+        "poss_2sg_nominative_singular": "shakkisi",
+        "poss_2sg_inessive_singular": "shakissasi",
+        "poss_2sg_adessive_singular": "shakillasi",
+        "poss_3rd_nominative_singular": "shakkinsa",
+        "poss_3rd_inessive_singular": "shakissaan",
+        "poss_3rd_adessive_singular": "shakillaan"
+      },
+      "english": {
+        "plural": "chess sets"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 15707,
+      "examples": [
+        {
+          "fi": "Joni on hyvä shakissa.",
+          "en": "John is good at chess."
+        },
+        {
+          "fi": "Ken löi minut shakissa.",
+          "en": "Ken beat me at chess."
+        }
+      ]
+    },
+    {
+      "id": "hockey",
+      "word": "jääkiekko",
+      "en": "hockey puck",
+      "emoji": "🏒",
+      "inflections": {
+        "nominative_singular": "jääkiekko",
+        "nominative_plural": "jääkiekot",
+        "genitive_singular": "jääkiekon",
+        "genitive_plural": "jääkiekkojen",
+        "partitive_singular": "jääkiekkoa",
+        "partitive_plural": "jääkiekkoja",
+        "inessive_singular": "jääkiekossa",
+        "inessive_plural": "jääkiekoissa",
+        "elative_singular": "jääkiekosta",
+        "elative_plural": "jääkiekoista",
+        "illative_singular": "jääkiekkoon",
+        "illative_plural": "jääkiekkoihin",
+        "adessive_singular": "jääkiekolla",
+        "adessive_plural": "jääkiekoilla",
+        "ablative_singular": "jääkiekolta",
+        "ablative_plural": "jääkiekoilta",
+        "allative_singular": "jääkiekolle",
+        "allative_plural": "jääkiekoille",
+        "essive_singular": "jääkiekkona",
+        "essive_plural": "jääkiekkoina",
+        "translative_singular": "jääkiekoksi",
+        "translative_plural": "jääkiekoiksi",
+        "abessive_singular": "jääkiekotta",
+        "abessive_plural": "jääkiekoitta",
+        "instructive_plural": "jääkiekoin",
+        "comitative_plural": "jääkiekkoineen",
+        "poss_1sg_nominative_singular": "jääkiekkoni",
+        "poss_1sg_inessive_singular": "jääkiekossani",
+        "poss_1sg_adessive_singular": "jääkiekollani",
+        "poss_2sg_nominative_singular": "jääkiekkosi",
+        "poss_2sg_inessive_singular": "jääkiekossasi",
+        "poss_2sg_adessive_singular": "jääkiekollasi",
+        "poss_3rd_nominative_singular": "jääkiekkonsa",
+        "poss_3rd_inessive_singular": "jääkiekossaan",
+        "poss_3rd_adessive_singular": "jääkiekollaan"
+      },
+      "english": {
+        "plural": "hockey pucks"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 26443,
+      "examples": [
+        {
+          "fi": "Tomi pelaa jääkiekkoa.",
+          "en": "Tom plays hockey."
+        }
+      ]
     }
   ]
 }

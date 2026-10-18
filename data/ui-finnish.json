@@ -473,6 +473,13 @@
       ]
     },
     {
+      "fi": "Leikin, pelaan, soitan",
+      "en": "Which play?",
+      "where": [
+        "components/ChooseForm.tsx"
+      ]
+    },
+    {
       "fi": "Loppu",
       "en": "The end",
       "where": [

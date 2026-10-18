@@ -229,3 +229,218 @@ export function candle(k) {
     k.flat(`M${pt([32 + lean * 0.6, tip + 5])}C${pt([34 + lean * 0.4, tip + 8])} ${pt([34, 20.6])} ${pt([32, 22.4])}C${pt([30, 20.6])} ${pt([30 - lean * 0.2, tip + 8])} ${pt([32 + lean * 0.6, tip + 5])}Z`, c.yellow),
   ].join('');
 }
+
+// --- Play: toys, instruments and games -------------------------------------------
+
+/** A teddy bear (a golden plush, so it's never the real bear), tilting its head. */
+export function teddy(k) {
+  const c = k.P;
+  const tilt = k.frame % 2 ? 8 : 0;
+  return [
+    k.ground(32, 58.6, 20, 2.2),
+    k.ellipse(21, 51.6, 7, 5.6, c.amber),
+    k.ellipse(43, 51.6, 7, 5.6, c.amber),
+    k.flatEllipse(18.6, 52.4, 3.4, 3.2, c.tan),
+    k.flatEllipse(45.4, 52.4, 3.4, 3.2, c.tan),
+    k.g('rotate(28 18 40)', k.ellipse(18, 40, 4.4, 7.4, c.amber)),
+    k.g('rotate(-28 46 40)', k.ellipse(46, 40, 4.4, 7.4, c.amber)),
+    k.ellipse(32, 43, 12.6, 11.6, c.amber),
+    k.flatEllipse(32, 45.4, 7.2, 7, c.tan),
+    k.g(
+      `rotate(${tilt} 32 30)`,
+      k.circle(21.6, 12.6, 4.6, c.amber),
+      k.circle(42.4, 12.6, 4.6, c.amber),
+      k.flatCircle(21.6, 12.6, 2.2, c.tan),
+      k.flatCircle(42.4, 12.6, 2.2, c.tan),
+      k.circle(32, 22, 12, c.amber),
+      k.flat('M42 15C44 19 44 25 42 29C40.4 31.4 37.6 33 35 33.6C39.6 30 41.8 23 42 15Z', c.amberShade),
+      k.ellipse(32, 26.8, 5.6, 4.2, c.tan),
+      k.ellipse(32, 24.8, 2.2, 1.6, c.charcoal),
+      k.line('M32 26.4V28.2M29.8 28.4Q32 30 34.2 28.4', { sw: 1.4 }),
+      k.eye(27, 20.4, 2),
+      k.eye(37, 20.4, 2),
+      k.shine('M24.6 14.6Q27 12.6 30 12.4', 1.6),
+    ),
+    k.poly([[32, 34], [25.4, 30.6], [25.4, 37.4]], 0.8, c.red),
+    k.poly([[32, 34], [38.6, 30.6], [38.6, 37.4]], 0.8, c.red),
+    k.circle(32, 34, 1.8, c.redShade),
+  ].join('');
+}
+
+/** A rag doll: orange yarn hair, a pink dotted dress, red stockings; she waves. */
+export function doll(k) {
+  const c = k.P;
+  const up = k.frame % 2 === 1;
+  const hand = up ? [48.6, 25.4] : [47.4, 40.6];
+  return [
+    k.ground(32, 59, 13, 2),
+    k.limb('M27.6 47L26.6 55.6', c.red, 5),
+    k.limb('M36.4 47L37.4 55.6', c.red, 5),
+    k.ellipse(25.6, 57, 3.6, 2.2, c.charcoal),
+    k.ellipse(38.4, 57, 3.6, 2.2, c.charcoal),
+    k.limb('M25 33L16.6 40.6', c.skin1, 5),
+    k.circle(16, 41, 2.6, c.skin1),
+    k.limb(`M39 33L${pt(hand)}`, c.skin1, 5),
+    k.circle(...hand, 2.6, c.skin1),
+    k.poly([[25, 30], [39, 30], [46, 49], [18, 49]], [3, 3, 2.4, 2.4], c.pink),
+    k.flatCircle(27, 38, 1.2, c.white),
+    k.flatCircle(35, 41, 1.2, c.white),
+    k.flatCircle(30, 45, 1.2, c.white),
+    k.flatCircle(40, 46, 1.2, c.white),
+    k.poly([[27, 30.4], [37, 30.4], [32, 34.4]], 1, c.white, { sw: 1.5 }),
+    k.circle(21.6, 16.6, 4.6, c.orange),
+    k.circle(42.4, 16.6, 4.6, c.orange),
+    k.circle(32, 19.6, 10.4, c.skin1),
+    k.path('M22.4 15.6C23 8.6 41 8.6 41.6 15.6C38 12.6 35 13.6 32 12C29 13.6 26 12.6 22.4 15.6Z', c.orange),
+    k.eye(28, 20.4, 1.8),
+    k.eye(36, 20.4, 1.8),
+    k.blush(25, 24, 2, 1.2),
+    k.blush(39, 24, 2, 1.2),
+    k.line('M29.6 25.6Q32 27.4 34.4 25.6', { sw: 1.3 }),
+  ].join('');
+}
+
+/** A toy: a wooden pull-along train with a block on its wagon, wheels turning. */
+export function toy(k) {
+  const c = k.P;
+  const turn = k.frame % 2 ? 90 : 0;
+  const wheel = (x, r, col) => k.circle(x, 48.4, r, c[col]) + k.flatCircle(...polar(x, 48.4, r * 0.5, turn - 45), 1, c.charcoal);
+  return [
+    k.ground(33, 54.6, 27, 2),
+    k.line('M56.6 39.6Q60 44 61.4 50', { color: c.charcoal, sw: 1.4 }),
+    k.circle(61.4, 51.6, 1.8, c.red),
+    // the wagon and its block
+    k.rect(5.6, 36.6, 16, 10, 1.4, c.blue),
+    k.rect(8.4, 29.4, 9, 7.6, 1, c.green),
+    k.flat('M14.4 30H16.8V36.4H14.4Z', c.greenShade),
+    k.line('M21.6 43H26', { color: c.charcoal, sw: 1.6 }),
+    // the engine
+    k.rect(26, 33, 30, 13.6, 1.6, c.red),
+    k.rect(42, 21.6, 13, 12.6, 1.6, c.red),
+    k.rect(44.8, 24.2, 7.4, 5.6, 1, c.sky),
+    k.rect(29, 24.6, 5.4, 8.8, 1, c.yellow),
+    k.rect(27.6, 22.4, 8.2, 3, 1, c.yellow),
+    k.flat('M27 42.6H55V45.6H27Z', c.redShade),
+    k.shine('M29.4 36V40', 1.6),
+    wheel(10, 3.8, 'yellow'),
+    wheel(17.4, 3.8, 'yellow'),
+    wheel(32, 4.6, 'yellow'),
+    wheel(49.4, 4.6, 'yellow'),
+  ].join('');
+}
+
+/** A violin and its bow, the bow drawing across the strings. */
+export function violin(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const slide = f ? 3 : -3;
+  return [
+    k.ground(30, 59, 18, 2),
+    note(k, f ? 50 : 52, f ? 14 : 18, 'purple'),
+    k.g(
+      'rotate(-32 32 36)',
+      k.rect(30.2, 7.4, 3.6, 21, 1, c.charcoal),
+      k.circle(32, 6.4, 2.8, c.brown),
+      k.path('M32 25C38 25 41 27 41 31C41 34 38 36 38 39C38 42 43 44 43 49C43 54 38 57.6 32 57.6C26 57.6 21 54 21 49C21 44 26 42 26 39C26 36 23 34 23 31C23 27 26 25 32 25Z', c.orange),
+      k.flat('M37 26.6C39.6 27.6 40.4 29.4 40.4 31.4C40.4 34 37.6 36 37.6 39C37.6 42.4 42.4 44 42.4 49C42.4 53.4 38.6 56.6 34 57.2C38.4 54 39.4 49.6 38.2 46C37 42.6 35.4 41.4 35.6 38.6C35.8 35 38.4 31 37 26.6Z', c.orangeShade),
+      k.line('M27.6 40.6Q26.8 43.4 28.2 46.4M36.4 40.6Q37.2 43.4 35.8 46.4', { sw: 1.3 }),
+      k.rect(28.4, 44.2, 7.2, 1.8, 0.6, c.tan),
+      k.poly([[30, 49], [34, 49], [33.4, 55], [30.6, 55]], 0.8, c.charcoal),
+      k.line('M31.2 9V49M32.8 9V49', { color: c.cream, sw: 1 }),
+    ),
+    k.g(
+      `translate(${slide * 0.8} ${-slide * 0.6})`,
+      k.line('M10 47L55 13', { color: c.brown, sw: 2.6 }),
+      k.line('M11.8 49.4L56.4 15.6', { color: c.cream, sw: 1.4 }),
+    ),
+  ].join('');
+}
+
+/** A card suit drawn at (x, y): a heart, a spade or a diamond (no numbers). */
+function suit(k, kind, x, y, s = 1) {
+  const c = k.P;
+  if (kind === 'diamond') return k.poly([[x, y - 5 * s], [x + 3.6 * s, y], [x, y + 5 * s], [x - 3.6 * s, y]], 0.6, c.red, { sw: 1.2 });
+  const heart = (top) => `M${fmt(x)} ${fmt(top + 9 * s)}C${fmt(x - 2.7 * s)} ${fmt(top + 6.6 * s)} ${fmt(x - 4.6 * s)} ${fmt(top + 5.4 * s)} ${fmt(x - 4.6 * s)} ${fmt(top + 2.6 * s)}C${fmt(x - 4.6 * s)} ${fmt(top + 0.6 * s)} ${fmt(x - 3.2 * s)} ${fmt(top)} ${fmt(x - 2.1 * s)} ${fmt(top)}C${fmt(x - 0.9 * s)} ${fmt(top)} ${fmt(x)} ${fmt(top + 0.7 * s)} ${fmt(x)} ${fmt(top + 2 * s)}C${fmt(x)} ${fmt(top + 0.7 * s)} ${fmt(x + 0.9 * s)} ${fmt(top)} ${fmt(x + 2.1 * s)} ${fmt(top)}C${fmt(x + 3.2 * s)} ${fmt(top)} ${fmt(x + 4.6 * s)} ${fmt(top + 0.6 * s)} ${fmt(x + 4.6 * s)} ${fmt(top + 2.6 * s)}C${fmt(x + 4.6 * s)} ${fmt(top + 5.4 * s)} ${fmt(x + 2.7 * s)} ${fmt(top + 6.6 * s)} ${fmt(x)} ${fmt(top + 9 * s)}Z`;
+  if (kind === 'heart') return k.path(heart(y - 4.6 * s), c.red, { sw: 1.2 });
+  // a spade: the heart upside down, with a stem
+  return k.g(`rotate(180 ${fmt(x)} ${fmt(y)})`, k.path(heart(y - 4.6 * s), c.charcoal, { sw: 1.2 })) + k.poly([[x, y + 2 * s], [x + 2.4 * s, y + 6.4 * s], [x - 2.4 * s, y + 6.4 * s]], 0.4, c.charcoal);
+}
+
+/** Playing cards, fanned out: a heart, a spade and a diamond. */
+export function cards(k) {
+  const c = k.P;
+  const card = (rot, kind) =>
+    k.g(`rotate(${rot} 32 56)`, k.rect(23, 18, 18, 26, 2.4, c.white), k.flat('M24.4 39.4H39.6V42.6H24.4Z', c.silver), suit(k, kind, 32, 30, 1), suit(k, kind, 26.6, 22.4, 0.4));
+  return [k.ground(32, 58.6, 20, 2), card(-24, 'heart'), card(0, 'spade'), card(24, 'diamond')].join('');
+}
+
+/** A chess pawn (white or black) standing with its base at (x, ground). */
+function pawn(k, x, ground, color) {
+  const c = k.P;
+  const fill = c[color];
+  const shade = color === 'cream' ? c.creamShade : c.charcoalShade;
+  return [
+    k.ellipse(x, ground - 1.6, 6.4, 2.6, fill),
+    k.path(`M${fmt(x - 4.4)} ${fmt(ground - 2.6)}L${fmt(x - 2.2)} ${fmt(ground - 10)}H${fmt(x + 2.2)}L${fmt(x + 4.4)} ${fmt(ground - 2.6)}Z`, fill),
+    k.ellipse(x, ground - 10.4, 4, 1.6, fill),
+    k.circle(x, ground - 14.6, 3.8, fill),
+    k.flat(`M${fmt(x + 1.6)} ${fmt(ground - 17.6)}A3 3 0 0 1 ${fmt(x + 1.6)} ${fmt(ground - 11.8)}Z`, shade),
+  ].join('');
+}
+
+/** Chess: a board in perspective, a white pawn and a black pawn; the white one steps. */
+export function chess(k) {
+  const c = k.P;
+  const step = k.frame % 2 ? -3 : 0;
+  const rows = [38, 44.6, 51.4, 58];
+  const xAt = (row, t) => {
+    const half = 22 + (row - 38) * 0.55;
+    return 32 - half + 2 * half * t;
+  };
+  const squares = [];
+  for (let r = 0; r < 3; r++) {
+    for (let i = 0; i < 4; i++) {
+      if ((r + i) % 2) continue;
+      const [y0, y1] = [rows[r], rows[r + 1]];
+      squares.push(k.flat(`M${fmt(xAt(y0, i / 4))} ${y0}L${fmt(xAt(y0, (i + 1) / 4))} ${y0}L${fmt(xAt(y1, (i + 1) / 4))} ${y1}L${fmt(xAt(y1, i / 4))} ${y1}Z`, c.woodShade));
+    }
+  }
+  return [
+    k.poly([[xAt(38, 0), 38], [xAt(38, 1), 38], [xAt(58, 1), 58], [xAt(58, 0), 58]], 1.4, c.cream),
+    ...squares,
+    k.poly([[xAt(38, 0), 38], [xAt(38, 1), 38], [xAt(58, 1), 58], [xAt(58, 0), 58]], 1.4, 'none'),
+    pawn(k, 41.6, 46, 'charcoal'),
+    pawn(k, 23.4, 54 + step, 'cream'),
+  ].join('');
+}
+
+/** Hockey: a stick and a puck, the puck sliding off over the ice. */
+export function hockey(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const px = f ? 48 : 40;
+  return [
+    k.flatEllipse(34, 52, 28, 7, c.sky),
+    k.limb('M50 4L24.4 46.4', c.wood, 4.6),
+    k.limb('M24.4 46.4Q22.6 50.6 18 50.6H6.4', c.wood, 5.4),
+    k.limb('M10.6 50.6H18', c.charcoal, 5.4),
+    k.limb('M47.2 8.6L44.2 13.6', c.charcoal, 4.6),
+    k.ellipse(px, 51, 5.6, 2.4, c.charcoal),
+    k.path(`M${fmt(px - 5.6)} 51V53C${fmt(px - 5.6)} 54.4 ${fmt(px - 3)} 55.4 ${fmt(px)} 55.4C${fmt(px + 3)} 55.4 ${fmt(px + 5.6)} 54.4 ${fmt(px + 5.6)} 53V51`, c.charcoalShade),
+    f ? k.speed(41, [50.6, 54], 5) : '',
+  ].join('');
+}
+
+/** A euro coin: gold ring, silver middle, the € sign. */
+export function euro(k) {
+  const c = k.P;
+  return [
+    k.ground(32, 58, 17, 2),
+    k.circle(32, 32, 22, c.amber),
+    k.flat('M48 16C53 21 55 28 53.6 35C52 43 46 49 38 51.6C45 46 49.6 39 49.6 31C49.6 25.6 48.6 20.4 48 16Z', c.amberShade),
+    k.circle(32, 32, 15, c.silver),
+    k.line('M38.4 24.6A9 9 0 1 0 38.4 39.4', { sw: 3 }),
+    k.line('M21.6 29.6H33.4M21.6 34.4H32.4', { sw: 2 }),
+    k.shine('M17.6 24Q20 17 27 13.6', 2),
+  ].join('');
+}

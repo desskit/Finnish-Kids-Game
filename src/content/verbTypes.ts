@@ -189,9 +189,12 @@ export interface VerbFilter {
   types?: VerbType[];
   /** true = only KPT verbs, false = only verbs with no change, unset = both. */
   kpt?: boolean;
+  /** Only these verbs, by id (the three "play" verbs, say). */
+  ids?: string[];
 }
 
 export function matchesVerbFilter(v: LexicalItem, f: VerbFilter): boolean {
+  if (f.ids && !f.ids.includes(v.id)) return false;
   const t = verbType(v);
   if (f.types && (!t || !f.types.includes(t))) return false;
   if (f.kpt !== undefined && hasKpt(v) !== f.kpt) return false;

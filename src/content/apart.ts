@@ -45,6 +45,13 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['ball', 'football'],
   ['music', 'guitar'],
   ['music', 'piano'],
+  // Toys and instruments: the teddy is a bear, the doll a baby, the toy
+  // train a train; a violin is a little guitar, with a note like music's.
+  ['teddy', 'bear'],
+  ['doll', 'baby'],
+  ['toy', 'train'],
+  ['violin', 'guitar'],
+  ['music', 'violin'],
   ['book', 'homework'],
   ['pencil', 'homework'],
   ['paper', 'test', 'homework'],
@@ -92,6 +99,10 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['remember', 'forget'],
   ['forget', 'ask'],
   ['live', 'house'],
+  // Playing: the board game is a game, the music is music, the yo-yo a toy.
+  ['play-game', 'game', 'chess', 'card'],
+  ['play-music', 'music', 'sing', 'listen'],
+  ['play', 'toy'],
   ['order', 'speak', 'say'],
   ['touch', 'hand', 'finger'],
   ['lift', 'strong', 'answer'],
@@ -101,6 +112,13 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['tired', 'calm'],
   ['hungry', 'funny'],
   ['big', 'tall'],
+  // The new colors beside the ones they're nearly, and the opposites'
+  // pictures: the stubby pencil, the new shoe, the muddy boot.
+  ['pink', 'red'],
+  ['purple', 'blue'],
+  ['short', 'small', 'tall', 'pencil'],
+  ['new', 'shoe'],
+  ['dirty', 'boot'],
 
   // The feelings that happen to you, beside the ones they're nearly the same
   // as (sleepy and tired) or look like (the bored face's heavy eyes).

@@ -66,6 +66,7 @@ import {
   verbForm,
 } from "../content/types";
 import { slipForms } from "../content/contrasts";
+import { nounConstructions } from "../content/constructions";
 import { whyForConstruction, whyForVerbCasePick } from "../content/why";
 import { YOU_QUESTION, questionFor } from "../content/questions";
 import {
@@ -107,7 +108,8 @@ export type ChooseMode =
   | "ordinal"
   | "date"
   | "age"
-  | "verb-case";
+  | "verb-case"
+  | "play";
 
 export interface FormChoiceQuestion {
   /** Picture anchor, when there is one. */
@@ -894,6 +896,64 @@ function verbCaseQuestion(
   };
 }
 
+// --- Which play? "Soitan pianoa" · "Pelaan jalkapalloa" · "Leikin nukella"
+//
+// English has one "play"; Finnish has three. An instrument is played with
+// soittaa, a game or a sport with pelata, and a toy with leikkiä + -lla. The
+// wrong options are the other verbs, with the -a they take. Never leikkiä for
+// a ball or an instrument ("Leikin pallolla", "Leikin rummulla" are right
+// Finnish), so it's never offered there; and a toy can make music ("Soitan
+// lelua"), so the toy's second wrong option is the ending slip instead.
+
+const PLAY_VERB: Record<string, string> = { "i-play-music": "soittaa", "i-play-game": "pelata", "play-with-toy": "leikkiä" };
+const PLAY_FOR: Record<string, string> = { "i-play-music": "music", "i-play-game": "games and sports", "play-with-toy": "toys" };
+const PLAY_THIS: Record<string, string> = { "i-play-music": "an instrument", "i-play-game": "a game", "play-with-toy": "a toy" };
+/** The toys a play question asks about (a ball is played with pelata AND leikkiä). */
+const PLAY_TOYS = ["doll", "teddy", "toy"];
+
+function playQuestion(
+  constructions: Construction[],
+  items: LexicalItem[],
+  optionCount: number,
+): FormChoiceQuestion | null {
+  const frames = constructions.filter((c) => PLAY_VERB[c.id]);
+  const pairs = frames.flatMap((con) =>
+    items
+      .filter((i) => i.emoji && formFor(i, con) && suitsSlot(i, con))
+      .filter((i) => con.id !== "play-with-toy" || PLAY_TOYS.includes(i.id))
+      .map((item) => ({ con, item })),
+  );
+  const pick = sample(pairs, 1)[0];
+  if (!pick) return null;
+  const { con, item } = pick;
+  const frame = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const partitive = caseFormOf(item, "partitive", "singular");
+  const why = whyForConstruction(con, item);
+  const wrongVerb = (id: string) => (partitive ? sentenceWithForm(frame(id), partitive) : undefined);
+  const slip = slipForms(item, con)[0];
+  const wrong: { fi: string | undefined; other?: string }[] =
+    con.id === "i-play-music"
+      ? [{ fi: wrongVerb("i-play-game"), other: "i-play-game" }, { fi: slip && sentenceWithForm(con, slip) }]
+      : con.id === "i-play-game"
+        ? [{ fi: wrongVerb("i-play-music"), other: "i-play-music" }, { fi: slip && sentenceWithForm(con, slip) }]
+        : [
+            { fi: wrongVerb("i-play-game"), other: "i-play-game" },
+            item.id === "toy" ? { fi: slip && sentenceWithForm(con, slip) } : { fi: wrongVerb("i-play-music"), other: "i-play-music" },
+          ];
+  const answer = sentenceFor(item, con);
+  const options = finish(answer, wrong.map((w) => w.fi), optionCount);
+  if (!options) return null;
+  const whyFor: Record<string, Why> = {};
+  for (const w of wrong) {
+    if (w.fi && w.other)
+      whyFor[w.fi] = {
+        ...why,
+        text: `*${PLAY_VERB[w.other]}* is for ${PLAY_FOR[w.other]}. This is ${PLAY_THIS[con.id]}: **${PLAY_VERB[con.id]}**.`,
+      };
+  }
+  return { emoji: item.emoji, cue: englishSentenceFor(item, con), answer, options, why, whyFor };
+}
+
 export function buildChooseRound(
   mode: ChooseMode,
   pools: ChoosePools,
@@ -922,6 +982,8 @@ export function buildChooseRound(
       q = superlativeQuestion(pools.adjectives ?? [], pools.known);
     else if (mode === "verb-case")
       q = verbCaseQuestion(pools.constructions ?? [], pools.items ?? [], optionCount);
+    else if (mode === "play")
+      q = playQuestion(pools.constructions ?? [], pools.items ?? [], optionCount);
     else if (mode === "ordinal") q = ordinalQuestion(pools);
     else if (mode === "date") q = dateQuestion(pools);
     else if (mode === "age") q = ageQuestion(pools);

@@ -7,7 +7,6 @@ const ui = { group: 'ui', theme: 'lesson-icons' };
 export default [
   { id: 'music-notes', title: 'music notes (a song)', glyphs: ['🎶'], ...ui, motion: { frames: 2, fps: 2 }, draw: icons.musicNotes },
   { id: 'bell', title: 'a bell, ringing', glyphs: ['🔔'], ...ui, motion: { frames: 2, fps: 3 }, draw: icons.bell },
-  { id: 'drum', title: 'a drum (the beat)', glyphs: ['🥁'], ...ui, motion: { frames: 2, fps: 4 }, draw: icons.drum },
   { id: 'compass', title: 'compass (around: in front, behind, next to)', glyphs: ['🧭'], ...ui, motion: { frames: 2, fps: 1.5 }, draw: icons.compass },
   { id: 'location-pin', title: 'map pin (where)', glyphs: ['📍'], ...ui, motion: { frames: 2, fps: 2 }, draw: icons.locationPin },
   { id: 'thinking', title: 'thinking (question words)', glyphs: ['🤔'], ...ui, motion: { frames: 2, fps: 1 }, draw: icons.thinking },

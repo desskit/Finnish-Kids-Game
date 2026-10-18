@@ -50,6 +50,7 @@ describe('content integrity', () => {
       'clothes',
       'school',
       'freetime',
+      'money',
       'time',
     ]);
   });

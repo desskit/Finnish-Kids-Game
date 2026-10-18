@@ -492,7 +492,7 @@ In type 1 the "to…" word has the STRONG sound (*nukkua*), and "I" gets the WEA
 The marked letters are the ones that change.
 
 - 😴 nukkua → **minä nu[k]un** — I sleep
-- 🧸 leikkiä → **minä lei[k]in** — I play
+- 🪀 leikkiä → **minä lei[k]in** — I play
 - ✍️ kirjoittaa → **minä kirjoi[t]an** — I write
 - 🙌 auttaa → **minä au[t]an** — I help
 
@@ -606,7 +606,7 @@ You know *Onko…?* — that is *on* + **-ko**. It works on ANY verb: take the "
 The vowel team again: a word with **a, o, u** gets **-ko**; otherwise **-kö**.
 
 - 😴 **Nukut[ko]?** — Do you sleep?
-- 🧸 **Leikit[kö]?** — Do you play?
+- 🪀 **Leikit[kö]?** — Do you play?
 - 🏊 **Uit[ko]?** — Do you swim?
 - 🍜 **Syöt[kö]?** — Do you eat?
 - 🦘 **Hyppäät[kö]?** — Do you jump?
@@ -855,7 +855,7 @@ Only the FIRST verb changes for the person.
 
 ### 2. I want to… _(examples)_
 
-- 🧸 **Haluan leikkiä.** — I want to play.
+- 🪀 **Haluan leikkiä.** — I want to play.
 - 🏊 **Haluan uida.** — I want to swim.
 - 😴 **En halua nukkua.** — I don't want to sleep.
 
@@ -865,7 +865,7 @@ Only the FIRST verb changes for the person.
 
 - 🏊 **Osaan uida.** — I can swim.
 - 📖 **Osaan lukea.** — I can read.
-- 🧸 **Saanko leikkiä?** — May I play?
+- 🪀 **Saanko leikkiä?** — May I play?
 
 ### 4. Try it _(check)_
 
@@ -1036,7 +1036,83 @@ _Explain:_ *En tykkää* still takes **-sta**: *matematiikasta*.
 
 _Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
 
-## Unit 17: Seeing the whole thing (Näen) 👀
+## Unit 17: Three ways to play (Leikin, pelaan, soitan) 🎲
+
+### 1. One "play", three verbs _(explain)_
+
+English has one "play". Finnish has three:
+- *leikkiä* — toys and pretend play
+- *pelata* — games and sports
+- *soittaa* — music
+
+
+### 2. Toys: leikkiä + -lla _(examples)_
+
+Playing WITH a toy takes **-lla / -llä** — the same ending as *minulla*: *Leikin nukella* = I play with a doll.
+
+- 🪆 **Leikin nuke[lla].** — I play with a doll.
+- 🧸 **Leikin nalle[lla].** — I play with a teddy bear.
+- 🏐 **Leikin pallo[lla].** — I play with a ball.
+
+### 3. Games and sports: pelata + -a _(examples)_
+
+After *pelaan*, the game takes **-a / -ä**: *Pelaan jalkapalloa*. (*pelata* goes like *haluta*: *pelaan, pelaat, pelaa*.) *jääkiekko* is the puck AND the game, ice hockey.
+
+- ⚽ **Pelaan jalkapallo[a].** — I play soccer.
+- ♟️ **Pelaan shakki[a].** — I play chess.
+- 🏒 **Pelaan jääkiekko[a].** — I play hockey.
+
+### 4. Music: soittaa + -a _(examples)_
+
+After *soitan*, the instrument takes **-a / -ä** too: *Soitan pianoa*. (*soittaa* is also "call": *Soitan isälle* = I call Dad.)
+
+- 🎹 **Soitan piano[a].** — I play the piano.
+- 🥁 **Soitan rumpu[a].** — I play the drum.
+- 🎻 **Soitan viulu[a].** — I play the violin.
+
+### 5. soittaa — to play music _(verbTable)_
+
+**tt → t**, like *auttaa*: *minä soitan*, but *hän soittaa*.
+
+_soittaa (play music), present positive_
+
+- minä soitan
+- sinä soitat
+- hän soittaa
+- me soitamme
+- te soitatte
+- he soittavat
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "I play the piano"?
+
+- ✔ 🎹 **Soitan piano[a].** — I play the piano.
+- ✘ 🎹 **Pelaan piano[a].** — I play piano.
+
+_Explain:_ Music → *soittaa*: *Soitan pianoa*.
+
+### 7. Try it _(check)_
+
+**Q:** How do you say "I play soccer"?
+
+- ✔ ⚽ **Pelaan jalkapallo[a].** — I play soccer.
+- ✘ ⚽ **Soitan jalkapallo[a].** — I play the soccer ball.
+
+_Explain:_ Games and sports → *pelata*: *Pelaan jalkapalloa*.
+
+### 8. Try it _(check)_
+
+**Q:** Listen! What am I playing with?
+
+🔊 plays: 🧸 **Leikin nalle[lla].** — I play with a teddy bear.
+
+- ✘ 🪆 **Leikin nuke[lla].** — I play with a doll.
+- ✔ 🧸 **Leikin nalle[lla].** — I play with a teddy bear.
+
+_Explain:_ *nallella* — with a teddy bear. *nukella* is with a doll.
+
+## Unit 18: Seeing the whole thing (Näen) 👀
 
 ### 1. Another verb, another ending _(explain)_
 
@@ -1068,7 +1144,7 @@ _Explain:_ Seeing the whole car → **-n**: *auton*.
 
 _Explain:_ Seeing the whole bus → **-n**: *bussin*.
 
-## Unit 17, part-way: Watching and waiting (Katson ja odotan) ⏳
+## Unit 18, part-way: Watching and waiting (Katson ja odotan) ⏳
 
 ### 1. Going on for a while: -a / -ä _(examples)_
 
@@ -1111,7 +1187,7 @@ The VERB decides the ending — so look at the verb first: *tykkään* → **-st
 - 🐶 **Näen koira[n].** — I see the dog.
 - 🐶 **Odotan koira[a].** — I'm waiting for the dog.
 
-## Unit 18: Buying one whole thing (Kaupassa) 🛒
+## Unit 19: Buying one whole thing (Kaupassa) 🛒
 
 ### 1. Like seeing _(explain)_
 
@@ -1142,7 +1218,15 @@ _Explain:_ **-n** (*omenan*) means one whole thing.
 
 _Explain:_ One whole banana → **-n**: *banaanin*.
 
-## Unit 18, part-way: Buying some of something (Ostan maitoa) 🥛
+### 5. Euros _(examples)_
+
+Money is counted like anything else: from 2 on, the thing takes **-a / -ä**. To ask the price: *Paljonko se maksaa?* — how much is it?
+
+- 💶 **yksi euro** — one euro
+- 💶 **kaksi euro[a]** — two euros
+- 💶 **viisi euro[a]** — five euros
+
+## Unit 19, part-way: Buying some of something (Ostan maitoa) 🥛
 
 ### 1. Some of something: -a / -ä _(examples)_
 
@@ -1176,7 +1260,7 @@ _Explain:_ **-a** (*maitoa*) means "some of it".
 
 _Explain:_ Some bread → **-ä**: *leipää*.
 
-## Unit 19: Do it, don't, let's (Tee! Älä! Tehdään!) 🫵
+## Unit 20: Do it, don't, let's (Tee! Älä! Tehdään!) 🫵
 
 ### 1. Telling someone to do it _(examples)_
 
@@ -1198,7 +1282,7 @@ To tell ONE person what to do, use the **short verb**: the "I" form without its 
 
 In everyday Finnish, "let's…" ends in **-aan / -ään** — you hear it all the time at school and on the playground.
 
-- 🧸 **Leiki[tään]!** — Let's play!
+- 🪀 **Leiki[tään]!** — Let's play!
 - **Men[nään]!** — Let's go!
 - 🍜 **Syö[dään]!** — Let's eat!
 - 🏊 **Ui[daan]!** — Let's swim!
@@ -1217,13 +1301,13 @@ _Explain:_ *Älä* + the short verb: *Älä juokse!*
 
 **Q:** How do you say **"Let's play!"**?
 
-- ✔ 🧸 **Leiki[tään]!** — Let's play!
-- ✘ 🧸 **Leiki!** — Play!
-- ✘ 🧸 **[Älä] leiki!** — Don't play!
+- ✔ 🪀 **Leiki[tään]!** — Let's play!
+- ✘ 🪀 **Leiki!** — Play!
+- ✘ 🪀 **[Älä] leiki!** — Don't play!
 
 _Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
 
-## Unit 20: My body · Captain says (Keho · Kapteeni käskee) 🧑‍✈️
+## Unit 21: My body · Captain says (Keho · Kapteeni käskee) 🧑‍✈️
 
 ### 1. Kapteeni käskee! _(explain)_
 
@@ -1292,7 +1376,7 @@ _Explain:_ *Kosketa* takes **-a / -ä**: *Kosketa nenää!*
 
 _Explain:_ *jalka* — your foot (or your leg).
 
-## Unit 21: Colors and describing words (Värit) 🎨
+## Unit 22: Colors and describing words (Värit) 🎨
 
 ### 1. Colors _(examples)_
 
@@ -1304,7 +1388,27 @@ _Explain:_ *jalka* — your foot (or your leg).
 - ⬜ **valkoinen** — white
 - 🟫 **ruskea** — brown
 
-### 2. "This is red" _(examples)_
+### 2. More colors _(examples)_
+
+*vaaleanpunainen* is "light red" — that's pink.
+
+- 🩷 **vaaleanpunainen** — pink
+- 🟪 **violetti** — purple
+- 🩶 **harmaa** — gray
+- 🟧 **oranssi** — orange
+
+### 3. Opposites _(examples)_
+
+Some describing words come in pairs: *uusi* (new) and *vanha* (old), *helppo* (easy) and *vaikea* (hard), *puhdas* (clean) and *likainen* (dirty). *lyhyt* is short.
+
+- 🏷️ **uusi** — new
+- 🧩 **helppo** — easy
+- 🪢 **vaikea** — hard
+- 🫧 **puhdas** — clean
+- 🪰 **likainen** — dirty
+- 🤏 **lyhyt** — short
+
+### 4. "This is red" _(examples)_
 
 A describing word works after *Tämä on* just like a thing: *Tämä on punainen* = this is red.
 
@@ -1312,14 +1416,14 @@ A describing word works after *Tämä on* just like a thing: *Tämä on punainen
 - 🦕 **Tämä on iso.** — This is big.
 - 🟦 **Onko tämä sininen?** — Is this blue?
 
-### 3. Describing words go first _(examples)_
+### 5. Describing words go first _(examples)_
 
 Just like English: the describing word comes **before** the thing.
 
 - 🐶 **iso koira** — a big dog
 - 🏐 **punainen pallo** — a red ball
 
-### 4. Try it _(check)_
+### 6. Try it _(check)_
 
 **Q:** Which one means "This is green"?
 
@@ -1328,7 +1432,7 @@ Just like English: the describing word comes **before** the thing.
 
 _Explain:_ *vihreä* = green, *keltainen* = yellow.
 
-### 5. Try it _(check)_
+### 7. Try it _(check)_
 
 **Q:** Which one means "a big dog"?
 
@@ -1337,7 +1441,16 @@ _Explain:_ *vihreä* = green, *keltainen* = yellow.
 
 _Explain:_ *iso* = big, *pieni* = small.
 
-## Unit 21, part-way: Describing words copy (Millainen?) 🪞
+### 8. Try it _(check)_
+
+**Q:** Which one means "a dirty shoe"?
+
+- ✔ 👟 **likainen kenkä**
+- ✘ 👟 **puhdas kenkä**
+
+_Explain:_ *likainen* = dirty, *puhdas* = clean.
+
+## Unit 22, part-way: Describing words copy (Millainen?) 🪞
 
 ### 1. They copy the ending! _(examples)_
 
@@ -1370,7 +1483,7 @@ _Explain:_ Both words get the ending: *isossa talossa*.
 
 _Explain:_ Both words take **-n**: *punaisen pallon*.
 
-## Unit 22: Bigger than (Isompi kuin) 🐘
+## Unit 23: Bigger than (Isompi kuin) 🐘
 
 ### 1. Bigger: -mpi _(examples)_
 
@@ -1415,7 +1528,7 @@ _Explain:_ **-mpi** = more: *nopeampi* = faster.
 
 _Explain:_ The elephant is bigger: *Norsu on isompi kuin hiiri.*
 
-## Unit 22, part-way: The biggest of all (Isoin) 🏆
+## Unit 23, part-way: The biggest of all (Isoin) 🏆
 
 ### 1. The biggest: -in _(examples)_
 
@@ -1452,7 +1565,7 @@ _Explain:_ **-in** = the most of all: *vanhin* = the oldest.
 
 _Explain:_ **-in** = the most: *nopein*. *nopeampi* is faster.
 
-## Unit 23: Endings instead of "in" and "on" (Missä?) 📍
+## Unit 24: Endings instead of "in" and "on" (Missä?) 📍
 
 ### 1. No word for "in" _(examples)_
 
@@ -1499,7 +1612,7 @@ _Explain:_ "On" → **-lla / -llä**: *pöydällä*.
 
 _Explain:_ "In" → **-ssa**: *talossa*.
 
-## Unit 23, part-way: In MY house (Talossani) 🏠
+## Unit 24, part-way: In MY house (Talossani) 🏠
 
 ### 1. Two endings on one word _(explain)_
 
@@ -1533,7 +1646,7 @@ _Explain:_ **-ssa** (in) + **-ni** (my): *talossani*.
 
 _Explain:_ **-llä** (on) + **-si** (your): *pöydälläsi*.
 
-## Unit 24: Going into, going onto (Mihin?) 🚶
+## Unit 25: Going into, going onto (Mihin?) 🚶
 
 ### 1. Where is it GOING? _(explain)_
 
@@ -1577,7 +1690,7 @@ _Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
 
 _Explain:_ "Onto" → **-lle**: *pöydälle*.
 
-## Unit 24, part-way: Coming out of, coming off (Mistä?) 📦
+## Unit 25, part-way: Coming out of, coming off (Mistä?) 📦
 
 ### 1. Where is it coming FROM? _(explain)_
 
@@ -1619,7 +1732,7 @@ _Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
 
 _Explain:_ "Off" → **-lta / -ltä**: *pöydältä*.
 
-## Unit 25: You on the move (Kaupungilla ja kotona) 🏙️
+## Unit 26: You on the move (Kaupungilla ja kotona) 🏙️
 
 ### 1. The cat's endings — for you _(explain)_
 
@@ -1665,7 +1778,7 @@ _Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
 
 _Explain:_ A station is an "on" place → **-lla**: *asemalla*.
 
-## Unit 26: By bus, with a pen (Bussilla ja kynällä) 🚌
+## Unit 27: By bus, with a pen (Bussilla ja kynällä) 🚌
 
 ### 1. An ending you already know _(explain)_
 
@@ -1705,7 +1818,7 @@ _Explain:_ BY train → **-lla**: *junalla*. *junaan* would be INTO the train.
 
 _Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!
 
-## Unit 26, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
+## Unit 27, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
 
 ### 1. With a PERSON: kanssa _(examples)_
 
@@ -1739,7 +1852,7 @@ _Explain:_ With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.
 
 _Explain:_ A ball is a thing you use → **-lla**: *pallolla*.
 
-## Unit 27: Days and times (Milloin?) 📅
+## Unit 28: Days and times (Milloin?) 📅
 
 ### 1. Days of the week _(examples)_
 
@@ -1789,7 +1902,7 @@ _Explain:_ A day → **-na**: *sunnuntaina*.
 
 _Explain:_ A season → **-lla**: *talvella*.
 
-## Unit 27, part-way: What time is it? (Paljonko kello on?) ⏰
+## Unit 28, part-way: What time is it? (Paljonko kello on?) ⏰
 
 ### 1. Kello on… _(explain)_
 
@@ -1824,7 +1937,7 @@ _Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
 
 _Explain:_ *kaksitoista* = 12.
 
-## Unit 28: Big numbers (Isot numerot) 💯
+## Unit 29: Big numbers (Isot numerot) 💯
 
 ### 1. 13 to 19: -toista _(examples)_
 
@@ -1867,7 +1980,7 @@ _Explain:_ 5 + **-toista** = *viisitoista*. *viisikymmentä* is 50.
 
 _Explain:_ 4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.
 
-## Unit 28, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
+## Unit 29, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
 
 ### 1. Order words _(examples)_
 
@@ -1905,7 +2018,7 @@ _Explain:_ *kolmas* is the ORDER word (3rd). *kolme* is just 3.
 
 _Explain:_ *ensimmäinen* = first.
 
-## Unit 29: The months (Kuukaudet) 🗓️
+## Unit 30: The months (Kuukaudet) 🗓️
 
 ### 1. The months _(examples)_
 
@@ -1943,7 +2056,7 @@ _Explain:_ IN May → **-ssa**: *toukokuussa*.
 
 _Explain:_ *joulu* is Christmas — *joulukuu* is the Christmas month!
 
-## Unit 29, part-way: Saying a date (Päivämäärä) 📅
+## Unit 30, part-way: Saying a date (Päivämäärä) 📅
 
 ### 1. Order word + month with -ta _(examples)_
 
@@ -1997,7 +2110,7 @@ _Explain:_ *viidestoista* (15th) + *kesäkuuta*.
 
 _Explain:_ *ensimmäinen tammikuuta* — the first of January.
 
-## Unit 29, part-way: How old are you? (Kuinka vanha olet?) 🎂
+## Unit 30, part-way: How old are you? (Kuinka vanha olet?) 🎂
 
 ### 1. Olen … vuotta vanha _(examples)_
 
@@ -2031,7 +2144,7 @@ _Explain:_ 8 = *kahdeksan*: *Olen kahdeksan vuotta vanha*.
 
 _Explain:_ *vuosi* = year; after a number → *vuotta*.
 
-## Unit 30: Question words (Kysymyssanat) 🤔
+## Unit 31: Question words (Kysymyssanat) 🤔
 
 ### 1. Who, what, whose, why… _(explain)_
 
@@ -2072,7 +2185,7 @@ _Explain:_ *Kenen?* = whose? (*Kuka?* = who?)
 
 _Explain:_ *Miksi?* = why?
 
-## Unit 30, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
+## Unit 31, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
 
 ### 1. Three "where" words _(explain)_
 
@@ -2109,7 +2222,7 @@ _Explain:_ *Mihin?* = where TO — *Menen puistoon* (into the park).
 
 _Explain:_ *Mistä?* — where from? Answer with **-sta**.
 
-## Unit 31: Me and you (Minua, minulle) 🫶
+## Unit 32: Me and you (Minua, minulle) 🫶
 
 ### 1. I, me, to me… _(explain)_
 
@@ -2166,7 +2279,7 @@ _Explain:_ *auttaa* takes **-a**: *Auta minua!*
 
 _Explain:_ Giving TO someone → **-lle**: *hänelle*.
 
-## Unit 32: Position words come after (Edessä, takana) 🧭
+## Unit 33: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -2214,7 +2327,7 @@ _Explain:_ Before a position word, the thing gets **-n**: *puun takana*.
 
 _Explain:_ Before *alla*, the thing gets **-n**: *pöydän alla*.
 
-## Unit 33: More than one (Monta) 👐
+## Unit 34: More than one (Monta) 👐
 
 ### 1. The -t means "more than one" _(examples)_
 
@@ -2247,7 +2360,7 @@ _Explain:_ The **-t** means more than one.
 
 _Explain:_ *kaveri* + **-t** = *kaverit*.
 
-## Unit 33, part-way: Some things, any things (Palloja) 🧺
+## Unit 34, part-way: Some things, any things (Palloja) 🧺
 
 ### 1. "Some" things _(examples)_
 
@@ -2281,7 +2394,7 @@ _Explain:_ "Some" balls → *palloja*.
 
 _Explain:_ *ei ole* = not, and "any games" → *pelejä*.
 
-## Unit 33, part-way: In many boxes (Laatikoissa) 📦
+## Unit 34, part-way: In many boxes (Laatikoissa) 📦
 
 ### 1. In many things: -issa _(examples)_
 
@@ -2313,7 +2426,7 @@ _Explain:_ **-i-** + **-ssa** = in the boxes: *laatikoissa*.
 
 _Explain:_ The **-i-** means more than one.
 
-## Unit 34: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
+## Unit 35: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
 
 ### 1. Type 5: -ita / -itä _(examples)_
 
@@ -2376,7 +2489,7 @@ _Explain:_ "I" is **-n**: *valitsen*.
 
 _Explain:_ *vanheta* ends in **-eta**: **type 6** (*vanhenen*).
 
-## Unit 34, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
+## Unit 35, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
 
 ### 1. Weak → strong, like type 4 _(examples)_
 
@@ -2421,7 +2534,7 @@ _Explain:_ "I" is **-n**: *pakenen*.
 
 _Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.
 
-## Unit 35: Talking about yesterday (Eilen) ⏮️
+## Unit 36: Talking about yesterday (Eilen) ⏮️
 
 ### 1. Slip in an -i- _(explain)_
 
@@ -2466,7 +2579,7 @@ _Explain:_ The **-i-** shows the past: *luin*.
 
 _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
-## Unit 35, part-way: "Didn't" (En syönyt) 🙅
+## Unit 36, part-way: "Didn't" (En syönyt) 🙅
 
 ### 1. The "not" verb + -nut / -nyt _(explain)_
 
@@ -2510,7 +2623,7 @@ _Explain:_ *en* + **-nut**: *en lukenut*. (*en lue* = I don't read.)
 
 _Explain:_ They → *eivät* + **-neet**: *eivät syöneet*.
 
-## Unit 36: Having a real conversation (Jutellaan) 🗣️
+## Unit 37: Having a real conversation (Jutellaan) 🗣️
 
 ### 1. Pick what FITS _(explain)_
 
@@ -2557,7 +2670,7 @@ _Explain:_ After a thank-you comes *Ole hyvä!* (you're welcome).
 
 _Explain:_ *Ei se mitään* = "it's okay".
 
-## Unit 37: Building sentences (Lauseet) 📝
+## Unit 38: Building sentences (Lauseet) 📝
 
 ### 1. Endings do the work _(explain)_
 
@@ -2594,7 +2707,7 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
-## Unit 38: Expert Finnish (Mestari) 🏆
+## Unit 39: Expert Finnish (Mestari) 🏆
 
 ### 1. "Have done" — olen syönyt _(verbTable)_
 

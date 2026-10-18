@@ -174,6 +174,19 @@ const ADJECTIVES = [
   ['funny', 'hauska', 'funny', '🤪'],
   // Feelings, part 2: "Minulla on tylsää" — I'm bored (the picture: a bored kid).
   ['boring', 'tylsä', 'boring', '😑'],
+  // Describing: four more colors (the swatch keys are unused emoji), and six
+  // opposites, each only for the things it fits (semantics.ts).
+  ['pink', 'vaaleanpunainen', 'pink', '🩷'],
+  ['purple', 'violetti', 'purple', '🟪'],
+  ['gray', 'harmaa', 'gray', '🩶'],
+  ['orange', 'oranssi', 'orange', '🟧'],
+  ['new', 'uusi', 'new', '🏷️'],
+  ['short', 'lyhyt', 'short', '🤏'],
+  ['easy', 'helppo', 'easy', '🧩'],
+  ['hard', 'vaikea', 'hard', '🪢'],
+  // "clean" is the verb siivota's id
+  ['clean-adj', 'puhdas', 'clean', '🫧'],
+  ['dirty', 'likainen', 'dirty', '🪰'],
 ];
 
 const FOOD = [
@@ -446,7 +459,23 @@ const FREETIME = [
   ['balloon', 'ilmapallo', 'balloon', '🎈'],
   ['candle', 'kynttilä', 'candle', '🕯️'],
   ['present', 'lahja', 'present'],
+  // The Play unit: toys (Leikin nukella), instruments (Soitan rumpua) and
+  // games (Pelaan shakkia). shakki and jääkiekko are the game AND its things:
+  // the chess set, the hockey puck — the sport is their English when played
+  // or liked (KIND_EN).
+  ['teddy', 'nalle', 'teddy bear', '🧸'],
+  ['doll', 'nukke', 'doll', '🪆'],
+  ['toy', 'lelu', 'toy', '🚂'],
+  ['drum', 'rumpu', 'drum', '🥁'],
+  ['violin', 'viulu', 'violin', '🎻'],
+  ['card', 'kortti', 'card', '🃏'],
+  ['chess', 'shakki', 'chess set', '♟️'],
+  ['hockey', 'jääkiekko', 'hockey puck', '🏒'],
 ];
+
+// Money: the euro, for the shop's prices ("kaksi euroa"). Its own topic, so
+// it fills no carrier phrase but the ones that name it.
+const MONEY = [['euro', 'euro', 'euro', '💶']];
 
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
@@ -555,7 +584,8 @@ const VERBS = [
   ['eat', 'syödä', 'eat', '🍜'],
   ['drink', 'juoda', 'drink', '🥤'],
   ['sleep', 'nukkua', 'sleep', '😴'],
-  ['play', 'leikkiä', 'play', '🧸'],
+  // leikkiä is pretend play and toys (its picture: a yo-yo)
+  ['play', 'leikkiä', 'play', '🪀'],
   ['run', 'juosta', 'run', '🏃'],
   ['jump', 'hypätä', 'jump', '🦘'],
   ['go', 'mennä', 'go'],
@@ -632,6 +662,10 @@ const VERBS = [
   ['order', 'käskeä', 'order', '📣'],
   ['touch', 'koskettaa', 'touch', '🫳'],
   ['lift', 'nostaa', 'lift', '📤'],
+  // Play: English has one "play", Finnish three — leikkiä (toys, pretend),
+  // pelata (games and sports) and soittaa (music; it's also "call").
+  ['play-game', 'pelata', 'play games', '🎲'],
+  ['play-music', 'soittaa', 'play music', '🪈'],
 ];
 
 // Feelings that are verbs: "Minua pelottaa" — literally "it scares me". Only
@@ -798,8 +832,9 @@ const adjectives = buildTheme({
 
 // Comparison degrees ("isompi" bigger, "isoin" biggest) — dictionary headwords
 // of their own in the source ("comparative degree of iso"), looked up and
-// attached whole. When the source lists more than one, the first in PREFER wins.
-const DEGREE_PREFER = { pitkä: ['pidempi'], hyvä: ['paras'] };
+// attached whole. When the source lists more than one, the first in PREFER wins
+// (the standard form: lyhyempi, not the spoken lyhempi).
+const DEGREE_PREFER = { pitkä: ['pidempi'], hyvä: ['paras'], lyhyt: ['lyhyempi'] };
 function attachDegrees(theme) {
   const found = {};
   for (const w of nounWords) {
@@ -939,6 +974,15 @@ const lessonWords = buildTheme({
   sourceWords: nounWords,
 });
 
+const money = buildTheme({
+  id: 'money',
+  fi: 'Raha',
+  en: 'Money',
+  emoji: '💶',
+  curation: MONEY,
+  sourceWords: nounWords,
+});
+
 const freetime = buildTheme({
   id: 'freetime',
   fi: 'Vapaa-aika',
@@ -978,6 +1022,7 @@ writeFileSync(join(OUT_DIR, 'nature.sourced.json'), JSON.stringify(nature, null,
 writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'money.sourced.json'), JSON.stringify(money, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'ordinals.sourced.json'), JSON.stringify(ordinals, null, 2) + '\n');
@@ -989,6 +1034,6 @@ console.log(
     `${food.words.length} food, ${family.words.length} family, ` +
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
-    `${school.words.length} school, ${freetime.words.length} free-time, ` +
+    `${school.words.length} school, ${freetime.words.length} free-time, ${money.words.length} money, ` +
     `${time.words.length} time, ${states.words.length} state, ${ordinals.words.length} ordinal words to ${OUT_DIR}`,
 );

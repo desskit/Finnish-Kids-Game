@@ -1639,6 +1639,532 @@
         "comparative": "tylsempi",
         "superlative": "tylsin"
       }
+    },
+    {
+      "id": "pink",
+      "word": "vaaleanpunainen",
+      "en": "pink",
+      "emoji": "🩷",
+      "inflections": {
+        "nominative_singular": "vaaleanpunainen",
+        "nominative_plural": "vaaleanpunaiset",
+        "genitive_singular": "vaaleanpunaisen",
+        "genitive_plural": "vaaleanpunaisten",
+        "partitive_singular": "vaaleanpunaista",
+        "partitive_plural": "vaaleanpunaisia",
+        "inessive_singular": "vaaleanpunaisessa",
+        "inessive_plural": "vaaleanpunaisissa",
+        "elative_singular": "vaaleanpunaisesta",
+        "elative_plural": "vaaleanpunaisista",
+        "illative_singular": "vaaleanpunaiseen",
+        "illative_plural": "vaaleanpunaisiin",
+        "adessive_singular": "vaaleanpunaisella",
+        "adessive_plural": "vaaleanpunaisilla",
+        "ablative_singular": "vaaleanpunaiselta",
+        "ablative_plural": "vaaleanpunaisilta",
+        "allative_singular": "vaaleanpunaiselle",
+        "allative_plural": "vaaleanpunaisille",
+        "essive_singular": "vaaleanpunaisena",
+        "essive_plural": "vaaleanpunaisina",
+        "translative_singular": "vaaleanpunaiseksi",
+        "translative_plural": "vaaleanpunaisiksi",
+        "abessive_singular": "vaaleanpunaisetta",
+        "abessive_plural": "vaaleanpunaisitta",
+        "instructive_plural": "vaaleanpunaisin",
+        "comitative_plural": "vaaleanpunaisine"
+      },
+      "english": {
+        "comparative": "pinker",
+        "superlative": "pinkest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 16440,
+      "examples": [
+        {
+          "fi": "Porsas on vaaleanpunainen.",
+          "en": "The pig is pink."
+        },
+        {
+          "fi": "Vaaleanpunainen on tytöille.",
+          "en": "Pink is for girls."
+        }
+      ]
+    },
+    {
+      "id": "purple",
+      "word": "violetti",
+      "en": "purple",
+      "emoji": "🟪",
+      "inflections": {
+        "nominative_singular": "violetti",
+        "nominative_plural": "violetit",
+        "genitive_singular": "violetin",
+        "genitive_plural": "violettien",
+        "partitive_singular": "violettia",
+        "partitive_plural": "violetteja",
+        "inessive_singular": "violetissa",
+        "inessive_plural": "violeteissa",
+        "elative_singular": "violetista",
+        "elative_plural": "violeteista",
+        "illative_singular": "violettiin",
+        "illative_plural": "violetteihin",
+        "adessive_singular": "violetilla",
+        "adessive_plural": "violeteilla",
+        "ablative_singular": "violetilta",
+        "ablative_plural": "violeteilta",
+        "allative_singular": "violetille",
+        "allative_plural": "violeteille",
+        "essive_singular": "violettina",
+        "essive_plural": "violetteina",
+        "translative_singular": "violetiksi",
+        "translative_plural": "violeteiksi",
+        "abessive_singular": "violetitta",
+        "abessive_plural": "violeteitta",
+        "instructive_plural": "violetein",
+        "comitative_plural": "violetteine"
+      },
+      "english": {
+        "comparative": "purpler",
+        "superlative": "purplest"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 24675,
+      "examples": [
+        {
+          "fi": "Tämä kukka on violetti.",
+          "en": "This flower is purple."
+        },
+        {
+          "fi": "Lempivärini on violetti.",
+          "en": "My favourite colour is purple."
+        }
+      ]
+    },
+    {
+      "id": "gray",
+      "word": "harmaa",
+      "en": "gray",
+      "emoji": "🩶",
+      "inflections": {
+        "nominative_singular": "harmaa",
+        "nominative_plural": "harmaat",
+        "genitive_singular": "harmaan",
+        "genitive_plural": "harmaiden",
+        "partitive_singular": "harmaata",
+        "partitive_plural": "harmaita",
+        "inessive_singular": "harmaassa",
+        "inessive_plural": "harmaissa",
+        "elative_singular": "harmaasta",
+        "elative_plural": "harmaista",
+        "illative_singular": "harmaaseen",
+        "illative_plural": "harmaisiin",
+        "adessive_singular": "harmaalla",
+        "adessive_plural": "harmailla",
+        "ablative_singular": "harmaalta",
+        "ablative_plural": "harmailta",
+        "allative_singular": "harmaalle",
+        "allative_plural": "harmaille",
+        "essive_singular": "harmaana",
+        "essive_plural": "harmaina",
+        "translative_singular": "harmaaksi",
+        "translative_plural": "harmaiksi",
+        "abessive_singular": "harmaatta",
+        "abessive_plural": "harmaitta",
+        "instructive_plural": "harmain",
+        "comitative_plural": "harmaine"
+      },
+      "english": {
+        "comparative": "grayer",
+        "superlative": "grayest"
+      },
+      "kotusType": 17,
+      "group": "long_vowel",
+      "frequencyRank": 9037,
+      "examples": [
+        {
+          "fi": "harmaa alue",
+          "en": "grey area"
+        },
+        {
+          "fi": "harmaa talous",
+          "en": "shadow economy, economic activity \"off the books\""
+        }
+      ]
+    },
+    {
+      "id": "orange",
+      "word": "oranssi",
+      "en": "orange",
+      "emoji": "🟧",
+      "inflections": {
+        "nominative_singular": "oranssi",
+        "nominative_plural": "oranssit",
+        "genitive_singular": "oranssin",
+        "genitive_plural": "oranssien",
+        "partitive_singular": "oranssia",
+        "partitive_plural": "oransseja",
+        "inessive_singular": "oranssissa",
+        "inessive_plural": "oransseissa",
+        "elative_singular": "oranssista",
+        "elative_plural": "oransseista",
+        "illative_singular": "oranssiin",
+        "illative_plural": "oransseihin",
+        "adessive_singular": "oranssilla",
+        "adessive_plural": "oransseilla",
+        "ablative_singular": "oranssilta",
+        "ablative_plural": "oransseilta",
+        "allative_singular": "oranssille",
+        "allative_plural": "oransseille",
+        "essive_singular": "oranssina",
+        "essive_plural": "oransseina",
+        "translative_singular": "oranssiksi",
+        "translative_plural": "oransseiksi",
+        "abessive_singular": "oranssitta",
+        "abessive_plural": "oransseitta",
+        "instructive_plural": "oranssein",
+        "comitative_plural": "oransseine"
+      },
+      "english": {
+        "comparative": "oranger",
+        "superlative": "orangest"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 14465,
+      "examples": [
+        {
+          "fi": "Pidän oranssista.",
+          "en": "I like the color orange."
+        },
+        {
+          "fi": "Appelsiini on oranssi.",
+          "en": "An orange is orange."
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "word": "uusi",
+      "en": "new",
+      "emoji": "🏷️",
+      "inflections": {
+        "nominative_singular": "uusi",
+        "nominative_plural": "uudet",
+        "genitive_singular": "uuden",
+        "genitive_plural": "uusien",
+        "partitive_singular": "uutta",
+        "partitive_plural": "uusia",
+        "inessive_singular": "uudessa",
+        "inessive_plural": "uusissa",
+        "elative_singular": "uudesta",
+        "elative_plural": "uusista",
+        "illative_singular": "uuteen",
+        "illative_plural": "uusiin",
+        "adessive_singular": "uudella",
+        "adessive_plural": "uusilla",
+        "ablative_singular": "uudelta",
+        "ablative_plural": "uusilta",
+        "allative_singular": "uudelle",
+        "allative_plural": "uusille",
+        "essive_singular": "uutena",
+        "essive_plural": "uusina",
+        "translative_singular": "uudeksi",
+        "translative_plural": "uusiksi",
+        "abessive_singular": "uudetta",
+        "abessive_plural": "uusitta",
+        "instructive_plural": "uusin",
+        "comitative_plural": "uusine"
+      },
+      "english": {
+        "comparative": "newer",
+        "superlative": "newest"
+      },
+      "kotusType": 27,
+      "group": "i_old",
+      "frequencyRank": 316,
+      "examples": [
+        {
+          "fi": "uutena vuotena",
+          "en": "in the New Year"
+        },
+        {
+          "fi": "Ostin uuden sängyn.",
+          "en": "I bought a new bed."
+        }
+      ],
+      "degrees": {
+        "comparative": "uudempi",
+        "superlative": "uusin"
+      }
+    },
+    {
+      "id": "short",
+      "word": "lyhyt",
+      "en": "short",
+      "emoji": "🤏",
+      "inflections": {
+        "nominative_singular": "lyhyt",
+        "nominative_plural": "lyhyet",
+        "genitive_singular": "lyhyen",
+        "genitive_plural": "lyhyiden",
+        "partitive_singular": "lyhyttä",
+        "partitive_plural": "lyhyitä",
+        "inessive_singular": "lyhyessä",
+        "inessive_plural": "lyhyissä",
+        "elative_singular": "lyhyestä",
+        "elative_plural": "lyhyistä",
+        "illative_singular": "lyhyeen",
+        "illative_plural": "lyhyisiin",
+        "adessive_singular": "lyhyellä",
+        "adessive_plural": "lyhyillä",
+        "ablative_singular": "lyhyeltä",
+        "ablative_plural": "lyhyiltä",
+        "allative_singular": "lyhyelle",
+        "allative_plural": "lyhyille",
+        "essive_singular": "lyhyenä",
+        "essive_plural": "lyhyinä",
+        "translative_singular": "lyhyeksi",
+        "translative_plural": "lyhyiksi",
+        "abessive_singular": "lyhyettä",
+        "abessive_plural": "lyhyittä",
+        "instructive_plural": "lyhyin",
+        "comitative_plural": "lyhyine"
+      },
+      "english": {
+        "comparative": "shorter",
+        "superlative": "shortest"
+      },
+      "kotusType": 43,
+      "group": "other_cons",
+      "frequencyRank": 2721,
+      "examples": [
+        {
+          "fi": "lyhyt tie",
+          "en": "a short road"
+        },
+        {
+          "fi": "lyhyt mies",
+          "en": "a short man"
+        }
+      ],
+      "degrees": {
+        "comparative": "lyhyempi",
+        "superlative": "lyhin"
+      }
+    },
+    {
+      "id": "easy",
+      "word": "helppo",
+      "en": "easy",
+      "emoji": "🧩",
+      "inflections": {
+        "nominative_singular": "helppo",
+        "nominative_plural": "helpot",
+        "genitive_singular": "helpon",
+        "genitive_plural": "helppojen",
+        "partitive_singular": "helppoa",
+        "partitive_plural": "helppoja",
+        "inessive_singular": "helpossa",
+        "inessive_plural": "helpoissa",
+        "elative_singular": "helposta",
+        "elative_plural": "helpoista",
+        "illative_singular": "helppoon",
+        "illative_plural": "helppoihin",
+        "adessive_singular": "helpolla",
+        "adessive_plural": "helpoilla",
+        "ablative_singular": "helpolta",
+        "ablative_plural": "helpoilta",
+        "allative_singular": "helpolle",
+        "allative_plural": "helpoille",
+        "essive_singular": "helppona",
+        "essive_plural": "helppoina",
+        "translative_singular": "helpoksi",
+        "translative_plural": "helpoiksi",
+        "abessive_singular": "helpotta",
+        "abessive_plural": "helpoitta",
+        "instructive_plural": "helpoin",
+        "comitative_plural": "helppoine"
+      },
+      "english": {
+        "comparative": "easier",
+        "superlative": "easiest"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 832,
+      "examples": [
+        {
+          "fi": "helppo tehtävä",
+          "en": "an easy task"
+        },
+        {
+          "fi": "Aloitetaan helpoista kysymyksistä.",
+          "en": "Let's start with the easy questions."
+        }
+      ]
+    },
+    {
+      "id": "hard",
+      "word": "vaikea",
+      "en": "hard",
+      "emoji": "🪢",
+      "inflections": {
+        "nominative_singular": "vaikea",
+        "nominative_plural": "vaikeat",
+        "genitive_singular": "vaikean",
+        "genitive_plural": "vaikeiden",
+        "partitive_singular": "vaikeaa",
+        "partitive_plural": "vaikeita",
+        "inessive_singular": "vaikeassa",
+        "inessive_plural": "vaikeissa",
+        "elative_singular": "vaikeasta",
+        "elative_plural": "vaikeista",
+        "illative_singular": "vaikeaan",
+        "illative_plural": "vaikeisiin",
+        "adessive_singular": "vaikealla",
+        "adessive_plural": "vaikeilla",
+        "ablative_singular": "vaikealta",
+        "ablative_plural": "vaikeilta",
+        "allative_singular": "vaikealle",
+        "allative_plural": "vaikeille",
+        "essive_singular": "vaikeana",
+        "essive_plural": "vaikeina",
+        "translative_singular": "vaikeaksi",
+        "translative_plural": "vaikeiksi",
+        "abessive_singular": "vaikeatta",
+        "abessive_plural": "vaikeitta",
+        "instructive_plural": "vaikein",
+        "comitative_plural": "vaikeine"
+      },
+      "english": {
+        "comparative": "harder",
+        "superlative": "hardest"
+      },
+      "kotusType": 15,
+      "group": "a_ae",
+      "frequencyRank": 600,
+      "examples": [
+        {
+          "fi": "Minun on vaikea...",
+          "en": "I find it difficult to..."
+        },
+        {
+          "fi": "vaikea ongelma",
+          "en": "a hard problem"
+        }
+      ],
+      "degrees": {
+        "comparative": "vaikeampi",
+        "superlative": "vaikein"
+      }
+    },
+    {
+      "id": "clean-adj",
+      "word": "puhdas",
+      "en": "clean",
+      "emoji": "🫧",
+      "inflections": {
+        "nominative_singular": "puhdas",
+        "nominative_plural": "puhtaat",
+        "genitive_singular": "puhtaan",
+        "genitive_plural": "puhtaiden",
+        "partitive_singular": "puhdasta",
+        "partitive_plural": "puhtaita",
+        "inessive_singular": "puhtaassa",
+        "inessive_plural": "puhtaissa",
+        "elative_singular": "puhtaasta",
+        "elative_plural": "puhtaista",
+        "illative_singular": "puhtaaseen",
+        "illative_plural": "puhtaisiin",
+        "adessive_singular": "puhtaalla",
+        "adessive_plural": "puhtailla",
+        "ablative_singular": "puhtaalta",
+        "ablative_plural": "puhtailta",
+        "allative_singular": "puhtaalle",
+        "allative_plural": "puhtaille",
+        "essive_singular": "puhtaana",
+        "essive_plural": "puhtaina",
+        "translative_singular": "puhtaaksi",
+        "translative_plural": "puhtaiksi",
+        "abessive_singular": "puhtaatta",
+        "abessive_plural": "puhtaitta",
+        "instructive_plural": "puhtain",
+        "comitative_plural": "puhtaine"
+      },
+      "english": {
+        "comparative": "cleaner",
+        "superlative": "cleanest"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 2858,
+      "examples": [
+        {
+          "fi": "Omatuntoni on puhdas.",
+          "en": "My conscience is clear."
+        },
+        {
+          "fi": "puhdas kulta",
+          "en": "pure gold"
+        }
+      ],
+      "degrees": {
+        "comparative": "puhtaampi",
+        "superlative": "puhtain"
+      }
+    },
+    {
+      "id": "dirty",
+      "word": "likainen",
+      "en": "dirty",
+      "emoji": "🪰",
+      "inflections": {
+        "nominative_singular": "likainen",
+        "nominative_plural": "likaiset",
+        "genitive_singular": "likaisen",
+        "genitive_plural": "likaisten",
+        "partitive_singular": "likaista",
+        "partitive_plural": "likaisia",
+        "inessive_singular": "likaisessa",
+        "inessive_plural": "likaisissa",
+        "elative_singular": "likaisesta",
+        "elative_plural": "likaisista",
+        "illative_singular": "likaiseen",
+        "illative_plural": "likaisiin",
+        "adessive_singular": "likaisella",
+        "adessive_plural": "likaisilla",
+        "ablative_singular": "likaiselta",
+        "ablative_plural": "likaisilta",
+        "allative_singular": "likaiselle",
+        "allative_plural": "likaisille",
+        "essive_singular": "likaisena",
+        "essive_plural": "likaisina",
+        "translative_singular": "likaiseksi",
+        "translative_plural": "likaisiksi",
+        "abessive_singular": "likaisetta",
+        "abessive_plural": "likaisitta",
+        "instructive_plural": "likaisin",
+        "comitative_plural": "likaisine"
+      },
+      "english": {
+        "comparative": "dirtier",
+        "superlative": "dirtiest"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 3926,
+      "examples": [
+        {
+          "fi": "Autoni on likainen.",
+          "en": "My car is dirty."
+        },
+        {
+          "fi": "likainen pommi",
+          "en": "dirty bomb"
+        }
+      ]
     }
   ]
 }

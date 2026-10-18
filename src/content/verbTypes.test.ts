@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { verbs } from '.';
-import { gradation, gradationLabel, hasKpt, typeByLook, verbType } from './verbTypes';
+import { gradation, gradationLabel, hasKpt, matchesVerbFilter, typeByLook, verbType } from './verbTypes';
 
 const byFi = (fi: string) => verbs.items.find((v) => v.fi === fi)!;
 const typeOf = (fi: string) => verbType(byFi(fi));
@@ -33,7 +33,7 @@ describe('consonant gradation (KPT)', () => {
         'nukkua', 'leikkiä', 'lukea', 'kirjoittaa', 'piirtää', 'auttaa', 'ottaa', 'antaa',
         'sulkea', 'löytää', 'lentää', 'keittää', 'heittää', 'unohtaa', 'oppia', 'opettaa',
         'odottaa', 'rakentaa', 'kuunnella', 'hypätä', 'kiivetä', 'tavata', 'pudota', 'leikata',
-        'lämmetä', 'paeta', 'tykätä', 'koskettaa',
+        'lämmetä', 'paeta', 'tykätä', 'koskettaa', 'soittaa',
       ].sort(),
     );
   });
@@ -60,5 +60,14 @@ describe('consonant gradation (KPT)', () => {
 
   it('special verbs are not counted as KPT', () => {
     for (const fi of ['tehdä', 'nähdä', 'juosta', 'olla']) expect(hasKpt(byFi(fi)), fi).toBe(false);
+  });
+});
+
+describe('a verb filter', () => {
+  it('can name its verbs: the three "play" verbs and no others', () => {
+    const play = verbs.items.filter((v) => matchesVerbFilter(v, { ids: ['play', 'play-game', 'play-music'] })).map((v) => v.fi);
+    expect(play.sort()).toEqual(['leikkiä', 'pelata', 'soittaa']);
+    // and the named verbs still answer to the other filters
+    expect(verbs.items.filter((v) => matchesVerbFilter(v, { ids: ['play', 'play-game', 'play-music'], kpt: true })).map((v) => v.fi).sort()).toEqual(['leikkiä', 'soittaa']);
   });
 });

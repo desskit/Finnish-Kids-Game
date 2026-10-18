@@ -1301,3 +1301,67 @@ export function lift(k) {
     arrowUp(k, 56, up ? 20 : 24),
   ].join('');
 }
+
+// --- Play: games and music ---------------------------------------------------------
+
+/** A die, its top-left at (x, y), w wide, turned `rot` degrees, showing `n` pips. */
+function die(k, x, y, w, rot, n) {
+  const c = k.P;
+  const cx = x + w / 2;
+  const cy = y + w / 2;
+  const spots = {
+    3: [[0.26, 0.26], [0.5, 0.5], [0.74, 0.74]],
+    5: [[0.26, 0.26], [0.74, 0.26], [0.5, 0.5], [0.26, 0.74], [0.74, 0.74]],
+  }[n];
+  return k.g(
+    `rotate(${rot} ${pt([cx, cy])})`,
+    k.rect(x, y, w, w, w * 0.22, c.white),
+    k.flat(`M${pt([x + w * 0.12, y + w * 0.8])}H${fmt(x + w * 0.88)}V${fmt(y + w * 0.88)}H${fmt(x + w * 0.12)}Z`, c.silver),
+    ...spots.map(([u, v]) => k.flatCircle(x + w * u, y + w * v, w * 0.085, c.charcoal)),
+  );
+}
+
+/** Play games: a board game, the die tumbling, the pieces on their path. */
+export function playGame(k) {
+  const c = k.P;
+  const rolling = k.frame % 2 === 0;
+  const path = [];
+  const colors = ['red', 'yellow', 'green', 'blue'];
+  for (let i = 0; i < 8; i++) {
+    const x0 = 9.4 + i * 5.8;
+    path.push(k.flat(`M${fmt(x0)} 46.6H${fmt(x0 + 5)}L${fmt(x0 + 5.6)} 52H${fmt(x0 + 0.6)}Z`, c[colors[i % 4]]));
+  }
+  const piece = (x, y, col) =>
+    k.path(`M${fmt(x - 3.4)} ${fmt(y)}L${fmt(x)} ${fmt(y - 9)}L${fmt(x + 3.4)} ${fmt(y)}Z`, c[col]) + k.circle(x, y - 9.6, 2.6, c[col]);
+  return [
+    k.ground(32, 58.6, 28, 2),
+    k.poly([[10, 34], [54, 34], [60, 55], [4, 55]], 2, c.cream),
+    k.flat('M6.4 53H57.6L58.4 54.4H5.6Z', c.creamShade),
+    ...path,
+    k.circle(32, 40.6, 3.6, c.purple),
+    piece(17, 48, 'red'),
+    piece(41, 48, 'blue'),
+    rolling ? die(k, 38, 10, 12, 24, 3) + k.speed(37, [14, 18], 5) : die(k, 22, 28.6, 10, -8, 5),
+  ].join('');
+}
+
+/** Play music: Leo playing a recorder, eyes shut, the notes rising. */
+export function playMusic(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    leo(k, {
+      face: 'sleepy',
+      armBack: [[25.6, 34.8], [28, 42], [36.4, 36.6]],
+      armFront: [[38.4, 34.8], [45.4, 42.6], [43, 43.4]],
+    }),
+    k.limb('M33.6 27.4L46 47', c.sky, 4.4),
+    k.ellipse(46.6, 48, 3.4, 2.2, c.sky),
+    k.flatCircle(39.4, 37.8, 0.9, c.navy),
+    k.flatCircle(42.4, 42.4, 0.9, c.navy),
+    hand(k, [36.4, 36.6]),
+    hand(k, [43, 43.4]),
+    note(k, f ? 52 : 50, f ? 16 : 20, 'purple'),
+    note(k, f ? 12 : 10, f ? 12 : 16, 'blue'),
+  ].join('');
+}

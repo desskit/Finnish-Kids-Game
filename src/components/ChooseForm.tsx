@@ -26,6 +26,7 @@ const TITLES: Record<ChooseMode, { fi: string; en: string; prompt: string; promp
   age: { fi: 'Kuinka vanha?', en: 'How old?', prompt: 'Miten sanot?', promptEn: 'How do you say it?' },
   'verb-type': { fi: 'Mikä tyyppi?', en: 'Which type?', prompt: 'Mikä verbityyppi?', promptEn: 'Which verb type is it?' },
   'verb-case': { fi: 'Mikä pääte?', en: 'Which ending?', prompt: 'Mikä on oikein?', promptEn: 'Which one is right?' },
+  play: { fi: 'Leikin, pelaan, soitan', en: 'Which play?', prompt: 'Mitä sanot?', promptEn: 'What do you say?' },
 };
 
 interface Props extends ChoosePools {

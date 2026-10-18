@@ -46,6 +46,17 @@ export default [
   { id: 'black', title: 'black (a crayon)', draw: adj.black },
   { id: 'white', title: 'white (a crayon)', draw: adj.white },
   { id: 'brown', title: 'brown (a crayon)', draw: adj.brown },
+  { id: 'pink', title: 'pink (a crayon)', draw: adj.pink },
+  { id: 'purple', title: 'purple (a crayon)', draw: adj.purple },
+  { id: 'gray', title: 'gray (a crayon)', draw: adj.gray },
+  { id: 'orange', title: 'orange (a crayon)', draw: adj.orange },
+  // Opposites
+  { id: 'new', title: 'new (a new sneaker, the tag still on)', motion: { frames: 2, fps: 2 }, draw: adj.newThing },
+  { id: 'short', title: 'short (a pencil worn to a stub)', draw: adj.short },
+  { id: 'easy', title: 'easy (the last puzzle piece clicks in)', motion: { frames: 2, fps: 1.5 }, draw: adj.easy },
+  { id: 'hard', title: 'hard (a tangled knot)', draw: adj.hard },
+  { id: 'clean-adj', title: 'clean (a sparkling plate)', motion: { frames: 2, fps: 2 }, draw: adj.clean },
+  { id: 'dirty', title: 'dirty (a muddy boot, a fly buzzing)', motion: { frames: 2, fps: 4 }, draw: adj.dirty },
   // Sizes and speeds
   { id: 'big', title: 'big (a dinosaur)', motion: { frames: 2, fps: 1.2 }, draw: adj.big },
   { id: 'small', title: 'small (an ant by a big shoe)', motion: { frames: 2, fps: 3 }, draw: adj.small },

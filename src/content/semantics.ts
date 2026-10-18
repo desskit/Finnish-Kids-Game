@@ -79,7 +79,7 @@ export function isCountable(id: string): boolean {
 /** Foods and pastimes that you like or love AS A KIND, so English drops "the":
  *  "Pidän pitsasta" = "I like pizza", not "I like the pizza". (Other foods go
  *  plural — "I like apples" — and animals keep "the": "I like the cat".) */
-export const LIKED_AS_A_KIND = ['pizza', 'ice-cream', 'chocolate', 'bread', 'cheese', 'cake', 'candy', 'football'];
+export const LIKED_AS_A_KIND = ['pizza', 'ice-cream', 'chocolate', 'bread', 'cheese', 'cake', 'candy', 'football', 'chess', 'hockey'];
 
 /** Topics whose words are living things an animate adjective can describe. */
 export const ANIMATE_TOPICS = ['animals', 'family'];
@@ -128,13 +128,13 @@ export function canDescribeMovement(topic: string | undefined, itemId: string): 
 // — so "big" leaves parents alone. And "pitkä" on an animal or object is LONG,
 // not tall ("pitkä koira" is a long dog; a tall house is "korkea"), so "tall"
 // stays with people and trees.
-export const THING_ONLY_ADJECTIVES = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'cold', 'hot'];
+export const THING_ONLY_ADJECTIVES = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'pink', 'purple', 'gray', 'orange', 'cold', 'hot'];
 /** Hot / cold: not on anything alive. */
 const TEMPERATURE_ADJECTIVES = ['cold', 'hot'];
 /** Ideas and activities, not things you can touch. */
 export const ABSTRACT_NOUNS = ['music', 'math', 'gym', 'english', 'hobby', 'task', 'homework', 'movie', 'game', 'test', 'class'];
 /** The adjectives that do fit an idea: a good game, a big test, an old movie. */
-const IDEA_ADJECTIVES = ['good', 'big', 'small', 'old'];
+const IDEA_ADJECTIVES = ['good', 'big', 'small', 'old', 'new', 'short', 'easy', 'hard'];
 /** School subjects: "hyvä englanti", "vanha musiikki" — and nothing else. */
 const SUBJECT_ADJECTIVES: Record<string, string[]> = { math: [], gym: [], english: ['good'], music: ['good', 'old'] };
 const SIZE_ADJECTIVES = ['big', 'small'];
@@ -146,6 +146,20 @@ const PARENTS = ['mother', 'father'];
 const PEOPLE_IDS = ['teacher', 'friend', 'pupil'];
 /** Things that are tall — "pitkä puu" — rather than long. */
 const TALL_THINGS = ['tree'];
+// The opposites Describing adds say only what fits them: a new bike, pet,
+// friend or game (never new food, a new forest or a new mom); a short pencil,
+// skirt, movie or person; an easy or a hard task, test or game; clean or
+// dirty clothes, hands, pets, rooms and the things in them.
+const NOT_NEW_TOPICS = ['food', 'nature', 'body', 'family', 'time', 'states'];
+const NOT_NEW = ['forest', 'field', 'tree'];
+const PETS = ['cat', 'dog', 'bunny', 'fish', 'bird', 'mouse', 'horse'];
+const SHORT_THINGS = ['pencil', 'snake', 'movie', 'book', 'hair', 'skirt', 'dress', 'scarf', 'tie', 'coat', 'belt', 'train', 'test', 'task', 'homework'];
+const EASY_OR_HARD = ['task', 'homework', 'test', 'game'];
+const CLEAN_OR_DIRTY = [
+  'hand', 'foot', 'cat', 'dog', 'pig', 'horse', 'bunny', 'car', 'bike', 'bus', 'taxi', 'room', 'kitchen',
+  'bathroom', 'bedroom', 'living-room', 'table', 'chair', 'bed', 'sofa', 'window', 'house', 'yard',
+  'backpack', 'ball', 'football', 'spoon', 'fork', 'toy', 'doll', 'teddy', 'water', 'snow',
+];
 
 /** Does this adjective make sense on this noun (beyond the animate / movement rules)? */
 export function adjectiveFitsNoun(adjId: string, noun: { id: string; topic?: string }): boolean {
@@ -161,6 +175,11 @@ export function adjectiveFitsNoun(adjId: string, noun: { id: string; topic?: str
   if (adjId === 'tall' && !(person || TALL_THINGS.includes(noun.id))) return false;
   // "Vanha vauva" (an old baby) is a contradiction.
   if (adjId === 'old' && noun.id === 'baby') return false;
+  if (adjId === 'new' && (NOT_NEW_TOPICS.includes(noun.topic ?? '') || NOT_NEW.includes(noun.id))) return false;
+  if (adjId === 'new' && noun.topic === 'animals' && !PETS.includes(noun.id)) return false;
+  if (adjId === 'short' && !(SHORT_THINGS.includes(noun.id) || (person && noun.id !== 'baby'))) return false;
+  if ((adjId === 'easy' || adjId === 'hard') && !EASY_OR_HARD.includes(noun.id)) return false;
+  if ((adjId === 'clean-adj' || adjId === 'dirty') && noun.topic !== 'clothes' && !CLEAN_OR_DIRTY.includes(noun.id)) return false;
   return true;
 }
 

@@ -25,8 +25,9 @@ describe('comparing', () => {
     // supplement (hitaampi, iloisempi, söpömpi… are headwords there).
     expect(comparable(adjectives.items).map((a) => a.fi).sort()).toEqual(
       [
-        'hauska', 'hidas', 'hyvä', 'iloinen', 'iso', 'kuuma', 'kylmä', 'nopea',
-        'nuori', 'pieni', 'pitkä', 'surullinen', 'söpö', 'tylsä', 'vahva', 'vanha',
+        'hauska', 'hidas', 'hyvä', 'iloinen', 'iso', 'kuuma', 'kylmä', 'lyhyt', 'nopea',
+        'nuori', 'pieni', 'pitkä', 'puhdas', 'surullinen', 'söpö', 'tylsä', 'uusi', 'vahva',
+        'vaikea', 'vanha',
       ].sort(),
     );
   });

@@ -126,7 +126,8 @@ export const SLIPS: Record<string, Slip[]> = {
   'write-with': WITH_TOOL,
   'draw-with': WITH_TOOL,
   'eat-with': WITH_TOOL,
-  'play-with-toy': WITH_TOOL,
+  // Not -a: "Leikin autoa" can be pretend play ("I'm playing car").
+  'play-with-toy': [s('nominative'), s('genitive')],
   'open-with': WITH_TOOL,
   // WITH a person: -n + kanssa. -lla is for a thing you use.
   'with-someone': [s('adessive'), s('nominative'), s('partitive')],
@@ -150,6 +151,12 @@ export const SLIPS: Record<string, Slip[]> = {
   // kädestä / käteen" can be said of lifting something else.) -na (as a
   // hand) fits no reading.
   'lift-it': [s('genitive'), s('essive')],
+  // Playing a game or an instrument takes -a. Not -n: "Pelaan pelin" (a whole
+  // game) and "Pelaan kortin" (I play a card) are fine; not -lla: "Pelaan
+  // pallolla" and "Soitan kitaralla" are said; not -sta: "Soitan kitarasta"
+  // can be calling about it. -na (as a guitar) fits no reading.
+  'i-play-game': [s('nominative'), s('essive')],
+  'i-play-music': [s('nominative'), s('essive')],
   // "Pese kädet!" — the plural basic form. -n is the slip from "Pesen
   // käden"; never the singular ("Pese käsi!" — one hand) or -a ("Pese
   // käsiä") or -lla ("Pese käsillä" = wash WITH your hands): all fine.

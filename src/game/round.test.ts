@@ -1046,8 +1046,8 @@ describe('sentences that make sense (final QA)', () => {
         if (['inessive', 'illative'].includes(q.case)) expect(q.noun.tags, `${q.adjForm} ${q.answer}`).toContain('container');
         if (['adessive', 'allative'].includes(q.case)) expect(q.noun.tags, `${q.adjForm} ${q.answer}`).toContain('surface');
         const person = q.noun.topic === 'family' || ['teacher', 'friend', 'pupil'].includes(q.noun.id);
-        if (person) expect(['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'cold', 'hot']).not.toContain(q.adjective.id);
-        if (['math', 'music', 'movie'].includes(q.noun.id)) expect(['good', 'big', 'small', 'old']).toContain(q.adjective.id);
+        if (person) expect(['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'pink', 'purple', 'gray', 'orange', 'cold', 'hot']).not.toContain(q.adjective.id);
+        if (['math', 'music', 'movie'].includes(q.noun.id)) expect(['good', 'big', 'small', 'old', 'new', 'short']).toContain(q.adjective.id);
       }
     }
   });
@@ -1070,6 +1070,25 @@ describe('sentences that make sense (final QA)', () => {
     for (const w of ['rice', 'water', 'butter', 'math', 'music']) expect(fitsNoun('big', w), w).toBe(false);
     expect(fitsNoun('big', 'cake')).toBe(true);
     expect(fitsNoun('old', 'music')).toBe(true);
+    // The opposites only say what fits: a new bike, pet or friend — never new
+    // food, a new forest or a new mom; an easy or hard task, never an easy dog;
+    // clean or dirty clothes, hands and rooms, never a dirty cookie.
+    expect(fitsNoun('new', 'bike')).toBe(true);
+    expect(fitsNoun('new', 'dog')).toBe(true);
+    expect(fitsNoun('new', 'teacher')).toBe(true);
+    for (const w of ['apple', 'forest', 'mother', 'lion', 'hand']) expect(fitsNoun('new', w), w).toBe(false);
+    expect(fitsNoun('easy', 'test')).toBe(true);
+    expect(fitsNoun('hard', 'homework')).toBe(true);
+    for (const w of ['dog', 'cake', 'math']) expect(fitsNoun('easy', w), w).toBe(false);
+    expect(fitsNoun('dirty', 'shoe')).toBe(true);
+    expect(fitsNoun('clean-adj', 'hand')).toBe(true);
+    for (const w of ['cookie', 'teacher', 'sun']) expect(fitsNoun('dirty', w), w).toBe(false);
+    expect(fitsNoun('short', 'pencil')).toBe(true);
+    expect(fitsNoun('short', 'brother')).toBe(true);
+    for (const w of ['baby', 'apple', 'house']) expect(fitsNoun('short', w), w).toBe(false);
+    // and the new colors are for things, like the others
+    expect(fitsNoun('pink', 'teacher')).toBe(false);
+    expect(fitsNoun('pink', 'ball')).toBe(true);
   });
 
   it('counting never shows two nouns on one picture', () => {
