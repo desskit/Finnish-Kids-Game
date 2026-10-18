@@ -187,6 +187,8 @@ const ADJECTIVES = [
   // "clean" is the verb siivota's id
   ['clean-adj', 'puhdas', 'clean', '🫧'],
   ['dirty', 'likainen', 'dirty', '🪰'],
+  // Weather: "On lämmin" — it's warm (the picture: a thermometer in the sun).
+  ['warm', 'lämmin', 'warm', '🌡️'],
 ];
 
 const FOOD = [
@@ -214,6 +216,21 @@ const FOOD = [
   ['butter', 'voi', 'butter', '🧈'],
   ['pizza', 'pitsa', 'pizza', '🍕'],
 ];
+
+// Meals, for My day: "Syön aamupalaa" — I'm eating breakfast. Their own
+// theme, opt-in like money: a meal fills only the phrases that name it, never
+// "kolme aamupalaa" or "Ostan lounaan". iltapala is from the Wiktionary
+// supplement (data/wiktionary/).
+const MEALS = [
+  ['breakfast', 'aamupala', 'breakfast', '🥞'],
+  ['lunch', 'lounas', 'lunch', '🍱'],
+  ['dinner', 'päivällinen', 'dinner', '🍝'],
+  ['evening-snack', 'iltapala', 'evening snack', '🥪'],
+];
+
+// The weather itself — "Millainen sää?" (what's the weather like?). Opt-in,
+// like money: "Näen sään" or "kolme säätä" would be nonsense.
+const WEATHER = [['weather', 'sää', 'weather', '⛅']];
 
 // Place nouns for the locative-case node ("where things are" — in/on/into/
 // out-of/onto/off + plural). Sourced the same way as every other theme; no
@@ -548,7 +565,14 @@ const NATURE = [
   ['fire', 'tuli', 'fire', '🔥'],
   ['grass', 'ruoho', 'grass', '🌿'],
   ['island', 'saari', 'island', '🏝️'],
+  // Out in nature: the shore of a lake or the sea ("Olemme rannalla").
+  ['beach', 'ranta', 'beach', '🐚'],
 ];
+
+// Where a PERSON can be in nature: on the mountain ("Olen vuorella", "Menen
+// vuorelle"). The lake, sea, beach and island stay out: there both endings
+// are said ("järveen" is into the lake, "järvelle" out onto it).
+const NATURE_TAGS = { mountain: ['person-on'] };
 
 // Clothes. NOTE: `housut` (pants) is deliberately excluded — it's a plurale
 // tantum (no singular forms), so the singular carrier phrases can't fill it;
@@ -573,6 +597,13 @@ const CLOTHES = [
   // Emoji-less (see the FAMILY comment above) — text-only depth.
   ['belt', 'vyö', 'belt'],
   ['earring', 'korvakoru', 'earring'],
+  // Winter clothes, for Not having ("Minulla ei ole pipoa") and getting dressed
+  // in My day ("Puen haalarin päälle"). From the Wiktionary supplement.
+  ['beanie', 'pipo', 'beanie', '🧶'],
+  ['mitten', 'lapanen', 'mitten', '🥊'],
+  ['snowsuit', 'haalari', 'snowsuit', '🩱'],
+  ['sweater', 'villapaita', 'sweater', '🎽'],
+  ['raincoat', 'sadetakki', 'raincoat', '☔'],
 ];
 
 // Kid-friendly verbs spanning all six KOTUS verb types. The 4th field is an
@@ -666,6 +697,10 @@ const VERBS = [
   // pelata (games and sports) and soittaa (music; it's also "call").
   ['play-game', 'pelata', 'play games', '🎲'],
   ['play-music', 'soittaa', 'play music', '🪈'],
+  // My day: brushing your teeth and getting dressed ("Harjaan hampaat", "Puen
+  // takin päälle").
+  ['brush', 'harjata', 'brush', '🪥'],
+  ['put-on', 'pukea', 'put on', '👘'],
 ];
 
 // Feelings that are verbs: "Minua pelottaa" — literally "it scares me". Only
@@ -918,6 +953,25 @@ const nature = buildTheme({
   emoji: '🌳',
   curation: NATURE,
   sourceWords: nounWords,
+  tagsById: NATURE_TAGS,
+});
+
+const meals = buildTheme({
+  id: 'meals',
+  fi: 'Ateriat',
+  en: 'Meals',
+  emoji: '🥞',
+  curation: MEALS,
+  sourceWords: nounWords,
+});
+
+const weather = buildTheme({
+  id: 'weather',
+  fi: 'Sää',
+  en: 'Weather',
+  emoji: '⛅',
+  curation: WEATHER,
+  sourceWords: nounWords,
 });
 
 const clothes = buildTheme({
@@ -994,7 +1048,7 @@ const freetime = buildTheme({
 
 // Attach possessive suffix forms to every NOUN theme (the "Kenen?" game draws
 // from these). Adjectives/verbs/numbers don't take possessive suffixes here.
-[animals, food, family, places, body, nature, clothes, school, freetime].forEach(attachPossessives);
+[animals, food, family, places, body, nature, clothes, school, freetime, meals].forEach(attachPossessives);
 
 // Sourced-English guarantee: no word may ship without its AGID-derived forms.
 if (ENGLISH_MISSING.length) {
@@ -1023,6 +1077,8 @@ writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, nul
 writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'money.sourced.json'), JSON.stringify(money, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'meals.sourced.json'), JSON.stringify(meals, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'weather.sourced.json'), JSON.stringify(weather, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'ordinals.sourced.json'), JSON.stringify(ordinals, null, 2) + '\n');
@@ -1035,5 +1091,6 @@ console.log(
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
     `${school.words.length} school, ${freetime.words.length} free-time, ${money.words.length} money, ` +
+    `${meals.words.length} meals, ${weather.words.length} weather, ` +
     `${time.words.length} time, ${states.words.length} state, ${ordinals.words.length} ordinal words to ${OUT_DIR}`,
 );

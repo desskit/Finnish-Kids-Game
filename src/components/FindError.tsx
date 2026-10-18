@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
+import { slotText } from '../content/types';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -191,7 +192,7 @@ export default function FindError({ items, constructions, onExit }: Props) {
             onClick={() => tapWord(i)}
             disabled={locked}
           >
-            {solved && !q.isCorrect && i === q.slotIndex ? q.correctForm : w.text}
+            {solved && !q.isCorrect && i === q.slotIndex ? slotText(q.construction, q.correctForm) : w.text}
           </button>
         ))}
       </div>

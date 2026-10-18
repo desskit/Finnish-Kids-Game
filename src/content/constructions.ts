@@ -14,7 +14,7 @@ import { SURFACE_TAG, CONTAINER_TAG, NOT_COUNTABLE } from "./semantics";
 
 // Nature nobody owns: "Minulla on taivas", "minun tuuleni" are nonsense
 // (flower and stone stay — those fit in a pocket).
-const NATURE_NOBODY_OWNS = ["sun", "moon", "star", "cloud", "rain", "snow", "sky", "sea", "lake", "mountain", "wind", "grass"];
+const NATURE_NOBODY_OWNS = ["sun", "moon", "star", "cloud", "rain", "snow", "sky", "sea", "lake", "mountain", "wind", "grass", "beach"];
 
 // Words nobody (least of all a child) can own or deny owning.
 const UNOWNABLE = [
@@ -174,6 +174,7 @@ const NO_LANDMARK = [
   "snow",
   "sky",
   "sea",
+  "beach",
   "music",
   "hobby",
   "class",
@@ -280,11 +281,15 @@ const PERSON_ON_GLOSS: Record<string, string> = {
   sofa: "on the sofa",
   door: "at the door",
   window: "at the window",
+  mountain: "on the mountain",
 };
 
 // Whole English sentences where the place changes more than "the ___":
 // a cat sits AT a window, gets ON a bus, goes UP a tree. English meta-text
 // only — the Finnish is the same sourced case form as for every other word.
+// The hours on a clock, for telling the time ("Kello on kolme").
+const HOURS = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+
 const VEHICLES = ["bus", "train", "plane"];
 const RIDES_IN = ["car", "taxi", "boat"];
 const AT_PLACES: Record<string, string> = {
@@ -1224,7 +1229,7 @@ export const nounConstructions: Construction[] = [
     tier: 3,
     case: "adessive",
     number: "singular",
-    topics: ["places"],
+    topics: ["places", "nature"],
     requiresTags: ["person-on"],
     glossById: PERSON_ON_GLOSS,
   },
@@ -1250,7 +1255,7 @@ export const nounConstructions: Construction[] = [
     tier: 4,
     case: "allative",
     number: "singular",
-    topics: ["places"],
+    topics: ["places", "nature"],
     requiresTags: ["person-on"],
     sentenceById: I_GO_ONTO,
   },
@@ -1276,7 +1281,7 @@ export const nounConstructions: Construction[] = [
     tier: 4,
     case: "ablative",
     number: "singular",
-    topics: ["places"],
+    topics: ["places", "nature"],
     requiresTags: ["person-on"],
     sentenceById: I_COME_FROM_ON,
   },
@@ -1464,20 +1469,9 @@ export const nounConstructions: Construction[] = [
     case: "nominative",
     number: "singular",
     topics: ["numbers"],
-    onlyIds: [
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "six",
-      "seven",
-      "eight",
-      "nine",
-      "ten",
-      "eleven",
-      "twelve",
-    ],
+    onlyIds: HOURS,
+    // the clock face, not the number tile: "Kello on kolme" shows three o'clock
+    pictureById: { one: "🕐", two: "🕑", three: "🕒", four: "🕓", five: "🕔", six: "🕕", seven: "🕖", eight: "🕗", nine: "🕘", ten: "🕙", eleven: "🕚", twelve: "🕛" },
   },
 
   // --- Verb + verb: "I want to / don't want to / can / may I…?" -------------
@@ -1635,5 +1629,145 @@ export const nounConstructions: Construction[] = [
     number: "plural",
     topics: ["body"],
     onlyIds: ["hand", "foot", "ear"],
+  },
+
+  // --- My day: waking up, half past, meals, getting dressed ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // At a time: "Herään kello seitsemältä" — the hour takes -lta / -ltä.
+    // ("Herään kello seitsemän" is fine too, so the basic form is never a slip.)
+    id: "wake-at",
+    before: "Herään kello",
+    punct: ".",
+    en: "I wake up at ___ o'clock.",
+    tier: 3,
+    case: "ablative",
+    number: "singular",
+    topics: ["numbers"],
+    onlyIds: ["six", "seven", "eight", "nine"],
+    pictureById: { six: "🕕", seven: "🕖", eight: "🕗", nine: "🕘" },
+  },
+  {
+    // Half past: Finnish counts on to the NEXT hour — "puoli kahdeksan" is half
+    // way to eight, 7:30. The hour stays in its basic form.
+    id: "half-past",
+    before: "Kello on puoli",
+    punct: ".",
+    en: "It's ___.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    topics: ["numbers"],
+    onlyIds: HOURS,
+    glossById: { one: "twelve thirty", two: "one thirty", three: "two thirty", four: "three thirty", five: "four thirty", six: "five thirty", seven: "six thirty", eight: "seven thirty", nine: "eight thirty", ten: "nine thirty", eleven: "ten thirty", twelve: "eleven thirty" },
+    pictureById: { one: "🕧", two: "🕜", three: "🕝", four: "🕞", five: "🕟", six: "🕠", seven: "🕡", eight: "🕢", nine: "🕣", ten: "🕤", eleven: "🕥", twelve: "🕦" },
+  },
+  {
+    // A meal takes -a after "Syön": "Syön aamupalaa" — I'm eating breakfast.
+    // ("Syön aamupalan", the whole breakfast, and "Syön aamupalalla", at
+    // breakfast, are fine too — neither is ever a slip.)
+    id: "i-eat-meal",
+    before: "Syön",
+    punct: ".",
+    en: "I eat ___.",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    topics: ["meals"],
+    // "I eat breakfast", but "an evening snack"
+    glossById: { "evening-snack": "an evening snack" },
+  },
+  {
+    // Getting dressed: "Puen takin päälle" — I put on my coat; one whole coat
+    // takes -n. ("Puen takkia päälle", I'm putting it on, is fine too.)
+    id: "put-on-clothes",
+    before: "Puen",
+    after: "päälle",
+    punct: ".",
+    en: "I put on my ___.",
+    tier: 3,
+    case: "genitive",
+    number: "singular",
+    topics: ["clothes"],
+    onlyIds: ["coat", "sweater", "snowsuit", "shirt", "dress", "raincoat"],
+  },
+
+  // --- Weather ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // "Sataa lunta / vettä" — literally "it rains snow / water": it's snowing,
+    // it's raining. What falls takes -a / -ä.
+    id: "it-rains",
+    before: "Sataa",
+    punct: ".",
+    en: "It's ___.",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    onlyIds: ["snow", "water"],
+    glossById: { snow: "snowing", water: "raining" },
+    // falling water is the rain
+    pictureById: { water: "🌧️" },
+  },
+  {
+    // "Aurinko paistaa" — the sun is shining. The sun starts the sentence, in
+    // its basic form.
+    id: "it-shines",
+    after: "paistaa",
+    punct: ".",
+    en: "The ___ is shining.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    onlyIds: ["sun", "moon"],
+  },
+  {
+    // The weather: just "On kylmä" — it's cold. ("Minulla on kylmä" is I'm cold.)
+    id: "weather-is",
+    before: "On",
+    punct: ".",
+    en: "It's ___.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    topics: ["adjectives"],
+    onlyIds: ["cold", "warm", "hot"],
+  },
+
+  // --- Out in nature: where the animals are ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // IN the lake: "Kala on järvessä".
+    id: "fish-in",
+    before: "Kala on",
+    punct: ".",
+    en: "The fish is in the ___.",
+    tier: 3,
+    case: "inessive",
+    number: "singular",
+    onlyIds: ["lake", "sea"],
+  },
+  {
+    // IN the tree: "Lintu on puussa".
+    id: "bird-in",
+    before: "Lintu on",
+    punct: ".",
+    en: "The bird is in the ___.",
+    tier: 3,
+    case: "inessive",
+    number: "singular",
+    onlyIds: ["tree", "forest"],
+  },
+  {
+    // ON a leaf: "Perhonen on lehdellä". (The flower stays out: "kukalla" and
+    // "kukassa" are both said.)
+    id: "butterfly-on",
+    before: "Perhonen on",
+    punct: ".",
+    en: "The butterfly is on the ___.",
+    tier: 3,
+    case: "adessive",
+    number: "singular",
+    onlyIds: ["leaf", "stone"],
   },
 ];

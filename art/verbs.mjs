@@ -1365,3 +1365,42 @@ export function playMusic(k) {
     note(k, f ? 12 : 10, f ? 12 : 16, 'blue'),
   ].join('');
 }
+
+/** Brush: Leo brushing his teeth, the brush going back and forth, foam at his mouth. */
+export function brush(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const dx = f ? -1.6 : 1.4;
+  const h = [43.6 + dx, 30.6];
+  const foam = f ? [[27.4, 30.4, 1.8], [24.6, 27.4, 1.4], [29.6, 33.4, 1.3]] : [[28.4, 31.4, 1.6], [25.6, 29.4, 1.8], [23.6, 26.4, 1.3]];
+  return [
+    leo(k, { face: 'grin', armFront: [[38.4, 34.8], [47.6, 38.6], h] }),
+    k.limb(`M${fmt(35.6 + dx)} 28.6L${fmt(50.6 + dx)} 31.6`, c.blue, 4.4),
+    k.rect(30.6 + dx, 25.4, 6, 3.4, 1.2, c.white),
+    hand(k, h),
+    ...foam.map(([x, y, r]) => k.circle(x, y, r, c.white, { sw: 1.5 })),
+  ].join('');
+}
+
+/** Put on: Leo pulling on a sweater — his arms up in its sleeves, his head
+ *  through the neck, the sweater sliding down over his shirt. */
+export function putOn(k) {
+  const c = k.P;
+  const hem = k.frame % 2 ? 46 : 40.6;
+  const hb = [16.6, 11.6];
+  const hf = [47.4, 11.6];
+  return [
+    leo(k, { face: 'grin', armBack: [[25.6, 34.8], [19.6, 24.6], hb], armFront: [[38.4, 34.8], [44.4, 24.6], hf] }),
+    // the sleeves, up the raised arms
+    k.limb(`M25.6 32.6L19.6 24.6L${fmt(hb[0] + 0.4)} ${fmt(hb[1] + 4)}`, c.red, 8.6),
+    k.limb(`M38.4 32.6L44.4 24.6L${fmt(hf[0] - 0.4)} ${fmt(hf[1] + 4)}`, c.red, 8.6),
+    // the body of the sweater, sliding down, its white band and ribbed hem
+    k.path(`M23.4 28.6H40.6L41.4 ${fmt(hem)}H22.6Z`, c.red),
+    k.flat('M23.2 32.6H40.8L41 35.6H23Z', c.white),
+    k.flat(`M22.8 ${fmt(hem - 2.6)}H41.2L41.4 ${fmt(hem)}H22.6Z`, c.redShade),
+    hand(k, hb),
+    hand(k, hf),
+    // the head, through the neck
+    portrait(k, CAST.leo, 'grin'),
+  ].join('');
+}

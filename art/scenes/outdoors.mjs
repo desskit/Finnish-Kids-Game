@@ -82,6 +82,31 @@ export function grassland(k, y = 140, color = 'grass') {
   return k.path(`M-4 ${y + 6}C80 ${y - 6} 160 ${y - 2} 220 ${y + 2}C290 ${y - 4} 350 ${y - 4} 404 ${y}V204H-4Z`, c[color]) + k.flat(`M-4 ${y + 36}C80 ${y + 28} 150 ${y + 32} 210 ${y + 36}C290 ${y + 30} 350 ${y + 28} 404 ${y + 32}V204H-4Z`, c[`${color}Shade`], { opacity: 0.5 });
 }
 
+/** Snow lying on a pine (drawn by nature.mjs's pine at the same x, base, h):
+ *  a white tip, and white along the slopes of both tiers. */
+export function snowOnPine(k, x, base, h) {
+  const c = k.P;
+  const w = h * 0.36;
+  const y = (f) => base - h + h * f;
+  return [
+    k.flat(`M${x} ${y(0)}L${x + w * 0.34} ${y(0.22)}L${x + w * 0.12} ${y(0.19)}L${x} ${y(0.23)}L${x - w * 0.14} ${y(0.19)}L${x - w * 0.34} ${y(0.22)}Z`, c.white),
+    k.flat(`M${x + w * 0.4} ${y(0.4)}L${x + w} ${y(0.82)}L${x + w * 0.72} ${y(0.8)}L${x + w * 0.3} ${y(0.47)}Z`, c.white),
+    k.flat(`M${x - w * 0.4} ${y(0.4)}L${x - w} ${y(0.82)}L${x - w * 0.72} ${y(0.8)}L${x - w * 0.3} ${y(0.47)}Z`, c.white),
+  ].join('');
+}
+
+/** Snow on a red house's roof (the house redHouse draws at the same x, gy, w,
+ *  h) and on its chimney. */
+export function snowOnRoof(k, x, gy, w = 120, h = 66) {
+  const c = k.P;
+  const top = gy - h;
+  const roofTop = top - 36;
+  return [
+    k.path(`M${x - 12} ${top + 3}L${x + w / 2} ${roofTop - 3}L${x + w + 12} ${top + 3}L${x + w + 4} ${top + 4}L${x + w / 2} ${roofTop + 6}L${x - 4} ${top + 4}Z`, c.white),
+    k.rect(x + w - 35, roofTop - 9, 14, 4, 1.6, c.white),
+  ].join('');
+}
+
 /** A far line of forest along the horizon: pines of different heights. */
 export function forestLine(k, y, x0 = 0, x1 = SCENE_W) {
   const out = [];

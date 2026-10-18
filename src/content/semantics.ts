@@ -128,9 +128,12 @@ export function canDescribeMovement(topic: string | undefined, itemId: string): 
 // — so "big" leaves parents alone. And "pitkä" on an animal or object is LONG,
 // not tall ("pitkä koira" is a long dog; a tall house is "korkea"), so "tall"
 // stays with people and trees.
-export const THING_ONLY_ADJECTIVES = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'pink', 'purple', 'gray', 'orange', 'cold', 'hot'];
-/** Hot / cold: not on anything alive. */
-const TEMPERATURE_ADJECTIVES = ['cold', 'hot'];
+export const THING_ONLY_ADJECTIVES = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'pink', 'purple', 'gray', 'orange', 'cold', 'hot', 'warm'];
+/** Hot / warm / cold: not on anything alive. */
+const TEMPERATURE_ADJECTIVES = ['cold', 'hot', 'warm'];
+/** Never warm ("kuuma lumi", hot snow), and never cold ("kylmä tuli"). */
+const ALWAYS_COLD = ['snow', 'ice', 'ice-cream'];
+const ALWAYS_HOT = ['fire', 'sun'];
 /** Ideas and activities, not things you can touch. */
 export const ABSTRACT_NOUNS = ['music', 'math', 'gym', 'english', 'hobby', 'task', 'homework', 'movie', 'game', 'test', 'class'];
 /** The adjectives that do fit an idea: a good game, a big test, an old movie. */
@@ -167,6 +170,8 @@ export function adjectiveFitsNoun(adjId: string, noun: { id: string; topic?: str
   const alive = person || isAnimateTopic(noun.topic);
   if (THING_ONLY_ADJECTIVES.includes(adjId) && person) return false;
   if (TEMPERATURE_ADJECTIVES.includes(adjId) && alive) return false;
+  if ((adjId === 'hot' || adjId === 'warm') && ALWAYS_COLD.includes(noun.id)) return false;
+  if (adjId === 'cold' && ALWAYS_HOT.includes(noun.id)) return false;
   if (ABSTRACT_NOUNS.includes(noun.id) && !IDEA_ADJECTIVES.includes(adjId)) return false;
   const subject = SUBJECT_ADJECTIVES[noun.id];
   if (subject && !subject.includes(adjId)) return false;

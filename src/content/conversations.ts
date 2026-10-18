@@ -1769,6 +1769,111 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — My day: a morning with Äiti
+  {
+    id: 'my-morning',
+    titleFi: 'Aamulla',
+    titleEn: 'In the morning',
+    icon: '🌅',
+    partnerIcon: '👩',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Huomenta! Kello on puoli kahdeksan.', en: "Good morning! It's seven thirty." },
+        reply: { fi: 'Huomenta, äiti!', en: 'Good morning, Mom!' },
+        distractors: [
+          { fi: 'Hyvää yötä, äiti!', en: 'Good night, Mom!' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Syötkö aamupalaa?', en: 'Will you eat breakfast?' },
+        reply: { fi: 'Joo! Syön aamupalaa.', en: "Yes! I'll eat breakfast." },
+        distractors: [
+          { fi: 'Joo! Syön aamupala.', en: "Yes! I'll eat breakfast.", why: 'After *syön*, a meal takes **-a**: *Syön aamupalaa*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+      {
+        partner: { fi: 'Ulkona on kylmä. Puetko haalarin päälle?', en: "It's cold outside. Will you put on your snowsuit?" },
+        reply: { fi: 'Joo, puen haalarin päälle.', en: "Yes, I'll put on my snowsuit." },
+        distractors: [
+          { fi: 'Joo, puen haalari päälle.', en: "Yes, I'll put on my snowsuit.", why: 'One whole snowsuit → **-n**: *Puen haalarin päälle*.' },
+          { fi: 'Hyvää iltaa!', en: 'Good evening!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Weather: it's snowing, I'm cold
+  {
+    id: 'weather-today',
+    titleFi: 'Millainen sää?',
+    titleEn: "What's the weather like?",
+    icon: '⛅',
+    partnerIcon: '👧',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Millainen sää tänään on?', en: "What's the weather like today?" },
+        reply: { fi: 'Sataa lunta!', en: "It's snowing!" },
+        distractors: [
+          { fi: 'Sataa lumi!', en: "It's snowing!", why: 'What falls takes **-a**: *Sataa lunta*.' },
+          { fi: 'Kiitos, hyvää.', en: 'Fine, thanks.' },
+        ],
+      },
+      {
+        partner: { fi: 'Onko sinulla kylmä?', en: 'Are you cold?' },
+        reply: { fi: 'On. Minulla on kylmä!', en: "Yes. I'm cold!" },
+        distractors: [
+          { fi: 'On. Minulla on nälkä!', en: "Yes. I'm hungry!" },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Mennään ulos! Leikitään lumessa!', en: "Let's go out! Let's play in the snow!" },
+        reply: { fi: 'Joo! Puen villapaidan päälle.', en: "Yes! I'll put on my sweater." },
+        distractors: [
+          { fi: 'Joo! Puen villapaita päälle.', en: "Yes! I'll put on my sweater.", why: 'One whole sweater → **-n**: *Puen villapaidan päälle*.' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Out in nature: where the animals are
+  {
+    id: 'forest-trip',
+    titleFi: 'Metsäretki',
+    titleEn: 'A trip to the forest',
+    icon: '🌲',
+    partnerIcon: '👴',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Katso! Missä lintu on?', en: 'Look! Where is the bird?' },
+        reply: { fi: 'Lintu on puussa!', en: 'The bird is in the tree!' },
+        distractors: [
+          { fi: 'Lintu on puuhun!', en: 'The bird is in the tree!', why: 'Where it IS → **-ssa**: *puussa*. (*puuhun* is INTO the tree.)' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Entä kala?', en: 'And the fish?' },
+        reply: { fi: 'Kala on järvessä.', en: 'The fish is in the lake.' },
+        distractors: [
+          { fi: 'Kala on järveen.', en: 'The fish is in the lake.', why: 'Where it IS → **-ssa**: *järvessä*.' },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        partner: { fi: 'Ja perhonen?', en: 'And the butterfly?' },
+        reply: { fi: 'Perhonen on kivellä!', en: 'The butterfly is on the stone!' },
+        distractors: [
+          { fi: 'Perhonen on kivelle!', en: 'The butterfly is on the stone!', why: 'ON something → **-lla**: *kivellä*.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
   // ⚠️ NEEDS NATIVE FINNISH VETTING — Big numbers: counting past twelve
   {
     id: 'sweets',

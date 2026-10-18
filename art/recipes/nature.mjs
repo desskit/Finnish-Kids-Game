@@ -63,4 +63,6 @@ export default [
   { id: 'fire', title: 'fire (a campfire)', motion: { frames: 3, fps: 6 }, draw: nature.fire },
   { id: 'grass', title: 'grass', motion: { frames: 2, fps: 1.5 }, draw: nature.grass },
   { id: 'island', title: 'island (in a lake)', motion: { frames: 2, fps: 1.5 }, draw: nature.island },
+  { id: 'beach', title: 'beach (sand, a wave, a shell)', motion: { frames: 2, fps: 1.5 }, draw: nature.beach },
+  { id: 'weather', title: 'weather (a weather chart: sun, cloud, rain, snow)', motion: { frames: 2, fps: 1.5 }, draw: nature.weatherChart },
 ];

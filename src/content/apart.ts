@@ -42,6 +42,19 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
 
   // Clothes and things.
   ['shirt', 'blouse'],
+  // Winter clothes beside the everyday ones: a beanie is a hat (or a cap), a
+  // mitten a glove, a sweater a shirt, a raincoat a coat.
+  ['beanie', 'hat'],
+  ['beanie', 'cap'],
+  ['mitten', 'glove'],
+  ['sweater', 'shirt', 'blouse'],
+  ['raincoat', 'coat'],
+  // Meals beside the food on their plates.
+  ['breakfast', 'porridge'],
+  ['breakfast', 'juice'],
+  ['lunch', 'dinner', 'soup'],
+  ['evening-snack', 'bread'],
+  ['evening-snack', 'milk'],
   ['ball', 'football'],
   ['music', 'guitar'],
   ['music', 'piano'],
@@ -67,6 +80,9 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['school', 'station'],
   ['tree', 'forest'],
   ['lake', 'island'],
+  ['beach', 'sea'],
+  ['beach', 'lake'],
+  ['beach', 'island'],
 
   // Sky and seasons: the cloud is in the rain, the sun is in the day.
   ['cloud', 'rain', 'sky'],
@@ -77,6 +93,10 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['morning', 'evening'],
   ['snow', 'winter'],
   ['leaf', 'autumn'],
+  // The weather board shows the sun and a cloud; warm is nearly hot.
+  ['weather', 'sun'],
+  ['weather', 'cloud'],
+  ['warm', 'hot'],
 
   // Verbs that look alike, or mean nearly the same.
   ['run', 'run-away'],
@@ -105,6 +125,11 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['play', 'toy'],
   ['order', 'speak', 'say'],
   ['touch', 'hand', 'finger'],
+  // Getting ready: brushing your teeth, pulling on a sweater.
+  ['brush', 'tooth'],
+  ['brush', 'wash'],
+  ['put-on', 'sweater'],
+  ['put-on', 'shirt'],
   ['lift', 'strong', 'answer'],
 
   // Describing words: the smiling faces, and two kinds of big.

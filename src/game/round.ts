@@ -13,7 +13,7 @@ import type {
   Tier,
   VerbTense,
 } from '../content/types';
-import { caseFormOf, commandFor, conjugatedClause, englishSentenceFor, formFor, PERSONS, POSSESSORS, possessiveForm, possessiveGloss, sentenceFor, suitsSlot, verbForm } from '../content/types';
+import { caseFormOf, commandFor, conjugatedClause, englishSentenceFor, formFor, PERSONS, pictureFor, POSSESSORS, possessiveForm, possessiveGloss, sentenceFor, slotText, suitsSlot, verbForm } from '../content/types';
 import {
   isAnimateOnlyAdjective,
   isAnimateTopic,
@@ -141,7 +141,7 @@ export function buildSayRound(
     ).map(({ construction, item }) => ({
       say: sentenceFor(item, construction),
       gloss: englishSentenceFor(item, construction),
-      emoji: item.emoji,
+      emoji: pictureFor(item, construction),
       attemptId: item.id,
     }));
   }
@@ -892,7 +892,7 @@ function splitCarrier(con: Construction, slotForm: string): { words: ErrorWord[]
   const after = con.after ? con.after.split(' ') : [];
   const words: ErrorWord[] = [
     ...before.map((text) => ({ text, isSlot: false })),
-    { text: slotForm, isSlot: true },
+    { text: slotText(con, slotForm), isSlot: true },
     ...after.map((text) => ({ text, isSlot: false })),
   ];
   const slotIndex = before.length;
@@ -1062,7 +1062,7 @@ export function buildWordOrderRound(
     const form = formFor(item, construction)!;
     const words = [
       ...(construction.before?.split(' ') ?? []),
-      form,
+      slotText(construction, form),
       ...(construction.after?.split(' ') ?? []),
     ];
     const sentence = words.join(' ') + (construction.punct ?? '');

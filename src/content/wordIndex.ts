@@ -111,6 +111,9 @@ const SMALL_WORDS: Record<string, string> = {
   hätää: 'trouble (Ei hätää! = No worries!)',
   alkaa: 'starts',
   paistaa: 'shines',
+  puoli: 'half (puoli kahdeksan = half past seven, 7:30)',
+  // "pää + -lle" would read "onto the head"
+  päälle: 'on (Puen takin päälle = I put on my coat)',
   käy: 'runs, works',
   karkkipäivä: 'candy day',
   kaunis: 'beautiful',
@@ -153,6 +156,7 @@ const SMALL_WORDS: Record<string, string> = {
  */
 export const TWO_WORDS: Record<string, WordMeaning> = {
   tuli: { base: 'tulla / tuli', en: 'came (tulla) · fire (tuli)' },
+  tulen: { base: 'tulla / tuli', en: 'I come (tulla) · a fire (tuli: "tekee tulen" = makes a fire)' },
 };
 
 const SUBJECTS: Record<PersonId, string> = {

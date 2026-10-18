@@ -466,6 +466,9 @@
       "english": {
         "plural": "mountains"
       },
+      "tags": [
+        "person-on"
+      ],
       "kotusType": 26,
       "group": "i_old",
       "frequencyRank": 8234,
@@ -1063,6 +1066,65 @@
         {
           "fi": "Kuin kauan sä asuit sillä saarella?",
           "en": "How long did you live on the island?"
+        }
+      ]
+    },
+    {
+      "id": "beach",
+      "word": "ranta",
+      "en": "beach",
+      "emoji": "🐚",
+      "inflections": {
+        "nominative_singular": "ranta",
+        "nominative_plural": "rannat",
+        "genitive_singular": "rannan",
+        "genitive_plural": "rantojen",
+        "partitive_singular": "rantaa",
+        "partitive_plural": "rantoja",
+        "inessive_singular": "rannassa",
+        "inessive_plural": "rannoissa",
+        "elative_singular": "rannasta",
+        "elative_plural": "rannoista",
+        "illative_singular": "rantaan",
+        "illative_plural": "rantoihin",
+        "adessive_singular": "rannalla",
+        "adessive_plural": "rannoilla",
+        "ablative_singular": "rannalta",
+        "ablative_plural": "rannoilta",
+        "allative_singular": "rannalle",
+        "allative_plural": "rannoille",
+        "essive_singular": "rantana",
+        "essive_plural": "rantoina",
+        "translative_singular": "rannaksi",
+        "translative_plural": "rannoiksi",
+        "abessive_singular": "rannatta",
+        "abessive_plural": "rannoitta",
+        "instructive_plural": "rannoin",
+        "comitative_plural": "rantoineen",
+        "poss_1sg_nominative_singular": "rantani",
+        "poss_1sg_inessive_singular": "rannassani",
+        "poss_1sg_adessive_singular": "rannallani",
+        "poss_2sg_nominative_singular": "rantasi",
+        "poss_2sg_inessive_singular": "rannassasi",
+        "poss_2sg_adessive_singular": "rannallasi",
+        "poss_3rd_nominative_singular": "rantansa",
+        "poss_3rd_inessive_singular": "rannassaan",
+        "poss_3rd_adessive_singular": "rannallaan"
+      },
+      "english": {
+        "plural": "beaches"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 2912,
+      "examples": [
+        {
+          "fi": "Mennään rannalle!",
+          "en": "Let's go to the beach!"
+        },
+        {
+          "fi": "oikea ranta",
+          "en": "right bank"
         }
       ]
     }

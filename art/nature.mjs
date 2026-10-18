@@ -270,3 +270,45 @@ export function island(k) {
     pine(k, 31.6, 41.6, 34),
   ].join('');
 }
+
+/** The weather (sää): a little weather chart on its stand — the sun, a cloud, rain and snow, one in each square. */
+export function weatherChart(k) {
+  const c = k.P;
+  const sq = (x, y) => k.rect(x, y, 21, 19, 2.4, c.skyDay);
+  const flake = (x, y, r) => [0, 60, 120].map((a) => `M${pt(polar(x, y, r, a))}L${pt(polar(x, y, r, a + 180))}`).join('');
+  const f = k.frame % 2;
+  return [
+    k.ground(32, 58.6, 20, 2),
+    k.limb('M18.6 50L15.6 58.6', c.wood, 4.4),
+    k.limb('M45.4 50L48.4 58.6', c.wood, 4.4),
+    k.rect(7.6, 5.6, 48.8, 46, 4, c.white),
+    sq(10.6, 8.6),
+    sq(32.4, 8.6),
+    sq(10.6, 29.6),
+    sq(32.4, 29.6),
+    k.circle(21.1, 18.1, 5.4, c.yellow),
+    puff(k, 42.9 + (f ? 1 : 0), 23.6, 0.48, 'white', 'silver'),
+    puff(k, 21.1, 40.6, 0.46, 'silver', 'silverShade'),
+    k.line(f ? 'M16.6 42.6l-1.2 3.6M21.1 43.6l-1.2 3.6M25.6 42.6l-1.2 3.6' : 'M16.6 43.6l-1.2 3.6M21.1 42.6l-1.2 3.6M25.6 43.6l-1.2 3.6', { color: c.blue, sw: 1.6 }),
+    k.line(flake(42.9, 39.1, 5.6), { color: c.blueShade, sw: 1.6 }),
+  ].join('');
+}
+
+/** A beach: the sand running down to the water, a wave rolling in, a shell on the sand. */
+export function beach(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const edge = f ? 'C14 38.6 22 38.6 31 35.6C40 32.6 50 32 60 35.6' : 'C14 37 22 37 31 34C40 31 50 30.4 60 34';
+  const top = f ? 35.6 : 34;
+  return [
+    k.rect(4, 8, 56, 50, 6, c.water),
+    k.line(f ? 'M12 18H22M36 22H48M18 27H28' : 'M14 18H24M38 22H50M16 27H26', { color: c.white, sw: 1.4 }),
+    k.flat(`M4.8 ${top}${edge}V52A5.2 5.2 0 0 1 54.8 57.2H9.2A5.2 5.2 0 0 1 4.8 52Z`, c.tan),
+    k.line(`M4.8 ${top}${edge}`, { color: c.white, sw: 2.2 }),
+    k.flat('M40 50C44 47.6 50 47.4 56 49V52C56 54.6 54.6 56.4 52 56.4H44C42 56.4 40.6 54 40 50Z', c.tanShade),
+    // a shell
+    k.path('M17.6 52.6L12.6 46.6C12.6 42.6 15.6 40.6 18.6 40.6C21.6 40.6 24.6 42.6 24.6 46.6Z', c.pink),
+    k.line('M18.6 52L15.6 43M18.6 52V41.6M18.6 52L21.6 43', { color: c.pinkShade, sw: 1.2 }),
+    k.line('M10 8H54A6 6 0 0 1 60 14V52A6 6 0 0 1 54 58H10A6 6 0 0 1 4 52V14A6 6 0 0 1 10 8Z'),
+  ].join('');
+}

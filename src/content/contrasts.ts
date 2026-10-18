@@ -161,6 +161,35 @@ export const SLIPS: Record<string, Slip[]> = {
   // käden"; never the singular ("Pese käsi!" — one hand) or -a ("Pese
   // käsiä") or -lla ("Pese käsillä" = wash WITH your hands): all fine.
   'wash-hands': [sg('genitive'), pl('genitive')],
+
+  // ⚠️ My day.
+  // "Herään kello seitsemältä": not -ssa or -na. Never the basic form —
+  // "Herään kello seitsemän" is fine too.
+  'wake-at': [s('inessive'), s('essive')],
+  // "Kello on puoli kahdeksan": the basic form, as after "Kello on".
+  'half-past': [s('partitive'), s('essive'), s('elative')],
+  // "Syön aamupalaa": not the basic form, not -ssa. Never -n ("Syön
+  // aamupalan", the whole breakfast) or -lla ("Syön aamupalalla", at
+  // breakfast): both are said.
+  'i-eat-meal': [s('nominative'), s('inessive')],
+  // "Puen takin päälle": not the basic form, not -ssa. Never -a ("Puen takkia
+  // päälle" — I'm putting it on).
+  'put-on-clothes': [s('nominative'), s('inessive')],
+
+  // ⚠️ Weather.
+  // "Sataa lunta": not "Sataa lumi" or "Sataa lumen".
+  'it-rains': [s('nominative'), s('genitive')],
+  // "Aurinko paistaa": the sun in its basic form, not -a or -n.
+  'it-shines': [s('partitive'), s('genitive')],
+  // "On kylmä": not -n or -sta. Never -a or -ssa: "On kylmää" and "on
+  // kylmässä" can be right.
+  'weather-is': [s('genitive'), s('elative')],
+
+  // ⚠️ Out in nature: where an animal IS, never where it's going. Never -sta
+  // either: "Kala on järvestä" says where the fish comes from.
+  'fish-in': [s('illative'), s('allative')],
+  'bird-in': [s('illative'), s('allative')],
+  'butterfly-on': [s('illative'), s('allative')],
 };
 
 // IN vs ON places: for most things the two endings mean different things

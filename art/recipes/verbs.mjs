@@ -97,4 +97,6 @@ export default [
   { id: 'grow-old', title: 'grow old (girl, woman, grandma)', motion: { frames: 3, fps: 1.2 }, draw: verb.growOld },
   { id: 'warm-up', title: 'warm up (by the campfire)', motion: { frames: 3, fps: 4 }, draw: verb.warmUp },
   { id: 'buy', title: 'buy (a shopping cart)', motion: { frames: 4, fps: 4 }, draw: verb.buy },
+  { id: 'brush', title: 'brush (Leo brushing his teeth)', motion: { frames: 2, fps: 4 }, draw: verb.brush },
+  { id: 'put-on', title: 'put on (Leo pulling on a sweater)', motion: { frames: 2, fps: 2 }, draw: verb.putOn },
 ];

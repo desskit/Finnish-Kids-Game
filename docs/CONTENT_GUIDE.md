@@ -106,11 +106,12 @@ The path is data in `src/game/path.tsx`. A **skill node** picks an existing game
 - `content.pool`: which words — `'nouns'` (all noun topics mixed, default),
   `'animals' | 'food' | 'family' | 'numbers' | 'places' | 'body' | 'nature' | 'clothes'`,
   `'verbs'` (the emoji-bearing action verbs, for picture-card games),
-  `'money'` (the euro, for counting prices: *kaksi euroa*), or `'mixed'`
-  (every word, nouns and verbs alike — for a words step whose `only` list
-  holds both, like *rakastaa* beside the Likes unit's things). Money's topic
-  is opt-in like days and numbers, so *euro* fills no carrier phrase unless
-  one names it.
+  `'money'` (the euro, for counting prices: *kaksi euroa*), `'meals'`
+  (breakfast, lunch, dinner, the evening snack: *Syön aamupalaa*), or
+  `'mixed'` (every word, nouns and verbs alike — for a words step whose
+  `only` list holds both, like *rakastaa* beside the Likes unit's things).
+  The money, meals and weather topics are opt-in like days and numbers, so
+  *euro*, *aamupala* or *sää* fills no carrier phrase unless one names it.
 - `content.constructionIds`: for `build`/`order`, which carrier phrases to drill
   (omit = all).
 
@@ -381,7 +382,12 @@ the tongue (`TOUCHABLE` in `constructions.ts`).
   follow it.
 - `glossById` overrides the English for one word when the literal reading is
   wrong: *Minulla on nälkä* → "I'm hungry", not "I have a hunger";
-  *Leikin yöllä* → "I play at night".
+  *Leikin yöllä* → "I play at night"; *Kello on puoli kahdeksan* → "It's
+  seven thirty".
+- `pictureById` shows a picture of the phrase's own for a word: the clock
+  phrases show the clock face (*Kello on puoli kahdeksan* shows half past
+  seven, not the number 8), *Sataa vettä* shows the rain. Every place that
+  pictures a word in a phrase goes through `pictureFor(item, construction)`.
 - `onlyIds` / `topics`: **days, seasons, feelings-as-nouns, adjectives and
   numbers are opt-in.** A carrier only takes them if it names their topic or
   id, so "Minulla on maanantai" can't be assembled. The one exception is a
@@ -456,18 +462,19 @@ questions about what happened. It is read for meaning, once — not drilled.
 - **Something happens.** Someone wants something, something goes wrong or
   surprises, and it ends — not a list of sentences. Three or four pages, one to
   three short lines each (at most six or seven words), each page a scene: its
-  setting, one of the drawn backdrops (`home`, `kitchen`, `bedroom`, `party`,
+  setting, one of the drawn backdrops (`home`, `kitchen`, `bedroom`, `bathroom`, `party`,
   `classroom`, `library`, `shop`, `cafe`, `park`, `playground`, `yard`,
   `field`, `beach`, `bus-stop`, `zoo`, `forest`, `station`), who and what stand in
   front (`fg`, a few emoji, each shown as its picture), and a `tone` only when
   it isn't the usual one (inside for rooms, day outdoors): morning, evening,
-  night or rain. A setting comes only in the tones it's drawn in
+  night, rain or snow. A setting comes only in the tones it's drawn in
   (`stories.test.ts` checks); a new setting or tone is a new backdrop in
   `art/scenes/`. Something in front that isn't a word needs a story prop
   (`art/recipes/props.mjs`).
 - **The picture agrees with the text** (`stories.test.ts` checks): everyone
   who speaks on a page is in its `fg`; a page that says *Huomenta* is in the
-  morning, *Hyvää yötä* at night, and rain comes with the rain tone; a page
+  morning, *Hyvää yötä* at night, *Sataa lunta* in the snow and any other
+  *sataa* in the rain; a page
   stays in one place. Check a new story on its storyboard too: the backdrop,
   the time of day and who's there.
 - **Only the unit's grammar and the words met by then.** Every word must be a

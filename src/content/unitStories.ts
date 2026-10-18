@@ -1797,6 +1797,184 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
+  // My day — herään kello seitsemältä, syön aamupalaa, puoli yhdeksän.
+  story('my-day', {
+    id: 'ainos-day',
+    titleFi: 'Ainon päivä',
+    titleEn: "Aino's day",
+    icon: '🌅',
+    tier: 3,
+    pages: [
+      page(
+        sc('bedroom', '👧 🕖', 'morning'),
+        tell('Aino herää kello seitsemältä.', "Aino wakes up at seven o'clock."),
+        say('aino', 'Huomenta!', 'Good morning!'),
+      ),
+      page(
+        sc('bathroom', '👧 👗', 'morning'),
+        tell('Ensin Aino harjaa hampaat.', 'First Aino brushes her teeth.'),
+        tell('Sitten hän pukee mekon päälle.', 'Then she puts on her dress.'),
+      ),
+      page(
+        sc('kitchen', '👧 👩 🥞', 'morning'),
+        tell('Aino syö aamupalaa.', 'Aino eats breakfast.'),
+        say('aiti', 'Tässä on puuroa ja mehua!', "Here's porridge and juice!"),
+      ),
+      page(
+        sc('bedroom', '👧 🕣', 'night'),
+        tell('Illalla kello on puoli yhdeksän.', "In the evening it's eight thirty."),
+        tell('Lopuksi Aino nukkuu.', 'In the end, Aino sleeps.'),
+        say('aino', 'Hyvää yötä!', 'Good night!'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Milloin Aino herää?',
+        'When does Aino wake up?',
+        right('kello seitsemältä', "at seven o'clock", '🕖'),
+        wrong('kello kahdeksalta', "at eight o'clock", '🕗'),
+        wrong('kello yhdeksältä', "at nine o'clock", '🕘'),
+      ),
+      ask(
+        'Mitä Aino tekee kylpyhuoneessa?',
+        'What does Aino do in the bathroom?',
+        right('harjaa hampaat', 'brushes her teeth', '🪥'),
+        wrong('syö aamupalaa', 'eats breakfast', '🥞'),
+        wrong('nukkuu', 'sleeps', '😴'),
+      ),
+      ask(
+        'Mitä Aino syö aamulla?',
+        'What does Aino eat in the morning?',
+        right('aamupalaa', 'breakfast', '🥞'),
+        wrong('lounasta', 'lunch', '🍱'),
+        wrong('pitsaa', 'pizza', '🍕'),
+      ),
+    ],
+    facts: [
+      trueFact('Aino herää kello seitsemältä.', "Aino wakes up at seven o'clock."),
+      falseFact('Aino syö lounasta aamulla.', 'Aino eats lunch in the morning.'),
+      trueFact('Lopuksi Aino nukkuu.', 'In the end, Aino sleeps.'),
+    ],
+  }),
+
+  // Weather — sataa lunta, on kylmä, kotona on lämmin.
+  story('weather', {
+    id: 'first-snow',
+    titleFi: 'Ensimmäinen lumi',
+    titleEn: 'The first snow',
+    icon: '❄️',
+    tier: 3,
+    pages: [
+      page(
+        sc('yard', '👧 🧒', 'snow'),
+        say('aino', 'Katso! Sataa lunta!', "Look! It's snowing!"),
+        say('leo', 'Ensimmäinen lumi!', 'The first snow!'),
+      ),
+      page(
+        sc('home', '👩 👧 🧒 🩱'),
+        say('aiti', 'Ulkona on kylmä!', "It's cold outside!"),
+        tell('Aino ja Leo pukevat haalarit.', 'Aino and Leo put on their snowsuits.'),
+      ),
+      page(
+        sc('park', '👧 🧒', 'snow'),
+        tell('Aino ja Leo leikkivät lumessa.', 'Aino and Leo play in the snow.'),
+        say('leo', 'Minulla on kylmä!', "I'm cold!"),
+      ),
+      page(
+        sc('home', '👧 🧒 👩', 'evening'),
+        tell('Kotona on lämmin.', "At home it's warm."),
+        say('aino', 'Huomenna leikitään taas lumessa!', "Tomorrow we'll play in the snow again!"),
+      ),
+    ],
+    questions: [
+      ask(
+        'Mitä sataa?',
+        'What is falling?',
+        right('lunta', 'snow', '❄️'),
+        wrong('vettä', 'rain', '🌧️'),
+        wrong('lehtiä', 'leaves', '🍃'),
+      ),
+      ask(
+        'Mitä Aino ja Leo pukevat?',
+        'What do Aino and Leo put on?',
+        right('haalarit', 'snowsuits', '🩱'),
+        wrong('sadetakit', 'raincoats', '☔'),
+        wrong('mekot', 'dresses', '👗'),
+      ),
+      ask(
+        'Missä on lämmin?',
+        'Where is it warm?',
+        right('kotona', 'at home', '🏠'),
+        wrong('puistossa', 'in the park', '🛝'),
+        wrong('koulussa', 'at school', '🏫'),
+      ),
+    ],
+    facts: [
+      trueFact('Sataa lunta.', "It's snowing."),
+      falseFact('Kotona on kylmä.', "It's cold at home."),
+      trueFact('Aino ja Leo leikkivät lumessa.', 'Aino and Leo play in the snow.'),
+    ],
+  }),
+
+  // Out in nature — kala on järvessä, lintu on puussa, perhonen on kivellä.
+  story('nature', {
+    id: 'at-the-lake',
+    titleFi: 'Järvellä',
+    titleEn: 'Out on the lake',
+    icon: '🚤',
+    tier: 3,
+    pages: [
+      page(
+        sc('beach', '👨 👧 🚤'),
+        say('isa', 'Mennään veneellä!', "Let's go in the boat!"),
+        tell('Isä ja Aino ovat järvellä.', 'Dad and Aino are out on the lake.'),
+      ),
+      page(
+        sc('beach', '👧 🐟 🪿'),
+        say('aino', 'Katso! Kala on järvessä!', "Look! There's a fish in the lake!"),
+        tell('Sorsa ui järvellä.', 'A wild duck swims on the lake.'),
+      ),
+      page(
+        sc('forest', '👧 🐦 🦋'),
+        tell('Lintu on puussa.', 'A bird is in the tree.'),
+        tell('Perhonen on kivellä.', 'A butterfly is on a stone.'),
+      ),
+      page(
+        sc('forest', '👨 👧 🔥 🌭'),
+        tell('Sitten Isä tekee tulen.', 'Then Dad makes a fire.'),
+        say('aino', 'Syödään makkaraa!', "Let's eat sausages!"),
+      ),
+    ],
+    questions: [
+      ask(
+        'Missä kala on?',
+        'Where is the fish?',
+        right('järvessä', 'in the lake', '🏞️'),
+        wrong('puussa', 'in the tree', '🌳'),
+        wrong('kivellä', 'on a stone', '🪨'),
+      ),
+      ask(
+        'Missä perhonen on?',
+        'Where is the butterfly?',
+        right('kivellä', 'on a stone', '🪨'),
+        wrong('lehdellä', 'on a leaf', '🍃'),
+        wrong('järvessä', 'in the lake', '🏞️'),
+      ),
+      ask(
+        'Mitä Aino ja Isä syövät?',
+        'What do Aino and Dad eat?',
+        right('makkaraa', 'sausages', '🌭'),
+        wrong('kalaa', 'fish', '🐟'),
+        wrong('jäätelöä', 'ice cream', '🍦'),
+      ),
+    ],
+    facts: [
+      trueFact('Kala on järvessä.', 'The fish is in the lake.'),
+      falseFact('Lintu on järvessä.', 'The bird is in the lake.'),
+      trueFact('Isä tekee tulen.', 'Dad makes a fire.'),
+    ],
+  }),
+
   // 27. Big numbers — viisitoista, yksitoista, kolmetoista.
   story('big-numbers', {
     id: 'sweets-day',

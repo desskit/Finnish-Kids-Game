@@ -19,7 +19,9 @@ import {
   englishSentenceFor,
   countedEn,
   formFor,
+  pictureFor,
   sentenceFor,
+  slotStartsSentence,
   suitsSlot,
   verbForm,
 } from '../content/types';
@@ -72,7 +74,7 @@ export function carrierSegments(con: Construction, item: LexicalItem): Segment[]
       ? [{ text: form }]
       : caseSegments(form, con.case, con.number === 'plural');
   // A slot that starts the sentence is capitalized, as in `sentenceWithForm`.
-  if (!con.before && con.punct && slot.length > 0) slot[0] = { ...slot[0], text: cap(slot[0].text) };
+  if (slotStartsSentence(con) && slot.length > 0) slot[0] = { ...slot[0], text: cap(slot[0].text) };
   return [
     ...(con.before ? [{ text: `${con.before} ` }] : []),
     ...slot,
@@ -133,8 +135,8 @@ function carrierQuestion(
     fi: sentenceFor(item, target),
     segments: carrierSegments(target, item),
     options: shuffle([
-      ...[target, ...picked].map((c) => ({ id: c.id, en: englishSentenceFor(item, c), emoji: item.emoji })),
-      ...others.map((o) => ({ id: `w:${o.id}`, en: englishSentenceFor(o, target), emoji: o.emoji })),
+      ...[target, ...picked].map((c) => ({ id: c.id, en: englishSentenceFor(item, c), emoji: pictureFor(item, c) })),
+      ...others.map((o) => ({ id: `w:${o.id}`, en: englishSentenceFor(o, target), emoji: pictureFor(o, target) })),
     ]),
     answerId: target.id,
     why: whyForConstruction(target, item),

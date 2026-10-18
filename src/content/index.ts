@@ -12,6 +12,8 @@ import clothesData from './data/clothes.sourced.json';
 import schoolData from './data/school.sourced.json';
 import freetimeData from './data/freetime.sourced.json';
 import moneyData from './data/money.sourced.json';
+import mealsData from './data/meals.sourced.json';
+import weatherData from './data/weather.sourced.json';
 import timeData from './data/time.sourced.json';
 import statesData from './data/states.sourced.json';
 import ordinalsData from './data/ordinals.sourced.json';
@@ -32,6 +34,8 @@ export type {
 export {
   formFor,
   suitsSlot,
+  pictureFor,
+  slotText,
   sentenceFor,
   englishSentenceFor,
   inflectionKey,
@@ -150,6 +154,11 @@ export const freetime = toTheme(freetimeData as unknown as SourcedFile, nounCons
 export const money = toTheme(moneyData as unknown as SourcedFile, nounConstructions, {
   countable: true,
 });
+// Meals ("Syön aamupalaa") and the weather itself ("Millainen sää?"): opt-in
+// topics too, so a meal or the weather fills only the phrases that name it —
+// never "kolme aamupalaa" or "Näen sään".
+export const meals = toTheme(mealsData as unknown as SourcedFile, nounConstructions);
+export const weather = toTheme(weatherData as unknown as SourcedFile, nounConstructions);
 
 // When? — days, parts of the day, seasons. Reviewable (in `themes`), but kept
 // OUT of the mixed noun pool in path.tsx so they only fill their own carriers.
@@ -192,6 +201,8 @@ export const themes: Theme[] = [
   school,
   freetime,
   money,
+  meals,
+  weather,
   time,
 ];
 

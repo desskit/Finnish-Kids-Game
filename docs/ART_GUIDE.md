@@ -136,7 +136,10 @@ captain with his arms crossed and a red ✗.
      - A **UI picture** (`group: 'ui'`) must not use a word's id. It names its
        emoji in `glyphs: ['⚙️']`.
      - A **story prop** (`prop: true`) is not a word but goes in the words
-       sprite. A story needs one when it shows something with no word.
+       sprite. A story needs one when it shows something with no word. The
+       clock faces are props too: every hour and half hour (🕐–🕧, drawn by
+       `props.oclock(k, hour, minutes)`), shown by the stories and by the
+       clock phrases (a phrase's `pictureById`).
      - `awaitingWord: 'sorsa'` draws a picture before its word's data arrives.
        It appears in the gallery, not the app.
    - **One emoji, one picture.** Claiming an emoji twice fails the build.
@@ -173,10 +176,15 @@ A backdrop (`art/scenes/<id>.mjs`) is
 `{ id, title, tones, motion?, drift?, draw(k, tone) }`:
 
 - **Canvas:** 400 × 200 units, the cast standing near the bottom.
-- **Tones** are inside, day, morning, evening, night and rain. A backdrop is
-  drawn in each tone its stories use, and every tone gets its own file.
+- **Tones** are inside, day, morning, evening, night, rain and snow. A
+  backdrop is drawn in each tone its stories use, and every tone gets its own
+  file. In the rain the sky is grey, puddles lie on the path and the rain
+  falls (`rainFall`); in the snow the ground is white, snow lies on the trees,
+  roofs and bushes (`snowCap`, `snowOnPine`, `snowOnRoof`) and more falls
+  (`snowFall`). The forest, the yard and the park come in both.
 - **`motion`** makes a moving version: stars twinkle, lamps glow, water
-  rolls. `k.moving` is set while it's drawn.
+  rolls. `k.moving` is set while it's drawn. A tone can move at its own pace
+  (`motion.byTone`): the rain falls faster than the yard's smoke rises.
 - **`drift(k, tone)`** draws a layer (clouds) that slides slowly across the
   moving version.
 

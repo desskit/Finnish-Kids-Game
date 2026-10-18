@@ -112,6 +112,16 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'wash-hands': 'BOTH hands → the plural **-t**: *Pese kädet!*',
   'i-play-game': 'Games and sports → **pelata** + **-a / -ä**: *Pelaan jalkapalloa*.',
   'i-play-music': 'Music → **soittaa** + **-a / -ä**: *Soitan pianoa*.',
+  'wake-at': 'AT a time → **-lta / -ltä**: *kello seitsemältä*.',
+  'half-past': '*puoli* + the NEXT hour: *puoli kahdeksan* is half past seven. The hour stays in its **basic form**.',
+  'i-eat-meal': 'After *Syön*, a meal takes **-a / -ä**: *Syön aamupalaa*.',
+  'put-on-clothes': 'One whole thing to put on → **-n**: *Puen takin päälle*.',
+  'it-rains': 'What falls takes **-a / -ä**: *Sataa lunta*.',
+  'it-shines': 'The sun starts the sentence, in its **basic form**: *Aurinko paistaa*.',
+  'weather-is': 'The weather: just *On* + the word, in its **basic form**: *On kylmä*.',
+  'fish-in': 'Where it IS → **-ssa / -ssä**: *Kala on järvessä*.',
+  'bird-in': 'Where it IS → **-ssa / -ssä**: *Lintu on puussa*.',
+  'butterfly-on': 'ON something → **-lla / -llä**: *Perhonen on lehdellä*.',
 };
 
 const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {

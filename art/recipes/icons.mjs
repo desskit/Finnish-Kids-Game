@@ -28,6 +28,6 @@ export default [
   { id: 'line-chart', title: 'stats (a line going up)', glyphs: ['📈'], ...ui, draw: icons.lineChart },
   { id: 'people', title: 'players, who (two people)', glyphs: ['👥'], ...ui, draw: icons.people },
   { id: 'finland', title: "the Finnish check (Finland's flag)", glyphs: ['🇫🇮'], ...ui, draw: icons.finland },
-  { id: 'brush', title: 'pick your colors (a paintbrush)', glyphs: ['🖌️'], ...ui, draw: icons.brush },
+  { id: 'paintbrush', title: 'pick your colors (a paintbrush)', glyphs: ['🖌️'], ...ui, draw: icons.brush },
   { id: 'thumbs-down', title: 'false (a thumbs down)', glyphs: ['👎'], ...ui, motion: { frames: 2, fps: 2 }, draw: icons.thumbsDown },
 ];

@@ -1,0 +1,62 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "weather",
+    "fi": "Sää",
+    "en": "Weather",
+    "emoji": "⛅"
+  },
+  "words": [
+    {
+      "id": "weather",
+      "word": "sää",
+      "en": "weather",
+      "emoji": "⛅",
+      "inflections": {
+        "nominative_singular": "sää",
+        "nominative_plural": "säät",
+        "genitive_singular": "sään",
+        "genitive_plural": "säiden",
+        "partitive_singular": "säätä",
+        "partitive_plural": "säitä",
+        "inessive_singular": "säässä",
+        "inessive_plural": "säissä",
+        "elative_singular": "säästä",
+        "elative_plural": "säistä",
+        "illative_singular": "säähän",
+        "illative_plural": "säihin",
+        "adessive_singular": "säällä",
+        "adessive_plural": "säillä",
+        "ablative_singular": "säältä",
+        "ablative_plural": "säiltä",
+        "allative_singular": "säälle",
+        "allative_plural": "säille",
+        "essive_singular": "säänä",
+        "essive_plural": "säinä",
+        "translative_singular": "sääksi",
+        "translative_plural": "säiksi",
+        "abessive_singular": "säättä",
+        "abessive_plural": "säittä",
+        "instructive_plural": "säin",
+        "comitative_plural": "säineen"
+      },
+      "english": {
+        "plural": "weathers"
+      },
+      "kotusType": 18,
+      "group": "long_vowel",
+      "frequencyRank": 3625,
+      "examples": [
+        {
+          "fi": "hyvällä säällä",
+          "en": "in good weather"
+        },
+        {
+          "fi": "huonolla säällä",
+          "en": "in bad weather"
+        }
+      ]
+    }
+  ]
+}

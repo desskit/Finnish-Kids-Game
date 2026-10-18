@@ -285,7 +285,15 @@ Here's the surprise: when you say you DON'T have something, the thing gets the *
 Finnish uses **-a / -ä** when something is *not all there* — "none of it", "some of it", "more than one". You'll keep meeting this ending, so it's worth remembering!
 
 
-### 4. Try it _(check)_
+### 4. Winter clothes _(examples)_
+
+A Finnish winter needs more clothes — and more to forget!
+
+- 🧶 **Minulla ei ole pipo[a].** — I don't have a beanie.
+- 🥊 **Minulla ei ole lapas[ta].** — I don't have a mitten.
+- 🩱 **Minulla ei ole haalari[a].** — I don't have a snowsuit.
+
+### 5. Try it _(check)_
 
 **Q:** Which one means "I don't have a bike"?
 
@@ -294,7 +302,7 @@ Finnish uses **-a / -ä** when something is *not all there* — "none of it", "s
 
 _Explain:_ After *ei ole*, the thing takes **-a / -ä**: *pyörää*.
 
-### 5. Try it _(check)_
+### 6. Try it _(check)_
 
 **Q:** *Minulla on hattu.* — Do I have a hat?
 
@@ -1913,17 +1921,17 @@ _Explain:_ A season → **-lla**: *talvella*.
 
 The number stays in its **basic form** — the numbers you learned in unit 3.
 
-- 3️⃣ **Kello on kolme.** — It's three o'clock.
-- 8️⃣ **Kello on kahdeksan.** — It's eight o'clock.
-- 12 **Kello on kaksitoista.** — It's twelve o'clock.
+- 🕒 **Kello on kolme.** — It's three o'clock.
+- 🕗 **Kello on kahdeksan.** — It's eight o'clock.
+- 🕛 **Kello on kaksitoista.** — It's twelve o'clock.
 
 ### 3. Try it _(check)_
 
 **Q:** How do you say "It's seven o'clock"?
 
-- ✔ 7️⃣ **Kello on seitsemän.** — It's seven o'clock.
-- ✘ 6️⃣ **Kello on kuusi.** — It's six o'clock.
-- ✘ 8️⃣ **Kello on kahdeksan.** — It's eight o'clock.
+- ✔ 🕖 **Kello on seitsemän.** — It's seven o'clock.
+- ✘ 🕕 **Kello on kuusi.** — It's six o'clock.
+- ✘ 🕗 **Kello on kahdeksan.** — It's eight o'clock.
 
 _Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
 
@@ -1937,7 +1945,223 @@ _Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
 
 _Explain:_ *kaksitoista* = 12.
 
-## Unit 29: Big numbers (Isot numerot) 💯
+## Unit 29: My day (Minun päiväni) 🌅
+
+### 1. Getting ready _(examples)_
+
+A morning in four verbs. *pukea* (put on) changes its **k**: *minä puen*.
+
+- ⏲️ **minä herää[n]**
+- 🧼 **minä pese[n]**
+- 🪥 **minä harjaa[n]**
+- 👘 pukea → **minä puen** — I put on
+
+### 2. At seven: -lta / -ltä _(examples)_
+
+AT a time, the hour takes **-lta / -ltä**: *kello seitsemältä* = at seven o'clock. (*Herään kello seitsemän* is said too.)
+
+- 🕕 **Herään kello kuude[lta].** — I wake up at six o'clock.
+- 🕖 **Herään kello seitsemä[ltä].** — I wake up at seven o'clock.
+- 🕗 **Herään kello kahdeksa[lta].** — I wake up at eight o'clock.
+
+### 3. Meals _(examples)_
+
+After *Syön*, a meal takes **-a / -ä**, just like food: *Syön aamupalaa*.
+
+- 🥞 **Syön aamupala[a].** — I eat breakfast.
+- 🍱 **Syön lounas[ta].** — I eat lunch.
+- 🍝 **Syön päivällis[tä].** — I eat dinner.
+- 🥪 **Syön iltapala[a].** — I eat an evening snack.
+
+### 4. Getting dressed: -n _(examples)_
+
+Putting on one whole thing → **-n**: *Puen takin päälle* = I put on my coat.
+
+- 🧥 **Puen taki[n] päälle.** — I put on my coat.
+- 🎽 **Puen villapaida[n] päälle.** — I put on my sweater.
+- 🩱 **Puen haalari[n] päälle.** — I put on my snowsuit.
+
+### 5. First, then, in the end _(explain)_
+
+Tell your day in order: *ensin* (first), *sitten* (then), *lopuksi* (in the end).
+
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "I eat breakfast"?
+
+- ✔ 🥞 **Syön aamupala[a].** — I eat breakfast.
+- ✘ 🥞 **Syön aamupala.**
+
+_Explain:_ A meal takes **-a**: *Syön aamupalaa*.
+
+### 7. Try it _(check)_
+
+**Q:** How do you say "I wake up at seven o'clock"?
+
+- ✔ 🕖 **Herään kello seitsemä[ltä].** — I wake up at seven o'clock.
+- ✘ 🕖 **Herään kello seitsemä[ssä].**
+
+_Explain:_ AT a time → **-lta / -ltä**: *kello seitsemältä*.
+
+## Unit 29, part-way: Half past (Puoli kahdeksan) 🕢
+
+### 1. Half way to the NEXT hour _(explain)_
+
+English names the hour that has gone: seven thirty. Finnish names the one that is coming: *puoli kahdeksan* — "half eight", half way to EIGHT. So *puoli kahdeksan* is seven thirty, not eight thirty!
+
+
+### 2. Half past _(examples)_
+
+The hour stays in its basic form, as in *Kello on kahdeksan*.
+
+- 🕗 **Kello on kahdeksan.** — It's eight o'clock.
+- 🕢 **Kello on puoli kahdeksan.** — It's seven thirty.
+- 🕣 **Kello on puoli yhdeksän.** — It's eight thirty.
+- 🕧 **Kello on puoli yksi.** — It's twelve thirty.
+
+### 3. Try it _(check)_
+
+**Q:** Listen! Which one did you hear?
+
+🔊 plays: 🕢 **Kello on puoli kahdeksan.** — It's seven thirty.
+
+- ✘ 🕗 **Kello on kahdeksan.** — It's eight o'clock.
+- ✔ 🕢 **Kello on puoli kahdeksan.** — It's seven thirty.
+
+_Explain:_ *puoli kahdeksan* — half way to eight: seven thirty. *Kello on kahdeksan* is eight o'clock.
+
+### 4. Try it _(check)_
+
+**Q:** How do you say "It's twelve thirty"?
+
+- ✔ 🕧 **Kello on puoli yksi.** — It's twelve thirty.
+- ✘ 🕦 **Kello on puoli kaksitoista.** — It's eleven thirty.
+
+_Explain:_ Twelve thirty is half way to ONE: *puoli yksi*.
+
+## Unit 30: What's the weather like? (Millainen sää?) ⛅
+
+### 1. Up in the sky _(examples)_
+
+- ☀️ **aurinko** — sun
+- 🌙 **kuu** — moon
+- ⭐ **tähti** — star
+- ☁️ **pilvi** — cloud
+
+### 2. It rains snow _(examples)_
+
+Finnish says it rains water, it rains snow: *Sataa vettä* — it's raining. *Sataa lunta* — it's snowing. What falls takes **-a / -ä**.
+
+- 🌧️ **Sataa vet[tä].** — It's raining.
+- ❄️ **Sataa lun[ta].** — It's snowing.
+
+### 3. The sun is shining _(examples)_
+
+The sun comes first, in its basic form. And the wind? Just the verb: *Tuulee* — it's windy.
+
+- ☀️ **Aurinko paistaa.** — The sun is shining.
+- 🌙 **Kuu paistaa.** — The moon is shining.
+
+### 4. The weather, or me? _(examples)_
+
+The weather is just *On kylmä* — it's cold. You are *Minulla on kylmä* — I'm cold.
+
+- 🥶 **On kylmä.** — It's cold.
+- 🥶 **Minulla on kylmä.** — I'm cold.
+- 🌡️ **On lämmin.** — It's warm.
+- 🥵 **On kuuma.** — It's hot.
+
+### 5. What to wear _(examples)_
+
+Rain? Snow? Dress for it.
+
+- ☔ **Puen sadetaki[n] päälle.** — I put on my raincoat.
+- 🩱 **Puen haalari[n] päälle.** — I put on my snowsuit.
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "It's snowing"?
+
+- ✔ ❄️ **Sataa lun[ta].** — It's snowing.
+- ✘ ❄️ **Sataa lumi.**
+
+_Explain:_ What falls takes **-a**: *Sataa lunta*.
+
+### 7. Try it _(check)_
+
+**Q:** Listen! Is it the weather, or me?
+
+🔊 plays: 🥶 **Minulla on kylmä.** — I'm cold.
+
+- ✘ 🥶 **On kylmä.** — It's cold.
+- ✔ 🥶 **Minulla on kylmä.** — I'm cold.
+
+_Explain:_ *Minulla on kylmä* — I'm cold. The weather is just *On kylmä*.
+
+## Unit 31: Out in nature (Luonnossa) 🌲
+
+### 1. Land and water _(examples)_
+
+- 🏞️ **järvi** — lake
+- 🌊 **meri** — sea
+- 🐚 **ranta** — beach
+- 🏝️ **saari** — island
+- ⛰️ **vuori** — mountain
+
+### 2. IN: -ssa / -ssä _(examples)_
+
+A fish is IN the lake, a bird IN the tree: **-ssa / -ssä**.
+
+- 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
+- 🌳 **Lintu on puu[ssa].** — The bird is in the tree.
+- 🌲 **Lintu on metsä[ssä].** — The bird is in the forest.
+
+### 3. ON: -lla / -llä _(examples)_
+
+A butterfly sits ON a leaf: **-lla / -llä**.
+
+- 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
+- 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+
+### 4. Into the forest, onto the mountain _(examples)_
+
+You go INTO the forest: *metsään*. But a mountain, a lake or a beach you go ONTO, with **-lle**: *vuorelle*, *järvelle*, *rannalle*.
+
+- 🌲 **Menen mets[ään].** — I'm going to the forest.
+- ⛰️ **Menen vuore[lle].** — I'm going to the mountain.
+- 🏞️ järvi → **järve[lle]** — to the lake
+- 🐚 ranta → **ranna[lle]** — to the beach
+
+### 5. Animals in nature _(examples)_
+
+- 🐦 **lintu** — bird
+- 🐟 **kala** — fish
+- 🦋 **perhonen** — butterfly
+- 🐝 **mehiläinen** — bee
+- 🪿 **sorsa** — wild duck
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "The fish is in the lake"?
+
+- ✔ 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
+- ✘ 🏞️ **Kala on järv[een].**
+
+_Explain:_ Where it IS → **-ssa**: *järvessä*. (*järveen* is INTO the lake.)
+
+### 7. Try it _(check)_
+
+**Q:** Listen! Where is the butterfly?
+
+🔊 plays: 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+
+- ✔ 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+- ✘ 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
+
+_Explain:_ *kivellä* — on the stone. *lehdellä* is on the leaf.
+
+## Unit 32: Big numbers (Isot numerot) 💯
 
 ### 1. 13 to 19: -toista _(examples)_
 
@@ -1980,7 +2204,7 @@ _Explain:_ 5 + **-toista** = *viisitoista*. *viisikymmentä* is 50.
 
 _Explain:_ 4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.
 
-## Unit 29, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
+## Unit 32, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
 
 ### 1. Order words _(examples)_
 
@@ -2018,7 +2242,7 @@ _Explain:_ *kolmas* is the ORDER word (3rd). *kolme* is just 3.
 
 _Explain:_ *ensimmäinen* = first.
 
-## Unit 30: The months (Kuukaudet) 🗓️
+## Unit 33: The months (Kuukaudet) 🗓️
 
 ### 1. The months _(examples)_
 
@@ -2056,7 +2280,7 @@ _Explain:_ IN May → **-ssa**: *toukokuussa*.
 
 _Explain:_ *joulu* is Christmas — *joulukuu* is the Christmas month!
 
-## Unit 30, part-way: Saying a date (Päivämäärä) 📅
+## Unit 33, part-way: Saying a date (Päivämäärä) 📅
 
 ### 1. Order word + month with -ta _(examples)_
 
@@ -2110,7 +2334,7 @@ _Explain:_ *viidestoista* (15th) + *kesäkuuta*.
 
 _Explain:_ *ensimmäinen tammikuuta* — the first of January.
 
-## Unit 30, part-way: How old are you? (Kuinka vanha olet?) 🎂
+## Unit 33, part-way: How old are you? (Kuinka vanha olet?) 🎂
 
 ### 1. Olen … vuotta vanha _(examples)_
 
@@ -2144,7 +2368,7 @@ _Explain:_ 8 = *kahdeksan*: *Olen kahdeksan vuotta vanha*.
 
 _Explain:_ *vuosi* = year; after a number → *vuotta*.
 
-## Unit 31: Question words (Kysymyssanat) 🤔
+## Unit 34: Question words (Kysymyssanat) 🤔
 
 ### 1. Who, what, whose, why… _(explain)_
 
@@ -2185,7 +2409,7 @@ _Explain:_ *Kenen?* = whose? (*Kuka?* = who?)
 
 _Explain:_ *Miksi?* = why?
 
-## Unit 31, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
+## Unit 34, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
 
 ### 1. Three "where" words _(explain)_
 
@@ -2222,7 +2446,7 @@ _Explain:_ *Mihin?* = where TO — *Menen puistoon* (into the park).
 
 _Explain:_ *Mistä?* — where from? Answer with **-sta**.
 
-## Unit 32: Me and you (Minua, minulle) 🫶
+## Unit 35: Me and you (Minua, minulle) 🫶
 
 ### 1. I, me, to me… _(explain)_
 
@@ -2279,7 +2503,7 @@ _Explain:_ *auttaa* takes **-a**: *Auta minua!*
 
 _Explain:_ Giving TO someone → **-lle**: *hänelle*.
 
-## Unit 33: Position words come after (Edessä, takana) 🧭
+## Unit 36: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -2327,7 +2551,7 @@ _Explain:_ Before a position word, the thing gets **-n**: *puun takana*.
 
 _Explain:_ Before *alla*, the thing gets **-n**: *pöydän alla*.
 
-## Unit 34: More than one (Monta) 👐
+## Unit 37: More than one (Monta) 👐
 
 ### 1. The -t means "more than one" _(examples)_
 
@@ -2360,7 +2584,7 @@ _Explain:_ The **-t** means more than one.
 
 _Explain:_ *kaveri* + **-t** = *kaverit*.
 
-## Unit 34, part-way: Some things, any things (Palloja) 🧺
+## Unit 37, part-way: Some things, any things (Palloja) 🧺
 
 ### 1. "Some" things _(examples)_
 
@@ -2394,7 +2618,7 @@ _Explain:_ "Some" balls → *palloja*.
 
 _Explain:_ *ei ole* = not, and "any games" → *pelejä*.
 
-## Unit 34, part-way: In many boxes (Laatikoissa) 📦
+## Unit 37, part-way: In many boxes (Laatikoissa) 📦
 
 ### 1. In many things: -issa _(examples)_
 
@@ -2426,7 +2650,7 @@ _Explain:_ **-i-** + **-ssa** = in the boxes: *laatikoissa*.
 
 _Explain:_ The **-i-** means more than one.
 
-## Unit 35: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
+## Unit 38: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
 
 ### 1. Type 5: -ita / -itä _(examples)_
 
@@ -2489,7 +2713,7 @@ _Explain:_ "I" is **-n**: *valitsen*.
 
 _Explain:_ *vanheta* ends in **-eta**: **type 6** (*vanhenen*).
 
-## Unit 35, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
+## Unit 38, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
 
 ### 1. Weak → strong, like type 4 _(examples)_
 
@@ -2534,7 +2758,7 @@ _Explain:_ "I" is **-n**: *pakenen*.
 
 _Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.
 
-## Unit 36: Talking about yesterday (Eilen) ⏮️
+## Unit 39: Talking about yesterday (Eilen) ⏮️
 
 ### 1. Slip in an -i- _(explain)_
 
@@ -2579,7 +2803,7 @@ _Explain:_ The **-i-** shows the past: *luin*.
 
 _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
-## Unit 36, part-way: "Didn't" (En syönyt) 🙅
+## Unit 39, part-way: "Didn't" (En syönyt) 🙅
 
 ### 1. The "not" verb + -nut / -nyt _(explain)_
 
@@ -2623,7 +2847,7 @@ _Explain:_ *en* + **-nut**: *en lukenut*. (*en lue* = I don't read.)
 
 _Explain:_ They → *eivät* + **-neet**: *eivät syöneet*.
 
-## Unit 37: Having a real conversation (Jutellaan) 🗣️
+## Unit 40: Having a real conversation (Jutellaan) 🗣️
 
 ### 1. Pick what FITS _(explain)_
 
@@ -2670,7 +2894,7 @@ _Explain:_ After a thank-you comes *Ole hyvä!* (you're welcome).
 
 _Explain:_ *Ei se mitään* = "it's okay".
 
-## Unit 38: Building sentences (Lauseet) 📝
+## Unit 41: Building sentences (Lauseet) 📝
 
 ### 1. Endings do the work _(explain)_
 
@@ -2707,7 +2931,7 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
-## Unit 39: Expert Finnish (Mestari) 🏆
+## Unit 42: Expert Finnish (Mestari) 🏆
 
 ### 1. "Have done" — olen syönyt _(verbTable)_
 

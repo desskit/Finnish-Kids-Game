@@ -27,7 +27,7 @@ describe('comparing', () => {
       [
         'hauska', 'hidas', 'hyvä', 'iloinen', 'iso', 'kuuma', 'kylmä', 'lyhyt', 'nopea',
         'nuori', 'pieni', 'pitkä', 'puhdas', 'surullinen', 'söpö', 'tylsä', 'uusi', 'vahva',
-        'vaikea', 'vanha',
+        'vaikea', 'vanha', 'lämmin',
       ].sort(),
     );
   });

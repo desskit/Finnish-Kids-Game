@@ -49,7 +49,7 @@ const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 
 const DRIFT_PX_PER_S = 2;
 
 /** The order the gallery shows the themes in (anything else after these). */
-const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'money', 'time', 'verbs', 'adjectives', 'feeling-verbs', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'meals', 'nature', 'weather', 'places', 'clothes', 'school', 'freetime', 'money', 'time', 'clocks', 'verbs', 'adjectives', 'feeling-verbs', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
 const THEME_NAMES = {
   'story-props': 'Story props',
   buttons: 'Buttons and signs',
@@ -60,13 +60,16 @@ const THEME_NAMES = {
   animals: 'Animals',
   body: 'Body',
   food: 'Food',
+  meals: 'Meals',
   nature: 'Nature and weather',
+  weather: 'The weather',
   places: 'Places',
   clothes: 'Clothes',
   school: 'School',
   freetime: 'Free time',
   money: 'Money',
   time: 'Time',
+  clocks: 'Clocks',
   verbs: 'Doing things',
   adjectives: 'Describing words',
   'feeling-verbs': 'Feelings that happen to you',
@@ -184,12 +187,14 @@ function backdrop(scene, tone, grid) {
   const still = drawScene(scene, tone, grid);
   const vectors = [still.vector];
   let moving = null;
-  if (scene.motion || scene.drift) {
-    const n = scene.motion?.frames ?? 1;
+  // A tone may move at its own pace: the rain falls faster than smoke rises.
+  const motion = scene.motion && { ...scene.motion, ...scene.motion.byTone?.[tone] };
+  if (motion || scene.drift) {
+    const n = motion?.frames ?? 1;
     const frames = Array.from({ length: n }, (_, frame) => drawScene(scene, tone, grid, { frame, frames: n, moving: true }));
     vectors.push(...frames.map((f) => f.vector));
     const looped = n > 1 && frames.some((f) => !sameGrid(f.grid, frames[0].grid));
-    const base = looped ? loopMarkup({ grids: frames.map((f) => f.grid), fps: scene.motion.fps }) : gridToSvg(frames[0].grid);
+    const base = looped ? loopMarkup({ grids: frames.map((f) => f.grid), fps: motion.fps }) : gridToSvg(frames[0].grid);
     let drift = '';
     if (scene.drift) {
       const d = drawScene(scene, tone, grid, { moving: true }, 'drift');
