@@ -11,6 +11,7 @@ import natureData from './data/nature.sourced.json';
 import clothesData from './data/clothes.sourced.json';
 import schoolData from './data/school.sourced.json';
 import freetimeData from './data/freetime.sourced.json';
+import moneyData from './data/money.sourced.json';
 import timeData from './data/time.sourced.json';
 import statesData from './data/states.sourced.json';
 import ordinalsData from './data/ordinals.sourced.json';
@@ -143,6 +144,12 @@ export const school = toTheme(schoolData as unknown as SourcedFile, nounConstruc
 export const freetime = toTheme(freetimeData as unknown as SourcedFile, nounConstructions, {
   countable: true,
 });
+// Money — the euro, for the shop's prices ("kaksi euroa"). Counted and
+// reviewed like any thing, but its topic is opt-in: no carrier phrase takes it
+// unless it names it ("Ostan euron" would be nonsense).
+export const money = toTheme(moneyData as unknown as SourcedFile, nounConstructions, {
+  countable: true,
+});
 
 // When? — days, parts of the day, seasons. Reviewable (in `themes`), but kept
 // OUT of the mixed noun pool in path.tsx so they only fill their own carriers.
@@ -184,6 +191,7 @@ export const themes: Theme[] = [
   clothes,
   school,
   freetime,
+  money,
   time,
 ];
 

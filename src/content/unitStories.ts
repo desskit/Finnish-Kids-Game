@@ -1050,6 +1050,67 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
+  // Play — soittaa, pelata, leikkiä: Aino and Leo want to play music
+  // together, but Eero would rather play hockey. So they play hockey first,
+  // and then everyone plays music.
+  story('play', {
+    id: 'play-together',
+    titleFi: 'Soitetaan yhdessä!',
+    titleEn: "Let's play music together!",
+    icon: '🥁',
+    tier: 3,
+    pages: [
+      page(
+        sc('home', '👧 🧒 👦'),
+        say('aino', 'Soitetaan yhdessä!', "Let's play music together!"),
+        say('leo', 'Joo! Minä soitan viulua.', 'Yes! I play the violin.'),
+      ),
+      page(
+        sc('home', '👧 🥁'),
+        say('aino', 'Minä soitan rumpua!', 'I play the drum!'),
+        tell('Aino soittaa rumpua.', 'Aino plays the drum.'),
+      ),
+      page(
+        sc('home', '👦 🏒'),
+        say('eero', 'Minä en halua soittaa.', "I don't want to play music."),
+        say('eero', 'Minä haluan pelata jääkiekkoa!', 'I want to play hockey!'),
+      ),
+      page(
+        sc('field', '👧 🧒 👦 🏒'),
+        say('aino', 'Pelataan ensin jääkiekkoa!', "Let's play hockey first!"),
+        tell('Sitten kaikki soittavat. Eero soittaa pianoa.', 'Then they all play music. Eero plays the piano.'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Mitä Aino soittaa?',
+        'What does Aino play?',
+        right('Rumpua', 'The drum', '🥁'),
+        wrong('Viulua', 'The violin', '🎻'),
+        wrong('Pianoa', 'The piano', '🎹'),
+      ),
+      ask(
+        'Mitä Eero haluaa pelata?',
+        'What does Eero want to play?',
+        right('Jääkiekkoa', 'Hockey', '🏒'),
+        wrong('Shakkia', 'Chess', '♟️'),
+        wrong('Korttia', 'Cards', '🃏'),
+      ),
+      ask(
+        'Kuka soittaa viulua?',
+        'Who plays the violin?',
+        right('Leo', 'Leo', '🧒'),
+        wrong('Aino', 'Aino', '👧'),
+        wrong('Eero', 'Eero', '👦'),
+      ),
+    ],
+    facts: [
+      trueFact('Leo soittaa viulua.', 'Leo plays the violin.'),
+      falseFact('Eero haluaa soittaa.', 'Eero wants to play music.'),
+      trueFact('Lopuksi Eero soittaa pianoa.', 'In the end, Eero plays the piano.'),
+    ],
+  }),
+
   // 17. Seeing & waiting — odotan bussia, näen junan.
   story('seeing', {
     id: 'waiting-bus',

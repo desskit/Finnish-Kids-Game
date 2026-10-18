@@ -29,6 +29,8 @@ export default [
   { id: 'drink', title: 'drink (juice through a straw)', motion: { frames: 3, fps: 1.5 }, draw: verb.drink },
   { id: 'sleep', title: 'sleep (Zzz)', motion: { frames: 3, fps: 1.5 }, draw: verb.sleep },
   { id: 'play', title: 'play (a yo-yo)', motion: { frames: 4, fps: 4 }, draw: verb.play },
+  { id: 'play-game', title: 'play games (a board game, the die rolling)', motion: { frames: 2, fps: 1.5 }, draw: verb.playGame },
+  { id: 'play-music', title: 'play music (Leo on a recorder)', motion: { frames: 2, fps: 2 }, draw: verb.playMusic },
   { id: 'hug', title: 'hug (Leo and his teddy)', motion: { frames: 2, fps: 2 }, draw: verb.hug },
   { id: 'love', title: 'love (a beating heart)', motion: { frames: 2, fps: 2.5 }, draw: verb.love },
   // Moving about

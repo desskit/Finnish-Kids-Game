@@ -21,6 +21,7 @@ import {
   adjectives,
   verbs,
   feelingVerbs,
+  money,
 } from '../content';
 import type { Difficulty, VerbCombo } from './adapt';
 import { byIds } from '../util/byIds';
@@ -109,6 +110,8 @@ export type Pool =
   | 'feelings'
   | 'time'
   | 'ordinals'
+  /** The euro (counting money at the shop). */
+  | 'money'
   /** Any kind of word — a words step whose unit brings nouns AND verbs. */
   | 'mixed';
 
@@ -280,7 +283,7 @@ const NOUNS: LexicalItem[] = [
 // including non-color adjectives with no picture) and out of `NOUNS`/`themes`,
 // same as adjectives generally — colors are their own small warm-up, not a
 // noun topic the capstones or cross-topic Review draw on.
-const COLOR_IDS = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown'];
+const COLOR_IDS = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'pink', 'purple', 'gray', 'orange'];
 const COLORS: LexicalItem[] = adjectives.items.filter((i) => COLOR_IDS.includes(i.id));
 
 // The Feelings unit's words: the feeling adjectives ("iloinen") plus the
@@ -298,6 +301,7 @@ const FEELINGS: LexicalItem[] = [
 // verbs together (`pool: 'mixed'`): it only ever shows the unit's own words.
 const EVERY_WORD: LexicalItem[] = [
   ...NOUNS,
+  ...money.items,
   ...verbs.items,
   ...feelingVerbs.items,
   ...adjectives.items,
@@ -341,6 +345,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return time.items;
     case 'ordinals':
       return ordinals.items;
+    case 'money':
+      return money.items;
     case 'mixed':
       return EVERY_WORD;
     default:
@@ -674,6 +680,15 @@ const FAMILY_MORE = ['aunt', 'uncle', 'cousin', 'family'];
 // The Feelings unit's words, and the ones after its part-way lesson.
 const FEELINGS_1 = ['happy', 'sad', 'angry', 'tired', 'hungry', 'thirsty', 'sick', 'calm', 'proud', 'hunger', 'thirst', 'cold', 'hot'];
 const FEELINGS_2 = ['scared', 'nervous', 'sleepy', 'giggly', 'teary', 'boring', 'funny'];
+
+// Play: the three "play" verbs' things — toys, instruments and games.
+const PLAY_THINGS = ['teddy', 'doll', 'toy', 'drum', 'violin', 'card', 'chess', 'hockey'];
+const PLAY_FRAMES = ['play-with-toy', 'i-play-game', 'i-play-music'];
+
+// Describing: the first colors and describing words, then four more colors
+// and six opposites.
+const DESCRIBE_1 = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown', 'big', 'small', 'fast', 'slow', 'old', 'cute', 'kind'];
+const DESCRIBE_2 = ['pink', 'purple', 'gray', 'orange', 'new', 'short', 'easy', 'hard', 'clean-adj', 'dirty'];
 
 // My body: the body words a child can point at, and the captain's game.
 const BODY_WORDS = ['eye', 'ear', 'nose', 'mouth', 'hand', 'foot', 'head', 'tooth', 'hair', 'tummy', 'finger', 'knee', 'tongue'];
@@ -1164,6 +1179,35 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'play',
+    titleFi: 'Leikin, pelaan, soitan',
+    titleEn: 'Play',
+    blurbEn: 'Three ways to play: with toys, games and sports, and music.',
+    accent: '#c026d3',
+    icon: '🎲',
+    lessonId: 'play',
+    newWords: ['play-game', 'play-music', ...PLAY_THINGS],
+    skills: [
+      wordsStep('play', 'mixed', 'Toys, games and music'),
+      phraseStep('play-toys', 'Leikin nukella', 'Playing with toys', '🧸', ['play-with-toy'], 'Leikin nukella.'),
+      phraseStep('play-games', 'Pelaan jalkapalloa', 'Games and sports', '🎲', ['i-play-game'], 'Pelaan jalkapalloa.'),
+      phraseStep('play-instruments', 'Soitan pianoa', 'Music', '🥁', ['i-play-music'], 'Soitan pianoa.'),
+      {
+        id: 'which-play',
+        titleFi: 'Leikin, pelaan vai soitan?',
+        titleEn: 'Which play?',
+        icon: '🔀',
+        activity: 'choose',
+        maxLevel: 4,
+        content: { choose: 'play', constructionIds: PLAY_FRAMES },
+        exampleFi: 'Soitan rumpua.',
+      },
+      listenStep('play-listen', 'Which play?', 'carriers', { constructionIds: PLAY_FRAMES }, 'Pelaan shakkia. · Soitan viulua.'),
+      verbStep('play-verbs', 'Leikin, pelaan, soitan', 'Play, play, play', '🪀', { ids: ['play', 'play-game', 'play-music'] }, [PRESENT_POS], 3, 'minä soitan, hän pelaa'),
+      sceneStep('play-talk', 'what-do-you-play', 'Mitä pelaat?', 'What do you play?'),
+    ],
+  },
+  {
     id: 'seeing',
     titleFi: 'Näen ja odotan',
     titleEn: 'Seeing & waiting',
@@ -1198,13 +1242,24 @@ const UNITS: Chapter[] = [
     icon: '🛒',
     lessonId: 'buying',
     midLessons: [{ lessonId: 'buying-some', before: 'buy-some' }],
-    newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter', 'buy'],
+    newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter', 'buy', 'euro'],
     skills: [
       wordsStep('shop', 'mixed', 'Shopping list'),
       phraseStep('buy-one', 'Ostan omenan', 'One whole thing', '🍎', ['i-buy'], 'Ostan omenan.'),
       phraseStep('buy-some', 'Ostan maitoa', 'Some of something', '🥛', ['i-buy-some'], 'Ostan maitoa.'),
       phraseStep('buying', 'Ostan…', 'One, or some?', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
       listenStep('shop-listen', 'One, or some?', 'carriers', { constructionIds: ['i-buy', 'i-buy-some'] }, 'Ostan omenan. · Ostan maitoa.'),
+      {
+        id: 'euros',
+        titleFi: 'Montako euroa?',
+        titleEn: 'How many euros?',
+        icon: '💶',
+        activity: 'count',
+        maxLevel: 3,
+        pin: { maxCount: 10 },
+        content: { pool: 'money' },
+        exampleFi: 'kolme euroa',
+      },
       sceneStep('shop-scene', 'shop', 'Kaupassa', 'At the till'),
       sceneStep('shop-scene-2', 'shopping-list', 'Ostoslista', 'The shopping list'),
     ],
@@ -1289,24 +1344,10 @@ const UNITS: Chapter[] = [
     icon: '🎨',
     lessonId: 'colors',
     midLessons: [{ lessonId: 'agreement', before: 'describe' }],
-    newWords: [
-      'red',
-      'blue',
-      'yellow',
-      'green',
-      'black',
-      'white',
-      'brown',
-      'big',
-      'small',
-      'fast',
-      'slow',
-      'old',
-      'cute',
-      'kind',
-    ],
+    newWords: [...DESCRIBE_1, ...DESCRIBE_2],
     skills: [
-      wordsStep('describing', 'adjectives', 'Colors & describing words'),
+      wordsStep('describing', 'adjectives', 'Colors & describing words', DESCRIBE_1),
+      wordsStep('describing', 'adjectives', 'More colors, and opposites', DESCRIBE_2, 'describing-words-2'),
       phraseStep('what-color', 'Tämä on punainen', 'This is red', '🟥', ['this-is', 'is-this'], 'Tämä on punainen.', 'adjectives'),
       {
         id: 'describe',
@@ -2506,8 +2547,9 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
     const filter = skill.content.verbs;
     if (skill.content.frames) {
       cached = { ...base, frames: skill.content.frames };
-    } else if (skill.content.choose === 'verb-case') {
-      // "Which verb, which ending?": the step's carriers, over the words met.
+    } else if (skill.content.choose === 'verb-case' || skill.content.choose === 'play') {
+      // "Which verb, which ending?" and "Which play?": the step's carriers,
+      // over the words met.
       cached = {
         ...base,
         constructions: constructionsFor(skill.content.constructionIds),

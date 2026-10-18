@@ -78,7 +78,7 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'write-with': '"With" a tool → **-lla / -llä**: *kynällä*.',
   'draw-with': '"With" a tool → **-lla / -llä**: *kynällä*.',
   'eat-with': '"With" a tool → **-lla / -llä**: *lusikalla*.',
-  'play-with-toy': 'Playing WITH a toy → **-lla / -llä**: *pallolla*.',
+  'play-with-toy': 'Playing WITH a toy → **leikkiä** + **-lla / -llä**: *Leikin nukella*.',
   'open-with': '"With" a tool → **-lla / -llä**: *avaimella*.',
   'with-someone': 'WITH a person (or a pet) → **-n** + *kanssa*: *kaverin kanssa*. (**-lla** is for a thing you use: *pallolla*.)',
   'i-go-into': 'Going INTO a place → a long vowel + **n** (*kouluun*) — or **-seen** (*huoneeseen*).',
@@ -110,6 +110,8 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'touch-it': '*Kosketa* (touch) always takes **-a / -ä** (or **-ta / -tä**): *Kosketa nenää!*',
   'lift-it': 'After a command, the whole thing stays in its **basic form**: *Nosta käsi ylös!*',
   'wash-hands': 'BOTH hands → the plural **-t**: *Pese kädet!*',
+  'i-play-game': 'Games and sports → **pelata** + **-a / -ä**: *Pelaan jalkapalloa*.',
+  'i-play-music': 'Music → **soittaa** + **-a / -ä**: *Soitan pianoa*.',
 };
 
 const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {

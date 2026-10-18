@@ -303,6 +303,11 @@ export const green = (k) => crayon(k, 'green');
 export const black = (k) => crayon(k, 'charcoal');
 export const white = (k) => crayon(k, 'white');
 export const brown = (k) => crayon(k, 'brown');
+export const pink = (k) => crayon(k, 'pink');
+// (the opposites: new, short, easy, hard, clean, dirty — see the end of the file)
+export const purple = (k) => crayon(k, 'purple');
+export const gray = (k) => crayon(k, 'grey');
+export const orange = (k) => crayon(k, 'orange');
 
 // --- Sizes and speeds ------------------------------------------------------------
 
@@ -425,5 +430,117 @@ export function tall(k) {
     k.flatCircle(55, 14.4, 0.9, c.ink),
     k.eye(42.4, 10.4, 2.2),
     placed(k, CAST.leo, { face: 'grin', look: -1.4 }, 54.4, 59, 0.46),
+  ].join('');
+}
+
+// --- Opposites ------------------------------------------------------------------
+
+/** New: a brand-new red sneaker, its price tag still on, sparkling. */
+export function newThing(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    k.ground(32, 58.6, 24, 2),
+    k.path('M8.6 46.6V30.6C8.6 27.6 10.6 25.6 13.6 25.6H23.6C26 25.6 27.6 27 28.6 29L31.6 35.4C33 38 35.6 39.4 38.6 39.6L50.6 40.6C55.6 41 58.6 44.4 58.6 48.6V46.6Z', c.red),
+    k.path('M6.6 46.6H59.6V50.6C59.6 52.8 57.8 54.6 55.6 54.6H10.6C8.4 54.6 6.6 52.8 6.6 50.6Z', c.white),
+    k.flat('M9.8 26.8H23V29.4H9.8Z', c.white),
+    k.line('M29.6 33.6L34.6 31.4M32.6 37.4L37.6 35.4', { color: c.white, sw: 1.4 }),
+    k.shine('M12.4 32V40', 1.8),
+    k.line('M30 31.6Q32 22 38 19', { sw: 1.2 }),
+    k.g('rotate(18 44 16)', k.rect(37.6, 11, 13, 9.6, 2, c.cream), k.flatCircle(40.4, 15.8, 1.2, c.white)),
+    sparkle(k, f ? 54 : 50, f ? 28 : 30, 3.4),
+    sparkle(k, f ? 10 : 14, f ? 16 : 19, 2.6),
+    sparkle(k, 26, 9, f ? 2.8 : 2),
+  ].join('');
+}
+
+/** Short: a pencil worn down to a stub — the dotted line is how long it was. */
+export function short(k) {
+  const c = k.P;
+  const dashes = [];
+  for (let x = 30; x < 56; x += 5) dashes.push(k.flat(`M${fmt(x)} 26.6H${fmt(x + 2.6)}V28H${fmt(x)}ZM${fmt(x)} 40H${fmt(x + 2.6)}V41.4H${fmt(x)}Z`, c.grey));
+  return [
+    k.ground(24, 52, 18, 2),
+    ...dashes,
+    k.flat('M55.4 26.6H56.8V41.4H55.4Z', c.grey),
+    k.rect(8, 27, 6, 14, 1.6, c.pink),
+    k.rect(13, 26.6, 3.6, 14.8, 0.6, c.silver),
+    k.rect(16.4, 27, 9.6, 14, 0.6, c.yellow),
+    k.flat('M16.8 36.6H25.6V40.6H16.8Z', c.yellowShade),
+    k.path('M26 27L33.6 34L26 41Z', c.wood),
+    k.path('M31.2 31.8L33.6 34L31.2 36.2Z', c.charcoal),
+    k.shine('M9.6 30V36', 1.4),
+  ].join('');
+}
+
+/** Easy: the last puzzle piece drops into its place — click! */
+export function easy(k) {
+  const c = k.P;
+  const down = k.frame % 2 === 1;
+  const y = down ? 0 : -12;
+  const piece = (dy) =>
+    `M24 ${fmt(30 + dy)}H29C29 ${fmt(26 + dy)} 35 ${fmt(26 + dy)} 35 ${fmt(30 + dy)}H40V${fmt(36 + dy)}C44 ${fmt(36 + dy)} 44 ${fmt(42 + dy)} 40 ${fmt(42 + dy)}V${fmt(48 + dy)}H24Z`;
+  return [
+    k.ground(32, 58.6, 26, 2),
+    k.rect(8, 26, 48, 26, 2.4, c.blue),
+    k.flat('M9 47H55V51H9Z', c.blueShade),
+    k.flat(piece(0), c.navy),
+    k.path(piece(y), c.lime),
+    k.flat(`M36 ${fmt(31 + y)}H39V${fmt(47 + y)}H36Z`, c.limeShade),
+    k.shine(`M26.6 ${fmt(33 + y)}V${fmt(41 + y)}`, 1.6),
+    down ? sparkle(k, 52, 16, 3.6) + sparkle(k, 12, 18, 2.6) : k.line('M32 6V11M28 8L30 11.6M36 8L34 11.6', { sw: 1.4 }),
+  ].join('');
+}
+
+/** Hard: a rope in a tangled knot. */
+export function hard(k) {
+  const c = k.P;
+  return [
+    k.ground(32, 58.6, 24, 2),
+    k.limb('M4 50C10 50 12 44 16 40', c.wood, 4.6),
+    k.limb('M20 34C14 22 30 12 38 20C46 28 34 40 26 36C16 31 28 18 40 24C52 30 46 44 36 44C26 44 22 32 32 28', c.wood, 4.6),
+    k.limb('M16 40C20 36 26 46 34 44', c.wood, 4.6),
+    k.limb('M44 42C48 46 54 48 60 46', c.wood, 4.6),
+    k.limb('M38 30C44 34 42 40 44 42', c.wood, 4.6),
+    k.limb('M27 24C30 30 36 26 34 34', c.wood, 4.6),
+  ].join('');
+}
+
+/** Clean: a plate washed so clean it sparkles. */
+export function clean(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    k.ground(32, 56, 24, 2),
+    k.ellipse(32, 40, 26, 12, c.sky),
+    k.flatEllipse(32, 41.6, 24, 9.6, c.skyShade),
+    k.ellipse(32, 39, 18, 7.8, c.white),
+    k.flatEllipse(32, 40.4, 16, 5.6, c.silver),
+    k.flatEllipse(32, 38.6, 15, 4.6, c.white),
+    k.shine('M20 36Q24 33 30 32.6', 1.8),
+    k.circle(f ? 52 : 50, f ? 18 : 22, 4, c.sky),
+    k.shineDot(f ? 50.8 : 48.8, f ? 16.8 : 20.8, 1),
+    k.circle(f ? 12 : 13, f ? 24 : 20, 2.6, c.sky),
+    sparkle(k, 28, f ? 16 : 18, f ? 4 : 3),
+    sparkle(k, 40, f ? 22 : 24, f ? 2.4 : 3.2),
+  ].join('');
+}
+
+/** Dirty: a green boot splashed with mud, a fly buzzing round it. */
+export function dirty(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const [fx, fy] = f ? [50, 12] : [42, 6];
+  return [
+    k.ground(34, 58.6, 21, 2),
+    k.path('M16.6 8.6H38.6V40.6C38.6 42.6 40 44 42 44.4L50.6 46C55.6 47 57.6 50.6 57.6 54.6V56.6H16.6Z', c.green),
+    k.path('M15.6 52.6H58.6V56.6C58.6 58 57.6 59 56.2 59H18C16.6 59 15.6 58 15.6 56.6Z', c.charcoal),
+    k.flat('M16.6 42C22 40 26 44 32 42C36 40.6 40 46 46 45.4C50 45 54 47 56.6 50V53H16.6Z', c.brown),
+    k.flat('M22 30C24 28 27 29 27 31.6C27 34 24 35 22.4 33.4ZM31 20C32.6 19 34.6 20 34.4 22C34.2 24 31.6 24.4 30.8 22.6Z', c.brown),
+    k.flat('M25.8 42V48.6C25.8 49.6 27 50 27.4 49L27.8 42Z', c.brownShade),
+    k.ellipse(fx, fy, 2.4, 2, c.charcoal),
+    k.ellipse(fx - 1.6, fy - 2.4, 1.8, 1.2, c.silver),
+    k.ellipse(fx + 1.6, fy - 2.4, 1.8, 1.2, c.silver),
+    k.line(f ? 'M44 9Q46 14 48 11' : 'M45 9Q47 4 50 7', { sw: 1.2 }),
   ].join('');
 }

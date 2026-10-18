@@ -221,7 +221,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
 // one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
 // wrong). Fun is fine: "Tämä on hauska." is "This is fun."
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 
@@ -281,8 +281,9 @@ const NO_ARTICLE_IDS = new Set([
 // pastime without "the" ("I like pizza", "I love chocolate").
 const LIKING_CARRIERS = new Set(['i-like', 'i-love', 'i-dont-like', 'i-like-tykkaan', 'i-dont-like-tykkaa']);
 // A word liked as a kind can name something else: jalkapallo, a soccer ball,
-// is the GAME in "Pidän jalkapallosta" — "I like soccer".
-const KIND_EN: Record<string, string> = { football: 'soccer' };
+// is the GAME in "Pidän jalkapallosta" — "I like soccer"; shakki, a chess set,
+// is chess; jääkiekko, a hockey puck, is hockey.
+const KIND_EN: Record<string, string> = { football: 'soccer', chess: 'chess', hockey: 'hockey' };
 
 function englishArticleFor(item: LexicalItem): string {
   // A describing word after "is" takes no article: "This is red", not "a red".
@@ -346,6 +347,12 @@ export const ALSO_EN: Record<string, string> = {
   // jalka and käsi are the whole limb too.
   foot: 'leg',
   hand: 'arm',
+  // shakki and jääkiekko are the game as well as its things.
+  chess: 'chess',
+  hockey: 'ice hockey',
+  // soittaa is also "call" (on the phone).
+  'play-music': 'call',
+  hard: 'difficult',
 };
 
 /** "son, boy" — the gloss with any second meaning. */

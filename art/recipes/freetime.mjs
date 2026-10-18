@@ -2,6 +2,7 @@
 
 import { crescentPath, polar, pt, fmt } from '../kit.mjs';
 import * as freetime from '../freetime.mjs';
+import { drum } from '../lesson-icons.mjs';
 
 export default [
   {
@@ -42,4 +43,16 @@ export default [
   { id: 'key', title: 'key', draw: freetime.key },
   { id: 'balloon', title: 'balloon (swaying)', motion: { frames: 2, fps: 1.5 }, draw: freetime.balloon },
   { id: 'candle', title: 'candle (flickering)', motion: { frames: 3, fps: 5 }, draw: freetime.candle },
+  // Play: toys, instruments and games
+  { id: 'teddy', title: 'teddy bear (a golden plush, tilting its head)', motion: { frames: 2, fps: 1.2 }, draw: freetime.teddy },
+  { id: 'doll', title: 'doll (a rag doll, waving)', motion: { frames: 2, fps: 2 }, draw: freetime.doll },
+  { id: 'toy', title: 'toy (a wooden pull-along train)', motion: { frames: 2, fps: 3 }, draw: freetime.toy },
+  // the alphabet corner's beat is this drum too
+  { id: 'drum', title: 'drum (the sticks taking turns)', motion: { frames: 2, fps: 4 }, draw: drum },
+  { id: 'violin', title: 'violin (the bow drawing)', motion: { frames: 2, fps: 2 }, draw: freetime.violin },
+  { id: 'card', title: 'card (three playing cards)', draw: freetime.cards },
+  { id: 'chess', title: 'chess set (a white pawn steps)', motion: { frames: 2, fps: 1.2 }, draw: freetime.chess },
+  { id: 'hockey', title: 'hockey puck (the stick, the puck sliding)', motion: { frames: 2, fps: 2.5 }, draw: freetime.hockey },
+  // Money
+  { id: 'euro', title: 'euro (a coin)', draw: freetime.euro },
 ];

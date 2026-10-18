@@ -208,15 +208,24 @@ export const conversations: Conversation[] = [
         ],
       },
       {
-        partner: { fi: 'Ole hyvä!', en: 'Here you go!' },
-        reply: { fi: 'Kiitos!', en: 'Thank you!' },
+        // ⚠️ NEEDS NATIVE FINNISH VETTING — asking the price (At the shop)
+        partner: { fi: 'Ole hyvä! Tässä on omena.', en: "Here you go! Here's an apple." },
+        reply: { fi: 'Kiitos! Paljonko se maksaa?', en: 'Thank you! How much is it?' },
         distractors: [
           { fi: 'Anteeksi.', en: 'Sorry.' },
           { fi: 'Hyvää huomenta.', en: 'Good morning.' },
         ],
       },
       {
-        partner: { fi: 'Näkemiin!', en: 'Goodbye!' },
+        partner: { fi: 'Se maksaa kaksi euroa.', en: "It's two euros." },
+        reply: { fi: 'Tässä on kaksi euroa.', en: 'Here are two euros.' },
+        distractors: [
+          { fi: 'Tässä on kaksi euro.', en: 'Here are two euros.', why: 'From 2 on, the thing takes **-a**: *kaksi euroa*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Näkemiin!', en: 'Thank you! Goodbye!' },
         reply: { fi: 'Hei hei!', en: 'Bye bye!' },
         distractors: [
           { fi: 'Kiitos ruoasta.', en: 'Thanks for the food.' },
@@ -1791,6 +1800,41 @@ export const conversations: Conversation[] = [
         distractors: [
           { fi: 'Kiitos! Nyt minulla on kymmenen.', en: 'Thanks! Now I have ten.' },
           { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Play: games, music and toys
+  {
+    id: 'what-do-you-play',
+    titleFi: 'Mitä pelaat?',
+    titleEn: 'What are you playing?',
+    icon: '🎲',
+    partnerIcon: '👦',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Hei! Mitä sinä pelaat?', en: 'Hi! What are you playing?' },
+        reply: { fi: 'Pelaan shakkia.', en: "I'm playing chess." },
+        distractors: [
+          { fi: 'Soitan shakkia.', en: "I'm playing chess.", why: '*soittaa* is for music. Chess is a game: *Pelaan shakkia*.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva! Soitatko pianoa?', en: 'Nice! Do you play the piano?' },
+        reply: { fi: 'En. Minä soitan rumpua.', en: 'No. I play the drum.' },
+        distractors: [
+          { fi: 'En. Minä pelaan rumpua.', en: 'No. I play the drum.', why: 'A drum is music, so it\'s *soittaa*: *Soitan rumpua*.' },
+          { fi: 'Kiitos, hyvää.', en: 'Fine, thanks.' },
+        ],
+      },
+      {
+        partner: { fi: 'Minulla on nalle. Leikitään!', en: "I have a teddy bear. Let's play!" },
+        reply: { fi: 'Joo! Leikitään nallella!', en: "Yeah! Let's play with the teddy!" },
+        distractors: [
+          { fi: 'Joo! Pelataan nallea!', en: "Yeah! Let's play with the teddy!", why: 'A teddy is a toy: *leikkiä* + **-lla**: *Leikitään nallella*.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
         ],
       },
     ],

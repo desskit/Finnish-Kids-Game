@@ -1350,14 +1350,14 @@ export const nounConstructions: Construction[] = [
     onlyIds: ["spoon", "fork"],
   },
   {
-    id: "play-with-toy", // "Leikin pallolla."
+    id: "play-with-toy", // "Leikin pallolla." — met first in Play, with the toys
     before: "Leikin",
     punct: ".",
     en: "I play with a ___.",
     tier: 4,
     case: "adessive",
     number: "singular",
-    onlyIds: ["ball", "car", "boat"],
+    onlyIds: ["ball", "car", "boat", "doll", "teddy", "toy"],
   },
   {
     id: "open-with", // "Avaan oven avaimella."
@@ -1534,6 +1534,32 @@ export const nounConstructions: Construction[] = [
     verb: "infinitive",
     topics: ["verbs"],
     onlyIds: MAY_I,
+  },
+
+  // --- Play: Pelaan (games and sports), Soitan (music) ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // pelata takes -a: "Pelaan jalkapalloa" — I play soccer.
+    id: "i-play-game",
+    before: "Pelaan",
+    punct: ".",
+    en: "I play ___.",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    onlyIds: ["football", "game", "card", "chess", "hockey"],
+    glossById: { football: "soccer", game: "a game", card: "cards", chess: "chess", hockey: "hockey" },
+  },
+  {
+    // soittaa takes -a: "Soitan pianoa" — I play the piano.
+    id: "i-play-music",
+    before: "Soitan",
+    punct: ".",
+    en: "I play the ___.",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    onlyIds: ["guitar", "piano", "drum", "violin"],
   },
 
   // --- Feelings, part 2: the feelings that are verbs, and "having fun" ---

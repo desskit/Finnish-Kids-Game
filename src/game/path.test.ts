@@ -26,8 +26,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty-eight units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(38);
+  it('is thirty-nine units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(39);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -330,6 +330,29 @@ describe('the six everyday-grammar units', () => {
     const where = findSkill('where-qa')!.skill.content.ids!;
     expect(new Set([...qa, ...where]).size).toBe(10);
     expect(findSkill('question-words-mix')!.skill.content.ids).toHaveLength(10);
+  });
+});
+
+describe('Play, and counting euros', () => {
+  const at = (id: string) => PATH.findIndex((u) => u.id === id);
+
+  it('meets the three "play" verbs after the verb types they belong to', () => {
+    // pelata is type 4 (Verbs 2); soittaa changes its tt (Verbs 1b)
+    expect(at('play')).toBeGreaterThan(at('verbs-4'));
+    expect(at('play')).toBeGreaterThan(at('doing-kpt'));
+    // and plays "Leikin nukella" before By bus builds on -lla
+    expect(at('play')).toBeLessThan(at('by-with'));
+    const which = findSkill('which-play')!.skill;
+    expect(which.content.choose).toBe('play');
+    expect(which.content.constructionIds).toEqual(['play-with-toy', 'i-play-game', 'i-play-music']);
+    expect(findSkill('play-verbs')!.skill.content.verbs).toEqual({ ids: ['play', 'play-game', 'play-music'] });
+  });
+
+  it('counts only euros in the shop', () => {
+    const { skill } = findSkill('euros')!;
+    const el = renderActivity(skill, 'count', () => {});
+    const nouns = (el!.props as { nouns: { id: string }[] }).nouns;
+    expect(nouns.map((n) => n.id)).toEqual(['euro']);
   });
 });
 

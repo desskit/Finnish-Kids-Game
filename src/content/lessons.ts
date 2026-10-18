@@ -1193,6 +1193,16 @@ export const lessons: Lesson[] = [
         ],
         explain: 'One whole banana → **-n**: *banaanin*.',
       },
+      {
+        kind: 'examples',
+        title: 'Euros',
+        text: 'Money is counted like anything else: from 2 on, the thing takes **-a / -ä**. To ask the price: *Paljonko se maksaa?* — how much is it?',
+        rows: [
+          { count: 1, word: 'euro' },
+          { count: 2, word: 'euro' },
+          { count: 5, word: 'euro' },
+        ],
+      },
     ],
   },
   {
@@ -1255,6 +1265,18 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
+        title: 'More colors',
+        text: '*vaaleanpunainen* is "light red" — that\'s pink.',
+        rows: [{ word: 'pink' }, { word: 'purple' }, { word: 'gray' }, { word: 'orange' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Opposites',
+        text: 'Some describing words come in pairs: *uusi* (new) and *vanha* (old), *helppo* (easy) and *vaikea* (hard), *puhdas* (clean) and *likainen* (dirty). *lyhyt* is short.',
+        rows: [{ word: 'new' }, { word: 'easy' }, { word: 'hard' }, { word: 'clean-adj' }, { word: 'dirty' }, { word: 'short' }],
+      },
+      {
+        kind: 'examples',
         title: '"This is red"',
         text: 'A describing word works after *Tämä on* just like a thing: *Tämä on punainen* = this is red.',
         rows: [
@@ -1289,6 +1311,15 @@ export const lessons: Lesson[] = [
           { ref: { agree: 'small', word: 'dog', case: 'nominative' } },
         ],
         explain: '*iso* = big, *pieni* = small.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "a dirty shoe"?',
+        options: [
+          { ref: { agree: 'dirty', word: 'shoe', case: 'nominative' }, correct: true },
+          { ref: { agree: 'clean-adj', word: 'shoe', case: 'nominative' } },
+        ],
+        explain: '*likainen* = dirty, *puhdas* = clean.',
       },
     ],
   },
@@ -2213,6 +2244,87 @@ export const lessons: Lesson[] = [
         question: '*Pidän englannista.* — Do I like English?',
         options: [{ text: 'Yes', correct: true }, { text: 'No' }],
         explain: '*Pidän* = I like. (*En pidä* would be "I don\'t like".)',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'play',
+    titleFi: 'Leikin, pelaan, soitan',
+    titleEn: 'Three ways to play',
+    emoji: '🎲',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'One "play", three verbs',
+        text:
+          'English has one "play". Finnish has three:\n- *leikkiä* — toys and pretend play\n- *pelata* — games and sports\n- *soittaa* — music',
+      },
+      {
+        kind: 'examples',
+        title: 'Toys: leikkiä + -lla',
+        text: 'Playing WITH a toy takes **-lla / -llä** — the same ending as *minulla*: *Leikin nukella* = I play with a doll.',
+        rows: [
+          { sentence: 'play-with-toy', word: 'doll' },
+          { sentence: 'play-with-toy', word: 'teddy' },
+          { sentence: 'play-with-toy', word: 'ball' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Games and sports: pelata + -a',
+        text: 'After *pelaan*, the game takes **-a / -ä**: *Pelaan jalkapalloa*. (*pelata* goes like *haluta*: *pelaan, pelaat, pelaa*.) *jääkiekko* is the puck AND the game, ice hockey.',
+        rows: [
+          { sentence: 'i-play-game', word: 'football' },
+          { sentence: 'i-play-game', word: 'chess' },
+          { sentence: 'i-play-game', word: 'hockey' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Music: soittaa + -a',
+        text: 'After *soitan*, the instrument takes **-a / -ä** too: *Soitan pianoa*. (*soittaa* is also "call": *Soitan isälle* = I call Dad.)',
+        rows: [
+          { sentence: 'i-play-music', word: 'piano' },
+          { sentence: 'i-play-music', word: 'drum' },
+          { sentence: 'i-play-music', word: 'violin' },
+        ],
+      },
+      {
+        kind: 'verbTable',
+        title: 'soittaa — to play music',
+        text: '**tt → t**, like *auttaa*: *minä soitan*, but *hän soittaa*.',
+        verb: 'play-music',
+        tense: 'present',
+        polarity: 'positive',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I play the piano"?',
+        options: [
+          { ref: { sentence: 'i-play-music', word: 'piano' }, correct: true },
+          { ref: { sentence: 'i-play-game', word: 'piano' } },
+        ],
+        explain: 'Music → *soittaa*: *Soitan pianoa*.',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I play soccer"?',
+        options: [
+          { ref: { sentence: 'i-play-game', word: 'football' }, correct: true },
+          { ref: { sentence: 'i-play-music', word: 'football' } },
+        ],
+        explain: 'Games and sports → *pelata*: *Pelaan jalkapalloa*.',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! What am I playing with?',
+        listen: { sentence: 'play-with-toy', word: 'teddy' },
+        options: [
+          { ref: { sentence: 'play-with-toy', word: 'doll' } },
+          { ref: { sentence: 'play-with-toy', word: 'teddy' }, correct: true },
+        ],
+        explain: '*nallella* — with a teddy bear. *nukella* is with a doll.',
       },
     ],
   },

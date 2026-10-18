@@ -140,3 +140,39 @@ describe('which verb, which ending?', () => {
     expect(why.text).toMatch(/^\*koirasta\* has \*\*-sta \/ -stä\*\* — that's the ending \*Tykkään\* takes\. \*Rakastan\*/);
   });
 });
+
+describe('which play? (leikin, pelaan, soitan)', () => {
+  const frames = nounConstructions.filter((c) => ['play-with-toy', 'i-play-game', 'i-play-music'].includes(c.id));
+  const play = { ...pools, constructions: frames, items: themes.flatMap((t) => t.items) };
+  const verbOf = (s: string) => s.split(' ')[0];
+
+  it('picks the verb by what is played: soittaa music, pelata games, leikkiä toys', () => {
+    const verbsSeen = new Set<string>();
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildChooseRound('play', play, 6, 4)) {
+        expect(q.options).toContain(q.answer);
+        expect(new Set(q.options).size).toBe(q.options.length);
+        expect(q.options.length).toBe(3);
+        verbsSeen.add(verbOf(q.answer));
+        // never leikkiä for an instrument or a game: "Leikin rummulla / pallolla" are right
+        if (verbOf(q.answer) !== 'Leikin') for (const o of q.options) expect(verbOf(o)).not.toBe('Leikin');
+        // a toy can make music: "Soitan lelua" is never offered as wrong
+        expect(q.options).not.toContain('Soitan lelua.');
+        // a ball is played AND played with — it's never asked about as a toy
+        expect(q.answer).not.toBe('Leikin pallolla.');
+        // every wrong VERB says what that verb is for
+        for (const o of q.options) if (o !== q.answer && verbOf(o) !== verbOf(q.answer)) expect(q.whyFor?.[o]?.text).toMatch(/is for/);
+      }
+    }
+    expect([...verbsSeen].sort()).toEqual(['Leikin', 'Pelaan', 'Soitan']);
+  });
+
+  it('says it in English the way English says it', () => {
+    const answers = new Map<string, string>();
+    for (let r = 0; r < RUNS; r++) for (const q of buildChooseRound('play', play, 6, 4)) answers.set(q.answer, q.cue);
+    expect(answers.get('Soitan pianoa.')).toBe('I play the piano.');
+    expect(answers.get('Pelaan jalkapalloa.')).toBe('I play soccer.');
+    expect(answers.get('Pelaan korttia.')).toBe('I play cards.');
+    expect(answers.get('Leikin nukella.')).toBe('I play with a doll.');
+  });
+});

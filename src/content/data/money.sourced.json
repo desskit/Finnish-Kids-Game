@@ -1,0 +1,62 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "money",
+    "fi": "Raha",
+    "en": "Money",
+    "emoji": "💶"
+  },
+  "words": [
+    {
+      "id": "euro",
+      "word": "euro",
+      "en": "euro",
+      "emoji": "💶",
+      "inflections": {
+        "nominative_singular": "euro",
+        "nominative_plural": "eurot",
+        "genitive_singular": "euron",
+        "genitive_plural": "eurojen",
+        "partitive_singular": "euroa",
+        "partitive_plural": "euroja",
+        "inessive_singular": "eurossa",
+        "inessive_plural": "euroissa",
+        "elative_singular": "eurosta",
+        "elative_plural": "euroista",
+        "illative_singular": "euroon",
+        "illative_plural": "euroihin",
+        "adessive_singular": "eurolla",
+        "adessive_plural": "euroilla",
+        "ablative_singular": "eurolta",
+        "ablative_plural": "euroilta",
+        "allative_singular": "eurolle",
+        "allative_plural": "euroille",
+        "essive_singular": "eurona",
+        "essive_plural": "euroina",
+        "translative_singular": "euroksi",
+        "translative_plural": "euroiksi",
+        "abessive_singular": "eurotta",
+        "abessive_plural": "euroitta",
+        "instructive_plural": "euroin",
+        "comitative_plural": "euroineen"
+      },
+      "english": {
+        "plural": "euros"
+      },
+      "kotusType": 1,
+      "group": "o_oe",
+      "frequencyRank": 6780,
+      "examples": [
+        {
+          "fi": "Metri maksaa 25 euroa.",
+          "en": "It costs €25 a metre."
+        },
+        {
+          "fi": "Lippu maksaa sata euroa.",
+          "en": "The ticket costs 100 euros."
+        }
+      ]
+    }
+  ]
+}
