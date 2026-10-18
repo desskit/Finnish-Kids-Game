@@ -16,10 +16,16 @@
 export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['duck', 'wild-duck'],
 
-  // People: the boys, the girls, and the child who could be any of them.
-  ['brother', 'son', 'child', 'head', 'tummy'],
-  ['sister', 'pupil', 'child'],
+  // People: the boys, the girls, and the child who could be any of them —
+  // the cousin and the captain (Leo in a cap) are children too.
+  ['brother', 'son', 'child', 'head', 'tummy', 'cousin', 'captain'],
+  ['sister', 'pupil', 'child', 'cousin'],
   ['baby', 'child'],
+  // The relatives: Täti could be Äiti, Setä (a moustache) Isä or Grandpa; the
+  // family picture is Isä, Äiti and Aino.
+  ['aunt', 'mother'],
+  ['uncle', 'father', 'grandfather'],
+  ['family', 'mother', 'father', 'sister'],
 
   // Body: a picture that holds another.
   ['mouth', 'tongue', 'tooth'],
@@ -80,12 +86,29 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['wash', 'clean'],
   ['close', 'lock'],
   ['teach', 'learn'],
+  ['hear', 'listen', 'ear'],
+  ['get', 'give'],
+  ['carry', 'bring', 'help', 'lift'],
+  ['remember', 'forget'],
+  ['forget', 'ask'],
+  ['live', 'house'],
+  ['order', 'speak', 'say'],
+  ['touch', 'hand', 'finger'],
+  ['lift', 'strong', 'answer'],
 
   // Describing words: the smiling faces, and two kinds of big.
   ['happy', 'cute', 'kind', 'calm', 'funny'],
   ['tired', 'calm'],
   ['hungry', 'funny'],
   ['big', 'tall'],
+
+  // The feelings that happen to you, beside the ones they're nearly the same
+  // as (sleepy and tired) or look like (the bored face's heavy eyes).
+  ['scared', 'nervous'],
+  ['sleepy', 'tired', 'sleep'],
+  ['giggly', 'laugh', 'funny', 'happy', 'smile'],
+  ['teary', 'cry', 'sad'],
+  ['boring', 'tired', 'calm', 'sleepy'],
 ];
 
 const RIVALS = new Map<string, Set<string>>();

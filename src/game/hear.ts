@@ -71,6 +71,8 @@ export function carrierSegments(con: Construction, item: LexicalItem): Segment[]
     : con.verb
       ? [{ text: form }]
       : caseSegments(form, con.case, con.number === 'plural');
+  // A slot that starts the sentence is capitalized, as in `sentenceWithForm`.
+  if (!con.before && con.punct && slot.length > 0) slot[0] = { ...slot[0], text: cap(slot[0].text) };
   return [
     ...(con.before ? [{ text: `${con.before} ` }] : []),
     ...slot,

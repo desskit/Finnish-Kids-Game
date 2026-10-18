@@ -166,10 +166,15 @@ export interface Construction {
   /**
    * Verb carriers ("Haluan ___." → "Haluan leikkiä"): the slot takes a VERB in
    * its basic (infinitive) form — the sourced dictionary form itself. `case`
-   * is then just 'nominative' (unmarked).
+   * is then just 'nominative' (unmarked). 'impersonal' takes a feeling verb in
+   * its sourced "it" form (present 3sg): "Minua ___." → "Minua pelottaa".
    */
-  verb?: 'infinitive';
+  verb?: 'infinitive' | 'impersonal';
 }
+
+/** The feelings that are verbs ("Minua pelottaa", it scares me): their own
+ *  topic, so no other carrier or conjugation drill ever takes them. */
+export const FEELING_VERBS_TOPIC = 'feeling-verbs';
 
 export interface Theme {
   id: string;
@@ -189,6 +194,9 @@ export function inflectionKey(c: CaseId, n: GrammaticalNumber): string {
 
 /** The correct sourced form for an item in a construction's slot, if available. */
 export function formFor(item: LexicalItem, con: Construction): string | undefined {
+  if (con.verb === 'impersonal') {
+    return item.topic === FEELING_VERBS_TOPIC ? item.inflections.present_active_positive_3sg : undefined;
+  }
   if (con.verb) return item.topic === 'verbs' ? item.fi : undefined;
   if (con.possessor) return item.inflections[`poss_${con.possessor}_${con.case}_singular`];
   return item.inflections[inflectionKey(con.case, con.number)];
@@ -213,7 +221,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
 // one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
 // wrong). Fun is fine: "Tämä on hauska." is "This is fun."
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs'];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 
@@ -242,9 +250,12 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
 }
 
 /** The carrier with a given (looked-up) form in its slot — e.g. a WRONG form,
- *  for a "which ending?" option. Presentation only: the form is never built. */
+ *  for a "which ending?" option. Presentation only: the form is never built.
+ *  A slot that starts a whole sentence ("Aurinko paistaa.") is capitalized,
+ *  like a command; a phrase ("pöydän edessä", no punctuation) stays as is. */
 export function sentenceWithForm(con: Construction, form: string): string {
-  const parts = [con.before, form, con.after].filter(
+  const first = !con.before && con.punct ? form.charAt(0).toUpperCase() + form.slice(1) : form;
+  const parts = [con.before, first, con.after].filter(
     (p): p is string => typeof p === 'string' && p.length > 0,
   );
   return parts.join(' ') + (con.punct ?? '');
@@ -332,6 +343,9 @@ export const ALSO_EN: Record<string, string> = {
   tall: 'long',
   funny: 'fun',
   carry: 'take (somewhere)',
+  // jalka and käsi are the whole limb too.
+  foot: 'leg',
+  hand: 'arm',
 };
 
 /** "son, boy" — the gloss with any second meaning. */

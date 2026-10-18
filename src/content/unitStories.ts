@@ -1235,6 +1235,68 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
+  // My body — Kapteeni käskee in the yard: Leo is the captain, everyone touches
+  // their nose; then a plain "Hyppää!" and Mirri jumps (the captain didn't
+  // say!); last, the captain says everyone hugs — Mirri too.
+  story('body', {
+    id: 'captain-leo',
+    titleFi: 'Kapteeni Leo',
+    titleEn: 'Captain Leo',
+    icon: '🧑‍✈️',
+    tier: 3,
+    pages: [
+      page(
+        sc('yard', '🧒 👧 👦 🐱'),
+        say('leo', 'Leikitään! Minä olen kapteeni.', "Let's play! I'm the captain."),
+        say('aino', 'Joo! Leikitään!', "Yes! Let's play!"),
+      ),
+      page(
+        sc('yard', '🧒 👧 👦'),
+        say('leo', 'Kapteeni käskee: kosketa nenää!', 'Captain says: touch your nose!'),
+        say('eero', 'Kosketan nenää!', "I'm touching my nose!"),
+      ),
+      page(
+        sc('yard', '🧒 👧 🐱'),
+        say('leo', 'Hyppää!', 'Jump!'),
+        tell('Mirri hyppää!', 'Mirri jumps!'),
+        say('aino', 'Mirri! Kapteeni ei käskenyt!', "Mirri! The captain didn't say!"),
+      ),
+      page(
+        sc('yard', '🧒 👧 👦 🐱'),
+        say('leo', 'Kapteeni käskee: halatkaa!', 'Captain says: hug, everyone!'),
+        tell('Kaikki halaavat. Myös Mirri!', 'Everyone hugs. Mirri too!'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Kuka on kapteeni?',
+        'Who is the captain?',
+        right('Leo', 'Leo', '🧒'),
+        wrong('Aino', 'Aino', '👧'),
+        wrong('Mirri', 'Mirri', '🐱'),
+      ),
+      ask(
+        'Mitä kapteeni käskee ensin?',
+        'What does the captain say first?',
+        right('Kosketa nenää!', 'Touch your nose!', '👃'),
+        wrong('Nosta käsi ylös!', 'Put your hand up!', '✋'),
+        wrong('Halatkaa!', 'Hug, everyone!', '🤗'),
+      ),
+      ask(
+        'Kuka hyppää?',
+        'Who jumps?',
+        right('Mirri', 'Mirri', '🐱'),
+        wrong('Eero', 'Eero', '👦'),
+        wrong('Leo', 'Leo', '🧒'),
+      ),
+    ],
+    facts: [
+      trueFact('Leo on kapteeni.', 'Leo is the captain.'),
+      falseFact('Aino on kapteeni.', 'Aino is the captain.'),
+      falseFact('Mirri ei hyppää.', "Mirri doesn't jump."),
+    ],
+  }),
+
   // 20. Describing — iso koira, pieni kissa; Musti on musta (as he's drawn,
   // and as his name says). Big Musti eats little Mirri's food; she's angry, he
   // runs away; a red ball makes peace.

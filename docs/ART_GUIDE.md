@@ -94,9 +94,14 @@ body and chunky limbs. A person is a **look** (skin, hair, clothes) in a
 | Isä 👨 | ginger hair and beard, a teal shirt, navy trousers |
 | Isoäiti 👵 | a grey bun, glasses, a pink cardigan |
 | Opettaja 🧑‍🏫 | a dark bob, glasses, a mustard cardigan |
+| Täti 👩‍🦰 (aunt) | a short ginger bob, a green dress |
+| Setä 🧔 (uncle) | dark hair, a moustache, a grey flat cap, an orange shirt |
+| Serkku 🧑‍🦱 (cousin) | a ginger ponytail with a yellow tie, freckles, a sky-blue shirt |
+| Kapteeni 🧑‍✈️ (captain) | Leo in a captain's cap (white top, navy band, gold badge), saluting |
 
 Mirri the cat is grey and striped, and Musti the dog is black and tan. Keep
-these looks wherever the cast appears.
+these looks wherever the cast appears. The captain game's **Ei!** tile is the
+captain with his arms crossed and a red ✗.
 
 - **`person(k, look, pose)`** draws someone standing on the 64 canvas.
 - **`placed(k, look, pose, x, ground, s)`** shrinks them and puts them at a spot

@@ -23,6 +23,7 @@ import {
   time,
   states,
   verbs,
+  feelingVerbs,
   adjectives,
   numbers,
   formFor,
@@ -45,8 +46,8 @@ const NOUNS = [
 ];
 
 // Every word a carrier slot could ever see: the nouns above plus school / free
-// time, and the opt-in words (days & times, feelings, adjectives, numbers) that
-// only fill carriers which ask for them by name.
+// time, and the opt-in words (days & times, feelings, adjectives, numbers,
+// verbs) that only fill carriers which ask for them by name.
 const CARRIER_WORDS = [
   ...NOUNS,
   ...school.items,
@@ -55,8 +56,10 @@ const CARRIER_WORDS = [
   ...states.items,
   ...adjectives.items,
   ...numbers.items,
+  ...verbs.items,
+  ...feelingVerbs.items,
 ];
-const OPT_IN = new Set(['time', 'states', 'adjectives', 'numbers']);
+const OPT_IN = new Set(['time', 'states', 'adjectives', 'numbers', 'verbs', 'feeling-verbs']);
 
 const POOLS: SentencePools = {
   nouns: NOUNS,

@@ -33,6 +33,7 @@ export default [
   { id: 'cold', title: 'cold (shivering)', motion: { frames: 2, fps: 6 }, draw: adj.cold },
   { id: 'hot', title: 'hot (sweating)', motion: { frames: 3, fps: 3 }, draw: adj.hot },
   { id: 'funny', title: 'funny (a silly face)', motion: { frames: 2, fps: 3 }, draw: adj.funny },
+  { id: 'boring', title: 'boring (chin on a fist, eyes wandering)', motion: { frames: 2, fps: 0.8 }, draw: adj.boring },
   // Leo
   { id: 'proud', title: 'proud (Leo with a medal)', motion: { frames: 2, fps: 1.5 }, draw: adj.proud },
   { id: 'strong', title: 'strong (a barbell)', motion: { frames: 2, fps: 1.5 }, draw: adj.strong },

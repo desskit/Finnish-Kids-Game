@@ -222,7 +222,11 @@
           "fi": "Pidän sen laulun hitaasta rytmistä.",
           "en": "I like the slow rhythm of that song."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "hitaampi",
+        "superlative": "hitain"
+      }
     },
     {
       "id": "old",
@@ -327,7 +331,11 @@
           "fi": "Näytät iloiselta.",
           "en": "You look happy."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "iloisempi",
+        "superlative": "iloisin"
+      }
     },
     {
       "id": "tired",
@@ -480,7 +488,11 @@
           "fi": "Koalat ovat söpöjä.",
           "en": "Koalas are cute."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "söpömpi",
+        "superlative": "söpöin"
+      }
     },
     {
       "id": "kind",
@@ -582,7 +594,11 @@
           "fi": "Vaikutat surulliselta.",
           "en": "You seem sad."
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "surullisempi",
+        "superlative": "surullisin"
+      }
     },
     {
       "id": "angry",
@@ -887,7 +903,11 @@
           "fi": "kylmä vesi",
           "en": "cold water"
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "kylmempi",
+        "superlative": "kylmin"
+      }
     },
     {
       "id": "hot",
@@ -938,7 +958,11 @@
           "fi": "kuuma vesi",
           "en": "hot water"
         }
-      ]
+      ],
+      "degrees": {
+        "comparative": "kuumempi",
+        "superlative": "kuumin"
+      }
     },
     {
       "id": "red",
@@ -1559,6 +1583,61 @@
       "degrees": {
         "comparative": "hauskempi",
         "superlative": "hauskin"
+      }
+    },
+    {
+      "id": "boring",
+      "word": "tylsä",
+      "en": "boring",
+      "emoji": "😑",
+      "inflections": {
+        "nominative_singular": "tylsä",
+        "nominative_plural": "tylsät",
+        "genitive_singular": "tylsän",
+        "genitive_plural": "tylsien",
+        "partitive_singular": "tylsää",
+        "partitive_plural": "tylsiä",
+        "inessive_singular": "tylsässä",
+        "inessive_plural": "tylsissä",
+        "elative_singular": "tylsästä",
+        "elative_plural": "tylsistä",
+        "illative_singular": "tylsään",
+        "illative_plural": "tylsiin",
+        "adessive_singular": "tylsällä",
+        "adessive_plural": "tylsillä",
+        "ablative_singular": "tylsältä",
+        "ablative_plural": "tylsiltä",
+        "allative_singular": "tylsälle",
+        "allative_plural": "tylsille",
+        "essive_singular": "tylsänä",
+        "essive_plural": "tylsinä",
+        "translative_singular": "tylsäksi",
+        "translative_plural": "tylsiksi",
+        "abessive_singular": "tylsättä",
+        "abessive_plural": "tylsittä",
+        "instructive_plural": "tylsin",
+        "comitative_plural": "tylsine"
+      },
+      "english": {
+        "comparative": "more boring",
+        "superlative": "most boring"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 2620,
+      "examples": [
+        {
+          "fi": "Veitsi on tylsä",
+          "en": "The knife is dull."
+        },
+        {
+          "fi": "Onpa tylsää.",
+          "en": "That's lame."
+        }
+      ],
+      "degrees": {
+        "comparative": "tylsempi",
+        "superlative": "tylsin"
       }
     }
   ]

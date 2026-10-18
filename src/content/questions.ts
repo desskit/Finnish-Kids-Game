@@ -82,6 +82,9 @@ export const YOU_QUESTION: Readonly<Record<string, string>> = {
   'fall': 'putoatko',
   'cut': 'leikkaatko',
   'run-away': 'pakenetko',
+  'order': 'käsketkö',
+  'touch': 'kosketatko',
+  'lift': 'nostatko',
 };
 
 /** "Syötkö?" — the question form for a verb, capitalized with "?". */

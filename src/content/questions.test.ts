@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { verbs } from './index';
+import { feelingVerbs, themes, verbs } from './index';
 import { YOU_QUESTION, questionFor } from './questions';
 import { verbForm } from './types';
 import { nounConstructions } from './constructions';
-import { sentenceFor, englishSentenceFor, formFor, suitsSlot } from './types';
+import { sentenceFor, englishSentenceFor, formFor, suitsSlot, type Construction } from './types';
 
 describe('authored "do you…?" question forms', () => {
   it('has one for every verb', () => {
@@ -53,3 +53,57 @@ describe('verb + verb carriers (Haluan leikkiä)', () => {
 });
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+describe('the feeling-verb slot (Minua pelottaa)', () => {
+  const con = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const feeling = (id: string) => feelingVerbs.items.find((v) => v.id === id)!;
+
+  it('fills the slot with the sourced "it" form', () => {
+    for (const f of feelingVerbs.items) {
+      expect(sentenceFor(f, con('it-scares-me')), f.id).toBe(`Minua ${verbForm(f, 'present', 'positive', '3sg')}.`);
+    }
+    expect(sentenceFor(feeling('scared'), con('it-scares-me'))).toBe('Minua pelottaa.');
+    expect(sentenceFor(feeling('nervous'), con('it-scares-me'))).toBe('Minua jännittää.');
+    expect(englishSentenceFor(feeling('scared'), con('it-scares-me'))).toBe('I feel scared.');
+  });
+
+  it('takes only the feeling verbs, and they go in no other carrier', () => {
+    const play = verbs.items.find((v) => v.id === 'play')!;
+    expect(formFor(play, con('it-scares-me'))).toBeUndefined();
+    for (const c of nounConstructions) {
+      if (c.id === 'it-scares-me') continue;
+      for (const f of feelingVerbs.items) expect(!!formFor(f, c) && suitsSlot(f, c), `${c.id}/${f.id}`).toBe(false);
+    }
+  });
+});
+
+describe('a slot that starts the sentence', () => {
+  it('is capitalized, and only then', () => {
+    const cat = themes.flatMap((t) => t.items).find((i) => i.id === 'cat')!;
+    const first: Construction = { id: 'test-first', after: 'nukkuu', punct: '.', en: 'The ___ is sleeping.', tier: 1, case: 'nominative', number: 'singular' };
+    expect(sentenceFor(cat, first)).toBe('Kissa nukkuu.');
+    expect(sentenceFor(cat, { ...first, before: 'Tämä' })).toBe('Tämä kissa nukkuu.');
+  });
+});
+
+describe("the captain's commands (Kosketa nenää!)", () => {
+  const con = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const imperative = (id: string) => verbs.items.find((v) => v.id === id)!.inflections.imperative_active_positive_2sg;
+
+  it('start with the sourced "you" command of koskettaa, nostaa and pestä', () => {
+    expect(con('touch-it').before).toBe(cap(imperative('touch')!));
+    expect(con('lift-it').before).toBe(cap(imperative('lift')!));
+    expect(con('wash-hands').before).toBe(cap(imperative('wash')!));
+  });
+
+  it('say what the lesson says', () => {
+    const part = (id: string) => themes.flatMap((t) => t.items).find((i) => i.id === id)!;
+    expect(sentenceFor(part('nose'), con('touch-it'))).toBe('Kosketa nenää!');
+    expect(sentenceFor(part('hand'), con('lift-it'))).toBe('Nosta käsi ylös!');
+    expect(englishSentenceFor(part('hand'), con('lift-it'))).toBe('Put your hand up!');
+    expect(sentenceFor(part('hand'), con('wash-hands'))).toBe('Pese kädet!');
+    expect(englishSentenceFor(part('foot'), con('wash-hands'))).toBe('Wash your feet!');
+    // never an eye, a tooth or the tongue to touch
+    for (const id of ['eye', 'tooth', 'tongue']) expect(suitsSlot(part(id), con('touch-it')), id).toBe(false);
+  });
+});

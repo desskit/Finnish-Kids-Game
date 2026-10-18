@@ -660,6 +660,7 @@
       "id": "aunt",
       "word": "täti",
       "en": "aunt",
+      "emoji": "👩‍🦰",
       "inflections": {
         "nominative_singular": "täti",
         "nominative_plural": "tädit",
@@ -714,6 +715,7 @@
       "id": "uncle",
       "word": "setä",
       "en": "uncle",
+      "emoji": "🧔",
       "inflections": {
         "nominative_singular": "setä",
         "nominative_plural": "sedät",
@@ -772,6 +774,7 @@
       "id": "cousin",
       "word": "serkku",
       "en": "cousin",
+      "emoji": "🧑‍🦱",
       "inflections": {
         "nominative_singular": "serkku",
         "nominative_plural": "serkut",

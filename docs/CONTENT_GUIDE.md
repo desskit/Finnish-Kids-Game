@@ -105,7 +105,9 @@ The path is data in `src/game/path.tsx`. A **skill node** picks an existing game
 - `activity`: `listen | build | count | match | conjugate | order | spell | sentence | review`
 - `content.pool`: which words — `'nouns'` (all noun topics mixed, default),
   `'animals' | 'food' | 'family' | 'numbers' | 'places' | 'body' | 'nature' | 'clothes'`,
-  or `'verbs'` (the emoji-bearing action verbs, for picture-card games).
+  `'verbs'` (the emoji-bearing action verbs, for picture-card games), or
+  `'mixed'` (every word, nouns and verbs alike — for a words step whose
+  `only` list holds both, like *rakastaa* beside the Likes unit's things).
 - `content.constructionIds`: for `build`/`order`, which carrier phrases to drill
   (omit = all).
 
@@ -328,6 +330,33 @@ sourced ordinals, so dates stop at the 10th. The glue patterns are listed in
 *Haluan ___.*, *En halua ___.*, *Osaan ___.*, *Saanko ___?* take a VERB in its
 dictionary form (the sourced infinitive). Use `topics: ['verbs']` plus an
 `onlyIds` list of verbs that read naturally.
+
+### Feelings that happen to you (`verb: 'impersonal'`)
+
+*Minua pelottaa* is "it scares me": *minua* plus the verb's sourced "it" form
+(present 3sg). The five feeling verbs (*pelottaa, jännittää, väsyttää,
+naurattaa, itkettää*) are their own theme, `feelingVerbs`, with the topic
+`feeling-verbs`: they're never conjugated in the verb games (the verb pool
+doesn't hold them), and only a carrier with `verb: 'impersonal'` and
+`topics: ['feeling-verbs']` takes them. Their slips are the "I" and "you"
+forms (*Minua pelotan*), which are wrong in every reading.
+
+### A slot that starts the sentence
+
+A carrier with no `before` and a `punct` starts with its slot, and the slot's
+form is capitalized: *Aurinko paistaa.* (`sentenceWithForm`; the listening
+games' carrier text does the same).
+
+### Kapteeni käskee (`activity: 'captain'`)
+
+The captain game plays in the listening-sentence screen. `buildCaptainRound`
+mixes body commands from the step's carriers (*Kosketa nenää!*, *Nosta käsi
+ylös!*) with the actable verb commands (*Hyppää!*), and says each as *Kapteeni
+käskee: …*. From four tiles on, the last tile is the captain's **Ei!** and
+about one command in three comes without *Kapteeni käskee* — then **Ei!** is
+the right answer, and a right tap credits no word (`attemptId: null`). The
+body carriers only take what a child can do: never touch an eye, a tooth or
+the tongue (`TOUCHABLE` in `constructions.ts`).
 
 ### Carrier options added for the expansion
 

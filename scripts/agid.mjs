@@ -80,6 +80,10 @@ function verbFormsFromRaw(raw, lemma) {
 // path, but we attach the canonical (3sg-ish) forms so every verb resolves.
 const BE = { thirdSg: 'is', past: 'was', pastParticiple: 'been', gerund: 'being' };
 
+// Adjectives English compares with "more / most" — AGID lists only the ones
+// that take -er / -est, so these have no entry there.
+const MORE_MOST = new Set(['boring']);
+
 /**
  * English morphology for one vocabulary word, sourced from AGID.
  * `pos` is 'N' | 'V' | 'A'. Returns null if unresolved (build should fail loud).
@@ -122,6 +126,7 @@ export function englishFormsFor(agid, lemma, pos) {
     return raw ? verbFormsFromRaw(raw, lemma) : null;
   }
   if (pos === 'A') {
+    if (MORE_MOST.has(lemma.toLowerCase())) return { comparative: `more ${lemma}`, superlative: `most ${lemma}` };
     const raw = rawFor(agid, lemma, 'A');
     if (!raw) return null;
     const slots = raw.split('|').map(cleanForm).filter(Boolean);

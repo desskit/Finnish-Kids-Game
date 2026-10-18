@@ -67,6 +67,32 @@ const entries = (child: Child) =>
 const passedCheckpoints = (child: Child) =>
   Object.values(child.course?.checkpoints ?? {}).filter((c) => c.passedAt);
 
+/** Checkpoints passed among these units. */
+const passedAmong = (child: Child, unitIds: string[]) =>
+  unitIds.filter((id) => child.course?.checkpoints?.[id]?.passedAt).length;
+
+/**
+ * The course as it stood before it grew (37 units, October 2026). The badges
+ * sized by the course (halfway, the whole course, every Kertaus, every kind of
+ * game) are measured against it too, and earned if either says so, so a badge
+ * a child has earned never goes away when units, reviews or games are added.
+ */
+export const FIRST_COURSE: Pick<BadgeEnv, 'checkpointUnitIds' | 'kertausStepIds' | 'allKinds'> = {
+  checkpointUnitIds: [
+    'hello', 'people', 'numbers', 'having', 'not-having', 'whose', 'owners', 'doing', 'doing-kpt',
+    'not-doing', 'asking', 'feelings', 'likes', 'wanting', 'verbs-4', 'school-day', 'seeing', 'shop',
+    'commands', 'describing', 'comparing', 'where', 'moving', 'town', 'by-with', 'when', 'big-numbers',
+    'birthdays', 'question-words', 'me-you', 'around', 'many', 'verbs-5-6', 'yesterday', 'chatting',
+    'sentences',
+  ],
+  kertausStepIds: ['not-having-mix', 'school-day-mix', 'moving-mix', 'many-mix'],
+  allKinds: [
+    'dialogue', 'conversation', 'story', 'listen', 'name', 'build', 'order', 'yesno', 'hear', 'count',
+    'ending', 'possessive', 'choose', 'conjugate', 'command', 'spell', 'match', 'sentence',
+    'sentence-type', 'error-fix', 'reading',
+  ],
+};
+
 /** Steps (of a set) whose top level is proven. */
 const provenAmong = (child: Child, ids: string[] | null) =>
   entries(child).filter(([id, p]) => p?.topProvenAt && (!ids || ids.includes(id))).length;
@@ -174,7 +200,7 @@ export const BADGES: Badge[] = [
     category: 'course',
     hintEn: 'Pass half of the unit checkpoints.',
     measure: (c, env) =>
-      count(passedCheckpoints(c).length, Math.ceil(env.checkpointUnitIds.length / 2), 'checkpoints'),
+      count(passedAmong(c, env.checkpointUnitIds), Math.ceil(env.checkpointUnitIds.length / 2), 'checkpoints'),
   },
   {
     id: 'course-done',
@@ -183,7 +209,7 @@ export const BADGES: Badge[] = [
     titleEn: 'Course complete',
     category: 'course',
     hintEn: 'Pass EVERY unit checkpoint — the whole course.',
-    measure: (c, env) => count(passedCheckpoints(c).length, env.checkpointUnitIds.length, 'checkpoints'),
+    measure: (c, env) => count(passedAmong(c, env.checkpointUnitIds), env.checkpointUnitIds.length, 'checkpoints'),
   },
 
   // Skills — the hard parts, rewarded so they're never skipped
@@ -241,7 +267,8 @@ export const BADGES: Badge[] = [
     titleEn: 'Game master',
     category: 'skills',
     hintEn: 'Play every kind of game in the course.',
-    measure: (c, env) => count(kindsPlayed(c, env).size, env.allKinds.length, 'kinds of game'),
+    measure: (c, env) =>
+      count([...kindsPlayed(c, env)].filter((k) => env.allKinds.includes(k)).length, env.allKinds.length, 'kinds of game'),
   },
   {
     id: 'stars-500',
@@ -321,16 +348,22 @@ export function badgeById(id: string): Badge | undefined {
   return BADGES.find((b) => b.id === id);
 }
 
+const isEarned = (p: BadgeProgress) => p.need > 0 && p.have >= p.need;
+
+/** A badge's progress: against today's course, or — once earned there — the
+ *  first course (see `FIRST_COURSE`), so an earned badge shows as earned. */
 export function badgeProgress(child: Child, env: BadgeEnv, badge: Badge): BadgeProgress {
-  return badge.measure(child, env);
+  const now = badge.measure(child, env);
+  if (isEarned(now)) return now;
+  const before = badge.measure(child, { ...env, ...FIRST_COURSE });
+  return isEarned(before) ? before : now;
 }
 
 /** The set of badge ids a child has earned, given the content env. Pure. */
 export function earnedBadgeIds(child: Child, env: BadgeEnv): Set<string> {
   const earned = new Set<string>();
   for (const b of BADGES) {
-    const p = b.measure(child, env);
-    if (p.need > 0 && p.have >= p.need) earned.add(b.id);
+    if (isEarned(badgeProgress(child, env, b))) earned.add(b.id);
   }
   return earned;
 }

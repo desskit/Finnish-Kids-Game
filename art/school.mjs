@@ -4,7 +4,7 @@
 // the test gets its ticks.
 
 import { fmt, polar, pt } from './kit.mjs';
-import { CAST, person, POSES } from './people.mjs';
+import { arm, CAST, person, POSES } from './people.mjs';
 
 /** A person shrunk and placed: `x` is where their middle goes, `ground` where their feet go. */
 const placed = (k, look, pose, x, ground, s) => k.g(`translate(${fmt(x - 32 * s)} ${fmt(ground - 60 * s)}) scale(${s})`, person(k, look, pose));
@@ -14,6 +14,48 @@ const heldBook = (k, x, y, color = 'red') => k.rect(x - 3.6, y - 5, 7.2, 9.4, 1.
 
 export function teacher(k) {
   return person(k, CAST.opettaja) + heldBook(k, 44.4, 44.6, 'red');
+}
+
+/** A captain's cap on a standing person's head: the white top, the navy band, the peak, the badge. */
+function captainCap(k) {
+  const c = k.P;
+  return [
+    k.poly([[15.4, 5], [48.6, 5], [44.8, 13.8], [19.2, 13.8]], [4.4, 4.4, 1, 1], c.white),
+    k.shine('M20.4 8Q25 6.6 29.4 6.6', 1.6),
+    k.rect(18.8, 12.6, 26.4, 4.6, 1, c.navy),
+    k.path('M19.4 16.4Q32 23 44.6 16.4Q32 19.2 19.4 16.4Z', c.charcoal),
+    k.circle(32, 10, 2.4, c.amber),
+  ].join('');
+}
+
+/** Captain (Kapteeni käskee!): Leo in a captain's cap, saluting. */
+export function captain(k) {
+  const salute = [[47.2, 26.8], [44.2, 15.6]];
+  return [
+    person(k, CAST.leo, { ...POSES.stand, face: 'grin', armFront: [[38.4, 34.8], ...salute] }),
+    captainCap(k),
+    arm(k, CAST.leo, salute),
+  ].join('');
+}
+
+/** "Ei!" — the captain didn't say it: arms crossed, shaking his head. */
+export function captainNo(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    k.g(
+      `rotate(${f ? 5 : -5} 32 46)`,
+      person(k, CAST.leo, {
+        ...POSES.stand,
+        face: 'sad',
+        look: f ? 2 : -2,
+        armBack: [[25.6, 34.8], [24, 42.6], [41, 36]],
+        armFront: [[38.4, 34.8], [40, 42.6], [23, 36]],
+      }),
+      captainCap(k),
+    ),
+    k.limb('M50.4 4.4L59.6 13.6M59.6 4.4L50.4 13.6', c.red, 4.6),
+  ].join('');
 }
 
 /** Two friends, Eero and Aino, holding hands; a heart floats between them. */

@@ -9,6 +9,9 @@ import {
   buildAgreementRound,
   buildConjugationRound,
   buildCommandRound,
+  buildCaptainRound,
+  CAPTAIN_NO,
+  CAPTAIN_SAYS,
   buildYesNoRound,
   buildGrammarReviewQuestion,
   buildReviewRound,
@@ -236,6 +239,75 @@ describe('buildCommandRound (TPR commands)', () => {
     for (const banned of ['love', 'cry', 'remember', 'forget', 'want']) {
       expect(COMMAND_VERB_IDS).not.toContain(banned);
     }
+  });
+});
+
+describe('buildCaptainRound (Kapteeni käskee)', () => {
+  const carriers = nounConstructions.filter((c) => c.id === 'touch-it' || c.id === 'lift-it');
+  const bodyParts = body.items.filter((i) => !['heart', 'bone', 'muscle'].includes(i.id));
+
+  it('at three tiles, is always the captain speaking, about a body part or an action', () => {
+    for (let r = 0; r < RUNS; r++) {
+      for (const q of buildCaptainRound(bodyParts, verbs.items, carriers, 8, 3)) {
+        expect(q.sentence.startsWith(`${CAPTAIN_SAYS} `)).toBe(true);
+        expect(q.item).not.toBe(CAPTAIN_NO);
+        expect(q.options).toHaveLength(3);
+        expect(q.options.filter((o) => o.id === q.item.id)).toHaveLength(1);
+        expect(q.attemptId).toBe(q.item.id);
+        // "Kapteeni käskee: kosketa nenää!" — the command goes on in lower case
+        expect(q.sentence).toMatch(/^Kapteeni käskee: [a-zäö]/);
+      }
+    }
+  });
+
+  it('is mostly the body commands: two in three', () => {
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildCaptainRound(bodyParts, verbs.items, carriers, 9, 3);
+      expect(round.filter((q) => bodyParts.includes(q.item))).toHaveLength(6);
+    }
+  });
+
+  it('from four tiles, puts the "Ei!" tile last, and it answers the commands said without the captain', () => {
+    let plain = 0;
+    for (let r = 0; r < RUNS; r++) {
+      const round = buildCaptainRound(bodyParts, verbs.items, carriers, 8, 4);
+      expect(round.length).toBe(8);
+      for (const q of round) {
+        expect(q.options).toHaveLength(4);
+        expect(q.options[3]).toBe(CAPTAIN_NO);
+        if (q.sentence.startsWith(CAPTAIN_SAYS)) {
+          expect(q.item).not.toBe(CAPTAIN_NO);
+          expect(q.attemptId).toBe(q.item.id);
+        } else {
+          plain++;
+          // no captain: the answer is "Ei!", and a right tap credits no word
+          expect(q.item).toBe(CAPTAIN_NO);
+          expect(q.attemptId).toBeNull();
+          expect(q.sentence).toMatch(/^[A-ZÄÖ].*!$/);
+        }
+      }
+      // about one in three
+      const no = round.filter((q) => q.item === CAPTAIN_NO).length;
+      expect(no).toBeGreaterThanOrEqual(1);
+      expect(no).toBeLessThanOrEqual(4);
+    }
+    expect(plain).toBeGreaterThan(0);
+  });
+
+  it('only commands what a child can do: never an eye, a tooth or the tongue to touch; only actable verbs', () => {
+    let actions = 0;
+    for (let r = 0; r < RUNS; r++) {
+      // at three tiles the captain always speaks, so the answer is the thing commanded
+      for (const q of buildCaptainRound(bodyParts, verbs.items, carriers, 8, 3)) {
+        if (/kosketa /i.test(q.sentence)) expect(['eye', 'tooth', 'tongue']).not.toContain(q.item.id);
+        if (verbs.items.includes(q.item)) {
+          actions++;
+          expect(COMMAND_VERB_IDS).toContain(q.item.id);
+          expect(q.sentence).toBe(`${CAPTAIN_SAYS} ${commandFor(q.item)!.toLowerCase()}`);
+        }
+      }
+    }
+    expect(actions).toBeGreaterThan(0);
   });
 });
 

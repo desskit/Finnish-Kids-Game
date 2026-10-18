@@ -49,7 +49,7 @@ const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 
 const DRIFT_PX_PER_S = 2;
 
 /** The order the gallery shows the themes in (anything else after these). */
-const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'nature', 'places', 'clothes', 'school', 'freetime', 'time', 'verbs', 'adjectives', 'feeling-verbs', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
 const THEME_NAMES = {
   'story-props': 'Story props',
   buttons: 'Buttons and signs',
@@ -68,6 +68,7 @@ const THEME_NAMES = {
   time: 'Time',
   verbs: 'Doing things',
   adjectives: 'Describing words',
+  'feeling-verbs': 'Feelings that happen to you',
   states: 'How things are',
   numbers: 'Numbers',
   ordinals: 'First, second, third',

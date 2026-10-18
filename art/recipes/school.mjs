@@ -22,6 +22,9 @@ export default [
     },
   },
   { id: 'teacher', title: 'teacher (Opettaja)', draw: school.teacher },
+  { id: 'captain', title: 'captain (Leo in a captain\'s cap, saluting)', draw: school.captain },
+  // the captain game's "Ei!" tile: tap it when the captain didn't say it
+  { id: 'captain-no', title: "no! (the captain didn't say it)", glyphs: ['🙅‍♂️'], prop: true, theme: 'school', motion: { frames: 2, fps: 2.5 }, draw: school.captainNo },
   { id: 'friend', title: 'friend (Eero and Aino holding hands)', motion: { frames: 2, fps: 2 }, draw: school.friend },
   { id: 'pencil', title: 'pencil', draw: school.pencil },
   { id: 'backpack', title: 'backpack (with a reflector)', draw: school.backpack },

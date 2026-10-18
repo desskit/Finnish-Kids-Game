@@ -1301,6 +1301,56 @@
           "en": "apivorous"
         }
       ]
+    },
+    {
+      "id": "wild-duck",
+      "word": "sorsa",
+      "en": "wild duck",
+      "emoji": "🪿",
+      "inflections": {
+        "nominative_singular": "sorsa",
+        "nominative_plural": "sorsat",
+        "genitive_singular": "sorsan",
+        "genitive_plural": "sorsien",
+        "partitive_singular": "sorsaa",
+        "partitive_plural": "sorsia",
+        "inessive_singular": "sorsassa",
+        "inessive_plural": "sorsissa",
+        "elative_singular": "sorsasta",
+        "elative_plural": "sorsista",
+        "illative_singular": "sorsaan",
+        "illative_plural": "sorsiin",
+        "adessive_singular": "sorsalla",
+        "adessive_plural": "sorsilla",
+        "ablative_singular": "sorsalta",
+        "ablative_plural": "sorsilta",
+        "allative_singular": "sorsalle",
+        "allative_plural": "sorsille",
+        "essive_singular": "sorsana",
+        "essive_plural": "sorsina",
+        "translative_singular": "sorsaksi",
+        "translative_plural": "sorsiksi",
+        "abessive_singular": "sorsatta",
+        "abessive_plural": "sorsitta",
+        "instructive_plural": "sorsin",
+        "comitative_singular": "sorsineni",
+        "comitative_plural": "sorsineen",
+        "poss_1sg_nominative_singular": "sorsani",
+        "poss_1sg_inessive_singular": "sorsassani",
+        "poss_1sg_adessive_singular": "sorsallani",
+        "poss_2sg_nominative_singular": "sorsasi",
+        "poss_2sg_inessive_singular": "sorsassasi",
+        "poss_2sg_adessive_singular": "sorsallasi",
+        "poss_3rd_nominative_singular": "sorsansa",
+        "poss_3rd_inessive_singular": "sorsassaan",
+        "poss_3rd_adessive_singular": "sorsallaan"
+      },
+      "english": {
+        "plural": "wild ducks"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 36679
     }
   ]
 }

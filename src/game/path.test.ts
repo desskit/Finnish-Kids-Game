@@ -26,8 +26,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty-seven units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(37);
+  it('is thirty-eight units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(38);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -80,9 +80,14 @@ describe('the course (units × steps)', () => {
     const first = PATH.find((u) => u.newWords.length > 0)!;
     const topics = new Set(first.newWords.map((w) => ITEM_BY_ID[w].topic));
     expect(topics).toEqual(new Set(['family', 'school']));
-    // No body-part vocabulary anywhere in the course units.
+    // Body parts are one unit of their own (My body), in the second half —
+    // never a wall of them up front.
+    const bodyUnit = PATH.findIndex((u) => u.id === 'body');
+    expect(bodyUnit).toBeGreaterThanOrEqual(PATH.length / 2);
     for (const u of PATH) {
-      for (const w of u.newWords) expect(ITEM_BY_ID[w].topic, w).not.toBe('body');
+      for (const w of u.newWords) {
+        if (ITEM_BY_ID[w].topic === 'body') expect(u.id, w).toBe('body');
+      }
     }
   });
 

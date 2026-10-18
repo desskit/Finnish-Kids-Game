@@ -20,12 +20,14 @@ import {
   ordinals,
   adjectives,
   verbs,
+  feelingVerbs,
 } from '../content';
 import type { Difficulty, VerbCombo } from './adapt';
 import { byIds } from '../util/byIds';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import {
+  buildCaptainRound,
   buildCommandRound,
   buildSentenceRound,
   buildSentenceSpellingRound,
@@ -73,6 +75,7 @@ export type ActivityKind =
   | 'match'
   | 'conjugate'
   | 'command'
+  | 'captain'
   | 'yesno'
   | 'possessive'
   | 'error-fix'
@@ -105,7 +108,9 @@ export type Pool =
   | 'adjectives'
   | 'feelings'
   | 'time'
-  | 'ordinals';
+  | 'ordinals'
+  /** Any kind of word — a words step whose unit brings nouns AND verbs. */
+  | 'mixed';
 
 export interface SkillContent {
   /** Vocab pool (default 'nouns' = all noun topics mixed, incl. places). */
@@ -279,10 +284,24 @@ const COLOR_IDS = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'brown'];
 const COLORS: LexicalItem[] = adjectives.items.filter((i) => COLOR_IDS.includes(i.id));
 
 // The Feelings unit's words: the feeling adjectives ("iloinen") plus the
-// "Minulla on nälkä" states — hunger/thirst nouns and cold/hot adjectives.
-const FEELING_IDS = ['happy', 'sad', 'angry', 'tired', 'hungry', 'thirsty', 'sick', 'calm', 'proud', 'cold', 'hot'];
+// "Minulla on nälkä" states — hunger/thirst nouns and cold/hot adjectives —
+// and, after its part-way lesson, the feelings that are verbs ("Minua
+// pelottaa") and "Minulla on tylsää / hauskaa".
+const FEELING_IDS = ['happy', 'sad', 'angry', 'tired', 'hungry', 'thirsty', 'sick', 'calm', 'proud', 'cold', 'hot', 'boring', 'funny'];
 const FEELINGS: LexicalItem[] = [
   ...adjectives.items.filter((i) => FEELING_IDS.includes(i.id)),
+  ...states.items,
+  ...feelingVerbs.items,
+];
+
+// Every word of every kind, for a words step that meets a unit's nouns and
+// verbs together (`pool: 'mixed'`): it only ever shows the unit's own words.
+const EVERY_WORD: LexicalItem[] = [
+  ...NOUNS,
+  ...verbs.items,
+  ...feelingVerbs.items,
+  ...adjectives.items,
+  ...time.items,
   ...states.items,
 ];
 
@@ -322,6 +341,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return time.items;
     case 'ordinals':
       return ordinals.items;
+    case 'mixed':
+      return EVERY_WORD;
     default:
       return NOUNS;
   }
@@ -630,7 +651,11 @@ function sceneStep(id: string, sceneId: string, titleFi: string, titleEn: string
 // The verbs units' words, each split at its part-way KPT lesson: plain verbs
 // first, the ones whose k / p / t changes after the lesson.
 const DOING_PLAIN = ['sing', 'speak', 'dance', 'eat', 'drink', 'swim', 'go', 'come', 'walk', 'run'];
+// …and eleven more like them, met in a second words step.
+const DOING_PLAIN_2 = ['sit', 'stand', 'say', 'ask', 'laugh', 'search', 'cry', 'get', 'hear', 'wash', 'smile'];
 const DOING_KPT = ['sleep', 'play', 'read', 'write', 'draw', 'help', 'listen'];
+// More KPT verbs, each with a change the lesson's last card shows (nt → nn…).
+const DOING_KPT_2 = ['throw', 'learn', 'teach', 'fly', 'build', 'forget', 'close'];
 const TYPE4_PLAIN = ['want', 'open', 'answer', 'clean', 'paint', 'hug', 'fix', 'wake-up'];
 const TYPE4_KPT = ['jump', 'climb', 'cut', 'fall', 'meet', 'like'];
 const TYPE56_PLAIN = ['need', 'choose', 'disturb', 'lock', 'grow-old'];
@@ -638,8 +663,21 @@ const TYPE6_KPT = ['warm-up', 'run-away'];
 
 // The Comparing unit: the adjectives that have sourced degrees, and the animals
 // the comparisons are about (the course meets them here, where they're fun).
-const COMPARE_ADJECTIVES = ['young', 'tall', 'strong', 'good', 'funny'];
-const COMPARE_ANIMALS = ['elephant', 'horse', 'cow', 'bear', 'lion', 'pig', 'sheep', 'fox', 'duck', 'chicken', 'mouse', 'frog'];
+// ("hauska", funny, is met in Feelings: "Minulla on hauskaa".)
+const COMPARE_ADJECTIVES = ['young', 'tall', 'strong', 'good'];
+const COMPARE_ANIMALS = ['elephant', 'horse', 'cow', 'bear', 'lion', 'monkey', 'pig', 'sheep', 'fox', 'duck', 'chicken', 'mouse', 'frog'];
+
+// The having unit's things, and the family it adds.
+const HAVING_THINGS = ['ball', 'football', 'bike', 'game', 'guitar', 'piano', 'phone', 'computer', 'cat', 'dog', 'bunny'];
+const FAMILY_MORE = ['aunt', 'uncle', 'cousin', 'family'];
+
+// The Feelings unit's words, and the ones after its part-way lesson.
+const FEELINGS_1 = ['happy', 'sad', 'angry', 'tired', 'hungry', 'thirsty', 'sick', 'calm', 'proud', 'hunger', 'thirst', 'cold', 'hot'];
+const FEELINGS_2 = ['scared', 'nervous', 'sleepy', 'giggly', 'teary', 'boring', 'funny'];
+
+// My body: the body words a child can point at, and the captain's game.
+const BODY_WORDS = ['eye', 'ear', 'nose', 'mouth', 'hand', 'foot', 'head', 'tooth', 'hair', 'tummy', 'finger', 'knee', 'tongue'];
+const CAPTAIN_WORDS = ['captain', 'order', 'touch', 'lift'];
 
 // The number units' words.
 const TEENS = ['thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
@@ -782,9 +820,10 @@ const UNITS: Chapter[] = [
     icon: '🎒',
     lessonId: 'having',
     midLessons: [{ lessonId: 'having-everyone', before: 'who-has' }],
-    newWords: ['ball', 'football', 'bike', 'game', 'guitar', 'piano', 'phone', 'computer', 'cat', 'dog', 'bunny'],
+    newWords: [...HAVING_THINGS, ...FAMILY_MORE],
     skills: [
-      wordsStep('having', 'nouns'),
+      wordsStep('having', 'nouns', 'New words', HAVING_THINGS),
+      wordsStep('having', 'nouns', 'Family', FAMILY_MORE, 'having-family'),
       phraseStep('i-have', 'Minulla on…', 'I have…', '🙋', ['i-have', 'you-have'], 'Minulla on pyörä.'),
       phraseStep(
         'who-has',
@@ -884,9 +923,10 @@ const UNITS: Chapter[] = [
     accent: '#ea580c',
     icon: '🏃',
     lessonId: 'verb-persons',
-    newWords: DOING_PLAIN,
+    newWords: [...DOING_PLAIN, ...DOING_PLAIN_2],
     skills: [
       wordsStep('doing', 'verbs', 'Action words', DOING_PLAIN),
+      wordsStep('doing', 'verbs', 'More action words', DOING_PLAIN_2, 'doing-words-2'),
       verbStep('verbs-type1', 'Tyyppi 1', 'Type 1: laulaa', '1️⃣', { types: [1], kpt: false }, [PRESENT_POS], 2, 'minä laulan, hän laulaa'),
       verbStep('verbs-type2', 'Tyyppi 2', 'Type 2: syödä', '2️⃣', { types: [2], kpt: false }, [PRESENT_POS], 2, 'minä syön, hän syö'),
       verbStep('verbs-type3', 'Tyyppi 3', 'Type 3: tulla', '3️⃣', { types: [3], kpt: false }, [PRESENT_POS], 2, 'minä tulen, hän tulee'),
@@ -906,9 +946,10 @@ const UNITS: Chapter[] = [
     accent: '#c2410c',
     icon: '🔀',
     lessonId: 'kpt-1-3',
-    newWords: DOING_KPT,
+    newWords: [...DOING_KPT, ...DOING_KPT_2],
     skills: [
       wordsStep('doing-kpt', 'verbs', 'Verbs that change', DOING_KPT, 'doing-kpt-words'),
+      wordsStep('doing-kpt', 'verbs', 'More verbs that change', DOING_KPT_2, 'doing-kpt-words-2'),
       verbStep('verbs-kpt-1-3', 'Nukun, nukkuu', 'k, p, t change', '🔀', { types: [1, 3], kpt: true }, [PRESENT_POS], 3, 'minä nukun, hän nukkuu'),
       verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
       listenStep('doing-kpt-listen', 'Nukun or nukkuu?', 'verbs', { verbs: { types: [1, 3], kpt: true }, combos: [PRESENT_POS] }, 'Nukun. · Hän nukkuu.'),
@@ -991,29 +1032,24 @@ const UNITS: Chapter[] = [
     accent: '#f59e0b',
     icon: '😄',
     lessonId: 'feelings',
-    midLessons: [{ lessonId: 'feelings-on-me', before: 'i-feel' }],
-    newWords: [
-      'happy',
-      'sad',
-      'angry',
-      'tired',
-      'hungry',
-      'thirsty',
-      'sick',
-      'calm',
-      'proud',
-      'hunger',
-      'thirst',
-      'cold',
-      'hot',
+    midLessons: [
+      { lessonId: 'feelings-on-me', before: 'i-feel' },
+      { lessonId: 'feelings-2', before: 'feelings-2-words' },
     ],
+    newWords: [...FEELINGS_1, ...FEELINGS_2],
     skills: [
-      wordsStep('feelings', 'feelings', 'Feelings'),
+      wordsStep('feelings', 'feelings', 'Feelings', FEELINGS_1),
       phraseStep('i-am', 'Olen…', "I'm…", '🙂', ['i-am', 'she-is'], 'Olen iloinen.', 'feelings'),
       phraseStep('i-am-not', 'En ole…', "I'm not…", '🙅', ['i-am-not', 'i-am'], 'En ole väsynyt.', 'feelings'),
       phraseStep('i-feel', 'Minulla on nälkä', 'Hungry, thirsty, cold', '🥶', ['i-feel'], 'Minulla on nälkä.', 'feelings'),
       listenStep('feelings-listen', 'Who feels it?', 'carriers', { constructionIds: ['i-am', 'she-is', 'i-am-not'], pool: 'feelings' }, 'Olen iloinen. · En ole iloinen.'),
       sceneStep('feelings-talk', 'how-feel', 'Miltä tuntuu?', 'How do you feel?'),
+      // Feelings, part 2 (after its part-way lesson): "it scares me", and bored or having fun.
+      wordsStep('feelings', 'feelings', 'Scared, nervous, bored', FEELINGS_2, 'feelings-2-words'),
+      phraseStep('it-scares-me', 'Minua pelottaa', 'It scares me', '😨', ['it-scares-me'], 'Minua pelottaa.', 'feelings'),
+      phraseStep('bored-or-fun', 'Minulla on tylsää', 'Bored or having fun', '😑', ['i-have-fun', 'i-feel'], 'Minulla on tylsää.', 'feelings'),
+      listenStep('feelings-2-listen', 'Which feeling?', 'carriers', { constructionIds: ['it-scares-me', 'i-have-fun', 'i-am'], pool: 'feelings' }, 'Minua pelottaa. · Minulla on tylsää.'),
+      sceneStep('feelings-talk-2', 'first-day', 'Minua jännittää', 'First-day nerves'),
     ],
   },
   {
@@ -1046,9 +1082,10 @@ const UNITS: Chapter[] = [
       'music',
       'movie',
       'hobby',
+      'love',
     ],
     skills: [
-      wordsStep('likes', 'nouns', 'Food & fun'),
+      wordsStep('likes', 'mixed', 'Food & fun'),
       phraseStep('i-like', 'Tykkään…sta', 'I like…', '👍', ['i-like-tykkaan'], 'Tykkään jalkapallosta.'),
       phraseStep(
         'i-like-pidan',
@@ -1135,9 +1172,9 @@ const UNITS: Chapter[] = [
     icon: '👀',
     lessonId: 'total-object',
     midLessons: [{ lessonId: 'watching-waiting', before: 'watch-wait' }],
-    newWords: ['bus', 'train', 'car'],
+    newWords: ['bus', 'train', 'car', 'wait'],
     skills: [
-      wordsStep('seeing', 'nouns', 'Getting around'),
+      wordsStep('seeing', 'mixed', 'Getting around'),
       phraseStep('i-see', 'Näen…n', 'I see…', '👀', ['i-see'], 'Näen bussin.'),
       phraseStep('watch-wait', 'Katson, odotan', 'Watching & waiting', '⏳', ['i-watch', 'i-wait-for'], 'Odotan bussia.'),
       verbCaseStep(
@@ -1161,9 +1198,9 @@ const UNITS: Chapter[] = [
     icon: '🛒',
     lessonId: 'buying',
     midLessons: [{ lessonId: 'buying-some', before: 'buy-some' }],
-    newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter'],
+    newWords: ['shop', 'potato', 'carrot', 'egg', 'rice', 'soup', 'sausage', 'tomato', 'butter', 'buy'],
     skills: [
-      wordsStep('shop', 'nouns', 'Shopping list'),
+      wordsStep('shop', 'mixed', 'Shopping list'),
       phraseStep('buy-one', 'Ostan omenan', 'One whole thing', '🍎', ['i-buy'], 'Ostan omenan.'),
       phraseStep('buy-some', 'Ostan maitoa', 'Some of something', '🥛', ['i-buy-some'], 'Ostan maitoa.'),
       phraseStep('buying', 'Ostan…', 'One, or some?', '🛒', ['i-buy', 'i-buy-some'], 'Ostan omenan. Ostan maitoa.'),
@@ -1203,6 +1240,44 @@ const UNITS: Chapter[] = [
         exampleFi: 'Älä juokse! Juostaan!',
       },
       sceneStep('commands-talk', 'lets-go', 'Leikitään!', "Let's play!"),
+    ],
+  },
+  {
+    id: 'body',
+    titleFi: 'Keho',
+    titleEn: 'My body',
+    blurbEn: 'Eyes, ears, knees and toes — and the captain\'s game: Kapteeni käskee!',
+    accent: '#c2410c',
+    icon: '🧑‍✈️',
+    lessonId: 'body',
+    newWords: [...BODY_WORDS, ...CAPTAIN_WORDS],
+    skills: [
+      wordsStep('body', 'body', 'My body', BODY_WORDS),
+      wordsStep('body', 'mixed', "The captain's words", CAPTAIN_WORDS, 'captain-words'),
+      phraseStep('touch-it', 'Kosketa nenää!', 'Touch your nose!', '🫳', ['touch-it'], 'Kosketa nenää!', 'body'),
+      phraseStep('lift-it', 'Nosta käsi ylös!', 'Put your hand up!', '📤', ['lift-it'], 'Nosta käsi ylös!', 'body'),
+      {
+        id: 'my-nose',
+        titleFi: 'Nenäni',
+        titleEn: 'My nose, your ear',
+        icon: '👃',
+        activity: 'possessive',
+        maxLevel: 3,
+        content: { pool: 'body', possessiveCases: 'never' },
+        exampleFi: 'nenäni, korvasi',
+      },
+      {
+        id: 'captain-says',
+        titleFi: 'Kapteeni käskee',
+        titleEn: 'Captain says',
+        icon: '🧑‍✈️',
+        activity: 'captain',
+        maxLevel: 3,
+        content: { pool: 'body', constructionIds: ['touch-it', 'lift-it'] },
+        exampleFi: 'Kapteeni käskee: kosketa nenää!',
+      },
+      listenStep('body-listen', 'Touch it, or put it up?', 'carriers', { constructionIds: ['touch-it', 'lift-it'], pool: 'body' }, 'Kosketa jalkaa! · Nosta jalka ylös!'),
+      sceneStep('body-talk', 'captain-game', 'Kapteeni käskee', 'Captain says'),
     ],
   },
   {
@@ -1419,9 +1494,10 @@ const UNITS: Chapter[] = [
       'bathroom',
       'sofa',
       'yard',
+      'live',
     ],
     skills: [
-      wordsStep('town', 'places', 'Town & home'),
+      wordsStep('town', 'mixed', 'Town & home'),
       phraseStep('where-i-am', 'Olen puistossa', 'Where I am', '📍', ['i-am-in', 'i-am-on'], 'Olen puistossa.', 'places'),
       phraseStep(
         'going-coming',
@@ -1445,9 +1521,9 @@ const UNITS: Chapter[] = [
     icon: '🚌',
     lessonId: 'by-with',
     midLessons: [{ lessonId: 'with-someone', before: 'with-people' }],
-    newWords: ['boat', 'plane', 'ship', 'taxi', 'spoon', 'fork', 'key'],
+    newWords: ['boat', 'plane', 'ship', 'taxi', 'spoon', 'fork', 'key', 'drive'],
     skills: [
-      wordsStep('by-with', 'nouns', 'Rides and tools'),
+      wordsStep('by-with', 'mixed', 'Rides and tools'),
       phraseStep('go-by', 'Menen bussilla', 'By bus, by car', '🚌', ['go-by'], 'Menen bussilla.'),
       phraseStep(
         'with-tools',
@@ -1781,7 +1857,7 @@ const UNITS: Chapter[] = [
     icon: '⏮️',
     lessonId: 'past',
     midLessons: [{ lessonId: 'past-not', before: 'verbs-past-not' }],
-    newWords: ['cook', 'see', 'give', 'make', 'take', 'find', 'bring', 'look'],
+    newWords: ['cook', 'see', 'give', 'make', 'take', 'find', 'bring', 'look', 'remember', 'carry'],
     skills: [
       wordsStep('yesterday', 'verbs', 'More action words'),
       verbStep('verbs-past', 'Söin', 'What happened', '⏮️', undefined, [PAST_POS], 3, 'minä söin, hän nukkui'),
@@ -2570,6 +2646,29 @@ export function renderActivity(
             buildCommandRound(pictureItems, questionCount, optionCount, tricky, weigh)
           }
           title="Tee näin! · Do this!"
+          promptFi="Mitä pitää tehdä?"
+          promptEn="What do you have to do?"
+          onExit={onExit}
+        />
+      );
+    case 'captain':
+      // Kapteeni käskee: the same game with a rule — do it only when the
+      // captain says so; otherwise tap the captain's "Ei!" (buildCaptainRound).
+      return (
+        <ListenSentence
+          items={pictureItems}
+          constructions={NO_CONSTRUCTIONS}
+          buildRound={(questionCount, optionCount, _tricky, weigh) =>
+            buildCaptainRound(
+              pictureItems,
+              scoped(verbs.items, wordIds, 1),
+              constructionsFor(skill.content.constructionIds),
+              questionCount,
+              optionCount,
+              weigh,
+            )
+          }
+          title="Kapteeni käskee · Captain says"
           promptFi="Mitä pitää tehdä?"
           promptEn="What do you have to do?"
           onExit={onExit}

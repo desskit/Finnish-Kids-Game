@@ -69,6 +69,19 @@ describe('unit unlocking', () => {
   it('opens everything for a grown-up "unlock all"', () => {
     for (const u of UNITS) expect(unitStatus(child(), u, true)).not.toBe('locked');
   });
+
+  it('keeps a started unit open when a new unit is added before it', () => {
+    // A child mid-way through unit 3 when a new unit 2 arrives: unit 3's
+    // lesson is read, the new unit 2's checkpoint isn't passed.
+    const c = child({ course: { checkpoints: passed(u1.id), lessonsSeen: { [u3.lessonId]: 1 } } });
+    expect(unitStatus(c, u2)).toBe('open');
+    expect(unitStatus(c, u3)).toBe('open');
+    expect(stepStatus(c, u3, u3.skills[0])).toBe('open');
+    // Continue leads to the new unit first: it's the first one not done.
+    expect(nextAction(c)).toMatchObject({ kind: 'lesson', unit: u2 });
+    // A unit not started yet still waits for the checkpoint before it.
+    expect(unitStatus(c, UNITS[3])).toBe('locked');
+  });
 });
 
 describe('steps and checkpoints inside a unit', () => {

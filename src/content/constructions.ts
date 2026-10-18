@@ -1,4 +1,5 @@
 import type { Construction } from "./types";
+import { FEELING_VERBS_TOPIC } from "./types";
 import { SURFACE_TAG, CONTAINER_TAG, NOT_COUNTABLE } from "./semantics";
 
 // Generic carrier phrases usable with any countable noun theme (animals, food,
@@ -57,7 +58,7 @@ const SUBSTANCE = NOT_COUNTABLE.filter((id) => !["sky", "sea", "sun", "moon"].in
 // Things a child doesn't "have" ("Minulla on metsä", I have a forest): odd
 // possessions, and family a child can't have yet. Plus bread and cheese,
 // which English says without "a" — "I have bread" is "Minulla on leipää".
-const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese"];
+const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese", "captain"];
 
 // "Missä on ___?" needs a thing you could look for — not a school subject,
 // the weather, the sky, a hobby or a film ("Where is the math?").
@@ -87,12 +88,13 @@ const LIKABLE_TOPICS = [
 // Not LIKING someone is no flashcard for a child ("En pidä äidistä", I don't
 // like Mom): dislikes are about things, food, places and school.
 const DISLIKABLE_TOPICS = LIKABLE_TOPICS.filter((t) => t !== "family");
-const PEOPLE = ["teacher", "friend", "pupil"];
+const PEOPLE = ["teacher", "friend", "pupil", "captain"];
 // Everyday things nobody LOVES ("Rakastan haarukkaa", I love the fork; "I
 // love the pupil", "I love the test").
 const NOT_LOVABLE = [
   "fork", "spoon", "eraser", "paper", "sock", "boot", "glove", "box", "basket", "clock", "key", "table", "chair",
   "door", "window", "bathroom", "canteen", "station", "hospital", "market", "field", "class", "task", "test", "pupil",
+  "captain",
 ];
 
 // Things one WATCHES — living beings and scenery, not food or socks; plus a
@@ -147,7 +149,7 @@ const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS, ...F
 const MY_HAVE_EXCLUDE = [...HAVE_EXCLUDE, "baby", "child"];
 // What a child calls "my" or "your" — not their son or grandchild, a fire, a
 // forest or a taxi ("Tämä on minun poikani" is a parent talking).
-const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi"];
+const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi", "captain"];
 /** Nouns a child never calls "my" or "your" (the Kenen? game skips them too). */
 export const NOT_MY_OWN = [...NATURE_NOBODY_OWNS, ...NOT_MINE];
 // A child may really be without a mom, a dad, a grandparent, a family or a
@@ -165,7 +167,7 @@ const HAVENT_EXCLUDE = [
 // Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
 const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
 // People a child doesn't "have some of": "Minulla on poikia" (I have sons).
-const NOT_YOURS_IN_PLURAL = ["grandchild", "son", "daughter", "baby", "child", "pupil", "teacher"];
+const NOT_YOURS_IN_PLURAL = ["grandchild", "son", "daughter", "baby", "child", "pupil", "teacher", "captain"];
 
 const NO_LANDMARK = [
   "rain",
@@ -213,7 +215,7 @@ const BEHIND_OK = [
 
 // Animals a child can't buy at a pet shop or a market.
 const NOT_PETS = [
-  "bear", "horse", "cow", "pig", "fox", "duck", "frog", "sheep", "elephant", "lion", "monkey", "wolf", "snake",
+  "bear", "horse", "cow", "pig", "fox", "duck", "wild-duck", "frog", "sheep", "elephant", "lion", "monkey", "wolf", "snake",
   "butterfly", "bee",
 ];
 
@@ -393,6 +395,12 @@ const MAY_I = [
   "sing",
   "swim",
 ];
+
+// Body parts a child touches in "Kapteeni käskee" — never an eye, a tooth or
+// the tongue, nor a hand or a finger (you touch WITH those).
+const TOUCHABLE = ["ear", "nose", "mouth", "foot", "head", "hair", "tummy", "knee"];
+// …and the ones you lift up: "Nosta pää ylös!", "Nosta polvi ylös!"
+const LIFTABLE = ["hand", "foot", "finger", "head", "knee"];
 
 export const nounConstructions: Construction[] = [
   // --- Nominative subject/complement (Tier 2) ---
@@ -873,6 +881,7 @@ export const nounConstructions: Construction[] = [
       "gym",
       "english",
       "pupil",
+      "captain",
       "test",
       "task",
       "canteen",
@@ -1525,5 +1534,80 @@ export const nounConstructions: Construction[] = [
     verb: "infinitive",
     topics: ["verbs"],
     onlyIds: MAY_I,
+  },
+
+  // --- Feelings, part 2: the feelings that are verbs, and "having fun" ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // "Minua pelottaa" — literally "it scares me": minua + the feeling verb's
+    // sourced "it" form. Each feeling verb's gloss reads after "I feel".
+    id: "it-scares-me",
+    before: "Minua",
+    punct: ".",
+    en: "I feel ___.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    verb: "impersonal",
+    topics: [FEELING_VERBS_TOPIC],
+  },
+  {
+    // "Minulla on tylsää / hauskaa" — I'm bored / I'm having fun. These take
+    // -a, unlike "Minulla on nälkä" (the basic form).
+    id: "i-have-fun",
+    before: "Minulla on",
+    punct: ".",
+    en: "I'm ___.",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    topics: ["adjectives"],
+    onlyIds: ["boring", "funny"],
+    glossById: { boring: "bored", funny: "having fun" },
+  },
+
+  // --- My body: Kapteeni käskee (commands with a body part) ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  // The command words are the sourced imperatives of koskettaa, nostaa and
+  // pestä (checked in questions.test.ts).
+  {
+    // koskettaa always takes -a: "Kosketa nenää!" — touch your nose.
+    id: "touch-it",
+    before: "Kosketa",
+    punct: "!",
+    en: "Touch your ___!",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    topics: ["body"],
+    onlyIds: TOUCHABLE,
+  },
+  {
+    // After a command, a whole thing keeps its basic form: "Nosta käsi ylös!"
+    id: "lift-it",
+    before: "Nosta",
+    after: "ylös",
+    punct: "!",
+    en: "Lift your ___ up!",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    topics: ["body"],
+    onlyIds: LIFTABLE,
+    sentenceById: { hand: "Put your hand up!", finger: "Put a finger up!" },
+  },
+  {
+    // "Pese kädet!" — wash your hands: both of them, the plural -t. Shown in
+    // the body lesson as a whole command and never drilled before plurals:
+    // tier 4 like the other plural frames, so only the expert games use it.
+    id: "wash-hands",
+    before: "Pese",
+    punct: "!",
+    en: "Wash your ___s!",
+    tier: 4,
+    case: "nominative",
+    number: "plural",
+    topics: ["body"],
+    onlyIds: ["hand", "foot", "ear"],
   },
 ];
