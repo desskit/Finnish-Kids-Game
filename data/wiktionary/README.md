@@ -29,6 +29,9 @@ npm run fetch:wiktionary                 # or: node scripts/fetch-wiktionary.mjs
 node scripts/build-kids-data.mjs data/finnish-inflection-drill
 ```
 
+The commands are the same in Windows PowerShell; run them from the project
+folder (the one with `package.json`). The script has no packages to install.
+
 Options: `--cutoff 60000` (a narrower or wider net; default 100,000),
 `--keep <file>`, `--kaikki <file or URL>` (if you downloaded the extract
 yourself), `--freq <file or URL>`, `--out <dir>`.
