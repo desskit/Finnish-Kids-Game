@@ -7,7 +7,7 @@ import { fmt, polar, pt, roundPoly, scallops } from './kit.mjs';
 
 // --- The cast (fixed looks: keep these when drawing them anywhere) ---------
 
-/** @typedef {{ skin: string, hair: { style: string, color: string, tie?: string }, top: { kind: 'shirt' | 'dress' | 'cardigan', color: string, trim?: string }, bottom?: { kind: 'shorts' | 'trousers' | 'skirt', color: string }, legs?: string, shoes: string, glasses?: boolean }} Look */
+/** @typedef {{ skin: string, hair: { style: string, color: string, tie?: string, cap?: string }, top: { kind: 'shirt' | 'dress' | 'cardigan', color: string, trim?: string }, bottom?: { kind: 'shorts' | 'trousers' | 'skirt', color: string }, legs?: string, shoes: string, glasses?: boolean, freckles?: boolean }} Look */
 
 /** @type {Record<string, Look>} */
 export const CAST = {
@@ -33,6 +33,12 @@ export const FAMILY = {
   brother: { skin: 'skin1', hair: { style: 'cap', color: 'hazel', cap: 'red' }, top: { kind: 'shirt', color: 'yellow' }, bottom: { kind: 'trousers', color: 'brand' }, shoes: 'charcoal' },
   // grandfather (👴): grey tufts and a moustache, glasses, a brown cardigan.
   grandfather: { skin: 'skin1', hair: { style: 'bald', color: 'greyHair' }, top: { kind: 'cardigan', color: 'wood', trim: 'cream' }, bottom: { kind: 'trousers', color: 'grey' }, shoes: 'brown', glasses: true },
+  // aunt (👩‍🦰): Täti — a short ginger bob and a green dress.
+  aunt: { skin: 'skin2', hair: { style: 'bob', color: 'ginger' }, top: { kind: 'dress', color: 'green', trim: 'white' }, shoes: 'brown' },
+  // uncle (🧔): Setä — a moustache and a grey flat cap, an orange shirt.
+  uncle: { skin: 'skin3', hair: { style: 'flatcap', color: 'darkHair', cap: 'grey' }, top: { kind: 'shirt', color: 'orange' }, bottom: { kind: 'trousers', color: 'charcoal' }, shoes: 'brown' },
+  // cousin (🧑‍🦱): Serkku — a ginger ponytail and freckles, a sky-blue shirt.
+  cousin: { skin: 'skin1', hair: { style: 'ponytail', color: 'ginger', tie: 'yellow' }, top: { kind: 'shirt', color: 'sky' }, bottom: { kind: 'trousers', color: 'navy' }, shoes: 'red', freckles: true },
 };
 
 // --- Poses -------------------------------------------------------------------
@@ -290,6 +296,7 @@ function head(k, look, hx, hy, lookDx, face) {
   out.push(k.circle(hx + R - 0.3 + lookDx * 0.3, hy + 2, 2.8, skin));
   out.push(k.circle(hx, hy, R, skin));
   out.push(faceOf(k, hx + lookDx, hy, face));
+  if (look.freckles) out.push(freckles(k, hx + lookDx, hy));
   out.push(hairFront(k, look.hair, hx, hy, hair, hairShade));
   if (look.glasses) out.push(glasses(k, hx + lookDx, hy));
   return out.join('');
@@ -312,6 +319,10 @@ function faceOf(k, x, y, face) {
   else out.push(k.smile(x, y + 6.6, 4.2, 1.3));
   return out.join('');
 }
+
+/** A few freckles over each cheek. */
+const freckles = (k, x, y) =>
+  [[-8.4, 4.6], [-6.4, 5.4], [-8, 6.8], [8.4, 4.6], [6.4, 5.4], [8, 6.8]].map(([dx, dy]) => k.flatCircle(x + dx, y + dy, 0.75, k.P.gingerShade)).join('');
 
 /** Round glasses: one-pixel rims wide enough to show the eyes inside. */
 function glasses(k, x, y) {
@@ -342,6 +353,9 @@ function hairBack(k, hair, hx, hy, color, shade) {
       return k.circle(hx, hy - 13.6, 5.2, color) + k.shine(`M${pt(at(-2.8, -15.4))}Q${pt(at(-2.2, -17.6))} ${pt(at(0, -18))}`, 1.6);
     case 'bob':
       return k.path(roundPoly([at(-14.6, -7), at(14.6, -7), at(15, 11), at(-15, 11)], [9, 9, 3.4, 3.4]), color);
+    case 'ponytail':
+      // out to the back (the picture's left), swinging down
+      return k.path(`M${pt(at(-9.4, -9.6))}C${pt(at(-20.4, -11))} ${pt(at(-23.4, 3))} ${pt(at(-17.6, 10.4))}C${pt(at(-17, 4.6))} ${pt(at(-14.8, 0.2))} ${pt(at(-11.6, -2.8))}Z`, color);
     default:
       return '';
   }
@@ -400,6 +414,26 @@ function hairFront(k, hair, hx, hy, color, shade) {
         k.path(`M${pt(at(-13.4, -3))}A13.6 13.6 0 0 1 ${pt(at(13.4, -3))}Q${pt(at(0, -6.2))} ${pt(at(-13.4, -3))}Z`, capColor) +
         k.poly([at(4, -5.6), at(19.4, -4), at(18.6, -1.2), at(3.6, -2.6)], [1, 1.8, 1.8, 1], capColor) +
         k.circle(...at(0, -13.4), 1.6, capColor)
+      );
+    }
+    case 'ponytail':
+      // swept to one side, the tie where the ponytail starts
+      return (
+        cap(`Q${pt(at(12.8, -3.8))} ${pt(at(10.6, -6.6))}Q${pt(at(4.4, -4.6))} ${pt(at(-1.2, -9.4))}Q${pt(at(-6.2, -4.8))} ${pt(at(-10.8, -5))}Q${pt(at(-12.8, -2.8))} ${pt(polar(hx, hy, R + 1, 172))}`) +
+        k.circle(...at(-12.4, -7.2), 2, k.P[hair.tie ?? 'yellow'])
+      );
+    case 'flatcap': {
+      // short hair at the sides, a flat cap with its peak over the brow, a moustache
+      const capColor = k.P[hair.cap ?? 'grey'];
+      const peak = k.P[`${hair.cap ?? 'grey'}Shade`] ?? capColor;
+      const side = (s) => k.path(`M${pt(at(s * 12.8, 2))}Q${pt(at(s * 13.4, -4))} ${pt(at(s * 10, -6))}L${pt(at(s * 8.6, -1))}Q${pt(at(s * 11, 0))} ${pt(at(s * 12.8, 2))}Z`, color);
+      return (
+        side(-1) +
+        side(1) +
+        k.path(`M${pt(at(-14.6, -3.6))}C${pt(at(-15.4, -12.6))} ${pt(at(-6.4, -15.6))} ${pt(at(1.4, -15.4))}C${pt(at(10.6, -15))} ${pt(at(16.2, -10.8))} ${pt(at(14.8, -3.6))}Q${pt(at(0, -6.8))} ${pt(at(-14.6, -3.6))}Z`, capColor) +
+        k.poly([at(-8.8, -5.8), at(12.4, -5.8), at(13.8, -2.4), at(-7.6, -2.4)], [1, 1.6, 1.6, 1], peak) +
+        k.shine(`M${pt(at(-8.6, -11.4))}Q${pt(at(-5.4, -13.4))} ${pt(at(-1.6, -13.6))}`, 1.6) +
+        k.path(`M${pt(at(-5.6, 6.4))}Q${pt(at(-3, 3.8))} ${pt(at(0, 5))}Q${pt(at(3, 3.8))} ${pt(at(5.6, 6.4))}Q${pt(at(3, 7.6))} ${pt(at(0, 6.4))}Q${pt(at(-3, 7.6))} ${pt(at(-5.6, 6.4))}Z`, color)
       );
     }
     case 'bald':

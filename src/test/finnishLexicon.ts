@@ -11,7 +11,7 @@
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { themes, verbs, numbers, ordinals, adjectives, time, states } from '../content';
+import { themes, verbs, feelingVerbs, numbers, ordinals, adjectives, time, states } from '../content';
 import { PRONOUNS } from '../content/pronouns';
 import { YOU_QUESTION } from '../content/questions';
 
@@ -79,7 +79,7 @@ export function finnishLexicon(): Set<string> {
     words: { inflections: Inflections }[];
   };
   for (const w of poss.words) addAll(set, w.inflections);
-  for (const item of [...themes.flatMap((t) => t.items), ...verbs.items, ...numbers.items, ...ordinals.items, ...adjectives.items, ...time.items, ...states.items]) {
+  for (const item of [...themes.flatMap((t) => t.items), ...verbs.items, ...feelingVerbs.items, ...numbers.items, ...ordinals.items, ...adjectives.items, ...time.items, ...states.items]) {
     set.add(item.fi.toLowerCase());
     addAll(set, item.inflections);
     addAll(set, item.degrees);

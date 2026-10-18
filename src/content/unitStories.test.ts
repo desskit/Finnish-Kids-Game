@@ -5,7 +5,7 @@ import { conversations } from './conversations';
 import { dialogues } from './dialogues';
 import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
 import { lookupWord, TWO_WORDS } from './wordIndex';
-import { adjectives, numbers, ordinals, states, themes, time, verbs } from '.';
+import { adjectives, feelingVerbs, numbers, ordinals, states, themes, time, verbs } from '.';
 import { PATH } from '../game/path';
 
 // Hand-written Finnish is the one place a wrong form can slip in. Every word of
@@ -52,7 +52,7 @@ describe('the story glossary', () => {
   });
 
   it('shows both meanings of a spelling two words share ("Isä tuli" is Dad came, not fire)', () => {
-    const words = [...themes.flatMap((t) => t.items), ...verbs.items, ...adjectives.items, ...numbers.items, ...ordinals.items, ...time.items, ...states.items];
+    const words = [...themes.flatMap((t) => t.items), ...verbs.items, ...feelingVerbs.items, ...adjectives.items, ...numbers.items, ...ordinals.items, ...time.items, ...states.items];
     const bases = new Map<string, Set<string>>();
     for (const w of words) {
       for (const [key, form] of [['basic', w.fi], ...Object.entries(w.inflections)]) {

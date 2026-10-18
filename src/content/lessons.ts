@@ -859,6 +859,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
+        title: 'Three more',
+        text: '**nt → nn**: *lentää → lennän*. **ht → hd**: *unohtaa → unohdan*. And **lk → lj**: *sulkea → suljen*.',
+        rows: [{ kpt: 'fly' }, { kpt: 'forget' }, { kpt: 'close' }],
+      },
+      {
+        kind: 'examples',
         title: 'Type 3 goes the other way round',
         text:
           'In type 3 the "to…" word has the WEAK sound, and every person gets the STRONG one: *kuunnella → kuuntelen, kuuntelee*.',
@@ -2105,6 +2111,67 @@ export const lessons: Lesson[] = [
     ],
   },
   {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'feelings-2',
+    titleFi: 'Minua pelottaa',
+    titleEn: 'Scared, nervous, bored',
+    emoji: '😨',
+    cards: [
+      {
+        kind: 'explain',
+        title: '"It scares me"',
+        text:
+          'Some feelings are verbs in Finnish. You don\'t say "I am scared" — you say *Minua pelottaa*: "it scares me". *Minua* means **me**.',
+      },
+      {
+        kind: 'examples',
+        title: 'Listen',
+        rows: [
+          { sentence: 'it-scares-me', word: 'scared' },
+          { sentence: 'it-scares-me', word: 'nervous' },
+          { sentence: 'it-scares-me', word: 'sleepy' },
+          { sentence: 'it-scares-me', word: 'giggly' },
+          { sentence: 'it-scares-me', word: 'teary' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Say how it feels',
+        text:
+          'Feeling scared or nervous is OK — everyone does sometimes. Saying it helps: *Minua jännittää.* Then a friend or a grown-up knows.',
+      },
+      {
+        kind: 'examples',
+        title: 'Bored? Having fun?',
+        text:
+          'Bored is *Minulla on tylsää*, and having fun is *Minulla on hauskaa* — with **-a**. But hungry keeps its basic form: *Minulla on nälkä*.',
+        rows: [
+          { sentence: 'i-have-fun', word: 'boring' },
+          { sentence: 'i-have-fun', word: 'funny' },
+          { sentence: 'i-feel', word: 'hunger' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I feel scared"?',
+        options: [
+          { ref: { sentence: 'it-scares-me', word: 'scared' }, correct: true },
+          { ref: { sentence: 'it-scares-me', word: 'giggly' } },
+        ],
+        explain: '*Minua pelottaa* — "it scares me". *Minua naurattaa* is "I feel giggly".',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I\'m bored"?',
+        options: [
+          { ref: { sentence: 'i-have-fun', word: 'boring' }, correct: true },
+          { ref: { sentence: 'i-have-fun', word: 'boring', asCase: 'nominative' } },
+        ],
+        explain: 'Bored takes **-a**: *Minulla on tylsää*.',
+      },
+    ],
+  },
+  {
     id: 'school-day',
     titleFi: 'Koulupäivä',
     titleEn: 'Liking and not liking',
@@ -2517,6 +2584,78 @@ export const lessons: Lesson[] = [
           { ref: { mood: 'play', kind: 'dont' } },
         ],
         explain: '"Let\'s" ends in **-aan / -ään**: *Leikitään!*',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'body',
+    titleFi: 'Keho · Kapteeni käskee',
+    titleEn: 'My body · Captain says',
+    emoji: '🧑‍✈️',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Kapteeni käskee!',
+        text:
+          'Finnish kids play *Kapteeni käskee* — "the captain orders". It\'s like Simon Says: do what the captain says, but ONLY when you hear *Kapteeni käskee*!',
+      },
+      {
+        kind: 'examples',
+        title: 'Your face',
+        rows: [{ word: 'eye' }, { word: 'ear' }, { word: 'nose' }, { word: 'mouth' }, { word: 'tooth' }, { word: 'tongue' }],
+      },
+      {
+        kind: 'examples',
+        title: 'The rest of you',
+        text: '*jalka* is your leg AND your foot — Finnish has one word for both.',
+        rows: [{ word: 'head' }, { word: 'hair' }, { word: 'hand' }, { word: 'finger' }, { word: 'tummy' }, { word: 'knee' }, { word: 'foot' }],
+      },
+      {
+        kind: 'examples',
+        title: 'Touch it: -a',
+        text: '*Kosketa* (touch!) always takes **-a / -ä**, just like *Rakastan*.',
+        rows: [
+          { sentence: 'touch-it', word: 'nose' },
+          { sentence: 'touch-it', word: 'ear' },
+          { sentence: 'touch-it', word: 'knee' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Put it up: the basic form',
+        text:
+          'After a command like *Nosta!* (lift!), the whole thing keeps its **basic form**: *Nosta käsi ylös!* And BOTH hands? *kädet* — the **-t** means more than one.',
+        rows: [
+          { sentence: 'lift-it', word: 'hand' },
+          { sentence: 'lift-it', word: 'foot' },
+          { sentence: 'wash-hands', word: 'hand' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'How to play',
+        text:
+          'The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don\'t do it! In the game, tap the captain\'s **Ei!** (no!) instead.',
+      },
+      {
+        kind: 'check',
+        question: 'Which one means "Touch your nose!"?',
+        options: [
+          { ref: { sentence: 'touch-it', word: 'nose' }, correct: true },
+          { ref: { sentence: 'touch-it', word: 'nose', asCase: 'nominative' } },
+        ],
+        explain: '*Kosketa* takes **-a / -ä**: *Kosketa nenää!*',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! What does the captain want you to lift?',
+        listen: { sentence: 'lift-it', word: 'foot' },
+        options: [
+          { ref: { sentence: 'lift-it', word: 'hand' } },
+          { ref: { sentence: 'lift-it', word: 'foot' }, correct: true },
+        ],
+        explain: '*jalka* — your foot (or your leg).',
       },
     ],
   },

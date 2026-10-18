@@ -144,6 +144,24 @@ export function calm(k) {
   ].join('');
 }
 
+/** Boring: flat eyes glancing about, a flat mouth, the chin propped on a fist. */
+export function boring(k) {
+  const c = k.P;
+  const gaze = k.frame % 2 ? 1.8 : -1.8;
+  return [
+    faceBase(k),
+    k.eye(24.4 + gaze, 29.2, 2.8),
+    k.eye(39.6 + gaze, 29.2, 2.8),
+    k.flat('M19.4 24H29.4V28.8H19.4ZM34.6 24H44.6V28.8H34.6Z', c.yellow),
+    k.line('M19.8 28.8H29M35 28.8H44.2', { sw: 1.8 }),
+    k.line('M26 43H38', { sw: 1.8 }),
+    // the fist under the chin, its arm going down out of the picture
+    k.limb('M45.4 57L49 66', c.yellow, 8.6),
+    k.poly([[34.8, 49.4], [47.6, 47.6], [49.4, 57.4], [36.4, 59]], 4, c.yellow),
+    k.line('M38.6 50.4Q38 54.4 39.4 58M43 49.6Q42.4 53.6 43.8 57.4', { sw: 1.4 }),
+  ].join('');
+}
+
 /** Cold: blue with cold, teeth chattering, shivering; icicles hang off. */
 export function cold(k) {
   const c = k.P;

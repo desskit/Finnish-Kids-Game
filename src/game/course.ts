@@ -4,7 +4,9 @@
 //
 // The rules, in order:
 //   - Unit 1 is open. Unit n opens once unit n−1's checkpoint is passed (a unit
-//     with no checkpoint — Mestari — never blocks anything after it).
+//     with no checkpoint — Mestari — never blocks anything after it). A unit
+//     the child has started (its lesson read) stays open, so a unit added to
+//     the course before it never locks a child out of the one they're in.
 //   - Inside an open unit, the lesson comes first: practice steps open once the
 //     lesson has been read to the end.
 //   - A step is DONE when the child has PROVED its top level: reached its
@@ -89,7 +91,7 @@ export function unitStatus(
   if (unitComplete(child, unit)) return 'done';
   if (unlockAll) return 'open';
   const i = unitIndex(unit.id);
-  if (i <= 0) return 'open';
+  if (i <= 0 || lessonSeen(child, unit.lessonId)) return 'open';
   const prev = UNITS[i - 1];
   // A checkpoint-less unit never gates the next one.
   return !hasCheckpoint(prev) || checkpointPassed(child, prev.id) ? 'open' : 'locked';

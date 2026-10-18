@@ -182,6 +182,10 @@ function routeTargets(
         })),
       );
 
+    // Kapteeni käskee: say the captain's commands ("Kosketa nenää!").
+    case 'captain':
+      return keep(buildSayRound(items, constructionsForNode(skill), N, tier, weigh));
+
     // Yes/no questions: say the question itself ("Onko tämä kissa?") — asking
     // is production too. Routed through the node's own is-this carrier.
     case 'yesno':

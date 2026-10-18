@@ -24,10 +24,9 @@ export default [
   { id: 'bird', title: 'bird', motion: { frames: 2, fps: 5 }, draw: bird },
   // ankka: a white farmyard duck (the wild mallard on the lake is a sorsa)
   { id: 'duck', title: 'duck (ankka: a farmyard duck)', motion: { frames: 2, fps: 1.5 }, draw: farmDuck },
-  // sorsa: a wild mallard on the lake. Its word comes from the Wiktionary
-  // supplement (data/wiktionary/); until then the picture waits in the gallery.
-  // 🦆 stays ankka's: this one is found by its id.
-  { id: 'wild-duck', title: 'wild duck (sorsa: a mallard)', theme: 'animals', awaitingWord: 'sorsa', glyph: false, motion: { frames: 2, fps: 1.5 }, draw: mallard },
+  // sorsa: a wild mallard on the lake (its word is from the Wiktionary
+  // supplement, data/wiktionary/). 🦆 is ankka's, so sorsa's key is 🪿.
+  { id: 'wild-duck', title: 'wild duck (sorsa: a mallard)', motion: { frames: 2, fps: 1.5 }, draw: mallard },
   { id: 'chicken', title: 'chicken', motion: { frames: 2, fps: 2.5 }, draw: chicken },
   { id: 'fish', title: 'fish', motion: { frames: 4, fps: 4 }, blink: false, draw: fish },
   { id: 'snake', title: 'snake', motion: { frames: 2, fps: 2.5 }, blink: false, draw: snake },

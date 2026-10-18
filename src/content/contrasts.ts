@@ -139,6 +139,21 @@ export const SLIPS: Record<string, Slip[]> = {
   // Mornings, seasons → -lla. (Not -na: "aamuna" = on that morning — fine.)
   'play-at-time': [s('nominative'), s('inessive'), s('partitive')],
   'clock-is': [s('partitive'), s('genitive'), s('essive')],
+  // "Minulla on tylsää": -a, not the basic form of "Minulla on nälkä".
+  'i-have-fun': [s('nominative'), s('genitive'), s('elative')],
+  // koskettaa takes -a. (Not -lla: "Kosketa nenällä!" = touch with your nose;
+  // not -an: koskea + "nenään" is another verb's way of saying it.)
+  'touch-it': [s('nominative'), s('genitive')],
+  // After a command, a whole thing keeps its basic form; -n is the slip from
+  // "Nostan käden" (I lift my hand). (Not -a: "Nosta kättä" can be fine; not
+  // -lla: "nosta kädellä" = lift WITH your hand; not -sta or -en: "nosta
+  // kädestä / käteen" can be said of lifting something else.) -na (as a
+  // hand) fits no reading.
+  'lift-it': [s('genitive'), s('essive')],
+  // "Pese kädet!" — the plural basic form. -n is the slip from "Pesen
+  // käden"; never the singular ("Pese käsi!" — one hand) or -a ("Pese
+  // käsiä") or -lla ("Pese käsillä" = wash WITH your hands): all fine.
+  'wash-hands': [sg('genitive'), pl('genitive')],
 };
 
 // IN vs ON places: for most things the two endings mean different things

@@ -2,6 +2,7 @@ import animalsData from './data/animals.sourced.json';
 import numbersData from './data/numbers.sourced.json';
 import adjectivesData from './data/adjectives.sourced.json';
 import verbsData from './data/verbs.sourced.json';
+import feelingVerbsData from './data/feeling-verbs.sourced.json';
 import foodData from './data/food.sourced.json';
 import familyData from './data/family.sourced.json';
 import placesData from './data/places.sourced.json';
@@ -166,6 +167,11 @@ export const adjectives = toTheme(adjectivesData as unknown as SourcedFile, []);
 // Verbs power the conjugation exercises (Conjugate the Verb game). Also kept
 // out of `themes` — it isn't a noun vocabulary topic, it has its own game.
 export const verbs = toTheme(verbsData as unknown as SourcedFile, []);
+
+// "Minua pelottaa" (it scares me) — the feelings that are verbs. Only their
+// "it" form fills the Feelings unit's own carrier, so they're no conjugation
+// pool and, like the feeling adjectives, not a reviewable topic.
+export const feelingVerbs = toTheme(feelingVerbsData as unknown as SourcedFile, []);
 
 export const themes: Theme[] = [
   animals,

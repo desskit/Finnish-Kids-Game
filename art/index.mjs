@@ -7,6 +7,7 @@ import avatars from './recipes/avatars.mjs';
 import badges from './recipes/badges.mjs';
 import body from './recipes/body.mjs';
 import clothes from './recipes/clothes.mjs';
+import feelings from './recipes/feelings.mjs';
 import food from './recipes/food.mjs';
 import freetime from './recipes/freetime.mjs';
 import icons from './recipes/icons.mjs';
@@ -47,7 +48,7 @@ import hero from './scenes/hero.mjs';
  * a story shows that isn't a word) has `prop: true`: it goes in the words
  * sprite, under its own `theme` in the gallery.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...verbs, ...school, ...time, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...feelings, ...verbs, ...school, ...time, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
 export const SCENES = [home, kitchen, bedroom, party, classroom, library, shop, cafe, park, playground, yard, field, beach, busStop, zoo, forest, station];

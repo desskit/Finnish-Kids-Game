@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { ActivityProgress, Child } from '../state/storage';
 import type { ItemSchedule } from './srs';
-import { BADGES, BADGE_CATEGORIES, badgeProgress, earnedBadgeIds, kindsPlayed, type BadgeEnv } from './badges';
+import { BADGES, BADGE_CATEGORIES, FIRST_COURSE, badgeProgress, earnedBadgeIds, kindsPlayed, type BadgeEnv } from './badges';
 import { MAX_BOX } from './srs';
 import { PATH, badgeEnv } from './path';
 
@@ -93,6 +93,30 @@ describe('earning achievements', () => {
     expect(has(child({ course: { checkpoints: cp(2) } }), 'halfway')).toBe(true);
     expect(has(child({ course: { checkpoints: cp(3) } }), 'course-done')).toBe(false);
     expect(has(child({ course: { checkpoints: cp(4) } }), 'course-done')).toBe(true);
+  });
+
+  it('never takes a course badge away when the course grows', () => {
+    const passed = (ids: string[]) =>
+      Object.fromEntries(ids.map((id) => [id, { passedAt: 1, best: 0.9, attempts: 1 }]));
+    const first = FIRST_COURSE.checkpointUnitIds;
+    // Every checkpoint of the first course passed; then seven units are added.
+    const grown: BadgeEnv = { ...badgeEnv, checkpointUnitIds: [...first, 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7'] };
+    const done = child({ course: { checkpoints: passed(first) } });
+    expect(has(done, 'course-done', grown)).toBe(true);
+    expect(badgeProgress(done, grown, BADGES.find((b) => b.id === 'course-done')!)).toMatchObject({ have: 36, need: 36 });
+    // Halfway: 18 of the first 36, though 18 of 43 isn't half.
+    expect(has(child({ course: { checkpoints: passed(first.slice(0, 18)) } }), 'halfway', grown)).toBe(true);
+    // The new units' checkpoints never count toward the first course.
+    const mixed = child({ course: { checkpoints: passed([...first.slice(1), 'n1']) } });
+    expect(has(mixed, 'course-done', grown)).toBe(false);
+    // Every Kertaus, and every kind of game, of the first course.
+    const proven = progress({ level: 3, topProvenAt: 1 });
+    const reviews = child({ progress: { u: Object.fromEntries(FIRST_COURSE.kertausStepIds.map((id) => [id, proven])) } });
+    expect(has(reviews, 'memory', { ...badgeEnv, kertausStepIds: [...FIRST_COURSE.kertausStepIds, 'new-mix'] })).toBe(true);
+    const kinds = Object.fromEntries(FIRST_COURSE.allKinds.map((k) => [`s-${k}`, [k]]));
+    const played = child({ progress: { u: Object.fromEntries(FIRST_COURSE.allKinds.map((k) => [`s-${k}`, progress({})])) } });
+    const games: BadgeEnv = { ...badgeEnv, skillKinds: kinds, allKinds: [...FIRST_COURSE.allKinds, 'captain'] };
+    expect(has(played, 'all-games', games)).toBe(true);
   });
 
   it('skill badges reward the hard parts: typed sentences, every Kertaus, conversations', () => {

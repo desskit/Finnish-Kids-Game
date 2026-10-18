@@ -1795,6 +1795,85 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Feelings, part 2: first-day nerves, and comfort
+  {
+    id: 'first-day',
+    titleFi: 'Minua jännittää',
+    titleEn: 'First-day nerves',
+    icon: '😬',
+    partnerIcon: '👩',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Huomenta! Miltä sinusta tuntuu?', en: 'Good morning! How do you feel?' },
+        reply: { fi: 'Minua jännittää.', en: 'I feel nervous.' },
+        distractors: [
+          { fi: 'Minulla on pallo.', en: 'I have a ball.' },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Ei se mitään. Pelottaako sinua?', en: "That's OK. Are you scared?" },
+        reply: { fi: 'Vähän. Minua pelottaa.', en: "A little. I'm scared." },
+        distractors: [
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+        ],
+      },
+      {
+        partner: { fi: 'Minä tulen mukaan. Mennään yhdessä!', en: "I'll come along. Let's go together!" },
+        reply: { fi: 'Kiitos, äiti!', en: 'Thanks, Mom!' },
+        distractors: [
+          { fi: 'Minua väsyttää.', en: 'I feel sleepy.' },
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — My body: playing Kapteeni käskee in the yard
+  {
+    id: 'captain-game',
+    titleFi: 'Kapteeni käskee',
+    titleEn: 'Captain says',
+    icon: '🧑‍✈️',
+    partnerIcon: '🧑‍✈️',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Minä olen kapteeni! Leikitään!', en: "I'm the captain! Let's play!" },
+        reply: { fi: 'Joo, leikitään!', en: "Yeah, let's play!" },
+        distractors: [
+          { fi: 'Älä leiki!', en: "Don't play!" },
+          { fi: 'Hyvää yötä.', en: 'Good night.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kapteeni käskee: kosketa nenää!', en: 'Captain says: touch your nose!' },
+        reply: { fi: 'Kosketan nenää!', en: "I'm touching my nose!" },
+        distractors: [
+          { fi: 'Kosketan korvaa!', en: "I'm touching my ear!" },
+          { fi: 'Kiitos!', en: 'Thank you!' },
+        ],
+      },
+      {
+        // No "Kapteeni käskee" — so you don't do it.
+        partner: { fi: 'Nosta käsi ylös!', en: 'Put your hand up!' },
+        reply: { fi: 'Ei! Kapteeni ei käskenyt!', en: "No! The captain didn't say!" },
+        distractors: [
+          { fi: 'Nostan käden ylös!', en: "I'm putting my hand up!" },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvä! Nyt sinä olet kapteeni.', en: "Good! Now you're the captain." },
+        reply: { fi: 'Jee! Kapteeni käskee: hyppää!', en: 'Yay! Captain says: jump!' },
+        distractors: [
+          { fi: 'Minua väsyttää.', en: 'I feel sleepy.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+    ],
+  },
   // ⚠️ NEEDS NATIVE FINNISH VETTING — Question words: whose, how many, why, what
   {
     id: 'whose-and-why',

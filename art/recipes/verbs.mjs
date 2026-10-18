@@ -44,7 +44,11 @@ export default [
   { id: 'run-away', title: 'run away (from a bee)', motion: { frames: 4, fps: 8 }, draw: verb.runAway },
   // Using the hands
   { id: 'give', title: 'give (a present to Aino)', motion: { frames: 2, fps: 1.5 }, draw: verb.give },
+  { id: 'get', title: 'get (a present dropping into his hands)', motion: { frames: 2, fps: 1.5 }, draw: verb.get },
   { id: 'help', title: 'help (carrying a box together)', motion: { frames: 2, fps: 2.5 }, draw: verb.help },
+  { id: 'carry', title: 'carry, take somewhere (walking off with a box)', motion: { frames: 4, fps: 4 }, draw: verb.carry },
+  { id: 'lift', title: 'lift (a box up over his head)', motion: { frames: 2, fps: 2 }, draw: verb.lift },
+  { id: 'touch', title: 'touch (a fingertip on the water, ripples)', motion: { frames: 3, fps: 2.5 }, draw: verb.touch },
   { id: 'throw', title: 'throw (a frisbee)', motion: { frames: 2, fps: 2 }, draw: verb.toss },
   { id: 'make', title: 'make (hammering)', motion: { frames: 2, fps: 3 }, draw: verb.make },
   { id: 'build', title: 'build (the last brick)', motion: { frames: 2, fps: 1.5 }, draw: verb.build },
@@ -65,10 +69,17 @@ export default [
   // the 🎤 emoji stays free for the record button's own picture
   { id: 'sing', title: 'sing (into a microphone)', motion: { frames: 2, fps: 2.5 }, draw: verb.sing },
   { id: 'listen', title: 'listen (headphones on)', motion: { frames: 2, fps: 2.5 }, draw: verb.listen },
+  { id: 'hear', title: 'hear (a bell rings: Leo turns to it)', motion: { frames: 2, fps: 4 }, draw: verb.hear },
   { id: 'speak', title: 'speak', motion: { frames: 2, fps: 3 }, draw: verb.speak },
   { id: 'say', title: 'say (a speech bubble)', motion: { frames: 3, fps: 2.5 }, draw: verb.say },
   { id: 'ask', title: 'ask (a question mark)', motion: { frames: 2, fps: 2 }, draw: verb.ask },
   { id: 'answer', title: 'answer (hand up)', motion: { frames: 2, fps: 3 }, draw: verb.answer },
+  // the 📣 is the captain's: käskeä, to order
+  { id: 'order', title: 'order (a megaphone calling out)', motion: { frames: 2, fps: 2.5 }, draw: verb.order },
+  // Thinking
+  { id: 'remember', title: 'remember (the bulb lights up)', motion: { frames: 2, fps: 1.2 }, draw: verb.remember },
+  { id: 'forget', title: 'forget (scratching his head: a "?")', motion: { frames: 2, fps: 2 }, draw: verb.forget },
+  { id: 'live', title: 'live (Leo waving from his window)', motion: { frames: 2, fps: 2.5 }, draw: verb.live },
   // Feelings
   { id: 'smile', title: 'smile', motion: { frames: 2, fps: 1.5 }, draw: verb.smile },
   { id: 'like', title: 'like (yum)', motion: { frames: 2, fps: 2 }, draw: verb.like },

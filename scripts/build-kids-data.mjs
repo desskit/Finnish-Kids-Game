@@ -27,7 +27,13 @@ const ENGLISH_MISSING = [];
 // Lesson-only words are shown once, as-is, and never pluralised or put in an
 // English template — so they need no English morphology.
 const posForTheme = (id) =>
-  id === 'verbs' ? 'V' : id === 'adjectives' ? 'A' : ['numbers', 'ordinals', 'lesson-words'].includes(id) ? null : 'N';
+  id === 'verbs'
+    ? 'V'
+    : id === 'adjectives'
+      ? 'A'
+      : ['numbers', 'ordinals', 'lesson-words', 'feeling-verbs'].includes(id)
+        ? null
+        : 'N';
 const SRC_DIR =
   process.argv[2] ||
   process.env.FID_DATA_DIR ||
@@ -80,8 +86,9 @@ const ANIMALS = [
   ['snake', 'käärme', 'snake', '🐍'],
   ['butterfly', 'perhonen', 'butterfly', '🦋'],
   ['bee', 'mehiläinen', 'bee', '🐝'],
-  // the wild duck (a mallard): from the Wiktionary supplement (data/wiktionary/)
-  ['wild-duck', 'sorsa', 'wild duck', '🦆'],
+  // the wild duck (a mallard): from the Wiktionary supplement (data/wiktionary/).
+  // 🦆 is ankka's, so sorsa's picture goes by a key of its own.
+  ['wild-duck', 'sorsa', 'wild duck', '🪿'],
 ];
 
 // Numbers carry a numeric `value` (5th field) used for counting scenes and the
@@ -165,6 +172,8 @@ const ADJECTIVES = [
   ['strong', 'vahva', 'strong', '🏋️'],
   ['good', 'hyvä', 'good', '👍'],
   ['funny', 'hauska', 'funny', '🤪'],
+  // Feelings, part 2: "Minulla on tylsää" — I'm bored (the picture: a bored kid).
+  ['boring', 'tylsä', 'boring', '😑'],
 ];
 
 const FOOD = [
@@ -341,6 +350,8 @@ const SCHOOL = [
   ['task', 'tehtävä', 'task'],
   // US English: a "canteen" is a water bottle there.
   ['canteen', 'ruokala', 'cafeteria'],
+  // The leader in "Kapteeni käskee" (the Finnish "Simon says"), from My body.
+  ['captain', 'kapteeni', 'captain', '🧑‍✈️'],
 ];
 
 // When? — days of the week (no single picture each, so their English shows on
@@ -449,16 +460,17 @@ const FAMILY = [
   ['grandmother', 'isoäiti', 'grandmother', '👵'],
   ['grandfather', 'isoisä', 'grandfather', '👴'],
   ['family', 'perhe', 'family', '👪'],
-  // (Family is emoji-capped for the PICTURE games — most relatives share the
-  // same person glyph, which the picture game can't tell apart. The four
-  // words below have NO 4th field (emoji stays undefined on purpose): they
-  // still play in the text-only games (build/order/spell), just never as a
-  // picture card. 'setä' stands in for "uncle" in general (Finnish also has
-  // 'eno' for a maternal uncle specifically; kept out for simplicity).
   ['child', 'lapsi', 'child', '🧒'],
-  ['aunt', 'täti', 'aunt'],
-  ['uncle', 'setä', 'uncle'],
-  ['cousin', 'serkku', 'cousin'],
+  // The relatives the "I have" unit adds, each drawn as one of the cast (an
+  // aunt with red hair, an uncle with a moustache, a cousin in a striped cap)
+  // and never offered beside Mom, Dad or a child (content/apart.ts). 'setä'
+  // stands in for "uncle" in general (Finnish also has 'eno' for a maternal
+  // uncle specifically; kept out for simplicity).
+  ['aunt', 'täti', 'aunt', '👩‍🦰'],
+  ['uncle', 'setä', 'uncle', '🧔'],
+  ['cousin', 'serkku', 'cousin', '🧑‍🦱'],
+  // No 4th field (emoji stays undefined on purpose): it still plays in the
+  // text-only games (build/order/spell), just never as a picture card.
   ['grandchild', 'lapsenlapsi', 'grandchild'],
 ];
 
@@ -568,7 +580,7 @@ const VERBS = [
   ['open', 'avata', 'open', '🔓'],
   ['close', 'sulkea', 'close', '🔒'],
   ['buy', 'ostaa', 'buy', '🛒'],
-  ['hear', 'kuulla', 'hear'],
+  ['hear', 'kuulla', 'hear', '🦻'],
   ['listen', 'kuunnella', 'listen', '🎧'],
   ['speak', 'puhua', 'speak', '🗣️'],
   ['say', 'sanoa', 'say', '💬'],
@@ -577,9 +589,9 @@ const VERBS = [
   ['search', 'etsiä', 'look for', '🔍'],
   ['find', 'löytää', 'find'],
   ['make', 'tehdä', 'make', '🔨'],
-  ['get', 'saada', 'get'],
+  ['get', 'saada', 'get', '🫴'],
   ['bring', 'tuoda', 'bring'],
-  ['carry', 'viedä', 'carry'],
+  ['carry', 'viedä', 'carry', '🧳'],
   ['fly', 'lentää', 'fly', '✈️'],
   ['drive', 'ajaa', 'drive', '🚙'],
   ['wash', 'pestä', 'wash', '🧼'],
@@ -592,12 +604,12 @@ const VERBS = [
   ['hug', 'halata', 'hug', '🤗'],
   ['throw', 'heittää', 'throw', '🥏'],
   ['climb', 'kiivetä', 'climb', '🧗'],
-  ['remember', 'muistaa', 'remember'],
-  ['forget', 'unohtaa', 'forget'],
+  ['remember', 'muistaa', 'remember', '🧠'],
+  ['forget', 'unohtaa', 'forget', '❔'],
   ['learn', 'oppia', 'learn', '🎓'],
   ['teach', 'opettaa', 'teach', '👩‍🏫'],
   ['wait', 'odottaa', 'wait', '⏳'],
-  ['live', 'asua', 'live'],
+  ['live', 'asua', 'live', '🏘️'],
   ['build', 'rakentaa', 'build', '🧱'],
   ['fix', 'korjata', 'fix', '🔧'],
   ['wake-up', 'herätä', 'wake up', '⏲️'],
@@ -615,6 +627,23 @@ const VERBS = [
   ['grow-old', 'vanheta', 'grow old', '🧓'],
   ['warm-up', 'lämmetä', 'warm up', '♨️'],
   ['run-away', 'paeta', 'run away', '😱'],
+  // My body: the words of "Kapteeni käskee" — the captain ORDERS, and you
+  // TOUCH your nose or LIFT your hand ("Kosketa nenää!", "Nosta käsi ylös!").
+  ['order', 'käskeä', 'order', '📣'],
+  ['touch', 'koskettaa', 'touch', '🫳'],
+  ['lift', 'nostaa', 'lift', '📤'],
+];
+
+// Feelings that are verbs: "Minua pelottaa" — literally "it scares me". Only
+// their "it" form (present 3sg) is ever used ("Minua ___"), so they're a theme
+// of their own: never in the conjugation drills ("minä pelotan" would say "I
+// scare someone"), and no English forms are needed (the gloss is how it feels).
+const FEELING_VERBS = [
+  ['scared', 'pelottaa', 'scared', '😨'],
+  ['nervous', 'jännittää', 'nervous', '😬'],
+  ['sleepy', 'väsyttää', 'sleepy', '😪'],
+  ['giggly', 'naurattaa', 'giggly', '🤭'],
+  ['teary', 'itkettää', 'teary', '🥹'],
 ];
 
 // Focused conjugation subset kept per verb: present and past, each in BOTH
@@ -800,6 +829,16 @@ const verbs = buildTheme({
   inflectionKeys: VERB_INFLECTION_KEYS,
 });
 
+const feelingVerbs = buildTheme({
+  id: 'feeling-verbs',
+  fi: 'Tunteet',
+  en: 'Feelings that are verbs',
+  emoji: '😨',
+  curation: FEELING_VERBS,
+  sourceWords: verbWords,
+  inflectionKeys: VERB_INFLECTION_KEYS,
+});
+
 const food = buildTheme({
   id: 'food',
   fi: 'Ruoka',
@@ -930,6 +969,7 @@ writeFileSync(
   JSON.stringify(adjectives, null, 2) + '\n',
 );
 writeFileSync(join(OUT_DIR, 'verbs.sourced.json'), JSON.stringify(verbs, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'feeling-verbs.sourced.json'), JSON.stringify(feelingVerbs, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'food.sourced.json'), JSON.stringify(food, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'family.sourced.json'), JSON.stringify(family, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'places.sourced.json'), JSON.stringify(places, null, 2) + '\n');
@@ -945,7 +985,7 @@ writeFileSync(join(OUT_DIR, 'lesson-words.sourced.json'), JSON.stringify(lessonW
 
 console.log(
   `Wrote ${animals.words.length} animals, ${numbers.words.length} numbers, ` +
-    `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ` +
+    `${adjectives.words.length} adjectives, ${verbs.words.length} verbs, ${feelingVerbs.words.length} feeling verbs, ` +
     `${food.words.length} food, ${family.words.length} family, ` +
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +

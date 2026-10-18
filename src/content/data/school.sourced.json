@@ -1061,6 +1061,65 @@
           "en": "Is the dining room open now?"
         }
       ]
+    },
+    {
+      "id": "captain",
+      "word": "kapteeni",
+      "en": "captain",
+      "emoji": "🧑‍✈️",
+      "inflections": {
+        "nominative_singular": "kapteeni",
+        "nominative_plural": "kapteenit",
+        "genitive_singular": "kapteenin",
+        "genitive_plural": "kapteenien",
+        "partitive_singular": "kapteenia",
+        "partitive_plural": "kapteeneita",
+        "inessive_singular": "kapteenissa",
+        "inessive_plural": "kapteeneissa",
+        "elative_singular": "kapteenista",
+        "elative_plural": "kapteeneista",
+        "illative_singular": "kapteeniin",
+        "illative_plural": "kapteeneihin",
+        "adessive_singular": "kapteenilla",
+        "adessive_plural": "kapteeneilla",
+        "ablative_singular": "kapteenilta",
+        "ablative_plural": "kapteeneilta",
+        "allative_singular": "kapteenille",
+        "allative_plural": "kapteeneille",
+        "essive_singular": "kapteenina",
+        "essive_plural": "kapteeneina",
+        "translative_singular": "kapteeniksi",
+        "translative_plural": "kapteeneiksi",
+        "abessive_singular": "kapteenitta",
+        "abessive_plural": "kapteeneitta",
+        "instructive_plural": "kapteenein",
+        "comitative_plural": "kapteeneineen",
+        "poss_1sg_nominative_singular": "kapteenini",
+        "poss_1sg_inessive_singular": "kapteenissani",
+        "poss_1sg_adessive_singular": "kapteenillani",
+        "poss_2sg_nominative_singular": "kapteenisi",
+        "poss_2sg_inessive_singular": "kapteenissasi",
+        "poss_2sg_adessive_singular": "kapteenillasi",
+        "poss_3rd_nominative_singular": "kapteeninsa",
+        "poss_3rd_inessive_singular": "kapteenissaan",
+        "poss_3rd_adessive_singular": "kapteenillaan"
+      },
+      "english": {
+        "plural": "captains"
+      },
+      "kotusType": 6,
+      "group": "i_new",
+      "frequencyRank": 483,
+      "examples": [
+        {
+          "fi": "Hänet valittiin kapteeniksi.",
+          "en": "He was chosen captain."
+        },
+        {
+          "fi": "Valitsimme Tommin kapteeniksi.",
+          "en": "We chose Tom as captain."
+        }
+      ]
     }
   ]
 }

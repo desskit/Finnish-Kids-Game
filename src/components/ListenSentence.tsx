@@ -99,7 +99,8 @@ export default function ListenSentence({
         // Replay the whole sentence — reinforces the utterance, not just the word.
         speak(question.sentence);
         addStars(1);
-        recordAttempt(question.item.id, !missed.current);
+        const credit = question.attemptId === undefined ? question.item.id : question.attemptId;
+        if (credit) recordAttempt(credit, !missed.current);
         if (!missed.current) firstTries.current += 1;
         setWrongId(null);
         const next = index + 1;

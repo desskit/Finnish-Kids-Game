@@ -1086,3 +1086,218 @@ export function buy(k) {
     placed(k, CAST.leo, pose, 16, 60, 0.8),
   ].join('');
 }
+
+// --- More verbs: hearing, getting, taking, remembering, living, the captain's ---
+
+/** A bell hanging from (x, y), its clapper below. */
+function bell(k, x, y) {
+  const c = k.P;
+  const at = (dx, dy) => pt([x + dx, y + dy]);
+  return [
+    k.circle(x, y + 1.6, 1.8, c.amberShade),
+    k.circle(x, y + 23.4, 2.4, c.charcoal),
+    k.path(`M${at(-8, 18)}C${at(-8, 8)} ${at(-6, 3)} ${at(0, 3)}C${at(6, 3)} ${at(8, 8)} ${at(8, 18)}L${at(10, 21.4)}H${fmt(x - 10)}Z`, c.yellow),
+    k.flat(`M${at(3.6, 4.4)}C${at(6.4, 6.6)} ${at(7, 11)} ${at(7, 18.4)}L${at(8.6, 20.4)}H${fmt(x + 4.6)}C${at(5.4, 13)} ${at(5.2, 7.6)} ${at(3.6, 4.4)}Z`, c.yellowShade),
+    k.shine(`M${at(-4.6, 16)}Q${at(-4.8, 9)} ${at(-1.6, 6.6)}`, 1.8),
+  ].join('');
+}
+
+/** Hear: a bell rings — Leo turns to it, all ears. */
+export function hear(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    placed(k, CAST.leo, { face: 'o', look: 2.6 }, 22, 60, 0.86),
+    k.limb('M9.4 3.2V9.2', c.red, 4.4),
+    k.circle(9.4, 13.2, 2, c.red),
+    k.g(`translate(51 6) rotate(${f ? 10 : -10}) scale(.84) translate(-51 -6)`, bell(k, 51, 6)),
+    ...(f ? [14.6] : [11, 14.6]).map((r) => k.line(arcPath(51, 18, r, 160, 200), { sw: 1.8 })),
+  ].join('');
+}
+
+/** A present, its top-left corner at (x, y). */
+function present(k, x, y) {
+  const c = k.P;
+  return [
+    k.rect(x, y, 10.8, 10, 1.2, c.red),
+    k.flat(`M${fmt(x + 4.6)} ${fmt(y + 0.6)}H${fmt(x + 6.2)}V${fmt(y + 9.4)}H${fmt(x + 4.6)}Z`, c.yellow),
+    k.flat(`M${fmt(x + 0.6)} ${fmt(y + 4)}H${fmt(x + 10.2)}V${fmt(y + 5.6)}H${fmt(x + 0.6)}Z`, c.yellow),
+    k.path(`M${fmt(x + 5.4)} ${fmt(y)}C${fmt(x + 3)} ${fmt(y - 4)} ${fmt(x)} ${fmt(y - 2.2)} ${fmt(x + 2.4)} ${fmt(y)}ZM${fmt(x + 5.4)} ${fmt(y)}C${fmt(x + 7.8)} ${fmt(y - 4)} ${fmt(x + 10.8)} ${fmt(y - 2.2)} ${fmt(x + 8.4)} ${fmt(y)}Z`, c.yellow),
+  ].join('');
+}
+
+/** Get: a present drops into Leo's open hands. */
+export function get(k) {
+  const caught = k.frame % 2 === 1;
+  const hands = [[45.6, 41.2], [53.4, 39.8]];
+  const y = caught ? 29.4 : 11.4;
+  return [
+    leo(k, {
+      face: caught ? 'laugh' : 'o',
+      look: 1.8,
+      armBack: [[25.6, 34.8], [34, 45], hands[0]],
+      armFront: [[38.4, 34.8], [48, 44.4], hands[1]],
+    }),
+    present(k, 44.6, y),
+    caught ? sparkle(k, 59.4, 25, 3.2) + sparkle(k, 41, 26, 2.4) : k.line('M47.6 2.6V7M52.4 3.4V7.8', { sw: 1.4 }),
+    hand(k, hands[0]),
+    hand(k, hands[1]),
+  ].join('');
+}
+
+/** Carry (take somewhere): Leo walking off with a box, an arrow showing the way. */
+export function carry(k) {
+  const c = k.P;
+  const pose = walkPose(k);
+  const b = pose.bob;
+  const hands = [[39.8, 41.4 + b], [52.4, 40.4 + b]];
+  const nudge = k.frame % 2 ? 1.4 : 0;
+  return [
+    k.g(
+      'translate(-7 0)',
+      person(k, CAST.leo, {
+        ...pose,
+        face: 'grin',
+        armBack: [[29, 35.4 + b], [34, 42.4 + b], hands[0]],
+        armFront: [[38.6, 35.4 + b], [46.6, 42.6 + b], hands[1]],
+      }),
+      k.rect(39.4, 28.4 + b, 13.6, 12.6, 1.4, c.wood),
+      k.flat(`M44.6 ${fmt(29 + b)}H47.8V${fmt(40.4 + b)}H44.6Z`, c.tan),
+      k.flat(`M50.4 ${fmt(29 + b)}H52.4V${fmt(40.4 + b)}H50.4Z`, c.woodShade),
+      hand(k, hands[0]),
+      hand(k, hands[1]),
+    ),
+    k.poly([[49 + nudge, 12.6], [55 + nudge, 12.6], [55 + nudge, 9], [62 + nudge, 15.2], [55 + nudge, 21.4], [55 + nudge, 17.8], [49 + nudge, 17.8]], 1, c.brand),
+  ].join('');
+}
+
+/** A thought bubble at (x, y), w × h, and the little puffs leading up to it. */
+function thought(k, x, y, w, h) {
+  const c = k.P;
+  return [
+    k.circle(31.6, 19.2, 1.5, c.white),
+    k.circle(34.4, 16.6, 2.3, c.white),
+    k.path(roundPoly([[x - w / 2, y - h / 2], [x + w / 2, y - h / 2], [x + w / 2, y + h / 2], [x - w / 2, y + h / 2]], Math.min(w, h) / 2), c.white),
+    k.shine(`M${pt([x - w / 2 + 2.6, y + 1])}Q${pt([x - w / 2 + 2.8, y - h / 2 + 2.4])} ${pt([x - w / 2 + 6.4, y - h / 2 + 2])}`, 1.4),
+  ].join('');
+}
+
+/** Leo, smaller, on the picture's left: where his head is, and a hand drawn again over it. */
+const SMALL = { x: 21, ground: 60, s: 0.8 };
+const smallLeo = (k, pose, ...extra) => placed(k, CAST.leo, pose, SMALL.x, SMALL.ground, SMALL.s, ...extra);
+const smallAt = poseAt(SMALL.x, SMALL.ground, SMALL.s);
+
+/** Remember: a hand to his chin, Leo thinks… and the bulb lights up. */
+export function remember(k) {
+  const c = k.P;
+  const on = k.frame % 2 === 1;
+  const chin = [26.4, 37.4];
+  return [
+    smallLeo(k, { face: on ? 'grin' : 'smile', look: 1, armFront: [[38.4, 34.8], [45.4, 41], smallAt(chin)] }),
+    hand(k, chin, 'skin3', SMALL.s),
+    thought(k, 48.6, 12, 24, 18),
+    on ? k.line('M40.6 10.6H42.4M54.8 10.6H56.6M42.8 4.8L44 6M54.4 4.8L53.2 6', { color: c.amber, sw: 1.6 }) : '',
+    k.circle(48.6, 10.6, 4, on ? c.yellow : c.silver),
+    on ? k.shineDot(47.2, 9.2, 1.1) : '',
+    k.rect(46.6, 14.2, 4, 3.2, 1, c.grey),
+  ].join('');
+}
+
+/** Forget: Leo scratching his head — the thought has gone, all but a "?". */
+export function forget(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const scratch = f ? [24.6, 18.4] : [27.4, 19.4];
+  return [
+    smallLeo(k, { face: 'o', look: 1, armFront: [[38.4, 34.8], [48.4, 26.4], smallAt(scratch)] }),
+    hand(k, scratch, 'skin3', SMALL.s),
+    thought(k, 48.6, 12, 22, 20),
+    k.g(`rotate(${f ? 10 : -6} 48.6 12)`, k.limb('M44.8 8.2C44.8 3.4 52.4 3.4 52.4 8.2C52.4 11.2 48.6 11.4 48.6 14.8V15.4', c.greyShade, 4.4), k.circle(48.6, 19, 2, c.greyShade)),
+  ].join('');
+}
+
+/** Live: Leo at home, waving from his window. */
+export function live(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const wave = f ? [46.2, 31.6] : [44.2, 34.4];
+  return [
+    k.ground(32, 59, 25, 2.2),
+    k.poly([[6.6, 19], [57.4, 19], [57.4, 57.4], [6.6, 57.4]], 2, c.cream),
+    k.flat('M50.6 22H56.2V56.2H50.6Z', c.creamShade),
+    k.poly([[32, 2.4], [62, 22.4], [2, 22.4]], [3, 2, 2], c.red),
+    k.flat('M3.8 21.2H60.2L58.4 19.6H5.6Z', c.redShade),
+    k.shine('M17.6 15.6L26.4 9.6', 2),
+    // the window, Leo in it
+    k.rect(16.4, 27, 31.2, 22.4, 2, c.sky, { sw: 2 }),
+    k.flat('M17.6 28.2H23L17.6 37.4Z', c.pink),
+    k.flat('M46.4 28.2H41L46.4 37.4Z', c.pink),
+    k.g('translate(8.96 25.6) scale(.72)', portrait(k, CAST.leo, 'grin')),
+    k.limb(`M43 47.4L${pt(wave)}`, c.green, 6.4),
+    k.circle(...wave, 2.6, c.skin3),
+    k.line(f ? 'M48.8 27.4L51.4 25M50.2 31.4H53.6' : 'M47.4 30.4L50 28M48.4 34.6H51.8', { sw: 1.4 }),
+    // the sill and its flowers
+    k.rect(14.6, 48.4, 34.8, 3.6, 1.2, c.wood),
+    k.circle(21, 46.6, 1.8, c.red),
+    k.circle(26.4, 46.2, 1.8, c.yellow),
+    k.circle(37.6, 46.2, 1.8, c.red),
+    k.circle(43, 46.6, 1.8, c.yellow),
+  ].join('');
+}
+
+/** Order: a megaphone calling out loud. */
+export function order(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  return [
+    k.limb('M21.4 37.4L17.6 49.6', c.charcoal, 5.4),
+    k.rect(7.4, 27.2, 9, 9.6, 2.2, c.charcoal),
+    k.poly([[15, 26.4], [44, 12.6], [44, 51.4], [15, 37.6]], [1.4, 2, 2, 1.4], c.red),
+    k.flat('M24.6 22.2L29.2 20V44L24.6 41.8Z', c.white),
+    k.flat('M15.8 34.6L43.2 47.6V50.4L15.8 37Z', c.redShade),
+    k.ellipse(44, 32, 3.8, 19.4, c.redShade),
+    k.shine('M18.6 29.4L36.2 20.6', 1.8),
+    ...[10.4, 15.6].slice(0, f ? 2 : 1).map((r) => k.line(arcPath(44, 32, r, -42, 42), { sw: 2 })),
+  ].join('');
+}
+
+/** Touch: a fingertip touches the water, and the ripples spread. */
+export function touch(k) {
+  const c = k.P;
+  const f = k.frame % 3;
+  const ring = (rx, ry) => k.line(`M${pt([31 - rx, 49])}A${fmt(rx)} ${fmt(ry)} 0 1 0 ${pt([31 + rx, 49])}A${fmt(rx)} ${fmt(ry)} 0 1 0 ${pt([31 - rx, 49])}`, { color: c.white, sw: 1.6 });
+  return [
+    k.ellipse(32, 50, 28, 10.4, c.water),
+    k.flat('M6 52.4Q32 64 58 52.4Q50 60.4 32 60.6Q14 60.4 6 52.4Z', c.waterShade),
+    ...[[5.6, 2], [11, 3.8], [16.6, 5.8]].slice(0, f + 1).map(([rx, ry]) => ring(rx, ry)),
+    k.limb('M60.4 12.4L44.6 30.4', c.green, 9.4),
+    k.limb('M39.4 36.6L32 46.8', c.skin3, 4.6),
+    k.circle(41.4, 33.4, 5, c.skin3),
+    k.circle(45.4, 35.4, 2.2, c.skin3),
+  ].join('');
+}
+
+/** An arrow pointing up, its tip at (x, y). */
+const arrowUp = (k, x, y) => k.poly([[x, y], [x + 5.4, y + 6], [x + 2, y + 6], [x + 2, y + 12], [x - 2, y + 12], [x - 2, y + 6], [x - 5.4, y + 6]], 1, k.P.brand);
+
+/** Lift: Leo lifting a box up over his head. */
+export function lift(k) {
+  const c = k.P;
+  const up = k.frame % 2 === 1;
+  const x = 32;
+  const ground = 62;
+  const s = 0.76;
+  const at = poseAt(x, ground, s);
+  const hy = up ? 16.6 : 20.4;
+  const hands = [[22.4, hy], [41.6, hy]];
+  return [
+    placed(k, CAST.leo, { face: up ? 'grin' : 'o', armBack: [[25.6, 34.8], [16.4, 22.6], at(hands[0])], armFront: [[38.4, 34.8], [47.6, 22.6], at(hands[1])] }, x, ground, s),
+    k.rect(20, hy - 13.6, 24, 13.6, 1.6, c.wood),
+    k.flat(`M29.6 ${fmt(hy - 13)}H34.4V${fmt(hy - 0.6)}H29.6Z`, c.tan),
+    k.flat(`M40.6 ${fmt(hy - 13)}H43.4V${fmt(hy - 0.6)}H40.6Z`, c.woodShade),
+    hand(k, hands[0], 'skin3', s),
+    hand(k, hands[1], 'skin3', s),
+    arrowUp(k, 8, up ? 20 : 24),
+    arrowUp(k, 56, up ? 20 : 24),
+  ].join('');
+}

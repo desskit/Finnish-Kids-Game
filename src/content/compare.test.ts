@@ -21,8 +21,13 @@ describe('comparing', () => {
     expect([degreeForm(adj('big'), 'comparative'), degreeForm(adj('big'), 'superlative')]).toEqual(['isompi', 'isoin']);
     expect([degreeForm(adj('good'), 'comparative'), degreeForm(adj('good'), 'superlative')]).toEqual(['parempi', 'paras']);
     expect([degreeForm(adj('tall'), 'comparative'), degreeForm(adj('tall'), 'superlative')]).toEqual(['pidempi', 'pisin']);
+    // Degree headwords from the vendored snapshot and the Wiktionary
+    // supplement (hitaampi, iloisempi, söpömpi… are headwords there).
     expect(comparable(adjectives.items).map((a) => a.fi).sort()).toEqual(
-      ['hauska', 'hyvä', 'iso', 'nopea', 'nuori', 'pieni', 'pitkä', 'vahva', 'vanha'].sort(),
+      [
+        'hauska', 'hidas', 'hyvä', 'iloinen', 'iso', 'kuuma', 'kylmä', 'nopea',
+        'nuori', 'pieni', 'pitkä', 'surullinen', 'söpö', 'tylsä', 'vahva', 'vanha',
+      ].sort(),
     );
   });
 

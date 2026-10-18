@@ -105,6 +105,11 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'onto-them': 'ONTO many things → **-ille**.',
   'out-of-them': 'OUT OF many things → **-ista / -istä**.',
   'off-them': 'OFF many things → **-ilta / -iltä**.',
+  'it-scares-me': '*Minua* + the feeling word in its "it" form: *Minua pelottaa* — "it scares me".',
+  'i-have-fun': 'Bored or having fun → **-a / -ä**: *Minulla on tylsää*. (Hungry stays basic: *Minulla on nälkä*.)',
+  'touch-it': '*Kosketa* (touch) always takes **-a / -ä** (or **-ta / -tä**): *Kosketa nenää!*',
+  'lift-it': 'After a command, the whole thing stays in its **basic form**: *Nosta käsi ylös!*',
+  'wash-hands': 'BOTH hands → the plural **-t**: *Pese kädet!*',
 };
 
 const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {

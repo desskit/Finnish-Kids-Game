@@ -351,6 +351,9 @@ export interface ComprehensionQuestion {
   item: LexicalItem;
   /** Picture options (item + distractors); the child taps the matching one. */
   options: LexicalItem[];
+  /** The word a right answer credits (default `item.id`); null = none, as for
+   *  the captain's "Ei!" tile, which is no word. */
+  attemptId?: string | null;
 }
 
 export function buildComprehensionRound(
@@ -425,6 +428,76 @@ export function buildCommandRound(
       sentence: commandFor(target)!,
       item: target,
       options: shuffle([target, ...distractors]),
+    };
+  });
+}
+
+// --- Kapteeni käskee (the Finnish "Simon says") ------------------------------
+//
+// The command game with a rule: do it only when the captain says so. "Kapteeni
+// käskee: kosketa nenää!" → tap the nose; a plain "Kosketa nenää!" → tap the
+// captain's "Ei!" tile instead. The commands are the step's body carriers
+// ("Kosketa nenää!", "Nosta käsi ylös!", each slot form sourced) and the action
+// commands ("Hyppää!", sourced imperatives). Only the prefix is authored.
+
+/** What the captain says before a command that counts. ⚠️ Authored. */
+export const CAPTAIN_SAYS = 'Kapteeni käskee:';
+
+/** The captain's "Ei!" tile — the answer when the captain didn't say it. No
+ *  word of the course, so a right tap credits nothing (`attemptId: null`). */
+export const CAPTAIN_NO: LexicalItem = {
+  id: 'captain-no',
+  fi: 'Ei!',
+  en: "No! The captain didn't say it.",
+  emoji: '🙅‍♂️',
+  tier: 1,
+  inflections: {},
+};
+
+const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+
+/**
+ * A round of captain commands: about two in three are the body commands
+ * ("Kosketa nenää!"), the rest the actions the child knows ("Hyppää!"). With
+ * three tiles (level 1) every command is the captain's; from four tiles on, the
+ * fourth is the captain's "Ei!" and about one command in three comes without
+ * "Kapteeni käskee:" — so the child has to listen for who said it, not just for
+ * the word.
+ */
+export function buildCaptainRound(
+  body: readonly LexicalItem[],
+  verbs: readonly LexicalItem[],
+  constructions: readonly Construction[],
+  questionCount: number,
+  optionCount: number,
+  weigh?: WeighFn,
+): ComprehensionQuestion[] {
+  const parts = body.filter((b) => b.emoji);
+  const actions = verbs.filter((v) => v.emoji && isCommandVerb(v.id) && commandFor(v));
+  type Command = { said: string; item: LexicalItem; among: LexicalItem[] };
+  const bodyCommands: Command[] = constructions.flatMap((c) =>
+    parts.filter((b) => formFor(b, c) && suitsSlot(b, c)).map((b) => ({ said: sentenceFor(b, c), item: b, among: parts })),
+  );
+  const actionCommands: Command[] = actions.map((v) => ({ said: commandFor(v)!, item: v, among: actions }));
+  const byWeight = weigh && ((c: Command) => weigh(c.item));
+  const fromBody = weightedSample(bodyCommands, Math.min(Math.ceil((questionCount * 2) / 3), bodyCommands.length), byWeight);
+  const chosen = shuffle([
+    ...fromBody,
+    ...weightedSample(actionCommands, Math.min(questionCount - fromBody.length, actionCommands.length), byWeight),
+  ]);
+  const withNo = optionCount >= 4;
+  const pictures = withNo ? optionCount - 1 : optionCount;
+  const plain = new Set(withNo ? sample(chosen.map((_, i) => i), Math.max(1, Math.round(chosen.length / 3))) : []);
+  return chosen.map((cmd, i) => {
+    const others = apartFrom(cmd.item.id, cmd.among.filter((x) => x.id !== cmd.item.id));
+    const options = shuffle([cmd.item, ...pickPreferring(others, [], pictures - 1)]);
+    const no = plain.has(i);
+    return {
+      sentence: no ? cmd.said : `${CAPTAIN_SAYS} ${lowerFirst(cmd.said)}`,
+      item: no ? CAPTAIN_NO : cmd.item,
+      // The "Ei!" tile always last, in the same place every time.
+      options: withNo ? [...options, CAPTAIN_NO] : options,
+      attemptId: no ? null : cmd.item.id,
     };
   });
 }

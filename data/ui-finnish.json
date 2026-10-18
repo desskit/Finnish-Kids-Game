@@ -182,6 +182,13 @@
       ]
     },
     {
+      "fi": "Kapteeni käskee",
+      "en": "Captain says",
+      "where": [
+        "game/path.tsx"
+      ]
+    },
+    {
       "fi": "Kenen se on?",
       "en": "Whose is it?",
       "where": [

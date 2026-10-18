@@ -47,6 +47,14 @@ export const AUDIT_ENTRIES: AuditEntry[] = [
     desc: 'Hear a full carrier sentence, tap the picture it is about.',
   },
   {
+    id: 'captain',
+    kind: 'captain',
+    skillId: 'captain-says',
+    titleFi: 'Kapteeni käskee',
+    titleEn: 'Captain says',
+    desc: 'Hear a command and tap what to do, or the captain\'s "Ei!" when it didn\'t start with "Kapteeni käskee".',
+  },
+  {
     id: 'reading',
     kind: 'reading',
     skillId: 'reading',
