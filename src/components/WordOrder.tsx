@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem, Tier } from '../content/types';
-import { englishSentenceFor } from '../content';
+import { englishSentenceFor, pictureFor } from '../content';
 import {
   buildWordOrderRound,
   type SentenceQuestion,
@@ -81,7 +81,7 @@ export default function WordOrder({
           shuffled: q.shuffled,
           attemptId: q.item.id,
           grammarId: grammarSrsId(q.construction.id),
-          emoji: q.item.emoji,
+          emoji: pictureFor(q.item, q.construction),
           why: whyForConstruction(q.construction, q.item),
         }));
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.

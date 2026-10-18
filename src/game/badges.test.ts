@@ -58,9 +58,9 @@ describe('achievement catalog', () => {
     }
   });
 
-  it('measures against the real course (a checkpoint per unit but Mestari, 4 Kertaus steps, many sentence steps)', () => {
+  it('measures against the real course (a checkpoint per unit but Mestari, 5 Kertaus steps, many sentence steps)', () => {
     expect(badgeEnv.checkpointUnitIds.length).toBe(PATH.length - 1);
-    expect(badgeEnv.kertausStepIds).toHaveLength(4);
+    expect(badgeEnv.kertausStepIds).toHaveLength(5);
     expect(Object.keys(badgeEnv.minorKinds).length).toBeGreaterThanOrEqual(10);
     expect(badgeEnv.allKinds).not.toContain('say'); // needs a microphone — never required
     expect(badgeEnv.allKinds).toEqual(expect.arrayContaining(['spell', 'conversation', 'possessive']));

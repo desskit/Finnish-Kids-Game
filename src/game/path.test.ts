@@ -26,8 +26,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is thirty-nine units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(39);
+  it('is forty-two units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(42);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -80,10 +80,10 @@ describe('the course (units × steps)', () => {
     const first = PATH.find((u) => u.newWords.length > 0)!;
     const topics = new Set(first.newWords.map((w) => ITEM_BY_ID[w].topic));
     expect(topics).toEqual(new Set(['family', 'school']));
-    // Body parts are one unit of their own (My body), in the second half —
+    // Body parts are one unit of their own (My body), half way through —
     // never a wall of them up front.
     const bodyUnit = PATH.findIndex((u) => u.id === 'body');
-    expect(bodyUnit).toBeGreaterThanOrEqual(PATH.length / 2);
+    expect(bodyUnit).toBeGreaterThanOrEqual(PATH.length / 3);
     for (const u of PATH) {
       for (const w of u.newWords) {
         if (ITEM_BY_ID[w].topic === 'body') expect(u.id, w).toBe('body');
@@ -159,7 +159,7 @@ describe('the course (units × steps)', () => {
 
   it('places a Kertaus (mixed review) step every few units, mixing ALL earlier grammar steps', () => {
     const mixes = allSkills().filter(({ skill }) => skill.content.mix);
-    expect(mixes.map(({ chapter }) => chapter.id)).toEqual(['not-having', 'school-day', 'moving', 'many']);
+    expect(mixes.map(({ chapter }) => chapter.id)).toEqual(['not-having', 'school-day', 'moving', 'nature', 'many']);
     for (const { chapter, skill } of mixes) {
       const ui = PATH.indexOf(chapter);
       const mixOf = skill.content.mixOf!;

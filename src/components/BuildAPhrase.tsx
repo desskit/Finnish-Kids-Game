@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Construction, LexicalItem } from '../content/types';
-import { englishSentenceFor, formFor, sentenceFor } from '../content';
+import { englishSentenceFor, formFor, pictureFor, sentenceFor, slotText } from '../content';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
@@ -80,7 +80,7 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
 
   // Gloss-free (L9+) needs a picture to stand in for the English — a word with
   // no single picture keeps its English, or the question would be unreadable.
-  const glossFree = drillGlossFree && !!question?.item.emoji;
+  const glossFree = drillGlossFree && !!question && !!pictureFor(question.item, question.construction);
 
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
   const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
@@ -230,15 +230,22 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
       )}
 
       <div className="phrase-card">
-        {item.emoji && (
+        {construction.pictureById?.[item.id] ? (
+          // The phrase's own picture: a clock face for the hour.
           <span className="phrase-emoji" aria-hidden="true">
-            <Art item={item} motion="loop" />
+            <Art glyph={construction.pictureById[item.id]} motion="loop" />
           </span>
+        ) : (
+          item.emoji && (
+            <span className="phrase-emoji" aria-hidden="true">
+              <Art item={item} motion="loop" />
+            </span>
+          )
         )}
         <div className="phrase-line">
           {construction.before && <span className="phrase-fixed">{construction.before}</span>}
           <span className={'phrase-slot' + (chosenForm ? ' phrase-slot--filled' : '')}>
-            {chosenForm ?? '​'}
+            {chosenForm ? slotText(construction, chosenForm) : '​'}
           </span>
           {construction.after && <span className="phrase-fixed">{construction.after}</span>}
           {construction.punct && <span className="phrase-fixed">{construction.punct}</span>}

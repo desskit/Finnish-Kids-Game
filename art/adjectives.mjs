@@ -544,3 +544,24 @@ export function dirty(k) {
     k.line(f ? 'M44 9Q46 14 48 11' : 'M45 9Q47 4 50 7', { sw: 1.2 }),
   ].join('');
 }
+
+/** Warm: a thermometer, its red line up past the middle, the sun shining by it. */
+export function warm(k) {
+  const c = k.P;
+  const level = k.frame % 2 ? 21.6 : 24.6;
+  const rays = [];
+  for (let i = 0; i < 8; i++) {
+    const a = ((i * 45 - 90) * Math.PI) / 180;
+    const p = (r) => `${fmt(45 + r * Math.cos(a))} ${fmt(19 + r * Math.sin(a))}`;
+    rays.push(`M${p(12.6)}L${p(i % 2 ? 15.6 : 17.6)}`);
+  }
+  return [
+    k.limb(rays.join(''), c.amber, 4.4),
+    k.circle(45, 19, 9.6, c.yellow),
+    k.rect(15.6, 6.6, 13.6, 44, 6.8, c.white),
+    k.circle(22.4, 51.4, 8.6, c.red),
+    k.flat(`M19.8 ${level}H25V47H19.8Z`, c.red),
+    k.line('M30.6 14H27.6M30.6 20H27.6M30.6 26H27.6M30.6 32H27.6M30.6 38H27.6', { sw: 1.4 }),
+    k.shine('M18.6 12V19', 1.4),
+  ].join('');
+}

@@ -2165,6 +2165,57 @@
           "en": "dirty bomb"
         }
       ]
+    },
+    {
+      "id": "warm",
+      "word": "lämmin",
+      "en": "warm",
+      "emoji": "🌡️",
+      "inflections": {
+        "nominative_singular": "lämmin",
+        "nominative_plural": "lämpimät",
+        "genitive_singular": "lämpimän",
+        "genitive_plural": "lämpimien",
+        "partitive_singular": "lämmintä",
+        "partitive_plural": "lämpimiä",
+        "inessive_singular": "lämpimässä",
+        "inessive_plural": "lämpimissä",
+        "elative_singular": "lämpimästä",
+        "elative_plural": "lämpimistä",
+        "illative_singular": "lämpimään",
+        "illative_plural": "lämpimiin",
+        "adessive_singular": "lämpimällä",
+        "adessive_plural": "lämpimillä",
+        "ablative_singular": "lämpimältä",
+        "ablative_plural": "lämpimiltä",
+        "allative_singular": "lämpimälle",
+        "allative_plural": "lämpimille",
+        "essive_singular": "lämpimänä",
+        "essive_plural": "lämpiminä",
+        "translative_singular": "lämpimäksi",
+        "translative_plural": "lämpimiksi",
+        "abessive_singular": "lämpimättä",
+        "abessive_plural": "lämpimittä",
+        "instructive_plural": "lämpimin",
+        "comitative_plural": "lämpimine"
+      },
+      "english": {
+        "comparative": "warmer",
+        "superlative": "warmest"
+      },
+      "kotusType": 35,
+      "group": "irregular",
+      "frequencyRank": 4101,
+      "examples": [
+        {
+          "fi": "lämmin varasto",
+          "en": "heated storage"
+        }
+      ],
+      "degrees": {
+        "comparative": "lämpimämpi",
+        "superlative": "lämpimin"
+      }
     }
   ]
 }

@@ -136,3 +136,31 @@ describe('fine Finnish is never marked wrong (final QA)', () => {
     expect(massCapable(item('homework'))).toBe(true);
   });
 });
+
+describe('My day, the weather, out in nature: fine Finnish is never marked wrong', () => {
+  it('"kello seitsemän" is said too, so the basic form is never the slip after "Herään kello"', () => {
+    expect(slipForms(item('seven'), con('wake-at'))).not.toContain('seitsemän');
+  });
+
+  it('"Syön aamupalan" (the whole breakfast) and "Syön aamupalalla" (at breakfast) are fine', () => {
+    const slips = slipForms(item('breakfast'), con('i-eat-meal'));
+    expect(slips).not.toContain('aamupalan');
+    expect(slips).not.toContain('aamupalalla');
+  });
+
+  it('"Puen takkia päälle" (putting it on) is fine', () => {
+    expect(slipForms(item('coat'), con('put-on-clothes'))).not.toContain('takkia');
+  });
+
+  it('"On kylmää" and "on kylmässä" can be right', () => {
+    const slips = slipForms(item('cold'), con('weather-is'));
+    expect(slips).not.toContain('kylmää');
+    expect(slips).not.toContain('kylmässä');
+  });
+
+  it('where an animal IS: never where it comes from (-sta), never "on the lake"', () => {
+    const slips = slipForms(item('lake'), con('fish-in'));
+    expect(slips).toEqual(['järveen', 'järvelle']);
+    expect(slipForms(item('stone'), con('butterfly-on'))).toEqual(['kiveen', 'kivelle']);
+  });
+});

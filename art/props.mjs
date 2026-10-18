@@ -68,8 +68,9 @@ export function shush(k) {
 
 // --- Clocks ----------------------------------------------------------------------
 
-/** A round wall clock at a whole hour: the long hand up at twelve, the short one at the hour. */
-export function oclock(k, hour) {
+/** A round wall clock: the long hand up at twelve for a whole hour, down at six
+ *  for half past — the short hand then halfway on to the next hour. */
+export function oclock(k, hour, minutes = 0) {
   const c = k.P;
   const ticks = [];
   for (let i = 0; i < 12; i++) {
@@ -82,8 +83,8 @@ export function oclock(k, hour) {
     k.shine(`M${pt(polar(32, 32, 23.4, 200))}A23.4 23.4 0 0 1 ${pt(polar(32, 32, 23.4, 236))}`, 2),
     k.circle(32, 32, 21.2, c.white),
     ...ticks,
-    k.line('M32 32V15.4', { sw: 2 }),
-    k.line(`M32 32L${pt(polar(32, 32, 10.6, -90 + hour * 30))}`, { sw: 3.2 }),
+    k.line(`M32 32L${pt(polar(32, 32, 16.6, -90 + minutes * 6))}`, { sw: 2 }),
+    k.line(`M32 32L${pt(polar(32, 32, 10.6, -90 + (hour + minutes / 60) * 30))}`, { sw: 3.2 }),
     k.flatCircle(32, 32, 2.2, c.red),
   ].join('');
 }

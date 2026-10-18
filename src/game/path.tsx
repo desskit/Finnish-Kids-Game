@@ -22,6 +22,8 @@ import {
   verbs,
   feelingVerbs,
   money,
+  meals,
+  weather,
 } from '../content';
 import type { Difficulty, VerbCombo } from './adapt';
 import { byIds } from '../util/byIds';
@@ -112,6 +114,8 @@ export type Pool =
   | 'ordinals'
   /** The euro (counting money at the shop). */
   | 'money'
+  /** Breakfast, lunch, dinner and the evening snack ("Syön aamupalaa"). */
+  | 'meals'
   /** Any kind of word — a words step whose unit brings nouns AND verbs. */
   | 'mixed';
 
@@ -302,6 +306,8 @@ const FEELINGS: LexicalItem[] = [
 const EVERY_WORD: LexicalItem[] = [
   ...NOUNS,
   ...money.items,
+  ...meals.items,
+  ...weather.items,
   ...verbs.items,
   ...feelingVerbs.items,
   ...adjectives.items,
@@ -347,6 +353,8 @@ function itemsForPool(pool?: Pool): LexicalItem[] {
       return ordinals.items;
     case 'money':
       return money.items;
+    case 'meals':
+      return meals.items;
     case 'mixed':
       return EVERY_WORD;
     default:
@@ -540,7 +548,7 @@ function typeStep(id: string, types: VerbType[], maxLevel: number, kpt?: boolean
  * Phrase steps whose grammar is the BASIC form (or a set word) — there's no
  * ending to choose yet, so they skip the pick-the-ending round.
  */
-const NO_ENDING_ROUND = new Set(['this-is', 'i-have', 'who-has', 'what-color', 'today-is', 'clock']);
+const NO_ENDING_ROUND = new Set(['this-is', 'i-have', 'who-has', 'what-color', 'today-is', 'clock', 'half-past', 'weather-or-me']);
 
 /** A listening step ("Kuuntele!"): hear a sentence, pick what it meant —
  *  the meanings differ only by the unit's grammar (the ending, the person,
@@ -706,6 +714,13 @@ const PARTY = ['balloon', 'candle', 'present'];
 // once their parts are known.
 const DATE_ORDINALS = ['eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth', 'thirtieth'];
 
+// Not having: the everyday clothes, then the winter ones (a beanie, mittens…).
+const CLOTHES_1 = ['shirt', 'coat', 'shoe', 'sock', 'hat', 'cap', 'boot', 'dress'];
+const WINTER_CLOTHES = ['beanie', 'mitten', 'snowsuit', 'sweater', 'raincoat', 'scarf', 'glove'];
+// Out in nature: the land and water, then the animals that live there.
+const NATURE_WORDS = ['flower', 'mountain', 'stone', 'lake', 'sea', 'leaf', 'grass', 'island', 'fire', 'beach'];
+const WILD_ANIMALS = ['bird', 'fish', 'butterfly', 'bee', 'snake', 'wolf', 'wild-duck'];
+
 const UNITS: Chapter[] = [
   {
     id: 'hello',
@@ -861,9 +876,10 @@ const UNITS: Chapter[] = [
     accent: '#db2777',
     icon: '🚫',
     lessonId: 'negation-object',
-    newWords: ['shirt', 'coat', 'shoe', 'sock', 'hat', 'cap', 'boot', 'dress'],
+    newWords: [...CLOTHES_1, ...WINTER_CLOTHES],
     skills: [
-      wordsStep('not-having', 'nouns', 'Clothes'),
+      wordsStep('not-having', 'nouns', 'Clothes', CLOTHES_1),
+      wordsStep('not-having', 'nouns', 'Winter clothes', WINTER_CLOTHES, 'not-having-words-2'),
       phraseStep('i-havent', 'Minulla ei ole…', "I don't have…", '🚫', ['i-havent'], 'Minulla ei ole hattua.'),
       phraseStep('have-or-not', 'On vai ei?', 'Have or not', '⚖️', ['i-have', 'i-havent', 'you-have']),
       listenStep('not-having-listen', 'Have it or not?', 'carriers', { constructionIds: ['i-have', 'i-havent'] }, 'Minulla on hattu. · Minulla ei ole hattua.'),
@@ -1629,6 +1645,63 @@ const UNITS: Chapter[] = [
       listenStep('when-listen', 'Today, or on a day?', 'carriers', { constructionIds: ['today-is', 'play-on-day', 'play-at-time'], pool: 'time' }, 'Tänään on maanantai. · Leikin maanantaina.'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
       sceneStep('when-talk-2', 'my-week', 'Minun viikkoni', 'My week'),
+    ],
+  },
+  {
+    id: 'my-day',
+    titleFi: 'Minun päiväni',
+    titleEn: 'My day',
+    blurbEn: 'Wake up, eat, get dressed — and tell the time to the half hour.',
+    accent: '#d97706',
+    icon: '🌅',
+    lessonId: 'my-day',
+    midLessons: [{ lessonId: 'half-hour', before: 'half-past' }],
+    newWords: ['breakfast', 'lunch', 'dinner', 'evening-snack', 'brush', 'put-on'],
+    skills: [
+      wordsStep('my-day', 'mixed', 'Meals and getting ready'),
+      verbStep('my-day-verbs', 'Herään, pesen, harjaan', 'My morning', '🪥', { ids: ['wake-up', 'wash', 'brush', 'put-on'] }, [PRESENT_POS], 3, 'minä herään, hän harjaa'),
+      phraseStep('wake-up-time', 'Herään kello seitsemältä', 'Waking up', '⏰', ['wake-at'], 'Herään kello seitsemältä.', 'numbers'),
+      phraseStep('meals', 'Syön aamupalaa', 'Meals', '🥞', ['i-eat-meal'], 'Syön aamupalaa.', 'meals'),
+      phraseStep('get-dressed', 'Puen takin päälle', 'Getting dressed', '🧥', ['put-on-clothes'], 'Puen takin päälle.', 'clothes'),
+      phraseStep('half-past', 'Kello on puoli…', 'Half past', '🕢', ['half-past'], 'Kello on puoli kahdeksan.', 'numbers'),
+      listenStep('my-day-listen', 'On the hour, or half past?', 'carriers', { constructionIds: ['clock-is', 'half-past'], pool: 'numbers' }, 'Kello on kahdeksan. · Kello on puoli kahdeksan.'),
+      sceneStep('my-day-talk', 'my-morning', 'Aamulla', 'In the morning'),
+    ],
+  },
+  {
+    id: 'weather',
+    titleFi: 'Millainen sää?',
+    titleEn: 'Weather',
+    blurbEn: "Snow, rain and sun — and the difference between it's cold and I'm cold.",
+    accent: '#0ea5e9',
+    icon: '⛅',
+    lessonId: 'weather',
+    newWords: ['weather', 'sun', 'moon', 'star', 'sky', 'cloud', 'rain', 'snow', 'wind', 'ice', 'warm'],
+    skills: [
+      wordsStep('weather', 'mixed', 'Weather and sky'),
+      phraseStep('rain-and-sun', 'Sataa lunta', 'Snow, rain and sun', '🌧️', ['it-rains', 'it-shines'], 'Sataa lunta. · Aurinko paistaa.'),
+      phraseStep('weather-or-me', 'On kylmä', "It's cold", '🌡️', ['weather-is', 'i-feel'], 'On kylmä. · Minulla on kylmä.', 'mixed'),
+      listenStep('weather-listen', 'The weather, or me?', 'carriers', { constructionIds: ['weather-is', 'i-feel'], pool: 'mixed' }, 'On kylmä. · Minulla on kylmä.'),
+      sceneStep('weather-talk', 'weather-today', 'Millainen sää?', "What's the weather like?"),
+    ],
+  },
+  {
+    id: 'nature',
+    titleFi: 'Luonnossa',
+    titleEn: 'Out in nature',
+    blurbEn: 'Lakes, forests and the animals in them — where they are, and where we go.',
+    accent: '#15803d',
+    icon: '🌲',
+    lessonId: 'nature',
+    newWords: [...NATURE_WORDS, ...WILD_ANIMALS],
+    skills: [
+      wordsStep('nature', 'nature', 'Out in nature', NATURE_WORDS),
+      wordsStep('nature', 'animals', 'Animals in nature', WILD_ANIMALS, 'nature-words-2'),
+      phraseStep('where-animals', 'Kala on järvessä', 'Where are the animals?', '🐟', ['fish-in', 'bird-in', 'butterfly-on'], 'Kala on järvessä.'),
+      phraseStep('into-nature', 'Menen metsään', 'Out into nature', '⛰️', ['i-go-into', 'i-go-onto'], 'Menen metsään. · Menen vuorelle.'),
+      listenStep('nature-listen', 'Where is it?', 'carriers', { constructionIds: ['fish-in', 'bird-in', 'butterfly-on'] }, 'Kala on järvessä. · Lintu on puussa.'),
+      sceneStep('nature-talk', 'forest-trip', 'Metsäretki', 'A trip to the forest'),
+      reviewStep('nature'),
     ],
   },
   {

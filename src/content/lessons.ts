@@ -25,8 +25,11 @@ import {
   englishSentenceFor,
   formFor,
   PERSONS,
+  pictureFor,
   pluralEn,
   possessiveForm,
+  slotStartsSentence,
+  slotText,
   possessiveGloss,
   verbForm,
 } from './types';
@@ -268,11 +271,13 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
       con.possessor && !ref.asCase
         ? possessiveSegments(form, con.possessor)
         : caseSegments(form, c, con.number === 'plural');
+    // a slot that starts the sentence is capitalized ("Aurinko paistaa.")
+    if (slotStartsSentence(con) && slot.length > 0) slot[0] = { ...slot[0], text: slotText(con, slot[0].text) };
     const segs = sentenceSegments(con.before, slot, con.after, con.punct);
     return {
       segments: segs,
       en: ref.en ?? (ref.asCase || ref.verbAs ? undefined : englishSentenceFor(item, con)),
-      emoji: item.emoji,
+      emoji: pictureFor(item, con),
       speak: segmentsText(segs),
     };
   }
@@ -737,6 +742,16 @@ export const lessons: Lesson[] = [
         title: 'Why?',
         text:
           'Finnish uses **-a / -ä** when something is *not all there* — "none of it", "some of it", "more than one". You\'ll keep meeting this ending, so it\'s worth remembering!',
+      },
+      {
+        kind: 'examples',
+        title: 'Winter clothes',
+        text: 'A Finnish winter needs more clothes — and more to forget!',
+        rows: [
+          { sentence: 'i-havent', word: 'beanie' },
+          { sentence: 'i-havent', word: 'mitten' },
+          { sentence: 'i-havent', word: 'snowsuit' },
+        ],
       },
       {
         kind: 'check',
@@ -2495,6 +2510,263 @@ export const lessons: Lesson[] = [
   // --- Six grammar lessons added with the "Owners / Asking / Want-can-may /
   // Do-don't-let's / Question words / Me and you" units. Finnish quoted in
   // prose (*isän*, *-ko*…) is listed in FINNISH_REVIEW.md for native vetting.
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'my-day',
+    titleFi: 'Minun päiväni',
+    titleEn: 'My day',
+    emoji: '🌅',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Getting ready',
+        text: 'A morning in four verbs. *pukea* (put on) changes its **k**: *minä puen*.',
+        rows: [
+          { verb: 'wake-up', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'wash', tense: 'present', polarity: 'positive', person: '1sg' },
+          { verb: 'brush', tense: 'present', polarity: 'positive', person: '1sg' },
+          { kpt: 'put-on' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'At seven: -lta / -ltä',
+        text: 'AT a time, the hour takes **-lta / -ltä**: *kello seitsemältä* = at seven o\'clock. (*Herään kello seitsemän* is said too.)',
+        rows: [
+          { sentence: 'wake-at', word: 'six' },
+          { sentence: 'wake-at', word: 'seven' },
+          { sentence: 'wake-at', word: 'eight' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Meals',
+        text: 'After *Syön*, a meal takes **-a / -ä**, just like food: *Syön aamupalaa*.',
+        rows: [
+          { sentence: 'i-eat-meal', word: 'breakfast' },
+          { sentence: 'i-eat-meal', word: 'lunch' },
+          { sentence: 'i-eat-meal', word: 'dinner' },
+          { sentence: 'i-eat-meal', word: 'evening-snack' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Getting dressed: -n',
+        text: 'Putting on one whole thing → **-n**: *Puen takin päälle* = I put on my coat.',
+        rows: [
+          { sentence: 'put-on-clothes', word: 'coat' },
+          { sentence: 'put-on-clothes', word: 'sweater' },
+          { sentence: 'put-on-clothes', word: 'snowsuit' },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'First, then, in the end',
+        text: 'Tell your day in order: *ensin* (first), *sitten* (then), *lopuksi* (in the end).',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I eat breakfast"?',
+        options: [
+          { ref: { sentence: 'i-eat-meal', word: 'breakfast' }, correct: true },
+          { ref: { sentence: 'i-eat-meal', word: 'breakfast', asCase: 'nominative' } },
+        ],
+        explain: 'A meal takes **-a**: *Syön aamupalaa*.',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I wake up at seven o\'clock"?',
+        options: [
+          { ref: { sentence: 'wake-at', word: 'seven' }, correct: true },
+          { ref: { sentence: 'wake-at', word: 'seven', asCase: 'inessive' } },
+        ],
+        explain: 'AT a time → **-lta / -ltä**: *kello seitsemältä*.',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'half-hour',
+    titleFi: 'Puoli kahdeksan',
+    titleEn: 'Half past',
+    emoji: '🕢',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Half way to the NEXT hour',
+        text: 'English names the hour that has gone: seven thirty. Finnish names the one that is coming: *puoli kahdeksan* — "half eight", half way to EIGHT. So *puoli kahdeksan* is seven thirty, not eight thirty!',
+      },
+      {
+        kind: 'examples',
+        title: 'Half past',
+        text: 'The hour stays in its basic form, as in *Kello on kahdeksan*.',
+        rows: [
+          { sentence: 'clock-is', word: 'eight' },
+          { sentence: 'half-past', word: 'eight' },
+          { sentence: 'half-past', word: 'nine' },
+          { sentence: 'half-past', word: 'one' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'Listen! Which one did you hear?',
+        listen: { sentence: 'half-past', word: 'eight' },
+        options: [
+          { ref: { sentence: 'clock-is', word: 'eight' } },
+          { ref: { sentence: 'half-past', word: 'eight' }, correct: true },
+        ],
+        explain: '*puoli kahdeksan* — half way to eight: seven thirty. *Kello on kahdeksan* is eight o\'clock.',
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "It\'s twelve thirty"?',
+        options: [
+          { ref: { sentence: 'half-past', word: 'one' }, correct: true },
+          { ref: { sentence: 'half-past', word: 'twelve' } },
+        ],
+        explain: 'Twelve thirty is half way to ONE: *puoli yksi*.',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'weather',
+    titleFi: 'Millainen sää?',
+    titleEn: "What's the weather like?",
+    emoji: '⛅',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Up in the sky',
+        rows: [{ word: 'sun' }, { word: 'moon' }, { word: 'star' }, { word: 'cloud' }],
+      },
+      {
+        kind: 'examples',
+        title: 'It rains snow',
+        text: 'Finnish says it rains water, it rains snow: *Sataa vettä* — it\'s raining. *Sataa lunta* — it\'s snowing. What falls takes **-a / -ä**.',
+        rows: [
+          { sentence: 'it-rains', word: 'water' },
+          { sentence: 'it-rains', word: 'snow' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'The sun is shining',
+        text: 'The sun comes first, in its basic form. And the wind? Just the verb: *Tuulee* — it\'s windy.',
+        rows: [
+          { sentence: 'it-shines', word: 'sun' },
+          { sentence: 'it-shines', word: 'moon' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'The weather, or me?',
+        text: 'The weather is just *On kylmä* — it\'s cold. You are *Minulla on kylmä* — I\'m cold.',
+        rows: [
+          { sentence: 'weather-is', word: 'cold' },
+          { sentence: 'i-feel', word: 'cold' },
+          { sentence: 'weather-is', word: 'warm' },
+          { sentence: 'weather-is', word: 'hot' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'What to wear',
+        text: 'Rain? Snow? Dress for it.',
+        rows: [
+          { sentence: 'put-on-clothes', word: 'raincoat' },
+          { sentence: 'put-on-clothes', word: 'snowsuit' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "It\'s snowing"?',
+        options: [
+          { ref: { sentence: 'it-rains', word: 'snow' }, correct: true },
+          { ref: { sentence: 'it-rains', word: 'snow', asCase: 'nominative' } },
+        ],
+        explain: 'What falls takes **-a**: *Sataa lunta*.',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! Is it the weather, or me?',
+        listen: { sentence: 'i-feel', word: 'cold' },
+        options: [
+          { ref: { sentence: 'weather-is', word: 'cold' } },
+          { ref: { sentence: 'i-feel', word: 'cold' }, correct: true },
+        ],
+        explain: '*Minulla on kylmä* — I\'m cold. The weather is just *On kylmä*.',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'nature',
+    titleFi: 'Luonnossa',
+    titleEn: 'Out in nature',
+    emoji: '🌲',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Land and water',
+        rows: [{ word: 'lake' }, { word: 'sea' }, { word: 'beach' }, { word: 'island' }, { word: 'mountain' }],
+      },
+      {
+        kind: 'examples',
+        title: 'IN: -ssa / -ssä',
+        text: 'A fish is IN the lake, a bird IN the tree: **-ssa / -ssä**.',
+        rows: [
+          { sentence: 'fish-in', word: 'lake' },
+          { sentence: 'bird-in', word: 'tree' },
+          { sentence: 'bird-in', word: 'forest' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'ON: -lla / -llä',
+        text: 'A butterfly sits ON a leaf: **-lla / -llä**.',
+        rows: [
+          { sentence: 'butterfly-on', word: 'leaf' },
+          { sentence: 'butterfly-on', word: 'stone' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Into the forest, onto the mountain',
+        text: 'You go INTO the forest: *metsään*. But a mountain, a lake or a beach you go ONTO, with **-lle**: *vuorelle*, *järvelle*, *rannalle*.',
+        rows: [
+          { sentence: 'i-go-into', word: 'forest' },
+          { sentence: 'i-go-onto', word: 'mountain' },
+          { word: 'lake', case: 'allative', en: 'to the lake' },
+          { word: 'beach', case: 'allative', en: 'to the beach' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Animals in nature',
+        rows: [{ word: 'bird' }, { word: 'fish' }, { word: 'butterfly' }, { word: 'bee' }, { word: 'wild-duck' }],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "The fish is in the lake"?',
+        options: [
+          { ref: { sentence: 'fish-in', word: 'lake' }, correct: true },
+          { ref: { sentence: 'fish-in', word: 'lake', asCase: 'illative' } },
+        ],
+        explain: 'Where it IS → **-ssa**: *järvessä*. (*järveen* is INTO the lake.)',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! Where is the butterfly?',
+        listen: { sentence: 'butterfly-on', word: 'stone' },
+        options: [
+          { ref: { sentence: 'butterfly-on', word: 'stone' }, correct: true },
+          { ref: { sentence: 'butterfly-on', word: 'leaf' } },
+        ],
+        explain: '*kivellä* — on the stone. *lehdellä* is on the leaf.',
+      },
+    ],
+  },
   {
     id: 'owners',
     titleFi: 'Äidin pyörä',

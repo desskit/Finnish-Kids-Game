@@ -13,7 +13,8 @@ const SKY = {
   evening: ['skyEvening', 'skyEveningLow'],
   night: ['skyNight', 'skyNightLow'],
   rain: ['skyRain', 'skyDayLow'],
-  snow: ['skyDay', 'skyDayLow'],
+  // a grey winter sky, so the falling flakes show
+  snow: ['skyRain', 'skyDayLow'],
 };
 
 /** The sky for a tone: a flat color with a paler band near the horizon. */
@@ -64,6 +65,43 @@ export function cloud(k, x, y, s = 1, color = 'white') {
   return k.path(
     `M${P(-30, 10)}H${fmt(x + 30 * s)}A${r(9)} ${r(9)} 0 0 0 ${P(24, -4)}A${r(12)} ${r(12)} 0 0 0 ${P(4, -12)}A${r(14)} ${r(14)} 0 0 0 ${P(-20, -4)}A${r(10)} ${r(10)} 0 0 0 ${P(-30, 10)}Z`,
     k.P[color],
+  );
+}
+
+/** Rain across the whole scene, falling a step on each frame. */
+export function rainFall(k) {
+  const f = k.frames > 1 ? k.frame % 3 : 0;
+  const drops = [];
+  for (let i = 0; i < 26; i++) {
+    const x = (i * 61) % 400;
+    const y = (((i * 37) % 170) + f * 22) % 190;
+    drops.push(`M${x} ${y}l-3 9`);
+  }
+  return k.line(drops.join(''), { color: k.P.skyShade, sw: 1.4 });
+}
+
+/** Snow falling gently: each frame the flakes drift down and sway a little. */
+export function snowFall(k) {
+  const f = k.frames > 1 ? k.frame % 3 : 0;
+  const flakes = [];
+  for (let i = 0; i < 34; i++) {
+    const x = ((i * 53) % 400) + (((i + f) % 2) * 2 - 1) * 1.5;
+    const y = (((i * 41) % 186) + f * 7) % 196;
+    flakes.push(k.flatCircle(x, y, i % 3 ? 1.6 : 2.3, k.P.white));
+  }
+  return flakes.join('');
+}
+
+/** Snow lying on a round crown or bush (centre cx, cy, radius r): a white cap
+ *  over its top, its lower edge in two soft dips. */
+export function snowCap(k, cx, cy, r, ry = r) {
+  const a = [cx - r * 0.96, cy - ry * 0.28];
+  const b = [cx + r * 0.96, cy - ry * 0.28];
+  const low = cy - ry * 0.32;
+  return k.path(
+    `M${pt(a)}C${fmt(cx - r)} ${fmt(cy - ry * 1.12)} ${fmt(cx + r)} ${fmt(cy - ry * 1.12)} ${pt(b)}` +
+      `Q${fmt(cx + r * 0.62)} ${fmt(low + 5)} ${fmt(cx + r * 0.3)} ${fmt(low)}Q${fmt(cx)} ${fmt(low + 6)} ${fmt(cx - r * 0.3)} ${fmt(low + 1)}Q${fmt(cx - r * 0.66)} ${fmt(low + 5)} ${pt(a)}Z`,
+    k.P.white,
   );
 }
 

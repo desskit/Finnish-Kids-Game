@@ -75,12 +75,13 @@ describe('story pages agree with their pictures', () => {
     }
   });
 
-  it('greets the morning in the morning light, and says "it rains" in the rain', () => {
+  it('greets the morning in the morning light, and says "it rains" in the rain and "it snows" in the snow', () => {
     const wants: [RegExp, SceneTone[]][] = [
       [/huomenta/i, ['morning']],
       [/hyvää iltaa/i, ['evening']],
       [/hyvää yötä/i, ['evening', 'night']],
-      [/\bsataa\b/i, ['rain']],
+      [/\bsataa lunta\b/i, ['snow']],
+      [/\bsataa\b(?! lunta)/i, ['rain']],
     ];
     for (const s of stories) {
       s.pages.forEach((p, i) => {

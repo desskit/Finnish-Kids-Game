@@ -164,6 +164,12 @@ export interface Construction {
    */
   sentenceById?: Record<string, string>;
   /**
+   * The picture a word shows in THIS phrase, when it isn't the word's own: an
+   * hour shows a clock face ("Kello on puoli kahdeksan" — half past seven), not
+   * the number tile.
+   */
+  pictureById?: Record<string, string>;
+  /**
    * Verb carriers ("Haluan ___." → "Haluan leikkiä"): the slot takes a VERB in
    * its basic (infinitive) form — the sourced dictionary form itself. `case`
    * is then just 'nominative' (unmarked). 'impersonal' takes a feeling verb in
@@ -221,7 +227,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
 // one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
 // wrong). Fun is fine: "Tämä on hauska." is "This is fun."
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money'];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money', 'meals', 'weather'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 
@@ -244,6 +250,23 @@ export function suitsSlot(item: LexicalItem, con: Construction): boolean {
   return true;
 }
 
+/** Does the slot start a whole sentence ("Aurinko paistaa.")? */
+export function slotStartsSentence(con: Construction): boolean {
+  return !con.before && !!con.punct;
+}
+
+/** The slot's form as the sentence writes it: capitalized when it starts the
+ *  sentence, like a command. Every place that shows the sentence uses it. */
+export function slotText(con: Construction, form: string): string {
+  return slotStartsSentence(con) ? form.charAt(0).toUpperCase() + form.slice(1) : form;
+}
+
+/** The picture for a word in a phrase: the phrase's own (a clock face for an
+ *  hour) or else the word's. */
+export function pictureFor(item: LexicalItem, con: Construction): string | undefined {
+  return con.pictureById?.[item.id] ?? item.emoji;
+}
+
 /** Assemble the full human-authored sentence using only the sourced slot form. */
 export function sentenceFor(item: LexicalItem, con: Construction): string {
   return sentenceWithForm(con, formFor(item, con) ?? item.fi);
@@ -254,8 +277,7 @@ export function sentenceFor(item: LexicalItem, con: Construction): string {
  *  A slot that starts a whole sentence ("Aurinko paistaa.") is capitalized,
  *  like a command; a phrase ("pöydän edessä", no punctuation) stays as is. */
 export function sentenceWithForm(con: Construction, form: string): string {
-  const first = !con.before && con.punct ? form.charAt(0).toUpperCase() + form.slice(1) : form;
-  const parts = [con.before, first, con.after].filter(
+  const parts = [con.before, slotText(con, form), con.after].filter(
     (p): p is string => typeof p === 'string' && p.length > 0,
   );
   return parts.join(' ') + (con.punct ?? '');

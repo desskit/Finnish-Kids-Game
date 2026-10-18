@@ -1089,6 +1089,12 @@ describe('sentences that make sense (final QA)', () => {
     // and the new colors are for things, like the others
     expect(fitsNoun('pink', 'teacher')).toBe(false);
     expect(fitsNoun('pink', 'ball')).toBe(true);
+    // warm is for things, like hot and cold — and snow is never warm, fire never cold
+    expect(fitsNoun('warm', 'coat')).toBe(true);
+    expect(fitsNoun('warm', 'milk')).toBe(true);
+    for (const w of ['dog', 'mother', 'snow', 'ice', 'ice-cream']) expect(fitsNoun('warm', w), w).toBe(false);
+    for (const w of ['snow', 'ice']) expect(fitsNoun('hot', w), w).toBe(false);
+    for (const w of ['fire', 'sun']) expect(fitsNoun('cold', w), w).toBe(false);
   });
 
   it('counting never shows two nouns on one picture', () => {
@@ -1099,5 +1105,20 @@ describe('sentences that make sense (final QA)', () => {
         expect(new Set(pics).size).toBe(pics.length);
       }
     }
+  });
+});
+
+describe('a word that starts the sentence', () => {
+  const shines = [nounConstructions.find((c) => c.id === 'it-shines')!];
+  const sun = [itemById('sun')!];
+
+  it('is capitalized when the child puts the words in order', () => {
+    const [q] = buildWordOrderRound(sun, shines, 1);
+    expect(q.sentence).toBe('Aurinko paistaa.');
+    expect(q.tokens.map((t) => t.text)).toContain('Aurinko');
+  });
+
+  it('is capitalized in a sentence to check for a mistake', () => {
+    for (const q of buildErrorRound(sun, shines, 2)) expect(q.words[q.slotIndex].text).toMatch(/^A/);
   });
 });

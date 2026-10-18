@@ -57,6 +57,7 @@ import {
   commandFor,
   dontForm,
   englishSentenceFor,
+  pictureFor,
   formFor,
   letsForm,
   ownerGloss,
@@ -887,7 +888,7 @@ function verbCaseQuestion(
   const whyFor: Record<string, Why> = {};
   for (const f of wrongForms) whyFor[sentenceWithForm(con, f)] = whyForVerbCasePick(con, item, f, others);
   return {
-    emoji: item.emoji,
+    emoji: pictureFor(item, con),
     cue: englishSentenceFor(item, con),
     answer,
     options,
@@ -951,7 +952,7 @@ function playQuestion(
         text: `*${PLAY_VERB[w.other]}* is for ${PLAY_FOR[w.other]}. This is ${PLAY_THIS[con.id]}: **${PLAY_VERB[con.id]}**.`,
       };
   }
-  return { emoji: item.emoji, cue: englishSentenceFor(item, con), answer, options, why, whyFor };
+  return { emoji: pictureFor(item, con), cue: englishSentenceFor(item, con), answer, options, why, whyFor };
 }
 
 export function buildChooseRound(

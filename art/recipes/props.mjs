@@ -9,14 +9,19 @@ import * as props from '../props.mjs';
 const prop = { prop: true, theme: 'story-props' };
 const ui = { group: 'ui', theme: 'story-props' };
 
+// Every hour and half hour, for the stories and the clock phrases ("Kello on
+// puoli kahdeksan" shows half past seven): 🕐–🕛 on the hour, 🕜–🕧 half past.
+const HOURS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const CLOCKS = HOURS.flatMap((name, i) => [
+  { id: `${name}-oclock`, title: `${name} o'clock`, glyphs: [String.fromCodePoint(0x1f550 + i)], prop: true, theme: 'clocks', draw: (k) => props.oclock(k, i + 1) },
+  { id: `${name}-thirty`, title: `${name} thirty`, glyphs: [String.fromCodePoint(0x1f55c + i)], prop: true, theme: 'clocks', draw: (k) => props.oclock(k, i + 1, 30) },
+]);
+
 export default [
   { id: 'worried', title: 'worried (a bead of sweat)', glyphs: ['😟'], ...prop, motion: { frames: 2, fps: 1.5 }, draw: props.worried },
   { id: 'surprised', title: 'surprised (oh!)', glyphs: ['😮'], ...prop, motion: { frames: 2, fps: 2 }, draw: props.surprised },
   { id: 'shush', title: 'shh! (a finger to the lips, eyes glancing round)', glyphs: ['🤫'], ...prop, motion: { frames: 4, fps: 1.5 }, draw: props.shush },
-  { id: 'eight-oclock', title: "eight o'clock", glyphs: ['🕗'], ...prop, draw: (k) => props.oclock(k, 8) },
-  { id: 'two-oclock', title: "two o'clock", glyphs: ['🕑'], ...prop, draw: (k) => props.oclock(k, 2) },
-  { id: 'six-oclock', title: "six o'clock", glyphs: ['🕕'], ...prop, draw: (k) => props.oclock(k, 6) },
-  { id: 'nine-oclock', title: "nine o'clock", glyphs: ['🕘'], ...prop, draw: (k) => props.oclock(k, 9) },
+  ...CLOCKS,
   { id: 'windowpane', title: 'window (curtains tied back)', glyphs: ['🪟'], ...prop, draw: props.windowpane },
   { id: 'red-ball', title: 'red ball (bouncing)', glyphs: ['🔴'], ...prop, motion: { frames: 4, fps: 6 }, draw: props.redBall },
   { id: 'meat', title: 'meat on the bone', glyphs: ['🍖'], ...prop, draw: props.meat },

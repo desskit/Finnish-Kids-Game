@@ -26,10 +26,13 @@ import {
   englishSentenceFor,
   imperativeForm,
   possessiveForm,
+  pictureFor,
   suitsSlot,
   PERSONS,
   POSSESSORS,
 } from '../content/types';
+import { itemById } from '../content/lookup';
+import { resolveRef } from '../content/lessons';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -51,6 +54,8 @@ describe('content integrity', () => {
       'school',
       'freetime',
       'money',
+      'meals',
+      'weather',
       'time',
     ]);
   });
@@ -446,5 +451,58 @@ describe('englishSentenceFor (article cleanup on "a ___" templates)', () => {
     expect(englishSentenceFor(find('fish'), theseAre)).toBe('These are fish.');
     expect(englishSentenceFor(find('foot'), theseAre)).toBe('These are feet.');
     expect(englishSentenceFor(find('cat'), whereAre)).toBe('Where are the cats?');
+  });
+});
+
+describe('My day, the weather, out in nature', () => {
+  const con = (id: string) => nounConstructions.find((c) => c.id === id)!;
+  const word = (id: string) => itemById(id)!;
+
+  it('says the hour with -lta, and half past by the NEXT hour, each with its clock face', () => {
+    expect(sentenceFor(word('seven'), con('wake-at'))).toBe('Herään kello seitsemältä.');
+    expect(englishSentenceFor(word('seven'), con('wake-at'))).toBe("I wake up at seven o'clock.");
+    expect(pictureFor(word('seven'), con('wake-at'))).toBe('🕖');
+    expect(sentenceFor(word('eight'), con('half-past'))).toBe('Kello on puoli kahdeksan.');
+    expect(englishSentenceFor(word('eight'), con('half-past'))).toBe("It's seven thirty.");
+    expect(pictureFor(word('eight'), con('half-past'))).toBe('🕢');
+    expect(englishSentenceFor(word('one'), con('half-past'))).toBe("It's twelve thirty.");
+    expect(pictureFor(word('three'), con('clock-is'))).toBe('🕒');
+    // a phrase with no picture of its own shows the word's
+    expect(pictureFor(word('apple'), con('i-have'))).toBe(word('apple').emoji);
+  });
+
+  it('rains snow and water, lets the sun start the sentence, and tells the weather from me', () => {
+    expect(sentenceFor(word('snow'), con('it-rains'))).toBe('Sataa lunta.');
+    expect(englishSentenceFor(word('water'), con('it-rains'))).toBe("It's raining.");
+    expect(sentenceFor(word('sun'), con('it-shines'))).toBe('Aurinko paistaa.');
+    // a lesson writes it with its capital too
+    expect(resolveRef({ sentence: 'it-shines', word: 'sun' })!.speak).toBe('Aurinko paistaa.');
+    expect(sentenceFor(word('cold'), con('weather-is'))).toBe('On kylmä.');
+    expect(englishSentenceFor(word('cold'), con('weather-is'))).toBe("It's cold.");
+    expect(englishSentenceFor(word('cold'), con('i-feel'))).toBe("I'm cold.");
+  });
+
+  it('keeps meals and the weather to the phrases that name them', () => {
+    expect(sentenceFor(word('breakfast'), con('i-eat-meal'))).toBe('Syön aamupalaa.');
+    expect(englishSentenceFor(word('breakfast'), con('i-eat-meal'))).toBe('I eat breakfast.');
+    expect(suitsSlot(word('breakfast'), con('i-have'))).toBe(false);
+    expect(suitsSlot(word('breakfast'), con('i-buy'))).toBe(false);
+    expect(suitsSlot(word('weather'), con('i-see'))).toBe(false);
+    expect(suitsSlot(word('weather'), con('this-is'))).toBe(false);
+  });
+
+  it('puts on one whole thing, and takes a person onto the mountain but not into the lake', () => {
+    expect(sentenceFor(word('snowsuit'), con('put-on-clothes'))).toBe('Puen haalarin päälle.');
+    expect(englishSentenceFor(word('snowsuit'), con('put-on-clothes'))).toBe('I put on my snowsuit.');
+    expect(sentenceFor(word('mountain'), con('i-go-onto'))).toBe('Menen vuorelle.');
+    expect(englishSentenceFor(word('mountain'), con('i-am-on'))).toBe("I'm on the mountain.");
+    expect(suitsSlot(word('lake'), con('i-go-onto'))).toBe(false);
+    expect(suitsSlot(word('beach'), con('i-go-into'))).toBe(false);
+  });
+
+  it('puts the animals where they are', () => {
+    expect(sentenceFor(word('lake'), con('fish-in'))).toBe('Kala on järvessä.');
+    expect(sentenceFor(word('tree'), con('bird-in'))).toBe('Lintu on puussa.');
+    expect(sentenceFor(word('leaf'), con('butterfly-on'))).toBe('Perhonen on lehdellä.');
   });
 });

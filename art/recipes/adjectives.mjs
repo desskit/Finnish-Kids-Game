@@ -64,4 +64,5 @@ export default [
   { id: 'slow', title: 'slow (a turtle)', motion: { frames: 2, fps: 1 }, draw: adj.slow },
   // the giraffe emoji 🦒 stays the zoo's
   { id: 'tall', title: 'tall (a giraffe next to Leo)', motion: { frames: 2, fps: 1.2 }, draw: adj.tall },
+  { id: 'warm', title: 'warm (a thermometer in the sun)', motion: { frames: 2, fps: 1.2 }, draw: adj.warm },
 ];

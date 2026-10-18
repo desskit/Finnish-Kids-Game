@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { LexicalItem } from '../content/types';
-import { englishSentenceFor, sentenceFor } from '../content/types';
+import { englishSentenceFor, sentenceFor, slotText } from '../content/types';
 import { reviewItems, reviewItemById } from '../content';
 import { nounConstructions } from '../content/constructions';
 import { useProfile } from '../state/profile';
@@ -408,7 +408,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
                   <span className="phrase-fixed">{question.grammar.construction.before}</span>
                 )}
                 <span className={'phrase-slot' + (locked ? ' phrase-slot--filled' : '')}>
-                  {locked ? question.grammar.answer : '​'}
+                  {locked ? slotText(question.grammar.construction, question.grammar.answer) : '​'}
                 </span>
                 {question.grammar.construction.after && (
                   <span className="phrase-fixed">{question.grammar.construction.after}</span>

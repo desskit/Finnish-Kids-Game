@@ -40,8 +40,8 @@ export const NARRATOR_PITCH = 1;
 /** Where a page happens: one of the drawn backdrops (art/scenes/). */
 export type SettingId = BackdropId;
 
-/** The light of a scene: daytime outdoors or indoors, the morning, the evening, the night, the rain. */
-export type SceneTone = 'day' | 'inside' | 'morning' | 'evening' | 'night' | 'rain';
+/** The light of a scene: daytime outdoors or indoors, the morning, the evening, the night, the rain, the snow. */
+export type SceneTone = 'day' | 'inside' | 'morning' | 'evening' | 'night' | 'rain' | 'snow';
 
 export interface StoryScene {
   /** Where it happens: drawn right across the back of the page. */
@@ -53,7 +53,7 @@ export interface StoryScene {
 }
 
 /** The settings indoors (their usual light is 'inside'; outdoors it's the 'day'). */
-const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'party', 'classroom', 'library', 'shop', 'cafe']);
+const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'bathroom', 'party', 'classroom', 'library', 'shop', 'cafe']);
 
 /** The light a scene is in: its own, or its setting's usual one. */
 export const toneOf = (scene: StoryScene): SceneTone => scene.tone ?? (INDOORS.has(scene.setting) ? 'inside' : 'day');

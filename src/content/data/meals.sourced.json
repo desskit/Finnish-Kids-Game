@@ -1,0 +1,239 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "meals",
+    "fi": "Ateriat",
+    "en": "Meals",
+    "emoji": "🥞"
+  },
+  "words": [
+    {
+      "id": "breakfast",
+      "word": "aamupala",
+      "en": "breakfast",
+      "emoji": "🥞",
+      "inflections": {
+        "nominative_singular": "aamupala",
+        "nominative_plural": "aamupalat",
+        "genitive_singular": "aamupalan",
+        "genitive_plural": "aamupalojen",
+        "partitive_singular": "aamupalaa",
+        "partitive_plural": "aamupaloja",
+        "inessive_singular": "aamupalassa",
+        "inessive_plural": "aamupaloissa",
+        "elative_singular": "aamupalasta",
+        "elative_plural": "aamupaloista",
+        "illative_singular": "aamupalaan",
+        "illative_plural": "aamupaloihin",
+        "adessive_singular": "aamupalalla",
+        "adessive_plural": "aamupaloilla",
+        "ablative_singular": "aamupalalta",
+        "ablative_plural": "aamupaloilta",
+        "allative_singular": "aamupalalle",
+        "allative_plural": "aamupaloille",
+        "essive_singular": "aamupalana",
+        "essive_plural": "aamupaloina",
+        "translative_singular": "aamupalaksi",
+        "translative_plural": "aamupaloiksi",
+        "abessive_singular": "aamupalatta",
+        "abessive_plural": "aamupaloitta",
+        "instructive_plural": "aamupaloin",
+        "comitative_plural": "aamupaloineen",
+        "poss_1sg_nominative_singular": "aamupalani",
+        "poss_1sg_inessive_singular": "aamupalassani",
+        "poss_1sg_adessive_singular": "aamupalallani",
+        "poss_2sg_nominative_singular": "aamupalasi",
+        "poss_2sg_inessive_singular": "aamupalassasi",
+        "poss_2sg_adessive_singular": "aamupalallasi",
+        "poss_3rd_nominative_singular": "aamupalansa",
+        "poss_3rd_inessive_singular": "aamupalassaan",
+        "poss_3rd_adessive_singular": "aamupalallaan"
+      },
+      "english": {
+        "plural": "breakfasts"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 16878,
+      "examples": [
+        {
+          "fi": "Mitä söit aamupalaksi?",
+          "en": "What did you have for breakfast?"
+        },
+        {
+          "fi": "Syön aamupalan joka aamu.",
+          "en": "I have breakfast every morning."
+        }
+      ]
+    },
+    {
+      "id": "lunch",
+      "word": "lounas",
+      "en": "lunch",
+      "emoji": "🍱",
+      "inflections": {
+        "nominative_singular": "lounas",
+        "nominative_plural": "lounaat",
+        "genitive_singular": "lounaan",
+        "genitive_plural": "lounaiden",
+        "partitive_singular": "lounasta",
+        "partitive_plural": "lounaita",
+        "inessive_singular": "lounaassa",
+        "inessive_plural": "lounaissa",
+        "elative_singular": "lounaasta",
+        "elative_plural": "lounaista",
+        "illative_singular": "lounaaseen",
+        "illative_plural": "lounaisiin",
+        "adessive_singular": "lounaalla",
+        "adessive_plural": "lounailla",
+        "ablative_singular": "lounaalta",
+        "ablative_plural": "lounailta",
+        "allative_singular": "lounaalle",
+        "allative_plural": "lounaille",
+        "essive_singular": "lounaana",
+        "essive_plural": "lounaina",
+        "translative_singular": "lounaaksi",
+        "translative_plural": "lounaiksi",
+        "abessive_singular": "lounaatta",
+        "abessive_plural": "lounaitta",
+        "instructive_plural": "lounain",
+        "comitative_plural": "lounaineen",
+        "poss_1sg_nominative_singular": "lounaani",
+        "poss_1sg_inessive_singular": "lounaassani",
+        "poss_1sg_adessive_singular": "lounaallani",
+        "poss_2sg_nominative_singular": "lounaasi",
+        "poss_2sg_inessive_singular": "lounaassasi",
+        "poss_2sg_adessive_singular": "lounaallasi",
+        "poss_3rd_nominative_singular": "lounaansa",
+        "poss_3rd_inessive_singular": "lounaassaan",
+        "poss_3rd_adessive_singular": "lounaallaan"
+      },
+      "english": {
+        "plural": "lunches"
+      },
+      "kotusType": 41,
+      "group": "s",
+      "frequencyRank": 4046,
+      "examples": [
+        {
+          "fi": "Tuulee lounaasta.",
+          "en": "The wind is blowing from the southwest."
+        },
+        {
+          "fi": "Tom on lounaalla.",
+          "en": "Tom is at lunch."
+        }
+      ]
+    },
+    {
+      "id": "dinner",
+      "word": "päivällinen",
+      "en": "dinner",
+      "emoji": "🍝",
+      "inflections": {
+        "nominative_singular": "päivällinen",
+        "nominative_plural": "päivälliset",
+        "genitive_singular": "päivällisen",
+        "genitive_plural": "päivällisten",
+        "partitive_singular": "päivällistä",
+        "partitive_plural": "päivällisiä",
+        "inessive_singular": "päivällisessä",
+        "inessive_plural": "päivällisissä",
+        "elative_singular": "päivällisestä",
+        "elative_plural": "päivällisistä",
+        "illative_singular": "päivälliseen",
+        "illative_plural": "päivällisiin",
+        "adessive_singular": "päivällisellä",
+        "adessive_plural": "päivällisillä",
+        "ablative_singular": "päivälliseltä",
+        "ablative_plural": "päivällisiltä",
+        "allative_singular": "päivälliselle",
+        "allative_plural": "päivällisille",
+        "essive_singular": "päivällisenä",
+        "essive_plural": "päivällisinä",
+        "translative_singular": "päivälliseksi",
+        "translative_plural": "päivällisiksi",
+        "abessive_singular": "päivällisettä",
+        "abessive_plural": "päivällisittä",
+        "instructive_plural": "päivällisin",
+        "comitative_plural": "päivällisineen",
+        "poss_1sg_nominative_singular": "päivälliseni",
+        "poss_1sg_inessive_singular": "päivällisessäni",
+        "poss_1sg_adessive_singular": "päivälliselläni",
+        "poss_2sg_nominative_singular": "päivällisesi",
+        "poss_2sg_inessive_singular": "päivällisessäsi",
+        "poss_2sg_adessive_singular": "päivälliselläsi",
+        "poss_3rd_nominative_singular": "päivällisensä",
+        "poss_3rd_inessive_singular": "päivällisessään",
+        "poss_3rd_adessive_singular": "päivällisellään"
+      },
+      "english": {
+        "plural": "dinners"
+      },
+      "kotusType": 38,
+      "group": "nen",
+      "frequencyRank": 5034,
+      "examples": [
+        {
+          "fi": "Jää päivälliselle.",
+          "en": "Stay for supper."
+        },
+        {
+          "fi": "Jääkää päivälliselle.",
+          "en": "Stay for supper."
+        }
+      ]
+    },
+    {
+      "id": "evening-snack",
+      "word": "iltapala",
+      "en": "evening snack",
+      "emoji": "🥪",
+      "inflections": {
+        "nominative_singular": "iltapala",
+        "nominative_plural": "iltapalat",
+        "genitive_singular": "iltapalan",
+        "genitive_plural": "iltapalojen",
+        "partitive_singular": "iltapalaa",
+        "partitive_plural": "iltapaloja",
+        "inessive_singular": "iltapalassa",
+        "inessive_plural": "iltapaloissa",
+        "elative_singular": "iltapalasta",
+        "elative_plural": "iltapaloista",
+        "illative_singular": "iltapalaan",
+        "illative_plural": "iltapaloihin",
+        "adessive_singular": "iltapalalla",
+        "adessive_plural": "iltapaloilla",
+        "ablative_singular": "iltapalalta",
+        "ablative_plural": "iltapaloilta",
+        "allative_singular": "iltapalalle",
+        "allative_plural": "iltapaloille",
+        "essive_singular": "iltapalana",
+        "essive_plural": "iltapaloina",
+        "translative_singular": "iltapalaksi",
+        "translative_plural": "iltapaloiksi",
+        "abessive_singular": "iltapalatta",
+        "abessive_plural": "iltapaloitta",
+        "instructive_plural": "iltapaloin",
+        "comitative_singular": "iltapaloineni",
+        "comitative_plural": "iltapaloineen",
+        "poss_1sg_nominative_singular": "iltapalani",
+        "poss_1sg_inessive_singular": "iltapalassani",
+        "poss_1sg_adessive_singular": "iltapalallani",
+        "poss_2sg_nominative_singular": "iltapalasi",
+        "poss_2sg_inessive_singular": "iltapalassasi",
+        "poss_2sg_adessive_singular": "iltapalallasi",
+        "poss_3rd_nominative_singular": "iltapalansa",
+        "poss_3rd_inessive_singular": "iltapalassaan",
+        "poss_3rd_adessive_singular": "iltapalallaan"
+      },
+      "english": {
+        "plural": "evening snacks"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 55499
+    }
+  ]
+}

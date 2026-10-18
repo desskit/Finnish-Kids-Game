@@ -106,7 +106,7 @@ export function dress(k) {
 }
 
 /** A pair of knitted mittens on a string. */
-export function glove(k) {
+export function mittens(k) {
   const c = k.P;
   const mitten = (x, turn) =>
     k.g(
@@ -120,6 +120,92 @@ export function glove(k) {
     k.line('M18 49.6C20 60 44 60 46 49.6', { color: c.redShade, sw: 1.6 }),
     mitten(19.6, -10),
     mitten(44.4, 10),
+  ].join('');
+}
+
+/** A glove: five fingers, a ribbed cuff. */
+export function glove(k) {
+  const c = k.P;
+  const finger = (x, top) => `M${x - 2.6} 32V${top + 2.6}C${x - 2.6} ${top + 1} ${x - 1.4} ${top} ${x} ${top}C${x + 1.4} ${top} ${x + 2.6} ${top + 1} ${x + 2.6} ${top + 2.6}V32Z`;
+  return [
+    k.path(finger(22.6, 10.6), c.purple),
+    k.path(finger(28.6, 6.6), c.purple),
+    k.path(finger(34.6, 7.6), c.purple),
+    k.path(finger(40.4, 12.6), c.purple),
+    k.path('M20 30.6H43V44.6C43 49.6 39 52.6 33.6 52.6H28.6C23.6 52.6 20 49.6 20 44.6Z', c.purple),
+    k.path('M20.6 38.6C16.6 36.6 12.6 32.6 11.4 28.6C10.6 26.4 12.4 24.6 14.6 25.4C17.6 26.6 20 30 21.6 33.6Z', c.purple),
+    k.flat('M38.6 32H42.4V44.6C42.4 48 40.6 50.6 37.6 51.8C38.8 45.6 39 38.6 38.6 32Z', c.purpleShade),
+    k.rect(21.6, 50.6, 19.6, 8.4, 2, c.cream),
+    k.line('M25.6 51.6V58M29.6 51.6V58M33.6 51.6V58M37.6 51.6V58', { color: c.creamShade, sw: 1.4 }),
+    k.shine('M25.6 34.6V42', 1.6),
+  ].join('');
+}
+
+/** A knitted beanie: a white bobble on top, a stripe, a folded-up brim. */
+export function beanie(k) {
+  const c = k.P;
+  return [
+    k.ground(32, 56.6, 22, 2),
+    k.path('M11.6 44.6C11.6 26.6 20.6 16.6 32 16.6C43.4 16.6 52.4 26.6 52.4 44.6Z', c.teal),
+    k.flat('M14.4 32.6H49.6C50.4 34.6 51 36.6 51.4 38.6H12.6C13 36.6 13.6 34.6 14.4 32.6Z', c.white),
+    k.flat('M43.6 21.6C48.6 26.6 51.6 34.6 52.2 43.6H47.6C47.6 35.6 46.4 28 43.6 21.6Z', c.tealShade),
+    k.line('M24.6 19.6C22.6 26 21.6 34 21.6 44M32 16.6V44M39.4 19.6C41.4 26 42.4 34 42.4 44', { color: c.tealShade, sw: 1.2 }),
+    k.rect(9.6, 42.6, 44.8, 11, 3, c.teal),
+    k.line('M14.6 43.6V52.6M19.6 43.6V52.6M24.6 43.6V52.6M29.6 43.6V52.6M34.6 43.6V52.6M39.6 43.6V52.6M44.6 43.6V52.6M49.6 43.6V52.6', { color: c.tealShade, sw: 1.4 }),
+    k.circle(32, 13.6, 6.6, c.white),
+    k.flatCircle(34, 15.6, 2.6, c.silver),
+    k.shine('M17.6 36.6Q19 28 24.6 22.6', 2),
+  ].join('');
+}
+
+/** A snowsuit: one piece with a hood, a zip down the front and shiny stripes on the arms and legs. */
+export function snowsuit(k) {
+  const c = k.P;
+  return [
+    k.path('M24.6 5.6C24.6 3.6 27.6 2.6 32 2.6C36.4 2.6 39.4 3.6 39.4 5.6V12.6H24.6Z', c.purpleShade),
+    k.path('M23.6 10.6L13.6 14.6L6.6 36.6C6.2 38 7.2 39.2 8.6 39.2H12.6L17.6 26.6V38.6L15.6 58.6C15.4 59.6 16.2 60.4 17.2 60.4H28.6L32 42.6L35.4 60.4H46.8C47.8 60.4 48.6 59.6 48.4 58.6L46.4 38.6V26.6L51.4 39.2H55.4C56.8 39.2 57.8 38 57.4 36.6L50.4 14.6L40.4 10.6C38.6 13.6 35.6 15 32 15C28.4 15 25.4 13.6 23.6 10.6Z', c.purple),
+    k.flat('M42.6 12.6L49.4 15.4L56.6 37.4H52.6L46.4 25.6V38.6L48 58.6H44.6C45.6 44.6 44.6 26 42.6 12.6Z', c.purpleShade),
+    k.line('M32 15.4V42', { color: c.charcoal, sw: 1.6 }),
+    k.flat('M8.4 31.6H14.6L13.4 34.6H7.4Z', c.silver),
+    k.flat('M49.4 31.6H55.6L56.6 34.6H50.6Z', c.silver),
+    k.flat('M17.4 50.6H27.6L27 53.6H17Z', c.silver),
+    k.flat('M36.4 50.6H46.6L47 53.6H37Z', c.silver),
+    k.path('M23.6 10.6C25.4 13.6 28.4 15 32 15C35.6 15 38.6 13.6 40.4 10.6L42.6 11.6C40.6 16 36.6 18.6 32 18.6C27.4 18.6 23.4 16 21.4 11.6Z', c.white),
+    k.shine('M20.6 22.6V30', 1.8),
+  ].join('');
+}
+
+/** A woolly sweater: long sleeves, a white snowflake band across the chest, ribbed cuffs and hem. */
+export function sweater(k) {
+  const c = k.P;
+  const zig = 'M17.6 26.6L20.6 23.6L23.6 26.6L26.6 23.6L29.6 26.6L32.6 23.6L35.6 26.6L38.6 23.6L41.6 26.6L44.6 23.6L46.4 25.4';
+  return [
+    k.path('M22.6 8.6L12.6 12.6L4.6 46.6C4.4 47.6 5.2 48.6 6.2 48.6H11.6L17.6 28.6V54.6C17.6 55.6 18.4 56.4 19.4 56.4H44.6C45.6 56.4 46.4 55.6 46.4 54.6V28.6L52.4 48.6H57.8C58.8 48.6 59.6 47.6 59.4 46.6L51.4 12.6L41.4 8.6C39.6 12.6 36 14.6 32 14.6C28 14.6 24.4 12.6 22.6 8.6Z', c.green),
+    k.flat('M41.6 10.6L49.6 13.8L57.6 46.4H53.4L46.4 26.6V55.6H43C44 40 43.6 24 41.6 10.6Z', c.greenShade),
+    k.flat('M17.6 21.6H46.4V28.6H17.6Z', c.white),
+    k.line(zig, { color: c.green, sw: 1.6 }),
+    k.flat('M5 43.6H12.6L11.6 48.4H6.2C5.2 48.4 4.4 47.4 4.6 46.4Z', c.greenShade),
+    k.flat('M51.4 43.6H59L59.4 46.4C59.6 47.4 58.8 48.4 57.8 48.4H52.4Z', c.greenShade),
+    k.flat('M17.6 50.6H46.4V55.6C46.4 56 46 56.4 45.6 56.4H18.4C18 56.4 17.6 56 17.6 55.6Z', c.greenShade),
+    k.line('M24.4 10.4C26.6 13.6 29 15.4 32 15.4C35 15.4 37.4 13.6 39.6 10.4', { color: c.greenShade, sw: 2 }),
+    k.shine('M21.4 32.6V40', 2),
+  ].join('');
+}
+
+/** A yellow raincoat with its hood up, toggles down the front, rain falling by it. */
+export function raincoat(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const drops = (f ? [[8, 10], [55, 16], [6, 30], [58, 36]] : [[8, 16], [55, 22], [6, 36], [58, 42]]).map(([x, y]) => k.path(`M${x} ${y - 3}Q${x + 2} ${y + 0.6} ${x} ${y + 1.6}Q${x - 2} ${y + 0.6} ${x} ${y - 3}Z`, c.sky));
+  return [
+    ...drops,
+    k.path('M20.6 14.6C20.6 7.6 25.6 3.6 32 3.6C38.4 3.6 43.4 7.6 43.4 14.6Z', c.yellowShade),
+    k.path('M20.6 12.6L12.6 16.6L9.6 46.6C9.4 48 10.4 49 11.8 49H16.2L17.6 32.6V57.6C17.6 58.6 18.4 59.4 19.4 59.4H44.6C45.6 59.4 46.4 58.6 46.4 57.6V32.6L47.8 49H52.2C53.6 49 54.6 48 54.4 46.6L51.4 16.6L43.4 12.6C40.6 15.6 36.6 17.2 32 17.2C27.4 17.2 23.4 15.6 20.6 12.6Z', c.yellow),
+    k.flat('M42.4 14.8L50.6 18.4L53.4 47.4H48.4L46.4 32.6V58.6H43C44 42 44 28 42.4 14.8Z', c.yellowShade),
+    k.line('M32 17.4V59', { sw: 1.4 }),
+    ...[25.6, 35.6, 45.6].map((y) => k.rect(28.6, y - 1.2, 6.8, 2.4, 1.2, c.wood)),
+    k.path('M20.6 12.6C23.4 15.6 27.4 17.2 32 17.2C36.6 17.2 40.6 15.6 43.4 12.6L45.6 14C42.6 18.4 37.6 20.6 32 20.6C26.4 20.6 21.4 18.4 18.4 14Z', c.yellowShade),
+    k.shine('M21 24V32', 2),
   ].join('');
 }
 
