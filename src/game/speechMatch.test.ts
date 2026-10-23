@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeSpoken, editDistance, matchTolerance, matchSpeech } from './speechMatch';
+import { normalizeSpoken, editDistance, matchTolerance, matchSpeech, spokenDigits } from './speechMatch';
 
 describe('normalizeSpoken', () => {
   it('lowercases, strips punctuation, collapses whitespace, keeps ä/ö', () => {
@@ -60,5 +60,24 @@ describe('matchSpeech', () => {
     // …but background words alone are still a miss.
     expect(matchSpeech(['no koira joo'], 'kissa')).toBe(false);
     expect(matchSpeech(['tule tänne nyt'], 'kolme kissaa')).toBe(false);
+  });
+});
+
+describe('numbers a recognizer writes as digits', () => {
+  it('reads them back as the Finnish word', () => {
+    expect(spokenDigits('7')).toBe('seitsemän');
+    expect(spokenDigits('3 kissaa')).toBe('kolme kissaa');
+    expect(spokenDigits('0')).toBe('nolla');
+    expect(spokenDigits('20')).toBe('kaksikymmentä');
+    // a compound isn't sourced, so it stays as it was
+    expect(spokenDigits('21')).toBe('21');
+  });
+
+  it('accepts a spoken number the recognizer wrote as digits', () => {
+    expect(matchSpeech(['7'], 'seitsemän')).toBe(true);
+    expect(matchSpeech(['3 kissaa'], 'kolme kissaa')).toBe(true);
+    expect(matchSpeech(['13'], 'kolmetoista')).toBe(true);
+    // a different number is still wrong
+    expect(matchSpeech(['8'], 'seitsemän')).toBe(false);
   });
 });

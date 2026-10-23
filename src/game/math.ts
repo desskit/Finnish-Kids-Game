@@ -217,10 +217,8 @@ export function countdown(count: number, rng: Rng = Math.random): MathProblem {
 function teens(count: number, rng: Rng): MathProblem {
   const base = int(1, 9, rng);
   const teen = 10 + base;
-  if (rng() < 0.5) {
-    const p = sumProblem('plus', 10, base, count, 20, rng);
-    return { ...p, show: { kind: 'parts', teen, base } };
-  }
+  // half the time a sum: ten and some more ("kymmenen plus kolme")
+  if (rng() < 0.5) return sumProblem('plus', 10, base, count, 20, rng);
   // the builder: hear the teen, pick its first part (kolme + toista)
   return {
     key: `parts:${teen}`,

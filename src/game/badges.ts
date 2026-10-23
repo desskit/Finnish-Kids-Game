@@ -13,6 +13,7 @@
 
 import type { Child } from '../state/storage';
 import { isMastered, wordSchedules } from './srs';
+import { isMathId } from './mathPath';
 
 export type BadgeCategory = 'start' | 'course' | 'words' | 'skills' | 'habits';
 
@@ -61,8 +62,12 @@ export interface Badge {
 
 // --- Measures -----------------------------------------------------------------
 
+// The course's steps only: the math section (every id `math-…`) keeps its own
+// record and never moves a course badge.
 const entries = (child: Child) =>
-  Object.values(child.progress ?? {}).flatMap((topic) => Object.entries(topic ?? {}));
+  Object.entries(child.progress ?? {})
+    .filter(([topicId]) => !isMathId(topicId))
+    .flatMap(([, topic]) => Object.entries(topic ?? {}));
 
 const passedCheckpoints = (child: Child) =>
   Object.values(child.course?.checkpoints ?? {}).filter((c) => c.passedAt);
@@ -141,7 +146,7 @@ export const BADGES: Badge[] = [
     titleEn: 'Bookworm',
     category: 'start',
     hintEn: 'Read 10 lessons all the way to the end.',
-    measure: (c) => count(Object.keys(c.course?.lessonsSeen ?? {}).length, 10, 'lessons'),
+    measure: (c) => count(Object.keys(c.course?.lessonsSeen ?? {}).filter((id) => !isMathId(id)).length, 10, 'lessons'),
   },
   {
     id: 'sounds',

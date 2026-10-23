@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   CAST,
   NARRATOR_PITCH,
-  stories,
+  courseStories,
   storyById,
   toneOf,
   type CastId,
@@ -98,7 +98,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
   const { activeChild, addStars } = useProfile();
   const ctx = useActivityContext();
   const navigate = useNavigate();
-  const pool = useMemo(() => ids ?? stories.map((s) => s.id), [ids]);
+  const pool = useMemo(() => ids ?? courseStories.map((s) => s.id), [ids]);
 
   // One story per read; "Next story" moves on to another. A step's own stories
   // come in their order; "all stories" (Mestari) picks any she hasn't read.

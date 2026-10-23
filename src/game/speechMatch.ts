@@ -3,6 +3,24 @@
 // + tests. Child-voice speech recognition is unreliable, and this drill must
 // NEVER feel punishing — so the bar is deliberately low: any recognition
 // alternative that is exactly, contains, or is a near-miss of the target counts.
+//
+// A recognizer often writes a spoken number as digits ("7", "3 kissaa"), so a
+// number it wrote that way is read back as its Finnish word before comparing:
+// a child who said "kolme kissaa" said it right.
+
+import { mathWords, numbers } from '../content';
+
+/** A number a recognizer may write as digits → its sourced Finnish word. */
+const NUMBER_WORDS = new Map<string, string>(
+  [...mathWords.items, ...numbers.items]
+    .filter((n) => typeof n.value === 'number')
+    .map((n) => [String(n.value), n.fi]),
+);
+
+/** Digits a recognizer wrote ("7", "3 kissaa") read back as Finnish words. */
+export function spokenDigits(s: string): string {
+  return s.replace(/\d+/g, (d) => NUMBER_WORDS.get(String(Number(d))) ?? d);
+}
 
 /** Lowercase, drop punctuation, collapse whitespace. Keeps Finnish ä/ö/å. */
 export function normalizeSpoken(s: string): string {
@@ -63,7 +81,7 @@ export function matchSpeech(heard: readonly string[], target: string): boolean {
   const tol = matchTolerance(target);
   const targetWords = t.split(' ').length;
   return heard.some((raw) => {
-    const h = normalizeSpoken(raw);
+    const h = normalizeSpoken(spokenDigits(raw));
     if (!h) return false;
     if (h === t) return true;
     if (h.includes(t)) return true; // said the target plus extra words

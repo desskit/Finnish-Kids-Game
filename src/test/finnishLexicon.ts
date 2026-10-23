@@ -60,7 +60,7 @@ export const FUNCTION_WORDS = [
   // names used in the stories and scenes
   'liisa', 'eero', 'aino', 'veikko', 'mira', 'otto', 'lumi', 'musti', 'mirri', 'pekka', 'anna', 'leo', 'ella', 'onni',
   // names in their case forms
-  'eerolla', 'eerolle', 'eerosta', 'eeron', 'ainolla', 'ainolle', 'ainon', 'leon',
+  'eerolla', 'eerolle', 'eerosta', 'eeron', 'ainolla', 'ainolle', 'ainon', 'leon', 'leolla',
   'eeroa', 'eerolta', 'ainoa', 'ainolta', 'mirrin', 'mirriä', 'mirrillä', 'mirrille', 'mirristä',
   'mustin', 'mustia', 'mustille',
   // a cat's word
