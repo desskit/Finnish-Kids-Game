@@ -1,0 +1,46 @@
+{
+  "_source": "Finnish word forms from Wiktionary (en.wiktionary.org) via the kaikki.org machine-readable extract; example sentences from Tatoeba (tatoeba.org). Curated for Finnish-Kids-Game from desskit/Finnish-Inflection-Drill.",
+  "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+  "theme": {
+    "id": "math",
+    "fi": "Lasketaan",
+    "en": "Math",
+    "emoji": "➗"
+  },
+  "words": [
+    {
+      "id": "zero",
+      "word": "nolla",
+      "en": "zero",
+      "inflections": {
+        "nominative_singular": "nolla",
+        "nominative_plural": "nollat",
+        "genitive_singular": "nollan",
+        "genitive_plural": "nollien",
+        "partitive_singular": "nollaa",
+        "partitive_plural": "nollia",
+        "inessive_singular": "nollassa",
+        "inessive_plural": "nollissa",
+        "elative_singular": "nollasta",
+        "elative_plural": "nollista",
+        "illative_singular": "nollaan",
+        "illative_plural": "nolliin",
+        "adessive_singular": "nollalla",
+        "adessive_plural": "nollilla",
+        "ablative_singular": "nollalta",
+        "ablative_plural": "nollilta",
+        "allative_singular": "nollalle",
+        "allative_plural": "nollille",
+        "essive_singular": "nollana",
+        "essive_plural": "nollina",
+        "translative_singular": "nollaksi",
+        "translative_plural": "nolliksi",
+        "abessive_singular": "nollatta",
+        "abessive_plural": "nollitta",
+        "instructive_plural": "nollin",
+        "comitative_plural": "nolline"
+      },
+      "value": 0
+    }
+  ]
+}

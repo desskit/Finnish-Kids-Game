@@ -31,7 +31,7 @@ const posForTheme = (id) =>
     ? 'V'
     : id === 'adjectives'
       ? 'A'
-      : ['numbers', 'ordinals', 'lesson-words', 'feeling-verbs'].includes(id)
+      : ['numbers', 'ordinals', 'lesson-words', 'feeling-verbs', 'math'].includes(id)
         ? null
         : 'N';
 const SRC_DIR =
@@ -546,6 +546,11 @@ const FREETIME = [
 // Money: the euro, for the shop's prices ("kaksi euroa"). Its own topic, so
 // it fills no carrier phrase but the ones that name it.
 const MONEY = [['euro', 'euro', 'euro', '💶']];
+
+// Math in Finnish (the optional Lasketaan! section): zero, which the course's
+// counting never needs. Its own opt-in topic, so no course game meets it; like
+// every number in that section it is shown as a word, never a picture.
+const MATH_NUMBERS = [['zero', 'nolla', 'zero', '', 0]];
 
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
@@ -1095,6 +1100,15 @@ const lessonWords = buildTheme({
   sourceWords: nounWords,
 });
 
+const mathWords = buildTheme({
+  id: 'math',
+  fi: 'Lasketaan',
+  en: 'Math',
+  emoji: '➗',
+  curation: MATH_NUMBERS,
+  sourceWords: numeralWords,
+});
+
 const money = buildTheme({
   id: 'money',
   fi: 'Raha',
@@ -1144,6 +1158,7 @@ writeFileSync(join(OUT_DIR, 'clothes.sourced.json'), JSON.stringify(clothes, nul
 writeFileSync(join(OUT_DIR, 'school.sourced.json'), JSON.stringify(school, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'money.sourced.json'), JSON.stringify(money, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'math.sourced.json'), JSON.stringify(mathWords, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'meals.sourced.json'), JSON.stringify(meals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'weather.sourced.json'), JSON.stringify(weather, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'finnish-year.sourced.json'), JSON.stringify(finnishYear, null, 2) + '\n');
