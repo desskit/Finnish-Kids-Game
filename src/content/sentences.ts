@@ -61,6 +61,17 @@ const HELPABLE = ['cat', 'dog', 'bunny', 'bird', 'baby', 'horse'];
 // Things a child draws (all picturable, all with clean genitive forms). The
 // English draws "a ___" (a new picture), so each starts with a consonant.
 const DRAWABLE = ['flower', 'house', 'car', 'cat', 'dog', 'sun', 'star', 'tree'];
+// Animals that run, several at once ("kissat juoksevat"), and where to.
+const RUNNERS = ['cat', 'dog', 'bear', 'bunny', 'horse', 'fox'];
+const RUN_INTO = ['forest', 'park', 'house'];
+// The instruments "soittaa" plays ("soitan pianoa").
+const INSTRUMENTS = ['guitar', 'piano', 'drum', 'violin'];
+// Mornings: "herään kello seitsemältä".
+const WAKE_HOURS = ['six', 'seven', 'eight', 'nine'];
+
+// The patterns below are ⚠️ for native review. None has a word that could
+// stand anywhere ("eilen", yesterday): the game takes one order only, and
+// "Minä söin eilen…" is as right as "Eilen minä söin…".
 
 export const sentenceConstructions: SentenceConstruction[] = [
   // t5 — adjective+noun object in the genitive (total object of a bounded verb).
@@ -337,6 +348,133 @@ export const sentenceConstructions: SentenceConstruction[] = [
         fixedId: 'draw',
       },
       { id: 'obj', role: 'noun', case: 'genitive', number: 'singular', pickFrom: DRAWABLE },
+    ],
+  },
+  // t5 — soittaa takes the partitive: "minä soitan pianoa".
+  {
+    id: 'i-play-instrument',
+    en: 'I play the {obj}.',
+    tier: 5,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'play-music',
+      },
+      { id: 'obj', role: 'noun', case: 'partitive', number: 'singular', pickFrom: INSTRUMENTS },
+    ],
+  },
+  // t5 — "äidillä on tylsää": someone has (-lla) a bored or fun time (-a, not
+  // the basic form of "Minulla on nälkä").
+  {
+    id: 'bored-or-fun',
+    en: 'The {subj} is {adj}.',
+    tier: 5,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { fixed: 'on' }, { slot: 'adj' }],
+    slots: [
+      { id: 'subj', role: 'noun', case: 'adessive', number: 'singular', pickFrom: FAMILY_DOERS },
+      {
+        id: 'adj',
+        role: 'adjective',
+        pool: 'adjectives',
+        case: 'partitive',
+        number: 'singular',
+        pickFrom: ['boring', 'funny'],
+        glossById: { boring: 'bored', funny: 'having fun' },
+      },
+    ],
+  },
+  // t6 — the past tense: "minä söin ison omenan".
+  {
+    id: 'ate-big-food',
+    en: 'I ate the big {obj}.',
+    tier: 6,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'adj' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'past',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'eat',
+      },
+      { id: 'adj', role: 'adjective', pool: 'adjectives', agreesWith: 'obj', fixedId: 'big' },
+      { id: 'obj', role: 'noun', case: 'genitive', number: 'singular', pickFrom: EDIBLE },
+    ],
+  },
+  // t6 — at a time, -lta / -ltä: "minä herään kello seitsemältä".
+  {
+    id: 'i-wake-up-at',
+    en: "I wake up at {obj} o'clock.",
+    tier: 6,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { fixed: 'kello' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'wake-up',
+      },
+      { id: 'obj', role: 'noun', pool: 'numbers', case: 'ablative', number: 'singular', pickFrom: WAKE_HOURS },
+    ],
+  },
+  // t7 — the past "not": "minä en nähnyt koiraa" (and the object takes -a).
+  {
+    id: 'didnt-see-animal',
+    en: "I didn't see the {obj}.",
+    tier: 7,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'pronoun', fixedId: '1sg' },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'past',
+        polarity: 'negative',
+        agreesWith: 'subj',
+        fixedId: 'see',
+      },
+      { id: 'obj', role: 'noun', case: 'partitive', number: 'singular', pickFrom: ANIMALS },
+    ],
+  },
+  // t7 — a plural subject, and the verb says "they" too: "kissat juoksevat metsään".
+  {
+    id: 'animals-run-into',
+    en: 'The {subj} run into the {obj}.',
+    tier: 7,
+    punct: '.',
+    tokens: [{ slot: 'subj' }, { slot: 'verb' }, { slot: 'obj' }],
+    slots: [
+      { id: 'subj', role: 'noun', case: 'nominative', number: 'plural', pickFrom: RUNNERS },
+      {
+        id: 'verb',
+        role: 'verb',
+        verbSlotForm: 'conjugated',
+        tense: 'present',
+        polarity: 'positive',
+        agreesWith: 'subj',
+        fixedId: 'run',
+      },
+      { id: 'obj', role: 'noun', case: 'illative', number: 'singular', pickFrom: RUN_INTO },
     ],
   },
 ];

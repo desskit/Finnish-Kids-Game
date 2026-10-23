@@ -18,6 +18,9 @@ import {
   clothes,
   adjectives,
   verbs,
+  numbers,
+  school,
+  freetime,
 } from '../content';
 
 // The multi-slot sentence system. These fixtures (fake words, isolated from the
@@ -119,10 +122,12 @@ const realPools: SentencePools = {
     ...body.items,
     ...nature.items,
     ...clothes.items,
+    ...school.items,
+    ...freetime.items,
   ],
   verbs: verbs.items,
   adjectives: adjectives.items,
-  numbers: [],
+  numbers: numbers.items,
 };
 
 /** Re-pin a template's swap slot to one specific candidate id. */
@@ -174,6 +179,22 @@ describe('authored sentence templates (real sourced data)', () => {
     const seeBig = sentenceConstructions.find((t) => t.id === 'see-big-animal')!;
     expect(resolveSentence(pin(seeBig, 'bear'), realPools)!.gloss).toBe('I see the big bear.');
     expect(resolveSentence(pin(seeBig, 'fox'), realPools)!.gloss).toBe('I see the big fox.');
+  });
+
+  it('says the new patterns the way Finnish does', () => {
+    const fixed = (id: string, pick: string) => resolveSentence(pin(sentenceConstructions.find((t) => t.id === id)!, pick), realPools)!;
+    // A plural subject takes the "they" form, and its English is the plural.
+    const run = fixed('animals-run-into', 'fox');
+    expect(run.words.slice(0, 2)).toEqual(['ketut', 'juoksevat']);
+    expect(run.gloss).toMatch(/^The foxes run into the (forest|park|house)\.$/);
+    expect(fixed('didnt-see-animal', 'dog').words).toEqual(['minä', 'en', 'nähnyt', 'koiraa']);
+    expect(fixed('ate-big-food', 'apple').words).toEqual(['minä', 'söin', 'ison', 'omenan']);
+    expect(fixed('i-play-instrument', 'piano').words).toEqual(['minä', 'soitan', 'pianoa']);
+    expect(fixed('i-wake-up-at', 'seven').words).toEqual(['minä', 'herään', 'kello', 'seitsemältä']);
+    // "Minulla on tylsää" is being bored, not being boring.
+    const bored = fixed('bored-or-fun', 'mother');
+    expect(bored.words[0]).toBe('äidillä');
+    expect(bored.gloss).toMatch(/^Mom is (bored|having fun)\.$/);
   });
 
   it('keeps the negation object in the partitive (en näe kissaa)', () => {

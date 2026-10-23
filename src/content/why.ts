@@ -122,6 +122,15 @@ const CONSTRUCTION_RULES: Record<string, string> = {
   'fish-in': 'Where it IS → **-ssa / -ssä**: *Kala on järvessä*.',
   'bird-in': 'Where it IS → **-ssa / -ssä**: *Lintu on puussa*.',
   'butterfly-on': 'ON something → **-lla / -llä**: *Perhonen on lehdellä*.',
+  'i-must': 'After *Minun täytyy* (I have to), the next verb stays in its **basic form**: *mennä*.',
+  'i-would-like': 'After *Haluaisin* (I\'d like), the next verb stays in its **basic form**: *piirtää*.',
+  'may-i-go-into': 'Going INTO a place → a long vowel + **n**: *Saanko mennä vessaan?*',
+  'may-i-go-onto': 'Going TO an "on" place → **-lle**: *Saanko mennä pihalle?*',
+  'could-i-have': 'One whole thing → **-n**: *Saisinko kynän?*',
+  'could-i-have-some': 'Some of something → **-a / -ä**: *Saisinko vettä?*',
+  'santa-brings': 'One whole thing → **-n**: *Joulupukki tuo lahjan*.',
+  'i-wait-for-holiday': 'After *Odotan* (I\'m waiting for) → **-a / -ä**: *Odotan joulua!*',
+  'at-the-cottage': 'AT a holiday → **-na / -nä**, like a day: *jouluna*, *juhannuksena*.',
 };
 
 const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {

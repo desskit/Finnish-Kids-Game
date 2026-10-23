@@ -33,7 +33,7 @@ describe('consonant gradation (KPT)', () => {
         'nukkua', 'leikkiä', 'lukea', 'kirjoittaa', 'piirtää', 'auttaa', 'ottaa', 'antaa',
         'sulkea', 'löytää', 'lentää', 'keittää', 'heittää', 'unohtaa', 'oppia', 'opettaa',
         'odottaa', 'rakentaa', 'kuunnella', 'hypätä', 'kiivetä', 'tavata', 'pudota', 'leikata',
-        'lämmetä', 'paeta', 'tykätä', 'koskettaa', 'soittaa', 'pukea',
+        'lämmetä', 'paeta', 'tykätä', 'koskettaa', 'soittaa', 'pukea', 'ymmärtää', 'hiihtää',
       ].sort(),
     );
   });

@@ -33,6 +33,7 @@ import {
 } from '../content/types';
 import { itemById } from '../content/lookup';
 import { resolveRef } from '../content/lessons';
+import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -56,6 +57,7 @@ describe('content integrity', () => {
       'money',
       'meals',
       'weather',
+      'finnish-year',
       'time',
     ]);
   });
@@ -504,5 +506,19 @@ describe('My day, the weather, out in nature', () => {
     expect(sentenceFor(word('lake'), con('fish-in'))).toBe('Kala on järvessä.');
     expect(sentenceFor(word('tree'), con('bird-in'))).toBe('Lintu on puussa.');
     expect(sentenceFor(word('leaf'), con('butterfly-on'))).toBe('Perhonen on lehdellä.');
+  });
+});
+
+describe("the phrase frames' own words", () => {
+  it('are real Finnish forms (Minun täytyy, Haluaisin, Saisinko, Saanko mennä…)', () => {
+    const lex = finnishLexicon();
+    const unknown = nounConstructions.flatMap((c) => unknownWords(`${c.before ?? ''} ${c.after ?? ''}`, lex).map((w) => `${c.id}: ${w}`));
+    expect(unknown).toEqual([]);
+    // The new polite and "have to" frames say them as sourced.
+    const frame = (id: string) => nounConstructions.find((c) => c.id === id)!.before;
+    expect(frame('i-must')).toBe('Minun täytyy');
+    expect(frame('i-would-like')).toBe('Haluaisin');
+    expect(frame('could-i-have')).toBe('Saisinko');
+    expect(frame('may-i-go-into')).toBe('Saanko mennä');
   });
 });

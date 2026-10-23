@@ -13,32 +13,16 @@ const extracted = extractUiFinnish();
 const label = (fi: string) => extracted.find((l) => l.fi === fi);
 
 /**
- * Words the vendored Wiktionary tables don't carry, each a real word: shown
- * here so a typo can't hide among them.
+ * Words neither the vendored Wiktionary tables nor the supplement carry, each
+ * a real word: shown here so a typo can't hide among them.
  */
 const NOT_IN_TABLES = new Set([
-  'aakkoset', // the alphabet (plural of aakkonen)
-  'arkipuhetta', // everyday talk (arkipuhe, partitive)
-  'asetukset', // settings
-  'edistyminen', // progress
   'ensiaskeleet', // first steps
-  'fraasi', // phrase (loan)
   'juttelija', // chatterbox (jutella)
   'kertaus', // review, revision
   'kirjainten', // of the letters (kirjain, genitive plural)
-  'laskeminen', // counting
-  'lukutoukka', // bookworm
-  'lämmittely', // warm-up
   'muistaja', // rememberer (muistaa)
   'oppija', // learner
-  'pidennä', // lengthen! (pidentää)
-  'testaus', // testing
-  'täydennä', // complete! (täydentää)
-  'verbi', // verb
-  'verbit', // verbs
-  'verbityyppi', // verb type
-  'verbityypit', // verb types
-  'vihko', // exercise book
 ]);
 
 describe('the Finnish in the app’s screens', () => {

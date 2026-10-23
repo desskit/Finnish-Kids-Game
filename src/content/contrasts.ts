@@ -190,6 +190,26 @@ export const SLIPS: Record<string, Slip[]> = {
   'fish-in': [s('illative'), s('allative')],
   'bird-in': [s('illative'), s('allative')],
   'butterfly-on': [s('illative'), s('allative')],
+
+  // ⚠️ School & daycare. "Saanko mennä vessaan / pihalle?": going places, as
+  // after "Menen" (the in/on counterpart is never offered — see below).
+  'may-i-go-into': PLACES_EXCEPT('illative'),
+  'may-i-go-onto': PLACES_EXCEPT('allative'),
+  // "Saisinko kynän?" / "Saisinko vettä?": not the basic form, not -ssa. Never
+  // -a for the pencil or -n for the water: "Saisinko veden?" (the water) is
+  // fine, and so is asking for some of a thing.
+  'could-i-have': [s('nominative'), s('inessive')],
+  'could-i-have-some': [s('nominative'), s('inessive')],
+
+  // ⚠️ The Finnish year.
+  // "Joulupukki tuo lahjan": not the basic form, not -ssa. Never -a ("tuo
+  // lahjaa" — on the way with it).
+  'santa-brings': [s('nominative'), s('inessive')],
+  // "Odotan joulua!": -a, as after any "Odotan". Never -na: "Odotan jouluna"
+  // is "I'll wait at Christmas".
+  'i-wait-for-holiday': [s('genitive'), s('nominative'), s('elative')],
+  // "Olemme mökillä jouluna": AT a holiday, -na. Not the basic form, -a or -ssa.
+  'at-the-cottage': [s('nominative'), s('partitive'), s('inessive')],
 };
 
 // IN vs ON places: for most things the two endings mean different things
@@ -198,8 +218,10 @@ export const SLIPS: Record<string, Slip[]> = {
 // koululla" = at school; "Tulen koululta"), and some places take either:
 // "pihassa / pihalla", "kaupungissa / kaupungilla", a cat "ikkunassa /
 // ikkunalla" (in / at the window), "tuolissa / tuolilla" (in / on a chair),
-// "laivassa / laivalla" (on board), and "tulee ovesta" (comes in through the
-// door) beside "ovelta". There the in/on counterpart is never offered as wrong.
+// "laivassa / laivalla" (on board), "tulee ovesta" (comes in through the
+// door) beside "ovelta", "vessassa / vessalla", "saunassa / saunalla" (in it /
+// at its door), "päiväkodissa / päiväkodilla" and "mökillä / mökissä" (at the
+// cottage / inside it). There the in/on counterpart is never offered as wrong.
 const IN_ON_PAIR: Partial<Record<CaseId, CaseId>> = {
   inessive: 'adessive',
   adessive: 'inessive',
@@ -208,8 +230,17 @@ const IN_ON_PAIR: Partial<Record<CaseId, CaseId>> = {
   elative: 'ablative',
   ablative: 'elative',
 };
-const PERSON_PLACE_CARRIERS = new Set(['i-am-in', 'i-am-on', 'i-go-into', 'i-go-onto', 'i-come-from-in', 'i-come-from-on']);
-const EITHER_IN_OR_ON = new Set(['yard', 'city', 'window', 'chair', 'ship', 'door']);
+const PERSON_PLACE_CARRIERS = new Set([
+  'i-am-in',
+  'i-am-on',
+  'i-go-into',
+  'i-go-onto',
+  'i-come-from-in',
+  'i-come-from-on',
+  'may-i-go-into',
+  'may-i-go-onto',
+]);
+const EITHER_IN_OR_ON = new Set(['yard', 'city', 'window', 'chair', 'ship', 'door', 'restroom', 'daycare', 'sauna', 'cottage']);
 
 function counterpartIsFine(item: LexicalItem, con: Construction, slip: Slip): boolean {
   if (IN_ON_PAIR[con.case] !== slip.case) return false;

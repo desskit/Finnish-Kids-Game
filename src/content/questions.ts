@@ -89,6 +89,9 @@ export const YOU_QUESTION: Readonly<Record<string, string>> = {
   'play-music': 'soitatko',
   'brush': 'harjaatko',
   'put-on': 'puetko',
+  'understand': 'ymmärrätkö',
+  'ski': 'hiihdätkö',
+  'skate': 'luisteletko',
 };
 
 /** "Syötkö?" — the question form for a verb, capitalized with "?". */

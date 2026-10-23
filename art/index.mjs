@@ -21,12 +21,15 @@ import school from './recipes/school.mjs';
 import time from './recipes/time.mjs';
 import ui from './recipes/ui.mjs';
 import verbs from './recipes/verbs.mjs';
+import year from './recipes/year.mjs';
 import bathroom from './scenes/bathroom.mjs';
 import beach from './scenes/beach.mjs';
 import bedroom from './scenes/bedroom.mjs';
 import busStop from './scenes/busStop.mjs';
 import cafe from './scenes/cafe.mjs';
+import christmas from './scenes/christmas.mjs';
 import classroom from './scenes/classroom.mjs';
+import cottage from './scenes/cottage.mjs';
 import field from './scenes/field.mjs';
 import forest from './scenes/forest.mjs';
 import home from './scenes/home.mjs';
@@ -35,6 +38,7 @@ import library from './scenes/library.mjs';
 import park from './scenes/park.mjs';
 import party from './scenes/party.mjs';
 import playground from './scenes/playground.mjs';
+import sauna from './scenes/sauna.mjs';
 import shop from './scenes/shop.mjs';
 import station from './scenes/station.mjs';
 import yard from './scenes/yard.mjs';
@@ -50,10 +54,10 @@ import hero from './scenes/hero.mjs';
  * a story shows that isn't a word) has `prop: true`: it goes in the words
  * sprite, under its own `theme` in the gallery.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...meals, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...feelings, ...verbs, ...school, ...time, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...meals, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...feelings, ...verbs, ...school, ...time, ...year, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
-export const SCENES = [home, kitchen, bedroom, bathroom, party, classroom, library, shop, cafe, park, playground, yard, field, beach, busStop, zoo, forest, station];
+export const SCENES = [home, kitchen, bedroom, bathroom, party, christmas, classroom, library, shop, cafe, park, playground, yard, field, beach, busStop, zoo, forest, station, cottage, sauna];
 
 /**
  * The app's own scenery (UI scenes): drawn like a backdrop, in the looks'

@@ -88,7 +88,8 @@ describe('the verbs units', () => {
       const at = unit.skills.findIndex((s) => s.id === unit.midLessons![0].before);
       for (const step of unit.skills.slice(0, at)) {
         const ids = new Set(step.content.wordIds);
-        for (const w of unit.skills.slice(at).flatMap((s) => s.content.only ?? [])) {
+        // the unit's own words met after the lesson (an old word a later step names isn't held back)
+        for (const w of unit.skills.slice(at).flatMap((s) => s.content.only ?? []).filter((x) => unit.newWords?.includes(x))) {
           expect(ids.has(w), `${unit.id}/${step.id}: ${w}`).toBe(false);
         }
       }

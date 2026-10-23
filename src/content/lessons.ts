@@ -2768,6 +2768,225 @@ export const lessons: Lesson[] = [
     ],
   },
   {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'school-daycare',
+    titleFi: 'Koulussa ja päiväkodissa',
+    titleEn: 'School & daycare',
+    emoji: '🛎️',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'At school and daycare',
+        text: 'Little brothers and sisters go to *päiväkoti* — daycare.',
+        rows: [{ word: 'recess' }, { word: 'notebook' }, { word: 'glue' }, { word: 'board' }, { word: 'nurse' }, { word: 'bandage' }, { word: 'daycare' }],
+      },
+      {
+        kind: 'examples',
+        title: 'May I go?',
+        text: '*Saanko mennä…?* — may I go…? The place takes the GOING ending, just like after *Menen*: a long vowel + **n** INTO a room (*vessaan*), **-lle** out ONTO the yard (*pihalle*).',
+        rows: [
+          { sentence: 'may-i-go-into', word: 'restroom' },
+          { sentence: 'may-i-go-into', word: 'library' },
+          { sentence: 'may-i-go-onto', word: 'yard' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'I have to',
+        text: '*Minun täytyy* — I have to. The verb after it stays in its **basic form**, like after *Haluan*.',
+        rows: [
+          { sentence: 'i-must', word: 'go' },
+          { sentence: 'i-must', word: 'read' },
+          { sentence: 'i-must', word: 'wait' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: "I don't understand",
+        text: 'Say it any time — the teacher will help. *ymmärtää* changes like *piirtää*: **rt → rr**.',
+        rows: [
+          { verb: 'understand', tense: 'present', polarity: 'negative', person: '1sg', en: "I don't understand" },
+          { kpt: 'understand' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Asking nicely',
+        text: 'The polite way: *Haluaisin* (I\'d like) and *Saisinko?* (could I have?) — the **-isi-** in the middle makes it polite. One whole thing → **-n** (*kynän*); some of something → **-a** (*vettä*), just like at the shop.',
+        rows: [
+          { sentence: 'i-would-like', word: 'draw' },
+          { sentence: 'could-i-have', word: 'pencil' },
+          { sentence: 'could-i-have-some', word: 'water' },
+        ],
+      },
+      {
+        kind: 'pairs',
+        title: 'What to say back',
+        ids: ['may-i-go-restroom', 'dont-understand', 'could-i-have-glue', 'what-would-you-like', 'in-a-hurry', 'when-recess'],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "May I go to the restroom?"',
+        options: [
+          { ref: { sentence: 'may-i-go-into', word: 'restroom' }, correct: true },
+          { ref: { sentence: 'may-i-go-into', word: 'restroom', asCase: 'inessive' } },
+        ],
+        explain: 'Going INTO → a long vowel + **n**: *vessaan*. (*vessassa* is IN the restroom.)',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! Which one did you hear?',
+        listen: { sentence: 'i-would-like', word: 'play' },
+        options: [
+          { ref: { sentence: 'i-want-to', word: 'play' } },
+          { ref: { sentence: 'i-would-like', word: 'play' }, correct: true },
+        ],
+        explain: '*Haluaisin* — I\'d like, the polite one. *Haluan* is I want.',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'finnish-year',
+    titleFi: 'Suomalainen vuosi',
+    titleEn: 'The Finnish year: Christmas',
+    emoji: '🎄',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Christmas Eve',
+        text: 'In Finland, Christmas comes on Christmas Eve, the 24th of December. And *joulupukki* — Santa — comes to the door himself! He asks: *Onko täällä kilttejä lapsia?* — Are there any good children here?',
+      },
+      {
+        kind: 'examples',
+        title: 'Christmas words',
+        rows: [{ word: 'christmas' }, { word: 'santa' }, { word: 'christmas-tree' }, { word: 'elf' }, { word: 'gingerbread' }],
+      },
+      {
+        kind: 'examples',
+        title: 'What Santa brings: -n',
+        text: 'One whole present → **-n**, like *Näen kissan*.',
+        rows: [
+          { sentence: 'santa-brings', word: 'present' },
+          { sentence: 'santa-brings', word: 'book' },
+          { sentence: 'santa-brings', word: 'teddy' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Winter fun',
+        text: 'Snow means skiing and skating. *hiihtää* changes **ht → hd**: *minä hiihdän*.',
+        rows: [{ word: 'snowman' }, { kpt: 'ski' }, { verb: 'skate', tense: 'present', polarity: 'positive', person: '1sg', en: 'I skate' }],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "Santa brings a present"?',
+        options: [
+          { ref: { sentence: 'santa-brings', word: 'present' }, correct: true },
+          { ref: { sentence: 'santa-brings', word: 'present', asCase: 'nominative' } },
+        ],
+        explain: 'One whole present → **-n**: *Joulupukki tuo lahjan*.',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'easter',
+    titleFi: 'Pääsiäinen',
+    titleEn: 'Easter',
+    emoji: '🐣',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Easter witches',
+        text: 'A week before Easter, on Palm Sunday, children dress up as little witches — *noita* — and go from door to door with willow twigs decorated with feathers. They wish everyone a happy, healthy year with a little rhyme, give a twig, and get a treat. Ask a Finnish grown-up to teach you the rhyme!',
+      },
+      {
+        kind: 'examples',
+        title: 'Spring words',
+        rows: [{ word: 'easter' }, { word: 'witch' }, { word: 'catkin' }],
+      },
+      {
+        kind: 'examples',
+        title: "I can't wait!",
+        text: '*Odotan* (I\'m waiting for) takes **-a / -ä**, always: *Odotan pääsiäistä!*',
+        rows: [
+          { sentence: 'i-wait-for-holiday', word: 'easter' },
+          { sentence: 'i-wait-for-holiday', word: 'christmas' },
+          { sentence: 'i-wait-for-holiday', word: 'santa' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I can\'t wait for Easter!"?',
+        options: [
+          { ref: { sentence: 'i-wait-for-holiday', word: 'easter' }, correct: true },
+          { ref: { sentence: 'i-wait-for-holiday', word: 'easter', asCase: 'nominative' } },
+        ],
+        explain: '*Odotan* takes **-a**: *Odotan pääsiäistä!*',
+      },
+    ],
+  },
+  {
+    // ⚠️ The Finnish in the prose below is listed for native review.
+    id: 'midsummer',
+    titleFi: 'Juhannus',
+    titleEn: 'Midsummer',
+    emoji: '🎋',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'The longest day',
+        text: 'At Midsummer, *juhannus*, the sun hardly sets at all. Families go to their summer cottage by a lake: they have a sauna, swim in the lake and light a big bonfire, a *kokko*.',
+      },
+      {
+        kind: 'examples',
+        title: 'Summer words',
+        rows: [{ word: 'midsummer' }, { word: 'bonfire' }, { word: 'cottage' }, { word: 'sauna' }, { word: 'bun' }, { word: 'blueberry' }],
+      },
+      {
+        kind: 'examples',
+        title: 'To the cottage: -lle',
+        text: 'A cottage is an "on" place: *mökille* (to the cottage), *mökillä* (at the cottage). But you go INTO the sauna: *saunaan*.',
+        rows: [
+          { sentence: 'i-go-onto', word: 'cottage' },
+          { sentence: 'i-am-on', word: 'cottage' },
+          { sentence: 'i-go-into', word: 'sauna' },
+          { sentence: 'i-am-in', word: 'sauna' },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'At Christmas: -na',
+        text: 'AT a holiday → **-na / -nä**, like the days of the week (*maanantaina*).',
+        rows: [
+          { sentence: 'at-the-cottage', word: 'christmas' },
+          { sentence: 'at-the-cottage', word: 'easter' },
+          { sentence: 'at-the-cottage', word: 'midsummer' },
+        ],
+      },
+      {
+        kind: 'check',
+        question: 'How do you say "I\'m going to the cottage"?',
+        options: [
+          { ref: { sentence: 'i-go-onto', word: 'cottage' }, correct: true },
+          { ref: { sentence: 'i-go-onto', word: 'cottage', asCase: 'adessive' } },
+        ],
+        explain: 'Going TO the cottage → **-lle**: *mökille*. (*mökillä* is AT the cottage.)',
+      },
+      {
+        kind: 'check',
+        question: 'Listen! When are we at the cottage?',
+        listen: { sentence: 'at-the-cottage', word: 'midsummer' },
+        options: [
+          { ref: { sentence: 'at-the-cottage', word: 'midsummer' }, correct: true },
+          { ref: { sentence: 'at-the-cottage', word: 'christmas' } },
+        ],
+        explain: '*juhannuksena* — at Midsummer. *jouluna* is at Christmas.',
+      },
+    ],
+  },
+  {
     id: 'owners',
     titleFi: 'Äidin pyörä',
     titleEn: "Mom's bike — the owner gets -n",

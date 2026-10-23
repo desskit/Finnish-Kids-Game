@@ -70,6 +70,9 @@ export const NOT_COUNTABLE = [
   'grass',
   'ice',
   'wind',
+  // glue is "some glue"; recess is a time of day ("I like recess")
+  'glue',
+  'recess',
 ];
 
 export function isCountable(id: string): boolean {
@@ -138,15 +141,16 @@ const ALWAYS_HOT = ['fire', 'sun'];
 export const ABSTRACT_NOUNS = ['music', 'math', 'gym', 'english', 'hobby', 'task', 'homework', 'movie', 'game', 'test', 'class'];
 /** The adjectives that do fit an idea: a good game, a big test, an old movie. */
 const IDEA_ADJECTIVES = ['good', 'big', 'small', 'old', 'new', 'short', 'easy', 'hard'];
-/** School subjects: "hyvä englanti", "vanha musiikki" — and nothing else. */
-const SUBJECT_ADJECTIVES: Record<string, string[]> = { math: [], gym: [], english: ['good'], music: ['good', 'old'] };
+/** School subjects: "hyvä englanti", "vanha musiikki" — and nothing else. A
+ *  recess is good or short ("lyhyt välitunti"), never red or old. */
+const SUBJECT_ADJECTIVES: Record<string, string[]> = { math: [], gym: [], english: ['good'], music: ['good', 'old'], recess: ['good', 'short'] };
 const SIZE_ADJECTIVES = ['big', 'small'];
 /** Uncountable, but each one thing with a size: "iso meri", "pieni kuu". */
 const ONE_BIG_THING = ['sky', 'sea', 'sun', 'moon'];
 /** "Iso äiti" / "iso isä" would be heard as isoäiti / isoisä. */
 const PARENTS = ['mother', 'father'];
 /** People outside the family topic. */
-const PEOPLE_IDS = ['teacher', 'friend', 'pupil'];
+const PEOPLE_IDS = ['teacher', 'friend', 'pupil', 'nurse'];
 /** Things that are tall — "pitkä puu" — rather than long. */
 const TALL_THINGS = ['tree'];
 // The opposites Describing adds say only what fits them: a new bike, pet,
@@ -156,12 +160,12 @@ const TALL_THINGS = ['tree'];
 const NOT_NEW_TOPICS = ['food', 'nature', 'body', 'family', 'time', 'states'];
 const NOT_NEW = ['forest', 'field', 'tree'];
 const PETS = ['cat', 'dog', 'bunny', 'fish', 'bird', 'mouse', 'horse'];
-const SHORT_THINGS = ['pencil', 'snake', 'movie', 'book', 'hair', 'skirt', 'dress', 'scarf', 'tie', 'coat', 'belt', 'train', 'test', 'task', 'homework'];
+const SHORT_THINGS = ['pencil', 'snake', 'movie', 'book', 'hair', 'skirt', 'dress', 'scarf', 'tie', 'coat', 'belt', 'train', 'test', 'task', 'homework', 'recess'];
 const EASY_OR_HARD = ['task', 'homework', 'test', 'game'];
 const CLEAN_OR_DIRTY = [
   'hand', 'foot', 'cat', 'dog', 'pig', 'horse', 'bunny', 'car', 'bike', 'bus', 'taxi', 'room', 'kitchen',
   'bathroom', 'bedroom', 'living-room', 'table', 'chair', 'bed', 'sofa', 'window', 'house', 'yard',
-  'backpack', 'ball', 'football', 'spoon', 'fork', 'toy', 'doll', 'teddy', 'water', 'snow',
+  'backpack', 'ball', 'football', 'spoon', 'fork', 'toy', 'doll', 'teddy', 'water', 'snow', 'restroom',
 ];
 
 /** Does this adjective make sense on this noun (beyond the animate / movement rules)? */

@@ -24,6 +24,7 @@ import {
   money,
   meals,
   weather,
+  finnishYear,
 } from '../content';
 import type { Difficulty, VerbCombo } from './adapt';
 import { byIds } from '../util/byIds';
@@ -308,6 +309,7 @@ const EVERY_WORD: LexicalItem[] = [
   ...money.items,
   ...meals.items,
   ...weather.items,
+  ...finnishYear.items,
   ...verbs.items,
   ...feelingVerbs.items,
   ...adjectives.items,
@@ -557,7 +559,15 @@ function listenStep(
   id: string,
   titleEn: string,
   hear: HearSource,
-  spec: { constructionIds?: string[]; verbs?: VerbFilter; combos?: VerbCombo[]; maxCount?: number; pool?: Pool },
+  spec: {
+    constructionIds?: string[];
+    verbs?: VerbFilter;
+    combos?: VerbCombo[];
+    maxCount?: number;
+    pool?: Pool;
+    /** Only these words (a unit's newest), heard in every pattern. */
+    only?: string[];
+  },
   exampleFi?: string,
 ): SkillNode {
   const pin: Partial<Difficulty> = {
@@ -571,7 +581,7 @@ function listenStep(
     icon: '👂',
     activity: 'hear',
     maxLevel: 2,
-    content: { hear, constructionIds: spec.constructionIds, verbs: spec.verbs, pool: spec.pool },
+    content: { hear, constructionIds: spec.constructionIds, verbs: spec.verbs, pool: spec.pool, only: spec.only },
     ...(Object.keys(pin).length > 0 ? { pin } : {}),
     exampleFi,
   };
@@ -616,6 +626,7 @@ function phraseStep(
   constructionIds: string[],
   exampleFi?: string,
   pool?: Pool,
+  only?: string[],
 ): SkillNode {
   const ending = !NO_ENDING_ROUND.has(id);
   return {
@@ -627,7 +638,7 @@ function phraseStep(
     activities: ['build', 'order', ending ? 'ending' : 'order'],
     maxLevel: 3,
     checkpoint: ending ? 'ending' : 'order',
-    content: { constructionIds, pool },
+    content: { constructionIds, pool, only },
     exampleFi,
   };
 }
@@ -720,6 +731,20 @@ const WINTER_CLOTHES = ['beanie', 'mitten', 'snowsuit', 'sweater', 'raincoat', '
 // Out in nature: the land and water, then the animals that live there.
 const NATURE_WORDS = ['flower', 'mountain', 'stone', 'lake', 'sea', 'leaf', 'grass', 'island', 'fire', 'beach'];
 const WILD_ANIMALS = ['bird', 'fish', 'butterfly', 'bee', 'snake', 'wolf', 'wild-duck'];
+
+// School & daycare: the school's own words, and the verb for "En ymmärrä".
+const SCHOOL_WORDS = ['restroom', 'recess', 'daycare', 'notebook', 'glue', 'board', 'nurse', 'bandage', 'understand'];
+// Asking nicely: "Haluaisin piirtää", "Saisinko kynän?", "Saisinko vettä?"
+const POLITE_FRAMES = ['i-would-like', 'could-i-have', 'could-i-have-some'];
+// The Finnish year, part by part: Christmas and winter, Easter, Midsummer.
+const YEAR_WINTER = ['christmas', 'santa', 'christmas-tree', 'gingerbread', 'elf', 'snowman', 'ski', 'skate'];
+const YEAR_SPRING = ['easter', 'witch', 'catkin'];
+const YEAR_SUMMER = ['midsummer', 'bonfire', 'cottage', 'sauna', 'bun', 'blueberry'];
+// The trip to the cottage: the cottage and the sauna among a few places met
+// long ago, half you go ONTO (-lle), half INTO.
+const COTTAGE_TRIP = ['cottage', 'sauna', 'yard', 'field', 'forest', 'shop'];
+// Where a person is, goes and comes from — the cottage (-lle) and the sauna (-Vn).
+const PERSON_FRAMES = ['i-am-on', 'i-go-onto', 'i-come-from-on', 'i-am-in', 'i-go-into', 'i-come-from-in'];
 
 const UNITS: Chapter[] = [
   {
@@ -1570,6 +1595,34 @@ const UNITS: Chapter[] = [
     ],
   },
   {
+    id: 'school-daycare',
+    titleFi: 'Koulussa ja päiväkodissa',
+    titleEn: 'School & daycare',
+    blurbEn: "May I go to the restroom? I have to… — asking nicely, and saying you don't understand.",
+    accent: '#2563eb',
+    icon: '🛎️',
+    lessonId: 'school-daycare',
+    newWords: SCHOOL_WORDS,
+    skills: [
+      wordsStep('school-daycare', 'mixed', 'School & daycare'),
+      phraseStep('may-i-go', 'Saanko mennä vessaan?', 'May I go…?', '🚻', ['may-i-go-into', 'may-i-go-onto'], 'Saanko mennä vessaan?', 'places'),
+      phraseStep('must-do', 'Minun täytyy…', 'I have to…', '🏃', ['i-must'], 'Minun täytyy mennä.', 'verbs'),
+      phraseStep('asking-nicely', 'Haluaisin, saisinko', 'Asking nicely', '🙏', POLITE_FRAMES, 'Haluaisin piirtää. · Saisinko vettä?', 'mixed'),
+      {
+        id: 'school-replies',
+        titleFi: 'En ymmärrä',
+        titleEn: 'What do you say?',
+        icon: '💬',
+        activity: 'dialogue',
+        maxLevel: 3,
+        content: { ids: ['may-i-go-restroom', 'dont-understand', 'could-i-have-glue', 'what-would-you-like', 'in-a-hurry', 'when-recess'] },
+        exampleFi: 'En ymmärrä.',
+      },
+      listenStep('school-daycare-listen', 'Want, would like, or have to?', 'carriers', { constructionIds: ['i-want-to', 'i-would-like', 'i-must'], pool: 'verbs' }, 'Haluan leikkiä. · Haluaisin leikkiä.'),
+      sceneStep('school-daycare-talk', 'in-class', 'Luokassa', 'In class'),
+    ],
+  },
+  {
     id: 'by-with',
     titleFi: 'Bussilla, kynällä',
     titleEn: 'By bus, with a pen',
@@ -1789,6 +1842,43 @@ const UNITS: Chapter[] = [
       },
       listenStep('birthdays-listen', 'Now, or my birthday?', 'carriers', { constructionIds: ['now-month', 'birthday-in'], pool: 'time' }, 'Nyt on toukokuu. · Syntymäpäiväni on toukokuussa.'),
       sceneStep('birthdays-talk', 'birthday-party', 'Synttärit', 'A birthday party'),
+    ],
+  },
+  {
+    // One year in three parts, each with its own words: Christmas and winter,
+    // Easter (after its part-way lesson), Midsummer at the cottage.
+    id: 'finnish-year',
+    titleFi: 'Suomalainen vuosi',
+    titleEn: 'The Finnish year',
+    blurbEn: 'Christmas with joulupukki, Easter witches, Midsummer at the cottage — and the sauna.',
+    accent: '#b91c1c',
+    icon: '🎄',
+    lessonId: 'finnish-year',
+    midLessons: [
+      { lessonId: 'easter', before: 'spring-words' },
+      { lessonId: 'midsummer', before: 'summer-words' },
+    ],
+    newWords: [...YEAR_WINTER, ...YEAR_SPRING, ...YEAR_SUMMER],
+    skills: [
+      wordsStep('finnish-year', 'mixed', 'Christmas and winter', YEAR_WINTER),
+      phraseStep('santa-brings', 'Joulupukki tuo lahjan', 'What Santa brings', '🎅', ['santa-brings'], 'Joulupukki tuo lahjan.'),
+      sceneStep('christmas-talk', 'christmas-eve', 'Hyvää joulua!', 'Merry Christmas!'),
+      {
+        id: 'christmas-story',
+        titleFi: 'Joulupukki tulee!',
+        titleEn: 'Story: Santa is coming!',
+        icon: '📖',
+        activity: 'story',
+        maxLevel: 1,
+        content: { ids: ['santa-comes'] },
+      },
+      wordsStep('finnish-year', 'mixed', 'Easter', YEAR_SPRING, 'spring-words'),
+      phraseStep('waiting-for', 'Odotan joulua!', "I can't wait!", '⏳', ['i-wait-for-holiday'], 'Odotan pääsiäistä!', 'mixed'),
+      sceneStep('easter-talk', 'easter-witch', 'Hyvää pääsiäistä!', 'Happy Easter!'),
+      wordsStep('finnish-year', 'mixed', 'Midsummer', YEAR_SUMMER, 'summer-words'),
+      phraseStep('to-the-cottage', 'Menen mökille', 'To the cottage', '🛖', ['i-go-onto', 'i-go-into'], 'Menen mökille. · Menen saunaan.', 'places', COTTAGE_TRIP),
+      phraseStep('holidays', 'Jouluna vai joulua?', 'At Christmas, or waiting for it?', '🎋', ['at-the-cottage', 'i-wait-for-holiday'], 'Olemme mökillä juhannuksena. · Odotan juhannusta!', 'mixed'),
+      listenStep('finnish-year-listen', 'To the cottage, there, or back?', 'carriers', { constructionIds: PERSON_FRAMES, pool: 'places', only: ['cottage', 'sauna'] }, 'Menen mökille. · Olen mökillä.'),
     ],
   },
   {
@@ -2037,7 +2127,7 @@ const UNITS: Chapter[] = [
         icon: '🗣️',
         activity: 'conversation',
         maxLevel: 4,
-        content: { ids: ['helping', 'evening-home', 'plan-day', 'mixup'] },
+        content: { ids: ['helping', 'evening-home', 'plan-day', 'mixup', 'phone-grandma', 'card-game', 'school-nurse'] },
       },
       {
         id: 'everyday-stories',
@@ -2344,22 +2434,36 @@ const TYPING_MINOR = { kind: 'spell' as ActivityKind, fromLevel: 2, every: 4 };
 const typingFrom = UNITS.findIndex((u) => u.id === TYPING_FROM_UNIT);
 
 UNITS.forEach((unit, ui) => {
-  // Words a unit brings in only AFTER a part-way lesson (its KPT verbs) stay
-  // out of the steps before that lesson.
-  const firstMid = Math.min(
-    ...(unit.midLessons ?? []).map((m) => unit.skills.findIndex((s) => s.id === m.before)),
-  );
-  const heldBack = new Set(
-    unit.skills.slice(Math.max(0, firstMid)).flatMap((s) => (Number.isFinite(firstMid) ? s.content.only ?? [] : [])),
-  );
-  const knownBefore = knownByUnit[ui].filter((w) => !heldBack.has(w));
+  // Words a unit brings in only AFTER a part-way lesson (its KPT verbs, the
+  // Finnish year's Easter and Midsummer words) stay out of the steps before
+  // that lesson: a step knows the words of every words step up to the next
+  // part-way lesson, never past it. Only the unit's own new words are held
+  // back: a later step that names an old word (the cottage trip's yard)
+  // doesn't hide it.
+  const boundaries = (unit.midLessons ?? [])
+    .map((m) => unit.skills.findIndex((s) => s.id === m.before))
+    .filter((i) => i >= 0)
+    .sort((a, b) => a - b);
+  const ownWords = new Set(unit.newWords ?? []);
+  const knownUpTo = new Map<number, string[]>();
+  const knownAt = (si: number): string[] => {
+    const next = boundaries.find((b) => b > si);
+    if (next === undefined) return knownByUnit[ui];
+    let known = knownUpTo.get(next);
+    if (!known) {
+      const held = new Set(unit.skills.slice(next).flatMap((s) => s.content.only ?? []).filter((w) => ownWords.has(w)));
+      known = knownByUnit[ui].filter((w) => !held.has(w));
+      knownUpTo.set(next, known);
+    }
+    return known;
+  };
   unit.skills.forEach((step, si) => {
     const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
     if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
     const scope = step.content.words ?? 'known';
     if (step.content.only) step.content.wordIds = step.content.only;
     else if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
-    else if (scope === 'known') step.content.wordIds = si < firstMid ? knownBefore : knownByUnit[ui];
+    else if (scope === 'known') step.content.wordIds = knownAt(si);
     if (!unit.unpinned) step.pin = { ...EVERY_TIER, ...step.pin };
     if (step.content.mix) {
       step.content.mixOf = UNITS.slice(0, ui)

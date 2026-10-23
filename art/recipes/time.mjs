@@ -12,6 +12,6 @@ export default [
   { id: 'spring', title: 'spring (a sprout)', motion: { frames: 2, fps: 1.5 }, draw: time.spring },
   { id: 'summer', title: 'summer (a parasol in the sun)', motion: { frames: 2, fps: 2.5 }, draw: time.summer },
   { id: 'autumn', title: 'autumn (falling leaves)', motion: { frames: 3, fps: 3 }, draw: time.autumn },
-  { id: 'winter', title: 'winter (a snowman in the snow)', motion: { frames: 2, fps: 2 }, draw: time.winter },
+  { id: 'winter', title: 'winter (a snowy spruce, snow falling)', motion: { frames: 2, fps: 2 }, draw: time.winter },
   { id: 'birthday', title: 'birthday (a cake, candles flickering)', motion: { frames: 3, fps: 5 }, draw: time.birthday },
 ];

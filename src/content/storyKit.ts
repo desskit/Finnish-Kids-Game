@@ -11,8 +11,9 @@
 
 import type { BackdropId } from '../art/generated/manifest';
 
-/** The recurring cast: Aino, her friend Eero, her family, her cat and his dog. */
-export type CastId = 'aino' | 'eero' | 'aiti' | 'isa' | 'isoaiti' | 'mirri' | 'musti' | 'opettaja' | 'leo';
+/** The recurring cast: Aino, her friend Eero, her family, her cat and his dog
+ *  — and, once a year, joulupukki. */
+export type CastId = 'aino' | 'eero' | 'aiti' | 'isa' | 'isoaiti' | 'mirri' | 'musti' | 'opettaja' | 'leo' | 'joulupukki';
 
 export interface CastMember {
   nameFi: string;
@@ -32,7 +33,12 @@ export const CAST: Record<CastId, CastMember> = {
   musti: { nameFi: 'Musti', nameEn: 'Musti the dog', emoji: '🐶', pitch: 0.7 },
   opettaja: { nameFi: 'Opettaja', nameEn: 'The teacher', emoji: '🧑‍🏫', pitch: 1 },
   leo: { nameFi: 'Leo', nameEn: 'Leo', emoji: '🧒', pitch: 1.2 },
+  joulupukki: { nameFi: 'Joulupukki', nameEn: 'Santa', emoji: '🎅', pitch: 0.7 },
 };
+
+/** Cast members called by a word, not a name ("Äiti", Mom): in a story, tapping
+ *  the word shows the word ("äidille" → to Mom), not "(a name)". */
+export const CALLED_BY_A_WORD: ReadonlySet<CastId> = new Set<CastId>(['aiti', 'isa', 'isoaiti', 'opettaja', 'joulupukki']);
 
 /** The narrator's voice (a story told by a character uses theirs). */
 export const NARRATOR_PITCH = 1;
@@ -53,7 +59,7 @@ export interface StoryScene {
 }
 
 /** The settings indoors (their usual light is 'inside'; outdoors it's the 'day'). */
-const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'bathroom', 'party', 'classroom', 'library', 'shop', 'cafe']);
+const INDOORS: ReadonlySet<SettingId> = new Set<SettingId>(['home', 'kitchen', 'bedroom', 'bathroom', 'party', 'classroom', 'library', 'shop', 'cafe', 'christmas', 'sauna']);
 
 /** The light a scene is in: its own, or its setting's usual one. */
 export const toneOf = (scene: StoryScene): SceneTone => scene.tone ?? (INDOORS.has(scene.setting) ? 'inside' : 'day');

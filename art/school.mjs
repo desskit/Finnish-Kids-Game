@@ -3,8 +3,9 @@
 // homework, an abacus bead slides, Leo does jumping jacks, the flag waves,
 // the test gets its ticks.
 
-import { fmt, polar, pt } from './kit.mjs';
-import { arm, CAST, person, POSES } from './people.mjs';
+import { fmt, polar, pt, roundPoly, starPoints } from './kit.mjs';
+import { arm, CAST, hand, person, POSES, runPose } from './people.mjs';
+import { school as schoolHouse } from './places.mjs';
 
 /** A person shrunk and placed: `x` is where their middle goes, `ground` where their feet go. */
 const placed = (k, look, pose, x, ground, s) => k.g(`translate(${fmt(x - 32 * s)} ${fmt(ground - 60 * s)}) scale(${s})`, person(k, look, pose));
@@ -304,5 +305,107 @@ export function customs(k) {
     k.flatCircle(32, 25, 2, c.yellow),
     k.flat('M22 37H42V39H22ZM25 42H39V44H25Z', c.yellow),
     k.g('rotate(-14 44 47)', k.line('M35 42H53V53H35Z', { color: c.red, sw: 1.6 }), k.line('M38 46H50M38 49H47', { color: c.red, sw: 1.4 })),
+  ].join('');
+}
+
+/** Recess (välitunti): Eero runs out of school to play, his ball bouncing on ahead. */
+export function recess(k) {
+  const c = k.P;
+  const f = k.frame % 4;
+  const by = [50.6, 41.4, 36.6, 41.4][f];
+  return [
+    k.g('translate(-5 0) scale(.64)', schoolHouse(k)),
+    placed(k, CAST.eero, runPose(k), 40.6, 60, 0.74),
+    k.circle(58.4, by, 4.4, c.red),
+    k.flat(`M${fmt(54.6)} ${fmt(by + 0.6)}H${fmt(62.2)}V${fmt(by + 2.2)}H${fmt(54.6)}Z`, c.white),
+    k.shineDot(57, by - 2, 1),
+    k.ground(58.4, 58.6, 4.4, 1.4),
+  ].join('');
+}
+
+/** A notebook (vihko): purple covers, a spiral of rings down its side, a white label. */
+export function notebook(k) {
+  const c = k.P;
+  const rings = [13.4, 19.4, 25.4, 31.4, 37.4, 43.4, 49.4];
+  return [
+    k.ground(33, 58.6, 19, 2),
+    k.rect(17.6, 7.6, 33.4, 48.4, 2.4, c.purple),
+    k.flat('M46.6 8.8H49.8V54.8H46.6Z', c.purpleShade),
+    k.rect(24.6, 16, 19.6, 11.4, 1.4, c.white),
+    k.line('M27.6 20.4H41.4M27.6 23.6H37.4', { color: c.purpleShade, sw: 1.4 }),
+    ...rings.map((y) => k.line(`M14.6 ${fmt(y + 1.4)}C14.6 ${fmt(y - 2.6)} 21.4 ${fmt(y - 2.6)} 21.4 ${fmt(y + 1.4)}`, { color: c.charcoal, sw: 1.6 })),
+    k.shine('M22.4 33V48', 1.8),
+  ].join('');
+}
+
+/** Glue (liima): a white bottle of school glue with its orange nozzle, a glue drop on its blue label. */
+export function glue(k) {
+  const c = k.P;
+  return [
+    k.ground(32, 58.6, 15, 2),
+    k.rect(30.4, 4.4, 3.2, 6, 1.2, c.orange),
+    k.poly([[25.4, 21.6], [38.6, 21.6], [34.6, 9], [29.4, 9]], [1, 1, 1.4, 1.4], c.orange),
+    k.flat('M33.6 10.6L35.4 10.6L37.6 20.4H35.4Z', c.orangeShade),
+    k.path('M19.6 31C19.6 24.6 24.6 21 32 21C39.4 21 44.4 24.6 44.4 31V53.6C44.4 55.6 43 57 41 57H23C21 57 19.6 55.6 19.6 53.6Z', c.white),
+    k.flat('M39.6 24.6C42.4 26.4 43.6 28.6 43.6 31.4V53.4C43.6 54.8 42.8 55.8 41.4 56H39.6Z', c.silver),
+    k.rect(19.6, 33, 24.8, 15, 0.6, c.sky),
+    k.path('M32 35.6C33.4 38.4 35.4 40.4 35.4 42.4C35.4 44.4 33.8 45.6 32 45.6C30.2 45.6 28.6 44.4 28.6 42.4C28.6 40.4 30.6 38.4 32 35.6Z', c.white, { sw: 1 }),
+    k.shine('M23.4 27V30.6', 1.8),
+  ].join('');
+}
+
+/** The board (taulu): a green chalkboard on its wooden easel, chalk drawings on it — a sun, a little house — chalk and a sponge on the ledge. */
+export function board(k) {
+  const c = k.P;
+  const chalk = { color: c.white, sw: 1.4 };
+  const rays = [0, 60, 120, 180, 240, 300].map((a) => `M${pt(polar(20, 21, 6.6, a))}L${pt(polar(20, 21, 9, a))}`).join('');
+  return [
+    k.ground(32, 58.6, 25, 2),
+    k.limb('M15.6 40L9.6 58M48.4 40L54.4 58M32 40V57', c.wood, 3.8),
+    k.rect(5, 6, 54, 36, 2, c.wood),
+    k.rect(8, 9, 48, 30, 0.6, c.greenShade),
+    k.line(`M${pt([24, 21])}A4 4 0 1 0 ${pt([16, 21])}A4 4 0 1 0 ${pt([24, 21])}${rays}`, chalk),
+    k.line('M35.6 33.4V24.6L42.6 18.6L49.6 24.6V33.4ZM40.6 33.4V28.4H44.6V33.4', chalk),
+    k.rect(4, 40.6, 56, 3.4, 1, c.woodShade),
+    k.rect(12, 37.4, 7, 3.2, 1, c.white, { sw: 1 }),
+    k.rect(44, 36.4, 9, 4.4, 1, c.yellow, { sw: 1 }),
+  ].join('');
+}
+
+/** The school nurse (terveydenhoitaja): sky-blue scrubs and white shoes, her hair in a bun. */
+const NURSE = { skin: 'skin4', hair: { style: 'bun', color: 'darkHair' }, top: { kind: 'shirt', color: 'sky' }, bottom: { kind: 'trousers', color: 'sky' }, shoes: 'white' };
+
+/** The school nurse: a stethoscope round her neck, her green bag with its white cross in her hand. */
+export function nurse(k) {
+  const c = k.P;
+  const grip = [48, 39.4];
+  return [
+    person(k, NURSE, { ...POSES.stand, face: 'grin', armFront: [[38.4, 34.8], [44, 40.6], grip] }),
+    // the stethoscope: round her neck and down her front, its silver chest-piece
+    k.line('M27 31.8Q27.4 38.6 30.4 41M37 31.8Q36.6 37 34.6 39.4', { color: c.charcoal, sw: 1.6 }),
+    k.circle(31.2, 42.4, 2.2, c.silver, { sw: 1 }),
+    // the bag, its handle in her hand
+    k.limb('M44.4 43.4Q48 36.4 51.6 43.4', c.greenShade, 3.8),
+    k.rect(40.6, 42, 15.6, 13, 2.4, c.green),
+    k.flat('M46.8 44.6H50V47.2H52.6V50.4H50V53H46.8V50.4H44.2V47.2H46.8Z', c.white),
+    hand(k, grip, 'skin4'),
+  ].join('');
+}
+
+/** A bandage (laastari): a plaster strip with its soft white pad, a little star on it. */
+export function bandage(k) {
+  const c = k.P;
+  const holes = [[10.6, 29], [15, 29], [10.6, 35], [15, 35], [49, 29], [53.4, 29], [49, 35], [53.4, 35]];
+  return [
+    k.ground(32, 56.6, 21, 2),
+    k.g(
+      'rotate(-30 32 32)',
+      k.rect(4, 22, 56, 20, 10, c.tan),
+      k.flat('M4.6 36H59.4C58.6 39.6 55.4 41.4 50 41.4H14C8.6 41.4 5.4 39.6 4.6 36Z', c.tanShade),
+      ...holes.map(([x, y]) => k.flatCircle(x, y, 1, c.tanShade)),
+      k.rect(21.6, 23.4, 20.8, 17.2, 2.4, c.white),
+      k.flat(roundPoly(starPoints(32, 32.4, 5.6, 2.4), 0.5), c.blue),
+      k.shine('M10 27Q14 24.6 18 24.6', 1.6),
+    ),
   ].join('');
 }

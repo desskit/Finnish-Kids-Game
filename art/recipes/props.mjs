@@ -26,7 +26,6 @@ export default [
   { id: 'red-ball', title: 'red ball (bouncing)', glyphs: ['🔴'], ...prop, motion: { frames: 4, fps: 6 }, draw: props.redBall },
   { id: 'meat', title: 'meat on the bone', glyphs: ['🍖'], ...prop, draw: props.meat },
   { id: 'tulip', title: 'tulip (May)', glyphs: ['🌷'], ...prop, motion: { frames: 2, fps: 1.5 }, draw: props.tulip },
-  { id: 'christmas-tree', title: 'Christmas tree (December, lights blinking)', glyphs: ['🎄'], ...prop, motion: { frames: 2, fps: 2 }, draw: props.christmasTree },
   { id: 'bow', title: 'sorry! (Leo bowing)', glyphs: ['🙇'], ...prop, motion: { frames: 2, fps: 1.2 }, draw: props.bow },
   { id: 'thanks', title: 'thank you (hands pressed together)', glyphs: ['🙏'], ...prop, motion: { frames: 2, fps: 2 }, draw: props.thanks },
   // the animal words' sign (each word list has one)

@@ -152,6 +152,58 @@ export const NEVER_TOGETHER: readonly (readonly string[])[] = [
   ['giggly', 'laugh', 'funny', 'happy', 'smile'],
   ['teary', 'cry', 'sad'],
   ['boring', 'tired', 'calm', 'sleepy'],
+
+  // School: a toilet is in a bathroom; a notebook is a book (and homework);
+  // the chalkboard is a picture on paper, and teach's board; the nurse is a
+  // grown-up at school, with a hospital's cross on her bag; recess is a child
+  // running out of school. (The daycare, low and bright behind its painted
+  // fence, looks like neither the school nor a house.)
+  ['restroom', 'bathroom'],
+  ['notebook', 'book', 'homework'],
+  ['board', 'picture'],
+  ['board', 'paper'],
+  ['board', 'teach'],
+  ['nurse', 'teacher'],
+  ['nurse', 'hospital'],
+  ['recess', 'run'],
+  ['recess', 'school'],
+  ['understand', 'remember'],
+  ['understand', 'learn'],
+
+  // The Finnish year. Christmas is presents and baubles (and the present
+  // give holds); a Christmas tree is a tree, and winter's snowy spruce one
+  // too; Santa could be Grandpa, the elf a boy in a red cap, the Easter
+  // witch a girl; Easter is a chick and an egg; the cottage and the sauna are
+  // houses; the bonfire is a fire.
+  ['christmas', 'christmas-tree'],
+  ['christmas', 'give'],
+  ['christmas-tree', 'tree'],
+  ['winter', 'snowman'],
+  ['winter', 'forest'],
+  ['winter', 'christmas-tree'],
+  ['santa', 'elf'],
+  ['santa', 'grandfather'],
+  ['elf', 'brother', 'child'],
+  ['witch', 'sister', 'child'],
+  ['easter', 'egg'],
+  ['easter', 'chicken'],
+  ['easter', 'bird'],
+  ['catkin', 'flower'],
+  ['catkin', 'spring'],
+  ['midsummer', 'summer'],
+  ['midsummer', 'lake'],
+  ['cottage', 'house', 'yard'],
+  ['cottage', 'sauna'],
+  ['sauna', 'house'],
+  ['bonfire', 'fire', 'warm-up'],
+  // Its food: pulla is bread (or cake), the café has a bun; gingerbread is a
+  // cookie; the basket is full of blueberries.
+  ['bun', 'bread'],
+  ['bun', 'cake'],
+  ['bun', 'cookie'],
+  ['bun', 'cafe'],
+  ['gingerbread', 'cookie'],
+  ['blueberry', 'basket'],
 ];
 
 const RIVALS = new Map<string, Set<string>>();

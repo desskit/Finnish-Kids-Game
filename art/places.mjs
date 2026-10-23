@@ -635,3 +635,115 @@ export function yard(k) {
     pickets,
   ].join('');
 }
+
+/** The restroom (vessa): a white toilet with a blue seat, its tank and flush button, a roll of paper on the wall. */
+export function restroom(k) {
+  const c = k.P;
+  return [
+    k.ground(31, 58.6, 21, 2.2),
+    // the roll of paper on its holder, a sheet hanging down
+    k.limb('M46 17H59', c.grey, 3.8),
+    k.rect(47.6, 12.6, 10, 13.6, 2.6, c.white),
+    k.path('M49.6 24.6H57.4V32.6L55.4 31.4L53.4 32.6L51.4 31.4L49.6 32.6Z', c.white),
+    // the tank, its flush button
+    k.rect(10.6, 10, 16, 28, 3, c.white),
+    k.flat('M22 12H25.4V36H22Z', c.silver),
+    k.rect(14, 13.6, 6.4, 3.4, 1, c.silver),
+    // the bowl on its stand, the seat
+    k.path('M22.6 36H50.6C50.6 44 45.6 48.6 39 49.6L38 56.6H27L26.4 47.6C24 45 22.6 41 22.6 36Z', c.white),
+    k.flat('M42.6 40.6H49.6C48.6 45 45 48 40.4 49.2C42 46.6 42.8 44 42.6 40.6Z', c.silver),
+    k.rect(20.6, 32.4, 31.6, 5.2, 2.6, c.sky),
+    k.shine('M13.6 21V31', 1.6),
+  ].join('');
+}
+
+/** Daycare (päiväkoti): a low yellow building with a flat roof, a rainbow painted over its door, children's drawings in its windows — a sun and a heart — and a bright picket fence. */
+export function daycare(k) {
+  const c = k.P;
+  const drawing = (x, art) => k.rect(x, 29, 13, 12, 1, c.sky) + k.rect(x + 2, 31, 9, 8, 0.4, c.white) + art;
+  const pickets = [];
+  ['red', 'blue', 'green', 'orange', 'purple', 'red', 'blue', 'green', 'orange'].forEach((color, i) => {
+    const x = 2.4 + i * 6.8;
+    pickets.push(k.poly([[x, 58], [x, 50.4], [x + 2.2, 48], [x + 4.4, 50.4], [x + 4.4, 58]], 0.6, c[color]));
+  });
+  return [
+    k.ground(32, 58.6, 30, 2),
+    k.rect(5, 22, 54, 34, 1.4, c.yellow),
+    k.flat('M52 23.4H57.6V54.6H52Z', c.yellowShade),
+    k.rect(2.4, 16.6, 59.2, 6.6, 1.6, c.blue),
+    k.flat('M3.6 20.6H60.4V22H3.6Z', c.blueShade),
+    // the rainbow over the door, the door
+    ...[['red', 9.6], ['green', 7.6], ['blue', 5.6]].map(([color, r]) => k.line(`M${fmt(32 - r)} 40A${fmt(r)} ${fmt(r)} 0 0 1 ${fmt(32 + r)} 40`, { color: c[color], sw: 2.2 })),
+    k.rect(27.4, 40, 9.2, 16, 1, c.orange),
+    k.flatCircle(34.4, 48.4, 1, c.charcoal),
+    drawing(8.4, k.flatCircle(15, 35, 2.4, c.amber)),
+    drawing(42.6, k.flat('M49.1 37.6C47.3 36.4 46.1 35.4 46.1 34.2C46.1 33.2 46.9 32.6 47.7 32.6C48.3 32.6 48.9 33 49.1 33.6C49.3 33 49.9 32.6 50.5 32.6C51.3 32.6 52.1 33.2 52.1 34.2C52.1 35.4 50.9 36.4 49.1 37.6Z', c.red)),
+    k.rect(0, 52, 64, 2.6, 0.6, c.wood),
+    ...pickets,
+  ].join('');
+}
+
+/** The cottage (mökki): a little red wooden cottage with white corners and window frames, a dark roof, smoke rising from the chimney, the lake beside it. */
+export function cottage(k) {
+  const c = k.P;
+  const f = k.frames > 1 ? k.frame % 3 : 0;
+  const puffs = [0, 1, 2].map((i) => {
+    const s = (i + f) % 3;
+    return k.circle(42 + s * 2.6, 9 - s * 3.4, 2.2 + s * 0.8, c.silver);
+  });
+  return [
+    // the lake behind, on the right, a ripple on it
+    k.path('M30 45.6H65V58.6H30Z', c.water),
+    k.line('M52 51H60', { color: c.white, sw: 1.4 }),
+    k.ground(26, 58, 24, 2),
+    // the chimney and its smoke
+    k.rect(37, 11.4, 6, 12, 1, c.charcoal),
+    ...puffs,
+    // the walls, white corner boards, the roof
+    k.rect(8.6, 29, 34.8, 27, 1.2, c.red),
+    k.flat('M37.4 30H42.6V55H37.4Z', c.redShade),
+    k.rect(6.6, 29, 4.4, 27, 0.6, c.white),
+    k.rect(41, 29, 4.4, 27, 0.6, c.white),
+    k.poly([[2.4, 31], [26, 13], [49.6, 31]], [1.4, 2, 1.4], c.charcoal),
+    k.flat('M4 30.4L26 13.6L28.6 15.6L7.6 30.4Z', c.charcoalShade),
+    // a window with its white cross, the door and its step
+    k.rect(13.6, 35, 9.6, 9.6, 0.6, c.skyDay),
+    k.line('M18.4 35V44.6M13.6 39.8H23.2', { color: c.white, sw: 1.8 }),
+    k.rect(27.6, 39, 9.6, 17, 0.8, c.white),
+    k.rect(29.6, 41, 5.6, 15, 0.6, c.brown),
+    k.rect(25.6, 55, 13.6, 3, 0.8, c.grey),
+  ].join('');
+}
+
+/** The sauna: a little cabin of brown logs, steam puffing from its chimney, the wooden bucket and ladle by its door. */
+export function sauna(k) {
+  const c = k.P;
+  const f = k.frames > 1 ? k.frame % 3 : 0;
+  const steam = [0, 1, 2].map((i) => {
+    const s = (i + f) % 3;
+    return k.circle(17 - s * 2, 11 - s * 3.4, 2.2 + s * 0.8, c.white, { sw: 1.5 });
+  });
+  const logs = [33.6, 38.2, 42.8, 47.4, 52].map((y) => `M6 ${y}H44`).join('');
+  return [
+    k.ground(31, 58.4, 27, 2),
+    // the chimney and its steam
+    k.rect(14, 13.4, 6, 12, 1, c.charcoal),
+    ...steam,
+    // the log walls, the logs' round ends at the corners, the roof
+    k.rect(5, 29, 40, 27, 1.2, c.wood),
+    k.line(logs, { color: c.woodShade, sw: 1.4 }),
+    ...[31.4, 36, 40.6, 45.2, 49.8, 54.4].map((y) => k.circle(4.6, y, 2.4, c.tan) + k.circle(45.4, y, 2.4, c.tan)),
+    k.poly([[-0.6, 31], [25, 16], [50.6, 31]], [1.4, 2, 1.4], c.brown),
+    k.flat('M1 30.4L25 16.6L27.6 18.4L4.4 30.4Z', c.brownShade),
+    // a small window, the door
+    k.rect(11, 35, 8, 7, 0.6, c.skyDay),
+    k.rect(25.6, 37.4, 11, 18.6, 0.8, c.woodShade),
+    k.flatCircle(34.4, 46.6, 1.2, c.amber),
+    // the bucket and its ladle
+    k.limb('M50.6 46L58.6 36.6', c.wood, 3.8),
+    k.ellipse(59.4, 35.6, 3, 2, c.wood),
+    k.path('M45.4 45.4H58.4L56.6 57H47.2Z', c.wood),
+    k.flat('M45.8 49H58L57.6 51H46.2Z', c.silver),
+    k.flatEllipse(51.9, 45.6, 6, 1.2, c.water),
+  ].join('');
+}

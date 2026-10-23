@@ -84,12 +84,17 @@ const BE = { thirdSg: 'is', past: 'was', pastParticiple: 'been', gerund: 'being'
 // that take -er / -est, so these have no entry there.
 const MORE_MOST = new Set(['boring']);
 
+// Names English never inflects ("I can't wait for Santa!"): AGID has no line
+// for them, and there are no forms to look up.
+const NAMES = new Set(['santa']);
+
 /**
  * English morphology for one vocabulary word, sourced from AGID.
  * `pos` is 'N' | 'V' | 'A'. Returns null if unresolved (build should fail loud).
  */
 export function englishFormsFor(agid, lemma, pos) {
   if (pos === 'V' && lemma.toLowerCase() === 'be') return { ...BE };
+  if (pos === 'N' && NAMES.has(lemma.toLowerCase())) return {};
 
   // Multiword: decompose rather than hardcode forms.
   if (lemma.includes(' ')) {

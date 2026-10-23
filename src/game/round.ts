@@ -31,7 +31,7 @@ import { kidSafeExamples } from '../content/examples';
 import type { Example } from '../content/types';
 import { sample, shuffle, weightedSample } from '../util/shuffle';
 import type { Why } from '../content/why';
-import { FAMILY_NAMES, MY_PEOPLE } from '../content/types';
+import { FAMILY_NAMES, MY_PEOPLE, pluralEn } from '../content/types';
 import { slipForms } from '../content/contrasts';
 
 // Round builders. These ONLY select, shuffle, and pair existing human-generated
@@ -1543,7 +1543,9 @@ function resolveSentenceInternal(
         surface[slot.id] = pick.item.fi;
       } else {
         const subject = slot.agreesWith ? picks[slot.agreesWith] : undefined;
-        const personId = subject?.person?.id ?? '3sg';
+        // A pronoun brings its person; a noun is "he / she / it", or "they"
+        // when plural ("Kissat juoksevat").
+        const personId = subject?.person?.id ?? (subject?.number === 'plural' ? '3pl' : '3sg');
         const form = verbForm(
           pick.item,
           slot.tense ?? 'present',
@@ -1592,7 +1594,11 @@ function glossFor(template: SentenceConstruction, picks: Record<string, SlotPick
     const pick = picks[id];
     if (!pick) return whole;
     const item = pick.item;
+    const own = item && template.slots.find((s) => s.id === id)?.glossById?.[item.id];
+    if (own) return own;
     if (item && FAMILY_NAMES[item.id]) return FAMILY_NAMES[item.id];
+    // A plural noun slot reads as the sourced English plural ("foxes").
+    if (item && pick.number === 'plural') return pluralEn(item);
     return pick.person?.en ?? item?.en ?? whole;
   });
 }

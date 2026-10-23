@@ -40,4 +40,8 @@ export default [
   { id: 'bathroom', title: 'bathroom (a bubble bath)', motion: { frames: 2, fps: 2 }, draw: places.bathroom },
   { id: 'sofa', title: 'sofa', draw: places.sofa },
   { id: 'yard', title: 'yard', draw: places.yard },
+  { id: 'restroom', title: 'restroom (a toilet)', draw: places.restroom },
+  { id: 'daycare', title: 'daycare (drawings in the windows)', draw: places.daycare },
+  { id: 'cottage', title: 'cottage (a red mökki by the lake, smoke rising)', motion: { frames: 3, fps: 2 }, draw: places.cottage },
+  { id: 'sauna', title: 'sauna (a log cabin, steam rising; the bucket and ladle)', motion: { frames: 3, fps: 2 }, draw: places.sauna },
 ];

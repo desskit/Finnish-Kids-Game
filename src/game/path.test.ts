@@ -26,8 +26,8 @@ import { ITEM_BY_ID } from '../content/lookup';
 const constructionIds = new Set(nounConstructions.map((c) => c.id));
 
 describe('the course (units × steps)', () => {
-  it('is forty-two units in order, ending with the open-ended Mestari unit', () => {
-    expect(PATH).toHaveLength(42);
+  it('is forty-four units in order, ending with the open-ended Mestari unit', () => {
+    expect(PATH).toHaveLength(44);
     expect(PATH[0].id).toBe('hello');
     // Semantic ids (no unit numbers), so inserting a unit never renames one.
     for (const u of PATH) expect(u.id, u.id).not.toMatch(/^u\d+-/);
@@ -103,20 +103,17 @@ describe('the course (units × steps)', () => {
 
   it("scopes each step's words: 'new' = its unit's words, default = everything met so far", () => {
     PATH.forEach((u, i) => {
-      // Words a unit only brings in after its part-way lesson stay out of the
-      // steps before that lesson.
-      const midAt = Math.min(
-        ...(u.midLessons ?? []).map((m) => u.skills.findIndex((s) => s.id === m.before)),
-      );
-      const later = new Set(u.skills.slice(Math.max(0, midAt)).flatMap((s) => s.content.only ?? []));
+      // Words a unit only brings in after a part-way lesson stay out of the
+      // steps before that lesson (each lesson holds back its own words; a
+      // word from an earlier unit is never held back).
+      const boundaries = (u.midLessons ?? []).map((m) => u.skills.findIndex((s) => s.id === m.before));
       u.skills.forEach((s, si) => {
+        const next = Math.min(...boundaries.filter((b) => b > si));
+        const later = new Set(u.skills.slice(next).flatMap((x) => x.content.only ?? []).filter((w) => u.newWords.includes(w)));
         const scope = s.content.words ?? 'known';
         if (s.content.only) expect(s.content.wordIds, s.id).toEqual(s.content.only);
         else if (scope === 'new') expect(s.content.wordIds, s.id).toEqual(u.newWords);
-        else if (scope === 'known')
-          expect(s.content.wordIds, s.id).toEqual(
-            si < midAt ? knownWordsThrough(i).filter((w) => !later.has(w)) : knownWordsThrough(i),
-          );
+        else if (scope === 'known') expect(s.content.wordIds, s.id).toEqual(knownWordsThrough(i).filter((w) => !later.has(w)));
         else expect(s.content.wordIds, s.id).toBeUndefined();
       });
     });

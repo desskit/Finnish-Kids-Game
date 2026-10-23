@@ -1675,6 +1675,66 @@ export const UNIT_STORIES: Story[] = [
     ],
   }),
 
+  // School & daycare — päiväkotiin, välitunnilla, Voitko auttaa minua?
+  story('school-daycare', {
+    id: 'lost-mitten',
+    titleFi: 'Missä lapanen on?',
+    titleEn: "Where's the mitten?",
+    icon: '🥊',
+    tier: 3,
+    pages: [
+      page(
+        sc('yard', '👨 🧒 👧', 'snow'),
+        tell('Isä vie Leon päiväkotiin.', 'Dad takes Leo to daycare.'),
+        tell('Aino menee kouluun.', 'Aino goes to school.'),
+      ),
+      page(
+        sc('playground', '👧 👦', 'snow'),
+        tell('Välitunnilla Aino ja Eero leikkivät pihalla.', 'At recess, Aino and Eero play in the yard.'),
+        say('aino', 'Voi ei! Missä lapaseni on?', "Oh no! Where's my mitten?"),
+      ),
+      page(
+        sc('classroom', '👧 🧑‍🏫'),
+        say('aino', 'Opettaja, voitko auttaa minua?', 'Teacher, can you help me?'),
+        say('opettaja', 'Mikä hätänä?', "What's wrong?"),
+        say('aino', 'Minulla ei ole lapasta.', "I don't have my mitten."),
+      ),
+      page(
+        sc('playground', '🧑‍🏫 👧 🥊', 'snow'),
+        say('opettaja', 'Katso! Lapanen on lumessa.', 'Look! The mitten is in the snow.'),
+        say('aino', 'Kiitos, opettaja!', 'Thank you, teacher!'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Mihin Leo menee?',
+        'Where does Leo go?',
+        right('päiväkotiin', 'to daycare', '🏤'),
+        wrong('kouluun', 'to school', '🏫'),
+        wrong('kauppaan', 'to the shop', '🏪'),
+      ),
+      ask(
+        'Mitä Ainolla ei ole?',
+        "What doesn't Aino have?",
+        right('lapasta', 'her mitten', '🥊'),
+        wrong('pipoa', 'her beanie', '🧶'),
+        wrong('reppua', 'her backpack', '🎒'),
+      ),
+      ask(
+        'Missä lapanen on?',
+        'Where is the mitten?',
+        right('lumessa', 'in the snow', '❄️'),
+        wrong('repussa', 'in the backpack', '🎒'),
+        wrong('luokassa', 'in the classroom', '🏫'),
+      ),
+    ],
+    facts: [
+      trueFact('Leo menee päiväkotiin.', 'Leo goes to daycare.'),
+      falseFact('Aino menee päiväkotiin.', 'Aino goes to daycare.'),
+      trueFact('Opettaja auttaa Ainoa.', 'The teacher helps Aino.'),
+    ],
+  }),
+
   // 25. By bus, with a pen — autolla, junalla, veneellä; isoäidin kanssa.
   story('by-with', {
     id: 'how-we-go',
@@ -2092,6 +2152,128 @@ export const UNIT_STORIES: Story[] = [
       trueFact('Tänään on syntymäpäiväni.', 'Today is my birthday.'),
       falseFact('Syntymäpäiväni on kesäkuussa.', 'My birthday is in June.'),
       falseFact('Täytän kymmenen vuotta.', "I'm turning ten."),
+    ],
+  }),
+
+  // The Finnish year, its winter part — Christmas Eve: Odotan joulupukkia,
+  // Joulupukki tuo lahjat. Read in the unit's "Joulupukki tulee!" step.
+  {
+    id: 'santa-comes',
+    titleFi: 'Joulupukki tulee!',
+    titleEn: 'Santa is coming!',
+    icon: '🎅',
+    tier: 3,
+    pages: [
+      page(
+        sc('christmas', '👧 🧒 🎄', 'evening'),
+        tell('On joulu.', "It's Christmas."),
+        say('aino', 'Joulukuusi on kaunis!', 'The Christmas tree is beautiful!'),
+        say('leo', 'Odotan joulupukkia!', "I can't wait for Santa!"),
+      ),
+      page(
+        sc('christmas', '🧝 🪟 🧒', 'evening'),
+        tell('Tonttu katsoo ikkunasta.', 'An elf peeks in through the window.'),
+        say('leo', 'Katso! Tonttu!', 'Look! An elf!'),
+      ),
+      page(
+        sc('christmas', '🎅 👧 🧒', 'evening'),
+        say('joulupukki', 'Onko täällä kilttejä lapsia?', 'Are there any good children here?'),
+        say('aino', 'On! Me olemme kilttejä.', 'Yes! We are good.'),
+      ),
+      page(
+        sc('christmas', '🎅 🧒 🧸 👧 📕', 'evening'),
+        tell('Joulupukki tuo lahjat.', 'Santa brings the presents.'),
+        tell('Leo saa nallen ja Aino kirjan.', 'Leo gets a teddy bear, and Aino a book.'),
+        say('joulupukki', 'Hyvää joulua!', 'Merry Christmas!'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Ketä Leo odottaa?',
+        'Who is Leo waiting for?',
+        right('joulupukkia', 'Santa', '🎅'),
+        wrong('isoäitiä', 'Grandma', '👵'),
+        wrong('opettajaa', 'the teacher', '🧑‍🏫'),
+      ),
+      ask(
+        'Kuka katsoo ikkunasta?',
+        'Who looks in through the window?',
+        right('tonttu', 'an elf', '🧝'),
+        wrong('Mirri', 'Mirri', '🐱'),
+        wrong('Isä', 'Dad', '👨'),
+      ),
+      ask(
+        'Mitä Leo saa?',
+        'What does Leo get?',
+        right('nallen', 'a teddy bear', '🧸'),
+        wrong('kirjan', 'a book', '📕'),
+        wrong('pallon', 'a ball', '🏐'),
+      ),
+    ],
+    facts: [
+      trueFact('Aino saa kirjan.', 'Aino gets a book.'),
+      falseFact('Leo saa pyörän.', 'Leo gets a bike.'),
+      trueFact('Joulupukki tuo lahjat.', 'Santa brings the presents.'),
+    ],
+  },
+
+  // The Finnish year — Midsummer at the cottage: mökille, saunaan, kokko.
+  story('finnish-year', {
+    id: 'midsummer-cottage',
+    titleFi: 'Juhannus mökillä',
+    titleEn: 'Midsummer at the cottage',
+    icon: '🛖',
+    tier: 3,
+    pages: [
+      page(
+        sc('cottage', '👨 👩 👧 🧒'),
+        tell('On juhannus.', "It's Midsummer."),
+        tell('Perhe menee mökille.', 'The family goes to the cottage.'),
+      ),
+      page(
+        sc('sauna', '👨 🧒'),
+        tell('Ensin mennään saunaan.', 'First we go to the sauna.'),
+        say('leo', 'Sauna on kuuma!', 'The sauna is hot!'),
+      ),
+      page(
+        sc('cottage', '👧 🧒'),
+        tell('Sitten uidaan järvessä.', 'Then we swim in the lake.'),
+        say('aino', 'Vesi on kylmä!', 'The water is cold!'),
+      ),
+      page(
+        sc('cottage', '🎇 👩 🥐 🫐', 'evening'),
+        tell('Illalla on kokko.', 'In the evening there is a bonfire.'),
+        tell('Syödään pullaa ja mustikoita.', 'We eat sweet buns and blueberries.'),
+        say('aiti', 'Hyvää juhannusta!', 'Happy Midsummer!'),
+      ),
+    ],
+    questions: [
+      ask(
+        'Mihin perhe menee?',
+        'Where does the family go?',
+        right('mökille', 'to the cottage', '🛖'),
+        wrong('kouluun', 'to school', '🏫'),
+        wrong('kauppaan', 'to the shop', '🏪'),
+      ),
+      ask(
+        'Missä uidaan?',
+        'Where do they swim?',
+        right('järvessä', 'in the lake', '🏞️'),
+        wrong('saunassa', 'in the sauna', '🧖'),
+        wrong('meressä', 'in the sea', '🌊'),
+      ),
+      ask(
+        'Mitä illalla on?',
+        'What is there in the evening?',
+        right('kokko', 'a bonfire', '🎇'),
+        wrong('joulukuusi', 'a Christmas tree', '🎄'),
+        wrong('lumiukko', 'a snowman', '⛄'),
+      ),
+    ],
+    facts: [
+      trueFact('Sauna on kuuma.', 'The sauna is hot.'),
+      falseFact('Perhe menee kouluun.', 'The family goes to school.'),
+      trueFact('Illalla on kokko.', 'In the evening there is a bonfire.'),
     ],
   }),
 

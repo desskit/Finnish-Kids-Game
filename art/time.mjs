@@ -5,6 +5,7 @@
 
 import { fmt, heartPath, polar, pt, roundPoly, starPoints } from './kit.mjs';
 import { pine, puff } from './nature.mjs';
+import { snowOnPine } from './scenes/outdoors.mjs';
 
 /** A rounded window onto a scene: its sky bands, whatever's in it, its frame. */
 function windowScene(k, top, low, inner) {
@@ -196,8 +197,23 @@ export function autumn(k) {
   ].join('');
 }
 
-/** Winter: a snowman in a hat and scarf, snow falling round him. */
+/** Winter: a spruce heavy with snow on a snowy hill, flakes falling. */
 export function winter(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const flakes = [[8, 10], [55, 12], [12, 30], [56, 32], [46, 4], [18, 4], [5, 44]];
+  return [
+    ...flakes.map(([x, y], i) => k.flatCircle(x + (f && i % 2 ? 1.4 : 0), y + f * 3, 1.3, c.sky)),
+    pine(k, 32, 52, 46),
+    snowOnPine(k, 32, 52, 46),
+    // the snowy hill, deep enough to bury the trunk's foot
+    k.path('M-1 52C12 46 26 45.6 34 46.6C46 48 56 48.6 65 51V65H-1Z', c.white),
+    k.flat('M28 58.6C40 55 54 54 65 55V65H22Z', c.silver),
+  ].join('');
+}
+
+/** Snowman (lumiukko): a snowman in a hat and scarf, snow falling round him. */
+export function snowman(k) {
   const c = k.P;
   const f = k.frame % 2;
   const flakes = [[10, 10], [52, 14], [14, 34], [54, 38], [8, 52], [44, 6], [24, 6]];

@@ -1404,3 +1404,105 @@ export function putOn(k) {
     portrait(k, CAST.leo, 'grin'),
   ].join('');
 }
+
+/** Understand: Leo nods, and it all makes sense — a big green tick in his thought bubble. */
+export function understand(k) {
+  const c = k.P;
+  const nod = k.frame % 2 === 1;
+  return [
+    smallLeo(k, { face: 'grin', look: 1, head: [32, nod ? 22.4 : 20.5] }),
+    thought(k, 48.6, 12, 24, 18),
+    k.limb('M42 12.4L46.4 16.6L55.2 6.4', c.green, 4.6),
+    nod ? sparkle(k, 59.4, 21, 2.6, 'amber') + sparkle(k, 38.2, 3.6, 2, 'amber') : '',
+  ].join('');
+}
+
+/** A red knitted beanie with a white bobble, on a head centred at (x, y). */
+function beanieOn(k, x, y) {
+  const c = k.P;
+  return [
+    k.path(`M${pt([x - 12.4, y - 5.4])}C${pt([x - 12.4, y - 13.6])} ${pt([x - 6.6, y - 16.4])} ${pt([x, y - 16.4])}C${pt([x + 6.6, y - 16.4])} ${pt([x + 12.4, y - 13.6])} ${pt([x + 12.4, y - 5.4])}Z`, c.red),
+    k.flat(`M${pt([x + 6, y - 14.4])}C${pt([x + 9.6, y - 12.4])} ${pt([x + 11.4, y - 9.4])} ${pt([x + 11.6, y - 6])}H${fmt(x + 8)}C${pt([x + 8, y - 9])} ${pt([x + 7.4, y - 12])} ${pt([x + 6, y - 14.4])}Z`, c.redShade),
+    k.rect(x - 13.4, y - 8.2, 26.8, 5, 2, c.red),
+    k.line(`M${pt([x - 8, y - 7.6])}V${fmt(y - 3.8)}M${pt([x - 2.6, y - 7.6])}V${fmt(y - 3.8)}M${pt([x + 2.6, y - 7.6])}V${fmt(y - 3.8)}M${pt([x + 8, y - 7.6])}V${fmt(y - 3.8)}`, { color: c.redShade, sw: 1.4 }),
+    k.circle(x, y - 17, 3, c.white),
+  ].join('');
+}
+
+/** Ski: Leo skiing across the snow in his beanie, striding, pushing with his poles. */
+export function ski(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const hip = { back: [30.4, 46.2], front: [34.8, 46.4] };
+  // the shins stay upright, so the boots sit flat on the skis
+  const [fwd, back] = [(h) => [h, [h[0] + 5.4, h[1] + 3.8], [h[0] + 6.4, 55.4]], (h) => [h, [h[0] - 4.6, h[1] + 4.4], [h[0] - 5.6, 55.4]]];
+  const legFront = f ? back(hip.front) : fwd(hip.front);
+  const legBack = f ? fwd(hip.back) : back(hip.back);
+  const hands = f ? [[46.6, 38.6], [21.4, 43.4]] : [[48.6, 35.4], [20, 44.6]];
+  const pose = {
+    head: [33.4, 20.5],
+    look: 2,
+    torso: 6,
+    toes: 0.8,
+    armsInFront: false,
+    face: 'grin',
+    legFront,
+    legBack,
+    armFront: [[39, 35.6], [44.6, 41], hands[0]],
+    armBack: [[29, 35.6], [24.6, 41.4], hands[1]],
+  };
+  const skiAt = ([x, y]) => k.limb(`M${pt([x - 11, y + 4.4])}H${fmt(x + 9.6)}Q${pt([x + 13, y + 4.4])} ${pt([x + 14, y + 1])}`, c.blue, 3.8);
+  const pole = ([x, y], tip) => k.line(`M${pt([x, y - 2.6])}L${pt(tip)}`, { color: c.charcoal, sw: 1.6 }) + k.flatEllipse(tip[0], tip[1] - 1.4, 2, 0.8, c.charcoal);
+  return [
+    k.path('M-1 57.4C16 55 46 55 65 56.6V65H-1Z', c.white),
+    pole(hands[1], [f ? 14 : 10.6, 58.4]),
+    person(k, CAST.leo, { ...POSES.stand, ...pose }),
+    skiAt(legBack.at(-1)),
+    skiAt(legFront.at(-1)),
+    pole(hands[0], [f ? 38.6 : 41.4, 58.4]),
+    hand(k, hands[0]),
+    beanieOn(k, 33.4, 20.5),
+  ].join('');
+}
+
+/** Skate: Leo gliding on the ice in white skates and his beanie, one leg out behind, arms out for balance. */
+export function skate(k) {
+  const c = k.P;
+  const f = k.frame % 2;
+  const up = f ? -k.px : 0;
+  const look = { ...CAST.leo, shoes: 'white' };
+  const lifted = f ? [[30, 46.2], [23.6, 47.2], [17.6, 43.6]] : [[30, 46.2], [24, 48.6], [18.6, 46.4]];
+  const pose = {
+    head: [34, 19.5],
+    look: 2.2,
+    torso: 8,
+    toes: 0.8,
+    armsInFront: false,
+    face: 'grin',
+    bob: up,
+    legFront: [[35.6, 46.4], [36.8, 51.2], [36.2, 55.8]],
+    legBack: lifted,
+    armFront: [[39.4, 35.6], [45.6, 33], [51.6, f ? 28.6 : 30.4]],
+    armBack: [[28.4, 35.4], [22, 33.6], [16, f ? 28.4 : 30.6]],
+  };
+  // a skate's blade under a boot: its two posts and the steel runner, turned with the boot (as people.mjs turns it)
+  const blade = (pts) => {
+    const [from, foot] = pts.slice(-2);
+    const ang = Math.round((Math.atan2(foot[1] - from[1], foot[0] - from[0]) * 180) / Math.PI - 90);
+    const [x, y] = [foot[0] + 0.8, foot[1]];
+    return k.g(
+      `rotate(${ang} ${pt(foot)})`,
+      k.line(`M${pt([x - 2.4, y + 3.6])}V${fmt(y + 5.4)}M${pt([x + 2.4, y + 3.6])}V${fmt(y + 5.4)}`, { color: c.grey, sw: 1.4 }),
+      k.rect(x - 5.6, y + 5.2, 11.6, 1.8, 0.8, c.silver, { sw: 1 }),
+    );
+  };
+  return [
+    // the ice, its scratched lines
+    k.path('M-1 56.6C14 54.6 48 54.6 65 56V65H-1Z', c.sky),
+    k.line(`M${f ? 4 : 2} 61.4Q16 59.4 30 61.2M40 63H${f ? 62 : 58}`, { color: c.white, sw: 1.4 }),
+    person(k, look, { ...POSES.stand, ...pose }),
+    blade(lifted),
+    blade(pose.legFront),
+    beanieOn(k, 34, 19.5 + up),
+  ].join('');
+}

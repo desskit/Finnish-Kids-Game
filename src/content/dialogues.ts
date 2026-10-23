@@ -581,4 +581,73 @@ export const dialogues: DialogueExchange[] = [
     ],
     tier: 3,
   },
+
+  // --- School & daycare: the restroom, not understanding, asking nicely, and
+  // recess. Wh-questions and ritual pairs (one fitting reply each), played
+  // together in the unit's "En ymmärrä" step. ⚠️ NEEDS NATIVE FINNISH VETTING.
+  {
+    id: 'may-i-go-restroom',
+    prompt: { fi: 'Saanko mennä vessaan?', en: 'May I go to the restroom?' },
+    reply: { fi: 'Saat mennä.', en: 'Yes, you may go.' },
+    distractors: [
+      { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+      { fi: 'Hauska tutustua!', en: 'Nice to meet you!' },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'dont-understand',
+    prompt: { fi: 'En ymmärrä.', en: "I don't understand." },
+    reply: { fi: 'Minä autan sinua.', en: "I'll help you." },
+    distractors: [
+      { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+    ],
+    alsoFits: ['Joo, minä autan!'],
+    tier: 3,
+  },
+  {
+    id: 'could-i-have-glue',
+    prompt: { fi: 'Saisinko liimaa?', en: 'Could I have some glue?' },
+    reply: { fi: 'Tässä, ole hyvä!', en: 'Here you go!' },
+    distractors: [
+      { fi: 'Näkemiin!', en: 'Goodbye!' },
+      { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+    ],
+    alsoFits: ['Ole hyvä!'],
+    tier: 3,
+  },
+  {
+    id: 'what-would-you-like',
+    prompt: { fi: 'Mitä haluaisit tehdä?', en: 'What would you like to do?' },
+    reply: { fi: 'Haluaisin piirtää.', en: "I'd like to draw." },
+    distractors: [
+      { fi: 'Kiitos!', en: 'Thank you!' },
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+    ],
+    // Answers too: helping, or a dash to the restroom.
+    alsoFits: ['Minä autan sinua.', 'Minun täytyy mennä vessaan!'],
+    tier: 3,
+  },
+  {
+    id: 'in-a-hurry',
+    prompt: { fi: 'Miksi sinulla on kiire?', en: 'Why are you in a hurry?' },
+    reply: { fi: 'Minun täytyy mennä vessaan!', en: 'I have to go to the restroom!' },
+    distractors: [
+      { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+      { fi: 'Ole hyvä.', en: "You're welcome." },
+    ],
+    tier: 3,
+  },
+  {
+    id: 'when-recess',
+    prompt: { fi: 'Milloin on välitunti?', en: 'When is recess?' },
+    reply: { fi: 'Kello kymmenen.', en: "At ten o'clock." },
+    distractors: [
+      // Real Finnish, but it answers MISSÄ (where), not MILLOIN.
+      { fi: 'Vessassa.', en: 'In the restroom.' },
+      { fi: 'Hyvää yötä.', en: 'Good night.' },
+    ],
+    tier: 3,
+  },
 ];

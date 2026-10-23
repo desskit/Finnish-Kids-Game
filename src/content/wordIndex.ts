@@ -6,7 +6,7 @@
 
 import { themes, verbs, feelingVerbs, adjectives, numbers, ordinals, time, states } from '.';
 import { PRONOUNS } from './pronouns';
-import { CAST } from './storyKit';
+import { CALLED_BY_A_WORD, CAST, type CastId } from './storyKit';
 import { glossWithAlso, possessiveGloss, type CaseId, type PersonId, type PossessorId } from './types';
 
 export interface WordMeaning {
@@ -79,7 +79,6 @@ const SMALL_WORDS: Record<string, string> = {
   sen: 'its, it',
   sillä: 'it has',
   tämä: 'this',
-  tuo: 'that',
   ne: 'they (things)',
   nämä: 'these',
   kaikki: 'everyone, all',
@@ -109,6 +108,8 @@ const SMALL_WORDS: Record<string, string> = {
   koti: 'home',
   kuuluu: 'is going (Mitä kuuluu? = How are you?)',
   hätää: 'trouble (Ei hätää! = No worries!)',
+  hätänä: 'wrong (Mikä hätänä? = What\'s wrong?)',
+  voitko: 'can you? (Voitko auttaa minua? = Can you help me?)',
   alkaa: 'starts',
   paistaa: 'shines',
   puoli: 'half (puoli kahdeksan = half past seven, 7:30)',
@@ -157,6 +158,8 @@ const SMALL_WORDS: Record<string, string> = {
 export const TWO_WORDS: Record<string, WordMeaning> = {
   tuli: { base: 'tulla / tuli', en: 'came (tulla) · fire (tuli)' },
   tulen: { base: 'tulla / tuli', en: 'I come (tulla) · a fire (tuli: "tekee tulen" = makes a fire)' },
+  // "Joulupukki tuo lahjat" is Santa BRINGS the presents; "Kuka tuo on?" is who is THAT.
+  tuo: { base: 'tuoda / tuo', en: 'brings (tuoda) · that (tuo)' },
 };
 
 const SUBJECTS: Record<PersonId, string> = {
@@ -241,9 +244,9 @@ function meaningOf(w: string): WordMeaning | undefined {
   if (SMALL_WORDS[w]) return { base: w, en: SMALL_WORDS[w] };
   if (TWO_WORDS[w]) return TWO_WORDS[w];
   // A cast member's name, in any form (Aino, Ainolla, Mirrille…).
-  for (const c of Object.values(CAST)) {
+  for (const [id, c] of Object.entries(CAST) as [CastId, (typeof CAST)[CastId]][]) {
     const name = c.nameFi.toLowerCase();
-    if (w.startsWith(name) && c.nameFi !== 'Äiti' && c.nameFi !== 'Isä' && c.nameFi !== 'Isoäiti' && c.nameFi !== 'Opettaja') {
+    if (w.startsWith(name) && !CALLED_BY_A_WORD.has(id)) {
       return { base: c.nameFi, en: `${c.nameEn} (a name)` };
     }
   }

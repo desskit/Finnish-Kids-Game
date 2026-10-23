@@ -2442,6 +2442,250 @@
           "en": "There's no dog in the yard."
         }
       ]
+    },
+    {
+      "id": "restroom",
+      "word": "vessa",
+      "en": "restroom",
+      "emoji": "🚻",
+      "inflections": {
+        "nominative_singular": "vessa",
+        "nominative_plural": "vessat",
+        "genitive_singular": "vessan",
+        "genitive_plural": "vessojen",
+        "partitive_singular": "vessaa",
+        "partitive_plural": "vessoja",
+        "inessive_singular": "vessassa",
+        "inessive_plural": "vessoissa",
+        "elative_singular": "vessasta",
+        "elative_plural": "vessoista",
+        "illative_singular": "vessaan",
+        "illative_plural": "vessoihin",
+        "adessive_singular": "vessalla",
+        "adessive_plural": "vessoilla",
+        "ablative_singular": "vessalta",
+        "ablative_plural": "vessoilta",
+        "allative_singular": "vessalle",
+        "allative_plural": "vessoille",
+        "essive_singular": "vessana",
+        "essive_plural": "vessoina",
+        "translative_singular": "vessaksi",
+        "translative_plural": "vessoiksi",
+        "abessive_singular": "vessatta",
+        "abessive_plural": "vessoitta",
+        "instructive_plural": "vessoin",
+        "comitative_plural": "vessoineen",
+        "poss_1sg_nominative_singular": "vessani",
+        "poss_1sg_inessive_singular": "vessassani",
+        "poss_1sg_adessive_singular": "vessallani",
+        "poss_2sg_nominative_singular": "vessasi",
+        "poss_2sg_inessive_singular": "vessassasi",
+        "poss_2sg_adessive_singular": "vessallasi",
+        "poss_3rd_nominative_singular": "vessansa",
+        "poss_3rd_inessive_singular": "vessassaan",
+        "poss_3rd_adessive_singular": "vessallaan"
+      },
+      "english": {
+        "plural": "restrooms"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 2633,
+      "examples": [
+        {
+          "fi": "vetää vessa",
+          "en": "to flush the toilet"
+        },
+        {
+          "fi": "Voinko käydä vessassa?",
+          "en": "May I go to the toilet?"
+        }
+      ]
+    },
+    {
+      "id": "daycare",
+      "word": "päiväkoti",
+      "en": "daycare",
+      "emoji": "🏤",
+      "inflections": {
+        "nominative_singular": "päiväkoti",
+        "nominative_plural": "päiväkodit",
+        "genitive_singular": "päiväkodin",
+        "genitive_plural": "päiväkotien",
+        "partitive_singular": "päiväkotia",
+        "partitive_plural": "päiväkoteja",
+        "inessive_singular": "päiväkodissa",
+        "inessive_plural": "päiväkodeissa",
+        "elative_singular": "päiväkodista",
+        "elative_plural": "päiväkodeista",
+        "illative_singular": "päiväkotiin",
+        "illative_plural": "päiväkoteihin",
+        "adessive_singular": "päiväkodilla",
+        "adessive_plural": "päiväkodeilla",
+        "ablative_singular": "päiväkodilta",
+        "ablative_plural": "päiväkodeilta",
+        "allative_singular": "päiväkodille",
+        "allative_plural": "päiväkodeille",
+        "essive_singular": "päiväkotina",
+        "essive_plural": "päiväkoteina",
+        "translative_singular": "päiväkodiksi",
+        "translative_plural": "päiväkodeiksi",
+        "abessive_singular": "päiväkoditta",
+        "abessive_plural": "päiväkodeitta",
+        "instructive_plural": "päiväkodein",
+        "comitative_singular": "päiväkoteineni",
+        "comitative_plural": "päiväkoteineen",
+        "poss_1sg_nominative_singular": "päiväkotini",
+        "poss_1sg_inessive_singular": "päiväkodissani",
+        "poss_1sg_adessive_singular": "päiväkodillani",
+        "poss_2sg_nominative_singular": "päiväkotisi",
+        "poss_2sg_inessive_singular": "päiväkodissasi",
+        "poss_2sg_adessive_singular": "päiväkodillasi",
+        "poss_3rd_nominative_singular": "päiväkotinsa",
+        "poss_3rd_inessive_singular": "päiväkodissaan",
+        "poss_3rd_adessive_singular": "päiväkodillaan"
+      },
+      "english": {
+        "plural": "daycares"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 51526
+    },
+    {
+      "id": "cottage",
+      "word": "mökki",
+      "en": "cottage",
+      "emoji": "🛖",
+      "inflections": {
+        "nominative_singular": "mökki",
+        "nominative_plural": "mökit",
+        "genitive_singular": "mökin",
+        "genitive_plural": "mökkien",
+        "partitive_singular": "mökkiä",
+        "partitive_plural": "mökkejä",
+        "inessive_singular": "mökissä",
+        "inessive_plural": "mökeissä",
+        "elative_singular": "mökistä",
+        "elative_plural": "mökeistä",
+        "illative_singular": "mökkiin",
+        "illative_plural": "mökkeihin",
+        "adessive_singular": "mökillä",
+        "adessive_plural": "mökeillä",
+        "ablative_singular": "mökiltä",
+        "ablative_plural": "mökeiltä",
+        "allative_singular": "mökille",
+        "allative_plural": "mökeille",
+        "essive_singular": "mökkinä",
+        "essive_plural": "mökkeinä",
+        "translative_singular": "mökiksi",
+        "translative_plural": "mökeiksi",
+        "abessive_singular": "mökittä",
+        "abessive_plural": "mökeittä",
+        "instructive_plural": "mökein",
+        "comitative_plural": "mökkeineen",
+        "poss_1sg_nominative_singular": "mökkini",
+        "poss_1sg_inessive_singular": "mökissäni",
+        "poss_1sg_adessive_singular": "mökilläni",
+        "poss_2sg_nominative_singular": "mökkisi",
+        "poss_2sg_inessive_singular": "mökissäsi",
+        "poss_2sg_adessive_singular": "mökilläsi",
+        "poss_3rd_nominative_singular": "mökkinsä",
+        "poss_3rd_inessive_singular": "mökissään",
+        "poss_3rd_adessive_singular": "mökillään"
+      },
+      "english": {
+        "plural": "cottages"
+      },
+      "tags": [
+        "surface",
+        "person-on"
+      ],
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 11962,
+      "examples": [
+        {
+          "fi": "Tässä mökissä asui kolme karhua.",
+          "en": "Three bears lived in that little house."
+        },
+        {
+          "fi": "Hän elää yksin suolla pienessä mökissä.",
+          "en": "He lives alone in a small cabin in the swamp."
+        }
+      ]
+    },
+    {
+      "id": "sauna",
+      "word": "sauna",
+      "en": "sauna",
+      "emoji": "🧖",
+      "inflections": {
+        "nominative_singular": "sauna",
+        "nominative_plural": "saunat",
+        "genitive_singular": "saunan",
+        "genitive_plural": "saunojen",
+        "partitive_singular": "saunaa",
+        "partitive_plural": "saunoja",
+        "inessive_singular": "saunassa",
+        "inessive_plural": "saunoissa",
+        "elative_singular": "saunasta",
+        "elative_plural": "saunoista",
+        "illative_singular": "saunaan",
+        "illative_plural": "saunoihin",
+        "adessive_singular": "saunalla",
+        "adessive_plural": "saunoilla",
+        "ablative_singular": "saunalta",
+        "ablative_plural": "saunoilta",
+        "allative_singular": "saunalle",
+        "allative_plural": "saunoille",
+        "essive_singular": "saunana",
+        "essive_plural": "saunoina",
+        "translative_singular": "saunaksi",
+        "translative_plural": "saunoiksi",
+        "abessive_singular": "saunatta",
+        "abessive_plural": "saunoitta",
+        "instructive_plural": "saunoin",
+        "comitative_singular": "saunoineni",
+        "comitative_plural": "saunoineen",
+        "poss_1sg_nominative_singular": "saunani",
+        "poss_1sg_inessive_singular": "saunassani",
+        "poss_1sg_adessive_singular": "saunallani",
+        "poss_2sg_nominative_singular": "saunasi",
+        "poss_2sg_inessive_singular": "saunassasi",
+        "poss_2sg_adessive_singular": "saunallasi",
+        "poss_3rd_nominative_singular": "saunansa",
+        "poss_3rd_inessive_singular": "saunassaan",
+        "poss_3rd_adessive_singular": "saunallaan"
+      },
+      "english": {
+        "plural": "saunas"
+      },
+      "tags": [
+        "container",
+        "person-in"
+      ],
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 37393,
+      "examples": [
+        {
+          "fi": "turkkilainen sauna",
+          "en": "Turkish bath"
+        },
+        {
+          "fi": "Täällä on kuin saunassa.",
+          "en": "It's like a sauna in here."
+        }
+      ]
     }
   ]
 }

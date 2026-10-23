@@ -49,7 +49,7 @@ const BUDGET = { picture: 6000, motion: 16000, scene: 40000, sceneMotion: 60000 
 const DRIFT_PX_PER_S = 2;
 
 /** The order the gallery shows the themes in (anything else after these). */
-const THEME_ORDER = ['family', 'animals', 'body', 'food', 'meals', 'nature', 'weather', 'places', 'clothes', 'school', 'freetime', 'money', 'time', 'clocks', 'verbs', 'adjectives', 'feeling-verbs', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
+const THEME_ORDER = ['family', 'animals', 'body', 'food', 'meals', 'nature', 'weather', 'places', 'clothes', 'school', 'freetime', 'money', 'time', 'clocks', 'finnish-year', 'verbs', 'adjectives', 'feeling-verbs', 'states', 'numbers', 'ordinals', 'lesson-words', 'story-props', 'buttons', 'rewards', 'lesson-icons', 'avatars', 'app'];
 const THEME_NAMES = {
   'story-props': 'Story props',
   buttons: 'Buttons and signs',
@@ -70,6 +70,7 @@ const THEME_NAMES = {
   money: 'Money',
   time: 'Time',
   clocks: 'Clocks',
+  'finnish-year': 'The Finnish year',
   verbs: 'Doing things',
   adjectives: 'Describing words',
   'feeling-verbs': 'Feelings that happen to you',

@@ -227,7 +227,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
 // one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
 // wrong). Fun is fine: "Tämä on hauska." is "This is fun."
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money', 'meals', 'weather'];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money', 'meals', 'weather', 'finnish-year'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 
@@ -375,6 +375,9 @@ export const ALSO_EN: Record<string, string> = {
   // soittaa is also "call" (on the phone).
   'play-music': 'call',
   hard: 'difficult',
+  // vessa is the toilet at home too; taulu is a painting on the wall as well.
+  restroom: 'toilet',
+  board: 'painting',
 };
 
 /** "son, boy" — the gloss with any second meaning. */
@@ -679,6 +682,11 @@ export interface SentenceSlot {
   pickFrom?: string[];
   /** Or pin a specific word/pronoun by id (overrides `pool`/`pickFrom`). */
   fixedId?: string;
+  /**
+   * Per-word English for this slot, where the gloss changes with the
+   * sentence: "Minulla on tylsää" is "I'm BORED", not "I'm boring".
+   */
+  glossById?: Record<string, string>;
 }
 
 /** A full sentence with two or more inflected slots. */

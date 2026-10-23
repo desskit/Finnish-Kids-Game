@@ -14,6 +14,7 @@ import freetimeData from './data/freetime.sourced.json';
 import moneyData from './data/money.sourced.json';
 import mealsData from './data/meals.sourced.json';
 import weatherData from './data/weather.sourced.json';
+import finnishYearData from './data/finnish-year.sourced.json';
 import timeData from './data/time.sourced.json';
 import statesData from './data/states.sourced.json';
 import ordinalsData from './data/ordinals.sourced.json';
@@ -159,6 +160,9 @@ export const money = toTheme(moneyData as unknown as SourcedFile, nounConstructi
 // never "kolme aamupalaa" or "Näen sään".
 export const meals = toTheme(mealsData as unknown as SourcedFile, nounConstructions);
 export const weather = toTheme(weatherData as unknown as SourcedFile, nounConstructions);
+// The Finnish year — Christmas, Easter, Midsummer and their things. Opt-in
+// too: "Odotan joulua!", "Olemme mökillä jouluna" — never "kolme joulua".
+export const finnishYear = toTheme(finnishYearData as unknown as SourcedFile, nounConstructions);
 
 // When? — days, parts of the day, seasons. Reviewable (in `themes`), but kept
 // OUT of the mixed noun pool in path.tsx so they only fill their own carriers.
@@ -203,6 +207,7 @@ export const themes: Theme[] = [
   money,
   meals,
   weather,
+  finnishYear,
   time,
 ];
 
