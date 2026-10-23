@@ -1,21 +1,24 @@
 // A test-time Finnish word-form lexicon: every form in the vendored
 // Wiktionary tables (data/finnish-inflection-drill — nouns, verbs, numerals,
-// possessive forms), every sourced form the game's own items carry, and the
-// small authored tables (pronouns, question forms, higher ordinals), plus a
-// short list of function words those tables don't have.
+// possessive forms) and the Wiktionary supplement (data/wiktionary — the same
+// source, more words: "vitsa", "kiuas"), every sourced form the game's own
+// items carry, and the small authored tables (pronouns, question forms, higher
+// ordinals), plus a short list of function words those tables don't have.
 //
 // Used to check AUTHORED Finnish (stories, scenes): every word must be a real
 // form. It can't judge whether the right case was chosen — the native review
 // does that — but it catches the worst kind of mistake in hand-written text:
 // a form that doesn't exist (a typo, or an ending made up by analogy).
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { gunzipSync } from 'node:zlib';
 import { themes, verbs, feelingVerbs, numbers, ordinals, adjectives, time, states } from '../content';
 import { PRONOUNS } from '../content/pronouns';
 import { YOU_QUESTION } from '../content/questions';
 
 const DATA = join(__dirname, '..', '..', 'data', 'finnish-inflection-drill');
+const SUPPLEMENT = join(__dirname, '..', '..', 'data', 'wiktionary');
 
 type Inflections = Record<string, string | Record<string, string>>;
 
@@ -38,6 +41,7 @@ export const FUNCTION_WORDS = [
   'kiitos', 'hei', 'moi', 'joo', 'kyllä', 'ei', 'okei', 'ole', 'hyvä', 'anteeksi', 'näkemiin', 'huomenta', 'hyvää',
   'oi', 'voi', 'jee', 'hurraa', 'vau', 'jippii', 'no', 'niin', 'tietysti', 'totta',
   'ai', 'entä', 'samoin', 'tervetuloa', 'uudestaan', 'vai', 'epäselvästi', 'aluksi', 'lopuksi', 'yhtä',
+  'ahaa', 'haloo',
   // pronoun and question-word forms the tables don't have
   'miltä', 'minkä', 'mitkä', 'sinuun', 'minuun', 'häneen',
   // verb forms outside the tables (the -maan "to go and do" form)
@@ -79,6 +83,17 @@ export function finnishLexicon(): Set<string> {
     words: { inflections: Inflections }[];
   };
   for (const w of poss.words) addAll(set, w.inflections);
+  for (const file of ['nouns.json.gz', 'verbs.json.gz', 'possessives.json.gz']) {
+    const path = join(SUPPLEMENT, file);
+    if (!existsSync(path)) continue;
+    const data = JSON.parse(gunzipSync(readFileSync(path)).toString('utf8')) as {
+      words: { word: string; inflections: Inflections }[];
+    };
+    for (const w of data.words) {
+      set.add(w.word.toLowerCase());
+      addAll(set, w.inflections);
+    }
+  }
   for (const item of [...themes.flatMap((t) => t.items), ...verbs.items, ...feelingVerbs.items, ...numbers.items, ...ordinals.items, ...adjectives.items, ...time.items, ...states.items]) {
     set.add(item.fi.toLowerCase());
     addAll(set, item.inflections);

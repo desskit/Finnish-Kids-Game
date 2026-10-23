@@ -46,6 +46,10 @@ const UNOWNABLE = [
   "gym",
   "english",
   "canteen",
+  // School & daycare: places you go and a time of the day.
+  "restroom",
+  "daycare",
+  "recess",
 ];
 
 // Substances and school subjects. In "This is ___ / I have ___" Finnish says
@@ -58,15 +62,17 @@ const SUBSTANCE = NOT_COUNTABLE.filter((id) => !["sky", "sea", "sun", "moon"].in
 // Things a child doesn't "have" ("Minulla on metsä", I have a forest): odd
 // possessions, and family a child can't have yet. Plus bread and cheese,
 // which English says without "a" — "I have bread" is "Minulla on leipää".
-const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese", "captain"];
+// (A school nurse isn't anyone's either.)
+const NOT_A_CHILDS = ["forest", "island", "fire", "pupil", "son", "daughter", "grandchild", "movie", "bread", "cheese", "captain", "nurse"];
 
 // "Missä on ___?" needs a thing you could look for — not a school subject,
 // the weather, the sky, a hobby or a film ("Where is the math?").
-const NOT_FINDABLE = ["music", "math", "gym", "english", "wind", "rain", "sky", "hobby", "hair", "movie", "task"];
+const NOT_FINDABLE = ["music", "math", "gym", "english", "wind", "rain", "sky", "hobby", "hair", "movie", "task", "recess"];
 
 // Parts of a home nobody "has" on their own ("Minulla on ovi", I have a door)
-// or keeps track of ("Missä on sinun ikkunasi?", where is your window?).
-const FIXTURES = ["door", "window", "kitchen"];
+// or keeps track of ("Missä on sinun ikkunasi?", where is your window?) — and
+// the board on the classroom wall.
+const FIXTURES = ["door", "window", "kitchen", "board"];
 
 // Relatives English names as SOMEONE'S — "my aunt", never "an aunt": "Onko
 // tämä täti?" (is this an aunt?) and "Nämä ovat tyttäriä" (these are
@@ -88,13 +94,15 @@ const LIKABLE_TOPICS = [
 // Not LIKING someone is no flashcard for a child ("En pidä äidistä", I don't
 // like Mom): dislikes are about things, food, places and school.
 const DISLIKABLE_TOPICS = LIKABLE_TOPICS.filter((t) => t !== "family");
-const PEOPLE = ["teacher", "friend", "pupil", "captain"];
+const PEOPLE = ["teacher", "friend", "pupil", "captain", "nurse"];
+// Things nobody says they LIKE ("Pidän vessasta", I like the restroom).
+const NOT_LIKABLE = ["restroom", "bandage", "glue"];
 // Everyday things nobody LOVES ("Rakastan haarukkaa", I love the fork; "I
 // love the pupil", "I love the test").
 const NOT_LOVABLE = [
   "fork", "spoon", "eraser", "paper", "sock", "boot", "glove", "box", "basket", "clock", "key", "table", "chair",
   "door", "window", "bathroom", "canteen", "station", "hospital", "market", "field", "class", "task", "test", "pupil",
-  "captain",
+  "captain", "restroom", "notebook", "glue", "board", "bandage", "nurse",
 ];
 
 // Things one WATCHES — living beings and scenery, not food or socks; plus a
@@ -109,8 +117,8 @@ const WATCHABLE_TOPICS = [
 ];
 
 // Things you can't SEE or WATCH as an object ("Näen musiikin" is wrong — you
-// hear music; a hobby is an activity, not a thing in view).
-const NOT_VISIBLE = ["music", "hobby", "math", "gym", "english", "task"];
+// hear music; a hobby is an activity, not a thing in view; recess is a time).
+const NOT_VISIBLE = ["music", "hobby", "math", "gym", "english", "task", "recess"];
 
 // Nature words that make no concrete reference point for a postposition
 // ("sateen edessä" reads as poetry, not a place).
@@ -145,11 +153,12 @@ const BODY = ["eye", "ear", "nose", "mouth", "hand", "foot", "head", "tooth", "h
 const HAVE_EXCLUDE = [...UNOWNABLE, ...BODY, ...SUBSTANCE, ...NOT_A_CHILDS, ...FIXTURES];
 // A child says "Minulla on…" about themselves, and hears "Sinulla on…" about
 // themselves: not "I have a baby" or "You have a child" ("We have a baby" is
-// fine — a family can).
-const MY_HAVE_EXCLUDE = [...HAVE_EXCLUDE, "baby", "child"];
+// fine — a family can), nor a cottage or a sauna ("Meillä on sauna" is fine).
+const MY_HAVE_EXCLUDE = [...HAVE_EXCLUDE, "baby", "child", "cottage", "sauna"];
 // What a child calls "my" or "your" — not their son or grandchild, a fire, a
-// forest or a taxi ("Tämä on minun poikani" is a parent talking).
-const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi", "captain"];
+// forest or a taxi ("Tämä on minun poikani" is a parent talking), nor the
+// family's cottage or sauna, or the school nurse.
+const NOT_MINE = ["son", "daughter", "grandchild", "child", "baby", "fire", "forest", "island", "taxi", "captain", "cottage", "sauna", "nurse"];
 /** Nouns a child never calls "my" or "your" (the Kenen? game skips them too). */
 export const NOT_MY_OWN = [...NATURE_NOBODY_OWNS, ...NOT_MINE];
 // A child may really be without a mom, a dad, a grandparent, a family or a
@@ -167,9 +176,10 @@ const HAVENT_EXCLUDE = [
 // Body parts you have just one of — "Nämä ovat suita" (these are mouths) is odd.
 const ONE_EACH = ["mouth", "nose", "head", "tummy", "tongue", "heart"];
 // People a child doesn't "have some of": "Minulla on poikia" (I have sons).
-const NOT_YOURS_IN_PLURAL = ["grandchild", "son", "daughter", "baby", "child", "pupil", "teacher", "captain"];
+const NOT_YOURS_IN_PLURAL = ["grandchild", "son", "daughter", "baby", "child", "pupil", "teacher", "captain", "nurse"];
 
 const NO_LANDMARK = [
+  "recess",
   "rain",
   "snow",
   "sky",
@@ -270,7 +280,8 @@ const TIMES_OF = [
 ];
 
 // Where a person is ON/AT, with the English preposition each one takes.
-const SCHOOL_GLOSS: Record<string, string> = { school: "school" };
+// English goes "to school", "to daycare" — no "the".
+const SCHOOL_GLOSS: Record<string, string> = { school: "school", daycare: "daycare" };
 
 const PERSON_ON_GLOSS: Record<string, string> = {
   ship: "on the ship",
@@ -282,6 +293,7 @@ const PERSON_ON_GLOSS: Record<string, string> = {
   door: "at the door",
   window: "at the window",
   mountain: "on the mountain",
+  cottage: "at the cottage",
 };
 
 // Whole English sentences where the place changes more than "the ___":
@@ -319,6 +331,7 @@ const AT_THE = ["shop", "library", "museum", "restaurant", "zoo"];
 const I_AM_IN = {
   bed: "I'm in bed.",
   school: "I'm at school.",
+  daycare: "I'm at daycare.",
   cafe: "I'm at the cafe.",
   ...each(VEHICLES, (v) => `I'm on the ${v}.`),
   boat: "I'm on the boat.",
@@ -336,6 +349,21 @@ const I_COME_FROM_IN = {
 };
 const I_GO_ONTO = { ship: "I'm getting on the ship." };
 const I_COME_FROM_ON = { ship: "I'm getting off the ship." };
+// "Saanko mennä ___?" — the same places, asked for.
+const MAY_I_GO_INTO = {
+  bed: "May I go to bed?",
+  school: "May I go to school?",
+  daycare: "May I go to daycare?",
+  ...each(VEHICLES, (v) => `May I get on the ${v}?`),
+  ...each(RIDES_IN, (v) => `May I get into the ${v}?`),
+};
+const MAY_I_GO_ONTO = {
+  yard: "May I go out to the yard?",
+  field: "May I go out to the field?",
+  sofa: "May I get on the sofa?",
+  ship: "May I get on the ship?",
+  mountain: "May I go up the mountain?",
+};
 
 // Verbs that read naturally after each "verb + verb" carrier.
 const WANT_TO = [
@@ -399,6 +427,27 @@ const MAY_I = [
   "look",
   "sing",
   "swim",
+];
+// School & daycare: what you have to do ("Minun täytyy mennä"), and what you'd
+// like to do, asked nicely ("Haluaisin piirtää").
+const MUST_DO = ["go", "come", "eat", "sleep", "read", "write", "clean", "help", "wait", "listen", "ask", "wake-up"];
+const WOULD_LIKE_TO = [
+  "play",
+  "eat",
+  "drink",
+  "read",
+  "draw",
+  "sing",
+  "dance",
+  "swim",
+  "paint",
+  "go",
+  "help",
+  "sleep",
+  "play-game",
+  "play-music",
+  "ski",
+  "skate",
 ];
 
 // Body parts a child touches in "Kapteeni käskee" — never an eye, a tooth or
@@ -523,6 +572,7 @@ export const nounConstructions: Construction[] = [
     case: "elative",
     number: "singular",
     topics: LIKABLE_TOPICS,
+    excludeIds: NOT_LIKABLE,
   },
   {
     // tykätä + elative: "Tykkään kissasta." — the everyday "I like"; same
@@ -535,6 +585,7 @@ export const nounConstructions: Construction[] = [
     case: "elative",
     number: "singular",
     topics: LIKABLE_TOPICS,
+    excludeIds: NOT_LIKABLE,
   },
   {
     id: "i-dont-like-tykkaa",
@@ -601,6 +652,10 @@ export const nounConstructions: Construction[] = [
       "sofa",
       "test",
       "eraser",
+      "restroom",
+      "notebook",
+      "glue",
+      "bandage",
       ...NOT_VISIBLE,
     ],
   },
@@ -890,6 +945,12 @@ export const nounConstructions: Construction[] = [
       "test",
       "task",
       "canteen",
+      // School & daycare and the Finnish year: not bought, or not one by one
+      "recess",
+      "nurse",
+      "board",
+      "glue",
+      "blueberry",
     ],
   },
   {
@@ -926,12 +987,15 @@ export const nounConstructions: Construction[] = [
     before: "Odotan",
     punct: ".",
     en: "I'm waiting for the ___.",
+    // "I'm waiting for recess", like "for lunch".
+    glossById: { recess: "recess" },
     tier: 6,
     case: "partitive",
     number: "singular",
-    // People, pets and rides: "Odotan opettajaa / bussia". Every other place
-    // and school thing is filtered out (nobody waits for a pencil). "Odotan
-    // vauvaa / lasta" means "I'm expecting a baby", so those two stay out.
+    // People, pets and rides: "Odotan opettajaa / bussia" — and recess. Every
+    // other place and school thing is filtered out (nobody waits for a
+    // pencil). "Odotan vauvaa / lasta" means "I'm expecting a baby", so those
+    // two stay out.
     topics: ["animals", "family", "school", "places"],
     excludeIds: [
       "baby",
@@ -984,6 +1048,14 @@ export const nounConstructions: Construction[] = [
       "task",
       "canteen",
       "test",
+      "restroom",
+      "daycare",
+      "cottage",
+      "sauna",
+      "notebook",
+      "glue",
+      "board",
+      "bandage",
     ],
   },
 
@@ -1769,5 +1841,129 @@ export const nounConstructions: Construction[] = [
     case: "adessive",
     number: "singular",
     onlyIds: ["leaf", "stone"],
+  },
+
+  // --- School & daycare: must, may I go, asking nicely ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  // "täytyy" (täytyä), "haluaisin" (haluta) and "saisin" (saada, + the question
+  // ending -ko) are checked against the sourced tables in content.test.ts.
+  {
+    // "Minun täytyy mennä" — I have to go: minun + the verb's basic form.
+    id: "i-must",
+    before: "Minun täytyy",
+    punct: ".",
+    en: "I have to ___.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    verb: "infinitive",
+    topics: ["verbs"],
+    onlyIds: MUST_DO,
+  },
+  {
+    // The polite "would": "Haluaisin piirtää" — I'd like to draw.
+    id: "i-would-like",
+    before: "Haluaisin",
+    punct: ".",
+    en: "I'd like to ___.",
+    tier: 3,
+    case: "nominative",
+    number: "singular",
+    verb: "infinitive",
+    topics: ["verbs"],
+    onlyIds: WOULD_LIKE_TO,
+  },
+  {
+    // "Saanko mennä vessaan?" — may I go to the restroom? INTO a place: -Vn,
+    // like "Menen vessaan".
+    id: "may-i-go-into",
+    before: "Saanko mennä",
+    punct: "?",
+    en: "May I go to the ___?",
+    tier: 3,
+    case: "illative",
+    number: "singular",
+    topics: ["places"],
+    requiresTags: ["person-in"],
+    // nobody asks to go to the hospital
+    excludeIds: ["hospital"],
+    sentenceById: MAY_I_GO_INTO,
+  },
+  {
+    // …and out ONTO the yard: -lle, like "Menen pihalle".
+    id: "may-i-go-onto",
+    before: "Saanko mennä",
+    punct: "?",
+    en: "May I go to the ___?",
+    tier: 3,
+    case: "allative",
+    number: "singular",
+    topics: ["places", "nature"],
+    requiresTags: ["person-on"],
+    sentenceById: MAY_I_GO_ONTO,
+  },
+  {
+    // "Saisinko kynän?" — could I have a pencil? One whole thing → -n, as in
+    // "Ostan omenan". ("Saisinko kynää?" isn't offered as wrong.)
+    id: "could-i-have",
+    before: "Saisinko",
+    punct: "?",
+    en: "Could I have a ___?",
+    tier: 3,
+    case: "genitive",
+    number: "singular",
+    onlyIds: ["pencil", "notebook", "eraser", "bandage", "book", "apple", "banana", "cookie"],
+  },
+  {
+    // "Saisinko vettä?" — could I have some water? Some of it → -a, as in
+    // "Ostan maitoa". ("Saisinko veden?", the water, is fine too.)
+    id: "could-i-have-some",
+    before: "Saisinko",
+    punct: "?",
+    en: "Could I have some ___?",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    onlyIds: ["water", "milk", "juice", "bread", "paper", "glue"],
+  },
+
+  // --- The Finnish year ---
+  // ⚠️ NEEDS NATIVE FINNISH VETTING (carrier frames; listed in FINNISH_REVIEW.md).
+  {
+    // "Joulupukki tuo lahjan" — Santa brings a present: one whole thing → -n.
+    // ("tuo lahjaa", on the way with it, is fine too — never a slip.)
+    id: "santa-brings",
+    before: "Joulupukki tuo",
+    punct: ".",
+    en: "Santa brings a ___.",
+    tier: 3,
+    case: "genitive",
+    number: "singular",
+    onlyIds: ["present", "book", "ball", "doll", "teddy", "toy", "bike", "guitar", "game", "drum"],
+  },
+  {
+    // "Odotan joulua!" — I can't wait for Christmas: odottaa takes -a.
+    id: "i-wait-for-holiday",
+    before: "Odotan",
+    punct: "!",
+    en: "I can't wait for ___!",
+    tier: 3,
+    case: "partitive",
+    number: "singular",
+    topics: ["finnish-year"],
+    onlyIds: ["christmas", "santa", "easter", "midsummer"],
+  },
+  {
+    // AT a holiday: -na / -nä, like the days ("maanantaina") — "jouluna",
+    // "juhannuksena".
+    id: "at-the-cottage",
+    before: "Olemme mökillä",
+    punct: ".",
+    en: "We're at the cottage at ___.",
+    tier: 3,
+    case: "essive",
+    number: "singular",
+    topics: ["finnish-year"],
+    onlyIds: ["christmas", "easter", "midsummer"],
   },
 ];

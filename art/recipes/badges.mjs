@@ -14,7 +14,8 @@ export default [
   { id: 'treasure-map', title: 'treasure map (halfway)', glyphs: ['🗺️'], ...ui, draw: badges.map },
   { id: 'crown', title: 'crown (50 words mastered)', glyphs: ['👑'], ...ui, motion: { frames: 2, fps: 2 }, draw: badges.crown },
   { id: 'target', title: 'target (sharp; wanting)', glyphs: ['🎯'], ...ui, motion: { frames: 2, fps: 6 }, draw: badges.target },
-  { id: 'notebook', title: 'notebook (Vihko)', glyphs: ['📓'], ...ui, draw: badges.notebook },
+  // 'notebook' is the word vihko's picture (📒); this is the app's Notebook
+  { id: 'lesson-notebook', title: 'notebook (the app\'s Vihko)', glyphs: ['📓'], ...ui, draw: badges.notebook },
   { id: 'light-bulb', title: 'light bulb (a tip, why?)', glyphs: ['💡'], ...ui, motion: { frames: 2, fps: 2 }, draw: badges.lightBulb },
   { id: 'keyboard', title: 'keyboard (typing)', glyphs: ['⌨️'], ...ui, draw: badges.keyboard },
   { id: 'abacus', title: 'abacus (counting)', glyphs: ['🧮'], ...ui, draw: badges.abacus },

@@ -2066,4 +2066,257 @@ export const conversations: Conversation[] = [
       },
     ],
   },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — School & daycare: asking for a pencil, not
+  // understanding, then recess
+  {
+    id: 'in-class',
+    titleFi: 'Luokassa',
+    titleEn: 'In class',
+    icon: '🏫',
+    partnerIcon: '🧑‍🏫',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Tänään piirretään. Onko sinulla kynä?', en: "Today we'll draw. Do you have a pencil?" },
+        reply: { fi: 'Ei ole. Saisinko kynän?', en: 'No. Could I have a pencil?' },
+        distractors: [
+          { fi: 'Ei ole. Saisinko kynä?', en: 'No. Could I have a pencil?', why: 'One whole pencil → **-n**: *Saisinko kynän?*' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Ole hyvä. Piirrä talo!', en: 'Here you go. Draw a house!' },
+        reply: { fi: 'Anteeksi, en ymmärrä.', en: "Sorry, I don't understand." },
+        distractors: [
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+        ],
+      },
+      {
+        partner: { fi: 'Katso, näin. Tässä on talo.', en: "Look, like this. Here's a house." },
+        reply: { fi: 'Ahaa! Nyt ymmärrän.', en: 'Oh! Now I understand.' },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+        ],
+      },
+      {
+        partner: { fi: 'Hienoa! Nyt on välitunti.', en: "Great! Now it's recess." },
+        reply: { fi: 'Jee! Saanko mennä pihalle?', en: 'Yay! May I go out to the yard?' },
+        distractors: [
+          { fi: 'Jee! Saanko mennä pihalla?', en: 'Yay! May I go out to the yard?', why: 'Going somewhere → **-lle**: *Saanko mennä pihalle?*' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — The Finnish year: Christmas Eve with Grandma
+  {
+    id: 'christmas-eve',
+    titleFi: 'Hyvää joulua!',
+    titleEn: 'Merry Christmas!',
+    icon: '🎄',
+    partnerIcon: '👵',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'Hyvää joulua!', en: 'Merry Christmas!' },
+        reply: { fi: 'Hyvää joulua, isoäiti!', en: 'Merry Christmas, Grandma!' },
+        distractors: [
+          { fi: 'Hyvää syntymäpäivää!', en: 'Happy birthday!' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä sinä odotat?', en: 'What are you waiting for?' },
+        reply: { fi: 'Odotan joulupukkia!', en: "I'm waiting for Santa!" },
+        distractors: [
+          { fi: 'Odotan joulupukki!', en: "I'm waiting for Santa!", why: '*Odotan* always takes **-a**: *Odotan joulupukkia*.' },
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä joulupukki tuo?', en: 'What does Santa bring?' },
+        reply: { fi: 'Joulupukki tuo lahjan!', en: 'Santa brings a present!' },
+        distractors: [
+          { fi: 'Joulupukki tuo lahja!', en: 'Santa brings a present!', why: 'One whole present → **-n**: *Joulupukki tuo lahjan*.' },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Syödäänkö piparkakkuja?', en: 'Shall we eat gingerbread cookies?' },
+        reply: { fi: 'Joo, syödään!', en: "Yes, let's!" },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — The Finnish year: an Easter witch at
+  // Grandma's door (the rhyme itself is for a Finnish grown-up to teach)
+  {
+    id: 'easter-witch',
+    titleFi: 'Hyvää pääsiäistä!',
+    titleEn: 'Happy Easter!',
+    icon: '🐣',
+    partnerIcon: '👵',
+    tier: 3,
+    turns: [
+      {
+        partner: { fi: 'No hei! Kuka sinä olet?', en: 'Well, hello! Who are you?' },
+        reply: { fi: 'Minä olen noita!', en: "I'm a witch!" },
+        distractors: [
+          { fi: 'Minä olen joulupukki!', en: "I'm Santa!" },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Mitä sinulla on?', en: 'What do you have?' },
+        reply: { fi: 'Minulla on vitsa. Se on sinulle!', en: "I have a willow twig. It's for you!" },
+        distractors: [
+          { fi: 'Minulla on nälkä.', en: "I'm hungry." },
+          { fi: 'Anteeksi.', en: 'Sorry.' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiitos! Tässä on suklaata sinulle.', en: "Thank you! Here's some chocolate for you." },
+        reply: { fi: 'Kiitos, isoäiti! Hyvää pääsiäistä!', en: 'Thank you, Grandma! Happy Easter!' },
+        distractors: [
+          { fi: 'Kiitos, isoäiti! Hyvää joulua!', en: 'Thank you, Grandma! Merry Christmas!', why: "It's Easter! *Hyvää pääsiäistä!*" },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Real conversations: a phone call to Grandma
+  {
+    id: 'phone-grandma',
+    titleFi: 'Puhelimessa',
+    titleEn: 'On the phone',
+    icon: '📱',
+    partnerIcon: '👵',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Haloo?', en: 'Hello?' },
+        reply: { fi: 'Hei, isoäiti! Täällä {name}.', en: "Hi, Grandma! It's {name}." },
+        distractors: [
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+          { fi: 'Kenen vuoro on?', en: 'Whose turn is it?' },
+        ],
+      },
+      {
+        partner: { fi: 'Kiva, että soitat! Mitä kuuluu?', en: 'How nice of you to call! How are you?' },
+        reply: { fi: 'Hyvää, kiitos! Entä sinulle?', en: 'Good, thanks! And you?' },
+        distractors: [
+          { fi: 'Kolme euroa.', en: 'Three euros.' },
+          { fi: 'Tervetuloa!', en: 'Welcome!' },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvää. Mitä teit tänään?', en: 'Good. What did you do today?' },
+        reply: { fi: 'Leikin Eeron kanssa.', en: 'I played with Eero.' },
+        distractors: [
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+      {
+        partner: { fi: 'Tule huomenna kylään!', en: 'Come and visit tomorrow!' },
+        reply: { fi: 'Joo! Nähdään huomenna!', en: 'Yes! See you tomorrow!' },
+        distractors: [
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Real conversations: a card game with Eero
+  {
+    id: 'card-game',
+    titleFi: 'Kenen vuoro?',
+    titleEn: 'Whose turn?',
+    icon: '🃏',
+    partnerIcon: '👦',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Pelataan korttia!', en: "Let's play cards!" },
+        reply: { fi: 'Joo, pelataan!', en: "Yeah, let's play!" },
+        distractors: [
+          { fi: 'Joo, soitetaan!', en: "Yeah, let's play music!", why: 'Cards are a game, so it\'s *pelata*: *Pelataan korttia*.' },
+          { fi: 'Hyvää yötä!', en: 'Good night!' },
+        ],
+      },
+      {
+        partner: { fi: 'Kenen vuoro on?', en: 'Whose turn is it?' },
+        reply: { fi: 'Minun vuoroni!', en: 'My turn!' },
+        distractors: [
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+          { fi: 'Kello on kolme.', en: "It's three o'clock." },
+        ],
+      },
+      {
+        partner: { fi: 'Sinä voitit! Pelataanko taas?', en: 'You won! Shall we play again?' },
+        reply: { fi: 'Pelataan! Nyt on sinun vuorosi.', en: "Let's! Now it's your turn." },
+        distractors: [
+          { fi: 'Näkemiin!', en: 'Goodbye!' },
+          { fi: 'Minulla on jano.', en: "I'm thirsty." },
+        ],
+      },
+      {
+        partner: { fi: 'Minulla on nälkä.', en: "I'm hungry." },
+        reply: { fi: 'Syödään pullaa!', en: "Let's have a sweet bun!" },
+        distractors: [
+          { fi: 'Mennään nukkumaan!', en: "Let's go to bed!" },
+          { fi: 'Ole hyvä.', en: "You're welcome." },
+        ],
+      },
+    ],
+  },
+  // ⚠️ NEEDS NATIVE FINNISH VETTING — Real conversations: a fall at recess, and
+  // the school nurse
+  {
+    id: 'school-nurse',
+    titleFi: 'Terveydenhoitajalla',
+    titleEn: "At the nurse's",
+    icon: '🩹',
+    partnerIcon: '🧑‍⚕️',
+    tier: 4,
+    turns: [
+      {
+        partner: { fi: 'Hei! Mikä hätänä?', en: "Hi! What's wrong?" },
+        reply: { fi: 'Kaaduin välitunnilla.', en: 'I fell down at recess.' },
+        distractors: [
+          { fi: 'Hyvää ruokahalua!', en: 'Enjoy your meal!' },
+          { fi: 'Kenen vuoro on?', en: 'Whose turn is it?' },
+        ],
+      },
+      {
+        partner: { fi: 'Voi voi. Mihin sattuu?', en: 'Oh dear. Where does it hurt?' },
+        reply: { fi: 'Polveen.', en: 'My knee.' },
+        distractors: [
+          { fi: 'Kello kymmenen.', en: "At ten o'clock." },
+          { fi: 'Kiitos samoin!', en: 'Thanks, you too!' },
+        ],
+      },
+      {
+        partner: { fi: 'Tässä on laastari.', en: "Here's a bandage." },
+        reply: { fi: 'Kiitos! Nyt ei satu.', en: "Thanks! Now it doesn't hurt." },
+        distractors: [
+          { fi: 'Hyvää joulua!', en: 'Merry Christmas!' },
+          { fi: 'Tervetuloa!', en: 'Welcome!' },
+        ],
+      },
+      {
+        partner: { fi: 'Hyvä! Mene takaisin luokkaan.', en: 'Good! Go back to class.' },
+        reply: { fi: 'Kiitos! Näkemiin!', en: 'Thank you! Goodbye!' },
+        distractors: [
+          { fi: 'Hyvää huomenta!', en: 'Good morning!' },
+          { fi: 'Pelataan korttia!', en: "Let's play cards!" },
+        ],
+      },
+    ],
+  },
 ];

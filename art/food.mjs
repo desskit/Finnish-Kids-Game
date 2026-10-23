@@ -371,3 +371,73 @@ export function pizza(k) {
     k.flatEllipse(24.4, 33, 1.4, 0.9, c.green),
   ].join('');
 }
+
+/** A sweet bun (pulla): a braided loaf, golden and glazed, pearl sugar on top. */
+export function bun(k) {
+  const c = k.P;
+  // the braid: a zigzag along the middle, creases running out from it to the edges
+  const zig = 'M10.6 42L16.6 39.4L22.6 44.6L28.6 39.4L34.6 44.6L40.6 39.4L46.6 44.6L53.4 42';
+  const creases = 'M16.6 39.4L12.6 32.4M28.6 39.4L24.6 30.4M40.6 39.4L36.6 30.2M22.6 44.6L26.6 53.4M34.6 44.6L38.6 53.6M46.6 44.6L49.4 51.4';
+  const sugar = [[18.4, 34.4], [22, 37.6], [30.4, 33.6], [34, 37], [42.4, 33.6], [46.4, 37.6], [26.6, 47], [38.6, 47.6], [14, 45.6], [50, 45]];
+  return [
+    k.ground(32, 56.8, 25, 2.2),
+    k.path('M6.6 43C6.6 35.6 12.6 30.6 21 29.6C25.6 28.6 38.4 28.6 43 29.6C51.4 30.6 57.4 35.6 57.4 43C57.4 50.4 51.4 54.4 43 54.4H21C12.6 54.4 6.6 50.4 6.6 43Z', c.amber),
+    k.flat('M8.4 47C10.4 51.4 15 53.4 21 53.4H43C49 53.4 53.6 51.4 55.6 47C52 49.6 47.6 50.6 43 50.6H21C16.4 50.6 12 49.6 8.4 47Z', c.amberShade),
+    k.line(`${zig}${creases}`, { sw: 1.4 }),
+    ...sugar.map(([x, y]) => k.flatCircle(x, y, 1.2, c.white)),
+    k.shine('M11.4 37.6Q13.6 33.6 18 32.2', 1.6),
+  ].join('');
+}
+
+/** Blueberries (mustikka): a little heap of dark berries, each with its crown, two leaves on top. */
+export function blueberry(k) {
+  const c = k.P;
+  const berry = (x, y, r) =>
+    k.circle(x, y, r, c.blueShade) +
+    k.flatEllipse(x + r * 0.34, y + r * 0.36, r * 0.52, r * 0.44, c.navy) +
+    k.flat(roundPoly(starPoints(x + r * 0.1, y - r * 0.42, r * 0.38, r * 0.16, 5), 0.3), c.navy) +
+    k.shine(`M${pt([x - r * 0.66, y + r * 0.1])}Q${pt([x - r * 0.62, y - r * 0.5])} ${pt([x - r * 0.24, y - r * 0.68])}`, 1.6);
+  return [
+    k.ground(32, 58.4, 25, 2.2),
+    berry(15.4, 47, 8.4),
+    berry(48.6, 47, 8.4),
+    berry(32, 48.4, 8.6),
+    berry(23.6, 34.4, 8.4),
+    berry(40.4, 34.4, 8.4),
+    // two leaves on the top berry
+    k.path('M33 21.6C29 14.6 21.6 13.4 17.4 15.6C20.6 21.6 27 23.6 33 21.6Z', c.green),
+    k.path('M33 21.6C36.4 14 43.4 11.4 48.4 13C46 19.6 39.6 22.6 33 21.6Z', c.green),
+    k.line('M31.4 20.4Q25 17 20.4 16.4M34.6 20.4Q40 15.6 45.6 13.8', { color: c.greenShade, sw: 1.4 }),
+    berry(32, 25.4, 8.2),
+  ].join('');
+}
+
+/** A gingerbread cookie (piparkakku): a gingerbread man iced in white — dot eyes, a smile, zigzags at his wrists and ankles — with two candy buttons. */
+export function gingerbread(k) {
+  const c = k.P;
+  const px = k.px;
+  const limbs = 'M24.6 31.6L12.6 26.4M39.4 31.6L51.4 26.4M28.4 42.6L22.6 53.6M35.6 42.6L41.4 53.6';
+  const ends = [[12.6, 26.4], [51.4, 26.4], [22.6, 53.6], [41.4, 53.6]];
+  const T = 10.4;
+  const body = (grow, fill) => k.flat(roundPoly([[22.6 - grow, 22 - grow], [41.4 + grow, 22 - grow], [41.4 + grow, 46 + grow], [22.6 - grow, 46 + grow]], 7 + grow), fill);
+  // one outline round the whole cookie: ink first, a pixel bigger all round, then the dough
+  return [
+    k.ground(32, 58.8, 18, 2.2),
+    k.line(limbs, { color: c.ink, sw: T }),
+    ...ends.map(([x, y]) => k.flatCircle(x, y, T / 2, c.ink)),
+    k.flatCircle(32, 15, 9.6 + px / 2, c.ink),
+    body(px / 2, c.ink),
+    k.line(limbs, { color: c.brown, sw: T - 2 * px }),
+    ...ends.map(([x, y]) => k.flatCircle(x, y, T / 2 - px, c.brown)),
+    k.flatCircle(32, 15, 9.6 - px / 2, c.brown),
+    body(-px / 2, c.brown),
+    k.flat('M37.4 23.4H40.6V44.6H37.4Z', c.brownShade),
+    // the icing
+    k.flatCircle(28.4, 13.4, 1.5, c.white),
+    k.flatCircle(35.6, 13.4, 1.5, c.white),
+    k.line('M27.6 17.6Q32 21.4 36.4 17.6', { color: c.white, sw: 1.6 }),
+    k.line('M15.4 22.6L17 25.2L15 27.4L16.6 30M48.6 22.6L47 25.2L49 27.4L47.4 30M21.4 48.6L24 49.4L23.4 51.6L26 52.4M42.6 48.6L40 49.4L40.6 51.6L38 52.4', { color: c.white, sw: 1.4 }),
+    k.circle(32, 29.4, 2.4, c.red, { sw: 1 }),
+    k.circle(32, 37.4, 2.4, c.green, { sw: 1 }),
+  ].join('');
+}

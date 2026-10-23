@@ -215,6 +215,11 @@ const FOOD = [
   ['porridge', 'puuro', 'porridge', '🥣'],
   ['butter', 'voi', 'butter', '🧈'],
   ['pizza', 'pitsa', 'pizza', '🍕'],
+  // The Finnish year: Christmas gingerbread, a sweet bun at the cottage and
+  // the forest's blueberries. From the Wiktionary supplement (data/wiktionary/).
+  ['gingerbread', 'piparkakku', 'gingerbread cookie', '🫚'],
+  ['bun', 'pulla', 'sweet bun', '🥐'],
+  ['blueberry', 'mustikka', 'blueberry', '🫐'],
 ];
 
 // Meals, for My day: "Syön aamupalaa" — I'm eating breakfast. Their own
@@ -231,6 +236,26 @@ const MEALS = [
 // The weather itself — "Millainen sää?" (what's the weather like?). Opt-in,
 // like money: "Näen sään" or "kolme säätä" would be nonsense.
 const WEATHER = [['weather', 'sää', 'weather', '⛅']];
+
+// The Finnish year: Christmas, Easter and Midsummer, and what comes with them.
+// Opt-in like the meals: a holiday fills only the phrases that name it
+// ("Odotan joulua!", "Olemme mökillä jouluna") — never "kolme joulua" or
+// "Ostan joulupukin". Mostly from the Wiktionary supplement (data/wiktionary/).
+const FINNISH_YEAR = [
+  ['christmas', 'joulu', 'Christmas', '🎀'],
+  // A name in English: "I can't wait for Santa!" (scripts/agid.mjs)
+  ['santa', 'joulupukki', 'Santa', '🎅'],
+  ['christmas-tree', 'joulukuusi', 'Christmas tree', '🎄'],
+  ['elf', 'tonttu', 'elf', '🧝'],
+  ['snowman', 'lumiukko', 'snowman', '⛄'],
+  ['easter', 'pääsiäinen', 'Easter', '🐣'],
+  // the little Easter witches who go door to door with willow twigs
+  ['witch', 'noita', 'witch', '🧙'],
+  // "pajunkissa" is a willow cat; a catkin is a little cat too
+  ['catkin', 'pajunkissa', 'willow catkin', '🌾'],
+  ['midsummer', 'juhannus', 'Midsummer', '🎋'],
+  ['bonfire', 'kokko', 'bonfire', '🎇'],
+];
 
 // Place nouns for the locative-case node ("where things are" — in/on/into/
 // out-of/onto/off + plural). Sourced the same way as every other theme; no
@@ -282,6 +307,15 @@ const PLACES = [
   ['bathroom', 'kylpyhuone', 'bathroom', '🛁'],
   ['sofa', 'sohva', 'sofa', '🛋️'],
   ['yard', 'piha', 'yard', '🏡'],
+  // School & daycare: where you ask to go ("Saanko mennä vessaan?") and where a
+  // little brother goes ("Leo on päiväkodissa"). US English: the "bathroom"
+  // is kylpyhuone's, so vessa is the restroom.
+  ['restroom', 'vessa', 'restroom', '🚻'],
+  ['daycare', 'päiväkoti', 'daycare', '🏤'],
+  // The Finnish year: the summer cottage ("Menen mökille" — with -lle) and the
+  // sauna ("Menen saunaan").
+  ['cottage', 'mökki', 'cottage', '🛖'],
+  ['sauna', 'sauna', 'sauna', '🧖'],
 ];
 
 // Locative SHAPE tags for places — which "where" cases each one makes sense in:
@@ -339,6 +373,12 @@ const PLACE_TAGS = {
   plane: ['container'],
   ship: ['surface'],
   taxi: ['container'],
+  // Both endings are said for these (contrasts.ts EITHER_IN_OR_ON): "vessassa /
+  // vessalla", "saunassa / saunalla", "mökillä / mökissä".
+  restroom: ['container'],
+  daycare: ['container'],
+  sauna: ['container'],
+  cottage: ['surface'],
 };
 
 // Where a PERSON can be / go / come from — a separate gate from the cat's
@@ -350,8 +390,9 @@ const PERSON_IN = [
   'school', 'room', 'kitchen', 'garden', 'house', 'forest', 'bus', 'train', 'shop',
   'library', 'car', 'bed', 'park', 'hospital', 'museum', 'restaurant', 'cafe', 'city',
   'zoo', 'living-room', 'bedroom', 'bathroom', 'boat', 'plane', 'taxi',
+  'restroom', 'daycare', 'sauna',
 ];
-const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window', 'ship'];
+const PERSON_ON = ['station', 'market', 'field', 'yard', 'sofa', 'door', 'window', 'ship', 'cottage'];
 for (const id of PERSON_IN) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-in'];
 for (const id of PERSON_ON) PLACE_TAGS[id] = [...(PLACE_TAGS[id] ?? []), 'person-on'];
 
@@ -382,6 +423,17 @@ const SCHOOL = [
   ['canteen', 'ruokala', 'cafeteria'],
   // The leader in "Kapteeni käskee" (the Finnish "Simon says"), from My body.
   ['captain', 'kapteeni', 'captain', '🧑‍✈️'],
+  // School & daycare: the recess bell, the notebook, glue and the board, and
+  // the school nurse with her bandages. From the Wiktionary supplement
+  // (välitunti, vihko, terveydenhoitaja, laastari) and the snapshot.
+  ['recess', 'välitunti', 'recess', '🛎️'],
+  // id clash: the app's Notebook icon (📓) is a UI picture; this is the word
+  ['notebook', 'vihko', 'notebook', '📒'],
+  ['glue', 'liima', 'glue', '🧴'],
+  // the board in class (taulu is a painting on a wall too)
+  ['board', 'taulu', 'board', '🪧'],
+  ['nurse', 'terveydenhoitaja', 'school nurse', '🧑‍⚕️'],
+  ['bandage', 'laastari', 'bandage', '🩹'],
 ];
 
 // When? — days of the week (no single picture each, so their English shows on
@@ -404,7 +456,8 @@ const TIME = [
   ['spring', 'kevät', 'spring', '🌱'],
   ['summer', 'kesä', 'summer', '🏖️'],
   ['autumn', 'syksy', 'autumn', '🍂'],
-  ['winter', 'talvi', 'winter', '⛄'],
+  // a snowy spruce (⛄ is the snowman's, lumiukko, in the Finnish year)
+  ['winter', 'talvi', 'winter', '🌨️'],
   // Months, for dates and birthdays ("viides toukokuuta", "toukokuussa").
   ['january', 'tammikuu', 'January'],
   ['february', 'helmikuu', 'February'],
@@ -701,6 +754,11 @@ const VERBS = [
   // takin päälle").
   ['brush', 'harjata', 'brush', '🪥'],
   ['put-on', 'pukea', 'put on', '👘'],
+  // School & daycare: "En ymmärrä" — I don't understand (rt → rr: ymmärrän).
+  ['understand', 'ymmärtää', 'understand', '🧐'],
+  // The Finnish year: winter fun (ht → hd: hiihdän). From the supplement.
+  ['ski', 'hiihtää', 'ski', '⛷️'],
+  ['skate', 'luistella', 'skate', '⛸️'],
 ];
 
 // Feelings that are verbs: "Minua pelottaa" — literally "it scares me". Only
@@ -974,6 +1032,15 @@ const weather = buildTheme({
   sourceWords: nounWords,
 });
 
+const finnishYear = buildTheme({
+  id: 'finnish-year',
+  fi: 'Suomalainen vuosi',
+  en: 'The Finnish year',
+  emoji: '🎄',
+  curation: FINNISH_YEAR,
+  sourceWords: nounWords,
+});
+
 const clothes = buildTheme({
   id: 'clothes',
   fi: 'Vaatteet',
@@ -1079,6 +1146,7 @@ writeFileSync(join(OUT_DIR, 'freetime.sourced.json'), JSON.stringify(freetime, n
 writeFileSync(join(OUT_DIR, 'money.sourced.json'), JSON.stringify(money, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'meals.sourced.json'), JSON.stringify(meals, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'weather.sourced.json'), JSON.stringify(weather, null, 2) + '\n');
+writeFileSync(join(OUT_DIR, 'finnish-year.sourced.json'), JSON.stringify(finnishYear, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'time.sourced.json'), JSON.stringify(time, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'states.sourced.json'), JSON.stringify(states, null, 2) + '\n');
 writeFileSync(join(OUT_DIR, 'ordinals.sourced.json'), JSON.stringify(ordinals, null, 2) + '\n');
@@ -1091,6 +1159,6 @@ console.log(
     `${places.words.length} places, ${body.words.length} body, ` +
     `${nature.words.length} nature, ${clothes.words.length} clothes, ` +
     `${school.words.length} school, ${freetime.words.length} free-time, ${money.words.length} money, ` +
-    `${meals.words.length} meals, ${weather.words.length} weather, ` +
+    `${meals.words.length} meals, ${weather.words.length} weather, ${finnishYear.words.length} Finnish-year, ` +
     `${time.words.length} time, ${states.words.length} state, ${ordinals.words.length} ordinal words to ${OUT_DIR}`,
 );

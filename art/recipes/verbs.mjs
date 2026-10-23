@@ -99,4 +99,7 @@ export default [
   { id: 'buy', title: 'buy (a shopping cart)', motion: { frames: 4, fps: 4 }, draw: verb.buy },
   { id: 'brush', title: 'brush (Leo brushing his teeth)', motion: { frames: 2, fps: 4 }, draw: verb.brush },
   { id: 'put-on', title: 'put on (Leo pulling on a sweater)', motion: { frames: 2, fps: 2 }, draw: verb.putOn },
+  { id: 'understand', title: 'understand (a tick in his thought bubble: Leo nods)', motion: { frames: 2, fps: 1.5 }, draw: verb.understand },
+  { id: 'ski', title: 'ski (Leo striding on skis)', motion: { frames: 2, fps: 2.5 }, draw: verb.ski },
+  { id: 'skate', title: 'skate (Leo gliding on the ice)', motion: { frames: 2, fps: 1.5 }, draw: verb.skate },
 ];

@@ -26,4 +26,7 @@ export default [
   { id: 'porridge', title: 'porridge (a butter eye and blueberries, steaming)', motion: { frames: 3, fps: 3 }, draw: food.porridge },
   { id: 'butter', title: 'butter', draw: food.butter },
   { id: 'pizza', title: 'pizza', draw: food.pizza },
+  { id: 'bun', title: 'sweet bun (a braided pulla, pearl sugar on top)', draw: food.bun },
+  { id: 'blueberry', title: 'blueberries (on a sprig)', draw: food.blueberry },
+  { id: 'gingerbread', title: 'gingerbread cookie (a gingerbread man)', draw: food.gingerbread },
 ];

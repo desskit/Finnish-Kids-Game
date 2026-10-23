@@ -39,4 +39,10 @@ export default [
   { id: 'pupil', title: 'pupil (Eero with his backpack)', draw: school.pupil },
   { id: 'test', title: 'test (the ticks going in)', motion: { frames: 4, fps: 1.5 }, draw: school.test },
   { id: 'customs', title: 'customs (a passport)', draw: school.customs },
+  { id: 'recess', title: 'recess (Eero runs out of school with his ball)', motion: { frames: 4, fps: 6 }, draw: school.recess },
+  { id: 'notebook', title: 'notebook (a spiral notebook)', draw: school.notebook },
+  { id: 'glue', title: 'glue (a bottle of school glue)', draw: school.glue },
+  { id: 'board', title: 'board (a chalkboard on its easel)', draw: school.board },
+  { id: 'nurse', title: 'school nurse (a stethoscope, her bag with a cross)', draw: school.nurse },
+  { id: 'bandage', title: 'bandage (a plaster with a star)', draw: school.bandage },
 ];

@@ -92,7 +92,9 @@ describe('unit stories', () => {
     for (const [unitId, storyId] of Object.entries(UNIT_STORY_IDS)) {
       const unit = PATH.find((u) => u.id === unitId);
       expect(unit, unitId).toBeDefined();
-      const step = unit!.skills.find((s) => s.activity === 'story');
+      // The unit's own story step (a unit may read another story earlier too:
+      // the Finnish year reads its Christmas story in the winter part).
+      const step = unit!.skills.find((s) => s.id === `${unitId}-story`);
       expect(step?.content.ids, unitId).toEqual([storyId]);
     }
     expect(new Set(UNIT_STORIES.map((s) => s.id)).size).toBe(UNIT_STORIES.length);
