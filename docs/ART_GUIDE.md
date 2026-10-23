@@ -98,10 +98,15 @@ body and chunky limbs. A person is a **look** (skin, hair, clothes) in a
 | Setä 🧔 (uncle) | dark hair, a moustache, a grey flat cap, an orange shirt |
 | Serkku 🧑‍🦱 (cousin) | a ginger ponytail with a yellow tie, freckles, a sky-blue shirt |
 | Kapteeni 🧑‍✈️ (captain) | Leo in a captain's cap (white top, navy band, gold badge), saluting |
+| Terveydenhoitaja 🧑‍⚕️ (school nurse) | dark hair in a bun, sky-blue scrubs and white shoes, a stethoscope, a green bag with a white cross |
+| Joulupukki 🎅 (Santa) | a white beard, a red coat and trousers, a red hat with a white band and pompom, a sack over his shoulder |
+| Tonttu 🧝 (elf) | a small boy with a ginger tuft and freckles, a grey tunic, red trousers, a tall red cap flopping over |
+| Noita 🧙 (Easter witch) | Aino dressed up: a coral polka-dot headscarf knotted under her chin, freckles painted on, a broom |
 
 Mirri the cat is grey and striped, and Musti the dog is black and tan. Keep
 these looks wherever the cast appears. The captain game's **Ei!** tile is the
-captain with his arms crossed and a red ✗.
+captain with his arms crossed and a red ✗. In the winter pictures (*hiihtää*,
+*luistella*) Leo wears a red beanie with a white bobble.
 
 - **`person(k, look, pose)`** draws someone standing on the 64 canvas.
 - **`placed(k, look, pose, x, ground, s)`** shrinks them and puts them at a spot
@@ -181,12 +186,24 @@ A backdrop (`art/scenes/<id>.mjs`) is
   file. In the rain the sky is grey, puddles lie on the path and the rain
   falls (`rainFall`); in the snow the ground is white, snow lies on the trees,
   roofs and bushes (`snowCap`, `snowOnPine`, `snowOnRoof`) and more falls
-  (`snowFall`). The forest, the yard and the park come in both.
+  (`snowFall`). The forest, the yard and the park come in both; the
+  playground and the cottage come in the snow too.
 - **`motion`** makes a moving version: stars twinkle, lamps glow, water
   rolls. `k.moving` is set while it's drawn. A tone can move at its own pace
   (`motion.byTone`): the rain falls faster than the yard's smoke rises.
 - **`drift(k, tone)`** draws a layer (clouds) that slides slowly across the
   moving version.
+
+The Finnish year has three of its own:
+
+- **cottage** (day, evening, snow): the red *mökki* on the shore with smoke
+  rising, birches, a dock and the rowboat, the forest across the lake. Its
+  evening is the bright Midsummer night, the sun low over the trees.
+- **sauna** (inside): pale boards, the benches in two steps, the stove
+  (*kiuas*) with its stones and steam rising, the bucket and ladle.
+- **christmas** (inside, evening): the living room on Christmas Eve, the tree
+  lit up over its presents, the candle arch in the snowy window and a straw
+  *himmeli* hanging from the ceiling.
 
 Stories pick a backdrop with `sc('kitchen', '👧 🥛', 'morning')`. The tone is
 only written when it isn't the usual one: inside for indoor settings

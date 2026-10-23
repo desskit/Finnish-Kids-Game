@@ -104,11 +104,12 @@ describe('the course (units × steps)', () => {
   it("scopes each step's words: 'new' = its unit's words, default = everything met so far", () => {
     PATH.forEach((u, i) => {
       // Words a unit only brings in after a part-way lesson stay out of the
-      // steps before that lesson (each lesson holds back its own words).
+      // steps before that lesson (each lesson holds back its own words; a
+      // word from an earlier unit is never held back).
       const boundaries = (u.midLessons ?? []).map((m) => u.skills.findIndex((s) => s.id === m.before));
       u.skills.forEach((s, si) => {
         const next = Math.min(...boundaries.filter((b) => b > si));
-        const later = new Set(u.skills.slice(next).flatMap((x) => x.content.only ?? []));
+        const later = new Set(u.skills.slice(next).flatMap((x) => x.content.only ?? []).filter((w) => u.newWords.includes(w)));
         const scope = s.content.words ?? 'known';
         if (s.content.only) expect(s.content.wordIds, s.id).toEqual(s.content.only);
         else if (scope === 'new') expect(s.content.wordIds, s.id).toEqual(u.newWords);

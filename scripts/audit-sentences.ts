@@ -23,6 +23,7 @@ import {
   money,
   meals,
   weather,
+  finnishYear,
   time,
   states,
   verbs,
@@ -49,9 +50,9 @@ const NOUNS = [
 ];
 
 // Every word a carrier slot could ever see: the nouns above plus school / free
-// time, and the opt-in words (money, meals, the weather, days & times,
-// feelings, adjectives, numbers, verbs) that only fill carriers which ask for
-// them by name.
+// time, and the opt-in words (money, meals, the weather, the Finnish year, days
+// & times, feelings, adjectives, numbers, verbs) that only fill carriers which
+// ask for them by name.
 const CARRIER_WORDS = [
   ...NOUNS,
   ...school.items,
@@ -59,6 +60,7 @@ const CARRIER_WORDS = [
   ...money.items,
   ...meals.items,
   ...weather.items,
+  ...finnishYear.items,
   ...time.items,
   ...states.items,
   ...adjectives.items,
@@ -66,10 +68,11 @@ const CARRIER_WORDS = [
   ...verbs.items,
   ...feelingVerbs.items,
 ];
-const OPT_IN = new Set(['money', 'meals', 'weather', 'time', 'states', 'adjectives', 'numbers', 'verbs', 'feeling-verbs']);
+const OPT_IN = new Set(['money', 'meals', 'weather', 'finnish-year', 'time', 'states', 'adjectives', 'numbers', 'verbs', 'feeling-verbs']);
 
 const POOLS: SentencePools = {
-  nouns: NOUNS,
+  // the templates' nouns: the ones above, and school and free time's (instruments)
+  nouns: [...NOUNS, ...school.items, ...freetime.items],
   verbs: verbs.items,
   adjectives: adjectives.items,
   numbers: numbers.items,

@@ -2876,7 +2876,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Winter fun',
         text: 'Snow means skiing and skating. *hiihtää* changes **ht → hd**: *minä hiihdän*.',
-        rows: [{ word: 'snowman' }, { kpt: 'ski' }, { verb: 'skate', tense: 'present', polarity: 'positive', person: '1sg' }],
+        rows: [{ word: 'snowman' }, { kpt: 'ski' }, { verb: 'skate', tense: 'present', polarity: 'positive', person: '1sg', en: 'I skate' }],
       },
       {
         kind: 'check',

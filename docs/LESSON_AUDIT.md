@@ -1786,7 +1786,81 @@ _Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
 
 _Explain:_ A station is an "on" place → **-lla**: *asemalla*.
 
-## Unit 27: By bus, with a pen (Bussilla ja kynällä) 🚌
+## Unit 27: School & daycare (Koulussa ja päiväkodissa) 🛎️
+
+### 1. At school and daycare _(examples)_
+
+Little brothers and sisters go to *päiväkoti* — daycare.
+
+- 🛎️ **välitunti** — recess
+- 📒 **vihko** — notebook
+- 🧴 **liima** — glue
+- 🪧 **taulu** — board
+- 🧑‍⚕️ **terveydenhoitaja** — school nurse
+- 🩹 **laastari** — bandage
+- 🏤 **päiväkoti** — daycare
+
+### 2. May I go? _(examples)_
+
+*Saanko mennä…?* — may I go…? The place takes the GOING ending, just like after *Menen*: a long vowel + **n** INTO a room (*vessaan*), **-lle** out ONTO the yard (*pihalle*).
+
+- 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
+- 📚 **Saanko mennä kirjast[oon]?** — May I go to the library?
+- 🏡 **Saanko mennä piha[lle]?** — May I go out to the yard?
+
+### 3. I have to _(examples)_
+
+*Minun täytyy* — I have to. The verb after it stays in its **basic form**, like after *Haluan*.
+
+- **Minun täytyy mennä.** — I have to go.
+- 📖 **Minun täytyy lukea.** — I have to read.
+- ⏳ **Minun täytyy odottaa.** — I have to wait.
+
+### 4. I don't understand _(examples)_
+
+Say it any time — the teacher will help. *ymmärtää* changes like *piirtää*: **rt → rr**.
+
+- 🧐 **minä [en] ymmärrä** — I don't understand
+- 🧐 ymmärtää → **minä ymmä[rr]än** — I understand
+
+### 5. Asking nicely _(examples)_
+
+The polite way: *Haluaisin* (I'd like) and *Saisinko?* (could I have?) — the **-isi-** in the middle makes it polite. One whole thing → **-n** (*kynän*); some of something → **-a** (*vettä*), just like at the shop.
+
+- 🖍️ **Haluaisin piirtää.** — I'd like to draw.
+- ✏️ **Saisinko kynä[n]?** — Could I have a pencil?
+- 💧 **Saisinko vet[tä]?** — Could I have some water?
+
+### 6. What to say back _(pairs)_
+
+- 🗣️ **Saanko mennä vessaan?** — May I go to the restroom?  →  ↪️ **Saat mennä.** — Yes, you may go.
+- 🗣️ **En ymmärrä.** — I don't understand.  →  ↪️ **Minä autan sinua.** — I'll help you.
+- 🗣️ **Saisinko liimaa?** — Could I have some glue?  →  ↪️ **Tässä, ole hyvä!** — Here you go!
+- 🗣️ **Mitä haluaisit tehdä?** — What would you like to do?  →  ↪️ **Haluaisin piirtää.** — I'd like to draw.
+- 🗣️ **Miksi sinulla on kiire?** — Why are you in a hurry?  →  ↪️ **Minun täytyy mennä vessaan!** — I have to go to the restroom!
+- 🗣️ **Milloin on välitunti?** — When is recess?  →  ↪️ **Kello kymmenen.** — At ten o'clock.
+
+### 7. Try it _(check)_
+
+**Q:** How do you say "May I go to the restroom?"
+
+- ✔ 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
+- ✘ 🚻 **Saanko mennä vessa[ssa]?**
+
+_Explain:_ Going INTO → a long vowel + **n**: *vessaan*. (*vessassa* is IN the restroom.)
+
+### 8. Try it _(check)_
+
+**Q:** Listen! Which one did you hear?
+
+🔊 plays: 🪀 **Haluaisin leikkiä.** — I'd like to play.
+
+- ✘ 🪀 **Haluan leikkiä.** — I want to play.
+- ✔ 🪀 **Haluaisin leikkiä.** — I'd like to play.
+
+_Explain:_ *Haluaisin* — I'd like, the polite one. *Haluan* is I want.
+
+## Unit 28: By bus, with a pen (Bussilla ja kynällä) 🚌
 
 ### 1. An ending you already know _(explain)_
 
@@ -1826,7 +1900,7 @@ _Explain:_ BY train → **-lla**: *junalla*. *junaan* would be INTO the train.
 
 _Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!
 
-## Unit 27, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
+## Unit 28, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
 
 ### 1. With a PERSON: kanssa _(examples)_
 
@@ -1860,7 +1934,7 @@ _Explain:_ With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.
 
 _Explain:_ A ball is a thing you use → **-lla**: *pallolla*.
 
-## Unit 28: Days and times (Milloin?) 📅
+## Unit 29: Days and times (Milloin?) 📅
 
 ### 1. Days of the week _(examples)_
 
@@ -1889,7 +1963,7 @@ Parts of the day and seasons use the "on" ending **-lla / -llä** instead.
 - 🌅 aamu → **aamu[lla]** — in the morning
 - 🌆 ilta → **illa[lla]** — in the evening
 - 🏖️ kesä → **kesä[llä]** — in summer
-- ⛄ talvi → **talve[lla]** — in winter
+- 🌨️ talvi → **talve[lla]** — in winter
 
 ### 4. Try it _(check)_
 
@@ -1905,12 +1979,12 @@ _Explain:_ A day → **-na**: *sunnuntaina*.
 
 **Q:** How do you say "in winter"?
 
-- ✔ ⛄ talvi → **talve[lla]** — winter
-- ✘ ⛄ talvi → **talve[na]** — winter
+- ✔ 🌨️ talvi → **talve[lla]** — winter
+- ✘ 🌨️ talvi → **talve[na]** — winter
 
 _Explain:_ A season → **-lla**: *talvella*.
 
-## Unit 28, part-way: What time is it? (Paljonko kello on?) ⏰
+## Unit 29, part-way: What time is it? (Paljonko kello on?) ⏰
 
 ### 1. Kello on… _(explain)_
 
@@ -1945,7 +2019,7 @@ _Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
 
 _Explain:_ *kaksitoista* = 12.
 
-## Unit 29: My day (Minun päiväni) 🌅
+## Unit 30: My day (Minun päiväni) 🌅
 
 ### 1. Getting ready _(examples)_
 
@@ -2004,7 +2078,7 @@ _Explain:_ A meal takes **-a**: *Syön aamupalaa*.
 
 _Explain:_ AT a time → **-lta / -ltä**: *kello seitsemältä*.
 
-## Unit 29, part-way: Half past (Puoli kahdeksan) 🕢
+## Unit 30, part-way: Half past (Puoli kahdeksan) 🕢
 
 ### 1. Half way to the NEXT hour _(explain)_
 
@@ -2040,7 +2114,7 @@ _Explain:_ *puoli kahdeksan* — half way to eight: seven thirty. *Kello on kahd
 
 _Explain:_ Twelve thirty is half way to ONE: *puoli yksi*.
 
-## Unit 30: What's the weather like? (Millainen sää?) ⛅
+## Unit 31: What's the weather like? (Millainen sää?) ⛅
 
 ### 1. Up in the sky _(examples)_
 
@@ -2099,7 +2173,7 @@ _Explain:_ What falls takes **-a**: *Sataa lunta*.
 
 _Explain:_ *Minulla on kylmä* — I'm cold. The weather is just *On kylmä*.
 
-## Unit 31: Out in nature (Luonnossa) 🌲
+## Unit 32: Out in nature (Luonnossa) 🌲
 
 ### 1. Land and water _(examples)_
 
@@ -2161,7 +2235,7 @@ _Explain:_ Where it IS → **-ssa**: *järvessä*. (*järveen* is INTO the lake.
 
 _Explain:_ *kivellä* — on the stone. *lehdellä* is on the leaf.
 
-## Unit 32: Big numbers (Isot numerot) 💯
+## Unit 33: Big numbers (Isot numerot) 💯
 
 ### 1. 13 to 19: -toista _(examples)_
 
@@ -2204,7 +2278,7 @@ _Explain:_ 5 + **-toista** = *viisitoista*. *viisikymmentä* is 50.
 
 _Explain:_ 4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.
 
-## Unit 32, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
+## Unit 33, part-way: First, second, third… (Ensimmäinen, toinen) 🥇
 
 ### 1. Order words _(examples)_
 
@@ -2242,7 +2316,7 @@ _Explain:_ *kolmas* is the ORDER word (3rd). *kolme* is just 3.
 
 _Explain:_ *ensimmäinen* = first.
 
-## Unit 33: The months (Kuukaudet) 🗓️
+## Unit 34: The months (Kuukaudet) 🗓️
 
 ### 1. The months _(examples)_
 
@@ -2280,7 +2354,7 @@ _Explain:_ IN May → **-ssa**: *toukokuussa*.
 
 _Explain:_ *joulu* is Christmas — *joulukuu* is the Christmas month!
 
-## Unit 33, part-way: Saying a date (Päivämäärä) 📅
+## Unit 34, part-way: Saying a date (Päivämäärä) 📅
 
 ### 1. Order word + month with -ta _(examples)_
 
@@ -2334,7 +2408,7 @@ _Explain:_ *viidestoista* (15th) + *kesäkuuta*.
 
 _Explain:_ *ensimmäinen tammikuuta* — the first of January.
 
-## Unit 33, part-way: How old are you? (Kuinka vanha olet?) 🎂
+## Unit 34, part-way: How old are you? (Kuinka vanha olet?) 🎂
 
 ### 1. Olen … vuotta vanha _(examples)_
 
@@ -2368,7 +2442,130 @@ _Explain:_ 8 = *kahdeksan*: *Olen kahdeksan vuotta vanha*.
 
 _Explain:_ *vuosi* = year; after a number → *vuotta*.
 
-## Unit 34: Question words (Kysymyssanat) 🤔
+## Unit 35: The Finnish year: Christmas (Suomalainen vuosi) 🎄
+
+### 1. Christmas Eve _(explain)_
+
+In Finland, Christmas comes on Christmas Eve, the 24th of December. And *joulupukki* — Santa — comes to the door himself! He asks: *Onko täällä kilttejä lapsia?* — Are there any good children here?
+
+
+### 2. Christmas words _(examples)_
+
+- 🎀 **joulu** — Christmas
+- 🎅 **joulupukki** — Santa
+- 🎄 **joulukuusi** — Christmas tree
+- 🧝 **tonttu** — elf
+- 🫚 **piparkakku** — gingerbread cookie
+
+### 3. What Santa brings: -n _(examples)_
+
+One whole present → **-n**, like *Näen kissan*.
+
+- **Joulupukki tuo lahja[n].** — Santa brings a present.
+- 📕 **Joulupukki tuo kirja[n].** — Santa brings a book.
+- 🧸 **Joulupukki tuo nalle[n].** — Santa brings a teddy bear.
+
+### 4. Winter fun _(examples)_
+
+Snow means skiing and skating. *hiihtää* changes **ht → hd**: *minä hiihdän*.
+
+- ⛄ **lumiukko** — snowman
+- ⛷️ hiihtää → **minä hii[hd]än** — I ski
+- ⛸️ **minä luistele[n]** — I skate
+
+### 5. Try it _(check)_
+
+**Q:** How do you say "Santa brings a present"?
+
+- ✔ **Joulupukki tuo lahja[n].** — Santa brings a present.
+- ✘ **Joulupukki tuo lahja.**
+
+_Explain:_ One whole present → **-n**: *Joulupukki tuo lahjan*.
+
+## Unit 35, part-way: Easter (Pääsiäinen) 🐣
+
+### 1. Easter witches _(explain)_
+
+A week before Easter, on Palm Sunday, children dress up as little witches — *noita* — and go from door to door with willow twigs decorated with feathers. They wish everyone a happy, healthy year with a little rhyme, give a twig, and get a treat. Ask a Finnish grown-up to teach you the rhyme!
+
+
+### 2. Spring words _(examples)_
+
+- 🐣 **pääsiäinen** — Easter
+- 🧙 **noita** — witch
+- 🌾 **pajunkissa** — willow catkin
+
+### 3. I can't wait! _(examples)_
+
+*Odotan* (I'm waiting for) takes **-a / -ä**, always: *Odotan pääsiäistä!*
+
+- 🐣 **Odotan pääsiäis[tä]!** — I can't wait for Easter!
+- 🎀 **Odotan joulu[a]!** — I can't wait for Christmas!
+- 🎅 **Odotan joulupukki[a]!** — I can't wait for Santa!
+
+### 4. Try it _(check)_
+
+**Q:** How do you say "I can't wait for Easter!"?
+
+- ✔ 🐣 **Odotan pääsiäis[tä]!** — I can't wait for Easter!
+- ✘ 🐣 **Odotan pääsiäinen!**
+
+_Explain:_ *Odotan* takes **-a**: *Odotan pääsiäistä!*
+
+## Unit 35, part-way: Midsummer (Juhannus) 🎋
+
+### 1. The longest day _(explain)_
+
+At Midsummer, *juhannus*, the sun hardly sets at all. Families go to their summer cottage by a lake: they have a sauna, swim in the lake and light a big bonfire, a *kokko*.
+
+
+### 2. Summer words _(examples)_
+
+- 🎋 **juhannus** — Midsummer
+- 🎇 **kokko** — bonfire
+- 🛖 **mökki** — cottage
+- 🧖 **sauna** — sauna
+- 🥐 **pulla** — sweet bun
+- 🫐 **mustikka** — blueberry
+
+### 3. To the cottage: -lle _(examples)_
+
+A cottage is an "on" place: *mökille* (to the cottage), *mökillä* (at the cottage). But you go INTO the sauna: *saunaan*.
+
+- 🛖 **Menen möki[lle].** — I'm going to the cottage.
+- 🛖 **Olen möki[llä].** — I'm at the cottage.
+- 🧖 **Menen saun[aan].** — I'm going to the sauna.
+- 🧖 **Olen sauna[ssa].** — I'm in the sauna.
+
+### 4. At Christmas: -na _(examples)_
+
+AT a holiday → **-na / -nä**, like the days of the week (*maanantaina*).
+
+- 🎀 **Olemme mökillä joulu[na].** — We're at the cottage at Christmas.
+- 🐣 **Olemme mökillä pääsiäise[nä].** — We're at the cottage at Easter.
+- 🎋 **Olemme mökillä juhannukse[na].** — We're at the cottage at Midsummer.
+
+### 5. Try it _(check)_
+
+**Q:** How do you say "I'm going to the cottage"?
+
+- ✔ 🛖 **Menen möki[lle].** — I'm going to the cottage.
+- ✘ 🛖 **Menen möki[llä].**
+
+_Explain:_ Going TO the cottage → **-lle**: *mökille*. (*mökillä* is AT the cottage.)
+
+### 6. Try it _(check)_
+
+**Q:** Listen! When are we at the cottage?
+
+🔊 plays: 🎋 **Olemme mökillä juhannukse[na].** — We're at the cottage at Midsummer.
+
+- ✔ 🎋 **Olemme mökillä juhannukse[na].** — We're at the cottage at Midsummer.
+- ✘ 🎀 **Olemme mökillä joulu[na].** — We're at the cottage at Christmas.
+
+_Explain:_ *juhannuksena* — at Midsummer. *jouluna* is at Christmas.
+
+## Unit 36: Question words (Kysymyssanat) 🤔
 
 ### 1. Who, what, whose, why… _(explain)_
 
@@ -2409,7 +2606,7 @@ _Explain:_ *Kenen?* = whose? (*Kuka?* = who?)
 
 _Explain:_ *Miksi?* = why?
 
-## Unit 34, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
+## Unit 36, part-way: Where, where to, where from, when (Missä? Mihin? Mistä?) 🧭
 
 ### 1. Three "where" words _(explain)_
 
@@ -2446,7 +2643,7 @@ _Explain:_ *Mihin?* = where TO — *Menen puistoon* (into the park).
 
 _Explain:_ *Mistä?* — where from? Answer with **-sta**.
 
-## Unit 35: Me and you (Minua, minulle) 🫶
+## Unit 37: Me and you (Minua, minulle) 🫶
 
 ### 1. I, me, to me… _(explain)_
 
@@ -2503,7 +2700,7 @@ _Explain:_ *auttaa* takes **-a**: *Auta minua!*
 
 _Explain:_ Giving TO someone → **-lle**: *hänelle*.
 
-## Unit 36: Position words come after (Edessä, takana) 🧭
+## Unit 38: Position words come after (Edessä, takana) 🧭
 
 ### 1. Back to front _(explain)_
 
@@ -2551,7 +2748,7 @@ _Explain:_ Before a position word, the thing gets **-n**: *puun takana*.
 
 _Explain:_ Before *alla*, the thing gets **-n**: *pöydän alla*.
 
-## Unit 37: More than one (Monta) 👐
+## Unit 39: More than one (Monta) 👐
 
 ### 1. The -t means "more than one" _(examples)_
 
@@ -2584,7 +2781,7 @@ _Explain:_ The **-t** means more than one.
 
 _Explain:_ *kaveri* + **-t** = *kaverit*.
 
-## Unit 37, part-way: Some things, any things (Palloja) 🧺
+## Unit 39, part-way: Some things, any things (Palloja) 🧺
 
 ### 1. "Some" things _(examples)_
 
@@ -2618,7 +2815,7 @@ _Explain:_ "Some" balls → *palloja*.
 
 _Explain:_ *ei ole* = not, and "any games" → *pelejä*.
 
-## Unit 37, part-way: In many boxes (Laatikoissa) 📦
+## Unit 39, part-way: In many boxes (Laatikoissa) 📦
 
 ### 1. In many things: -issa _(examples)_
 
@@ -2650,7 +2847,7 @@ _Explain:_ **-i-** + **-ssa** = in the boxes: *laatikoissa*.
 
 _Explain:_ The **-i-** means more than one.
 
-## Unit 38: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
+## Unit 40: Verb types 5 and 6 (Verbityypit 5 ja 6) 🧓
 
 ### 1. Type 5: -ita / -itä _(examples)_
 
@@ -2713,7 +2910,7 @@ _Explain:_ "I" is **-n**: *valitsen*.
 
 _Explain:_ *vanheta* ends in **-eta**: **type 6** (*vanhenen*).
 
-## Unit 38, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
+## Unit 40, part-way: Type 6: a sound gets stronger too (Tyyppi 6 ja KPT) 😱
 
 ### 1. Weak → strong, like type 4 _(examples)_
 
@@ -2758,7 +2955,7 @@ _Explain:_ "I" is **-n**: *pakenen*.
 
 _Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.
 
-## Unit 39: Talking about yesterday (Eilen) ⏮️
+## Unit 41: Talking about yesterday (Eilen) ⏮️
 
 ### 1. Slip in an -i- _(explain)_
 
@@ -2803,7 +3000,7 @@ _Explain:_ The **-i-** shows the past: *luin*.
 
 _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 
-## Unit 39, part-way: "Didn't" (En syönyt) 🙅
+## Unit 41, part-way: "Didn't" (En syönyt) 🙅
 
 ### 1. The "not" verb + -nut / -nyt _(explain)_
 
@@ -2847,7 +3044,7 @@ _Explain:_ *en* + **-nut**: *en lukenut*. (*en lue* = I don't read.)
 
 _Explain:_ They → *eivät* + **-neet**: *eivät syöneet*.
 
-## Unit 40: Having a real conversation (Jutellaan) 🗣️
+## Unit 42: Having a real conversation (Jutellaan) 🗣️
 
 ### 1. Pick what FITS _(explain)_
 
@@ -2894,7 +3091,7 @@ _Explain:_ After a thank-you comes *Ole hyvä!* (you're welcome).
 
 _Explain:_ *Ei se mitään* = "it's okay".
 
-## Unit 41: Building sentences (Lauseet) 📝
+## Unit 43: Building sentences (Lauseet) 📝
 
 ### 1. Endings do the work _(explain)_
 
@@ -2931,7 +3128,7 @@ _Explain:_ "In" → **-ssa**: *laatikossa*.
 
 _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
-## Unit 42: Expert Finnish (Mestari) 🏆
+## Unit 44: Expert Finnish (Mestari) 🏆
 
 ### 1. "Have done" — olen syönyt _(verbTable)_
 

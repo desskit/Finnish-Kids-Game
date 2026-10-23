@@ -626,6 +626,7 @@ function phraseStep(
   constructionIds: string[],
   exampleFi?: string,
   pool?: Pool,
+  only?: string[],
 ): SkillNode {
   const ending = !NO_ENDING_ROUND.has(id);
   return {
@@ -637,7 +638,7 @@ function phraseStep(
     activities: ['build', 'order', ending ? 'ending' : 'order'],
     maxLevel: 3,
     checkpoint: ending ? 'ending' : 'order',
-    content: { constructionIds, pool },
+    content: { constructionIds, pool, only },
     exampleFi,
   };
 }
@@ -739,6 +740,9 @@ const POLITE_FRAMES = ['i-would-like', 'could-i-have', 'could-i-have-some'];
 const YEAR_WINTER = ['christmas', 'santa', 'christmas-tree', 'gingerbread', 'elf', 'snowman', 'ski', 'skate'];
 const YEAR_SPRING = ['easter', 'witch', 'catkin'];
 const YEAR_SUMMER = ['midsummer', 'bonfire', 'cottage', 'sauna', 'bun', 'blueberry'];
+// The trip to the cottage: the cottage and the sauna among a few places met
+// long ago, half you go ONTO (-lle), half INTO.
+const COTTAGE_TRIP = ['cottage', 'sauna', 'yard', 'field', 'forest', 'shop'];
 // Where a person is, goes and comes from — the cottage (-lle) and the sauna (-Vn).
 const PERSON_FRAMES = ['i-am-on', 'i-go-onto', 'i-come-from-on', 'i-am-in', 'i-go-into', 'i-come-from-in'];
 
@@ -1872,7 +1876,7 @@ const UNITS: Chapter[] = [
       phraseStep('waiting-for', 'Odotan joulua!', "I can't wait!", '⏳', ['i-wait-for-holiday'], 'Odotan pääsiäistä!', 'mixed'),
       sceneStep('easter-talk', 'easter-witch', 'Hyvää pääsiäistä!', 'Happy Easter!'),
       wordsStep('finnish-year', 'mixed', 'Midsummer', YEAR_SUMMER, 'summer-words'),
-      phraseStep('to-the-cottage', 'Menen mökille', 'To the cottage', '🛖', ['i-go-onto', 'i-go-into'], 'Menen mökille. · Menen saunaan.', 'places'),
+      phraseStep('to-the-cottage', 'Menen mökille', 'To the cottage', '🛖', ['i-go-onto', 'i-go-into'], 'Menen mökille. · Menen saunaan.', 'places', COTTAGE_TRIP),
       phraseStep('holidays', 'Jouluna vai joulua?', 'At Christmas, or waiting for it?', '🎋', ['at-the-cottage', 'i-wait-for-holiday'], 'Olemme mökillä juhannuksena. · Odotan juhannusta!', 'mixed'),
       listenStep('finnish-year-listen', 'To the cottage, there, or back?', 'carriers', { constructionIds: PERSON_FRAMES, pool: 'places', only: ['cottage', 'sauna'] }, 'Menen mökille. · Olen mökillä.'),
     ],
@@ -2433,18 +2437,21 @@ UNITS.forEach((unit, ui) => {
   // Words a unit brings in only AFTER a part-way lesson (its KPT verbs, the
   // Finnish year's Easter and Midsummer words) stay out of the steps before
   // that lesson: a step knows the words of every words step up to the next
-  // part-way lesson, never past it.
+  // part-way lesson, never past it. Only the unit's own new words are held
+  // back: a later step that names an old word (the cottage trip's yard)
+  // doesn't hide it.
   const boundaries = (unit.midLessons ?? [])
     .map((m) => unit.skills.findIndex((s) => s.id === m.before))
     .filter((i) => i >= 0)
     .sort((a, b) => a - b);
+  const ownWords = new Set(unit.newWords ?? []);
   const knownUpTo = new Map<number, string[]>();
   const knownAt = (si: number): string[] => {
     const next = boundaries.find((b) => b > si);
     if (next === undefined) return knownByUnit[ui];
     let known = knownUpTo.get(next);
     if (!known) {
-      const held = new Set(unit.skills.slice(next).flatMap((s) => s.content.only ?? []));
+      const held = new Set(unit.skills.slice(next).flatMap((s) => s.content.only ?? []).filter((w) => ownWords.has(w)));
       known = knownByUnit[ui].filter((w) => !held.has(w));
       knownUpTo.set(next, known);
     }

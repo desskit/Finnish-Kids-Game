@@ -110,8 +110,9 @@ The path is data in `src/game/path.tsx`. A **skill node** picks an existing game
   (breakfast, lunch, dinner, the evening snack: *Syön aamupalaa*), or
   `'mixed'` (every word, nouns and verbs alike — for a words step whose
   `only` list holds both, like *rakastaa* beside the Likes unit's things).
-  The money, meals and weather topics are opt-in like days and numbers, so
-  *euro*, *aamupala* or *sää* fills no carrier phrase unless one names it.
+  The money, meals, weather and Finnish-year topics are opt-in like days
+  and numbers, so *euro*, *aamupala*, *sää* or *joulu* fills no carrier
+  phrase unless one names it (*Odotan joulua!* names the Finnish year).
 - `content.constructionIds`: for `build`/`order`, which carrier phrases to drill
   (omit = all).
 
@@ -316,7 +317,9 @@ pronoun paradigm).
   unit. It opens once the steps before `before` are done, and the steps from
   `before` on wait until it's read. Words listed in a later words step's
   `content.only` stay out of every step before the lesson. That's how the
-  verbs units bring in their KPT verbs halfway.
+  verbs units bring in their KPT verbs halfway. A unit can have several: each
+  lesson holds back its own words, so The Finnish year's winter steps never
+  meet Easter's words, nor its Easter steps Midsummer's.
 - `wordsStep(unit, pool, title, only, id)` meets only part of a unit's words.
 
 ### Comparisons and dates (`compare.ts`, `dates.ts`)
@@ -457,14 +460,17 @@ questions about what happened. It is read for meaning, once — not drilled.
   `falseFact` for true-or-false statements.
 - **The same people every time** (`CAST`): Aino (the main character, and the
   teller of first-person stories: `narrator: 'aino'`), her friend Eero, Äiti,
-  Isä, Isoäiti, Aino's cat Mirri, Eero's dog Musti, the teacher, and Leo. Each
-  has a speech pitch, so they sound different with the one Finnish voice.
+  Isä, Isoäiti, Aino's cat Mirri, Eero's dog Musti, the teacher, and Leo —
+  and once a year Joulupukki. Each has a speech pitch, so they sound
+  different with the one Finnish voice. Those called by a word, not a name
+  (Äiti, Isä, Isoäiti, Opettaja, Joulupukki: `CALLED_BY_A_WORD`), show their
+  word when tapped in a story (*äidille* → to Mom).
 - **Something happens.** Someone wants something, something goes wrong or
   surprises, and it ends — not a list of sentences. Three or four pages, one to
   three short lines each (at most six or seven words), each page a scene: its
   setting, one of the drawn backdrops (`home`, `kitchen`, `bedroom`, `bathroom`, `party`,
-  `classroom`, `library`, `shop`, `cafe`, `park`, `playground`, `yard`,
-  `field`, `beach`, `bus-stop`, `zoo`, `forest`, `station`), who and what stand in
+  `christmas`, `classroom`, `library`, `shop`, `cafe`, `park`, `playground`, `yard`,
+  `field`, `beach`, `bus-stop`, `zoo`, `forest`, `station`, `cottage`, `sauna`), who and what stand in
   front (`fg`, a few emoji, each shown as its picture), and a `tone` only when
   it isn't the usual one (inside for rooms, day outdoors): morning, evening,
   night, rain or snow. A setting comes only in the tones it's drawn in
