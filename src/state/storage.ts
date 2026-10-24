@@ -84,6 +84,11 @@ export interface Child {
   /** Per-item spaced-repetition schedules (attempts + due dates). */
   srs: SrsState;
   /**
+   * itemId → times the child has heard the word: an intro card, a story or
+   * scene line with it, every answer (see `productionReady` in game/srs.ts).
+   */
+  heard?: Record<string, number>;
+  /**
    * Local calendar day of the most recent finished round, e.g. "2026-07-09".
    * Optional + unbackfilled so older stored profiles round-trip unchanged
    * (readers treat missing as "never played"). See `src/game/streak.ts`.

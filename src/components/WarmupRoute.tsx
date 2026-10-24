@@ -9,6 +9,8 @@ import { activityLevel, recordRoundOnChild } from '../game/progress';
 import { dayKey } from '../game/streak';
 import { WARMUP_QUESTIONS, pickWarmupSubject, warmupActivity, warmupLevel } from '../game/warmup';
 import { dueStoryRevisit } from '../game/storyLog';
+import { warmupReviewIds } from '../game/session';
+import ReviewActivity from './ReviewActivity';
 import { storyById } from '../content/stories';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
@@ -27,32 +29,39 @@ const MAX_SEGMENTS = 6;
 //
 // When a finished story is due back (game/storyLog.ts), the warm-up opens with
 // it: "Muistatko?" — its cover, a re-read if she likes, and two questions it
-// hasn't asked before. Once per story, ever.
+// hasn't asked before. When words and grammar are due back for review
+// (game/session.ts), the warm-up asks those instead of drilling a subject.
 export default function WarmupRoute() {
   const navigate = useNavigate();
   const { activeChild, recordRound, recordStats, recordStory, recordWarmup, stars } = useProfile();
   // Chosen once, on arrival — a warm-up never changes under the child.
-  const [subject] = useState(() => (activeChild ? pickWarmupSubject(activeChild, Date.now()) : undefined));
+  const [reviewIds] = useState(() => (activeChild ? warmupReviewIds(activeChild, Date.now()) : []));
+  const [subject] = useState(() =>
+    activeChild && reviewIds.length === 0 ? pickWarmupSubject(activeChild, Date.now()) : undefined,
+  );
   const [revisitId] = useState(() => (activeChild ? dueStoryRevisit(activeChild, Date.now()) : undefined));
+  const reviewing = reviewIds.length > 0;
   const [seg, setSeg] = useState(0);
   const [segLevel, setSegLevel] = useState(() =>
     activeChild && subject ? warmupLevel(activeChild, subject) : 1,
   );
   const [tally, setTally] = useState({ right: 0, total: 0 });
   const [storyTally, setStoryTally] = useState<{ right: number; total: number } | null>(null);
-  const [phase, setPhase] = useState<'story' | 'run' | 'result'>(() => (revisitId ? 'story' : 'run'));
+  const [phase, setPhase] = useState<'story' | 'review' | 'run' | 'result'>(() =>
+    revisitId ? 'story' : reviewIds.length > 0 ? 'review' : 'run',
+  );
   const segStart = useRef(Date.now());
   const startStars = useRef(stars);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   const revisit = revisitId ? storyById[revisitId] : undefined;
-  if (!subject && !revisit) return <Navigate to="/" replace />;
+  if (!subject && !revisit && !reviewing) return <Navigate to="/" replace />;
   const exit = () => navigate('/');
 
   if (phase === 'result') {
     const ratio = tally.total > 0 ? tally.right / tally.total : 0;
     const storyGood = storyTally ? storyTally.total > 0 && storyTally.right / storyTally.total >= 0.5 : true;
-    const good = (subject ? ratio >= 0.8 : true) && storyGood;
+    const good = (subject || reviewing ? ratio >= 0.8 : true) && storyGood;
     const next = nextAction(activeChild);
     return (
       <main className="app">
@@ -70,6 +79,18 @@ export default function WarmupRoute() {
                 {storyTally.right} / {storyTally.total}
               </span>
             </p>
+          )}
+          {reviewing && (
+            <>
+              <p className="checkpoint__score" aria-label={`${tally.right} of ${tally.total} right first time`}>
+                {tally.right} / {tally.total}
+              </p>
+              <p className="checkpoint__text en">
+                {ratio >= 0.8
+                  ? 'The words due back today are still there. On with the course!'
+                  : 'A few words slipped — they will come back again soon.'}
+              </p>
+            </>
           )}
           {subject && (
             <>
@@ -110,8 +131,8 @@ export default function WarmupRoute() {
       recordStats({ right, total, ms: segmentMs(segStart.current, now, total), source: 'warmup' });
       segStart.current = now;
       setStoryTally({ right, total });
-      if (subject) {
-        setPhase('run');
+      if (reviewing || subject) {
+        setPhase(reviewing ? 'review' : 'run');
         return;
       }
       // Only the story today: that was the warm-up.
@@ -131,6 +152,28 @@ export default function WarmupRoute() {
             <StoryTime mode="revisit" storyId={revisit.id} onExit={exit} />
           </div>
         </ActivityContext.Provider>
+      </main>
+    );
+  }
+
+  // Words and grammar due back: Review's own questions, on just those.
+  if (phase === 'review' && reviewing) {
+    const onReviewDone = (right: number, total: number) => {
+      const now = Date.now();
+      // (Review records its own practice stats.)
+      setTally({ right, total });
+      recordWarmup({ day: dayKey(now), subject: 'review', right, total, at: now });
+      playDing(total > 0 && right / total >= 0.8);
+      setPhase('result');
+    };
+    return (
+      <main className="app app--barred">
+        <div className="checkpoint-bar warmup-bar" aria-label={`Warm-up: ${reviewIds.length} words to review`}>
+          <Art glyph="☀️" /> Lämmittely <span className="en">Warm-up · Kertaus: words due back today</span>
+        </div>
+        <div className="app__game">
+          <ReviewActivity ids={reviewIds} onFinish={onReviewDone} onExit={exit} />
+        </div>
       </main>
     );
   }

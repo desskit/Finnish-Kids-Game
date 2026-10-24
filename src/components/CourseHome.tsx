@@ -10,6 +10,7 @@ import { dayKey, displayStreak, playedToday } from '../game/streak';
 import { BADGES, earnedBadgeIds } from '../game/badges';
 import { badgeEnv } from '../game/path';
 import { WARMUP_QUESTIONS, pickWarmupSubject } from '../game/warmup';
+import { warmupReviewIds } from '../game/session';
 import { dueStoryRevisit } from '../game/storyLog';
 import { storyById } from '../content/stories';
 import { statsOf, warmupDoneOn } from '../game/stats';
@@ -62,7 +63,9 @@ export default function CourseHome() {
   // A new day's first Continue is the warm-up: ten questions on the weakest
   // subject so far (game/warmup.ts). Once it's done, Continue is the course again.
   const warmDone = activeChild ? warmupDoneOn(statsOf(activeChild), today) : true;
-  const warmup = activeChild && !warmDone ? pickWarmupSubject(activeChild, now) : undefined;
+  // Words and grammar due back for review make the warm-up a review instead (game/session.ts).
+  const toReview = activeChild && !warmDone ? warmupReviewIds(activeChild, now).length : 0;
+  const warmup = activeChild && !warmDone && toReview === 0 ? pickWarmupSubject(activeChild, now) : undefined;
   // A finished story due back for its one "Muistatko?" opens the warm-up too.
   const revisitId = activeChild && !warmDone ? dueStoryRevisit(activeChild, now) : undefined;
   const revisit = revisitId ? storyById[revisitId] : undefined;
@@ -118,7 +121,7 @@ export default function CourseHome() {
         </span>
       </div>
 
-      {warmup || revisit ? (
+      {warmup || revisit || toReview > 0 ? (
         <Link className="continue-cta continue-cta--warmup" to="/warmup">
           <span className="continue-cta__icon" aria-hidden="true">
             <Art glyph="☀️" />
@@ -131,7 +134,13 @@ export default function CourseHome() {
               Päivän lämmittely{' '}
               <span className="en">
                 today's warm-up ·{' '}
-                {[revisit && 'a story to remember', warmup && `${WARMUP_QUESTIONS} questions`].filter(Boolean).join(' + ')}
+                {[
+                  revisit && 'a story to remember',
+                  toReview > 0 && `${toReview} words due back`,
+                  warmup && `${WARMUP_QUESTIONS} questions`,
+                ]
+                  .filter(Boolean)
+                  .join(' + ')}
               </span>
             </span>
             {revisit && (

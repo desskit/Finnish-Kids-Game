@@ -12,6 +12,7 @@ import {
   type StoryScene,
 } from '../content/stories';
 import { lookupWord, type WordMeaning } from '../content/wordIndex';
+import { itemIdsIn } from '../content/heardWords';
 import { useProfile } from '../state/profile';
 import { useActivityContext } from '../game/activityContext';
 import { englishHelpOf, showsEnglish } from '../game/learner';
@@ -112,7 +113,7 @@ function Scene({ scene, small = false, animate = true }: { scene: StoryScene; sm
 }
 
 export default function StoryTime({ onExit, ids, mode = 'read', storyId, onHeard, onDone }: Props) {
-  const { activeChild, addStars, settings } = useProfile();
+  const { activeChild, addStars, settings, recordHeard } = useProfile();
   const ctx = useActivityContext();
   const navigate = useNavigate();
   const pool = useMemo(() => ids ?? courseStories.map((s) => s.id), [ids]);
@@ -206,11 +207,15 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId, onHeard
     [story],
   );
 
-  // Each new page reads itself aloud.
+  // Each new page reads itself aloud — and every course word on it counts as
+  // heard (towards being asked to say it: game/srs.ts `productionReady`).
   useEffect(() => {
     if (phase !== 'page' || !page) return;
+    recordHeard(page.lines.flatMap((l) => itemIdsIn(l.fi)));
     const t = window.setTimeout(() => readLines(page.lines), 450);
     return () => window.clearTimeout(t);
+    // recordHeard is a fresh function each render; a page counts once per visit
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, pageIndex, page, readLines]);
 
   // The cover says the title; the end says "Loppu!".

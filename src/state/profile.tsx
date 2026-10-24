@@ -22,7 +22,7 @@ import {
 } from './storage';
 import { applyTheme, resolveTheme, useDeviceDark, type ThemeId } from '../theme/theme';
 import { setMuted } from '../audio/mute';
-import { review } from '../game/srs';
+import { addHeard, isGrammarId, review } from '../game/srs';
 import { recordRoundOnChild } from '../game/progress';
 import { recordStoryOnChild, type StoryReadKind } from '../game/storyLog';
 import { bumpStreak, dayKey } from '../game/streak';
@@ -108,6 +108,8 @@ interface ProfileContextValue {
   recordStory: (storyId: string, right: number, total: number, asked: string[], kind?: StoryReadKind) => void;
   /** Record one answer to a single item for the active child (drives SRS). */
   recordAttempt: (itemId: string, correct: boolean) => void;
+  /** The child heard these words (an intro card, a story line): counts toward producing them. */
+  recordHeard: (itemIds: string[]) => void;
   /** Fold a finished segment into the active child's practice stats. */
   recordStats: (event: StatEvent) => void;
   /** Log a finished daily warm-up for the active child. */
@@ -301,7 +303,12 @@ export function ProfileProvider({
         updateActive((c) => ({
           ...c,
           srs: { ...c.srs, [itemId]: review(c.srs[itemId], correct, Date.now()) },
+          // Every answer plays the word: one more hearing.
+          ...(isGrammarId(itemId) ? {} : { heard: addHeard(c.heard, [itemId]) }),
         })),
+
+      recordHeard: (itemIds) =>
+        itemIds.length === 0 ? undefined : updateActive((c) => ({ ...c, heard: addHeard(c.heard, itemIds) })),
 
       recordStats: (event) =>
         updateActive((c) => ({ ...c, stats: applyStatEvent(statsOf(c), event, Date.now()) })),

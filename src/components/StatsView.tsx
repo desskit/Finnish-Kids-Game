@@ -128,9 +128,10 @@ function SubjectLine({ r, now, note, practise }: { r: SubjectRow; now: number; n
   );
 }
 
-/** A warm-up's subject for display: a course step, or a story's "Muistatko?". */
+/** A warm-up's subject for display: a course step, a story's "Muistatko?", or the day's review. */
 function warmupLabel(subject: string): string {
   if (subject.startsWith('story:')) return `📖 Muistatko? ${storyById[subject.slice(6)]?.titleEn ?? ''}`.trim();
+  if (subject === 'review') return 'Review: the words due back that day';
   return subjectRef(subject)?.step.titleEn ?? subject;
 }
 
