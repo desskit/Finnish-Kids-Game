@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 import type { RoundOutcome } from '../game/activityContext';
 import Art from '../art/Art';
+import { numberWord } from '../game/math';
 
 interface Props {
   outcome: RoundOutcome;
   onDismiss: () => void;
+  /** In the math section: the level as a Finnish word, never a digit. */
+  math?: boolean;
 }
 
 /** How long the toast stays up before it slips away. */
@@ -14,7 +17,7 @@ const TOAST_MS = 4000;
 // as a small self-dismissing pill over the header instead of a full-screen
 // celebration. `role="status"` announces it politely; pointer-events stay off
 // so it can't block a tap on the game underneath.
-export default function RewardToast({ outcome, onDismiss }: Props) {
+export default function RewardToast({ outcome, onDismiss, math = false }: Props) {
   // The parent (SkillRoute) re-renders on every star earned during continuous
   // play, handing down a NEW `onDismiss` closure each time. The timer must
   // only restart when a genuinely NEW toast mounts (the caller already keys
@@ -29,11 +32,12 @@ export default function RewardToast({ outcome, onDismiss }: Props) {
     return () => clearTimeout(t);
   }, []);
 
+  const level = math ? numberWord(outcome.level) : outcome.level;
   return (
     <div className="reward-toast" role="status">
       {outcome.leveledUp && (
         <p className="reward-toast__line">
-          <Art glyph="🚀" /> Uusi taso {outcome.level}! <span className="en">Level up!</span>
+          <Art glyph="🚀" /> Uusi taso {level}! <span className="en">Level up!</span>
         </p>
       )}
       {outcome.newBadges.map((b) => (

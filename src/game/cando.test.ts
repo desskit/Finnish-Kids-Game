@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { CAN_DO, canDoAchieved, canDoSummary } from './cando';
 import { PATH } from './path';
+import { MATH_STAGES } from './mathPath';
 import type { Child } from '../state/storage';
 
 const prog = (level: number) => ({
@@ -31,6 +32,10 @@ describe('can-do statements', () => {
   it('every requirement points at a REAL unit, or a real step within its own ladder', () => {
     for (const s of CAN_DO) {
       for (const r of s.requires) {
+        if ('mathStageId' in r) {
+          expect(MATH_STAGES.some((m) => m.id === r.mathStageId), `${s.id}: math stage ${r.mathStageId}`).toBe(true);
+          continue;
+        }
         if ('unitId' in r) {
           const unit = PATH.find((u) => u.id === r.unitId);
           expect(unit, `${s.id}: unit ${r.unitId}`).toBeTruthy();
@@ -87,5 +92,16 @@ describe('can-do statements', () => {
     const { achieved, upNext } = canDoSummary(c);
     expect(achieved.map((s) => s.id)).toEqual(['people']);
     expect(upNext[0].id).toBe('hello');
+  });
+});
+
+describe('the math section’s claims', () => {
+  it('claim every math stage, backed by its crown', () => {
+    for (const stage of MATH_STAGES) {
+      const claim = CAN_DO.find((s) => s.requires.some((r) => 'mathStageId' in r && r.mathStageId === stage.id));
+      expect(claim, stage.id).toBeTruthy();
+      expect(canDoAchieved(child(), claim!)).toBe(false);
+      expect(canDoAchieved(child({ math: { crowns: { [stage.id]: { passedAt: 1, best: 1, attempts: 1 } } } }), claim!)).toBe(true);
+    }
   });
 });

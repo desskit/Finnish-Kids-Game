@@ -12,6 +12,7 @@ import food from './recipes/food.mjs';
 import freetime from './recipes/freetime.mjs';
 import icons from './recipes/icons.mjs';
 import lessonIcons from './recipes/lesson-icons.mjs';
+import math from './recipes/math.mjs';
 import meals from './recipes/meals.mjs';
 import nature from './recipes/nature.mjs';
 import people from './recipes/people.mjs';
@@ -44,6 +45,7 @@ import station from './scenes/station.mjs';
 import yard from './scenes/yard.mjs';
 import zoo from './scenes/zoo.mjs';
 import hero from './scenes/hero.mjs';
+import mathTown from './scenes/mathTown.mjs';
 
 /**
  * A picture: `id` (a word's id for word pictures), `title`, `group` ('words'
@@ -54,7 +56,7 @@ import hero from './scenes/hero.mjs';
  * a story shows that isn't a word) has `prop: true`: it goes in the words
  * sprite, under its own `theme` in the gallery.
  */
-export const RECIPES = [...people, ...animals, ...body, ...food, ...meals, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...feelings, ...verbs, ...school, ...time, ...year, ...props, ...icons, ...badges, ...lessonIcons, ...avatars, ...ui];
+export const RECIPES = [...people, ...animals, ...body, ...food, ...meals, ...clothes, ...freetime, ...places, ...nature, ...adjectives, ...feelings, ...verbs, ...school, ...time, ...year, ...props, ...icons, ...badges, ...lessonIcons, ...math, ...avatars, ...ui];
 
 /** A backdrop: `id`, `title`, the `tones` it's drawn in, and `draw(kit, tone)`. */
 export const SCENES = [home, kitchen, bedroom, bathroom, party, christmas, classroom, library, shop, cafe, park, playground, yard, field, beach, busStop, zoo, forest, station, cottage, sauna];
@@ -64,4 +66,4 @@ export const SCENES = [home, kitchen, bedroom, bathroom, party, christmas, class
  * tones (day, night, pink), but shown by the app's screens, not by stories.
  * A UI scene may set its own size (`w`, `h`; a backdrop is 400 × 200).
  */
-export const UI_SCENES = [hero];
+export const UI_SCENES = [hero, mathTown];

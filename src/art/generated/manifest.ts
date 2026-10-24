@@ -236,6 +236,7 @@ export type ArtId =
   | 'library'
   | 'lift'
   | 'light-bulb'
+  | 'lightning'
   | 'like'
   | 'line-chart'
   | 'lion'
@@ -251,6 +252,18 @@ export type ArtId =
   | 'market'
   | 'mascot-cheer'
   | 'math'
+  | 'math-apple-tree'
+  | 'math-basket'
+  | 'math-card'
+  | 'math-crown-green'
+  | 'math-crown-orange'
+  | 'math-crown-purple'
+  | 'math-crown-red'
+  | 'math-engine'
+  | 'math-rocket'
+  | 'math-scale-pan'
+  | 'math-scale-stand'
+  | 'math-wagon'
   | 'meat'
   | 'medal'
   | 'microphone'
@@ -698,6 +711,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   library: { group: 'words', title: 'library (a pile of books)' },
   lift: { group: 'words', title: 'lift (a box up over his head)' },
   'light-bulb': { group: 'ui', title: 'light bulb (a tip, why?)' },
+  lightning: { group: 'ui', title: 'lightning (quick sums)' },
   like: { group: 'words', title: 'like (yum)' },
   'line-chart': { group: 'ui', title: 'stats (a line going up)' },
   lion: { group: 'words', title: 'lion' },
@@ -713,6 +727,18 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   market: { group: 'words', title: 'market (a stall)' },
   'mascot-cheer': { group: 'ui', title: 'the fox cheering (a perfect round)' },
   math: { group: 'words', title: 'math (an abacus)' },
+  'math-apple-tree': { group: 'words', title: 'an apple tree (the apple-tree game)' },
+  'math-basket': { group: 'words', title: 'an empty basket (the apples drop in)' },
+  'math-card': { group: 'ui', title: 'the fox at its market stall, counting apples (the math card)' },
+  'math-crown-green': { group: 'ui', title: 'a green crown (the math stage Montako nyt?)' },
+  'math-crown-orange': { group: 'ui', title: 'an orange crown (the math stage Enemmän vai vähemmän?)' },
+  'math-crown-purple': { group: 'ui', title: 'a purple crown (the math stage Yksitoista, kaksitoista…)' },
+  'math-crown-red': { group: 'ui', title: 'a red crown (the math stage Plus ja miinus)' },
+  'math-engine': { group: 'words', title: 'the train’s engine (smoke puffing, wheels turning)' },
+  'math-rocket': { group: 'words', title: 'a rocket on its launch pad (the countdown)' },
+  'math-scale-pan': { group: 'words', title: 'a pan of the scale' },
+  'math-scale-stand': { group: 'words', title: 'the scale’s stand (its beam turns on top)' },
+  'math-wagon': { group: 'words', title: 'a train wagon (a number word rides in it)' },
   meat: { group: 'words', title: 'meat on the bone' },
   medal: { group: 'ui', title: 'medal (achievements)' },
   microphone: { group: 'ui', title: 'microphone (notes when someone sings)' },
@@ -1086,6 +1112,10 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   make: { loop: true, blink: true },
   'mascot-cheer': { loop: true, blink: false },
   math: { loop: true, blink: false },
+  'math-apple-tree': { loop: true, blink: false },
+  'math-card': { loop: true, blink: true },
+  'math-engine': { loop: true, blink: false },
+  'math-rocket': { loop: true, blink: false },
   medal: { loop: true, blink: false },
   microphone: { loop: true, blink: false },
   midsummer: { loop: true, blink: false },
@@ -1441,6 +1471,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '📚': 'library',
   '📤': 'lift',
   '💡': 'light-bulb',
+  '⚡': 'lightning',
   '😋': 'like',
   '📈': 'line-chart',
   '🦁': 'lion',
@@ -1722,6 +1753,7 @@ export const BACKDROP_MOTION: Readonly<Partial<Record<BackdropId, readonly strin
 /** The app's own scenery (UI scenes), and the looks each is drawn in: scenery/<id>-<look>.svg. */
 export const UI_BACKDROPS = {
   hero: ['day', 'night', 'pink'],
+  'math-town': ['day', 'night', 'pink'],
 } as const;
 
 export type UiBackdropId = keyof typeof UI_BACKDROPS;
@@ -1729,4 +1761,5 @@ export type UiBackdropId = keyof typeof UI_BACKDROPS;
 /** The UI scenes (and looks) with a moving version: scenery/<id>-<look>.moving.svg. */
 export const UI_BACKDROP_MOTION: Readonly<Partial<Record<UiBackdropId, readonly string[]>>> = {
   hero: ['day', 'night', 'pink'],
+  'math-town': ['day', 'night', 'pink'],
 };

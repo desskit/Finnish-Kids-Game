@@ -15,6 +15,7 @@ import type { Child, StoryRecord } from '../state/storage';
 import { storyById } from '../content/stories';
 import { dayGap } from './stats';
 import { dayKey } from './streak';
+import { isMathId } from './mathPath';
 
 /** 3 of 4 right first time. */
 export const STORY_PASS = 0.75;
@@ -95,7 +96,11 @@ export function dueStoryRevisit(child: Child | null | undefined, now: number): s
   return Object.entries(child?.course?.stories ?? {})
     .filter(
       ([id, r]) =>
-        storyById[id] && r.goodAt !== undefined && !r.revisitedAt && dayGap(dayKey(r.goodAt), today) >= REVISIT_AFTER_DAYS,
+        storyById[id] &&
+        !isMathId(id) &&
+        r.goodAt !== undefined &&
+        !r.revisitedAt &&
+        dayGap(dayKey(r.goodAt), today) >= REVISIT_AFTER_DAYS,
     )
     .sort(([, a], [, b]) => (a.goodAt ?? 0) - (b.goodAt ?? 0))[0]?.[0];
 }

@@ -6,8 +6,10 @@
 // Covers the authored registries: dialogues, scenes, stories, the carrier
 // phrases' fixed texts AND the forms each carrier marks as wrong ("slips"),
 // sentence templates, comparison / date patterns, the hand-authored ordinals,
-// question forms, pronoun forms and frames, the alphabet, and the Finnish quoted
-// in lesson prose — plus what the child reads around them: unit, step, lesson
+// question forms, pronoun forms and frames, the alphabet, the Finnish quoted
+// in lesson prose, and the math section's problem frames (Lasketaan!: its
+// stories, lessons and titles are placed under "Math") — plus what the child
+// reads around them: unit, step, lesson
 // and badge titles, and the screens' own labels ("Jatka", "Mitä kuulit?"),
 // pulled from the components into data/ui-finnish.json (src/test/uiFinnish.ts).
 // (Machine-assembled pairings live in docs/SENTENCE_AUDIT.md.)
@@ -32,14 +34,18 @@ import uiFinnish from '../../data/ui-finnish.json';
 import { PATH } from './path';
 import { BADGES, BADGE_CATEGORIES } from './badges';
 import { AUDIT_ENTRIES } from './audit';
+import { MATH_STAGES, isMathId } from './mathPath';
+import { numberEn, numberForm, numberWord, wordProblemFor } from './math';
+import { LIFT_OFF, MISSING, WORD_FRAMES, compareFrame, neighborFrame, sumFrame } from '../content/mathProblems';
 
 /**
  * Where a child first meets an entry, so a reviewer can check the course in
  * the order the children play it: a unit (its number on the course map), the
  * screens all around the games ("everywhere": buttons, badges, the alphabet),
- * only the grown-ups' section, or nowhere yet (written, but no game shows it).
+ * the optional math section, only the grown-ups' section, or nowhere yet
+ * (written, but no game shows it).
  */
-export type ReviewPlace = number | 'everywhere' | 'grown-ups' | 'not-yet';
+export type ReviewPlace = number | 'everywhere' | 'math' | 'grown-ups' | 'not-yet';
 
 export interface ReviewEntry {
   /** Stable key — what the reviewer's ledger (data/finnish-vetted.json) lists. */
@@ -57,16 +63,16 @@ export interface ReviewSection {
   rows: ReviewEntry[];
 }
 
-/** Course order: the screens first, then unit by unit, then what no game shows yet, then the grown-ups' own. */
+/** Course order: the screens first, then unit by unit, then the math section, then what no game shows yet, then the grown-ups' own. */
 export function placeRank(place: ReviewPlace): number {
   if (typeof place === 'number') return place;
-  return { everywhere: 0, 'not-yet': 1000, 'grown-ups': 1001 }[place];
+  return { everywhere: 0, math: 900, 'not-yet': 1000, 'grown-ups': 1001 }[place];
 }
 
 /** "Unit 3", "Everywhere"… */
 export function placeLabel(place: ReviewPlace): string {
   if (typeof place === 'number') return `Unit ${place}`;
-  return { everywhere: 'Everywhere', 'not-yet': 'Not in the course yet', 'grown-ups': 'Grown-ups only' }[place];
+  return { everywhere: 'Everywhere', math: 'Math (Lasketaan!)', 'not-yet': 'Not in the course yet', 'grown-ups': 'Grown-ups only' }[place];
 }
 
 /** The earliest of some places, in course order. */
@@ -123,6 +129,8 @@ function courseMap() {
   /** Where an entry is first met, from its key (undefined: a kind of key this doesn't know). */
   return (key: string): ReviewPlace | undefined => {
     const [kind, id] = key.split(':');
+    // the math section's own stories and lessons, and its frames
+    if (kind === 'math' || ((kind === 'story' || kind === 'lesson') && id && isMathId(id))) return 'math';
     switch (kind) {
       case 'dialogue':
       case 'conversation':
@@ -274,6 +282,34 @@ function collect(): ReviewSection[] {
     }),
   );
 
+  // The math section's problem frames, each with one example fill. The English
+  // is for the reviewer only: the section itself never shows a word of it.
+  const n = (v: number) => numberWord(v);
+  const frame = (key: string, said: { ask: { fi: string; en: string }; tell: { fi: string; en: string } }): Row => ({
+    key: `math:${key}`,
+    fi: `${said.ask.fi} → ${said.tell.fi}`,
+    en: `${said.ask.en} → ${said.tell.en}`,
+  });
+  const en3 = (a: number, b: number, c: number): [string, string, string] => [numberEn(a), numberEn(b), numberEn(c)];
+  const mathRows: Row[] = [
+    frame('plus', sumFrame('plus', n(3), n(2), n(5), en3(3, 2, 5))),
+    frame('minus', sumFrame('minus', n(6), n(2), n(4), en3(6, 2, 4))),
+    frame('more', compareFrame(true, n(3), n(5), n(5), en3(3, 5, 5))),
+    frame('less', compareFrame(false, n(3), n(5), n(3), en3(3, 5, 3))),
+    frame('after', neighborFrame(true, numberForm(5, 'genitive'), n(6), [numberEn(5), numberEn(6)])),
+    frame('before', neighborFrame(false, numberForm(5, 'partitive'), n(4), [numberEn(5), numberEn(4)])),
+    { key: 'math:missing', fi: MISSING.fi, en: MISSING.en },
+    { key: 'math:lift-off', fi: LIFT_OFF.fi, en: LIFT_OFF.en },
+    ...WORD_FRAMES.map((f) => {
+      const p = wordProblemFor(f, w(f.edible ? 'apple' : 'ball'), 5, 2);
+      return {
+        key: `math:${f.id}`,
+        fi: `${p.ask.map((x) => x.fi).join(' ')} → ${p.tell.fi}`,
+        en: `${p.ask.map((x) => x.en).join(' ')} → ${p.tell.en}`,
+      };
+    }),
+  ];
+
   // Distractor lines that never appear as a reply elsewhere.
   const knownFi = new Set([...dialogueRows, ...conversationRows].flatMap((r) => r.fi.split(' → ')));
   const strayLines = new Map<string, string>();
@@ -334,6 +370,10 @@ function collect(): ReviewSection[] {
       ]),
     ]),
     ...lessons.map((l): [string, string, ReviewPlace] => [l.titleFi, l.titleEn, placeOf(`lesson:${l.id}`) ?? 'not-yet']),
+    ...MATH_STAGES.flatMap((stage): [string, string, ReviewPlace][] => [
+      [stage.titleFi, stage.titleEn, 'math'],
+      ...stage.skills.map((s): [string, string, ReviewPlace] => [s.titleFi, s.titleEn, 'math']),
+    ]),
     ...BADGE_CATEGORIES.map((c): [string, string, ReviewPlace] => [c.titleFi, c.titleEn, 'everywhere']),
     ...BADGES.map((b): [string, string, ReviewPlace] => [b.titleFi, b.titleEn, 'everywhere']),
     ...AUDIT_ENTRIES.map((a): [string, string, ReviewPlace] => [a.titleFi, a.titleEn, 'grown-ups']),
@@ -357,6 +397,12 @@ function collect(): ReviewSection[] {
     { id: 'pronouns', title: 'Pronoun forms & frames', hint: 'minä, minua, minulle…', rows: pronounRows },
     { id: 'letters', title: 'Alphabet', hint: 'Letter names and sound tips.', rows: letterRows },
     { id: 'lessons', title: 'Finnish in the lessons', hint: 'Words quoted in the explanations.', rows: lessonRows },
+    {
+      id: 'math',
+      title: 'Math in Finnish (Lasketaan!)',
+      hint: 'The problems’ sentence frames, each with one example. The numbers and things change; the frame stays.',
+      rows: mathRows,
+    },
     { id: 'lines', title: 'Other lines (wrong replies)', hint: 'Lines only offered as wrong answers.', rows: strayRows },
     {
       id: 'titles',

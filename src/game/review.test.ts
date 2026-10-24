@@ -39,7 +39,7 @@ describe('review entries', () => {
   it('each say where a child first meets it', () => {
     const unitOf = (id: string) => PATH.findIndex((u) => u.id === id) + 1;
     for (const x of entries) {
-      expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= PATH.length : ['everywhere', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
+      expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= PATH.length : ['everywhere', 'math', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
     }
     expect(e('dialogue:how-are-you').where).toBe(unitOf('hello'));
     expect(e('lesson:sounds:2').where).toBe(unitOf('hello'));

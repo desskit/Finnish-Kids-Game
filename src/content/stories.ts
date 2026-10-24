@@ -23,6 +23,7 @@
 //    "Put the pictures in order" and "who says this?" come from the pages.
 
 import { UNIT_STORIES } from './unitStories';
+import { MATH_STORIES } from './mathStories';
 import {
   ask,
   falseFact,
@@ -372,6 +373,11 @@ export const CORE_STORIES: Story[] = [
 ];
 
 /** Every story: the core five, then one per unit (unitStories.ts). */
-export const stories: Story[] = [...CORE_STORIES, ...UNIT_STORIES];
+// The math section's stories are stories too (the bookshelf has them), but a
+// course step's "any story" never picks one: see `courseStories`.
+export const stories: Story[] = [...CORE_STORIES, ...UNIT_STORIES, ...MATH_STORIES];
+
+/** The course's stories: every story but the math section's. */
+export const courseStories: Story[] = [...CORE_STORIES, ...UNIT_STORIES];
 
 export const storyById: Record<string, Story> = Object.fromEntries(stories.map((s) => [s.id, s]));

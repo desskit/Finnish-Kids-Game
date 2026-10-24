@@ -3,6 +3,27 @@
 // + tests. Child-voice speech recognition is unreliable, and this drill must
 // NEVER feel punishing — so the bar is deliberately low: any recognition
 // alternative that is exactly, contains, or is a near-miss of the target counts.
+//
+// A recognizer often writes a spoken number as digits ("7", "3 kissaa"), so a
+// number it wrote that way is read back as its Finnish word before comparing:
+// a child who said "kolme kissaa" said it right.
+
+import { mathWords, numbers } from '../content';
+
+/** A number a recognizer may write as digits → its sourced Finnish word. */
+const NUMBER_WORDS = new Map<string, string>(
+  [...mathWords.items, ...numbers.items]
+    .filter((n) => typeof n.value === 'number')
+    .map((n) => [String(n.value), n.fi]),
+);
+
+/** Digits a recognizer wrote ("7", "3 kissaa") read back as Finnish words. */
+export function spokenDigits(s: string): string {
+  return s.replace(/\d+/g, (d) => NUMBER_WORDS.get(String(Number(d))) ?? d);
+}
+
+/** Each number word → its value. */
+const NUMBER_VALUES = new Map<string, number>([...NUMBER_WORDS].map(([v, fi]) => [fi, Number(v)]));
 
 /** Lowercase, drop punctuation, collapse whitespace. Keeps Finnish ä/ö/å. */
 export function normalizeSpoken(s: string): string {
@@ -63,11 +84,53 @@ export function matchSpeech(heard: readonly string[], target: string): boolean {
   const tol = matchTolerance(target);
   const targetWords = t.split(' ').length;
   return heard.some((raw) => {
-    const h = normalizeSpoken(raw);
+    const h = normalizeSpoken(spokenDigits(raw));
     if (!h) return false;
     if (h === t) return true;
     if (h.includes(t)) return true; // said the target plus extra words
     if (editDistance(h, t) <= tol) return true;
     return windowsOf(h, targetWords).some((w) => editDistance(w, t) <= tol);
+  });
+}
+
+/**
+ * The number a heard word most likely was: its number word, or the one nearest
+ * it when that is near enough and nearer than every other ("viis" and "kuus",
+ * as children say them, are viisi and kuusi; "kuusitoista" is never
+ * kaksitoista).
+ */
+function numberIn(word: string): number | undefined {
+  const exact = NUMBER_VALUES.get(word);
+  if (exact !== undefined) return exact;
+  let best: number | undefined;
+  let bestFi = '';
+  let bestD = Infinity;
+  let tie = false;
+  for (const [fi, v] of NUMBER_VALUES) {
+    const d = editDistance(word, fi);
+    if (d < bestD) {
+      [best, bestFi, bestD, tie] = [v, fi, d, false];
+    } else if (d === bestD) {
+      tie = true;
+    }
+  }
+  return best !== undefined && !tie && bestD <= matchTolerance(bestFi) ? best : undefined;
+}
+
+/**
+ * Was this number the answer said? The last number heard counts ("viisi",
+ * "5", "se on viisi", "kolme plus kaksi on viisi"), read as whole words: the
+ * looser `matchSpeech` would hear "kolme" inside "kolmetoista". A number said
+ * in two pieces ("kolme toista") is put back together.
+ */
+export function matchNumberSpeech(heard: readonly string[], value: number): boolean {
+  return heard.some((raw) => {
+    const words = normalizeSpoken(spokenDigits(raw)).split(' ').filter(Boolean);
+    for (let i = words.length - 1; i >= 0; i--) {
+      const joined = i > 0 ? NUMBER_VALUES.get(words[i - 1] + words[i]) : undefined;
+      const v = joined ?? numberIn(words[i]);
+      if (v !== undefined) return v === value;
+    }
+    return false;
   });
 }

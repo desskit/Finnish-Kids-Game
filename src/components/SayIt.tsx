@@ -15,7 +15,9 @@ import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
-const INTRO_KEY = 'fkg.speak.introSeen';
+/** Set once the grown-up has seen the mic notice (per device; the math games share it). */
+export const SPEAK_INTRO_KEY = 'fkg.speak.introSeen';
+const INTRO_KEY = SPEAK_INTRO_KEY;
 // Stop listening on its own after this long: in a noisy room the recognizer
 // may never hear the child stop. (A tap on the mic stops it sooner.)
 const MAX_LISTEN_MS = 8000;
@@ -275,20 +277,7 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
           total={round.length}
           onExit={onExit}
         />
-        <div className="phrase-card say-intro">
-          <span className="phrase-emoji" aria-hidden="true">
-            <Art glyph="🎤" />
-          </span>
-          <p className="prompt">Puheharjoittelu · Speaking practice</p>
-          <p className="en">
-            This game uses the microphone so your child can say Finnish words out loud. The mic only
-            turns on when the button is tapped. On some browsers the audio is sent online to be
-            recognized. You can turn it off anytime in the grown-up settings.
-          </p>
-          <button className="btn btn--primary" onClick={dismissIntro}>
-            Selvä · OK
-          </button>
-        </div>
+        <SpeakIntro onOk={dismissIntro} />
       </section>
     );
   }
@@ -407,6 +396,26 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         </button>
       )}
     </section>
+  );
+}
+
+/** The one-time notice for a grown-up before the mic is first used. */
+export function SpeakIntro({ onOk }: { onOk: () => void }) {
+  return (
+    <div className="phrase-card say-intro">
+      <span className="phrase-emoji" aria-hidden="true">
+        <Art glyph="🎤" />
+      </span>
+      <p className="prompt">Puheharjoittelu · Speaking practice</p>
+      <p className="en">
+        This game uses the microphone so your child can say Finnish words out loud. The mic only
+        turns on when the button is tapped. On some browsers the audio is sent online to be
+        recognized. You can turn it off anytime in the grown-up settings.
+      </p>
+      <button className="btn btn--primary" onClick={onOk}>
+        Selvä · OK
+      </button>
+    </div>
   );
 }
 

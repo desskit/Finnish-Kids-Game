@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeSpoken, editDistance, matchTolerance, matchSpeech } from './speechMatch';
+import { normalizeSpoken, editDistance, matchTolerance, matchSpeech, matchNumberSpeech, spokenDigits } from './speechMatch';
 
 describe('normalizeSpoken', () => {
   it('lowercases, strips punctuation, collapses whitespace, keeps ä/ö', () => {
@@ -60,5 +60,75 @@ describe('matchSpeech', () => {
     // …but background words alone are still a miss.
     expect(matchSpeech(['no koira joo'], 'kissa')).toBe(false);
     expect(matchSpeech(['tule tänne nyt'], 'kolme kissaa')).toBe(false);
+  });
+});
+
+describe('numbers a recognizer writes as digits', () => {
+  it('reads them back as the Finnish word', () => {
+    expect(spokenDigits('7')).toBe('seitsemän');
+    expect(spokenDigits('3 kissaa')).toBe('kolme kissaa');
+    expect(spokenDigits('0')).toBe('nolla');
+    expect(spokenDigits('20')).toBe('kaksikymmentä');
+    // a compound isn't sourced, so it stays as it was
+    expect(spokenDigits('21')).toBe('21');
+  });
+
+  it('accepts a spoken number the recognizer wrote as digits', () => {
+    expect(matchSpeech(['7'], 'seitsemän')).toBe(true);
+    expect(matchSpeech(['3 kissaa'], 'kolme kissaa')).toBe(true);
+    expect(matchSpeech(['13'], 'kolmetoista')).toBe(true);
+    // a different number is still wrong
+    expect(matchSpeech(['8'], 'seitsemän')).toBe(false);
+  });
+});
+
+describe('a number said as an answer (the math games)', () => {
+  it('hears the number however it was written down', () => {
+    expect(matchNumberSpeech(['viisi'], 5)).toBe(true);
+    expect(matchNumberSpeech(['5'], 5)).toBe(true);
+    expect(matchNumberSpeech(['Viisi!'], 5)).toBe(true);
+    expect(matchNumberSpeech(['0'], 0)).toBe(true);
+    expect(matchNumberSpeech(['kaksikymmentä'], 20)).toBe(true);
+  });
+
+  it('takes the last number said, so a whole sentence counts', () => {
+    expect(matchNumberSpeech(['se on viisi'], 5)).toBe(true);
+    expect(matchNumberSpeech(['kolme plus kaksi on viisi'], 5)).toBe(true);
+    expect(matchNumberSpeech(['viisi omenaa'], 5)).toBe(true);
+    expect(matchNumberSpeech(['viisi vai kuusi'], 5)).toBe(false);
+  });
+
+  it('never hears one number inside another', () => {
+    expect(matchNumberSpeech(['kolmetoista'], 3)).toBe(false);
+    expect(matchNumberSpeech(['13'], 3)).toBe(false);
+    expect(matchNumberSpeech(['kaksikymmentä'], 2)).toBe(false);
+    expect(matchNumberSpeech(['yksitoista'], 1)).toBe(false);
+    // close in letters, but nearer another number
+    expect(matchNumberSpeech(['kuusitoista'], 12)).toBe(false);
+    expect(matchNumberSpeech(['kaksi'], 6)).toBe(false);
+    expect(matchNumberSpeech(['yhdeksän'], 8)).toBe(false);
+  });
+
+  it('accepts the everyday short forms children say', () => {
+    expect(matchNumberSpeech(['viis'], 5)).toBe(true);
+    expect(matchNumberSpeech(['kuus'], 6)).toBe(true);
+    expect(matchNumberSpeech(['kaks'], 2)).toBe(true);
+    expect(matchNumberSpeech(['yks'], 1)).toBe(true);
+    expect(matchNumberSpeech(['kaheksan'], 8)).toBe(true);
+    expect(matchNumberSpeech(['seittemän'], 7)).toBe(true);
+  });
+
+  it('puts a number said in two pieces back together', () => {
+    expect(matchNumberSpeech(['kolme toista'], 13)).toBe(true);
+    expect(matchNumberSpeech(['kaksi kymmentä'], 20)).toBe(true);
+  });
+
+  it('hears no number in other words', () => {
+    expect(matchNumberSpeech(['en tiedä'], 5)).toBe(false);
+    expect(matchNumberSpeech([''], 0)).toBe(false);
+  });
+
+  it('checks every alternative the recognizer offers', () => {
+    expect(matchNumberSpeech(['viini', 'viisi'], 5)).toBe(true);
   });
 });

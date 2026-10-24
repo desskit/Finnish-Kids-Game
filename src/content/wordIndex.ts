@@ -4,7 +4,7 @@
 // tables don't carry (ja, mutta, nyt…) have a short glossary of their own, and
 // the cast's names are names.
 
-import { themes, verbs, feelingVerbs, adjectives, numbers, ordinals, time, states } from '.';
+import { themes, verbs, feelingVerbs, adjectives, numbers, ordinals, time, states, mathWords } from '.';
 import { PRONOUNS } from './pronouns';
 import { CALLED_BY_A_WORD, CAST, type CastId } from './storyKit';
 import { glossWithAlso, possessiveGloss, type CaseId, type PersonId, type PossessorId } from './types';
@@ -100,6 +100,22 @@ const SMALL_WORDS: Record<string, string> = {
   mukaan: 'along',
   pois: 'away',
   takaisin: 'back',
+  // math (the Lasketaan! section)
+  plus: 'plus',
+  miinus: 'minus',
+  enemmän: 'more',
+  vähemmän: 'less, fewer',
+  yhteensä: 'in all, altogether',
+  lisää: 'more (Saan lisää = I get more)',
+  jäljellä: 'left (over)',
+  luku: 'number',
+  jälkeen: 'after',
+  ennen: 'before',
+  puuttuu: 'is missing',
+  vai: 'or (in a question)',
+  kummalla: 'which one has (kumpi)',
+  lasketaan: "let's count",
+  lähtö: 'lift-off, start!',
   // asking
   onko: 'is …? / does … have?',
   entä: 'and …? / what about …?',
@@ -180,7 +196,7 @@ function build(): Map<string, WordMeaning> {
     const key = form?.toLowerCase();
     if (key && !/\s/.test(key) && !map.has(key)) map.set(key, meaning);
   };
-  const items = [...themes.flatMap((t) => t.items), ...verbs.items, ...feelingVerbs.items, ...adjectives.items, ...numbers.items, ...ordinals.items, ...time.items, ...states.items];
+  const items = [...themes.flatMap((t) => t.items), ...verbs.items, ...feelingVerbs.items, ...adjectives.items, ...numbers.items, ...mathWords.items, ...ordinals.items, ...time.items, ...states.items];
   // A word's own basic form wins over another word's inflected form that looks the same.
   for (const item of items) put(item.fi, { base: item.fi, en: glossWithAlso(item) });
   // Pronouns next: in a story "heitä" is THEM, not the command "throw!".

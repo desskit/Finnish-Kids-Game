@@ -27,6 +27,7 @@ import {
   finnishYear,
 } from '../content';
 import type { Difficulty, VerbCombo } from './adapt';
+import type { MathSet } from './math';
 import { byIds } from '../util/byIds';
 import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
@@ -92,7 +93,17 @@ export type ActivityKind =
   | 'reading'
   | 'story'
   | 'choose'
-  | 'review';
+  | 'review'
+  // The math section's games (Lasketaan!, mathPath.tsx) — rendered by
+  // renderMathActivity, never by renderActivity.
+  | 'math-tree'
+  | 'math-listen'
+  | 'math-scale'
+  | 'math-train'
+  | 'math-word'
+  | 'math-build'
+  | 'math-quick'
+  | 'math-type';
 
 /** Which vocabulary pool a skill draws from. */
 export type Pool =
@@ -173,6 +184,8 @@ export interface SkillContent {
   frames?: string[];
   /** Agreement steps: ask only about these cases (e.g. the IN and ON forms). */
   agreementCases?: CaseId[];
+  /** A math game's problems (src/game/math.ts). */
+  math?: MathSet;
 }
 
 export interface SkillNode {
@@ -2989,6 +3002,15 @@ export function renderActivity(
       return <StoryTime ids={skill.content.ids} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
+    case 'math-tree':
+    case 'math-listen':
+    case 'math-scale':
+    case 'math-train':
+    case 'math-word':
+    case 'math-build':
+    case 'math-quick':
+    case 'math-type':
+      return null; // the math section's games: renderMathActivity (components/math)
   }
 }
 

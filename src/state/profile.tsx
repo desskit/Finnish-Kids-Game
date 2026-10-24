@@ -118,6 +118,14 @@ interface ProfileContextValue {
   markPhraseSeen: (key: string) => void;
   /** Record a checkpoint attempt; `ratio` is first-try correct / total. */
   recordCheckpoint: (unitId: string, ratio: number, passed: boolean) => void;
+  /** A math stage's test (its crown): kept in `math`, never among the course's checkpoints. */
+  recordMathTest: (stageId: string, ratio: number, passed: boolean) => void;
+  /** The child has seen this math stage open (clears its "Uusi!"). */
+  markMathStageSeen: (stageId: string) => void;
+  /** A run of right answers in quick sums: kept if it's the longest yet. */
+  recordQuickStreak: (run: number) => void;
+  /** A math answer said aloud and heard right. */
+  recordMathSpoken: () => void;
 
   // --- Settings (device-wide) ---
   settings: Settings;
@@ -353,6 +361,35 @@ export function ProfileProvider({
             },
           };
         }),
+
+      recordMathTest: (stageId, ratio, passed) =>
+        updateActive((c) => {
+          const prev = c.math?.crowns?.[stageId];
+          return {
+            ...c,
+            math: {
+              ...c.math,
+              crowns: {
+                ...c.math?.crowns,
+                [stageId]: {
+                  passedAt: prev?.passedAt ?? (passed ? Date.now() : undefined),
+                  best: Math.max(prev?.best ?? 0, ratio),
+                  attempts: (prev?.attempts ?? 0) + 1,
+                },
+              },
+            },
+          };
+        }),
+
+      markMathStageSeen: (stageId) =>
+        updateActive((c) =>
+          c.math?.seen?.[stageId] ? c : { ...c, math: { ...c.math, seen: { ...c.math?.seen, [stageId]: Date.now() } } },
+        ),
+
+      recordQuickStreak: (run) =>
+        updateActive((c) => (run <= (c.math?.quickBest ?? 0) ? c : { ...c, math: { ...c.math, quickBest: run } })),
+
+      recordMathSpoken: () => updateActive((c) => ({ ...c, math: { ...c.math, spoken: (c.math?.spoken ?? 0) + 1 } })),
 
       recordRound: (topicId, activityId, stars, total, maxLevel, bonus, proven) =>
         updateActive((c) => {

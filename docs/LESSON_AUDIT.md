@@ -3178,3 +3178,217 @@ Every practice here gets **harder and harder** as you improve — tricky look-al
 - ✘ 🍜 **minä sö[in]**
 
 _Explain:_ "Would" → **-isi-**: *söisin*.
+
+## Not in a unit: Plus and minus (Plus ja miinus) 🍎
+
+### 1. Math in Finnish _(explain)_
+
+Here every number is a **Finnish word** — you won’t see a single digit. You hear the numbers, say them and count with them, the way a Finnish child does.
+
+Tap a number word any time to see how many it is, as dots.
+
+
+### 2. Plus: put together _(examples)_
+
+*plus* puts amounts together, and *on* says what they make.
+
+- **Kaksi plus yksi on kolme.** — Kaksi plus yksi is kolme.
+- **Kolme plus kaksi on viisi.** — Kolme plus kaksi is viisi.
+- **Neljä plus neljä on kahdeksan.** — Neljä plus neljä is kahdeksan.
+
+### 3. Miinus: take away _(examples)_
+
+*miinus* takes some away. When nothing is left, that’s *nolla*.
+
+- **Viisi miinus kaksi on kolme.** — Viisi minus kaksi is kolme.
+- **Kuusi miinus yksi on viisi.** — Kuusi minus yksi is viisi.
+- **Kolme miinus kolme on nolla.** — Kolme minus kolme is nolla.
+
+### 4. How the question goes _(examples)_
+
+Every sum starts *Paljonko on…?* — “How much is…?” Listen for *plus* or *miinus*.
+
+- **Paljonko on kaksi plus kaksi?** — What is kaksi plus kaksi?
+- **Paljonko on neljä miinus yksi?** — What is neljä minus yksi?
+
+### 5. Try it _(check)_
+
+**Q:** *Paljonko on kaksi plus kaksi?*
+
+- ✔ **neljä**
+- ✘ **kolme**
+- ✘ **viisi**
+
+_Explain:_ *plus* puts them together: *Kaksi plus kaksi on neljä.*
+
+### 6. Try it _(check)_
+
+**Q:** *Paljonko on viisi miinus yksi?*
+
+- ✔ **neljä**
+- ✘ **kuusi**
+- ✘ **kolme**
+
+_Explain:_ *miinus* takes away: *Viisi miinus yksi on neljä.*
+
+## Not in a unit: More or less? (Enemmän vai vähemmän?) ⚖️
+
+### 1. More or less _(examples)_
+
+*enemmän* means more, *vähemmän* means less. *Kumpi?* asks which of them.
+
+- **Kumpi on enemmän: kolme vai viisi?** — Which is more: kolme or viisi?
+- **Viisi on enemmän.** — Viisi is more.
+- **Kolme on vähemmän.** — Kolme is less.
+
+### 2. The scale _(explain)_
+
+On the scale, the side with more goes down. Only the Finnish tells you which side to tap — so listen for *enemmän* or *vähemmän*!
+
+
+### 3. What comes after? _(examples)_
+
+*jälkeen* means after. The number before it gets an ending: *viisi* → *viiden jälkeen*.
+
+- **Kuusi tulee viiden jälkeen.** — Kuusi comes after viisi.
+- **Kymmenen tulee yhdeksän jälkeen.** — Kymmenen comes after yhdeksän.
+
+### 4. What comes before? _(examples)_
+
+*ennen* means before, and the number after it ends in **-ä** or **-tä**: *ennen viittä*.
+
+- **Neljä tulee ennen viittä.** — Neljä comes before viisi.
+- **Yhdeksän tulee ennen kymmentä.** — Yhdeksän comes before kymmenen.
+
+### 5. The train _(explain)_
+
+On the train the numbers ride in order — counting up, or down. A wagon is empty: *Mikä luku puuttuu?* means “Which number is missing?”
+
+
+### 6. Try it _(check)_
+
+**Q:** *Kumpi on vähemmän: kahdeksan vai kuusi?*
+
+- ✘ **kahdeksan**
+- ✔ **kuusi**
+
+_Explain:_ *vähemmän* means less: *Kuusi on vähemmän.*
+
+### 7. Try it _(check)_
+
+**Q:** *Mikä luku tulee seitsemän jälkeen?*
+
+- ✔ **kahdeksan**
+- ✘ **kuusi**
+- ✘ **yhdeksän**
+
+_Explain:_ *jälkeen* means after: *Kahdeksan tulee seitsemän jälkeen.*
+
+## Not in a unit: How many now? (Montako nyt?) 🧺
+
+### 1. Math in a little story _(explain)_
+
+Now the math hides in a story the fox tells: *Minulla on…* (I have…). Listen to the end and work out how many there are now.
+
+
+### 2. Together _(examples)_
+
+*Minulla on* and *Sinulla on* — how many do we have *yhteensä* (in all)?
+
+- **Minulla on kolme palloa. Sinulla on kaksi palloa. Montako palloa meillä on yhteensä?** — I have kolme balls. You have kaksi balls. How many balls do we have in all?
+- **Meillä on yhteensä viisi palloa.** — We have viisi balls in all.
+
+### 3. Eating some _(examples)_
+
+*Syön* means I eat — so there are fewer. *nyt* means now.
+
+- **Minulla on viisi keksiä. Syön kaksi keksiä. Montako keksiä minulla on nyt?** — I have viisi cookies. I eat kaksi cookies. How many cookies do I have now?
+- **Minulla on nyt kolme keksiä.** — Now I have kolme cookies.
+
+### 4. Getting more _(examples)_
+
+*Saan … lisää* means I get more — so there are more.
+
+- **Minulla on neljä kirjaa. Saan kaksi lisää. Montako kirjaa minulla on nyt?** — I have neljä books. I get kaksi more. How many books do I have now?
+- **Minulla on nyt kuusi kirjaa.** — Now I have kuusi books.
+
+### 5. Listen for the verb _(explain)_
+
+The verb tells you what happens: *saan* (I get) means more; *syön* (I eat) means fewer. Later you’ll also hear *annan* (I give) — giving some away leaves fewer, *jäljellä* (left).
+
+
+### 6. Try it _(check)_
+
+**Q:** *Minulla on neljä omenaa. Syön kaksi omenaa. Montako omenaa minulla on nyt?*
+
+- ✔ **kaksi**
+- ✘ **kuusi**
+- ✘ **neljä**
+
+_Explain:_ *Syön* takes some away: *Minulla on nyt kaksi omenaa.*
+
+### 7. Try it _(check)_
+
+**Q:** *Minulla on kolme palloa. Saan kolme lisää. Montako palloa minulla on nyt?*
+
+- ✔ **kuusi**
+- ✘ **kolme**
+- ✘ **viisi**
+
+_Explain:_ *Saan lisää* adds: *Minulla on nyt kuusi palloa.*
+
+## Not in a unit: The -toista numbers (Yksitoista, kaksitoista…) 🚀
+
+### 1. Past ten _(examples)_
+
+After *kymmenen*, the numbers are built: a small number, then *toista*.
+
+- yksi → **yksi[toista]**
+- kaksi → **kaksi[toista]**
+- kolme → **kolme[toista]**
+- viisi → **viisi[toista]**
+
+### 2. Build them yourself _(explain)_
+
+Say the small number, then add *toista*: *kolme* + *toista* → *kolmetoista*. In the building game you hear the whole number and find the part before *toista*.
+
+
+### 3. Ten and some more _(examples)_
+
+*kymmenen plus* a small number makes a *-toista* number.
+
+- **Kymmenen plus kolme on kolmetoista.** — Kymmenen plus kolme is kolmetoista.
+- **Kymmenen plus seitsemän on seitsemäntoista.** — Kymmenen plus seitsemän is seitsemäntoista.
+
+### 4. Up to twenty _(examples)_
+
+*kaksikymmentä* is built from *kaksi* and *kymmentä* — the end of the count for now.
+
+- **kuusitoista**
+- **yhdeksäntoista**
+- **kaksikymmentä**
+
+### 5. The rocket _(explain)_
+
+The rocket counts down from *kymmenen* all the way to *nolla* — and then *Lähtö!* (Lift-off!)
+
+
+### 6. Try it _(check)_
+
+**Q:** What do *kahdeksan* and *toista* make?
+
+- ✔ **kahdeksantoista**
+- ✘ **yhdeksäntoista**
+- ✘ **kahdeksan**
+
+_Explain:_ *kahdeksan* + *toista* → *kahdeksantoista*.
+
+### 7. Try it _(check)_
+
+**Q:** *Paljonko on kymmenen plus viisi?*
+
+- ✔ **viisitoista**
+- ✘ **neljätoista**
+- ✘ **kuusitoista**
+
+_Explain:_ *Kymmenen plus viisi on viisitoista.*

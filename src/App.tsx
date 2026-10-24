@@ -9,6 +9,8 @@ import {
   mixStepFor,
 } from './game/path';
 import { difficultyFor } from './game/adapt';
+import { findMathSkill, isMathId } from './game/mathPath';
+import { renderMathActivity } from './components/math/renderMath';
 import { actionHref, lessonForStep, nextAction } from './game/course';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome, type SegmentMeta } from './game/activityContext';
@@ -38,6 +40,8 @@ import AuditView from './components/AuditView';
 import WarmupRoute from './components/WarmupRoute';
 import StatsView from './components/StatsView';
 import FinnishReview from './components/FinnishReview';
+import MathHome from './components/math/MathHome';
+import MathTestRoute from './components/math/MathTestRoute';
 import Art from './art/Art';
 
 // Content facts the badge rules measure against (derived from the path).
@@ -53,6 +57,8 @@ const BADGE_ENV = badgeEnv;
 //   /notebook           → Notebook      (re-read any opened unit's lesson)
 //   /skill/:skillId     → Activity      (a step's game, runs full-screen)
 //   /checkpoint/:unitId → Checkpoint    (the unit test that unlocks the next unit)
+//   /math               → MathHome      (Lasketaan!: the optional math-in-Finnish map)
+//   /math/test/:stageId → MathTest      (a math stage's test, which wins its crown)
 //   /warmup             → Warm-up       (a new day's first Continue: the weakest subject)
 //   /review             → Review        (cross-topic spaced repetition)
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
@@ -75,7 +81,9 @@ function SkillRoute() {
   const { skillId } = useParams();
   const navigate = useNavigate();
   const { activeChild, recordRound, recordStory, recordStats, activityDifficulty, stars, settings } = useProfile();
-  const found = skillId ? findSkill(skillId) : undefined;
+  // a math step (Lasketaan!) plays through here too, kept apart from the course
+  const found = skillId ? findSkill(skillId) ?? findMathSkill(skillId) : undefined;
+  const math = !!found && isMathId(found.skill.id);
 
   // `round.no` counts segments (drives game-type rotation); `round.level` is
   // the level FROZEN at the segment's start, so a mid-segment level change
@@ -111,8 +119,8 @@ function SkillRoute() {
   const activity = activityForRound(play.skill, round.level, round.no, speechOn);
   // A bonus round (typing in later units, and speaking): scored, never levelled.
   const bonus = isBonusRound(play.skill, round.level, round.no, activity);
-  const onExit = () => navigate('/');
-  const element = renderActivity(play.skill, activity, onExit);
+  const onExit = () => navigate(math ? '/math' : '/');
+  const element = math ? renderMathActivity(play.skill, activity, onExit) : renderActivity(play.skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
 
   // Silent segment recording + advance, in one commit: fold the segment's
@@ -177,7 +185,7 @@ function SkillRoute() {
       {/* Outside the keyed child so it survives the segment swap; keyed per
           reward so back-to-back rewards restart the timer. */}
       {toast && (
-        <RewardToast key={toast.id} outcome={toast.outcome} onDismiss={() => setToast(null)} />
+        <RewardToast key={toast.id} outcome={toast.outcome} math={math} onDismiss={() => setToast(null)} />
       )}
     </main>
   );
@@ -224,10 +232,12 @@ export function AppRoutes() {
         <Route path="/notebook" element={<Notebook />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/sounds" element={<SoundsHub />} />
+        <Route path="/math" element={<MathHome />} />
       </Route>
       <Route path="/lesson/:lessonId" element={<LessonRoute />} />
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />
       <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
+      <Route path="/math/test/:stageId" element={<MathTestRoute />} />
       <Route path="/warmup" element={<WarmupRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/next" element={<NextRoute />} />

@@ -227,7 +227,7 @@ export function glossFor(item: LexicalItem, con: Construction): string {
 // fine predicate after "Tämä on / Onko tämä" ("Tämä on punainen.") — but not
 // one only a living thing can be ("Tämä on iloinen", "Tämä on nuori" are
 // wrong). Fun is fine: "Tämä on hauska." is "This is fun."
-const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money', 'meals', 'weather', 'finnish-year'];
+const OPT_IN_TOPICS = ['time', 'states', 'adjectives', 'numbers', 'verbs', FEELING_VERBS_TOPIC, 'money', 'meals', 'weather', 'finnish-year', 'math'];
 const PREDICATE_CARRIERS = ['this-is', 'is-this'];
 const NEEDS_A_LIVING_THING = ANIMATE_ONLY_ADJECTIVES.filter((id) => id !== 'funny');
 

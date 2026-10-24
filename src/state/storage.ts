@@ -99,6 +99,24 @@ export interface Child {
    * (`statsOf`) until the first new answer writes it.
    */
   stats?: StatsState;
+  /**
+   * The optional math section (Lasketaan!, see `src/game/mathPath.tsx`): its
+   * crowns and the stages the child has seen open. Kept apart from `course`,
+   * so math never counts as a unit, a checkpoint or a course badge. Optional +
+   * unbackfilled (readers treat missing as "nothing yet").
+   */
+  math?: MathState;
+}
+
+export interface MathState {
+  /** stageId → the stage test that wins its crown. */
+  crowns?: Record<string, CheckpointRecord>;
+  /** stageId → when the child first saw it open (until then the home card says "Uusi!"). */
+  seen?: Record<string, number>;
+  /** The longest run of right first answers in quick sums (Nopeasti!). */
+  quickBest?: number;
+  /** Answers said aloud and heard right, in the math games. */
+  spoken?: number;
 }
 
 export interface CheckpointRecord {
@@ -162,6 +180,11 @@ export interface Settings {
    * jump ahead, or to preview). Optional; missing = off.
    */
   unlockAll?: boolean;
+  /**
+   * The math section's quick sums (Nopeasti!) without a clock: every question
+   * waits as long as it takes. Optional; missing = timed.
+   */
+  mathUntimed?: boolean;
 }
 
 /** One native reviewer's verdict on one authored-Finnish entry (Grown-ups → Finnish check). */

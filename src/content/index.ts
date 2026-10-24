@@ -15,6 +15,7 @@ import moneyData from './data/money.sourced.json';
 import mealsData from './data/meals.sourced.json';
 import weatherData from './data/weather.sourced.json';
 import finnishYearData from './data/finnish-year.sourced.json';
+import mathData from './data/math.sourced.json';
 import timeData from './data/time.sourced.json';
 import statesData from './data/states.sourced.json';
 import ordinalsData from './data/ordinals.sourced.json';
@@ -163,6 +164,10 @@ export const weather = toTheme(weatherData as unknown as SourcedFile, nounConstr
 // The Finnish year — Christmas, Easter, Midsummer and their things. Opt-in
 // too: "Odotan joulua!", "Olemme mökillä jouluna" — never "kolme joulua".
 export const finnishYear = toTheme(finnishYearData as unknown as SourcedFile, nounConstructions);
+// Math in Finnish (the optional Lasketaan! section): zero, which the course
+// never counts with. Not in `themes` and opt-in, so no course game or
+// carrier phrase meets it; the math section uses it beside `numbers`.
+export const mathWords = toTheme(mathData as unknown as SourcedFile, nounConstructions);
 
 // When? — days, parts of the day, seasons. Reviewable (in `themes`), but kept
 // OUT of the mixed noun pool in path.tsx so they only fill their own carriers.
