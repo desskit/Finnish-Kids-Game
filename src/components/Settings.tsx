@@ -138,6 +138,13 @@ export default function Settings() {
           checked={!!settings.unlockAll}
           onChange={(on) => updateSettings({ unlockAll: on })}
         />
+        <Toggle
+          label="Quick sums without a clock"
+          fi="Nopeasti!"
+          note="In the math section's quick sums, each problem normally has a few seconds. Turn this on to let your child take as long as they need."
+          checked={!!settings.mathUntimed}
+          onChange={(on) => updateSettings({ mathUntimed: on })}
+        />
       </section>
 
       {speechAvailable && (

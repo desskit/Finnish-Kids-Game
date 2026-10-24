@@ -102,16 +102,6 @@ function HostScene({ q, answered, game }: Props) {
 
 // --- The apple tree ------------------------------------------------------------
 
-/** Where the apples hang in the tree (left %, top %). */
-const HANGING: [number, number][] = [
-  [30, 22],
-  [52, 14],
-  [68, 30],
-  [40, 40],
-  [60, 48],
-  [24, 50],
-];
-
 /**
  * Plus: the first apples drop into the basket, then the rest. Minus: the
  * basket holds them all, and the ones taken away lift out. At levels 1–2 it
@@ -130,12 +120,7 @@ function TreeScene({ q, answered, countable }: Props) {
   return (
     <div className={`math-scene math-tree math-tree--${s.kind}`}>
       <span className="math-tree__tree">
-        <Art id="tree" motion="loop" />
-        {HANGING.map(([left, top], i) => (
-          <span key={i} className="math-tree__hanging" style={{ left: `${left}%`, top: `${top}%` }}>
-            <Art id="apple" />
-          </span>
-        ))}
+        <Art id="math-apple-tree" motion="loop" />
       </span>
       <span className="math-basket">
         <span className="math-basket__apples">
@@ -154,7 +139,7 @@ function TreeScene({ q, answered, countable }: Props) {
               );
             })}
         </span>
-        <Art id="basket" className="math-basket__basket" />
+        <Art id="math-basket" className="math-basket__basket" />
         {!fill && <span className="math-basket__cover" aria-hidden="true" />}
       </span>
     </div>
@@ -176,8 +161,14 @@ function ScaleScene({ q, answered, choose }: Props) {
     const label = choose?.heard && !answered ? <SpeakerIcon /> : numberWord(v);
     const body = (
       <>
-        <span className="math-pan__load">{answered ? <Quantity groups={[v]} small /> : null}</span>
-        <Art id="math-scale-pan" className="math-pan__pan" />
+        <span className="math-pan__hang">
+          <Art id="math-scale-pan" />
+          {answered && (
+            <span className="math-pan__load">
+              <Quantity groups={[v]} small />
+            </span>
+          )}
+        </span>
         <span className="math-pan__word" lang="fi">
           {label}
         </span>
@@ -194,10 +185,8 @@ function ScaleScene({ q, answered, choose }: Props) {
   };
   return (
     <div className={`math-scene math-scale math-scale--${tilt}`}>
-      <span className="math-scale__beam">
-        <Art id="math-scale-beam" />
-      </span>
       <Art id="math-scale-stand" className="math-scale__stand" />
+      <span className="math-scale__beam" aria-hidden="true" />
       {pan(s.a, 'left')}
       {pan(s.b, 'right')}
     </div>
@@ -255,7 +244,7 @@ function RocketScene({ q, answered, wordsShown }: Props) {
             {LIFT_OFF.fi}
           </span>
         )}
-        <Art id="rocket" motion="loop" className="math-rocket__rocket" />
+        <Art id="math-rocket" motion="loop" className="math-rocket__rocket" />
       </span>
     </div>
   );

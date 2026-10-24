@@ -1,5 +1,6 @@
 import type { ActivityKind, Chapter, SkillNode } from './path';
 import type { MathSet } from './math';
+import type { ArtId } from '../art/generated/manifest';
 
 // The math section — Lasketaan! (Let's count!) — an optional path beside the
 // course: math done in Finnish, so a child can't just see the numbers and do
@@ -24,8 +25,8 @@ export const isMathId = (id: string): boolean => id.startsWith(MATH_PREFIX);
 export interface MathStage extends Chapter {
   /** The course unit whose checkpoint the stage also waits for. */
   afterUnit?: string;
-  /** The crown its test wins (a picture id). */
-  crown: string;
+  /** The crown its test wins (its picture). */
+  crown: ArtId;
 }
 
 /** Typing the answer word: a bonus round now and then, from level 2. */

@@ -31,7 +31,8 @@
       "en": "Start",
       "where": [
         "components/CheckpointRoute.tsx",
-        "components/ProfilePicker.tsx"
+        "components/ProfilePicker.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -80,7 +81,8 @@
       "fi": "Harjoittele",
       "en": "Practice",
       "where": [
-        "components/CheckpointRoute.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -138,11 +140,13 @@
     },
     {
       "fi": "Hyvä yritys!",
-      "en": "Good try!",
+      "en": "Good try! / ⟨…⟩",
       "where": [
         "components/CheckpointRoute.tsx",
         "components/SayIt.tsx",
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathQuiz.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -164,7 +168,10 @@
         "components/SayIt.tsx",
         "components/StoryTime.tsx",
         "components/WarmupRoute.tsx",
-        "components/WordIntro.tsx"
+        "components/WordIntro.tsx",
+        "components/math/MathHome.tsx",
+        "components/math/MathQuiz.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -280,10 +287,11 @@
     },
     {
       "fi": "Kirjoita suomeksi",
-      "en": "Write it in Finnish",
+      "en": "Write it in Finnish / Write it in Finnish, with letters",
       "where": [
         "components/ReviewActivity.tsx",
-        "components/SpellWord.tsx"
+        "components/SpellWord.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -370,7 +378,7 @@
     },
     {
       "fi": "Kuuntele",
-      "en": "Listen / Listen: ⟨fi⟩ / Listen: ⟨form⟩ / Listen: ⟨speak⟩",
+      "en": "Listen / Listen (⟨…⟩) / Listen: ⟨fi⟩ / Listen: ⟨form⟩ / Listen: ⟨speak⟩ / Tap to hear it, tap again to choose",
       "where": [
         "components/HearIt.tsx",
         "components/LessonView.tsx",
@@ -378,7 +386,9 @@
         "components/ListenSentence.tsx",
         "components/PossessiveGame.tsx",
         "components/ReviewActivity.tsx",
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathAnswer.tsx",
+        "components/math/MathScenes.tsx"
       ]
     },
     {
@@ -406,21 +416,24 @@
       "fi": "Kuuntele uudestaan",
       "en": "Hear it again",
       "where": [
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathQuiz.tsx"
       ]
     },
     {
       "fi": "Kuuntele!",
       "en": "Listen, then fill the gap",
       "where": [
-        "components/SoundGame.tsx"
+        "components/SoundGame.tsx",
+        "components/math/MathQuiz.tsx"
       ]
     },
     {
       "fi": "Kuuntelen…",
       "en": "Listening…",
       "where": [
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -466,6 +479,14 @@
       ]
     },
     {
+      "fi": "Lasketaan!",
+      "en": "Math in Finnish",
+      "where": [
+        "components/math/MathCard.tsx",
+        "components/math/MathHome.tsx"
+      ]
+    },
+    {
       "fi": "Lauseet",
       "en": "Sentences",
       "where": [
@@ -497,7 +518,8 @@
       "fi": "Lue",
       "en": "Read",
       "where": [
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathQuiz.tsx"
       ]
     },
     {
@@ -539,7 +561,8 @@
       "fi": "Läpäisty!",
       "en": "",
       "where": [
-        "components/CheckpointRoute.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -554,7 +577,8 @@
       "en": "",
       "where": [
         "components/CheckpointRoute.tsx",
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -764,6 +788,13 @@
       ]
     },
     {
+      "fi": "Nopeasti!",
+      "en": "Quick sums without a clock",
+      "where": [
+        "components/Settings.tsx"
+      ]
+    },
+    {
       "fi": "Nyt sinä!",
       "en": "Your turn",
       "where": [
@@ -777,7 +808,8 @@
         "components/MatchTheWord.tsx",
         "components/ReviewActivity.tsx",
         "components/SpellWord.tsx",
-        "components/WordOrder.tsx"
+        "components/WordOrder.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -791,7 +823,8 @@
       "fi": "Oikein!",
       "en": "Right!",
       "where": [
-        "components/LessonView.tsx"
+        "components/LessonView.tsx",
+        "components/math/MathQuiz.tsx"
       ]
     },
     {
@@ -820,14 +853,16 @@
       "en": "Lesson: ⟨titleEn⟩ / Read the lesson",
       "where": [
         "components/CourseHome.tsx",
-        "components/WarmupRoute.tsx"
+        "components/WarmupRoute.tsx",
+        "components/math/MathHome.tsx"
       ]
     },
     {
       "fi": "Paina ja puhu",
       "en": "Tap & speak",
       "where": [
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -920,7 +955,8 @@
       "fi": "Salli mikrofoni ja yritä uudestaan",
       "en": "Allow the mic and try again",
       "where": [
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -948,7 +984,8 @@
       "fi": "Sanoin sen",
       "en": "I said it",
       "where": [
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -1009,12 +1046,13 @@
     },
     {
       "fi": "Takaisin",
-      "en": "Back / Back home / Back to notebook / Back to practice",
+      "en": "Back / Back home / Back to notebook / Back to practice / Back to the map",
       "where": [
         "components/LessonRoute.tsx",
         "components/ParentGate.tsx",
         "components/ProfilePicker.tsx",
-        "components/WhyTip.tsx"
+        "components/WhyTip.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -1101,14 +1139,16 @@
       "where": [
         "components/CheckpointRoute.tsx",
         "components/LetterNameGame.tsx",
-        "components/SoundGame.tsx"
+        "components/SoundGame.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
       "fi": "Uusi",
       "en": "New",
       "where": [
-        "components/ProfilePicker.tsx"
+        "components/ProfilePicker.tsx",
+        "components/math/MathCard.tsx"
       ]
     },
     {
@@ -1143,7 +1183,8 @@
       "fi": "Uusi saavutus!",
       "en": "⟨titleEn⟩",
       "where": [
-        "components/CheckpointRoute.tsx"
+        "components/CheckpointRoute.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -1158,6 +1199,13 @@
       "en": "Level up!",
       "where": [
         "components/RewardToast.tsx"
+      ]
+    },
+    {
+      "fi": "Uusi! ⟨toast⟩",
+      "en": "A new math stage is open",
+      "where": [
+        "components/math/MathCard.tsx"
       ]
     },
     {
@@ -1186,7 +1234,8 @@
       "en": "Done",
       "where": [
         "components/ProfilePicker.tsx",
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {
@@ -1234,10 +1283,12 @@
     },
     {
       "fi": "Välitesti",
-      "en": "Checkpoint",
+      "en": "Checkpoint / Win the crown",
       "where": [
         "components/CheckpointRoute.tsx",
-        "components/CourseHome.tsx"
+        "components/CourseHome.tsx",
+        "components/math/MathHome.tsx",
+        "components/math/MathTestRoute.tsx"
       ]
     },
     {
@@ -1266,7 +1317,8 @@
       "en": "Try again",
       "where": [
         "components/ParentGate.tsx",
-        "components/SayIt.tsx"
+        "components/SayIt.tsx",
+        "components/math/MathAnswer.tsx"
       ]
     },
     {

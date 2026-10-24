@@ -32,9 +32,11 @@ import {
 } from '../game/course';
 import Art from '../art/Art';
 import Scenery from '../art/Scenery';
+import MathCard from './math/MathCard';
 
 // The course home: one big "Continue" button (the next lesson / step /
-// checkpoint), Review and the Notebook, then the units in order — finished
+// checkpoint), the door to the math section (Lasketaan!), Review and the
+// Notebook, then the units in order — finished
 // ones ticked, the current one opened up into its lesson → steps → checkpoint,
 // later ones locked until the checkpoint before them is passed.
 export default function CourseHome() {
@@ -152,6 +154,8 @@ export default function CourseHome() {
           </span>
         </Link>
       )}
+
+      <MathCard />
 
       <div className="home-tiles stagger">
         <Link className="home-tile home-tile--review" to="/review">
