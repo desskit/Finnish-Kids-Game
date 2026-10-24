@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import type { ArtId } from '../../art/generated/manifest';
 import Art from '../../art/Art';
 import Avatar from '../../art/Avatar';
 import SpeakerIcon from '../../art/SpeakerIcon';
 import { LIFT_OFF } from '../../content/mathProblems';
-import { numberWord, teenTail, type MathProblem } from '../../game/math';
+import { numberEn, numberWord, teenTail, type MathProblem } from '../../game/math';
 import { speak } from '../../audio/speak';
 import Quantity from './Quantity';
 
@@ -14,10 +15,10 @@ import Quantity from './Quantity';
 // Once it's answered, each scene shows why the answer is right: the apples in
 // the basket, the scale tipping, the gap in the train filled, dots in frames.
 
-export type MathGame = 'listen' | 'tree' | 'scale' | 'train' | 'word' | 'build' | 'quick';
+export type MathGame = 'listen' | 'tree' | 'scale' | 'train' | 'word' | 'build' | 'quick' | 'shop' | 'pay' | 'clock';
 
-/** The scale's pans are its choices (when answers are tapped). */
-export const ownsChoices = (game: MathGame): boolean => game === 'scale';
+/** The scale's pans, and the coins paid, are the choices (when answers are tapped). */
+export const ownsChoices = (game: MathGame): boolean => game === 'scale' || game === 'pay';
 
 /** Choosing by tapping the scene itself (the scale's pans). */
 export interface SceneChoose {
@@ -56,9 +57,29 @@ export function MathScene(p: Props) {
       return p.q.noun ? <WordScene {...p} /> : <HostScene {...p} />;
     case 'build':
       return s.kind === 'parts' ? <BuildScene {...p} /> : <HostScene {...p} />;
+    case 'shop':
+      return p.q.things ? <ShopScene {...p} /> : <HostScene {...p} />;
+    case 'pay':
+      return p.q.things ? <PayScene key={p.q.key} {...p} /> : <HostScene {...p} />;
+    case 'clock':
+      return s.kind === 'clock' ? <ClockScene {...p} /> : <HostScene {...p} />;
     default:
       return <HostScene {...p} />;
   }
+}
+
+/** The clock face for a time ([hour, 0 or 30]): its hands, never a numeral. */
+export const clockFace = ([h, m]: [number, number]): ArtId => `${numberEn(h)}-${m ? 'thirty' : 'oclock'}` as ArtId;
+
+/** Coins in a row: one picture each (a price, paid). */
+function Coins({ n }: { n: number }) {
+  return (
+    <span className="math-coins">
+      {Array.from({ length: n }, (_, i) => (
+        <Art key={i} id="euro" />
+      ))}
+    </span>
+  );
 }
 
 /** Why the answer is right, drawn: dots in ten-frames, never a digit. */
@@ -87,7 +108,34 @@ export function Why({ q }: { q: MathProblem }) {
         </span>
       );
     case 'parts':
-      return <Quantity groups={[10, s.base]} className="math-why" />;
+      return s.tens ? <Quantity groups={Array.from({ length: s.base }, () => 10)} className="math-why" /> : <Quantity groups={[10, s.base]} className="math-why" />;
+    case 'times':
+      // a lots of b: one bag of dots each
+      return (
+        <span className="math-why math-why--bags">
+          {Array.from({ length: s.a }, (_, i) => (
+            <Quantity key={i} groups={[s.b]} small />
+          ))}
+        </span>
+      );
+    case 'half':
+      return <Quantity groups={[s.whole / 2, s.whole / 2]} className="math-why" />;
+    case 'coins':
+      return (
+        <span className="math-why math-why--coins">
+          {s.prices.map((p, i) => (
+            <Coins key={i} n={p} />
+          ))}
+        </span>
+      );
+    case 'clock':
+      return (
+        <span className="math-why math-why--clocks">
+          <Art id={clockFace(s.from)} />
+          <Art glyph="➡" />
+          <Art id={clockFace(s.to)} />
+        </span>
+      );
   }
 }
 
@@ -302,6 +350,89 @@ function BuildScene({ q, answered }: Props) {
         <span className="math-block math-block--tail">{teenTail(s.teen, s.base)}</span>
       </span>
       {answered && <Why q={q} />}
+    </div>
+  );
+}
+
+// --- The shop ----------------------------------------------------------------------------
+
+/** The things on the counter; answered, each one's coins under it. */
+function ShopScene({ q, answered }: Props) {
+  const prices = q.show.kind === 'coins' ? q.show.prices : [];
+  return (
+    <div className="math-scene math-shop">
+      <span className="math-shop__counter">
+        {(q.things ?? []).map((thing, i) => (
+          <span key={thing.id} className="math-shop__thing">
+            <Art item={thing} motion="idle" />
+            {answered && <Coins n={prices[i] ?? 0} />}
+          </span>
+        ))}
+      </span>
+    </div>
+  );
+}
+
+/** How many coins can be paid at once (the tray). */
+const TRAY = 10;
+
+/**
+ * Pay for the thing: tap coins from the tray into the till (tap one in the till
+ * to take it back), then "Valmis". The price is only said, as a Finnish word —
+ * the coins carry no number.
+ */
+function PayScene({ q, answered, choose }: Props) {
+  const [paid, setPaid] = useState(0);
+  const thing = q.things?.[0];
+  const wrong = choose?.wrong.includes(paid) && !answered;
+  return (
+    <div className="math-scene math-pay">
+      <span className="math-pay__thing">{thing && <Art item={thing} motion="idle" />}</span>
+      <span className={'math-pay__till' + (wrong ? ' math-pay__till--wrong' : '') + (answered ? ' math-pay__till--done' : '')}>
+        {answered ? (
+          <Coins n={q.answer} />
+        ) : (
+          Array.from({ length: paid }, (_, i) => (
+            <button key={i} type="button" className="math-pay__coin" onClick={() => setPaid((n) => n - 1)} aria-label="Take the coin back">
+              <Art id="euro" />
+            </button>
+          ))
+        )}
+      </span>
+      {!answered && choose && (
+        <>
+          <span className="math-pay__tray">
+            {Array.from({ length: TRAY - paid }, (_, i) => (
+              <button key={i} type="button" className="math-pay__coin" onClick={() => setPaid((n) => Math.min(TRAY, n + 1))} aria-label="Pay a coin">
+                <Art id="euro" />
+              </button>
+            ))}
+          </span>
+          <button type="button" className="btn btn--primary math-pay__done" onClick={() => choose.onChoose(paid)} disabled={paid === 0}>
+            Valmis <span className="en">Done</span>
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+// --- The clock ---------------------------------------------------------------------------
+
+/** The clock as it is now; answered, an arrow to the time asked for. */
+function ClockScene({ q, answered }: Props) {
+  const s = q.show as { kind: 'clock'; from: [number, number]; to: [number, number] };
+  return (
+    <div className="math-scene math-clock">
+      <span className="math-clock__faces">
+        <Art id={clockFace(s.from)} className="math-clock__face" />
+        {answered && (
+          <>
+            <Art glyph="➡" className="math-clock__arrow" />
+            <Art id={clockFace(s.to)} className="math-clock__face math-clock__face--to" />
+          </>
+        )}
+      </span>
     </div>
   );
 }

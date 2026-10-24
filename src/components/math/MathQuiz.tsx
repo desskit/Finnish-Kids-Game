@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../../state/profile';
 import { useActivityContext, useSegmentComplete } from '../../game/activityContext';
-import { buildMathRound, numberWord, spokenProblem, type MathProblem, type MathSet } from '../../game/math';
+import { buildMathRound, choiceWord, spokenProblem, type MathProblem, type MathSet } from '../../game/math';
 import { taughtWords } from '../../game/mathCourse';
 import { isSpeechAvailable, speak } from '../../audio/speak';
 import { isMuted } from '../../audio/mute';
@@ -195,7 +195,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
       if (knobs.heardChoices && picked !== v) {
         // only heard: the first tap says it
         setPicked(v);
-        speak(numberWord(v));
+        speak(choiceWord(q, v));
         return;
       }
       if (v === q.answer) {
@@ -205,7 +205,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
         setWrong((w) => [...w, v]);
         setPicked(null);
         // a wrong tap still teaches a word: it's said
-        speak(numberWord(v));
+        speak(choiceWord(q, v));
       }
     },
     [q, answered, knobs.heardChoices, picked, right, miss],
@@ -352,9 +352,18 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
           </button>
         </div>
       ) : answer === 'say' ? (
-        <MathMic key={index} answer={q.answer} locked={answered} misses={misses} onRight={() => right()} onMiss={miss} onVouch={() => right(true)} />
+        <MathMic
+          key={index}
+          answer={q.answer}
+          answerWords={q.words?.[q.answer]}
+          locked={answered}
+          misses={misses}
+          onRight={() => right()}
+          onMiss={miss}
+          onVouch={() => right(true)}
+        />
       ) : answer === 'type' ? (
-        <MathTyping key={index} answer={q.answer} locked={answered} onRight={() => right()} onMiss={miss} onSkip={() => showAnswer()} />
+        <MathTyping key={index} word={choiceWord(q, q.answer)} locked={answered} onRight={() => right()} onMiss={miss} onSkip={() => showAnswer()} />
       ) : sceneChooses ? null : (
         <MathChoices
           options={q.options}
@@ -364,6 +373,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
           heard={knobs.heardChoices}
           picked={picked}
           look={game === 'train' ? 'wagons' : undefined}
+          wordOf={(v) => choiceWord(q, v)}
           onChoose={choose}
         />
       )}

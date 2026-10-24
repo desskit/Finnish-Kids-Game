@@ -694,6 +694,156 @@ button.math-pan:not(:disabled):active .math-pan__word {
   animation: math-snap 0.45s ease-out both;
 }
 
+/* ---------- Times, halves, coins and clocks: why it's right ---------- */
+.math-why--bags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+/* One bag each: its dots in a rounded sack. */
+.math-why--bags > .quantity {
+  padding: 8px 8px 10px;
+  border-radius: 12px 12px 22px 22px;
+  background: var(--well-gold);
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.08);
+}
+.math-why--coins {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 14px;
+}
+.math-why--coins .math-coins + .math-coins::before {
+  content: '+';
+  margin-right: 8px;
+  font-weight: 900;
+  color: var(--ink-soft);
+}
+.math-why--clocks {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(3rem, 14vw, 4rem);
+}
+.math-why--clocks .art:nth-child(2) {
+  font-size: 0.5em;
+  color: var(--ink-soft);
+}
+
+/* Coins in a row: a price, or what was paid. */
+.math-coins {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  max-width: 150px;
+  font-size: 1.6rem;
+}
+
+/* ---------- The shop ---------- */
+.math-shop__counter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(12px, 5vw, 28px);
+  padding: 14px clamp(12px, 4vw, 20px) 10px;
+  border-radius: 16px 16px 6px 6px;
+  background: var(--surface);
+  box-shadow: var(--raise), inset 0 -8px 0 var(--well-gold);
+}
+.math-shop__thing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: clamp(3.2rem, 14vw, 4rem);
+}
+.math-shop__thing .math-coins {
+  animation: math-pop 0.4s ease-out both;
+}
+
+/* ---------- Paying ---------- */
+.math-pay {
+  gap: 12px;
+}
+.math-pay__thing {
+  font-size: clamp(3.2rem, 14vw, 4rem);
+}
+/* The till: coins dropped in sit here (tap one to take it back). */
+.math-pay__till {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 4px;
+  width: min(100%, 320px);
+  min-height: 64px;
+  padding: 8px;
+  border-radius: 14px;
+  background: var(--well-gold);
+  box-shadow: inset 0 3px 0 rgb(0 0 0 / 0.1);
+  font-size: 1.8rem;
+}
+.math-pay__till--wrong {
+  animation: wiggle 0.35s ease-in-out;
+  box-shadow: inset 0 0 0 3px var(--warn);
+}
+.math-pay__till--done {
+  box-shadow: inset 0 0 0 3px var(--good);
+}
+.math-pay__tray {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 320px;
+}
+.math-pay__coin {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+.math-pay__till .math-pay__coin {
+  animation: math-clink 0.25s ease-out both;
+}
+.math-pay__coin:active {
+  transform: scale(0.9);
+}
+.math-pay__done {
+  min-width: 160px;
+}
+
+/* ---------- The clock ---------- */
+.math-clock__faces {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 3vw, 16px);
+}
+.math-clock__face {
+  font-size: clamp(5rem, 24vw, 7rem);
+}
+.math-clock__face--to,
+.math-clock__arrow {
+  animation: math-pop 0.4s ease-out both;
+}
+.math-clock__arrow {
+  font-size: 2.4rem;
+  color: var(--ink-soft);
+}
+.math-clock__faces:has(.math-clock__face--to) .math-clock__face {
+  font-size: clamp(4rem, 19vw, 5.6rem);
+}
+
 /* ---------- The math map (/math) ---------- */
 .math-home__intro {
   max-width: 560px;
@@ -705,6 +855,7 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 .math-crowns {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin: 0;
   font-size: 2.2rem;
@@ -828,8 +979,9 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 .math-card__road {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
+  gap: 4px 2px;
   font-size: 1.35rem;
 }
 .math-card__stop {
@@ -838,9 +990,9 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 .math-card__stop + .math-card__stop::before {
   content: '';
-  width: 14px;
+  width: 8px;
   height: 4px;
-  margin-right: 4px;
+  margin-right: 2px;
   align-self: center;
   border-radius: 2px;
   background: var(--line);
@@ -930,6 +1082,20 @@ button.math-pan:not(:disabled):active .math-pan__word {
   }
   100% {
     transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes math-clink {
+  0% {
+    transform: translateY(-16px) scale(0.8);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(2px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
   }
 }
 

@@ -255,10 +255,14 @@ export type ArtId =
   | 'math-apple-tree'
   | 'math-basket'
   | 'math-card'
+  | 'math-crown-amber'
+  | 'math-crown-blue'
   | 'math-crown-green'
   | 'math-crown-orange'
+  | 'math-crown-pink'
   | 'math-crown-purple'
   | 'math-crown-red'
+  | 'math-crown-teal'
   | 'math-engine'
   | 'math-rocket'
   | 'math-scale-pan'
@@ -730,10 +734,14 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   'math-apple-tree': { group: 'words', title: 'an apple tree (the apple-tree game)' },
   'math-basket': { group: 'words', title: 'an empty basket (the apples drop in)' },
   'math-card': { group: 'ui', title: 'the fox at its market stall, counting apples (the math card)' },
+  'math-crown-amber': { group: 'ui', title: 'an amber crown (the math stage Paljonko se maksaa?)' },
+  'math-crown-blue': { group: 'ui', title: 'a blue crown (the math stage Mitä kello on?)' },
   'math-crown-green': { group: 'ui', title: 'a green crown (the math stage Montako nyt?)' },
   'math-crown-orange': { group: 'ui', title: 'an orange crown (the math stage Enemmän vai vähemmän?)' },
+  'math-crown-pink': { group: 'ui', title: 'a pink crown (the math stage Kertaa ja puolet)' },
   'math-crown-purple': { group: 'ui', title: 'a purple crown (the math stage Yksitoista, kaksitoista…)' },
   'math-crown-red': { group: 'ui', title: 'a red crown (the math stage Plus ja miinus)' },
+  'math-crown-teal': { group: 'ui', title: 'a teal crown (the math stage Kymmenen, kaksikymmentä…)' },
   'math-engine': { group: 'words', title: 'the train’s engine (smoke puffing, wheels turning)' },
   'math-rocket': { group: 'words', title: 'a rocket on its launch pad (the countdown)' },
   'math-scale-pan': { group: 'words', title: 'a pan of the scale' },

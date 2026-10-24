@@ -1,7 +1,7 @@
 // Math town: the banner over the math map (/math), one picture in each look.
 // A road runs through a little town past the math stages' places — the apple
-// tree, the scale on its table, the fox's market stall, the rocket on its pad —
-// each with a flag in its stage's color, while a train puffs along the line
+// tree, the scale on its table, the fox's market stall, the town clock, the
+// rocket on its pad — with a flag in each stage's color, while a train puffs along the line
 // behind. Day is a summer morning, night has the windows lit under the stars,
 // pink is candy-colored. No sign, price or clock shows a digit.
 //
@@ -11,18 +11,23 @@
 
 import { roundPoly, starPoints } from '../kit.mjs';
 import * as math from '../math.mjs';
+import { oclock } from '../props.mjs';
 import { cloud, crescentMoon } from './parts.mjs';
 import { redHouse, sun } from './outdoors.mjs';
 
 const W = 600;
 const H = 200;
 
-/** The stages' flags along the road: where, and in which color. */
+/** The stages' flags along the road, in their crowns' colors and order. */
 const FLAGS = [
-  [104, 'red'],
-  [232, 'orange'],
-  [366, 'green'],
-  [496, 'purple'],
+  [24, 'red'],
+  [104, 'orange'],
+  [172, 'green'],
+  [252, 'purple'],
+  [312, 'teal'],
+  [372, 'pink'],
+  [436, 'amber'],
+  [566, 'blue'],
 ];
 
 export default {
@@ -44,6 +49,7 @@ export default {
     out.push(scaleTable(k, 216, 168));
     out.push(k.g('translate(318 104) scale(1)', math.card(k)));
     out.push(k.g('translate(512 94) scale(1.15)', math.rocketOnPad(k)));
+    out.push(townClock(k, 470, 176));
     for (const [x, color] of FLAGS) out.push(flag(k, x, 186, color));
     if (night) out.push(nightLight(k));
     return out.join('');
@@ -132,6 +138,12 @@ function scaleTable(k, x, gy) {
     k.circle(x - 26, gy - 50, 3.4, c.red),
     k.circle(x + 32, gy - 57, 3.4, c.red),
   ].join('');
+}
+
+/** The town clock on its post: hands only, no numerals (half past four). */
+function townClock(k, x, gy) {
+  const c = k.P;
+  return k.rect(x - 2, gy - 40, 4, 40, 0.8, c.charcoal) + k.g(`translate(${x - 14} ${gy - 66}) scale(0.44)`, oclock(k, 4, 30));
 }
 
 /** A stage's flag on its post, by the road. */

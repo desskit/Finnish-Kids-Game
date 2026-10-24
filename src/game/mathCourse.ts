@@ -1,9 +1,9 @@
 // The math section's rules — pure functions over its stages (mathPath.tsx) and
 // a child's record, like course.ts for the course:
 //   - The first stage opens once the course's Numbers unit is done; every
-//     other stage once the stage before has its crown, and the course has
-//     taught what it needs (`afterUnit`). A stage the child has started (its
-//     lesson read) stays open.
+//     other stage once the stage before (or the one it names, `afterStage`)
+//     has its crown, and the course has taught what it needs (`afterUnit`).
+//     A stage the child has started (its lesson read) stays open.
 //   - In an open stage the lesson comes first; then the games.
 //   - A game is done when its top level is proven, as in the course.
 //   - The test opens when every game is done; passing it wins the crown.
@@ -21,7 +21,7 @@ export const crownWon = (child: Child | null | undefined, stage: MathStage): boo
 /** What a locked stage is waiting for. */
 export function waitingFor(child: Child | null | undefined, stage: MathStage): { unit?: string; stage?: MathStage } {
   const i = MATH_STAGES.indexOf(stage);
-  const prev = i > 0 ? MATH_STAGES[i - 1] : undefined;
+  const prev = stage.afterStage ? MATH_STAGES.find((s) => s.id === stage.afterStage) : i > 0 ? MATH_STAGES[i - 1] : undefined;
   const unit = stage.afterUnit ? findUnit(stage.afterUnit) : undefined;
   return {
     unit: unit && !unitComplete(child, unit) ? unit.id : undefined,
@@ -59,7 +59,8 @@ export type MathAction =
 export function nextMathAction(child: Child | null | undefined, unlockAll = false): MathAction | undefined {
   for (const stage of MATH_STAGES) {
     if (crownWon(child, stage)) continue;
-    if (stageStatus(child, stage, unlockAll) === 'locked') return undefined;
+    // stages branch (the shop, the clock), so a shut one may have open ones after it
+    if (stageStatus(child, stage, unlockAll) === 'locked') continue;
     if (!lessonSeen(child, stage.lessonId)) return { kind: 'lesson', stage };
     const step = stage.skills.find((s) => !stepDone(child, stage, s));
     if (step) return { kind: 'step', stage, step };
