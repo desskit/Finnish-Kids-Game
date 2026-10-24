@@ -4683,7 +4683,8 @@ a.badge-strip {
 }
 
 .rcard--ok,
-.rcard--ledger {
+.rcard--ledger,
+.rcard--wiktionary {
   border-left-color: var(--good);
 }
 
@@ -4716,7 +4717,8 @@ a.badge-strip {
 }
 
 .rcard__status--ok,
-.rcard__status--ledger {
+.rcard__status--ledger,
+.rcard__status--wiktionary {
   color: var(--good);
 }
 
@@ -4752,6 +4754,14 @@ a.badge-strip {
   background: var(--warn-soft);
   font-weight: 700;
   font-size: 0.9rem;
+}
+
+/* What the dictionary says: the evidence for a checked entry, or why it couldn't settle one. */
+.rcard__src {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .rcard__actions {

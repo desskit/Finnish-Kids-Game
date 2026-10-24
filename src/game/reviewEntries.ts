@@ -241,7 +241,8 @@ function collect(): ReviewSection[] {
   const questionRows: Row[] = verbs.items.map((v) => ({
     key: `question:${v.id}`,
     fi: `${YOU_QUESTION[v.id]}?`,
-    en: `Do you ${v.en}?`,
+    // "be" asks "Are you?", never "Do you be?"
+    en: v.en === 'be' ? 'Are you?' : `Do you ${v.en}?`,
   }));
 
   const pronounRows: Row[] = [

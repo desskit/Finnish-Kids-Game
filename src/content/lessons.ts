@@ -680,7 +680,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Double letters are long',
         text:
-          'When a letter is written **twice**, you hold that sound longer — a vowel *or* a consonant. That can change the whole word! Listen to all three:',
+          'When a letter is written **twice**, you hold that sound longer — a vowel **or** a consonant. That can change the whole word! Listen to all three:',
         rows: [
           { word: 'fire', en: 'fire — short u, one l' },
           { word: 'wind', en: 'wind — long uu' },
@@ -867,7 +867,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'There\'s no verb "to have"',
         text:
-          'In English you say *I have a bike*. Finnish has **no verb for "have"**!\n\nInstead it says something like **"on me is a bike"**: *Minulla on pyörä*.',
+          'In English you say "I have a bike". Finnish has **no verb for "have"**!\n\nInstead it says something like **"on me is a bike"**: *Minulla on pyörä*.',
       },
       {
         kind: 'examples',
@@ -968,7 +968,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Why?',
         text:
-          'Finnish uses **-a / -ä** when something is *not all there* — "none of it", "some of it", "more than one". You\'ll keep meeting this ending, so it\'s worth remembering!',
+          'Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it", "more than one". You\'ll keep meeting this ending, so it\'s worth remembering!',
       },
       {
         kind: 'examples',
@@ -1617,7 +1617,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'No word for "in"',
         text:
-          'English puts a little word **in front**: *in the box*. Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".',
+          'English puts a little word **in front**: "in the box". Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".',
         rows: [
           { word: 'box', case: 'inessive', en: 'in the box' },
           { word: 'house', case: 'inessive', en: 'in the house' },
@@ -1822,7 +1822,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Back to front',
         text:
-          'English: *under the chair*. Finnish: *tuolin alla* — "the chair\'s under".\n\nThe position word comes **after**, and the thing gets **-n**.',
+          'English: "under the chair". Finnish: *tuolin alla* — "the chair\'s under".\n\nThe position word comes **after**, and the thing gets **-n**.',
       },
       {
         kind: 'explain',
@@ -1939,7 +1939,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'The -t means "more than one"',
-        text: 'For a group of things — *the books*, *the balls* — add **-t**.',
+        text: 'For a group of things — "the books", "the balls" — add **-t**.',
         rows: [
           { word: 'book', number: 'plural' },
           { word: 'ball', number: 'plural' },
@@ -2580,7 +2580,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'The cat\'s endings — for you',
         text:
-          'Remember the cat going *into* and *out of* the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).',
+          'Remember the cat going **into** and **out of** the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).',
       },
       {
         kind: 'examples',
