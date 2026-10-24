@@ -4338,8 +4338,9 @@ export const lessons: Lesson[] = [
       {
         kind: 'examples',
         title: 'What comes before?',
-        text: '*ennen* means before, and the number after it ends in **-ä** or **-tä**: *ennen viittä*.',
+        text: '*ennen* means before, and the number after it ends in **-a** or **-ta** (**-ä** or **-tä**): *ennen kolmea*, *ennen viittä*.',
         rows: [
+          { next: 'before', a: 3 },
           { next: 'before', a: 5 },
           { next: 'before', a: 10 },
         ],

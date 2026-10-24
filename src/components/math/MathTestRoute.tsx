@@ -4,14 +4,15 @@ import { difficultyFor } from '../../game/adapt';
 import { ActivityContext } from '../../game/activityContext';
 import { badgeEnv } from '../../game/path';
 import { earnedBadgeIds, earnedBadges } from '../../game/badges';
-import { MATH_STAGES, findMathStage, mathPassRatio, mathTestPlan } from '../../game/mathPath';
-import { mathTestStatus } from '../../game/mathCourse';
+import { findMathStage, mathPassRatio, mathTestPlan } from '../../game/mathPath';
+import { mathTestStatus, stageAhead } from '../../game/mathCourse';
 import { useProfile } from '../../state/profile';
 import { playDing } from '../../audio/sfx';
 import { segmentMs } from '../../game/stats';
 import { nearPass } from '../../game/score';
 import Art from '../../art/Art';
 import { renderMathActivity } from './renderMath';
+import { waitingNote } from './MathHome';
 import '../../styles/math.css';
 
 interface PartResult {
@@ -43,7 +44,6 @@ export default function MathTestRoute() {
   }
   const plan = mathTestPlan(stage);
   const passRatio = mathPassRatio(stage);
-  const nextStage = MATH_STAGES[MATH_STAGES.indexOf(stage) + 1];
   const toMap = () => navigate('/math');
 
   const start = () => {
@@ -93,6 +93,8 @@ export default function MathTestRoute() {
       if (a < w) weakest = i;
     });
     const weakStep = plan[weakest]?.step;
+    // the stage ahead now this crown is won (the shop and the clock branch, so not always the next one along)
+    const ahead = stageAhead(activeChild, !!settings.unlockAll);
     const before = badgesBefore.current;
     const newBadges = before ? earnedBadges(activeChild, badgeEnv).filter((b) => !before.has(b.id)) : [];
     return (
@@ -112,9 +114,9 @@ export default function MathTestRoute() {
           </p>
           <p className="checkpoint__text en">
             {passed
-              ? nextStage
-                ? `“${nextStage.titleEn}” can open next.`
-                : 'Every math stage done!'
+              ? ahead?.open
+                ? `Next: “${ahead.stage.titleEn}”.`
+                : waitingNote(activeChild, !!settings.unlockAll)
               : `Practice “${weakStep?.titleEn ?? stage.titleEn}” a little more, then try again.`}
           </p>
           {newBadges.length > 0 && (

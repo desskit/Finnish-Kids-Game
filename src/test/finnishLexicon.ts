@@ -41,7 +41,7 @@ export const FUNCTION_WORDS = [
   'kiitos', 'hei', 'moi', 'joo', 'kyllä', 'ei', 'okei', 'ole', 'hyvä', 'anteeksi', 'näkemiin', 'huomenta', 'hyvää',
   'oi', 'voi', 'jee', 'hurraa', 'vau', 'jippii', 'no', 'niin', 'tietysti', 'totta',
   'ai', 'entä', 'samoin', 'tervetuloa', 'uudestaan', 'vai', 'epäselvästi', 'aluksi', 'lopuksi', 'yhtä',
-  'ahaa', 'haloo',
+  'ahaa', 'haloo', 'ennen',
   // math: the loanword the number tables don't carry (miinus is a sourced noun)
   'plus',
   // pronoun and question-word forms the tables don't have

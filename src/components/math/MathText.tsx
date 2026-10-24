@@ -1,12 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { lookupWord } from '../../content/wordIndex';
-import { valueOfWord } from '../../game/math';
+import { mathGloss, valueOfWord } from '../../game/math';
 import { speak } from '../../audio/speak';
 import Quantity from './Quantity';
 
 // Finnish on a math screen, every word tappable: tap one to hear it and see
 // what it means. A NUMBER word shows how many, as dots — never its English, so
-// a tap can't turn the math back into English ("kolme" is three dots).
+// a tap can't turn the math back into English ("kolme" is three dots). Other
+// words show their English without any example that carries a digit
+// (`mathGloss`: "puoli" is "half", not "… 7:30").
 
 export default function MathText({ text, className }: { text: string; className?: string }) {
   const [tip, setTip] = useState<string | null>(null);
@@ -48,7 +50,7 @@ export default function MathText({ text, className }: { text: string; className?
             <>
               {meaning.base.toLowerCase() !== tip.toLowerCase() && <> → {meaning.base}</>}
               {' · '}
-              <span className="en">{meaning.en}</span>
+              <span className="en">{mathGloss(meaning.en)}</span>
             </>
           ) : null}
         </span>

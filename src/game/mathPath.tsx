@@ -89,7 +89,7 @@ export const MATH_STAGES: MathStage[] = [
     skills: [
       game('scale', 'Vaaka', 'The scale', '⚖️', 'math-scale', 'compare-12'),
       game('train-12', 'Juna', 'The train', '🚂', 'math-train', 'run-12'),
-      game('neighbors-12', 'Mikä luku tulee?', 'What comes after?', '👂', 'math-listen', 'neighbors-12', 4),
+      game('neighbors-12', 'Ennen ja jälkeen', 'Before and after', '👂', 'math-listen', 'neighbors-12', 4),
       story('more-less-story', 'math-cars'),
     ],
   },
@@ -107,7 +107,7 @@ export const MATH_STAGES: MathStage[] = [
     checkpoint: CHECK,
     skills: [
       game('word', 'Montako nyt?', 'How many now?', '🧺', 'math-word', 'word'),
-      game('word-listen', 'Kuuntele tarina', 'Listen to the problem', '👂', 'math-listen', 'word', 4),
+      game('word-listen', 'Kuuntele tarina', 'Listen to the story', '👂', 'math-listen', 'word', 4),
       game('quick-10', 'Nopeasti!', 'Quick!', '⚡', 'math-quick', 'sums-10', 2),
       story('how-many-story', 'math-berries'),
     ],
@@ -199,7 +199,7 @@ export const MATH_STAGES: MathStage[] = [
     newWords: [],
     checkpoint: CHECK,
     skills: [
-      game('clock-hour', 'Tunnin päästä', 'In an hour', '⏰', 'math-clock', 'clock-hour'),
+      game('clock-hour', 'Tunnin päästä, tunti sitten', 'In an hour, an hour ago', '⏰', 'math-clock', 'clock-hour'),
       game('clock-half', 'Puolen tunnin päästä', 'In half an hour', '🕧', 'math-clock', 'clock-half'),
       story('clock-story', 'math-train-time'),
     ],

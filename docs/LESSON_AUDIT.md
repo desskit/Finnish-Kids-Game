@@ -3255,8 +3255,9 @@ On the scale, the side with more goes down. Only the Finnish tells you which sid
 
 ### 4. What comes before? _(examples)_
 
-*ennen* means before, and the number after it ends in **-ä** or **-tä**: *ennen viittä*.
+*ennen* means before, and the number after it ends in **-a** or **-ta** (**-ä** or **-tä**): *ennen kolmea*, *ennen viittä*.
 
+- **Kaksi tulee ennen kolmea.** — Kaksi comes before kolme.
 - **Neljä tulee ennen viittä.** — Neljä comes before viisi.
 - **Yhdeksän tulee ennen kymmentä.** — Yhdeksän comes before kymmenen.
 

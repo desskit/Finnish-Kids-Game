@@ -8,6 +8,7 @@ import {
   mathTestStatus,
   newStages,
   nextMathAction,
+  stageAhead,
   stageStatus,
   taughtWords,
   todayDone,
@@ -216,5 +217,30 @@ describe('math stays apart from the course', () => {
     const c = { ...start, stats };
     expect(statsOf(c).subjects['math-sums-10']).toBeTruthy();
     expect(pickWarmupSubject(c, Date.UTC(2026, 0, 9, 12))?.step.id).not.toBe('math-sums-10');
+  });
+});
+
+describe('the stage ahead', () => {
+  it('is the first open stage without its crown', () => {
+    const c = through('doing', { math: crowns(plusMinus.id, moreLess.id) });
+    expect(stageAhead(c)).toEqual({ stage: howMany, open: true });
+  });
+
+  it('waits on the course once every open stage is won (the shop and the clock branch off)', () => {
+    // stages one to six won, but the course isn't at the shop yet
+    const c = through('doing', { math: crowns(plusMinus.id, moreLess.id, howMany.id, teens.id, tens.id, times.id) });
+    expect(nextMathAction(c)).toBeUndefined();
+    expect(stageAhead(c)).toEqual({ stage: shop, open: false, unit: 'shop' });
+  });
+
+  it('can be the shop or the clock after the last stage along is won', () => {
+    // the clock won before the shop: the shop is still ahead, not "every stage done"
+    const c = through('my-day', { math: crowns(plusMinus.id, moreLess.id, howMany.id, teens.id, tens.id, times.id, clock.id) });
+    expect(stageAhead(c)?.stage).toBe(shop);
+    expect(stageAhead(c)?.open).toBe(true);
+  });
+
+  it('is nothing once every crown is won', () => {
+    expect(stageAhead(child({ math: crowns(...MATH_STAGES.map((s) => s.id)) }))).toBeUndefined();
   });
 });

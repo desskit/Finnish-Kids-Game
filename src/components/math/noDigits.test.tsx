@@ -21,6 +21,7 @@ import MathQuiz, { type MathAnswerMode } from './MathQuiz';
 import { MathScene, type MathGame } from './MathScenes';
 import MathHome from './MathHome';
 import MathCard from './MathCard';
+import MathText from './MathText';
 import AppShell from '../AppShell';
 
 // The math section's promise: no shortcut through English. Not one digit on
@@ -244,8 +245,11 @@ describe('no digits around the games', () => {
       expectNoNumbers(r.container, `${story.id}: cover`);
       fireEvent.click(r.getByText(/^Lue$/));
       for (let p = 0; p < story.pages.length; p++) {
-        // tap every number word: its tip is dots
-        for (const word of r.container.querySelectorAll<HTMLButtonElement>('.story-word')) fireEvent.click(word);
+        // tap every word, one by one: a number's tip is dots, any other word's has no digit
+        for (const word of r.container.querySelectorAll<HTMLButtonElement>('.story-word')) {
+          fireEvent.click(word);
+          expectNoNumbers(r.container, `${story.id}: page ${p}, "${word.textContent}" tapped`);
+        }
         expectNoNumbers(r.container, `${story.id}: page ${p}`);
         fireEvent.click(r.container.querySelector('.story-nav--next')!);
       }
@@ -282,4 +286,28 @@ describe('no digits around the games', () => {
       }
     });
   }
+});
+
+describe('no digits in a tapped word', () => {
+  it('every word of every problem, tapped one by one (puoli is "half", never "… 7:30")', () => {
+    const sets: MathSet[] = [
+      'sums-10', 'compare-12', 'neighbors-12', 'run-12', 'word', 'teens', 'sums-20', 'run-20',
+      'tens-parts', 'tens-sums', 'run-tens', 'times', 'halves', 'shop-totals', 'shop-pay', 'clock-hour', 'clock-half',
+    ];
+    for (const set of sets) {
+      const q = problemFor(set, { optionCount: 4, knownVerbs: new Set(['eat', 'get', 'give']) });
+      for (const said of [...q.ask, q.tell]) {
+        const r = render(
+          <Harness>
+            <MathText text={said.fi} />
+          </Harness>,
+        );
+        for (const word of r.container.querySelectorAll<HTMLButtonElement>('.story-word')) {
+          fireEvent.click(word);
+          expectNoNumbers(r.container, `${q.key}: "${word.textContent}" tapped`);
+        }
+        r.unmount();
+      }
+    }
+  });
 });

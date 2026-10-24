@@ -70,6 +70,22 @@ export function nextMathAction(child: Child | null | undefined, unlockAll = fals
   return undefined;
 }
 
+/**
+ * The stage ahead: the first crownless stage that's open — or, when every open
+ * one is won, the first still shut, with the course unit it waits for (the
+ * shop and the clock wait on the course, so math can run out for a while).
+ * Nothing when every crown is won.
+ */
+export function stageAhead(
+  child: Child | null | undefined,
+  unlockAll = false,
+): { stage: MathStage; open: boolean; unit?: string } | undefined {
+  const left = MATH_STAGES.filter((s) => !crownWon(child, s));
+  const open = left.find((s) => stageStatus(child, s, unlockAll) === 'open');
+  if (open) return { stage: open, open: true };
+  return left[0] && { stage: left[0], open: false, unit: waitingFor(child, left[0]).unit };
+}
+
 export function mathActionHref(a: MathAction): string {
   switch (a.kind) {
     case 'lesson':

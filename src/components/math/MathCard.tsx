@@ -6,6 +6,7 @@ import { MATH_STAGES } from '../../game/mathPath';
 import { newStages, nextMathAction, stageStatus, waitingFor } from '../../game/mathCourse';
 import Art from '../../art/Art';
 import { TodayButton } from './MathToday';
+import { waitingNote } from './MathHome';
 import '../../styles/math.css';
 
 // The math section's door on the course home, right under "Continue": the fox
@@ -57,7 +58,7 @@ export default function MathCard() {
               ? `Opens after “${findUnit(waitUnit ?? '')?.titleEn ?? 'Numbers'}” — count, add and take away, all in Finnish`
               : next
                 ? `${next.stage.titleFi} · ${next.kind === 'lesson' ? 'Lesson' : next.kind === 'test' ? 'Win the crown' : next.step.titleEn}`
-                : 'Every crown won!'}
+                : waitingNote(activeChild, unlockAll)}
           </span>
           <span className="math-card__road" aria-hidden="true">
             {MATH_STAGES.map((s) => {

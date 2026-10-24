@@ -45,8 +45,10 @@ where a Finnish speaker marks each entry ✓ correct or ✎ needs a fix.
   letter names, the "Do you…?" questions (the verb's 2nd person present plus
   *-ko* / *-kö*), and short titles, labels, lesson quotes and sentence patterns
   whose every word is a Wiktionary form in the grammar used, built the plain
-  textbook way. Each entry keeps its Finnish as checked and a line of evidence;
-  change the Finnish and it goes back to "to check" (a test fails until the
+  textbook way. Each entry keeps its Finnish as checked and a line of evidence,
+  which names the reading the app uses — *uusi* is "new", not the past of
+  *uusia*; *en ole* is the connegative, not the imperative *ole*. Change the
+  Finnish and it goes back to "to check" (a test fails until the
   ledger is updated or the key dropped). Stories, scenes, the forms marked
   wrong, the wrong replies, math frames and made-up compounds stay with the
   native reviewer; `notes` says why a dictionary couldn't settle an entry. A
@@ -611,14 +613,28 @@ done in English in your head.
   never fills an object slot (it would be *yhden*).
 - **No digits, anywhere.** Numbers are Finnish words and speech; an amount is
   dots in ten-frames (`Quantity`); a tapped number word shows its dots, never
-  its English; a level is dots, a score is stars. English lines keep numbers in
-  Finnish ("Grandma has *viisi* buns"). `src/components/math/noDigits.test.tsx`
-  renders every math screen and fails on a digit, a number picture or an
-  English number word.
+  its English, and any other tapped word drops a bracketed example that holds
+  a number (`mathGloss`: *puoli* is "half", not "… 7:30"); a level is dots, a
+  score is stars. English lines keep numbers in Finnish ("Grandma has *viisi*
+  buns"). `src/components/math/noDigits.test.tsx` renders every math screen,
+  taps every word, and fails on a digit, a number picture or an English number
+  word. A glossary gloss for a math word avoids number words too ("which of
+  them has", not "which one has").
+- **Choices:** the answer and its near misses, as many as the level asks for —
+  at the ends too (*kymmenen* and *sata* get tens from one side only). The
+  clock's slips are the ones that teach: the time it is now, an hour the other
+  way, and (half past) *puoli* with the hour it is now.
 - **Levels:** three choices, then four; from level 3 a problem is only heard
   (its words on *Lue*); at the top the choices are only heard too. Saying the
   answer (`matchNumberSpeech`: "viis" is *viisi*, but *kolmetoista* is never
-  *kolme*) and typing it are bonus rounds.
+  *kolme*, and *puoli neljä* is never *neljä*; `matchAnswerSpeech` hears a half
+  hour as *puoli* and its hour, so "puoli yksitoista" is never *puoli yksi*; a
+  time the recognizer writes in digits, "3.30", reads as *puoli neljä*) and
+  typing it are bonus rounds.
+- **When math runs out:** the shop and the clock wait on course units, so a
+  child can win every open crown and still have stages ahead. The map, the
+  home card and a crown's result then name the stage ahead and the unit it
+  waits for (`stageAhead`), never "every crown won".
 - **A math lesson** uses the math examples (`{ sum }`, `{ which }`, `{ next }`,
   `{ teen }`, `{ n }`, `{ problem }`, `{ tens }`, `{ times }`, `{ half }`,
   `{ price }`, `{ total }`, `{ clock }`, `{ clockMove }` in `lessons.ts`): a

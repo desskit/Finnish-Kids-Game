@@ -66,6 +66,21 @@ export function numberEn(v: number): string {
   return n.en;
 }
 
+/** An English number word (math never shows one: the numbers are Finnish). */
+const EN_NUMBER =
+  /\b(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\b/i;
+
+/**
+ * A word's English as a math screen may show it: an example in brackets that
+ * carries a number — a digit or an English number word — is left out
+ * ("half (… 7:30)" → "half", "time (kaksi kertaa = two times)" → "time"), so a
+ * tapped word never turns the math back into English.
+ */
+export const mathGloss = (en: string): string =>
+  en
+    .replace(/\s*\(([^)]*)\)/g, (bracket, inside: string) => (/\d/.test(inside) || EN_NUMBER.test(inside) ? '' : bracket))
+    .trim();
+
 /** The value a Finnish number word stands for (any case form of it), if any. */
 export function valueOfWord(word: string): number | undefined {
   const w = word.toLowerCase();
@@ -248,10 +263,12 @@ function run(lo: number, hi: number, count: number, rng: Rng, down = rng() < 0.4
   };
 }
 
-/** Choices near a round ten: the tens either side (all sayable, up to sata). */
+/** Choices near a round ten: the tens either side (all sayable, kymmenen to sata) — as many as asked, even at the ends. */
 function tensOptions(answer: number, count: number, rng: Rng): number[] {
-  const near = [answer - 10, answer + 10, answer - 20, answer + 20].filter((v) => v >= 10 && v <= 100 && isSayable(v));
-  return shuffle([answer, ...shuffle(near, rng).slice(0, Math.max(0, count - 1))], rng);
+  const near = [answer - 10, answer + 10, answer - 20, answer + 20, answer - 30, answer + 30].filter(
+    (v) => v >= 10 && v <= 100 && isSayable(v),
+  );
+  return shuffle([answer, ...shuffle(near.slice(0, 4), rng).slice(0, Math.max(0, count - 1))], rng);
 }
 
 /** The rocket's countdown: kymmenen … nolla, one missing. */
@@ -301,7 +318,7 @@ function tensParts(count: number, rng: Rng): MathProblem {
   };
 }
 
-/** Plus and minus with round tens, the answer a round ten up to sata (or nolla). */
+/** Plus and minus with round tens, the answer a round ten from kymmenen up to sata. */
 function tensSums(count: number, rng: Rng): MathProblem {
   if (rng() < 0.5) {
     const c = 10 * int(2, 10, rng);
@@ -407,15 +424,17 @@ const timeEn = (v: number) => (v > HALF ? `${numberEn(hourOf(v - HALF - 1))} thi
 function clockHour(count: number, rng: Rng): MathProblem {
   const from = int(1, 12, rng);
   const later = rng() < 0.6;
-  const to = hourOf(later ? from + 1 : from - 1);
+  const step = later ? 1 : -1;
+  const to = hourOf(from + step);
   const { ask, tell } = clockMoveFrame(later ? 'later' : 'earlier', hourForms(), numberWord(to), timeEn(to));
-  const near = [hourOf(to - 1), hourOf(to + 1), hourOf(to + 2), hourOf(to - 2)].filter((v) => v !== to);
+  // the slips: the time now, an hour the other way, two hours on
+  const near = [from, hourOf(from - step), hourOf(from + 2 * step)];
   return {
     key: `clock:${later ? 'later' : 'earlier'}:${from}`,
     ask: [clockSaid(numberWord(from), timeEn(from)), ask],
     tell,
     answer: to,
-    options: shuffle([to, ...[...new Set(near)].slice(0, count - 1)], rng),
+    options: shuffle([to, ...near.slice(0, count - 1)], rng),
     show: { kind: 'clock', from: [from, 0], to: [to, 0] },
   };
 }
