@@ -40,6 +40,14 @@ Finnish** — the app never generates or inflects Finnish by rule.
   the **word pool** that flows through the phrase skills, mixed across topics. See
   [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) to add words, skills, or
   multi-slot sentences.
+- **Lasketaan! — math in Finnish (optional).** A path beside the course, opened
+  from a card under Continue: stages of short games (an apple tree, a scale, a
+  train and a rocket, word problems, building the *-toista* numbers, quick
+  sums), each with a lesson, a story and a test that wins the stage's crown.
+  No digit appears anywhere in it — numbers are only Finnish words and speech,
+  amounts are drawn as dots — so it can't be done in English in your head.
+  Math never moves the course's progress or badges; its stars and the daily
+  streak count. See [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md#lasketaan-math-in-finnish-optional).
 - **Nine carrier phrases** built on **case-tagged, sourced inflections**:
   - Nominative — _Tämä on ___ / Missä on ___? / Minulla on ___._
   - Verb rection — _Pidän ___sta_ (elative) / _Näen ___n_ (accusative).

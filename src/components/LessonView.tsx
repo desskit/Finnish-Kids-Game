@@ -7,6 +7,7 @@ import { speak } from '../audio/speak';
 import Prose from './Prose';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
+import Quantity from './math/Quantity';
 
 interface Props {
   lesson: Lesson;
@@ -165,6 +166,14 @@ function ExampleRow({ r }: { r: ResolvedRef }) {
       {r.emoji && (
         <span className="lesson-row__emoji" aria-hidden="true">
           <Art glyph={r.emoji} />
+        </span>
+      )}
+      {r.dots && (
+        // a math example: how many, as dots (never a digit)
+        <span className="lesson-row__dots" aria-hidden="true">
+          {r.dots.map((groups, i) => (
+            <Quantity key={i} groups={groups} takeAway={r.takeAway} small />
+          ))}
         </span>
       )}
       <span className="lesson-row__text">

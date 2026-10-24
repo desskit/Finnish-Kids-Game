@@ -9,6 +9,8 @@ import {
   numberWord,
   optionsFor,
   problemFor,
+  spokenProblem,
+  teenTail,
   valueOfWord,
   valuesIn,
   type MathSet,
@@ -157,6 +159,33 @@ describe('word problems', () => {
       const plus = p.frame === 'have-have' || p.frame === 'have-get';
       expect(p.show.kind).toBe(plus ? 'plus' : 'minus');
       expect(p.answer).toBe(plus ? p.show.a + p.show.b : p.show.a - p.show.b);
+    }
+  });
+});
+
+describe('how a problem is said and built', () => {
+  it('says a counting run with its gap, then the question', () => {
+    const p = problemFor('run-12', { optionCount: 3 });
+    const s = p.show as { values: number[]; missing: number; gap?: boolean };
+    expect(s.gap).toBe(true);
+    const said = spokenProblem(p);
+    expect(said).toContain('…');
+    expect(said).not.toContain(numberWord(s.missing) + ',');
+    expect(said.endsWith('Mikä luku puuttuu?')).toBe(true);
+    // any other problem is said as it's written
+    const sum = problemFor('sums-10', { optionCount: 3 });
+    expect(spokenProblem(sum)).toBe(sum.ask.map((x) => x.fi).join(' '));
+  });
+
+  it('marks the countdown, which the rocket shows', () => {
+    const c = countdown(3);
+    expect(c.show).toMatchObject({ kind: 'run', gap: true, countdown: true });
+  });
+
+  it('builds every teen from its sourced word: the small number, then -toista', () => {
+    for (let base = 1; base <= 9; base++) {
+      expect(numberWord(10 + base).startsWith(numberWord(base))).toBe(true);
+      expect(teenTail(10 + base, base)).toBe('toista');
     }
   });
 });

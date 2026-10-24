@@ -163,7 +163,7 @@ export const MATH_STORIES: Story[] = [
     ],
   },
 
-  // Eleven, twelve…: stones on the beach, then a countdown and a jump.
+  // The -toista numbers: stones on the beach, then a countdown and a jump.
   {
     id: 'math-stones',
     titleFi: 'Hyppy mereen!',

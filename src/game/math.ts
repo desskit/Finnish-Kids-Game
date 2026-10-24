@@ -260,6 +260,11 @@ function wordFromFrame(frame: WordFrame, count: number, rng: Rng): MathProblem {
     a = int(frame.bMin + 1, 10, rng);
     b = int(frame.bMin, a - 1, rng);
   }
+  return wordProblemFor(frame, noun, a, b, optionsFor(frame.op === 'plus' ? a + b : a - b, count, 0, 10, rng));
+}
+
+/** A word problem from its frame, thing and numbers (with these choices). */
+export function wordProblemFor(frame: WordFrame, noun: LexicalItem, a: number, b: number, options: number[] = []): MathProblem {
   const c = frame.op === 'plus' ? a + b : a - b;
   const { ask, tell } = wordProblem(frame, {
     a: numberWord(a),
@@ -284,7 +289,7 @@ function wordFromFrame(frame: WordFrame, count: number, rng: Rng): MathProblem {
     ask,
     tell,
     answer: c,
-    options: optionsFor(c, count, 0, 10, rng),
+    options,
     show: { kind: frame.op, a, b },
     noun,
     frame: frame.id,

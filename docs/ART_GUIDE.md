@@ -238,6 +238,29 @@ drawn once for each look (`src/theme`):
   swings, the lake glints, stars twinkle, the northern lights shimmer (they
   taper out at both ends), and the balloons bob.
 
+### Math town
+
+`art/scenes/mathTown.mjs` is the banner over the math map (`/math`): a road
+through a little town past the math stages' places — the apple tree, the
+scale on its table, the fox's market stall, the rocket on its pad — each with a
+flag in its stage's color, and a train on the line behind. It's a UI scene
+like the hero (600 × 200, in day, night and pink), and moves the same gentle
+way.
+
+## The math section's pictures
+
+`art/math.mjs` (recipes in `art/recipes/math.mjs`, theme *math*):
+
+- **UI pictures:** a crown in each stage's color (`math-crown-red`, `-orange`,
+  `-green`, `-purple`), lightning for quick sums (⚡), and the fox at its market
+  stall (`math-card`, the home card).
+- **Game pieces** (props, no word of their own): the apple tree and its empty
+  basket, the scale's stand and pan (the game draws the beam and tips it), the
+  train's engine and wagon, the rocket on its pad.
+- **No digit in any of them** — no numbers on wagons, signs or prices; the
+  game puts Finnish words on the pieces. The number tile and the pictures
+  that draw numerals (💯, 🔢, calendars) never appear on a math screen.
+
 ## Background patterns
 
 `art/patterns.mjs` holds one small tile per look:

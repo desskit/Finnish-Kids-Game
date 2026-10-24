@@ -38,7 +38,8 @@ import { commandFor, dontForm, letsForm, ownerGloss } from './types';
 import { questionFor } from './questions';
 import { PRONOUNS, PRONOUN_FRAMES, type PronounCase } from './pronouns';
 import { dialogues, personalizeLine } from './dialogues';
-import { numbers } from './index';
+import { mathWords, numbers } from './index';
+import { WORD_FRAMES, compareFrame, neighborFrame, sumFrame, wordProblem, type Said, type WordFrame } from './mathProblems';
 import { itemById } from './lookup';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
@@ -109,7 +110,22 @@ export type LessonRef =
    *  (the plain number, or the month in its basic form), for checks. */
   | { date: string; month: string; wrong?: 'number' | 'month'; en?: string }
   /** "Olen kahdeksan vuotta vanha." (number id). */
-  | { age: string; en?: string };
+  | { age: string; en?: string }
+  // --- Math (Lasketaan!): a frame from mathProblems.ts filled with sourced
+  // number words; shown with dots, never a digit or a number's picture, and its
+  // English keeps the numbers in Finnish ("Kolme plus kaksi is viisi"). ---
+  /** A sum: its question (`asked`), or the answer said in full. */
+  | { sum: 'plus' | 'minus'; a: number; b: number; asked?: boolean }
+  /** Which of two is more, or less. */
+  | { which: 'more' | 'less'; a: number; b: number; asked?: boolean }
+  /** The number after (or before) another. */
+  | { next: 'after' | 'before'; a: number; asked?: boolean }
+  /** A teen put together: "kolme → kolmetoista", its -toista marked. */
+  | { teen: number }
+  /** A number word on its own. */
+  | { n: number }
+  /** A word problem: its sentences, or (`told`) its answer in full. */
+  | { problem: WordFrame['id']; noun: string; a: number; b: number; told?: boolean };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -153,6 +169,10 @@ export interface ResolvedRef {
   baseSegments?: Segment[];
   en?: string;
   emoji?: string;
+  /** A math example's amounts, as dots in place of a picture: one group each (see Quantity). */
+  dots?: number[][];
+  /** The second amount of the dots is taken away (a "miinus"). */
+  takeAway?: boolean;
   /** What 🔊 says. */
   speak: string;
 }
@@ -173,11 +193,101 @@ function sentenceSegments(
   return out;
 }
 
+/** A number's sourced word (nolla is among the math words). */
+function numberWordFor(v: number): string | undefined {
+  return [...mathWords.items, ...numbers.items].find((n) => n.value === v)?.fi;
+}
+
+/** One Finnish sentence, shown as it's said. */
+const saidRow = (said: Said, dots: number[][], takeAway = false): ResolvedRef => ({
+  segments: [{ text: said.fi }],
+  en: said.en,
+  speak: said.fi,
+  dots,
+  takeAway: takeAway || undefined,
+});
+
+/** A math example, or undefined when the reference isn't one. */
+function resolveMathRef(ref: LessonRef): ResolvedRef | null | undefined {
+  if ('sum' in ref) {
+    const c = ref.sum === 'plus' ? ref.a + ref.b : ref.a - ref.b;
+    const [a, b, w] = [numberWordFor(ref.a), numberWordFor(ref.b), numberWordFor(c)];
+    if (!a || !b || !w) return null;
+    const f = sumFrame(ref.sum, a, b, w, [a, b, w]);
+    return saidRow(ref.asked ? f.ask : f.tell, [[ref.a, ref.b]], ref.sum === 'minus');
+  }
+  if ('which' in ref) {
+    const answer = ref.which === 'more' ? Math.max(ref.a, ref.b) : Math.min(ref.a, ref.b);
+    const [a, b, w] = [numberWordFor(ref.a), numberWordFor(ref.b), numberWordFor(answer)];
+    if (!a || !b || !w || ref.a === ref.b) return null;
+    const f = compareFrame(ref.which === 'more', a, b, w, [a, b, w]);
+    return saidRow(ref.asked ? f.ask : f.tell, [[ref.a], [ref.b]]);
+  }
+  if ('next' in ref) {
+    const after = ref.next === 'after';
+    const answer = after ? ref.a + 1 : ref.a - 1;
+    const item = [...mathWords.items, ...numbers.items].find((n) => n.value === ref.a);
+    const form = item?.inflections[after ? 'genitive_singular' : 'partitive_singular'];
+    const w = numberWordFor(answer);
+    if (!item || !form || !w) return null;
+    const f = neighborFrame(after, form, w, [item.fi, w]);
+    return saidRow(ref.asked ? f.ask : f.tell, after ? [[ref.a], [answer]] : [[answer], [ref.a]]);
+  }
+  if ('teen' in ref) {
+    const base = numberWordFor(ref.teen - 10);
+    const whole = numberWordFor(ref.teen);
+    if (!base || !whole || !whole.startsWith(base) || ref.teen <= 10 || ref.teen >= 20) return null;
+    return {
+      segments: [{ text: base }, { text: whole.slice(base.length), mark: true }],
+      base,
+      speak: whole,
+      dots: [[10, ref.teen - 10]],
+    };
+  }
+  if ('n' in ref) {
+    const w = numberWordFor(ref.n);
+    return w ? { segments: [{ text: w }], speak: w, dots: [[ref.n]] } : null;
+  }
+  if ('problem' in ref) {
+    const frame = WORD_FRAMES.find((f) => f.id === ref.problem);
+    const noun = itemById(ref.noun);
+    const c = frame?.op === 'plus' ? ref.a + ref.b : ref.a - ref.b;
+    const [a, b, w] = [numberWordFor(ref.a), numberWordFor(ref.b), numberWordFor(c)];
+    const part = noun?.inflections.partitive_singular;
+    // "yksi" as an object would be "yhden": only two or more go in a frame (mathProblems.ts)
+    if (!frame || !noun || !a || !b || !w || !part || ref.b < frame.bMin || c < 0) return null;
+    const p = wordProblem(frame, {
+      a,
+      b,
+      c: w,
+      nounA: countingNounForm(noun, ref.a),
+      nounB: countingNounForm(noun, ref.b),
+      nounC: countingNounForm(noun, c),
+      nounPart: part,
+      en: { a, b, c: w, nounA: countedEn(noun, ref.a), nounB: countedEn(noun, ref.b), nounC: countedEn(noun, c), plural: pluralEn(noun) },
+    });
+    const minus = frame.op === 'minus';
+    if (ref.told) return saidRow(p.tell, [[ref.a, ref.b]], minus);
+    const fi = p.ask.map((x) => x.fi).join(' ');
+    return { segments: [{ text: fi }], en: p.ask.map((x) => x.en).join(' '), speak: fi, dots: [[ref.a], [ref.b]] };
+  }
+  return undefined;
+}
+
+/** A math example's Finnish, for a check card's question or explanation (*in italics*). */
+function mathSaid(ref: LessonRef): string {
+  const r = resolveMathRef(ref);
+  if (!r) throw new Error(`No math example for ${JSON.stringify(ref)}`);
+  return `*${r.speak}*`;
+}
+
 /**
  * Resolve a reference to looked-up Finnish. Returns null when a form is
  * missing (the lessons test asserts every authored reference resolves).
  */
 export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
+  const math = resolveMathRef(ref);
+  if (math !== undefined) return math;
   if ('line' in ref) {
     const ex = dialogues.find((d) => d.id === ref.line);
     if (!ex) return null;
@@ -414,7 +524,8 @@ export function resolveRef(ref: LessonRef, childName = ''): ResolvedRef | null {
     ];
     return { segments: segs, en: ref.en, emoji: noun.emoji, speak: segmentsText(segs) };
   }
-  // Plain word (optionally inflected).
+  // Plain word (optionally inflected). (A math example was resolved above.)
+  if (!('word' in ref)) return null;
   const item = itemById(ref.word);
   if (!item) return null;
   const c = ref.case ?? 'nominative';
@@ -4016,6 +4127,231 @@ export const lessons: Lesson[] = [
         question: '*vuotta* means…',
         options: [{ text: 'years', correct: true }, { text: 'months' }, { text: 'days' }],
         explain: '*vuosi* = year; after a number → *vuotta*.',
+      },
+    ],
+  },
+
+  // --- The math section (Lasketaan!): one lesson per stage. No digit anywhere:
+  // every number is a Finnish word, its amount shown as dots. ⚠️ The frames'
+  // Finnish (mathProblems.ts) is in the native review. ---
+  {
+    id: 'math-plus-minus',
+    titleFi: 'Plus ja miinus',
+    titleEn: 'Plus and minus',
+    emoji: '🍎',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Math in Finnish',
+        text:
+          'Here every number is a **Finnish word** — you won’t see a single digit. You hear the numbers, say them and count with them, the way a Finnish child does.\n\nTap a number word any time to see how many it is, as dots.',
+      },
+      {
+        kind: 'examples',
+        title: 'Plus: put together',
+        text: '*plus* puts amounts together, and *on* says what they make.',
+        rows: [
+          { sum: 'plus', a: 2, b: 1 },
+          { sum: 'plus', a: 3, b: 2 },
+          { sum: 'plus', a: 4, b: 4 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Miinus: take away',
+        text: '*miinus* takes some away. When nothing is left, that’s *nolla*.',
+        rows: [
+          { sum: 'minus', a: 5, b: 2 },
+          { sum: 'minus', a: 6, b: 1 },
+          { sum: 'minus', a: 3, b: 3 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'How the question goes',
+        text: 'Every sum starts *Paljonko on…?* — “How much is…?” Listen for *plus* or *miinus*.',
+        rows: [
+          { sum: 'plus', a: 2, b: 2, asked: true },
+          { sum: 'minus', a: 4, b: 1, asked: true },
+        ],
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ sum: 'plus', a: 2, b: 2, asked: true }),
+        options: [{ ref: { n: 4 }, correct: true }, { ref: { n: 3 } }, { ref: { n: 5 } }],
+        explain: `*plus* puts them together: ${mathSaid({ sum: 'plus', a: 2, b: 2 })}`,
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ sum: 'minus', a: 5, b: 1, asked: true }),
+        options: [{ ref: { n: 4 }, correct: true }, { ref: { n: 6 } }, { ref: { n: 3 } }],
+        explain: `*miinus* takes away: ${mathSaid({ sum: 'minus', a: 5, b: 1 })}`,
+      },
+    ],
+  },
+  {
+    id: 'math-more-less',
+    titleFi: 'Enemmän vai vähemmän?',
+    titleEn: 'More or less?',
+    emoji: '⚖️',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'More or less',
+        text: '*enemmän* means more, *vähemmän* means less. *Kumpi?* asks which of them.',
+        rows: [
+          { which: 'more', a: 3, b: 5, asked: true },
+          { which: 'more', a: 3, b: 5 },
+          { which: 'less', a: 3, b: 5 },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'The scale',
+        text: 'On the scale, the side with more goes down. Only the Finnish tells you which side to tap — so listen for *enemmän* or *vähemmän*!',
+      },
+      {
+        kind: 'examples',
+        title: 'What comes after?',
+        text: '*jälkeen* means after. The number before it gets an ending: *viisi* → *viiden jälkeen*.',
+        rows: [
+          { next: 'after', a: 5 },
+          { next: 'after', a: 9 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'What comes before?',
+        text: '*ennen* means before, and the number after it ends in **-ä** or **-tä**: *ennen viittä*.',
+        rows: [
+          { next: 'before', a: 5 },
+          { next: 'before', a: 10 },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'The train',
+        text: 'On the train the numbers ride in order — counting up, or down. A wagon is empty: *Mikä luku puuttuu?* means “Which number is missing?”',
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ which: 'less', a: 8, b: 6, asked: true }),
+        options: [{ ref: { n: 8 } }, { ref: { n: 6 }, correct: true }],
+        explain: `*vähemmän* means less: ${mathSaid({ which: 'less', a: 8, b: 6 })}`,
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ next: 'after', a: 7, asked: true }),
+        options: [{ ref: { n: 8 }, correct: true }, { ref: { n: 6 } }, { ref: { n: 9 } }],
+        explain: `*jälkeen* means after: ${mathSaid({ next: 'after', a: 7 })}`,
+      },
+    ],
+  },
+  {
+    id: 'math-how-many',
+    titleFi: 'Montako nyt?',
+    titleEn: 'How many now?',
+    emoji: '🧺',
+    cards: [
+      {
+        kind: 'explain',
+        title: 'Math in a little story',
+        text: 'Now the math hides in a story the fox tells: *Minulla on…* (I have…). Listen to the end and work out how many there are now.',
+      },
+      {
+        kind: 'examples',
+        title: 'Together',
+        text: '*Minulla on* and *Sinulla on* — how many do we have *yhteensä* (in all)?',
+        rows: [
+          { problem: 'have-have', noun: 'ball', a: 3, b: 2 },
+          { problem: 'have-have', noun: 'ball', a: 3, b: 2, told: true },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Eating some',
+        text: '*Syön* means I eat — so there are fewer. *nyt* means now.',
+        rows: [
+          { problem: 'have-eat', noun: 'cookie', a: 5, b: 2 },
+          { problem: 'have-eat', noun: 'cookie', a: 5, b: 2, told: true },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Getting more',
+        text: '*Saan … lisää* means I get more — so there are more.',
+        rows: [
+          { problem: 'have-get', noun: 'book', a: 4, b: 2 },
+          { problem: 'have-get', noun: 'book', a: 4, b: 2, told: true },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Listen for the verb',
+        text: 'The verb tells you what happens: *saan* (I get) means more; *syön* (I eat) means fewer. Later you’ll also hear *annan* (I give) — giving some away leaves fewer, *jäljellä* (left).',
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ problem: 'have-eat', noun: 'apple', a: 4, b: 2 }),
+        options: [{ ref: { n: 2 }, correct: true }, { ref: { n: 6 } }, { ref: { n: 4 } }],
+        explain: `*Syön* takes some away: ${mathSaid({ problem: 'have-eat', noun: 'apple', a: 4, b: 2, told: true })}`,
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ problem: 'have-get', noun: 'ball', a: 3, b: 3 }),
+        options: [{ ref: { n: 6 }, correct: true }, { ref: { n: 3 } }, { ref: { n: 5 } }],
+        explain: `*Saan lisää* adds: ${mathSaid({ problem: 'have-get', noun: 'ball', a: 3, b: 3, told: true })}`,
+      },
+    ],
+  },
+  {
+    id: 'math-teens',
+    titleFi: 'Yksitoista, kaksitoista…',
+    titleEn: 'The -toista numbers',
+    emoji: '🚀',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Past ten',
+        text: 'After *kymmenen*, the numbers are built: a small number, then *toista*.',
+        rows: [{ teen: 11 }, { teen: 12 }, { teen: 13 }, { teen: 15 }],
+      },
+      {
+        kind: 'explain',
+        title: 'Build them yourself',
+        text: 'Say the small number, then add *toista*: *kolme* + *toista* → *kolmetoista*. In the building game you hear the whole number and find the part before *toista*.',
+      },
+      {
+        kind: 'examples',
+        title: 'Ten and some more',
+        text: '*kymmenen plus* a small number makes a *-toista* number.',
+        rows: [
+          { sum: 'plus', a: 10, b: 3 },
+          { sum: 'plus', a: 10, b: 7 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'Up to twenty',
+        text: '*kaksikymmentä* is built from *kaksi* and *kymmentä* — the end of the count for now.',
+        rows: [{ n: 16 }, { n: 19 }, { n: 20 }],
+      },
+      {
+        kind: 'explain',
+        title: 'The rocket',
+        text: 'The rocket counts down from *kymmenen* all the way to *nolla* — and then *Lähtö!* (Lift-off!)',
+      },
+      {
+        kind: 'check',
+        question: 'What do *kahdeksan* and *toista* make?',
+        options: [{ ref: { n: 18 }, correct: true }, { ref: { n: 19 } }, { ref: { n: 8 } }],
+        explain: '*kahdeksan* + *toista* → *kahdeksantoista*.',
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ sum: 'plus', a: 10, b: 5, asked: true }),
+        options: [{ ref: { n: 15 }, correct: true }, { ref: { n: 14 } }, { ref: { n: 16 } }],
+        explain: mathSaid({ sum: 'plus', a: 10, b: 5 }),
       },
     ],
   },

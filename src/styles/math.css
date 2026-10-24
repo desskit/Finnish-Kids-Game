@@ -909,3 +909,12 @@ button.math-pan:not(:disabled):active .math-pan__word {
     transform: translateX(0) scale(1);
   }
 }
+
+/* ---------- A math lesson's examples: dots in place of a picture ---------- */
+.lesson-row__dots {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: none;
+  max-width: 42%;
+}

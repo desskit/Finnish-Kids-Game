@@ -563,6 +563,43 @@ what's left ("7 / 10 words"). To add one:
   reward the hard parts (typing, Kertaus, conversations), so nothing is worth
   skipping.
 
+## Lasketaan! Math in Finnish (optional)
+
+`/math` — a path beside the course, opened from the card under Continue on the
+home screen. Math is done *in Finnish*: no digit is ever shown, so it can't be
+done in English in your head.
+
+- **The stages** (`src/game/mathPath.tsx`) are built like units: a lesson, a
+  few games with levels, a story, and a test that wins the stage's crown. Every
+  id starts `math-`. A stage opens once the one before has its crown and the
+  course has taught what it needs (`afterUnit`); the rules are in
+  `src/game/mathCourse.ts`. Crowns, the quick-sums best run and spoken answers
+  live in `child.math`, never among the course's checkpoints, so math never
+  moves "units done", Continue, the warm-up or a course badge.
+- **The problems** (`src/game/math.ts`, pure) use only sourced number words:
+  *nolla* to *kaksikymmentä*, the round tens and *sata*. Compounds like 21
+  aren't in the data and are never built, so every sum stays inside that set.
+- **The Finnish** is in `src/content/mathProblems.ts` (⚠️, in the Finnish
+  check's Math section): each frame has its English for the reviewer only.
+  The verb sets the math in a word problem (*saan* adds; *syön*, *annan* take
+  away), and a frame only plays once the course has taught its verb. *yksi*
+  never fills an object slot (it would be *yhden*).
+- **No digits, anywhere.** Numbers are Finnish words and speech; an amount is
+  dots in ten-frames (`Quantity`); a tapped number word shows its dots, never
+  its English; a level is dots, a score is stars. English lines keep numbers in
+  Finnish ("Grandma has *viisi* buns"). `src/components/math/noDigits.test.tsx`
+  renders every math screen and fails on a digit, a number picture or an
+  English number word.
+- **Levels:** three choices, then four; from level 3 a problem is only heard
+  (its words on *Lue*); at the top the choices are only heard too. Saying the
+  answer (`matchNumberSpeech`: "viis" is *viisi*, but *kolmetoista* is never
+  *kolme*) and typing it are bonus rounds.
+- **A math lesson** uses the math examples (`{ sum }`, `{ which }`, `{ next }`,
+  `{ teen }`, `{ n }`, `{ problem }` in `lessons.ts`): a frame filled with
+  sourced numbers, shown with dots. Its prose must not name a number in English.
+- **A math story** (`src/content/mathStories.ts`) follows the story rules, and
+  keeps numbers in Finnish in its English too.
+
 ## The Alphabet & sounds corner (optional)
 
 `/sounds` — never part of the course; nothing there unlocks or blocks a unit.

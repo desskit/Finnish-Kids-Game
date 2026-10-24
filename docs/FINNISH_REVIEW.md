@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T04:27:39.760Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T04:46:05.496Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2139 entries.** Flagged: 0.
+- **Approved: 28 of 2190 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -32,7 +32,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 13: Likes (*Tykkään, pidän, rakastan*) | 47 | 47 | Scenes, turn by turn 4, Stories 10, Sentence patterns 4, Forms marked wrong 4, Finnish in the lessons 9, Other lines (wrong replies) 3, Course titles 13 |
 | Unit 14: Want, can, may (*Haluan, osaan, saanko*) | 39 | 39 | Scenes, turn by turn 3, Stories 10, Sentence patterns 4, Forms marked wrong 4, Finnish in the lessons 4, Other lines (wrong replies) 5, Course titles 9 |
 | Unit 15: Verbs, part 2: type 4 (*Avaan, haluan*) | 44 | 44 | Scenes, turn by turn 4, Stories 11, Finnish in the lessons 10, Other lines (wrong replies) 4, Course titles 15 |
-| Unit 16: School day (*Koulupäivä*) | 27 | 27 | Scenes, turn by turn 3, Stories 10, Sentence patterns 1, Forms marked wrong 1, Finnish in the lessons 4, Other lines (wrong replies) 3, Course titles 5 |
+| Unit 16: School day (*Koulupäivä*) | 17 | 17 | Scenes, turn by turn 3, Sentence patterns 1, Forms marked wrong 1, Finnish in the lessons 4, Other lines (wrong replies) 3, Course titles 5 |
 | Unit 17: Play (*Leikin, pelaan, soitan*) | 42 | 42 | Scenes, turn by turn 3, Stories 10, Sentence patterns 3, Forms marked wrong 3, Finnish in the lessons 8, Other lines (wrong replies) 3, Course titles 12 |
 | Unit 18: Seeing & waiting (*Näen ja odotan*) | 39 | 39 | Scenes, turn by turn 3, Stories 10, Sentence patterns 3, Forms marked wrong 3, Finnish in the lessons 8, Other lines (wrong replies) 1, Course titles 11 |
 | Unit 19: At the shop (*Kaupassa*) | 43 | 43 | Scenes, turn by turn 7, Stories 10, Sentence patterns 2, Forms marked wrong 2, Finnish in the lessons 7, Other lines (wrong replies) 3, Course titles 12 |
@@ -60,9 +60,10 @@ and its **Where** menu shows one unit at a time.
 | Unit 41: Yesterday (*Eilen*) | 45 | 45 | Scenes, turn by turn 3, Stories 22, Finnish in the lessons 8, Other lines (wrong replies) 1, Course titles 11 |
 | Unit 42: Real conversations (*Jutellaan*) | 74 | 57 | Scenes, turn by turn 26, Stories 21, Finnish in the lessons 3, Other lines (wrong replies) 5, Course titles 2 |
 | Unit 43: Sentences (*Lauseet*) | 24 | 24 | Sentence templates 18, Finnish in the lessons 3, Course titles 3 |
-| Unit 44: Expert (*Mestari*) | 82 | 82 | Greetings & dialogues 8, Stories 50, Sentence patterns 8, Forms marked wrong 8, Finnish in the lessons 2, Other lines (wrong replies) 1, Course titles 5 |
+| Unit 44: Expert (*Mestari*) | 42 | 42 | Greetings & dialogues 8, Stories 10, Sentence patterns 8, Forms marked wrong 8, Finnish in the lessons 2, Other lines (wrong replies) 1, Course titles 5 |
+| Math (Lasketaan!) | 102 | 102 | Stories 50, Finnish in the lessons 26, Math in Finnish (Lasketaan!) 12, Course titles 14 |
 | Not in the course yet | 49 | 49 | Sentence patterns 1, Forms marked wrong 1, "Do you…?" questions 47 |
-| Grown-ups only | 19 | 19 | Course titles 2, Buttons & screen labels 17 |
+| Grown-ups only | 18 | 18 | Course titles 2, Buttons & screen labels 16 |
 
 ## Greetings & dialogues (52)
 
@@ -542,16 +543,16 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | Unit 15 | `story:open-window:t2` | Mirri ja Musti leikkivät. (totta) | True or false: Mirri and Musti play. (true) |
 | ⚠️ | Unit 15 | `story:open-window:t3` | Avaan oven. (tarua) | True or false: I open the door. (false) |
 | ⚠️ | Unit 15 | `story:open-window:t4` | Mirri nukkuu. (tarua) | True or false: Mirri sleeps. (false) |
-| ⚠️ | Unit 16 | `story:math-and-gym:page-1` | Aino: Tänään on koe. / Aino: En tykkää matematiikasta! | Aino: There's a test today. / Aino: I don't like math! |
-| ⚠️ | Unit 16 | `story:math-and-gym:page-2` | Eero: Minä tykkään matematiikasta. / Eero: Autan! | Eero: I like math. / Eero: I'll help! |
-| ⚠️ | Unit 16 | `story:math-and-gym:page-3` | Sitten on liikuntaa. / Aino: Tykkään liikunnasta! / Eero: Minä en tykkää liikunnasta. | Then there is gym. / Aino: I like gym! / Eero: I don't like gym. |
-| ⚠️ | Unit 16 | `story:math-and-gym:page-4` | Aino: Autan! / Kaverit auttavat. | Aino: I'll help! / Friends help each other. |
-| ⚠️ | Unit 16 | `story:math-and-gym:q1` | Mistä Aino ei tykkää? (✓ matematiikasta / liikunnasta / englannista) | What doesn't Aino like? (math / gym / English) |
-| ⚠️ | Unit 16 | `story:math-and-gym:q2` | Mitä tänään on? (✓ koe / syntymäpäivä / karkkipäivä) | What is there today? (a test / a birthday / candy day) |
-| ⚠️ | Unit 16 | `story:math-and-gym:q3` | Kuka tykkää matematiikasta? (✓ Eero / Aino / opettaja) | Who likes math? (Eero / Aino / the teacher) |
-| ⚠️ | Unit 16 | `story:math-and-gym:t1` | Aino tykkää liikunnasta. (totta) | True or false: Aino likes gym. (true) |
-| ⚠️ | Unit 16 | `story:math-and-gym:t2` | Eero tykkää liikunnasta. (tarua) | True or false: Eero likes gym. (false) |
-| ⚠️ | Unit 16 | `story:math-and-gym:t3` | Eero auttaa Ainoa. (totta) | True or false: Eero helps Aino. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:page-1` | Aino: Tänään on koe. / Aino: En tykkää matematiikasta! | Aino: There's a test today. / Aino: I don't like math! |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:page-2` | Eero: Minä tykkään matematiikasta. / Eero: Autan! | Eero: I like math. / Eero: I'll help! |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:page-3` | Sitten on liikuntaa. / Aino: Tykkään liikunnasta! / Eero: Minä en tykkää liikunnasta. | Then there is gym. / Aino: I like gym! / Eero: I don't like gym. |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:page-4` | Aino: Autan! / Kaverit auttavat. | Aino: I'll help! / Friends help each other. |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:q1` | Mistä Aino ei tykkää? (✓ matematiikasta / liikunnasta / englannista) | What doesn't Aino like? (math / gym / English) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:q2` | Mitä tänään on? (✓ koe / syntymäpäivä / karkkipäivä) | What is there today? (a test / a birthday / candy day) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:q3` | Kuka tykkää matematiikasta? (✓ Eero / Aino / opettaja) | Who likes math? (Eero / Aino / the teacher) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:t1` | Aino tykkää liikunnasta. (totta) | True or false: Aino likes gym. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:t2` | Eero tykkää liikunnasta. (tarua) | True or false: Eero likes gym. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-and-gym:t3` | Eero auttaa Ainoa. (totta) | True or false: Eero helps Aino. (true) |
 | ⚠️ | Unit 17 | `story:play-together:page-1` | Aino: Soitetaan yhdessä! / Leo: Joo! Minä soitan viulua. | Aino: Let's play music together! / Leo: Yes! I play the violin. |
 | ⚠️ | Unit 17 | `story:play-together:page-2` | Aino: Minä soitan rumpua! / Aino soittaa rumpua. | Aino: I play the drum! / Aino plays the drum. |
 | ⚠️ | Unit 17 | `story:play-together:page-3` | Eero: Minä en halua soittaa. / Eero: Minä haluan pelata jääkiekkoa! | Eero: I don't want to play music. / Eero: I want to play hockey! |
@@ -806,46 +807,46 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | Unit 40 | `story:drawing-a-house:t2` | Taivas on sininen. (totta) | True or false: The sky is blue. (true) |
 | ⚠️ | Unit 40 | `story:drawing-a-house:t3` | Mirri auttaa minua. (tarua) | True or false: Mirri helps me. (false) |
 | ⚠️ | Unit 40 | `story:drawing-a-house:t4` | Piirrän koiran. (tarua) | True or false: I draw a dog. (false) |
-| ⚠️ | Unit 44 | `story:math-buns:page-1` | Isoäidillä on viisi pullaa. | Grandma has viisi buns. |
-| ⚠️ | Unit 44 | `story:math-buns:page-2` | Leo: Saanko kaksi pullaa? / Isoäiti: Saat! | Leo: May I have kaksi buns? / Grandma: You may! |
-| ⚠️ | Unit 44 | `story:math-buns:page-3` | Aino syö yhden pullan. | Aino eats a bun. |
-| ⚠️ | Unit 44 | `story:math-buns:page-4` | Nyt isoäidillä on kaksi pullaa. / Isoäiti: Viisi miinus kolme on kaksi! | Now Grandma has kaksi buns. / Grandma: Viisi minus kolme is kaksi! |
-| ⚠️ | Unit 44 | `story:math-buns:q1` | Mitä isoäidillä on? (✓ pullaa / jäätelöä / omenia) | What does Grandma have? (sweet buns / ice cream / apples) |
-| ⚠️ | Unit 44 | `story:math-buns:q2` | Kuka syö yhden pullan? (✓ Aino / Eero / Mirri) | Who eats a bun? (Aino / Eero / Mirri) |
-| ⚠️ | Unit 44 | `story:math-buns:q3` | Kuka sanoo: "Saat!"? (✓ isoäiti / Aino / Leo) | Who says "You may!"? (Grandma / Aino / Leo) |
-| ⚠️ | Unit 44 | `story:math-buns:t1` | Leo saa kaksi pullaa. (totta) | True or false: Leo gets kaksi buns. (true) |
-| ⚠️ | Unit 44 | `story:math-buns:t2` | Aino syö kolme pullaa. (tarua) | True or false: Aino eats kolme buns. (false) |
-| ⚠️ | Unit 44 | `story:math-buns:t3` | Viisi miinus kolme on kaksi. (totta) | True or false: Viisi minus kolme is kaksi. (true) |
-| ⚠️ | Unit 44 | `story:math-cars:page-1` | Eero ja Leo leikkivät autoilla. | Eero and Leo play with cars. |
-| ⚠️ | Unit 44 | `story:math-cars:page-2` | Eero: Minulla on neljä autoa. | Eero: I have neljä cars. |
-| ⚠️ | Unit 44 | `story:math-cars:page-3` | Leo: Minulla on kuusi autoa. | Leo: I have kuusi cars. |
-| ⚠️ | Unit 44 | `story:math-cars:page-4` | Eero: Kummalla on enemmän? / Leo: Minulla! Kuusi on enemmän kuin neljä. | Eero: Who has more? / Leo: Me! Kuusi is more than neljä. |
-| ⚠️ | Unit 44 | `story:math-cars:q1` | Mitä pojilla on? (✓ autoja / palloja / nukkeja) | What do the boys have? (cars / balls / dolls) |
-| ⚠️ | Unit 44 | `story:math-cars:q2` | Kenellä on kuusi autoa? (✓ Leolla / Eerolla / Ainolla) | Who has kuusi cars? (Leo / Eero / Aino) |
-| ⚠️ | Unit 44 | `story:math-cars:q3` | Kuka sanoo: "Kummalla on enemmän?" (✓ Eero / Aino / Isä) | Who says "Who has more?" (Eero / Aino / Dad) |
-| ⚠️ | Unit 44 | `story:math-cars:t1` | Eerolla on neljä autoa. (totta) | True or false: Eero has neljä cars. (true) |
-| ⚠️ | Unit 44 | `story:math-cars:t2` | Eerolla on enemmän autoja. (tarua) | True or false: Eero has more cars. (false) |
-| ⚠️ | Unit 44 | `story:math-cars:t3` | Kuusi on enemmän kuin neljä. (totta) | True or false: Kuusi is more than neljä. (true) |
-| ⚠️ | Unit 44 | `story:math-berries:page-1` | Aino on metsässä. / Hän etsii mustikoita. | Aino is in the forest. / She looks for blueberries. |
-| ⚠️ | Unit 44 | `story:math-berries:page-2` | Aino: Minulla on kahdeksan mustikkaa! | Aino: I have kahdeksan blueberries! |
-| ⚠️ | Unit 44 | `story:math-berries:page-3` | Musti tulee. / Aino antaa Mustille kaksi mustikkaa. | Musti comes. / Aino gives Musti kaksi blueberries. |
-| ⚠️ | Unit 44 | `story:math-berries:page-4` | Sitten Aino syö kolme mustikkaa. / Aino: Nyt minulla on kolme mustikkaa. | Then Aino eats kolme blueberries. / Aino: Now I have kolme blueberries. |
-| ⚠️ | Unit 44 | `story:math-berries:q1` | Missä Aino on? (✓ metsässä / koulussa / kaupassa) | Where is Aino? (in the forest / at school / at the shop) |
-| ⚠️ | Unit 44 | `story:math-berries:q2` | Kuka tulee metsään? (✓ Musti / Mirri / Leo) | Who comes to the forest? (Musti / Mirri / Leo) |
-| ⚠️ | Unit 44 | `story:math-berries:q3` | Mitä Aino etsii? (✓ mustikoita / kiviä / kukkia) | What does Aino look for? (blueberries / stones / flowers) |
-| ⚠️ | Unit 44 | `story:math-berries:t1` | Aino antaa Mustille kaksi mustikkaa. (totta) | True or false: Aino gives Musti kaksi blueberries. (true) |
-| ⚠️ | Unit 44 | `story:math-berries:t2` | Aino syö viisi mustikkaa. (tarua) | True or false: Aino eats viisi blueberries. (false) |
-| ⚠️ | Unit 44 | `story:math-berries:t3` | Lopuksi Ainolla on kolme mustikkaa. (totta) | True or false: In the end Aino has kolme blueberries. (true) |
-| ⚠️ | Unit 44 | `story:math-stones:page-1` | Leo ja Eero ovat rannalla. | Leo and Eero are at the beach. |
-| ⚠️ | Unit 44 | `story:math-stones:page-2` | Leo: Minä löydän yksitoista kiveä. / Eero: Minä löydän neljätoista kiveä! | Leo: I find yksitoista stones. / Eero: I find neljätoista stones! |
-| ⚠️ | Unit 44 | `story:math-stones:page-3` | Eero: Kymmenen, yhdeksän, kahdeksan… / Leo: Kolme, kaksi, yksi… | Eero: Kymmenen, yhdeksän, kahdeksan… / Leo: Kolme, kaksi, yksi… |
-| ⚠️ | Unit 44 | `story:math-stones:page-4` | Leo: Nolla! / Pojat hyppäävät mereen. | Leo: Nolla! / The boys jump into the sea. |
-| ⚠️ | Unit 44 | `story:math-stones:q1` | Missä pojat ovat? (✓ rannalla / koulussa / metsässä) | Where are the boys? (at the beach / at school / in the forest) |
-| ⚠️ | Unit 44 | `story:math-stones:q2` | Mitä pojat löytävät? (✓ kiviä / kaloja / kukkia) | What do the boys find? (stones / fish / flowers) |
-| ⚠️ | Unit 44 | `story:math-stones:q3` | Kuka sanoo: "Nolla!"? (✓ Leo / Eero / Aino) | Who says "Nolla!"? (Leo / Eero / Aino) |
-| ⚠️ | Unit 44 | `story:math-stones:t1` | Eero löytää neljätoista kiveä. (totta) | True or false: Eero finds neljätoista stones. (true) |
-| ⚠️ | Unit 44 | `story:math-stones:t2` | Leo löytää kaksikymmentä kiveä. (tarua) | True or false: Leo finds kaksikymmentä stones. (false) |
-| ⚠️ | Unit 44 | `story:math-stones:t3` | Pojat hyppäävät mereen. (totta) | True or false: The boys jump into the sea. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:page-1` | Isoäidillä on viisi pullaa. | Grandma has viisi buns. |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:page-2` | Leo: Saanko kaksi pullaa? / Isoäiti: Saat! | Leo: May I have kaksi buns? / Grandma: You may! |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:page-3` | Aino syö yhden pullan. | Aino eats a bun. |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:page-4` | Nyt isoäidillä on kaksi pullaa. / Isoäiti: Viisi miinus kolme on kaksi! | Now Grandma has kaksi buns. / Grandma: Viisi minus kolme is kaksi! |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:q1` | Mitä isoäidillä on? (✓ pullaa / jäätelöä / omenia) | What does Grandma have? (sweet buns / ice cream / apples) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:q2` | Kuka syö yhden pullan? (✓ Aino / Eero / Mirri) | Who eats a bun? (Aino / Eero / Mirri) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:q3` | Kuka sanoo: "Saat!"? (✓ isoäiti / Aino / Leo) | Who says "You may!"? (Grandma / Aino / Leo) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:t1` | Leo saa kaksi pullaa. (totta) | True or false: Leo gets kaksi buns. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:t2` | Aino syö kolme pullaa. (tarua) | True or false: Aino eats kolme buns. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-buns:t3` | Viisi miinus kolme on kaksi. (totta) | True or false: Viisi minus kolme is kaksi. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:page-1` | Eero ja Leo leikkivät autoilla. | Eero and Leo play with cars. |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:page-2` | Eero: Minulla on neljä autoa. | Eero: I have neljä cars. |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:page-3` | Leo: Minulla on kuusi autoa. | Leo: I have kuusi cars. |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:page-4` | Eero: Kummalla on enemmän? / Leo: Minulla! Kuusi on enemmän kuin neljä. | Eero: Who has more? / Leo: Me! Kuusi is more than neljä. |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:q1` | Mitä pojilla on? (✓ autoja / palloja / nukkeja) | What do the boys have? (cars / balls / dolls) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:q2` | Kenellä on kuusi autoa? (✓ Leolla / Eerolla / Ainolla) | Who has kuusi cars? (Leo / Eero / Aino) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:q3` | Kuka sanoo: "Kummalla on enemmän?" (✓ Eero / Aino / Isä) | Who says "Who has more?" (Eero / Aino / Dad) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:t1` | Eerolla on neljä autoa. (totta) | True or false: Eero has neljä cars. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:t2` | Eerolla on enemmän autoja. (tarua) | True or false: Eero has more cars. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-cars:t3` | Kuusi on enemmän kuin neljä. (totta) | True or false: Kuusi is more than neljä. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:page-1` | Aino on metsässä. / Hän etsii mustikoita. | Aino is in the forest. / She looks for blueberries. |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:page-2` | Aino: Minulla on kahdeksan mustikkaa! | Aino: I have kahdeksan blueberries! |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:page-3` | Musti tulee. / Aino antaa Mustille kaksi mustikkaa. | Musti comes. / Aino gives Musti kaksi blueberries. |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:page-4` | Sitten Aino syö kolme mustikkaa. / Aino: Nyt minulla on kolme mustikkaa. | Then Aino eats kolme blueberries. / Aino: Now I have kolme blueberries. |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:q1` | Missä Aino on? (✓ metsässä / koulussa / kaupassa) | Where is Aino? (in the forest / at school / at the shop) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:q2` | Kuka tulee metsään? (✓ Musti / Mirri / Leo) | Who comes to the forest? (Musti / Mirri / Leo) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:q3` | Mitä Aino etsii? (✓ mustikoita / kiviä / kukkia) | What does Aino look for? (blueberries / stones / flowers) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:t1` | Aino antaa Mustille kaksi mustikkaa. (totta) | True or false: Aino gives Musti kaksi blueberries. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:t2` | Aino syö viisi mustikkaa. (tarua) | True or false: Aino eats viisi blueberries. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-berries:t3` | Lopuksi Ainolla on kolme mustikkaa. (totta) | True or false: In the end Aino has kolme blueberries. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:page-1` | Leo ja Eero ovat rannalla. | Leo and Eero are at the beach. |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:page-2` | Leo: Minä löydän yksitoista kiveä. / Eero: Minä löydän neljätoista kiveä! | Leo: I find yksitoista stones. / Eero: I find neljätoista stones! |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:page-3` | Eero: Kymmenen, yhdeksän, kahdeksan… / Leo: Kolme, kaksi, yksi… | Eero: Kymmenen, yhdeksän, kahdeksan… / Leo: Kolme, kaksi, yksi… |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:page-4` | Leo: Nolla! / Pojat hyppäävät mereen. | Leo: Nolla! / The boys jump into the sea. |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:q1` | Missä pojat ovat? (✓ rannalla / koulussa / metsässä) | Where are the boys? (at the beach / at school / in the forest) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:q2` | Mitä pojat löytävät? (✓ kiviä / kaloja / kukkia) | What do the boys find? (stones / fish / flowers) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:q3` | Kuka sanoo: "Nolla!"? (✓ Leo / Eero / Aino) | Who says "Nolla!"? (Leo / Eero / Aino) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:t1` | Eero löytää neljätoista kiveä. (totta) | True or false: Eero finds neljätoista stones. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:t2` | Leo löytää kaksikymmentä kiveä. (tarua) | True or false: Leo finds kaksikymmentä stones. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-stones:t3` | Pojat hyppäävät mereen. (totta) | True or false: The boys jump into the sea. (true) |
 
 ## Sentence patterns (104)
 
@@ -1263,7 +1264,7 @@ _Letter names and sound tips._
 | ⚠️ | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
-## Finnish in the lessons (283)
+## Finnish in the lessons (309)
 
 _Words quoted in the explanations._
 
@@ -1552,6 +1553,51 @@ _Words quoted in the explanations._
 | ⚠️ | Unit 34 | `lesson:age:2` | kahdeksan · kahdeksas | How old are you? — The number, not the order word |
 | ⚠️ | Unit 34 | `lesson:age:3` | kahdeksan · Olen kahdeksan vuotta vanha | How old are you? — check |
 | ⚠️ | Unit 34 | `lesson:age:4` | vuotta · vuosi | How old are you? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-plus-minus:2` | plus · on | Plus and minus — Plus: put together |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-plus-minus:3` | miinus · nolla | Plus and minus — Miinus: take away |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-plus-minus:4` | Paljonko on…? · plus · miinus | Plus and minus — How the question goes |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-plus-minus:5` | Paljonko on kaksi plus kaksi? · plus · Kaksi plus kaksi on neljä. | Plus and minus — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-plus-minus:6` | Paljonko on viisi miinus yksi? · miinus · Viisi miinus yksi on neljä. | Plus and minus — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:1` | enemmän · vähemmän · Kumpi? | More or less? — More or less |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:2` | enemmän · vähemmän | More or less? — The scale |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:3` | jälkeen · viisi · viiden jälkeen | More or less? — What comes after? |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:4` | ennen · ennen viittä | More or less? — What comes before? |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:5` | Mikä luku puuttuu? | More or less? — The train |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:6` | Kumpi on vähemmän: kahdeksan vai kuusi? · vähemmän · Kuusi on vähemmän. | More or less? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-more-less:7` | Mikä luku tulee seitsemän jälkeen? · jälkeen · Kahdeksan tulee seitsemän jälkeen. | More or less? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:1` | Minulla on… | How many now? — Math in a little story |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:2` | Minulla on · Sinulla on · yhteensä | How many now? — Together |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:3` | Syön · nyt | How many now? — Eating some |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:4` | Saan … lisää | How many now? — Getting more |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:5` | saan · syön · annan · jäljellä | How many now? — Listen for the verb |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:6` | Minulla on neljä omenaa. Syön kaksi omenaa. Montako omenaa minulla on nyt? · Syön · Minulla on nyt kaksi omenaa. | How many now? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-how-many:7` | Minulla on kolme palloa. Saan kolme lisää. Montako palloa minulla on nyt? · Saan lisää · Minulla on nyt kuusi palloa. | How many now? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:1` | kymmenen · toista | The -toista numbers — Past ten |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:2` | toista · kolme · kolmetoista | The -toista numbers — Build them yourself |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:3` | kymmenen plus · -toista | The -toista numbers — Ten and some more |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:4` | kaksikymmentä · kaksi · kymmentä | The -toista numbers — Up to twenty |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:5` | kymmenen · nolla · Lähtö! | The -toista numbers — The rocket |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:6` | kahdeksan · toista · kahdeksantoista | The -toista numbers — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-teens:7` | Paljonko on kymmenen plus viisi? · Kymmenen plus viisi on viisitoista. | The -toista numbers — check |
+
+## Math in Finnish (Lasketaan!) (12)
+
+_The problems’ sentence frames, each with one example. The numbers and things change; the frame stays._
+
+| Status | Where | Key | Finnish | English |
+| --- | --- | --- | --- | --- |
+| ⚠️ | Math (Lasketaan!) | `math:plus` | Paljonko on kolme plus kaksi? → Kolme plus kaksi on viisi. | What is three plus two? → Three plus two is five. |
+| ⚠️ | Math (Lasketaan!) | `math:minus` | Paljonko on kuusi miinus kaksi? → Kuusi miinus kaksi on neljä. | What is six minus two? → Six minus two is four. |
+| ⚠️ | Math (Lasketaan!) | `math:more` | Kumpi on enemmän: kolme vai viisi? → Viisi on enemmän. | Which is more: three or five? → Five is more. |
+| ⚠️ | Math (Lasketaan!) | `math:less` | Kumpi on vähemmän: kolme vai viisi? → Kolme on vähemmän. | Which is less: three or five? → Three is less. |
+| ⚠️ | Math (Lasketaan!) | `math:after` | Mikä luku tulee viiden jälkeen? → Kuusi tulee viiden jälkeen. | What number comes after five? → Six comes after five. |
+| ⚠️ | Math (Lasketaan!) | `math:before` | Mikä luku tulee ennen viittä? → Neljä tulee ennen viittä. | What number comes before five? → Four comes before five. |
+| ⚠️ | Math (Lasketaan!) | `math:missing` | Mikä luku puuttuu? | Which number is missing? |
+| ⚠️ | Math (Lasketaan!) | `math:lift-off` | Lähtö! | Lift-off! |
+| ⚠️ | Math (Lasketaan!) | `math:have-have` | Minulla on viisi palloa. Sinulla on kaksi palloa. Montako palloa meillä on yhteensä? → Meillä on yhteensä seitsemän palloa. | I have five balls. You have two balls. How many balls do we have in all? → We have seven balls in all. |
+| ⚠️ | Math (Lasketaan!) | `math:have-get` | Minulla on viisi palloa. Saan kaksi lisää. Montako palloa minulla on nyt? → Minulla on nyt seitsemän palloa. | I have five balls. I get two more. How many balls do I have now? → Now I have seven balls. |
+| ⚠️ | Math (Lasketaan!) | `math:have-eat` | Minulla on viisi omenaa. Syön kaksi omenaa. Montako omenaa minulla on nyt? → Minulla on nyt kolme omenaa. | I have five apples. I eat two apples. How many apples do I have now? → Now I have three apples. |
+| ⚠️ | Math (Lasketaan!) | `math:have-give` | Minulla on viisi palloa. Annan sinulle kaksi palloa. Montako palloa minulla on jäljellä? → Minulla on jäljellä kolme palloa. | I have five balls. I give you two balls. How many balls do I have left? → I have three balls left. |
 
 ## Other lines (wrong replies) (122)
 
@@ -1682,7 +1728,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | Unit 3 | `line:Yksi kirjaa.` | Yksi kirjaa. | One book. |
 | ⚠️ | Unit 20 | `line:Älä leiki!` | Älä leiki! | Don't play! |
 
-## Course titles (466)
+## Course titles (480)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -1717,6 +1763,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 16 | `title:En tykkää matematiikasta.` | En tykkää matematiikasta. | Like it or not — example |
 | ⚠️ | Unit 27 | `title:En ymmärrä` | En ymmärrä | What do you say? |
 | ⚠️ | Unit 27 | `title:En ymmärrä.` | En ymmärrä. | What do you say? — example |
+| ⚠️ | Math (Lasketaan!) | `title:Enemmän vai vähemmän?` | Enemmän vai vähemmän? | More or less? |
 | ⚠️ | Everywhere | `title:Ensiaskeleet` | Ensiaskeleet | First steps |
 | ⚠️ | Unit 31 | `title:Ensimmäinen lumi` | Ensimmäinen lumi | Story: The first snow |
 | ⚠️ | Everywhere | `title:Ensimmäinen välitesti` | Ensimmäinen välitesti | First checkpoint |
@@ -1764,6 +1811,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 35 | `title:Joulupukki tuo lahjan.` | Joulupukki tuo lahjan. | What Santa brings — example |
 | ⚠️ | Unit 35 | `title:Juhannus` | Juhannus | Midsummer |
 | ⚠️ | Unit 35 | `title:Juhannus mökillä` | Juhannus mökillä | Story: Midsummer at the cottage |
+| ⚠️ | Math (Lasketaan!) | `title:Juna` | Juna | The train |
 | ⚠️ | Unit 42 | `title:Jutellaan` | Jutellaan | Real conversations / Conversations / Long scenes / Having a real conversation / Small talk |
 | ⚠️ | Everywhere | `title:Juttelija` | Juttelija | Chatterbox |
 | ⚠️ | Grown-ups only | `title:Järjestä lause` | Järjestä lause | Sentences (word order) |
@@ -1841,8 +1889,10 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Kurssi valmis` | Kurssi valmis | Course complete |
 | ⚠️ | Unit 34 | `title:Kuukaudet` | Kuukaudet | The months |
 | ⚠️ | Everywhere | `title:Kuuntele` | Kuuntele | Hear it, pick the meaning |
+| ⚠️ | Math (Lasketaan!) | `title:Kuuntele ja laske` | Kuuntele ja laske | Listen and count |
 | ⚠️ | Everywhere | `title:Kuuntele ja osoita` | Kuuntele ja osoita | Listen & Tap |
 | ⚠️ | Everywhere | `title:Kuuntele lause` | Kuuntele lause | Listen to a sentence |
+| ⚠️ | Math (Lasketaan!) | `title:Kuuntele tarina` | Kuuntele tarina | Listen to the problem |
 | ⚠️ | Everywhere | `title:Kuuntele!` | Kuuntele! | Statement or question? / How many did you hear? / Who has it? / Have it or not? / My, your or his / her? / Whose bike? / Who is doing it? / Nukun or nukkuu? / Yes or no? / Who feels it? / Which feeling? / Like, love or not? / Want, can or not? / Who, and yes or no? / Like it or not? / Which play? / See, watch or wait? / One, or some? / Touch it, or put it up? / In or on? / Into, in or out of? / Am, going or coming? / Want, would like, or have to? / By bus, or onto the bus? / Today, or on a day? / On the hour, or half past? / The weather, or me? / Where is it? / Now, or my birthday? / To the cottage, there, or back? / Where is the cat? / One, or many? / Now, or yesterday? |
 | ⚠️ | Unit 28 | `title:Kynällä vai kanssa?` | Kynällä vai kanssa? | Tool or person? |
 | ⚠️ | Everywhere | `title:Kysymykset` | Kysymykset | Asking with -ko / -kö |
@@ -1893,6 +1943,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 25 | `title:Mihin kissa menee?` | Mihin kissa menee? | Where's the cat going? |
 | ⚠️ | Unit 25 | `title:Mihin?` | Mihin? | Into & onto / Going into, going onto |
 | ⚠️ | Unit 25 | `title:Mihin? Mistä?` | Mihin? Mistä? | Going & coming |
+| ⚠️ | Math (Lasketaan!) | `title:Mikä luku tulee?` | Mikä luku tulee? | What comes after? |
 | ⚠️ | Unit 23 | `title:Mikä on isoin?` | Mikä on isoin? | The biggest of all |
 | ⚠️ | Everywhere | `title:Mikä pääte?` | Mikä pääte? | Which verb, which ending? |
 | ⚠️ | Everywhere | `title:Mikä tyyppi?` | Mikä tyyppi? | Which type? (1–3) / Which type? (1–4) / Which type? (1–6) |
@@ -1979,11 +2030,13 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 19 | `title:Montako euroa?` | Montako euroa? | How many euros? |
 | ⚠️ | Unit 3 | `title:Montako kynää?` | Montako kynää? | How many pencils? |
 | ⚠️ | Unit 3 | `title:Montako lasta?` | Montako lasta? | Story: How many children? |
+| ⚠️ | Math (Lasketaan!) | `title:Montako nyt?` | Montako nyt? | How many now? |
 | ⚠️ | Everywhere | `title:Montako?` | Montako? | How many? / Count to 20 |
 | ⚠️ | Everywhere | `title:Muistaja` | Muistaja | Memory keeper |
 | ⚠️ | Unit 21 | `title:Nenäni` | Nenäni | My nose, your ear |
 | ⚠️ | Unit 21 | `title:nenäni, korvasi` | nenäni, korvasi | My nose, your ear — example |
 | ⚠️ | Grown-ups only | `title:Nimeä se` | Nimeä se | Name it |
+| ⚠️ | Math (Lasketaan!) | `title:Nopeasti!` | Nopeasti! | Quick! |
 | ⚠️ | Unit 23 | `title:Norsu on isoin.` | Norsu on isoin. | The biggest of all — example |
 | ⚠️ | Unit 23 | `title:Norsu on isompi kuin hiiri.` | Norsu on isompi kuin hiiri. | Which is bigger? — example |
 | ⚠️ | Unit 21 | `title:Nosta käsi ylös!` | Nosta käsi ylös! | Put your hand up! / Put your hand up! — example |
@@ -2014,6 +2067,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 26 | `title:Olen puistossa.` | Olen puistossa. | Where I am — example |
 | ⚠️ | Unit 26 | `title:Olen puistossa. · Menen puistoon.` | Olen puistossa. · Menen puistoon. | Am, going or coming? — example |
 | ⚠️ | Unit 12 | `title:Olen…` | Olen… | I'm… |
+| ⚠️ | Math (Lasketaan!) | `title:Omenapuu` | Omenapuu | The apple tree |
 | ⚠️ | Unit 31 | `title:On kylmä` | On kylmä | It's cold |
 | ⚠️ | Unit 31 | `title:On kylmä. · Minulla on kylmä.` | On kylmä. · Minulla on kylmä. | It's cold — example / The weather, or me? — example |
 | ⚠️ | Unit 5 | `title:On vai ei?` | On vai ei? | Have or not |
@@ -2048,6 +2102,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 38 | `title:Piilossa` | Piilossa | Hiding |
 | ⚠️ | Unit 40 | `title:Piirretään!` | Piirretään! | Let's draw! |
 | ⚠️ | Unit 40 | `title:Piirrän talon` | Piirrän talon | Story: I draw a house |
+| ⚠️ | Math (Lasketaan!) | `title:Plus ja miinus` | Plus ja miinus | Plus and minus |
 | ⚠️ | Unit 30 | `title:Puen takin päälle` | Puen takin päälle | Getting dressed |
 | ⚠️ | Unit 30 | `title:Puen takin päälle.` | Puen takin päälle. | Getting dressed — example |
 | ⚠️ | Unit 26 | `title:Puisto ja kirjasto` | Puisto ja kirjasto | Story: The park and the library |
@@ -2062,6 +2117,8 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 13 | `title:Rakastan…a` | Rakastan…a | I love… |
 | ⚠️ | Everywhere | `title:Rakenna lause` | Rakenna lause | Build a phrase |
 | ⚠️ | Unit 43 | `title:Rakenna lauseita` | Rakenna lauseita | Build sentences / Sentences |
+| ⚠️ | Math (Lasketaan!) | `title:Rakenna luku` | Rakenna luku | Build the number |
+| ⚠️ | Math (Lasketaan!) | `title:Raketti ja juna` | Raketti ja juna | The rocket and the train |
 | ⚠️ | Unit 27 | `title:Saanko mennä vessaan?` | Saanko mennä vessaan? | May I go…? / May I go…? — example |
 | ⚠️ | Unit 12 | `title:Sairas päivä` | Sairas päivä | Story: A sick day |
 | ⚠️ | Everywhere | `title:Sanakuningas` | Sanakuningas | Word royalty |
@@ -2097,6 +2154,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Taivuta verbi` | Taivuta verbi | Conjugate the verb |
 | ⚠️ | Unit 24 | `title:Talossani` | Talossani | In my house / In MY house |
 | ⚠️ | Unit 24 | `title:talossani, huoneessasi` | talossani, huoneessasi | In my house — example |
+| ⚠️ | Math (Lasketaan!) | `title:Tarina` | Tarina | A math story |
 | ⚠️ | Unit 41 | `title:Tarinat` | Tarinat | Stories |
 | ⚠️ | Everywhere | `title:Tarkka` | Tarkka | Sharpshooter |
 | ⚠️ | Unit 40 | `title:Tarvitsen, vanhenen` | Tarvitsen, vanhenen | Verbs, part 3: types 5 & 6 |
@@ -2138,6 +2196,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 2 | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Family / Clothes / Winter clothes / Action words / More action words / Verbs that change / More verbs that change / Feelings / Scared, nervous, bored / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Toys, games and music / Getting around / Shopping list / My body / The captain's words / Colors & describing words / More colors, and opposites / Comparing words / Animals / Places / Town & home / School & daycare / Rides and tools / Days & times / Meals and getting ready / Weather and sky / Out in nature / Animals in nature / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Christmas and winter / Easter / Midsummer / Type 5 & 6 verbs / Type 6 verbs that change |
 | ⚠️ | Unit 3 | `title:Uusi kaveri` | Uusi kaveri | A new friend |
 | ⚠️ | Unit 36 | `title:Uusi oppilas` | Uusi oppilas | The new student |
+| ⚠️ | Math (Lasketaan!) | `title:Vaaka` | Vaaka | The scale |
 | ⚠️ | Unit 15 | `title:Vahvempi kirjain` | Vahvempi kirjain | Type 4: the sound gets STRONGER |
 | ⚠️ | Everywhere | `title:Valitse pääte` | Valitse pääte | Pick the ending |
 | ⚠️ | Everywhere | `title:Vauhdissa` | Vauhdissa | On a roll |
@@ -2151,11 +2210,12 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 22 | `title:Värit` | Värit | Colors and describing words |
 | ⚠️ | Everywhere | `title:Yhdistä sanat` | Yhdistä sanat | Describe it (agreement) |
 | ⚠️ | Unit 39 | `title:Yksi vai monta?` | Yksi vai monta? | One, or several? |
+| ⚠️ | Math (Lasketaan!) | `title:Yksitoista, kaksitoista…` | Yksitoista, kaksitoista… | The -toista numbers |
 | ⚠️ | Unit 7 | `title:Äidin pyörä` | Äidin pyörä | Mom's bike / Mom's bike — the owner gets -n |
 | ⚠️ | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija | Sound explorer |
 
-## Buttons & screen labels (146)
+## Buttons & screen labels (145)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2239,7 +2299,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Grown-ups only | `ui:Mykistä äänet` | Mykistä äänet | Mute all sound |
 | ⚠️ | Everywhere | `ui:Nimeä` | Nimeä | Name it |
 | ⚠️ | Everywhere | `ui:Nimi` | Nimi | Name |
-| ⚠️ | Grown-ups only | `ui:Nopeasti!` | Nopeasti! | Quick sums without a clock |
 | ⚠️ | Everywhere | `ui:Nyt sinä!` | Nyt sinä! | Your turn |
 | ⚠️ | Everywhere | `ui:Ohita` | Ohita | Skip |
 | ⚠️ | Grown-ups only | `ui:Oikein` | Oikein | (no English shown) |

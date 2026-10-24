@@ -1,6 +1,7 @@
 import type { Child } from '../state/storage';
 import { activityLevel } from './progress';
 import { PATH } from './path';
+import { MATH_STAGES } from './mathPath';
 
 // Parent "can-do" statements (learning-audit E-17): translate node levels into
 // plain-language claims about what the child can DO with Finnish ("Can greet
@@ -16,6 +17,8 @@ import { PATH } from './path';
 export type CanDoRequirement =
   /** A course unit's checkpoint was passed. */
   | { unitId: string }
+  /** A math stage's crown was won (Lasketaan!, mathPath.tsx). */
+  | { mathStageId: string }
   /** A step's measured adaptive level (the open-ended expert unit). */
   | { chapterId: string; skillId: string; level: number };
 
@@ -41,6 +44,12 @@ const unitClaim = (unitId: string, emoji: string, en: string): CanDoStatement =>
   basisEn: `Unit ${PATH.findIndex((u) => u.id === unitId) + 1} checkpoint passed`,
   requires: [{ unitId }],
 });
+
+/** A math stage's claim: its crown won (math in Finnish, Lasketaan!). */
+function mathClaim(stageId: string, emoji: string, en: string): CanDoStatement {
+  const stage = MATH_STAGES.find((s) => s.id === stageId);
+  return { id: stageId, emoji, en, basisEn: `Math: the “${stage?.titleFi ?? stageId}” crown won`, requires: [{ mathStageId: stageId }] };
+}
 
 export const CAN_DO: CanDoStatement[] = [
   unitClaim('hello', '👋', 'Can greet people, say thanks and goodbye, and say their name'),
@@ -115,10 +124,16 @@ export const CAN_DO: CanDoStatement[] = [
     basisEn: 'Expert: Spelling at level 9+ (audio-only dictation)',
     requires: [{ chapterId: 'mestari', skillId: 'spell-expert', level: 9 }],
   },
+  // The math section: a stage's crown is first-try evidence across its games.
+  mathClaim('math-plus-minus', '🍎', 'Can add and take away up to ten in Finnish (Kolme plus kaksi on viisi)'),
+  mathClaim('math-more-less', '⚖️', 'Can say which number is more or less, and what comes after or before (viiden jälkeen)'),
+  mathClaim('math-how-many', '🧺', 'Can work out a little math story told in Finnish (Syön kaksi omenaa…)'),
+  mathClaim('math-teens', '🚀', 'Can count to twenty and add up to twenty in Finnish (kymmenen plus kolme on kolmetoista)'),
 ];
 
 function met(child: Child, r: CanDoRequirement): boolean {
   if ('unitId' in r) return !!child.course?.checkpoints?.[r.unitId]?.passedAt;
+  if ('mathStageId' in r) return !!child.math?.crowns?.[r.mathStageId]?.passedAt;
   // activityLevel defaults to 1 for never-played nodes; require actual play so
   // a fresh child doesn't "meet" a level bar by default.
   const played = !!child.progress?.[r.chapterId]?.[r.skillId];
