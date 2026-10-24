@@ -6,7 +6,8 @@ import { recordStoryOnChild, storyStepDone, nextStoryId } from './storyLog';
 import { stories } from '../content/stories';
 
 // Walk a simulated child through the WHOLE course the way Continue leads them —
-// read each lesson, play each step until it's done, pass each checkpoint — and
+// hear each opener, read each lesson, play each step until it's done, pass
+// each checkpoint — and
 // fail if anything is a dead end: a step that can't be finished, a lesson or a
 // checkpoint that doesn't open the way on, or Continue going round in circles.
 
@@ -33,6 +34,11 @@ function walk(score: (round: number) => number) {
     if (++actions > 20000) throw new Error('Continue never reached the end');
     const a = nextAction(child);
     if (a.unit.id === 'mestari') break;
+    if (a.kind === 'opener') {
+      expect(child.course?.openersHeard?.[a.unit.id], `opener ${a.unit.id} offered twice`).toBeUndefined();
+      child = { ...child, course: { ...child.course, openersHeard: { ...child.course?.openersHeard, [a.unit.id]: 1 } } };
+      continue;
+    }
     if (a.kind === 'lesson') {
       expect(child.course?.lessonsSeen?.[a.lessonId], `lesson ${a.lessonId} offered twice`).toBeUndefined();
       child = { ...child, course: { ...child.course, lessonsSeen: { ...child.course?.lessonsSeen, [a.lessonId]: 1 } } };

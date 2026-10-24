@@ -2,13 +2,27 @@
 // stored progress. No React, no storage writes: the home screen, the routes and
 // the tests all ask the same questions here.
 //
+// A unit runs "hear it, use it, notice it" (docs/LEARNING_RESEARCH.md):
+//   1. Kuuntele ensin — the opener: the unit's story, listened to page by page
+//      with its pictures, no questions and no score.
+//   2. The first practice step — the new phrases modelled, then used.
+//   3. The lesson (the "notice" card) — the pattern pointed out, AFTER the
+//      child has met it. A younger reader sees its short notice cards.
+//   4. The remaining steps (part-way lessons as before), the story again with
+//      its questions, then the checkpoint.
+//
 // The rules, in order:
 //   - Unit 1 is open. Unit n opens once unit n−1's checkpoint is passed (a unit
 //     with no checkpoint — Mestari — never blocks anything after it). A unit
-//     the child has started (its lesson read) stays open, so a unit added to
-//     the course before it never locks a child out of the one they're in.
-//   - Inside an open unit, the lesson comes first: practice steps open once the
-//     lesson has been read to the end.
+//     the child has started (opener heard, lesson read, or a step played) stays
+//     open, so a unit added to the course before it never locks a child out of
+//     the one they're in.
+//   - Inside an open unit, the opener comes first: the steps open once it has
+//     been heard. A unit with no story has no opener. Starting a unit any other
+//     way (an older save that read the lesson first) counts as heard, so no
+//     child is ever sent backwards.
+//   - The steps after the first wait for the lesson (readable any time once
+//     the opener is heard); a part-way lesson gates the steps from it on.
 //   - A step is DONE when the child has PROVED its top level: reached its
 //     `maxLevel` and cleared the promotion bar there (see `provesTop`), so every
 //     challenge type on the step's ladder has been passed — none skipped.
@@ -83,6 +97,42 @@ export function unitComplete(child: Child | null | undefined, unit: Unit): boole
   return hasCheckpoint(unit) && checkpointPassed(child, unit.id);
 }
 
+// --- The opener and the notice --------------------------------------------------
+
+/** The steps a unit plays before its lesson: just the first. */
+export const STEPS_BEFORE_LESSON = 1;
+
+/** The unit's own story step (the one its opener plays): its `<unit>-story`,
+ *  else its story step with stories of its own. Mestari's "all stories" has none. */
+export function storyStepOf(unit: Unit): SkillNode | undefined {
+  const story = unit.skills.filter((s) => s.activity === 'story' && !!s.content.ids?.length);
+  return story.find((s) => s.id === `${unit.id}-story`) ?? (hasCheckpoint(unit) ? story[0] : undefined);
+}
+
+/** The story a unit opens with ("Kuuntele ensin"), or undefined (no opener). */
+export function openerStoryId(unit: Unit): string | undefined {
+  return storyStepOf(unit)?.content.ids?.[0];
+}
+
+/** Has the child begun this unit in any way — opener, lesson or a step played? */
+export function unitStarted(child: Child | null | undefined, unit: Unit): boolean {
+  return (
+    !!child?.course?.openersHeard?.[unit.id] ||
+    lessonSeen(child, unit.lessonId) ||
+    Object.keys(child?.progress?.[unit.id] ?? {}).length > 0
+  );
+}
+
+/** Has the opener been heard? (No opener, or a unit begun another way, counts.) */
+export function openerHeard(child: Child | null | undefined, unit: Unit): boolean {
+  return !openerStoryId(unit) || unitStarted(child, unit);
+}
+
+/** Where the unit's lesson sits: before this step index (after the first step). */
+export function lessonAt(unit: Unit): number {
+  return Math.min(STEPS_BEFORE_LESSON, unit.skills.length);
+}
+
 export function unitStatus(
   child: Child | null | undefined,
   unit: Unit,
@@ -91,7 +141,7 @@ export function unitStatus(
   if (unitComplete(child, unit)) return 'done';
   if (unlockAll) return 'open';
   const i = unitIndex(unit.id);
-  if (i <= 0 || lessonSeen(child, unit.lessonId)) return 'open';
+  if (i <= 0 || unitStarted(child, unit)) return 'open';
   const prev = UNITS[i - 1];
   // A checkpoint-less unit never gates the next one.
   return !hasCheckpoint(prev) || checkpointPassed(child, prev.id) ? 'open' : 'locked';
@@ -126,9 +176,33 @@ export function stepStatus(
   if (stepDone(child, unit, step)) return 'done';
   if (unlockAll) return 'open';
   if (unitStatus(child, unit) === 'locked') return 'locked';
-  if (!lessonSeen(child, unit.lessonId)) return 'locked';
+  if (!openerHeard(child, unit)) return 'locked';
+  if (unit.skills.indexOf(step) >= lessonAt(unit) && !lessonSeen(child, unit.lessonId)) return 'locked';
   const ml = midLessonBefore(unit, step);
   return ml && !lessonSeen(child, ml.lessonId) ? 'locked' : 'open';
+}
+
+/** The opener: open with its unit, done once heard. */
+export function openerStatus(
+  child: Child | null | undefined,
+  unit: Unit,
+  unlockAll = false,
+): Status {
+  if (!openerStoryId(unit)) return 'done';
+  if (openerHeard(child, unit)) return 'done';
+  return unlockAll || unitStatus(child, unit) !== 'locked' ? 'open' : 'locked';
+}
+
+/** The unit's lesson: open once the opener has been heard (Continue offers it after the first step). */
+export function lessonStatus(
+  child: Child | null | undefined,
+  unit: Unit,
+  unlockAll = false,
+): Status {
+  if (lessonSeen(child, unit.lessonId)) return 'done';
+  if (unlockAll || unitComplete(child, unit)) return 'open';
+  if (unitStatus(child, unit) === 'locked' || !openerHeard(child, unit)) return 'locked';
+  return 'open';
 }
 
 /** A part-way lesson: open once every step before it is done. */
@@ -158,27 +232,35 @@ export function checkpointStatus(
 }
 
 export type NextAction =
+  | { kind: 'opener'; unit: Unit; storyId: string }
   | { kind: 'lesson'; unit: Unit; lessonId: string }
   | { kind: 'step'; unit: Unit; step: SkillNode }
   | { kind: 'checkpoint'; unit: Unit };
 
 /**
- * The one thing to do next — the home screen's "Continue" button. The first
- * unfinished unit's lesson, else its first unfinished step, else its
- * checkpoint. Once every checkpoint is passed it points into Mestari, at its
- * least-practised step.
+ * The one thing to do next — the home screen's "Continue" button. In the first
+ * unfinished unit: its opener, else its first unfinished step (with the lesson
+ * read once the first step is done, and a part-way lesson when reached), else
+ * its checkpoint. Once every checkpoint is passed it points into Mestari, at
+ * its least-practised step.
  */
 export function nextAction(child: Child | null | undefined): NextAction {
   for (const unit of UNITS) {
     if (unitComplete(child, unit)) continue;
-    if (!lessonSeen(child, unit.lessonId)) return { kind: 'lesson', unit, lessonId: unit.lessonId };
+    const storyId = openerStoryId(unit);
+    if (storyId && !openerHeard(child, unit)) return { kind: 'opener', unit, storyId };
     const step = unit.skills.find((s) => !stepDone(child, unit, s));
     if (step) {
+      // Past the first step: notice the pattern before going on.
+      if (unit.skills.indexOf(step) >= lessonAt(unit) && !lessonSeen(child, unit.lessonId)) {
+        return { kind: 'lesson', unit, lessonId: unit.lessonId };
+      }
       // Reached a part-way lesson not yet read? Read it first.
       const ml = midLessonBefore(unit, step);
       if (ml && !lessonSeen(child, ml.lessonId)) return { kind: 'lesson', unit, lessonId: ml.lessonId };
       return { kind: 'step', unit, step };
     }
+    if (!lessonSeen(child, unit.lessonId)) return { kind: 'lesson', unit, lessonId: unit.lessonId };
     if (hasCheckpoint(unit)) return { kind: 'checkpoint', unit };
     // An open-ended unit with everything "done": keep climbing its lowest step.
     const lowest = [...unit.skills].sort(
@@ -193,6 +275,8 @@ export function nextAction(child: Child | null | undefined): NextAction {
 /** Where a NextAction routes. */
 export function actionHref(a: NextAction): string {
   switch (a.kind) {
+    case 'opener':
+      return `/opener/${a.unit.id}`;
     case 'lesson':
       return `/lesson/${a.lessonId}`;
     case 'step':
@@ -319,13 +403,15 @@ export function unitForLesson(lessonId: string): Unit | undefined {
   );
 }
 
-/** The step a lesson leads into: a unit's first step, or (for a part-way
- *  lesson) the step it sits before. */
-export function stepAfterLesson(lessonId: string): SkillNode | undefined {
+/** The step a lesson leads into: for a part-way lesson the step it sits
+ *  before; for the unit's lesson the child's first unfinished step (the one
+ *  after the first, for a child who hasn't played yet: the lesson sits there). */
+export function stepAfterLesson(lessonId: string, child?: Child | null): SkillNode | undefined {
   const unit = unitForLesson(lessonId);
   if (!unit) return undefined;
   const ml = unit.midLessons?.find((m) => m.lessonId === lessonId);
-  return ml ? unit.skills.find((s) => s.id === ml.before) : unit.skills[0];
+  if (ml) return unit.skills.find((s) => s.id === ml.before);
+  return unit.skills.find((s) => !stepDone(child, unit, s)) ?? unit.skills[lessonAt(unit)] ?? unit.skills[0];
 }
 
 /** The first unit whose steps drill a construction — its lesson explains it. */

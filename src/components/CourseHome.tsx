@@ -19,9 +19,13 @@ import {
   checkpointPlan,
   checkpointStatus,
   hasCheckpoint,
-  lessonSeen,
+  lessonAt,
+  lessonStatus,
   midLessonStatus,
   nextAction,
+  openerHeard,
+  openerStatus,
+  openerStoryId,
   stepLevel,
   stepStatus,
   unitStatus,
@@ -37,7 +41,8 @@ import MathCard from './math/MathCard';
 // The course home: one big "Continue" button (the next lesson / step /
 // checkpoint), the door to the math section (Lasketaan!), Review and the
 // Notebook, then the units in order — finished
-// ones ticked, the current one opened up into its lesson → steps → checkpoint,
+// ones ticked, the current one opened up into its opener story → first step →
+// lesson → steps → checkpoint (game/course.ts),
 // later ones locked until the checkpoint before them is passed.
 export default function CourseHome() {
   const { name, activeChild, settings } = useProfile();
@@ -290,30 +295,54 @@ export default function CourseHome() {
 function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
   const { activeChild } = useProfile();
   const lesson = lessonById[unit.lessonId];
-  const read = lessonSeen(activeChild, unit.lessonId);
+  const ls = lessonStatus(activeChild, unit, unlockAll);
+  const story = openerStoryId(unit);
+  const opener = story ? storyById[story] : undefined;
+  const os = openerStatus(activeChild, unit, unlockAll);
+  const heard = openerHeard(activeChild, unit);
   const cp = checkpointStatus(activeChild, unit, unlockAll);
   const cpQuestions = checkpointPlan(unit).reduce((n, p) => n + p.questions, 0);
+  const at = lessonAt(unit);
+
+  // The unit's lesson — the "notice" card, after the first step.
+  const lessonRow = lesson && (
+    <li key="lesson">
+      {ls === 'locked' ? (
+        <span className="unit-step unit-step--locked" aria-disabled="true">
+          <LessonRowBody title={lesson.titleEn} state={ls} />
+        </span>
+      ) : (
+        <Link className={'unit-step' + (ls === 'done' ? ' unit-step--done' : ' unit-step--next')} to={`/lesson/${lesson.id}`}>
+          <LessonRowBody title={lesson.titleEn} state={ls} />
+        </Link>
+      )}
+    </li>
+  );
 
   return (
     <ol className="unit-steps stagger">
-      {lesson && (
+      {opener && (
         <li>
-          <Link className={'unit-step' + (read ? ' unit-step--done' : ' unit-step--next')} to={`/lesson/${lesson.id}`}>
+          <Link
+            className={'unit-step' + (os === 'done' ? ' unit-step--done' : ' unit-step--next')}
+            to={`/opener/${unit.id}`}
+          >
             <span className="unit-step__icon" aria-hidden="true">
-              <Art glyph="📖" />
+              <Art glyph="🎧" />
             </span>
             <span className="unit-step__label">
               <span className="unit-step__title">
-                Oppitunti <span className="en">Lesson: {lesson.titleEn}</span>
+                Kuuntele ensin <span className="en">Listen first: {opener.titleEn}</span>
               </span>
+              <span className="unit-step__meta en">A story to hear before you play — no questions</span>
             </span>
             <span className="unit-step__state" aria-hidden="true">
-              {read ? '✓' : '•'}
+              {os === 'done' ? '✓' : '•'}
             </span>
           </Link>
         </li>
       )}
-      {unit.skills.map((step) => {
+      {unit.skills.map((step, i) => {
         const mid = unit.midLessons?.find((m) => m.before === step.id);
         const midRow = mid && <MidLessonRow key={mid.lessonId} unit={unit} lessonId={mid.lessonId} unlockAll={unlockAll} />;
         const st = stepStatus(activeChild, unit, step, unlockAll);
@@ -349,10 +378,15 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
           </>
         );
         return [
+          i === at ? lessonRow : null,
           midRow,
           <li key={step.id}>
             {st === 'locked' ? (
-              <span className="unit-step unit-step--locked" aria-disabled="true" title="Read the lesson first">
+              <span
+                className="unit-step unit-step--locked"
+                aria-disabled="true"
+                title={heard ? 'Read the lesson first' : 'Listen to the story first'}
+              >
                 {body}
               </span>
             ) : (
@@ -363,6 +397,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
           </li>,
         ];
       })}
+      {at >= unit.skills.length && lessonRow}
       {hasCheckpoint(unit) && (
         <li>
           {cp === 'locked' ? (
@@ -404,6 +439,25 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
         </li>
       )}
     </ol>
+  );
+}
+
+function LessonRowBody({ title, state }: { title: string; state: string }) {
+  return (
+    <>
+      <span className="unit-step__icon" aria-hidden="true">
+        <Art glyph="📖" />
+      </span>
+      <span className="unit-step__label">
+        <span className="unit-step__title">
+          Oppitunti <span className="en">Lesson: {title}</span>
+        </span>
+        {state === 'locked' && <span className="unit-step__meta en">Listen to the story first</span>}
+      </span>
+      <span className="unit-step__state" aria-hidden="true">
+        {state === 'locked' ? <Art glyph="🔒" /> : state === 'done' ? '✓' : '•'}
+      </span>
+    </>
   );
 }
 
@@ -450,6 +504,8 @@ function MidLessonRow({ unit, lessonId, unlockAll }: { unit: Unit; lessonId: str
 function describe(a: NextAction): string {
   const n = UNITS.indexOf(a.unit) + 1;
   switch (a.kind) {
+    case 'opener':
+      return `Unit ${n} · Listen first: ${storyById[a.storyId]?.titleEn ?? a.unit.titleEn}`;
     case 'lesson':
       return `Unit ${n} · Lesson: ${lessonById[a.lessonId]?.titleEn ?? a.unit.titleEn}`;
     case 'step':

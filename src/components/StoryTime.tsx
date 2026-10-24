@@ -14,6 +14,7 @@ import {
 import { lookupWord, type WordMeaning } from '../content/wordIndex';
 import { useProfile } from '../state/profile';
 import { useActivityContext } from '../game/activityContext';
+import { englishHelpOf, showsEnglish } from '../game/learner';
 import { drawQuiz, type OrderItem, type QuizItem } from '../game/storyQuiz';
 import {
   READ_QUESTIONS,
@@ -51,6 +52,9 @@ import Quantity from './math/Quantity';
 //  - 'revisit' (the warm-up's "Muistatko?"): the cover, an optional re-read,
 //    and two questions it hasn't asked before.
 //  - 'free' (the bookshelf): just the book, as often as she likes.
+//  - 'listen' (a unit's opener, "Kuuntele ensin"): the unit's story heard
+//    BEFORE any practice — the pages with their pictures, no questions, no
+//    score. Its questions come when the story is read again at the unit's end.
 //
 // A math story (Lasketaan!, content/mathStories.ts) shows no digit anywhere:
 // no running star count or card numbers, stars for the score, and a number
@@ -58,7 +62,7 @@ import Quantity from './math/Quantity';
 // English drops an example with a digit in it (`mathGloss`). Its "Continue"
 // goes back to the math map.
 
-type Mode = 'read' | 'revisit' | 'free';
+type Mode = 'read' | 'revisit' | 'free' | 'listen';
 type Phase = 'cover' | 'page' | 'end' | 'quiz' | 'result';
 
 interface Props {
@@ -66,8 +70,12 @@ interface Props {
   /** A course step's stories (default: every story). */
   ids?: string[];
   mode?: Mode;
-  /** 'revisit' / 'free': the story to show. */
+  /** 'revisit' / 'free' / 'listen': the story to show. */
   storyId?: string;
+  /** 'listen': the last page has been heard (the opener counts as done). */
+  onHeard?: () => void;
+  /** 'listen': on from the end ("Jatka"). */
+  onDone?: () => void;
 }
 
 function pitchOf(line: StoryLine, story: Story): number {
@@ -103,8 +111,8 @@ function Scene({ scene, small = false, animate = true }: { scene: StoryScene; sm
   );
 }
 
-export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props) {
-  const { activeChild, addStars } = useProfile();
+export default function StoryTime({ onExit, ids, mode = 'read', storyId, onHeard, onDone }: Props) {
+  const { activeChild, addStars, settings } = useProfile();
   const ctx = useActivityContext();
   const navigate = useNavigate();
   const pool = useMemo(() => ids ?? courseStories.map((s) => s.id), [ids]);
@@ -122,7 +130,13 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
   const story = storyById[currentId];
   const math = isMathId(story.id);
   // Re-reading after a weak read: the English shows with every line.
-  const [supported, setSupported] = useState(() => mode === 'read' && needsSupport(activeChild, currentId));
+  // An opener is a first hearing: its English follows the grown-up's English
+  // help as on a step's first rung (shown, unless it's switched off).
+  const [supported, setSupported] = useState(
+    () =>
+      (mode === 'read' && needsSupport(activeChild, currentId)) ||
+      (mode === 'listen' && showsEnglish(englishHelpOf(settings), 1, true)),
+  );
   const [phase, setPhase] = useState<Phase>('cover');
   const [pageIndex, setPageIndex] = useState(0);
   const [peek, setPeek] = useState(false);
@@ -205,6 +219,14 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
     if (phase === 'cover') speak(mode === 'revisit' ? `Muistatko? ${story.titleFi}` : story.titleFi);
     if (phase === 'end') speak('Loppu!');
   }, [phase, story, mode]);
+
+  // An opener is heard once its last page has been reached.
+  const heardOnce = useRef(false);
+  useEffect(() => {
+    if (mode !== 'listen' || phase !== 'end' || heardOnce.current) return;
+    heardOnce.current = true;
+    onHeard?.();
+  }, [mode, phase, onHeard]);
 
   const q = phase === 'quiz' ? quiz[qIndex] : undefined;
 
@@ -385,6 +407,11 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
               Muistatko? <span className="en">Do you remember this story?</span>
             </p>
           )}
+          {mode === 'listen' && (
+            <p className="story-cover__kicker">
+              Kuuntele ensin <span className="en">Listen first — just enjoy the story</span>
+            </p>
+          )}
           <div className="story-cover__icon" aria-hidden="true">
             <Art glyph={story.icon} motion="loop" />
           </div>
@@ -416,6 +443,10 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 <Art glyph="📖" /> Lue ensin <span className="en">Read it first</span>
               </button>
             </>
+          ) : mode === 'listen' ? (
+            <button className="btn btn--primary" onClick={start} autoFocus>
+              <SpeakerIcon /> Kuuntele <span className="en">Listen</span>
+            </button>
           ) : (
             <button className="btn btn--primary" onClick={start} autoFocus>
               <Art glyph="📖" /> Lue <span className="en">Read</span>
@@ -536,7 +567,16 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
           </p>
         </div>
         <div className="button-row">
-          {mode === 'free' ? (
+          {mode === 'listen' ? (
+            <>
+              <button className="btn btn--primary" onClick={onDone ?? onExit} autoFocus>
+                Jatka <span className="en">Continue</span>
+              </button>
+              <button className="btn" onClick={start}>
+                <Art glyph="📖" /> Lue uudestaan <span className="en">Read it again</span>
+              </button>
+            </>
+          ) : mode === 'free' ? (
             <>
               <button className="btn btn--primary" onClick={start} autoFocus>
                 <Art glyph="📖" /> Lue uudestaan <span className="en">Read it again</span>

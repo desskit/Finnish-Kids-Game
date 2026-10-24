@@ -229,14 +229,27 @@ exist in (or can be added to) the inflection dataset.
 ## The guided course: units, lessons, "Why?" tips
 
 The home screen is a **course of units** (`src/game/path.tsx`, `UNITS`), not an
-open map. Each unit is one idea a beginner can hold:
+open map. Each unit is one idea a beginner can hold, met in the order
+**hear it, use it, notice it** (docs/LEARNING_RESEARCH.md — young children
+learn a pattern from input first, and a rule helps only once they've met it):
 
-1. a short **lesson** (`src/content/lessons.ts`) — 4–8 cards with 2–3 "try it" checks;
-2. 2–5 practice **steps** — existing games, scoped to the unit's grammar and
-   to the words met so far;
-3. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
+1. **Kuuntele ensin** (listen first) — the unit's story, heard page by page
+   with its pictures before any practice: no questions, no score
+   (`/opener/:unitId`). The story is the unit's `<unit>-story` step, or its
+   story step with stories of its own;
+2. the **first practice step** — the new phrases modelled, then used;
+3. the short **lesson** (`src/content/lessons.ts`) — 4–8 cards with 2–3 "try
+   it" checks, after that first step. A younger reader sees its **notice
+   cards** (`noticeCardIndexes`: one short explain card, the first examples
+   and the first check — at most three, no grammar terms; a lesson can pick
+   its own with `notice`). The Notebook always has the whole lesson;
+4. the rest of the practice **steps** (part-way lessons as before), then the
+   story again, now with its questions;
+5. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
 
-The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
+The rules (unlocking, "done", Continue) live in `src/game/course.ts`. A unit
+begun any other way (an older save that read the lesson first, or a step
+played) counts its opener as heard, so no child is sent backwards.
 
 **Who's reading** (`src/game/learner.ts`): each player is a younger reader
 (about 6–7) or an older one (about 8–10), set by a grown-up. Younger readers
@@ -524,10 +537,14 @@ questions about what happened. It is read for meaning, once — not drilled.
   this?" are built from the pages (`src/game/storyQuiz.ts`) — a line that names
   its own speaker, or that two people say, is never asked. A read asks four, of
   mixed kinds; a re-read asks others.
+- **Heard first, read last.** A unit's story opens the unit (heard with no
+  questions) and comes back as its last step — so write it to be enjoyable
+  before the unit's words are known: the pictures carry the meaning.
 - **One good read finishes it** (`src/game/storyLog.ts`): 3 of 4 right first
-  time. A weak read is read again with the English showing. A few days after
-  it's finished, a story comes back once in the daily warm-up ("Muistatko?",
-  two questions it hasn't asked), and it waits on the Notebook's bookshelf.
+  time. A weak read is read again with the English showing. After it's
+  finished, a story comes back in the daily warm-up ("Muistatko?", two
+  questions it hasn't asked) a day, three days and a week after its good read,
+  and it waits on the Notebook's bookshelf.
 - A unit's story step is made from `UNIT_STORY_IDS` (one story per unit); a
   step can also list several stories in `content.ids` (it is done once each
   has had a good read). New stories are ⚠️-flagged for native vetting and

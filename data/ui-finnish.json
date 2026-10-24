@@ -398,9 +398,11 @@
     },
     {
       "fi": "Kuuntele ensin",
-      "en": "Listen first — then it's your turn",
+      "en": "Listen first — just enjoy the story / Listen first — then it's your turn / Listen first: ⟨titleEn⟩",
       "where": [
-        "components/ConversationScene.tsx"
+        "components/ConversationScene.tsx",
+        "components/CourseHome.tsx",
+        "components/StoryTime.tsx"
       ]
     },
     {
@@ -855,7 +857,7 @@
     },
     {
       "fi": "Oppitunti",
-      "en": "Lesson: ⟨titleEn⟩ / Read the lesson",
+      "en": "Lesson: ⟨titleEn⟩ / Lesson: ⟨title⟩ / Read the lesson",
       "where": [
         "components/CourseHome.tsx",
         "components/WarmupRoute.tsx",

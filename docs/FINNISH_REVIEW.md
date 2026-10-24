@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T15:34:04.011Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T20:52:21.737Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -2348,7 +2348,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Kuka voittaa?` | Kuka voittaa? | Who wins? |
 | 📖 | Everywhere | `ui:Kumpi on oikein?` | Kumpi on oikein? | Which one is right? |
 | 📖 | Everywhere | `ui:Kumpi?` | Kumpi? | Which of the two? |
-| 📖 | Everywhere | `ui:Kuuntele ensin` | Kuuntele ensin | Listen first — then it's your turn |
+| 📖 | Everywhere | `ui:Kuuntele ensin` | Kuuntele ensin | Listen first — just enjoy the story / Listen first — then it's your turn / Listen first: ⟨titleEn⟩ |
 | 📖 | Everywhere | `ui:Kuuntele uudestaan` | Kuuntele uudestaan | Hear it again |
 | 📖 | Everywhere | `ui:Kuuntelen…` | Kuuntelen… | Listening… |
 | 📖 | Everywhere | `ui:Kyllä!` | Kyllä! | Yes |
@@ -2393,7 +2393,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Oikein!` | Oikein! | Right! |
 | 📖 | Everywhere | `ui:Onko lause oikein?` | Onko lause oikein? | Is the sentence right? Tap the wrong word. |
 | 📖 | Everywhere | `ui:Oppitunnit` | Oppitunnit | Lessons |
-| 📖 | Everywhere | `ui:Oppitunti` | Oppitunti | Lesson: ⟨titleEn⟩ / Read the lesson |
+| 📖 | Everywhere | `ui:Oppitunti` | Oppitunti | Lesson: ⟨titleEn⟩ / Lesson: ⟨title⟩ / Read the lesson |
 | 📖 | Everywhere | `ui:Paina ja puhu` | Paina ja puhu | Tap & speak |
 | 📖 | Grown-ups only | `ui:Paljonko on ⟨a⟩ + ⟨b⟩?` | Paljonko on ⟨a⟩ + ⟨b⟩? | Solve to continue |
 | 📖 | Grown-ups only | `ui:Pelaajat` | Pelaajat | Players |

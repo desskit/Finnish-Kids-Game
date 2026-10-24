@@ -116,6 +116,8 @@ interface ProfileContextValue {
   // --- Guided course ---
   /** Mark a lesson as read to the end (idempotent; keeps the first time). */
   markLessonSeen: (lessonId: string) => void;
+  /** The unit's opener story has been listened to the end (opens its first steps). */
+  markOpenerHeard: (unitId: string) => void;
   /** Record a round of an Alphabet-corner game (counts toward the streak). */
   recordSoundsRound: (mode: string, right: number, total: number) => void;
   /** Mark set phrases (`ex:<id>` / `scene:<id>`) as modelled to the child. */
@@ -316,6 +318,19 @@ export function ProfileProvider({
                 course: {
                   ...c.course,
                   lessonsSeen: { ...c.course?.lessonsSeen, [lessonId]: Date.now() },
+                },
+              },
+        ),
+
+      markOpenerHeard: (unitId) =>
+        updateActive((c) =>
+          c.course?.openersHeard?.[unitId]
+            ? c
+            : {
+                ...c,
+                course: {
+                  ...c.course,
+                  openersHeard: { ...c.course?.openersHeard, [unitId]: Date.now() },
                 },
               },
         ),

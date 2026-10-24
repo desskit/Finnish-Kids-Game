@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Child } from '../state/storage';
 import {
-  REVISIT_AFTER_DAYS,
   dueStoryRevisit,
   isGoodRead,
   needsSupport,
@@ -49,17 +48,38 @@ describe('the story log', () => {
     expect(storyStepDone(c, [])).toBe(false);
   });
 
-  it('a finished story comes back once, a few days later, the longest-waiting first', () => {
+  it('a finished story comes back a day, three days and a week after its good read, the longest-waiting first', () => {
     let c = recordStoryOnChild(child(), 'no-hat', 4, 4, [], T0);
     c = recordStoryOnChild(c, 'sick-day', 4, 4, [], T0 + DAY);
     c = recordStoryOnChild(c, 'evening', 1, 4, [], T0); // never read well: never back
-    expect(dueStoryRevisit(c, T0 + (REVISIT_AFTER_DAYS - 1) * DAY)).toBeUndefined();
-    expect(dueStoryRevisit(c, T0 + REVISIT_AFTER_DAYS * DAY)).toBe('no-hat');
-    c = recordStoryOnChild(c, 'no-hat', 2, 2, ['t0', 'c2'], T0 + REVISIT_AFTER_DAYS * DAY, 'revisit');
-    // A revisit is not a read: it doesn't count as one, and it happens only once.
+    expect(dueStoryRevisit(c, T0)).toBeUndefined();
+    expect(dueStoryRevisit(c, T0 + DAY)).toBe('no-hat');
+    // Day 1, day 3, day 7: each gap counted from the hearing before it.
+    c = recordStoryOnChild(c, 'no-hat', 2, 2, ['t0', 'c2'], T0 + DAY, 'revisit');
+    // A revisit is not a read.
     expect(c.course!.stories!['no-hat'].reads).toBe(1);
-    expect(dueStoryRevisit(c, T0 + 30 * DAY)).toBe('sick-day');
-    c = recordStoryOnChild(c, 'sick-day', 1, 2, [], T0 + 30 * DAY, 'revisit');
+    expect(dueStoryRevisit(c, T0 + 2 * DAY)).toBe('sick-day');
+    c = recordStoryOnChild(c, 'sick-day', 2, 2, [], T0 + 2 * DAY, 'revisit');
+    expect(dueStoryRevisit(c, T0 + 2 * DAY)).toBeUndefined();
+    expect(dueStoryRevisit(c, T0 + 3 * DAY)).toBe('no-hat');
+    c = recordStoryOnChild(c, 'no-hat', 2, 2, [], T0 + 3 * DAY, 'revisit');
+    expect(dueStoryRevisit(c, T0 + 6 * DAY)).toBe('sick-day');
+    c = recordStoryOnChild(c, 'sick-day', 2, 2, [], T0 + 6 * DAY, 'revisit');
+    expect(dueStoryRevisit(c, T0 + 6 * DAY)).toBeUndefined();
+    expect(dueStoryRevisit(c, T0 + 7 * DAY)).toBe('no-hat');
+    c = recordStoryOnChild(c, 'no-hat', 2, 2, [], T0 + 7 * DAY, 'revisit');
+    c = recordStoryOnChild(c, 'sick-day', 2, 2, [], T0 + 10 * DAY, 'revisit');
+    expect(c.course!.stories!['no-hat'].revisits).toHaveLength(3);
+    // Three revisits, then never again.
+    expect(dueStoryRevisit(c, T0 + 60 * DAY)).toBeUndefined();
+  });
+
+  it("an older save's single revisit counts as the first two: only the week one is left", () => {
+    let c = recordStoryOnChild(child(), 'no-hat', 4, 4, [], T0);
+    c.course!.stories!['no-hat'].revisitedAt = T0 + 3 * DAY;
+    expect(dueStoryRevisit(c, T0 + 6 * DAY)).toBeUndefined();
+    expect(dueStoryRevisit(c, T0 + 7 * DAY)).toBe('no-hat');
+    c = recordStoryOnChild(c, 'no-hat', 2, 2, [], T0 + 7 * DAY, 'revisit');
     expect(dueStoryRevisit(c, T0 + 60 * DAY)).toBeUndefined();
   });
 });

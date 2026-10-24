@@ -242,6 +242,12 @@ Most sources were read as abstracts or summaries. Check any figure against the o
    - The rule becomes a short "notice" step after practice. Younger readers get example and check cards only; older readers get the full lesson.
    - The story is read again with questions.
    - Stories return at 1, 3 and 7 days.
+   - *Done:* every unit with a story (all but Sentences and Mestari) opens
+     with it — heard, no questions (`/opener/:unitId`). The lesson sits after
+     the first step and gates the rest; younger readers see at most three
+     notice cards with no grammar terms (`noticeCardIndexes`). Older saves keep
+     their place. The opener is listening only for now — the gentle "what
+     happened?" taps are left for later.
 3. **The daily session.**
    - Continue builds a bounded session: due review, then new material, then something to finish on. It stops naturally.
    - A count of how often each word is heard; production waits for enough hearings.
