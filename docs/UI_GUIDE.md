@@ -120,6 +120,21 @@ self-hosted from `@fontsource-variable/baloo-2`:
 
 ## Finnish on the screens
 
+- **Finnish first.** A game opens with Finnish (a heard word, a phrase's frame
+  up to the gap), never an English prompt read aloud — except for a younger
+  reader on a step's first level (`useAutoEnglish`, `src/game/useLearner.ts`).
+  An English prompt stays on screen as text with a button to hear it.
+- **English beside a Finnish line** goes through `EnglishTap`: shown, or a
+  small 🇬🇧 to tap for it, as the grown-ups' English help setting says
+  (`showsEnglish`, `src/game/learner.ts`). Hidden, it carries none of the
+  line's own classes.
+- **Never Finnish in another voice.** With no Finnish voice (or muted), a
+  listening game shows its Finnish with `SilentText` instead of playing it;
+  `speak()` stays silent rather than use an English voice.
+- **Explanations** (a lesson card, a "Why?" tip) get a `ReadAloud` 🔊; it reads
+  on its own for a younger reader, the English in an English voice and each
+  *Finnish* quote in the Finnish one (`speakProse`).
+
 New Finnish labels go through the Finnish check:
 - run `npm run review:content`, which updates `data/ui-finnish.json`;
 - each word must be a form the word tables know, or be listed in

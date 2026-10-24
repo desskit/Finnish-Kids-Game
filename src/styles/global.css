@@ -712,6 +712,50 @@ button:focus-visible,
   max-width: 32ch;
 }
 
+/* A listening game's Finnish shown as text where it can't be heard (SilentText). */
+.silent-text {
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* A faded English gloss: a small tap to see it (EnglishTap). */
+.english-tap {
+  display: inline-flex;
+}
+.english-tap__btn {
+  border: 0;
+  background: transparent;
+  padding: 2px 6px;
+  min-height: 32px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.english-tap__btn:hover,
+.english-tap__btn:focus-visible {
+  background: var(--surface-sunk);
+}
+
+/* Read an explanation aloud (LessonView, WhyTip). */
+.read-aloud {
+  border: 0;
+  background: transparent;
+  padding: 2px 6px;
+  min-height: 32px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
 /* ---------- Activity shared ---------- */
 .activity {
   justify-content: flex-start;
@@ -2518,6 +2562,42 @@ button:focus-visible,
 .avatar-choice--on {
   outline: 4px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Which reader a new player is (src/game/learner.ts): younger or older. */
+.reader-pick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.reader-pick__label {
+  grid-column: 1 / -1;
+}
+.reader-pick__btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: var(--tap);
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+}
+.reader-pick__btn .en {
+  font-size: 0.85rem;
+}
+.reader-pick__hint {
+  font-weight: 600;
+}
+.reader-pick__btn--on {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent);
+  outline-offset: 1px;
 }
 
 /* ---------- Look picker: Day, Night and Pink ---------- */

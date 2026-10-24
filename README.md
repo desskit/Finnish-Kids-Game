@@ -1,7 +1,10 @@
 # Kielipesä – Finnish for Kids
 
-A playful, installable web game (PWA) that teaches **everyday Finnish** to early
-readers (~ages 6–8), designed to scale up as the child grows. Built with
+A playful, installable web game (PWA) that teaches **everyday Finnish** to
+readers aged about 6–10: younger readers (6–7) get short pattern cards read
+aloud, older ones (8–10) the full lessons — see
+[docs/LEARNING_RESEARCH.md](docs/LEARNING_RESEARCH.md) for the research behind
+the design. Built with
 React + Vite + TypeScript. Works on tablets (touch) and laptops/Chromebooks
 (keyboard), runs offline, and uses **only human-authored, native-checked
 Finnish** — the app never generates or inflects Finnish by rule.

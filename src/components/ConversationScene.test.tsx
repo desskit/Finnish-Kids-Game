@@ -179,10 +179,19 @@ describe('ConversationScene (small talk)', () => {
     );
   }
 
-  it('shows English glosses on bubbles + reply tiles below the top rung', () => {
-    renderAtLevel(3);
+  it('shows English glosses on bubbles + reply tiles on the first rung', () => {
+    renderAtLevel(1);
     expect(screen.getByText('Hi! How are you?', { selector: '.chat-en' })).toBeInTheDocument();
     expect(document.querySelector('.reply-tile__en')).not.toBeNull();
+  });
+
+  it('fades the bubbles’ English after the first rung (English help: fade), a tap away', () => {
+    renderAtLevel(3);
+    expect(document.querySelector('.chat-en')).toBeNull();
+    // the reply tiles keep theirs: they're what the child chooses between
+    expect(document.querySelector('.reply-tile__en')).not.toBeNull();
+    fireEvent.click(screen.getAllByRole('button', { name: /Show the English: Hi! How are you\?/ })[0]);
+    expect(screen.getByText('Hi! How are you?', { selector: '.chat-en' })).toBeInTheDocument();
   });
 
   it('goes Finnish-only at the top rung (L5): no English on bubbles or tiles', () => {

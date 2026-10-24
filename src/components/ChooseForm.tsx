@@ -2,8 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, showsGloss } from '../game/adapt';
+import { englishHelpOf, showsEnglish } from '../game/learner';
+import EnglishTap from './EnglishTap';
 import { buildChooseRound, type ChooseMode, type ChoosePools } from '../game/formChoice';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -53,11 +56,13 @@ export default function ChooseForm({
   frames,
   onExit,
 }: Props) {
-  const { level, addStars } = useProfile();
+  const { level, addStars, settings } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount } = difficulty;
-  const glossed = showsGloss(difficulty.level);
+  const glossed = showsEnglish(englishHelpOf(settings), difficulty.level, showsGloss(difficulty.level));
   const t = TITLES[mode];
 
   const missed = useRef(false);
@@ -91,10 +96,10 @@ export default function ChooseForm({
 
   // Read out what was SAID (Finnish), or narrate the English task.
   useEffect(() => {
-    if (!q || done) return;
+    if (!q || done || (!q.said && !autoEnglish)) return;
     const timer = setTimeout(() => (q.said ? speak(q.said.fi) : speakEnglish(q.cue)), 350);
     return () => clearTimeout(timer);
-  }, [q, done]);
+  }, [q, done, autoEnglish]);
 
   const choose = useCallback(
     (form: string) => {
@@ -182,7 +187,7 @@ export default function ChooseForm({
             <p className="dialogue-said" lang="fi">
               {q.said.fi}
             </p>
-            {glossed && <p className="en phrase-hint">{q.said.en}</p>}
+            <EnglishTap as="p" en={q.said.en} shown={glossed} className="phrase-hint" />
           </>
         )}
         <p className="choose-cue">{q.cue}</p>

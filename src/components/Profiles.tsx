@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { READER_BANDS, readerBandOf } from '../game/learner';
 import { useProfile } from '../state/profile';
 import { AVATARS } from '../state/storage';
 import { UNITS, unitsCompleted } from '../game/course';
@@ -10,7 +11,8 @@ import Avatar, { avatarName } from '../art/Avatar';
 // switching and colors are also on the kid-side player picker; removing lives
 // only here, behind the gate, with a confirmation.)
 export default function Profiles() {
-  const { children, activeId, addChild, renameChild, setChildTheme, removeChild, switchChild } = useProfile();
+  const { children, activeId, addChild, renameChild, setChildTheme, setChildReaderBand, removeChild, switchChild } =
+    useProfile();
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(AVATARS[0]);
@@ -53,6 +55,20 @@ export default function Profiles() {
                 <span className="gplayer__meta">
                   <Art glyph="⭐" /> {c.stars} · {unitsCompleted(c)} of {total} units
                 </span>
+              </div>
+              <div className="glook" role="group" aria-label={`Reader for ${c.name}`}>
+                <span className="glook__label">Reader</span>
+                {READER_BANDS.map((b) => (
+                  <button
+                    key={b.id}
+                    className={'gswitch__btn' + (readerBandOf(c) === b.id ? ' gswitch__btn--on' : '')}
+                    aria-pressed={readerBandOf(c) === b.id}
+                    onClick={() => setChildReaderBand(c.id, b.id)}
+                    title={b.hint}
+                  >
+                    {b.label}
+                  </button>
+                ))}
               </div>
               <div className="glook" role="group" aria-label={`Colors for ${c.name}`}>
                 <span className="glook__label">Colors</span>

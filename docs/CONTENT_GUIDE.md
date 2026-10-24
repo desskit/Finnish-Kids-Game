@@ -238,6 +238,15 @@ open map. Each unit is one idea a beginner can hold:
 
 The rules (unlocking, "done", Continue) live in `src/game/course.ts`.
 
+**Who's reading** (`src/game/learner.ts`): each player is a younger reader
+(about 6–7) or an older one (about 8–10), set by a grown-up. Younger readers
+hear explanations read aloud and English prompts on a step's first level;
+older readers read them. Write lesson prose that works read aloud: short
+sentences, Finnish quotes in `*single asterisks*` (read in the Finnish voice).
+**English help** (Grown-ups → Settings) fades the English beside scene and
+dialogue lines after a step's first level by default; the drills' own tasks
+stay in English.
+
 ### Adding or changing a unit
 
 - `newWords`: the item ids the unit introduces. Each word may be introduced

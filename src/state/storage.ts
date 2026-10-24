@@ -60,6 +60,13 @@ export interface Child {
    */
   theme?: ThemeId;
   /**
+   * Which kind of reader this player is (src/game/learner.ts): 'younger'
+   * (about 6–7) gets short pattern cards read aloud and spoken English help;
+   * 'older' (about 8–10) the full lessons. Optional + unbackfilled: missing
+   * means 'younger'.
+   */
+  readerBand?: ReaderBand;
+  /**
    * Manual difficulty when `adaptive` is off: 1 = easier, 2 = harder.
    * (Kept for the legacy v1 migration and the manual Easy/Hard override.)
    */
@@ -200,7 +207,17 @@ export interface Settings {
    * waits as long as it takes. Optional; missing = timed.
    */
   mathUntimed?: boolean;
+  /**
+   * How much English shows beside Finnish lines (scenes, dialogues, choices):
+   * 'always' as before, 'fade' (the default) once a step's first level is
+   * passed, 'off' never — each line keeps a tap to see it. Optional; missing
+   * = 'fade'. A drill's own task (the sentence to build) stays in English.
+   */
+  englishHelp?: EnglishHelp;
 }
+
+export type ReaderBand = 'younger' | 'older';
+export type EnglishHelp = 'always' | 'fade' | 'off';
 
 /** One native reviewer's verdict on one authored-Finnish entry (Grown-ups → Finnish check). */
 export interface ReviewDecision {

@@ -1,5 +1,6 @@
 // Placeholder Finnish audio via the Web Speech API (SpeechSynthesis).
-// This needs no asset files and works offline once a Finnish voice is present.
+// This needs no asset files and works offline once a Finnish voice is present
+// (without one, Finnish is never spoken at all — never in an English voice).
 // In a later session this is swapped for recorded native voiceover, keyed off
 // the same content data — callers won't need to change.
 
@@ -62,9 +63,15 @@ function speakIn(
     synth.cancel();
     speechCleared();
   }
+  const voice = pickVoice(langPrefix);
+  // Never Finnish in another language's voice: a child would hear, and copy,
+  // the wrong sounds. Once the voice list has loaded and has no Finnish voice,
+  // Finnish stays silent (the games show it as text instead — see
+  // `canHearFinnish` in voices.ts). An empty list may still be loading, so it
+  // is left to the browser, which picks by `lang`.
+  if (!voice && langPrefix === 'fi' && synth.getVoices().length > 0) return;
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
-  const voice = pickVoice(langPrefix);
   if (voice) u.voice = voice;
   u.rate = slow ? 0.6 : 0.85; // a touch slower for young learners (much slower on request)
   u.pitch = pitch;
@@ -106,4 +113,25 @@ export function stopSpeaking(): void {
  */
 export function speakEnglish(text: string): void {
   speakIn(text, ENGLISH, 'en');
+}
+
+/**
+ * Read an explanation aloud (a lesson card, a "Why?" tip): the English in an
+ * English voice and every *Finnish* quote in the Finnish one, one after
+ * another — so a quoted word is never said with an English accent. Markup
+ * (`**bold**`, arrows) isn't read. Without a Finnish voice the quotes are
+ * skipped, like any Finnish.
+ */
+export function speakProse(text: string): void {
+  const parts = text
+    .replace(/\*\*/g, '')
+    .replace(/[→←]/g, ', ')
+    .split(/(\*[^*]+\*)/)
+    .map((p) => p.trim())
+    .filter((p) => /\p{L}/u.test(p));
+  parts.forEach((p, i) => {
+    const fi = p.startsWith('*') && p.endsWith('*');
+    if (fi) speakIn(p.slice(1, -1), FINNISH, 'fi', i > 0);
+    else speakIn(p, ENGLISH, 'en', i > 0);
+  });
 }

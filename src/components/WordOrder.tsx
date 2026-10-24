@@ -11,6 +11,7 @@ import { useActivityContext, useSegmentComplete } from '../game/activityContext'
 import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -58,6 +59,8 @@ export default function WordOrder({
   onExit,
 }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   // Higher levels unlock higher-tier carrier phrases (longer, harder sentences);
   // the expert band (L9+) drops the English gloss entirely.
@@ -114,10 +117,10 @@ export default function WordOrder({
   // correct answer, since it has no single settled reading the way one
   // carrier phrase does.
   useEffect(() => {
-    if (!q || done || drillGlossFree) return;
+    if (!q || done || drillGlossFree || !autoEnglish) return;
     const t = setTimeout(() => speakEnglish(q.hintEn), 350);
     return () => clearTimeout(t);
-  }, [q, done, drillGlossFree]);
+  }, [q, done, drillGlossFree, autoEnglish]);
 
   // Manual replay, in case a distracted child misses the auto-play: English
   // any time, or Finnish once a single-slot phrase is freshly, correctly

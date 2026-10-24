@@ -6,6 +6,7 @@ import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor } from '../game/adapt';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import FinnishLetters from './FinnishLetters';
 import { answerMatches, readyToJudge, typeAt } from '../game/answer';
@@ -75,6 +76,8 @@ export default function SpellWord({
   onExit,
 }: Props) {
   const { addStars, recordAttempt, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   const { maxTier, dictation } = ctx?.difficulty ?? difficultyFor(1);
   // Expert band (L9+): DICTATION. The audio alone is the prompt — the emoji
@@ -151,10 +154,10 @@ export default function SpellWord({
     inputRef.current?.focus();
     const t = setTimeout(() => {
       if (speakFi) speak(target.text);
-      else speakEnglish(target.gloss);
+      else if (autoEnglish) speakEnglish(target.gloss);
     }, 400);
     return () => clearTimeout(t);
-  }, [target, done, index, speakFi]);
+  }, [target, done, index, speakFi, autoEnglish]);
 
   const checkIfComplete = useCallback(
     (value: string) => {

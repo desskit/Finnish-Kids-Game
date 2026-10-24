@@ -143,8 +143,8 @@ describe('DialogueGame (choose the right reply)', () => {
     );
   }
 
-  it('shows the English prompt gloss below the top rung', () => {
-    renderAtLevel(3);
+  it('shows the English prompt gloss on the first rung', () => {
+    renderAtLevel(1);
     expect(screen.getByText('Thank you!', { selector: '.phrase-hint' })).toBeInTheDocument();
   });
 

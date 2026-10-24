@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { englishHelpOf } from '../game/learner';
 import { useProfile } from '../state/profile';
 import { parseBackup } from '../state/storage';
 import { isSpeechRecognitionAvailable } from '../audio/speech';
@@ -44,6 +45,12 @@ function Toggle({
 // Device settings (grown-up area), grouped: sound & motion, the course,
 // speaking (with the microphone disclosure), and the player data — back up,
 // restore, or reset. Everything is stored in this browser only.
+const ENGLISH_HELP = [
+  { id: 'always', label: 'Always', hint: 'English beside every Finnish line, as before' },
+  { id: 'fade', label: 'Fade (recommended)', hint: 'English on a game’s first level, then a tap away' },
+  { id: 'off', label: 'Off', hint: 'Finnish only; tap a line for its English' },
+] as const;
+
 export default function Settings() {
   const { settings, updateSettings, resetAll, backup, restore, children } = useProfile();
   const navigate = useNavigate();
@@ -108,8 +115,8 @@ export default function Settings() {
           {voice === 'none' && (
             <div className="gerror">
               <p>
-                <Art glyph="⚠️" /> No Finnish voice on this device, so the app would read Finnish with an English voice — the child
-                would hear (and copy) the wrong sounds. Add one, then come back:
+                <Art glyph="⚠️" /> No Finnish voice on this device. The app won't read Finnish in another voice (the child would
+                hear, and copy, the wrong sounds), so the listening games show the Finnish as text until you add one:
               </p>
               <ul>
                 <li>iPad / iPhone: Settings → Accessibility → Spoken Content → Voices → Finnish.</li>
@@ -138,6 +145,26 @@ export default function Settings() {
           checked={!!settings.unlockAll}
           onChange={(on) => updateSettings({ unlockAll: on })}
         />
+        <div className="gvoice" role="group" aria-label="English help">
+          <p className="gtoggle__label">English help</p>
+          <p className="gmuted">
+            How much English shows beside the Finnish lines in scenes and dialogues. Children learn more when they lean on the
+            Finnish; a faded line is always a tap away.
+          </p>
+          <div className="gswitch">
+            {ENGLISH_HELP.map((h) => (
+              <button
+                key={h.id}
+                className={'gswitch__btn' + (englishHelpOf(settings) === h.id ? ' gswitch__btn--on' : '')}
+                aria-pressed={englishHelpOf(settings) === h.id}
+                onClick={() => updateSettings({ englishHelp: h.id })}
+                title={h.hint}
+              >
+                {h.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <Toggle
           label="Quick sums without a clock"
           fi="Nopeasti!"

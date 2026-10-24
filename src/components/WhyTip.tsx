@@ -4,6 +4,7 @@ import { lessonById } from '../content/lessons';
 import { useActivityContext } from '../game/activityContext';
 import LessonView, { Segments } from './LessonView';
 import Prose from './Prose';
+import ReadAloud from './ReadAloud';
 import Art from '../art/Art';
 
 interface Props {
@@ -27,6 +28,7 @@ export default function WhyTip({ why, lessonId }: Props) {
       <div className="why-tip" role="note">
         <span className="why-tip__head"><Art glyph="💡" /> Miksi? <span className="en">Why?</span></span>
         <Prose text={why.text} />
+        <ReadAloud text={why.text} />
         {why.example && (
           <span className="why-tip__example" lang="fi">
             → <Segments segments={why.example} />

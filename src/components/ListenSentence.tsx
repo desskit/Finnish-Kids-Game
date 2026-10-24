@@ -12,6 +12,7 @@ import {
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import SilentText from './SilentText';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 
@@ -176,6 +177,7 @@ export default function ListenSentence({
         <SpeakerIcon />
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
+      <SilentText fi={question.sentence} />
 
       <div className={`card-grid card-grid--${question.options.length}`}>
         {question.options.map((opt, i) => (
