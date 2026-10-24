@@ -24,13 +24,16 @@ export type ArtId =
   | 'avatar-bunny'
   | 'avatar-cat'
   | 'avatar-dog'
+  | 'avatar-dragon'
   | 'avatar-fox'
   | 'avatar-frog'
   | 'avatar-koala'
   | 'avatar-lion'
   | 'avatar-owl'
+  | 'avatar-owl-in-glasses'
   | 'avatar-panda'
   | 'avatar-penguin'
+  | 'avatar-robot'
   | 'avatar-test-tube'
   | 'avatar-tiger'
   | 'baby'
@@ -255,10 +258,16 @@ export type ArtId =
   | 'math-apple-tree'
   | 'math-basket'
   | 'math-card'
+  | 'math-crown-amber'
+  | 'math-crown-blue'
   | 'math-crown-green'
   | 'math-crown-orange'
+  | 'math-crown-pink'
   | 'math-crown-purple'
   | 'math-crown-red'
+  | 'math-crown-teal'
+  | 'math-crowns-all'
+  | 'math-crowns-three'
   | 'math-engine'
   | 'math-rocket'
   | 'math-scale-pan'
@@ -404,6 +413,7 @@ export type ArtId =
   | 'star'
   | 'station'
   | 'stone'
+  | 'stopwatch'
   | 'strawberry'
   | 'strong'
   | 'summer'
@@ -499,13 +509,16 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   'avatar-bunny': { group: 'ui', title: 'bunny (avatar)' },
   'avatar-cat': { group: 'ui', title: 'cat (avatar)' },
   'avatar-dog': { group: 'ui', title: 'dog (avatar)' },
+  'avatar-dragon': { group: 'ui', title: 'dragon (a face won in math)' },
   'avatar-fox': { group: 'ui', title: 'fox (avatar)' },
   'avatar-frog': { group: 'ui', title: 'frog (avatar)' },
   'avatar-koala': { group: 'ui', title: 'koala (avatar)' },
   'avatar-lion': { group: 'ui', title: 'lion (avatar)' },
   'avatar-owl': { group: 'ui', title: 'owl (avatar)' },
+  'avatar-owl-in-glasses': { group: 'ui', title: 'owl in glasses (a face won in math)' },
   'avatar-panda': { group: 'ui', title: 'panda (avatar)' },
   'avatar-penguin': { group: 'ui', title: 'penguin (avatar)' },
+  'avatar-robot': { group: 'ui', title: 'robot (a face won in math)' },
   'avatar-test-tube': { group: 'ui', title: 'test tube (the test profile; test games)' },
   'avatar-tiger': { group: 'ui', title: 'tiger (avatar)' },
   baby: { group: 'words', title: 'baby' },
@@ -730,10 +743,16 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   'math-apple-tree': { group: 'words', title: 'an apple tree (the apple-tree game)' },
   'math-basket': { group: 'words', title: 'an empty basket (the apples drop in)' },
   'math-card': { group: 'ui', title: 'the fox at its market stall, counting apples (the math card)' },
+  'math-crown-amber': { group: 'ui', title: 'an amber crown (the math stage Paljonko se maksaa?)' },
+  'math-crown-blue': { group: 'ui', title: 'a blue crown (the math stage Mitä kello on?)' },
   'math-crown-green': { group: 'ui', title: 'a green crown (the math stage Montako nyt?)' },
   'math-crown-orange': { group: 'ui', title: 'an orange crown (the math stage Enemmän vai vähemmän?)' },
+  'math-crown-pink': { group: 'ui', title: 'a pink crown (the math stage Kertaa ja puolet)' },
   'math-crown-purple': { group: 'ui', title: 'a purple crown (the math stage Yksitoista, kaksitoista…)' },
   'math-crown-red': { group: 'ui', title: 'a red crown (the math stage Plus ja miinus)' },
+  'math-crown-teal': { group: 'ui', title: 'a teal crown (the math stage Kymmenen, kaksikymmentä…)' },
+  'math-crowns-all': { group: 'ui', title: 'a crown set with every jewel (a math badge: every crown)' },
+  'math-crowns-three': { group: 'ui', title: 'three crowns (a math badge)' },
   'math-engine': { group: 'words', title: 'the train’s engine (smoke puffing, wheels turning)' },
   'math-rocket': { group: 'words', title: 'a rocket on its launch pad (the countdown)' },
   'math-scale-pan': { group: 'words', title: 'a pan of the scale' },
@@ -879,6 +898,7 @@ export const ART: Readonly<Record<ArtId, { group: ArtGroup; title: string }>> = 
   star: { group: 'words', title: 'star' },
   station: { group: 'words', title: 'station' },
   stone: { group: 'words', title: 'stone' },
+  stopwatch: { group: 'ui', title: 'stopwatch (a math badge: quick sums)' },
   strawberry: { group: 'words', title: 'strawberry' },
   strong: { group: 'words', title: 'strong (a barbell)' },
   summer: { group: 'words', title: 'summer (a parasol in the sun)' },
@@ -967,13 +987,16 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   'avatar-bunny': { loop: false, blink: true },
   'avatar-cat': { loop: false, blink: true },
   'avatar-dog': { loop: false, blink: true },
+  'avatar-dragon': { loop: false, blink: true },
   'avatar-fox': { loop: false, blink: true },
   'avatar-frog': { loop: false, blink: true },
   'avatar-koala': { loop: false, blink: true },
   'avatar-lion': { loop: false, blink: true },
   'avatar-owl': { loop: false, blink: true },
+  'avatar-owl-in-glasses': { loop: false, blink: true },
   'avatar-panda': { loop: false, blink: true },
   'avatar-penguin': { loop: false, blink: true },
+  'avatar-robot': { loop: true, blink: true },
   'avatar-test-tube': { loop: true, blink: false },
   'avatar-tiger': { loop: false, blink: true },
   baby: { loop: true, blink: true },
@@ -1114,6 +1137,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   math: { loop: true, blink: false },
   'math-apple-tree': { loop: true, blink: false },
   'math-card': { loop: true, blink: true },
+  'math-crowns-all': { loop: true, blink: false },
   'math-engine': { loop: true, blink: false },
   'math-rocket': { loop: true, blink: false },
   medal: { loop: true, blink: false },
@@ -1194,6 +1218,7 @@ export const ART_MOTION: Readonly<Partial<Record<ArtId, { loop: boolean; blink: 
   spring: { loop: true, blink: false },
   stand: { loop: false, blink: true },
   star: { loop: true, blink: false },
+  stopwatch: { loop: true, blink: false },
   strong: { loop: true, blink: true },
   summer: { loop: true, blink: false },
   sun: { loop: true, blink: false },
@@ -1262,10 +1287,13 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '❓': 'ask',
   '👩‍🦰': 'aunt',
   '🍂': 'autumn',
+  '🐲': 'avatar-dragon',
   '🐨': 'avatar-koala',
   '🦉': 'avatar-owl',
+  '🤓': 'avatar-owl-in-glasses',
   '🐼': 'avatar-panda',
   '🐧': 'avatar-penguin',
+  '🤖': 'avatar-robot',
   '🧪': 'avatar-test-tube',
   '🐯': 'avatar-tiger',
   '👶': 'baby',
@@ -1486,6 +1514,8 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '🔨': 'make',
   '🛍': 'market',
   '➗': 'math',
+  '💎': 'math-crowns-all',
+  '🫅': 'math-crowns-three',
   '🍖': 'meat',
   '🏅': 'medal',
   '🎤': 'microphone',
@@ -1626,6 +1656,7 @@ export const GLYPH_ART: Readonly<Record<string, ArtId>> = {
   '⭐': 'star',
   '🚉': 'station',
   '🪨': 'stone',
+  '⏱': 'stopwatch',
   '🍓': 'strawberry',
   '🏋': 'strong',
   '🏖': 'summer',

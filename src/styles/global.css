@@ -4081,6 +4081,65 @@ button:focus-visible,
   font-size: 0.92rem;
 }
 
+/* Faces won in math (Achievements → Lasketaan!): put one on. */
+.faces {
+  margin-top: 14px;
+}
+.faces__heading {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+.faces__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+.face {
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--raise);
+  transition: transform 0.08s ease;
+}
+.face:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: var(--raise-press);
+}
+.face__head {
+  font-size: 3.2rem;
+}
+.face__label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+.face--on {
+  box-shadow: var(--ring-good);
+}
+.face--on .face__label {
+  color: var(--good);
+}
+.face--locked {
+  box-shadow: none;
+  border: 2px dashed var(--line);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+.face--locked .face__head {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
 .achievement__progress {
   display: flex;
   align-items: center;

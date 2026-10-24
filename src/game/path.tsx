@@ -103,6 +103,9 @@ export type ActivityKind =
   | 'math-word'
   | 'math-build'
   | 'math-quick'
+  | 'math-shop'
+  | 'math-pay'
+  | 'math-clock'
   | 'math-type';
 
 /** Which vocabulary pool a skill draws from. */
@@ -3009,6 +3012,9 @@ export function renderActivity(
     case 'math-word':
     case 'math-build':
     case 'math-quick':
+    case 'math-shop':
+    case 'math-pay':
+    case 'math-clock':
     case 'math-type':
       return null; // the math section's games: renderMathActivity (components/math)
   }

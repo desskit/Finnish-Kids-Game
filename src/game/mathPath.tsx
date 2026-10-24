@@ -15,8 +15,9 @@ import type { ArtId } from '../art/generated/manifest';
 // and it never moves "units done", Continue or a course badge (every id here
 // starts `math-`, which the course side leaves out).
 //
-// A stage opens once the stage before it has its crown and the course has
-// taught what it needs (`afterUnit`).
+// A stage opens once the stage before it has its crown (or the one it names,
+// `afterStage`: the shop and the clock branch off after word problems) and the
+// course has taught what it needs (`afterUnit`).
 
 /** Every math id starts so: stages, games, lessons, stories. */
 export const MATH_PREFIX = 'math-';
@@ -25,6 +26,8 @@ export const isMathId = (id: string): boolean => id.startsWith(MATH_PREFIX);
 export interface MathStage extends Chapter {
   /** The course unit whose checkpoint the stage also waits for. */
   afterUnit?: string;
+  /** The stage whose crown opens it (default: the one before it). */
+  afterStage?: string;
   /** The crown its test wins (its picture). */
   crown: ArtId;
 }
@@ -125,6 +128,80 @@ export const MATH_STAGES: MathStage[] = [
       game('train-20', 'Raketti ja juna', 'The rocket and the train', '🚀', 'math-train', 'run-20'),
       game('sums-20', 'Kuuntele ja laske', 'Listen and count', '👂', 'math-listen', 'sums-20', 4),
       story('teens-story', 'math-stones'),
+    ],
+  },
+  {
+    id: 'math-tens',
+    titleFi: 'Kymmenen, kaksikymmentä…',
+    titleEn: 'The -kymmentä numbers',
+    blurbEn: 'Count in tens all the way to sata, and add and take away tens.',
+    accent: '#0d9488',
+    icon: '🧱',
+    crown: 'math-crown-teal',
+    lessonId: 'math-tens',
+    newWords: [],
+    checkpoint: CHECK,
+    skills: [
+      game('tens-build', 'Kymmenet', 'The tens', '🧱', 'math-build', 'tens-parts'),
+      game('tens-train', 'Juna', 'Counting in tens', '🚂', 'math-train', 'run-tens'),
+      game('tens-sums', 'Kuuntele ja laske', 'Listen and count', '👂', 'math-listen', 'tens-sums', 4),
+      story('tens-story', 'math-baking'),
+    ],
+  },
+  {
+    id: 'math-times',
+    titleFi: 'Kertaa ja puolet',
+    titleEn: 'Times and halves',
+    blurbEn: 'Times tables and halves, said the Finnish way.',
+    accent: '#db2777',
+    icon: '🍓',
+    crown: 'math-crown-pink',
+    lessonId: 'math-times',
+    newWords: [],
+    checkpoint: CHECK,
+    skills: [
+      game('times', 'Kertaa', 'Times', '🍪', 'math-listen', 'times', 4),
+      game('halves', 'Puolet', 'Halves', '🍓', 'math-listen', 'halves', 4),
+      game('quick-times', 'Nopeasti!', 'Quick!', '⚡', 'math-quick', 'times', 2),
+      story('times-story', 'math-picnic'),
+    ],
+  },
+  {
+    id: 'math-shop',
+    titleFi: 'Paljonko se maksaa?',
+    titleEn: 'How much is it?',
+    blurbEn: 'Prices in euros: add them up, and pay with coins.',
+    accent: '#b45309',
+    icon: '💶',
+    crown: 'math-crown-amber',
+    lessonId: 'math-shop',
+    afterStage: 'math-how-many',
+    afterUnit: 'shop',
+    newWords: [],
+    checkpoint: CHECK,
+    skills: [
+      game('prices', 'Yhteensä', 'In all', '💶', 'math-shop', 'shop-totals', 4),
+      game('pay', 'Maksa!', 'Pay with coins', '🛒', 'math-pay', 'shop-pay'),
+      story('shop-story', 'math-shopping'),
+    ],
+  },
+  {
+    id: 'math-clock',
+    titleFi: 'Mitä kello on?',
+    titleEn: 'What time is it?',
+    blurbEn: 'An hour later, an hour earlier, and half past — on the clock.',
+    accent: '#2563eb',
+    icon: '⏰',
+    crown: 'math-crown-blue',
+    lessonId: 'math-clock',
+    afterStage: 'math-how-many',
+    afterUnit: 'my-day',
+    newWords: [],
+    checkpoint: CHECK,
+    skills: [
+      game('clock-hour', 'Tunnin päästä', 'In an hour', '⏰', 'math-clock', 'clock-hour'),
+      game('clock-half', 'Puolen tunnin päästä', 'In half an hour', '🕧', 'math-clock', 'clock-half'),
+      story('clock-story', 'math-train-time'),
     ],
   },
 ];

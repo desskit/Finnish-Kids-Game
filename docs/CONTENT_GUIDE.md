@@ -571,14 +571,23 @@ done in English in your head.
 
 - **The stages** (`src/game/mathPath.tsx`) are built like units: a lesson, a
   few games with levels, a story, and a test that wins the stage's crown. Every
-  id starts `math-`. A stage opens once the one before has its crown and the
-  course has taught what it needs (`afterUnit`); the rules are in
-  `src/game/mathCourse.ts`. Crowns, the quick-sums best run and spoken answers
-  live in `child.math`, never among the course's checkpoints, so math never
-  moves "units done", Continue, the warm-up or a course badge.
+  id starts `math-`. A stage opens once the one before has its crown (or the
+  one it names, `afterStage`: the shop and the clock branch off after word
+  problems) and the course has taught what it needs (`afterUnit`: euros, *My
+  day*); the rules are in `src/game/mathCourse.ts`. Crowns, the quick-sums
+  best run, spoken answers, today's sums and a worn face's animal live in
+  `child.math`, never among the course's checkpoints, so math never moves
+  "units done", Continue, the warm-up or a course badge.
+- **The eight stages:** plus and minus to ten; more or less, before and after;
+  word problems; the *-toista* numbers to twenty; the *-kymmentä* tens to
+  *sata*; times tables and halves (*kertaa*, *puolet*); prices, totals and
+  paying in coins (*euroa*, *yhteensä*); the clock an hour later or earlier, and
+  half past (*tunnin päästä*, *puoli neljä*).
 - **The problems** (`src/game/math.ts`, pure) use only sourced number words:
   *nolla* to *kaksikymmentä*, the round tens and *sata*. Compounds like 21
-  aren't in the data and are never built, so every sum stays inside that set.
+  aren't in the data and are never built, so every sum stays inside that set:
+  times tables only where the answer is a word, halves of even wholes, prices
+  of two euros or more (*kaksi euroa*), hours one to twelve.
 - **The Finnish** is in `src/content/mathProblems.ts` (⚠️, in the Finnish
   check's Math section): each frame has its English for the reviewer only.
   The verb sets the math in a word problem (*saan* adds; *syön*, *annan* take
@@ -595,8 +604,19 @@ done in English in your head.
   answer (`matchNumberSpeech`: "viis" is *viisi*, but *kolmetoista* is never
   *kolme*) and typing it are bonus rounds.
 - **A math lesson** uses the math examples (`{ sum }`, `{ which }`, `{ next }`,
-  `{ teen }`, `{ n }`, `{ problem }` in `lessons.ts`): a frame filled with
-  sourced numbers, shown with dots. Its prose must not name a number in English.
+  `{ teen }`, `{ n }`, `{ problem }`, `{ tens }`, `{ times }`, `{ half }`,
+  `{ price }`, `{ total }`, `{ clock }`, `{ clockMove }` in `lessons.ts`): a
+  frame filled with sourced numbers, shown with dots (a clock time with its
+  face). Its prose must not name a number in English.
+- **Today's sums** (`/math/today`, *Päivän laskut*): once a day, a problem from
+  each of a few games of the stages begun (not the train, the builder or quick
+  sums), only heard, for bonus stars; the days in a row show as flames.
+  `todayPlan` and friends are in `mathCourse.ts`.
+- **Badges and faces:** the *Lasketaan!* group in `src/game/badges.ts` measures
+  the math record only (`FIRST_MATH_STAGES` keeps "every crown" fixed). Their
+  titles can show on a math screen, so no digit or English number word. Three
+  win a face (`src/game/faces.ts`), put on from Achievements; the child's own
+  animal is kept to go back to.
 - **A math story** (`src/content/mathStories.ts`) follows the story rules, and
   keeps numbers in Finnish in its English too.
 

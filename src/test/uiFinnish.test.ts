@@ -23,7 +23,6 @@ const NOT_IN_TABLES = new Set([
   'kirjainten', // of the letters (kirjain, genitive plural)
   'muistaja', // rememberer (muistaa)
   'oppija', // learner
-  'plus', // plus (the math section's Plus ja miinus)
 ]);
 
 describe('the Finnish in the app’s screens', () => {

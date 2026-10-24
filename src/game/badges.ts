@@ -15,7 +15,7 @@ import type { Child } from '../state/storage';
 import { isMastered, wordSchedules } from './srs';
 import { isMathId } from './mathPath';
 
-export type BadgeCategory = 'start' | 'course' | 'words' | 'skills' | 'habits';
+export type BadgeCategory = 'start' | 'course' | 'words' | 'skills' | 'habits' | 'math';
 
 export const BADGE_CATEGORIES: { id: BadgeCategory; titleFi: string; titleEn: string }[] = [
   { id: 'start', titleFi: 'Alku', titleEn: 'Getting started' },
@@ -23,6 +23,7 @@ export const BADGE_CATEGORIES: { id: BadgeCategory; titleFi: string; titleEn: st
   { id: 'skills', titleFi: 'Taidot', titleEn: 'Skills' },
   { id: 'words', titleFi: 'Sanat', titleEn: 'Words' },
   { id: 'habits', titleFi: 'Tavat', titleEn: 'Habits' },
+  { id: 'math', titleFi: 'Lasketaan!', titleEn: 'Math in Finnish' },
 ];
 
 /** How far along a badge is. Earned when `have >= need`. */
@@ -97,6 +98,25 @@ export const FIRST_COURSE: Pick<BadgeEnv, 'checkpointUnitIds' | 'kertausStepIds'
     'sentence-type', 'error-fix', 'reading',
   ],
 };
+
+/**
+ * The math section's stages as they were first built (October 2026): "every
+ * crown" means these, so a crown badge stays earned if stages are added.
+ */
+export const FIRST_MATH_STAGES = [
+  'math-plus-minus', 'math-more-less', 'math-how-many', 'math-teens',
+  'math-tens', 'math-times', 'math-shop', 'math-clock',
+];
+
+/** Math crowns won among the first stages. */
+const mathCrowns = (child: Child) => FIRST_MATH_STAGES.filter((id) => child.math?.crowns?.[id]?.passedAt).length;
+
+/** Rounds played in the math section. */
+const mathPlays = (child: Child) =>
+  Object.entries(child.progress ?? {})
+    .filter(([topicId]) => isMathId(topicId))
+    .flatMap(([, topic]) => Object.values(topic ?? {}))
+    .reduce((n, p) => n + (p?.plays ?? 0), 0);
 
 /** Steps (of a set) whose top level is proven. */
 const provenAmong = (child: Child, ids: string[] | null) =>
@@ -341,6 +361,64 @@ export const BADGES: Badge[] = [
     category: 'habits',
     hintEn: 'Practice 7 days in a row.',
     measure: (c) => count(bestStreak(c), 7, 'days in a row'),
+  },
+
+  // Math in Finnish (Lasketaan!) — its own record, never the course's. Three
+  // of them win a face to wear (faces.ts). Their titles can show on a math
+  // screen, so no number in them is ever a digit or an English word.
+  {
+    id: 'math-first',
+    emoji: '🧮',
+    titleFi: 'Ensimmäinen lasku',
+    titleEn: 'First sum',
+    category: 'math',
+    hintEn: 'Finish a round of math in Finnish (Lasketaan!).',
+    measure: (c) => count(mathPlays(c) > 0 ? 1 : 0, 1, 'round'),
+  },
+  {
+    id: 'math-crowns-3',
+    emoji: '🫅',
+    titleFi: 'Kolme kruunua',
+    titleEn: 'Crown collector',
+    category: 'math',
+    hintEn: 'Win the crown in 3 math stages. Wins the robot face!',
+    measure: (c) => count(mathCrowns(c), 3, 'crowns'),
+  },
+  {
+    id: 'math-crowns-all',
+    emoji: '💎',
+    titleFi: 'Kaikki kruunut',
+    titleEn: 'Every crown',
+    category: 'math',
+    hintEn: 'Win the crown in every math stage. Wins the dragon face!',
+    measure: (c) => count(mathCrowns(c), FIRST_MATH_STAGES.length, 'crowns'),
+  },
+  {
+    id: 'math-speaker',
+    emoji: '🎤',
+    titleFi: 'Sano suomeksi',
+    titleEn: 'Say it in Finnish',
+    category: 'math',
+    hintEn: 'Say 10 math answers out loud, in Finnish.',
+    measure: (c) => count(c.math?.spoken ?? 0, 10, 'answers said'),
+  },
+  {
+    id: 'math-days-7',
+    emoji: '⚡',
+    titleFi: 'Viikon laskut',
+    titleEn: 'A week of sums',
+    category: 'math',
+    hintEn: 'Do today’s sums (Päivän laskut) on 7 different days. Wins the owl-in-glasses face!',
+    measure: (c) => count(c.math?.today?.days ?? 0, 7, 'days'),
+  },
+  {
+    id: 'math-quick-20',
+    emoji: '⏱',
+    titleFi: 'Nopeasti!',
+    titleEn: 'Quick as lightning',
+    category: 'math',
+    hintEn: 'Get 20 quick sums (Nopeasti!) right in a row.',
+    measure: (c) => count(c.math?.quickBest ?? 0, 20, 'in a row'),
   },
 ];
 

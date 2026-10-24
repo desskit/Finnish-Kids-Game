@@ -20,6 +20,10 @@ export const AVATAR_NAMES: Readonly<Record<string, string>> = {
   '🐨': 'koala',
   '🐧': 'penguin',
   '🧪': 'test tube',
+  // faces won in math (src/game/faces.ts)
+  '🤖': 'robot',
+  '🤓': 'owl in glasses',
+  '🐲': 'dragon',
 };
 
 /** What an avatar is called ("fox"), for labels. */

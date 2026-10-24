@@ -35,7 +35,7 @@ import { PATH } from './path';
 import { BADGES, BADGE_CATEGORIES } from './badges';
 import { AUDIT_ENTRIES } from './audit';
 import { MATH_STAGES, isMathId } from './mathPath';
-import { numberEn, numberForm, numberWord, wordProblemFor } from './math';
+import { numberEn, numberForm, numberWord, problemFor, wordProblemFor, type MathProblem, type MathSet } from './math';
 import { LIFT_OFF, MISSING, WORD_FRAMES, compareFrame, neighborFrame, sumFrame } from '../content/mathProblems';
 
 /**
@@ -45,6 +45,17 @@ import { LIFT_OFF, MISSING, WORD_FRAMES, compareFrame, neighborFrame, sumFrame }
  * the optional math section, only the grown-ups' section, or nowhere yet
  * (written, but no game shows it).
  */
+/** A problem of one kind (its key's prefix) from a set, drawn the same way every time. */
+function sampleProblem(set: MathSet, prefix: string): MathProblem {
+  let seed = 7;
+  const rng = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  for (let i = 0; i < 500; i++) {
+    const p = problemFor(set, { optionCount: 3, rng });
+    if (p.key.startsWith(prefix)) return p;
+  }
+  throw new Error(`No ${prefix} problem in ${set}`);
+}
+
 export type ReviewPlace = number | 'everywhere' | 'math' | 'grown-ups' | 'not-yet';
 
 export interface ReviewEntry {
@@ -304,6 +315,25 @@ function collect(): ReviewSection[] {
       const p = wordProblemFor(f, w(f.edible ? 'apple' : 'ball'), 5, 2);
       return {
         key: `math:${f.id}`,
+        fi: `${p.ask.map((x) => x.fi).join(' ')} → ${p.tell.fi}`,
+        en: `${p.ask.map((x) => x.en).join(' ')} → ${p.tell.en}`,
+      };
+    }),
+    // stages 5–8: one problem of each kind, the same every time (a seeded draw)
+    ...(
+      [
+        ['times', 'times', 'times:'],
+        ['half', 'halves', 'half:'],
+        ['shop-total', 'shop-totals', 'total:'],
+        ['shop-pay', 'shop-pay', 'pay:'],
+        ['clock-later', 'clock-hour', 'clock:later'],
+        ['clock-earlier', 'clock-hour', 'clock:earlier'],
+        ['clock-half', 'clock-half', 'clock:half'],
+      ] as [string, MathSet, string][]
+    ).map(([key, set, prefix]) => {
+      const p = sampleProblem(set, prefix);
+      return {
+        key: `math:${key}`,
         fi: `${p.ask.map((x) => x.fi).join(' ')} → ${p.tell.fi}`,
         en: `${p.ask.map((x) => x.en).join(' ')} → ${p.tell.en}`,
       };

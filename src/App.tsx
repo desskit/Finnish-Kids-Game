@@ -42,6 +42,7 @@ import StatsView from './components/StatsView';
 import FinnishReview from './components/FinnishReview';
 import MathHome from './components/math/MathHome';
 import MathTestRoute from './components/math/MathTestRoute';
+import MathToday from './components/math/MathToday';
 import Art from './art/Art';
 
 // Content facts the badge rules measure against (derived from the path).
@@ -59,6 +60,7 @@ const BADGE_ENV = badgeEnv;
 //   /checkpoint/:unitId → Checkpoint    (the unit test that unlocks the next unit)
 //   /math               → MathHome      (Lasketaan!: the optional math-in-Finnish map)
 //   /math/test/:stageId → MathTest      (a math stage's test, which wins its crown)
+//   /math/today         → MathToday     (Päivän laskut: today's sums, once a day)
 //   /warmup             → Warm-up       (a new day's first Continue: the weakest subject)
 //   /review             → Review        (cross-topic spaced repetition)
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
@@ -238,6 +240,7 @@ export function AppRoutes() {
       <Route path="/skill/:skillId" element={<SkillRouteHost />} />
       <Route path="/checkpoint/:unitId" element={<CheckpointRoute />} />
       <Route path="/math/test/:stageId" element={<MathTestRoute />} />
+      <Route path="/math/today" element={<MathToday />} />
       <Route path="/warmup" element={<WarmupRoute />} />
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/next" element={<NextRoute />} />

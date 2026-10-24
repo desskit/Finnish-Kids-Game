@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { BADGES, BADGE_CATEGORIES, badgeProgress } from '../game/badges';
+import { BADGES, BADGE_CATEGORIES, badgeById, badgeProgress } from '../game/badges';
 import { badgeEnv } from '../game/path';
+import { MATH_FACES, facesWon, isMathFace, ownAnimal } from '../game/faces';
 import { useProfile } from '../state/profile';
 import Art from '../art/Art';
+import Avatar, { avatarName } from '../art/Avatar';
 
 // Saavutukset (Achievements): every badge, what EXACTLY earns it, and how far
 // along the child is ("7 / 10 words") — so a goal is something to aim at, not a
@@ -69,9 +71,55 @@ export default function Achievements() {
                 </li>
               ))}
             </ul>
+            {cat.id === 'math' && <Faces />}
           </div>
         );
       })}
     </section>
+  );
+}
+
+/** The faces won in math: put one on, or go back to your own animal. */
+function Faces() {
+  const { activeChild, wearFace } = useProfile();
+  if (!activeChild) return null;
+  const won = new Set(facesWon(activeChild, badgeEnv).map((f) => f.glyph));
+  const animal = ownAnimal(activeChild);
+  const wearingFace = isMathFace(activeChild.avatar);
+  return (
+    <div className="faces">
+      <h3 className="faces__heading">
+        Kokeile! <span className="en">Faces to wear, won in math</span>
+      </h3>
+      <ul className="faces__list">
+        {wearingFace && animal && (
+          <li>
+            <button className="face" onClick={() => wearFace(animal)}>
+              <Avatar glyph={animal} still className="face__head" />
+              <span className="face__label en">Back to the {avatarName(animal)}</span>
+            </button>
+          </li>
+        )}
+        {MATH_FACES.map((f) => {
+          const open = won.has(f.glyph);
+          const on = activeChild.avatar === f.glyph;
+          return (
+            <li key={f.glyph}>
+              <button
+                className={'face' + (on ? ' face--on' : '') + (open ? '' : ' face--locked')}
+                onClick={() => wearFace(f.glyph)}
+                disabled={!open || on}
+                aria-pressed={open ? on : undefined}
+              >
+                <Avatar glyph={f.glyph} still className="face__head" />
+                <span className="face__label en">
+                  {on ? 'You’re wearing it!' : open ? `Wear the ${f.name}` : `Win “${badgeById(f.badgeId)?.titleEn}”`}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

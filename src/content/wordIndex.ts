@@ -30,7 +30,7 @@ const SMALL_WORDS: Record<string, string> = {
   nyt: 'now',
   jo: 'already',
   taas: 'again',
-  sitten: 'then',
+  sitten: 'then; ago (tunti sitten = an hour ago)',
   ensin: 'first',
   lopuksi: 'in the end, finally',
   tänään: 'today',
@@ -116,6 +116,9 @@ const SMALL_WORDS: Record<string, string> = {
   kummalla: 'which one has (kumpi)',
   lasketaan: "let's count",
   lähtö: 'lift-off, start!',
+  päästä: 'from now (tunnin päästä = in an hour)',
+  maksaa: 'costs (Paljonko se maksaa? = How much is it?)',
+  maksa: 'pay!',
   // asking
   onko: 'is …? / does … have?',
   entä: 'and …? / what about …?',

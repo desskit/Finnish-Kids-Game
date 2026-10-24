@@ -129,6 +129,10 @@ export const CAN_DO: CanDoStatement[] = [
   mathClaim('math-more-less', '⚖️', 'Can say which number is more or less, and what comes after or before (viiden jälkeen)'),
   mathClaim('math-how-many', '🧺', 'Can work out a little math story told in Finnish (Syön kaksi omenaa…)'),
   mathClaim('math-teens', '🚀', 'Can count to twenty and add up to twenty in Finnish (kymmenen plus kolme on kolmetoista)'),
+  mathClaim('math-tens', '🧱', 'Can count in tens to a hundred, and add and take away tens, in Finnish (kaksikymmentä plus kolmekymmentä)'),
+  mathClaim('math-times', '🍓', 'Can do small times tables and halves in Finnish (kaksi kertaa kolme, puolet kahdeksasta)'),
+  mathClaim('math-shop', '💶', 'Can add up prices and pay the right number of euros (Omena maksaa kaksi euroa)'),
+  mathClaim('math-clock', '⏰', 'Can tell the time an hour later or earlier, and half past, in Finnish (tunnin päästä, puoli neljä)'),
 ];
 
 function met(child: Child, r: CanDoRequirement): boolean {

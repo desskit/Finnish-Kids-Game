@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../../state/profile';
 import { useActivityContext, useSegmentComplete } from '../../game/activityContext';
-import { buildMathRound, numberWord, spokenProblem, type MathProblem, type MathSet } from '../../game/math';
+import { buildMathRound, choiceWord, spokenProblem, type MathProblem, type MathSet } from '../../game/math';
 import { taughtWords } from '../../game/mathCourse';
 import { isSpeechAvailable, speak } from '../../audio/speak';
 import { isMuted } from '../../audio/mute';
@@ -32,6 +32,13 @@ const SHOW_MS = 1800;
 const QUICK_SHOW_MS = 900;
 
 export type MathAnswerMode = 'tap' | 'say' | 'type';
+
+/**
+ * Quick sums' run of right first answers, per set: it carries on from round to
+ * round while the app is open (a round is only a few problems), and a miss or
+ * a late answer starts it again.
+ */
+const quickRuns = new Map<MathSet, number>();
 
 export interface MathKnobs {
   optionCount: number;
@@ -89,7 +96,14 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
   const [picked, setPicked] = useState<number | null>(null);
   const [late, setLate] = useState(false);
   const [done, setDone] = useState(false);
-  const [streak, setStreak] = useState(0);
+  const [streak, setStreakState] = useState(() => (game === 'quick' ? (quickRuns.get(set) ?? 0) : 0));
+  const setStreak = useCallback(
+    (run: number) => {
+      if (game === 'quick') quickRuns.set(set, run);
+      setStreakState(run);
+    },
+    [game, set],
+  );
   const firstTries = useRef(0);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [micReady, setMicReady] = useState(
@@ -195,7 +209,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
       if (knobs.heardChoices && picked !== v) {
         // only heard: the first tap says it
         setPicked(v);
-        speak(numberWord(v));
+        speak(choiceWord(q, v));
         return;
       }
       if (v === q.answer) {
@@ -205,7 +219,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
         setWrong((w) => [...w, v]);
         setPicked(null);
         // a wrong tap still teaches a word: it's said
-        speak(numberWord(v));
+        speak(choiceWord(q, v));
       }
     },
     [q, answered, knobs.heardChoices, picked, right, miss],
@@ -352,9 +366,18 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
           </button>
         </div>
       ) : answer === 'say' ? (
-        <MathMic key={index} answer={q.answer} locked={answered} misses={misses} onRight={() => right()} onMiss={miss} onVouch={() => right(true)} />
+        <MathMic
+          key={index}
+          answer={q.answer}
+          answerWords={q.words?.[q.answer]}
+          locked={answered}
+          misses={misses}
+          onRight={() => right()}
+          onMiss={miss}
+          onVouch={() => right(true)}
+        />
       ) : answer === 'type' ? (
-        <MathTyping key={index} answer={q.answer} locked={answered} onRight={() => right()} onMiss={miss} onSkip={() => showAnswer()} />
+        <MathTyping key={index} word={choiceWord(q, q.answer)} locked={answered} onRight={() => right()} onMiss={miss} onSkip={() => showAnswer()} />
       ) : sceneChooses ? null : (
         <MathChoices
           options={q.options}
@@ -364,6 +387,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
           heard={knobs.heardChoices}
           picked={picked}
           look={game === 'train' ? 'wagons' : undefined}
+          wordOf={(v) => choiceWord(q, v)}
           onChoose={choose}
         />
       )}

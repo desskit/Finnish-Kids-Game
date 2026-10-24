@@ -5,12 +5,14 @@ import { findUnit } from '../../game/course';
 import { MATH_STAGES } from '../../game/mathPath';
 import { newStages, nextMathAction, stageStatus, waitingFor } from '../../game/mathCourse';
 import Art from '../../art/Art';
+import { TodayButton } from './MathToday';
 import '../../styles/math.css';
 
 // The math section's door on the course home, right under "Continue": the fox
 // at its market stall, "Lasketaan!", what comes next, and the stages as a
 // little road of crowns. When a stage opens it says "Uusi!" — on the card
-// until the child has been to see it, and once in a passing toast.
+// until the child has been to see it, and once in a passing toast. Under it,
+// once a stage is begun, today's sums (Päivän laskut).
 
 /** Stages already announced in a toast since the app opened (once is enough). */
 const announced = new Set<string>();
@@ -69,6 +71,7 @@ export default function MathCard() {
           </span>
         </span>
       </Link>
+      <TodayButton />
       {toast && (
         <div className="reward-toast" role="status">
           <p className="reward-toast__line">

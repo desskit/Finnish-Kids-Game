@@ -18,6 +18,9 @@ const GAMES: Partial<Record<ActivityKind, MathGame>> = {
   'math-word': 'word',
   'math-build': 'build',
   'math-quick': 'quick',
+  'math-shop': 'shop',
+  'math-pay': 'pay',
+  'math-clock': 'clock',
 };
 
 /** The game a math step plays (its bonus rounds keep its scene). */

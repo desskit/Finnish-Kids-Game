@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { numberWord } from '../../game/math';
-import { matchNumberSpeech, normalizeSpoken } from '../../game/speechMatch';
+import { matchNumberSpeech, matchSpeech, normalizeSpoken } from '../../game/speechMatch';
 import { answerMatches, readyToJudge, typeAt } from '../../game/answer';
 import { stopSpeaking, speak } from '../../audio/speak';
 import { listenOnce, type ListenSession } from '../../audio/speech';
@@ -25,12 +24,22 @@ interface ChoicesProps {
   picked: number | null;
   /** Wagons for the train's choices. */
   look?: 'wagons';
+  /** What a choice says ("kolme", "puoli neljä"). */
+  wordOf: (v: number) => string;
   onChoose: (v: number) => void;
 }
 
-export function MathChoices({ options, answer, answered, wrong, heard, picked, look, onChoose }: ChoicesProps) {
+/** A word longer than this doesn't fit half the width at phone size: the choices stack. */
+const LONG_WORD = 12;
+
+export function MathChoices({ options, answer, answered, wrong, heard, picked, look, wordOf, onChoose }: ChoicesProps) {
+  const long = !heard && options.some((v) => wordOf(v).split(' ').some((w) => w.length > LONG_WORD));
   return (
-    <div className={'math-choices' + (heard ? ' math-choices--heard' : '') + (look ? ` math-choices--${look}` : '')}>
+    <div
+      className={
+        'math-choices' + (heard ? ' math-choices--heard' : '') + (long ? ' math-choices--long' : '') + (look ? ` math-choices--${look}` : '')
+      }
+    >
       {heard && !answered && (
         <p className="math-choices__help">
           Kuuntele <span className="en">Tap to hear it, tap again to choose</span>
@@ -55,7 +64,7 @@ export function MathChoices({ options, answer, answered, wrong, heard, picked, l
             // an only-heard choice has no word to read: a letter tells them apart
             aria-label={heard && !answered ? `Kuuntele · Listen (${String.fromCharCode(65 + i)})` : undefined}
           >
-            {heard && !answered ? <SpeakerIcon /> : numberWord(v)}
+            {heard && !answered ? <SpeakerIcon /> : wordOf(v)}
           </button>
         );
       })}
@@ -72,6 +81,8 @@ type MicState = 'none' | 'listening' | 'tryagain' | 'unheard' | 'denied';
 
 interface MicProps {
   answer: number;
+  /** The answer when it isn't a plain number ("puoli neljä"): heard as words. */
+  answerWords?: string;
   /** Answered or given up: the mic is put away. */
   locked: boolean;
   /** Tries that weren't heard as the answer so far (the second ends it). */
@@ -87,7 +98,7 @@ interface MicProps {
  * heard generously (`matchNumberSpeech`: "viisi", "viis", "se on viisi"), but
  * never one number inside another. Silence or a hiccup isn't a try.
  */
-export function MathMic({ answer, locked, misses, onRight, onMiss, onVouch }: MicProps) {
+export function MathMic({ answer, answerWords, locked, misses, onRight, onMiss, onVouch }: MicProps) {
   const [state, setState] = useState<MicState>('none');
   const session = useRef<ListenSession | null>(null);
   useEffect(() => () => session.current?.stop(), []);
@@ -108,7 +119,7 @@ export function MathMic({ answer, locked, misses, onRight, onMiss, onVouch }: Mi
             setState('unheard');
             return;
           }
-          if (matchNumberSpeech(heard, answer)) {
+          if (answerWords ? matchSpeech(heard, answerWords) : matchNumberSpeech(heard, answer)) {
             setState('none');
             onRight();
           } else {
@@ -124,7 +135,7 @@ export function MathMic({ answer, locked, misses, onRight, onMiss, onVouch }: Mi
       { maxMs: MAX_LISTEN_MS },
     );
     if (!session.current) setState('unheard');
-  }, [locked, state, answer, onRight, onMiss]);
+  }, [locked, state, answer, answerWords, onRight, onMiss]);
 
   if (locked) return null;
   const listening = state === 'listening';
@@ -166,7 +177,8 @@ export function MathMic({ answer, locked, misses, onRight, onMiss, onVouch }: Mi
 // --- Type ------------------------------------------------------------------------------
 
 interface TypingProps {
-  answer: number;
+  /** The answer's words, to type. */
+  word: string;
   locked: boolean;
   onRight: () => void;
   onMiss: () => void;
@@ -178,11 +190,10 @@ interface TypingProps {
  * Type the answer's word. Only letters count: a digit gets a nudge to write
  * it in Finnish, never a buzz.
  */
-export function MathTyping({ answer, locked, onRight, onMiss, onSkip }: TypingProps) {
+export function MathTyping({ word, locked, onRight, onMiss, onSkip }: TypingProps) {
   const [typed, setTyped] = useState('');
   const [shake, setShake] = useState(false);
   const input = useRef<HTMLInputElement>(null);
-  const word = numberWord(answer);
   const digits = /\d/.test(typed);
   const right = answerMatches(typed, word);
 
