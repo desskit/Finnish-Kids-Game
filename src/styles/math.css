@@ -1041,7 +1041,8 @@ button.math-pan:not(:disabled):active .math-pan__word {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 2px;
-  font-size: 1.35rem;
+  /* eight crowns fit one row at phone width */
+  font-size: clamp(1.05rem, 4.6vw, 1.35rem);
 }
 .math-card__stop {
   position: relative;
@@ -1049,7 +1050,7 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 .math-card__stop + .math-card__stop::before {
   content: '';
-  width: 8px;
+  width: 6px;
   height: 4px;
   margin-right: 2px;
   align-self: center;
