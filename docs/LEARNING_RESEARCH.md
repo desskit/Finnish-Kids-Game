@@ -292,6 +292,12 @@ Most sources were read as abstracts or summaries. Check any figure against the o
 6. **Spoken Finnish to recognise.**
    - "Two ways to say it" cards, written by the native reviewer.
    - Mild spoken Finnish in child characters' lines.
+   - *Done:* `src/content/spoken.ts` — six word pairs (*minä → mä, sinä → sä,
+     olen → oon, olet → oot, minun → mun, sinun → sun*), each a colloquial form
+     Wiktionary lists, shown as a "Kaksi tapaa sanoa" card at the end of the
+     verb-persons, possessive and me-and-you lessons, and as a tap in the
+     glossary. Never graded or asked for. Not done: spoken lines for the child
+     characters — those wait for the native author.
 7. **Rewards that tell.**
    - Round ends say what was learned.
    - A word book.

@@ -2382,6 +2382,30 @@
    "fi": "kirjoitatko?",
    "how": "kirjoittaa: 2nd person sg present \"kirjoitat\" + question -ko"
   },
+  "spoken:ma": {
+   "fi": "minä → mä",
+   "how": "mä: colloquial personal pronoun, \"I\""
+  },
+  "spoken:mun": {
+   "fi": "minun → mun",
+   "how": "mun: colloquial genitive singular of mä"
+  },
+  "spoken:oon": {
+   "fi": "olen → oon",
+   "how": "oon: colloquial first-person singular present indicative of olla"
+  },
+  "spoken:oot": {
+   "fi": "olet → oot",
+   "how": "oot: colloquial second-person singular present indicative of olla"
+  },
+  "spoken:sa": {
+   "fi": "sinä → sä",
+   "how": "sä: colloquial personal pronoun, \"you\""
+  },
+  "spoken:sun": {
+   "fi": "sinun → sun",
+   "how": "sun: colloquial genitive singular of sä"
+  },
   "title:Aamulla": {
    "fi": "Aamulla",
    "how": "aamulla: aamu adessive sg"

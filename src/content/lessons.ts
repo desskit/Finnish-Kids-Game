@@ -55,6 +55,7 @@ import {
   type WordFrame,
 } from './mathProblems';
 import { itemById } from './lookup';
+import { SPOKEN_FOR_LESSON } from './spoken';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
 import { ageSentence, dateEnglish, dateFi, dateSegments, yearsWord } from './dates';
@@ -170,6 +171,9 @@ export type LessonCard =
   /** Set-phrase pairs: what someone SAYS → what you SAY BACK (vetted dialogue
    *  exchanges by id). Teaches "what comes after what" before any game asks. */
   | { kind: 'pairs'; title?: string; text?: string; ids: string[] }
+  /** Two ways to say it: written forms beside their everyday spoken ones
+   *  (content/spoken.ts) — to recognise, never asked for. */
+  | { kind: 'spoken'; title?: string; text?: string; ids: readonly string[] }
   | {
       kind: 'check';
       title?: string;
@@ -226,6 +230,23 @@ export function noticeCardIndexes(lesson: Lesson): number[] {
 /** The lesson as a younger reader meets it in the course: just its notice cards. */
 export function noticeLesson(lesson: Lesson): Lesson {
   return { ...lesson, cards: noticeCardIndexes(lesson).map((i) => lesson.cards[i]) };
+}
+
+/** The lesson with its "two ways to say it" card last, where it has one (content/spoken.ts). */
+export function withSpoken(lesson: Lesson): Lesson {
+  const ids = SPOKEN_FOR_LESSON[lesson.id];
+  if (!ids) return lesson;
+  return {
+    ...lesson,
+    cards: [
+      ...lesson.cards,
+      {
+        kind: 'spoken',
+        text: 'When people talk, they often say some words **shorter**. You will hear both — in the games, use the first one.',
+        ids,
+      },
+    ],
+  };
 }
 
 /** A resolved example, ready to render. */

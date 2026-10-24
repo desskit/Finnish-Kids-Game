@@ -741,6 +741,752 @@
   "ranta": [
    "ran",
    "ta"
+  ],
+  "paita": [
+   "pai",
+   "ta"
+  ],
+  "pusero": [
+   "pu",
+   "se",
+   "ro"
+  ],
+  "takki": [
+   "tak",
+   "ki"
+  ],
+  "kenkä": [
+   "ken",
+   "kä"
+  ],
+  "sukka": [
+   "suk",
+   "ka"
+  ],
+  "hattu": [
+   "hat",
+   "tu"
+  ],
+  "mekko": [
+   "mek",
+   "ko"
+  ],
+  "käsine": [
+   "kä",
+   "si",
+   "ne"
+  ],
+  "huivi": [
+   "hui",
+   "vi"
+  ],
+  "lakki": [
+   "lak",
+   "ki"
+  ],
+  "saapas": [
+   "saa",
+   "pas"
+  ],
+  "sormus": [
+   "sor",
+   "mus"
+  ],
+  "solmio": [
+   "sol",
+   "mi",
+   "o"
+  ],
+  "liivi": [
+   "lii",
+   "vi"
+  ],
+  "pipo": [
+   "pi",
+   "po"
+  ],
+  "lapanen": [
+   "la",
+   "pa",
+   "nen"
+  ],
+  "haalari": [
+   "haa",
+   "la",
+   "ri"
+  ],
+  "villapaita": [
+   "vil",
+   "la",
+   "pai",
+   "ta"
+  ],
+  "sadetakki": [
+   "sa",
+   "de",
+   "tak",
+   "ki"
+  ],
+  "opettaja": [
+   "o",
+   "pet",
+   "ta",
+   "ja"
+  ],
+  "kaveri": [
+   "ka",
+   "ve",
+   "ri"
+  ],
+  "kirja": [
+   "kir",
+   "ja"
+  ],
+  "kynä": [
+   "ky",
+   "nä"
+  ],
+  "reppu": [
+   "rep",
+   "pu"
+  ],
+  "paperi": [
+   "pa",
+   "pe",
+   "ri"
+  ],
+  "kuva": [
+   "ku",
+   "va"
+  ],
+  "kello": [
+   "kel",
+   "lo"
+  ],
+  "läksy": [
+   "läk",
+   "sy"
+  ],
+  "matematiikka": [
+   "ma",
+   "te",
+   "ma",
+   "tiik",
+   "ka"
+  ],
+  "liikunta": [
+   "lii",
+   "kun",
+   "ta"
+  ],
+  "englanti": [
+   "eng",
+   "lan",
+   "ti"
+  ],
+  "oppilas": [
+   "op",
+   "pi",
+   "las"
+  ],
+  "koe": [
+   "ko",
+   "e"
+  ],
+  "kapteeni": [
+   "kap",
+   "tee",
+   "ni"
+  ],
+  "välitunti": [
+   "vä",
+   "li",
+   "tun",
+   "ti"
+  ],
+  "vihko": [
+   "vih",
+   "ko"
+  ],
+  "liima": [
+   "lii",
+   "ma"
+  ],
+  "taulu": [
+   "tau",
+   "lu"
+  ],
+  "terveydenhoitaja": [
+   "ter",
+   "vey",
+   "den",
+   "hoi",
+   "ta",
+   "ja"
+  ],
+  "laastari": [
+   "laas",
+   "ta",
+   "ri"
+  ],
+  "pallo": [
+   "pal",
+   "lo"
+  ],
+  "jalkapallo": [
+   "jal",
+   "ka",
+   "pal",
+   "lo"
+  ],
+  "pyörä": [
+   "pyö",
+   "rä"
+  ],
+  "peli": [
+   "pe",
+   "li"
+  ],
+  "kitara": [
+   "ki",
+   "ta",
+   "ra"
+  ],
+  "piano": [
+   "pi",
+   "a",
+   "no"
+  ],
+  "musiikki": [
+   "mu",
+   "siik",
+   "ki"
+  ],
+  "elokuva": [
+   "e",
+   "lo",
+   "ku",
+   "va"
+  ],
+  "puhelin": [
+   "pu",
+   "he",
+   "lin"
+  ],
+  "tietokone": [
+   "tie",
+   "to",
+   "ko",
+   "ne"
+  ],
+  "lusikka": [
+   "lu",
+   "sik",
+   "ka"
+  ],
+  "avain": [
+   "a",
+   "vain"
+  ],
+  "ilmapallo": [
+   "il",
+   "ma",
+   "pal",
+   "lo"
+  ],
+  "kynttilä": [
+   "kynt",
+   "ti",
+   "lä"
+  ],
+  "nalle": [
+   "nal",
+   "le"
+  ],
+  "nukke": [
+   "nuk",
+   "ke"
+  ],
+  "lelu": [
+   "le",
+   "lu"
+  ],
+  "rumpu": [
+   "rum",
+   "pu"
+  ],
+  "viulu": [
+   "viu",
+   "lu"
+  ],
+  "kortti": [
+   "kort",
+   "ti"
+  ],
+  "shakki": [
+   "shak",
+   "ki"
+  ],
+  "jääkiekko": [
+   "jää",
+   "ki",
+   "ek",
+   "ko"
+  ],
+  "euro": [
+   "eu",
+   "ro"
+  ],
+  "aamupala": [
+   "aa",
+   "mu",
+   "pa",
+   "la"
+  ],
+  "lounas": [
+   "lou",
+   "nas"
+  ],
+  "päivällinen": [
+   "päi",
+   "väl",
+   "li",
+   "nen"
+  ],
+  "iltapala": [
+   "il",
+   "ta",
+   "pa",
+   "la"
+  ],
+  "sää": [
+   "sää"
+  ],
+  "joulu": [
+   "jou",
+   "lu"
+  ],
+  "joulupukki": [
+   "jou",
+   "lu",
+   "puk",
+   "ki"
+  ],
+  "joulukuusi": [
+   "jou",
+   "lu",
+   "kuu",
+   "si"
+  ],
+  "tonttu": [
+   "tont",
+   "tu"
+  ],
+  "lumiukko": [
+   "lu",
+   "mi",
+   "uk",
+   "ko"
+  ],
+  "pääsiäinen": [
+   "pää",
+   "si",
+   "äi",
+   "nen"
+  ],
+  "noita": [
+   "noi",
+   "ta"
+  ],
+  "pajunkissa": [
+   "pa",
+   "jun",
+   "kis",
+   "sa"
+  ],
+  "juhannus": [
+   "ju",
+   "han",
+   "nus"
+  ],
+  "kokko": [
+   "kok",
+   "ko"
+  ],
+  "viikonloppu": [
+   "vii",
+   "kon",
+   "lop",
+   "pu"
+  ],
+  "aamu": [
+   "aa",
+   "mu"
+  ],
+  "päivä": [
+   "päi",
+   "vä"
+  ],
+  "ilta": [
+   "il",
+   "ta"
+  ],
+  "yö": [
+   "yö"
+  ],
+  "kevät": [
+   "ke",
+   "vät"
+  ],
+  "kesä": [
+   "ke",
+   "sä"
+  ],
+  "syksy": [
+   "syk",
+   "sy"
+  ],
+  "talvi": [
+   "tal",
+   "vi"
+  ],
+  "syntymäpäivä": [
+   "syn",
+   "ty",
+   "mä",
+   "päi",
+   "vä"
+  ],
+  "syödä": [
+   "syö",
+   "dä"
+  ],
+  "juoda": [
+   "juo",
+   "da"
+  ],
+  "nukkua": [
+   "nuk",
+   "ku",
+   "a"
+  ],
+  "leikkiä": [
+   "leik",
+   "ki",
+   "ä"
+  ],
+  "juosta": [
+   "juos",
+   "ta"
+  ],
+  "hypätä": [
+   "hy",
+   "pä",
+   "tä"
+  ],
+  "nähdä": [
+   "näh",
+   "dä"
+  ],
+  "antaa": [
+   "an",
+   "taa"
+  ],
+  "katsoa": [
+   "kat",
+   "so",
+   "a"
+  ],
+  "laulaa": [
+   "lau",
+   "laa"
+  ],
+  "lukea": [
+   "lu",
+   "ke",
+   "a"
+  ],
+  "uida": [
+   "ui",
+   "da"
+  ],
+  "rakastaa": [
+   "ra",
+   "kas",
+   "taa"
+  ],
+  "tykätä": [
+   "ty",
+   "kä",
+   "tä"
+  ],
+  "auttaa": [
+   "aut",
+   "taa"
+  ],
+  "istua": [
+   "is",
+   "tu",
+   "a"
+  ],
+  "seisoa": [
+   "sei",
+   "so",
+   "a"
+  ],
+  "kävellä": [
+   "kä",
+   "vel",
+   "lä"
+  ],
+  "tanssia": [
+   "tans",
+   "si",
+   "a"
+  ],
+  "piirtää": [
+   "piir",
+   "tää"
+  ],
+  "kirjoittaa": [
+   "kir",
+   "joit",
+   "taa"
+  ],
+  "avata": [
+   "a",
+   "va",
+   "ta"
+  ],
+  "sulkea": [
+   "sul",
+   "ke",
+   "a"
+  ],
+  "ostaa": [
+   "os",
+   "taa"
+  ],
+  "kuulla": [
+   "kuul",
+   "la"
+  ],
+  "kuunnella": [
+   "kuun",
+   "nel",
+   "la"
+  ],
+  "puhua": [
+   "pu",
+   "hu",
+   "a"
+  ],
+  "sanoa": [
+   "sa",
+   "no",
+   "a"
+  ],
+  "kysyä": [
+   "ky",
+   "sy",
+   "ä"
+  ],
+  "vastata": [
+   "vas",
+   "ta",
+   "ta"
+  ],
+  "etsiä": [
+   "et",
+   "si",
+   "ä"
+  ],
+  "tehdä": [
+   "teh",
+   "dä"
+  ],
+  "saada": [
+   "saa",
+   "da"
+  ],
+  "viedä": [
+   "vie",
+   "dä"
+  ],
+  "lentää": [
+   "len",
+   "tää"
+  ],
+  "ajaa": [
+   "a",
+   "jaa"
+  ],
+  "pestä": [
+   "pes",
+   "tä"
+  ],
+  "siivota": [
+   "sii",
+   "vo",
+   "ta"
+  ],
+  "keittää": [
+   "keit",
+   "tää"
+  ],
+  "maalata": [
+   "maa",
+   "la",
+   "ta"
+  ],
+  "hymyillä": [
+   "hy",
+   "myil",
+   "lä"
+  ],
+  "itkeä": [
+   "it",
+   "ke",
+   "ä"
+  ],
+  "nauraa": [
+   "nau",
+   "raa"
+  ],
+  "halata": [
+   "ha",
+   "la",
+   "ta"
+  ],
+  "heittää": [
+   "heit",
+   "tää"
+  ],
+  "kiivetä": [
+   "kii",
+   "ve",
+   "tä"
+  ],
+  "muistaa": [
+   "muis",
+   "taa"
+  ],
+  "unohtaa": [
+   "u",
+   "noh",
+   "taa"
+  ],
+  "oppia": [
+   "op",
+   "pi",
+   "a"
+  ],
+  "opettaa": [
+   "o",
+   "pet",
+   "taa"
+  ],
+  "odottaa": [
+   "o",
+   "dot",
+   "taa"
+  ],
+  "asua": [
+   "a",
+   "su",
+   "a"
+  ],
+  "rakentaa": [
+   "ra",
+   "ken",
+   "taa"
+  ],
+  "korjata": [
+   "kor",
+   "ja",
+   "ta"
+  ],
+  "herätä": [
+   "he",
+   "rä",
+   "tä"
+  ],
+  "leikata": [
+   "lei",
+   "ka",
+   "ta"
+  ],
+  "valita": [
+   "va",
+   "li",
+   "ta"
+  ],
+  "lukita": [
+   "lu",
+   "ki",
+   "ta"
+  ],
+  "vanheta": [
+   "van",
+   "he",
+   "ta"
+  ],
+  "lämmetä": [
+   "läm",
+   "me",
+   "tä"
+  ],
+  "paeta": [
+   "pa",
+   "e",
+   "ta"
+  ],
+  "käskeä": [
+   "käs",
+   "ke",
+   "ä"
+  ],
+  "koskettaa": [
+   "kos",
+   "ket",
+   "taa"
+  ],
+  "nostaa": [
+   "nos",
+   "taa"
+  ],
+  "pelata": [
+   "pe",
+   "la",
+   "ta"
+  ],
+  "soittaa": [
+   "soit",
+   "taa"
+  ],
+  "harjata": [
+   "har",
+   "ja",
+   "ta"
+  ],
+  "pukea": [
+   "pu",
+   "ke",
+   "a"
+  ],
+  "ymmärtää": [
+   "ym",
+   "mär",
+   "tää"
+  ],
+  "hiihtää": [
+   "hiih",
+   "tää"
+  ],
+  "luistella": [
+   "luis",
+   "tel",
+   "la"
   ]
  },
  "none": []

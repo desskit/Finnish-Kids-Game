@@ -21,6 +21,7 @@ import { nounConstructions } from '../content/constructions';
 import { sentenceConstructions } from '../content/sentences';
 import { lessons } from '../content/lessons';
 import { YOU_QUESTION } from '../content/questions';
+import { SPOKEN_FOR_LESSON, SPOKEN_PAIRS } from '../content/spoken';
 import { PRONOUNS, PRONOUN_FRAMES } from '../content/pronouns';
 import { ALPHABET } from '../content/alphabet';
 import { comparisonSentence, superlativeSentence, whichIsMost, whichOfTwo } from '../content/compare';
@@ -254,6 +255,22 @@ function collect(): ReviewSection[] {
     ...PRONOUN_FRAMES.map((fr) => ({ key: `pronoun-frame:${fr.id}`, fi: `${fr.before} ___${fr.punct}`, en: fr.en })),
   ];
 
+  // Everyday spoken forms, shown to recognise (content/spoken.ts).
+  // Met where the first lesson showing it is.
+  const spokenWhere = (id: string): ReviewPlace => {
+    const places = Object.entries(SPOKEN_FOR_LESSON)
+      .filter(([, ids]) => ids.includes(id))
+      .map(([lessonId]) => placeOf(`lesson:${lessonId}`))
+      .filter((w): w is number => typeof w === 'number');
+    return places.length > 0 ? Math.min(...places) : 'not-yet';
+  };
+  const spokenRows: Row[] = SPOKEN_PAIRS.map((p) => ({
+    key: `spoken:${p.id}`,
+    fi: `${p.written} → ${p.spoken}`,
+    en: `${p.en} — written → spoken`,
+    where: spokenWhere(p.id),
+  }));
+
   const letterRows: Row[] = ALPHABET.map((l) => ({
     key: `letter:${l.ch}`,
     fi: `${l.ch.toUpperCase()}${l.ch} — "${l.nameFi}"`,
@@ -426,6 +443,7 @@ function collect(): ReviewSection[] {
     { id: 'ordinals', title: 'Ordinals 11th–31st', hint: 'Hand-written words (the source stops at the 10th).', rows: ordinalRows },
     { id: 'questions', title: '"Do you…?" questions', hint: 'One question form per verb.', rows: questionRows },
     { id: 'pronouns', title: 'Pronoun forms & frames', hint: 'minä, minua, minulle…', rows: pronounRows },
+    { id: 'spoken', title: 'Spoken Finnish', hint: 'Everyday spoken forms, shown beside the written ones to recognise — never asked for.', rows: spokenRows },
     { id: 'letters', title: 'Alphabet', hint: 'Letter names and sound tips.', rows: letterRows },
     { id: 'lessons', title: 'Finnish in the lessons', hint: 'Words quoted in the explanations.', rows: lessonRows },
     {

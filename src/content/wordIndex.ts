@@ -6,6 +6,7 @@
 
 import { themes, verbs, feelingVerbs, adjectives, numbers, ordinals, time, states, mathWords } from '.';
 import { PRONOUNS } from './pronouns';
+import { SPOKEN_PAIRS } from './spoken';
 import { CALLED_BY_A_WORD, CAST, type CastId } from './storyKit';
 import { glossWithAlso, possessiveGloss, type CaseId, type PersonId, type PossessorId } from './types';
 
@@ -223,6 +224,8 @@ function build(): Map<string, WordMeaning> {
       });
     }
   }
+  // Everyday spoken forms (mä, oon…): what they are, and the written word.
+  for (const p of SPOKEN_PAIRS) put(p.spoken, { base: p.written, en: `${p.en} (the spoken form of ${p.written})` });
   // A "not" form is two words ("ei käskenyt" = didn't order): the verb part on
   // its own is still this verb.
   for (const item of items) {
