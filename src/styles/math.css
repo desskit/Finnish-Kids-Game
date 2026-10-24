@@ -333,7 +333,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: 12%;
+  bottom: 44%;
   transform: translateX(-50%);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -461,13 +461,13 @@ button.math-pan:not(:disabled):active .math-pan__word {
   transform: translateY(3px);
   box-shadow: var(--raise-press);
 }
-.math-pan--wrong {
+.math-pan--missed {
   opacity: 0.5;
 }
-.math-pan--wrong .math-pan__word {
+.math-pan--missed .math-pan__word {
   box-shadow: var(--ring-bad);
 }
-.math-pan--right .math-pan__word {
+.math-pan--correct .math-pan__word {
   background: var(--good-soft);
   color: var(--good);
   box-shadow: var(--ring-good);
@@ -477,52 +477,75 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 
 /* ---------- The train ---------- */
+/* The engine leads (turned to face the way the words read); each wagon is a
+   box as long as its word, on two wheels, so a long run wraps to a new line. */
 .math-track {
   min-height: 0;
-  padding-bottom: 10px;
-  background: linear-gradient(transparent calc(100% - 8px), color-mix(in srgb, var(--ink) 35%, transparent) calc(100% - 8px) calc(100% - 4px), transparent calc(100% - 4px));
 }
 .math-train {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-end;
-  gap: 10px 4px;
+  gap: 16px 6px;
 }
 .math-train--go {
   animation: math-chug 0.5s ease-in-out 3 both;
 }
 .math-train__engine {
-  font-size: clamp(4.4rem, 19vw, 5.5rem);
+  font-size: clamp(3.4rem, 15vw, 4.4rem);
+  transform: scaleX(-1);
+  margin-bottom: -6px;
 }
 .math-wagon {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  min-width: 64px;
+  justify-content: center;
+  min-width: 58px;
+  min-height: 42px;
+  padding: 4px 6px 7px;
+  border: 2px solid #2a3648;
+  border-top: 6px solid #efd47a;
+  border-radius: 6px;
+  background: #6a9ae8;
+  box-shadow: inset 0 -4px 0 #5681d3;
 }
-.math-wagon__art {
-  font-size: clamp(3.6rem, 16vw, 4.4rem);
-  margin-top: -14px;
+/* the two wheels */
+.math-wagon::before,
+.math-wagon::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #2a3648;
+  border-radius: 50%;
+  background: radial-gradient(circle, #adb5c1 0 3px, #4f5665 3.5px);
+}
+.math-wagon::before {
+  left: 8px;
+}
+.math-wagon::after {
+  right: 8px;
 }
 .math-wagon__load {
   position: relative;
   z-index: 1;
-  min-height: 2.2rem;
-  padding: 3px 8px;
-  border-radius: 10px;
+  min-height: 1.8rem;
+  padding: 2px 8px;
+  border-radius: 6px;
   background: var(--surface);
-  font-size: clamp(0.9rem, 3.4vw, 1.1rem);
+  color: var(--ink);
+  font-size: clamp(0.95rem, 3.6vw, 1.1rem);
   font-weight: 800;
-  box-shadow: inset 0 0 0 2px var(--line);
   display: flex;
   align-items: center;
 }
 .math-wagon--gap .math-wagon__load {
   background: var(--accent-soft);
   box-shadow: inset 0 0 0 2px var(--accent);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 .math-wagon--filled .math-wagon__load {
   background: var(--good-soft);
@@ -584,8 +607,8 @@ button.math-pan:not(:disabled):active .math-pan__word {
   animation: math-liftoff 1.2s ease-in both;
 }
 .math-rocket__shout {
-  position: absolute;
-  top: -1.6rem;
+  position: relative;
+  z-index: 1;
   white-space: nowrap;
   font-size: 1.4rem;
   font-weight: 900;

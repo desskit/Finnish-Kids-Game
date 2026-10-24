@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, fireEvent, type RenderResult } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { ProfileProvider } from '../../state/profile';
 import type { Child, ProfilesData } from '../../state/storage';
@@ -21,6 +21,7 @@ import MathQuiz, { type MathAnswerMode } from './MathQuiz';
 import { MathScene, type MathGame } from './MathScenes';
 import MathHome from './MathHome';
 import MathCard from './MathCard';
+import AppShell from '../AppShell';
 
 // The math section's promise: no shortcut through English. Not one digit on
 // any math screen — no numeral in the text, no number tile, no picture that
@@ -190,12 +191,20 @@ describe('no digits in the scenes, whatever the problem', () => {
 });
 
 describe('no digits around the games', () => {
-  it('the math map, every stage opened', () => {
+  it('the math map, every stage opened, with the top bar', () => {
+    const data = seed({ stars: 12, course: { ...seed().children[0].course, lessonsSeen: { 'math-plus-minus': 1 } }, math: { crowns: { 'math-plus-minus': passed } } });
     const r = render(
-      <Harness data={seed({ course: { ...seed().children[0].course, lessonsSeen: { 'math-plus-minus': 1 } }, math: { crowns: { 'math-plus-minus': passed } } })}>
-        <MathHome />
-      </Harness>,
+      <ProfileProvider ephemeral seed={data}>
+        <MemoryRouter initialEntries={['/math']}>
+          <Routes>
+            <Route element={<AppShell />}>
+              <Route path="/math" element={<MathHome />} />
+            </Route>
+          </Routes>
+        </MemoryRouter>
+      </ProfileProvider>,
     );
+    expect(r.container.querySelector('.top-bar')).not.toBeNull();
     for (const head of r.container.querySelectorAll<HTMLButtonElement>('.unit__head[aria-expanded="false"]')) fireEvent.click(head);
     expect(r.container.querySelectorAll('.unit--open').length).toBe(MATH_STAGES.length);
     expectNoNumbers(r.container, 'the math map');

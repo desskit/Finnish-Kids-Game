@@ -1,4 +1,4 @@
-import { Link, Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useProfile } from '../state/profile';
 import Art from '../art/Art';
 import Avatar from '../art/Avatar';
@@ -7,8 +7,10 @@ import Avatar from '../art/Avatar';
 // active child's avatar (→ switch player), their running star total, and a
 // math-gated grown-up button. Activities render full-screen outside this shell.
 // With no active child we bounce to the profile picker (first-run / fresh data).
+// The math map (/math) shows no star total: the math section shows no digit.
 export default function AppShell() {
   const { activeChild, stars } = useProfile();
+  const math = useLocation().pathname.startsWith('/math');
   if (!activeChild) return <Navigate to="/profiles" replace />;
 
   return (
@@ -26,12 +28,18 @@ export default function AppShell() {
             {activeChild.name} <span className="en">switch player</span>
           </span>
         </Link>
-        <span className="top-bar__stars" aria-label={`${stars} stars earned`}>
-          <Art glyph="⭐" />{' '}
-          <span className="bump" key={stars}>
-            {stars}
+        {math ? (
+          <span className="top-bar__stars" aria-hidden="true">
+            <Art glyph="⭐" />
           </span>
-        </span>
+        ) : (
+          <span className="top-bar__stars" aria-label={`${stars} stars earned`}>
+            <Art glyph="⭐" />{' '}
+            <span className="bump" key={stars}>
+              {stars}
+            </span>
+          </span>
+        )}
         <Link
           className="icon-btn top-bar__grownup"
           to="/grown-up"

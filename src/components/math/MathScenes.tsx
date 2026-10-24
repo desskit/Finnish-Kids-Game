@@ -174,7 +174,7 @@ function ScaleScene({ q, answered, choose }: Props) {
         </span>
       </>
     );
-    const cls = `math-pan math-pan--${side}` + (wrong ? ' math-pan--wrong' : '') + (right ? ' math-pan--right' : '') + (choose?.picked === v ? ' math-pan--picked' : '');
+    const cls = `math-pan math-pan--${side}` + (wrong ? ' math-pan--missed' : '') + (right ? ' math-pan--correct' : '') + (choose?.picked === v ? ' math-pan--picked' : '');
     return choose && !answered ? (
       <button type="button" className={cls} onClick={() => choose.onChoose(v)} disabled={wrong} aria-label={choose.heard ? 'Kuuntele · Listen' : numberWord(v)}>
         {body}
@@ -206,21 +206,24 @@ function Load({ v, gap, answered, wordsShown }: { v: number; gap: boolean; answe
   );
 }
 
-/** The counting run on a train, one wagon empty; answered, it's filled and the train rolls on. */
+/**
+ * The counting run on a train, in reading order behind its engine, one wagon
+ * empty; answered, it's filled and the train chugs. Each wagon is as long as
+ * its word, so a long run wraps onto a second line at phone width.
+ */
 function TrainScene({ q, answered, wordsShown }: Props) {
   const s = q.show as { kind: 'run'; values: number[]; missing: number };
   return (
     <div className="math-scene math-track">
       <div className={'math-train' + (answered ? ' math-train--go' : '')}>
+        <Art id="math-engine" motion="loop" className="math-train__engine" />
         {s.values.map((v, i) => (
           <span key={i} className={'math-wagon' + (v === s.missing ? ' math-wagon--gap' : '') + (answered && v === s.missing ? ' math-wagon--filled' : '')}>
             <span className="math-wagon__load" lang="fi">
               <Load v={v} gap={v === s.missing} answered={answered} wordsShown={wordsShown} />
             </span>
-            <Art id="math-wagon" className="math-wagon__art" />
           </span>
         ))}
-        <Art id="math-engine" motion="loop" className="math-train__engine" />
       </div>
     </div>
   );
@@ -239,12 +242,12 @@ function RocketScene({ q, answered, wordsShown }: Props) {
         ))}
       </ol>
       <span className="math-rocket__pad">
+        <Art id="math-rocket" motion="loop" className="math-rocket__rocket" />
         {answered && (
           <span className="math-rocket__shout" lang="fi">
             {LIFT_OFF.fi}
           </span>
         )}
-        <Art id="math-rocket" motion="loop" className="math-rocket__rocket" />
       </span>
     </div>
   );
