@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { matchNumberSpeech, matchSpeech, normalizeSpoken } from '../../game/speechMatch';
+import { matchAnswerSpeech, matchNumberSpeech, normalizeSpoken } from '../../game/speechMatch';
 import { answerMatches, readyToJudge, typeAt } from '../../game/answer';
 import { stopSpeaking, speak } from '../../audio/speak';
 import { listenOnce, type ListenSession } from '../../audio/speech';
@@ -96,7 +96,9 @@ interface MicProps {
 /**
  * Say the answer: tap the mic, say the number word, tap again when done. It's
  * heard generously (`matchNumberSpeech`: "viisi", "viis", "se on viisi"), but
- * never one number inside another. Silence or a hiccup isn't a try.
+ * never one number inside another — nor a half hour for another
+ * (`matchAnswerSpeech`: "puoli yksitoista" isn't *puoli yksi*). Silence or a
+ * hiccup isn't a try.
  */
 export function MathMic({ answer, answerWords, locked, misses, onRight, onMiss, onVouch }: MicProps) {
   const [state, setState] = useState<MicState>('none');
@@ -119,7 +121,7 @@ export function MathMic({ answer, answerWords, locked, misses, onRight, onMiss, 
             setState('unheard');
             return;
           }
-          if (answerWords ? matchSpeech(heard, answerWords) : matchNumberSpeech(heard, answer)) {
+          if (answerWords ? matchAnswerSpeech(heard, answerWords) : matchNumberSpeech(heard, answer)) {
             setState('none');
             onRight();
           } else {

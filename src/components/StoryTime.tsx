@@ -27,7 +27,7 @@ import {
 } from '../game/storyLog';
 import { nearPass } from '../game/score';
 import { isMathId } from '../game/mathPath';
-import { valueOfWord } from '../game/math';
+import { mathGloss, valueOfWord } from '../game/math';
 import { speak, stopSpeaking } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { sample, shuffle } from '../util/shuffle';
@@ -54,8 +54,9 @@ import Quantity from './math/Quantity';
 //
 // A math story (Lasketaan!, content/mathStories.ts) shows no digit anywhere:
 // no running star count or card numbers, stars for the score, and a number
-// word tapped shows how many as dots, never its English. Its "Continue" goes
-// back to the math map.
+// word tapped shows how many as dots, never its English, and any other word's
+// English drops an example with a digit in it (`mathGloss`). Its "Continue"
+// goes back to the math map.
 
 type Mode = 'read' | 'revisit' | 'free';
 type Phase = 'cover' | 'page' | 'end' | 'quiz' | 'result';
@@ -463,7 +464,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                       <>
                         {tip.meaning.base.toLowerCase() !== tip.word.toLowerCase() && <> → {tip.meaning.base}</>}
                         {' · '}
-                        <span className="en">{tip.meaning.en}</span>
+                        <span className="en">{math ? mathGloss(tip.meaning.en) : tip.meaning.en}</span>
                       </>
                     ) : null}
                   </p>

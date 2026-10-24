@@ -5,6 +5,7 @@ import {
   countdown,
   framesFor,
   isSayable,
+  mathGloss,
   numberForm,
   numberWord,
   optionsFor,
@@ -68,6 +69,20 @@ describe('every problem set', () => {
         expect(p.ask.length).toBeGreaterThan(0);
         // the Finnish carries no digit — numbers are words
         for (const s of [...p.ask, p.tell]) expect(s.fi, `${set}: ${s.fi}`).not.toMatch(/\d/);
+      }
+    }
+  });
+
+  it('offers as many choices as the level asks for, even at the ends (kymmenen, sata)', () => {
+    for (const set of SETS) {
+      for (const count of [3, 4]) {
+        for (let r = 0; r < RUNS; r++) {
+          const p = problemFor(set, { optionCount: count, knownVerbs: ALL_VERBS });
+          // a comparison always has its two
+          const want = p.show.kind === 'compare' ? 2 : count;
+          expect(p.options.length, `${set} ${p.key}: ${p.options.map((v) => choiceWord(p, v)).join('/')}`).toBe(want);
+          expect(new Set(p.options.map((v) => choiceWord(p, v))).size).toBe(want);
+        }
       }
     }
   });
@@ -232,6 +247,10 @@ describe('stages five to eight', () => {
     for (const p of many('clock-hour')) {
       const s = p.show as { from: [number, number]; to: [number, number] };
       expect([1, 11]).toContain((s.to[0] - s.from[0] + 12) % 12);
+      // the slips that teach: the time it is now, and an hour the other way
+      const other = ((2 * s.from[0] - s.to[0] + 11) % 12) + 1;
+      expect(p.options, p.key).toContain(s.from[0]);
+      expect(p.options, p.key).toContain(other);
     }
     for (const p of many('clock-half')) {
       const from = (p.show as { from: [number, number] }).from[0];
@@ -240,5 +259,16 @@ describe('stages five to eight', () => {
       // the trap — "puoli" and the hour it is now — is a choice when there's room
       if (p.options.length >= 2) expect(p.options.map((v) => choiceWord(p, v))).toContain(`puoli ${numberWord(from)}`);
     }
+  });
+});
+
+describe('a tapped word’s meaning on a math screen', () => {
+  it('drops an example that carries a digit, keeping the meaning', () => {
+    expect(mathGloss('half (puoli kahdeksan = half past seven, 7:30)')).toBe('half');
+    // nor an English number word: the numbers are Finnish
+    expect(mathGloss('time (kaksi kertaa = two times)')).toBe('time');
+    expect(mathGloss('which (of two)')).toBe('which');
+    expect(mathGloss('number (luku)')).toBe('number (luku)');
+    expect(mathGloss('in all, altogether')).toBe('in all, altogether');
   });
 });

@@ -769,6 +769,14 @@ button.math-pan:not(:disabled):active .math-pan__word {
 }
 
 /* ---------- Paying ---------- */
+/* The price comes first, then the thing, the till and the coins to pay with —
+   so "Maksa kolikoilla!" is read before the coins, not under "Valmis". */
+.math--pay > .activity-header {
+  order: -2;
+}
+.math--pay > .math-prompt {
+  order: -1;
+}
 .math-pay {
   gap: 12px;
 }

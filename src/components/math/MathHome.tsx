@@ -11,6 +11,7 @@ import {
   mathTestStatus,
   newStages,
   nextMathAction,
+  stageAhead,
   stageStatus,
   waitingFor,
   type MathAction,
@@ -76,7 +77,7 @@ export default function MathHome() {
           </span>
         </Link>
       ) : (
-        <p className="math-home__waiting en">{allDone(activeChild) ? 'Every crown won — well done!' : 'Math opens after the course’s Numbers unit.'}</p>
+        <p className="math-home__waiting en">{waitingNote(activeChild, unlockAll)}</p>
       )}
 
       <TodayButton />
@@ -267,4 +268,11 @@ function describe(a: MathAction): string {
   }
 }
 
-const allDone = (child: Parameters<typeof crownWon>[0]) => MATH_STAGES.every((s) => crownWon(child, s));
+/** Nothing to do in math right now: every crown won, or what the next stage waits for in the course. */
+export function waitingNote(child: Parameters<typeof crownWon>[0], unlockAll = false): string {
+  const ahead = stageAhead(child, unlockAll);
+  if (!ahead) return 'Every crown won — well done!';
+  if (ahead.stage === MATH_STAGES[0]) return 'Math opens after the course’s Numbers unit.';
+  const unit = ahead.unit ? findUnit(ahead.unit)?.titleEn : undefined;
+  return unit ? `“${ahead.stage.titleEn}” opens after “${unit}” in the course.` : `Next: “${ahead.stage.titleEn}”.`;
+}

@@ -113,7 +113,7 @@ const SMALL_WORDS: Record<string, string> = {
   ennen: 'before',
   puuttuu: 'is missing',
   vai: 'or (in a question)',
-  kummalla: 'which one has (kumpi)',
+  kummalla: 'which of them has (kumpi)',
   lasketaan: "let's count",
   lähtö: 'lift-off, start!',
   päästä: 'from now (tunnin päästä = in an hour)',

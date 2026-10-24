@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T14:54:24.189Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T15:34:04.011Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2274 entries. Checked against Wiktionary: 1219. Left for the native reviewer: 1027.** Flagged: 0.
+- **Approved: 28 of 2274 entries. Checked against Wiktionary: 1218. Left for the native reviewer: 1028.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -65,7 +65,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 42: Real conversations (*Jutellaan*) | 74 | 52 | Scenes, turn by turn 26, Stories 21, Other lines (wrong replies) 5 |
 | Unit 43: Sentences (*Lauseet*) | 24 | 18 | Sentence templates 18 |
 | Unit 44: Expert (*Mestari*) | 42 | 28 | Greetings & dialogues 8, Stories 10, Forms marked wrong 8, Other lines (wrong replies) 1, Course titles 1 |
-| Math (Lasketaan!) | 184 | 110 | Stories 90, Math in Finnish (Lasketaan!) 19, Course titles 1 |
+| Math (Lasketaan!) | 184 | 111 | Stories 90, Math in Finnish (Lasketaan!) 19, Course titles 2 |
 | Not in the course yet | 49 | 1 | Forms marked wrong 1 |
 | Grown-ups only | 18 | 0 |  |
 
@@ -1601,7 +1601,7 @@ _Words quoted in the explanations._
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:1` | enemmän · vähemmän · Kumpi? | More or less? — More or less |
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:2` | enemmän · vähemmän | More or less? — The scale |
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:3` | jälkeen · viisi · viiden jälkeen | More or less? — What comes after? |
-| 📖 | Math (Lasketaan!) | `lesson:math-more-less:4` | ennen · ennen viittä | More or less? — What comes before? |
+| 📖 | Math (Lasketaan!) | `lesson:math-more-less:4` | ennen · ennen kolmea · ennen viittä | More or less? — What comes before? |
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:5` | Mikä luku puuttuu? | More or less? — The train |
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:6` | Kumpi on vähemmän: kahdeksan vai kuusi? · vähemmän · Kuusi on vähemmän. | More or less? — check |
 | 📖 | Math (Lasketaan!) | `lesson:math-more-less:7` | Mikä luku tulee seitsemän jälkeen? · jälkeen · Kahdeksan tulee seitsemän jälkeen. | More or less? — check |
@@ -1836,6 +1836,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 27 | `title:En ymmärrä` | En ymmärrä | What do you say? |
 | 📖 | Unit 27 | `title:En ymmärrä.` | En ymmärrä. | What do you say? — example |
 | 📖 | Math (Lasketaan!) | `title:Enemmän vai vähemmän?` | Enemmän vai vähemmän? | More or less? |
+| ⚠️ | Math (Lasketaan!) | `title:Ennen ja jälkeen` | Ennen ja jälkeen | Before and after |
 | ⚠️ | Everywhere | `title:Ensiaskeleet` | Ensiaskeleet 📝 _Dictionary check: compound not in Wiktionary (ensi + askel are)_ | First steps |
 | 📖 | Everywhere | `title:Ensimmäinen lasku` | Ensimmäinen lasku | First sum |
 | 📖 | Unit 31 | `title:Ensimmäinen lumi` | Ensimmäinen lumi | Story: The first snow |
@@ -1969,7 +1970,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Math (Lasketaan!) | `title:Kuuntele ja laske` | Kuuntele ja laske | Listen and count |
 | 📖 | Everywhere | `title:Kuuntele ja osoita` | Kuuntele ja osoita | Listen & Tap |
 | 📖 | Everywhere | `title:Kuuntele lause` | Kuuntele lause | Listen to a sentence |
-| 📖 | Math (Lasketaan!) | `title:Kuuntele tarina` | Kuuntele tarina | Listen to the problem |
+| 📖 | Math (Lasketaan!) | `title:Kuuntele tarina` | Kuuntele tarina | Listen to the story |
 | 📖 | Everywhere | `title:Kuuntele!` | Kuuntele! | Statement or question? / How many did you hear? / Who has it? / Have it or not? / My, your or his / her? / Whose bike? / Who is doing it? / Nukun or nukkuu? / Yes or no? / Who feels it? / Which feeling? / Like, love or not? / Want, can or not? / Who, and yes or no? / Like it or not? / Which play? / See, watch or wait? / One, or some? / Touch it, or put it up? / In or on? / Into, in or out of? / Am, going or coming? / Want, would like, or have to? / By bus, or onto the bus? / Today, or on a day? / On the hour, or half past? / The weather, or me? / Where is it? / Now, or my birthday? / To the cottage, there, or back? / Where is the cat? / One, or many? / Now, or yesterday? |
 | 📖 | Math (Lasketaan!) | `title:Kymmenen, kaksikymmentä…` | Kymmenen, kaksikymmentä… | The -kymmentä numbers |
 | 📖 | Math (Lasketaan!) | `title:Kymmenet` | Kymmenet | The tens |
@@ -2024,7 +2025,6 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 25 | `title:Mihin kissa menee?` | Mihin kissa menee? | Where's the cat going? |
 | 📖 | Unit 25 | `title:Mihin?` | Mihin? | Into & onto / Going into, going onto |
 | 📖 | Unit 25 | `title:Mihin? Mistä?` | Mihin? Mistä? | Going & coming |
-| ⚠️ | Math (Lasketaan!) | `title:Mikä luku tulee?` | Mikä luku tulee? 📝 _Dictionary check: words fine; maybe "Mikä luku tulee seuraavaksi?"_ | What comes after? |
 | 📖 | Unit 23 | `title:Mikä on isoin?` | Mikä on isoin? | The biggest of all |
 | 📖 | Everywhere | `title:Mikä pääte?` | Mikä pääte? | Which verb, which ending? |
 | 📖 | Everywhere | `title:Mikä tyyppi?` | Mikä tyyppi? | Which type? (1–3) / Which type? (1–4) / Which type? (1–6) |
@@ -2249,7 +2249,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Everywhere | `title:Tee näin!` | Tee näin! | Do this! |
 | 📖 | Unit 20 | `title:Tee! Älä! Tehdään!` | Tee! Älä! Tehdään! | Do it, don't, let's / Do, don't, let's |
 | 📖 | Unit 1 | `title:Tervehdykset` | Tervehdykset | Greetings / Greetings (choose the reply) |
-| 📖 | Math (Lasketaan!) | `title:Tunnin päästä` | Tunnin päästä | In an hour |
+| ⚠️ | Math (Lasketaan!) | `title:Tunnin päästä, tunti sitten` | Tunnin päästä, tunti sitten | In an hour, an hour ago |
 | 📖 | Unit 38 | `title:tuolin alla` | tuolin alla | In front, behind… — example |
 | 📖 | Unit 13 | `title:Tykkään` | Tykkään | Liking things |
 | 📖 | Unit 16 | `title:Tykkään / En tykkää` | Tykkään / En tykkää | Like it or not |

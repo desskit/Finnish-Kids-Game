@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeSpoken, editDistance, matchTolerance, matchSpeech, matchNumberSpeech, spokenDigits } from './speechMatch';
+import { normalizeSpoken, editDistance, matchTolerance, matchSpeech, matchNumberSpeech, matchAnswerSpeech, spokenDigits } from './speechMatch';
 
 describe('normalizeSpoken', () => {
   it('lowercases, strips punctuation, collapses whitespace, keeps ä/ö', () => {
@@ -130,5 +130,38 @@ describe('a number said as an answer (the math games)', () => {
 
   it('checks every alternative the recognizer offers', () => {
     expect(matchNumberSpeech(['viini', 'viisi'], 5)).toBe(true);
+  });
+});
+
+describe('a time said as an answer (the clock games)', () => {
+  it('reads a time the recognizer wrote in digits the Finnish way', () => {
+    expect(spokenDigits('klo 4.00')).toBe('klo neljä');
+    expect(spokenDigits('3.30')).toBe('puoli neljä');
+    expect(spokenDigits('15:30')).toBe('puoli neljä');
+    expect(spokenDigits('12.30')).toBe('puoli yksi');
+    expect(spokenDigits('16.00')).toBe('neljä');
+  });
+
+  it('hears a half hour as puoli and its hour, never another hour', () => {
+    expect(matchAnswerSpeech(['puoli neljä'], 'puoli neljä')).toBe(true);
+    expect(matchAnswerSpeech(['kello on puoli neljä'], 'puoli neljä')).toBe(true);
+    expect(matchAnswerSpeech(['puoli 4'], 'puoli neljä')).toBe(true);
+    expect(matchAnswerSpeech(['3.30'], 'puoli neljä')).toBe(true);
+    // "puoli yksitoista" (half past ten) holds "puoli yksi" in its letters — still wrong
+    expect(matchAnswerSpeech(['puoli yksitoista'], 'puoli yksi')).toBe(false);
+    expect(matchAnswerSpeech(['puoli kaksitoista'], 'puoli kaksi')).toBe(false);
+    // the whole hour isn't half past
+    expect(matchAnswerSpeech(['neljä'], 'puoli neljä')).toBe(false);
+    expect(matchAnswerSpeech(['puoli viisi'], 'puoli neljä')).toBe(false);
+  });
+
+  it('never takes a half hour for its hour', () => {
+    expect(matchNumberSpeech(['puoli neljä'], 4)).toBe(false);
+    expect(matchNumberSpeech(['kello neljä'], 4)).toBe(true);
+    expect(matchNumberSpeech(['4.00'], 4)).toBe(true);
+  });
+
+  it('matches other words as speech always has', () => {
+    expect(matchAnswerSpeech(['kolme kissaa'], 'kolme kissaa')).toBe(true);
   });
 });
