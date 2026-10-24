@@ -11,7 +11,7 @@ import {
 import { difficultyFor } from './game/adapt';
 import { findMathSkill, isMathId } from './game/mathPath';
 import { renderMathActivity } from './components/math/renderMath';
-import { actionHref, lessonForStep, nextAction } from './game/course';
+import { actionHref, findUnit, lessonForStep, nextAction, openerStoryId } from './game/course';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome, type SegmentMeta } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
@@ -55,6 +55,7 @@ const BADGE_ENV = badgeEnv;
 // file:// — no server rewrites needed.
 //
 //   /                   → CourseHome    (the guided course: units, Continue, Review)
+//   /opener/:unitId     → Opener        (a unit's story, heard before any practice)
 //   /lesson/:lessonId   → Lesson        (a unit's short "how it works" lesson)
 //   /notebook           → Notebook      (re-read any opened unit's lesson)
 //   /skill/:skillId     → Activity      (a step's game, runs full-screen)
@@ -224,6 +225,31 @@ function StoryRoute() {
   );
 }
 
+// A unit's opener ("Kuuntele ensin"): its story heard before any practice —
+// no questions, no score. Hearing it to the end opens the unit's first steps;
+// "Jatka" goes on to whatever the course offers next.
+function OpenerRoute() {
+  const { unitId } = useParams();
+  const navigate = useNavigate();
+  const { activeChild, markOpenerHeard } = useProfile();
+  if (!activeChild) return <Navigate to="/profiles" replace />;
+  const unit = unitId ? findUnit(unitId) : undefined;
+  const storyId = unit && openerStoryId(unit);
+  if (!unit || !storyId || !storyById[storyId]) return <Navigate to="/" replace />;
+  return (
+    <main className="app">
+      <StoryTime
+        key={unit.id}
+        mode="listen"
+        storyId={storyId}
+        onHeard={() => markOpenerHeard(unit.id)}
+        onDone={() => navigate('/next')}
+        onExit={() => navigate('/')}
+      />
+    </main>
+  );
+}
+
 // Route tree, separated from the router so it can be mounted in a MemoryRouter
 // for tests (the smoke spec drives navigation through these routes).
 export function AppRoutes() {
@@ -246,6 +272,7 @@ export function AppRoutes() {
       <Route path="/review" element={<ReviewRoute />} />
       <Route path="/next" element={<NextRoute />} />
       <Route path="/story/:storyId" element={<StoryRoute />} />
+      <Route path="/opener/:unitId" element={<OpenerRoute />} />
       <Route path="/sounds/:mode" element={<SoundGame />} />
       <Route path="/grown-up" element={<GrownUp />}>
         <Route index element={<Navigate to="progress" replace />} />

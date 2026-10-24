@@ -187,6 +187,45 @@ export interface Lesson {
   titleEn: string;
   emoji: string;
   cards: LessonCard[];
+  /**
+   * The cards a younger reader sees ("Huomaa!" — notice it), by index. The
+   * default (`noticeCards`) is one short explain card, the first examples and
+   * the first check: the pattern shown, not the rule laid out.
+   */
+  notice?: number[];
+}
+
+/** A younger reader's notice cards: at most this many. */
+export const NOTICE_MAX = 3;
+/** An explain card short enough to sit among the notice cards. */
+export const NOTICE_EXPLAIN_CHARS = 200;
+
+const EXAMPLE_KINDS: ReadonlySet<LessonCard['kind']> = new Set(['examples', 'verbTable', 'pairs']);
+
+/**
+ * The indexes of a lesson's notice cards, in order: the lesson's own
+ * `notice`, else the shortest explain card (if it's short), the first card of
+ * examples and the first check.
+ */
+export function noticeCardIndexes(lesson: Lesson): number[] {
+  if (lesson.notice) return [...lesson.notice];
+  const cards = lesson.cards;
+  const explains = cards
+    .map((c, i) => ({ c, i }))
+    .filter(({ c }) => c.kind === 'explain' && c.text.length <= NOTICE_EXPLAIN_CHARS)
+    .sort((a, b) => (a.c as { text: string }).text.length - (b.c as { text: string }).text.length);
+  const picks = [
+    explains[0]?.i,
+    cards.findIndex((c) => EXAMPLE_KINDS.has(c.kind)),
+    cards.findIndex((c) => c.kind === 'check'),
+  ].filter((i): i is number => i !== undefined && i >= 0);
+  const out = [...new Set(picks)].sort((a, b) => a - b);
+  return out.length > 0 ? out : [0];
+}
+
+/** The lesson as a younger reader meets it in the course: just its notice cards. */
+export function noticeLesson(lesson: Lesson): Lesson {
+  return { ...lesson, cards: noticeCardIndexes(lesson).map((i) => lesson.cards[i]) };
 }
 
 /** A resolved example, ready to render. */

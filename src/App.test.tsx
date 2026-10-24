@@ -117,13 +117,13 @@ const warmedUpToday = () => ({
 });
 
 describe('course home', () => {
-  it('starts a new child on unit 1: Continue → its lesson, later units locked', () => {
+  it("starts a new child on unit 1: Continue → its story to listen to first, later units locked", () => {
     seedChild();
     renderAt('/');
     expect(screen.getByRole('heading', { name: /Hei, Aino/i })).toBeInTheDocument();
     const cont = screen.getByRole('link', { name: /Continue/ });
-    expect(cont.getAttribute('href')).toBe('/lesson/sounds');
-    expect(cont.textContent).toMatch(/Unit 1 · Lesson/);
+    expect(cont.getAttribute('href')).toBe('/opener/hello');
+    expect(cont.textContent).toMatch(/Unit 1 · Listen first/);
     // Unit 1 plus a peek at the next two locked ones; the rest fold away.
     const units = document.querySelectorAll('.unit');
     expect(units).toHaveLength(3);
@@ -139,11 +139,17 @@ describe('course home', () => {
     expect(screen.queryByText(/Today's adventure/i)).not.toBeInTheDocument();
   });
 
-  it("locks a unit's practice until its lesson is read, and the checkpoint until every step is done", () => {
+  it("locks a unit's practice until its story is heard, and the checkpoint until every step is done", () => {
     seedChild();
     renderAt('/');
-    // Unit 1 expanded: lesson link + locked steps + locked checkpoint.
+    // Unit 1 expanded: the story to hear first, then a locked lesson, steps and checkpoint.
+    const rows = [...document.querySelectorAll('.unit--current .unit-step')];
+    expect(rows[0].textContent).toMatch(/Kuuntele ensin/);
+    expect(rows[0].tagName).toBe('A');
     expect(document.querySelectorAll('.unit--current .unit-step--locked').length).toBeGreaterThanOrEqual(3);
+    // The lesson sits after the first step: hear it, use it, then notice it.
+    const titles = rows.map((r) => r.textContent ?? '');
+    expect(titles.findIndex((t) => /Oppitunti/.test(t))).toBe(2);
   });
 
   it('ticks finished steps and opens the checkpoint once all are done', () => {
@@ -156,7 +162,7 @@ describe('course home', () => {
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
     expect(cont.getAttribute('href')).toBe('/checkpoint/hello');
-    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(5); // lesson + 4 steps
+    expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(6); // story heard + lesson + 4 steps
     expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
   });
 
@@ -171,7 +177,7 @@ describe('course home', () => {
     const units = document.querySelectorAll('.unit');
     expect(units[0].className).toContain('unit--done');
     expect(units[1].className).toContain('unit--current');
-    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/no-articles');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/opener/people');
     expect(screen.getByText(`1 of ${UNITS.length - 1} units done`)).toBeInTheDocument();
   });
 });
@@ -218,7 +224,7 @@ describe('daily warm-up', () => {
   it('never shows for a brand-new player (nothing to judge yet)', () => {
     seedChild();
     renderAt('/');
-    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/lesson/sounds');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/opener/hello');
   });
 
   it('plays ten questions of that subject, records it, then goes back to the course', async () => {
@@ -251,8 +257,34 @@ describe('daily warm-up', () => {
 });
 
 describe('lessons + notebook', () => {
-  it('reading a lesson to the end marks it read and starts the first practice step', async () => {
+  it("hearing a unit's story first opens its first step, and Continue goes straight there", async () => {
     seedChild();
+    renderAt('/opener/hello');
+    expect(screen.getByText('Kuuntele ensin')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Listen/ }));
+    // Page by page — no questions.
+    for (let i = 0; i < 10; i++) {
+      const next = screen.queryByRole('button', { name: /Next page|The end/ });
+      if (!next) break;
+      fireEvent.click(next);
+    }
+    expect(screen.getByText('Loppu!')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Questions/ })).not.toBeInTheDocument();
+    const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2') ?? '{}');
+    expect(saved.children[0].course.openersHeard.hello).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole('button', { name: /Continue/ }));
+    expect(await screen.findByText(/New phrase/)).toBeInTheDocument();
+  });
+
+  it('a younger reader meets a lesson as a few notice cards; the notebook keeps it whole', () => {
+    seedChild();
+    renderAt('/lesson/sounds');
+    expect(screen.queryByText("Read it like it's written")).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/Card 1 of [1-3]$/)).toBeInTheDocument();
+  });
+
+  it('reading a lesson to the end marks it read and starts the first practice step', async () => {
+    seedChild({}, {}, {}, { readerBand: 'older' });
     renderAt('/lesson/sounds');
     expect(screen.getByText('Read it like it\'s written')).toBeInTheDocument();
     // Click through every card.

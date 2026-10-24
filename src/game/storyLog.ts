@@ -4,9 +4,11 @@
 //    4 right first time. (A course story step is done once each of its
 //    stories has had one.)
 //  - A weak read is read again WITH the English, and asks other questions.
-//  - A few days after it's finished, a story comes back ONCE in the daily
-//    warm-up — "Muistatko?", do you remember? — with two questions it hasn't
-//    asked before.
+//  - After it's finished, a story comes back in the daily warm-up —
+//    "Muistatko?", do you remember? — a day later, then three days, then a
+//    week after the good read (hearing the SAME story again is what teaches;
+//    docs/LEARNING_RESEARCH.md), each time with two questions it hasn't asked
+//    before.
 //  - Finished stories wait on the bookshelf, to re-read whenever she likes.
 //
 // Pure: everything takes the child (and `now`).
@@ -23,8 +25,11 @@ export const STORY_PASS = 0.75;
 export const READ_QUESTIONS = 4;
 /** Questions in a "Muistatko?" revisit. */
 export const REVISIT_QUESTIONS = 2;
-/** A finished story comes back after this many days. */
-export const REVISIT_AFTER_DAYS = 3;
+/**
+ * A finished story's revisits: each this many days after the hearing before
+ * it — days 1, 3 and 7 after the good read.
+ */
+export const REVISIT_GAPS = [1, 2, 4] as const;
 
 export type StoryReadKind = 'read' | 'revisit';
 
@@ -70,6 +75,7 @@ export function recordStoryOnChild(
     if (!prev.goodAt && isGoodRead(right, total)) next.goodAt = now;
   } else {
     next.revisitedAt = prev.revisitedAt ?? now;
+    next.revisits = [...revisitTimes(prev), now];
   }
   return { ...child, course: { ...child.course, stories: { ...child.course?.stories, [id]: next } } };
 }
@@ -87,20 +93,33 @@ export function nextStoryId(child: Child | null | undefined, ids: readonly strin
 }
 
 /**
- * The finished story due for its one "Muistatko?": read well at least
- * REVISIT_AFTER_DAYS days ago and not revisited yet — the longest-waiting
- * first. Undefined when none is due.
+ * A story's revisits so far. An older save's single revisit (at 3 days, before
+ * the 1/3/7 schedule) counts as the first two, so only the week one is left.
+ */
+function revisitTimes(r: StoryRecord): number[] {
+  if (r.revisits) return r.revisits;
+  return r.revisitedAt !== undefined ? [r.revisitedAt, r.revisitedAt] : [];
+}
+
+/** When a finished story is next due back (undefined: never again, or not read well). */
+export function nextRevisitAt(r: StoryRecord): { after: number; gap: number } | undefined {
+  if (r.goodAt === undefined) return undefined;
+  const done = revisitTimes(r);
+  if (done.length >= REVISIT_GAPS.length) return undefined;
+  return { after: done[done.length - 1] ?? r.goodAt, gap: REVISIT_GAPS[done.length] };
+}
+
+/**
+ * The finished story due for a "Muistatko?": its next revisit's days have
+ * passed since it was last heard — the one waiting longest first. Undefined
+ * when none is due.
  */
 export function dueStoryRevisit(child: Child | null | undefined, now: number): string | undefined {
   const today = dayKey(now);
   return Object.entries(child?.course?.stories ?? {})
-    .filter(
-      ([id, r]) =>
-        storyById[id] &&
-        !isMathId(id) &&
-        r.goodAt !== undefined &&
-        !r.revisitedAt &&
-        dayGap(dayKey(r.goodAt), today) >= REVISIT_AFTER_DAYS,
-    )
-    .sort(([, a], [, b]) => (a.goodAt ?? 0) - (b.goodAt ?? 0))[0]?.[0];
+    .flatMap(([id, r]) => {
+      const due = storyById[id] && !isMathId(id) ? nextRevisitAt(r) : undefined;
+      return due && dayGap(dayKey(due.after), today) >= due.gap ? [{ id, after: due.after }] : [];
+    })
+    .sort((a, b) => a.after - b.after)[0]?.id;
 }

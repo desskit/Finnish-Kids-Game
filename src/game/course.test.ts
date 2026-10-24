@@ -7,9 +7,14 @@ import {
   inCheckpoint,
   MAX_CHECKPOINT_QUESTIONS,
   checkpointStatus,
+  lessonAt,
   lessonForConstruction,
+  lessonStatus,
   nextAction,
   notebookLessonIds,
+  openerStatus,
+  openerStoryId,
+  stepAfterLesson,
   stepStatus,
   unitStatus,
   unitsCompleted,
@@ -78,18 +83,63 @@ describe('unit unlocking', () => {
     expect(unitStatus(c, u3)).toBe('open');
     expect(stepStatus(c, u3, u3.skills[0])).toBe('open');
     // Continue leads to the new unit first: it's the first one not done.
-    expect(nextAction(c)).toMatchObject({ kind: 'lesson', unit: u2 });
+    expect(nextAction(c)).toMatchObject({ kind: 'opener', unit: u2 });
     // A unit not started yet still waits for the checkpoint before it.
     expect(unitStatus(c, UNITS[3])).toBe('locked');
   });
 });
 
 describe('steps and checkpoints inside a unit', () => {
-  it('keeps practice locked until the lesson has been read', () => {
-    const s = u1.skills[0];
-    expect(stepStatus(child(), u1, s)).toBe('locked');
-    const read = child({ course: { lessonsSeen: { [u1.lessonId]: 1 } } });
-    expect(stepStatus(read, u1, s)).toBe('open');
+  it('hear it, use it, notice it: the opener opens the first step; the lesson, the rest', () => {
+    const [first, second] = u1.skills;
+    const fresh = child();
+    expect(openerStatus(fresh, u1)).toBe('open');
+    expect(stepStatus(fresh, u1, first)).toBe('locked');
+    expect(lessonStatus(fresh, u1)).toBe('locked');
+    const heard = child({ course: { openersHeard: { [u1.id]: 1 } } });
+    expect(openerStatus(heard, u1)).toBe('done');
+    expect(stepStatus(heard, u1, first)).toBe('open');
+    // The lesson may be read any time now; the steps after the first wait for it.
+    expect(lessonStatus(heard, u1)).toBe('open');
+    expect(stepStatus(heard, u1, second)).toBe('locked');
+    const read = child({ course: { openersHeard: { [u1.id]: 1 }, lessonsSeen: { [u1.lessonId]: 1 } } });
+    expect(lessonStatus(read, u1)).toBe('done');
+    expect(stepStatus(read, u1, second)).toBe('open');
+  });
+
+  it('every unit but the last two opens with a story, and the first step never needs the lesson', () => {
+    for (const u of UNITS) {
+      // Sentences has no story; Mestari is open-ended.
+      if (u.id === 'mestari' || u.id === 'sentences') {
+        expect(openerStoryId(u), u.id).toBeUndefined();
+        continue;
+      }
+      expect(openerStoryId(u), u.id).toBeDefined();
+      expect(lessonAt(u), u.id).toBe(1);
+      const heard = child({ course: { openersHeard: { [u.id]: 1 } } });
+      expect(stepStatus(heard, u, u.skills[0], false), u.id).not.toBe('locked');
+    }
+  });
+
+  it('an older save that read the lesson first is never sent back to the opener', () => {
+    const old = child({ course: { lessonsSeen: { [u1.lessonId]: 1 } } });
+    expect(openerStatus(old, u1)).toBe('done');
+    expect(nextAction(old)).toMatchObject({ kind: 'step', step: u1.skills[0] });
+    for (const s of u1.skills) expect(stepStatus(old, u1, s)).toBe('open');
+    // …nor is a child who has played a step (say, with "unlock all" on).
+    const played = child({ progress: { [u2.id]: { [u2.skills[0].id]: prog(2) } }, course: { checkpoints: passed(u1.id) } });
+    expect(openerStatus(played, u2)).toBe('done');
+    expect(nextAction(played)).toMatchObject({ kind: 'step', step: u2.skills[0] });
+  });
+
+  it('after the lesson, practice picks up at the first unfinished step', () => {
+    const fresh = child({ course: { openersHeard: { [u2.id]: 1 } } });
+    expect(stepAfterLesson(u2.lessonId, fresh)?.id).toBe(u2.skills[0].id);
+    const firstDone = child({
+      course: { openersHeard: { [u2.id]: 1 } },
+      progress: { [u2.id]: { [u2.skills[0].id]: { ...prog(4), topProvenAt: 1 } } },
+    });
+    expect(stepAfterLesson(u2.lessonId, firstDone)?.id).toBe(u2.skills[1].id);
   });
 
   it('marks a step done only once its TOP level is proven — reaching it is not enough', () => {
@@ -162,17 +212,25 @@ describe('steps and checkpoints inside a unit', () => {
 });
 
 describe('Continue (nextAction)', () => {
-  it('starts a new child on the first lesson', () => {
+  it("starts a new child on unit 1's story, heard before any practice", () => {
     const a = nextAction(child());
-    expect(a.kind).toBe('lesson');
+    expect(a.kind).toBe('opener');
     expect(a.unit.id).toBe(u1.id);
-    expect(actionHref(a)).toBe(`/lesson/${u1.lessonId}`);
+    expect(actionHref(a)).toBe(`/opener/${u1.id}`);
   });
 
-  it('moves lesson → first unfinished step → checkpoint → next unit', () => {
-    const read = child({ course: { lessonsSeen: { [u1.lessonId]: 1 } } });
-    const a = nextAction(read);
+  it('moves opener → first step → lesson → next unfinished step → checkpoint → next unit', () => {
+    const heard = child({ course: { openersHeard: { [u1.id]: 1 } } });
+    const a = nextAction(heard);
     expect(a.kind === 'step' && a.step.id).toBe(u1.skills[0].id);
+
+    const firstDone = child({
+      course: { openersHeard: { [u1.id]: 1 } },
+      progress: { [u1.id]: { [u1.skills[0].id]: { ...prog(3), topProvenAt: 1 } } },
+    });
+    expect(nextAction(firstDone)).toMatchObject({ kind: 'lesson', lessonId: u1.lessonId });
+    const read = child({ ...firstDone, course: { ...firstDone.course, lessonsSeen: { [u1.lessonId]: 1 } } });
+    expect(nextAction(read)).toMatchObject({ kind: 'step', step: u1.skills[1] });
 
     const stepsDone = child({ course: { lessonsSeen: { [u1.lessonId]: 1 } }, progress: allDone(u1) });
     expect(nextAction(stepsDone).kind).toBe('checkpoint');
@@ -183,7 +241,7 @@ describe('Continue (nextAction)', () => {
       progress: allDone(u1),
     });
     const n = nextAction(unitDone);
-    expect(n.kind).toBe('lesson');
+    expect(n.kind).toBe('opener');
     expect(n.unit.id).toBe(u2.id);
     expect(unitsCompleted(unitDone)).toBe(1);
   });

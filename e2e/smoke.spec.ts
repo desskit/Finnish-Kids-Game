@@ -93,7 +93,7 @@ async function answerUntilDotAdvance(page: Page) {
   throw new Error('Could not advance past the question');
 }
 
-test('full happy path: create profile, read the first lesson, practise as one unbroken stream', async ({ page }) => {
+test('full happy path: create profile, hear the first story, practise as one unbroken stream', async ({ page }) => {
   await page.goto('/');
 
   // Fresh data with no profile bounces to the picker.
@@ -116,16 +116,18 @@ test('full happy path: create profile, read the first lesson, practise as one un
   await expect(page.getByRole('heading', { name: /Hei, Aino/i })).toBeVisible();
   await expectNoEmojiText(page);
 
-  // Continue → unit 1's lesson.
+  // Continue → unit 1's story, heard before any practice (no questions).
   await page.getByRole('link', { name: /Continue/ }).click();
-  await expect(page).toHaveURL(/#\/lesson\/sounds$/);
+  await expect(page).toHaveURL(/#\/opener\/hello$/);
   await expectNoEmojiText(page);
+  await page.getByRole('button', { name: /Listen/ }).click();
   for (let i = 0; i < 10; i++) {
-    const next = page.getByRole('button', { name: /Next/ });
+    const next = page.getByRole('button', { name: /Next page|The end/ });
     if (!(await next.isVisible().catch(() => false))) break;
     await next.click();
   }
-  await page.getByRole('button', { name: /Start practicing/ }).click();
+  await expect(page.getByText('Loppu!')).toBeVisible();
+  await page.getByRole('button', { name: /Continue/ }).click();
 
   // Straight into the unit's first step.
   await expect(page).toHaveURL(/#\/skill\/greetings$/);
@@ -139,7 +141,7 @@ test('full happy path: create profile, read the first lesson, practise as one un
   }
   await expect(page.getByLabel('7 tähteä')).toBeVisible();
 
-  // The only exit is the header's back button → home, with the lesson ticked.
+  // The only exit is the header's back button → home, with the story ticked.
   await page.getByRole('button', { name: 'Back home' }).click();
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.locator('.unit--current .unit-step--done').first()).toBeVisible();

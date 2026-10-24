@@ -128,7 +128,7 @@ describe('picking the warm-up subject', () => {
     c.course = { ...c.course, stories: { 'hello-eero': { reads: 1, goodAt: NOW - 4 * DAY, last: 1 } } };
     expect(pickWarmupSubject(c, NOW)).toBeUndefined();
     expect(warmupDue(c, NOW)).toBe(true);
-    // Once it has been revisited, it isn't back again.
+    // Just revisited: it isn't back until its next gap has passed.
     c.course.stories!['hello-eero'].revisitedAt = NOW - DAY;
     expect(warmupDue(c, NOW)).toBe(false);
   });

@@ -152,6 +152,11 @@ export interface CheckpointRecord {
 export interface CourseState {
   /** lessonId → when it was first read to the end. */
   lessonsSeen?: Record<string, number>;
+  /**
+   * unitId → when the unit's opener (its story, heard before any practice —
+   * see src/game/course.ts) was first listened to the end.
+   */
+  openersHeard?: Record<string, number>;
   /** unitId → checkpoint record. */
   checkpoints?: Record<string, CheckpointRecord>;
   /**
@@ -181,8 +186,10 @@ export interface StoryRecord {
   asked?: string[];
   /** Every question asked so far (the "Muistatko?" revisit picks new ones). */
   seen?: string[];
-  /** When the one "Muistatko?" revisit happened. */
+  /** When the first "Muistatko?" revisit happened. */
   revisitedAt?: number;
+  /** Every "Muistatko?" revisit so far, oldest first (see storyLog.ts: 1, 3 and 7 days). */
+  revisits?: number[];
 }
 
 export interface Settings {
