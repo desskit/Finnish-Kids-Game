@@ -159,3 +159,81 @@ export function wordProblem(frame: WordFrame, f: WordFill): { ask: Said[]; tell:
 export const EDIBLE_THINGS = ['apple', 'banana', 'cookie', 'strawberry', 'candy', 'bun'];
 /** Things to have, get and give. */
 export const THINGS = ['ball', 'pencil', 'book', 'car', 'apple', 'cookie'];
+
+// --- Times and halves ⚠️ (stage 6) ----------------------------------------------
+
+/** "Paljonko on kaksi kertaa kolme?" — and "Kaksi kertaa kolme on kuusi." */
+export function timesFrame(a: string, b: string, c: string, en: [string, string, string]): { ask: Said; tell: Said } {
+  return {
+    ask: { fi: `Paljonko on ${a} kertaa ${b}?`, en: `What is ${en[0]} times ${en[1]}?` },
+    tell: { fi: `${cap(a)} kertaa ${b} on ${c}.`, en: `${cap(en[0])} times ${en[1]} is ${en[2]}.` },
+  };
+}
+
+/**
+ * "Paljonko on puolet kahdeksasta?" — and "Puolet kahdeksasta on neljä." The
+ * whole is in its sourced elative (kahdeksasta: "of eight").
+ */
+export function halfFrame(wholeElative: string, half: string, en: [string, string]): { ask: Said; tell: Said } {
+  return {
+    ask: { fi: `Paljonko on puolet ${wholeElative}?`, en: `What is half of ${en[0]}?` },
+    tell: { fi: `Puolet ${wholeElative} on ${half}.`, en: `Half of ${en[0]} is ${en[1]}.` },
+  };
+}
+
+// --- At the shop ⚠️ (stage 7) ------------------------------------------------------
+
+/** "Omena maksaa kaksi euroa." — a thing (basic form) and its price, two euros or more. */
+export function priceSaid(thing: string, amount: string, euros: string, en: { thing: string; amount: string }): Said {
+  return { fi: `${cap(thing)} maksaa ${amount} ${euros}.`, en: `The ${en.thing} costs ${en.amount} euros.` };
+}
+
+/** "Paljonko yhteensä?" — after two prices; and "Yhteensä viisi euroa." */
+export function totalFrame(amount: string, euros: string, en: string): { ask: Said; tell: Said } {
+  return {
+    ask: { fi: 'Paljonko yhteensä?', en: 'How much in all?' },
+    tell: { fi: `Yhteensä ${amount} ${euros}.`, en: `${en} euros in all.` },
+  };
+}
+
+/** "Maksa kolikoilla!" — pay with the coins (kolikoilla: sourced). */
+export function payFrame(withCoins: string): Said {
+  return { fi: `Maksa ${withCoins}!`, en: 'Pay with the coins!' };
+}
+
+// --- What time is it? ⚠️ (stage 8) ---------------------------------------------------
+
+/** "Kello on kolme." / "Kello on puoli neljä." — the time now. */
+export function clockSaid(time: string, en: string): Said {
+  return { fi: `Kello on ${time}.`, en: `It's ${en}.` };
+}
+
+/**
+ * An hour (or half an hour) later, or an hour earlier: the question, and the
+ * answer said in full. `hour` is tunti's sourced form for each (tunnin, tunti),
+ * `half` puoli's genitive (puolen).
+ */
+export function clockMoveFrame(
+  move: 'later' | 'half-later' | 'earlier',
+  forms: { hourGen: string; hour: string; halfGen: string },
+  answer: string,
+  en: string,
+): { ask: Said; tell: Said } {
+  switch (move) {
+    case 'later':
+      return {
+        ask: { fi: `Mitä kello on ${forms.hourGen} päästä?`, en: 'What time is it in an hour?' },
+        tell: { fi: `${cap(forms.hourGen)} päästä kello on ${answer}.`, en: `In an hour it's ${en}.` },
+      };
+    case 'half-later':
+      return {
+        ask: { fi: `Mitä kello on ${forms.halfGen} ${forms.hourGen} päästä?`, en: 'What time is it in half an hour?' },
+        tell: { fi: `${cap(forms.halfGen)} ${forms.hourGen} päästä kello on ${answer}.`, en: `In half an hour it's ${en}.` },
+      };
+    case 'earlier':
+      return {
+        ask: { fi: `Mitä kello oli ${forms.hour} sitten?`, en: 'What time was it an hour ago?' },
+        tell: { fi: `${cap(forms.hour)} sitten kello oli ${answer}.`, en: `An hour ago it was ${en}.` },
+      };
+  }
+}

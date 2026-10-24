@@ -551,6 +551,17 @@ const MONEY = [['euro', 'euro', 'euro', '💶']];
 // counting never needs. Its own opt-in topic, so no course game meets it; like
 // every number in that section it is shown as a word, never a picture.
 const MATH_NUMBERS = [['zero', 'nolla', 'zero', '', 0]];
+// …and the words its problems are built with: "kaksi kertaa kolme" (times),
+// "puolet" (half of), "tunnin päästä" (in an hour), the shop's coins, the
+// scale and the die. Glossary words: tapping one shows what it means.
+const MATH_WORDS = [
+  ['times', 'kerta', 'time (kaksi kertaa = two times)'],
+  ['half', 'puoli', 'half'],
+  ['hour', 'tunti', 'hour'],
+  ['coin', 'kolikko', 'coin'],
+  ['scale', 'vaaka', 'scale (for weighing)'],
+  ['die', 'noppa', 'die (for a game)'],
+];
 
 const FAMILY = [
   ['mother', 'äiti', 'mom', '👩'],
@@ -1105,8 +1116,9 @@ const mathWords = buildTheme({
   fi: 'Lasketaan',
   en: 'Math',
   emoji: '➗',
-  curation: MATH_NUMBERS,
-  sourceWords: numeralWords,
+  curation: [...MATH_NUMBERS, ...MATH_WORDS],
+  // a number word from the numerals' tables, every other from the nouns'
+  sourceWords: [...nounWords, ...numeralWords],
 });
 
 const money = buildTheme({

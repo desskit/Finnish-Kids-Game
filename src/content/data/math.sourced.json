@@ -41,6 +41,261 @@
         "comitative_plural": "nolline"
       },
       "value": 0
+    },
+    {
+      "id": "times",
+      "word": "kerta",
+      "en": "time (kaksi kertaa = two times)",
+      "inflections": {
+        "nominative_singular": "kerta",
+        "nominative_plural": "kerrat",
+        "genitive_singular": "kerran",
+        "genitive_plural": "kertojen",
+        "partitive_singular": "kertaa",
+        "partitive_plural": "kertoja",
+        "inessive_singular": "kerrassa",
+        "inessive_plural": "kerroissa",
+        "elative_singular": "kerrasta",
+        "elative_plural": "kerroista",
+        "illative_singular": "kertaan",
+        "illative_plural": "kertoihin",
+        "adessive_singular": "kerralla",
+        "adessive_plural": "kerroilla",
+        "ablative_singular": "kerralta",
+        "ablative_plural": "kerroilta",
+        "allative_singular": "kerralle",
+        "allative_plural": "kerroille",
+        "essive_singular": "kertana",
+        "essive_plural": "kertoina",
+        "translative_singular": "kerraksi",
+        "translative_plural": "kerroiksi",
+        "abessive_singular": "kerratta",
+        "abessive_plural": "kerroitta",
+        "instructive_plural": "kerroin",
+        "comitative_plural": "kertoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 266,
+      "examples": [
+        {
+          "fi": "Täällä on joka kerta yhtä hauskaa.",
+          "en": "Every time it's equally fun to be here."
+        }
+      ]
+    },
+    {
+      "id": "half",
+      "word": "puoli",
+      "en": "half",
+      "inflections": {
+        "nominative_singular": "puoli",
+        "nominative_plural": "puolet",
+        "genitive_singular": "puolen",
+        "genitive_plural": "puolten",
+        "partitive_singular": "puolta",
+        "partitive_plural": "puolia",
+        "inessive_singular": "puolessa",
+        "inessive_plural": "puolissa",
+        "elative_singular": "puolesta",
+        "elative_plural": "puolista",
+        "illative_singular": "puoleen",
+        "illative_plural": "puoliin",
+        "adessive_singular": "puolella",
+        "adessive_plural": "puolilla",
+        "ablative_singular": "puolelta",
+        "ablative_plural": "puolilta",
+        "allative_singular": "puolelle",
+        "allative_plural": "puolille",
+        "essive_singular": "puolena",
+        "essive_plural": "puolina",
+        "translative_singular": "puoleksi",
+        "translative_plural": "puoliksi",
+        "abessive_singular": "puoletta",
+        "abessive_plural": "puolitta",
+        "instructive_singular": "puolen",
+        "instructive_plural": "puolin",
+        "comitative_plural": "puolineen"
+      },
+      "kotusType": 26,
+      "group": "i_old",
+      "frequencyRank": 714,
+      "examples": [
+        {
+          "fi": "Kumman puolen haluat?",
+          "en": "Which half do you want?"
+        },
+        {
+          "fi": "En saanut puoltakaan rahoistani takaisin.",
+          "en": "I did not get even half of my money back."
+        }
+      ]
+    },
+    {
+      "id": "hour",
+      "word": "tunti",
+      "en": "hour",
+      "inflections": {
+        "nominative_singular": "tunti",
+        "nominative_plural": "tunnit",
+        "genitive_singular": "tunnin",
+        "genitive_plural": "tuntien",
+        "partitive_singular": "tuntia",
+        "partitive_plural": "tunteja",
+        "inessive_singular": "tunnissa",
+        "inessive_plural": "tunneissa",
+        "elative_singular": "tunnista",
+        "elative_plural": "tunneista",
+        "illative_singular": "tuntiin",
+        "illative_plural": "tunteihin",
+        "adessive_singular": "tunnilla",
+        "adessive_plural": "tunneilla",
+        "ablative_singular": "tunnilta",
+        "ablative_plural": "tunneilta",
+        "allative_singular": "tunnille",
+        "allative_plural": "tunneille",
+        "essive_singular": "tuntina",
+        "essive_plural": "tunteina",
+        "translative_singular": "tunniksi",
+        "translative_plural": "tunneiksi",
+        "abessive_singular": "tunnitta",
+        "abessive_plural": "tunneitta",
+        "instructive_plural": "tunnein",
+        "comitative_plural": "tunteineen"
+      },
+      "kotusType": 5,
+      "group": "i_new",
+      "frequencyRank": 527,
+      "examples": [
+        {
+          "fi": "Tomi lintsaa usein tunneilta.",
+          "en": "Tom often cuts classes."
+        },
+        {
+          "fi": "Myöhästytkö koskaan tunneilta?",
+          "en": "Are you ever late for class?"
+        }
+      ]
+    },
+    {
+      "id": "coin",
+      "word": "kolikko",
+      "en": "coin",
+      "inflections": {
+        "nominative_singular": "kolikko",
+        "nominative_plural": "kolikot",
+        "genitive_singular": "kolikon",
+        "genitive_plural": "kolikkojen",
+        "partitive_singular": "kolikkoa",
+        "partitive_plural": "kolikkoja",
+        "inessive_singular": "kolikossa",
+        "inessive_plural": "kolikoissa",
+        "elative_singular": "kolikosta",
+        "elative_plural": "kolikoista",
+        "illative_singular": "kolikkoon",
+        "illative_plural": "kolikkoihin",
+        "adessive_singular": "kolikolla",
+        "adessive_plural": "kolikoilla",
+        "ablative_singular": "kolikolta",
+        "ablative_plural": "kolikoilta",
+        "allative_singular": "kolikolle",
+        "allative_plural": "kolikoille",
+        "essive_singular": "kolikkona",
+        "essive_plural": "kolikkoina",
+        "translative_singular": "kolikoksi",
+        "translative_plural": "kolikoiksi",
+        "abessive_singular": "kolikotta",
+        "abessive_plural": "kolikoitta",
+        "instructive_plural": "kolikoin",
+        "comitative_plural": "kolikkoineen"
+      },
+      "kotusType": 4,
+      "group": "o_oe",
+      "frequencyRank": 10892,
+      "examples": [
+        {
+          "fi": "Heitä kolikkoa.",
+          "en": "Toss a coin."
+        },
+        {
+          "fi": "Heitetään kolikkoa.",
+          "en": "Let's toss a coin."
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "word": "vaaka",
+      "en": "scale (for weighing)",
+      "inflections": {
+        "nominative_singular": "vaaka",
+        "nominative_plural": "vaa’at",
+        "genitive_singular": "vaa’an",
+        "genitive_plural": "vaakojen",
+        "partitive_singular": "vaakaa",
+        "partitive_plural": "vaakoja",
+        "inessive_singular": "vaa’assa",
+        "inessive_plural": "vaaoissa",
+        "elative_singular": "vaa’asta",
+        "elative_plural": "vaaoista",
+        "illative_singular": "vaakaan",
+        "illative_plural": "vaakoihin",
+        "adessive_singular": "vaa’alla",
+        "adessive_plural": "vaaoilla",
+        "ablative_singular": "vaa’alta",
+        "ablative_plural": "vaaoilta",
+        "allative_singular": "vaa’alle",
+        "allative_plural": "vaaoille",
+        "essive_singular": "vaakana",
+        "essive_plural": "vaakoina",
+        "translative_singular": "vaa’aksi",
+        "translative_plural": "vaaoiksi",
+        "abessive_singular": "vaa’atta",
+        "abessive_plural": "vaaoitta",
+        "instructive_plural": "vaaoin",
+        "comitative_singular": "vaakoineni",
+        "comitative_plural": "vaakoineen"
+      },
+      "kotusType": 9,
+      "group": "a_ae",
+      "frequencyRank": 36367
+    },
+    {
+      "id": "die",
+      "word": "noppa",
+      "en": "die (for a game)",
+      "inflections": {
+        "nominative_singular": "noppa",
+        "nominative_plural": "nopat",
+        "genitive_singular": "nopan",
+        "genitive_plural": "noppien",
+        "partitive_singular": "noppaa",
+        "partitive_plural": "noppia",
+        "inessive_singular": "nopassa",
+        "inessive_plural": "nopissa",
+        "elative_singular": "nopasta",
+        "elative_plural": "nopista",
+        "illative_singular": "noppaan",
+        "illative_plural": "noppiin",
+        "adessive_singular": "nopalla",
+        "adessive_plural": "nopilla",
+        "ablative_singular": "nopalta",
+        "ablative_plural": "nopilta",
+        "allative_singular": "nopalle",
+        "allative_plural": "nopille",
+        "essive_singular": "noppana",
+        "essive_plural": "noppina",
+        "translative_singular": "nopaksi",
+        "translative_plural": "nopiksi",
+        "abessive_singular": "nopatta",
+        "abessive_plural": "nopitta",
+        "instructive_plural": "nopin",
+        "comitative_singular": "noppineni",
+        "comitative_plural": "noppineen"
+      },
+      "kotusType": 10,
+      "group": "a_ae",
+      "frequencyRank": 30968
     }
   ]
 }

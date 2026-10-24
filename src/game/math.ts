@@ -9,7 +9,7 @@
 // levels, show), the answer's value, the choices, and what the answer looks
 // like afterwards (`show`, drawn as dots — never as a digit).
 
-import { mathWords, numbers, food, freetime, places, school } from '../content';
+import { mathWords, money, numbers, food, freetime, places, school } from '../content';
 import { countedEn, countingNounForm, pluralEn, type LexicalItem } from '../content/types';
 import {
   EDIBLE_THINGS,
@@ -20,6 +20,13 @@ import {
   sumFrame,
   wordProblem,
   MISSING,
+  clockMoveFrame,
+  clockSaid,
+  halfFrame,
+  payFrame,
+  priceSaid,
+  timesFrame,
+  totalFrame,
   type Said,
   type WordFrame,
 } from '../content/mathProblems';
@@ -44,8 +51,8 @@ export function numberWord(v: number): string {
   return n.fi;
 }
 
-/** A sourced form of the number: its genitive ("viiden") or partitive ("viittä"). */
-export function numberForm(v: number, form: 'genitive' | 'partitive'): string {
+/** A sourced form of the number: its genitive ("viiden"), partitive ("viittä") or elative ("viidestä"). */
+export function numberForm(v: number, form: 'genitive' | 'partitive' | 'elative'): string {
   const n = BY_VALUE.get(v);
   const f = n?.inflections[`${form}_singular`];
   if (!f) throw new Error(`No sourced ${form} for ${v}`);
@@ -84,7 +91,16 @@ export type MathShow =
       /** The rocket's countdown to nolla. */
       countdown?: boolean;
     }
-  | { kind: 'parts'; teen: number; base: number };
+  /** A number built from its parts: kolme|toista, or (`tens`) viisi|kymmentä. */
+  | { kind: 'parts'; teen: number; base: number; tens?: boolean }
+  /** `a` lots of `b`. */
+  | { kind: 'times'; a: number; b: number }
+  /** A whole split in two. */
+  | { kind: 'half'; whole: number }
+  /** Prices in euros, paid in coins. */
+  | { kind: 'coins'; prices: number[] }
+  /** A clock's time, then the time asked for ([hour, minutes]). */
+  | { kind: 'clock'; from: [number, number]; to: [number, number] };
 
 export interface MathProblem {
   /** The same problem always has the same key (no repeats in a round). */
@@ -100,7 +116,14 @@ export interface MathProblem {
   /** A word problem: what is counted (the item), and its frame. */
   noun?: LexicalItem;
   frame?: WordFrame['id'];
+  /** What a choice says when it isn't a plain number word ("puoli neljä"). */
+  words?: Record<number, string>;
+  /** The things on sale (the shop). */
+  things?: LexicalItem[];
 }
+
+/** What a choice (or the answer) says: its own words, or its number word. */
+export const choiceWord = (p: MathProblem, v: number): string => p.words?.[v] ?? numberWord(v);
 
 /** The problem sets: one per game (see mathPath.tsx). */
 export type MathSet =
@@ -119,7 +142,25 @@ export type MathSet =
   /** Plus and minus within twenty (stage 4). */
   | 'sums-20'
   /** A counting run within twenty, and the rocket's countdown to nolla (stage 4). */
-  | 'run-20';
+  | 'run-20'
+  /** The round tens' parts: viisi|kymmentä (stage 5). */
+  | 'tens-parts'
+  /** Plus and minus with round tens, up to sata (stage 5). */
+  | 'tens-sums'
+  /** Counting in tens, one missing (stage 5). */
+  | 'run-tens'
+  /** Times: kaksi kertaa kolme (stage 6). */
+  | 'times'
+  /** Halves: puolet kahdeksasta (stage 6). */
+  | 'halves'
+  /** Two prices and their total, in euros (stage 7). */
+  | 'shop-totals'
+  /** A price to pay in coins (stage 7). */
+  | 'shop-pay'
+  /** An hour later or earlier (stage 8). */
+  | 'clock-hour'
+  /** Half an hour later: "puoli neljä" (stage 8). */
+  | 'clock-half';
 
 type Rng = () => number;
 const pick = <T>(xs: readonly T[], rng: Rng): T => xs[Math.floor(rng() * xs.length)];
@@ -190,11 +231,11 @@ function neighbor(hi: number, count: number, rng: Rng): MathProblem {
   };
 }
 
-/** A counting run of five, up (or down: the rocket counts down), one missing — never the first. */
-function run(lo: number, hi: number, count: number, rng: Rng, down = rng() < 0.4): MathProblem {
+/** A counting run of five, up (or down: the rocket counts down), one missing — never the first. In `step`s (tens). */
+function run(lo: number, hi: number, count: number, rng: Rng, down = rng() < 0.4, step = 1): MathProblem {
   const len = 5;
-  const start = int(lo, hi - len + 1, rng);
-  const up = Array.from({ length: len }, (_, i) => start + i);
+  const start = lo + step * int(0, (hi - lo) / step - len + 1, rng);
+  const up = Array.from({ length: len }, (_, i) => start + i * step);
   const values = down ? up.reverse() : up;
   const missing = values[int(1, len - 1, rng)];
   return {
@@ -202,9 +243,15 @@ function run(lo: number, hi: number, count: number, rng: Rng, down = rng() < 0.4
     ask: [MISSING],
     tell: { fi: values.map(numberWord).join(', '), en: values.map(numberEn).join(', ') },
     answer: missing,
-    options: optionsFor(missing, count, lo, hi, rng),
+    options: step === 1 ? optionsFor(missing, count, lo, hi, rng) : tensOptions(missing, count, rng),
     show: { kind: 'run', values, missing, gap: true },
   };
+}
+
+/** Choices near a round ten: the tens either side (all sayable, up to sata). */
+function tensOptions(answer: number, count: number, rng: Rng): number[] {
+  const near = [answer - 10, answer + 10, answer - 20, answer + 20].filter((v) => v >= 10 && v <= 100 && isSayable(v));
+  return shuffle([answer, ...shuffle(near, rng).slice(0, Math.max(0, count - 1))], rng);
 }
 
 /** The rocket's countdown: kymmenen … nolla, one missing. */
@@ -235,6 +282,163 @@ function teens(count: number, rng: Rng): MathProblem {
     answer: base,
     options: optionsFor(base, count, 1, 9, rng),
     show: { kind: 'parts', teen, base },
+  };
+}
+
+// --- Round tens (stage 5) ---------------------------------------------------------------
+
+/** The round tens' parts: hear "viisikymmentä", find "viisi" (before -kymmentä). */
+function tensParts(count: number, rng: Rng): MathProblem {
+  const base = int(2, 9, rng);
+  const whole = base * 10;
+  return {
+    key: `tens-parts:${whole}`,
+    ask: [{ fi: numberWord(whole), en: numberEn(whole) }],
+    tell: { fi: `${numberWord(whole).charAt(0).toUpperCase()}${numberWord(whole).slice(1)}.`, en: numberEn(whole) },
+    answer: base,
+    options: optionsFor(base, count, 2, 9, rng),
+    show: { kind: 'parts', teen: whole, base, tens: true },
+  };
+}
+
+/** Plus and minus with round tens, the answer a round ten up to sata (or nolla). */
+function tensSums(count: number, rng: Rng): MathProblem {
+  if (rng() < 0.5) {
+    const c = 10 * int(2, 10, rng);
+    const a = 10 * int(1, c / 10 - 1, rng);
+    const p = sumProblem('plus', a, c - a, count, 100, rng);
+    return { ...p, options: tensOptions(c, count, rng) };
+  }
+  const a = 10 * int(2, 10, rng);
+  const b = 10 * int(1, a / 10 - 1, rng);
+  const p = sumProblem('minus', a, b, count, 100, rng);
+  return { ...p, options: tensOptions(a - b, count, rng) };
+}
+
+// --- Times and halves (stage 6) ----------------------------------------------------------
+
+/** "Kaksi kertaa kolme": only tables whose answers are sourced words (to twenty, and round tens). */
+function times(count: number, rng: Rng): MathProblem {
+  let a = 2;
+  let b = 2;
+  do {
+    a = pick([2, 3, 4, 5, 10], rng);
+    b = int(1, 10, rng);
+  } while (!isSayable(a * b) || a * b > 100);
+  const c = a * b;
+  const { ask, tell } = timesFrame(numberWord(a), numberWord(b), numberWord(c), [numberEn(a), numberEn(b), numberEn(c)]);
+  const options = c > 20 ? tensOptions(c, count, rng) : optionsFor(c, count, 1, 20, rng);
+  return { key: `times:${a}:${b}`, ask: [ask], tell, answer: c, options, show: { kind: 'times', a, b } };
+}
+
+/** "Puolet kahdeksasta": an even whole to twenty, or a round ten whose half is a word. */
+function halves(count: number, rng: Rng): MathProblem {
+  const wholes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 40, 60, 80, 100].filter((w) => isSayable(w / 2));
+  const whole = pick(wholes, rng);
+  const half = whole / 2;
+  const { ask, tell } = halfFrame(numberForm(whole, 'elative'), numberWord(half), [numberEn(whole), numberEn(half)]);
+  const options = half > 20 ? tensOptions(half, count, rng) : optionsFor(half, count, 1, 20, rng);
+  return { key: `half:${whole}`, ask: [ask], tell, answer: half, options, show: { kind: 'half', whole } };
+}
+
+// --- At the shop (stage 7) ----------------------------------------------------------------
+
+/** Things for sale: food and toys with a picture, each a whole thing. */
+const SHOP_THINGS = ['apple', 'banana', 'bread', 'milk', 'ice-cream', 'cookie', 'ball', 'book', 'car', 'pencil'];
+const euro = () => money.items.find((i) => i.id === 'euro')!;
+
+function price(thing: LexicalItem, amount: number): Said {
+  return priceSaid(thing.fi, numberWord(amount), countingNounForm(euro(), amount), { thing: thing.en, amount: numberEn(amount) });
+}
+
+/** Two prices, then "Paljonko yhteensä?" — two euros or more each, to twelve in all. */
+function shopTotals(count: number, rng: Rng): MathProblem {
+  const pool = SHOP_THINGS.map(nounById).filter((n): n is LexicalItem => !!n);
+  const first = pick(pool, rng);
+  const second = pick(pool.filter((n) => n !== first), rng);
+  const a = int(2, 6, rng);
+  const b = int(2, 6, rng);
+  const c = a + b;
+  const { ask, tell } = totalFrame(numberWord(c), countingNounForm(euro(), c), numberEn(c));
+  return {
+    key: `total:${first.id}:${a}:${second.id}:${b}`,
+    ask: [price(first, a), price(second, b), ask],
+    tell,
+    answer: c,
+    options: optionsFor(c, count, 4, 12, rng),
+    show: { kind: 'coins', prices: [a, b] },
+    things: [first, second],
+  };
+}
+
+/** A price to pay with coins: two euros to ten. */
+function shopPay(count: number, rng: Rng): MathProblem {
+  const pool = SHOP_THINGS.map(nounById).filter((n): n is LexicalItem => !!n);
+  const thing = pick(pool, rng);
+  const a = int(2, 10, rng);
+  const coins = mathWords.items.find((i) => i.id === 'coin')!.inflections.adessive_plural!;
+  return {
+    key: `pay:${thing.id}:${a}`,
+    ask: [price(thing, a), payFrame(coins)],
+    tell: price(thing, a),
+    answer: a,
+    options: optionsFor(a, count, 2, 10, rng),
+    show: { kind: 'coins', prices: [a] },
+    things: [thing],
+  };
+}
+
+// --- What time is it? (stage 8) ------------------------------------------------------------
+
+/** "puoli neljä" (half past three) is stored as 100 + four. */
+const HALF = 100;
+const hourOf = (h: number) => ((h - 1 + 12) % 12) + 1;
+/** A time said: "kolme", or "puoli neljä" (half past three: "half to four"). */
+const timeWord = (v: number) => (v > HALF ? `${halfWord()} ${numberWord(v - HALF)}` : numberWord(v));
+const halfWord = () => mathWords.items.find((i) => i.id === 'half')!.fi;
+const hourForms = () => {
+  const hour = mathWords.items.find((i) => i.id === 'hour')!;
+  const half = mathWords.items.find((i) => i.id === 'half')!;
+  return { hourGen: hour.inflections.genitive_singular!, hour: hour.fi, halfGen: half.inflections.genitive_singular! };
+};
+const timeEn = (v: number) => (v > HALF ? `${numberEn(hourOf(v - HALF - 1))} thirty` : `${numberEn(v)} o'clock`);
+
+/** An hour later, or earlier, on the clock (twelve and one wrap round). */
+function clockHour(count: number, rng: Rng): MathProblem {
+  const from = int(1, 12, rng);
+  const later = rng() < 0.6;
+  const to = hourOf(later ? from + 1 : from - 1);
+  const { ask, tell } = clockMoveFrame(later ? 'later' : 'earlier', hourForms(), numberWord(to), timeEn(to));
+  const near = [hourOf(to - 1), hourOf(to + 1), hourOf(to + 2), hourOf(to - 2)].filter((v) => v !== to);
+  return {
+    key: `clock:${later ? 'later' : 'earlier'}:${from}`,
+    ask: [clockSaid(numberWord(from), timeEn(from)), ask],
+    tell,
+    answer: to,
+    options: shuffle([to, ...[...new Set(near)].slice(0, count - 1)], rng),
+    show: { kind: 'clock', from: [from, 0], to: [to, 0] },
+  };
+}
+
+/**
+ * Half an hour later: from three it's "puoli neljä" — half TO four. The
+ * trap is the hour itself ("puoli kolme" is half past two), so it's a choice.
+ */
+function clockHalf(count: number, rng: Rng): MathProblem {
+  const from = int(1, 12, rng);
+  const next = hourOf(from + 1);
+  const answer = HALF + next;
+  const { ask, tell } = clockMoveFrame('half-later', hourForms(), timeWord(answer), timeEn(answer));
+  const options = shuffle([answer, HALF + from, HALF + hourOf(from + 2), next].slice(0, Math.max(2, count)), rng);
+  const words = Object.fromEntries(options.map((v) => [v, timeWord(v)]));
+  return {
+    key: `clock:half:${from}`,
+    ask: [clockSaid(numberWord(from), timeEn(from)), ask],
+    tell,
+    answer,
+    options,
+    show: { kind: 'clock', from: [from, 0], to: [from, 30] },
+    words,
   };
 }
 
@@ -329,6 +533,24 @@ export function problemFor(set: MathSet, o: MathRoundOptions): MathProblem {
       return sums(20, n, rng, 11);
     case 'run-20':
       return rng() < 0.3 ? countdown(n, rng) : run(0, 20, n, rng, false);
+    case 'tens-parts':
+      return tensParts(n, rng);
+    case 'tens-sums':
+      return tensSums(n, rng);
+    case 'run-tens':
+      return run(10, 100, n, rng, rng() < 0.3, 10);
+    case 'times':
+      return times(n, rng);
+    case 'halves':
+      return halves(n, rng);
+    case 'shop-totals':
+      return shopTotals(n, rng);
+    case 'shop-pay':
+      return shopPay(n, rng);
+    case 'clock-hour':
+      return clockHour(n, rng);
+    case 'clock-half':
+      return clockHalf(n, rng);
   }
 }
 
@@ -361,10 +583,23 @@ export function teenTail(teen: number, base: number): string {
   return numberWord(teen).slice(numberWord(base).length);
 }
 
-/** Every value a problem uses (its numbers and choices) — the tests keep them sayable. */
+/** Every number a problem says (its numbers and plain-number choices) — the tests keep them sayable. */
 export function valuesIn(p: MathProblem): number[] {
   const s = p.show;
   const shown =
-    s.kind === 'run' ? s.values : s.kind === 'parts' ? [s.teen, s.base, 10] : [s.a, s.b];
-  return [p.answer, ...p.options, ...shown];
+    s.kind === 'run'
+      ? s.values
+      : s.kind === 'parts'
+        ? [s.teen, s.base]
+        : s.kind === 'half'
+          ? [s.whole, s.whole / 2]
+          : s.kind === 'coins'
+            ? [...s.prices, s.prices.reduce((x, y) => x + y, 0)]
+            : s.kind === 'clock'
+              ? [s.from[0], s.to[0]]
+              : s.kind === 'times'
+                ? [s.a, s.b, s.a * s.b]
+                : [s.a, s.b];
+  // a time's own words ("puoli neljä") are checked as words, not numbers
+  return [p.answer, ...p.options, ...shown].filter((v) => !p.words?.[v]);
 }

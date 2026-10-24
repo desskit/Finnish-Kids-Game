@@ -9,6 +9,7 @@ import {
   numberWord,
   optionsFor,
   problemFor,
+  choiceWord,
   spokenProblem,
   teenTail,
   valueOfWord,
@@ -17,7 +18,10 @@ import {
 } from './math';
 import { WORD_FRAMES } from '../content/mathProblems';
 
-const SETS: MathSet[] = ['sums-10', 'compare-12', 'neighbors-12', 'run-12', 'word', 'teens', 'sums-20', 'run-20'];
+const SETS: MathSet[] = [
+  'sums-10', 'compare-12', 'neighbors-12', 'run-12', 'word', 'teens', 'sums-20', 'run-20',
+  'tens-parts', 'tens-sums', 'run-tens', 'times', 'halves', 'shop-totals', 'shop-pay', 'clock-hour', 'clock-half',
+];
 const ALL_VERBS = new Set(['eat', 'get', 'give']);
 const RUNS = 300;
 
@@ -186,6 +190,55 @@ describe('how a problem is said and built', () => {
     for (let base = 1; base <= 9; base++) {
       expect(numberWord(10 + base).startsWith(numberWord(base))).toBe(true);
       expect(teenTail(10 + base, base)).toBe('toista');
+    }
+  });
+});
+
+describe('stages five to eight', () => {
+  const many = (set: MathSet) => Array.from({ length: RUNS }, () => problemFor(set, { optionCount: 4, knownVerbs: ALL_VERBS }));
+
+  it('builds the round tens from their parts: the small number, then -kymmentä', () => {
+    for (const p of many('tens-parts')) {
+      const s = p.show as { teen: number; base: number; tens?: boolean };
+      expect(s.tens).toBe(true);
+      expect(teenTail(s.teen, s.base)).toBe('kymmentä');
+    }
+  });
+
+  it('keeps sums of tens and times tables to sourced answers', () => {
+    for (const p of [...many('tens-sums'), ...many('times'), ...many('run-tens')]) {
+      for (const v of valuesIn(p)) expect(isSayable(v), `${p.key}: ${v}`).toBe(true);
+    }
+  });
+
+  it('says half of a number with its elative: puolet kahdeksasta', () => {
+    for (const p of many('halves')) {
+      const whole = (p.show as { whole: number }).whole;
+      expect(p.ask[0].fi).toBe(`Paljonko on puolet ${numberForm(whole, 'elative')}?`);
+      expect(p.answer * 2).toBe(whole);
+    }
+  });
+
+  it('prices things at two euros or more (never "yksi euro"), twelve in all at most', () => {
+    for (const p of [...many('shop-totals'), ...many('shop-pay')]) {
+      const prices = (p.show as { prices: number[] }).prices;
+      expect(Math.min(...prices)).toBeGreaterThanOrEqual(2);
+      expect(prices.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(12);
+      expect(p.ask[0].fi).toMatch(/ maksaa [a-zäö]+ euroa\.$/);
+    }
+  });
+
+  it('turns the clock round twelve, and says half past as "puoli" the next hour', () => {
+    for (const p of many('clock-hour')) {
+      const s = p.show as { from: [number, number]; to: [number, number] };
+      expect([1, 11]).toContain((s.to[0] - s.from[0] + 12) % 12);
+    }
+    for (const p of many('clock-half')) {
+      const from = (p.show as { from: [number, number] }).from[0];
+      const next = (from % 12) + 1;
+      expect(choiceWord(p, p.answer)).toBe(`puoli ${numberWord(next)}`);
+      // the trap — "puoli" and the hour it is now — is a choice when there's room
+      if (p.options.length >= 2) expect(p.options.map((v) => choiceWord(p, v))).toContain(`puoli ${numberWord(from)}`);
     }
   });
 });
