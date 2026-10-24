@@ -225,6 +225,24 @@ describe('SayIt (speaking)', () => {
     expect(vouch()).toBeNull();
   });
 
+  it('in Together mode the grown-up’s 👍 is the verdict: a real success, the result held until Continue', () => {
+    const saved = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    saved.settings.together = true;
+    localStorage.setItem('fkg.profiles.v2', JSON.stringify(saved));
+    renderActivity();
+    // The mic's "I said it" makes way for the grown-up's own button.
+    fireEvent.click(screen.getByRole('button', { name: /Grown-up: that sounded right/ }));
+    expect(screen.getByTestId('stars')).toHaveTextContent('1');
+    expect(screen.getByRole('button', { name: /Continue/ })).toBeInTheDocument();
+    const after = JSON.parse(localStorage.getItem('fkg.profiles.v2')!);
+    expect(after.children[0].srs.cat.correct).toBe(1);
+  });
+
+  it('offers no grown-up 👍 outside Together mode', () => {
+    renderActivity();
+    expect(screen.queryByRole('button', { name: /Grown-up: that sounded right/ })).toBeNull();
+  });
+
   it('a second tap says "done" (and listening stops on its own after a while)', () => {
     renderActivity();
     fireEvent.click(mic());

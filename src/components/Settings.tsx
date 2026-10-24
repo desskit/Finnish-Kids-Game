@@ -17,7 +17,7 @@ function Toggle({
   onChange,
 }: {
   label: string;
-  fi: string;
+  fi?: string;
   note?: string;
   checked: boolean;
   onChange: (on: boolean) => void;
@@ -26,9 +26,11 @@ function Toggle({
     <label className="gtoggle">
       <span className="gtoggle__text">
         <span className="gtoggle__label">{label}</span>
-        <span className="gtoggle__fi" lang="fi">
-          {fi}
-        </span>
+        {fi && (
+          <span className="gtoggle__fi" lang="fi">
+            {fi}
+          </span>
+        )}
         {note && <span className="gtoggle__note">{note}</span>}
       </span>
       <input
@@ -165,6 +167,12 @@ export default function Settings() {
             ))}
           </div>
         </div>
+        <Toggle
+          label="Together mode"
+          note="Playing alongside your child? Cards with things to ask, say and play together appear after stories, in scenes and when a unit is finished, and your thumbs-up counts in the speaking game. Children learn the most from talking about what's on the screen with you."
+          checked={!!settings.together}
+          onChange={(on) => updateSettings({ together: on })}
+        />
         <Toggle
           label="Quick sums without a clock"
           fi="Nopeasti!"

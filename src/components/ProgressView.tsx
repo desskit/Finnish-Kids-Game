@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { reviewItems } from '../content';
+import { reviewItemById, reviewItems } from '../content';
+import { AT_HOME, SONG_LINKS } from '../content/together';
+import Prose from './Prose';
 import { useProfile } from '../state/profile';
 import type { Child } from '../state/storage';
 import { isDue, isMastered, wordSchedules } from '../game/srs';
@@ -212,6 +214,8 @@ function ChildReport({ c }: { c: Child }) {
         </div>
       </div>
 
+      <ThisWeek c={c} unitId={next.unit.id} now={now} />
+
       {help.length > 0 && (
         <section className="gsection gsection--help">
           <h3 className="gsection__title"><Art glyph="💡" /> Could use a little help</h3>
@@ -283,6 +287,48 @@ function ChildReport({ c }: { c: Child }) {
         ))}
       </section>
     </article>
+  );
+}
+
+const WEEK = 7 * 86_400_000;
+/** Words shown by name in "This week" (the rest are counted). */
+const WEEK_WORDS_SHOWN = 10;
+
+/** The week at a glance, and what to do together: words met, one thing to try at home, songs. */
+function ThisWeek({ c, unitId, now }: { c: Child; unitId: string; now: number }) {
+  const met = Object.entries(c.srs ?? {})
+    .filter(([id, s]) => reviewItemById[id] && s.lastSeenAt >= now - WEEK)
+    .sort(([, a], [, b]) => b.lastSeenAt - a.lastSeenAt)
+    .map(([id]) => reviewItemById[id]);
+  const idea = AT_HOME[unitId];
+  return (
+    <section className="gsection gsection--week">
+      <h3 className="gsection__title">
+        <Art glyph="👪" /> This week
+      </h3>
+      {met.length === 0 ? (
+        <p className="gmuted">No words practiced in the last seven days.</p>
+      ) : (
+        <p>
+          {met.length} word{met.length === 1 ? '' : 's'} practiced:{' '}
+          <span lang="fi">{met.slice(0, WEEK_WORDS_SHOWN).map((i) => i.fi).join(', ')}</span>
+          {met.length > WEEK_WORDS_SHOWN && ` and ${met.length - WEEK_WORDS_SHOWN} more`}.
+        </p>
+      )}
+      {idea && <Prose className="gweek__idea" text={`**Try at home:** ${idea}`} />}
+      <p className="gmuted">
+        Sing along together:{' '}
+        {SONG_LINKS.map((l, i) => (
+          <span key={l.href}>
+            {i > 0 && ' · '}
+            <a href={l.href} target="_blank" rel="noopener noreferrer" title={l.note}>
+              {l.label}
+            </a>
+          </span>
+        ))}
+        . Turn on <Link to="/grown-up/settings">Together mode</Link> for things to ask and play as you go.
+      </p>
+    </section>
   );
 }
 
