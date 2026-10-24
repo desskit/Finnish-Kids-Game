@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { finnishVoice, finnishVoiceName } from './voices';
+import { canHearFinnish, finnishVoice, finnishVoiceName } from './voices';
 
 function withVoices(voices: { lang: string; name: string }[] | null) {
   if (voices === null) {
@@ -25,5 +25,16 @@ describe('is there a Finnish voice?', () => {
     withVoices([{ lang: 'en-US', name: 'Samantha' }, { lang: 'fi-FI', name: 'Satu' }]);
     expect(finnishVoice()).toBe('finnish');
     expect(finnishVoiceName()).toBe('Satu');
+  });
+});
+
+describe('can Finnish be heard here?', () => {
+  it('not when muted, with no speech, or with no Finnish voice — then the games show it as text', () => {
+    expect(canHearFinnish(false, 'finnish')).toBe(true);
+    // the list may still be loading: stay hopeful
+    expect(canHearFinnish(false, 'unknown')).toBe(true);
+    expect(canHearFinnish(true, 'finnish')).toBe(false);
+    expect(canHearFinnish(false, 'none')).toBe(false);
+    expect(canHearFinnish(false, 'unsupported')).toBe(false);
   });
 });

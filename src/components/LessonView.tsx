@@ -5,6 +5,8 @@ import type { Segment } from '../content/endings';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
 import Prose from './Prose';
+import ReadAloud from './ReadAloud';
+import { useLearner } from '../game/useLearner';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 import Quantity from './math/Quantity';
@@ -82,8 +84,12 @@ export default function LessonView({ lesson, onDone, onClose, doneLabel }: Props
 
 function CardBody({ card }: { card: LessonCard }) {
   const { activeChild } = useProfile();
+  const { readAloud } = useLearner();
   const name = activeChild?.name ?? '';
   const resolve = (r: LessonRef) => resolveRef(r, name);
+  // The card's English read aloud on a 🔊 (on its own for a younger reader).
+  const prose = card.kind === 'check' ? '' : [card.title, card.text].filter(Boolean).join('. ');
+  const aloud = prose ? <ReadAloud text={prose} auto={readAloud} /> : null;
 
   switch (card.kind) {
     case 'explain':
@@ -91,6 +97,7 @@ function CardBody({ card }: { card: LessonCard }) {
         <>
           {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
           <Prose text={card.text} />
+          {aloud}
         </>
       );
     case 'examples':
@@ -98,6 +105,7 @@ function CardBody({ card }: { card: LessonCard }) {
         <>
           {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
           {card.text && <Prose text={card.text} />}
+          {aloud}
           <ul className="lesson-rows">
             {card.rows.map((r, i) => {
               const res = resolve(r);
@@ -111,6 +119,7 @@ function CardBody({ card }: { card: LessonCard }) {
         <>
           {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
           {card.text && <Prose text={card.text} />}
+          {aloud}
           <ul className="lesson-rows lesson-rows--table">
             {PERSONS.map((p) => {
               const res = resolve({
@@ -131,6 +140,7 @@ function CardBody({ card }: { card: LessonCard }) {
         <>
           {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
           {card.text && <Prose text={card.text} />}
+          {aloud}
           <ul className="lesson-rows lesson-pairs">
             {card.ids.map((id) => {
               const said = resolve({ line: id, part: 'prompt' });

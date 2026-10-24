@@ -6,6 +6,7 @@ import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { buildPossessiveRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -34,6 +35,8 @@ interface Props {
 // question. Every form is sourced (possessiveForm); nothing is assembled.
 export default function PossessiveGame({ items, onExit, cases }: Props) {
   const { level, addStars, recordAttempt, activeChild, markPhraseSeen } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount } = difficulty;
@@ -94,10 +97,10 @@ export default function PossessiveGame({ items, onExit, cases }: Props) {
   // the child must recognize, never previewed. (The gloss is the on-screen text
   // read aloud for a pre-reader.)
   useEffect(() => {
-    if (!q || done || showIntro) return;
+    if (!q || done || showIntro || !autoEnglish) return;
     const t = setTimeout(() => speakEnglish(q.gloss), 350);
     return () => clearTimeout(t);
-  }, [q, done, showIntro]);
+  }, [q, done, showIntro, autoEnglish]);
 
   const choose = useCallback(
     (form: string) => {

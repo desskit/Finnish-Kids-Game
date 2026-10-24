@@ -8,6 +8,7 @@ import { buildListenRound } from '../game/round';
 import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
+import SilentText from './SilentText';
 import WordIntro from './WordIntro';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
@@ -219,6 +220,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
         <SpeakerIcon />
         <span className="speaker__hint">Kuuntele · Listen</span>
       </button>
+      <SilentText fi={question.target.fi} />
 
       {timerMs && (
         // A shrinking bar (pure CSS), restarted per question via key. Frozen

@@ -8,6 +8,7 @@ import { useProfile } from '../state/profile';
 import { MAX_BOX, selectReviewItems, grammarSrsId, isGrammarId } from '../game/srs';
 import { buildGrammarReviewQuestion, reviewOptions, type GrammarReviewQuestion } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import FinnishLetters from './FinnishLetters';
 import { answerMatches, readyToJudge, typeAt } from '../game/answer';
@@ -62,6 +63,8 @@ interface Props {
 
 export default function ReviewActivity({ embedded = false, onExit }: Props = {}) {
   const { level, addStars, recordAttempt, recordStats, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const navigate = useNavigate();
   const optionCount = level >= 2 ? 4 : 3;
 
@@ -133,13 +136,15 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     if (!question || done) return;
     const t = setTimeout(() => {
       if (question.format === 'recognition') speak(question.target.fi);
-      else if (question.format === 'grammar' && question.grammar)
+      else if (!autoEnglish) {
+        // English prompts are read on the button, not on their own
+      } else if (question.format === 'grammar' && question.grammar)
         speakEnglish(englishSentenceFor(question.grammar.item, question.grammar.construction));
       else speakEnglish(question.target.en);
       if (question.format === 'spelling') inputRef.current?.focus();
     }, 350);
     return () => clearTimeout(t);
-  }, [question, done, index]);
+  }, [question, done, index, autoEnglish]);
 
   // Shared success path: ding, confirm the Finnish (the whole carrier sentence
   // for a grammar question), credit the question's schedule, advance.

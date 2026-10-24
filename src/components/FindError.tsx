@@ -7,6 +7,7 @@ import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { buildErrorRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -30,6 +31,8 @@ interface Props {
 // a lookup (a different case of the same noun), never generated.
 export default function FindError({ items, constructions, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { maxTier, tricky } = difficulty;
@@ -68,10 +71,10 @@ export default function FindError({ items, constructions, onExit }: Props) {
   // Read the intended English meaning aloud on a new question — the Finnish is
   // what's under judgment, never previewed.
   useEffect(() => {
-    if (!q || done) return;
+    if (!q || done || !autoEnglish) return;
     const t = setTimeout(() => speakEnglish(q.gloss), 350);
     return () => clearTimeout(t);
-  }, [q, done]);
+  }, [q, done, autoEnglish]);
 
   const succeed = useCallback(() => {
     if (!q) return;

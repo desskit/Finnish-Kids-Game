@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, showsGloss } from '../game/adapt';
+import { englishHelpOf, showsEnglish } from '../game/learner';
 import { buildConversation, type ConversationRound } from '../game/round';
 import { conversations } from '../content/conversations';
 import { byIds } from '../util/byIds';
@@ -10,6 +11,7 @@ import { speak } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
+import EnglishTap from './EnglishTap';
 import Art from '../art/Art';
 import Avatar from '../art/Avatar';
 import SpeakerIcon from '../art/SpeakerIcon';
@@ -28,14 +30,19 @@ interface Props {
 // single-turn greetings game); first-try accuracy still feeds the adaptive engine.
 export default function ConversationScene({ onExit, ids }: Props) {
   const pool = byIds(conversations, ids);
-  const { level, activeChild, addStars, markPhraseSeen } = useProfile();
+  const { level, activeChild, addStars, markPhraseSeen, settings } = useProfile();
   const avatar = activeChild?.avatar;
   const childName = activeChild?.name ?? '';
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, maxTier } = difficulty;
   // Top rung: Finnish-only — drop the English glosses on the bubbles + tiles.
-  const glossed = showsGloss(difficulty.level);
+  // The grown-ups' English help fades the bubbles' English sooner (a tap
+  // still shows it); the reply tiles keep theirs unless it's off.
+  const ladderGloss = showsGloss(difficulty.level);
+  const help = englishHelpOf(settings);
+  const glossed = showsEnglish(help, difficulty.level, ladderGloss);
+  const tilesGlossed = ladderGloss && help !== 'off';
 
   // A scene the child has never heard is MODELLED first — the whole exchange,
   // both sides, read aloud — then they play their part. Snapshotted per mount.
@@ -231,7 +238,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
               </span>
               <span className="chat-lines">
                 <span className="chat-fi">{t.partner.fi}</span>
-                {glossed && <span className="en chat-en">{t.partner.en}</span>}
+                <EnglishTap en={t.partner.en} shown={glossed} className="chat-en" />
               </span>
               {i === turnIndex && !finished && (
                 <button
@@ -247,7 +254,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
               <div className="chat-bubble chat-bubble--child">
                 <span className="chat-lines">
                   <span className="chat-fi">{answered[i].fi}</span>
-                  {glossed && <span className="en chat-en">{answered[i].en}</span>}
+                  <EnglishTap en={answered[i].en} shown={glossed} className="chat-en" />
                 </span>
                 <span className="chat-avatar" aria-hidden="true">
                   <Avatar glyph={avatar || '🙂'} />
@@ -278,7 +285,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
                 >
                   <span className="reply-tile__num">{i + 1}</span>
                   <span className="reply-tile__fi">{opt.fi}</span>
-                  {glossed && <span className="en reply-tile__en">{opt.en}</span>}
+                  {tilesGlossed && <span className="en reply-tile__en">{opt.en}</span>}
                 </button>
               ))}
             </div>

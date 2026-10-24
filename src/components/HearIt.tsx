@@ -6,6 +6,7 @@ import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher } from '../game/srs';
 import { buildCarrierHearRound, buildCountHearRound, buildVerbHearRound, type HearQuestion } from '../game/hear';
 import { speak } from '../audio/speak';
+import { useCanHearFinnish } from '../audio/voices';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -37,7 +38,8 @@ interface Props {
 // appears with the deciding part marked (and the Why), linking sound to
 // spelling; after the right one it shows as confirmation. 🐢 replays slowly.
 export default function HearIt({ source, items, constructions, verbs, numbers, onExit }: Props) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+  const { level, addStars, recordAttempt, activeChild, settings } = useProfile();
+  const canHear = useCanHearFinnish(!!settings.muted);
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const optionCount = Math.min(4, Math.max(3, difficulty.optionCount));
@@ -141,7 +143,9 @@ export default function HearIt({ source, items, constructions, verbs, numbers, o
   useSegmentComplete(done, firstTries.current, round.length, restart);
 
   if (done || !q) return null;
-  const showText = locked || whyAt === index;
+  // Shown once answered (or for a Why?) — and from the start where it can't
+  // be heard (no Finnish voice, or muted: see SilentText).
+  const showText = locked || whyAt === index || !canHear;
 
   return (
     <section className="screen activity">

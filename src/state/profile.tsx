@@ -15,6 +15,7 @@ import {
   sandboxProfiles,
   type Child,
   type ProfilesData,
+  type ReaderBand,
   type ReviewDecision,
   type ReviewState,
   type Settings,
@@ -66,11 +67,13 @@ interface ProfileContextValue {
   activeChild: Child | null;
   activeId: string | null;
   /** Create a child and make it active; returns the new id. */
-  addChild: (name: string, avatar?: string, theme?: ThemeId) => string;
+  addChild: (name: string, avatar?: string, theme?: ThemeId, readerBand?: ReaderBand) => string;
   switchChild: (id: string) => void;
   renameChild: (id: string, name: string) => void;
   /** Pick a player's look (undefined: follow the device's light or dark). */
   setChildTheme: (id: string, theme: ThemeId | undefined) => void;
+  /** Which kind of reader a player is (src/game/learner.ts). */
+  setChildReaderBand: (id: string, band: ReaderBand) => void;
   removeChild: (id: string) => void;
 
   // --- The look on screen ---
@@ -238,13 +241,14 @@ export function ProfileProvider({
       activeChild: active,
       activeId: data.activeId,
 
-      addChild: (name, avatar, theme) => {
+      addChild: (name, avatar, theme, readerBand) => {
         const id = newId();
         const child: Child = {
           id,
           name: name.trim() || 'Pelaaja',
           avatar: avatar || AVATARS[data.children.length % AVATARS.length],
           ...(theme ? { theme } : {}),
+          ...(readerBand ? { readerBand } : {}),
           level: 1,
           adaptive: true,
           stars: 0,
@@ -276,6 +280,11 @@ export function ProfileProvider({
             const { theme: _old, ...rest } = c;
             return theme ? { ...rest, theme } : rest;
           }),
+        })),
+      setChildReaderBand: (id, band) =>
+        setData((d) => ({
+          ...d,
+          children: d.children.map((c) => (c.id === id ? { ...c, readerBand: band } : c)),
         })),
       look,
       previewTheme: setPreview,

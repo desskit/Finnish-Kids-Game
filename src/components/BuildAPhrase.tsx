@@ -7,6 +7,7 @@ import { difficultyFor } from '../game/adapt';
 import { familiarityWeigher, grammarSrsId } from '../game/srs';
 import { buildPhraseRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
@@ -33,6 +34,8 @@ interface Props {
 // the right ENDING of the word instead.
 export default function BuildAPhrase({ items, constructions, endings = false, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   // Harder levels add more options AND unlock higher-tier carrier phrases; the
   // expert band (L9+) swaps word tiles for CASE-FORM tiles and drops the gloss.
@@ -85,17 +88,23 @@ export default function BuildAPhrase({ items, constructions, endings = false, on
   const fullSentence = question ? sentenceFor(question.item, question.construction) : '';
   const englishPrompt = question ? englishSentenceFor(question.item, question.construction) : '';
 
-  // No FINNISH before an answer: reading the target phrase aloud would hand
-  // the child the completing word for free. The ENGLISH prompt, though, is
-  // narrated up front — it's just the on-screen gloss read aloud for a
-  // pre-reader, and never previews the Finnish. Finnish is spoken once they
-  // choose correctly, below. Gloss-free expert band: no English at all — the
+  // Never the WHOLE phrase before an answer: reading it aloud would hand the
+  // child the completing word for free; it's spoken once they choose
+  // correctly, below. Gloss-free expert band: no English at all — the
   // picture + carrier ARE the prompt.
+  // Finnish first (docs/LEARNING_RESEARCH.md): a game opens with the Finnish
+  // frame up to the gap ("Minulla on…"), which holds no answer; the English
+  // prompt is read unasked only for a younger reader's first rung, and is
+  // otherwise a tap away on the replay button.
+  const frameFi = question?.construction.before?.trim() ?? '';
   useEffect(() => {
-    if (!question || done || glossFree) return;
-    const t = setTimeout(() => speakEnglish(englishPrompt), 350);
+    if (!question || done) return;
+    const t = setTimeout(() => {
+      if (autoEnglish && !glossFree) speakEnglish(englishPrompt);
+      else if (frameFi) speak(frameFi);
+    }, 350);
     return () => clearTimeout(t);
-  }, [question, done, englishPrompt, glossFree]);
+  }, [question, done, englishPrompt, glossFree, autoEnglish, frameFi]);
 
   // Shared success/advance path for both tile modes.
   const succeed = useCallback(() => {

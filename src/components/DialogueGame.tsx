@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../state/profile';
 import { useActivityContext, useSegmentComplete } from '../game/activityContext';
 import { difficultyFor, showsGloss } from '../game/adapt';
+import { englishHelpOf, showsEnglish } from '../game/learner';
+import EnglishTap from './EnglishTap';
 import { buildDialogueRound, type DialogueQuestion } from '../game/round';
 import { dialogues } from '../content/dialogues';
 import { byIds } from '../util/byIds';
@@ -27,12 +29,12 @@ interface Props {
 // single lexical items (like the multi-slot sentence game).
 export default function DialogueGame({ onExit, ids }: Props) {
   const pool = byIds(dialogues, ids);
-  const { level, addStars, activeChild, markPhraseSeen } = useProfile();
+  const { level, addStars, activeChild, markPhraseSeen, settings } = useProfile();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, maxTier } = difficulty;
   // Top rung: drop the English so it's Finnish-only comprehension.
-  const glossed = showsGloss(difficulty.level);
+  const glossed = showsEnglish(englishHelpOf(settings), difficulty.level, showsGloss(difficulty.level));
   const childName = activeChild?.name ?? '';
 
   const missed = useRef(false);
@@ -174,7 +176,7 @@ export default function DialogueGame({ onExit, ids }: Props) {
 
       <div className="phrase-card dialogue-prompt">
         <p className="dialogue-said">{q.prompt.fi}</p>
-        {glossed && <p className="en phrase-hint">{q.prompt.en}</p>}
+        <EnglishTap as="p" en={q.prompt.en} shown={glossed} className="phrase-hint" />
         <button
           className="speaker speaker--inline"
           onClick={() => speak(q.prompt.fi)}

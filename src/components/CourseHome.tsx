@@ -274,8 +274,8 @@ export default function CourseHome() {
       )}
       {voice === 'none' && (
         <p className="audio-note">
-          <Art glyph="🔈" /> This device has no Finnish voice yet, so Finnish may be read with an English accent. Grown-ups:
-          Settings shows how to add one.
+          <Art glyph="🔈" /> This device has no Finnish voice yet, so Finnish shows as text instead of being read aloud
+          (never in an English voice). Grown-ups: Settings shows how to add one.
         </p>
       )}
 

@@ -7,6 +7,7 @@ import Art from '../art/Art';
 import Avatar, { avatarName } from '../art/Avatar';
 import Scenery from '../art/Scenery';
 import LookPicker from './LookPicker';
+import { READER_BANDS, type ReaderBand } from '../game/learner';
 
 // Kid-accessible profile picker (launch + top-bar avatar). Choose an existing
 // child, add a new one (a name, colors and an avatar), or change a child's
@@ -25,6 +26,7 @@ export default function ProfilePicker() {
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(AVATARS[children.length % AVATARS.length]);
   const [look, setLook] = useState<ThemeId | undefined>(undefined);
+  const [band, setBand] = useState<ReaderBand>('younger');
   /** The player whose colors are being changed, if any. */
   const [painting, setPainting] = useState<string | null>(null);
   const painted = adding ? undefined : children.find((c) => c.id === painting);
@@ -42,7 +44,7 @@ export default function ProfilePicker() {
 
   function add(e: React.FormEvent) {
     e.preventDefault();
-    addChild(name, avatar, look);
+    addChild(name, avatar, look, band);
     navigate('/');
   }
 
@@ -89,6 +91,22 @@ export default function ProfilePicker() {
             </div>
 
             <LookPicker value={look} onPick={setLook} />
+
+            <div className="reader-pick" role="group" aria-label="Who's reading?">
+              <span className="reader-pick__label en">Ask a grown-up: which reader?</span>
+              {READER_BANDS.map((b) => (
+                <button
+                  type="button"
+                  key={b.id}
+                  className={'reader-pick__btn' + (band === b.id ? ' reader-pick__btn--on' : '')}
+                  aria-pressed={band === b.id}
+                  onClick={() => setBand(b.id)}
+                >
+                  <span className="en">{b.label}</span>
+                  <span className="reader-pick__hint en">{b.hint}</span>
+                </button>
+              ))}
+            </div>
 
             <div className="avatar-row" role="group" aria-label="Choose an avatar">
               {AVATARS.map((a) => (

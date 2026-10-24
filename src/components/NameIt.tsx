@@ -6,6 +6,7 @@ import { difficultyFor, questionTimerMs } from '../game/adapt';
 import { familiarityWeigher, introIndices } from '../game/srs';
 import { buildListenRound } from '../game/round';
 import { speak, speakEnglish } from '../audio/speak';
+import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WordIntro from './WordIntro';
@@ -31,6 +32,8 @@ interface Props {
 // shape) since only the render inverts. Only picturable items can be prompts.
 export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   const { level, addStars, recordAttempt, activeChild } = useProfile();
+  // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
+  const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, tricky } = difficulty;
@@ -89,10 +92,10 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   // read the gloss, and the Finnish is what they must PRODUCE, never a preview.
   // Skipped during the intro card, which already speaks the Finnish itself.
   useEffect(() => {
-    if (!question || done || showIntro) return;
+    if (!question || done || showIntro || !autoEnglish) return;
     const t = setTimeout(() => speakEnglish(question.target.en), 350);
     return () => clearTimeout(t);
-  }, [question, done, showIntro]);
+  }, [question, done, showIntro, autoEnglish]);
 
   // Gentle countdown (L5+ only): the isolated production game's other levers
   // (tile count, tricky distractors) both max out by L4, so a timed pace keeps

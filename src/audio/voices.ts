@@ -46,3 +46,18 @@ export function useFinnishVoice(): FinnishVoice {
   }, []);
   return status;
 }
+
+/**
+ * Can Finnish be HEARD here? Not when muted, with no speech at all, or with
+ * no Finnish voice (speak.ts stays silent rather than use another voice).
+ * A listening game shows its Finnish as text instead when this is false.
+ * Optimistic while the voice list is still loading.
+ */
+export function canHearFinnish(muted: boolean, voice: FinnishVoice = finnishVoice()): boolean {
+  return !muted && voice !== 'unsupported' && voice !== 'none';
+}
+
+/** `canHearFinnish`, kept current as the browser loads its voices. */
+export function useCanHearFinnish(muted: boolean): boolean {
+  return canHearFinnish(muted, useFinnishVoice());
+}

@@ -1,5 +1,8 @@
 # Learning-Value Audit v2 & Long-Term Roadmap
 
+> **Newer:** [LEARNING_RESEARCH.md](LEARNING_RESEARCH.md) is audit v3 (October 2026): a fresh research
+> survey for ages 6–10 and for Finnish specifically, the app compared with it, and the current plan.
+
 *The second deliberate pass comparing the app's learning design against
 second-language-acquisition (SLA) research, written after the v1 roadmap was fully
 implemented (see status below) and after the content/structure expansions of
