@@ -126,6 +126,8 @@ interface ProfileContextValue {
   recordQuickStreak: (run: number) => void;
   /** A math answer said aloud and heard right. */
   recordMathSpoken: () => void;
+  /** Today's sums done (once a day: a second time the same day changes nothing). Counts toward the daily streak. */
+  recordMathToday: () => void;
 
   // --- Settings (device-wide) ---
   settings: Settings;
@@ -390,6 +392,24 @@ export function ProfileProvider({
         updateActive((c) => (run <= (c.math?.quickBest ?? 0) ? c : { ...c, math: { ...c.math, quickBest: run } })),
 
       recordMathSpoken: () => updateActive((c) => ({ ...c, math: { ...c.math, spoken: (c.math?.spoken ?? 0) + 1 } })),
+
+      recordMathToday: () =>
+        updateActive((c) => {
+          const today = dayKey(Date.now());
+          const prev = c.math?.today;
+          if (prev?.lastDay === today) return c;
+          const run = bumpStreak(prev?.lastDay, prev?.streak, today);
+          const streak = bumpStreak(c.lastPlayedDay, c.streakDays, today);
+          return {
+            ...c,
+            ...streak,
+            bestStreakDays: Math.max(c.bestStreakDays ?? 0, streak.streakDays),
+            math: {
+              ...c.math,
+              today: { lastDay: today, streak: run.streakDays, best: Math.max(prev?.best ?? 0, run.streakDays), days: (prev?.days ?? 0) + 1 },
+            },
+          };
+        }),
 
       recordRound: (topicId, activityId, stars, total, maxLevel, bonus, proven) =>
         updateActive((c) => {

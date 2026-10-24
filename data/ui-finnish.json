@@ -32,7 +32,8 @@
       "where": [
         "components/CheckpointRoute.tsx",
         "components/ProfilePicker.tsx",
-        "components/math/MathTestRoute.tsx"
+        "components/math/MathTestRoute.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {
@@ -121,7 +122,8 @@
         "components/RoundComplete.tsx",
         "components/SayIt.tsx",
         "components/SoundGame.tsx",
-        "components/StoryTime.tsx"
+        "components/StoryTime.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {
@@ -146,7 +148,8 @@
         "components/SayIt.tsx",
         "components/StoryTime.tsx",
         "components/math/MathQuiz.tsx",
-        "components/math/MathTestRoute.tsx"
+        "components/math/MathTestRoute.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {
@@ -171,7 +174,8 @@
         "components/WordIntro.tsx",
         "components/math/MathHome.tsx",
         "components/math/MathQuiz.tsx",
-        "components/math/MathTestRoute.tsx"
+        "components/math/MathTestRoute.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {
@@ -930,6 +934,13 @@
       ]
     },
     {
+      "fi": "Päivän laskut",
+      "en": "Today’s sums / ⟨…⟩",
+      "where": [
+        "components/math/MathToday.tsx"
+      ]
+    },
+    {
       "fi": "Päivän lämmittely",
       "en": "today's warm-up",
       "where": [
@@ -1052,7 +1063,8 @@
         "components/ParentGate.tsx",
         "components/ProfilePicker.tsx",
         "components/WhyTip.tsx",
-        "components/math/MathTestRoute.tsx"
+        "components/math/MathTestRoute.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {

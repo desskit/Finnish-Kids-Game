@@ -848,6 +848,61 @@ button.math-pan:not(:disabled):active .math-pan__word {
   font-size: clamp(4rem, 19vw, 5.6rem);
 }
 
+/* ---------- Today's sums (Päivän laskut) ---------- */
+.math-today {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 560px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--raise), inset 4px 0 0 var(--accent);
+  transition: transform 0.08s ease;
+}
+.math-today:active {
+  transform: translateY(3px);
+  box-shadow: var(--raise-press), inset 4px 0 0 var(--accent);
+}
+.math-today__icon {
+  flex: none;
+  font-size: 1.8rem;
+}
+.math-today__label {
+  flex: 1;
+  min-width: 0;
+  font-weight: 800;
+}
+.math-today__label .en {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.math-today--done {
+  box-shadow: var(--raise), inset 4px 0 0 var(--good);
+}
+.math-today__flames {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  font-size: 1.3rem;
+}
+.math-today-screen .math-today__flames {
+  font-size: 2rem;
+}
+.math-today__bonus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-weight: 700;
+}
+
 /* ---------- The math map (/math) ---------- */
 .math-home__intro {
   max-width: 560px;

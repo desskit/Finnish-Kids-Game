@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T05:25:50.251Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T05:38:40.010Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2273 entries.** Flagged: 0.
+- **Approved: 28 of 2274 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -16,7 +16,7 @@ and its **Where** menu shows one unit at a time.
 
 | Where | Entries | Left to check | In |
 | --- | --- | --- | --- |
-| Everywhere | 216 | 216 | Alphabet 29, Course titles 58, Buttons & screen labels 129 |
+| Everywhere | 217 | 217 | Alphabet 29, Course titles 58, Buttons & screen labels 130 |
 | Unit 1: Hello! (*Hei!*) | 42 | 31 | Scenes, turn by turn 3, Stories 7, Finnish in the lessons 5, Other lines (wrong replies) 10, Course titles 6 |
 | Unit 2: People & things (*Kuka? Mikä?*) | 36 | 36 | Scenes, turn by turn 7, Stories 12, Sentence patterns 2, Forms marked wrong 2, Finnish in the lessons 5, Course titles 8 |
 | Unit 3: Numbers (*Numerot*) | 31 | 31 | Scenes, turn by turn 7, Stories 10, Finnish in the lessons 4, Other lines (wrong replies) 4, Course titles 6 |
@@ -2298,7 +2298,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija | Sound explorer |
 
-## Buttons & screen labels (145)
+## Buttons & screen labels (146)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2398,6 +2398,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Pinkki` | Pinkki | Pink |
 | ⚠️ | Everywhere | `ui:Puheharjoittelu` | Puheharjoittelu | Speaking practice |
 | ⚠️ | Everywhere | `ui:Päivä` | Päivä | Day |
+| ⚠️ | Everywhere | `ui:Päivän laskut` | Päivän laskut | Today’s sums / ⟨…⟩ |
 | ⚠️ | Everywhere | `ui:Päivän lämmittely` | Päivän lämmittely | today's warm-up |
 | ⚠️ | Everywhere | `ui:Saavutukset` | Saavutukset | Achievements |
 | ⚠️ | Everywhere | `ui:Salli mikrofoni ja yritä uudestaan` | Salli mikrofoni ja yritä uudestaan | Allow the mic and try again |

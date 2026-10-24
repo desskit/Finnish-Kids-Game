@@ -18,6 +18,7 @@ import {
 import Art from '../../art/Art';
 import { uiBackdropUrl } from '../../art/backdrops';
 import { useMotion } from '../../art/motion';
+import { TodayButton } from './MathToday';
 import '../../styles/math.css';
 
 // /math — Lasketaan! (Let's count!): the math section's map. Math town's road
@@ -77,6 +78,8 @@ export default function MathHome() {
       ) : (
         <p className="math-home__waiting en">{allDone(activeChild) ? 'Every crown won — well done!' : 'Math opens after the course’s Numbers unit.'}</p>
       )}
+
+      <TodayButton />
 
       <Crowns />
 

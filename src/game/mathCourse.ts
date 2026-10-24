@@ -14,6 +14,7 @@ import type { Child } from '../state/storage';
 import { UNITS, findUnit, lessonSeen, stepDone, unitComplete, type Status } from './course';
 import type { SkillNode } from './path';
 import { MATH_STAGES, testedSteps, type MathStage } from './mathPath';
+import { dayKey, displayStreak } from './streak';
 
 export const crownWon = (child: Child | null | undefined, stage: MathStage): boolean =>
   !!child?.math?.crowns?.[stage.id]?.passedAt;
@@ -105,3 +106,46 @@ export function taughtWords(child: Child | null | undefined, unlockAll = false):
 
 /** The games a stage's test plays. */
 export { testedSteps };
+
+// --- Today's sums (Päivän laskut) ------------------------------------------------
+// Once a day: a few problems from the games of the stages the child has begun,
+// one each, only heard (their words on "Lue"), for bonus stars and a row of
+// flames for the days in a row. Not the train or the builder (a counting run,
+// a word's parts) and not quick sums (a clock): problems to listen to.
+
+/** How many problems today's sums are. */
+export const TODAY_PROBLEMS = 5;
+/** The level they're played at: the problem only heard, four choices. */
+export const TODAY_LEVEL = 3;
+const TODAY_GAMES = new Set(['math-listen', 'math-tree', 'math-scale', 'math-word', 'math-shop', 'math-pay', 'math-clock']);
+
+/** Bonus stars for doing them: more for all right first time. */
+export const todayBonus = (right: number, total: number): number => (total > 0 && right === total ? 5 : 3);
+
+/** The games today's sums can draw from: those of every stage begun (its lesson read) or won. */
+export function todayGames(child: Child | null | undefined, unlockAll = false): SkillNode[] {
+  return MATH_STAGES.filter((s) => unlockAll || crownWon(child, s) || lessonSeen(child, s.lessonId)).flatMap((s) =>
+    testedSteps(s).filter((step) => TODAY_GAMES.has(step.activity)),
+  );
+}
+
+/** Today's problems: one from each of TODAY_PROBLEMS games, all different while there are enough. */
+export function todayPlan(child: Child | null | undefined, unlockAll = false, rng: () => number = Math.random): SkillNode[] {
+  const games = todayGames(child, unlockAll);
+  if (games.length === 0) return [];
+  const pool = [...games];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return Array.from({ length: TODAY_PROBLEMS }, (_, i) => pool[i % pool.length]);
+}
+
+/** Done already today? */
+export const todayDone = (child: Child | null | undefined, now = Date.now()): boolean => child?.math?.today?.lastDay === dayKey(now);
+
+/** The days in a row to show (a missed day quietly shows none). */
+export function todayStreak(child: Child | null | undefined, now = Date.now()): number {
+  const t = child?.math?.today;
+  return displayStreak(t?.lastDay, t?.streak, dayKey(now));
+}

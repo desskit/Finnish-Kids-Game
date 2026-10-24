@@ -117,6 +117,19 @@ export interface MathState {
   quickBest?: number;
   /** Answers said aloud and heard right, in the math games. */
   spoken?: number;
+  /** Today's sums (Päivän laskut), done once a day. */
+  today?: MathToday;
+}
+
+export interface MathToday {
+  /** The last day they were done ("2026-10-24", local). */
+  lastDay: string;
+  /** Days in a row, up to lastDay. */
+  streak: number;
+  /** The longest run of days in a row. */
+  best: number;
+  /** Days they've been done, in all. */
+  days: number;
 }
 
 export interface CheckpointRecord {
