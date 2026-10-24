@@ -395,6 +395,7 @@
         "components/PossessiveGame.tsx",
         "components/ReviewActivity.tsx",
         "components/StoryTime.tsx",
+        "components/TogetherCard.tsx",
         "components/math/MathAnswer.tsx",
         "components/math/MathScenes.tsx"
       ]

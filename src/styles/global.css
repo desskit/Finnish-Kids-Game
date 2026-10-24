@@ -756,6 +756,56 @@ button:focus-visible,
   vertical-align: middle;
 }
 
+/* Together mode: the home switch, and a card for the grown-up (TogetherCard). */
+.together-toggle {
+  border: 2px dashed var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 6px 14px;
+  min-height: var(--tap);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.together-toggle--on {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.together-card {
+  width: 100%;
+  max-width: 34rem;
+  margin: 4px auto 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--accent);
+  background: var(--surface);
+  text-align: left;
+}
+.together-card__title {
+  margin: 0 0 4px;
+  font-weight: 700;
+}
+.together-card__text {
+  font-size: 0.95rem;
+}
+.together-card__fi {
+  margin: 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+/* Record yourself, then hear the model (SayIt). */
+.hear-yourself {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ---------- Activity shared ---------- */
 .activity {
   justify-content: flex-start;

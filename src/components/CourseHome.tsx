@@ -46,7 +46,7 @@ import MathCard from './math/MathCard';
 // lesson → steps → checkpoint (game/course.ts),
 // later ones locked until the checkpoint before them is passed.
 export default function CourseHome() {
-  const { name, activeChild, settings } = useProfile();
+  const { name, activeChild, settings, updateSettings } = useProfile();
   const unlockAll = !!settings.unlockAll;
   const next = nextAction(activeChild);
 
@@ -120,6 +120,16 @@ export default function CourseHome() {
           )}
         </span>
       </div>
+
+      <button
+        type="button"
+        className={'together-toggle' + (settings.together ? ' together-toggle--on' : '')}
+        aria-pressed={!!settings.together}
+        onClick={() => updateSettings({ together: !settings.together })}
+      >
+        <Art glyph="👪" />{' '}
+        <span className="en">{settings.together ? 'Playing together — on' : 'Playing with a grown-up? Tap here'}</span>
+      </button>
 
       {warmup || revisit || toReview > 0 ? (
         <Link className="continue-cta continue-cta--warmup" to="/warmup">

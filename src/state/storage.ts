@@ -226,6 +226,12 @@ export interface Settings {
    * = 'fade'. A drill's own task (the sentence to build) stays in English.
    */
   englishHelp?: EnglishHelp;
+  /**
+   * Together mode: a grown-up is playing alongside — prompt cards for them
+   * after stories, in scenes and at a unit's end (content/together.ts), and
+   * their 👍 counts in the speaking game.
+   */
+  together?: boolean;
 }
 
 export type ReaderBand = 'younger' | 'older';

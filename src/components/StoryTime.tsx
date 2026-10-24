@@ -13,6 +13,8 @@ import {
 } from '../content/stories';
 import { lookupWord, type WordMeaning } from '../content/wordIndex';
 import { itemIdsIn } from '../content/heardWords';
+import { storyTogether } from '../content/together';
+import TogetherCard from './TogetherCard';
 import { useProfile } from '../state/profile';
 import { useActivityContext } from '../game/activityContext';
 import { englishHelpOf, showsEnglish } from '../game/learner';
@@ -571,6 +573,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId, onHeard
             Loppu! <span className="en">The end</span>
           </p>
         </div>
+        <TogetherCard prompt={storyTogether(story)} />
         <div className="button-row">
           {mode === 'listen' ? (
             <>

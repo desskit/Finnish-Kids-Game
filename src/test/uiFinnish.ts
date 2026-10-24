@@ -56,7 +56,7 @@ const ENGLISH_SMALL = [
   'them', 'their', 'he', 'she', 'him', 'his', 'her', 'this', 'that', 'these', 'those', 'all', 'some', 'any', 'no',
   'not', 'yes', 'ok', 'hi', 'up', 'out', 'off', 'so', 'as', 'if', 'then', 'than', 'too', 'very', 'just', 'here',
   'there', 'what', 'which', 'who', 'whose', 'how', 'why', 'when', 'where', "let's", "don't", "can't", "i'm", 'i',
-  'more', 'most', 'each', 'every', 'again', 'now', 'only', 'also', 'one', 'first', 'next', 'last',
+  'more', 'most', 'each', 'every', 'again', 'now', 'only', 'also', 'one', 'first', 'next', 'last', 'together',
 ];
 
 let english: Set<string> | null = null;

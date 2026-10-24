@@ -12,6 +12,7 @@ import { playDing } from '../audio/sfx';
 import { isSpeechRecognitionAvailable, listenOnce, type ListenSession } from '../audio/speech';
 import ActivityHeader from './ActivityHeader';
 import Art from '../art/Art';
+import HearYourself from './HearYourself';
 import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 6;
@@ -68,8 +69,15 @@ interface Props {
 // star, but no SRS credit — nothing was verified). When speech recognition
 // isn't available the mic itself becomes "I said it" — the repeat-after-me
 // still happens; it just isn't scored.
+//
+// Recognisers misjudge children's voices too often to be the judge
+// (docs/LEARNING_RESEARCH.md), so the child can also record themselves and hear
+// their own try beside the model (HearYourself), and in Together mode the
+// grown-up listening beside them gives the verdict: their 👍 is a real success.
 export default function SayIt({ items, constructions, buildRound, title, onExit }: Props) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+  const { level, addStars, recordAttempt, activeChild, settings } = useProfile();
+  // Together mode: a grown-up listening beside the child judges the try (their 👍 counts).
+  const together = !!settings.together;
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { maxTier } = difficulty;
@@ -190,6 +198,15 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
     setLocked(true);
     setTimeout(next, 700);
   }, [locked, done, addStars, next]);
+
+  /** Together mode: the grown-up heard it and it sounded right — a real success. */
+  const grownUpYes = useCallback(() => {
+    if (locked || done) return;
+    session.current?.stop();
+    setListening(false);
+    setResult('good');
+    judge(true);
+  }, [locked, done, judge]);
 
   const startListening = useCallback(() => {
     if (locked || done || !introSeen) return;
@@ -361,6 +378,8 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
         )}
       </div>
 
+      <HearYourself say={target.say} disabled={listening} />
+
       {judged ? (
         <button className="btn btn--primary say-next" onClick={next} autoFocus>
           Jatka <span className="en">Continue</span>
@@ -391,7 +410,12 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
       {result === 'unheard' && (
         <p className="say-hint say-hint--soft en">The mic didn't catch that — hold the device close and try again.</p>
       )}
-      {canVouch && (
+      {together && !judged && !locked && (
+        <button className="btn btn--sm say-vouch" onClick={grownUpYes}>
+          <Art glyph="👍" /> <span className="en">Grown-up: that sounded right</span>
+        </button>
+      )}
+      {canVouch && !together && (
         <button className="btn btn--ghost btn--sm say-vouch" onClick={selfReport}>
           Sanoin sen <span className="en">I said it</span>
         </button>

@@ -13,6 +13,8 @@ import ActivityHeader from './ActivityHeader';
 import WhyTip from './WhyTip';
 import EnglishTap from './EnglishTap';
 import Art from '../art/Art';
+import TogetherCard from './TogetherCard';
+import { sceneTogether } from '../content/together';
 import Avatar from '../art/Avatar';
 import SpeakerIcon from '../art/SpeakerIcon';
 
@@ -303,6 +305,7 @@ export default function ConversationScene({ onExit, ids }: Props) {
           </>
         )
       )}
+      {scene && <TogetherCard prompt={sceneTogether(scene)} />}
     </section>
   );
 }

@@ -264,6 +264,15 @@ Most sources were read as abstracts or summaries. Check any figure against the o
    - A try-at-home activity per unit, and a "this week" summary.
    - Record-and-compare speaking.
    - Links to real Finnish songs.
+   - *Done:* Together mode (a home switch, and in Grown-ups → Settings): cards
+     for the grown-up after stories, during scenes and at a passed checkpoint
+     (`content/together.ts` — their Finnish is a line the story or scene
+     already has); a try-at-home idea per unit and a "This week" section in
+     Grown-ups → Progress; "Hear yourself" in Say it (record three seconds,
+     hear yourself then the model — nothing stored); in Together mode the
+     grown-up's 👍 is the speaking verdict. Song links go to Lasten Areena and
+     the Finnish Wikipedia page on children's songs (single Areena episodes
+     come and go).
 5. **Finnish sounds.**
    - A length track inside the course.
    - The letters that sound different from English.
