@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T21:30:07.261Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T21:47:27.188Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -1800,7 +1800,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | Unit 3 | `line:Yksi kirjaa.` | Yksi kirjaa. | One book. |
 | ⚠️ | Unit 20 | `line:Älä leiki!` | Älä leiki! | Don't play! |
 
-## Course titles (497)
+## Course titles (499)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -2025,6 +2025,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 25 | `title:Mihin kissa menee?` | Mihin kissa menee? | Where's the cat going? |
 | 📖 | Unit 25 | `title:Mihin?` | Mihin? | Into & onto / Going into, going onto |
 | 📖 | Unit 25 | `title:Mihin? Mistä?` | Mihin? Mistä? | Going & coming |
+| 📖 | Everywhere | `title:Mikä kirjain?` | Mikä kirjain? | Letters that sound different |
 | 📖 | Unit 23 | `title:Mikä on isoin?` | Mikä on isoin? | The biggest of all |
 | 📖 | Everywhere | `title:Mikä pääte?` | Mikä pääte? | Which verb, which ending? |
 | 📖 | Everywhere | `title:Mikä tyyppi?` | Mikä tyyppi? | Which type? (1–3) / Which type? (1–4) / Which type? (1–6) |
@@ -2298,13 +2299,14 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 22 | `title:Värit` | Värit | Colors and describing words |
 | 📖 | Everywhere | `title:Yhdistä sanat` | Yhdistä sanat | Describe it (agreement) |
 | 📖 | Math (Lasketaan!) | `title:Yhteensä` | Yhteensä | In all |
+| 📖 | Everywhere | `title:Yksi vai kaksi?` | Yksi vai kaksi? | One letter or two? |
 | 📖 | Unit 39 | `title:Yksi vai monta?` | Yksi vai monta? | One, or several? |
 | 📖 | Math (Lasketaan!) | `title:Yksitoista, kaksitoista…` | Yksitoista, kaksitoista… | The -toista numbers |
 | 📖 | Unit 7 | `title:Äidin pyörä` | Äidin pyörä | Mom's bike / Mom's bike — the owner gets -n |
 | 📖 | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija 📝 _Dictionary check: compound not in Wiktionary_ | Sound explorer |
 
-## Buttons & screen labels (144)
+## Buttons & screen labels (142)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2365,7 +2367,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Läpäisty!` | Läpäisty! | (no English shown) |
 | 📖 | Everywhere | `ui:Melkein!` | Melkein! | (no English shown) |
 | 📖 | Everywhere | `ui:Miksi?` | Miksi? | Why? |
-| 📖 | Everywhere | `ui:Mikä kirjain?` | Mikä kirjain? | Which letter does it start with? |
 | 📖 | Everywhere | `ui:Mikä on oikein?` | Mikä on oikein? | Which one is right? |
 | 📖 | Everywhere | `ui:Mikä on totta?` | Mikä on totta? | Which one is true? |
 | 📖 | Everywhere | `ui:Mikä sana?` | Mikä sana? | Which word is it? |
@@ -2448,7 +2449,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Grown-ups only | `ui:Vähennä liikettä` | Vähennä liikettä | Reduce motion |
 | ⚠️ | Everywhere | `ui:Välitesti` | Välitesti 📝 _Dictionary check: compound not in Wiktionary (väli + testi are)_ | Checkpoint / Win the crown |
 | 📖 | Everywhere | `ui:Väri` | Väri | Colors |
-| 📖 | Everywhere | `ui:Yksi vai kaksi?` | Yksi vai kaksi? | One letter or two? |
 | 📖 | Everywhere | `ui:Yritä uudestaan` | Yritä uudestaan | Try again |
 | 📖 | Everywhere | `ui:Yö` | Yö | Night |
 | 📖 | Everywhere | `ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.` | ⟨Kyllä / Ei⟩, se on ⟨fi⟩. | (no English shown) |

@@ -48,9 +48,9 @@ export const DEFAULT_CHECKPOINT = { perStep: 3, minQuestions: 8, passRatio: 0.8 
 /** A checkpoint never asks more than this (its own steps + the "Muistatko?" part). */
 export const MAX_CHECKPOINT_QUESTIONS = 18;
 
-/** Steps a checkpoint skips: a story is read at story pace, not tested. */
+/** Steps a checkpoint skips: a story is read at story pace, not tested; a bonus step is a bonus. */
 export function inCheckpoint(step: SkillNode): boolean {
-  return step.activity !== 'story';
+  return step.activity !== 'story' && !step.optional;
 }
 
 export const UNITS: readonly Unit[] = PATH;
@@ -89,7 +89,12 @@ export function stepDone(child: Child | null | undefined, unit: Unit, step: Skil
 }
 
 export function allStepsDone(child: Child | null | undefined, unit: Unit): boolean {
-  return unit.skills.every((s) => stepDone(child, unit, s));
+  return unit.skills.every((s) => s.optional || stepDone(child, unit, s));
+}
+
+/** Has a bonus step been offered (or played)? Continue moves past it then. */
+export function extraOffered(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
+  return !!child?.course?.extrasSeen?.[step.id] || !!child?.progress?.[unit.id]?.[step.id] || stepDone(child, unit, step);
 }
 
 /** Is the unit itself finished? (Mestari, with no checkpoint, never is.) */
@@ -249,7 +254,8 @@ export function nextAction(child: Child | null | undefined): NextAction {
     if (unitComplete(child, unit)) continue;
     const storyId = openerStoryId(unit);
     if (storyId && !openerHeard(child, unit)) return { kind: 'opener', unit, storyId };
-    const step = unit.skills.find((s) => !stepDone(child, unit, s));
+    // The first unfinished step — a bonus step only until it has been offered once.
+    const step = unit.skills.find((s) => (s.optional ? !extraOffered(child, unit, s) : !stepDone(child, unit, s)));
     if (step) {
       // Past the first step: notice the pattern before going on.
       if (unit.skills.indexOf(step) >= lessonAt(unit) && !lessonSeen(child, unit.lessonId)) {

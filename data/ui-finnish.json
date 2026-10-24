@@ -171,6 +171,7 @@
         "components/PossessiveGame.tsx",
         "components/RoundComplete.tsx",
         "components/SayIt.tsx",
+        "components/SoundStep.tsx",
         "components/StoryTime.tsx",
         "components/WarmupRoute.tsx",
         "components/WordIntro.tsx",
@@ -435,7 +436,7 @@
       "fi": "Kuuntele!",
       "en": "Listen, then fill the gap",
       "where": [
-        "components/SoundGame.tsx",
+        "components/SoundRound.tsx",
         "components/math/MathQuiz.tsx"
       ]
     },

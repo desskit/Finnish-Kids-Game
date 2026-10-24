@@ -52,6 +52,7 @@ import DialogueGame from '../components/DialogueGame';
 import ConversationScene from '../components/ConversationScene';
 import YesNoGame from '../components/YesNoGame';
 import StoryTime from '../components/StoryTime';
+import SoundStep from '../components/SoundStep';
 import PossessiveGame from '../components/PossessiveGame';
 import FindError from '../components/FindError';
 import { speakableTargetsFor } from './speakable';
@@ -94,6 +95,9 @@ export type ActivityKind =
   | 'story'
   | 'choose'
   | 'review'
+  // A Finnish-sounds step (the Alphabet corner's games, in the course): one
+  // letter or two, the letters that sound different from English.
+  | 'sound'
   // The math section's games (Lasketaan!, mathPath.tsx) — rendered by
   // renderMathActivity, never by renderActivity.
   | 'math-tree'
@@ -157,6 +161,9 @@ export interface SkillContent {
   wordIds?: string[];
   /** Registry scope for dialogue/conversation/story steps (exchange/scene/story ids). */
   ids?: string[];
+  /** A 'sound' step's game: 'length' (one letter or two?) or 'first-letter'
+   *  (which letter does it start with?), optionally only words starting with `letters`. */
+  sound?: { mode: 'length' | 'first-letter'; letters?: string[] };
   /**
    * A "Kertaus" (mixed review) step: each segment replays a different earlier
    * grammar step. Set `mix: true`; the course builder fills `mixOf`.
@@ -249,6 +256,12 @@ export interface SkillNode {
    * already scoped) and conjugation steps pin `verbCombos` to their lesson's tense.
    */
   pin?: Partial<Difficulty>;
+  /**
+   * A bonus step (the Finnish-sounds steps): Continue offers it once, but it
+   * never holds back the checkpoint and isn't part of it — it needs a Finnish
+   * voice to be heard, which not every device has.
+   */
+  optional?: boolean;
 }
 
 export interface Chapter {
@@ -2410,6 +2423,54 @@ for (const unit of UNITS) {
   else unit.skills.push(step);
 }
 
+// --- Finnish sounds, woven into the first units ------------------------------
+//
+// Short bonus steps (docs/LEARNING_RESEARCH.md): the letters whose Finnish
+// sound differs from English (a, e, i, y, j, ä, ö — heard as sounds, never by
+// English letter names), then one letter or two (tuli · tuuli · tulli). Each
+// is offered once by Continue and never holds back a checkpoint.
+const SOUND_STEPS: { unit: string; after: string; step: SkillNode }[] = [
+  {
+    unit: 'hello',
+    after: 'introduce',
+    step: {
+      id: 'hello-letters',
+      titleFi: 'Mikä kirjain?',
+      titleEn: 'Letters that sound different',
+      icon: '🔤',
+      activity: 'sound',
+      maxLevel: 1,
+      optional: true,
+      content: { sound: { mode: 'first-letter', letters: ['a', 'e', 'i', 'y', 'j', 'ä', 'ö'] }, words: 'all' },
+    },
+  },
+  ...(
+    [
+      ['people', 'is-this'],
+      ['having', 'who-has'],
+      ['whose', 'mine-yours'],
+    ] as const
+  ).map(([unit, after]) => ({
+    unit,
+    after,
+    step: {
+      id: `${unit}-length`,
+      titleFi: 'Yksi vai kaksi?',
+      titleEn: 'One letter or two?',
+      icon: '📏',
+      activity: 'sound' as const,
+      maxLevel: 1,
+      optional: true,
+      content: { sound: { mode: 'length' as const } },
+    },
+  })),
+];
+for (const { unit: unitId, after, step } of SOUND_STEPS) {
+  const unit = UNITS.find((u) => u.id === unitId);
+  const at = unit?.skills.findIndex((s) => s.id === after) ?? -1;
+  if (unit && at >= 0) unit.skills.splice(at + 1, 0, step);
+}
+
 // --- Resolve each step's word scope, default pins, and review mixes ------
 //
 // A unit's `newWords` accumulate into the "known" set; each step gets a STABLE
@@ -2428,6 +2489,7 @@ const knownByUnit: string[][] = [];
 }
 
 const NOT_MIXABLE: ReadonlySet<ActivityKind> = new Set([
+  'sound',
   'dialogue',
   'conversation',
   'story',
@@ -2569,7 +2631,7 @@ export function activitiesUpTo(skill: SkillNode, level: number): ActivityKind[] 
 // something the child says. Excluded: `review` (cross-topic, no single spoken
 // target) and `story` (a story is read for meaning, once — see storyLog.ts).
 // Injected rather than hand-added to each ramp, so it never bloats the ramps.
-const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review', 'story']);
+const NON_SPEAKABLE: ReadonlySet<ActivityKind> = new Set(['review', 'story', 'sound']);
 
 /** Does this node have a spoken target the `say` game can drill? */
 export function isSpeakable(skill: SkillNode): boolean {
@@ -3005,6 +3067,9 @@ export function renderActivity(
       return <StoryTime ids={skill.content.ids} onExit={onExit} />;
     case 'review':
       return null; // review has its own route (/review)
+    case 'sound':
+      // Finnish sounds, in the course: hear a word, fill its gap with a letter.
+      return <SoundStep step={skill} items={items} onExit={onExit} />;
     case 'math-tree':
     case 'math-listen':
     case 'math-scale':

@@ -162,6 +162,8 @@ export interface CourseState {
    * see src/game/course.ts) was first listened to the end.
    */
   openersHeard?: Record<string, number>;
+  /** stepId → when a bonus step (a Finnish-sounds step) was first offered. */
+  extrasSeen?: Record<string, number>;
   /** unitId → checkpoint record. */
   checkpoints?: Record<string, CheckpointRecord>;
   /**

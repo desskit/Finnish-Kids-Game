@@ -247,11 +247,11 @@ export default function CourseHome() {
           const status = unitStatus(activeChild, unit, unlockAll);
           const isCurrent = unit.id === next.unit.id;
           const expanded = status !== 'locked' && open.has(unit.id);
-          const doneSteps = unit.skills.filter(
-            (s) => stepStatus(activeChild, unit, s) === 'done',
-          ).length;
+          // Bonus steps (the Finnish-sounds ones) don't count toward the unit.
+          const required = unit.skills.filter((s) => !s.optional);
+          const doneSteps = required.filter((s) => stepStatus(activeChild, unit, s) === 'done').length;
           const pct =
-            status === 'done' ? 100 : Math.round((doneSteps / Math.max(1, unit.skills.length)) * 100);
+            status === 'done' ? 100 : Math.round((doneSteps / Math.max(1, required.length)) * 100);
           return (
             <li
               key={unit.id}
@@ -277,7 +277,7 @@ export default function CourseHome() {
                   <span className="unit__blurb en">{unit.blurbEn}</span>
                 </span>
                 {status !== 'locked' && (
-                  <span className="unit__bar" aria-label={`${doneSteps} of ${unit.skills.length} steps done`}>
+                  <span className="unit__bar" aria-label={`${doneSteps} of ${required.length} steps done`}>
                     <span style={{ width: `${pct}%` }} />
                   </span>
                 )}
@@ -378,7 +378,9 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
               </span>
               {st !== 'locked' && (
                 <span className="unit-step__meta en">
-                  {st === 'done'
+                  {step.optional && st !== 'done'
+                    ? 'Bonus: a Finnish sounds game (needs sound)'
+                    : st === 'done'
                     ? `All ${top} levels passed`
                     : lvl >= top
                       ? `Top level ${top} — pass it to finish the step`

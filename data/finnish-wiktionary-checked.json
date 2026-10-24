@@ -3178,6 +3178,10 @@
    "fi": "Mihin? Mistä?",
    "how": "mihin: mikä illative pl sg · mistä: mikä elative pl sg"
   },
+  "title:Mikä kirjain?": {
+   "fi": "Mikä kirjain?",
+   "how": "mikä: what · kirjain: letter (of the alphabet)"
+  },
   "title:Mikä on isoin?": {
    "fi": "Mikä on isoin?",
    "how": "mikä: what · on: olla present sg 3rd person · isoin: iso superlative"
@@ -4146,6 +4150,10 @@
    "fi": "Yhteensä",
    "how": "yhteensä: altogether"
   },
+  "title:Yksi vai kaksi?": {
+   "fi": "Yksi vai kaksi?",
+   "how": "yksi: one · vai: or · kaksi: two"
+  },
   "title:Yksi vai monta?": {
    "fi": "Yksi vai monta?",
    "how": "yksi: one · vai: or · monta: moni partitive sg"
@@ -4538,10 +4546,6 @@
    "fi": "Miksi?",
    "how": "miksi: why"
   },
-  "ui:Mikä kirjain?": {
-   "fi": "Mikä kirjain?",
-   "how": "mikä: what · kirjain: letter (of the alphabet)"
-  },
   "ui:Mikä on oikein?": {
    "fi": "Mikä on oikein?",
    "how": "mikä: what · on: olla present sg 3rd person · oikein: right, correctly"
@@ -4849,10 +4853,6 @@
   "ui:Väri": {
    "fi": "Väri",
    "how": "väri: color color"
-  },
-  "ui:Yksi vai kaksi?": {
-   "fi": "Yksi vai kaksi?",
-   "how": "yksi: one · vai: or · kaksi: two"
   },
   "ui:Yritä uudestaan": {
    "fi": "Yritä uudestaan",

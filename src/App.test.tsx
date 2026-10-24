@@ -156,13 +156,26 @@ describe('course home', () => {
     seedChild(
       { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2), 'hello-story': proven(2) } },
       {},
-      { lessonsSeen: { sounds: 1 } },
+      { lessonsSeen: { sounds: 1 }, extrasSeen: { 'hello-letters': 1 } },
       warmedUpToday(),
     );
     renderAt('/');
     const cont = screen.getByRole('link', { name: /Continue/ });
+    // (The bonus sounds step was offered once already: it never holds the checkpoint back.)
     expect(cont.getAttribute('href')).toBe('/checkpoint/hello');
     expect(document.querySelectorAll('.unit--current .unit-step--done').length).toBe(6); // story heard + lesson + 4 steps
+    expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
+  });
+
+  it('offers a bonus sounds step once on the way, without making it a must', () => {
+    seedChild(
+      { 'hello': { greetings: proven(3), introduce: proven(3), 'hello-talk': proven(2), 'hello-story': proven(2) } },
+      {},
+      { lessonsSeen: { sounds: 1 } },
+      warmedUpToday(),
+    );
+    renderAt('/');
+    expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/skill/hello-letters');
     expect(document.querySelector('.unit--current .unit-step--checkpoint')?.tagName).toBe('A');
   });
 

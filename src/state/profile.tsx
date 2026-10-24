@@ -120,6 +120,8 @@ interface ProfileContextValue {
   markLessonSeen: (lessonId: string) => void;
   /** The unit's opener story has been listened to the end (opens its first steps). */
   markOpenerHeard: (unitId: string) => void;
+  /** A bonus step has been offered (Continue moves past it from now on). */
+  markExtraSeen: (stepId: string) => void;
   /** Record a round of an Alphabet-corner game (counts toward the streak). */
   recordSoundsRound: (mode: string, right: number, total: number) => void;
   /** Mark set phrases (`ex:<id>` / `scene:<id>`) as modelled to the child. */
@@ -340,6 +342,13 @@ export function ProfileProvider({
                   openersHeard: { ...c.course?.openersHeard, [unitId]: Date.now() },
                 },
               },
+        ),
+
+      markExtraSeen: (stepId) =>
+        updateActive((c) =>
+          c.course?.extrasSeen?.[stepId]
+            ? c
+            : { ...c, course: { ...c.course, extrasSeen: { ...c.course?.extrasSeen, [stepId]: Date.now() } } },
         ),
 
       recordSoundsRound: (mode, right, total) =>
