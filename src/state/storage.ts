@@ -113,6 +113,10 @@ export interface MathState {
   crowns?: Record<string, CheckpointRecord>;
   /** stageId → when the child first saw it open (until then the home card says "Uusi!"). */
   seen?: Record<string, number>;
+  /** The longest run of right first answers in quick sums (Nopeasti!). */
+  quickBest?: number;
+  /** Answers said aloud and heard right, in the math games. */
+  spoken?: number;
 }
 
 export interface CheckpointRecord {

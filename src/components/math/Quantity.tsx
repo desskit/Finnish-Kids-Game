@@ -1,3 +1,5 @@
+import '../../styles/math.css';
+
 // How many, as a picture: dots in ten-frames (two rows of five), never a
 // digit. A sum shows its two parts in two colours; a difference shows the
 // whole with the part taken away crossed out. Up to twenty fits in two frames.

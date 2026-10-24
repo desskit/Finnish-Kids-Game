@@ -26,6 +26,8 @@ import {
   storyRecord,
 } from '../game/storyLog';
 import { nearPass } from '../game/score';
+import { isMathId } from '../game/mathPath';
+import { valueOfWord } from '../game/math';
 import { speak, stopSpeaking } from '../audio/speak';
 import { playDing } from '../audio/sfx';
 import { sample, shuffle } from '../util/shuffle';
@@ -34,6 +36,7 @@ import Art from '../art/Art';
 import { backdropUrl } from '../art/backdrops';
 import { useMotion } from '../art/motion';
 import SpeakerIcon from '../art/SpeakerIcon';
+import Quantity from './math/Quantity';
 
 // Satuhetki (story time): a little picture book. A cover, three or four pages
 // — each a scene with a few short lines, read aloud one by one (the line being
@@ -48,6 +51,11 @@ import SpeakerIcon from '../art/SpeakerIcon';
 //  - 'revisit' (the warm-up's "Muistatko?"): the cover, an optional re-read,
 //    and two questions it hasn't asked before.
 //  - 'free' (the bookshelf): just the book, as often as she likes.
+//
+// A math story (Lasketaan!, content/mathStories.ts) shows no digit anywhere:
+// no running star count or card numbers, stars for the score, and a number
+// word tapped shows how many as dots, never its English. Its "Continue" goes
+// back to the math map.
 
 type Mode = 'read' | 'revisit' | 'free';
 type Phase = 'cover' | 'page' | 'end' | 'quiz' | 'result';
@@ -111,6 +119,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
     return nextStoryId(activeChild, pool) ?? pool[0];
   });
   const story = storyById[currentId];
+  const math = isMathId(story.id);
   // Re-reading after a weak read: the English shows with every line.
   const [supported, setSupported] = useState(() => mode === 'read' && needsSupport(activeChild, currentId));
   const [phase, setPhase] = useState<Phase>('cover');
@@ -353,7 +362,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
         title={`${story.titleFi} · ${story.titleEn}`}
       index={headerIndex}
       total={headerTotal}
-      stars={ctx?.sessionStars}
+      stars={math ? undefined : ctx?.sessionStars}
       onExit={() => {
         hush();
         onExit();
@@ -445,7 +454,12 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 {tip?.line === i && (
                   <p className="story-tip" role="status">
                     <strong>{tip.word}</strong>
-                    {tip.meaning ? (
+                    {math && valueOfWord(tip.word) !== undefined ? (
+                      <>
+                        {' '}
+                        <Quantity groups={[valueOfWord(tip.word)!]} small />
+                      </>
+                    ) : tip.meaning ? (
                       <>
                         {tip.meaning.base.toLowerCase() !== tip.word.toLowerCase() && <> → {tip.meaning.base}</>}
                         {' · '}
@@ -561,9 +575,17 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
             {good ? 'Hienoa!' : close ? 'Melkein!' : 'Hyvä yritys!'}{' '}
             <span className="en">{good ? 'You followed the story!' : close ? 'Almost!' : 'Good try!'}</span>
           </p>
-          <p className="story-result__score" aria-label={`${right} of ${total} right first time`}>
-            {right} / {total}
-          </p>
+          {math ? (
+            <p className="story-result__score story-result__score--stars" aria-label={`${right} of ${total} right first time`}>
+              {Array.from({ length: total }, (_, i) => (
+                <Art key={i} glyph="⭐" className={i < right ? undefined : 'art--off'} />
+              ))}
+            </p>
+          ) : (
+            <p className="story-result__score" aria-label={`${right} of ${total} right first time`}>
+              {right} / {total}
+            </p>
+          )}
           {!good && <p className="story-result__hint en">Let's read it again — with the English this time.</p>}
         </div>
         <div className="button-row">
@@ -573,7 +595,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 Seuraava tarina <span className="en">Next story</span>
               </button>
             ) : (
-              <button className="btn btn--primary" onClick={() => navigate('/next')} autoFocus>
+              <button className="btn btn--primary" onClick={() => navigate(math ? '/math' : '/next')} autoFocus>
                 Jatka <span className="en">Continue</span>
               </button>
             )
@@ -610,7 +632,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 onClick={() => answered(!!opt.correct, `c-${opt.fi}`, opt.fi)}
                 disabled={locked}
               >
-                <span className="pic-card__num">{i + 1}</span>
+                {!math && <span className="pic-card__num">{i + 1}</span>}
                 <span className="pic-card__emoji" aria-hidden="true">
                   <Art glyph={opt.emoji} motion="idle" />
                 </span>
@@ -677,7 +699,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                 onClick={() => answered(c === q.speaker, `w-${c}`, CAST[c].nameFi)}
                 disabled={locked}
               >
-                <span className="pic-card__num">{i + 1}</span>
+                {!math && <span className="pic-card__num">{i + 1}</span>}
                 <span className="pic-card__emoji" aria-hidden="true">
                   <Art glyph={CAST[c].emoji} motion="idle" />
                 </span>
@@ -709,7 +731,7 @@ export default function StoryTime({ onExit, ids, mode = 'read', storyId }: Props
                     disabled={locked || at >= 0}
                   >
                     <span className="order-card__num" aria-hidden="true">
-                      {at >= 0 ? at + 1 : '?'}
+                      {at < 0 ? '?' : math ? '•'.repeat(at + 1) : at + 1}
                     </span>
                     <span className="order-card__pics" aria-hidden="true">
                       {card.scene.fg.slice(0, 3).map((e, i) => (

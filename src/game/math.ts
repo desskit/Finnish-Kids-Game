@@ -75,7 +75,15 @@ export type MathShow =
   | { kind: 'plus'; a: number; b: number }
   | { kind: 'minus'; a: number; b: number }
   | { kind: 'compare'; a: number; b: number }
-  | { kind: 'run'; values: number[]; missing: number }
+  | {
+      kind: 'run';
+      values: number[];
+      missing: number;
+      /** The run IS the problem (the train, the rocket): said with its gap. */
+      gap?: boolean;
+      /** The rocket's countdown to nolla. */
+      countdown?: boolean;
+    }
   | { kind: 'parts'; teen: number; base: number };
 
 export interface MathProblem {
@@ -195,7 +203,7 @@ function run(lo: number, hi: number, count: number, rng: Rng, down = rng() < 0.4
     tell: { fi: values.map(numberWord).join(', '), en: values.map(numberEn).join(', ') },
     answer: missing,
     options: optionsFor(missing, count, lo, hi, rng),
-    show: { kind: 'run', values, missing },
+    show: { kind: 'run', values, missing, gap: true },
   };
 }
 
@@ -209,7 +217,7 @@ export function countdown(count: number, rng: Rng = Math.random): MathProblem {
     tell: { fi: values.map(numberWord).join(', '), en: values.map(numberEn).join(', ') },
     answer: missing,
     options: optionsFor(missing, count, 0, 10, rng),
-    show: { kind: 'run', values, missing },
+    show: { kind: 'run', values, missing, gap: true, countdown: true },
   };
 }
 
@@ -330,6 +338,22 @@ export function buildMathRound(set: MathSet, count: number, o: MathRoundOptions)
     out.push(p);
   }
   return out;
+}
+
+/**
+ * The problem as it is said aloud. A counting run is said with its gap
+ * ("kolme, neljä, …, kuusi, seitsemän"), then its question.
+ */
+export function spokenProblem(p: MathProblem): string {
+  const s = p.show;
+  const asked = p.ask.map((x) => x.fi).join(' ');
+  if (s.kind !== 'run' || !s.gap) return asked;
+  return `${s.values.map((v) => (v === s.missing ? '…' : numberWord(v))).join(', ')}. ${asked}`;
+}
+
+/** The second part of a teen, from its sourced word: kolme|toista. */
+export function teenTail(teen: number, base: number): string {
+  return numberWord(teen).slice(numberWord(base).length);
 }
 
 /** Every value a problem uses (its numbers and choices) — the tests keep them sayable. */

@@ -159,8 +159,3 @@ export function wordProblem(frame: WordFrame, f: WordFill): { ask: Said[]; tell:
 export const EDIBLE_THINGS = ['apple', 'banana', 'cookie', 'strawberry', 'candy', 'bun'];
 /** Things to have, get and give. */
 export const THINGS = ['ball', 'pencil', 'book', 'car', 'apple', 'cookie'];
-
-// --- The teens ⚠️ -------------------------------------------------------------
-
-/** "Kuuntele ja täydennä!" — the teens builder: the word with its first part missing. */
-export const FILL_IN: Said = { fi: 'Kuuntele ja täydennä!', en: 'Listen and fill in!' };
