@@ -242,8 +242,8 @@ drawn once for each look (`src/theme`):
 
 `art/scenes/mathTown.mjs` is the banner over the math map (`/math`): a road
 through a little town past the math stages' places — the apple tree, the
-scale on its table, the fox's market stall, the rocket on its pad — each with a
-flag in its stage's color, and a train on the line behind. It's a UI scene
+scale on its table, the fox's market stall, the town clock, the rocket on its
+pad — with eight flags in the stages' colors, and a train on the line behind. It's a UI scene
 like the hero (600 × 200, in day, night and pink), and moves the same gentle
 way.
 
@@ -252,11 +252,20 @@ way.
 `art/math.mjs` (recipes in `art/recipes/math.mjs`, theme *math*):
 
 - **UI pictures:** a crown in each stage's color (`math-crown-red`, `-orange`,
-  `-green`, `-purple`), lightning for quick sums (⚡), and the fox at its market
-  stall (`math-card`, the home card).
+  `-green`, `-purple`, `-teal`, `-pink`, `-amber`, `-blue`), lightning for
+  quick sums and today's sums (⚡), and the fox at its market stall
+  (`math-card`, the home card).
+- **The math badges:** three crowns (🫅), a crown set with every jewel (💎) and a
+  stopwatch with no numbers on its face (⏱); the others reuse the abacus, the
+  microphone and the lightning.
+- **Faces won in math** (`art/avatars.mjs`): a robot (🤖, its antenna bulb
+  blinking), an owl in glasses (🤓, grey, so it's never mistaken for the brown
+  owl) and a dragon (🐲) — avatar heads like the others.
 - **Game pieces** (props, no word of their own): the apple tree and its empty
   basket, the scale's stand and pan (the game draws the beam and tips it), the
   train's engine and wagon, the rocket on its pad.
+- **Coins and clocks** come from the course: the euro coin (💶) and the clock
+  faces, which show the time with their hands only.
 - **No digit in any of them** — no numbers on wagons, signs or prices; the
   game puts Finnish words on the pieces. The number tile and the pictures
   that draw numerals (💯, 🔢, calendars) never appear on a math screen.
