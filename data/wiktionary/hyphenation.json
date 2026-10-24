@@ -1,0 +1,747 @@
+{
+ "_source": "Syllable splits from Wiktionary (en.wiktionary.org): the 'Hyphenation' its {{fi-pronunciation}} template gives each word, via the MediaWiki API (scripts/fetch-hyphenation.mjs).",
+ "_license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+ "words": {
+  "kissa": [
+   "kis",
+   "sa"
+  ],
+  "koira": [
+   "koi",
+   "ra"
+  ],
+  "karhu": [
+   "kar",
+   "hu"
+  ],
+  "pupu": [
+   "pu",
+   "pu"
+  ],
+  "lintu": [
+   "lin",
+   "tu"
+  ],
+  "kala": [
+   "ka",
+   "la"
+  ],
+  "hevonen": [
+   "he",
+   "vo",
+   "nen"
+  ],
+  "lehmä": [
+   "leh",
+   "mä"
+  ],
+  "sika": [
+   "si",
+   "ka"
+  ],
+  "kettu": [
+   "ket",
+   "tu"
+  ],
+  "ankka": [
+   "ank",
+   "ka"
+  ],
+  "sammakko": [
+   "sam",
+   "mak",
+   "ko"
+  ],
+  "lammas": [
+   "lam",
+   "mas"
+  ],
+  "hiiri": [
+   "hii",
+   "ri"
+  ],
+  "norsu": [
+   "nor",
+   "su"
+  ],
+  "leijona": [
+   "lei",
+   "jo",
+   "na"
+  ],
+  "apina": [
+   "a",
+   "pi",
+   "na"
+  ],
+  "kana": [
+   "ka",
+   "na"
+  ],
+  "susi": [
+   "su",
+   "si"
+  ],
+  "käärme": [
+   "käär",
+   "me"
+  ],
+  "perhonen": [
+   "per",
+   "ho",
+   "nen"
+  ],
+  "mehiläinen": [
+   "me",
+   "hi",
+   "läi",
+   "nen"
+  ],
+  "sorsa": [
+   "sor",
+   "sa"
+  ],
+  "yksi": [
+   "yk",
+   "si"
+  ],
+  "kaksi": [
+   "kak",
+   "si"
+  ],
+  "kolme": [
+   "kol",
+   "me"
+  ],
+  "neljä": [
+   "nel",
+   "jä"
+  ],
+  "viisi": [
+   "vii",
+   "si"
+  ],
+  "kuusi": [
+   "kuu",
+   "si"
+  ],
+  "seitsemän": [
+   "seit",
+   "se",
+   "män"
+  ],
+  "kahdeksan": [
+   "kah",
+   "dek",
+   "san"
+  ],
+  "yhdeksän": [
+   "yh",
+   "dek",
+   "sän"
+  ],
+  "kymmenen": [
+   "kym",
+   "me",
+   "nen"
+  ],
+  "yksitoista": [
+   "yk",
+   "si",
+   "tois",
+   "ta"
+  ],
+  "kaksitoista": [
+   "kak",
+   "si",
+   "tois",
+   "ta"
+  ],
+  "kolmetoista": [
+   "kol",
+   "me",
+   "tois",
+   "ta"
+  ],
+  "neljätoista": [
+   "nel",
+   "jä",
+   "tois",
+   "ta"
+  ],
+  "viisitoista": [
+   "vii",
+   "si",
+   "tois",
+   "ta"
+  ],
+  "kuusitoista": [
+   "kuu",
+   "si",
+   "tois",
+   "ta"
+  ],
+  "seitsemäntoista": [
+   "seit",
+   "se",
+   "män",
+   "tois",
+   "ta"
+  ],
+  "kahdeksantoista": [
+   "kah",
+   "dek",
+   "san",
+   "tois",
+   "ta"
+  ],
+  "yhdeksäntoista": [
+   "yh",
+   "dek",
+   "sän",
+   "tois",
+   "ta"
+  ],
+  "kaksikymmentä": [
+   "kak",
+   "si",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "kolmekymmentä": [
+   "kol",
+   "me",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "neljäkymmentä": [
+   "nel",
+   "jä",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "viisikymmentä": [
+   "vii",
+   "si",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "kuusikymmentä": [
+   "kuu",
+   "si",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "seitsemänkymmentä": [
+   "seit",
+   "se",
+   "män",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "kahdeksankymmentä": [
+   "kah",
+   "dek",
+   "san",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "yhdeksänkymmentä": [
+   "yh",
+   "dek",
+   "sän",
+   "kym",
+   "men",
+   "tä"
+  ],
+  "sata": [
+   "sa",
+   "ta"
+  ],
+  "leipä": [
+   "lei",
+   "pä"
+  ],
+  "maito": [
+   "mai",
+   "to"
+  ],
+  "vesi": [
+   "ve",
+   "si"
+  ],
+  "omena": [
+   "o",
+   "me",
+   "na"
+  ],
+  "banaani": [
+   "ba",
+   "naa",
+   "ni"
+  ],
+  "juusto": [
+   "juus",
+   "to"
+  ],
+  "kakku": [
+   "kak",
+   "ku"
+  ],
+  "keksi": [
+   "kek",
+   "si"
+  ],
+  "mehu": [
+   "me",
+   "hu"
+  ],
+  "jäätelö": [
+   "jää",
+   "te",
+   "lö"
+  ],
+  "suklaa": [
+   "suk",
+   "laa"
+  ],
+  "peruna": [
+   "pe",
+   "ru",
+   "na"
+  ],
+  "mansikka": [
+   "man",
+   "sik",
+   "ka"
+  ],
+  "porkkana": [
+   "pork",
+   "ka",
+   "na"
+  ],
+  "muna": [
+   "mu",
+   "na"
+  ],
+  "riisi": [
+   "rii",
+   "si"
+  ],
+  "keitto": [
+   "keit",
+   "to"
+  ],
+  "makkara": [
+   "mak",
+   "ka",
+   "ra"
+  ],
+  "tomaatti": [
+   "to",
+   "maat",
+   "ti"
+  ],
+  "karkki": [
+   "kark",
+   "ki"
+  ],
+  "puuro": [
+   "puu",
+   "ro"
+  ],
+  "voi": [
+   "voi"
+  ],
+  "pitsa": [
+   "pit",
+   "sa"
+  ],
+  "piparkakku": [
+   "pi",
+   "par",
+   "kak",
+   "ku"
+  ],
+  "pulla": [
+   "pul",
+   "la"
+  ],
+  "mustikka": [
+   "mus",
+   "tik",
+   "ka"
+  ],
+  "äiti": [
+   "äi",
+   "ti"
+  ],
+  "isä": [
+   "i",
+   "sä"
+  ],
+  "veli": [
+   "ve",
+   "li"
+  ],
+  "sisko": [
+   "sis",
+   "ko"
+  ],
+  "vauva": [
+   "vau",
+   "va"
+  ],
+  "poika": [
+   "poi",
+   "ka"
+  ],
+  "isoäiti": [
+   "i",
+   "so",
+   "äi",
+   "ti"
+  ],
+  "isoisä": [
+   "i",
+   "soi",
+   "sä"
+  ],
+  "perhe": [
+   "per",
+   "he"
+  ],
+  "lapsi": [
+   "lap",
+   "si"
+  ],
+  "täti": [
+   "tä",
+   "ti"
+  ],
+  "setä": [
+   "se",
+   "tä"
+  ],
+  "serkku": [
+   "serk",
+   "ku"
+  ],
+  "laatikko": [
+   "laa",
+   "tik",
+   "ko"
+  ],
+  "pöytä": [
+   "pöy",
+   "tä"
+  ],
+  "talo": [
+   "ta",
+   "lo"
+  ],
+  "huone": [
+   "huo",
+   "ne"
+  ],
+  "auto": [
+   "au",
+   "to"
+  ],
+  "sänky": [
+   "sän",
+   "ky"
+  ],
+  "tuoli": [
+   "tuo",
+   "li"
+  ],
+  "koulu": [
+   "kou",
+   "lu"
+  ],
+  "puu": [
+   "puu"
+  ],
+  "metsä": [
+   "met",
+   "sä"
+  ],
+  "kori": [
+   "ko",
+   "ri"
+  ],
+  "laukku": [
+   "lauk",
+   "ku"
+  ],
+  "bussi": [
+   "bus",
+   "si"
+  ],
+  "juna": [
+   "ju",
+   "na"
+  ],
+  "vene": [
+   "ve",
+   "ne"
+  ],
+  "lentokone": [
+   "len",
+   "to",
+   "ko",
+   "ne"
+  ],
+  "laiva": [
+   "lai",
+   "va"
+  ],
+  "taksi": [
+   "tak",
+   "si"
+  ],
+  "kauppa": [
+   "kaup",
+   "pa"
+  ],
+  "kirjasto": [
+   "kir",
+   "jas",
+   "to"
+  ],
+  "puisto": [
+   "puis",
+   "to"
+  ],
+  "sairaala": [
+   "sai",
+   "raa",
+   "la"
+  ],
+  "asema": [
+   "a",
+   "se",
+   "ma"
+  ],
+  "museo": [
+   "mu",
+   "se",
+   "o"
+  ],
+  "ravintola": [
+   "ra",
+   "vin",
+   "to",
+   "la"
+  ],
+  "kahvila": [
+   "kah",
+   "vi",
+   "la"
+  ],
+  "kaupunki": [
+   "kau",
+   "pun",
+   "ki"
+  ],
+  "tori": [
+   "to",
+   "ri"
+  ],
+  "eläintarha": [
+   "e",
+   "läin",
+   "tar",
+   "ha"
+  ],
+  "kenttä": [
+   "kent",
+   "tä"
+  ],
+  "makuuhuone": [
+   "ma",
+   "kuu",
+   "hu",
+   "o",
+   "ne"
+  ],
+  "kylpyhuone": [
+   "kyl",
+   "py",
+   "hu",
+   "o",
+   "ne"
+  ],
+  "sohva": [
+   "soh",
+   "va"
+  ],
+  "piha": [
+   "pi",
+   "ha"
+  ],
+  "vessa": [
+   "ves",
+   "sa"
+  ],
+  "päiväkoti": [
+   "päi",
+   "vä",
+   "ko",
+   "ti"
+  ],
+  "mökki": [
+   "mök",
+   "ki"
+  ],
+  "sauna": [
+   "sau",
+   "na"
+  ],
+  "silmä": [
+   "sil",
+   "mä"
+  ],
+  "korva": [
+   "kor",
+   "va"
+  ],
+  "nenä": [
+   "ne",
+   "nä"
+  ],
+  "suu": [
+   "suu"
+  ],
+  "käsi": [
+   "kä",
+   "si"
+  ],
+  "jalka": [
+   "jal",
+   "ka"
+  ],
+  "pää": [
+   "pää"
+  ],
+  "hammas": [
+   "ham",
+   "mas"
+  ],
+  "tukka": [
+   "tuk",
+   "ka"
+  ],
+  "vatsa": [
+   "vat",
+   "sa"
+  ],
+  "sormi": [
+   "sor",
+   "mi"
+  ],
+  "polvi": [
+   "pol",
+   "vi"
+  ],
+  "kieli": [
+   "kie",
+   "li"
+  ],
+  "sydän": [
+   "sy",
+   "dän"
+  ],
+  "luu": [
+   "luu"
+  ],
+  "lihas": [
+   "li",
+   "has"
+  ],
+  "aurinko": [
+   "au",
+   "rin",
+   "ko"
+  ],
+  "kuu": [
+   "kuu"
+  ],
+  "tähti": [
+   "täh",
+   "ti"
+  ],
+  "pilvi": [
+   "pil",
+   "vi"
+  ],
+  "sade": [
+   "sa",
+   "de"
+  ],
+  "lumi": [
+   "lu",
+   "mi"
+  ],
+  "kukka": [
+   "kuk",
+   "ka"
+  ],
+  "vuori": [
+   "vuo",
+   "ri"
+  ],
+  "kivi": [
+   "ki",
+   "vi"
+  ],
+  "järvi": [
+   "jär",
+   "vi"
+  ],
+  "meri": [
+   "me",
+   "ri"
+  ],
+  "taivas": [
+   "tai",
+   "vas"
+  ],
+  "tuuli": [
+   "tuu",
+   "li"
+  ],
+  "jää": [
+   "jää"
+  ],
+  "lehti": [
+   "leh",
+   "ti"
+  ],
+  "tuli": [
+   "tu",
+   "li"
+  ],
+  "ruoho": [
+   "ruo",
+   "ho"
+  ],
+  "saari": [
+   "saa",
+   "ri"
+  ],
+  "ranta": [
+   "ran",
+   "ta"
+  ]
+ },
+ "none": []
+}

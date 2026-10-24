@@ -10,6 +10,7 @@ import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import SilentText from './SilentText';
 import WordIntro from './WordIntro';
+import { useLearner } from '../game/useLearner';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 
@@ -30,6 +31,8 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   const { level, addStars, recordAttempt, recordHeard, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
+  // A younger reader meets a new word split into syllables (learner.ts).
+  const { syllables } = useLearner();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, tricky } = difficulty;
   // Per-node gentle timer: only when this node opts in AND the measured level
@@ -189,6 +192,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
         />
         <WordIntro
           item={question.target}
+          syllables={syllables}
           onContinue={() => {
             recordHeard([question.target.id]);
             introducedIds.current.add(question.target.id);

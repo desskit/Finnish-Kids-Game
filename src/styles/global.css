@@ -798,6 +798,14 @@ button:focus-visible,
   color: var(--brand);
 }
 
+/* A new word split into syllables, for a younger reader (WordIntro). */
+.word-intro__syllables {
+  margin: -4px 0 0;
+  color: var(--ink-soft);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
 /* Record yourself, then hear the model (SayIt). */
 .hear-yourself {
   display: flex;

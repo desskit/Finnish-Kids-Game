@@ -34,7 +34,7 @@ import { warmupReviewIds } from './session';
 export const WARMUP_QUESTIONS = 10;
 
 /** Steps that are scripted wholes, not a subject to drill. */
-const NOT_A_SUBJECT: ReadonlySet<ActivityKind> = new Set(['conversation', 'story', 'review']);
+const NOT_A_SUBJECT: ReadonlySet<ActivityKind> = new Set(['conversation', 'story', 'review', 'sound']);
 
 /** Game types a warm-up never plays: speaking and typing are extras, not the measure. */
 const WARMUP_SKIPS: ReadonlySet<ActivityKind> = new Set(['say', 'spell', 'sentence-type']);

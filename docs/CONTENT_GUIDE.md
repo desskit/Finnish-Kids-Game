@@ -260,6 +260,15 @@ sentences, Finnish quotes in `*single asterisks*` (read in the Finnish voice).
 dialogue lines after a step's first level by default; the drills' own tasks
 stay in English.
 
+**Bonus steps** (`optional: true` — the Finnish-sounds steps, `SOUND_STEPS` in
+`path.tsx`): Continue offers one once, but it's never part of the checkpoint
+and never holds the unit back, because it needs a Finnish voice to be heard.
+
+**Syllables** for younger readers come only from Wiktionary
+(`data/wiktionary/hyphenation.json`, refreshed with
+`node scripts/fetch-hyphenation.mjs <words.json>`). A new word missing there is
+shown whole — never split by rule.
+
 ### Adding or changing a unit
 
 - `newWords`: the item ids the unit introduces. Each word may be introduced

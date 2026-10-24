@@ -278,6 +278,17 @@ Most sources were read as abstracts or summaries. Check any figure against the o
    - The letters that sound different from English.
    - Syllables for younger readers, from Wiktionary hyphenation, fading as the child decodes.
    - A test that no choice differs only in vowel harmony.
+   - *Done:* bonus sounds steps in units 1, 2, 4 and 6 (`SOUND_STEPS` in
+     `src/game/path.tsx`): the letters a, e, i, y, j, ä, ö by their sounds in
+     unit 1, then "one letter or two?" on the words met so far. Continue offers
+     each once; none holds back a checkpoint, and without a Finnish voice the
+     step says so and moves on. A younger reader meets a new word split into
+     syllables — Wiktionary's own split (`data/wiktionary/hyphenation.json`,
+     `scripts/fetch-hyphenation.mjs`); a word with no split there is shown
+     whole. `src/game/harmony.test.ts` checks that no case-form tile set, choose
+     question, verb or possessive round offers two choices that differ only in
+     a harmony vowel. Not yet: a syllable-clapping game, and the check that the
+     browser voice makes length audible (needs a person listening).
 6. **Spoken Finnish to recognise.**
    - "Two ways to say it" cards, written by the native reviewer.
    - Mild spoken Finnish in child characters' lines.

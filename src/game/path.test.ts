@@ -448,9 +448,9 @@ describe('in-session game rotation', () => {
     expect(activityForRound(words, 1, 0, true)).toBe('listen');
   });
 
-  it('marks every course step speakable and renders its `say` game — except a story, read once for meaning', () => {
+  it('marks every course step speakable and renders its `say` game — except a story, read once for meaning, and a sounds step', () => {
     for (const { skill } of allSkills()) {
-      if (skill.activity === 'story') {
+      if (skill.activity === 'story' || skill.activity === 'sound') {
         expect(isSpeakable(skill), skill.id).toBe(false);
         expect([0, 1, 2, 3].map((n) => activityForRound(skill, 1, n, true)), skill.id).not.toContain('say');
         continue;

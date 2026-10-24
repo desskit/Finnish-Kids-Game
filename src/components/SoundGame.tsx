@@ -1,15 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { buildSoundRound, soundWords, type SoundMode } from '../game/soundGames';
 import { useProfile } from '../state/profile';
-import { speak } from '../audio/speak';
-import { playDing } from '../audio/sfx';
-import ActivityHeader from './ActivityHeader';
-import WhyTip from './WhyTip';
+import SoundRound from './SoundRound';
 import { SOUND_GAMES } from './SoundsHub';
 import LetterNameGame from './LetterNameGame';
 import Art from '../art/Art';
-import SpeakerIcon from '../art/SpeakerIcon';
 
 const QUESTIONS = 8;
 
@@ -35,57 +31,15 @@ function WordSoundGame({ mode }: { mode: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [game, words, runId],
   );
-  const [index, setIndex] = useState(0);
-  const [wrong, setWrong] = useState<string | null>(null);
-  const [locked, setLocked] = useState(false);
-  const [tipAt, setTipAt] = useState(-1);
-  const [done, setDone] = useState(false);
-  const missed = useRef(false);
-  const firstTries = useRef(0);
-  const q = round[index];
-
-  useEffect(() => {
-    if (!q || done) return;
-    const t = setTimeout(() => speak(q.item.fi), 350);
-    return () => clearTimeout(t);
-  }, [q, done]);
-
-  const choose = useCallback(
-    (opt: string) => {
-      if (!q || locked) return;
-      if (opt === q.answer) {
-        setLocked(true);
-        playDing(true);
-        speak(q.item.fi);
-        addStars(1);
-        if (!missed.current) firstTries.current += 1;
-        setWrong(null);
-        setTimeout(() => {
-          missed.current = false;
-          setLocked(false);
-          if (index + 1 >= round.length) {
-            recordSoundsRound(mode, firstTries.current, round.length);
-            setDone(true);
-          } else setIndex(index + 1);
-        }, 900);
-      } else {
-        missed.current = true;
-        setTipAt(index);
-        playDing(false);
-        setWrong(opt);
-        setTimeout(() => setWrong((w) => (w === opt ? null : w)), 600);
-      }
-    },
-    [q, locked, index, round.length, addStars, recordSoundsRound, mode],
-  );
+  const [result, setResult] = useState<number | null>(null);
 
   if (!game) {
     navigate('/sounds', { replace: true });
     return null;
   }
 
-  if (done) {
-    const right = firstTries.current;
+  if (result !== null) {
+    const right = result;
     return (
       <main className="app">
         <section className="screen checkpoint checkpoint--pass">
@@ -102,11 +56,7 @@ function WordSoundGame({ mode }: { mode: string }) {
             <button
               className="btn btn--primary"
               onClick={() => {
-                setIndex(0);
-                setDone(false);
-                setTipAt(-1);
-                firstTries.current = 0;
-                missed.current = false;
+                setResult(null);
                 setRunId((r) => r + 1);
               }}
               autoFocus
@@ -122,60 +72,19 @@ function WordSoundGame({ mode }: { mode: string }) {
     );
   }
 
-  if (!q) return null;
   return (
     <main className="app">
-      <section className="screen activity">
-        <ActivityHeader
-          title={game.fi}
-          index={index}
-          total={round.length}
-          onExit={() => navigate('/sounds')}
-        />
-        <p className="prompt">
-          Kuuntele! <span className="en">Listen, then fill the gap</span>
-        </p>
-        <div className="phrase-card">
-          <span className="phrase-emoji" aria-hidden="true">
-            <Art item={q.item} motion="loop" />
-          </span>
-          <p className="sound-word" lang="fi">
-            {q.before}
-            <span className={'sound-gap' + (locked ? ' sound-gap--filled' : '')}>{locked ? q.answer : '?'}</span>
-            {q.after}
-          </p>
-          <p className="en phrase-hint">{q.item.en}</p>
-          <button className="speaker speaker--inline" onClick={() => speak(q.item.fi)} aria-label="Hear it again">
-            <SpeakerIcon /> <span className="en">Listen</span>
-          </button>
-        </div>
-        <div className="word-tiles">
-          {q.options.map((o, i) => (
-            <button
-              key={o}
-              className={
-                'word-tile sound-tile' +
-                (wrong === o ? ' word-tile--wrong' : '') +
-                (locked && o === q.answer ? ' word-tile--correct' : '')
-              }
-              onClick={() => choose(o)}
-              disabled={locked}
-              lang="fi"
-            >
-              <span className="word-tile__num">{i + 1}</span>
-              {o}
-            </button>
-          ))}
-        </div>
-        {tipAt === index && (
-          <WhyTip
-            why={{
-              text: q.tip,
-              example: [{ text: q.before }, { text: q.answer, mark: true }, { text: q.after }],
-            }}
-          />
-        )}
-      </section>
+      <SoundRound
+        key={runId}
+        round={round}
+        title={game.fi}
+        onExit={() => navigate('/sounds')}
+        onRight={() => addStars(1)}
+        onFinish={(right, total) => {
+          recordSoundsRound(mode, right, total);
+          setResult(right);
+        }}
+      />
     </main>
   );
 }

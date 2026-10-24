@@ -10,6 +10,7 @@ import { useAutoEnglish } from '../game/useLearner';
 import { playDing } from '../audio/sfx';
 import ActivityHeader from './ActivityHeader';
 import WordIntro from './WordIntro';
+import { useLearner } from '../game/useLearner';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 
@@ -35,6 +36,8 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
   // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
   const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
+  // A younger reader meets a new word split into syllables (learner.ts).
+  const { syllables } = useLearner();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { optionCount, tricky } = difficulty;
   // Per-node gentle timer: only when this node opts in AND the measured level
@@ -185,6 +188,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
         />
         <WordIntro
           item={question.target}
+          syllables={syllables}
           onContinue={() => {
             recordHeard([question.target.id]);
             introducedIds.current.add(question.target.id);
