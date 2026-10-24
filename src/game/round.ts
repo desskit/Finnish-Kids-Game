@@ -1,4 +1,4 @@
-import { apartFrom, keepApart } from '../content/apart';
+import { apartFrom, keepApart, rivals } from '../content/apart';
 import { NOT_MY_OWN } from '../content/constructions';
 import type {
   CaseId,
@@ -73,8 +73,10 @@ export function buildListenRound(
   optionCount: number,
   tricky = false,
   weigh?: WeighFn,
+  isNew?: (id: string) => boolean,
 ): ListenQuestion[] {
-  const targets = weightedSample(items, Math.min(questionCount, items.length), weigh);
+  const drawn = weightedSample(items, Math.min(questionCount, items.length), weigh);
+  const targets = isNew ? spaceNewWords(drawn, items, isNew) : drawn;
   return targets.map((target) => {
     const others = apartFrom(target.id, items.filter((i) => i.id !== target.id));
     // Tricky: prefer same-topic distractors (cat vs dog, not cat vs sock) so
@@ -83,6 +85,31 @@ export function buildListenRound(
     const distractors = pickPreferring(others, near, optionCount - 1);
     return { target, options: shuffle([target, ...distractors]) };
   });
+}
+
+/**
+ * Never two NEW words from one look-alike group in a round (apart.ts — brother
+ * and son, soup and porridge): a child meeting both at once can't tell which
+ * is which. The second is swapped for a word from the pool not yet in the
+ * round and not its rival — a known word if there is one. If nothing fits, the
+ * round stays as drawn.
+ */
+export function spaceNewWords<T extends { id: string }>(
+  targets: readonly T[],
+  pool: readonly T[],
+  isNew: (id: string) => boolean,
+): T[] {
+  const out = [...targets];
+  for (let i = 0; i < out.length; i++) {
+    if (!isNew(out[i].id)) continue;
+    if (!out.slice(0, i).some((x) => isNew(x.id) && rivals(x.id, out[i].id))) continue;
+    // A replacement: not in the round yet, and (if new itself) no other new word's rival.
+    const clashes = (id: string) => out.some((x, j) => j !== i && isNew(x.id) && rivals(x.id, id));
+    const fits = (c: T) => !out.some((x) => x.id === c.id) && !(isNew(c.id) && clashes(c.id));
+    const swap = pool.find((c) => !isNew(c.id) && fits(c)) ?? pool.find(fits);
+    if (swap) out[i] = swap;
+  }
+  return out;
 }
 
 // "Name it" (production recall) reuses buildListenRound verbatim: the question

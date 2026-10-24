@@ -20,6 +20,7 @@ import { stories, storyById } from './content/stories';
 import StoryTime from './components/StoryTime';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { segmentMs } from './game/stats';
+import { questionsToday, reachesBudget, sessionBudget } from './game/session';
 import { useProfile } from './state/profile';
 import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
@@ -95,6 +96,9 @@ function SkillRoute() {
   const liveLevel = activityDifficulty(found?.chapter.id ?? '', found?.skill.id ?? '').level;
   const [round, setRound] = useState({ no: 0, level: liveLevel });
   const [toast, setToast] = useState<{ outcome: RoundOutcome; id: number } | null>(null);
+  // The day's practice has reached this player's budget (game/session.ts): a
+  // natural place to stop — home is offered first, going on is a choice.
+  const [stopHere, setStopHere] = useState(false);
 
   // Stars earned this sitting: the games call addStars per correct answer, so
   // the profile total ticks live; the ref pins the count at entry. (SkillRoute
@@ -135,6 +139,9 @@ function SkillRoute() {
   const onSegmentComplete = (segStars: number, total: number, meta?: SegmentMeta) => {
     const before = activeChild;
     const now = Date.now();
+    if (!math && !meta?.stay && reachesBudget(questionsToday(before, now), total, sessionBudget(before))) {
+      setStopHere(true);
+    }
     // This node's own ladder depth caps the adaptive climb (default 4).
     const maxLevel = skill.maxLevel ?? 4;
     // A story step is done once each of its stories has had one good read.
@@ -172,6 +179,33 @@ function SkillRoute() {
     const nextLevel = before.adaptive === false ? round.level : afterLevel;
     setRound((r) => ({ no: r.no + 1, level: nextLevel }));
   };
+
+  if (stopHere) {
+    return (
+      <main className="app">
+        <section className="screen checkpoint checkpoint--pass session-done">
+          <div className="checkpoint__badge" aria-hidden="true">
+            <Art glyph="🌟" motion="loop" />
+          </div>
+          <h1 className="title">
+            Hienoa työtä tänään! <span className="en">That's today's practice done</span>
+          </h1>
+          <p className="checkpoint__text en">
+            A little every day works best — this is a good place to stop. Come back tomorrow, or keep going if you
+            like.
+          </p>
+          <div className="button-row">
+            <button className="btn btn--primary" onClick={() => navigate('/')} autoFocus>
+              Koti <span className="en">Home</span>
+            </button>
+            <button className="btn" onClick={() => setStopHere(false)}>
+              Jatka <span className="en">Keep going</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className={'app' + (mix ? ' app--barred' : '')}>

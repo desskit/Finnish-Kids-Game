@@ -109,8 +109,9 @@
     },
     {
       "fi": "Hienoa työtä tänään!",
-      "en": "Great work today",
+      "en": "Great work today / That's today's practice done",
       "where": [
+        "App.tsx",
         "components/CourseHome.tsx"
       ]
     },
@@ -163,6 +164,7 @@
       "fi": "Jatka",
       "en": "Continue / Keep going",
       "where": [
+        "App.tsx",
         "components/CheckpointRoute.tsx",
         "components/CourseHome.tsx",
         "components/PhraseIntro.tsx",
@@ -324,6 +326,7 @@
       "fi": "Koti",
       "en": "Home",
       "where": [
+        "App.tsx",
         "components/Achievements.tsx",
         "components/CheckpointRoute.tsx",
         "components/Notebook.tsx",

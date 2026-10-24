@@ -111,20 +111,67 @@ export function wordSchedules(
 
 /** How much likelier an already-met word is per draw than an unseen one. */
 export const FAMILIAR_WEIGHT = 3;
+/**
+ * A word missed last time (back in box 1) is this much likelier still: it
+ * comes back in the next round of the sitting — interleaved, not at once
+ * (rounds snapshot their weights when they start).
+ */
+export const MISSED_WEIGHT = 6;
+
+// --- Hearing before saying -----------------------------------------------------
+//
+// A child understands a word after about 6–10 meetings and can produce it
+// after many more (docs/LEARNING_RESEARCH.md). `heard` (the child's own map,
+// item id → times heard: intro cards, story lines, every answer) gates the
+// PRODUCTION games — Name it, Spell it, Say it — towards words the child has
+// heard enough, or has already got right on a later day (box 2+).
+
+/** Hearings before a word is asked for (rather than recognised). */
+export const HEARD_TO_PRODUCE = 6;
+/** A production game's weight for a word not ready yet: rare, never excluded. */
+export const NOT_READY_WEIGHT = 0.1;
+
+/** Has the child heard a word enough (or known it long enough) to be asked to produce it? */
+export function productionReady(
+  id: string,
+  schedules: Record<string, ItemSchedule> | undefined,
+  heard: Record<string, number> | undefined,
+): boolean {
+  return (heard?.[id] ?? 0) >= HEARD_TO_PRODUCE || (schedules?.[id]?.box ?? 0) >= 2;
+}
+
+/** Count one more hearing of each id (pure; a repeated id counts once). */
+export function addHeard(heard: Record<string, number> | undefined, ids: readonly string[]): Record<string, number> {
+  const next = { ...heard };
+  for (const id of new Set(ids)) if (!isGrammarId(id)) next[id] = (next[id] ?? 0) + 1;
+  return next;
+}
+
+export interface WeighOptions {
+  /** The child's hearing counts (for a production game). */
+  heard?: Record<string, number>;
+  /** A production game (Name it, Spell it, Say it): favour words ready to produce. */
+  production?: boolean;
+}
 
 /**
  * Word-selection bias for the skill games: words the child has already met
- * surface ~3× as often as unseen ones (repetition builds retention), but
- * unseen words keep flowing in — nothing is excluded, so the vocabulary still
- * grows. Feed the result to `weightedSample` as its weight function. Pure:
- * takes the child's schedule map, returns a per-item weight.
+ * surface ~3× as often as unseen ones (repetition builds retention), one
+ * missed last time ~6×, but unseen words keep flowing in — nothing is
+ * excluded, so the vocabulary still grows. In a production game a word not yet
+ * heard enough is rare (`productionReady`). Feed the result to
+ * `weightedSample` as its weight function. Pure: takes the child's schedule
+ * map, returns a per-item weight.
  */
 export function familiarityWeigher(
   schedules: Record<string, ItemSchedule> | undefined,
+  opts: WeighOptions = {},
 ): (item: { id: string }) => number {
   return (item) => {
     const s = schedules?.[item.id];
-    return s && s.seen > 0 ? FAMILIAR_WEIGHT : 1;
+    const base = !s || s.seen === 0 ? 1 : s.box <= 1 && s.correct < s.seen ? MISSED_WEIGHT : FAMILIAR_WEIGHT;
+    if (opts.production && !productionReady(item.id, schedules, opts.heard)) return base * NOT_READY_WEIGHT;
+    return base;
   };
 }
 

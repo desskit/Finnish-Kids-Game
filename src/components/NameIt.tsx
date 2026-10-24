@@ -31,7 +31,7 @@ interface Props {
 // picks the Finnish word from tiles. Reuses buildListenRound (same question
 // shape) since only the render inverts. Only picturable items can be prompts.
 export default function NameIt({ items, timerFromLevel, onExit }: Props) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+  const { level, addStars, recordAttempt, recordHeard, activeChild } = useProfile();
   // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
   const autoEnglish = useAutoEnglish();
   const ctx = useActivityContext();
@@ -44,7 +44,8 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
       ? questionTimerMs(difficulty.level)
       : undefined;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
-  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
+  // Name it asks the child to PRODUCE the word: words heard enough come first (srs.ts).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs, { production: true, heard: activeChild?.heard })).current;
   // Same snapshot discipline for "meet the word" (see ListenAndTap).
   const srsSnapshot = useRef(activeChild?.srs).current;
   // Ids already introduced this mount, so restarts don't repeat an intro
@@ -60,7 +61,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
     // `roundQuestions` (Audit harness) caps the round to stop after each answer.
     () =>
       // Picture-less words play too: their prompt is the English word alone.
-      buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(
+      buildListenRound(items, QUESTIONS, optionCount, tricky, weigh, (id) => !srsSnapshot?.[id]?.seen).slice(
         0,
         ctx?.roundQuestions,
       ),
@@ -185,6 +186,7 @@ export default function NameIt({ items, timerFromLevel, onExit }: Props) {
         <WordIntro
           item={question.target}
           onContinue={() => {
+            recordHeard([question.target.id]);
             introducedIds.current.add(question.target.id);
             setIntroduced((prev) => new Set(prev).add(index));
           }}

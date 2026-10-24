@@ -27,7 +27,7 @@ interface Props {
 
 // Listen & Tap (Tier 1): hear a Finnish word, tap the matching picture.
 export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
-  const { level, addStars, recordAttempt, activeChild } = useProfile();
+  const { level, addStars, recordAttempt, recordHeard, activeChild } = useProfile();
   // Adaptive difficulty from the router when in a topic; manual level otherwise.
   const ctx = useActivityContext();
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
@@ -60,7 +60,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
   const round = useMemo(
     // `roundQuestions` (set by the Audit harness) caps the round so the game
     // stops after each answer for grading; unset in normal play = full round.
-    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh).slice(0, ctx?.roundQuestions),
+    () => buildListenRound(items, QUESTIONS, optionCount, tricky, weigh, (id) => !srsSnapshot?.[id]?.seen).slice(0, ctx?.roundQuestions),
     [items, optionCount, tricky, weigh, runId, ctx?.roundQuestions],
   );
   // Which question indices meet a brand-new word first — capped, so a round
@@ -190,6 +190,7 @@ export default function ListenAndTap({ items, timerFromLevel, onExit }: Props) {
         <WordIntro
           item={question.target}
           onContinue={() => {
+            recordHeard([question.target.id]);
             introducedIds.current.add(question.target.id);
             setIntroduced((prev) => new Set(prev).add(index));
           }}

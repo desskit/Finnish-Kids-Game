@@ -17,6 +17,7 @@ import WhyTip from './WhyTip';
 import { whyForPhrasePick } from '../content/why';
 import { lessonForConstruction } from '../game/course';
 import RoundComplete from './RoundComplete';
+import SilentText from './SilentText';
 import { segmentMs } from '../game/stats';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
@@ -59,9 +60,13 @@ interface Props {
   embedded?: boolean;
   /** Overrides the default "go home" destination. Ignored when embedded. */
   onExit?: () => void;
+  /** Ask exactly these (the warm-up's due items, game/session.ts) instead of choosing. */
+  ids?: readonly string[];
+  /** The round is over: hand back first-try right / total instead of showing a result. */
+  onFinish?: (right: number, total: number) => void;
 }
 
-export default function ReviewActivity({ embedded = false, onExit }: Props = {}) {
+export default function ReviewActivity({ embedded = false, onExit, ids: given, onFinish }: Props = {}) {
   const { level, addStars, recordAttempt, recordStats, activeChild } = useProfile();
   // English prompts are spoken unasked only for a younger reader's first rung (learner.ts).
   const autoEnglish = useAutoEnglish();
@@ -83,12 +88,14 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     const grammarIds = nounConstructions
       .map((c) => grammarSrsId(c.id))
       .filter((id) => schedules[id]);
-    const ids = selectReviewItems({
-      schedules,
-      allIds: [...reviewItems.map((i) => i.id), ...grammarIds],
-      now: Date.now(),
-      count: QUESTIONS,
-    });
+    const ids =
+      given ??
+      selectReviewItems({
+        schedules,
+        allIds: [...reviewItems.map((i) => i.id), ...grammarIds],
+        now: Date.now(),
+        count: QUESTIONS,
+      });
     return ids
       .map((id): ReviewQ | undefined => {
         if (isGrammarId(id)) {
@@ -312,6 +319,15 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
     });
   }, [done, runId, round.length, recordStats]);
 
+  // In the warm-up: the round's result goes back to it.
+  const finished = useRef(false);
+  useEffect(() => {
+    // (A list that yields no question at all is over at once.)
+    if ((!done && round.length > 0) || !onFinish || finished.current) return;
+    finished.current = true;
+    onFinish(firstTries.current, round.length);
+  }, [done, onFinish, round.length]);
+
   function restart() {
     firstTries.current = 0;
     startedAt.current = Date.now();
@@ -334,6 +350,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
 
   if (!activeChild) return null;
 
+  if (done && onFinish) return null;
   if (done) {
     return (
       <main className="app">
@@ -379,6 +396,7 @@ export default function ReviewActivity({ embedded = false, onExit }: Props = {})
               <SpeakerIcon />
               <span className="speaker__hint">Kuuntele · Listen</span>
             </button>
+            <SilentText fi={question.target.fi} />
 
             <div className={`card-grid card-grid--${question.options.length}`}>
               {question.options.map((opt, i) => (

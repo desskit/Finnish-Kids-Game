@@ -13,6 +13,13 @@ import {
   MAX_NEW_WORD_INTROS,
   BOX_INTERVALS_MS,
   MAX_BOX,
+  FAMILIAR_WEIGHT,
+  HEARD_TO_PRODUCE,
+  MISSED_WEIGHT,
+  NOT_READY_WEIGHT,
+  addHeard,
+  familiarityWeigher,
+  productionReady,
   type ItemSchedule,
 } from './srs';
 
@@ -182,5 +189,34 @@ describe('grammar schedules (con: namespace)', () => {
     expect(schedules).toHaveLength(1);
     expect(schedules[0].seen).toBe(1); // the cat schedule, not the grammar one
     expect(wordSchedules(undefined)).toEqual([]);
+  });
+});
+
+describe('hearing before saying', () => {
+  const NOW = 1_000_000;
+  it('a word is ready to produce after enough hearings, or once known a day later', () => {
+    expect(productionReady('cat', {}, {})).toBe(false);
+    expect(productionReady('cat', {}, { cat: HEARD_TO_PRODUCE - 1 })).toBe(false);
+    expect(productionReady('cat', {}, { cat: HEARD_TO_PRODUCE })).toBe(true);
+    const twice = review(review(undefined, true, NOW), false, NOW);
+    expect(productionReady('cat', { cat: review(undefined, true, NOW) }, {})).toBe(true);
+    expect(productionReady('cat', { cat: twice }, {})).toBe(false);
+  });
+
+  it('counts hearings, once per id per call, never for grammar keys', () => {
+    expect(addHeard({ cat: 2 }, ['cat', 'cat', 'dog', 'con:this-is'])).toEqual({ cat: 3, dog: 1 });
+  });
+
+  it('a production game makes a word not heard enough rare; a missed word comes back more', () => {
+    const missed = review(undefined, false, NOW);
+    const known = review(undefined, true, NOW);
+    const listen = familiarityWeigher({ miss: missed, known });
+    expect(listen({ id: 'miss' })).toBe(MISSED_WEIGHT);
+    expect(listen({ id: 'known' })).toBe(FAMILIAR_WEIGHT);
+    expect(listen({ id: 'fresh' })).toBe(1);
+    const say = familiarityWeigher({ known }, { production: true, heard: { heardLots: HEARD_TO_PRODUCE } });
+    expect(say({ id: 'known' })).toBe(FAMILIAR_WEIGHT);
+    expect(say({ id: 'heardLots' })).toBe(1);
+    expect(say({ id: 'fresh' })).toBe(NOT_READY_WEIGHT);
   });
 });

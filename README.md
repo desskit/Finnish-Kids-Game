@@ -44,6 +44,14 @@ Finnish** — the app never generates or inflects Finnish by rule.
   the **word pool** that flows through the phrase skills, mixed across topics. See
   [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) to add words, skills, or
   multi-slot sentences.
+- **A short day, spaced and mixed** (`src/game/session.ts`). A new day's first
+  Continue is the warm-up: a story due back for "Muistatko?" (a day, three days
+  and a week after it was read), then the words and grammar due back for
+  review, or the weakest subject when few are due. After about four rounds (a
+  younger reader) or six (an older one) the game says *Hienoa työtä tänään!*
+  and offers home; going on is the child's choice. Words are asked for (Name
+  it, Spell it, Say it) once they've been heard about six times, a missed word
+  comes back in the next round, and two new look-alikes never arrive together.
 - **Lasketaan! — math in Finnish (optional).** A path beside the course, opened
   from a card under Continue: eight stages of short games (an apple tree, a
   scale, a train and a rocket, word problems, building the *-toista* and

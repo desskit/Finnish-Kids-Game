@@ -252,6 +252,13 @@ Most sources were read as abstracts or summaries. Check any figure against the o
    - Continue builds a bounded session: due review, then new material, then something to finish on. It stops naturally.
    - A count of how often each word is heard; production waits for enough hearings.
    - New words from the same group never arrive together.
+   - *Done:* `src/game/session.ts`. The warm-up reviews what is due (3 or
+     more, at most 10) before falling back to the weakest subject; the day
+     stops at 24 questions (younger) or 36 (older) with home offered first.
+     `heard` counts intro cards, story lines and answers; the production games
+     favour words heard 6 times or known a day later (a strong preference,
+     not a hard gate, so a round can always fill). A missed word weighs 6× in
+     the next round. Scene lines don't count as hearings yet.
 4. **Together mode.**
    - Prompt cards for the grown-up.
    - A try-at-home activity per unit, and a "this week" summary.

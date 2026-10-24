@@ -87,7 +87,8 @@ export default function SpellWord({
   const speakFi = speakTarget || dictation;
   const showHint = !dictation;
   // Familiarity bias, snapshotted once per mount (see ListenAndTap).
-  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
+  // A production game: words heard enough come first (srs.ts `productionReady`).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs, { production: true, heard: activeChild?.heard })).current;
 
   // A wrong guess on the current word means it wasn't a first-try success.
   const missed = useRef(false);

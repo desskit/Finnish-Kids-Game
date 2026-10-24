@@ -227,6 +227,23 @@ describe('daily warm-up', () => {
     expect(screen.getByRole('link', { name: /Continue/ }).getAttribute('href')).toBe('/opener/hello');
   });
 
+  it('reviews the words due back today instead, when there are a few', () => {
+    const due = { box: 2, due: Date.now() - 1000, seen: 2, correct: 2, lastSeenAt: Date.now() - 864e5 };
+    seedChild(progress, { cat: due, dog: due, cow: due }, course, weakWords);
+    renderAt('/');
+    const cont = screen.getByRole('link', { name: /Continue/ });
+    expect(cont.getAttribute('href')).toBe('/warmup');
+    expect(cont.textContent).toMatch(/3 words due back/);
+    expect(cont.textContent).not.toMatch(/10 questions/);
+  });
+
+  it('opens on the review in the warm-up itself', () => {
+    const due = { box: 2, due: Date.now() - 1000, seen: 2, correct: 2, lastSeenAt: Date.now() - 864e5 };
+    seedChild(progress, { cat: due, dog: due, cow: due }, course, weakWords);
+    renderAt('/warmup');
+    expect(screen.getByLabelText('Warm-up: 3 words to review')).toBeInTheDocument();
+  });
+
   it('plays ten questions of that subject, records it, then goes back to the course', async () => {
     seedChild(progress, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } }, course, weakWords);
     vi.useFakeTimers();
@@ -391,6 +408,30 @@ describe('playing a step', () => {
       const entry = saved.children[0].progress['having']['having-words'];
       expect(entry.plays).toBe(1);
       expect(entry.totalPossible).toBe(6);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
+
+describe('the day’s session', () => {
+  it('stops at a natural place once the day’s questions reach the budget — home first, going on a choice', async () => {
+    // 20 questions already today; a younger reader's day is 24.
+    const today = { stats: { v: 1, subjects: {}, days: { [dayKey(Date.now())]: { n: 20, right: 18 } } } };
+    seedChild({}, { cat: { box: 2, due: 0, seen: 1, correct: 1, lastSeenAt: 1 } }, {}, today);
+    vi.useFakeTimers();
+    try {
+      renderAt('/skill/having-words');
+      for (let q = 0; q < 6; q++) {
+        fireEvent.click(getByPicture('🐱').closest('button') as HTMLButtonElement);
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(800);
+        });
+      }
+      expect(screen.getByText(/today's practice done/)).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Home/ })).toHaveFocus();
+      fireEvent.click(screen.getByRole('button', { name: /Keep going/ }));
+      expect(document.querySelectorAll('.pic-card').length).toBeGreaterThan(0);
     } finally {
       vi.useRealTimers();
     }

@@ -1,6 +1,8 @@
 // The daily warm-up ("Päivän lämmittely"). On the first visit of a new day the
-// home screen's big Continue button starts here instead: at least ten
-// questions on the child's WEAKEST subject so far, then the course carries on.
+// home screen's big Continue button starts here instead: the words and
+// grammar due back for review (game/session.ts) when there are a few, else at
+// least ten questions on the child's WEAKEST subject so far, then the course
+// carries on.
 //
 // "Weakest" is measured, not guessed (see stats.ts): smoothed, recency-weighted
 // first-try accuracy, plus a little for time away (the forgetting curve). Only
@@ -26,6 +28,7 @@ import {
 } from './stats';
 import { dayKey } from './streak';
 import { dueStoryRevisit } from './storyLog';
+import { warmupReviewIds } from './session';
 
 /** At least this many questions in a warm-up. */
 export const WARMUP_QUESTIONS = 10;
@@ -124,13 +127,16 @@ export function pickWarmupSubject(child: Child, now: number): RankedSubject | un
 
 /**
  * Is a warm-up waiting? A new day, none done yet today, and something to do:
- * a subject to practise, or a finished story due back for its "Muistatko?"
- * (see storyLog.ts) — that opens the warm-up.
+ * words and grammar due back for review (session.ts — reviewed instead of a
+ * subject), a subject to practise, or a finished story due back for its
+ * "Muistatko?" (see storyLog.ts) — that opens the warm-up.
  */
 export function warmupDue(child: Child | null | undefined, now: number): boolean {
   if (!child) return false;
   if (warmupDoneOn(statsOf(child), dayKey(now))) return false;
-  return !!pickWarmupSubject(child, now) || !!dueStoryRevisit(child, now);
+  return (
+    warmupReviewIds(child, now).length > 0 || !!pickWarmupSubject(child, now) || !!dueStoryRevisit(child, now)
+  );
 }
 
 /** The warm-up subject a child will get, for grown-up displays (same rules). */

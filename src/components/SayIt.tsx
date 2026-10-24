@@ -74,7 +74,8 @@ export default function SayIt({ items, constructions, buildRound, title, onExit 
   const difficulty = ctx?.difficulty ?? difficultyFor(level >= 2 ? 3 : 1);
   const { maxTier } = difficulty;
   const presentation = sayPresentation(difficulty.level);
-  const weigh = useRef(familiarityWeigher(activeChild?.srs)).current;
+  // A production game: words heard enough come first (srs.ts `productionReady`).
+  const weigh = useRef(familiarityWeigher(activeChild?.srs, { production: true, heard: activeChild?.heard })).current;
   const available = isSpeechRecognitionAvailable();
 
   const missed = useRef(false);
