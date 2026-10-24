@@ -1,5 +1,5 @@
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { lessonById, noticeLesson } from '../content/lessons';
+import { lessonById, noticeLesson, withSpoken } from '../content/lessons';
 import { stepAfterLesson } from '../game/course';
 import { stageForLesson } from '../game/mathPath';
 import { mathStepAfterLesson } from '../game/mathCourse';
@@ -28,7 +28,8 @@ export default function LessonRoute() {
   const math = !!stageForLesson(lesson.id);
   const back = () => navigate(fromNotebook ? '/notebook' : math ? '/math' : '/');
   const firstStep = math ? mathStepAfterLesson(lesson.id) : stepAfterLesson(lesson.id, activeChild);
-  const shown = fromNotebook || fullLessons || math ? lesson : noticeLesson(lesson);
+  // Everyday spoken forms come last, for every reader: to recognise, not to use.
+  const shown = withSpoken(fromNotebook || fullLessons || math ? lesson : noticeLesson(lesson));
 
   return (
     <main className="app">

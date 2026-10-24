@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T21:47:27.188Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T22:03:43.371Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2274 entries. Checked against Wiktionary: 1218. Left for the native reviewer: 1028.** Flagged: 0.
+- **Approved: 28 of 2281 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1029.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -20,15 +20,15 @@ and its **Where** menu shows one unit at a time.
 
 | Where | Entries | Left to check | In |
 | --- | --- | --- | --- |
-| Everywhere | 222 | 12 | Course titles 7, Buttons & screen labels 5 |
+| Everywhere | 223 | 13 | Course titles 7, Buttons & screen labels 6 |
 | Unit 1: Hello! (*Hei!*) | 41 | 20 | Scenes, turn by turn 3, Stories 7, Other lines (wrong replies) 10 |
 | Unit 2: People & things (*Kuka? Mikä?*) | 36 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
 | Unit 3: Numbers (*Numerot*) | 31 | 21 | Scenes, turn by turn 7, Stories 10, Other lines (wrong replies) 4 |
 | Unit 4: I have (*Minulla on*) | 48 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
 | Unit 5: Not having (*Ei ole*) | 26 | 14 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1 |
-| Unit 6: Whose? (*Kenen?*) | 31 | 19 | Scenes, turn by turn 3, Stories 11, Forms marked wrong 3, Other lines (wrong replies) 2 |
+| Unit 6: Whose? (*Kenen?*) | 33 | 19 | Scenes, turn by turn 3, Stories 11, Forms marked wrong 3, Other lines (wrong replies) 2 |
 | Unit 7: Mom's bike (*Äidin pyörä*) | 29 | 16 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1, Other lines (wrong replies) 2 |
-| Unit 8: Verbs, part 1: types 1–3 (*Mitä teet?*) | 32 | 16 | Scenes, turn by turn 4, Stories 12 |
+| Unit 8: Verbs, part 1: types 1–3 (*Mitä teet?*) | 36 | 16 | Scenes, turn by turn 4, Stories 12 |
 | Unit 9: Verbs, part 1b: k, p and t change (*Nukun, nukkuu*) | 32 | 17 | Scenes, turn by turn 4, Stories 10, Other lines (wrong replies) 3 |
 | Unit 10: Saying no (*En tee*) | 23 | 13 | Scenes, turn by turn 3, Stories 10 |
 | Unit 11: Asking questions (*Kysytään!*) | 62 | 17 | Scenes, turn by turn 3, Stories 11, Other lines (wrong replies) 3 |
@@ -1272,6 +1272,19 @@ _minä, minua, minulle…_
 | 📖 | Unit 37 | `pronoun-frame:like` | Pidän ___. | I like ___. |
 | 📖 | Unit 37 | `pronoun-frame:see` | Näen ___. | I see ___. |
 
+## Spoken Finnish (6)
+
+_Everyday spoken forms, shown beside the written ones to recognise — never asked for._
+
+| Status | Where | Key | Finnish | English |
+| --- | --- | --- | --- | --- |
+| 📖 | Unit 8 | `spoken:ma` | minä → mä | I — written → spoken |
+| 📖 | Unit 8 | `spoken:sa` | sinä → sä | you — written → spoken |
+| 📖 | Unit 8 | `spoken:oon` | olen → oon | I am — written → spoken |
+| 📖 | Unit 8 | `spoken:oot` | olet → oot | you are — written → spoken |
+| 📖 | Unit 6 | `spoken:mun` | minun → mun | my — written → spoken |
+| 📖 | Unit 6 | `spoken:sun` | sinun → sun | your — written → spoken |
+
 ## Alphabet (29)
 
 _Letter names and sound tips._
@@ -2306,7 +2319,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija 📝 _Dictionary check: compound not in Wiktionary_ | Sound explorer |
 
-## Buttons & screen labels (142)
+## Buttons & screen labels (143)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2332,6 +2345,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Hyvä yritys!` | Hyvä yritys! | Good try! / ⟨…⟩ |
 | 📖 | Everywhere | `ui:Jatka` | Jatka | Continue / Keep going |
 | 📖 | Everywhere | `ui:Kaikki oikein` | Kaikki oikein | All correct |
+| ⚠️ | Everywhere | `ui:Kaksi tapaa sanoa` | Kaksi tapaa sanoa | Two ways to say it |
 | 📖 | Everywhere | `ui:Kenen se on?` | Kenen se on? | Whose is it? |
 | 📖 | Everywhere | `ui:Keskustelu` | Keskustelu | Conversation |
 | 📖 | Everywhere | `ui:Kirjahylly` | Kirjahylly | Bookshelf |

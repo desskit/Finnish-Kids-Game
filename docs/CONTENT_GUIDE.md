@@ -493,6 +493,15 @@ writes **US English**: Mom, candy, soccer, cafeteria, "Do you have…?".
   only when listed in `APPROVED` in `src/content/examples.ts`, after a person
   has read them. Leave out a word used in another sense, spoken forms (*mä,
   haluun*), sayings, and any whose English doesn't say what the Finnish says.
+- **Spoken Finnish is for recognising, never for answering.** The everyday
+  spoken forms (*mä, sä, oon, oot, mun, sun*) appear only as "two ways to say
+  it" cards at the end of their lessons (`src/content/spoken.ts`,
+  `SPOKEN_FOR_LESSON`) and as a tap in the story glossary ("the spoken form of
+  *minä*"). Each is one Wiktionary lists as colloquial, recorded in the
+  Wiktionary-checked ledger, and listed for the native reviewer. No game asks
+  for one, and no drill, narration or lesson example uses one. Story and scene
+  lines in spoken Finnish (a child character saying *Mä tuun!*) are for a
+  native author to write; none are made up.
 - `src/content/english.test.ts` pins these rules. Before a release, re-read
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`), which lists every
   carrier sentence with its English.

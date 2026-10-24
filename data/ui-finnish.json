@@ -196,6 +196,13 @@
       ]
     },
     {
+      "fi": "Kaksi tapaa sanoa",
+      "en": "Two ways to say it",
+      "where": [
+        "components/LessonView.tsx"
+      ]
+    },
+    {
       "fi": "Kapteeni käskee",
       "en": "Captain says",
       "where": [
@@ -387,7 +394,7 @@
     },
     {
       "fi": "Kuuntele",
-      "en": "Listen / Listen (⟨…⟩) / Listen: ⟨fi⟩ / Listen: ⟨form⟩ / Listen: ⟨speak⟩ / Tap to hear it, tap again to choose",
+      "en": "Listen / Listen (⟨…⟩) / Listen: ⟨fi⟩ / Listen: ⟨form⟩ / Listen: ⟨speak⟩ / Listen: ⟨written⟩, ⟨spoken⟩ / Tap to hear it, tap again to choose",
       "where": [
         "components/HearIt.tsx",
         "components/LessonView.tsx",

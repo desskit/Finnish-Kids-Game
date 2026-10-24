@@ -5,6 +5,7 @@ import type { Segment } from '../content/endings';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
 import Prose from './Prose';
+import { spokenPairById } from '../content/spoken';
 import ReadAloud from './ReadAloud';
 import { useLearner } from '../game/useLearner';
 import Art from '../art/Art';
@@ -151,6 +152,42 @@ function CardBody({ card }: { card: LessonCard }) {
                     <ExampleRow r={{ ...said, emoji: '🗣️' }} />
                     <ExampleRow r={{ ...back, emoji: '↪️' }} />
                   </ul>
+                </li>
+              ) : null;
+            })}
+          </ul>
+        </>
+      );
+    case 'spoken':
+      return (
+        <>
+          <h2 className="lesson-card__title">
+            Kaksi tapaa sanoa <span className="en">Two ways to say it</span>
+          </h2>
+          {card.text && <Prose text={card.text} />}
+          {aloud}
+          <ul className="lesson-rows lesson-spoken">
+            {card.ids.map((id) => {
+              const p = spokenPairById[id];
+              return p ? (
+                <li key={id} className="lesson-row">
+                  <span className="lesson-row__text">
+                    <span className="lesson-row__fi" lang="fi">
+                      <span className="lesson-row__base">{p.written}</span>
+                      <span className="lesson-row__arrow" aria-hidden="true">
+                        {' → '}
+                      </span>
+                      {p.spoken}
+                    </span>
+                    <span className="en lesson-row__en">{p.en} — written, then spoken</span>
+                  </span>
+                  <button
+                    className="speaker speaker--inline lesson-row__speak"
+                    onClick={() => speak(`${p.written}. ${p.spoken}.`)}
+                    aria-label={`Kuuntele · Listen: ${p.written}, ${p.spoken}`}
+                  >
+                    <SpeakerIcon />
+                  </button>
                 </li>
               ) : null;
             })}
