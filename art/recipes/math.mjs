@@ -17,6 +17,10 @@ export default [
   { id: 'math-crown-amber', title: 'an amber crown (the math stage Paljonko se maksaa?)', ...ui, draw: math.crown('amber') },
   { id: 'math-crown-blue', title: 'a blue crown (the math stage Mitä kello on?)', ...ui, draw: math.crown('blue') },
   { id: 'lightning', title: 'lightning (quick sums)', glyphs: ['⚡'], ...ui, draw: math.lightning },
+  // the math badges (Achievements): the others reuse the abacus, the microphone and the lightning
+  { id: 'math-crowns-three', title: 'three crowns (a math badge)', glyphs: ['🫅'], ...ui, draw: math.crownTrio },
+  { id: 'math-crowns-all', title: 'a crown set with every jewel (a math badge: every crown)', glyphs: ['💎'], ...ui, motion: { frames: 2, fps: 2 }, draw: math.crownAll },
+  { id: 'stopwatch', title: 'stopwatch (a math badge: quick sums)', glyphs: ['⏱'], ...ui, motion: { frames: 4, fps: 2 }, draw: math.stopwatch },
   { id: 'math-card', title: 'the fox at its market stall, counting apples (the math card)', ...ui, motion: { frames: 2, fps: 1.5 }, draw: math.card },
   { id: 'math-apple-tree', title: 'an apple tree (the apple-tree game)', ...piece, motion: { frames: 2, fps: 1.5 }, draw: math.appleTree },
   { id: 'math-basket', title: 'an empty basket (the apples drop in)', ...piece, draw: math.emptyBasket },

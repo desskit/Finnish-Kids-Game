@@ -33,6 +33,13 @@ const QUICK_SHOW_MS = 900;
 
 export type MathAnswerMode = 'tap' | 'say' | 'type';
 
+/**
+ * Quick sums' run of right first answers, per set: it carries on from round to
+ * round while the app is open (a round is only a few problems), and a miss or
+ * a late answer starts it again.
+ */
+const quickRuns = new Map<MathSet, number>();
+
 export interface MathKnobs {
   optionCount: number;
   /** The problem is only heard (its words on "Lue", or once answered). */
@@ -89,7 +96,14 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
   const [picked, setPicked] = useState<number | null>(null);
   const [late, setLate] = useState(false);
   const [done, setDone] = useState(false);
-  const [streak, setStreak] = useState(0);
+  const [streak, setStreakState] = useState(() => (game === 'quick' ? (quickRuns.get(set) ?? 0) : 0));
+  const setStreak = useCallback(
+    (run: number) => {
+      if (game === 'quick') quickRuns.set(set, run);
+      setStreakState(run);
+    },
+    [game, set],
+  );
   const firstTries = useRef(0);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [micReady, setMicReady] = useState(

@@ -25,6 +25,7 @@ import { review } from '../game/srs';
 import { recordRoundOnChild } from '../game/progress';
 import { recordStoryOnChild, type StoryReadKind } from '../game/storyLog';
 import { bumpStreak, dayKey } from '../game/streak';
+import { isMathFace, ownAnimal } from '../game/faces';
 import { difficultyFor, type Difficulty } from '../game/adapt';
 import { findSkill } from '../game/path';
 import { applyStatEvent, applyWarmup, emptyStats, statsOf, type StatEvent, type WarmupRecord } from '../game/stats';
@@ -128,6 +129,8 @@ interface ProfileContextValue {
   recordMathSpoken: () => void;
   /** Today's sums done (once a day: a second time the same day changes nothing). Counts toward the daily streak. */
   recordMathToday: () => void;
+  /** Put on a face won in math, or (the child's own animal) go back to it. */
+  wearFace: (glyph: string) => void;
 
   // --- Settings (device-wide) ---
   settings: Settings;
@@ -392,6 +395,11 @@ export function ProfileProvider({
         updateActive((c) => (run <= (c.math?.quickBest ?? 0) ? c : { ...c, math: { ...c.math, quickBest: run } })),
 
       recordMathSpoken: () => updateActive((c) => ({ ...c, math: { ...c.math, spoken: (c.math?.spoken ?? 0) + 1 } })),
+
+      wearFace: (glyph) =>
+        updateActive((c) =>
+          c.avatar === glyph ? c : { ...c, avatar: glyph, math: { ...c.math, animal: isMathFace(glyph) ? ownAnimal(c) : undefined } },
+        ),
 
       recordMathToday: () =>
         updateActive((c) => {

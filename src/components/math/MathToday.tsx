@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { difficultyFor } from '../../game/adapt';
 import { ActivityContext } from '../../game/activityContext';
 import { TODAY_LEVEL, todayBonus, todayDone, todayGames, todayPlan, todayStreak } from '../../game/mathCourse';
-import type { SkillNode } from '../../game/path';
+import { badgeEnv, type SkillNode } from '../../game/path';
+import { earnedBadgeIds, earnedBadges } from '../../game/badges';
 import { useProfile } from '../../state/profile';
 import { playDing } from '../../audio/sfx';
 import Art from '../../art/Art';
@@ -51,6 +52,7 @@ export default function MathToday() {
   const [plan, setPlan] = useState<SkillNode[]>([]);
   const [part, setPart] = useState(0);
   const [right, setRight] = useState(0);
+  const badgesBefore = useRef<Set<string> | null>(null);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   const unlockAll = !!settings.unlockAll;
@@ -101,6 +103,8 @@ export default function MathToday() {
   if (phase === 'result') {
     const total = plan.length;
     const bonus = todayBonus(right, total);
+    const before = badgesBefore.current;
+    const newBadges = before ? earnedBadges(activeChild, badgeEnv).filter((b) => !before.has(b.id)) : [];
     return (
       <main className="app">
         <section className="screen checkpoint math-today-screen checkpoint--pass">
@@ -125,6 +129,18 @@ export default function MathToday() {
           </p>
           <Flames days={todayStreak(activeChild)} />
           <p className="checkpoint__text en">Days in a row — come back tomorrow for another flame!</p>
+          {newBadges.length > 0 && (
+            <ul className="checkpoint__new-badges" aria-label="New achievements">
+              {newBadges.map((b) => (
+                <li key={b.id}>
+                  <span aria-hidden="true">
+                    <Art glyph={b.emoji} />
+                  </span>{' '}
+                  Uusi saavutus! <span className="en">{b.titleEn}</span>
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="button-row">
             <button className="btn btn--primary" onClick={toMap} autoFocus>
               Jatka <span className="en">Continue</span>
@@ -146,6 +162,7 @@ export default function MathToday() {
     }
     // once a day: a second go the same day (another tab) adds nothing
     if (!todayDone(activeChild)) {
+      badgesBefore.current = earnedBadgeIds(activeChild, badgeEnv);
       addStars(todayBonus(sum, plan.length));
       recordMathToday();
     }

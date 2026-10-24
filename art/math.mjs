@@ -10,8 +10,11 @@
 import { fox } from './animals-sitting.mjs';
 import { tree as sceneTree } from './scenes/parts.mjs';
 
-/** A stage's crown, in its color: a gold band and tips, a white gem. */
-export function crown(color) {
+/** A stage's crown, in its color: a gold band and tips, a white gem, and jewels on the band. */
+export function crown(color, jewels = ['red', 'blue', 'green']) {
+  // the jewels spread along the band: three (a stage's crown) or many (every crown)
+  const step = jewels.length > 3 ? 34 / (jewels.length - 1) : 11.4;
+  const r = jewels.length > 3 ? 1.6 : 1.8;
   return (k) => {
     const c = k.P;
     return [
@@ -45,9 +48,7 @@ export function crown(color) {
         0.8,
         c.white,
       ),
-      k.flatCircle(20.6, 45, 1.8, c.red),
-      k.flatCircle(32, 45, 1.8, c.blue),
-      k.flatCircle(43.4, 45, 1.8, c.green),
+      ...jewels.map((j, i) => k.flatCircle(32 + (i - (jewels.length - 1) / 2) * step, 45, r, c[j])),
       k.shine('M14.6 27.4L17.6 37', 1.8),
       k.shineDot(30.6, 11.4, 1),
     ].join('');
@@ -277,5 +278,48 @@ export function rocketOnPad(k) {
     k.rect(12, 56, 40, 4, 1, c.charcoal),
     k.rect(17, 50, 4, 7, 0.6, c.grey),
     k.rect(43, 50, 4, 7, 0.6, c.grey),
+  ].join('');
+}
+
+// --- The math badges (Achievements) ------------------------------------------------
+
+/** Three crowns won: three stage crowns, the front one biggest. */
+export function crownTrio(k) {
+  const one = (color, x, y, s) => k.g(`translate(${x} ${y}) scale(${s}) translate(-32 -32)`, crown(color)(k));
+  return [k.ground(32, 59, 25, 2.2), one('teal', 18, 27, 0.58), one('purple', 46, 27, 0.58), one('amber', 32, 37, 0.72)].join('');
+}
+
+/** Every crown won: a big crown set with jewels of every color, sparkling. */
+export function crownAll(k) {
+  const jewels = ['red', 'orange', 'green', 'purple', 'teal', 'pink', 'coral', 'blue'];
+  const on = k.frames > 1 ? k.frame % 2 : 0;
+  return [
+    crown('purple', jewels)(k),
+    k.shineDot(on ? 6 : 58, on ? 10 : 12, 1.6),
+    k.shineDot(on ? 58 : 6, on ? 34 : 30, 1.2),
+  ].join('');
+}
+
+/** Quick sums: a stopwatch, its hand going round — no numbers on its face. */
+export function stopwatch(k) {
+  const c = k.P;
+  const turn = (k.frames > 1 ? k.frame / k.frames : 0.125) * 2 * Math.PI;
+  const hand = [32 + Math.sin(turn) * 12.4, 35 - Math.cos(turn) * 12.4];
+  const tick = (a) => {
+    const [s, co] = [Math.sin(a), Math.cos(a)];
+    return `M${(32 + s * 13.6).toFixed(2)} ${(35 - co * 13.6).toFixed(2)}L${(32 + s * 16).toFixed(2)} ${(35 - co * 16).toFixed(2)}`;
+  };
+  return [
+    k.ground(32, 58.6, 18, 2.2),
+    k.rect(28.6, 8.6, 6.8, 6.4, 1, c.silverShade),
+    k.rect(26, 4.6, 12, 4.6, 1.6, c.red),
+    k.rect(46.6, 14, 6, 4.6, 1.2, c.silverShade, { sw: 1 }),
+    k.circle(32, 35, 21, c.red),
+    k.flat('M47 20Q54 27 53 37Q52 47 44 53Q49 44 48 34Q47 26 42 20Z', c.redShade),
+    k.circle(32, 35, 16.6, c.white),
+    k.line([0, 1, 2, 3].map((i) => tick((i * Math.PI) / 2)).join(''), { sw: 1.6, color: c.greyShade }),
+    k.line(`M32 35L${hand[0].toFixed(2)} ${hand[1].toFixed(2)}`, { sw: 2.2, color: c.charcoal }),
+    k.flatCircle(32, 35, 2, c.charcoal),
+    k.shine('M18 26Q20 20 25 17', 1.8),
   ].join('');
 }

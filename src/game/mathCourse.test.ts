@@ -20,7 +20,7 @@ import {
 import { UNITS, nextAction, unitsCompleted } from './course';
 import { recordRoundOnChild } from './progress';
 import { badgeEnv } from './path';
-import { earnedBadgeIds } from './badges';
+import { badgeById, earnedBadgeIds } from './badges';
 import { pickWarmupSubject } from './warmup';
 import { applyStatEvent, statsOf } from './stats';
 
@@ -199,7 +199,10 @@ describe('math stays apart from the course', () => {
     c = { ...c, math: crowns(...MATH_STAGES.map((s) => s.id)) };
     expect(unitsCompleted(c)).toBe(unitsCompleted(start));
     expect(nextAction(c)).toEqual(nextAction(start));
-    expect(earnedBadgeIds(c, badgeEnv)).toEqual(earnedBadgeIds(start, badgeEnv));
+    // only the math badges move (the first sum, the crowns), never a course one
+    const courseBadges = (x: Child) => [...earnedBadgeIds(x, badgeEnv)].filter((id) => badgeById(id)?.category !== 'math');
+    expect(courseBadges(c)).toEqual(courseBadges(start));
+    expect([...earnedBadgeIds(c, badgeEnv)].filter((id) => !courseBadges(start).includes(id)).sort()).toEqual(['math-crowns-3', 'math-crowns-all', 'math-first']);
     // its crowns are its own, never the course's checkpoints
     expect(Object.keys(c.course?.checkpoints ?? {}).some(isMathId)).toBe(false);
   });

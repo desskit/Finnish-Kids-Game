@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T05:38:40.010Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T05:51:37.095Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2274 entries.** Flagged: 0.
+- **Approved: 28 of 2278 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -16,7 +16,7 @@ and its **Where** menu shows one unit at a time.
 
 | Where | Entries | Left to check | In |
 | --- | --- | --- | --- |
-| Everywhere | 217 | 217 | Alphabet 29, Course titles 58, Buttons & screen labels 130 |
+| Everywhere | 222 | 222 | Alphabet 29, Course titles 65, Buttons & screen labels 128 |
 | Unit 1: Hello! (*Hei!*) | 42 | 31 | Scenes, turn by turn 3, Stories 7, Finnish in the lessons 5, Other lines (wrong replies) 10, Course titles 6 |
 | Unit 2: People & things (*Kuka? Mikä?*) | 36 | 36 | Scenes, turn by turn 7, Stories 12, Sentence patterns 2, Forms marked wrong 2, Finnish in the lessons 5, Course titles 8 |
 | Unit 3: Numbers (*Numerot*) | 31 | 31 | Scenes, turn by turn 7, Stories 10, Finnish in the lessons 4, Other lines (wrong replies) 4, Course titles 6 |
@@ -61,7 +61,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 42: Real conversations (*Jutellaan*) | 74 | 57 | Scenes, turn by turn 26, Stories 21, Finnish in the lessons 3, Other lines (wrong replies) 5, Course titles 2 |
 | Unit 43: Sentences (*Lauseet*) | 24 | 24 | Sentence templates 18, Finnish in the lessons 3, Course titles 3 |
 | Unit 44: Expert (*Mestari*) | 42 | 42 | Greetings & dialogues 8, Stories 10, Sentence patterns 8, Forms marked wrong 8, Finnish in the lessons 2, Other lines (wrong replies) 1, Course titles 5 |
-| Math (Lasketaan!) | 185 | 185 | Stories 90, Finnish in the lessons 51, Math in Finnish (Lasketaan!) 19, Course titles 25 |
+| Math (Lasketaan!) | 184 | 184 | Stories 90, Finnish in the lessons 51, Math in Finnish (Lasketaan!) 19, Course titles 24 |
 | Not in the course yet | 49 | 49 | Sentence patterns 1, Forms marked wrong 1, "Do you…?" questions 47 |
 | Grown-ups only | 18 | 18 | Course titles 2, Buttons & screen labels 16 |
 
@@ -1800,7 +1800,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | Unit 3 | `line:Yksi kirjaa.` | Yksi kirjaa. | One book. |
 | ⚠️ | Unit 20 | `line:Älä leiki!` | Älä leiki! | Don't play! |
 
-## Course titles (491)
+## Course titles (497)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -1837,6 +1837,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 27 | `title:En ymmärrä.` | En ymmärrä. | What do you say? — example |
 | ⚠️ | Math (Lasketaan!) | `title:Enemmän vai vähemmän?` | Enemmän vai vähemmän? | More or less? |
 | ⚠️ | Everywhere | `title:Ensiaskeleet` | Ensiaskeleet | First steps |
+| ⚠️ | Everywhere | `title:Ensimmäinen lasku` | Ensimmäinen lasku | First sum |
 | ⚠️ | Unit 31 | `title:Ensimmäinen lumi` | Ensimmäinen lumi | Story: The first snow |
 | ⚠️ | Everywhere | `title:Ensimmäinen välitesti` | Ensimmäinen välitesti | First checkpoint |
 | ⚠️ | Unit 33 | `title:Ensimmäinen, toinen` | Ensimmäinen, toinen | First, second, third… |
@@ -1891,6 +1892,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 32 | `title:Järvellä` | Järvellä | Story: Out on the lake |
 | ⚠️ | Unit 9 | `title:K, P ja T vaihtuvat` | K, P ja T vaihtuvat | When k, p and t change |
 | ⚠️ | Unit 44 | `title:Kaikki aikamuodot` | Kaikki aikamuodot | Every tense |
+| ⚠️ | Everywhere | `title:Kaikki kruunut` | Kaikki kruunut | Every crown |
 | ⚠️ | Unit 40 | `title:Kaikki kuusi` | Kaikki kuusi | All six types |
 | ⚠️ | Unit 36 | `title:Kaikki kysymykset` | Kaikki kysymykset | All the questions |
 | ⚠️ | Unit 15 | `title:Kaikki tyypit` | Kaikki tyypit | Types 1–4, yes and no |
@@ -1945,6 +1947,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 33 | `title:kolme · kolmas` | kolme · kolmas | Three or third? — example |
 | ⚠️ | Unit 19 | `title:kolme euroa` | kolme euroa | How many euros? — example |
 | ⚠️ | Unit 3 | `title:kolme kirjaa` | kolme kirjaa | How many? — example / How many did you hear? — example |
+| ⚠️ | Everywhere | `title:Kolme kruunua` | Kolme kruunua | Crown collector |
 | ⚠️ | Everywhere | `title:Kolme vai kolmas?` | Kolme vai kolmas? | Three or third? |
 | ⚠️ | Unit 21 | `title:Kosketa jalkaa! · Nosta jalka ylös!` | Kosketa jalkaa! · Nosta jalka ylös! | Touch it, or put it up? — example |
 | ⚠️ | Unit 21 | `title:Kosketa nenää!` | Kosketa nenää! | Touch your nose! / Touch your nose! — example |
@@ -1984,6 +1987,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Laske ja sano` | Laske ja sano | Count & Say |
 | ⚠️ | Unit 44 | `title:Laske sataan` | Laske sataan | Count to 100 |
 | ⚠️ | Unit 3 | `title:Laskeminen` | Laskeminen | Counting |
+| ⚠️ | Everywhere | `title:Lasketaan!` | Lasketaan! | Math in Finnish |
 | ⚠️ | Unit 8 | `title:laulaa → tyyppi 1` | laulaa → tyyppi 1 | Which type? (1–3) — example / Which type? (1–4) — example / Which type? (1–6) — example |
 | ⚠️ | Unit 11 | `title:Laulatko?` | Laulatko? | Story: Do you sing? |
 | ⚠️ | Everywhere | `title:Lauseet` | Lauseet | Sentences / Building sentences |
@@ -2114,7 +2118,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 21 | `title:Nenäni` | Nenäni | My nose, your ear |
 | ⚠️ | Unit 21 | `title:nenäni, korvasi` | nenäni, korvasi | My nose, your ear — example |
 | ⚠️ | Grown-ups only | `title:Nimeä se` | Nimeä se | Name it |
-| ⚠️ | Math (Lasketaan!) | `title:Nopeasti!` | Nopeasti! | Quick! |
+| ⚠️ | Everywhere | `title:Nopeasti!` | Nopeasti! | Quick! / Quick as lightning |
 | ⚠️ | Unit 23 | `title:Norsu on isoin.` | Norsu on isoin. | The biggest of all — example |
 | ⚠️ | Unit 23 | `title:Norsu on isompi kuin hiiri.` | Norsu on isompi kuin hiiri. | Which is bigger? — example |
 | ⚠️ | Unit 21 | `title:Nosta käsi ylös!` | Nosta käsi ylös! | Put your hand up! / Put your hand up! — example |
@@ -2206,6 +2210,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Sanamestari` | Sanamestari | Word master |
 | ⚠️ | Everywhere | `title:Sanat` | Sanat | Words |
 | ⚠️ | Everywhere | `title:Sano se` | Sano se | Say it (speaking) |
+| ⚠️ | Everywhere | `title:Sano suomeksi` | Sano suomeksi | Say it in Finnish |
 | ⚠️ | Everywhere | `title:Sanojen oppija` | Sanojen oppija | Word learner |
 | ⚠️ | Unit 31 | `title:Sataa lunta` | Sataa lunta | Snow, rain and sun |
 | ⚠️ | Unit 31 | `title:Sataa lunta. · Aurinko paistaa.` | Sataa lunta. · Aurinko paistaa. | Snow, rain and sun — example |
@@ -2287,6 +2292,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 34 | `title:viides toukokuuta` | viides toukokuuta | Dates — example |
 | ⚠️ | Unit 34 | `title:Viides toukokuuta` | Viides toukokuuta | Dates |
 | ⚠️ | Everywhere | `title:Viikko putkeen` | Viikko putkeen | A whole week |
+| ⚠️ | Everywhere | `title:Viikon laskut` | Viikon laskut | A week of sums |
 | ⚠️ | Unit 33 | `title:viisitoista palloa` | viisitoista palloa | Count to 20 — example / How many did you hear? — example |
 | ⚠️ | Everywhere | `title:Virheetön` | Virheetön | Flawless |
 | ⚠️ | Unit 22 | `title:Värit` | Värit | Colors and describing words |
@@ -2298,7 +2304,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija | Sound explorer |
 
-## Buttons & screen labels (146)
+## Buttons & screen labels (144)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2333,7 +2339,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Kirjoita mitä kuulet` | Kirjoita mitä kuulet | Type what you hear |
 | ⚠️ | Grown-ups only | `ui:Kirjoita oikea muoto` | Kirjoita oikea muoto | (no English shown) |
 | ⚠️ | Everywhere | `ui:Kirjoita suomeksi` | Kirjoita suomeksi | Write it in Finnish / Write it in Finnish, with letters |
-| ⚠️ | Everywhere | `ui:Kokeile!` | Kokeile! | Try it |
+| ⚠️ | Everywhere | `ui:Kokeile!` | Kokeile! | Faces to wear, won in math / Try it |
 | ⚠️ | Grown-ups only | `ui:Korjattava` | Korjattava | (no English shown) |
 | ⚠️ | Everywhere | `ui:Koti` | Koti | Home |
 | ⚠️ | Everywhere | `ui:Kuinka vanha?` | Kuinka vanha? | How old? |
@@ -2349,7 +2355,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Kysy` | Kysy | Ask it |
 | ⚠️ | Everywhere | `ui:Laita kuvat järjestykseen!` | Laita kuvat järjestykseen! | What happened first? Tap them in order. |
 | ⚠️ | Everywhere | `ui:Laita sanat järjestykseen` | Laita sanat järjestykseen | Put the words in order |
-| ⚠️ | Everywhere | `ui:Lasketaan!` | Lasketaan! | Math in Finnish |
 | ⚠️ | Everywhere | `ui:Loppu` | Loppu | The end |
 | ⚠️ | Everywhere | `ui:Loppu!` | Loppu! | The end |
 | ⚠️ | Everywhere | `ui:Lue` | Lue | Read |
@@ -2402,7 +2407,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | ⚠️ | Everywhere | `ui:Päivän lämmittely` | Päivän lämmittely | today's warm-up |
 | ⚠️ | Everywhere | `ui:Saavutukset` | Saavutukset | Achievements |
 | ⚠️ | Everywhere | `ui:Salli mikrofoni ja yritä uudestaan` | Salli mikrofoni ja yritä uudestaan | Allow the mic and try again |
-| ⚠️ | Everywhere | `ui:Sano suomeksi` | Sano suomeksi | Say it in Finnish |
 | ⚠️ | Everywhere | `ui:Sano tämä ääneen` | Sano tämä ääneen | Say this out loud |
 | ⚠️ | Everywhere | `ui:Sanoin sen` | Sanoin sen | I said it |
 | ⚠️ | Everywhere | `ui:Selvä` | Selvä | OK |

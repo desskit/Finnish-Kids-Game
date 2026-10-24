@@ -210,3 +210,131 @@ export function foxCheer(k) {
     ),
   ].join('');
 }
+
+// --- Faces won in the math section (Lasketaan!): put on from Achievements ---------
+
+/** The robot: a rounded metal head, an antenna with a blinking bulb, round eyes, a grille mouth. */
+export function avatarRobot(k) {
+  const c = k.P;
+  const lit = k.frames > 1 ? k.frame % 2 : 0;
+  return [
+    k.line('M32 16V8.6', { sw: 1.6 }),
+    k.circle(32, 7.4, 3.4, lit ? c.yellow : c.red),
+    k.rect(4.6, 28, 6, 12, 2, c.greyShade),
+    k.rect(53.4, 28, 6, 12, 2, c.greyShade),
+    k.rect(9.6, 15.6, 44.8, 40, 9, c.silver),
+    k.flat('M45 16.6H46C50.4 16.6 53.4 19.6 53.4 24V47C53.4 51.4 50.4 54.6 46 54.6H45C48 51.6 49 48 49 44V27C49 22 47.6 19 45 16.6Z', c.silverShade),
+    k.circle(22.4, 31, 7, c.white),
+    k.circle(41.6, 31, 7, c.white),
+    k.eye(22.4, 31.2, 3.6),
+    k.eye(41.6, 31.2, 3.6),
+    k.blush(16, 40.6, 2.8, 1.6),
+    k.blush(48, 40.6, 2.8, 1.6),
+    k.rect(23.4, 43, 17.2, 7, 2, c.charcoal),
+    k.line('M27.6 43.6V49.4M32 43.6V49.4M36.4 43.6V49.4', { color: c.grey, sw: 1.2 }),
+    k.flatCircle(14.6, 20.6, 1.2, c.greyShade),
+    k.flatCircle(49.4, 20.6, 1.2, c.greyShade),
+    k.shine('M14.6 26V22Q14.6 19.6 17 19.6', 1.8),
+  ].join('');
+}
+
+/** The wise owl: the owl, a little grey, in round glasses. */
+export function avatarOwlInGlasses(k) {
+  const c = k.P;
+  const tuft = (s) =>
+    k.poly(
+      [
+        [32 + s * 21.4, 8.6],
+        [32 + s * 9.6, 17.6],
+        [32 + s * 19.6, 22.6],
+      ],
+      1.4,
+      c.greyShade,
+    );
+  return [
+    tuft(-1),
+    tuft(1),
+    k.ellipse(32, 34.4, 22.4, 21.4, c.grey),
+    k.flat(crescentPath(32, 34.4, 22.4, 10, 170, 0.2), c.greyShade),
+    k.flatEllipse(32, 47.4, 10.6, 6.6, c.silver),
+    k.line('M26.6 45.6L28.6 47.6L30.6 45.6M33.4 45.6L35.4 47.6L37.4 45.6M30 50.4L32 52.4L34 50.4', { color: c.greyShade, sw: 1.2 }),
+    k.circle(22.6, 30.4, 8.6, c.cream),
+    k.circle(41.4, 30.4, 8.6, c.cream),
+    k.eye(22.6, 30.6, 3.2),
+    k.eye(41.4, 30.6, 3.2),
+    // the glasses: two round rims and a bridge
+    k.line('M13 30.4A9.6 9.6 0 1 0 32.2 30.4A9.6 9.6 0 1 0 13 30.4ZM31.8 30.4A9.6 9.6 0 1 0 51 30.4A9.6 9.6 0 1 0 31.8 30.4Z', { color: c.navy, sw: 2.2 }),
+    k.shine('M17.4 25.4Q19 23.4 21.4 23', 1.4),
+    k.shine('M36.2 25.4Q37.8 23.4 40.2 23', 1.4),
+    k.poly(
+      [
+        [29.4, 37.4],
+        [34.6, 37.4],
+        [32, 42.6],
+      ],
+      1,
+      c.amber,
+    ),
+  ].join('');
+}
+
+/** The dragon: a green head with horns and a ridge of spikes, a round snout, a toothy grin. */
+export function avatarDragon(k) {
+  const c = k.P;
+  const horn = (s) =>
+    k.poly(
+      [
+        [32 + s * 9.6, 15.6],
+        [32 + s * 21.4, 4.6],
+        [32 + s * 18.6, 18.6],
+      ],
+      1.2,
+      c.yellow,
+    );
+  return [
+    horn(-1),
+    horn(1),
+    k.poly(
+      [
+        [26.4, 13.4],
+        [29.2, 6.6],
+        [32, 13],
+        [34.8, 6.6],
+        [37.6, 13.4],
+      ],
+      0.8,
+      c.orange,
+    ),
+    k.ellipse(32, 31, 21.4, 18.6, c.green),
+    k.flat(crescentPath(32, 31, 21.4, 10, 170, 0.18), c.greenShade),
+    k.ellipse(32, 44.6, 15.6, 11, c.lime),
+    k.flatEllipse(26.4, 41.6, 1.6, 1.2, c.limeShade),
+    k.flatEllipse(37.6, 41.6, 1.6, 1.2, c.limeShade),
+    k.eye(22.6, 28, 3.6),
+    k.eye(41.4, 28, 3.6),
+    k.blush(15.4, 35.6, 3, 1.8),
+    k.blush(48.6, 35.6, 3, 1.8),
+    k.line('M24.4 47.4Q32 53.6 39.6 47.4', { sw: 1.4 }),
+    k.poly(
+      [
+        [27.4, 48.8],
+        [29.2, 48.8],
+        [28.3, 51],
+      ],
+      0.3,
+      c.white,
+      { sw: 0.8 },
+    ),
+    k.poly(
+      [
+        [34.8, 48.8],
+        [36.6, 48.8],
+        [35.7, 51],
+      ],
+      0.3,
+      c.white,
+      { sw: 0.8 },
+    ),
+    k.shine('M14.6 27Q15.6 21.6 20.4 18', 1.8),
+  ].join('');
+}

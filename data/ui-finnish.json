@@ -300,8 +300,9 @@
     },
     {
       "fi": "Kokeile!",
-      "en": "Try it",
+      "en": "Faces to wear, won in math / Try it",
       "where": [
+        "components/Achievements.tsx",
         "components/LessonView.tsx"
       ]
     },
@@ -1196,7 +1197,8 @@
       "en": "⟨titleEn⟩",
       "where": [
         "components/CheckpointRoute.tsx",
-        "components/math/MathTestRoute.tsx"
+        "components/math/MathTestRoute.tsx",
+        "components/math/MathToday.tsx"
       ]
     },
     {

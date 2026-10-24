@@ -119,6 +119,8 @@ export interface MathState {
   spoken?: number;
   /** Today's sums (Päivän laskut), done once a day. */
   today?: MathToday;
+  /** The child's own animal, while they wear a face won in math (to go back to). */
+  animal?: string;
 }
 
 export interface MathToday {
