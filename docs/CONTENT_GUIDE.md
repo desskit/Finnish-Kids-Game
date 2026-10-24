@@ -38,6 +38,22 @@ where a Finnish speaker marks each entry ✓ correct or ✎ needs a fix.
   - fixes go into `data/finnish-flags.json`, shown as 🚩 in the sheet.
 - An approval holds only while the text reads the same. Change the Finnish and
   it needs checking again.
+- **Checked against Wiktionary** (`data/finnish-wiktionary-checked.json`, 📖):
+  entries short enough for a dictionary to settle were checked by hand
+  against English Wiktionary (read through kaikki.org), so the native reviewer
+  doesn't have to. That covers single words and forms, lists of forms, the
+  letter names, the "Do you…?" questions (the verb's 2nd person present plus
+  *-ko* / *-kö*), and short titles, labels, lesson quotes and sentence patterns
+  whose every word is a Wiktionary form in the grammar used, built the plain
+  textbook way. Each entry keeps its Finnish as checked and a line of evidence;
+  change the Finnish and it goes back to "to check" (a test fails until the
+  ledger is updated or the key dropped). Stories, scenes, the forms marked
+  wrong, the wrong replies, math frames and made-up compounds stay with the
+  native reviewer; `notes` says why a dictionary couldn't settle an entry. A
+  reviewer's own ✓ or ✎ always wins.
+- Quote **Finnish** in lesson prose with `*single asterisks*` (the lesson shows
+  it in the Finnish style, and the review lists it). Put English examples in
+  "quotes" or **bold**, never in single asterisks.
 
 ---
 

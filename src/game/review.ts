@@ -1,6 +1,7 @@
 // The native reviewer's in-app "Finnish check": pure helpers over the review
-// entries (game/reviewEntries.ts), the decisions made on this device, and
-// the reviewer's ledger (data/finnish-vetted.json).
+// entries (game/reviewEntries.ts), the decisions made on this device, the
+// reviewer's ledger (data/finnish-vetted.json), and the entries a dictionary
+// could settle — checked against Wiktionary (data/finnish-wiktionary-checked.json).
 //
 // A decision remembers the Finnish AS IT READ when it was made. If the text
 // later changes, the decision lapses (the entry needs checking again) — an old
@@ -12,6 +13,8 @@ import type { ReviewEntry } from './reviewEntries';
 export type EntryStatus =
   /** Approved in the reviewer's ledger (data/finnish-vetted.json). */
   | 'ledger'
+  /** Checked against Wiktionary (data/finnish-wiktionary-checked.json), as it reads now. */
+  | 'wiktionary'
   /** Marked correct on this device. */
   | 'ok'
   /** Marked as needing a fix on this device. */
@@ -21,19 +24,27 @@ export type EntryStatus =
   /** Not checked yet. */
   | 'todo';
 
+/** Entries checked against Wiktionary: key → the Finnish as it read when checked. */
+export type WiktionaryChecked = Readonly<Record<string, { fi: string }>>;
+
 export function entryStatus(
   entry: ReviewEntry,
   decisions: Readonly<Record<string, ReviewDecision>> | undefined,
   ledger: ReadonlySet<string>,
+  checked: WiktionaryChecked = {},
 ): EntryStatus {
+  // a reviewer's own decision always wins
   const d = decisions?.[entry.key];
   if (d) return d.fi === entry.fi ? d.status : 'changed';
-  return ledger.has(entry.key) ? 'ledger' : 'todo';
+  if (ledger.has(entry.key)) return 'ledger';
+  // checked text that has changed since is checked no longer
+  return checked[entry.key]?.fi === entry.fi ? 'wiktionary' : 'todo';
 }
 
 export interface ReviewCounts {
   total: number;
   ledger: number;
+  wiktionary: number;
   ok: number;
   fix: number;
   changed: number;
@@ -44,9 +55,10 @@ export function reviewCounts(
   entries: readonly ReviewEntry[],
   decisions: Readonly<Record<string, ReviewDecision>> | undefined,
   ledger: ReadonlySet<string>,
+  checked: WiktionaryChecked = {},
 ): ReviewCounts {
-  const c: ReviewCounts = { total: entries.length, ledger: 0, ok: 0, fix: 0, changed: 0, todo: 0 };
-  for (const e of entries) c[entryStatus(e, decisions, ledger)] += 1;
+  const c: ReviewCounts = { total: entries.length, ledger: 0, wiktionary: 0, ok: 0, fix: 0, changed: 0, todo: 0 };
+  for (const e of entries) c[entryStatus(e, decisions, ledger, checked)] += 1;
   return c;
 }
 

@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import vettedLedger from '../../data/finnish-vetted.json';
+import wiktionaryLedger from '../../data/finnish-wiktionary-checked.json';
 import { placeLabel, placeRank, reviewEntries, reviewSections, type ReviewEntry, type ReviewPlace } from '../game/reviewEntries';
 import { PATH } from '../game/path';
 import { entryStatus, mergeReview, parseReviewFile, reviewCounts, reviewFile, type EntryStatus } from '../game/review';
@@ -21,6 +22,10 @@ import SpeakerIcon from '../art/SpeakerIcon';
 
 const PAGE = 20;
 const LEDGER: ReadonlySet<string> = new Set((vettedLedger as { vetted: string[] }).vetted);
+/** Entries checked against Wiktionary: the Finnish as checked, and the evidence. */
+const CHECKED = (wiktionaryLedger as { checked: Record<string, { fi: string; how: string }> }).checked;
+/** Why a dictionary couldn't settle an entry, for the reviewer. */
+const NOTES = (wiktionaryLedger as { notes: Record<string, string> }).notes;
 
 type Filter = 'todo' | 'fix' | 'done' | 'all';
 type Order = 'course' | 'section';
@@ -32,6 +37,7 @@ function placeName(place: ReviewPlace): string {
 
 const STATUS_LABEL: Record<EntryStatus, string> = {
   ledger: '✅ Approved',
+  wiktionary: '📖 Checked in Wiktionary',
   ok: '✓ Correct',
   fix: '✎ Needs a fix',
   changed: '↻ Changed since checked',
@@ -42,7 +48,7 @@ function matches(filter: Filter, status: EntryStatus): boolean {
   if (filter === 'all') return true;
   if (filter === 'todo') return status === 'todo' || status === 'changed';
   if (filter === 'fix') return status === 'fix';
-  return status === 'ok' || status === 'ledger';
+  return status === 'ok' || status === 'ledger' || status === 'wiktionary';
 }
 
 /** The text to read aloud: the Finnish without the sheet's annotations. */
@@ -56,7 +62,7 @@ function spoken(fi: string): string {
 
 function EntryCard({ e, sectionTitle }: { e: ReviewEntry; sectionTitle: string }) {
   const { review, setReviewDecision } = useProfile();
-  const status = entryStatus(e, review.decisions, LEDGER);
+  const status = entryStatus(e, review.decisions, LEDGER, CHECKED);
   const d = review.decisions[e.key];
   const [editing, setEditing] = useState(false);
   const [note, setNote] = useState(d?.note ?? '');
@@ -89,6 +95,8 @@ function EntryCard({ e, sectionTitle }: { e: ReviewEntry; sectionTitle: string }
         </button>
       </p>
       <p className="rcard__en">{e.en}</p>
+      {status === 'wiktionary' && <p className="rcard__src">From Wiktionary: {CHECKED[e.key].how}</p>}
+      {(status === 'todo' || status === 'changed') && NOTES[e.key] && <p className="rcard__src">Dictionary check: {NOTES[e.key]}</p>}
       {status === 'fix' && d && !editing && (d.note || d.suggestion) && (
         <p className="rcard__note">
           {d.note}
@@ -152,14 +160,14 @@ export default function FinnishReview() {
   const [notice, setNotice] = useState<{ ok: boolean; text: string } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const counts = reviewCounts(entries, review.decisions, LEDGER);
-  const checked = counts.ok + counts.ledger + counts.fix;
+  const counts = reviewCounts(entries, review.decisions, LEDGER, CHECKED);
+  const checked = counts.ok + counts.ledger + counts.wiktionary + counts.fix;
   const q = query.trim().toLowerCase();
   const filtered = entries.filter(
     (e) =>
       (section === 'all' || e.section === section) &&
       (where === 'all' || String(e.where) === where) &&
-      matches(filter, entryStatus(e, review.decisions, LEDGER)) &&
+      matches(filter, entryStatus(e, review.decisions, LEDGER, CHECKED)) &&
       (!q || e.fi.toLowerCase().includes(q) || e.en.toLowerCase().includes(q) || e.key.includes(q)),
   );
   // course order keeps each place's entries in their sections' order (a stable sort)
@@ -170,7 +178,7 @@ export default function FinnishReview() {
     for (const e of entries) {
       const k = String(e.where);
       const p = left.get(k) ?? { place: e.where, todo: 0 };
-      if (matches('todo', entryStatus(e, review.decisions, LEDGER))) p.todo++;
+      if (matches('todo', entryStatus(e, review.decisions, LEDGER, CHECKED))) p.todo++;
       left.set(k, p);
     }
     return [...left.values()].sort((a, b) => placeRank(a.place) - placeRank(b.place));
@@ -212,7 +220,9 @@ export default function FinnishReview() {
             in course order: the words on every screen first, then unit by unit, as the children meet them. Tap{' '}
             <strong>✓ Oikein</strong> if it's
             right, or <strong>✎ Korjattava</strong> to say what's wrong. Your answers are saved on this device —
-            download them and send the file to the app's developer.
+            download them and send the file to the app's developer. Short entries a dictionary can settle (single
+            words, forms, letter names, short labels) were already checked against Wiktionary, so they aren't in
+            "To check"; your own answer still counts if you want to look.
           </p>
         </header>
 
@@ -222,7 +232,9 @@ export default function FinnishReview() {
               {checked}
               <small>/{counts.total}</small>
             </span>
-            <span className="gstat__label">checked ({counts.ledger} approved earlier)</span>
+            <span className="gstat__label">
+              checked ({counts.ledger} approved earlier, {counts.wiktionary} in Wiktionary)
+            </span>
           </div>
           <div className="gstat">
             <span className="gstat__value">{counts.fix}</span>
@@ -250,7 +262,7 @@ export default function FinnishReview() {
               [
                 ['todo', `To check (${counts.todo + counts.changed})`],
                 ['fix', `Need a fix (${counts.fix})`],
-                ['done', `Correct (${counts.ok + counts.ledger})`],
+                ['done', `Correct (${counts.ok + counts.ledger + counts.wiktionary})`],
                 ['all', 'All'],
               ] as [Filter, string][]
             ).map(([f, label]) => (

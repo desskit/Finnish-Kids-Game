@@ -60,8 +60,19 @@ describe('Grown-ups → Finnish check', () => {
     renderReview();
     expect(screen.getByText(/approved earlier/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: /Correct/ }));
-    // the status is the ✅ picture and the word
+    // short entries a dictionary settles come first (the screens' words), with their evidence
+    expect([...document.querySelectorAll('.rcard__status--wiktionary')].some((el) => el.textContent?.includes('Checked in Wiktionary'))).toBe(true);
+    expect(screen.getAllByText(/^From Wiktionary:/).length).toBeGreaterThan(0);
+    // the reviewer's own approvals: the status is the ✅ picture and the word
+    fireEvent.change(screen.getByRole('combobox', { name: 'Section' }), { target: { value: 'dialogues' } });
     expect([...document.querySelectorAll('.rcard__status--ledger')].some((el) => el.textContent?.includes('Approved'))).toBe(true);
+  });
+
+  it('keeps what a dictionary settled out of "To check", and says why it held the rest back', () => {
+    renderReview();
+    expect(screen.queryAllByText(/^From Wiktionary:/)).toEqual([]);
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Search' }), { target: { value: 'Välitesti' } });
+    expect(screen.getAllByText(/^Dictionary check:/).length).toBeGreaterThan(0);
   });
 
   it('runs in course order, and shows one unit at a time', () => {

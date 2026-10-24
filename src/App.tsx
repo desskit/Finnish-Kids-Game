@@ -1,4 +1,4 @@
-import { cloneElement, useRef, useState } from 'react';
+import { Suspense, cloneElement, lazy, useRef, useState } from 'react';
 import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import {
   badgeEnv,
@@ -39,7 +39,8 @@ import Settings from './components/Settings';
 import AuditView from './components/AuditView';
 import WarmupRoute from './components/WarmupRoute';
 import StatsView from './components/StatsView';
-import FinnishReview from './components/FinnishReview';
+// the Finnish check carries every reviewable line and both ledgers: loaded only when opened
+const FinnishReview = lazy(() => import('./components/FinnishReview'));
 import MathHome from './components/math/MathHome';
 import MathTestRoute from './components/math/MathTestRoute';
 import MathToday from './components/math/MathToday';
@@ -253,7 +254,14 @@ export function AppRoutes() {
         <Route path="profiles" element={<Profiles />} />
         <Route path="settings" element={<Settings />} />
         <Route path="audit" element={<AuditView />} />
-        <Route path="review" element={<FinnishReview />} />
+        <Route
+          path="review"
+          element={
+            <Suspense fallback={<p className="gmuted">Loading…</p>}>
+              <FinnishReview />
+            </Suspense>
+          }
+        />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

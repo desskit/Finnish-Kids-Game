@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { placeRank, reviewEntries, reviewSections } from './reviewEntries';
 import { UNIT_STORIES } from '../content/unitStories';
+import vetted from '../../data/finnish-vetted.json';
+import wiktionary from '../../data/finnish-wiktionary-checked.json';
 import { PATH } from './path';
 import {
   applyReviewToLedger,
@@ -42,7 +44,7 @@ describe('review entries', () => {
       expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= PATH.length : ['everywhere', 'math', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
     }
     expect(e('dialogue:how-are-you').where).toBe(unitOf('hello'));
-    expect(e('lesson:sounds:2').where).toBe(unitOf('hello'));
+    expect(e('lesson:sounds:5').where).toBe(unitOf('hello'));
     expect(e('carrier:this-is').where).toBe(unitOf('people'));
     expect(e('slip:i-havent').where).toBe(unitOf('not-having'));
     expect(e('story:what-we-have:page-1').where).toBe(unitOf('having'));
@@ -73,6 +75,15 @@ describe('decisions', () => {
     expect(entryStatus(story, { [story.key]: { status: 'ok', fi: 'Hei! Minä olin Aino.', at: 1 } }, ledger)).toBe('changed');
     const counts = reviewCounts([story, e('dialogue:thanks')], { [story.key]: { status: 'fix', fi: story.fi, at: 1 } }, ledger);
     expect(counts).toMatchObject({ total: 2, fix: 1, ledger: 1, todo: 0 });
+  });
+
+  it('counts a Wiktionary check only while the Finnish reads as checked, and a reviewer’s answer wins', () => {
+    const label = e('ui:Aloita');
+    const checked = { [label.key]: { fi: label.fi } };
+    expect(entryStatus(label, {}, ledger, checked)).toBe('wiktionary');
+    expect(entryStatus(label, {}, ledger, { [label.key]: { fi: 'Aloitta' } })).toBe('todo');
+    expect(entryStatus(label, { [label.key]: { status: 'fix', fi: label.fi, at: 1 } }, ledger, checked)).toBe('fix');
+    expect(reviewCounts([label, story], {}, ledger, checked)).toMatchObject({ total: 2, wiktionary: 1, todo: 1 });
   });
 
   it('round-trips through the downloaded file, and merges with the newer answer winning', () => {
@@ -116,5 +127,32 @@ describe('decisions', () => {
     expect(out.flags[page2.key]).toMatchObject({ note: 'Parempi: Moi!', suggestion: 'Moi! Minä olen Eero.', reviewer: 'Maija' });
     expect(out.stale).toEqual([page3.key]);
     expect(out.unknown).toEqual(['story:gone:page-1']);
+  });
+});
+
+describe('the Wiktionary check (data/finnish-wiktionary-checked.json)', () => {
+  const ledger = wiktionary as { checked: Record<string, { fi: string; how: string }>; notes: Record<string, string> };
+  const byKey = new Map(entries.map((x) => [x.key, x]));
+
+  it('lists only current entries, each as its Finnish reads now — re-check (or drop) an entry whose Finnish changed', () => {
+    const stale = Object.entries(ledger.checked)
+      .filter(([key, c]) => byKey.get(key)?.fi !== c.fi)
+      .map(([key, c]) => `${key}: checked "${c.fi}", now "${byKey.get(key)?.fi ?? '(gone)'}"`);
+    expect(stale).toEqual([]);
+    for (const key of Object.keys(ledger.notes)) expect(byKey.has(key), key).toBe(true);
+  });
+
+  it('gives evidence for every entry it checks, and never checks what the reviewer approved or what it holds back', () => {
+    const approved = new Set((vetted as { vetted: string[] }).vetted);
+    for (const [key, c] of Object.entries(ledger.checked)) {
+      expect(c.how.trim(), key).not.toBe('');
+      expect(approved.has(key), key).toBe(false);
+      expect(ledger.notes[key], key).toBeUndefined();
+    }
+  });
+
+  it('leaves the long text to the native reviewer: no stories, scenes, wrong forms, wrong replies or math frames', () => {
+    const prefixes = ['story:', 'conversation:', 'slip:', 'line:', 'template:', 'math:'];
+    expect(Object.keys(ledger.checked).filter((k) => prefixes.some((p) => k.startsWith(p)))).toEqual([]);
   });
 });

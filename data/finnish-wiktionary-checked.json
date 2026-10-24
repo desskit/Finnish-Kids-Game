@@ -1,0 +1,4901 @@
+{
+ "_readme": "Entries of docs/FINNISH_REVIEW.md checked against English Wiktionary (read through kaikki.org, its machine-readable copy), October 2026. Each one is short enough for a dictionary to settle: a single word or form, a list of forms, a letter name, a \"Do you…?\" question (the verb's 2nd person present + -ko/-kö), or a short title, label, lesson quote or sentence pattern whose every word is a Wiktionary form in the grammar used, built the plain textbook way. \"fi\" is the Finnish as it read when checked: if it changes, the entry goes back to \"to check\". \"how\" is the evidence. Longer text — stories, scenes, the forms marked wrong, the wrong replies, made-up compounds — is left to the native reviewer, and so is anything a dictionary can't settle (\"notes\" says why for those). A native reviewer's decision always wins over this file.",
+ "checkedAt": "2026-10-24",
+ "checked": {
+  "carrier:at-the-cottage": {
+   "fi": "Olemme mökillä ___.",
+   "how": "olemme: olla 1st person pl present · mökillä: mökki adessive sg"
+  },
+  "carrier:behind": {
+   "fi": "___ takana — e.g. tädin takana",
+   "how": "takana: behind · tädin: täti genitive sg"
+  },
+  "carrier:behind-them": {
+   "fi": "___ takana — e.g. tätien takana",
+   "how": "takana: behind · tätien: täti genitive pl"
+  },
+  "carrier:bird-in": {
+   "fi": "Lintu on ___. — e.g. Lintu on metsässä.",
+   "how": "lintu: bird · on: olla present sg 3rd person · metsässä: metsä inessive sg"
+  },
+  "carrier:birthday-in": {
+   "fi": "Syntymäpäiväni on ___.",
+   "how": "syntymäpäiväni: syntymäpäivä 1st person nominative sg · on: olla present sg 3rd person"
+  },
+  "carrier:butterfly-on": {
+   "fi": "Perhonen on ___. — e.g. Perhonen on lehdellä.",
+   "how": "perhonen: insect of the order Lepidoptera · on: olla present sg 3rd person · lehdellä: lehti adessive sg"
+  },
+  "carrier:clock-is": {
+   "fi": "Kello on ___.",
+   "how": "kello: clock watch · on: olla present sg 3rd person"
+  },
+  "carrier:could-i-have": {
+   "fi": "Saisinko ___? — e.g. Saisinko omenan?",
+   "how": "saisinko: saada conditional 1st person present sg · omenan: omena genitive sg"
+  },
+  "carrier:could-i-have-some": {
+   "fi": "Saisinko ___? — e.g. Saisinko leipää?",
+   "how": "saisinko: saada conditional 1st person present sg · leipää: leipä partitive sg"
+  },
+  "carrier:draw-with": {
+   "fi": "Piirrän ___. — e.g. Piirrän tietokoneella.",
+   "how": "piirrän: piirtää 1st person present sg · tietokoneella: tietokone adessive sg"
+  },
+  "carrier:eat-with": {
+   "fi": "Syön ___. — e.g. Syön haarukalla.",
+   "how": "syön: syödä 1st person present sg · haarukalla: haarukka adessive sg"
+  },
+  "carrier:fish-in": {
+   "fi": "Kala on ___. — e.g. Kala on järvessä.",
+   "how": "kala: fish · on: olla present sg 3rd person · järvessä: järvi inessive sg"
+  },
+  "carrier:go-by": {
+   "fi": "Menen ___. — e.g. Menen pyörällä.",
+   "how": "menen: mennä 1st person present sg · pyörällä: pyörä adessive sg"
+  },
+  "carrier:half-past": {
+   "fi": "Kello on puoli ___.",
+   "how": "kello: clock watch · on: olla present sg 3rd person · puoli: half"
+  },
+  "carrier:i-am": {
+   "fi": "Olen ___.",
+   "how": "olen: olla 1st person present sg"
+  },
+  "carrier:i-am-in": {
+   "fi": "Olen ___. — e.g. Olen kylpyhuoneessa.",
+   "how": "olen: olla 1st person present sg · kylpyhuoneessa: kylpyhuone inessive sg"
+  },
+  "carrier:i-am-not": {
+   "fi": "En ole ___.",
+   "how": "en: ei 1st person sg · ole: olla imperative 2nd person sg"
+  },
+  "carrier:i-am-on": {
+   "fi": "Olen ___. — e.g. Olen mökillä.",
+   "how": "olen: olla 1st person present sg · mökillä: mökki adessive sg"
+  },
+  "carrier:i-buy": {
+   "fi": "Ostan ___. — e.g. Ostan omenan.",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg"
+  },
+  "carrier:i-buy-some": {
+   "fi": "Ostan ___. — e.g. Ostan leipää.",
+   "how": "ostan: ostaa 1st person present sg · leipää: leipä partitive sg"
+  },
+  "carrier:i-can": {
+   "fi": "Osaan ___. — e.g. Osaan rakentaa.",
+   "how": "osaan: osa illative sg · rakentaa: to build"
+  },
+  "carrier:i-come-from-in": {
+   "fi": "Tulen ___. — e.g. Tulen kylpyhuoneesta.",
+   "how": "tulen: tulla 1st person present sg · kylpyhuoneesta: kylpyhuone elative sg"
+  },
+  "carrier:i-come-from-on": {
+   "fi": "Tulen ___. — e.g. Tulen mökiltä.",
+   "how": "tulen: tulla 1st person present sg · mökiltä: mökki ablative sg"
+  },
+  "carrier:i-dont-like": {
+   "fi": "En pidä ___. — e.g. En pidä omenasta.",
+   "how": "en: ei 1st person sg · pidä: pitää imperative present 2nd person sg · omenasta: omena elative sg"
+  },
+  "carrier:i-dont-like-tykkaa": {
+   "fi": "En tykkää ___. — e.g. En tykkää omenasta.",
+   "how": "en: ei 1st person sg · tykkää: tykätä present sg 3rd person · omenasta: omena elative sg"
+  },
+  "carrier:i-dont-want-to": {
+   "fi": "En halua ___. — e.g. En halua siivota.",
+   "how": "en: ei 1st person sg · halua: halu partitive sg · siivota: to clean"
+  },
+  "carrier:i-eat-meal": {
+   "fi": "Syön ___.",
+   "how": "syön: syödä 1st person present sg"
+  },
+  "carrier:i-feel": {
+   "fi": "Minulla on ___.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person"
+  },
+  "carrier:i-go-into": {
+   "fi": "Menen ___. — e.g. Menen kylpyhuoneeseen.",
+   "how": "menen: mennä 1st person present sg · kylpyhuoneeseen: kylpyhuone illative sg"
+  },
+  "carrier:i-go-onto": {
+   "fi": "Menen ___. — e.g. Menen mökille.",
+   "how": "menen: mennä 1st person present sg · mökille: mökki allative sg"
+  },
+  "carrier:i-have": {
+   "fi": "Minulla on ___. — e.g. Minulla on omena.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:i-have-fun": {
+   "fi": "Minulla on ___.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person"
+  },
+  "carrier:i-have-some": {
+   "fi": "Minulla on ___. — e.g. Minulla on omenia.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · omenia: omena partitive pl"
+  },
+  "carrier:i-havent": {
+   "fi": "Minulla ei ole ___. — e.g. Minulla ei ole omenaa.",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · omenaa: omena partitive sg"
+  },
+  "carrier:i-havent-any": {
+   "fi": "Minulla ei ole ___. — e.g. Minulla ei ole omenia.",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · omenia: omena partitive pl"
+  },
+  "carrier:i-like": {
+   "fi": "Pidän ___. — e.g. Pidän omenasta.",
+   "how": "pidän: pitää 1st person present sg · omenasta: omena elative sg"
+  },
+  "carrier:i-like-tykkaan": {
+   "fi": "Tykkään ___. — e.g. Tykkään omenasta.",
+   "how": "tykkään: tykätä 1st person present sg · omenasta: omena elative sg"
+  },
+  "carrier:i-love": {
+   "fi": "Rakastan ___. — e.g. Rakastan omenaa.",
+   "how": "rakastan: rakastaa 1st person present sg · omenaa: omena partitive sg"
+  },
+  "carrier:i-must": {
+   "fi": "Minun täytyy ___. — e.g. Minun täytyy kysyä.",
+   "how": "minun: minä genitive sg · täytyy: täytyä present sg 3rd person · kysyä: to ask"
+  },
+  "carrier:i-play-game": {
+   "fi": "Pelaan ___. — e.g. Pelaan korttia.",
+   "how": "pelaan: pelata 1st person present sg · korttia: kortti partitive sg"
+  },
+  "carrier:i-play-music": {
+   "fi": "Soitan ___. — e.g. Soitan rumpua.",
+   "how": "soitan: soittaa 1st person present sg · rumpua: rumpu partitive sg"
+  },
+  "carrier:i-see": {
+   "fi": "Näen ___. — e.g. Näen omenan.",
+   "how": "näen: nähdä 1st person present sg · omenan: omena genitive sg"
+  },
+  "carrier:i-wait-for": {
+   "fi": "Odotan ___. — e.g. Odotan tätiä.",
+   "how": "odotan: odottaa 1st person present sg · tätiä: täti partitive sg"
+  },
+  "carrier:i-wait-for-holiday": {
+   "fi": "Odotan ___!",
+   "how": "odotan: odottaa 1st person present sg"
+  },
+  "carrier:i-want-to": {
+   "fi": "Haluan ___. — e.g. Haluan rakentaa.",
+   "how": "haluan: haluta 1st person present sg · rakentaa: to build"
+  },
+  "carrier:i-watch": {
+   "fi": "Katson ___. — e.g. Katson tätiä.",
+   "how": "katson: katsoa 1st person present sg · tätiä: täti partitive sg"
+  },
+  "carrier:i-would-like": {
+   "fi": "Haluaisin ___. — e.g. Haluaisin tanssia.",
+   "how": "haluaisin: haluta conditional 1st person present sg · tanssia: tanssi partitive sg"
+  },
+  "carrier:in-front-of": {
+   "fi": "___ edessä — e.g. omenan edessä",
+   "how": "edessä: in front of · omenan: omena genitive sg"
+  },
+  "carrier:in-front-of-them": {
+   "fi": "___ edessä — e.g. omenien edessä",
+   "how": "edessä: in front of · omenien: omena genitive pl"
+  },
+  "carrier:in-it": {
+   "fi": "Kissa on ___. — e.g. Kissa on laukussa.",
+   "how": "kissa: cat · on: olla present sg 3rd person · laukussa: laukku inessive sg"
+  },
+  "carrier:in-them": {
+   "fi": "Kissat ovat ___. — e.g. Kissat ovat laukuissa.",
+   "how": "kissat: kissa nominative pl · ovat: olla pl present 3rd person · laukuissa: laukku inessive pl"
+  },
+  "carrier:into-it": {
+   "fi": "Kissa menee ___. — e.g. Kissa menee laukkuun.",
+   "how": "kissa: cat · menee: mennä present sg 3rd person · laukkuun: laukku illative sg"
+  },
+  "carrier:is-behind": {
+   "fi": "Kissa on ___ takana. — e.g. Kissa on tädin takana.",
+   "how": "kissa: cat · on: olla present sg 3rd person · takana: behind · tädin: täti genitive sg"
+  },
+  "carrier:is-in-front-of": {
+   "fi": "Kissa on ___ edessä. — e.g. Kissa on omenan edessä.",
+   "how": "kissa: cat · on: olla present sg 3rd person · edessä: in front of · omenan: omena genitive sg"
+  },
+  "carrier:is-next-to": {
+   "fi": "Kissa on ___ vieressä. — e.g. Kissa on omenan vieressä.",
+   "how": "kissa: cat · on: olla present sg 3rd person · vieressä: vieri inessive sg · omenan: omena genitive sg"
+  },
+  "carrier:is-this": {
+   "fi": "Onko tämä ___? — e.g. Onko tämä omena?",
+   "how": "onko: olla present sg 3rd person · tämä: this · omena: apple"
+  },
+  "carrier:is-under": {
+   "fi": "Kissa on ___ alla. — e.g. Kissa on korin alla.",
+   "how": "kissa: cat · on: olla present sg 3rd person · alla: beneath · korin: kori genitive sg"
+  },
+  "carrier:it-rains": {
+   "fi": "Sataa ___. — e.g. Sataa lunta.",
+   "how": "sataa: sata partitive sg · lunta: lumi partitive sg"
+  },
+  "carrier:it-scares-me": {
+   "fi": "Minua ___.",
+   "how": "minua: minä partitive sg"
+  },
+  "carrier:it-shines": {
+   "fi": "___ paistaa. — e.g. Kuu paistaa.",
+   "how": "paistaa: to cook with heat to fry · kuu: the moon"
+  },
+  "carrier:lift-it": {
+   "fi": "Nosta ___ ylös! — e.g. Nosta sormi ylös!",
+   "how": "nosta: nostaa imperative present 2nd person sg · ylös: up · sormi: finger"
+  },
+  "carrier:may-i": {
+   "fi": "Saanko ___? — e.g. Saanko tulla?",
+   "how": "saanko: saada 1st person present sg · tulla: to come"
+  },
+  "carrier:may-i-go-into": {
+   "fi": "Saanko mennä ___? — e.g. Saanko mennä kylpyhuoneeseen?",
+   "how": "saanko: saada 1st person present sg · mennä: to go [with illative of third in · kylpyhuoneeseen: kylpyhuone illative sg"
+  },
+  "carrier:may-i-go-onto": {
+   "fi": "Saanko mennä ___? — e.g. Saanko mennä mökille?",
+   "how": "saanko: saada 1st person present sg · mennä: to go [with illative of third in · mökille: mökki allative sg"
+  },
+  "carrier:next-to": {
+   "fi": "___ vieressä — e.g. omenan vieressä",
+   "how": "vieressä: vieri inessive sg · omenan: omena genitive sg"
+  },
+  "carrier:next-to-them": {
+   "fi": "___ vieressä — e.g. omenien vieressä",
+   "how": "vieressä: vieri inessive sg · omenien: omena genitive pl"
+  },
+  "carrier:now-month": {
+   "fi": "Nyt on ___.",
+   "how": "nyt: now · on: olla present sg 3rd person"
+  },
+  "carrier:off-it": {
+   "fi": "Kissa tulee ___. — e.g. Kissa tulee sängyltä.",
+   "how": "kissa: cat · tulee: tulla present sg 3rd person · sängyltä: sänky ablative sg"
+  },
+  "carrier:off-them": {
+   "fi": "Kissat tulevat ___. — e.g. Kissat tulevat sängyiltä.",
+   "how": "kissat: kissa nominative pl · tulevat: tuleva nominative pl · sängyiltä: sänky ablative pl"
+  },
+  "carrier:on-it": {
+   "fi": "Kissa on ___. — e.g. Kissa on sängyllä.",
+   "how": "kissa: cat · on: olla present sg 3rd person · sängyllä: sänky adessive sg"
+  },
+  "carrier:on-them": {
+   "fi": "Kissat ovat ___. — e.g. Kissat ovat sängyillä.",
+   "how": "kissat: kissa nominative pl · ovat: olla pl present 3rd person · sängyillä: sänky adessive pl"
+  },
+  "carrier:onto-it": {
+   "fi": "Kissa menee ___. — e.g. Kissa menee sängylle.",
+   "how": "kissa: cat · menee: mennä present sg 3rd person · sängylle: sänky allative sg"
+  },
+  "carrier:onto-them": {
+   "fi": "Kissat menevät ___. — e.g. Kissat menevät sängyille.",
+   "how": "kissat: kissa nominative pl · menevät: mennä pl present 3rd person · sängyille: sänky allative pl"
+  },
+  "carrier:open-with": {
+   "fi": "Avaan oven ___. — e.g. Avaan oven avaimella.",
+   "how": "avaan: avata 1st person present sg · oven: ovi genitive sg · avaimella: avain adessive sg"
+  },
+  "carrier:out-of-it": {
+   "fi": "Kissa tulee ___. — e.g. Kissa tulee laukusta.",
+   "how": "kissa: cat · tulee: tulla present sg 3rd person · laukusta: laukku elative sg"
+  },
+  "carrier:out-of-them": {
+   "fi": "Kissat tulevat ___. — e.g. Kissat tulevat laukuista.",
+   "how": "kissat: kissa nominative pl · tulevat: tuleva nominative pl · laukuista: laukku elative pl"
+  },
+  "carrier:owner-thing": {
+   "fi": "Tämä on ___ pyörä. — e.g. Tämä on veljen pyörä.",
+   "how": "tämä: this · on: olla present sg 3rd person · pyörä: wheel · veljen: veli accusative genitive sg"
+  },
+  "carrier:play-at-time": {
+   "fi": "Leikin ___.",
+   "how": "leikin: leikki genitive sg"
+  },
+  "carrier:play-on-day": {
+   "fi": "Leikin ___.",
+   "how": "leikin: leikki genitive sg"
+  },
+  "carrier:play-with-toy": {
+   "fi": "Leikin ___. — e.g. Leikin pallolla.",
+   "how": "leikin: leikki genitive sg · pallolla: pallo adessive sg"
+  },
+  "carrier:put-on-clothes": {
+   "fi": "Puen ___ päälle. — e.g. Puen takin päälle.",
+   "how": "puen: pukea 1st person present sg · päälle: pää allative sg · takin: takki genitive sg"
+  },
+  "carrier:santa-brings": {
+   "fi": "Joulupukki tuo ___. — e.g. Joulupukki tuo pallon.",
+   "how": "joulupukki: Santa Claus · tuo: tuoda present sg 3rd person · pallon: pallo genitive sg"
+  },
+  "carrier:she-has": {
+   "fi": "Hänellä on ___. — e.g. Hänellä on omena.",
+   "how": "hänellä: hän adessive sg · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:she-is": {
+   "fi": "Hän on ___.",
+   "how": "hän: he · on: olla present sg 3rd person"
+  },
+  "carrier:these-are": {
+   "fi": "Nämä ovat ___. — e.g. Nämä ovat omenia.",
+   "how": "nämä: tämä nominative pl · ovat: olla pl present 3rd person · omenia: omena partitive pl"
+  },
+  "carrier:they-have": {
+   "fi": "Heillä on ___. — e.g. Heillä on omena.",
+   "how": "heillä: he adessive pl · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:this-is": {
+   "fi": "Tämä on ___. — e.g. Tämä on omena.",
+   "how": "tämä: this · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:this-is-mine": {
+   "fi": "Tämä on minun ___. — e.g. Tämä on minun omenani.",
+   "how": "tämä: this · on: olla present sg 3rd person · minun: minä genitive sg · omenani: omena 1st person nominative sg"
+  },
+  "carrier:this-is-theirs": {
+   "fi": "Tämä on hänen ___. — e.g. Tämä on hänen omenansa.",
+   "how": "tämä: this · on: olla present sg 3rd person · hänen: hän genitive sg · omenansa: omena nominative possessive sg 3rd person"
+  },
+  "carrier:this-is-yours": {
+   "fi": "Tämä on sinun ___. — e.g. Tämä on sinun omenasi.",
+   "how": "tämä: this · on: olla present sg 3rd person · sinun: sinä genitive sg · omenasi: omena nominative 2nd person sg"
+  },
+  "carrier:today-is": {
+   "fi": "Tänään on ___.",
+   "how": "tänään: today · on: olla present sg 3rd person"
+  },
+  "carrier:touch-it": {
+   "fi": "Kosketa ___! — e.g. Kosketa korvaa!",
+   "how": "kosketa: koskettaa imperative present 2nd person sg · korvaa: korva partitive sg"
+  },
+  "carrier:under": {
+   "fi": "___ alla — e.g. korin alla",
+   "how": "alla: beneath · korin: kori genitive sg"
+  },
+  "carrier:under-them": {
+   "fi": "___ alla — e.g. korien alla",
+   "how": "alla: beneath · korien: kori genitive pl"
+  },
+  "carrier:wake-at": {
+   "fi": "Herään kello ___.",
+   "how": "herään: herätä 1st person present sg · kello: clock watch"
+  },
+  "carrier:wash-hands": {
+   "fi": "Pese ___! — e.g. Pese korvat!",
+   "how": "pese: pestä imperative present 2nd person sg · korvat: korva nominative pl"
+  },
+  "carrier:we-have": {
+   "fi": "Meillä on ___. — e.g. Meillä on omena.",
+   "how": "meillä: me adessive pl · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:weather-is": {
+   "fi": "On ___.",
+   "how": "on: olla present sg 3rd person"
+  },
+  "carrier:where-are": {
+   "fi": "Missä ovat ___? — e.g. Missä ovat omenat?",
+   "how": "missä: mikä inessive pl sg · ovat: olla pl present 3rd person · omenat: omena nominative pl"
+  },
+  "carrier:where-is": {
+   "fi": "Missä on ___? — e.g. Missä on omena?",
+   "how": "missä: mikä inessive pl sg · on: olla present sg 3rd person · omena: apple"
+  },
+  "carrier:where-is-yours": {
+   "fi": "Missä on sinun ___? — e.g. Missä on sinun omenasi?",
+   "how": "missä: mikä inessive pl sg · on: olla present sg 3rd person · sinun: sinä genitive sg · omenasi: omena nominative 2nd person sg"
+  },
+  "carrier:with-someone": {
+   "fi": "Leikin ___ kanssa. — e.g. Leikin veljen kanssa.",
+   "how": "leikin: leikki genitive sg · kanssa: with · veljen: veli accusative genitive sg"
+  },
+  "carrier:write-with": {
+   "fi": "Kirjoitan ___. — e.g. Kirjoitan tietokoneella.",
+   "how": "kirjoitan: kirjoittaa 1st person present sg · tietokoneella: tietokone adessive sg"
+  },
+  "carrier:you-have": {
+   "fi": "Sinulla on ___. — e.g. Sinulla on omena.",
+   "how": "sinulla: sinä adessive sg · on: olla present sg 3rd person · omena: apple"
+  },
+  "dialogue:qw-how-many": {
+   "fi": "Montako kissaa sinulla on? → Kaksi.",
+   "how": "montako: how many? · kissaa: kissa partitive sg · sinulla: sinä adessive sg · on: olla present sg 3rd person · kaksi: two"
+  },
+  "dialogue:qw-what": {
+   "fi": "Mikä tämä on? → Tämä on kirja.",
+   "how": "mikä: what · tämä: this · on: olla present sg 3rd person · kirja: book"
+  },
+  "dialogue:qw-what-doing": {
+   "fi": "Mitä sinä teet? → Luen kirjaa.",
+   "how": "mitä: mikä partitive pl sg · sinä: se essive sg · teet: tehdä present 2nd person sg · luen: lukea 1st person present sg · kirjaa: kirja partitive sg"
+  },
+  "dialogue:qw-when": {
+   "fi": "Milloin leikitään? → Lauantaina.",
+   "how": "milloin: when · leikitään: leikkiä passive present · lauantaina: lauantai essive pl sg"
+  },
+  "dialogue:qw-where": {
+   "fi": "Missä kissa on? → Kissa on laatikossa.",
+   "how": "missä: mikä inessive pl sg · kissa: cat · on: olla present sg 3rd person · laatikossa: laatikko inessive sg"
+  },
+  "dialogue:qw-where-from": {
+   "fi": "Mistä sinä tulet? → Tulen koulusta.",
+   "how": "mistä: mikä elative pl sg · sinä: se essive sg · tulet: tuli nominative pl · tulen: tulla 1st person present sg · koulusta: koulu elative sg"
+  },
+  "dialogue:qw-where-to": {
+   "fi": "Mihin sinä menet? → Menen puistoon.",
+   "how": "mihin: mikä illative pl sg · sinä: se essive sg · menet: mennä present 2nd person sg · menen: mennä 1st person present sg · puistoon: puisto illative sg"
+  },
+  "dialogue:qw-who": {
+   "fi": "Kuka tuo on? → Tuo on minun opettajani.",
+   "how": "kuka: who · tuo: tuoda present sg 3rd person · on: olla present sg 3rd person · minun: minä genitive sg · opettajani: opettaja 1st person nominative sg"
+  },
+  "dialogue:qw-whose": {
+   "fi": "Kenen pallo tämä on? → Se on isän pallo.",
+   "how": "kenen: kuka /ken genitive sg · pallo: ball · tämä: this · on: olla present sg 3rd person · se: that · isän: isä genitive sg"
+  },
+  "lesson:age:1": {
+   "fi": "vuotta · kaksi kirjaa · vanha",
+   "how": "vuotta: vuo sg · kaksi: two · kirjaa: kirja partitive sg · vanha: old"
+  },
+  "lesson:age:2": {
+   "fi": "kahdeksan · kahdeksas",
+   "how": "kahdeksan: eight · kahdeksas: eighth"
+  },
+  "lesson:age:3": {
+   "fi": "kahdeksan · Olen kahdeksan vuotta vanha",
+   "how": "kahdeksan: eight · olen: olla 1st person present sg · vuotta: vuo sg · vanha: old"
+  },
+  "lesson:age:4": {
+   "fi": "vuotta · vuosi",
+   "how": "vuotta: vuo sg · vuosi: vuotaa past sg 3rd person"
+  },
+  "lesson:agreement:2": {
+   "fi": "isossa talossa · isolla pöydällä",
+   "how": "isossa: iso inessive sg · talossa: talo inessive sg · isolla: iso adessive sg · pöydällä: pöytä adessive sg"
+  },
+  "lesson:agreement:3": {
+   "fi": "isossa talossa",
+   "how": "isossa: iso inessive sg · talossa: talo inessive sg"
+  },
+  "lesson:agreement:4": {
+   "fi": "punaisen pallon",
+   "how": "punaisen: punainen genitive sg · pallon: pallo genitive sg"
+  },
+  "lesson:asking:1": {
+   "fi": "Onko…? · on · syöt · syötkö?",
+   "how": "onko…: ending notation · on: olla present sg 3rd person · syöt: syödä present 2nd person sg · syötkö: syödä present 2nd person sg + -kö"
+  },
+  "lesson:asking:3": {
+   "fi": "Syötkö? · Syön! · En syö.",
+   "how": "syötkö: syödä present 2nd person sg + -kö · syön: syödä 1st person present sg · en: ei 1st person sg · syö: syödä present sg 3rd person"
+  },
+  "lesson:asking:4": {
+   "fi": "uit · uitko?",
+   "how": "uit: second-person singular present/p · uitko: uida present 2nd person sg + -ko"
+  },
+  "lesson:asking:5": {
+   "fi": "Nukutko? · en nuku · en · et",
+   "how": "nukutko: nukkua present 2nd person sg + -ko · en: ei 1st person sg · nuku: nukkua imperative present 2nd person sg · et: ei 2nd person sg"
+  },
+  "lesson:big-numbers:1": {
+   "fi": "kolmetoista",
+   "how": "kolmetoista: thirteen"
+  },
+  "lesson:big-numbers:2": {
+   "fi": "kolmekymmentä · sata",
+   "how": "kolmekymmentä: thirty · sata: hundred"
+  },
+  "lesson:big-numbers:3": {
+   "fi": "kaksikymmentä · yksi · kolmekymmentä · viisi",
+   "how": "kaksikymmentä: twenty · yksi: one · kolmekymmentä: thirty · viisi: five"
+  },
+  "lesson:big-numbers:4": {
+   "fi": "viisitoista · viisikymmentä",
+   "how": "viisitoista: fifteen · viisikymmentä: fifty"
+  },
+  "lesson:big-numbers:5": {
+   "fi": "neljäkymmentä · neljätoista",
+   "how": "neljäkymmentä: forty · neljätoista: fourteen"
+  },
+  "lesson:birthdays:1": {
+   "fi": "kuu",
+   "how": "kuu: the moon"
+  },
+  "lesson:birthdays:2": {
+   "fi": "koulussa",
+   "how": "koulussa: koulu inessive sg"
+  },
+  "lesson:birthdays:3": {
+   "fi": "toukokuussa",
+   "how": "toukokuussa: toukokuu inessive sg"
+  },
+  "lesson:birthdays:4": {
+   "fi": "joulukuu · joulu",
+   "how": "joulukuu: December · joulu: Christmas"
+  },
+  "lesson:body:1": {
+   "fi": "Kapteeni käskee",
+   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person"
+  },
+  "lesson:body:3": {
+   "fi": "jalka",
+   "how": "jalka: foot"
+  },
+  "lesson:body:4": {
+   "fi": "Kosketa · Rakastan",
+   "how": "kosketa: koskettaa imperative present 2nd person sg · rakastan: rakastaa 1st person present sg"
+  },
+  "lesson:body:5": {
+   "fi": "Nosta! · Nosta käsi ylös! · kädet",
+   "how": "nosta: nostaa imperative present 2nd person sg · käsi: hand · ylös: up · kädet: käsi nominative pl"
+  },
+  "lesson:body:6": {
+   "fi": "Kapteeni käskee: kosketa nenää! · Kosketa nenää!",
+   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person · kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg"
+  },
+  "lesson:body:7": {
+   "fi": "Kosketa · Kosketa nenää!",
+   "how": "kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg"
+  },
+  "lesson:body:8": {
+   "fi": "jalka",
+   "how": "jalka: foot"
+  },
+  "lesson:buying-some:2": {
+   "fi": "Ostan omenan. · Ostan maitoa.",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg · maitoa: maito partitive sg"
+  },
+  "lesson:buying-some:3": {
+   "fi": "Ostan maitoa. · maitoa",
+   "how": "ostan: ostaa 1st person present sg · maitoa: maito partitive sg"
+  },
+  "lesson:buying-some:4": {
+   "fi": "leipää",
+   "how": "leipää: leipä partitive sg"
+  },
+  "lesson:buying:1": {
+   "fi": "Ostan · Näen",
+   "how": "ostan: ostaa 1st person present sg · näen: nähdä 1st person present sg"
+  },
+  "lesson:buying:3": {
+   "fi": "Ostan omenan. · omenan",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg"
+  },
+  "lesson:buying:4": {
+   "fi": "banaanin",
+   "how": "banaanin: banaani genitive sg"
+  },
+  "lesson:buying:5": {
+   "fi": "Paljonko se maksaa?",
+   "how": "paljonko: how much? · se: that · maksaa: maksa partitive sg"
+  },
+  "lesson:by-with:1": {
+   "fi": "pöydällä",
+   "how": "pöydällä: pöytä adessive sg"
+  },
+  "lesson:by-with:4": {
+   "fi": "junalla · junaan",
+   "how": "junalla: juna adessive sg · junaan: juna illative sg"
+  },
+  "lesson:by-with:5": {
+   "fi": "lusikalla · Syön lusikkaa",
+   "how": "lusikalla: lusikka adessive sg · syön: syödä 1st person present sg · lusikkaa: lusikka partitive sg"
+  },
+  "lesson:clock:1": {
+   "fi": "kello · Kello on · Kello on kolme · Paljonko kello on?",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kolme: three · paljonko: how much?"
+  },
+  "lesson:clock:3": {
+   "fi": "seitsemän · Kello on seitsemän",
+   "how": "seitsemän: seven · kello: clock watch · on: olla present sg 3rd person"
+  },
+  "lesson:clock:4": {
+   "fi": "Kello on kaksitoista. · kaksitoista",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kaksitoista: twelve"
+  },
+  "lesson:colors:2": {
+   "fi": "vaaleanpunainen",
+   "how": "vaaleanpunainen: pink"
+  },
+  "lesson:colors:3": {
+   "fi": "uusi · vanha · helppo · vaikea · puhdas · likainen · lyhyt",
+   "how": "uusi: uusia past sg 3rd person · vanha: old · helppo: easy · vaikea: difficult · puhdas: clean · likainen: dirty · lyhyt: short"
+  },
+  "lesson:colors:4": {
+   "fi": "Tämä on · Tämä on punainen",
+   "how": "tämä: this · on: olla present sg 3rd person · punainen: red"
+  },
+  "lesson:colors:6": {
+   "fi": "vihreä · keltainen",
+   "how": "vihreä: green · keltainen: yellow"
+  },
+  "lesson:colors:7": {
+   "fi": "iso · pieni",
+   "how": "iso: big · pieni: pieniä past sg 3rd person"
+  },
+  "lesson:colors:8": {
+   "fi": "likainen · puhdas",
+   "how": "likainen: dirty · puhdas: clean"
+  },
+  "lesson:commands:1": {
+   "fi": "juoksen · Juokse!",
+   "how": "juoksen: juosta 1st person present sg · juokse: juosta imperative present 2nd person sg"
+  },
+  "lesson:commands:2": {
+   "fi": "älä",
+   "how": "älä: ei imperative present 2nd person sg"
+  },
+  "lesson:commands:4": {
+   "fi": "Älä · Älä juokse!",
+   "how": "älä: ei imperative present 2nd person sg · juokse: juosta imperative present 2nd person sg"
+  },
+  "lesson:commands:5": {
+   "fi": "Leikitään!",
+   "how": "leikitään: leikkiä passive present"
+  },
+  "lesson:comparing:2": {
+   "fi": "Norsu on isompi kuin hiiri.",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isompi: iso comparative · kuin: kuu pl · hiiri: mouse"
+  },
+  "lesson:comparing:3": {
+   "fi": "hyvä → parempi · pitkä → pidempi",
+   "how": "hyvä: good good good · parempi: hyvä comparative · pitkä: long · pidempi: pitkä comparative"
+  },
+  "lesson:comparing:4": {
+   "fi": "nopeampi",
+   "how": "nopeampi: nopea comparative"
+  },
+  "lesson:comparing:5": {
+   "fi": "Norsu on isompi kuin hiiri.",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isompi: iso comparative · kuin: kuu pl · hiiri: mouse"
+  },
+  "lesson:conversation:4": {
+   "fi": "Mitä? · Missä? · Kuka? · Paljonko?",
+   "how": "mitä: mikä partitive pl sg · missä: mikä inessive pl sg · kuka: who · paljonko: how much?"
+  },
+  "lesson:conversation:5": {
+   "fi": "Kiitos! · Ole hyvä!",
+   "how": "kiitos: thank you · ole: olla imperative 2nd person sg · hyvä: good good good"
+  },
+  "lesson:conversation:6": {
+   "fi": "Anteeksi! · Ei se mitään",
+   "how": "anteeksi: anne sg translative · ei: The negative verb or negation ve · se: that · mitään: mikään partitive pl sg"
+  },
+  "lesson:counting:1": {
+   "fi": "yksitoista · kaksitoista",
+   "how": "yksitoista: eleven · kaksitoista: twelve"
+  },
+  "lesson:counting:2": {
+   "fi": "yksi kirja",
+   "how": "yksi: one · kirja: book"
+  },
+  "lesson:counting:5": {
+   "fi": "kirjaa",
+   "how": "kirjaa: kirja partitive sg"
+  },
+  "lesson:counting:6": {
+   "fi": "kaveria",
+   "how": "kaveria: kaveri partitive sg"
+  },
+  "lesson:dates:1": {
+   "fi": "viides toukokuuta",
+   "how": "viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "lesson:dates:2": {
+   "fi": "yhdestoista · viidestoista · kahdeskymmenes · kolmaskymmenes · ensimmäinen",
+   "how": "yhdestoista: eleventh · viidestoista: fifteenth · kahdeskymmenes: twentieth · kolmaskymmenes: thirtieth · ensimmäinen: first"
+  },
+  "lesson:dates:3": {
+   "fi": "viides · viisi · toukokuuta · toukokuu",
+   "how": "viides: fifth · viisi: five · toukokuuta: toukokuu partitive sg · toukokuu: May"
+  },
+  "lesson:dates:4": {
+   "fi": "viides · viides toukokuuta",
+   "how": "viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "lesson:dates:5": {
+   "fi": "viidestoista · kesäkuuta",
+   "how": "viidestoista: fifteenth · kesäkuuta: kesäkuu partitive sg"
+  },
+  "lesson:dates:6": {
+   "fi": "ensimmäinen tammikuuta",
+   "how": "ensimmäinen: first · tammikuuta: tammikuu partitive sg"
+  },
+  "lesson:easter:1": {
+   "fi": "noita",
+   "how": "noita: nuo partitive pl"
+  },
+  "lesson:easter:3": {
+   "fi": "Odotan · Odotan pääsiäistä!",
+   "how": "odotan: odottaa 1st person present sg · pääsiäistä: pääsiäinen partitive sg"
+  },
+  "lesson:easter:4": {
+   "fi": "Odotan · Odotan pääsiäistä!",
+   "how": "odotan: odottaa 1st person present sg · pääsiäistä: pääsiäinen partitive sg"
+  },
+  "lesson:expert:1": {
+   "fi": "olla",
+   "how": "olla: to be"
+  },
+  "lesson:expert:5": {
+   "fi": "söisin",
+   "how": "söisin: syödä conditional 1st person present sg"
+  },
+  "lesson:feelings-2:1": {
+   "fi": "Minua pelottaa · Minua",
+   "how": "minua: minä partitive sg · pelottaa: to be afraid"
+  },
+  "lesson:feelings-2:3": {
+   "fi": "Minua jännittää.",
+   "how": "minua: minä partitive sg · jännittää: to tense"
+  },
+  "lesson:feelings-2:4": {
+   "fi": "Minulla on tylsää · Minulla on hauskaa · Minulla on nälkä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · tylsää: tylsä partitive sg · hauskaa: hauska partitive sg · nälkä: hunger"
+  },
+  "lesson:feelings-2:5": {
+   "fi": "Minua pelottaa · Minua naurattaa",
+   "how": "minua: minä partitive sg · pelottaa: to be afraid · naurattaa: to make laugh"
+  },
+  "lesson:feelings-2:6": {
+   "fi": "Minulla on tylsää",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · tylsää: tylsä partitive sg"
+  },
+  "lesson:feelings-on-me:1": {
+   "fi": "Minulla on… · Minulla on nälkä",
+   "how": "minulla: minä adessive sg · on…: ending notation · on: olla present sg 3rd person · nälkä: hunger"
+  },
+  "lesson:feelings-on-me:3": {
+   "fi": "Minulla on kylmä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · kylmä: cold"
+  },
+  "lesson:feelings-on-me:4": {
+   "fi": "nälkä · jano",
+   "how": "nälkä: hunger · jano: thirst"
+  },
+  "lesson:feelings:1": {
+   "fi": "Olen",
+   "how": "olen: olla 1st person present sg"
+  },
+  "lesson:feelings:2": {
+   "fi": "En ole",
+   "how": "en: ei 1st person sg · ole: olla imperative 2nd person sg"
+  },
+  "lesson:feelings:3": {
+   "fi": "Olen · Olen iloinen",
+   "how": "olen: olla 1st person present sg · iloinen: happy"
+  },
+  "lesson:feelings:4": {
+   "fi": "En ole väsynyt. · En ole",
+   "how": "en: ei 1st person sg · ole: olla imperative 2nd person sg · väsynyt: väsyä active participle past"
+  },
+  "lesson:finnish-year:1": {
+   "fi": "joulupukki · Onko täällä kilttejä lapsia?",
+   "how": "joulupukki: Santa Claus · onko: olla present sg 3rd person · täällä: here · kilttejä: kiltti partitive pl · lapsia: lapsi partitive pl"
+  },
+  "lesson:finnish-year:3": {
+   "fi": "Näen kissan",
+   "how": "näen: nähdä 1st person present sg · kissan: kissa genitive sg"
+  },
+  "lesson:finnish-year:4": {
+   "fi": "hiihtää · minä hiihdän",
+   "how": "hiihtää: to ski · minä: mikä essive pl sg · hiihdän: hiihtää 1st person present sg"
+  },
+  "lesson:finnish-year:5": {
+   "fi": "Joulupukki tuo lahjan",
+   "how": "joulupukki: Santa Claus · tuo: tuoda present sg 3rd person · lahjan: lahja genitive sg"
+  },
+  "lesson:half-hour:1": {
+   "fi": "puoli kahdeksan",
+   "how": "puoli: half · kahdeksan: eight"
+  },
+  "lesson:half-hour:2": {
+   "fi": "Kello on kahdeksan",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kahdeksan: eight"
+  },
+  "lesson:half-hour:3": {
+   "fi": "puoli kahdeksan · Kello on kahdeksan",
+   "how": "puoli: half · kahdeksan: eight · kello: clock watch · on: olla present sg 3rd person"
+  },
+  "lesson:half-hour:4": {
+   "fi": "puoli yksi",
+   "how": "puoli: half · yksi: one"
+  },
+  "lesson:having-everyone:1": {
+   "fi": "minulla · sinulla · hänellä · meillä · teillä · heillä",
+   "how": "minulla: minä adessive sg · sinulla: sinä adessive sg · hänellä: hän adessive sg · meillä: me adessive pl · teillä: te adessive pl · heillä: he adessive pl"
+  },
+  "lesson:having-everyone:3": {
+   "fi": "meillä",
+   "how": "meillä: me adessive pl"
+  },
+  "lesson:having-everyone:4": {
+   "fi": "Hänellä on kitara. · hänellä",
+   "how": "hänellä: hän adessive sg · on: olla present sg 3rd person · kitara: guitar"
+  },
+  "lesson:having:1": {
+   "fi": "Minulla on pyörä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · pyörä: wheel"
+  },
+  "lesson:having:2": {
+   "fi": "minulla · sinulla",
+   "how": "minulla: minä adessive sg · sinulla: sinä adessive sg"
+  },
+  "lesson:having:3": {
+   "fi": "on · pyörä · puhelin · koira",
+   "how": "on: olla present sg 3rd person · pyörä: wheel · puhelin: puhella 1st person past sg · koira: dog"
+  },
+  "lesson:having:4": {
+   "fi": "Sinulla on pallo. · sinulla",
+   "how": "sinulla: sinä adessive sg · on: olla present sg 3rd person · pallo: ball"
+  },
+  "lesson:having:5": {
+   "fi": "minulla",
+   "how": "minulla: minä adessive sg"
+  },
+  "lesson:in-my-house:1": {
+   "fi": "talo · talossani",
+   "how": "talo: house · talossani: talo 1st person inessive sg"
+  },
+  "lesson:in-my-house:3": {
+   "fi": "talossani",
+   "how": "talossani: talo 1st person inessive sg"
+  },
+  "lesson:in-my-house:4": {
+   "fi": "pöydälläsi",
+   "how": "pöydälläsi: pöytä adessive 2nd person sg"
+  },
+  "lesson:in-on:3": {
+   "fi": "-ssa, -lla · -ssä, -llä · talossa · metsässä",
+   "how": "talossa: talo inessive sg · metsässä: metsä inessive sg"
+  },
+  "lesson:in-on:4": {
+   "fi": "laatikko · laatikossa",
+   "how": "laatikko: box · laatikossa: laatikko inessive sg"
+  },
+  "lesson:in-on:5": {
+   "fi": "pöydällä",
+   "how": "pöydällä: pöytä adessive sg"
+  },
+  "lesson:in-on:6": {
+   "fi": "talossa",
+   "how": "talossa: talo inessive sg"
+  },
+  "lesson:into-out:1": {
+   "fi": "Missä? · Mihin?",
+   "how": "missä: mikä inessive pl sg · mihin: mikä illative pl sg"
+  },
+  "lesson:into-out:2": {
+   "fi": "laatikkoon · taloon · huoneeseen · puu · puuhun",
+   "how": "laatikkoon: laatikko illative sg · taloon: talo illative sg · huoneeseen: huone illative sg · puu: tree · puuhun: puu illative sg"
+  },
+  "lesson:into-out:4": {
+   "fi": "laatikkoon",
+   "how": "laatikkoon: laatikko illative sg"
+  },
+  "lesson:into-out:5": {
+   "fi": "pöydälle",
+   "how": "pöydälle: pöytä allative sg"
+  },
+  "lesson:kpt-1-3:1": {
+   "fi": "nukkua · nukun",
+   "how": "nukkua: to sleep · nukun: nukkua 1st person present sg"
+  },
+  "lesson:kpt-1-3:3": {
+   "fi": "minä nukun · hän nukkuu",
+   "how": "minä: mikä essive pl sg · nukun: nukkua 1st person present sg · hän: he · nukkuu: nukkua present sg 3rd person"
+  },
+  "lesson:kpt-1-3:4": {
+   "fi": "piirtää → piirrän · lukea → luen",
+   "how": "piirtää: to draw · piirrän: piirtää 1st person present sg · lukea: to read · luen: lukea 1st person present sg"
+  },
+  "lesson:kpt-1-3:5": {
+   "fi": "lentää → lennän · unohtaa → unohdan · sulkea → suljen",
+   "how": "lentää: to fly · lennän: lentää 1st person present sg · unohtaa: to forget · unohdan: unohtaa 1st person present sg · sulkea: to close · suljen: sulkea 1st person present sg"
+  },
+  "lesson:kpt-1-3:6": {
+   "fi": "kuunnella → kuuntelen, kuuntelee",
+   "how": "kuunnella: to listen · kuuntelen: kuunnella 1st person present sg · kuuntelee: kuunnella present sg 3rd person"
+  },
+  "lesson:kpt-1-3:7": {
+   "fi": "nukun · nukkuu",
+   "how": "nukun: nukkua 1st person present sg · nukkuu: nukkua present sg 3rd person"
+  },
+  "lesson:kpt-1-3:8": {
+   "fi": "kirjoittaa",
+   "how": "kirjoittaa: to write to write"
+  },
+  "lesson:kpt-4:1": {
+   "fi": "kuunnella → kuuntelen · hypätä → hyppään, hyppää",
+   "how": "kuunnella: to listen · kuuntelen: kuunnella 1st person present sg · hypätä: to jump · hyppään: hypätä 1st person present sg · hyppää: hypätä imperative present 2nd person sg"
+  },
+  "lesson:kpt-4:2": {
+   "fi": "tykätä → tykkään",
+   "how": "tykätä: to like · tykkään: tykätä 1st person present sg"
+  },
+  "lesson:kpt-4:3": {
+   "fi": "minä hyppään · hän hyppää · me hyppäämme",
+   "how": "minä: mikä essive pl sg · hyppään: hypätä 1st person present sg · hän: he · hyppää: hypätä imperative present 2nd person sg · me: we · hyppäämme: hypätä 1st person pl present"
+  },
+  "lesson:kpt-4:4": {
+   "fi": "kiivetä · kiipeän · hyppään",
+   "how": "kiivetä: to climb · kiipeän: kiivetä 1st person present sg · hyppään: hypätä 1st person present sg"
+  },
+  "lesson:kpt-4:5": {
+   "fi": "hyppään",
+   "how": "hyppään: hypätä 1st person present sg"
+  },
+  "lesson:kpt-4:6": {
+   "fi": "hän leikkaa",
+   "how": "hän: he · leikkaa: leikata present sg 3rd person"
+  },
+  "lesson:kpt-6:1": {
+   "fi": "paeta → pakenen",
+   "how": "paeta: to flee · pakenen: paeta 1st person present sg"
+  },
+  "lesson:kpt-6:3": {
+   "fi": "minä, sinä, me, te",
+   "how": "minä: mikä essive pl sg · sinä: se essive sg · me: we · te: you"
+  },
+  "lesson:kpt-6:4": {
+   "fi": "pakenen",
+   "how": "pakenen: paeta 1st person present sg"
+  },
+  "lesson:kpt-6:5": {
+   "fi": "nukkuu",
+   "how": "nukkuu: nukkua present sg 3rd person"
+  },
+  "lesson:likes:2": {
+   "fi": "tykkään",
+   "how": "tykkään: tykätä 1st person present sg"
+  },
+  "lesson:likes:3": {
+   "fi": "tykkään · musiikista",
+   "how": "tykkään: tykätä 1st person present sg · musiikista: musiikki elative sg"
+  },
+  "lesson:likes:4": {
+   "fi": "jäätelöstä",
+   "how": "jäätelöstä: jäätelö elative sg"
+  },
+  "lesson:liking-pidan:1": {
+   "fi": "Tykkään · Pidän",
+   "how": "tykkään: tykätä 1st person present sg · pidän: pitää 1st person present sg"
+  },
+  "lesson:liking-pidan:3": {
+   "fi": "pidän · tykkään · jalkapallosta",
+   "how": "pidän: pitää 1st person present sg · tykkään: tykätä 1st person present sg · jalkapallosta: jalkapallo elative sg"
+  },
+  "lesson:loving:1": {
+   "fi": "rakastan · suklaata",
+   "how": "rakastan: rakastaa 1st person present sg · suklaata: suklaa partitive sg"
+  },
+  "lesson:loving:2": {
+   "fi": "Tykkään · Pidän · Tykkään pitsasta. · Rakastan · Rakastan pitsaa.",
+   "how": "tykkään: tykätä 1st person present sg · pidän: pitää 1st person present sg · pitsasta: pitsa elative sg · rakastan: rakastaa 1st person present sg · pitsaa: pitsa partitive sg"
+  },
+  "lesson:loving:3": {
+   "fi": "rakastan · pitsaa · tykkään · pidän",
+   "how": "rakastan: rakastaa 1st person present sg · pitsaa: pitsa partitive sg · tykkään: tykätä 1st person present sg · pidän: pitää 1st person present sg"
+  },
+  "lesson:loving:4": {
+   "fi": "Tykkään · Rakastan",
+   "how": "tykkään: tykätä 1st person present sg · rakastan: rakastaa 1st person present sg"
+  },
+  "lesson:math-clock:1": {
+   "fi": "Kello on kolme · kolme",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kolme: three"
+  },
+  "lesson:math-clock:2": {
+   "fi": "puoli neljä · kolme · neljä",
+   "how": "puoli: half · neljä: four · kolme: three"
+  },
+  "lesson:math-clock:3": {
+   "fi": "tunnin päästä",
+   "how": "tunnin: tunti accusative genitive sg · päästä: pää elative sg"
+  },
+  "lesson:math-clock:4": {
+   "fi": "tunti sitten",
+   "how": "tunti: hour · sitten: then"
+  },
+  "lesson:math-clock:5": {
+   "fi": "puolen tunnin päästä · kolme · puoli neljä",
+   "how": "puolen: puoli genitive sg · tunnin: tunti accusative genitive sg · päästä: pää elative sg · kolme: three · puoli: half · neljä: four"
+  },
+  "lesson:math-clock:6": {
+   "fi": "Kello on kahdeksan. Mitä kello on tunnin päästä? · Tunnin päästä kello on yhdeksän.",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kahdeksan: eight · mitä: mikä partitive pl sg · tunnin: tunti accusative genitive sg · päästä: pää elative sg · yhdeksän: nine"
+  },
+  "lesson:math-clock:7": {
+   "fi": "kuusi · puoli seitsemän · seitsemän",
+   "how": "kuusi: kuu possessive 2nd person sg · puoli: half · seitsemän: seven"
+  },
+  "lesson:math-how-many:1": {
+   "fi": "Minulla on…",
+   "how": "minulla: minä adessive sg · on…: ending notation"
+  },
+  "lesson:math-how-many:2": {
+   "fi": "Minulla on · Sinulla on · yhteensä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · sinulla: sinä adessive sg · yhteensä: altogether"
+  },
+  "lesson:math-how-many:3": {
+   "fi": "Syön · nyt",
+   "how": "syön: syödä 1st person present sg · nyt: now"
+  },
+  "lesson:math-how-many:4": {
+   "fi": "Saan … lisää",
+   "how": "saan: saada 1st person present sg · lisää: lisä partitive sg"
+  },
+  "lesson:math-how-many:5": {
+   "fi": "saan · syön · annan · jäljellä",
+   "how": "saan: saada 1st person present sg · syön: syödä 1st person present sg · annan: antaa 1st person present sg · jäljellä: jälki adessive sg"
+  },
+  "lesson:math-how-many:6": {
+   "fi": "Minulla on neljä omenaa. Syön kaksi omenaa. Montako omenaa minulla on nyt? · Syön · Minulla on nyt kaksi omenaa.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · neljä: four · omenaa: omena partitive sg · syön: syödä 1st person present sg · kaksi: two · montako: how many? · nyt: now"
+  },
+  "lesson:math-how-many:7": {
+   "fi": "Minulla on kolme palloa. Saan kolme lisää. Montako palloa minulla on nyt? · Saan lisää · Minulla on nyt kuusi palloa.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · kolme: three · palloa: pallo partitive sg · saan: saada 1st person present sg · lisää: lisä partitive sg · montako: how many? · nyt: now · kuusi: kuu possessive 2nd person sg"
+  },
+  "lesson:math-more-less:1": {
+   "fi": "enemmän · vähemmän · Kumpi?",
+   "how": "enemmän: enempi genitive sg · vähemmän: vähän comparative · kumpi: which one two)"
+  },
+  "lesson:math-more-less:2": {
+   "fi": "enemmän · vähemmän",
+   "how": "enemmän: enempi genitive sg · vähemmän: vähän comparative"
+  },
+  "lesson:math-more-less:3": {
+   "fi": "jälkeen · viisi · viiden jälkeen",
+   "how": "jälkeen: jälki illative sg · viisi: five · viiden: viisi genitive sg"
+  },
+  "lesson:math-more-less:4": {
+   "fi": "ennen · ennen viittä",
+   "how": "ennen: before · viittä: viisi partitive sg"
+  },
+  "lesson:math-more-less:5": {
+   "fi": "Mikä luku puuttuu?",
+   "how": "mikä: what · luku: number · puuttuu: puuttua present sg 3rd person"
+  },
+  "lesson:math-more-less:6": {
+   "fi": "Kumpi on vähemmän: kahdeksan vai kuusi? · vähemmän · Kuusi on vähemmän.",
+   "how": "kumpi: which one two) · on: olla present sg 3rd person · vähemmän: vähän comparative · kahdeksan: eight · vai: or · kuusi: kuu possessive 2nd person sg"
+  },
+  "lesson:math-more-less:7": {
+   "fi": "Mikä luku tulee seitsemän jälkeen? · jälkeen · Kahdeksan tulee seitsemän jälkeen.",
+   "how": "mikä: what · luku: number · tulee: tulla present sg 3rd person · seitsemän: seven · jälkeen: jälki illative sg · kahdeksan: eight"
+  },
+  "lesson:math-plus-minus:2": {
+   "fi": "plus · on",
+   "how": "plus: plus · on: olla present sg 3rd person"
+  },
+  "lesson:math-plus-minus:3": {
+   "fi": "miinus · nolla",
+   "how": "miinus: minus · nolla: zero"
+  },
+  "lesson:math-plus-minus:4": {
+   "fi": "Paljonko on…? · plus · miinus",
+   "how": "paljonko: how much? · on…: ending notation · plus: plus · miinus: minus"
+  },
+  "lesson:math-plus-minus:5": {
+   "fi": "Paljonko on kaksi plus kaksi? · plus · Kaksi plus kaksi on neljä.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · kaksi: two · plus: plus · neljä: four"
+  },
+  "lesson:math-plus-minus:6": {
+   "fi": "Paljonko on viisi miinus yksi? · miinus · Viisi miinus yksi on neljä.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · viisi: five · miinus: minus · yksi: one · neljä: four"
+  },
+  "lesson:math-shop:1": {
+   "fi": "maksaa · euroa · kaksi euroa",
+   "how": "maksaa: maksa partitive sg · euroa: euro partitive sg · kaksi: two"
+  },
+  "lesson:math-shop:2": {
+   "fi": "Paljonko yhteensä?",
+   "how": "paljonko: how much? · yhteensä: altogether"
+  },
+  "lesson:math-shop:3": {
+   "fi": "Maksa kolikoilla! · yksi euro · Valmis",
+   "how": "maksa: maksaa imperative present 2nd person sg · kolikoilla: kolikko adessive pl · yksi: one · euro: euro · valmis: completed"
+  },
+  "lesson:math-shop:4": {
+   "fi": "Keksi maksaa kolme euroa. Maito maksaa neljä euroa. Paljonko yhteensä? · Yhteensä seitsemän euroa.",
+   "how": "keksi: keksiä past sg 3rd person · maksaa: maksa partitive sg · kolme: three · euroa: euro partitive sg · maito: milk · neljä: four · paljonko: how much? · yhteensä: altogether · seitsemän: seven"
+  },
+  "lesson:math-shop:5": {
+   "fi": "Kynä maksaa kuusi euroa. · kuusi euroa · kuusi",
+   "how": "kynä: pen · maksaa: maksa partitive sg · kuusi: kuu possessive 2nd person sg · euroa: euro partitive sg"
+  },
+  "lesson:math-teens:1": {
+   "fi": "kymmenen · toista",
+   "how": "kymmenen: kymmen genitive sg · toista: toinen partitive sg"
+  },
+  "lesson:math-teens:2": {
+   "fi": "toista · kolme · kolmetoista",
+   "how": "toista: toinen partitive sg · kolme: three · kolmetoista: thirteen"
+  },
+  "lesson:math-teens:3": {
+   "fi": "kymmenen plus · -toista",
+   "how": "kymmenen: kymmen genitive sg · plus: plus"
+  },
+  "lesson:math-teens:4": {
+   "fi": "kaksikymmentä · kaksi · kymmentä",
+   "how": "kaksikymmentä: twenty · kaksi: two · kymmentä: kymmenen partitive sg"
+  },
+  "lesson:math-teens:5": {
+   "fi": "kymmenen · nolla · Lähtö!",
+   "how": "kymmenen: kymmen genitive sg · nolla: zero · lähtö: departure"
+  },
+  "lesson:math-teens:6": {
+   "fi": "kahdeksan · toista · kahdeksantoista",
+   "how": "kahdeksan: eight · toista: toinen partitive sg · kahdeksantoista: eighteen"
+  },
+  "lesson:math-teens:7": {
+   "fi": "Paljonko on kymmenen plus viisi? · Kymmenen plus viisi on viisitoista.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · kymmenen: kymmen genitive sg · plus: plus · viisi: five · viisitoista: fifteen"
+  },
+  "lesson:math-tens:1": {
+   "fi": "kymmentä",
+   "how": "kymmentä: kymmenen partitive sg"
+  },
+  "lesson:math-tens:2": {
+   "fi": "-toista · kymmenen · -kymmentä",
+   "how": "kymmenen: kymmen genitive sg"
+  },
+  "lesson:math-tens:3": {
+   "fi": "yhdeksänkymmentä · sata · kymmentä",
+   "how": "yhdeksänkymmentä: ninety · sata: hundred · kymmentä: kymmenen partitive sg"
+  },
+  "lesson:math-tens:4": {
+   "fi": "kymmenen",
+   "how": "kymmenen: kymmen genitive sg"
+  },
+  "lesson:math-tens:5": {
+   "fi": "kymmenen, kaksikymmentä, kolmekymmentä…",
+   "how": "kymmenen: kymmen genitive sg · kaksikymmentä: twenty · kolmekymmentä…: ending notation"
+  },
+  "lesson:math-tens:6": {
+   "fi": "neljä · kymmentä · neljäkymmentä · neljätoista",
+   "how": "neljä: four · kymmentä: kymmenen partitive sg · neljäkymmentä: forty · neljätoista: fourteen"
+  },
+  "lesson:math-tens:7": {
+   "fi": "Paljonko on kaksikymmentä plus kaksikymmentä? · Kaksikymmentä plus kaksikymmentä on neljäkymmentä.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · kaksikymmentä: twenty · plus: plus · neljäkymmentä: forty"
+  },
+  "lesson:math-times:1": {
+   "fi": "kertaa · kerta · kaksi omenaa",
+   "how": "kertaa: kerta partitive sg · kerta: time · kaksi: two · omenaa: omena partitive sg"
+  },
+  "lesson:math-times:2": {
+   "fi": "kolme kertaa kaksi · kolme · kaksi",
+   "how": "kolme: three · kertaa: kerta partitive sg · kaksi: two"
+  },
+  "lesson:math-times:3": {
+   "fi": "Paljonko on…?",
+   "how": "paljonko: how much? · on…: ending notation"
+  },
+  "lesson:math-times:4": {
+   "fi": "puolet · puolet kahdeksasta",
+   "how": "puolet: puoli nominative pl · kahdeksasta: kahdeksan elative sg"
+  },
+  "lesson:math-times:6": {
+   "fi": "Paljonko on kaksi kertaa viisi? · Kaksi kertaa viisi on kymmenen.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · kaksi: two · kertaa: kerta partitive sg · viisi: five · kymmenen: kymmen genitive sg"
+  },
+  "lesson:math-times:7": {
+   "fi": "Paljonko on puolet kymmenestä? · Puolet kymmenestä on viisi.",
+   "how": "paljonko: how much? · on: olla present sg 3rd person · puolet: puoli nominative pl · kymmenestä: kymmenen elative sg · viisi: five"
+  },
+  "lesson:me-you:1": {
+   "fi": "minä · Auta minua! · Anna se minulle! · Pidän sinusta.",
+   "how": "minä: mikä essive pl sg · auta: auttaa imperative present 2nd person sg · minua: minä partitive sg · anna: antaa imperative present 2nd person sg · se: that · minulle: minä allative sg · pidän: pitää 1st person present sg · sinusta: sinä elative sg"
+  },
+  "lesson:me-you:4": {
+   "fi": "Auta, Odota · minua, häntä · Anna se · minulle · Pidän · sinusta · Näen · sinut, hänet",
+   "how": "auta: auttaa imperative present 2nd person sg · odota: odottaa imperative present 2nd person sg · minua: minä partitive sg · häntä: hän partitive sg · anna: antaa imperative present 2nd person sg · se: that · minulle: minä allative sg · pidän: pitää 1st person present sg · sinusta: sinä elative sg · näen: nähdä 1st …"
+  },
+  "lesson:me-you:5": {
+   "fi": "auttaa · Auta minua!",
+   "how": "auttaa: to help · auta: auttaa imperative present 2nd person sg · minua: minä partitive sg"
+  },
+  "lesson:me-you:6": {
+   "fi": "hänelle",
+   "how": "hänelle: hän allative sg"
+  },
+  "lesson:midsummer:1": {
+   "fi": "juhannus · kokko",
+   "how": "juhannus: Midsummer Day · kokko: bonfire"
+  },
+  "lesson:midsummer:3": {
+   "fi": "mökille · mökillä · saunaan",
+   "how": "mökille: mökki allative sg · mökillä: mökki adessive sg · saunaan: sauna illative sg"
+  },
+  "lesson:midsummer:4": {
+   "fi": "maanantaina",
+   "how": "maanantaina: maanantai essive sg"
+  },
+  "lesson:midsummer:5": {
+   "fi": "mökille · mökillä",
+   "how": "mökille: mökki allative sg · mökillä: mökki adessive sg"
+  },
+  "lesson:midsummer:6": {
+   "fi": "juhannuksena · jouluna",
+   "how": "juhannuksena: juhannus essive sg · jouluna: joulu essive sg"
+  },
+  "lesson:my-day:1": {
+   "fi": "pukea · minä puen",
+   "how": "pukea: to put on · minä: mikä essive pl sg · puen: pukea 1st person present sg"
+  },
+  "lesson:my-day:2": {
+   "fi": "kello seitsemältä · Herään kello seitsemän",
+   "how": "kello: clock watch · seitsemältä: seitsemän ablative sg · herään: herätä 1st person present sg · seitsemän: seven"
+  },
+  "lesson:my-day:3": {
+   "fi": "Syön · Syön aamupalaa",
+   "how": "syön: syödä 1st person present sg · aamupalaa: aamupala partitive sg"
+  },
+  "lesson:my-day:4": {
+   "fi": "Puen takin päälle",
+   "how": "puen: pukea 1st person present sg · takin: takki genitive sg · päälle: pää allative sg"
+  },
+  "lesson:my-day:5": {
+   "fi": "ensin · sitten · lopuksi",
+   "how": "ensin: entää 1st person past sg · sitten: then · lopuksi: loppu sg translative"
+  },
+  "lesson:my-day:6": {
+   "fi": "Syön aamupalaa",
+   "how": "syön: syödä 1st person present sg · aamupalaa: aamupala partitive sg"
+  },
+  "lesson:my-day:7": {
+   "fi": "kello seitsemältä",
+   "how": "kello: clock watch · seitsemältä: seitsemän ablative sg"
+  },
+  "lesson:nature:4": {
+   "fi": "metsään · vuorelle · järvelle · rannalle",
+   "how": "metsään: metsä illative sg · vuorelle: vuori allative sg · järvelle: järvi allative sg · rannalle: ranta allative sg"
+  },
+  "lesson:nature:6": {
+   "fi": "järvessä · järveen",
+   "how": "järvessä: järvi inessive sg · järveen: järvi illative sg"
+  },
+  "lesson:nature:7": {
+   "fi": "kivellä · lehdellä",
+   "how": "kivellä: kivi adessive sg · lehdellä: lehti adessive sg"
+  },
+  "lesson:negation-object:1": {
+   "fi": "on",
+   "how": "on: olla present sg 3rd person"
+  },
+  "lesson:negation-object:5": {
+   "fi": "ei ole · pyörää",
+   "how": "ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · pyörää: pyörä partitive sg"
+  },
+  "lesson:negation-object:6": {
+   "fi": "Minulla on hattu. · on · ei ole · hattua",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · hattu: hat · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · hattua: hattu partitive sg"
+  },
+  "lesson:negative-verb:3": {
+   "fi": "en, et, ei, emme, ette, eivät · syön · en syö",
+   "how": "en: ei 1st person sg · et: ei 2nd person sg · ei: The negative verb or negation ve · emme: ei 1st person pl · ette: ei pl 2nd person · eivät: ei pl 3rd person · syön: syödä 1st person present sg · syö: syödä present sg 3rd person"
+  },
+  "lesson:negative-verb:4": {
+   "fi": "et",
+   "how": "et: ei 2nd person sg"
+  },
+  "lesson:negative-verb:5": {
+   "fi": "eivät",
+   "how": "eivät: ei pl 3rd person"
+  },
+  "lesson:no-articles:1": {
+   "fi": "kirja",
+   "how": "kirja: book"
+  },
+  "lesson:no-articles:2": {
+   "fi": "Tämä on · on",
+   "how": "tämä: this · on: olla present sg 3rd person"
+  },
+  "lesson:no-articles:3": {
+   "fi": "on · Onko",
+   "how": "on: olla present sg 3rd person · onko: olla present sg 3rd person"
+  },
+  "lesson:no-articles:4": {
+   "fi": "Onko",
+   "how": "onko: olla present sg 3rd person"
+  },
+  "lesson:no-articles:5": {
+   "fi": "opettaja",
+   "how": "opettaja: teacher"
+  },
+  "lesson:ordinals:1": {
+   "fi": "ensimmäinen · toinen · kolmas · neljäs · viides",
+   "how": "ensimmäinen: first · toinen: second · kolmas: third · neljäs: fourth · viides: fifth"
+  },
+  "lesson:ordinals:2": {
+   "fi": "kolme · kolmas",
+   "how": "kolme: three · kolmas: third"
+  },
+  "lesson:ordinals:3": {
+   "fi": "kolmas · kolme",
+   "how": "kolmas: third · kolme: three"
+  },
+  "lesson:ordinals:4": {
+   "fi": "ensimmäinen",
+   "how": "ensimmäinen: first"
+  },
+  "lesson:out-of-off:1": {
+   "fi": "Mistä?",
+   "how": "mistä: mikä elative pl sg"
+  },
+  "lesson:out-of-off:4": {
+   "fi": "laatikosta",
+   "how": "laatikosta: laatikko elative sg"
+  },
+  "lesson:out-of-off:5": {
+   "fi": "pöydältä",
+   "how": "pöydältä: pöytä ablative sg"
+  },
+  "lesson:owners:1": {
+   "fi": "isä · isän pyörä",
+   "how": "isä: father · isän: isä genitive sg · pyörä: wheel"
+  },
+  "lesson:owners:2": {
+   "fi": "Kenen pyörä tämä on? · Se on isän pyörä. · minun · sinun",
+   "how": "kenen: kuka /ken genitive sg · pyörä: wheel · tämä: this · on: olla present sg 3rd person · se: that · isän: isä genitive sg · minun: minä genitive sg · sinun: sinä genitive sg"
+  },
+  "lesson:owners:3": {
+   "fi": "äiti · äidin",
+   "how": "äiti: mother · äidin: äiti genitive sg"
+  },
+  "lesson:owners:4": {
+   "fi": "isän pallo",
+   "how": "isän: isä genitive sg · pallo: ball"
+  },
+  "lesson:owners:5": {
+   "fi": "äidin kissa · äidin · äiti",
+   "how": "äidin: äiti genitive sg · kissa: cat · äiti: mother"
+  },
+  "lesson:past-not:1": {
+   "fi": "en, et, ei… · -nut / -nyt · en syönyt · emme syöneet",
+   "how": "en: ei 1st person sg · et: ei 2nd person sg · ei…: ending notation · syönyt: syödä active participle past · emme: ei 1st person pl · syöneet: syödä: eivät syöneet (3rd person pl negative past)"
+  },
+  "lesson:past-not:3": {
+   "fi": "en, et, ei · en syönyt · emme, ette, eivät · emme syöneet · en tullut · en juossut",
+   "how": "en: ei 1st person sg · et: ei 2nd person sg · ei: The negative verb or negation ve · syönyt: syödä active participle past · emme: ei 1st person pl · ette: ei pl 2nd person · eivät: ei pl 3rd person · syöneet: syödä: eivät syöneet (3rd person pl negative past) · tullut: tulla active participle past · juossut: juosta …"
+  },
+  "lesson:past-not:4": {
+   "fi": "en · en lukenut · en lue",
+   "how": "en: ei 1st person sg · lukenut: lukea active participle past · lue: lukea imperative 2nd person sg"
+  },
+  "lesson:past-not:5": {
+   "fi": "eivät · eivät syöneet",
+   "how": "eivät: ei pl 3rd person · syöneet: syödä: eivät syöneet (3rd person pl negative past)"
+  },
+  "lesson:past:1": {
+   "fi": "syön · söin · haluan → halusin",
+   "how": "syön: syödä 1st person present sg · söin: syödä 1st person past sg · haluan: haluta 1st person present sg · halusin: haluta 1st person past sg"
+  },
+  "lesson:past:3": {
+   "fi": "minä nukuin · hän nukkui · nukun · nukkuu",
+   "how": "minä: mikä essive pl sg · nukuin: nukkua 1st person past sg · hän: he · nukkui: nukkua past sg 3rd person · nukun: nukkua 1st person present sg · nukkuu: nukkua present sg 3rd person"
+  },
+  "lesson:past:4": {
+   "fi": "luin",
+   "how": "luin: lukea 1st person past sg"
+  },
+  "lesson:past:5": {
+   "fi": "söimme",
+   "how": "söimme: syödä 1st person past pl"
+  },
+  "lesson:play:1": {
+   "fi": "leikkiä · pelata · soittaa",
+   "how": "leikkiä: leikki partitive sg · pelata: to play) · soittaa: to play"
+  },
+  "lesson:play:2": {
+   "fi": "minulla · Leikin nukella",
+   "how": "minulla: minä adessive sg · leikin: leikki genitive sg · nukella: nukke adessive sg"
+  },
+  "lesson:play:3": {
+   "fi": "pelaan · Pelaan jalkapalloa · pelata · haluta · pelaan, pelaat, pelaa · jääkiekko",
+   "how": "pelaan: pelata 1st person present sg · jalkapalloa: jalkapallo partitive sg · pelata: to play) · haluta: haluttaa imperative present 2nd person sg · pelaat: pelata present 2nd person sg · pelaa: pelata present sg 3rd person · jääkiekko: ice hockey"
+  },
+  "lesson:play:4": {
+   "fi": "soitan · Soitan pianoa · soittaa · Soitan isälle",
+   "how": "soitan: soittaa 1st person present sg · pianoa: piano partitive sg · soittaa: to play · isälle: isä allative sg"
+  },
+  "lesson:play:5": {
+   "fi": "auttaa · minä soitan · hän soittaa",
+   "how": "auttaa: to help · minä: mikä essive pl sg · soitan: soittaa 1st person present sg · hän: he · soittaa: to play"
+  },
+  "lesson:play:6": {
+   "fi": "soittaa · Soitan pianoa",
+   "how": "soittaa: to play · soitan: soittaa 1st person present sg · pianoa: piano partitive sg"
+  },
+  "lesson:play:7": {
+   "fi": "pelata · Pelaan jalkapalloa",
+   "how": "pelata: to play) · pelaan: pelata 1st person present sg · jalkapalloa: jalkapallo partitive sg"
+  },
+  "lesson:play:8": {
+   "fi": "nallella · nukella",
+   "how": "nallella: nalle adessive sg · nukella: nukke adessive sg"
+  },
+  "lesson:plural-places:1": {
+   "fi": "laatikossa · laatikoissa",
+   "how": "laatikossa: laatikko inessive sg · laatikoissa: laatikko inessive pl"
+  },
+  "lesson:plural-places:2": {
+   "fi": "talossa · taloissa · repussa · repuissa",
+   "how": "talossa: talo inessive sg · taloissa: talo inessive pl · repussa: reppu inessive sg · repuissa: reppu inessive pl"
+  },
+  "lesson:plural-places:3": {
+   "fi": "laatikoissa",
+   "how": "laatikoissa: laatikko inessive pl"
+  },
+  "lesson:plural-places:4": {
+   "fi": "laatikoissa",
+   "how": "laatikoissa: laatikko inessive pl"
+  },
+  "lesson:plural-some:1": {
+   "fi": "palloja · koiria · veneitä",
+   "how": "palloja: pallo partitive pl · koiria: koira partitive pl · veneitä: vene partitive pl"
+  },
+  "lesson:plural-some:2": {
+   "fi": "pallot · palloja",
+   "how": "pallot: pallo nominative pl · palloja: pallo partitive pl"
+  },
+  "lesson:plural-some:3": {
+   "fi": "palloja",
+   "how": "palloja: pallo partitive pl"
+  },
+  "lesson:plural-some:4": {
+   "fi": "Minulla ei ole pelejä. · ei ole · pelejä",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · pelejä: peli partitive pl"
+  },
+  "lesson:plurals:2": {
+   "fi": "on · ovat · Nämä ovat… · Missä ovat…?",
+   "how": "on: olla present sg 3rd person · ovat: olla pl present 3rd person · nämä: tämä nominative pl · ovat…: ending notation · missä: mikä inessive pl sg"
+  },
+  "lesson:plurals:3": {
+   "fi": "kirjat",
+   "how": "kirjat: kirja nominative pl"
+  },
+  "lesson:plurals:4": {
+   "fi": "kaveri · kaverit",
+   "how": "kaveri: friend · kaverit: kaveri nominative pl"
+  },
+  "lesson:possessive:2": {
+   "fi": "minun kirjani · sinun kirjasi · hänen kirjansa",
+   "how": "minun: minä genitive sg · kirjani: kirja 1st person possessive sg · sinun: sinä genitive sg · kirjasi: kirja possessive 2nd person sg · hänen: hän genitive sg · kirjansa: kirja possessive 3rd person"
+  },
+  "lesson:possessive:3": {
+   "fi": "Nimeni on… · nimeni · nimi",
+   "how": "nimeni: nimi 1st person possessive sg · on…: ending notation · nimi: name"
+  },
+  "lesson:possessive:6": {
+   "fi": "Tämä on sinun kirjasi. · sinun",
+   "how": "tämä: this · on: olla present sg 3rd person · sinun: sinä genitive sg · kirjasi: kirja possessive 2nd person sg"
+  },
+  "lesson:postpositions:1": {
+   "fi": "tuolin alla",
+   "how": "tuolin: tuoli genitive sg · alla: beneath"
+  },
+  "lesson:postpositions:2": {
+   "fi": "edessä · takana · vieressä · alla",
+   "how": "edessä: in front of · takana: behind · vieressä: vieri inessive sg · alla: beneath"
+  },
+  "lesson:postpositions:4": {
+   "fi": "puun takana",
+   "how": "puun: puu genitive sg · takana: behind"
+  },
+  "lesson:postpositions:6": {
+   "fi": "alla · pöydän alla",
+   "how": "alla: beneath · pöydän: pöytä accusative genitive sg"
+  },
+  "lesson:question-words:1": {
+   "fi": "Kuka? · Mikä? · Mitä? · Montako? · Kenen? · Miksi?",
+   "how": "kuka: who · mikä: what · mitä: mikä partitive pl sg · montako: how many? · kenen: kuka /ken genitive sg · miksi: mikä pl sg translative"
+  },
+  "lesson:question-words:3": {
+   "fi": "Kenen? · Kuka?",
+   "how": "kenen: kuka /ken genitive sg · kuka: who"
+  },
+  "lesson:question-words:4": {
+   "fi": "Miksi?",
+   "how": "miksi: mikä pl sg translative"
+  },
+  "lesson:school-day:2": {
+   "fi": "Tykkään · En tykkää · En pidä",
+   "how": "tykkään: tykätä 1st person present sg · en: ei 1st person sg · tykkää: tykätä present sg 3rd person · pidä: pitää imperative present 2nd person sg"
+  },
+  "lesson:school-day:3": {
+   "fi": "En tykkää · en · et · ei",
+   "how": "en: ei 1st person sg · tykkää: tykätä present sg 3rd person · et: ei 2nd person sg · ei: The negative verb or negation ve"
+  },
+  "lesson:school-day:4": {
+   "fi": "En tykkää · matematiikasta",
+   "how": "en: ei 1st person sg · tykkää: tykätä present sg 3rd person · matematiikasta: matematiikka elative sg"
+  },
+  "lesson:school-day:5": {
+   "fi": "Pidän englannista. · Pidän · En pidä",
+   "how": "pidän: pitää 1st person present sg · englannista: englanti elative sg · en: ei 1st person sg · pidä: pitää imperative present 2nd person sg"
+  },
+  "lesson:school-daycare:1": {
+   "fi": "päiväkoti",
+   "how": "päiväkoti: nursery school"
+  },
+  "lesson:school-daycare:2": {
+   "fi": "Saanko mennä…? · Menen · vessaan · pihalle",
+   "how": "saanko: saada 1st person present sg · mennä…: ending notation · menen: mennä 1st person present sg · vessaan: vessa illative sg · pihalle: piha allative sg"
+  },
+  "lesson:school-daycare:3": {
+   "fi": "Minun täytyy · Haluan",
+   "how": "minun: minä genitive sg · täytyy: täytyä present sg 3rd person · haluan: haluta 1st person present sg"
+  },
+  "lesson:school-daycare:4": {
+   "fi": "ymmärtää · piirtää",
+   "how": "ymmärtää: to understand · piirtää: to draw"
+  },
+  "lesson:school-daycare:5": {
+   "fi": "Haluaisin · Saisinko? · kynän · vettä",
+   "how": "haluaisin: haluta conditional 1st person present sg · saisinko: saada conditional 1st person present sg · kynän: kynä genitive sg · vettä: vesi partitive sg"
+  },
+  "lesson:school-daycare:7": {
+   "fi": "vessaan · vessassa",
+   "how": "vessaan: vessa illative sg · vessassa: vessa inessive sg"
+  },
+  "lesson:school-daycare:8": {
+   "fi": "Haluaisin · Haluan",
+   "how": "haluaisin: haluta conditional 1st person present sg · haluan: haluta 1st person present sg"
+  },
+  "lesson:sounds:5": {
+   "fi": "nimesi · nimeni · nimi",
+   "how": "nimesi: nimi possessive 2nd person sg · nimeni: nimi 1st person possessive sg · nimi: name"
+  },
+  "lesson:sounds:6": {
+   "fi": "tuuli · tuli · tulli",
+   "how": "tuuli: tuulla past sg 3rd person · tuli: tulla past sg 3rd person · tulli: customs"
+  },
+  "lesson:sounds:7": {
+   "fi": "Hyvää yötä!",
+   "how": "hyvää: hyvä partitive sg · yötä: yö partitive sg"
+  },
+  "lesson:sounds:8": {
+   "fi": "äiti",
+   "how": "äiti: mother"
+  },
+  "lesson:superlative:2": {
+   "fi": "iso → isompi → isoin · hyvä → parempi → paras · pitkä → pidempi → pisin",
+   "how": "iso: big · isompi: iso comparative · isoin: iso superlative · hyvä: good good good · parempi: hyvä comparative · paras: hyvä superlative · pitkä: long · pidempi: pitkä comparative · pisin: pitkä superlative"
+  },
+  "lesson:superlative:3": {
+   "fi": "vanhin",
+   "how": "vanhin: vanha superlative"
+  },
+  "lesson:superlative:4": {
+   "fi": "nopein · nopeampi",
+   "how": "nopein: nopea superlative · nopeampi: nopea comparative"
+  },
+  "lesson:total-object:1": {
+   "fi": "Näen · isän pyörä",
+   "how": "näen: nähdä 1st person present sg · isän: isä genitive sg · pyörä: wheel"
+  },
+  "lesson:total-object:3": {
+   "fi": "auton",
+   "how": "auton: auto genitive sg"
+  },
+  "lesson:total-object:4": {
+   "fi": "Näen bussin. · bussin",
+   "how": "näen: nähdä 1st person present sg · bussin: bussi genitive sg"
+  },
+  "lesson:town:1": {
+   "fi": "Olen · Menen · Tulen",
+   "how": "olen: olla 1st person present sg · menen: mennä 1st person present sg · tulen: tulla 1st person present sg"
+  },
+  "lesson:town:5": {
+   "fi": "puistoon",
+   "how": "puistoon: puisto illative sg"
+  },
+  "lesson:town:6": {
+   "fi": "asemalla",
+   "how": "asemalla: asema adessive sg"
+  },
+  "lesson:verb-persons:1": {
+   "fi": "minä · Syön.",
+   "how": "minä: mikä essive pl sg · syön: syödä 1st person present sg"
+  },
+  "lesson:verb-persons:2": {
+   "fi": "laulaa · puhua · syödä · tulla · mennä",
+   "how": "laulaa: laulaa present sg 3rd person · puhua: to speak · syödä: to eat · tulla: to come · mennä: to go [with illative of third in"
+  },
+  "lesson:verb-persons:3": {
+   "fi": "laula- · syö- · tule- · juosta · juoksen",
+   "how": "laula: laulaa imperative present 2nd person sg · syö: syödä present sg 3rd person · tule: tulla imperative present 2nd person sg · juosta: to run · juoksen: juosta 1st person present sg"
+  },
+  "lesson:verb-persons:4": {
+   "fi": "laulaa · tulee · syö",
+   "how": "laulaa: laulaa present sg 3rd person · tulee: tulla present sg 3rd person · syö: syödä present sg 3rd person"
+  },
+  "lesson:verb-persons:7": {
+   "fi": "mennä · menen",
+   "how": "mennä: to go [with illative of third in · menen: mennä 1st person present sg"
+  },
+  "lesson:verb-type4:2": {
+   "fi": "avata → avaa- · haluta → halua- · avaan · haluan",
+   "how": "avata: to open · avaa: avata present sg 3rd person · haluta: haluttaa imperative present 2nd person sg · halua: halu partitive sg · avaan: avata 1st person present sg · haluan: haluta 1st person present sg"
+  },
+  "lesson:verb-type4:4": {
+   "fi": "haluan → hän haluaa · avaan → hän avaa",
+   "how": "haluan: haluta 1st person present sg · hän: he · haluaa: haluta present sg 3rd person · avaan: avata 1st person present sg · avaa: avata present sg 3rd person"
+  },
+  "lesson:verb-type4:5": {
+   "fi": "haluan",
+   "how": "haluan: haluta 1st person present sg"
+  },
+  "lesson:verb-type4:6": {
+   "fi": "korjata · korjaan",
+   "how": "korjata: to repair · korjaan: korjata 1st person present sg"
+  },
+  "lesson:verb-types-5-6:1": {
+   "fi": "tarvita → tarvitsen",
+   "how": "tarvita: to need · tarvitsen: tarvita 1st person present sg"
+  },
+  "lesson:verb-types-5-6:2": {
+   "fi": "vanheta → vanhenen",
+   "how": "vanheta: vanhettaa imperative present 2nd person sg · vanhenen: vanheta 1st person present sg"
+  },
+  "lesson:verb-types-5-6:5": {
+   "fi": "valitsen",
+   "how": "valitsen: valita 1st person present sg"
+  },
+  "lesson:verb-types-5-6:6": {
+   "fi": "vanheta · vanhenen",
+   "how": "vanheta: vanhettaa imperative present 2nd person sg · vanhenen: vanheta 1st person present sg"
+  },
+  "lesson:wanting:1": {
+   "fi": "Haluan · Haluan leikkiä",
+   "how": "haluan: haluta 1st person present sg · leikkiä: leikki partitive sg"
+  },
+  "lesson:wanting:3": {
+   "fi": "Osaan · Saanko…? · saan",
+   "how": "osaan: osa illative sg · saanko…: ending notation · saan: saada 1st person present sg"
+  },
+  "lesson:wanting:4": {
+   "fi": "Haluan · uida",
+   "how": "haluan: haluta 1st person present sg · uida: to swim"
+  },
+  "lesson:wanting:5": {
+   "fi": "Osaan lukea. · Osaan",
+   "how": "osaan: osa illative sg · lukea: to read"
+  },
+  "lesson:watching-waiting:1": {
+   "fi": "katsoa · odottaa",
+   "how": "katsoa: to look · odottaa: to wait"
+  },
+  "lesson:watching-waiting:2": {
+   "fi": "Näen bussin. · Odotan bussia.",
+   "how": "näen: nähdä 1st person present sg · bussin: bussi genitive sg · odotan: odottaa 1st person present sg · bussia: bussi partitive sg"
+  },
+  "lesson:watching-waiting:3": {
+   "fi": "junaa",
+   "how": "junaa: juna partitive sg"
+  },
+  "lesson:watching-waiting:4": {
+   "fi": "Näen junan",
+   "how": "näen: nähdä 1st person present sg · junan: juna genitive sg"
+  },
+  "lesson:watching-waiting:5": {
+   "fi": "tykkään · rakastan · näen · odotan",
+   "how": "tykkään: tykätä 1st person present sg · rakastan: rakastaa 1st person present sg · näen: nähdä 1st person present sg · odotan: odottaa 1st person present sg"
+  },
+  "lesson:weather:2": {
+   "fi": "Sataa vettä · Sataa lunta",
+   "how": "sataa: sata partitive sg · vettä: vesi partitive sg · lunta: lumi partitive sg"
+  },
+  "lesson:weather:3": {
+   "fi": "Tuulee",
+   "how": "tuulee: tuulla present sg 3rd person"
+  },
+  "lesson:weather:4": {
+   "fi": "On kylmä · Minulla on kylmä",
+   "how": "on: olla present sg 3rd person · kylmä: cold · minulla: minä adessive sg"
+  },
+  "lesson:weather:6": {
+   "fi": "Sataa lunta",
+   "how": "sataa: sata partitive sg · lunta: lumi partitive sg"
+  },
+  "lesson:weather:7": {
+   "fi": "Minulla on kylmä · On kylmä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · kylmä: cold"
+  },
+  "lesson:when:1": {
+   "fi": "maanantai",
+   "how": "maanantai: Monday"
+  },
+  "lesson:when:4": {
+   "fi": "sunnuntaina",
+   "how": "sunnuntaina: sunnuntai essive pl sg"
+  },
+  "lesson:when:5": {
+   "fi": "talvella",
+   "how": "talvella: talvi adessive sg"
+  },
+  "lesson:where-questions:1": {
+   "fi": "Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Milloin? · lauantaina",
+   "how": "missä: mikä inessive pl sg · laatikossa: laatikko inessive sg · mihin: mikä illative pl sg · puistoon: puisto illative sg · mistä: mikä elative pl sg · koulusta: koulu elative sg · milloin: when · lauantaina: lauantai essive pl sg"
+  },
+  "lesson:where-questions:3": {
+   "fi": "Mihin sinä menet? · Mihin? · Menen puistoon",
+   "how": "mihin: mikä illative pl sg · sinä: se essive sg · menet: mennä present 2nd person sg · menen: mennä 1st person present sg · puistoon: puisto illative sg"
+  },
+  "lesson:where-questions:4": {
+   "fi": "Mistä?",
+   "how": "mistä: mikä elative pl sg"
+  },
+  "lesson:with-someone:2": {
+   "fi": "Leikin pallolla. · Leikin kaverin kanssa.",
+   "how": "leikin: leikki genitive sg · pallolla: pallo adessive sg · kaverin: kaveri accusative genitive sg · kanssa: with"
+  },
+  "lesson:with-someone:3": {
+   "fi": "kanssa · kaverin kanssa",
+   "how": "kanssa: with · kaverin: kaveri accusative genitive sg"
+  },
+  "lesson:with-someone:4": {
+   "fi": "pallolla",
+   "how": "pallolla: pallo adessive sg"
+  },
+  "lesson:word-order:3": {
+   "fi": "Kissa on laatikolla · laatikossa",
+   "how": "kissa: cat · on: olla present sg 3rd person · laatikolla: laatikko adessive sg · laatikossa: laatikko inessive sg"
+  },
+  "lesson:word-order:4": {
+   "fi": "laatikossa",
+   "how": "laatikossa: laatikko inessive sg"
+  },
+  "lesson:word-order:5": {
+   "fi": "Pidän · jalkapallosta",
+   "how": "pidän: pitää 1st person present sg · jalkapallosta: jalkapallo elative sg"
+  },
+  "letter:a": {
+   "fi": "Aa — \"aa\"",
+   "how": "\"aa\": the letter's name in Wiktionary"
+  },
+  "letter:b": {
+   "fi": "Bb — \"bee\"",
+   "how": "\"bee\": the letter's name in Wiktionary"
+  },
+  "letter:c": {
+   "fi": "Cc — \"see\"",
+   "how": "\"see\": the letter's name in Wiktionary"
+  },
+  "letter:d": {
+   "fi": "Dd — \"dee\"",
+   "how": "\"dee\": the letter's name in Wiktionary"
+  },
+  "letter:e": {
+   "fi": "Ee — \"ee\"",
+   "how": "\"ee\": the letter's name in Wiktionary"
+  },
+  "letter:f": {
+   "fi": "Ff — \"äf\"",
+   "how": "\"äf\": the letter's name in Wiktionary"
+  },
+  "letter:g": {
+   "fi": "Gg — \"gee\"",
+   "how": "\"gee\": the letter's name in Wiktionary"
+  },
+  "letter:h": {
+   "fi": "Hh — \"hoo\"",
+   "how": "\"hoo\": the letter's name in Wiktionary"
+  },
+  "letter:i": {
+   "fi": "Ii — \"ii\"",
+   "how": "\"ii\": the letter's name in Wiktionary"
+  },
+  "letter:j": {
+   "fi": "Jj — \"jii\"",
+   "how": "\"jii\": the letter's name in Wiktionary"
+  },
+  "letter:k": {
+   "fi": "Kk — \"koo\"",
+   "how": "\"koo\": the letter's name in Wiktionary"
+  },
+  "letter:l": {
+   "fi": "Ll — \"äl\"",
+   "how": "\"äl\": the letter's name in Wiktionary"
+  },
+  "letter:m": {
+   "fi": "Mm — \"äm\"",
+   "how": "\"äm\": the letter's name in Wiktionary"
+  },
+  "letter:n": {
+   "fi": "Nn — \"än\"",
+   "how": "\"än\": the letter's name in Wiktionary"
+  },
+  "letter:o": {
+   "fi": "Oo — \"oo\"",
+   "how": "\"oo\": the letter's name in Wiktionary"
+  },
+  "letter:p": {
+   "fi": "Pp — \"pee\"",
+   "how": "\"pee\": the letter's name in Wiktionary"
+  },
+  "letter:q": {
+   "fi": "Qq — \"kuu\"",
+   "how": "\"kuu\": the letter's name in Wiktionary"
+  },
+  "letter:r": {
+   "fi": "Rr — \"är\"",
+   "how": "\"är\": the letter's name in Wiktionary"
+  },
+  "letter:s": {
+   "fi": "Ss — \"äs\"",
+   "how": "\"äs\": the letter's name in Wiktionary"
+  },
+  "letter:t": {
+   "fi": "Tt — \"tee\"",
+   "how": "\"tee\": the letter's name in Wiktionary"
+  },
+  "letter:u": {
+   "fi": "Uu — \"uu\"",
+   "how": "\"uu\": the letter's name in Wiktionary"
+  },
+  "letter:v": {
+   "fi": "Vv — \"vee\"",
+   "how": "\"vee\": the letter's name in Wiktionary"
+  },
+  "letter:w": {
+   "fi": "Ww — \"kaksoisvee\"",
+   "how": "\"kaksoisvee\": the letter's name in Wiktionary (was kaksois-vee; Wiktionary spells the letter name kaksoisvee)"
+  },
+  "letter:x": {
+   "fi": "Xx — \"äks\"",
+   "how": "\"äks\": the letter's name in Wiktionary"
+  },
+  "letter:y": {
+   "fi": "Yy — \"yy\"",
+   "how": "\"yy\": the letter's name in Wiktionary"
+  },
+  "letter:z": {
+   "fi": "Zz — \"tset\"",
+   "how": "\"tset\": the letter's name in Wiktionary"
+  },
+  "letter:ä": {
+   "fi": "Ää — \"ää\"",
+   "how": "\"ää\": the letter's name in Wiktionary"
+  },
+  "letter:å": {
+   "fi": "Åå — \"ruotsalainen oo\"",
+   "how": "\"ruotsalainen oo\": the letter's name in Wiktionary"
+  },
+  "letter:ö": {
+   "fi": "Öö — \"öö\"",
+   "how": "\"öö\": the letter's name in Wiktionary"
+  },
+  "ordinal:eighteenth": {
+   "fi": "kahdeksastoista",
+   "how": "kahdeksastoista: eighteenth"
+  },
+  "ordinal:eleventh": {
+   "fi": "yhdestoista",
+   "how": "yhdestoista: eleventh"
+  },
+  "ordinal:fifteenth": {
+   "fi": "viidestoista",
+   "how": "viidestoista: fifteenth"
+  },
+  "ordinal:fourteenth": {
+   "fi": "neljästoista",
+   "how": "neljästoista: fourteenth"
+  },
+  "ordinal:nineteenth": {
+   "fi": "yhdeksästoista",
+   "how": "yhdeksästoista: nineteenth"
+  },
+  "ordinal:seventeenth": {
+   "fi": "seitsemästoista",
+   "how": "seitsemästoista: seventeenth"
+  },
+  "ordinal:sixteenth": {
+   "fi": "kuudestoista",
+   "how": "kuudestoista: sixteenth"
+  },
+  "ordinal:thirteenth": {
+   "fi": "kolmastoista",
+   "how": "kolmastoista: thirteenth"
+  },
+  "ordinal:thirtieth": {
+   "fi": "kolmaskymmenes",
+   "how": "kolmaskymmenes: thirtieth"
+  },
+  "ordinal:thirty-first": {
+   "fi": "kolmaskymmenesensimmäinen",
+   "how": "kolmaskymmenesensimmäinen: thirty-first"
+  },
+  "ordinal:twelfth": {
+   "fi": "kahdestoista",
+   "how": "kahdestoista: twelfth"
+  },
+  "ordinal:twentieth": {
+   "fi": "kahdeskymmenes",
+   "how": "kahdeskymmenes: twentieth"
+  },
+  "ordinal:twenty-eighth": {
+   "fi": "kahdeskymmeneskahdeksas",
+   "how": "kahdeskymmeneskahdeksas: twenty-eighth"
+  },
+  "ordinal:twenty-fifth": {
+   "fi": "kahdeskymmenesviides",
+   "how": "kahdeskymmenesviides: twenty-fifth"
+  },
+  "ordinal:twenty-first": {
+   "fi": "kahdeskymmenesensimmäinen",
+   "how": "kahdeskymmenesensimmäinen: twenty-first"
+  },
+  "ordinal:twenty-fourth": {
+   "fi": "kahdeskymmenesneljäs",
+   "how": "kahdeskymmenesneljäs: twenty-fourth"
+  },
+  "ordinal:twenty-ninth": {
+   "fi": "kahdeskymmenesyhdeksäs",
+   "how": "kahdeskymmenesyhdeksäs: twenty-ninth"
+  },
+  "ordinal:twenty-second": {
+   "fi": "kahdeskymmenestoinen",
+   "how": "kahdeskymmenestoinen: twenty-second"
+  },
+  "ordinal:twenty-seventh": {
+   "fi": "kahdeskymmenesseitsemäs",
+   "how": "kahdeskymmenesseitsemäs: twenty-seventh"
+  },
+  "ordinal:twenty-sixth": {
+   "fi": "kahdeskymmeneskuudes",
+   "how": "kahdeskymmeneskuudes: twenty-sixth"
+  },
+  "ordinal:twenty-third": {
+   "fi": "kahdeskymmeneskolmas",
+   "how": "kahdeskymmeneskolmas: twenty-third"
+  },
+  "pattern:age": {
+   "fi": "Olen kahdeksan vuotta vanha.",
+   "how": "olen: olla 1st person present sg · kahdeksan: eight · vuotta: vuo sg · vanha: old"
+  },
+  "pattern:birthday-date": {
+   "fi": "Syntymäpäiväni on viides toukokuuta.",
+   "how": "syntymäpäiväni: syntymäpäivä 1st person nominative sg · on: olla present sg 3rd person · viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "pattern:compare": {
+   "fi": "Norsu on isompi kuin hiiri. (X on ⟨-mpi⟩ kuin Y)",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isompi: iso comparative · kuin: kuu pl · hiiri: mouse · x: The twenty-third letter of the F · y: The twenty-fourth letter of the "
+  },
+  "pattern:date": {
+   "fi": "viides toukokuuta (⟨ordinal⟩ ⟨month-partitive⟩)",
+   "how": "viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "pattern:superlative": {
+   "fi": "Norsu on isoin. (X on ⟨-in⟩)",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isoin: iso superlative · x: The twenty-third letter of the F"
+  },
+  "pattern:which-most": {
+   "fi": "Mikä on isoin? / Kuka on vanhin?",
+   "how": "mikä: what · on: olla present sg 3rd person · isoin: iso superlative · kuka: who · vanhin: vanha superlative"
+  },
+  "pattern:which-of-two": {
+   "fi": "Kumpi on isompi?",
+   "how": "kumpi: which one two) · on: olla present sg 3rd person · isompi: iso comparative"
+  },
+  "pronoun-frame:for-you": {
+   "fi": "Tämä on ___!",
+   "how": "tämä: this · on: olla present sg 3rd person"
+  },
+  "pronoun-frame:give": {
+   "fi": "Anna se ___!",
+   "how": "anna: antaa imperative present 2nd person sg · se: that"
+  },
+  "pronoun-frame:help": {
+   "fi": "Auta ___!",
+   "how": "auta: auttaa imperative present 2nd person sg"
+  },
+  "pronoun-frame:like": {
+   "fi": "Pidän ___.",
+   "how": "pidän: pitää 1st person present sg"
+  },
+  "pronoun-frame:love": {
+   "fi": "Rakastan ___.",
+   "how": "rakastan: rakastaa 1st person present sg"
+  },
+  "pronoun-frame:see": {
+   "fi": "Näen ___.",
+   "how": "näen: nähdä 1st person present sg"
+  },
+  "pronoun-frame:wait": {
+   "fi": "Odota ___!",
+   "how": "odota: odottaa imperative present 2nd person sg"
+  },
+  "pronoun:1pl": {
+   "fi": "me, meitä, meidät, meille, meistä, meillä, meidän",
+   "how": "declension of me: meitä partitive pl, meidät accusative pl, meille allative pl, meistä elative pl, meillä adessive pl, meidän genitive pl"
+  },
+  "pronoun:1sg": {
+   "fi": "minä, minua, minut, minulle, minusta, minulla, minun",
+   "how": "declension of minä: minua partitive sg, minut accusative sg, minulle allative sg, minusta elative sg, minulla adessive sg, minun genitive sg"
+  },
+  "pronoun:2pl": {
+   "fi": "te, teitä, teidät, teille, teistä, teillä, teidän",
+   "how": "declension of te: teitä partitive pl, teidät accusative pl, teille allative pl, teistä elative pl, teillä adessive pl, teidän genitive pl"
+  },
+  "pronoun:2sg": {
+   "fi": "sinä, sinua, sinut, sinulle, sinusta, sinulla, sinun",
+   "how": "declension of sinä: sinua partitive sg, sinut accusative sg, sinulle allative sg, sinusta elative sg, sinulla adessive sg, sinun genitive sg"
+  },
+  "pronoun:3pl": {
+   "fi": "he, heitä, heidät, heille, heistä, heillä, heidän",
+   "how": "declension of he: heitä partitive pl, heidät accusative pl, heille allative pl, heistä elative pl, heillä adessive pl, heidän genitive pl"
+  },
+  "pronoun:3sg": {
+   "fi": "hän, häntä, hänet, hänelle, hänestä, hänellä, hänen",
+   "how": "declension of hän: häntä partitive sg, hänet accusative sg, hänelle allative sg, hänestä elative sg, hänellä adessive sg, hänen genitive sg"
+  },
+  "question:answer": {
+   "fi": "vastaatko?",
+   "how": "vastata: 2nd person sg present \"vastaat\" + question -ko"
+  },
+  "question:ask": {
+   "fi": "kysytkö?",
+   "how": "kysyä: 2nd person sg present \"kysyt\" + question -kö"
+  },
+  "question:be": {
+   "fi": "oletko?",
+   "how": "olla: 2nd person sg present \"olet\" + question -ko"
+  },
+  "question:bring": {
+   "fi": "tuotko?",
+   "how": "tuoda: 2nd person sg present \"tuot\" + question -ko"
+  },
+  "question:brush": {
+   "fi": "harjaatko?",
+   "how": "harjata: 2nd person sg present \"harjaat\" + question -ko"
+  },
+  "question:build": {
+   "fi": "rakennatko?",
+   "how": "rakentaa: 2nd person sg present \"rakennat\" + question -ko"
+  },
+  "question:buy": {
+   "fi": "ostatko?",
+   "how": "ostaa: 2nd person sg present \"ostat\" + question -ko"
+  },
+  "question:carry": {
+   "fi": "vietkö?",
+   "how": "viedä: 2nd person sg present \"viet\" + question -kö"
+  },
+  "question:choose": {
+   "fi": "valitsetko?",
+   "how": "valita: 2nd person sg present \"valitset\" + question -ko"
+  },
+  "question:clean": {
+   "fi": "siivoatko?",
+   "how": "siivota: 2nd person sg present \"siivoat\" + question -ko"
+  },
+  "question:climb": {
+   "fi": "kiipeätkö?",
+   "how": "kiivetä: 2nd person sg present \"kiipeät\" + question -kö"
+  },
+  "question:close": {
+   "fi": "suljetko?",
+   "how": "sulkea: 2nd person sg present \"suljet\" + question -ko"
+  },
+  "question:come": {
+   "fi": "tuletko?",
+   "how": "tulla: 2nd person sg present \"tulet\" + question -ko"
+  },
+  "question:cook": {
+   "fi": "keitätkö?",
+   "how": "keittää: 2nd person sg present \"keität\" + question -kö"
+  },
+  "question:cry": {
+   "fi": "itketkö?",
+   "how": "itkeä: 2nd person sg present \"itket\" + question -kö"
+  },
+  "question:cut": {
+   "fi": "leikkaatko?",
+   "how": "leikata: 2nd person sg present \"leikkaat\" + question -ko"
+  },
+  "question:dance": {
+   "fi": "tanssitko?",
+   "how": "tanssia: 2nd person sg present \"tanssit\" + question -ko"
+  },
+  "question:disturb": {
+   "fi": "häiritsetkö?",
+   "how": "häiritä: 2nd person sg present \"häiritset\" + question -kö"
+  },
+  "question:draw": {
+   "fi": "piirrätkö?",
+   "how": "piirtää: 2nd person sg present \"piirrät\" + question -kö"
+  },
+  "question:drink": {
+   "fi": "juotko?",
+   "how": "juoda: 2nd person sg present \"juot\" + question -ko"
+  },
+  "question:drive": {
+   "fi": "ajatko?",
+   "how": "ajaa: 2nd person sg present \"ajat\" + question -ko"
+  },
+  "question:eat": {
+   "fi": "syötkö?",
+   "how": "syödä: 2nd person sg present \"syöt\" + question -kö"
+  },
+  "question:fall": {
+   "fi": "putoatko?",
+   "how": "pudota: 2nd person sg present \"putoat\" + question -ko"
+  },
+  "question:find": {
+   "fi": "löydätkö?",
+   "how": "löytää: 2nd person sg present \"löydät\" + question -kö"
+  },
+  "question:fix": {
+   "fi": "korjaatko?",
+   "how": "korjata: 2nd person sg present \"korjaat\" + question -ko"
+  },
+  "question:fly": {
+   "fi": "lennätkö?",
+   "how": "lentää: 2nd person sg present \"lennät\" + question -kö"
+  },
+  "question:forget": {
+   "fi": "unohdatko?",
+   "how": "unohtaa: 2nd person sg present \"unohdat\" + question -ko"
+  },
+  "question:get": {
+   "fi": "saatko?",
+   "how": "saada: 2nd person sg present \"saat\" + question -ko"
+  },
+  "question:give": {
+   "fi": "annatko?",
+   "how": "antaa: 2nd person sg present \"annat\" + question -ko"
+  },
+  "question:go": {
+   "fi": "menetkö?",
+   "how": "mennä: 2nd person sg present \"menet\" + question -kö"
+  },
+  "question:grow-old": {
+   "fi": "vanhenetko?",
+   "how": "vanheta: 2nd person sg present \"vanhenet\" + question -ko"
+  },
+  "question:hear": {
+   "fi": "kuuletko?",
+   "how": "kuulla: 2nd person sg present \"kuulet\" + question -ko"
+  },
+  "question:help": {
+   "fi": "autatko?",
+   "how": "auttaa: 2nd person sg present \"autat\" + question -ko"
+  },
+  "question:hug": {
+   "fi": "halaatko?",
+   "how": "halata: 2nd person sg present \"halaat\" + question -ko"
+  },
+  "question:jump": {
+   "fi": "hyppäätkö?",
+   "how": "hypätä: 2nd person sg present \"hyppäät\" + question -kö"
+  },
+  "question:laugh": {
+   "fi": "nauratko?",
+   "how": "nauraa: 2nd person sg present \"naurat\" + question -ko"
+  },
+  "question:learn": {
+   "fi": "opitko?",
+   "how": "oppia: 2nd person sg present \"opit\" + question -ko"
+  },
+  "question:lift": {
+   "fi": "nostatko?",
+   "how": "nostaa: 2nd person sg present \"nostat\" + question -ko"
+  },
+  "question:like": {
+   "fi": "tykkäätkö?",
+   "how": "tykätä: 2nd person sg present \"tykkäät\" + question -kö"
+  },
+  "question:listen": {
+   "fi": "kuunteletko?",
+   "how": "kuunnella: 2nd person sg present \"kuuntelet\" + question -ko"
+  },
+  "question:live": {
+   "fi": "asutko?",
+   "how": "asua: 2nd person sg present \"asut\" + question -ko"
+  },
+  "question:lock": {
+   "fi": "lukitsetko?",
+   "how": "lukita: 2nd person sg present \"lukitset\" + question -ko"
+  },
+  "question:look": {
+   "fi": "katsotko?",
+   "how": "katsoa: 2nd person sg present \"katsot\" + question -ko"
+  },
+  "question:love": {
+   "fi": "rakastatko?",
+   "how": "rakastaa: 2nd person sg present \"rakastat\" + question -ko"
+  },
+  "question:make": {
+   "fi": "teetkö?",
+   "how": "tehdä: 2nd person sg present \"teet\" + question -kö"
+  },
+  "question:meet": {
+   "fi": "tapaatko?",
+   "how": "tavata: 2nd person sg present \"tapaat\" + question -ko"
+  },
+  "question:need": {
+   "fi": "tarvitsetko?",
+   "how": "tarvita: 2nd person sg present \"tarvitset\" + question -ko"
+  },
+  "question:open": {
+   "fi": "avaatko?",
+   "how": "avata: 2nd person sg present \"avaat\" + question -ko"
+  },
+  "question:order": {
+   "fi": "käsketkö?",
+   "how": "käskeä: 2nd person sg present \"käsket\" + question -kö"
+  },
+  "question:paint": {
+   "fi": "maalaatko?",
+   "how": "maalata: 2nd person sg present \"maalaat\" + question -ko"
+  },
+  "question:play": {
+   "fi": "leikitkö?",
+   "how": "leikkiä: 2nd person sg present \"leikit\" + question -kö"
+  },
+  "question:play-game": {
+   "fi": "pelaatko?",
+   "how": "pelata: 2nd person sg present \"pelaat\" + question -ko"
+  },
+  "question:play-music": {
+   "fi": "soitatko?",
+   "how": "soittaa: 2nd person sg present \"soitat\" + question -ko"
+  },
+  "question:put-on": {
+   "fi": "puetko?",
+   "how": "pukea: 2nd person sg present \"puet\" + question -ko"
+  },
+  "question:read": {
+   "fi": "luetko?",
+   "how": "lukea: 2nd person sg present \"luet\" + question -ko"
+  },
+  "question:remember": {
+   "fi": "muistatko?",
+   "how": "muistaa: 2nd person sg present \"muistat\" + question -ko"
+  },
+  "question:run": {
+   "fi": "juoksetko?",
+   "how": "juosta: 2nd person sg present \"juokset\" + question -ko"
+  },
+  "question:run-away": {
+   "fi": "pakenetko?",
+   "how": "paeta: 2nd person sg present \"pakenet\" + question -ko"
+  },
+  "question:say": {
+   "fi": "sanotko?",
+   "how": "sanoa: 2nd person sg present \"sanot\" + question -ko"
+  },
+  "question:search": {
+   "fi": "etsitkö?",
+   "how": "etsiä: 2nd person sg present \"etsit\" + question -kö"
+  },
+  "question:see": {
+   "fi": "näetkö?",
+   "how": "nähdä: 2nd person sg present \"näet\" + question -kö"
+  },
+  "question:sing": {
+   "fi": "laulatko?",
+   "how": "laulaa: 2nd person sg present \"laulat\" + question -ko"
+  },
+  "question:sit": {
+   "fi": "istutko?",
+   "how": "istua: 2nd person sg present \"istut\" + question -ko"
+  },
+  "question:skate": {
+   "fi": "luisteletko?",
+   "how": "luistella: 2nd person sg present \"luistelet\" + question -ko"
+  },
+  "question:ski": {
+   "fi": "hiihdätkö?",
+   "how": "hiihtää: 2nd person sg present \"hiihdät\" + question -kö"
+  },
+  "question:sleep": {
+   "fi": "nukutko?",
+   "how": "nukkua: 2nd person sg present \"nukut\" + question -ko"
+  },
+  "question:smile": {
+   "fi": "hymyiletkö?",
+   "how": "hymyillä: 2nd person sg present \"hymyilet\" + question -kö"
+  },
+  "question:speak": {
+   "fi": "puhutko?",
+   "how": "puhua: 2nd person sg present \"puhut\" + question -ko"
+  },
+  "question:stand": {
+   "fi": "seisotko?",
+   "how": "seisoa: 2nd person sg present \"seisot\" + question -ko"
+  },
+  "question:swim": {
+   "fi": "uitko?",
+   "how": "uida: 2nd person sg present \"uit\" + question -ko"
+  },
+  "question:take": {
+   "fi": "otatko?",
+   "how": "ottaa: 2nd person sg present \"otat\" + question -ko"
+  },
+  "question:teach": {
+   "fi": "opetatko?",
+   "how": "opettaa: 2nd person sg present \"opetat\" + question -ko"
+  },
+  "question:throw": {
+   "fi": "heitätkö?",
+   "how": "heittää: 2nd person sg present \"heität\" + question -kö"
+  },
+  "question:touch": {
+   "fi": "kosketatko?",
+   "how": "koskettaa: 2nd person sg present \"kosketat\" + question -ko"
+  },
+  "question:understand": {
+   "fi": "ymmärrätkö?",
+   "how": "ymmärtää: 2nd person sg present \"ymmärrät\" + question -kö"
+  },
+  "question:wait": {
+   "fi": "odotatko?",
+   "how": "odottaa: 2nd person sg present \"odotat\" + question -ko"
+  },
+  "question:wake-up": {
+   "fi": "heräätkö?",
+   "how": "herätä: 2nd person sg present \"heräät\" + question -kö"
+  },
+  "question:walk": {
+   "fi": "käveletkö?",
+   "how": "kävellä: 2nd person sg present \"kävelet\" + question -kö"
+  },
+  "question:want": {
+   "fi": "haluatko?",
+   "how": "haluta: 2nd person sg present \"haluat\" + question -ko"
+  },
+  "question:warm-up": {
+   "fi": "lämpenetkö?",
+   "how": "lämmetä: 2nd person sg present \"lämpenet\" + question -kö"
+  },
+  "question:wash": {
+   "fi": "pesetkö?",
+   "how": "pestä: 2nd person sg present \"peset\" + question -kö"
+  },
+  "question:write": {
+   "fi": "kirjoitatko?",
+   "how": "kirjoittaa: 2nd person sg present \"kirjoitat\" + question -ko"
+  },
+  "title:Aamulla": {
+   "fi": "Aamulla",
+   "how": "aamulla: aamu adessive sg"
+  },
+  "title:Ainon päivä": {
+   "fi": "Ainon päivä",
+   "how": "ainon: aino genitive sg · päivä: day"
+  },
+  "title:Alku": {
+   "fi": "Alku",
+   "how": "alku: start"
+  },
+  "title:Arkipuhetta": {
+   "fi": "Arkipuhetta",
+   "how": "arkipuhetta: arkipuhe (informal speech), partitive"
+  },
+  "title:Auta minua!": {
+   "fi": "Auta minua!",
+   "how": "auta: auttaa imperative present 2nd person sg · minua: minä partitive sg"
+  },
+  "title:Auta minua! · Näen sinut.": {
+   "fi": "Auta minua! · Näen sinut.",
+   "how": "auta: auttaa imperative present 2nd person sg · minua: minä partitive sg · näen: nähdä 1st person present sg · sinut: sinä accusative sg"
+  },
+  "title:Auta minua, näen sinut": {
+   "fi": "Auta minua, näen sinut",
+   "how": "auta: auttaa imperative present 2nd person sg · minua: minä partitive sg · näen: nähdä 1st person present sg · sinut: sinä accusative sg"
+  },
+  "title:Avaan, haluan": {
+   "fi": "Avaan, haluan",
+   "how": "avaan: avata 1st person present sg · haluan: haluta 1st person present sg"
+  },
+  "title:Avaan. · Hän ei avaa.": {
+   "fi": "Avaan. · Hän ei avaa.",
+   "how": "avaan: avata 1st person present sg · hän: he · ei: The negative verb or negation ve · avaa: avata present sg 3rd person"
+  },
+  "title:Bussilla ja kynällä": {
+   "fi": "Bussilla ja kynällä",
+   "how": "bussilla: bussi adessive sg · ja: and · kynällä: kynä adessive sg"
+  },
+  "title:Bussilla, kynällä": {
+   "fi": "Bussilla, kynällä",
+   "how": "bussilla: bussi adessive sg · kynällä: kynä adessive sg"
+  },
+  "title:Bussipysäkillä": {
+   "fi": "Bussipysäkillä",
+   "how": "bussipysäkillä: bussipysäkki adessive sg"
+  },
+  "title:Edessä, takana": {
+   "fi": "Edessä, takana",
+   "how": "edessä: in front of · takana: behind"
+  },
+  "title:Edessä, takana…": {
+   "fi": "Edessä, takana…",
+   "how": "edessä: in front of · takana…: ending notation"
+  },
+  "title:Ei \"a\" eikä \"the\"": {
+   "fi": "Ei \"a\" eikä \"the\"",
+   "how": "ei: the negative verb · eikä: nor — \"a\" and \"the\" are English, in quotes"
+  },
+  "title:Ei ole": {
+   "fi": "Ei ole",
+   "how": "ei: The negative verb or negation ve · ole: olla imperative 2nd person sg"
+  },
+  "title:Eilen": {
+   "fi": "Eilen",
+   "how": "eilen: yesterday"
+  },
+  "title:Eläintarhassa": {
+   "fi": "Eläintarhassa",
+   "how": "eläintarhassa: eläintarha inessive sg"
+  },
+  "title:En avaa": {
+   "fi": "En avaa",
+   "how": "en: ei 1st person sg · avaa: avata present sg 3rd person"
+  },
+  "title:En ole väsynyt.": {
+   "fi": "En ole väsynyt.",
+   "how": "en: ei 1st person sg · ole: olla imperative 2nd person sg · väsynyt: väsyä active participle past"
+  },
+  "title:En ole…": {
+   "fi": "En ole…",
+   "how": "en: ei 1st person sg · ole…: ending notation"
+  },
+  "title:En syö": {
+   "fi": "En syö",
+   "how": "en: ei 1st person sg · syö: syödä present sg 3rd person"
+  },
+  "title:En syönyt": {
+   "fi": "En syönyt",
+   "how": "en: ei 1st person sg · syönyt: syödä active participle past"
+  },
+  "title:En tee": {
+   "fi": "En tee",
+   "how": "en: ei 1st person sg · tee: tehdä imperative present 2nd person sg"
+  },
+  "title:En tykkää kokeesta.": {
+   "fi": "En tykkää kokeesta.",
+   "how": "en: ei 1st person sg · tykkää: tykätä present sg 3rd person · kokeesta: koe elative sg"
+  },
+  "title:En tykkää matematiikasta.": {
+   "fi": "En tykkää matematiikasta.",
+   "how": "en: ei 1st person sg · tykkää: tykätä present sg 3rd person · matematiikasta: matematiikka elative sg"
+  },
+  "title:En ymmärrä": {
+   "fi": "En ymmärrä",
+   "how": "en: ei 1st person sg · ymmärrä: ymmärtää imperative present 2nd person sg"
+  },
+  "title:En ymmärrä.": {
+   "fi": "En ymmärrä.",
+   "how": "en: ei 1st person sg · ymmärrä: ymmärtää imperative present 2nd person sg"
+  },
+  "title:Enemmän vai vähemmän?": {
+   "fi": "Enemmän vai vähemmän?",
+   "how": "enemmän: enempi genitive sg · vai: or · vähemmän: vähän comparative"
+  },
+  "title:Ensimmäinen lasku": {
+   "fi": "Ensimmäinen lasku",
+   "how": "ensimmäinen: first · lasku: descent"
+  },
+  "title:Ensimmäinen lumi": {
+   "fi": "Ensimmäinen lumi",
+   "how": "ensimmäinen: first · lumi: snow"
+  },
+  "title:Ensimmäinen, toinen": {
+   "fi": "Ensimmäinen, toinen",
+   "how": "ensimmäinen: first · toinen: second"
+  },
+  "title:Haluaisin piirtää. · Saisinko vettä?": {
+   "fi": "Haluaisin piirtää. · Saisinko vettä?",
+   "how": "haluaisin: haluta conditional 1st person present sg · piirtää: to draw · saisinko: saada conditional 1st person present sg · vettä: vesi partitive sg"
+  },
+  "title:Haluaisin, saisinko": {
+   "fi": "Haluaisin, saisinko",
+   "how": "haluaisin: haluta conditional 1st person present sg · saisinko: saada conditional 1st person present sg"
+  },
+  "title:Haluan leikkiä": {
+   "fi": "Haluan leikkiä",
+   "how": "haluan: haluta 1st person present sg · leikkiä: leikki partitive sg"
+  },
+  "title:Haluan leikkiä.": {
+   "fi": "Haluan leikkiä.",
+   "how": "haluan: haluta 1st person present sg · leikkiä: leikki partitive sg"
+  },
+  "title:Haluan leikkiä. · Haluaisin leikkiä.": {
+   "fi": "Haluan leikkiä. · Haluaisin leikkiä.",
+   "how": "haluan: haluta 1st person present sg · leikkiä: leikki partitive sg · haluaisin: haluta conditional 1st person present sg"
+  },
+  "title:Haluan uida. · Osaan uida.": {
+   "fi": "Haluan uida. · Osaan uida.",
+   "how": "haluan: haluta 1st person present sg · uida: to swim · osaan: osa illative sg"
+  },
+  "title:Haluan, osaan, saanko": {
+   "fi": "Haluan, osaan, saanko",
+   "how": "haluan: haluta 1st person present sg · osaan: osa illative sg · saanko: saada 1st person present sg"
+  },
+  "title:Haluan…": {
+   "fi": "Haluan…",
+   "how": "haluan…: ending notation"
+  },
+  "title:Halusin": {
+   "fi": "Halusin",
+   "how": "halusin: haluta 1st person past sg"
+  },
+  "title:Hei!": {
+   "fi": "Hei!",
+   "how": "hei: hi"
+  },
+  "title:Hei, Eero!": {
+   "fi": "Hei, Eero!",
+   "how": "hei: hi · eero: a name"
+  },
+  "title:Heikko vai vahva?": {
+   "fi": "Heikko vai vahva?",
+   "how": "heikko: weak · vai: or · vahva: strong"
+  },
+  "title:Herään": {
+   "fi": "Herään",
+   "how": "herään: herätä 1st person present sg"
+  },
+  "title:Herään kello seitsemältä": {
+   "fi": "Herään kello seitsemältä",
+   "how": "herään: herätä 1st person present sg · kello: clock watch · seitsemältä: seitsemän ablative sg"
+  },
+  "title:Herään kello seitsemältä.": {
+   "fi": "Herään kello seitsemältä.",
+   "how": "herään: herätä 1st person present sg · kello: clock watch · seitsemältä: seitsemän ablative sg"
+  },
+  "title:Herään, pesen, harjaan": {
+   "fi": "Herään, pesen, harjaan",
+   "how": "herään: herätä 1st person present sg · pesen: pestä 1st person present sg · harjaan: harja illative sg"
+  },
+  "title:Huipulla": {
+   "fi": "Huipulla",
+   "how": "huipulla: huippu adessive sg"
+  },
+  "title:Hyppää!": {
+   "fi": "Hyppää!",
+   "how": "hyppää: hypätä imperative present 2nd person sg"
+  },
+  "title:Hyppään, hyppää": {
+   "fi": "Hyppään, hyppää",
+   "how": "hyppään: hypätä 1st person present sg · hyppää: hypätä imperative present 2nd person sg"
+  },
+  "title:Hyvää joulua!": {
+   "fi": "Hyvää joulua!",
+   "how": "hyvää: hyvä partitive sg · joulua: joulu partitive sg"
+  },
+  "title:Hyvää pääsiäistä!": {
+   "fi": "Hyvää pääsiäistä!",
+   "how": "hyvää: hyvä partitive sg · pääsiäistä: pääsiäinen partitive sg"
+  },
+  "title:Hänellä on kitara.": {
+   "fi": "Hänellä on kitara.",
+   "how": "hänellä: hän adessive sg · on: olla present sg 3rd person · kitara: guitar"
+  },
+  "title:Ilta": {
+   "fi": "Ilta",
+   "how": "ilta: evening"
+  },
+  "title:Iso ja pieni": {
+   "fi": "Iso ja pieni",
+   "how": "iso: big · ja: and · pieni: pieniä past sg 3rd person"
+  },
+  "title:Iso koira": {
+   "fi": "Iso koira",
+   "how": "iso: big · koira: dog"
+  },
+  "title:Iso, isompi, isoin": {
+   "fi": "Iso, isompi, isoin",
+   "how": "iso: big · isompi: iso comparative · isoin: iso superlative"
+  },
+  "title:Isoin": {
+   "fi": "Isoin",
+   "how": "isoin: iso superlative"
+  },
+  "title:Isompi kuin": {
+   "fi": "Isompi kuin",
+   "how": "isompi: iso comparative · kuin: kuu pl"
+  },
+  "title:Isompi, isoin": {
+   "fi": "Isompi, isoin",
+   "how": "isompi: iso comparative · isoin: iso superlative"
+  },
+  "title:Isossa talossa": {
+   "fi": "Isossa talossa",
+   "how": "isossa: iso inessive sg · talossa: talo inessive sg"
+  },
+  "title:Isot numerot": {
+   "fi": "Isot numerot",
+   "how": "isot: iso nominative pl · numerot: numero nominative pl"
+  },
+  "title:Isän pyörä": {
+   "fi": "Isän pyörä",
+   "how": "isän: isä genitive sg · pyörä: wheel"
+  },
+  "title:Jouluna vai joulua?": {
+   "fi": "Jouluna vai joulua?",
+   "how": "jouluna: joulu essive sg · vai: or · joulua: joulu partitive sg"
+  },
+  "title:Joulupukki tulee!": {
+   "fi": "Joulupukki tulee!",
+   "how": "joulupukki: Santa Claus · tulee: tulla present sg 3rd person"
+  },
+  "title:Joulupukki tuo lahjan": {
+   "fi": "Joulupukki tuo lahjan",
+   "how": "joulupukki: Santa Claus · tuo: tuoda present sg 3rd person · lahjan: lahja genitive sg"
+  },
+  "title:Joulupukki tuo lahjan.": {
+   "fi": "Joulupukki tuo lahjan.",
+   "how": "joulupukki: Santa Claus · tuo: tuoda present sg 3rd person · lahjan: lahja genitive sg"
+  },
+  "title:Juhannus": {
+   "fi": "Juhannus",
+   "how": "juhannus: Midsummer Day"
+  },
+  "title:Juhannus mökillä": {
+   "fi": "Juhannus mökillä",
+   "how": "juhannus: Midsummer Day · mökillä: mökki adessive sg"
+  },
+  "title:Juna": {
+   "fi": "Juna",
+   "how": "juna: train"
+  },
+  "title:Jutellaan": {
+   "fi": "Jutellaan",
+   "how": "jutellaan: jutella passive present"
+  },
+  "title:Juttelija": {
+   "fi": "Juttelija",
+   "how": "juttelija: chatter"
+  },
+  "title:Järjestä lause": {
+   "fi": "Järjestä lause",
+   "how": "järjestä: järki elative sg · lause: clause"
+  },
+  "title:Järjestä sanat": {
+   "fi": "Järjestä sanat",
+   "how": "järjestä: järki elative sg · sanat: sana nominative pl"
+  },
+  "title:Järvellä": {
+   "fi": "Järvellä",
+   "how": "järvellä: järvi adessive sg"
+  },
+  "title:K, P ja T vaihtuvat": {
+   "fi": "K, P ja T vaihtuvat",
+   "how": "k: The eleventh letter of the Finni · p: The sixteenth letter of the Finn · ja: and · t: The twentieth letter of the Finn · vaihtuvat: vaihtua pl present 3rd person"
+  },
+  "title:Kaikki aikamuodot": {
+   "fi": "Kaikki aikamuodot",
+   "how": "kaikki: everything · aikamuodot: aikamuoto nominative pl"
+  },
+  "title:Kaikki kruunut": {
+   "fi": "Kaikki kruunut",
+   "how": "kaikki: everything · kruunut: kruunu nominative pl"
+  },
+  "title:Kaikki kuusi": {
+   "fi": "Kaikki kuusi",
+   "how": "kaikki: everything · kuusi: kuu possessive 2nd person sg"
+  },
+  "title:Kaikki kysymykset": {
+   "fi": "Kaikki kysymykset",
+   "how": "kaikki: everything · kysymykset: kysymys nominative pl"
+  },
+  "title:Kaikki tyypit": {
+   "fi": "Kaikki tyypit",
+   "how": "kaikki: everything · tyypit: tyyppi nominative pl"
+  },
+  "title:Kaikki verbit": {
+   "fi": "Kaikki verbit",
+   "how": "kaikki: everything · verbit: verbi nominative pl"
+  },
+  "title:Kaksi reppua": {
+   "fi": "Kaksi reppua",
+   "how": "kaksi: two · reppua: reppu partitive sg"
+  },
+  "title:Kala on järvessä": {
+   "fi": "Kala on järvessä",
+   "how": "kala: fish · on: olla present sg 3rd person · järvessä: järvi inessive sg"
+  },
+  "title:Kala on järvessä.": {
+   "fi": "Kala on järvessä.",
+   "how": "kala: fish · on: olla present sg 3rd person · järvessä: järvi inessive sg"
+  },
+  "title:Kala on järvessä. · Lintu on puussa.": {
+   "fi": "Kala on järvessä. · Lintu on puussa.",
+   "how": "kala: fish · on: olla present sg 3rd person · järvessä: järvi inessive sg · lintu: bird · puussa: puu inessive sg"
+  },
+  "title:Kapteeni Leo": {
+   "fi": "Kapteeni Leo",
+   "how": "kapteeni: captain · leo: a name"
+  },
+  "title:Kapteeni käskee": {
+   "fi": "Kapteeni käskee",
+   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person"
+  },
+  "title:Kapteeni käskee: kosketa nenää!": {
+   "fi": "Kapteeni käskee: kosketa nenää!",
+   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person · kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg"
+  },
+  "title:Karkkeja": {
+   "fi": "Karkkeja",
+   "how": "karkkeja: karkki partitive pl"
+  },
+  "title:Karkkipäivä": {
+   "fi": "Karkkipäivä",
+   "how": "karkkipäivä: candy day"
+  },
+  "title:Katson ja odotan": {
+   "fi": "Katson ja odotan",
+   "how": "katson: katsoa 1st person present sg · ja: and · odotan: odottaa 1st person present sg"
+  },
+  "title:Katson, odotan": {
+   "fi": "Katson, odotan",
+   "how": "katson: katsoa 1st person present sg · odotan: odottaa 1st person present sg"
+  },
+  "title:Kaupassa": {
+   "fi": "Kaupassa",
+   "how": "kaupassa: kauppa inessive sg"
+  },
+  "title:Kaupungilla": {
+   "fi": "Kaupungilla",
+   "how": "kaupungilla: kaupunki adessive sg"
+  },
+  "title:Kaupungilla ja kotona": {
+   "fi": "Kaupungilla ja kotona",
+   "how": "kaupungilla: kaupunki adessive sg · ja: and · kotona: koto essive sg"
+  },
+  "title:Kaverin kanssa": {
+   "fi": "Kaverin kanssa",
+   "how": "kaverin: kaveri accusative genitive sg · kanssa: with"
+  },
+  "title:Keho": {
+   "fi": "Keho",
+   "how": "keho: body"
+  },
+  "title:Keho · Kapteeni käskee": {
+   "fi": "Keho · Kapteeni käskee",
+   "how": "keho: body · kapteeni: captain · käskee: käskeä present sg 3rd person"
+  },
+  "title:Kello on kahdeksan. · Kello on puoli kahdeksan.": {
+   "fi": "Kello on kahdeksan. · Kello on puoli kahdeksan.",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kahdeksan: eight · puoli: half"
+  },
+  "title:Kello on kolme.": {
+   "fi": "Kello on kolme.",
+   "how": "kello: clock watch · on: olla present sg 3rd person · kolme: three"
+  },
+  "title:Kello on puoli kahdeksan.": {
+   "fi": "Kello on puoli kahdeksan.",
+   "how": "kello: clock watch · on: olla present sg 3rd person · puoli: half · kahdeksan: eight"
+  },
+  "title:Kello on puoli…": {
+   "fi": "Kello on puoli…",
+   "how": "kello: clock watch · on: olla present sg 3rd person · puoli…: ending notation"
+  },
+  "title:Kello on…": {
+   "fi": "Kello on…",
+   "how": "kello: clock watch · on…: ending notation"
+  },
+  "title:Kenellä on?": {
+   "fi": "Kenellä on?",
+   "how": "kenellä: kuka /ken adessive sg · on: olla present sg 3rd person"
+  },
+  "title:Kenellä on…?": {
+   "fi": "Kenellä on…?",
+   "how": "kenellä: kuka /ken adessive sg · on…: ending notation"
+  },
+  "title:Kenen pyörä?": {
+   "fi": "Kenen pyörä?",
+   "how": "kenen: kuka /ken genitive sg · pyörä: wheel"
+  },
+  "title:Kenen tämä on?": {
+   "fi": "Kenen tämä on?",
+   "how": "kenen: kuka /ken genitive sg · tämä: this · on: olla present sg 3rd person"
+  },
+  "title:Kenen?": {
+   "fi": "Kenen?",
+   "how": "kenen: kuka /ken genitive sg"
+  },
+  "title:Kenen? Miksi?": {
+   "fi": "Kenen? Miksi?",
+   "how": "kenen: kuka /ken genitive sg · miksi: mikä pl sg translative"
+  },
+  "title:Kertaa": {
+   "fi": "Kertaa",
+   "how": "kertaa: kerta partitive sg"
+  },
+  "title:Kertaa ja puolet": {
+   "fi": "Kertaa ja puolet",
+   "how": "kertaa: kerta partitive sg · ja: and · puolet: puoli nominative pl"
+  },
+  "title:Kertaus": {
+   "fi": "Kertaus",
+   "how": "kertaus: recapitulation"
+  },
+  "title:Keskustelut": {
+   "fi": "Keskustelut",
+   "how": "keskustelut: keskustelu nominative pl"
+  },
+  "title:Kilpajuoksu": {
+   "fi": "Kilpajuoksu",
+   "how": "kilpajuoksu: a race that is run"
+  },
+  "title:Kirja on laatikossa.": {
+   "fi": "Kirja on laatikossa.",
+   "how": "kirja: book · on: olla present sg 3rd person · laatikossa: laatikko inessive sg"
+  },
+  "title:Kirjoita lause": {
+   "fi": "Kirjoita lause",
+   "how": "kirjoita: kirjoittaa imperative present 2nd person sg · lause: clause"
+  },
+  "title:Kirjoita sana": {
+   "fi": "Kirjoita sana",
+   "how": "kirjoita: kirjoittaa imperative present 2nd person sg · sana: word"
+  },
+  "title:Kirjoitan kynällä": {
+   "fi": "Kirjoitan kynällä",
+   "how": "kirjoitan: kirjoittaa 1st person present sg · kynällä: kynä adessive sg"
+  },
+  "title:Kirjoitan kynällä.": {
+   "fi": "Kirjoitan kynällä.",
+   "how": "kirjoitan: kirjoittaa 1st person present sg · kynällä: kynä adessive sg"
+  },
+  "title:Kirjoittaja": {
+   "fi": "Kirjoittaja",
+   "how": "kirjoittaja: writer"
+  },
+  "title:Kissa menee laatikkoon.": {
+   "fi": "Kissa menee laatikkoon.",
+   "how": "kissa: cat · menee: mennä present sg 3rd person · laatikkoon: laatikko illative sg"
+  },
+  "title:Kissa on tuolin alla": {
+   "fi": "Kissa on tuolin alla",
+   "how": "kissa: cat · on: olla present sg 3rd person · tuolin: tuoli genitive sg · alla: beneath"
+  },
+  "title:Kissa on tuolin alla.": {
+   "fi": "Kissa on tuolin alla.",
+   "how": "kissa: cat · on: olla present sg 3rd person · tuolin: tuoli genitive sg · alla: beneath"
+  },
+  "title:Kissa tulee laatikosta.": {
+   "fi": "Kissa tulee laatikosta.",
+   "how": "kissa: cat · tulee: tulla present sg 3rd person · laatikosta: laatikko elative sg"
+  },
+  "title:Kissat ovat laatikoissa.": {
+   "fi": "Kissat ovat laatikoissa.",
+   "how": "kissat: kissa nominative pl · ovat: olla pl present 3rd person · laatikoissa: laatikko inessive pl"
+  },
+  "title:Kolme kruunua": {
+   "fi": "Kolme kruunua",
+   "how": "kolme: three · kruunua: kruunu partitive sg"
+  },
+  "title:Kolme vai kolmas?": {
+   "fi": "Kolme vai kolmas?",
+   "how": "kolme: three · vai: or · kolmas: third"
+  },
+  "title:Kosketa jalkaa! · Nosta jalka ylös!": {
+   "fi": "Kosketa jalkaa! · Nosta jalka ylös!",
+   "how": "kosketa: koskettaa imperative present 2nd person sg · jalkaa: jalka partitive sg · nosta: nostaa imperative present 2nd person sg · jalka: foot · ylös: up"
+  },
+  "title:Kosketa nenää!": {
+   "fi": "Kosketa nenää!",
+   "how": "kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg"
+  },
+  "title:Koulupäivä": {
+   "fi": "Koulupäivä",
+   "how": "koulupäivä: schoolday"
+  },
+  "title:Koulussa": {
+   "fi": "Koulussa",
+   "how": "koulussa: koulu inessive sg"
+  },
+  "title:Koulussa ja päiväkodissa": {
+   "fi": "Koulussa ja päiväkodissa",
+   "how": "koulussa: koulu inessive sg · ja: and · päiväkodissa: päiväkoti inessive sg"
+  },
+  "title:Kuinka vanha olet?": {
+   "fi": "Kuinka vanha olet?",
+   "how": "kuinka: how · vanha: old · olet: olla present 2nd person sg"
+  },
+  "title:Kuka on nopein?": {
+   "fi": "Kuka on nopein?",
+   "how": "kuka: who · on: olla present sg 3rd person · nopein: nopea superlative"
+  },
+  "title:Kuka sinä olet?": {
+   "fi": "Kuka sinä olet?",
+   "how": "kuka: who · sinä: se essive sg · olet: olla present 2nd person sg"
+  },
+  "title:Kuka tekee?": {
+   "fi": "Kuka tekee?",
+   "how": "kuka: who · tekee: tehdä present sg 3rd person"
+  },
+  "title:Kuka tuo on?": {
+   "fi": "Kuka tuo on?",
+   "how": "kuka: who · tuo: tuoda present sg 3rd person · on: olla present sg 3rd person"
+  },
+  "title:Kuka? Mikä?": {
+   "fi": "Kuka? Mikä?",
+   "how": "kuka: who · mikä: what"
+  },
+  "title:Kuka? Mikä? Kenen?": {
+   "fi": "Kuka? Mikä? Kenen?",
+   "how": "kuka: who · mikä: what · kenen: kuka /ken genitive sg"
+  },
+  "title:Kumpi on isompi?": {
+   "fi": "Kumpi on isompi?",
+   "how": "kumpi: which one two) · on: olla present sg 3rd person · isompi: iso comparative"
+  },
+  "title:Kurssi": {
+   "fi": "Kurssi",
+   "how": "kurssi: class"
+  },
+  "title:Kurssi valmis": {
+   "fi": "Kurssi valmis",
+   "how": "kurssi: class · valmis: completed"
+  },
+  "title:Kuukaudet": {
+   "fi": "Kuukaudet",
+   "how": "kuukaudet: kuukausi nominative pl"
+  },
+  "title:Kuuntele": {
+   "fi": "Kuuntele",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg"
+  },
+  "title:Kuuntele ja laske": {
+   "fi": "Kuuntele ja laske",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · ja: and · laske: laskea imperative present 2nd person sg"
+  },
+  "title:Kuuntele ja osoita": {
+   "fi": "Kuuntele ja osoita",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · ja: and · osoita: osoittaa imperative present 2nd person sg"
+  },
+  "title:Kuuntele lause": {
+   "fi": "Kuuntele lause",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · lause: clause"
+  },
+  "title:Kuuntele tarina": {
+   "fi": "Kuuntele tarina",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · tarina: story"
+  },
+  "title:Kuuntele!": {
+   "fi": "Kuuntele!",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg"
+  },
+  "title:Kymmenen, kaksikymmentä…": {
+   "fi": "Kymmenen, kaksikymmentä…",
+   "how": "kymmenen: kymmen genitive sg · kaksikymmentä…: ending notation"
+  },
+  "title:Kymmenet": {
+   "fi": "Kymmenet",
+   "how": "kymmenet: kymmenen nominative pl"
+  },
+  "title:Kynällä vai kanssa?": {
+   "fi": "Kynällä vai kanssa?",
+   "how": "kynällä: kynä adessive sg · vai: or · kanssa: with"
+  },
+  "title:Kysymykset": {
+   "fi": "Kysymykset",
+   "how": "kysymykset: kysymys nominative pl"
+  },
+  "title:Kysymyssanat": {
+   "fi": "Kysymyssanat",
+   "how": "kysymyssanat: kysymyssana (question word), nominative pl"
+  },
+  "title:Kysytään!": {
+   "fi": "Kysytään!",
+   "how": "kysytään: kysyä passive present"
+  },
+  "title:Kävelevä sanakirja": {
+   "fi": "Kävelevä sanakirja",
+   "how": "kävelevä: kävellä active participle present · sanakirja: dictionary"
+  },
+  "title:Laatikkoon, huoneeseen": {
+   "fi": "Laatikkoon, huoneeseen",
+   "how": "laatikkoon: laatikko illative sg · huoneeseen: huone illative sg"
+  },
+  "title:Laatikoissa": {
+   "fi": "Laatikoissa",
+   "how": "laatikoissa: laatikko inessive pl"
+  },
+  "title:Laatikossa, pöydällä": {
+   "fi": "Laatikossa, pöydällä",
+   "how": "laatikossa: laatikko inessive sg · pöydällä: pöytä adessive sg"
+  },
+  "title:Laske ja sano": {
+   "fi": "Laske ja sano",
+   "how": "laske: laskea imperative present 2nd person sg · ja: and · sano: sanoa imperative present 2nd person sg"
+  },
+  "title:Laske sataan": {
+   "fi": "Laske sataan",
+   "how": "laske: laskea imperative present 2nd person sg · sataan: sata illative sg"
+  },
+  "title:Laskeminen": {
+   "fi": "Laskeminen",
+   "how": "laskeminen: verbal noun of laskea calculatio"
+  },
+  "title:Lasketaan!": {
+   "fi": "Lasketaan!",
+   "how": "lasketaan: laskea passive present"
+  },
+  "title:Laulatko?": {
+   "fi": "Laulatko?",
+   "how": "laulatko: laulaa present 2nd person sg + -ko"
+  },
+  "title:Lauseet": {
+   "fi": "Lauseet",
+   "how": "lauseet: lause nominative pl"
+  },
+  "title:Leikin kaverin kanssa.": {
+   "fi": "Leikin kaverin kanssa.",
+   "how": "leikin: leikki genitive sg · kaverin: kaveri accusative genitive sg · kanssa: with"
+  },
+  "title:Leikin lauantaina.": {
+   "fi": "Leikin lauantaina.",
+   "how": "leikin: leikki genitive sg · lauantaina: lauantai essive pl sg"
+  },
+  "title:Leikin nukella": {
+   "fi": "Leikin nukella",
+   "how": "leikin: leikki genitive sg · nukella: nukke adessive sg"
+  },
+  "title:Leikin nukella.": {
+   "fi": "Leikin nukella.",
+   "how": "leikin: leikki genitive sg · nukella: nukke adessive sg"
+  },
+  "title:Leikin, pelaan vai soitan?": {
+   "fi": "Leikin, pelaan vai soitan?",
+   "how": "leikin: leikki genitive sg · pelaan: pelata 1st person present sg · vai: or · soitan: soittaa 1st person present sg"
+  },
+  "title:Leikin, pelaan, soitan": {
+   "fi": "Leikin, pelaan, soitan",
+   "how": "leikin: leikki genitive sg · pelaan: pelata 1st person present sg · soitan: soittaa 1st person present sg"
+  },
+  "title:Leikin…": {
+   "fi": "Leikin…",
+   "how": "leikin…: ending notation"
+  },
+  "title:Leikitkö?": {
+   "fi": "Leikitkö?",
+   "how": "leikitkö: leikki nominative pl + -kö"
+  },
+  "title:Leikitään!": {
+   "fi": "Leikitään!",
+   "how": "leikitään: leikkiä passive present"
+  },
+  "title:Leikkipuistossa": {
+   "fi": "Leikkipuistossa",
+   "how": "leikkipuistossa: leikkipuisto (playground), inessive"
+  },
+  "title:Lue lause": {
+   "fi": "Lue lause",
+   "how": "lue: lukea imperative 2nd person sg · lause: clause"
+  },
+  "title:Lukutoukka": {
+   "fi": "Lukutoukka",
+   "how": "lukutoukka: bookworm"
+  },
+  "title:Luokassa": {
+   "fi": "Luokassa",
+   "how": "luokassa: luokka inessive sg"
+  },
+  "title:Luonnossa": {
+   "fi": "Luonnossa",
+   "how": "luonnossa: luonto inessive sg"
+  },
+  "title:Löydä virhe": {
+   "fi": "Löydä virhe",
+   "how": "löydä: löytää imperative present 2nd person sg · virhe: mistake"
+  },
+  "title:Maksa!": {
+   "fi": "Maksa!",
+   "how": "maksa: maksaa imperative present 2nd person sg"
+  },
+  "title:Matikka ja liikunta": {
+   "fi": "Matikka ja liikunta",
+   "how": "matikka: burbot · ja: and · liikunta: exercise"
+  },
+  "title:Menen bussilla": {
+   "fi": "Menen bussilla",
+   "how": "menen: mennä 1st person present sg · bussilla: bussi adessive sg"
+  },
+  "title:Menen bussilla.": {
+   "fi": "Menen bussilla.",
+   "how": "menen: mennä 1st person present sg · bussilla: bussi adessive sg"
+  },
+  "title:Menen bussilla. · Menen bussiin.": {
+   "fi": "Menen bussilla. · Menen bussiin.",
+   "how": "menen: mennä 1st person present sg · bussilla: bussi adessive sg · bussiin: bussi illative sg"
+  },
+  "title:Menen kirjastoon.": {
+   "fi": "Menen kirjastoon.",
+   "how": "menen: mennä 1st person present sg · kirjastoon: kirjasto illative sg"
+  },
+  "title:Menen metsään": {
+   "fi": "Menen metsään",
+   "how": "menen: mennä 1st person present sg · metsään: metsä illative sg"
+  },
+  "title:Menen metsään. · Menen vuorelle.": {
+   "fi": "Menen metsään. · Menen vuorelle.",
+   "how": "menen: mennä 1st person present sg · metsään: metsä illative sg · vuorelle: vuori allative sg"
+  },
+  "title:Menen mökille": {
+   "fi": "Menen mökille",
+   "how": "menen: mennä 1st person present sg · mökille: mökki allative sg"
+  },
+  "title:Menen mökille. · Menen saunaan.": {
+   "fi": "Menen mökille. · Menen saunaan.",
+   "how": "menen: mennä 1st person present sg · mökille: mökki allative sg · saunaan: sauna illative sg"
+  },
+  "title:Menen mökille. · Olen mökillä.": {
+   "fi": "Menen mökille. · Olen mökillä.",
+   "how": "menen: mennä 1st person present sg · mökille: mökki allative sg · olen: olla 1st person present sg · mökillä: mökki adessive sg"
+  },
+  "title:Menen, tulen": {
+   "fi": "Menen, tulen",
+   "how": "menen: mennä 1st person present sg · tulen: tulla 1st person present sg"
+  },
+  "title:Mennään ulos": {
+   "fi": "Mennään ulos",
+   "how": "mennään: mennä passive present · ulos: out"
+  },
+  "title:Mestari": {
+   "fi": "Mestari",
+   "how": "mestari: master"
+  },
+  "title:Mihin kissa menee?": {
+   "fi": "Mihin kissa menee?",
+   "how": "mihin: mikä illative pl sg · kissa: cat · menee: mennä present sg 3rd person"
+  },
+  "title:Mihin?": {
+   "fi": "Mihin?",
+   "how": "mihin: mikä illative pl sg"
+  },
+  "title:Mihin? Mistä?": {
+   "fi": "Mihin? Mistä?",
+   "how": "mihin: mikä illative pl sg · mistä: mikä elative pl sg"
+  },
+  "title:Mikä on isoin?": {
+   "fi": "Mikä on isoin?",
+   "how": "mikä: what · on: olla present sg 3rd person · isoin: iso superlative"
+  },
+  "title:Mikä pääte?": {
+   "fi": "Mikä pääte?",
+   "how": "mikä: what · pääte: end"
+  },
+  "title:Mikä tyyppi?": {
+   "fi": "Mikä tyyppi?",
+   "how": "mikä: what · tyyppi: type"
+  },
+  "title:Mikä tämä on?": {
+   "fi": "Mikä tämä on?",
+   "how": "mikä: what · tämä: this · on: olla present sg 3rd person"
+  },
+  "title:Millainen sää?": {
+   "fi": "Millainen sää?",
+   "how": "millainen: what · sää: weather"
+  },
+  "title:Millainen?": {
+   "fi": "Millainen?",
+   "how": "millainen: what"
+  },
+  "title:Milloin leikitään?": {
+   "fi": "Milloin leikitään?",
+   "how": "milloin: when · leikitään: leikkiä passive present"
+  },
+  "title:Milloin?": {
+   "fi": "Milloin?",
+   "how": "milloin: when"
+  },
+  "title:Miltä suomi kuulostaa?": {
+   "fi": "Miltä suomi kuulostaa?",
+   "how": "miltä: mikä ablative pl sg · suomi: suomia past sg 3rd person · kuulostaa: to sound [ with ablative or alla"
+  },
+  "title:Miltä tuntuu?": {
+   "fi": "Miltä tuntuu?",
+   "how": "miltä: mikä ablative pl sg · tuntuu: tuntua present sg 3rd person"
+  },
+  "title:Minua jännittää": {
+   "fi": "Minua jännittää",
+   "how": "minua: minä partitive sg · jännittää: to tense"
+  },
+  "title:Minua pelottaa": {
+   "fi": "Minua pelottaa",
+   "how": "minua: minä partitive sg · pelottaa: to be afraid"
+  },
+  "title:Minua pelottaa.": {
+   "fi": "Minua pelottaa.",
+   "how": "minua: minä partitive sg · pelottaa: to be afraid"
+  },
+  "title:Minua pelottaa. · Minulla on tylsää.": {
+   "fi": "Minua pelottaa. · Minulla on tylsää.",
+   "how": "minua: minä partitive sg · pelottaa: to be afraid · minulla: minä adessive sg · on: olla present sg 3rd person · tylsää: tylsä partitive sg"
+  },
+  "title:Minua, minulle": {
+   "fi": "Minua, minulle",
+   "how": "minua: minä partitive sg · minulle: minä allative sg"
+  },
+  "title:Minulla ei ole": {
+   "fi": "Minulla ei ole",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg"
+  },
+  "title:Minulla ei ole hattua.": {
+   "fi": "Minulla ei ole hattua.",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · hattua: hattu partitive sg"
+  },
+  "title:Minulla ei ole…": {
+   "fi": "Minulla ei ole…",
+   "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole…: ending notation"
+  },
+  "title:Minulla on": {
+   "fi": "Minulla on",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person"
+  },
+  "title:Minulla on hattu. · Minulla ei ole hattua.": {
+   "fi": "Minulla on hattu. · Minulla ei ole hattua.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · hattu: hat · ei: The negative verb or negation ve · ole: olla imperative 2nd person sg · hattua: hattu partitive sg"
+  },
+  "title:Minulla on nälkä": {
+   "fi": "Minulla on nälkä",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · nälkä: hunger"
+  },
+  "title:Minulla on nälkä.": {
+   "fi": "Minulla on nälkä.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · nälkä: hunger"
+  },
+  "title:Minulla on pallo. · Minulla on palloja.": {
+   "fi": "Minulla on pallo. · Minulla on palloja.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · pallo: ball · palloja: pallo partitive pl"
+  },
+  "title:Minulla on palloja.": {
+   "fi": "Minulla on palloja.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · palloja: pallo partitive pl"
+  },
+  "title:Minulla on pyörä.": {
+   "fi": "Minulla on pyörä.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · pyörä: wheel"
+  },
+  "title:Minulla on tylsää": {
+   "fi": "Minulla on tylsää",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · tylsää: tylsä partitive sg"
+  },
+  "title:Minulla on tylsää.": {
+   "fi": "Minulla on tylsää.",
+   "how": "minulla: minä adessive sg · on: olla present sg 3rd person · tylsää: tylsä partitive sg"
+  },
+  "title:Minulla on…": {
+   "fi": "Minulla on…",
+   "how": "minulla: minä adessive sg · on…: ending notation"
+  },
+  "title:Minulla on…ja": {
+   "fi": "Minulla on…ja",
+   "how": "minulla: minä adessive sg · on…ja: ending notation"
+  },
+  "title:Minulla · sinulla · hänellä": {
+   "fi": "Minulla · sinulla · hänellä",
+   "how": "minulla: minä adessive sg · sinulla: sinä adessive sg · hänellä: hän adessive sg"
+  },
+  "title:Minun lauantaini": {
+   "fi": "Minun lauantaini",
+   "how": "minun: minä genitive sg · lauantaini: lauantai 1st person nominative sg"
+  },
+  "title:Minun päiväni": {
+   "fi": "Minun päiväni",
+   "how": "minun: minä genitive sg · päiväni: päivä 1st person nominative sg"
+  },
+  "title:Minun täytyy mennä.": {
+   "fi": "Minun täytyy mennä.",
+   "how": "minun: minä genitive sg · täytyy: täytyä present sg 3rd person · mennä: to go [with illative of third in"
+  },
+  "title:Minun täytyy…": {
+   "fi": "Minun täytyy…",
+   "how": "minun: minä genitive sg · täytyy…: ending notation"
+  },
+  "title:Minun viikkoni": {
+   "fi": "Minun viikkoni",
+   "how": "minun: minä genitive sg · viikkoni: viikko 1st person nominative sg"
+  },
+  "title:Minä olen Leo": {
+   "fi": "Minä olen Leo",
+   "how": "minä: mikä essive pl sg · olen: olla 1st person present sg · leo: a name"
+  },
+  "title:Minä, sinä, hän…": {
+   "fi": "Minä, sinä, hän…",
+   "how": "minä: mikä essive pl sg · sinä: se essive sg · hän…: ending notation"
+  },
+  "title:Mirri ei leiki": {
+   "fi": "Mirri ei leiki",
+   "how": "mirri: a name · ei: The negative verb or negation ve · leiki: leikkiä imperative present 2nd person sg"
+  },
+  "title:Mirri ja laatikko": {
+   "fi": "Mirri ja laatikko",
+   "how": "mirri: a name · ja: and · laatikko: box"
+  },
+  "title:Mirri, tule alas!": {
+   "fi": "Mirri, tule alas!",
+   "how": "mirri: a name · tule: tulla imperative present 2nd person sg · alas: alkaa imperative present 2nd person sg"
+  },
+  "title:Missä Mirri on?": {
+   "fi": "Missä Mirri on?",
+   "how": "missä: mikä inessive pl sg · mirri: a name · on: olla present sg 3rd person"
+  },
+  "title:Missä hattu on?": {
+   "fi": "Missä hattu on?",
+   "how": "missä: mikä inessive pl sg · hattu: hat · on: olla present sg 3rd person"
+  },
+  "title:Missä kissa on?": {
+   "fi": "Missä kissa on?",
+   "how": "missä: mikä inessive pl sg · kissa: cat · on: olla present sg 3rd person"
+  },
+  "title:Missä lapanen on?": {
+   "fi": "Missä lapanen on?",
+   "how": "missä: mikä inessive pl sg · lapanen: knitted mitten · on: olla present sg 3rd person"
+  },
+  "title:Missä on sinun reppusi?": {
+   "fi": "Missä on sinun reppusi?",
+   "how": "missä: mikä inessive pl sg · on: olla present sg 3rd person · sinun: sinä genitive sg · reppusi: reppu nominative 2nd person sg"
+  },
+  "title:Missä on…?": {
+   "fi": "Missä on…?",
+   "how": "missä: mikä inessive pl sg · on…: ending notation"
+  },
+  "title:Missä ovat kenkäni?": {
+   "fi": "Missä ovat kenkäni?",
+   "how": "missä: mikä inessive pl sg · ovat: olla pl present 3rd person · kenkäni: kenkä 1st person nominative sg"
+  },
+  "title:Missä pallo on?": {
+   "fi": "Missä pallo on?",
+   "how": "missä: mikä inessive pl sg · pallo: ball · on: olla present sg 3rd person"
+  },
+  "title:Missä se on?": {
+   "fi": "Missä se on?",
+   "how": "missä: mikä inessive pl sg · se: that · on: olla present sg 3rd person"
+  },
+  "title:Missä tavarasi ovat?": {
+   "fi": "Missä tavarasi ovat?",
+   "how": "missä: mikä inessive pl sg · tavarasi: tavara nominative 2nd person sg · ovat: olla pl present 3rd person"
+  },
+  "title:Missä, mihin, mistä": {
+   "fi": "Missä, mihin, mistä",
+   "how": "missä: mikä inessive pl sg · mihin: mikä illative pl sg · mistä: mikä elative pl sg"
+  },
+  "title:Missä?": {
+   "fi": "Missä?",
+   "how": "missä: mikä inessive pl sg"
+  },
+  "title:Missä? Mihin? Mistä?": {
+   "fi": "Missä? Mihin? Mistä?",
+   "how": "missä: mikä inessive pl sg · mihin: mikä illative pl sg · mistä: mikä elative pl sg"
+  },
+  "title:Mistä tykkäämme?": {
+   "fi": "Mistä tykkäämme?",
+   "how": "mistä: mikä elative pl sg · tykkäämme: tykätä 1st person pl present"
+  },
+  "title:Mistä tykkäät?": {
+   "fi": "Mistä tykkäät?",
+   "how": "mistä: mikä elative pl sg · tykkäät: tykätä present 2nd person sg"
+  },
+  "title:Mistä?": {
+   "fi": "Mistä?",
+   "how": "mistä: mikä elative pl sg"
+  },
+  "title:Miten menemme?": {
+   "fi": "Miten menemme?",
+   "how": "miten: how · menemme: mennä 1st person pl present"
+  },
+  "title:Miten menet?": {
+   "fi": "Miten menet?",
+   "how": "miten: how · menet: mennä present 2nd person sg"
+  },
+  "title:Mitä haluat tehdä?": {
+   "fi": "Mitä haluat tehdä?",
+   "how": "mitä: mikä partitive pl sg · haluat: haluta present 2nd person sg · tehdä: to do"
+  },
+  "title:Mitä kello on?": {
+   "fi": "Mitä kello on?",
+   "how": "mitä: mikä partitive pl sg · kello: clock watch · on: olla present sg 3rd person"
+  },
+  "title:Mitä pelaat?": {
+   "fi": "Mitä pelaat?",
+   "how": "mitä: mikä partitive pl sg · pelaat: pelata present 2nd person sg"
+  },
+  "title:Mitä sinulla on?": {
+   "fi": "Mitä sinulla on?",
+   "how": "mitä: mikä partitive pl sg · sinulla: sinä adessive sg · on: olla present sg 3rd person"
+  },
+  "title:Mitä teet?": {
+   "fi": "Mitä teet?",
+   "how": "mitä: mikä partitive pl sg · teet: tehdä present 2nd person sg"
+  },
+  "title:Mitä teette?": {
+   "fi": "Mitä teette?",
+   "how": "mitä: mikä partitive pl sg · teette: tehdä pl present 2nd person"
+  },
+  "title:Mitä teit eilen?": {
+   "fi": "Mitä teit eilen?",
+   "how": "mitä: mikä partitive pl sg · teit: tehdä past 2nd person sg · eilen: yesterday"
+  },
+  "title:Monta": {
+   "fi": "Monta",
+   "how": "monta: moni partitive sg"
+  },
+  "title:Montako euroa?": {
+   "fi": "Montako euroa?",
+   "how": "montako: how many? · euroa: euro partitive sg"
+  },
+  "title:Montako kynää?": {
+   "fi": "Montako kynää?",
+   "how": "montako: how many? · kynää: kynä partitive sg"
+  },
+  "title:Montako lasta?": {
+   "fi": "Montako lasta?",
+   "how": "montako: how many? · lasta: lapsi partitive sg"
+  },
+  "title:Montako nyt?": {
+   "fi": "Montako nyt?",
+   "how": "montako: how many? · nyt: now"
+  },
+  "title:Montako?": {
+   "fi": "Montako?",
+   "how": "montako: how many?"
+  },
+  "title:Muistaja": {
+   "fi": "Muistaja",
+   "how": "muistaja: rememberer"
+  },
+  "title:Nenäni": {
+   "fi": "Nenäni",
+   "how": "nenäni: nenä 1st person nominative sg"
+  },
+  "title:Nimeä se": {
+   "fi": "Nimeä se",
+   "how": "nimeä: nimi partitive sg · se: that"
+  },
+  "title:Nopeasti!": {
+   "fi": "Nopeasti!",
+   "how": "nopeasti: rapidly"
+  },
+  "title:Norsu on isoin.": {
+   "fi": "Norsu on isoin.",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isoin: iso superlative"
+  },
+  "title:Norsu on isompi kuin hiiri.": {
+   "fi": "Norsu on isompi kuin hiiri.",
+   "how": "norsu: elephant · on: olla present sg 3rd person · isompi: iso comparative · kuin: kuu pl · hiiri: mouse"
+  },
+  "title:Nosta käsi ylös!": {
+   "fi": "Nosta käsi ylös!",
+   "how": "nosta: nostaa imperative present 2nd person sg · käsi: hand · ylös: up"
+  },
+  "title:Nukun · hyppään": {
+   "fi": "Nukun · hyppään",
+   "how": "nukun: nukkua 1st person present sg · hyppään: hypätä 1st person present sg"
+  },
+  "title:Nukun, nukkuu": {
+   "fi": "Nukun, nukkuu",
+   "how": "nukun: nukkua 1st person present sg · nukkuu: nukkua present sg 3rd person"
+  },
+  "title:Nukun. · Hän nukkuu.": {
+   "fi": "Nukun. · Hän nukkuu.",
+   "how": "nukun: nukkua 1st person present sg · hän: he · nukkuu: nukkua present sg 3rd person"
+  },
+  "title:Nukutko jo?": {
+   "fi": "Nukutko jo?",
+   "how": "nukutko: nukkua present 2nd person sg + -ko · jo: already"
+  },
+  "title:Nukutko?": {
+   "fi": "Nukutko?",
+   "how": "nukutko: nukkua present 2nd person sg + -ko"
+  },
+  "title:Numerot": {
+   "fi": "Numerot",
+   "how": "numerot: numero nominative pl"
+  },
+  "title:Nyt on toukokuu. · Syntymäpäiväni on toukokuussa.": {
+   "fi": "Nyt on toukokuu. · Syntymäpäiväni on toukokuussa.",
+   "how": "nyt: now · on: olla present sg 3rd person · toukokuu: May · syntymäpäiväni: syntymäpäivä 1st person nominative sg · toukokuussa: toukokuu inessive sg"
+  },
+  "title:Näen": {
+   "fi": "Näen",
+   "how": "näen: nähdä 1st person present sg"
+  },
+  "title:Näen bussin.": {
+   "fi": "Näen bussin.",
+   "how": "näen: nähdä 1st person present sg · bussin: bussi genitive sg"
+  },
+  "title:Näen bussin. · Odotan bussia.": {
+   "fi": "Näen bussin. · Odotan bussia.",
+   "how": "näen: nähdä 1st person present sg · bussin: bussi genitive sg · odotan: odottaa 1st person present sg · bussia: bussi partitive sg"
+  },
+  "title:Näen ja odotan": {
+   "fi": "Näen ja odotan",
+   "how": "näen: nähdä 1st person present sg · ja: and · odotan: odottaa 1st person present sg"
+  },
+  "title:Näen…n": {
+   "fi": "Näen…n",
+   "how": "näen…n: ending notation"
+  },
+  "title:Nämä ovat kirjoja.": {
+   "fi": "Nämä ovat kirjoja.",
+   "how": "nämä: tämä nominative pl · ovat: olla pl present 3rd person · kirjoja: kirja partitive pl"
+  },
+  "title:Nämä ovat…": {
+   "fi": "Nämä ovat…",
+   "how": "nämä: tämä nominative pl · ovat…: ending notation"
+  },
+  "title:Odotan bussia": {
+   "fi": "Odotan bussia",
+   "how": "odotan: odottaa 1st person present sg · bussia: bussi partitive sg"
+  },
+  "title:Odotan bussia.": {
+   "fi": "Odotan bussia.",
+   "how": "odotan: odottaa 1st person present sg · bussia: bussi partitive sg"
+  },
+  "title:Odotan joulua!": {
+   "fi": "Odotan joulua!",
+   "how": "odotan: odottaa 1st person present sg · joulua: joulu partitive sg"
+  },
+  "title:Odotan pääsiäistä!": {
+   "fi": "Odotan pääsiäistä!",
+   "how": "odotan: odottaa 1st person present sg · pääsiäistä: pääsiäinen partitive sg"
+  },
+  "title:Olemme mökillä juhannuksena. · Odotan juhannusta!": {
+   "fi": "Olemme mökillä juhannuksena. · Odotan juhannusta!",
+   "how": "olemme: olla 1st person pl present · mökillä: mökki adessive sg · juhannuksena: juhannus essive sg · odotan: odottaa 1st person present sg · juhannusta: juhannus partitive sg"
+  },
+  "title:Olen iloinen.": {
+   "fi": "Olen iloinen.",
+   "how": "olen: olla 1st person present sg · iloinen: happy"
+  },
+  "title:Olen iloinen. · En ole iloinen.": {
+   "fi": "Olen iloinen. · En ole iloinen.",
+   "how": "olen: olla 1st person present sg · iloinen: happy · en: ei 1st person sg · ole: olla imperative 2nd person sg"
+  },
+  "title:Olen kahdeksan vuotta vanha.": {
+   "fi": "Olen kahdeksan vuotta vanha.",
+   "how": "olen: olla 1st person present sg · kahdeksan: eight · vuotta: vuo sg · vanha: old"
+  },
+  "title:Olen puistossa": {
+   "fi": "Olen puistossa",
+   "how": "olen: olla 1st person present sg · puistossa: puisto inessive sg"
+  },
+  "title:Olen puistossa.": {
+   "fi": "Olen puistossa.",
+   "how": "olen: olla 1st person present sg · puistossa: puisto inessive sg"
+  },
+  "title:Olen puistossa. · Menen puistoon.": {
+   "fi": "Olen puistossa. · Menen puistoon.",
+   "how": "olen: olla 1st person present sg · puistossa: puisto inessive sg · menen: mennä 1st person present sg · puistoon: puisto illative sg"
+  },
+  "title:Olen…": {
+   "fi": "Olen…",
+   "how": "olen…: ending notation"
+  },
+  "title:Omenapuu": {
+   "fi": "Omenapuu",
+   "how": "omenapuu: apple tree"
+  },
+  "title:On kylmä": {
+   "fi": "On kylmä",
+   "how": "on: olla present sg 3rd person · kylmä: cold"
+  },
+  "title:On kylmä. · Minulla on kylmä.": {
+   "fi": "On kylmä. · Minulla on kylmä.",
+   "how": "on: olla present sg 3rd person · kylmä: cold · minulla: minä adessive sg"
+  },
+  "title:On vai ei?": {
+   "fi": "On vai ei?",
+   "how": "on: olla present sg 3rd person · vai: or · ei: The negative verb or negation ve"
+  },
+  "title:Onko sinulla pallo?": {
+   "fi": "Onko sinulla pallo?",
+   "how": "onko: olla present sg 3rd person · sinulla: sinä adessive sg · pallo: ball"
+  },
+  "title:Onko teillä koira?": {
+   "fi": "Onko teillä koira?",
+   "how": "onko: olla present sg 3rd person · teillä: te adessive pl · koira: dog"
+  },
+  "title:Onko tämä kirja?": {
+   "fi": "Onko tämä kirja?",
+   "how": "onko: olla present sg 3rd person · tämä: this · kirja: book"
+  },
+  "title:Onko tämä…?": {
+   "fi": "Onko tämä…?",
+   "how": "onko: olla present sg 3rd person · tämä…: ending notation"
+  },
+  "title:Osaan uida.": {
+   "fi": "Osaan uida.",
+   "how": "osaan: osa illative sg · uida: to swim"
+  },
+  "title:Osaan, saanko": {
+   "fi": "Osaan, saanko",
+   "how": "osaan: osa illative sg · saanko: saada 1st person present sg"
+  },
+  "title:Osaatko uida?": {
+   "fi": "Osaatko uida?",
+   "how": "osaatko: osata present 2nd person sg · uida: to swim"
+  },
+  "title:Ostan maitoa": {
+   "fi": "Ostan maitoa",
+   "how": "ostan: ostaa 1st person present sg · maitoa: maito partitive sg"
+  },
+  "title:Ostan maitoa.": {
+   "fi": "Ostan maitoa.",
+   "how": "ostan: ostaa 1st person present sg · maitoa: maito partitive sg"
+  },
+  "title:Ostan omenan": {
+   "fi": "Ostan omenan",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg"
+  },
+  "title:Ostan omenan.": {
+   "fi": "Ostan omenan.",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg"
+  },
+  "title:Ostan omenan. Ostan maitoa.": {
+   "fi": "Ostan omenan. Ostan maitoa.",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg · maitoa: maito partitive sg"
+  },
+  "title:Ostan omenan. · Ostan maitoa.": {
+   "fi": "Ostan omenan. · Ostan maitoa.",
+   "how": "ostan: ostaa 1st person present sg · omenan: omena genitive sg · maitoa: maito partitive sg"
+  },
+  "title:Ostan…": {
+   "fi": "Ostan…",
+   "how": "ostan…: ending notation"
+  },
+  "title:Ostoslista": {
+   "fi": "Ostoslista",
+   "how": "ostoslista: shopping list"
+  },
+  "title:Pakenen": {
+   "fi": "Pakenen",
+   "how": "pakenen: paeta 1st person present sg"
+  },
+  "title:Paljon tavaraa": {
+   "fi": "Paljon tavaraa",
+   "how": "paljon: paljo genitive sg · tavaraa: tavara partitive sg"
+  },
+  "title:Paljonko kello on?": {
+   "fi": "Paljonko kello on?",
+   "how": "paljonko: how much? · kello: clock watch · on: olla present sg 3rd person"
+  },
+  "title:Paljonko se maksaa?": {
+   "fi": "Paljonko se maksaa?",
+   "how": "paljonko: how much? · se: that · maksaa: maksa partitive sg"
+  },
+  "title:Palloja": {
+   "fi": "Palloja",
+   "how": "palloja: pallo partitive pl"
+  },
+  "title:Pelaan jalkapalloa": {
+   "fi": "Pelaan jalkapalloa",
+   "how": "pelaan: pelata 1st person present sg · jalkapalloa: jalkapallo partitive sg"
+  },
+  "title:Pelaan jalkapalloa.": {
+   "fi": "Pelaan jalkapalloa.",
+   "how": "pelaan: pelata 1st person present sg · jalkapalloa: jalkapallo partitive sg"
+  },
+  "title:Pelaan shakkia. · Soitan viulua.": {
+   "fi": "Pelaan shakkia. · Soitan viulua.",
+   "how": "pelaan: pelata 1st person present sg · shakkia: shakki partitive sg · soitan: soittaa 1st person present sg · viulua: viulu partitive sg"
+  },
+  "title:Pelataan!": {
+   "fi": "Pelataan!",
+   "how": "pelataan: pelata passive present"
+  },
+  "title:Pidän": {
+   "fi": "Pidän",
+   "how": "pidän: pitää 1st person present sg"
+  },
+  "title:Pidän jalkapallosta.": {
+   "fi": "Pidän jalkapallosta.",
+   "how": "pidän: pitää 1st person present sg · jalkapallosta: jalkapallo elative sg"
+  },
+  "title:Pidän · Rakastan · Näen · Odotan": {
+   "fi": "Pidän · Rakastan · Näen · Odotan",
+   "how": "pidän: pitää 1st person present sg · rakastan: rakastaa 1st person present sg · näen: nähdä 1st person present sg · odotan: odottaa 1st person present sg"
+  },
+  "title:Pidän…sta": {
+   "fi": "Pidän…sta",
+   "how": "pidän…sta: ending notation"
+  },
+  "title:Piilossa": {
+   "fi": "Piilossa",
+   "how": "piilossa: piilo inessive sg"
+  },
+  "title:Piirretään!": {
+   "fi": "Piirretään!",
+   "how": "piirretään: piirtää passive present"
+  },
+  "title:Piirrän talon": {
+   "fi": "Piirrän talon",
+   "how": "piirrän: piirtää 1st person present sg · talon: talo accusative genitive sg"
+  },
+  "title:Plus ja miinus": {
+   "fi": "Plus ja miinus",
+   "how": "plus: plus · ja: and · miinus: minus"
+  },
+  "title:Puen takin päälle": {
+   "fi": "Puen takin päälle",
+   "how": "puen: pukea 1st person present sg · takin: takki genitive sg · päälle: pää allative sg"
+  },
+  "title:Puen takin päälle.": {
+   "fi": "Puen takin päälle.",
+   "how": "puen: pukea 1st person present sg · takin: takki genitive sg · päälle: pää allative sg"
+  },
+  "title:Puisto ja kirjasto": {
+   "fi": "Puisto ja kirjasto",
+   "how": "puisto: park · ja: and · kirjasto: library"
+  },
+  "title:Puistossa": {
+   "fi": "Puistossa",
+   "how": "puistossa: puisto inessive sg"
+  },
+  "title:Punaiset pallot": {
+   "fi": "Punaiset pallot",
+   "how": "punaiset: punainen nominative pl · pallot: pallo nominative pl"
+  },
+  "title:Puolen tunnin päästä": {
+   "fi": "Puolen tunnin päästä",
+   "how": "puolen: puoli genitive sg · tunnin: tunti accusative genitive sg · päästä: pää elative sg"
+  },
+  "title:Puolet": {
+   "fi": "Puolet",
+   "how": "puolet: puoli nominative pl"
+  },
+  "title:Puoli kahdeksan": {
+   "fi": "Puoli kahdeksan",
+   "how": "puoli: half · kahdeksan: eight"
+  },
+  "title:Puolivälissä": {
+   "fi": "Puolivälissä",
+   "how": "puolivälissä: puoliväli inessive sg"
+  },
+  "title:Päivämäärä": {
+   "fi": "Päivämäärä",
+   "how": "päivämäärä: date"
+  },
+  "title:Pääsiäinen": {
+   "fi": "Pääsiäinen",
+   "how": "pääsiäinen: Easter"
+  },
+  "title:Rakastan": {
+   "fi": "Rakastan",
+   "how": "rakastan: rakastaa 1st person present sg"
+  },
+  "title:Rakastan pitsaa.": {
+   "fi": "Rakastan pitsaa.",
+   "how": "rakastan: rakastaa 1st person present sg · pitsaa: pitsa partitive sg"
+  },
+  "title:Rakastan…a": {
+   "fi": "Rakastan…a",
+   "how": "rakastan…a: ending notation"
+  },
+  "title:Rakenna lause": {
+   "fi": "Rakenna lause",
+   "how": "rakenna: rakentaa imperative present 2nd person sg · lause: clause"
+  },
+  "title:Rakenna lauseita": {
+   "fi": "Rakenna lauseita",
+   "how": "rakenna: rakentaa imperative present 2nd person sg · lauseita: lause partitive pl"
+  },
+  "title:Rakenna luku": {
+   "fi": "Rakenna luku",
+   "how": "rakenna: rakentaa imperative present 2nd person sg · luku: number"
+  },
+  "title:Raketti ja juna": {
+   "fi": "Raketti ja juna",
+   "how": "raketti: rocket · ja: and · juna: train"
+  },
+  "title:Saanko mennä vessaan?": {
+   "fi": "Saanko mennä vessaan?",
+   "how": "saanko: saada 1st person present sg · mennä: to go [with illative of third in · vessaan: vessa illative sg"
+  },
+  "title:Sanat": {
+   "fi": "Sanat",
+   "how": "sanat: sana nominative pl"
+  },
+  "title:Sano se": {
+   "fi": "Sano se",
+   "how": "sano: sanoa imperative present 2nd person sg · se: that"
+  },
+  "title:Sano suomeksi": {
+   "fi": "Sano suomeksi",
+   "how": "sano: sanoa imperative present 2nd person sg · suomeksi: suomi sg translative"
+  },
+  "title:Sanojen oppija": {
+   "fi": "Sanojen oppija",
+   "how": "sanojen: sana genitive pl · oppija: learner"
+  },
+  "title:Sataa lunta": {
+   "fi": "Sataa lunta",
+   "how": "sataa: sata partitive sg · lunta: lumi partitive sg"
+  },
+  "title:Sataa lunta. · Aurinko paistaa.": {
+   "fi": "Sataa lunta. · Aurinko paistaa.",
+   "how": "sataa: sata partitive sg · lunta: lumi partitive sg · aurinko: the Sun · paistaa: to cook with heat to fry"
+  },
+  "title:Sinulle, sinusta": {
+   "fi": "Sinulle, sinusta",
+   "how": "sinulle: sinä allative sg · sinusta: sinä elative sg"
+  },
+  "title:Soitan pianoa": {
+   "fi": "Soitan pianoa",
+   "how": "soitan: soittaa 1st person present sg · pianoa: piano partitive sg"
+  },
+  "title:Soitan pianoa.": {
+   "fi": "Soitan pianoa.",
+   "how": "soitan: soittaa 1st person present sg · pianoa: piano partitive sg"
+  },
+  "title:Soitan rumpua.": {
+   "fi": "Soitan rumpua.",
+   "how": "soitan: soittaa 1st person present sg · rumpua: rumpu partitive sg"
+  },
+  "title:Soitetaan yhdessä!": {
+   "fi": "Soitetaan yhdessä!",
+   "how": "soitetaan: soittaa passive present · yhdessä: yksi inessive sg"
+  },
+  "title:Suomalainen vuosi": {
+   "fi": "Suomalainen vuosi",
+   "how": "suomalainen: Finnish · vuosi: vuotaa past sg 3rd person"
+  },
+  "title:Synttärit": {
+   "fi": "Synttärit",
+   "how": "synttärit: birthday party"
+  },
+  "title:Syntymäpäivä": {
+   "fi": "Syntymäpäivä",
+   "how": "syntymäpäivä: birthday"
+  },
+  "title:Syntymäpäiväni": {
+   "fi": "Syntymäpäiväni",
+   "how": "syntymäpäiväni: syntymäpäivä 1st person nominative sg"
+  },
+  "title:Syntymäpäiväni on toukokuussa.": {
+   "fi": "Syntymäpäiväni on toukokuussa.",
+   "how": "syntymäpäiväni: syntymäpäivä 1st person nominative sg · on: olla present sg 3rd person · toukokuussa: toukokuu inessive sg"
+  },
+  "title:Syntymäpäiväni on…": {
+   "fi": "Syntymäpäiväni on…",
+   "how": "syntymäpäiväni: syntymäpäivä 1st person nominative sg · on…: ending notation"
+  },
+  "title:Syön aamupalaa": {
+   "fi": "Syön aamupalaa",
+   "how": "syön: syödä 1st person present sg · aamupalaa: aamupala partitive sg"
+  },
+  "title:Syön aamupalaa.": {
+   "fi": "Syön aamupalaa.",
+   "how": "syön: syödä 1st person present sg · aamupalaa: aamupala partitive sg"
+  },
+  "title:Syön vai en syö?": {
+   "fi": "Syön vai en syö?",
+   "how": "syön: syödä 1st person present sg · vai: or · en: ei 1st person sg · syö: syödä present sg 3rd person"
+  },
+  "title:Syön. · En syö.": {
+   "fi": "Syön. · En syö.",
+   "how": "syön: syödä 1st person present sg · en: ei 1st person sg · syö: syödä present sg 3rd person"
+  },
+  "title:Syön. · Syöt. · Hän syö.": {
+   "fi": "Syön. · Syöt. · Hän syö.",
+   "how": "syön: syödä 1st person present sg · syöt: syödä present 2nd person sg · hän: he · syö: syödä present sg 3rd person"
+  },
+  "title:Syön. · Söin. · En syönyt.": {
+   "fi": "Syön. · Söin. · En syönyt.",
+   "how": "syön: syödä 1st person present sg · söin: syödä 1st person past sg · en: ei 1st person sg · syönyt: syödä active participle past"
+  },
+  "title:Syötkö?": {
+   "fi": "Syötkö?",
+   "how": "syötkö: syödä present 2nd person sg + -kö"
+  },
+  "title:Syötkö? – Syön!": {
+   "fi": "Syötkö? – Syön!",
+   "how": "syötkö: syödä present 2nd person sg + -kö · syön: syödä 1st person present sg"
+  },
+  "title:Söin": {
+   "fi": "Söin",
+   "how": "söin: syödä 1st person past sg"
+  },
+  "title:Söin vai en syönyt?": {
+   "fi": "Söin vai en syönyt?",
+   "how": "söin: syödä 1st person past sg · vai: or · en: ei 1st person sg · syönyt: syödä active participle past"
+  },
+  "title:Taidot": {
+   "fi": "Taidot",
+   "how": "taidot: taito nominative pl"
+  },
+  "title:Taivuta verbi": {
+   "fi": "Taivuta verbi",
+   "how": "taivuta: taivuttaa imperative present 2nd person sg · verbi: verb"
+  },
+  "title:Talossani": {
+   "fi": "Talossani",
+   "how": "talossani: talo 1st person inessive sg"
+  },
+  "title:Tarina": {
+   "fi": "Tarina",
+   "how": "tarina: story"
+  },
+  "title:Tarinat": {
+   "fi": "Tarinat",
+   "how": "tarinat: tarina nominative pl"
+  },
+  "title:Tarkka": {
+   "fi": "Tarkka",
+   "how": "tarkka: accurate"
+  },
+  "title:Tarvitsen, vanhenen": {
+   "fi": "Tarvitsen, vanhenen",
+   "how": "tarvitsen: tarvita 1st person present sg · vanhenen: vanheta 1st person present sg"
+  },
+  "title:Tarvitsen. · En tarvitse.": {
+   "fi": "Tarvitsen. · En tarvitse.",
+   "how": "tarvitsen: tarvita 1st person present sg · en: ei 1st person sg · tarvitse: tarvita imperative present 2nd person sg"
+  },
+  "title:Tavat": {
+   "fi": "Tavat",
+   "how": "tavat: tapa nominative pl"
+  },
+  "title:Tee näin!": {
+   "fi": "Tee näin!",
+   "how": "tee: tehdä imperative present 2nd person sg · näin: nähdä 1st person past sg"
+  },
+  "title:Tee! Älä! Tehdään!": {
+   "fi": "Tee! Älä! Tehdään!",
+   "how": "tee: tehdä imperative present 2nd person sg · älä: ei imperative present 2nd person sg · tehdään: tehdä passive present"
+  },
+  "title:Tervehdykset": {
+   "fi": "Tervehdykset",
+   "how": "tervehdykset: tervehdys nominative pl"
+  },
+  "title:Tunnin päästä": {
+   "fi": "Tunnin päästä",
+   "how": "tunnin: tunti accusative genitive sg · päästä: pää elative sg"
+  },
+  "title:Tykkään": {
+   "fi": "Tykkään",
+   "how": "tykkään: tykätä 1st person present sg"
+  },
+  "title:Tykkään / En tykkää": {
+   "fi": "Tykkään / En tykkää",
+   "how": "tykkään: tykätä 1st person present sg · en: ei 1st person sg · tykkää: tykätä present sg 3rd person"
+  },
+  "title:Tykkään jalkapallosta.": {
+   "fi": "Tykkään jalkapallosta.",
+   "how": "tykkään: tykätä 1st person present sg · jalkapallosta: jalkapallo elative sg"
+  },
+  "title:Tykkään koirasta · Näen koiran · Odotan koiraa": {
+   "fi": "Tykkään koirasta · Näen koiran · Odotan koiraa",
+   "how": "tykkään: tykätä 1st person present sg · koirasta: koira elative sg · näen: nähdä 1st person present sg · koiran: koira genitive sg · odotan: odottaa 1st person present sg · koiraa: koira partitive sg"
+  },
+  "title:Tykkään pitsasta. · Rakastan pitsaa.": {
+   "fi": "Tykkään pitsasta. · Rakastan pitsaa.",
+   "how": "tykkään: tykätä 1st person present sg · pitsasta: pitsa elative sg · rakastan: rakastaa 1st person present sg · pitsaa: pitsa partitive sg"
+  },
+  "title:Tykkään, pidän, rakastan": {
+   "fi": "Tykkään, pidän, rakastan",
+   "how": "tykkään: tykätä 1st person present sg · pidän: pitää 1st person present sg · rakastan: rakastaa 1st person present sg"
+  },
+  "title:Tykkään…sta": {
+   "fi": "Tykkään…sta",
+   "how": "tykkään…sta: ending notation"
+  },
+  "title:Tyypit 5 ja 6": {
+   "fi": "Tyypit 5 ja 6",
+   "how": "tyypit: tyyppi nominative pl · ja: and"
+  },
+  "title:Tyyppi 1": {
+   "fi": "Tyyppi 1",
+   "how": "tyyppi: type"
+  },
+  "title:Tyyppi 2": {
+   "fi": "Tyyppi 2",
+   "how": "tyyppi: type"
+  },
+  "title:Tyyppi 3": {
+   "fi": "Tyyppi 3",
+   "how": "tyyppi: type"
+  },
+  "title:Tyyppi 4": {
+   "fi": "Tyyppi 4",
+   "how": "tyyppi: type"
+  },
+  "title:Tyyppi 5": {
+   "fi": "Tyyppi 5",
+   "how": "tyyppi: type"
+  },
+  "title:Tyyppi 6 ja KPT": {
+   "fi": "Tyyppi 6 ja KPT",
+   "how": "tyyppi: type · ja: and · kpt: KPT (consonant gradation)"
+  },
+  "title:Tähtien keräilijä": {
+   "fi": "Tähtien keräilijä",
+   "how": "tähtien: tähti genitive pl · keräilijä: collector"
+  },
+  "title:Tämä on isän pyörä": {
+   "fi": "Tämä on isän pyörä",
+   "how": "tämä: this · on: olla present sg 3rd person · isän: isä genitive sg · pyörä: wheel"
+  },
+  "title:Tämä on isän pyörä.": {
+   "fi": "Tämä on isän pyörä.",
+   "how": "tämä: this · on: olla present sg 3rd person · isän: isä genitive sg · pyörä: wheel"
+  },
+  "title:Tämä on kirja. · Onko tämä kirja?": {
+   "fi": "Tämä on kirja. · Onko tämä kirja?",
+   "how": "tämä: this · on: olla present sg 3rd person · kirja: book · onko: olla present sg 3rd person"
+  },
+  "title:Tämä on minun kirjani.": {
+   "fi": "Tämä on minun kirjani.",
+   "how": "tämä: this · on: olla present sg 3rd person · minun: minä genitive sg · kirjani: kirja 1st person possessive sg"
+  },
+  "title:Tämä on minun…": {
+   "fi": "Tämä on minun…",
+   "how": "tämä: this · on: olla present sg 3rd person · minun…: ending notation"
+  },
+  "title:Tämä on opettaja.": {
+   "fi": "Tämä on opettaja.",
+   "how": "tämä: this · on: olla present sg 3rd person · opettaja: teacher"
+  },
+  "title:Tämä on punainen": {
+   "fi": "Tämä on punainen",
+   "how": "tämä: this · on: olla present sg 3rd person · punainen: red"
+  },
+  "title:Tämä on punainen.": {
+   "fi": "Tämä on punainen.",
+   "how": "tämä: this · on: olla present sg 3rd person · punainen: red"
+  },
+  "title:Tämä on sinulle! · Pidän sinusta.": {
+   "fi": "Tämä on sinulle! · Pidän sinusta.",
+   "how": "tämä: this · on: olla present sg 3rd person · sinulle: sinä allative sg · pidän: pitää 1st person present sg · sinusta: sinä elative sg"
+  },
+  "title:Tämä on…": {
+   "fi": "Tämä on…",
+   "how": "tämä: this · on…: ending notation"
+  },
+  "title:Tänään on maanantai.": {
+   "fi": "Tänään on maanantai.",
+   "how": "tänään: today · on: olla present sg 3rd person · maanantai: Monday"
+  },
+  "title:Tänään on maanantai. · Leikin maanantaina.": {
+   "fi": "Tänään on maanantai. · Leikin maanantaina.",
+   "how": "tänään: today · on: olla present sg 3rd person · maanantai: Monday · leikin: leikki genitive sg · maanantaina: maanantai essive sg"
+  },
+  "title:Tänään on…": {
+   "fi": "Tänään on…",
+   "how": "tänään: today · on…: ending notation"
+  },
+  "title:Uudet sanat": {
+   "fi": "Uudet sanat",
+   "how": "uudet: uusi nominative pl · sanat: sana nominative pl"
+  },
+  "title:Uusi kaveri": {
+   "fi": "Uusi kaveri",
+   "how": "uusi: uusia past sg 3rd person · kaveri: friend"
+  },
+  "title:Uusi oppilas": {
+   "fi": "Uusi oppilas",
+   "how": "uusi: uusia past sg 3rd person · oppilas: pupil"
+  },
+  "title:Vaaka": {
+   "fi": "Vaaka",
+   "how": "vaaka: scales"
+  },
+  "title:Vahvempi kirjain": {
+   "fi": "Vahvempi kirjain",
+   "how": "vahvempi: vahva comparative · kirjain: kirja genitive pl"
+  },
+  "title:Valitse pääte": {
+   "fi": "Valitse pääte",
+   "how": "valitse: valita imperative present 2nd person sg · pääte: end"
+  },
+  "title:Vauhdissa": {
+   "fi": "Vauhdissa",
+   "how": "vauhdissa: vauhti inessive sg"
+  },
+  "title:Verbityypit 5 ja 6": {
+   "fi": "Verbityypit 5 ja 6",
+   "how": "verbityypit: verbityyppi (verb type), nominative pl · ja: and"
+  },
+  "title:Verbityyppi 4": {
+   "fi": "Verbityyppi 4",
+   "how": "verbityyppi: verb type"
+  },
+  "title:Viides toukokuuta": {
+   "fi": "Viides toukokuuta",
+   "how": "viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "title:Viikko putkeen": {
+   "fi": "Viikko putkeen",
+   "how": "viikko: week · putkeen: putki illative sg"
+  },
+  "title:Viikon laskut": {
+   "fi": "Viikon laskut",
+   "how": "viikon: viikko genitive sg · laskut: lasku nominative pl"
+  },
+  "title:Virheetön": {
+   "fi": "Virheetön",
+   "how": "virheetön: flawless"
+  },
+  "title:Värit": {
+   "fi": "Värit",
+   "how": "värit: väri nominative pl"
+  },
+  "title:Yhdistä sanat": {
+   "fi": "Yhdistä sanat",
+   "how": "yhdistä: yhdistää imperative present 2nd person sg · sanat: sana nominative pl"
+  },
+  "title:Yhteensä": {
+   "fi": "Yhteensä",
+   "how": "yhteensä: altogether"
+  },
+  "title:Yksi vai monta?": {
+   "fi": "Yksi vai monta?",
+   "how": "yksi: one · vai: or · monta: moni partitive sg"
+  },
+  "title:Yksitoista, kaksitoista…": {
+   "fi": "Yksitoista, kaksitoista…",
+   "how": "yksitoista: eleven · kaksitoista…: ending notation"
+  },
+  "title:iso koira": {
+   "fi": "iso koira",
+   "how": "iso: big · koira: dog"
+  },
+  "title:iso → isompi → isoin": {
+   "fi": "iso → isompi → isoin",
+   "how": "iso: big · isompi: iso comparative · isoin: iso superlative"
+  },
+  "title:isossa talossa · pienellä pöydällä": {
+   "fi": "isossa talossa · pienellä pöydällä",
+   "how": "isossa: iso inessive sg · talossa: talo inessive sg · pienellä: pieni adessive sg · pöydällä: pöytä adessive sg"
+  },
+  "title:isän pyörä": {
+   "fi": "isän pyörä",
+   "how": "isän: isä genitive sg · pyörä: wheel"
+  },
+  "title:isän pyörä · äidin pyörä": {
+   "fi": "isän pyörä · äidin pyörä",
+   "how": "isän: isä genitive sg · pyörä: wheel · äidin: äiti genitive sg"
+  },
+  "title:kirjani · kirjasi · kirjansa": {
+   "fi": "kirjani · kirjasi · kirjansa",
+   "how": "kirjani: kirja 1st person possessive sg · kirjasi: kirja possessive 2nd person sg · kirjansa: kirja possessive 3rd person"
+  },
+  "title:kirjani, kirjasi": {
+   "fi": "kirjani, kirjasi",
+   "how": "kirjani: kirja 1st person possessive sg · kirjasi: kirja possessive 2nd person sg"
+  },
+  "title:kolme euroa": {
+   "fi": "kolme euroa",
+   "how": "kolme: three · euroa: euro partitive sg"
+  },
+  "title:kolme kirjaa": {
+   "fi": "kolme kirjaa",
+   "how": "kolme: three · kirjaa: kirja partitive sg"
+  },
+  "title:kolme · kolmas": {
+   "fi": "kolme · kolmas",
+   "how": "kolme: three · kolmas: third"
+  },
+  "title:laatikkoon · huoneeseen · puuhun": {
+   "fi": "laatikkoon · huoneeseen · puuhun",
+   "how": "laatikkoon: laatikko illative sg · huoneeseen: huone illative sg · puuhun: puu illative sg"
+  },
+  "title:laatikkoon · laatikossa · laatikosta": {
+   "fi": "laatikkoon · laatikossa · laatikosta",
+   "how": "laatikkoon: laatikko illative sg · laatikossa: laatikko inessive sg · laatikosta: laatikko elative sg"
+  },
+  "title:laatikossa · pöydällä": {
+   "fi": "laatikossa · pöydällä",
+   "how": "laatikossa: laatikko inessive sg · pöydällä: pöytä adessive sg"
+  },
+  "title:laulaa → tyyppi 1": {
+   "fi": "laulaa → tyyppi 1",
+   "how": "laulaa: laulaa present sg 3rd person · tyyppi: type"
+  },
+  "title:minä avaan, hän avaa": {
+   "fi": "minä avaan, hän avaa",
+   "how": "minä: mikä essive pl sg · avaan: avata 1st person present sg · hän: he · avaa: avata present sg 3rd person"
+  },
+  "title:minä en avaa": {
+   "fi": "minä en avaa",
+   "how": "minä: mikä essive pl sg · en: ei 1st person sg · avaa: avata present sg 3rd person"
+  },
+  "title:minä en syö": {
+   "fi": "minä en syö",
+   "how": "minä: mikä essive pl sg · en: ei 1st person sg · syö: syödä present sg 3rd person"
+  },
+  "title:minä en syönyt": {
+   "fi": "minä en syönyt",
+   "how": "minä: mikä essive pl sg · en: ei 1st person sg · syönyt: syödä active participle past"
+  },
+  "title:minä halusin, hän avasi": {
+   "fi": "minä halusin, hän avasi",
+   "how": "minä: mikä essive pl sg · halusin: haluta 1st person past sg · hän: he · avasi: avata past sg 3rd person"
+  },
+  "title:minä herään, hän harjaa": {
+   "fi": "minä herään, hän harjaa",
+   "how": "minä: mikä essive pl sg · herään: herätä 1st person present sg · hän: he · harjaa: harja partitive sg"
+  },
+  "title:minä hyppään, hän hyppää": {
+   "fi": "minä hyppään, hän hyppää",
+   "how": "minä: mikä essive pl sg · hyppään: hypätä 1st person present sg · hän: he · hyppää: hypätä imperative present 2nd person sg"
+  },
+  "title:minä laulan, hän laulaa": {
+   "fi": "minä laulan, hän laulaa",
+   "how": "minä: mikä essive pl sg · laulan: laulaa 1st person present sg · hän: he · laulaa: laulaa present sg 3rd person"
+  },
+  "title:minä nukun, hän nukkuu": {
+   "fi": "minä nukun, hän nukkuu",
+   "how": "minä: mikä essive pl sg · nukun: nukkua 1st person present sg · hän: he · nukkuu: nukkua present sg 3rd person"
+  },
+  "title:minä nukun, minä hyppään": {
+   "fi": "minä nukun, minä hyppään",
+   "how": "minä: mikä essive pl sg · nukun: nukkua 1st person present sg · hyppään: hypätä 1st person present sg"
+  },
+  "title:minä pakenen, hän pakenee": {
+   "fi": "minä pakenen, hän pakenee",
+   "how": "minä: mikä essive pl sg · pakenen: paeta 1st person present sg · hän: he · pakenee: paeta present sg 3rd person"
+  },
+  "title:minä soitan, hän pelaa": {
+   "fi": "minä soitan, hän pelaa",
+   "how": "minä: mikä essive pl sg · soitan: soittaa 1st person present sg · hän: he · pelaa: pelata present sg 3rd person"
+  },
+  "title:minä syön, hän syö": {
+   "fi": "minä syön, hän syö",
+   "how": "minä: mikä essive pl sg · syön: syödä 1st person present sg · hän: he · syö: syödä present sg 3rd person"
+  },
+  "title:minä syön, sinä nukut": {
+   "fi": "minä syön, sinä nukut",
+   "how": "minä: mikä essive pl sg · syön: syödä 1st person present sg · sinä: se essive sg · nukut: nukkua present 2nd person sg"
+  },
+  "title:minä söin, hän nukkui": {
+   "fi": "minä söin, hän nukkui",
+   "how": "minä: mikä essive pl sg · söin: syödä 1st person past sg · hän: he · nukkui: nukkua past sg 3rd person"
+  },
+  "title:minä tarvitsen, hän tarvitsee": {
+   "fi": "minä tarvitsen, hän tarvitsee",
+   "how": "minä: mikä essive pl sg · tarvitsen: tarvita 1st person present sg · hän: he · tarvitsee: tarvita present sg 3rd person"
+  },
+  "title:minä tulen, hän tulee": {
+   "fi": "minä tulen, hän tulee",
+   "how": "minä: mikä essive pl sg · tulen: tulla 1st person present sg · hän: he · tulee: tulla present sg 3rd person"
+  },
+  "title:minä vanhenen, en vanhene": {
+   "fi": "minä vanhenen, en vanhene",
+   "how": "minä: mikä essive pl sg · vanhenen: vanheta 1st person present sg · en: ei 1st person sg · vanhene: vanheta imperative present 2nd person sg"
+  },
+  "title:nenäni, korvasi": {
+   "fi": "nenäni, korvasi",
+   "how": "nenäni: nenä 1st person nominative sg · korvasi: korvata past sg 3rd person"
+  },
+  "title:nukun · kuuntelen · hyppään · pakenen": {
+   "fi": "nukun · kuuntelen · hyppään · pakenen",
+   "how": "nukun: nukkua 1st person present sg · kuuntelen: kuunnella 1st person present sg · hyppään: hypätä 1st person present sg · pakenen: paeta 1st person present sg"
+  },
+  "title:talossani, huoneessasi": {
+   "fi": "talossani, huoneessasi",
+   "how": "talossani: talo 1st person inessive sg · huoneessasi: huone inessive 2nd person sg"
+  },
+  "title:tuolin alla": {
+   "fi": "tuolin alla",
+   "how": "tuolin: tuoli genitive sg · alla: beneath"
+  },
+  "title:viides toukokuuta": {
+   "fi": "viides toukokuuta",
+   "how": "viides: fifth · toukokuuta: toukokuu partitive sg"
+  },
+  "title:viisitoista palloa": {
+   "fi": "viisitoista palloa",
+   "how": "viisitoista: fifteen · palloa: pallo partitive sg"
+  },
+  "title:Äidin pyörä": {
+   "fi": "Äidin pyörä",
+   "how": "äidin: äiti genitive sg · pyörä: wheel"
+  },
+  "title:Älä juokse! Juostaan!": {
+   "fi": "Älä juokse! Juostaan!",
+   "how": "älä: ei imperative present 2nd person sg · juokse: juosta imperative present 2nd person sg · juostaan: juosta passive present"
+  },
+  "title:…issa": {
+   "fi": "…issa",
+   "how": "issa: the ending -issa"
+  },
+  "ui:A vai Ä?": {
+   "fi": "A vai Ä?",
+   "how": "a: The first letter of the Finnish  · vai: or · ä: The twenty-seventh letter of the"
+  },
+  "ui:Aakkoset": {
+   "fi": "Aakkoset",
+   "how": "aakkoset: aakkonen nominative pl"
+  },
+  "ui:Aikuisille": {
+   "fi": "Aikuisille",
+   "how": "aikuisille: aikuinen allative pl"
+  },
+  "ui:Aloita": {
+   "fi": "Aloita",
+   "how": "aloita: aloittaa imperative present 2nd person sg"
+  },
+  "ui:Ansaittu": {
+   "fi": "Ansaittu",
+   "how": "ansaittu: ansaita participle passive past"
+  },
+  "ui:Asetukset": {
+   "fi": "Asetukset",
+   "how": "asetukset: asetus nominative pl"
+  },
+  "ui:Avaa kaikki osat": {
+   "fi": "Avaa kaikki osat",
+   "how": "avaa: avata present sg 3rd person · kaikki: everything · osat: osa nominative pl"
+  },
+  "ui:Edellinen sivu": {
+   "fi": "Edellinen sivu",
+   "how": "edellinen: previous · sivu: page"
+  },
+  "ui:Edistyminen": {
+   "fi": "Edistyminen",
+   "how": "edistyminen: edistyä"
+  },
+  "ui:Ei!": {
+   "fi": "Ei!",
+   "how": "ei: The negative verb or negation ve"
+  },
+  "ui:Harjoittele": {
+   "fi": "Harjoittele",
+   "how": "harjoittele: harjoitella imperative present 2nd person sg"
+  },
+  "ui:Harjoittele!": {
+   "fi": "Harjoittele!",
+   "how": "harjoittele: harjoitella imperative present 2nd person sg"
+  },
+  "ui:Hei⟨…⟩!": {
+   "fi": "Hei⟨…⟩!",
+   "how": "hei: hi"
+  },
+  "ui:Hienoa työtä tänään!": {
+   "fi": "Hienoa työtä tänään!",
+   "how": "hienoa: hieno partitive sg · työtä: työ partitive sg · tänään: today"
+  },
+  "ui:Hienoa!": {
+   "fi": "Hienoa!",
+   "how": "hienoa: hieno partitive sg"
+  },
+  "ui:Hienoa, juttelit suomeksi!": {
+   "fi": "Hienoa, juttelit suomeksi!",
+   "how": "hienoa: hieno partitive sg · juttelit: jutella past 2nd person sg · suomeksi: suomi sg translative"
+  },
+  "ui:Hitaasti": {
+   "fi": "Hitaasti",
+   "how": "hitaasti: slowly"
+  },
+  "ui:Hyvä yritys!": {
+   "fi": "Hyvä yritys!",
+   "how": "hyvä: good good good · yritys: attempt"
+  },
+  "ui:Jatka": {
+   "fi": "Jatka",
+   "how": "jatka: jatkaa imperative present 2nd person sg"
+  },
+  "ui:Kaikki oikein": {
+   "fi": "Kaikki oikein",
+   "how": "kaikki: everything · oikein: oikea pl"
+  },
+  "ui:Kenen se on?": {
+   "fi": "Kenen se on?",
+   "how": "kenen: kuka /ken genitive sg · se: that · on: olla present sg 3rd person"
+  },
+  "ui:Keskustelu": {
+   "fi": "Keskustelu",
+   "how": "keskustelu: conversation"
+  },
+  "ui:Kirjahylly": {
+   "fi": "Kirjahylly",
+   "how": "kirjahylly: bookshelf"
+  },
+  "ui:Kirjaimet": {
+   "fi": "Kirjaimet",
+   "how": "kirjaimet: kirjain nominative pl"
+  },
+  "ui:Kirjain": {
+   "fi": "Kirjain",
+   "how": "kirjain: kirja genitive pl"
+  },
+  "ui:Kirjainten nimet": {
+   "fi": "Kirjainten nimet",
+   "how": "kirjainten: kirjain (letter), genitive pl · nimet: nimi nominative pl"
+  },
+  "ui:Kirjoita mitä kuulet": {
+   "fi": "Kirjoita mitä kuulet",
+   "how": "kirjoita: kirjoittaa imperative present 2nd person sg · mitä: mikä partitive pl sg · kuulet: kuulla present 2nd person sg"
+  },
+  "ui:Kirjoita oikea muoto": {
+   "fi": "Kirjoita oikea muoto",
+   "how": "kirjoita: kirjoittaa imperative present 2nd person sg · oikea: right · muoto: shape"
+  },
+  "ui:Kirjoita suomeksi": {
+   "fi": "Kirjoita suomeksi",
+   "how": "kirjoita: kirjoittaa imperative present 2nd person sg · suomeksi: suomi sg translative"
+  },
+  "ui:Kokeile!": {
+   "fi": "Kokeile!",
+   "how": "kokeile: kokeilla imperative present 2nd person sg"
+  },
+  "ui:Korjattava": {
+   "fi": "Korjattava",
+   "how": "korjattava: korjata participle passive present"
+  },
+  "ui:Koti": {
+   "fi": "Koti",
+   "how": "koti: home"
+  },
+  "ui:Kuinka vanha?": {
+   "fi": "Kuinka vanha?",
+   "how": "kuinka: how · vanha: old"
+  },
+  "ui:Kuka pelaa?": {
+   "fi": "Kuka pelaa?",
+   "how": "kuka: who · pelaa: pelata present sg 3rd person"
+  },
+  "ui:Kuka sanoo näin?": {
+   "fi": "Kuka sanoo näin?",
+   "how": "kuka: who · sanoo: sanoa present sg 3rd person · näin: nähdä 1st person past sg"
+  },
+  "ui:Kuka voittaa?": {
+   "fi": "Kuka voittaa?",
+   "how": "kuka: who · voittaa: to win"
+  },
+  "ui:Kumpi on oikein?": {
+   "fi": "Kumpi on oikein?",
+   "how": "kumpi: which one two) · on: olla present sg 3rd person · oikein: oikea pl"
+  },
+  "ui:Kumpi?": {
+   "fi": "Kumpi?",
+   "how": "kumpi: which one two)"
+  },
+  "ui:Kuuntele ensin": {
+   "fi": "Kuuntele ensin",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · ensin: entää 1st person past sg"
+  },
+  "ui:Kuuntele uudestaan": {
+   "fi": "Kuuntele uudestaan",
+   "how": "kuuntele: kuunnella imperative present 2nd person sg · uudestaan: again"
+  },
+  "ui:Kuuntelen…": {
+   "fi": "Kuuntelen…",
+   "how": "kuuntelen…: ending notation"
+  },
+  "ui:Kyllä!": {
+   "fi": "Kyllä!",
+   "how": "kyllä: an intensifier"
+  },
+  "ui:Kysy": {
+   "fi": "Kysy",
+   "how": "kysy: kysyä imperative present 2nd person sg"
+  },
+  "ui:Laita kuvat järjestykseen!": {
+   "fi": "Laita kuvat järjestykseen!",
+   "how": "laita: laittaa imperative present 2nd person sg · kuvat: kuva nominative pl · järjestykseen: järjestys illative sg"
+  },
+  "ui:Laita sanat järjestykseen": {
+   "fi": "Laita sanat järjestykseen",
+   "how": "laita: laittaa imperative present 2nd person sg · sanat: sana nominative pl · järjestykseen: järjestys illative sg"
+  },
+  "ui:Loppu": {
+   "fi": "Loppu",
+   "how": "loppu: end"
+  },
+  "ui:Loppu!": {
+   "fi": "Loppu!",
+   "how": "loppu: end"
+  },
+  "ui:Lue": {
+   "fi": "Lue",
+   "how": "lue: lukea imperative 2nd person sg"
+  },
+  "ui:Lue ensin": {
+   "fi": "Lue ensin",
+   "how": "lue: lukea imperative 2nd person sg · ensin: entää 1st person past sg"
+  },
+  "ui:Lue uudestaan": {
+   "fi": "Lue uudestaan",
+   "how": "lue: lukea imperative 2nd person sg · uudestaan: again"
+  },
+  "ui:Lämmittely": {
+   "fi": "Lämmittely",
+   "how": "lämmittely: warm-up"
+  },
+  "ui:Lämmittely tehty!": {
+   "fi": "Lämmittely tehty!",
+   "how": "lämmittely: warm-up · tehty: tehdä participle passive past"
+  },
+  "ui:Läpäisty!": {
+   "fi": "Läpäisty!",
+   "how": "läpäisty: läpäistä (to pass a level or test), past passive participle"
+  },
+  "ui:Melkein!": {
+   "fi": "Melkein!",
+   "how": "melkein: almost"
+  },
+  "ui:Miksi?": {
+   "fi": "Miksi?",
+   "how": "miksi: mikä pl sg translative"
+  },
+  "ui:Mikä kirjain?": {
+   "fi": "Mikä kirjain?",
+   "how": "mikä: what · kirjain: kirja genitive pl"
+  },
+  "ui:Mikä on oikein?": {
+   "fi": "Mikä on oikein?",
+   "how": "mikä: what · on: olla present sg 3rd person · oikein: oikea pl"
+  },
+  "ui:Mikä on totta?": {
+   "fi": "Mikä on totta?",
+   "how": "mikä: what · on: olla present sg 3rd person · totta: tosi partitive sg"
+  },
+  "ui:Mikä sana?": {
+   "fi": "Mikä sana?",
+   "how": "mikä: what · sana: word"
+  },
+  "ui:Mikä sen nimi on?": {
+   "fi": "Mikä sen nimi on?",
+   "how": "mikä: what · sen: se accusative genitive sg · nimi: name · on: olla present sg 3rd person"
+  },
+  "ui:Mikä sopii yhteen?": {
+   "fi": "Mikä sopii yhteen?",
+   "how": "mikä: what · sopii: sopia present sg 3rd person · yhteen: yksi illative sg"
+  },
+  "ui:Mikä tämä on suomeksi?": {
+   "fi": "Mikä tämä on suomeksi?",
+   "how": "mikä: what · tämä: this · on: olla present sg 3rd person · suomeksi: suomi sg translative"
+  },
+  "ui:Mikä verbityyppi?": {
+   "fi": "Mikä verbityyppi?",
+   "how": "mikä: what · verbityyppi: verb type"
+  },
+  "ui:Mistä lause kertoo?": {
+   "fi": "Mistä lause kertoo?",
+   "how": "mistä: mikä elative pl sg · lause: clause · kertoo: kertoa present sg 3rd person"
+  },
+  "ui:Mistä puhutaan?": {
+   "fi": "Mistä puhutaan?",
+   "how": "mistä: mikä elative pl sg · puhutaan: puhua passive present"
+  },
+  "ui:Miten kysyt?": {
+   "fi": "Miten kysyt?",
+   "how": "miten: how · kysyt: kysyä present 2nd person sg"
+  },
+  "ui:Miten sanot?": {
+   "fi": "Miten sanot?",
+   "how": "miten: how · sanot: sanoa present 2nd person sg"
+  },
+  "ui:Mitä kuulit?": {
+   "fi": "Mitä kuulit?",
+   "how": "mitä: mikä partitive pl sg · kuulit: kuulla past 2nd person sg"
+  },
+  "ui:Mitä kuuluu?": {
+   "fi": "Mitä kuuluu?",
+   "how": "mitä: mikä partitive pl sg · kuuluu: kuulua present sg 3rd person"
+  },
+  "ui:Mitä nämä ovat?": {
+   "fi": "Mitä nämä ovat?",
+   "how": "mitä: mikä partitive pl sg · nämä: tämä nominative pl · ovat: olla pl present 3rd person"
+  },
+  "ui:Mitä pitää tehdä?": {
+   "fi": "Mitä pitää tehdä?",
+   "how": "mitä: mikä partitive pl sg · pitää: to hold · tehdä: to do"
+  },
+  "ui:Mitä sanot?": {
+   "fi": "Mitä sanot?",
+   "how": "mitä: mikä partitive pl sg · sanot: sanoa present 2nd person sg"
+  },
+  "ui:Mitä vastaat?": {
+   "fi": "Mitä vastaat?",
+   "how": "mitä: mikä partitive pl sg · vastaat: vastata present 2nd person sg"
+  },
+  "ui:Muistatko?": {
+   "fi": "Muistatko?",
+   "how": "muistatko: muistaa present 2nd person sg"
+  },
+  "ui:Mykistä äänet": {
+   "fi": "Mykistä äänet",
+   "how": "mykistä: mykkä elative pl · äänet: ääni nominative pl"
+  },
+  "ui:Nimeä": {
+   "fi": "Nimeä",
+   "how": "nimeä: nimi partitive sg"
+  },
+  "ui:Nimi": {
+   "fi": "Nimi",
+   "how": "nimi: name"
+  },
+  "ui:Nyt sinä!": {
+   "fi": "Nyt sinä!",
+   "how": "nyt: now · sinä: se essive sg"
+  },
+  "ui:Ohita": {
+   "fi": "Ohita",
+   "how": "ohita: ohittaa imperative present 2nd person sg"
+  },
+  "ui:Oikein": {
+   "fi": "Oikein",
+   "how": "oikein: oikea pl"
+  },
+  "ui:Oikein!": {
+   "fi": "Oikein!",
+   "how": "oikein: oikea pl"
+  },
+  "ui:Onko lause oikein?": {
+   "fi": "Onko lause oikein?",
+   "how": "onko: olla present sg 3rd person · lause: clause · oikein: oikea pl"
+  },
+  "ui:Oppitunnit": {
+   "fi": "Oppitunnit",
+   "how": "oppitunnit: oppitunti nominative pl"
+  },
+  "ui:Oppitunti": {
+   "fi": "Oppitunti",
+   "how": "oppitunti: lesson"
+  },
+  "ui:Paina ja puhu": {
+   "fi": "Paina ja puhu",
+   "how": "paina: painaa imperative present 2nd person sg · ja: and · puhu: puhua imperative present 2nd person sg"
+  },
+  "ui:Paljonko on ⟨a⟩ + ⟨b⟩?": {
+   "fi": "Paljonko on ⟨a⟩ + ⟨b⟩?",
+   "how": "paljonko: how much? · on: olla present sg 3rd person"
+  },
+  "ui:Pelaajat": {
+   "fi": "Pelaajat",
+   "how": "pelaajat: pelaaja nominative pl"
+  },
+  "ui:Pelataan tänään!": {
+   "fi": "Pelataan tänään!",
+   "how": "pelataan: pelata passive present · tänään: today"
+  },
+  "ui:Pelit": {
+   "fi": "Pelit",
+   "how": "pelit: peli nominative pl"
+  },
+  "ui:Pinkki": {
+   "fi": "Pinkki",
+   "how": "pinkki: hot pink"
+  },
+  "ui:Päivä": {
+   "fi": "Päivä",
+   "how": "päivä: day"
+  },
+  "ui:Päivän laskut": {
+   "fi": "Päivän laskut",
+   "how": "päivän: päivä genitive sg · laskut: lasku nominative pl"
+  },
+  "ui:Päivän lämmittely": {
+   "fi": "Päivän lämmittely",
+   "how": "päivän: päivä genitive sg · lämmittely: warm-up"
+  },
+  "ui:Saavutukset": {
+   "fi": "Saavutukset",
+   "how": "saavutukset: saavutus nominative pl"
+  },
+  "ui:Sano tämä ääneen": {
+   "fi": "Sano tämä ääneen",
+   "how": "sano: sanoa imperative present 2nd person sg · tämä: this · ääneen: ääni illative sg"
+  },
+  "ui:Sanoin sen": {
+   "fi": "Sanoin sen",
+   "how": "sanoin: sana pl · sen: se accusative genitive sg"
+  },
+  "ui:Selvä": {
+   "fi": "Selvä",
+   "how": "selvä: clear"
+  },
+  "ui:Seuraava": {
+   "fi": "Seuraava",
+   "how": "seuraava: seurata active participle present"
+  },
+  "ui:Seuraava sivu": {
+   "fi": "Seuraava sivu",
+   "how": "seuraava: seurata active participle present · sivu: page"
+  },
+  "ui:Seuraava tarina": {
+   "fi": "Seuraava tarina",
+   "how": "seuraava: seurata active participle present · tarina: story"
+  },
+  "ui:Sivu ⟨…⟩ / ⟨length⟩": {
+   "fi": "Sivu ⟨…⟩ / ⟨length⟩",
+   "how": "sivu: page"
+  },
+  "ui:Sulje": {
+   "fi": "Sulje",
+   "how": "sulje: sulkea imperative present 2nd person sg"
+  },
+  "ui:Suomen tarkistus": {
+   "fi": "Suomen tarkistus",
+   "how": "suomen: suomi genitive sg · tarkistus: inspection"
+  },
+  "ui:Takaisin": {
+   "fi": "Takaisin",
+   "how": "takaisin: taata conditional 1st person present sg"
+  },
+  "ui:Tarkistus": {
+   "fi": "Tarkistus",
+   "how": "tarkistus: inspection"
+  },
+  "ui:Tarua": {
+   "fi": "Tarua",
+   "how": "tarua: taru partitive sg"
+  },
+  "ui:Tarua!": {
+   "fi": "Tarua!",
+   "how": "tarua: taru partitive sg"
+  },
+  "ui:Tee! Älä!": {
+   "fi": "Tee! Älä!",
+   "how": "tee: tehdä imperative present 2nd person sg · älä: ei imperative present 2nd person sg"
+  },
+  "ui:Testaus": {
+   "fi": "Testaus",
+   "how": "testaus: testing"
+  },
+  "ui:Tilastot": {
+   "fi": "Tilastot",
+   "how": "tilastot: tilasto nominative pl"
+  },
+  "ui:Totta": {
+   "fi": "Totta",
+   "how": "totta: tosi partitive sg"
+  },
+  "ui:Totta vai tarua?": {
+   "fi": "Totta vai tarua?",
+   "how": "totta: tosi partitive sg · vai: or · tarua: taru partitive sg"
+  },
+  "ui:Totta!": {
+   "fi": "Totta!",
+   "how": "totta: tosi partitive sg"
+  },
+  "ui:Täydennä lause": {
+   "fi": "Täydennä lause",
+   "how": "täydennä: täydentää imperative present 2nd person sg · lause: clause"
+  },
+  "ui:Uudestaan": {
+   "fi": "Uudestaan",
+   "how": "uudestaan: again"
+  },
+  "ui:Uusi": {
+   "fi": "Uusi",
+   "how": "uusi: uusia past sg 3rd person"
+  },
+  "ui:Uusi fraasi!": {
+   "fi": "Uusi fraasi!",
+   "how": "uusi: uusia past sg 3rd person · fraasi: phrase"
+  },
+  "ui:Uusi mitali! ⟨titleFi⟩": {
+   "fi": "Uusi mitali! ⟨titleFi⟩",
+   "how": "uusi: uusia past sg 3rd person · mitali: medal"
+  },
+  "ui:Uusi oppitunti": {
+   "fi": "Uusi oppitunti",
+   "how": "uusi: uusia past sg 3rd person · oppitunti: lesson"
+  },
+  "ui:Uusi pääte!": {
+   "fi": "Uusi pääte!",
+   "how": "uusi: uusia past sg 3rd person · pääte: end"
+  },
+  "ui:Uusi saavutus!": {
+   "fi": "Uusi saavutus!",
+   "how": "uusi: uusia past sg 3rd person · saavutus: achievement"
+  },
+  "ui:Uusi sana!": {
+   "fi": "Uusi sana!",
+   "how": "uusi: uusia past sg 3rd person · sana: word"
+  },
+  "ui:Uusi taso ⟨level⟩!": {
+   "fi": "Uusi taso ⟨level⟩!",
+   "how": "uusi: uusia past sg 3rd person · taso: plane"
+  },
+  "ui:Uusi! ⟨toast⟩": {
+   "fi": "Uusi! ⟨toast⟩",
+   "how": "uusi: uusia past sg 3rd person"
+  },
+  "ui:Vaihda pelaaja": {
+   "fi": "Vaihda pelaaja",
+   "how": "vaihda: vaihtaa imperative present 2nd person sg · pelaaja: player"
+  },
+  "ui:Vain aikuisille": {
+   "fi": "Vain aikuisille",
+   "how": "vain: only · aikuisille: aikuinen allative pl"
+  },
+  "ui:Valmis": {
+   "fi": "Valmis",
+   "how": "valmis: completed"
+  },
+  "ui:Valmis!": {
+   "fi": "Valmis!",
+   "how": "valmis: completed"
+  },
+  "ui:Vastaa": {
+   "fi": "Vastaa",
+   "how": "vastaa: vasta partitive sg"
+  },
+  "ui:Vastaa kysymykseen": {
+   "fi": "Vastaa kysymykseen",
+   "how": "vastaa: vasta partitive sg · kysymykseen: kysymys illative sg"
+  },
+  "ui:Vihko": {
+   "fi": "Vihko",
+   "how": "vihko: notebook"
+  },
+  "ui:Vähennä liikettä": {
+   "fi": "Vähennä liikettä",
+   "how": "vähennä: vähentää imperative present 2nd person sg · liikettä: liike partitive sg"
+  },
+  "ui:Väri": {
+   "fi": "Väri",
+   "how": "väri: color color"
+  },
+  "ui:Yksi vai kaksi?": {
+   "fi": "Yksi vai kaksi?",
+   "how": "yksi: one · vai: or · kaksi: two"
+  },
+  "ui:Yritä uudestaan": {
+   "fi": "Yritä uudestaan",
+   "how": "yritä: yrittää imperative present 2nd person sg · uudestaan: again"
+  },
+  "ui:Yö": {
+   "fi": "Yö",
+   "how": "yö: night"
+  },
+  "ui:⟨Kyllä / Ei⟩, se on ⟨fi⟩.": {
+   "fi": "⟨Kyllä / Ei⟩, se on ⟨fi⟩.",
+   "how": "se: that · on: olla present sg 3rd person"
+  },
+  "ui:⟨nameFi⟩ kertoo.": {
+   "fi": "⟨nameFi⟩ kertoo.",
+   "how": "kertoo: kertoa present sg 3rd person"
+  },
+  "ui:⟨streak⟩ päivää putkeen!": {
+   "fi": "⟨streak⟩ päivää putkeen!",
+   "how": "päivää: päivä partitive sg · putkeen: putki illative sg"
+  }
+ },
+ "notes": {
+  "title:Ensiaskeleet": "compound not in Wiktionary (ensi + askel are)",
+  "title:Ensimmäinen välitesti": "välitesti is not in Wiktionary",
+  "title:Kauppareissu": "compound not in Wiktionary",
+  "title:Metsäretki": "compound not in Wiktionary",
+  "title:Mikä luku tulee?": "words fine; maybe \"Mikä luku tulee seuraavaksi?\"",
+  "title:Pelimestari": "compound not in Wiktionary",
+  "title:Sairas päivä": "for \"a sick day\" Finnish usually says sairaspäivä",
+  "title:Sanakuningas": "compound not in Wiktionary",
+  "title:Sanamestari": "compound not in Wiktionary",
+  "title:Satuhetki": "compound not in Wiktionary",
+  "title:Tähtimestari": "compound not in Wiktionary",
+  "title:Äänitutkija": "compound not in Wiktionary",
+  "ui:Pidennä pitkää ääntä": "words fine; natural?",
+  "ui:Puheharjoittelu": "compound not in Wiktionary (puhe + harjoittelu are)",
+  "ui:Salli mikrofoni ja yritä uudestaan": "words fine; \"Salli mikrofonin käyttö\" may be more natural",
+  "ui:Vinkit": "means \"Tips\"; shown beside \"Tricky sounds\"",
+  "ui:Välitesti": "compound not in Wiktionary (väli + testi are)"
+ }
+}

@@ -43,7 +43,7 @@ export const ALPHABET: Letter[] = [
   { ch: 't', nameFi: 'tee', tip: 'Like t, with no puff of air — the tongue touches the teeth.', examples: ['talo', 'tuuli', 'tähti'] },
   { ch: 'u', nameFi: 'uu', vowel: true, tip: 'Like the oo in "book".', examples: ['uida', 'kuusi', 'puu'] },
   { ch: 'v', nameFi: 'vee', tip: 'Like the v in "van".', examples: ['vuori', 'viisi', 'väsynyt'] },
-  { ch: 'w', nameFi: 'kaksois-vee', borrowed: true, tip: 'Only in names. Sounds like v.', examples: [] },
+  { ch: 'w', nameFi: 'kaksoisvee', borrowed: true, tip: 'Only in names. Sounds like v.', examples: [] },
   { ch: 'x', nameFi: 'äks', borrowed: true, tip: 'Only in names and borrowed words. Sounds like ks.', examples: [] },
   { ch: 'y', nameFi: 'yy', vowel: true, tip: 'A bit like the "ew" in "few", with your lips in a small, tight circle.', examples: ['yksi', 'yö', 'kynä'] },
   { ch: 'z', nameFi: 'tset', borrowed: true, tip: 'Only in borrowed words. Sounds like ts.', examples: [] },

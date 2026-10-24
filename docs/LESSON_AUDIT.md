@@ -17,7 +17,7 @@ And you always press on the **first part** of a word: KIR-ja, PÖY-tä, O-pet-ta
 
 ### 2. Double letters are long _(examples)_
 
-When a letter is written **twice**, you hold that sound longer — a vowel *or* a consonant. That can change the whole word! Listen to all three:
+When a letter is written **twice**, you hold that sound longer — a vowel **or** a consonant. That can change the whole word! Listen to all three:
 
 - 🔥 **tuli** — fire — short u, one l
 - 💨 **tuuli** — wind — long uu
@@ -190,7 +190,7 @@ _Explain:_ Three is more than one → **-a**: *kaveria*.
 
 ### 1. There's no verb "to have" _(explain)_
 
-In English you say *I have a bike*. Finnish has **no verb for "have"**!
+In English you say "I have a bike". Finnish has **no verb for "have"**!
 
 Instead it says something like **"on me is a bike"**: *Minulla on pyörä*.
 
@@ -282,7 +282,7 @@ Here's the surprise: when you say you DON'T have something, the thing gets the *
 
 ### 3. Why? _(explain)_
 
-Finnish uses **-a / -ä** when something is *not all there* — "none of it", "some of it", "more than one". You'll keep meeting this ending, so it's worth remembering!
+Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it", "more than one". You'll keep meeting this ending, so it's worth remembering!
 
 
 ### 4. Winter clothes _(examples)_
@@ -1577,7 +1577,7 @@ _Explain:_ **-in** = the most: *nopein*. *nopeampi* is faster.
 
 ### 1. No word for "in" _(examples)_
 
-English puts a little word **in front**: *in the box*. Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".
+English puts a little word **in front**: "in the box". Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".
 
 - 📦 laatikko → **laatiko[ssa]** — in the box
 - 🏠 talo → **talo[ssa]** — in the house
@@ -1744,7 +1744,7 @@ _Explain:_ "Off" → **-lta / -ltä**: *pöydältä*.
 
 ### 1. The cat's endings — for you _(explain)_
 
-Remember the cat going *into* and *out of* the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).
+Remember the cat going **into** and **out of** the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).
 
 
 ### 2. Inside places: in, into, out of _(examples)_
@@ -2704,7 +2704,7 @@ _Explain:_ Giving TO someone → **-lle**: *hänelle*.
 
 ### 1. Back to front _(explain)_
 
-English: *under the chair*. Finnish: *tuolin alla* — "the chair's under".
+English: "under the chair". Finnish: *tuolin alla* — "the chair's under".
 
 The position word comes **after**, and the thing gets **-n**.
 
@@ -2752,7 +2752,7 @@ _Explain:_ Before *alla*, the thing gets **-n**: *pöydän alla*.
 
 ### 1. The -t means "more than one" _(examples)_
 
-For a group of things — *the books*, *the balls* — add **-t**.
+For a group of things — "the books", "the balls" — add **-t**.
 
 - 📕 kirja → **kirja[t]** — books
 - 🏐 pallo → **pallo[t]** — balls
