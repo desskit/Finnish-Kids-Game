@@ -42,6 +42,8 @@ export const FUNCTION_WORDS = [
   'oi', 'voi', 'jee', 'hurraa', 'vau', 'jippii', 'no', 'niin', 'tietysti', 'totta',
   'ai', 'entä', 'samoin', 'tervetuloa', 'uudestaan', 'vai', 'epäselvästi', 'aluksi', 'lopuksi', 'yhtä',
   'ahaa', 'haloo',
+  // math: the loanword the number tables don't carry (miinus is a sourced noun)
+  'plus',
   // pronoun and question-word forms the tables don't have
   'miltä', 'minkä', 'mitkä', 'sinuun', 'minuun', 'häneen',
   // verb forms outside the tables (the -maan "to go and do" form)
@@ -61,7 +63,7 @@ export const FUNCTION_WORDS = [
   'liisa', 'eero', 'aino', 'veikko', 'mira', 'otto', 'lumi', 'musti', 'mirri', 'pekka', 'anna', 'leo', 'ella', 'onni',
   // names in their case forms
   'eerolla', 'eerolle', 'eerosta', 'eeron', 'ainolla', 'ainolle', 'ainon', 'leon', 'leolla',
-  'eeroa', 'eerolta', 'ainoa', 'ainolta', 'mirrin', 'mirriä', 'mirrillä', 'mirrille', 'mirristä',
+  'eeroa', 'eerolta', 'ainoa', 'ainolta', 'leolle', 'mirrin', 'mirriä', 'mirrillä', 'mirrille', 'mirristä',
   'mustin', 'mustia', 'mustille',
   // a cat's word
   'miau',

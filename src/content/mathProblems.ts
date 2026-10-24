@@ -192,7 +192,7 @@ export function priceSaid(thing: string, amount: string, euros: string, en: { th
 export function totalFrame(amount: string, euros: string, en: string): { ask: Said; tell: Said } {
   return {
     ask: { fi: 'Paljonko yhteensä?', en: 'How much in all?' },
-    tell: { fi: `Yhteensä ${amount} ${euros}.`, en: `${en} euros in all.` },
+    tell: { fi: `Yhteensä ${amount} ${euros}.`, en: `${cap(en)} euros in all.` },
   };
 }
 

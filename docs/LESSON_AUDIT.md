@@ -3392,3 +3392,214 @@ _Explain:_ *kahdeksan* + *toista* → *kahdeksantoista*.
 - ✘ **kuusitoista**
 
 _Explain:_ *Kymmenen plus viisi on viisitoista.*
+
+## Not in a unit: The -kymmentä numbers (Kymmenen, kaksikymmentä…) 🧱
+
+### 1. Counting in tens _(examples)_
+
+The round numbers are built too: a small number, then *kymmentä* — that many tens.
+
+- kaksi → **kaksi[kymmentä]**
+- kolme → **kolme[kymmentä]**
+- viisi → **viisi[kymmentä]**
+- yhdeksän → **yhdeksän[kymmentä]**
+
+### 2. -toista or -kymmentä? _(examples)_
+
+Listen right to the end! *-toista* is a little past *kymmenen*; *-kymmentä* means that many tens.
+
+- kolme → **kolme[toista]**
+- kolme → **kolme[kymmentä]**
+
+### 3. Up to sata _(explain)_
+
+After *yhdeksänkymmentä* comes *sata*, the biggest number here. In the building game you hear a round number and find the part before *kymmentä*.
+
+
+### 4. Tens and tens _(examples)_
+
+Round numbers add and take away just like small ones: think of each *kymmenen* as a bundle.
+
+- **Kaksikymmentä plus kolmekymmentä on viisikymmentä.** — Kaksikymmentä plus kolmekymmentä is viisikymmentä.
+- **Viisikymmentä miinus kaksikymmentä on kolmekymmentä.** — Viisikymmentä minus kaksikymmentä is kolmekymmentä.
+- **Paljonko on neljäkymmentä plus kymmenen?** — What is neljäkymmentä plus kymmenen?
+
+### 5. The train _(explain)_
+
+The train counts in tens now: *kymmenen, kaksikymmentä, kolmekymmentä…* — and back down again. Find the empty wagon.
+
+
+### 6. Try it _(check)_
+
+**Q:** What do *neljä* and *kymmentä* make?
+
+- ✔ **neljäkymmentä**
+- ✘ **neljätoista**
+- ✘ **neljä**
+
+_Explain:_ *neljä* + *kymmentä* → *neljäkymmentä*. (*neljätoista* is a -toista number.)
+
+### 7. Try it _(check)_
+
+**Q:** *Paljonko on kaksikymmentä plus kaksikymmentä?*
+
+- ✔ **neljäkymmentä**
+- ✘ **kolmekymmentä**
+- ✘ **viisikymmentä**
+
+_Explain:_ *Kaksikymmentä plus kaksikymmentä on neljäkymmentä.*
+
+## Not in a unit: Times and halves (Kertaa ja puolet) 🍓
+
+### 1. Kertaa: times _(examples)_
+
+*kertaa* means times. *kerta* is “a time”, and after a number it ends in **-a**, like *kaksi omenaa*.
+
+- **Kaksi kertaa kolme on kuusi.** — Kaksi times kolme is kuusi.
+- **Kolme kertaa kaksi on kuusi.** — Kolme times kaksi is kuusi.
+- **Viisi kertaa kaksi on kymmenen.** — Viisi times kaksi is kymmenen.
+
+### 2. Bags of dots _(explain)_
+
+After you answer, you see why: a bag for each time. *kolme kertaa kaksi* → *kolme* bags, with *kaksi* dots in each.
+
+
+### 3. How the question goes _(examples)_
+
+Like a sum, it starts *Paljonko on…?*
+
+- **Paljonko on kaksi kertaa neljä?** — What is kaksi times neljä?
+- **Paljonko on kymmenen kertaa kaksi?** — What is kymmenen times kaksi?
+
+### 4. Puolet: half _(examples)_
+
+*puolet* means half. The number after it ends in **-sta** or **-stä** (“of”): *puolet kahdeksasta*.
+
+- **Puolet kahdeksasta on neljä.** — Half of kahdeksan is neljä.
+- **Puolet kymmenestä on viisi.** — Half of kymmenen is viisi.
+- **Paljonko on puolet kuudesta?** — What is half of kuusi?
+
+### 5. Halves of big numbers _(examples)_
+
+Halves work for the round numbers too.
+
+- **Puolet neljästäkymmenestä on kaksikymmentä.** — Half of neljäkymmentä is kaksikymmentä.
+- **Puolet sadasta on viisikymmentä.** — Half of sata is viisikymmentä.
+
+### 6. Try it _(check)_
+
+**Q:** *Paljonko on kaksi kertaa viisi?*
+
+- ✔ **kymmenen**
+- ✘ **seitsemän**
+- ✘ **kaksitoista**
+
+_Explain:_ *Kaksi kertaa viisi on kymmenen.*
+
+### 7. Try it _(check)_
+
+**Q:** *Paljonko on puolet kymmenestä?*
+
+- ✔ **viisi**
+- ✘ **kaksikymmentä**
+- ✘ **kaksi**
+
+_Explain:_ *Puolet kymmenestä on viisi.*
+
+## Not in a unit: How much is it? (Paljonko se maksaa?) 💶
+
+### 1. Prices _(examples)_
+
+*maksaa* means costs. A price is a number and *euroa*: *kaksi euroa*.
+
+- **Omena maksaa kaksi euroa.** — The apple costs kaksi euros.
+- **Pallo maksaa viisi euroa.** — The ball costs viisi euros.
+- **Kirja maksaa kahdeksan euroa.** — The book costs kahdeksan euros.
+
+### 2. How much in all? _(examples)_
+
+*Paljonko yhteensä?* — add the prices together.
+
+- **Omena maksaa kaksi euroa. Banaani maksaa kolme euroa. Paljonko yhteensä?** — The apple costs kaksi euros. The banana costs kolme euros. How much in all?
+- **Yhteensä viisi euroa.** — Viisi euros in all.
+
+### 3. Paying _(explain)_
+
+*Maksa kolikoilla!* means “Pay with the coins!” Each coin is *yksi euro*. Tap coins into the till until they make the price, then tap *Valmis*. No coin has a number on it — so listen to the price!
+
+
+### 4. Try it _(check)_
+
+**Q:** *Keksi maksaa kolme euroa. Maito maksaa neljä euroa. Paljonko yhteensä?*
+
+- ✔ **seitsemän**
+- ✘ **neljä**
+- ✘ **kahdeksan**
+
+_Explain:_ *Yhteensä seitsemän euroa.*
+
+### 5. Try it _(check)_
+
+**Q:** *Kynä maksaa kuusi euroa.* How many coins do you pay?
+
+- ✔ **kuusi**
+- ✘ **viisi**
+- ✘ **seitsemän**
+
+_Explain:_ *kuusi euroa* is *kuusi* coins.
+
+## Not in a unit: What time is it? (Mitä kello on?) ⏰
+
+### 1. The clock _(examples)_
+
+*Kello on kolme* — it’s *kolme* o’clock. Here the clock shows the time with its hands, never a number.
+
+- 🕒 **Kello on kolme.** — It's kolme o'clock.
+- 🕖 **Kello on seitsemän.** — It's seitsemän o'clock.
+- 🕛 **Kello on kaksitoista.** — It's kaksitoista o'clock.
+
+### 2. Half past: the trap _(examples)_
+
+*puoli neljä* is half past *kolme*! Finnish says how far you are **toward** the next hour: half-way to *neljä*.
+
+- 🕞 **Kello on puoli neljä.** — It's half past kolme.
+- 🕢 **Kello on puoli kahdeksan.** — It's half past seitsemän.
+
+### 3. In an hour _(examples)_
+
+*tunnin päästä* means in an hour: the hour hand moves on to the next hour.
+
+- 🕒 **Kello on kolme. Mitä kello on tunnin päästä?** — It's kolme o'clock. What time is it in an hour?
+- 🕓 **Tunnin päästä kello on neljä.** — In an hour it's neljä o'clock.
+
+### 4. An hour ago _(examples)_
+
+*tunti sitten* means an hour ago: back to the hour before.
+
+- 🕔 **Kello on viisi. Mitä kello oli tunti sitten?** — It's viisi o'clock. What time was it an hour ago?
+- 🕓 **Tunti sitten kello oli neljä.** — An hour ago it was neljä o'clock.
+
+### 5. In half an hour _(examples)_
+
+*puolen tunnin päästä* — in half an hour. From *kolme*, that’s *puoli neljä*!
+
+- 🕞 **Puolen tunnin päästä kello on puoli neljä.** — In half an hour it's half past kolme.
+
+### 6. Try it _(check)_
+
+**Q:** *Kello on kahdeksan. Mitä kello on tunnin päästä?*
+
+- ✔ **yhdeksän**
+- ✘ **seitsemän**
+- ✘ **kahdeksan**
+
+_Explain:_ *Tunnin päästä kello on yhdeksän.*
+
+### 7. Try it _(check)_
+
+**Q:** Half past *kuusi* is…
+
+- ✔ puoli seitsemän
+- ✘ puoli kuusi
+
+_Explain:_ *puoli seitsemän* — half-way to *seitsemän*.

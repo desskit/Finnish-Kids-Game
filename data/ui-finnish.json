@@ -1235,7 +1235,8 @@
       "where": [
         "components/ProfilePicker.tsx",
         "components/SayIt.tsx",
-        "components/math/MathAnswer.tsx"
+        "components/math/MathAnswer.tsx",
+        "components/math/MathScenes.tsx"
       ]
     },
     {

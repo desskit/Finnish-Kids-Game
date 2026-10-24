@@ -39,7 +39,21 @@ import { questionFor } from './questions';
 import { PRONOUNS, PRONOUN_FRAMES, type PronounCase } from './pronouns';
 import { dialogues, personalizeLine } from './dialogues';
 import { mathWords, numbers } from './index';
-import { WORD_FRAMES, compareFrame, neighborFrame, sumFrame, wordProblem, type Said, type WordFrame } from './mathProblems';
+import {
+  WORD_FRAMES,
+  clockMoveFrame,
+  clockSaid,
+  compareFrame,
+  halfFrame,
+  neighborFrame,
+  priceSaid,
+  sumFrame,
+  timesFrame,
+  totalFrame,
+  wordProblem,
+  type Said,
+  type WordFrame,
+} from './mathProblems';
 import { itemById } from './lookup';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
@@ -125,7 +139,22 @@ export type LessonRef =
   /** A number word on its own. */
   | { n: number }
   /** A word problem: its sentences, or (`told`) its answer in full. */
-  | { problem: WordFrame['id']; noun: string; a: number; b: number; told?: boolean };
+  | { problem: WordFrame['id']; noun: string; a: number; b: number; told?: boolean }
+  /** A round ten put together: "viisi → viisikymmentä", its -kymmentä marked. */
+  | { tens: number }
+  /** "Kaksi kertaa kolme": the question (`asked`), or the answer said in full. */
+  | { times: [number, number]; asked?: boolean }
+  /** "Puolet kahdeksasta": the question (`asked`), or the answer said in full. */
+  | { half: number; asked?: boolean }
+  /** "Omena maksaa kaksi euroa." (a thing's id, and its price: two euros or more). */
+  | { price: string; euros: number }
+  /** Two prices and "Paljonko yhteensä?" — or (`told`) the total said. */
+  | { total: [string, number, string, number]; told?: boolean }
+  /** "Kello on kolme." — [hour, 0], or [hour, 30]: "puoli neljä" is half past three. */
+  | { clock: [number, 0 | 30] }
+  /** From a whole hour: an hour later, half an hour later, or an hour earlier —
+   *  the question (`asked`), or the answer said in full. */
+  | { clockMove: 'later' | 'half-later' | 'earlier'; from: number; asked?: boolean };
 
 export type LessonCard =
   | { kind: 'explain'; title?: string; text: string }
@@ -194,8 +223,22 @@ function sentenceSegments(
 }
 
 /** A number's sourced word (nolla is among the math words). */
+const numberItemFor = (v: number) => [...mathWords.items, ...numbers.items].find((n) => n.value === v);
+
 function numberWordFor(v: number): string | undefined {
-  return [...mathWords.items, ...numbers.items].find((n) => n.value === v)?.fi;
+  return numberItemFor(v)?.fi;
+}
+
+/** The clock face's picture for [hour, 0 or 30] (🕐–🕛, 🕜–🕧): hands, never a numeral. */
+const clockGlyph = ([h, m]: [number, number]) => String.fromCodePoint((m ? 0x1f55c : 0x1f550) + h - 1);
+const hourOf = (h: number) => ((h - 1 + 12) % 12) + 1;
+/** A time said ("kolme", or "puoli neljä" for half past three), and its English with the numbers kept Finnish. */
+function timeSaid([h, m]: [number, number]): { fi: string; en: string } | null {
+  const half = mathWords.items.find((i) => i.id === 'half')?.fi;
+  const hour = numberWordFor(h);
+  const next = numberWordFor(hourOf(h + 1));
+  if (!half || !hour || !next) return null;
+  return m ? { fi: `${half} ${next}`, en: `half past ${hour}` } : { fi: hour, en: `${hour} o'clock` };
 }
 
 /** One Finnish sentence, shown as it's said. */
@@ -206,6 +249,15 @@ const saidRow = (said: Said, dots: number[][], takeAway = false): ResolvedRef =>
   dots,
   takeAway: takeAway || undefined,
 });
+
+/** "Omena maksaa kaksi euroa." — two euros or more (the frame's *euroa*). */
+function priceRow(thingId: string, euros: number): Said | null {
+  const thing = itemById(thingId);
+  const euro = itemById('euro');
+  const amount = numberWordFor(euros);
+  if (!thing || !euro || !amount || euros < 2) return null;
+  return priceSaid(thing.fi, amount, countingNounForm(euro, euros), { thing: thing.en, amount });
+}
 
 /** A math example, or undefined when the reference isn't one. */
 function resolveMathRef(ref: LessonRef): ResolvedRef | null | undefined {
@@ -270,6 +322,70 @@ function resolveMathRef(ref: LessonRef): ResolvedRef | null | undefined {
     if (ref.told) return saidRow(p.tell, [[ref.a, ref.b]], minus);
     const fi = p.ask.map((x) => x.fi).join(' ');
     return { segments: [{ text: fi }], en: p.ask.map((x) => x.en).join(' '), speak: fi, dots: [[ref.a], [ref.b]] };
+  }
+  if ('tens' in ref) {
+    const base = numberWordFor(ref.tens / 10);
+    const whole = numberWordFor(ref.tens);
+    if (!base || !whole || !whole.startsWith(base) || ref.tens % 10 || ref.tens < 20 || ref.tens > 90) return null;
+    return {
+      segments: [{ text: base }, { text: whole.slice(base.length), mark: true }],
+      base,
+      speak: whole,
+      dots: [Array.from({ length: ref.tens / 10 }, () => 10)],
+    };
+  }
+  if ('times' in ref) {
+    const [x, y] = ref.times;
+    const [a, b, w] = [numberWordFor(x), numberWordFor(y), numberWordFor(x * y)];
+    if (!a || !b || !w) return null;
+    const f = timesFrame(a, b, w, [a, b, w]);
+    return saidRow(ref.asked ? f.ask : f.tell, Array.from({ length: x }, () => [y]));
+  }
+  if ('half' in ref) {
+    const whole = numberItemFor(ref.half);
+    const from = whole?.inflections.elative_singular;
+    const half = numberWordFor(ref.half / 2);
+    if (!whole || !from || !half || ref.half % 2) return null;
+    const f = halfFrame(from, half, [whole.fi, half]);
+    return saidRow(ref.asked ? f.ask : f.tell, [[ref.half / 2, ref.half / 2]]);
+  }
+  if ('price' in ref) {
+    const said = priceRow(ref.price, ref.euros);
+    return said && saidRow(said, [[ref.euros]]);
+  }
+  if ('total' in ref) {
+    const [first, a, second, b] = ref.total;
+    const euro = itemById('euro');
+    const w = numberWordFor(a + b);
+    const [pa, pb] = [priceRow(first, a), priceRow(second, b)];
+    if (!euro || !w || !pa || !pb) return null;
+    const f = totalFrame(w, countingNounForm(euro, a + b), w);
+    if (ref.told) return saidRow(f.tell, [[a, b]]);
+    const asked = [pa, pb, f.ask];
+    const fi = asked.map((x) => x.fi).join(' ');
+    return { segments: [{ text: fi }], en: asked.map((x) => x.en).join(' '), speak: fi, dots: [[a], [b]] };
+  }
+  if ('clock' in ref) {
+    const t = timeSaid(ref.clock);
+    if (!t) return null;
+    const said = clockSaid(t.fi, t.en);
+    return { segments: [{ text: said.fi }], en: said.en, speak: said.fi, emoji: clockGlyph(ref.clock) };
+  }
+  if ('clockMove' in ref) {
+    const hour = mathWords.items.find((i) => i.id === 'hour');
+    const half = mathWords.items.find((i) => i.id === 'half');
+    const hourGen = hour?.inflections.genitive_singular;
+    const halfGen = half?.inflections.genitive_singular;
+    const from: [number, number] = [ref.from, 0];
+    const to: [number, number] =
+      ref.clockMove === 'later' ? [hourOf(ref.from + 1), 0] : ref.clockMove === 'earlier' ? [hourOf(ref.from - 1), 0] : [ref.from, 30];
+    const [now, then] = [timeSaid(from), timeSaid(to)];
+    if (!hour || !hourGen || !halfGen || !now || !then) return null;
+    const f = clockMoveFrame(ref.clockMove, { hourGen, hour: hour.fi, halfGen }, then.fi, then.en);
+    if (!ref.asked) return { segments: [{ text: f.tell.fi }], en: f.tell.en, speak: f.tell.fi, emoji: clockGlyph(to) };
+    const asked = [clockSaid(now.fi, now.en), f.ask];
+    const fi = asked.map((x) => x.fi).join(' ');
+    return { segments: [{ text: fi }], en: asked.map((x) => x.en).join(' '), speak: fi, emoji: clockGlyph(from) };
   }
   return undefined;
 }
@@ -4352,6 +4468,207 @@ export const lessons: Lesson[] = [
         question: mathSaid({ sum: 'plus', a: 10, b: 5, asked: true }),
         options: [{ ref: { n: 15 }, correct: true }, { ref: { n: 14 } }, { ref: { n: 16 } }],
         explain: mathSaid({ sum: 'plus', a: 10, b: 5 }),
+      },
+    ],
+  },
+  {
+    id: 'math-tens',
+    titleFi: 'Kymmenen, kaksikymmentä…',
+    titleEn: 'The -kymmentä numbers',
+    emoji: '🧱',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Counting in tens',
+        text: 'The round numbers are built too: a small number, then *kymmentä* — that many tens.',
+        rows: [{ tens: 20 }, { tens: 30 }, { tens: 50 }, { tens: 90 }],
+      },
+      {
+        kind: 'examples',
+        title: '-toista or -kymmentä?',
+        text: 'Listen right to the end! *-toista* is a little past *kymmenen*; *-kymmentä* means that many tens.',
+        rows: [{ teen: 13 }, { tens: 30 }],
+      },
+      {
+        kind: 'explain',
+        title: 'Up to sata',
+        text: 'After *yhdeksänkymmentä* comes *sata*, the biggest number here. In the building game you hear a round number and find the part before *kymmentä*.',
+      },
+      {
+        kind: 'examples',
+        title: 'Tens and tens',
+        text: 'Round numbers add and take away just like small ones: think of each *kymmenen* as a bundle.',
+        rows: [
+          { sum: 'plus', a: 20, b: 30 },
+          { sum: 'minus', a: 50, b: 20 },
+          { sum: 'plus', a: 40, b: 10, asked: true },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'The train',
+        text: 'The train counts in tens now: *kymmenen, kaksikymmentä, kolmekymmentä…* — and back down again. Find the empty wagon.',
+      },
+      {
+        kind: 'check',
+        question: 'What do *neljä* and *kymmentä* make?',
+        options: [{ ref: { n: 40 }, correct: true }, { ref: { n: 14 } }, { ref: { n: 4 } }],
+        explain: '*neljä* + *kymmentä* → *neljäkymmentä*. (*neljätoista* is a -toista number.)',
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ sum: 'plus', a: 20, b: 20, asked: true }),
+        options: [{ ref: { n: 40 }, correct: true }, { ref: { n: 30 } }, { ref: { n: 50 } }],
+        explain: mathSaid({ sum: 'plus', a: 20, b: 20 }),
+      },
+    ],
+  },
+  {
+    id: 'math-times',
+    titleFi: 'Kertaa ja puolet',
+    titleEn: 'Times and halves',
+    emoji: '🍓',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Kertaa: times',
+        text: '*kertaa* means times. *kerta* is “a time”, and after a number it ends in **-a**, like *kaksi omenaa*.',
+        rows: [{ times: [2, 3] }, { times: [3, 2] }, { times: [5, 2] }],
+      },
+      {
+        kind: 'explain',
+        title: 'Bags of dots',
+        text: 'After you answer, you see why: a bag for each time. *kolme kertaa kaksi* → *kolme* bags, with *kaksi* dots in each.',
+      },
+      {
+        kind: 'examples',
+        title: 'How the question goes',
+        text: 'Like a sum, it starts *Paljonko on…?*',
+        rows: [{ times: [2, 4], asked: true }, { times: [10, 2], asked: true }],
+      },
+      {
+        kind: 'examples',
+        title: 'Puolet: half',
+        text: '*puolet* means half. The number after it ends in **-sta** or **-stä** (“of”): *puolet kahdeksasta*.',
+        rows: [{ half: 8 }, { half: 10 }, { half: 6, asked: true }],
+      },
+      {
+        kind: 'examples',
+        title: 'Halves of big numbers',
+        text: 'Halves work for the round numbers too.',
+        rows: [{ half: 40 }, { half: 100 }],
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ times: [2, 5], asked: true }),
+        options: [{ ref: { n: 10 }, correct: true }, { ref: { n: 7 } }, { ref: { n: 12 } }],
+        explain: mathSaid({ times: [2, 5] }),
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ half: 10, asked: true }),
+        options: [{ ref: { n: 5 }, correct: true }, { ref: { n: 20 } }, { ref: { n: 2 } }],
+        explain: mathSaid({ half: 10 }),
+      },
+    ],
+  },
+  {
+    id: 'math-shop',
+    titleFi: 'Paljonko se maksaa?',
+    titleEn: 'How much is it?',
+    emoji: '💶',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'Prices',
+        text: '*maksaa* means costs. A price is a number and *euroa*: *kaksi euroa*.',
+        rows: [
+          { price: 'apple', euros: 2 },
+          { price: 'ball', euros: 5 },
+          { price: 'book', euros: 8 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'How much in all?',
+        text: '*Paljonko yhteensä?* — add the prices together.',
+        rows: [
+          { total: ['apple', 2, 'banana', 3] },
+          { total: ['apple', 2, 'banana', 3], told: true },
+        ],
+      },
+      {
+        kind: 'explain',
+        title: 'Paying',
+        text: '*Maksa kolikoilla!* means “Pay with the coins!” Each coin is *yksi euro*. Tap coins into the till until they make the price, then tap *Valmis*. No coin has a number on it — so listen to the price!',
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ total: ['cookie', 3, 'milk', 4] }),
+        options: [{ ref: { n: 7 }, correct: true }, { ref: { n: 4 } }, { ref: { n: 8 } }],
+        explain: mathSaid({ total: ['cookie', 3, 'milk', 4], told: true }),
+      },
+      {
+        kind: 'check',
+        question: `${mathSaid({ price: 'pencil', euros: 6 })} How many coins do you pay?`,
+        options: [{ ref: { n: 6 }, correct: true }, { ref: { n: 5 } }, { ref: { n: 7 } }],
+        explain: '*kuusi euroa* is *kuusi* coins.',
+      },
+    ],
+  },
+  {
+    id: 'math-clock',
+    titleFi: 'Mitä kello on?',
+    titleEn: 'What time is it?',
+    emoji: '⏰',
+    cards: [
+      {
+        kind: 'examples',
+        title: 'The clock',
+        text: '*Kello on kolme* — it’s *kolme* o’clock. Here the clock shows the time with its hands, never a number.',
+        rows: [{ clock: [3, 0] }, { clock: [7, 0] }, { clock: [12, 0] }],
+      },
+      {
+        kind: 'examples',
+        title: 'Half past: the trap',
+        text: '*puoli neljä* is half past *kolme*! Finnish says how far you are **toward** the next hour: half-way to *neljä*.',
+        rows: [{ clock: [3, 30] }, { clock: [7, 30] }],
+      },
+      {
+        kind: 'examples',
+        title: 'In an hour',
+        text: '*tunnin päästä* means in an hour: the hour hand moves on to the next hour.',
+        rows: [
+          { clockMove: 'later', from: 3, asked: true },
+          { clockMove: 'later', from: 3 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'An hour ago',
+        text: '*tunti sitten* means an hour ago: back to the hour before.',
+        rows: [
+          { clockMove: 'earlier', from: 5, asked: true },
+          { clockMove: 'earlier', from: 5 },
+        ],
+      },
+      {
+        kind: 'examples',
+        title: 'In half an hour',
+        text: '*puolen tunnin päästä* — in half an hour. From *kolme*, that’s *puoli neljä*!',
+        rows: [{ clockMove: 'half-later', from: 3 }],
+      },
+      {
+        kind: 'check',
+        question: mathSaid({ clockMove: 'later', from: 8, asked: true }),
+        options: [{ ref: { n: 9 }, correct: true }, { ref: { n: 7 } }, { ref: { n: 8 } }],
+        explain: mathSaid({ clockMove: 'later', from: 8 }),
+      },
+      {
+        kind: 'check',
+        question: 'Half past *kuusi* is…',
+        options: [{ text: 'puoli seitsemän', correct: true }, { text: 'puoli kuusi' }],
+        explain: '*puoli seitsemän* — half-way to *seitsemän*.',
       },
     ],
   },

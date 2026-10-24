@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T04:54:32.664Z · regenerate with `npm run review:content`
+- Generated: 2026-10-24T05:25:50.251Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2190 entries.** Flagged: 0.
+- **Approved: 28 of 2273 entries.** Flagged: 0.
 - The exhaustive carrier × word and template × candidate expansions are in
   `docs/SENTENCE_AUDIT.md` (`npm run audit:sentences`); this sheet reviews the authored text itself.
 
@@ -61,7 +61,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 42: Real conversations (*Jutellaan*) | 74 | 57 | Scenes, turn by turn 26, Stories 21, Finnish in the lessons 3, Other lines (wrong replies) 5, Course titles 2 |
 | Unit 43: Sentences (*Lauseet*) | 24 | 24 | Sentence templates 18, Finnish in the lessons 3, Course titles 3 |
 | Unit 44: Expert (*Mestari*) | 42 | 42 | Greetings & dialogues 8, Stories 10, Sentence patterns 8, Forms marked wrong 8, Finnish in the lessons 2, Other lines (wrong replies) 1, Course titles 5 |
-| Math (Lasketaan!) | 102 | 102 | Stories 50, Finnish in the lessons 26, Math in Finnish (Lasketaan!) 12, Course titles 14 |
+| Math (Lasketaan!) | 185 | 185 | Stories 90, Finnish in the lessons 51, Math in Finnish (Lasketaan!) 19, Course titles 25 |
 | Not in the course yet | 49 | 49 | Sentence patterns 1, Forms marked wrong 1, "Do you…?" questions 47 |
 | Grown-ups only | 18 | 18 | Course titles 2, Buttons & screen labels 16 |
 
@@ -330,7 +330,7 @@ _Each turn of a short conversation._
 | ⚠️ | Unit 42 | `conversation:school-nurse:3` | Tässä on laastari. → Kiitos! Nyt ei satu. | Here's a bandage. → Thanks! Now it doesn't hurt. |
 | ⚠️ | Unit 42 | `conversation:school-nurse:4` | Hyvä! Mene takaisin luokkaan. → Kiitos! Näkemiin! | Good! Go back to class. → Thank you! Goodbye! |
 
-## Stories (511)
+## Stories (551)
 
 _Each page (who says what), then the questions (✓ = the right answer) and the true-or-false statements._
 
@@ -847,6 +847,46 @@ _Each page (who says what), then the questions (✓ = the right answer) and the 
 | ⚠️ | Math (Lasketaan!) | `story:math-stones:t1` | Eero löytää neljätoista kiveä. (totta) | True or false: Eero finds neljätoista stones. (true) |
 | ⚠️ | Math (Lasketaan!) | `story:math-stones:t2` | Leo löytää kaksikymmentä kiveä. (tarua) | True or false: Leo finds kaksikymmentä stones. (false) |
 | ⚠️ | Math (Lasketaan!) | `story:math-stones:t3` | Pojat hyppäävät mereen. (totta) | True or false: The boys jump into the sea. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:page-1` | Isoäiti tekee pullaa. / Aino: Saanko auttaa? | Grandma makes sweet buns. / Aino: May I help? |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:page-2` | Isoäiti: Teemme kolmekymmentä pullaa. / Aino: Kolmekymmentä? Se on paljon! | Grandma: We make kolmekymmentä buns. / Aino: Kolmekymmentä? That is a lot! |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:page-3` | Aino: Kymmenen pullaa Leolle, kymmenen pullaa Eerolle… / Aino: …ja kymmenen pullaa meille! | Aino: Kymmenen buns for Leo, kymmenen buns for Eero… / Aino: …and kymmenen buns for us! |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:page-4` | Isoäiti: Kymmenen plus kymmenen plus kymmenen on kolmekymmentä. / Kaikki syövät pullaa. | Grandma: Kymmenen plus kymmenen plus kymmenen is kolmekymmentä. / Everyone eats sweet buns. |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:q1` | Mitä isoäiti tekee? (✓ pullaa / jäätelöä / omenia) | What does Grandma make? (sweet buns / ice cream / apples) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:q2` | Kuka sanoo: "Saanko auttaa?" (✓ Aino / Leo / Mirri) | Who says "May I help?" (Aino / Leo / Mirri) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:q3` | Kuka sanoo: "Teemme kolmekymmentä pullaa."? (✓ isoäiti / Aino / Eero) | Who says "We make kolmekymmentä buns."? (Grandma / Aino / Eero) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:t1` | Leo saa kymmenen pullaa. (totta) | True or false: Leo gets kymmenen buns. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:t2` | Eero saa kaksikymmentä pullaa. (tarua) | True or false: Eero gets kaksikymmentä buns. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-baking:t3` | Kymmenen plus kymmenen plus kymmenen on kolmekymmentä. (totta) | True or false: Kymmenen plus kymmenen plus kymmenen is kolmekymmentä. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:page-1` | Leo ja Aino ovat puistossa. / Heillä on mansikoita. | Leo and Aino are in the park. / They have strawberries. |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:page-2` | Leo: Minulla on kahdeksan mansikkaa. / Leo: Puolet sinulle, Aino! | Leo: I have kahdeksan strawberries. / Leo: Half for you, Aino! |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:page-3` | Aino: Puolet kahdeksasta on neljä. Kiitos! | Aino: Half of kahdeksan is neljä. Thank you! |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:page-4` | Aino: Minulla on kaksi keksiä. / Aino: Sinulla on kaksi keksiä. / Leo: Kaksi kertaa kaksi on neljä! | Aino: I have kaksi cookies. / Aino: You have kaksi cookies. / Leo: Kaksi times kaksi is neljä! |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:q1` | Missä Leo ja Aino ovat? (✓ puistossa / koulussa / kaupassa) | Where are Leo and Aino? (in the park / at school / at the shop) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:q2` | Mitä Leolla on? (✓ mansikoita / kukkia / omenia) | What does Leo have? (strawberries / flowers / apples) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:q3` | Kuka sanoo: "Kiitos!"? (✓ Aino / Leo / Eero) | Who says "Thank you!"? (Aino / Leo / Eero) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:t1` | Leolla on kahdeksan mansikkaa. (totta) | True or false: Leo has kahdeksan strawberries. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:t2` | Aino saa kaksi mansikkaa. (tarua) | True or false: Aino gets kaksi strawberries. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-picnic:t3` | Kaksi kertaa kaksi on neljä. (totta) | True or false: Kaksi times kaksi is neljä. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:page-1` | Äiti ja Aino ovat kaupassa. | Mom and Aino are at the shop. |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:page-2` | Omena maksaa kaksi euroa. / Banaani maksaa kolme euroa. | An apple costs kaksi euros. / A banana costs kolme euros. |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:page-3` | Äiti: Paljonko yhteensä? / Aino: Kaksi plus kolme on viisi. / Aino: Yhteensä viisi euroa! | Mom: How much in all? / Aino: Kaksi plus kolme is viisi. / Aino: Viisi euros in all! |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:page-4` | Aino maksaa kolikoilla. / Aino: Yksi, kaksi, kolme, neljä, viisi! | Aino pays with coins. / Aino: Yksi, kaksi, kolme, neljä, viisi! |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:q1` | Missä Äiti ja Aino ovat? (✓ kaupassa / puistossa / koulussa) | Where are Mom and Aino? (at the shop / in the park / at school) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:q2` | Kuka sanoo: "Paljonko yhteensä?" (✓ Äiti / Aino / Isä) | Who says "How much in all?" (Mom / Aino / Dad) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:q3` | Kuka maksaa? (✓ Aino / Äiti / Leo) | Who pays? (Aino / Mom / Leo) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:t1` | Omena maksaa kaksi euroa. (totta) | True or false: An apple costs kaksi euros. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:t2` | Banaani maksaa viisi euroa. (tarua) | True or false: A banana costs viisi euros. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-shopping:t3` | Aino maksaa viisi euroa. (totta) | True or false: Aino pays viisi euros. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:page-1` | Eero ja isä ovat asemalla. | Eero and Dad are at the station. |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:page-2` | Eero: Mitä kello on? / Isä: Kello on kolme. | Eero: What time is it? / Dad: It is kolme o’clock. |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:page-3` | Eero: Milloin juna tulee? / Isä: Puolen tunnin päästä. | Eero: When does the train come? / Dad: In half an hour. |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:page-4` | Eero: Nyt kello on puoli neljä! / Juna tulee. | Eero: Now it is half past kolme! / The train comes. |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:q1` | Missä Eero ja isä ovat? (✓ asemalla / kaupassa / rannalla) | Where are Eero and Dad? (at the station / at the shop / at the beach) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:q2` | Mikä tulee? (✓ juna / bussi / auto) | What comes? (the train / the bus / the car) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:q3` | Kuka sanoo: "Mitä kello on?" (✓ Eero / isä / Aino) | Who says "What time is it?" (Eero / Dad / Aino) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:t1` | Juna tulee puolen tunnin päästä. (totta) | True or false: The train comes in half an hour. (true) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:t2` | Juna tulee tunnin päästä. (tarua) | True or false: The train comes in an hour. (false) |
+| ⚠️ | Math (Lasketaan!) | `story:math-train-time:t3` | Eero ja isä odottavat junaa. (totta) | True or false: Eero and Dad wait for the train. (true) |
 
 ## Sentence patterns (104)
 
@@ -1264,7 +1304,7 @@ _Letter names and sound tips._
 | ⚠️ | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | ⚠️ | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
-## Finnish in the lessons (309)
+## Finnish in the lessons (334)
 
 _Words quoted in the explanations._
 
@@ -1579,8 +1619,33 @@ _Words quoted in the explanations._
 | ⚠️ | Math (Lasketaan!) | `lesson:math-teens:5` | kymmenen · nolla · Lähtö! | The -toista numbers — The rocket |
 | ⚠️ | Math (Lasketaan!) | `lesson:math-teens:6` | kahdeksan · toista · kahdeksantoista | The -toista numbers — check |
 | ⚠️ | Math (Lasketaan!) | `lesson:math-teens:7` | Paljonko on kymmenen plus viisi? · Kymmenen plus viisi on viisitoista. | The -toista numbers — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:1` | kymmentä | The -kymmentä numbers — Counting in tens |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:2` | -toista · kymmenen · -kymmentä | The -kymmentä numbers — -toista or -kymmentä? |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:3` | yhdeksänkymmentä · sata · kymmentä | The -kymmentä numbers — Up to sata |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:4` | kymmenen | The -kymmentä numbers — Tens and tens |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:5` | kymmenen, kaksikymmentä, kolmekymmentä… | The -kymmentä numbers — The train |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:6` | neljä · kymmentä · neljäkymmentä · neljätoista | The -kymmentä numbers — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-tens:7` | Paljonko on kaksikymmentä plus kaksikymmentä? · Kaksikymmentä plus kaksikymmentä on neljäkymmentä. | The -kymmentä numbers — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:1` | kertaa · kerta · kaksi omenaa | Times and halves — Kertaa: times |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:2` | kolme kertaa kaksi · kolme · kaksi | Times and halves — Bags of dots |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:3` | Paljonko on…? | Times and halves — How the question goes |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:4` | puolet · puolet kahdeksasta | Times and halves — Puolet: half |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:6` | Paljonko on kaksi kertaa viisi? · Kaksi kertaa viisi on kymmenen. | Times and halves — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-times:7` | Paljonko on puolet kymmenestä? · Puolet kymmenestä on viisi. | Times and halves — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-shop:1` | maksaa · euroa · kaksi euroa | How much is it? — Prices |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-shop:2` | Paljonko yhteensä? | How much is it? — How much in all? |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-shop:3` | Maksa kolikoilla! · yksi euro · Valmis | How much is it? — Paying |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-shop:4` | Keksi maksaa kolme euroa. Maito maksaa neljä euroa. Paljonko yhteensä? · Yhteensä seitsemän euroa. | How much is it? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-shop:5` | Kynä maksaa kuusi euroa. · kuusi euroa · kuusi | How much is it? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:1` | Kello on kolme · kolme | What time is it? — The clock |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:2` | puoli neljä · kolme · neljä | What time is it? — Half past: the trap |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:3` | tunnin päästä | What time is it? — In an hour |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:4` | tunti sitten | What time is it? — An hour ago |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:5` | puolen tunnin päästä · kolme · puoli neljä | What time is it? — In half an hour |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:6` | Kello on kahdeksan. Mitä kello on tunnin päästä? · Tunnin päästä kello on yhdeksän. | What time is it? — check |
+| ⚠️ | Math (Lasketaan!) | `lesson:math-clock:7` | kuusi · puoli seitsemän · seitsemän | What time is it? — check |
 
-## Math in Finnish (Lasketaan!) (12)
+## Math in Finnish (Lasketaan!) (19)
 
 _The problems’ sentence frames, each with one example. The numbers and things change; the frame stays._
 
@@ -1598,6 +1663,13 @@ _The problems’ sentence frames, each with one example. The numbers and things 
 | ⚠️ | Math (Lasketaan!) | `math:have-get` | Minulla on viisi palloa. Saan kaksi lisää. Montako palloa minulla on nyt? → Minulla on nyt seitsemän palloa. | I have five balls. I get two more. How many balls do I have now? → Now I have seven balls. |
 | ⚠️ | Math (Lasketaan!) | `math:have-eat` | Minulla on viisi omenaa. Syön kaksi omenaa. Montako omenaa minulla on nyt? → Minulla on nyt kolme omenaa. | I have five apples. I eat two apples. How many apples do I have now? → Now I have three apples. |
 | ⚠️ | Math (Lasketaan!) | `math:have-give` | Minulla on viisi palloa. Annan sinulle kaksi palloa. Montako palloa minulla on jäljellä? → Minulla on jäljellä kolme palloa. | I have five balls. I give you two balls. How many balls do I have left? → I have three balls left. |
+| ⚠️ | Math (Lasketaan!) | `math:times` | Paljonko on kaksi kertaa kymmenen? → Kaksi kertaa kymmenen on kaksikymmentä. | What is two times ten? → Two times ten is twenty. |
+| ⚠️ | Math (Lasketaan!) | `math:half` | Paljonko on puolet kahdesta? → Puolet kahdesta on yksi. | What is half of two? → Half of two is one. |
+| ⚠️ | Math (Lasketaan!) | `math:shop-total` | Omena maksaa kolme euroa. Kynä maksaa kolme euroa. Paljonko yhteensä? → Yhteensä kuusi euroa. | The apple costs three euros. The pencil costs three euros. How much in all? → Six euros in all. |
+| ⚠️ | Math (Lasketaan!) | `math:shop-pay` | Omena maksaa kymmenen euroa. Maksa kolikoilla! → Omena maksaa kymmenen euroa. | The apple costs ten euros. Pay with the coins! → The apple costs ten euros. |
+| ⚠️ | Math (Lasketaan!) | `math:clock-later` | Kello on yhdeksän. Mitä kello on tunnin päästä? → Tunnin päästä kello on kymmenen. | It's nine o'clock. What time is it in an hour? → In an hour it's ten o'clock. |
+| ⚠️ | Math (Lasketaan!) | `math:clock-earlier` | Kello on yksi. Mitä kello oli tunti sitten? → Tunti sitten kello oli kaksitoista. | It's one o'clock. What time was it an hour ago? → An hour ago it was twelve o'clock. |
+| ⚠️ | Math (Lasketaan!) | `math:clock-half` | Kello on yksi. Mitä kello on puolen tunnin päästä? → Puolen tunnin päästä kello on puoli kaksi. | It's one o'clock. What time is it in half an hour? → In half an hour it's one thirty. |
 
 ## Other lines (wrong replies) (122)
 
@@ -1728,7 +1800,7 @@ _Lines only offered as wrong answers._
 | ⚠️ | Unit 3 | `line:Yksi kirjaa.` | Yksi kirjaa. | One book. |
 | ⚠️ | Unit 20 | `line:Älä leiki!` | Älä leiki! | Don't play! |
 
-## Course titles (480)
+## Course titles (491)
 
 _Unit, step, lesson, badge and game names, and the examples under steps._
 
@@ -1811,7 +1883,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 35 | `title:Joulupukki tuo lahjan.` | Joulupukki tuo lahjan. | What Santa brings — example |
 | ⚠️ | Unit 35 | `title:Juhannus` | Juhannus | Midsummer |
 | ⚠️ | Unit 35 | `title:Juhannus mökillä` | Juhannus mökillä | Story: Midsummer at the cottage |
-| ⚠️ | Math (Lasketaan!) | `title:Juna` | Juna | The train |
+| ⚠️ | Math (Lasketaan!) | `title:Juna` | Juna | The train / Counting in tens |
 | ⚠️ | Unit 42 | `title:Jutellaan` | Jutellaan | Real conversations / Conversations / Long scenes / Having a real conversation / Small talk |
 | ⚠️ | Everywhere | `title:Juttelija` | Juttelija | Chatterbox |
 | ⚠️ | Grown-ups only | `title:Järjestä lause` | Järjestä lause | Sentences (word order) |
@@ -1852,6 +1924,8 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 6 | `title:Kenen tämä on?` | Kenen tämä on? | Whose is this? / Story: Whose is this? |
 | ⚠️ | Everywhere | `title:Kenen?` | Kenen? | Whose? / Whose is it? / "My" is an ending / Whose? (possessive suffix) |
 | ⚠️ | Unit 36 | `title:Kenen? Miksi?` | Kenen? Miksi? | Whose? Why? |
+| ⚠️ | Math (Lasketaan!) | `title:Kertaa` | Kertaa | Times |
+| ⚠️ | Math (Lasketaan!) | `title:Kertaa ja puolet` | Kertaa ja puolet | Times and halves |
 | ⚠️ | Everywhere | `title:Kertaus` | Kertaus | Mixed review / Review (spaced repetition) |
 | ⚠️ | Unit 44 | `title:Keskustelut` | Keskustelut | Hard conversations |
 | ⚠️ | Unit 33 | `title:Kilpajuoksu` | Kilpajuoksu | A race |
@@ -1894,6 +1968,8 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Kuuntele lause` | Kuuntele lause | Listen to a sentence |
 | ⚠️ | Math (Lasketaan!) | `title:Kuuntele tarina` | Kuuntele tarina | Listen to the problem |
 | ⚠️ | Everywhere | `title:Kuuntele!` | Kuuntele! | Statement or question? / How many did you hear? / Who has it? / Have it or not? / My, your or his / her? / Whose bike? / Who is doing it? / Nukun or nukkuu? / Yes or no? / Who feels it? / Which feeling? / Like, love or not? / Want, can or not? / Who, and yes or no? / Like it or not? / Which play? / See, watch or wait? / One, or some? / Touch it, or put it up? / In or on? / Into, in or out of? / Am, going or coming? / Want, would like, or have to? / By bus, or onto the bus? / Today, or on a day? / On the hour, or half past? / The weather, or me? / Where is it? / Now, or my birthday? / To the cottage, there, or back? / Where is the cat? / One, or many? / Now, or yesterday? |
+| ⚠️ | Math (Lasketaan!) | `title:Kymmenen, kaksikymmentä…` | Kymmenen, kaksikymmentä… | The -kymmentä numbers |
+| ⚠️ | Math (Lasketaan!) | `title:Kymmenet` | Kymmenet | The tens |
 | ⚠️ | Unit 28 | `title:Kynällä vai kanssa?` | Kynällä vai kanssa? | Tool or person? |
 | ⚠️ | Everywhere | `title:Kysymykset` | Kysymykset | Asking with -ko / -kö |
 | ⚠️ | Unit 36 | `title:Kysymyssanat` | Kysymyssanat | Question words |
@@ -1926,6 +2002,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 27 | `title:Luokassa` | Luokassa | In class |
 | ⚠️ | Unit 32 | `title:Luonnossa` | Luonnossa | Out in nature |
 | ⚠️ | Everywhere | `title:Löydä virhe` | Löydä virhe | Find the mistake |
+| ⚠️ | Math (Lasketaan!) | `title:Maksa!` | Maksa! | Pay with coins |
 | ⚠️ | Unit 16 | `title:Matikka ja liikunta` | Matikka ja liikunta | Story: Math and gym |
 | ⚠️ | Unit 28 | `title:Menen bussilla` | Menen bussilla | By bus, by car |
 | ⚠️ | Unit 28 | `title:Menen bussilla.` | Menen bussilla. | By bus, by car — example |
@@ -2021,6 +2098,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 28 | `title:Miten menemme?` | Miten menemme? | Story: How do we get there? |
 | ⚠️ | Unit 28 | `title:Miten menet?` | Miten menet? | How do you go? |
 | ⚠️ | Unit 14 | `title:Mitä haluat tehdä?` | Mitä haluat tehdä? | What do you want to do? |
+| ⚠️ | Math (Lasketaan!) | `title:Mitä kello on?` | Mitä kello on? | What time is it? |
 | ⚠️ | Unit 17 | `title:Mitä pelaat?` | Mitä pelaat? | What do you play? |
 | ⚠️ | Unit 4 | `title:Mitä sinulla on?` | Mitä sinulla on? | What do you have? |
 | ⚠️ | Unit 8 | `title:Mitä teet?` | Mitä teet? | Verbs, part 1: types 1–3 |
@@ -2089,6 +2167,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 40 | `title:Pakenen` | Pakenen | Type 6: a k appears |
 | ⚠️ | Unit 39 | `title:Paljon tavaraa` | Paljon tavaraa | Lots of things |
 | ⚠️ | Unit 29 | `title:Paljonko kello on?` | Paljonko kello on? | What time is it? |
+| ⚠️ | Math (Lasketaan!) | `title:Paljonko se maksaa?` | Paljonko se maksaa? | How much is it? |
 | ⚠️ | Unit 39 | `title:Palloja` | Palloja | Some things, any things |
 | ⚠️ | Unit 17 | `title:Pelaan jalkapalloa` | Pelaan jalkapalloa | Games and sports |
 | ⚠️ | Unit 17 | `title:Pelaan jalkapalloa.` | Pelaan jalkapalloa. | Games and sports — example |
@@ -2108,6 +2187,8 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Unit 26 | `title:Puisto ja kirjasto` | Puisto ja kirjasto | Story: The park and the library |
 | ⚠️ | Unit 8 | `title:Puistossa` | Puistossa | Story: In the park |
 | ⚠️ | Unit 22 | `title:Punaiset pallot` | Punaiset pallot | Red balls |
+| ⚠️ | Math (Lasketaan!) | `title:Puolen tunnin päästä` | Puolen tunnin päästä | In half an hour |
+| ⚠️ | Math (Lasketaan!) | `title:Puolet` | Puolet | Halves |
 | ⚠️ | Unit 30 | `title:Puoli kahdeksan` | Puoli kahdeksan | Half past |
 | ⚠️ | Everywhere | `title:Puolivälissä` | Puolivälissä | Halfway there |
 | ⚠️ | Everywhere | `title:Päivämäärä` | Päivämäärä | Saying a date |
@@ -2163,6 +2244,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Tee näin!` | Tee näin! | Do this! |
 | ⚠️ | Unit 20 | `title:Tee! Älä! Tehdään!` | Tee! Älä! Tehdään! | Do it, don't, let's / Do, don't, let's |
 | ⚠️ | Unit 1 | `title:Tervehdykset` | Tervehdykset | Greetings / Greetings (choose the reply) |
+| ⚠️ | Math (Lasketaan!) | `title:Tunnin päästä` | Tunnin päästä | In an hour |
 | ⚠️ | Unit 38 | `title:tuolin alla` | tuolin alla | In front, behind… — example |
 | ⚠️ | Unit 13 | `title:Tykkään` | Tykkään | Liking things |
 | ⚠️ | Unit 16 | `title:Tykkään / En tykkää` | Tykkään / En tykkää | Like it or not |
@@ -2209,6 +2291,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | ⚠️ | Everywhere | `title:Virheetön` | Virheetön | Flawless |
 | ⚠️ | Unit 22 | `title:Värit` | Värit | Colors and describing words |
 | ⚠️ | Everywhere | `title:Yhdistä sanat` | Yhdistä sanat | Describe it (agreement) |
+| ⚠️ | Math (Lasketaan!) | `title:Yhteensä` | Yhteensä | In all |
 | ⚠️ | Unit 39 | `title:Yksi vai monta?` | Yksi vai monta? | One, or several? |
 | ⚠️ | Math (Lasketaan!) | `title:Yksitoista, kaksitoista…` | Yksitoista, kaksitoista… | The -toista numbers |
 | ⚠️ | Unit 7 | `title:Äidin pyörä` | Äidin pyörä | Mom's bike / Mom's bike — the owner gets -n |
