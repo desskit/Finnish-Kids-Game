@@ -331,7 +331,7 @@ function resolveMathRef(ref: LessonRef): ResolvedRef | null | undefined {
       segments: [{ text: base }, { text: whole.slice(base.length), mark: true }],
       base,
       speak: whole,
-      dots: [Array.from({ length: ref.tens / 10 }, () => 10)],
+      dots: [[ref.tens]],
     };
   }
   if ('times' in ref) {

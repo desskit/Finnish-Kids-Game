@@ -160,9 +160,15 @@ export function Segments({ segments }: { segments: Segment[] }) {
   );
 }
 
+/** Dots beside the words: one ten-frame's worth, beside a short sentence. More go underneath. */
+const DOTS_BESIDE = 10;
+const WORDS_BESIDE_DOTS = 32;
+
 function ExampleRow({ r }: { r: ResolvedRef }) {
+  const dotsUnder =
+    !!r.dots && (r.dots.flat().reduce((a, b) => a + b, 0) > DOTS_BESIDE || r.speak.length > WORDS_BESIDE_DOTS);
   return (
-    <li className="lesson-row">
+    <li className={'lesson-row' + (dotsUnder ? ' lesson-row--dots-under' : '')}>
       {r.emoji && (
         <span className="lesson-row__emoji" aria-hidden="true">
           <Art glyph={r.emoji} />

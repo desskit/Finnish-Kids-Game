@@ -29,9 +29,17 @@ interface ChoicesProps {
   onChoose: (v: number) => void;
 }
 
+/** A word longer than this doesn't fit half the width at phone size: the choices stack. */
+const LONG_WORD = 12;
+
 export function MathChoices({ options, answer, answered, wrong, heard, picked, look, wordOf, onChoose }: ChoicesProps) {
+  const long = !heard && options.some((v) => wordOf(v).split(' ').some((w) => w.length > LONG_WORD));
   return (
-    <div className={'math-choices' + (heard ? ' math-choices--heard' : '') + (look ? ` math-choices--${look}` : '')}>
+    <div
+      className={
+        'math-choices' + (heard ? ' math-choices--heard' : '') + (long ? ' math-choices--long' : '') + (look ? ` math-choices--${look}` : '')
+      }
+    >
       {heard && !answered && (
         <p className="math-choices__help">
           Kuuntele <span className="en">Tap to hear it, tap again to choose</span>

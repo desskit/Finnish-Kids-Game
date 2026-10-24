@@ -223,6 +223,10 @@
 .math-choices--heard .math-choice {
   font-size: 1.8rem;
 }
+/* Long words (kahdeksankymmentä) get the whole width, never broken mid-word. */
+.math-choices--long {
+  grid-template-columns: 1fr;
+}
 
 /* The train's choices are little wagons. */
 .math-choices--wagons .math-choice {
@@ -1106,4 +1110,17 @@ button.math-pan:not(:disabled):active .math-pan__word {
   gap: 6px;
   flex: none;
   max-width: 42%;
+}
+/* Lots of dots (the tens, a big half), or a long sentence: the dots go under the words. */
+.lesson-row--dots-under {
+  flex-wrap: wrap;
+}
+.lesson-row--dots-under .lesson-row__dots {
+  order: 3;
+  flex-basis: 100%;
+  max-width: none;
+  justify-content: center;
+}
+.lesson-row--dots-under .lesson-row__dots .quantity {
+  gap: 4px;
 }

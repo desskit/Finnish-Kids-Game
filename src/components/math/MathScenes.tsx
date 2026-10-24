@@ -108,7 +108,8 @@ export function Why({ q }: { q: MathProblem }) {
         </span>
       );
     case 'parts':
-      return s.tens ? <Quantity groups={Array.from({ length: s.base }, () => 10)} className="math-why" /> : <Quantity groups={[10, s.base]} className="math-why" />;
+      // tens: that many full frames, one colour; a teen: ten and the rest
+      return s.tens ? <Quantity groups={[s.teen]} className="math-why" /> : <Quantity groups={[10, s.base]} className="math-why" />;
     case 'times':
       // a lots of b: one bag of dots each
       return (
