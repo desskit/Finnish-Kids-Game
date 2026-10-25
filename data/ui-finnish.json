@@ -110,12 +110,13 @@
     },
     {
       "fi": "Hienoa!",
-      "en": "Great job! / Great! / Nice listening! / You know your letters!",
+      "en": "Great job! / Great! / Nice listening! / Step done! / You know your letters!",
       "where": [
         "components/LetterNameGame.tsx",
         "components/RoundComplete.tsx",
         "components/SayIt.tsx",
         "components/SoundGame.tsx",
+        "components/StepDone.tsx",
         "components/StoryTime.tsx",
         "components/math/MathToday.tsx"
       ]
@@ -165,6 +166,7 @@
         "components/RoundComplete.tsx",
         "components/SayIt.tsx",
         "components/SoundStep.tsx",
+        "components/StepDone.tsx",
         "components/StoryTime.tsx",
         "components/WarmupRoute.tsx",
         "components/WordIntro.tsx",
