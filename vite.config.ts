@@ -13,10 +13,19 @@ import { VitePWA } from 'vite-plugin-pwa';
 //                              relative, so only this base needs to change.
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
+  // Which build this is, shown in Grown-ups → Settings (Netlify sets COMMIT_REF).
+  define: {
+    __APP_BUILD__: JSON.stringify(
+      `${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC${process.env.COMMIT_REF ? ` · ${process.env.COMMIT_REF.slice(0, 7)}` : ''}`,
+    ),
+  },
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt': a new version waits until src/pwaUpdate.ts (which registers
+      // the worker itself) switches to it at a calm moment, never mid-game.
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         name: 'Kielipesä – Finnish for Kids',

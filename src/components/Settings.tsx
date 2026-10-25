@@ -141,6 +141,11 @@ export default function Settings() {
 
       <ChangePassword onSave={async (pw) => updateSettings({ grownUpLock: await makeLock(pw) })} />
 
+      <p className="gmuted gversion">
+        App version: {typeof __APP_BUILD__ !== 'undefined' ? __APP_BUILD__ : 'development'}. A new version is picked up by
+        itself the next time the app is on a menu screen.
+      </p>
+
       <section className="gcard">
         <h3 className="gsection__title">The course</h3>
         <p className="gmuted">To open every unit for a player who already knows some Finnish, see Players → Units.</p>
