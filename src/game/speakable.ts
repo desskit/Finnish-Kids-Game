@@ -123,6 +123,13 @@ export function speakableTargetsFor(
   return keep(buildSayRound(items, [], N, tier, weigh));
 }
 
+/** The entries a step names by id, else all of them. */
+function scoped<T extends { id: string }>(all: readonly T[], ids: readonly string[] | undefined): readonly T[] {
+  if (!ids?.length) return all;
+  const own = all.filter((x) => ids.includes(x.id));
+  return own.length > 0 ? own : all;
+}
+
 function routeTargets(
   skill: SkillNode,
   items: readonly LexicalItem[],
@@ -235,7 +242,10 @@ function routeTargets(
     // sides of the exchange (the greeting, then the reply), so the child speaks
     // the whole turn, not just the answer.
     case 'dialogue': {
-      const inTier = dialogues.filter((d) => d.tier <= tier);
+      // The step's own exchanges (Greetings says greetings), tier-gated; a
+      // step with none of its own falls back to every exchange in the tier.
+      const own = scoped(dialogues, skill.content.ids);
+      const inTier = (own.some((d) => d.tier <= tier) ? own : dialogues).filter((d) => d.tier <= tier);
       if (band === 'stretch') {
         return keep(
           sample(inTier, Math.ceil(N / 2)).flatMap((d) => [
@@ -251,7 +261,9 @@ function routeTargets(
         sample(
           // Tier-gate like `dialogue` above, so a beginner isn't handed a reply
           // from a harder scene.
-          conversations.filter((c) => c.tier <= tier).flatMap((c) => c.turns.map((t) => t.reply)),
+          scoped(conversations, skill.content.ids)
+            .filter((c) => c.tier <= tier)
+            .flatMap((c) => c.turns.map((t) => t.reply)),
           N,
         ).map((r) => ({ say: r.fi, gloss: r.en })),
       );

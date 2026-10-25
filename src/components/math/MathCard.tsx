@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../../state/storage';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useProfile } from '../../state/profile';
@@ -19,8 +20,8 @@ import '../../styles/math.css';
 const announced = new Set<string>();
 
 export default function MathCard() {
-  const { activeChild, settings } = useProfile();
-  const unlockAll = !!settings.unlockAll;
+  const { activeChild } = useProfile();
+  const unlockAll = unlockAllFor(activeChild);
   const next = nextMathAction(activeChild, unlockAll);
   const fresh = newStages(activeChild, unlockAll);
   const first = MATH_STAGES[0];

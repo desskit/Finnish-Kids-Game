@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../../state/storage';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProfile } from '../../state/profile';
 import { useActivityContext, useSegmentComplete } from '../../game/activityContext';
@@ -80,7 +81,7 @@ export default function MathQuiz({ set, game, title, answer = 'tap', onExit }: P
   const ctx = useActivityContext();
   const level = ctx?.difficulty.level ?? 1;
   const knobs = mathLevel(level, game, answer, !!settings.mathUntimed);
-  const known = useMemo(() => taughtWords(activeChild, !!settings.unlockAll), [activeChild, settings.unlockAll]);
+  const known = useMemo(() => taughtWords(activeChild, unlockAllFor(activeChild)), [activeChild]);
 
   const [runId, setRunId] = useState(0);
   const round = useMemo(

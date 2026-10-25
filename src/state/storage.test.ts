@@ -65,6 +65,22 @@ describe('localProfileStore', () => {
     expect(localProfileStore.load()).toEqual(data);
   });
 
+  it('turns the old device-wide "unlock all units" into each player\'s own', () => {
+    const kid = (id: string) => ({ id, name: id, avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {}, stats: emptyStats() });
+    localProfileStore.save({
+      version: 2,
+      children: [kid('a'), kid('b')],
+      activeId: 'a',
+      settings: { muted: false, reducedMotion: false, unlockAll: true },
+    });
+    const loaded = localProfileStore.load();
+    expect(loaded.children.map((c) => c.unlockAll)).toEqual([true, true]);
+    expect(loaded.settings.unlockAll).toBeUndefined();
+    // Saved again, it stays per player: one can go back to "in order".
+    localProfileStore.save({ ...loaded, children: [{ ...loaded.children[0], unlockAll: undefined }, loaded.children[1]] });
+    expect(localProfileStore.load().children.map((c) => !!c.unlockAll)).toEqual([false, true]);
+  });
+
   it('gives a player from before stats existed their stats as it loads them, once', () => {
     const played = { plays: 1, bestStars: 5, totalStars: 5, totalPossible: 6, lastPlayed: 1, level: 1 };
     localProfileStore.save({

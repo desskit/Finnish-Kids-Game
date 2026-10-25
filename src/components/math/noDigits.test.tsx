@@ -57,9 +57,10 @@ function seed(over: Partial<Child> = {}, unlockAll = true): ProfilesData {
     progress: {},
     srs: {},
     course: { checkpoints: Object.fromEntries(upTo.map((u) => [u.id, passed])) },
+    ...(unlockAll ? { unlockAll: true } : {}),
     ...over,
   } as Child;
-  return { version: 2, children: [child], activeId: 'k', settings: { muted: true, reducedMotion: true, unlockAll } };
+  return { version: 2, children: [child], activeId: 'k', settings: { muted: true, reducedMotion: true } };
 }
 
 function Harness({ children, level = 1, data = seed() }: { children: ReactNode; level?: number; data?: ProfilesData }) {

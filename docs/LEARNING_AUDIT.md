@@ -294,7 +294,7 @@ real sentence. Grammar was also never explained.
 **Structure.** The open map of 9 chapters / ~45 nodes became **20 units in a
 fixed order**. Each unit is a lesson, then 1–3 practice steps, then a
 checkpoint (≥ 8 first-try questions, 80% to pass). Passing unlocks the next
-unit; a grown-up can "unlock all". A single **Continue** button always points
+unit; a grown-up can open every unit for a player (Players → Units). A single **Continue** button always points
 at the next lesson, step or checkpoint. "Today's adventure" was removed
 because Continue replaces it.
 

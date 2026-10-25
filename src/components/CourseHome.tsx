@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../state/storage';
 import { useState } from 'react';
 import { useFinnishVoice } from '../audio/voices';
 import { Link } from 'react-router-dom';
@@ -47,7 +48,7 @@ import MathCard from './math/MathCard';
 // later ones locked until the checkpoint before them is passed.
 export default function CourseHome() {
   const { name, activeChild, settings, updateSettings } = useProfile();
-  const unlockAll = !!settings.unlockAll;
+  const unlockAll = unlockAllFor(activeChild);
   const next = nextAction(activeChild);
 
   const srs = activeChild?.srs ?? {};

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { englishHelpOf } from '../game/learner';
 import { useProfile } from '../state/profile';
 import { parseBackup } from '../state/storage';
+import { makeLock, passwordProblem, MIN_PASSWORD_LENGTH } from '../state/grownUpLock';
 import { isSpeechRecognitionAvailable } from '../audio/speech';
 import { finnishVoiceName, useFinnishVoice } from '../audio/voices';
 import { speak } from '../audio/speak';
@@ -138,15 +139,11 @@ export default function Settings() {
         </div>
       </section>
 
+      <ChangePassword onSave={async (pw) => updateSettings({ grownUpLock: await makeLock(pw) })} />
+
       <section className="gcard">
         <h3 className="gsection__title">The course</h3>
-        <Toggle
-          label="Unlock all units"
-          fi="Avaa kaikki osat"
-          note="Normally each unit's checkpoint opens the next one. Turn this on to let your child jump to any unit — for example if they already know some Finnish."
-          checked={!!settings.unlockAll}
-          onChange={(on) => updateSettings({ unlockAll: on })}
-        />
+        <p className="gmuted">To open every unit for a player who already knows some Finnish, see Players → Units.</p>
         <div className="gvoice" role="group" aria-label="English help">
           <p className="gtoggle__label">English help</p>
           <p className="gmuted">
@@ -236,5 +233,66 @@ export default function Settings() {
         </button>
       </section>
     </div>
+  );
+}
+
+/** A new grown-up password (the area is already open, so the old one isn't asked). */
+function ChangePassword({ onSave }: { onSave: (password: string) => Promise<void> }) {
+  const [password, setPassword] = useState('');
+  const [again, setAgain] = useState('');
+  const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null);
+  return (
+    <section className="gcard">
+      <h3 className="gsection__title">Grown-up password</h3>
+      <p className="gmuted">
+        Asked each time someone opens Grown-ups. At least {MIN_PASSWORD_LENGTH} characters. Write it down somewhere safe: a
+        forgotten password can only be cleared by erasing this site's data in the browser.
+      </p>
+      <form
+        className="gpassword"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const problem = passwordProblem(password, again);
+          if (problem) return setNote({ ok: false, text: problem });
+          await onSave(password);
+          setPassword('');
+          setAgain('');
+          setNote({ ok: true, text: 'Password changed.' });
+        }}
+      >
+        <input
+          className="gplayer__name"
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setNote(null);
+          }}
+          autoComplete="new-password"
+          aria-label="New password"
+          placeholder="New password"
+        />
+        <input
+          className="gplayer__name"
+          type="password"
+          value={again}
+          onChange={(e) => {
+            setAgain(e.target.value);
+            setNote(null);
+          }}
+          autoComplete="new-password"
+          aria-label="Type it again"
+          placeholder="Type it again"
+        />
+        <button className="gbtn" type="submit">
+          Change password
+        </button>
+      </form>
+      {note && (
+        <p className={'gnotice' + (note.ok ? '' : ' gnotice--bad')} role="status">
+          {note.text}
+        </p>
+      )}
+    </section>
   );
 }

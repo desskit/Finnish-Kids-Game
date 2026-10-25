@@ -296,11 +296,14 @@ export function difficultyFor(level: number): Difficulty {
 }
 
 /**
- * Promotion threshold steepens with level: 0.85 at L1, +0.02/level, capped at
- * 0.95 — a grind at the top, fast climbing early.
+ * Promotion threshold: 0.80 up to L4, then +0.02/level, capped at 0.90. A
+ * round is often six questions, so one slip is 5/6 ≈ 0.83: a child who slips
+ * once a round is in the 80–85% success zone and ready to move on — never
+ * stuck, and able to finish every course step (they top out at L1–L4). Only
+ * the deep expert ladders ask for slips to be rare.
  */
 export function promoteThreshold(level: number): number {
-  return Math.min(0.85 + 0.02 * (clampLevel(level) - 1), 0.95);
+  return Math.min(0.8 + 0.02 * Math.max(0, clampLevel(level) - 4), 0.9);
 }
 
 /**
