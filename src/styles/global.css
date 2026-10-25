@@ -806,6 +806,105 @@ button:focus-visible,
   letter-spacing: 0.06em;
 }
 
+/* What today taught, as pictures (LearnedWords), and the word book (Notebook). */
+.learned {
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+.learned__title {
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+.learned__words,
+.wordbook {
+  width: 100%;
+  max-width: 34rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 8px;
+}
+.learned__word,
+.wordbook__word {
+  position: relative;
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.learned__word .art,
+.wordbook__word .art {
+  width: 40px;
+  height: 40px;
+}
+.learned__fi,
+.wordbook__fi {
+  font-weight: 700;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.learned__more {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+}
+.wordbook {
+  margin-bottom: 12px;
+}
+.wordbook__known {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  color: var(--brand);
+  font-weight: 700;
+}
+.score-count--quiet {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.book--surprise {
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+/* The child's own check after a checkpoint (SelfCheck). */
+.self-check {
+  width: 100%;
+  max-width: 34rem;
+  margin: 4px auto 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.self-check__q {
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+.self-check__answers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.self-check__thanks {
+  margin: 6px 0 0;
+}
+.gcando__own {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
 /* Record yourself, then hear the model (SayIt). */
 .hear-yourself {
   display: flex;

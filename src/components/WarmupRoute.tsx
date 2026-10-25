@@ -15,6 +15,7 @@ import { storyById } from '../content/stories';
 import { useProfile } from '../state/profile';
 import { playDing } from '../audio/sfx';
 import StoryTime from './StoryTime';
+import LearnedWords from './LearnedWords';
 import Art from '../art/Art';
 
 /** A warm-up stops trying after this many segments, even if short (an empty game). */
@@ -72,6 +73,7 @@ export default function WarmupRoute() {
           <h1 className="title">
             Lämmittely tehty! <span className="en">Warm-up done</span>
           </h1>
+          <LearnedWords />
           {revisit && storyTally && (
             <p className="warmup-result__story" aria-label={`Story: ${storyTally.right} of ${storyTally.total} right first time`}>
               <Art glyph="📖" /> Muistatko? {revisit.titleFi} —{' '}

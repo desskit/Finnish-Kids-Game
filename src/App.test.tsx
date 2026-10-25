@@ -442,6 +442,9 @@ describe('the day’s session', () => {
         });
       }
       expect(screen.getByText(/today's practice done/)).toBeInTheDocument();
+      // What was practiced leads, as pictures — not a star count.
+      expect(screen.getByText('Words you practiced today')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /kissa/ })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /Home/ })).toHaveFocus();
       fireEvent.click(screen.getByRole('button', { name: /Keep going/ }));
       expect(document.querySelectorAll('.pic-card').length).toBeGreaterThan(0);

@@ -164,6 +164,8 @@ export interface CourseState {
   openersHeard?: Record<string, number>;
   /** stepId → when a bonus step (a Finnish-sounds step) was first offered. */
   extrasSeen?: Record<string, number>;
+  /** unitId → the child's own answer to "Can you…?" after its checkpoint (game/cando.ts). */
+  selfCheck?: Record<string, { answer: SelfCheckAnswer; at: number }>;
   /** unitId → checkpoint record. */
   checkpoints?: Record<string, CheckpointRecord>;
   /**
@@ -237,6 +239,8 @@ export interface Settings {
 }
 
 export type ReaderBand = 'younger' | 'older';
+/** The child's own say on a can-do: yes, a bit, or not yet. */
+export type SelfCheckAnswer = 'yes' | 'bit' | 'not-yet';
 export type EnglishHelp = 'always' | 'fade' | 'off';
 
 /** One native reviewer's verdict on one authored-Finnish entry (Grown-ups → Finnish check). */

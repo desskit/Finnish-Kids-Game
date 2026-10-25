@@ -31,16 +31,19 @@ export interface CanDoStatement {
   basisEn: string;
   /** The evidence that backs the claim (all must be met). */
   requires: CanDoRequirement[];
+  /** The question asked of the child, where the claim's own words won't do (`childQuestion`). */
+  childEn?: string;
 }
 
 // One claim per course unit — a passed checkpoint is first-try evidence across
 // every step of the unit — plus the expert band, measured by step levels.
 // The unit number comes from the course order, so inserting a unit never
 // leaves a claim pointing at the wrong number.
-const unitClaim = (unitId: string, emoji: string, en: string): CanDoStatement => ({
+const unitClaim = (unitId: string, emoji: string, en: string, childEn?: string): CanDoStatement => ({
   id: unitId,
   emoji,
   en,
+  ...(childEn ? { childEn } : {}),
   basisEn: `Unit ${PATH.findIndex((u) => u.id === unitId) + 1} checkpoint passed`,
   requires: [{ unitId }],
 });
@@ -58,28 +61,28 @@ export const CAN_DO: CanDoStatement[] = [
   unitClaim('having', '🎒', 'Can say who has what, and who is in their family ("Minulla on täti")'),
   unitClaim('not-having', '🚫', "Can say what they don't have, winter clothes too (Minulla ei ole pipoa)"),
   unitClaim('whose', '🙋', 'Can say whose something is — my, your, his / her (kirjani, kirjasi, kirjansa)'),
-  unitClaim('owners', '🚲', "Can say whose something is — isän pyörä (Dad's bike)"),
+  unitClaim('owners', '🚲', "Can say whose something is — isän pyörä (Dad's bike)", "Can you say whose something is, with the owner's name?"),
   unitClaim('doing', '🏃', 'Can use verb types 1–3 with the right "who" ending (laulan, syöt, hän tulee)'),
   unitClaim('doing-kpt', '🔀', 'Can use verbs whose k, p or t changes (nukkua → minä nukun, hän nukkuu)'),
   unitClaim('not-doing', '✋', "Can say what they don't do"),
-  unitClaim('asking', '❓', 'Can ask "do you…?" with -ko / -kö and answer with the verb'),
+  unitClaim('asking', '❓', 'Can ask "do you…?" with -ko / -kö and answer with the verb', 'Can you ask a yes-or-no question, and answer one?'),
   unitClaim('feelings', '😄', 'Can say how they feel ("Olen iloinen", "Minulla on nälkä", "Minua jännittää")'),
   unitClaim('likes', '❤️', 'Can say what they like and love (tykkään, pidän, rakastan)'),
-  unitClaim('wanting', '🎯', 'Can say what they want to do, can do, and ask "may I…?"'),
+  unitClaim('wanting', '🎯', 'Can say what they want to do, can do, and ask "may I…?"', 'Can you say what you want to do and can do, and ask if you may?'),
   unitClaim('verbs-4', '🔓', 'Can use type 4 verbs (haluta → haluan), including ones that get stronger (hypätä → hyppään)'),
   unitClaim('school-day', '🏫', "Can talk about school subjects they like and don't like"),
-  unitClaim('play', '🎲', 'Can say what they play, three ways: Leikin nukella, Pelaan jalkapalloa, Soitan pianoa'),
+  unitClaim('play', '🎲', 'Can say what they play, three ways: Leikin nukella, Pelaan jalkapalloa, Soitan pianoa', 'Can you say what you play — with toys, games and music?'),
   unitClaim('seeing', '👀', 'Can say what they see, watch and wait for'),
   unitClaim('shop', '🛒', 'Can buy things in a shop, and count euros (kaksi euroa)'),
   unitClaim('commands', '🫵', "Can say do it, don't, and let's (Juokse! Älä juokse! Juostaan!)"),
-  unitClaim('body', '🧑‍✈️', 'Can name their body and follow "Kapteeni käskee" (Kosketa nenää! Nosta käsi ylös!)'),
+  unitClaim('body', '🧑‍✈️', 'Can name their body and follow "Kapteeni käskee" (Kosketa nenää! Nosta käsi ylös!)', 'Can you name your body and play Captain says?'),
   unitClaim('describing', '🎨', 'Can describe things with colors and describing words: new or old, clean or dirty, easy or hard'),
   unitClaim('comparing', '🐘', 'Can compare things — "Norsu on isompi kuin hiiri" — and say which is the biggest'),
   unitClaim('where', '📍', 'Can say where things are (in / on)'),
   unitClaim('moving', '🚶', 'Can say where things go and where they come from'),
   unitClaim('town', '🏙️', 'Can say where they are, where they go and where they come from'),
-  unitClaim('school-daycare', '🛎️', 'Can get by at school: Saanko mennä vessaan? Minun täytyy… En ymmärrä — and ask nicely (Haluaisin, Saisinko)'),
-  unitClaim('by-with', '🚌', 'Can say how they travel and what they use — bussilla, kynällä — and who with (kaverin kanssa)'),
+  unitClaim('school-daycare', '🛎️', 'Can get by at school: Saanko mennä vessaan? Minun täytyy… En ymmärrä — and ask nicely (Haluaisin, Saisinko)', 'Can you ask to go to the restroom, say you don\'t understand, and ask nicely at school?'),
+  unitClaim('by-with', '🚌', 'Can say how they travel and what they use — bussilla, kynällä — and who with (kaverin kanssa)', "Can you say how you travel, what you use, and who you're with?"),
   unitClaim('when', '📅', 'Can name the days, say when things happen, and tell the time'),
   unitClaim('my-day', '🌅', 'Can tell their day — Herään kello seitsemältä, Syön aamupalaa — and the half hours (puoli kahdeksan)'),
   unitClaim('weather', '⛅', 'Can say what the weather is like (Sataa lunta, Aurinko paistaa, On kylmä)'),
@@ -142,6 +145,33 @@ function met(child: Child, r: CanDoRequirement): boolean {
   // a fresh child doesn't "meet" a level bar by default.
   const played = !!child.progress?.[r.chapterId]?.[r.skillId];
   return played && activityLevel(child, r.chapterId, r.skillId) >= r.level;
+}
+
+/**
+ * The claim asked of the child, after a checkpoint ("Can you greet people…?"):
+ * the parent-facing English turned to "you", without its Finnish examples (the
+ * question is read aloud in English — Finnish is never read in an English
+ * voice). A claim whose Finnish is part of the sentence has its own `childEn`.
+ * English only — no Finnish is made here.
+ */
+export function childQuestion(s: CanDoStatement): string {
+  if (s.childEn) return s.childEn;
+  const body = s.en
+    .replace(/\s*\([^)]*\)/g, '')
+    .replace(/\s*—[^—]*—/g, '')
+    .replace(/\s*—.*$/, '')
+    .replace(/^Can /, '')
+    .replace(/\btheir\b/g, 'your')
+    .replace(/\bthey\b/g, 'you')
+    .replace(/\baround them\b/g, 'around you')
+    .replace(/[.!:,]$/, '')
+    .trim();
+  return `Can you ${body}?`;
+}
+
+/** The can-do claim a unit's checkpoint backs (one per course unit). */
+export function unitClaimFor(unitId: string): CanDoStatement | undefined {
+  return CAN_DO.find((s) => s.requires.length === 1 && 'unitId' in s.requires[0] && s.requires[0].unitId === unitId);
 }
 
 /** Whether the child's measured levels back a statement. */

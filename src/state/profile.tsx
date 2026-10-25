@@ -16,6 +16,7 @@ import {
   type Child,
   type ProfilesData,
   type ReaderBand,
+  type SelfCheckAnswer,
   type ReviewDecision,
   type ReviewState,
   type Settings,
@@ -122,6 +123,8 @@ interface ProfileContextValue {
   markOpenerHeard: (unitId: string) => void;
   /** A bonus step has been offered (Continue moves past it from now on). */
   markExtraSeen: (stepId: string) => void;
+  /** The child's own answer to "Can you…?" after a unit's checkpoint (the latest one counts). */
+  recordSelfCheck: (unitId: string, answer: SelfCheckAnswer) => void;
   /** Record a round of an Alphabet-corner game (counts toward the streak). */
   recordSoundsRound: (mode: string, right: number, total: number) => void;
   /** Mark set phrases (`ex:<id>` / `scene:<id>`) as modelled to the child. */
@@ -343,6 +346,12 @@ export function ProfileProvider({
                 },
               },
         ),
+
+      recordSelfCheck: (unitId, answer) =>
+        updateActive((c) => ({
+          ...c,
+          course: { ...c.course, selfCheck: { ...c.course?.selfCheck, [unitId]: { answer, at: Date.now() } } },
+        })),
 
       markExtraSeen: (stepId) =>
         updateActive((c) =>
