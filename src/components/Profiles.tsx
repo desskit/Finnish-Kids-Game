@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import CoursePlacePicker from './CoursePlacePicker';
+import { currentPlace, placeChildAt, placeFromKey, placeKey } from '../game/placement';
 import { READER_BANDS, readerBandOf } from '../game/learner';
 import { useProfile } from '../state/profile';
 import { AVATARS } from '../state/storage';
@@ -11,7 +13,7 @@ import Avatar, { avatarName } from '../art/Avatar';
 // switching and colors are also on the kid-side player picker; removing lives
 // only here, behind the gate, with a confirmation.)
 export default function Profiles() {
-  const { children, activeId, addChild, renameChild, setChildTheme, setChildReaderBand, setChildUnlockAll, removeChild, switchChild } =
+  const { children, activeId, addChild, renameChild, setChildTheme, setChildReaderBand, setChildUnlockAll, updateChild, removeChild, switchChild } =
     useProfile();
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
@@ -70,6 +72,14 @@ export default function Profiles() {
                   </button>
                 ))}
               </div>
+              <CoursePlacePicker
+                key={`${c.id}-${placeKey(currentPlace(c))}`}
+                child={c}
+                onMove={(key) => {
+                  const place = placeFromKey(key);
+                  if (place) updateChild(c.id, (child) => placeChildAt(child, place));
+                }}
+              />
               <div className="glook" role="group" aria-label={`Units for ${c.name}`}>
                 <span className="glook__label">Units</span>
                 <button

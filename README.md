@@ -84,7 +84,8 @@ Finnish** — the app never generates or inflects Finnish by rule.
   collection). A password-locked **grown-up area** (the grown-up picks the
   password on the first visit; only a salted hash is saved) holds a progress
   dashboard, profile management — including opening every unit for one player
-  who already knows some Finnish — and settings (mute audio, reduce motion,
+  who already knows some Finnish, or putting a player at an exact unit and step
+  (for testing, or after lost data or a new device) — and settings (mute audio, reduce motion,
   reset). Profile
   storage is funnelled through one module (`src/state/storage.ts`) so a cloud
   backend can be added later without touching the UI.
