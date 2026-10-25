@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-24T22:03:43.371Z · regenerate with `npm run review:content`
+- Generated: 2026-10-25T04:53:53.308Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2281 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1029.** Flagged: 0.
+- **Approved: 28 of 2282 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1030.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -20,9 +20,9 @@ and its **Where** menu shows one unit at a time.
 
 | Where | Entries | Left to check | In |
 | --- | --- | --- | --- |
-| Everywhere | 223 | 13 | Course titles 7, Buttons & screen labels 6 |
+| Everywhere | 225 | 14 | Course titles 7, Buttons & screen labels 7 |
 | Unit 1: Hello! (*Hei!*) | 41 | 20 | Scenes, turn by turn 3, Stories 7, Other lines (wrong replies) 10 |
-| Unit 2: People & things (*Kuka? Mikä?*) | 36 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
+| Unit 2: People & things (*Kuka? Mikä?*) | 35 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
 | Unit 3: Numbers (*Numerot*) | 31 | 21 | Scenes, turn by turn 7, Stories 10, Other lines (wrong replies) 4 |
 | Unit 4: I have (*Minulla on*) | 48 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
 | Unit 5: Not having (*Ei ole*) | 26 | 14 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1 |
@@ -2294,7 +2294,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 29 | `title:Tänään on maanantai.` | Tänään on maanantai. | Today is… — example |
 | 📖 | Unit 29 | `title:Tänään on maanantai. · Leikin maanantaina.` | Tänään on maanantai. · Leikin maanantaina. | Today, or on a day? — example |
 | 📖 | Unit 29 | `title:Tänään on…` | Tänään on… | Today is… |
-| 📖 | Unit 2 | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Family / Clothes / Winter clothes / Action words / More action words / Verbs that change / More verbs that change / Feelings / Scared, nervous, bored / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Toys, games and music / Getting around / Shopping list / My body / The captain's words / Colors & describing words / More colors, and opposites / Comparing words / Animals / Places / Town & home / School & daycare / Rides and tools / Days & times / Meals and getting ready / Weather and sky / Out in nature / Animals in nature / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Christmas and winter / Easter / Midsummer / Type 5 & 6 verbs / Type 6 verbs that change |
+| 📖 | Everywhere | `title:Uudet sanat` | Uudet sanat | New words / Numbers 1–12 / Family / Clothes / Winter clothes / Action words / More action words / Verbs that change / More verbs that change / Feelings / Scared, nervous, bored / Food & fun / Type 4 verbs / Verbs that get stronger / School words / Toys, games and music / Getting around / Shopping list / My body / The captain's words / Colors & describing words / More colors, and opposites / Comparing words / Animals / Places / Town & home / School & daycare / Rides and tools / Days & times / Meals and getting ready / Weather and sky / Out in nature / Animals in nature / Numbers 13–20 / Tens to 100 / First, second, third / The months / 11th to 31st / Party things / Christmas and winter / Easter / Midsummer / Type 5 & 6 verbs / Type 6 verbs that change |
 | 📖 | Unit 3 | `title:Uusi kaveri` | Uusi kaveri | A new friend |
 | 📖 | Unit 36 | `title:Uusi oppilas` | Uusi oppilas | The new student |
 | 📖 | Math (Lasketaan!) | `title:Vaaka` | Vaaka | The scale |
@@ -2319,7 +2319,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija 📝 _Dictionary check: compound not in Wiktionary_ | Sound explorer |
 
-## Buttons & screen labels (143)
+## Buttons & screen labels (144)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2422,6 +2422,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Päivän lämmittely` | Päivän lämmittely | today's warm-up |
 | 📖 | Everywhere | `ui:Saavutukset` | Saavutukset | Achievements |
 | ⚠️ | Everywhere | `ui:Salli mikrofoni ja yritä uudestaan` | Salli mikrofoni ja yritä uudestaan 📝 _Dictionary check: words fine; "Salli mikrofonin käyttö" may be more natural_ | Allow the mic and try again |
+| ⚠️ | Everywhere | `ui:Sanakirjani` | Sanakirjani | My word book |
 | 📖 | Everywhere | `ui:Sano tämä ääneen` | Sano tämä ääneen | Say this out loud |
 | 📖 | Everywhere | `ui:Sanoin sen` | Sanoin sen | I said it |
 | 📖 | Everywhere | `ui:Selvä` | Selvä | OK |

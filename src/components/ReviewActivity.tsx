@@ -354,7 +354,13 @@ export default function ReviewActivity({ embedded = false, onExit, ids: given, o
   if (done) {
     return (
       <main className="app">
-        <RoundComplete stars={stars} total={round.length} onAgain={restart} onHome={goHome} />
+        <RoundComplete
+          stars={stars}
+          total={round.length}
+          onAgain={restart}
+          onHome={goHome}
+          words={[...new Map(round.filter((q) => q.target.emoji).map((q) => [q.target.id, q.target])).values()]}
+        />
       </main>
     );
   }

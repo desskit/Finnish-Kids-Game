@@ -260,6 +260,12 @@ sentences, Finnish quotes in `*single asterisks*` (read in the Finnish voice).
 dialogue lines after a step's first level by default; the drills' own tasks
 stay in English.
 
+**Can-do statements** (`src/game/cando.ts`) are also asked of the child after
+a passed checkpoint, as "Can you…?" (`childQuestion`): the claim turned to
+"you", with its Finnish examples in brackets or between dashes left out,
+because the question is read aloud in English. If a claim's Finnish is part of
+the sentence itself, give it a `childEn`.
+
 **Bonus steps** (`optional: true` — the Finnish-sounds steps, `SOUND_STEPS` in
 `path.tsx`): Continue offers one once, but it's never part of the checkpoint
 and never holds the unit back, because it needs a Finnish voice to be heard.

@@ -1,5 +1,7 @@
 import type { CSSProperties } from 'react';
+import type { LexicalItem } from '../content/types';
 import Art from '../art/Art';
+import LearnedWords from './LearnedWords';
 
 /** Confetti pieces: where each starts, how far it drifts and turns, when it falls. */
 const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
@@ -16,13 +18,16 @@ interface Props {
   /** Go back to the map. Omitted (e.g. in the audit harness) hides the button
    *  so the round can't navigate out of an embedding context. */
   onHome?: () => void;
+  /** The words the round practiced: they, not the stars, are the headline. */
+  words?: LexicalItem[];
 }
 
 // End-of-round celebration — used only by Review now. A Review round is a
 // finite "items due today" set, so its boundary is semantically real; skill
 // nodes play as one unbroken stream instead (see SkillRoute) and never show
-// this screen. "Jatka" re-selects what's due and starts a fresh round.
-export default function RoundComplete({ stars, total, onAgain, onHome }: Props) {
+// this screen. "Jatka" re-selects what's due and starts a fresh round. What
+// was practiced leads (the words, as pictures); the stars are a small line.
+export default function RoundComplete({ stars, total, onAgain, onHome, words }: Props) {
   const allCorrect = stars === total;
 
   return (
@@ -39,14 +44,9 @@ export default function RoundComplete({ stars, total, onAgain, onHome }: Props) 
       <h2 className="title">
         Hienoa! <span className="en">Great job!</span>
       </h2>
-      <p className="score" aria-label={`${stars} of ${total} stars`}>
-        {Array.from({ length: stars }, (_, i) => (
-          <Art key={i} glyph="⭐" />
-        ))}
-        {'·'.repeat(Math.max(0, total - stars))}
-      </p>
-      <p className="score-count">
-        {stars} / {total}
+      {words && words.length > 0 && <LearnedWords words={words} />}
+      <p className="score-count score-count--quiet" aria-label={`${stars} of ${total} stars`}>
+        <Art glyph="⭐" /> {stars} / {total}
       </p>
 
       <div className="button-row">

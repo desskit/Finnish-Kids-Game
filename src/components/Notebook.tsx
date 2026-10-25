@@ -5,8 +5,22 @@ import { UNITS, midLessonStatus, unitStatus } from '../game/course';
 import { storyReadWell } from '../game/storyLog';
 import { useProfile } from '../state/profile';
 import Art from '../art/Art';
+import type { Child } from '../state/storage';
+import type { LexicalItem } from '../content/types';
+import { reviewItemById } from '../content';
+import { speak } from '../audio/speak';
+
+/** A word this far up the review boxes is marked well known in the word book. */
+const WELL_KNOWN_BOX = 4;
 
 /** Every story in the order the course meets it (then any the course doesn't). */
+/** Every word the child has got right at least once, with a picture, in course order. */
+function wordBook(child: Child | null | undefined): LexicalItem[] {
+  const srs = child?.srs ?? {};
+  const order = [...new Set([...UNITS.flatMap((u) => u.newWords ?? []), ...Object.keys(srs)])];
+  return order.map((id) => reviewItemById[id]).filter((i) => i?.emoji && (srs[i.id]?.correct ?? 0) > 0);
+}
+
 function storiesInCourseOrder(): Story[] {
   const ids = UNITS.flatMap((u) => u.skills.filter((s) => s.activity === 'story').flatMap((s) => s.content.ids ?? []));
   const ordered = [...new Set(ids)].map((id) => storyById[id]).filter(Boolean);
@@ -14,7 +28,8 @@ function storiesInCourseOrder(): Story[] {
 }
 
 // The Notebook (Vihko): the bookshelf — every story she has finished, to read
-// again just for fun — and every lesson from the units she has opened, to
+// again just for fun — the word book (Sanakirjani: every word she has got
+// right, to tap and hear), and every lesson from the units she has opened, to
 // re-read any time ("how did -ssa work again?"). Locked units' lessons stay
 // hidden so the course keeps its order.
 export default function Notebook() {
@@ -31,6 +46,7 @@ export default function Notebook() {
     return n + mids.filter((m) => midLessonStatus(activeChild, u, m, unlockAll) === 'locked').length;
   }, 0);
   const shelf = storiesInCourseOrder().filter((s) => storyReadWell(activeChild, s.id));
+  const words = wordBook(activeChild);
 
   return (
     <section className="screen notebook">
@@ -61,10 +77,44 @@ export default function Notebook() {
               </li>
             ))}
           </ul>
-          <h2 className="notebook__shelf-title">
-            <Art glyph="📖" /> Oppitunnit <span className="en">Lessons</span>
-          </h2>
         </>
+      )}
+      {/* The word book: what she knows, as a collection — no counts, no points. */}
+      {words.length > 0 && (
+        <>
+          <h2 className="notebook__shelf-title">
+            <Art glyph="📕" /> Sanakirjani <span className="en">My word book</span>
+          </h2>
+          <ul className="wordbook">
+            {words.map((w) => (
+              <li key={w.id}>
+                <button
+                  type="button"
+                  className="wordbook__word"
+                  onClick={() => speak(w.fi)}
+                  aria-label={`${w.fi} · ${w.en}`}
+                >
+                  <span aria-hidden="true">
+                    <Art item={w} />
+                  </span>
+                  <span className="wordbook__fi" lang="fi">
+                    {w.fi}
+                  </span>
+                  {(activeChild?.srs?.[w.id]?.box ?? 0) >= WELL_KNOWN_BOX && (
+                    <span className="wordbook__known" aria-label="well known">
+                      ✓
+                    </span>
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {(shelf.length > 0 || words.length > 0) && (
+        <h2 className="notebook__shelf-title">
+          <Art glyph="📖" /> Oppitunnit <span className="en">Lessons</span>
+        </h2>
       )}
       <p className="notebook__intro en">Every rule you've learned, ready to read again.</p>
       <ol className="notebook__list stagger">

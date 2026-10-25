@@ -52,6 +52,10 @@ Finnish** — the app never generates or inflects Finnish by rule.
   and offers home; going on is the child's choice. Words are asked for (Name
   it, Spell it, Say it) once they've been heard about six times, a missed word
   comes back in the next round, and two new look-alikes never arrive together.
+- **Rewards that tell.** A day, a warm-up or a review ends on the words the
+  child learned, as pictures; stars are a small line. The Notebook keeps a word
+  book (*Sanakirjani*) of every word they know, and after each checkpoint the
+  child says for themselves whether they can do what the unit taught.
 - **Together mode** for a grown-up playing alongside: cards with something to
   ask, say or play after stories, in scenes and at a unit's end, a try-at-home
   idea per unit and a "This week" summary in the grown-up area, and "Hear

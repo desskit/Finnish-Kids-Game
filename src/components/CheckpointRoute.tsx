@@ -19,6 +19,7 @@ import { segmentMs } from '../game/stats';
 import { nearPass, passMark } from '../game/score';
 import Art from '../art/Art';
 import TogetherCard from './TogetherCard';
+import SelfCheck from './SelfCheck';
 import { AT_HOME } from '../content/together';
 
 interface PartResult {
@@ -140,6 +141,7 @@ export default function CheckpointRoute() {
               {weakStep && <> Practice “{weakStep.titleEn}” a little more, then try again.</>}
             </p>
           )}
+          {passed && <SelfCheck unitId={unit.id} />}
           {passed && AT_HOME[unit.id] && <TogetherCard prompt={{ en: `**Try at home:** ${AT_HOME[unit.id]}` }} />}
           {newBadges.length > 0 && (
             <ul className="checkpoint__new-badges" aria-label="New achievements">

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { CAN_DO, canDoAchieved, canDoSummary } from './cando';
+import { CAN_DO, canDoAchieved, canDoSummary, childQuestion, unitClaimFor } from './cando';
 import { PATH } from './path';
 import { MATH_STAGES } from './mathPath';
 import type { Child } from '../state/storage';
@@ -103,5 +103,21 @@ describe('the math section’s claims', () => {
       expect(canDoAchieved(child(), claim!)).toBe(false);
       expect(canDoAchieved(child({ math: { crowns: { [stage.id]: { passedAt: 1, best: 1, attempts: 1 } } } }), claim!)).toBe(true);
     }
+  });
+});
+
+describe("the child's own question", () => {
+  it('asks every claim as "Can you …?", in plain English with no Finnish in it (it is read aloud in English)', () => {
+    for (const s of CAN_DO) {
+      const q = childQuestion(s);
+      expect(q, s.id).toMatch(/^Can you [^?]+\?$/);
+      expect(q, s.id).not.toMatch(/\b(their|they)\b/);
+      expect(q, s.id).not.toMatch(/[äöåÄÖ]|-ko|-kö/);
+    }
+  });
+
+  it('finds the claim a unit checkpoint backs', () => {
+    expect(unitClaimFor('hello')?.id).toBe('hello');
+    expect(unitClaimFor('mestari')).toBeUndefined();
   });
 });

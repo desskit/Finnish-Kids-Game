@@ -1,5 +1,5 @@
 import { Suspense, cloneElement, lazy, useRef, useState } from 'react';
-import { HashRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { HashRouter, Link, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import {
   badgeEnv,
   findSkill,
@@ -21,6 +21,8 @@ import StoryTime from './components/StoryTime';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { segmentMs } from './game/stats';
 import { questionsToday, reachesBudget, sessionBudget } from './game/session';
+import { surpriseStory } from './game/learned';
+import LearnedWords from './components/LearnedWords';
 import { useProfile } from './state/profile';
 import AppShell from './components/AppShell';
 import RewardToast from './components/RewardToast';
@@ -181,6 +183,8 @@ function SkillRoute() {
   };
 
   if (stopHere) {
+    // Now and then, unannounced: a story finished a while ago, to read again.
+    const surprise = surpriseStory(activeChild, Date.now());
     return (
       <main className="app">
         <section className="screen checkpoint checkpoint--pass session-done">
@@ -190,10 +194,22 @@ function SkillRoute() {
           <h1 className="title">
             Hienoa työtä tänään! <span className="en">That's today's practice done</span>
           </h1>
+          <LearnedWords />
           <p className="checkpoint__text en">
             A little every day works best — this is a good place to stop. Come back tomorrow, or keep going if you
             like.
           </p>
+          {surprise && (
+            <Link className="book book--surprise" to={`/story/${surprise.id}`}>
+              <span className="book__icon" aria-hidden="true">
+                <Art glyph={surprise.icon} />
+              </span>
+              <span className="book__title">{surprise.titleFi}</span>
+              <span className="book__en en">
+                <Art glyph="🎁" /> Lue uudestaan · Read it again
+              </span>
+            </Link>
+          )}
           <div className="button-row">
             <button className="btn btn--primary" onClick={() => navigate('/')} autoFocus>
               Koti <span className="en">Home</span>

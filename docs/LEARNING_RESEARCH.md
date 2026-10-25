@@ -219,12 +219,15 @@ Most sources were read as abstracts or summaries. Check any figure against the o
 
 ### The four pillars, scored 0–3
 
-| Pillar | Before | Target |
-|---|---|---|
-| Active (thinking, not just tapping) | 3 | 3 |
-| Engaged (no distracting extras) | 2: per-answer stars, confetti | 3 |
-| Meaningful (connected to the child's life) | 2: themes from an 8-year-old's life, but nothing linking screen to real life | 3 |
-| Socially interactive | 0–1 | 2: together mode, try-at-home activities, hearing your own recording |
+| Pillar | Before | Target | After phases 1–7 |
+|---|---|---|---|
+| Active (thinking, not just tapping) | 3 | 3 | 3 — unchanged; production now waits for enough hearings |
+| Engaged (no distracting extras) | 2: per-answer stars, confetti | 3 | 3 — round ends lead with the words learned; stars are a small line; the day stops on its own |
+| Meaningful (connected to the child's life) | 2: themes from an 8-year-old's life, but nothing linking screen to real life | 3 | 3 — a try-at-home idea per unit, spoken Finnish they hear at home, a word book of their own |
+| Socially interactive | 0–1 | 2: together mode, try-at-home activities, hearing your own recording | 2 — Together mode cards, the grown-up's 👍, hear-yourself recordings, the child's own "Can you…?" shown to the grown-up |
+
+These are my own judgments against the pillar descriptions, not a measured
+study; a real check would watch children play.
 
 ---
 
@@ -303,6 +306,16 @@ Most sources were read as abstracts or summaries. Check any figure against the o
    - A word book.
    - Occasional surprises.
    - The child's own 😀/😐/🙁 check on each can-do.
+   - *Done:* `src/game/learned.ts` — a word's first day is kept
+     (`firstSeenAt`), so the day's stop and the warm-up result show the words
+     met today as pictures (or the words practiced), and Review's round end
+     leads with its words; the stars are one small line. The Notebook has a
+     word book ("Sanakirjani") of every word answered right, to tap and hear.
+     About one day in three, unannounced, the stop offers a story finished a
+     while ago. After a passed checkpoint the child answers the unit's can-do
+     as "Can you…?" with 😄 / 🤔 / 😟 (read aloud in English, so its Finnish
+     examples are left out); Grown-ups → Progress shows the answer beside the
+     measured pass, with the lesson to read together after a "not yet".
 
 ---
 

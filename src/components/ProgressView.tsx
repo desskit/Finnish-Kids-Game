@@ -4,7 +4,7 @@ import { reviewItemById, reviewItems } from '../content';
 import { AT_HOME, SONG_LINKS } from '../content/together';
 import Prose from './Prose';
 import { useProfile } from '../state/profile';
-import type { Child } from '../state/storage';
+import type { Child, SelfCheckAnswer } from '../state/storage';
 import { isDue, isMastered, wordSchedules } from '../game/srs';
 import { windowAccuracy } from '../game/adapt';
 import { BADGES, earnedBadges } from '../game/badges';
@@ -238,11 +238,30 @@ function ChildReport({ c }: { c: Child }) {
           <p className="gmuted">Nothing yet — the first one comes when Unit 1's checkpoint is passed.</p>
         ) : (
           <ul className="gcando">
-            {cando.achieved.map((s) => (
-              <li key={s.id} className="gcando__row" title={`Based on: ${s.basisEn}`}>
-                <span aria-hidden="true"><Art glyph={s.emoji} /></span> {s.en}
-              </li>
-            ))}
+            {cando.achieved.map((s) => {
+              // The child's own say, from the check after the checkpoint.
+              const own = c.course?.selfCheck?.[s.id];
+              const unit = UNITS.find((u) => u.id === s.id);
+              return (
+                <li key={s.id} className="gcando__row" title={`Based on: ${s.basisEn}`}>
+                  <span aria-hidden="true"><Art glyph={s.emoji} /></span> {s.en}
+                  {own && (
+                    <span className={'gcando__own gcando__own--' + own.answer}>
+                      {' '}
+                      <Art glyph={SELF_CHECK[own.answer].glyph} /> {c.name} says: {SELF_CHECK[own.answer].en}
+                      {own.answer === 'not-yet' && unit && (
+                        <>
+                          {' '}
+                          <Link to={`/lesson/${unit.lessonId}`} state={{ from: 'notebook' }}>
+                            Read the lesson together
+                          </Link>
+                        </>
+                      )}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )}
         {cando.upNext.length > 0 && (
@@ -289,6 +308,13 @@ function ChildReport({ c }: { c: Child }) {
     </article>
   );
 }
+
+/** The child's own answers to "Can you…?" (SelfCheck), as the grown-up sees them. */
+const SELF_CHECK: Record<SelfCheckAnswer, { glyph: string; en: string }> = {
+  yes: { glyph: '😄', en: 'yes!' },
+  bit: { glyph: '🤔', en: 'a bit' },
+  'not-yet': { glyph: '😟', en: 'not yet' },
+};
 
 const WEEK = 7 * 86_400_000;
 /** Words shown by name in "This week" (the rest are counted). */

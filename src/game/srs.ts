@@ -18,6 +18,8 @@ export interface ItemSchedule {
   correct: number;
   /** Epoch ms of the most recent answer. */
   lastSeenAt: number;
+  /** Epoch ms of the very first answer (missing in schedules from before it was kept). */
+  firstSeenAt?: number;
 }
 
 const DAY = 86_400_000;
@@ -62,6 +64,7 @@ export function review(
     seen: base.seen + 1,
     correct: base.correct + (correct ? 1 : 0),
     lastSeenAt: now,
+    firstSeenAt: prev ? prev.firstSeenAt : now,
   };
 }
 

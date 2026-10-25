@@ -986,6 +986,13 @@
       ]
     },
     {
+      "fi": "Sanakirjani",
+      "en": "My word book",
+      "where": [
+        "components/Notebook.tsx"
+      ]
+    },
+    {
       "fi": "Sano se",
       "en": "Say it",
       "where": [
@@ -1168,6 +1175,13 @@
         "components/LetterNameGame.tsx",
         "components/SoundGame.tsx",
         "components/math/MathTestRoute.tsx"
+      ]
+    },
+    {
+      "fi": "Uudet sanat",
+      "en": "New words today",
+      "where": [
+        "components/LearnedWords.tsx"
       ]
     },
     {
