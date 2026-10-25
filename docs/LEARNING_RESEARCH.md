@@ -59,7 +59,7 @@ Most sources were read as abstracts or summaries. Check any figure against the o
 - **[Strong for infants, inferred for older]** Children learn sounds from live people, not from audio alone (Kuhl 2003).
   - A native voice of good quality matters, and so does interaction.
 - **[Strong on the limits]** Speech recognition gets 11–35% of children's words wrong.
-  - Never mark pronunciation wrong because the recogniser says so. Use it to encourage, let a parent judge, or let the child compare their recording with the model.
+  - Never mark pronunciation wrong because the recognizer says so. Use it to encourage, let a parent judge, or let the child compare their recording with the model.
 
 ### Reading
 

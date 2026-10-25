@@ -307,7 +307,7 @@ function collect(): ReviewSection[] {
       const prose = ['text' in c ? (c.text ?? '') : '', c.kind === 'check' ? `${c.question}\n${c.explain}` : ''].join('\n');
       const snippets = [...new Set(fiSnippets(prose))];
       if (snippets.length === 0) return [];
-      return [{ key: `lesson:${l.id}:${i + 1}`, fi: snippets.join(' · '), en: `${l.titleEn} — ${c.title ?? c.kind}` }];
+      return [{ key: `lesson:${l.id}:${i + 1}`, fi: snippets.join(' · '), en: `${l.titleEn} — ${(c.title ?? c.kind).replace(/\*/g, '')}` }];
     }),
   );
 
@@ -443,7 +443,7 @@ function collect(): ReviewSection[] {
     { id: 'ordinals', title: 'Ordinals 11th–31st', hint: 'Hand-written words (the source stops at the 10th).', rows: ordinalRows },
     { id: 'questions', title: '"Do you…?" questions', hint: 'One question form per verb.', rows: questionRows },
     { id: 'pronouns', title: 'Pronoun forms & frames', hint: 'minä, minua, minulle…', rows: pronounRows },
-    { id: 'spoken', title: 'Spoken Finnish', hint: 'Everyday spoken forms, shown beside the written ones to recognise — never asked for.', rows: spokenRows },
+    { id: 'spoken', title: 'Spoken Finnish', hint: 'Everyday spoken forms, shown beside the written ones to recognize — never asked for.', rows: spokenRows },
     { id: 'letters', title: 'Alphabet', hint: 'Letter names and sound tips.', rows: letterRows },
     { id: 'lessons', title: 'Finnish in the lessons', hint: 'Words quoted in the explanations.', rows: lessonRows },
     {

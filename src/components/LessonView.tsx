@@ -4,7 +4,7 @@ import { resolveRef, type Lesson, type LessonCard, type LessonRef, type Resolved
 import type { Segment } from '../content/endings';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
-import Prose from './Prose';
+import Prose, { ProseInline } from './Prose';
 import { spokenPairById } from '../content/spoken';
 import ReadAloud from './ReadAloud';
 import { useLearner } from '../game/useLearner';
@@ -96,7 +96,7 @@ function CardBody({ card }: { card: LessonCard }) {
     case 'explain':
       return (
         <>
-          {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
+          {card.title && <h2 className="lesson-card__title"><ProseInline text={card.title} /></h2>}
           <Prose text={card.text} />
           {aloud}
         </>
@@ -104,7 +104,7 @@ function CardBody({ card }: { card: LessonCard }) {
     case 'examples':
       return (
         <>
-          {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
+          {card.title && <h2 className="lesson-card__title"><ProseInline text={card.title} /></h2>}
           {card.text && <Prose text={card.text} />}
           {aloud}
           <ul className="lesson-rows">
@@ -118,7 +118,7 @@ function CardBody({ card }: { card: LessonCard }) {
     case 'verbTable':
       return (
         <>
-          {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
+          {card.title && <h2 className="lesson-card__title"><ProseInline text={card.title} /></h2>}
           {card.text && <Prose text={card.text} />}
           {aloud}
           <ul className="lesson-rows lesson-rows--table">
@@ -139,7 +139,7 @@ function CardBody({ card }: { card: LessonCard }) {
     case 'pairs':
       return (
         <>
-          {card.title && <h2 className="lesson-card__title">{card.title}</h2>}
+          {card.title && <h2 className="lesson-card__title"><ProseInline text={card.title} /></h2>}
           {card.text && <Prose text={card.text} />}
           {aloud}
           <ul className="lesson-rows lesson-pairs">
@@ -277,7 +277,7 @@ function CheckCard({
 
   return (
     <>
-      <h2 className="lesson-card__title">{card.title ?? 'Kokeile! · Try it'}</h2>
+      <h2 className="lesson-card__title">{card.title ? <ProseInline text={card.title} /> : 'Kokeile! · Try it'}</h2>
       <Prose text={card.question} />
       {heard && (
         <button

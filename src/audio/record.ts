@@ -1,5 +1,5 @@
 // Hear yourself: record a short clip of the child saying the word, play it
-// back, then the model. Children's speech defeats recognisers too often to
+// back, then the model. Children's speech defeats recognizers too often to
 // judge (docs/LEARNING_RESEARCH.md); comparing their own voice with the model
 // is something they — and a grown-up — can judge. The clip stays in memory
 // only: nothing is stored or sent anywhere.

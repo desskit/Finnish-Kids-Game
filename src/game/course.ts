@@ -222,7 +222,8 @@ export function midLessonStatus(
   if (unlockAll || unitComplete(child, unit)) return 'open';
   if (unitStatus(child, unit) === 'locked' || !lessonSeen(child, unit.lessonId)) return 'locked';
   const at = unit.skills.findIndex((s) => s.id === ml.before);
-  return unit.skills.slice(0, at).every((s) => stepDone(child, unit, s)) ? 'open' : 'locked';
+  // A bonus step on the way never holds it back.
+  return unit.skills.slice(0, at).every((s) => s.optional || stepDone(child, unit, s)) ? 'open' : 'locked';
 }
 
 export function checkpointStatus(

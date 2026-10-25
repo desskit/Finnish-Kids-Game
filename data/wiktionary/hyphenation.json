@@ -411,7 +411,8 @@
   ],
   "isoisä": [
    "i",
-   "soi",
+   "so",
+   "i",
    "sä"
   ],
   "perhe": [
@@ -569,15 +570,13 @@
   "makuuhuone": [
    "ma",
    "kuu",
-   "hu",
-   "o",
+   "huo",
    "ne"
   ],
   "kylpyhuone": [
    "kyl",
    "py",
-   "hu",
-   "o",
+   "huo",
    "ne"
   ],
   "sohva": [
@@ -1029,8 +1028,7 @@
   ],
   "jääkiekko": [
    "jää",
-   "ki",
-   "ek",
+   "kiek",
    "ko"
   ],
   "euro": [

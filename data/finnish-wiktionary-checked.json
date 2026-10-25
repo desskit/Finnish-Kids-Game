@@ -551,8 +551,8 @@
    "how": "nosta: nostaa imperative present 2nd person sg · käsi: hand · ylös: up · kädet: käsi nominative pl"
   },
   "lesson:body:6": {
-   "fi": "Kapteeni käskee: kosketa nenää! · Kosketa nenää!",
-   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person · kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg"
+   "fi": "Kapteeni käskee: kosketa nenää! · Kosketa nenää! · Ei!",
+   "how": "kapteeni: captain · käskee: käskeä present sg 3rd person · kosketa: koskettaa imperative present 2nd person sg · nenää: nenä partitive sg · ei: the negative verb"
   },
   "lesson:body:7": {
    "fi": "Kosketa · Kosketa nenää!",
@@ -655,7 +655,7 @@
    "how": "leikitään: leikkiä passive present"
   },
   "lesson:comparing:2": {
-   "fi": "Norsu on isompi kuin hiiri.",
+   "fi": "kuin · Norsu on isompi kuin hiiri.",
    "how": "norsu: elephant · on: olla present sg 3rd person · isompi: iso comparative · kuin: than · hiiri: mouse"
   },
   "lesson:comparing:3": {
@@ -1283,8 +1283,8 @@
    "how": "kivellä: kivi adessive sg · lehdellä: lehti adessive sg"
   },
   "lesson:negation-object:1": {
-   "fi": "on",
-   "how": "on: olla present sg 3rd person"
+   "fi": "on · ei ole",
+   "how": "on: olla present sg 3rd person · ei: the negative verb · ole: olla connegative (en ole, ei ole); also imperative (ole hyvä)"
   },
   "lesson:negation-object:5": {
    "fi": "ei ole · pyörää",
@@ -1751,7 +1751,7 @@
    "how": "mistä: mikä elative pl sg"
   },
   "lesson:with-someone:2": {
-   "fi": "Leikin pallolla. · Leikin kaverin kanssa.",
+   "fi": "Leikin pallolla. · kanssa · Leikin kaverin kanssa.",
    "how": "leikin: leikkiä 1st person present sg · pallolla: pallo adessive sg · kaverin: kaveri accusative genitive sg · kanssa: with"
   },
   "lesson:with-someone:3": {

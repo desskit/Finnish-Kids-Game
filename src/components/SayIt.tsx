@@ -70,7 +70,7 @@ interface Props {
 // isn't available the mic itself becomes "I said it" — the repeat-after-me
 // still happens; it just isn't scored.
 //
-// Recognisers misjudge children's voices too often to be the judge
+// Recognizers misjudge children's voices too often to be the judge
 // (docs/LEARNING_RESEARCH.md), so the child can also record themselves and hear
 // their own try beside the model (HearYourself), and in Together mode the
 // grown-up listening beside them gives the verdict: their 👍 is a real success.

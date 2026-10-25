@@ -734,7 +734,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Read it like it\'s written',
         text:
-          'Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!\n\nAnd you always press on the **first part** of a word: KIR-ja, PÖY-tä, O-pet-ta-ja. Say the rest lightly.',
+          'Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!\n\nAnd you always press on the **first part** of a word: *KIR-ja*, *PÖY-tä*, *O-pet-ta-ja*. Say the rest lightly.',
       },
       {
         kind: 'examples',
@@ -802,6 +802,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Ei "a" eikä "the"',
     titleEn: 'No "a", no "the"',
     emoji: '👉',
+    notice: [0, 1, 4],
     cards: [
       {
         kind: 'explain',
@@ -851,6 +852,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Laskeminen',
     titleEn: 'Counting',
     emoji: '🔢',
+    notice: [2, 4],
     cards: [
       {
         kind: 'examples',
@@ -1010,7 +1012,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: '"is" becomes "is not"',
-        text: 'To say you **don\'t** have something, *on* (is) becomes **ei ole** (is not).',
+        text: 'To say you **don\'t** have something, *on* (is) becomes *ei ole* (is not).',
       },
       {
         kind: 'examples',
@@ -1062,6 +1064,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Kuka tekee?',
     titleEn: 'Verbs tell you WHO',
     emoji: '🏃',
+    notice: [0, 4, 5],
     cards: [
       {
         kind: 'explain',
@@ -1096,7 +1099,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'tulla — to come',
+        title: '*tulla* — to come',
         text: 'The marked ending is the "who" part.',
         verb: 'come',
         tense: 'present',
@@ -1211,7 +1214,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'syödä — not eating',
+        title: '*syödä* — not eating',
         text: 'The marked word is the "not" verb.',
         verb: 'eat',
         tense: 'present',
@@ -1262,7 +1265,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'tykätä → -sta / -stä',
+        title: '*tykätä* → -sta / -stä',
         text:
           '"I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").',
         rows: [
@@ -1333,7 +1336,7 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'examples',
-        title: 'rakastaa → -a / -ä',
+        title: '*rakastaa* → -a / -ä',
         text:
           '"I love" is *rakastan* — and it picks a DIFFERENT ending: **-a / -ä**, or **-ta / -tä** after a long vowel, like *suklaata*.',
         rows: [
@@ -1551,6 +1554,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Värit',
     titleEn: 'Colors and describing words',
     emoji: '🎨',
+    notice: [0, 3, 5],
     cards: [
       {
         kind: 'examples',
@@ -1672,6 +1676,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Missä?',
     titleEn: 'Endings instead of "in" and "on"',
     emoji: '📍',
+    notice: [0, 1, 4],
     cards: [
       {
         kind: 'examples',
@@ -2109,6 +2114,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Eilen',
     titleEn: 'Talking about yesterday',
     emoji: '⏮️',
+    notice: [1, 4],
     cards: [
       {
         kind: 'explain',
@@ -2118,14 +2124,14 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'syödä — ate',
+        title: '*syödä* — ate',
         verb: 'eat',
         tense: 'past',
         polarity: 'positive',
       },
       {
         kind: 'examples',
-        title: 'The k, p, t changes come along',
+        title: 'The *k, p, t* changes come along',
         text: 'Verbs whose sound changes still do it in the past: *minä nukuin* (weak), *hän nukkui* (strong) — just like *nukun* and *nukkuu*.',
         rows: [
           { verb: 'sleep', tense: 'past', polarity: 'positive', person: '1sg' },
@@ -2162,6 +2168,7 @@ export const lessons: Lesson[] = [
     titleFi: 'En syönyt',
     titleEn: '"Didn\'t"',
     emoji: '🙅',
+    notice: [1, 4],
     cards: [
       {
         kind: 'explain',
@@ -2171,7 +2178,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'syödä — didn\'t eat',
+        title: '*syödä* — didn\'t eat',
         verb: 'eat',
         tense: 'past',
         polarity: 'negative',
@@ -2312,10 +2319,11 @@ export const lessons: Lesson[] = [
     titleFi: 'Mestari',
     titleEn: 'Expert Finnish',
     emoji: '🏆',
+    notice: [1, 3, 4],
     cards: [
       {
         kind: 'verbTable',
-        title: '"Have done" — olen syönyt',
+        title: '"Have done" — *olen syönyt*',
         text: 'Use *olla* (to be) + the **-nut / -nyt** form you met in "didn\'t".',
         verb: 'eat',
         tense: 'perfect',
@@ -2323,7 +2331,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: '"Would" — söisin',
+        title: '"Would" — *söisin*',
         text: 'Slip in **-isi-** to say "would".',
         verb: 'eat',
         tense: 'conditional',
@@ -2555,6 +2563,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Leikin, pelaan, soitan',
     titleEn: 'Three ways to play',
     emoji: '🎲',
+    notice: [0, 3, 5],
     cards: [
       {
         kind: 'explain',
@@ -2564,7 +2573,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Toys: leikkiä + -lla',
+        title: 'Toys: *leikkiä* + -lla',
         text: 'Playing WITH a toy takes **-lla / -llä** — the same ending as *minulla*: *Leikin nukella* = I play with a doll.',
         rows: [
           { sentence: 'play-with-toy', word: 'doll' },
@@ -2574,7 +2583,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Games and sports: pelata + -a',
+        title: 'Games and sports: *pelata* + -a',
         text: 'After *pelaan*, the game takes **-a / -ä**: *Pelaan jalkapalloa*. (*pelata* goes like *haluta*: *pelaan, pelaat, pelaa*.) *jääkiekko* is the puck AND the game, ice hockey.',
         rows: [
           { sentence: 'i-play-game', word: 'football' },
@@ -2584,7 +2593,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Music: soittaa + -a',
+        title: 'Music: *soittaa* + -a',
         text: 'After *soitan*, the instrument takes **-a / -ä** too: *Soitan pianoa*. (*soittaa* is also "call": *Soitan isälle* = I call Dad.)',
         rows: [
           { sentence: 'i-play-music', word: 'piano' },
@@ -2594,7 +2603,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'soittaa — to play music',
+        title: '*soittaa* — to play music',
         text: '**tt → t**, like *auttaa*: *minä soitan*, but *hän soittaa*.',
         verb: 'play-music',
         tense: 'present',
@@ -2697,11 +2706,12 @@ export const lessons: Lesson[] = [
     titleFi: 'Milloin?',
     titleEn: 'Days and times',
     emoji: '📅',
+    notice: [0, 1, 3],
     cards: [
       {
         kind: 'examples',
         title: 'Days of the week',
-        text: 'Finnish days **don\'t start with a capital letter**: *maanantai*, not "Maanantai".',
+        text: 'Finnish days **don\'t start with a capital letter**: *maanantai*, with a small m.',
         rows: [
           { word: 'monday' },
           { word: 'tuesday' },
@@ -2762,7 +2772,7 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'explain',
-        title: 'Kello on…',
+        title: '*Kello on…*',
         text:
           '*kello* is a **clock**. To say the time, say *Kello on* + the number: *Kello on kolme* = it\'s three o\'clock. To ask: *Paljonko kello on?*',
       },
@@ -2803,6 +2813,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Minun päiväni',
     titleEn: 'My day',
     emoji: '🌅',
+    notice: [2, 5],
     cards: [
       {
         kind: 'examples',
@@ -2921,6 +2932,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Millainen sää?',
     titleEn: "What's the weather like?",
     emoji: '⛅',
+    notice: [0, 1, 5],
     cards: [
       {
         kind: 'examples',
@@ -2992,6 +3004,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Luonnossa',
     titleEn: 'Out in nature',
     emoji: '🌲',
+    notice: [0, 1, 5],
     cards: [
       {
         kind: 'examples',
@@ -3060,6 +3073,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Koulussa ja päiväkodissa',
     titleEn: 'School & daycare',
     emoji: '🛎️',
+    notice: [0, 1, 6],
     cards: [
       {
         kind: 'examples',
@@ -3138,6 +3152,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Suomalainen vuosi',
     titleEn: 'The Finnish year: Christmas',
     emoji: '🎄',
+    notice: [0, 2, 4],
     cards: [
       {
         kind: 'explain',
@@ -3182,6 +3197,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Pääsiäinen',
     titleEn: 'Easter',
     emoji: '🐣',
+    notice: [1, 2, 3],
     cards: [
       {
         kind: 'explain',
@@ -3220,6 +3236,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Juhannus',
     titleEn: 'Midsummer',
     emoji: '🎋',
+    notice: [0, 2, 4],
     cards: [
       {
         kind: 'explain',
@@ -3292,7 +3309,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'explain',
-        title: 'Kenen? — Whose?',
+        title: '*Kenen?* — Whose?',
         text: '*Kenen pyörä tämä on?* means **Whose bike is this?** Answer with the owner + **-n**: *Se on isän pyörä.*\n\nYou already know *minun* and *sinun* (my, your) — they end in **-n** too!',
       },
       {
@@ -3423,6 +3440,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Tee! Älä! Tehdään!',
     titleEn: "Do it, don't, let's",
     emoji: '🫵',
+    notice: [0, 1, 3],
     cards: [
       {
         kind: 'examples',
@@ -3483,10 +3501,11 @@ export const lessons: Lesson[] = [
     titleFi: 'Keho · Kapteeni käskee',
     titleEn: 'My body · Captain says',
     emoji: '🧑‍✈️',
+    notice: [0, 3, 6],
     cards: [
       {
         kind: 'explain',
-        title: 'Kapteeni käskee!',
+        title: '*Kapteeni käskee!*',
         text:
           'Finnish kids play *Kapteeni käskee* — "the captain orders". It\'s like Simon Says: do what the captain says, but ONLY when you hear *Kapteeni käskee*!',
       },
@@ -3526,7 +3545,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'How to play',
         text:
-          'The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don\'t do it! In the game, tap the captain\'s **Ei!** (no!) instead.',
+          'The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don\'t do it! In the game, tap the captain\'s *Ei!* (no!) instead.',
       },
       {
         kind: 'check',
@@ -3693,7 +3712,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'avata — to open',
+        title: '*avata* — to open',
         text: 'The marked ending is the "who" part.',
         verb: 'open',
         tense: 'present',
@@ -3737,7 +3756,7 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'explain',
-        title: 'The other way round — like kuunnella',
+        title: 'The other way round — like *kuunnella*',
         text:
           'Remember *kuunnella → kuuntelen*? Type 4 works the same way: the "to…" word has the **weak** sound, and EVERY person gets the **strong** one: *hypätä → hyppään, hyppää*.',
       },
@@ -3759,7 +3778,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'explain',
-        title: 'Watch out: kiivetä',
+        title: 'Watch out: *kiivetä*',
         text:
           '*kiivetä* ends in **-etä**, but it is a **type 4** verb all the same: *kiipeän*, like *hyppään*.',
       },
@@ -3815,7 +3834,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'verbTable',
-        title: 'tarvita — to need',
+        title: '*tarvita* — to need',
         text: 'The marked ending is the "who" part.',
         verb: 'need',
         tense: 'present',
@@ -3921,9 +3940,9 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Than = kuin',
+        title: 'Than = *kuin*',
         text:
-          '**kuin** means "than". Both things stay in their basic form:\n\n*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.',
+          '*kuin* means "than". Both things stay in their basic form:\n\n*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.',
         rows: [
           { compare: 'big', a: 'elephant', b: 'mouse' },
           { compare: 'fast', a: 'horse', b: 'cow' },
@@ -3965,6 +3984,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Isoin',
     titleEn: 'The biggest of all',
     emoji: '🏆',
+    notice: [0, 3],
     cards: [
       {
         kind: 'examples',
@@ -4067,9 +4087,9 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'examples',
-        title: 'With a PERSON: kanssa',
+        title: 'With a PERSON: *kanssa*',
         text:
-          'Careful! With a person (or a pet) it\'s different: the person gets **-n**, then the word **kanssa** (together with).',
+          'Careful! With a person (or a pet) it\'s different: the person gets **-n**, then the word *kanssa* (together with).',
         rows: [
           { sentence: 'with-someone', word: 'friend' },
           { sentence: 'with-someone', word: 'mother' },
@@ -4079,7 +4099,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: 'Tool or person?',
-        text: '- A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)\n- Someone you\'re WITH → **-n kanssa**: *Leikin kaverin kanssa.* (with a friend)',
+        text: '- A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)\n- Someone you\'re WITH → **-n** + *kanssa*: *Leikin kaverin kanssa.* (with a friend)',
       },
       {
         kind: 'check',
@@ -4177,6 +4197,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Kuukaudet',
     titleEn: 'The months',
     emoji: '🗓️',
+    notice: [0, 1, 2],
     cards: [
       {
         kind: 'examples',
@@ -4279,7 +4300,7 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'examples',
-        title: 'Olen … vuotta vanha',
+        title: '*Olen … vuotta vanha*',
         text:
           'Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).',
         rows: [{ age: 'seven' }, { age: 'eight' }, { age: 'nine' }],
@@ -4334,7 +4355,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Miinus: take away',
+        title: '*Miinus*: take away',
         text: '*miinus* takes some away. When nothing is left, that’s *nolla*.',
         rows: [
           { sum: 'minus', a: 5, b: 2 },
@@ -4552,7 +4573,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'explain',
-        title: 'Up to sata',
+        title: 'Up to *sata*',
         text: 'After *yhdeksänkymmentä* comes *sata*, the biggest number here. In the building game you hear a round number and find the part before *kymmentä*.',
       },
       {
@@ -4592,7 +4613,7 @@ export const lessons: Lesson[] = [
     cards: [
       {
         kind: 'examples',
-        title: 'Kertaa: times',
+        title: '*Kertaa*: times',
         text: '*kertaa* means times. *kerta* is “a time”, and after a number it ends in **-a**, like *kaksi omenaa*.',
         rows: [{ times: [2, 3] }, { times: [3, 2] }, { times: [5, 2] }],
       },
@@ -4609,7 +4630,7 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'examples',
-        title: 'Puolet: half',
+        title: '*Puolet*: half',
         text: '*puolet* means half. The number after it ends in **-sta** or **-stä** (“of”): *puolet kahdeksasta*.',
         rows: [{ half: 8 }, { half: 10 }, { half: 6, asked: true }],
       },

@@ -103,7 +103,7 @@ export const SOUND_GUIDES: SoundGuide[] = [
     id: 'stress',
     icon: '🥁',
     title: 'Press on the first part',
-    text: 'Every Finnish word is pressed on its **first part**: AU-to, O-pet-ta-ja, KIR-ja. Say the rest lightly.',
+    text: 'Every Finnish word is pressed on its **first part**: *AU-to*, *O-pet-ta-ja*, *KIR-ja*. Say the rest lightly.',
     examples: ['auto', 'opettaja', 'kirja'],
   },
 ];

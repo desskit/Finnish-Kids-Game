@@ -115,23 +115,53 @@ export function speakEnglish(text: string): void {
   speakIn(text, ENGLISH, 'en');
 }
 
+/** An ending as prose writes it — "-ssa", "-i-", "-ssa / -ssä": Finnish, though not in italics. */
+const ENDINGS = /((?<![\p{L}-])-[a-zåäö]+-?(?:\s*\/\s*-[a-zåäö]+-?)*)/u;
+
+/** Short English words a bold run of letters might hold ("a vowel **or** a consonant"). */
+const SHORT_ENGLISH = new Set(['or', 'in', 'on', 'is', 'it', 'at', 'to', 'no', 'so', 'an', 'of', 'by', 'up', 'me', 'we', 'he', 'and', 'the', 'not', 'all', 'you', 'one', 'two', 'six', 'ten', 'yes', 'any', 'are']);
+
+/** A bold run of Finnish letters or a sound change: "**a, o, u**", "**kk → k**", "**k → ∅**", "**n**". */
+function isLetters(bold: string): boolean {
+  const tokens = bold.split(/[\s,/+→←∅]+/).filter(Boolean);
+  // Lower-case letters ("**kk → k**"), or capitals naming letters ("**KPT**").
+  return tokens.length > 0 && tokens.every((t) => (/^[a-zåäö]{1,3}$/.test(t) && !SHORT_ENGLISH.has(t)) || /^[A-ZÅÄÖ]{2,3}$/.test(t));
+}
+
+/**
+ * An explanation split for reading aloud: each *Finnish* quote, each ending
+ * ("-ssa / -ssä") and each bold run of Finnish letters ("**a, o, u**") is a
+ * Finnish part, the rest English. Markup (`**bold**`, arrows) isn't read; an
+ * ending is said without its hyphens.
+ */
+export function proseParts(text: string): { text: string; fi: boolean }[] {
+  return text
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*)/)
+    .flatMap((p) => {
+      if (p.startsWith('**') && p.endsWith('**') && p.length > 4 && isLetters(p.slice(2, -2))) {
+        return [{ text: p.slice(2, -2), fi: true }];
+      }
+      if (!p.startsWith('**') && p.startsWith('*') && p.endsWith('*') && p.length > 2) {
+        return [{ text: p.slice(1, -1), fi: true }];
+      }
+      return p
+        .replace(/\*\*/g, '')
+        .split(ENDINGS)
+        .map((q, i) => (i % 2 === 1 ? { text: q.replace(/-/g, ''), fi: true } : { text: q, fi: false }));
+    })
+    .map((p) => ({ ...p, text: p.text.replace(/∅/g, '').replace(/[→←+]/g, ', ').replace(/\s*\/\s*/g, ', ').trim() }))
+    .filter((p) => /\p{L}/u.test(p.text));
+}
+
 /**
  * Read an explanation aloud (a lesson card, a "Why?" tip): the English in an
- * English voice and every *Finnish* quote in the Finnish one, one after
- * another — so a quoted word is never said with an English accent. Markup
- * (`**bold**`, arrows) isn't read. Without a Finnish voice the quotes are
- * skipped, like any Finnish.
+ * English voice and every Finnish quote or ending in the Finnish one, one after
+ * another — so Finnish is never said with an English accent. Without a Finnish
+ * voice the Finnish parts are skipped, like any Finnish.
  */
 export function speakProse(text: string): void {
-  const parts = text
-    .replace(/\*\*/g, '')
-    .replace(/[→←]/g, ', ')
-    .split(/(\*[^*]+\*)/)
-    .map((p) => p.trim())
-    .filter((p) => /\p{L}/u.test(p));
-  parts.forEach((p, i) => {
-    const fi = p.startsWith('*') && p.endsWith('*');
-    if (fi) speakIn(p.slice(1, -1), FINNISH, 'fi', i > 0);
-    else speakIn(p, ENGLISH, 'en', i > 0);
+  proseParts(text).forEach((p, i) => {
+    if (p.fi) speakIn(p.text, FINNISH, 'fi', i > 0);
+    else speakIn(p.text, ENGLISH, 'en', i > 0);
   });
 }

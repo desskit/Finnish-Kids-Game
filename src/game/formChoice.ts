@@ -767,7 +767,7 @@ function compareQuestion(
     answer,
     options,
     why: {
-      text: `**-mpi** + **kuin** = "…-er than": ${comparisonEnglish(adj, more, less)}`,
+      text: `**-mpi** + *kuin* = "…-er than": ${comparisonEnglish(adj, more, less)}`,
       example,
     },
     whyFor: {
@@ -776,7 +776,7 @@ function compareQuestion(
         example,
       },
       [basic]: {
-        text: `With **kuin** (than), use the **-mpi** word: *${degreeForm(adj, "comparative")}*, not *${adj.fi}*.`,
+        text: `With *kuin* (than), use the **-mpi** word: *${degreeForm(adj, "comparative")}*, not *${adj.fi}*.`,
         example,
       },
     },
@@ -949,7 +949,7 @@ function playQuestion(
     if (w.fi && w.other)
       whyFor[w.fi] = {
         ...why,
-        text: `*${PLAY_VERB[w.other]}* is for ${PLAY_FOR[w.other]}. This is ${PLAY_THIS[con.id]}: **${PLAY_VERB[con.id]}**.`,
+        text: `*${PLAY_VERB[w.other]}* is for ${PLAY_FOR[w.other]}. This is ${PLAY_THIS[con.id]}: *${PLAY_VERB[con.id]}*.`,
       };
   }
   return { emoji: pictureFor(item, con), cue: englishSentenceFor(item, con), answer, options, why, whyFor };
