@@ -242,7 +242,11 @@ learn a pattern from input first, and a rule helps only once they've met it):
    it" checks, after that first step. A younger reader sees its **notice
    cards** (`noticeCardIndexes`: one short explain card, the first examples
    and the first check — at most three, no grammar terms; a lesson can pick
-   its own with `notice`). The Notebook always has the whole lesson;
+   its own with `notice`). Each notice check must be answerable from the
+   cards beside it: if the automatic pick shows numbers but asks "two books",
+   set `notice` to the cards that show the ending (`notice.test.ts` checks
+   that the right answer's ending appears on them). The Notebook always has
+   the whole lesson;
 4. the rest of the practice **steps** (part-way lessons as before), then the
    story again, now with its questions;
 5. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
@@ -256,6 +260,12 @@ played) counts its opener as heard, so no child is sent backwards.
 hear explanations read aloud and English prompts on a step's first level;
 older readers read them. Write lesson prose that works read aloud: short
 sentences, Finnish quotes in `*single asterisks*` (read in the Finnish voice).
+Every Finnish word must be marked, card titles included (`*tulla* — to
+come`): plain or **bold** text is read in the English voice. Endings
+(`-ssa / -ssä`) and bold runs of letters (`**kk → k**`, `**a, o, u**`) are
+read in Finnish on their own; a bold Finnish *word* (`**kuin**`) is not — put
+it in italics. `src/audio/voiceHonesty.test.ts` checks the lessons and the
+"Why?" tips.
 **English help** (Grown-ups → Settings) fades the English beside scene and
 dialogue lines after a step's first level by default; the drills' own tasks
 stay in English.
@@ -272,8 +282,11 @@ and never holds the unit back, because it needs a Finnish voice to be heard.
 
 **Syllables** for younger readers come only from Wiktionary
 (`data/wiktionary/hyphenation.json`, refreshed with
-`node scripts/fetch-hyphenation.mjs <words.json>`). A new word missing there is
-shown whole — never split by rule.
+`node scripts/fetch-hyphenation.mjs <words.json>`; add `--redo` to fetch
+listed words again). The script expands the pronunciation template from the
+word's own page, with its arguments, so a compound splits at its seam
+(*ma-kuu-huo-ne*, not *ma-kuu-hu-o-ne*). A new word missing there is shown
+whole — never split by rule.
 
 ### Adding or changing a unit
 
@@ -499,7 +512,7 @@ writes **US English**: Mom, candy, soccer, cafeteria, "Do you have…?".
   only when listed in `APPROVED` in `src/content/examples.ts`, after a person
   has read them. Leave out a word used in another sense, spoken forms (*mä,
   haluun*), sayings, and any whose English doesn't say what the Finnish says.
-- **Spoken Finnish is for recognising, never for answering.** The everyday
+- **Spoken Finnish is for recognizing, never for answering.** The everyday
   spoken forms (*mä, sä, oon, oot, mun, sun*) appear only as "two ways to say
   it" cards at the end of their lessons (`src/content/spoken.ts`,
   `SPOKEN_FOR_LESSON`) and as a tap in the story glossary ("the spoken form of

@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-25T04:53:53.308Z · regenerate with `npm run review:content`
+- Generated: 2026-10-25T06:27:41.086Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2282 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1030.** Flagged: 0.
+- **Approved: 28 of 2284 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1032.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -21,7 +21,7 @@ and its **Where** menu shows one unit at a time.
 | Where | Entries | Left to check | In |
 | --- | --- | --- | --- |
 | Everywhere | 225 | 14 | Course titles 7, Buttons & screen labels 7 |
-| Unit 1: Hello! (*Hei!*) | 41 | 20 | Scenes, turn by turn 3, Stories 7, Other lines (wrong replies) 10 |
+| Unit 1: Hello! (*Hei!*) | 42 | 21 | Scenes, turn by turn 3, Stories 7, Finnish in the lessons 1, Other lines (wrong replies) 10 |
 | Unit 2: People & things (*Kuka? Mikä?*) | 35 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
 | Unit 3: Numbers (*Numerot*) | 31 | 21 | Scenes, turn by turn 7, Stories 10, Other lines (wrong replies) 4 |
 | Unit 4: I have (*Minulla on*) | 48 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
@@ -48,7 +48,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 25: Going & coming (*Mihin? Mistä?*) | 41 | 19 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 4, Other lines (wrong replies) 2 |
 | Unit 26: Around town & home (*Kaupungilla ja kotona*) | 38 | 21 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 6, Other lines (wrong replies) 2 |
 | Unit 27: School & daycare (*Koulussa ja päiväkodissa*) | 53 | 29 | Greetings & dialogues 6, Scenes, turn by turn 4, Stories 10, Forms marked wrong 6, Other lines (wrong replies) 3 |
-| Unit 28: By bus, with a pen (*Bussilla, kynällä*) | 47 | 23 | Scenes, turn by turn 4, Stories 10, Forms marked wrong 6, Other lines (wrong replies) 3 |
+| Unit 28: By bus, with a pen (*Bussilla, kynällä*) | 48 | 24 | Scenes, turn by turn 4, Stories 10, Forms marked wrong 6, Finnish in the lessons 1, Other lines (wrong replies) 3 |
 | Unit 29: When? (*Milloin?*) | 43 | 21 | Scenes, turn by turn 6, Stories 10, Other lines (wrong replies) 5 |
 | Unit 30: My day (*Minun päiväni*) | 46 | 17 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1, Other lines (wrong replies) 3 |
 | Unit 31: Weather (*Millainen sää?*) | 32 | 18 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 2, Other lines (wrong replies) 3 |
@@ -1274,7 +1274,7 @@ _minä, minua, minulle…_
 
 ## Spoken Finnish (6)
 
-_Everyday spoken forms, shown beside the written ones to recognise — never asked for._
+_Everyday spoken forms, shown beside the written ones to recognize — never asked for._
 
 | Status | Where | Key | Finnish | English |
 | --- | --- | --- | --- | --- |
@@ -1321,12 +1321,13 @@ _Letter names and sound tips._
 | 📖 | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | 📖 | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
-## Finnish in the lessons (330)
+## Finnish in the lessons (332)
 
 _Words quoted in the explanations._
 
 | Status | Where | Key | Finnish | English |
 | --- | --- | --- | --- | --- |
+| ⚠️ | Unit 1 | `lesson:sounds:1` | KIR-ja · PÖY-tä · O-pet-ta-ja | How Finnish sounds — Read it like it's written |
 | 📖 | Unit 1 | `lesson:sounds:5` | nimesi · nimeni · nimi | How Finnish sounds — Saying who you are |
 | 📖 | Unit 1 | `lesson:sounds:6` | tuuli · tuli · tulli | How Finnish sounds — check |
 | 📖 | Unit 1 | `lesson:sounds:7` | Hyvää yötä! | How Finnish sounds — check |
@@ -1348,7 +1349,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 4 | `lesson:having-everyone:1` | minulla · sinulla · hänellä · meillä · teillä · heillä | Who has it? Everyone! — Everyone gets -lla / -llä |
 | 📖 | Unit 4 | `lesson:having-everyone:3` | meillä | Who has it? Everyone! — check |
 | 📖 | Unit 4 | `lesson:having-everyone:4` | Hänellä on kitara. · hänellä | Who has it? Everyone! — check |
-| 📖 | Unit 5 | `lesson:negation-object:1` | on | Saying you don't have it — "is" becomes "is not" |
+| 📖 | Unit 5 | `lesson:negation-object:1` | on · ei ole | Saying you don't have it — "is" becomes "is not" |
 | 📖 | Unit 5 | `lesson:negation-object:5` | ei ole · pyörää | Saying you don't have it — check |
 | 📖 | Unit 5 | `lesson:negation-object:6` | Minulla on hattu. · on · ei ole · hattua | Saying you don't have it — check |
 | 📖 | Unit 8 | `lesson:verb-persons:1` | minä · Syön. | Verbs tell you WHO — The end of the verb says who |
@@ -1539,7 +1540,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 21 | `lesson:body:3` | jalka | My body · Captain says — The rest of you |
 | 📖 | Unit 21 | `lesson:body:4` | Kosketa · Rakastan | My body · Captain says — Touch it: -a |
 | 📖 | Unit 21 | `lesson:body:5` | Nosta! · Nosta käsi ylös! · kädet | My body · Captain says — Put it up: the basic form |
-| 📖 | Unit 21 | `lesson:body:6` | Kapteeni käskee: kosketa nenää! · Kosketa nenää! | My body · Captain says — How to play |
+| 📖 | Unit 21 | `lesson:body:6` | Kapteeni käskee: kosketa nenää! · Kosketa nenää! · Ei! | My body · Captain says — How to play |
 | 📖 | Unit 21 | `lesson:body:7` | Kosketa · Kosketa nenää! | My body · Captain says — check |
 | 📖 | Unit 21 | `lesson:body:8` | jalka | My body · Captain says — check |
 | 📖 | Unit 36 | `lesson:question-words:1` | Kuka? · Mikä? · Mitä? · Montako? · Kenen? · Miksi? | Question words — Who, what, whose, why… |
@@ -1570,7 +1571,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 40 | `lesson:kpt-6:3` | minä, sinä, me, te | Type 6: a sound gets stronger too — The whole picture |
 | 📖 | Unit 40 | `lesson:kpt-6:4` | pakenen | Type 6: a sound gets stronger too — check |
 | 📖 | Unit 40 | `lesson:kpt-6:5` | nukkuu | Type 6: a sound gets stronger too — check |
-| 📖 | Unit 23 | `lesson:comparing:2` | Norsu on isompi kuin hiiri. | Bigger than — Than = kuin |
+| 📖 | Unit 23 | `lesson:comparing:2` | kuin · Norsu on isompi kuin hiiri. | Bigger than — Than = kuin |
 | 📖 | Unit 23 | `lesson:comparing:3` | hyvä → parempi · pitkä → pidempi | Bigger than — Special ones |
 | 📖 | Unit 23 | `lesson:comparing:4` | nopeampi | Bigger than — check |
 | 📖 | Unit 23 | `lesson:comparing:5` | Norsu on isompi kuin hiiri. | Bigger than — check |
@@ -1580,7 +1581,8 @@ _Words quoted in the explanations._
 | 📖 | Unit 28 | `lesson:by-with:1` | pöydällä | By bus, with a pen — An ending you already know |
 | 📖 | Unit 28 | `lesson:by-with:4` | junalla · junaan | By bus, with a pen — check |
 | 📖 | Unit 28 | `lesson:by-with:5` | lusikalla · Syön lusikkaa | By bus, with a pen — check |
-| 📖 | Unit 28 | `lesson:with-someone:2` | Leikin pallolla. · Leikin kaverin kanssa. | With a friend: kanssa — Tool or person? |
+| ⚠️ | Unit 28 | `lesson:with-someone:1` | kanssa | With a friend: kanssa — With a PERSON: kanssa |
+| 📖 | Unit 28 | `lesson:with-someone:2` | Leikin pallolla. · kanssa · Leikin kaverin kanssa. | With a friend: kanssa — Tool or person? |
 | 📖 | Unit 28 | `lesson:with-someone:3` | kanssa · kaverin kanssa | With a friend: kanssa — check |
 | 📖 | Unit 28 | `lesson:with-someone:4` | pallolla | With a friend: kanssa — check |
 | 📖 | Unit 33 | `lesson:big-numbers:1` | kolmetoista | Big numbers — 13 to 19: -toista |

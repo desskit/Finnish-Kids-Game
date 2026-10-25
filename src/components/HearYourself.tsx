@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { canRecord, playClip, recordClip } from '../audio/record';
 import { speak } from '../audio/speak';
+import { useCanHearFinnish } from '../audio/voices';
+import { useProfile } from '../state/profile';
 import Art from '../art/Art';
 import SpeakerIcon from '../art/SpeakerIcon';
 
 // "Hear yourself" in the speaking game: record three seconds, hear your own
-// voice, then the Finnish model — and compare. Never scored.
+// voice, then the Finnish model — and compare. Never scored. With no Finnish
+// voice on the device, just their own voice (the model is never faked).
 
 type Phase = 'idle' | 'recording' | 'playing' | 'done' | 'denied';
 
@@ -13,6 +16,8 @@ export default function HearYourself({ say, disabled = false }: { say: string; d
   const [phase, setPhase] = useState<Phase>('idle');
   const clip = useRef<string | null>(null);
   const audio = useRef<HTMLAudioElement | null>(null);
+  const { settings } = useProfile();
+  const canHear = useCanHearFinnish(!!settings.muted);
 
   // A new word: a fresh start (and the last clip let go).
   useEffect(() => {
@@ -30,6 +35,10 @@ export default function HearYourself({ say, disabled = false }: { say: string; d
     if (!clip.current) return;
     setPhase('playing');
     audio.current = playClip(clip.current, () => {
+      if (!canHear) {
+        setPhase('done');
+        return;
+      }
       speak(say, { onEnd: () => setPhase('done') });
       window.setTimeout(() => setPhase((p) => (p === 'playing' ? 'done' : p)), 4000);
     });
@@ -50,7 +59,7 @@ export default function HearYourself({ say, disabled = false }: { say: string; d
     <div className="hear-yourself">
       {phase === 'done' && clip.current ? (
         <button type="button" className="btn btn--sm" onClick={playBoth} disabled={disabled}>
-          <SpeakerIcon /> <span className="en">You, then Finnish — again</span>
+          <SpeakerIcon /> <span className="en">{canHear ? 'You, then Finnish — again' : 'Hear yourself again'}</span>
         </button>
       ) : (
         <button
@@ -61,7 +70,13 @@ export default function HearYourself({ say, disabled = false }: { say: string; d
         >
           <Art glyph="🔴" />{' '}
           <span className="en">
-            {phase === 'recording' ? 'Recording… say it now' : phase === 'playing' ? 'You… then Finnish' : 'Hear yourself'}
+            {phase === 'recording'
+              ? 'Recording… say it now'
+              : phase === 'playing'
+                ? canHear
+                  ? 'You… then Finnish'
+                  : 'Listen to yourself…'
+                : 'Hear yourself'}
           </span>
         </button>
       )}

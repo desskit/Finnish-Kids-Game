@@ -1,13 +1,17 @@
 // Fetches how Wiktionary splits each course word into syllables ("kis‧sa"),
 // for the younger readers' syllable display (src/content/syllables.ts). The
 // split is Wiktionary's own — its Finnish pronunciation module — expanded
-// through the MediaWiki API; the app never splits a word itself, and a word
-// with no split from here is simply never split.
+// through the MediaWiki API from the template on the word's own page, with the
+// page's arguments (a compound's boundary, e.g. {{fi-p|makuu-huone*}}); the
+// app never splits a word itself, and a word with no split from here is
+// simply never split.
 //
 // Polite: one request every few seconds, backing off when asked to. Re-runs
 // fetch only the words still missing.
 //
-//   node scripts/fetch-hyphenation.mjs <words.json>
+//   node scripts/fetch-hyphenation.mjs <words.json> [--redo]
+//
+// --redo fetches every listed word again, even ones already split.
 //
 // <words.json> is a JSON array of Finnish words. Writes
 // data/wiktionary/hyphenation.json: { _source, _license, words: { word: ["kis", "sa"] } }.
@@ -57,10 +61,7 @@ export function splitFrom(wikitext, word) {
   return null;
 }
 
-async function fetchOne(word) {
-  const url =
-    'https://en.wiktionary.org/w/api.php?action=expandtemplates&format=json&prop=wikitext' +
-    `&title=${encodeURIComponent(word)}&text=${encodeURIComponent('{{fi-pronunciation}}')}`;
+async function getJson(url, word) {
   for (let attempt = 0; attempt < 6; attempt++) {
     const res = await fetch(url, { headers: { 'User-Agent': UA, 'Api-User-Agent': UA } });
     if (res.status === 429 || res.status >= 500) {
@@ -75,16 +76,40 @@ async function fetchOne(word) {
       await wait(60_000);
       continue;
     }
-    return JSON.parse(body).expandtemplates?.wikitext ?? '';
+    return JSON.parse(body);
   }
   throw new Error(`gave up on ${word}`);
 }
 
-const todo = words.filter((w) => !out.words[w] && !out.none.includes(w));
+/** The pronunciation template on the word's page, in its Finnish section, with its arguments. */
+export function pageTemplate(pageText) {
+  const finnish = ('\n' + pageText).split(/\n==(?!=)/).find((s) => s.startsWith('Finnish==')) ?? '';
+  return finnish.match(/\{\{fi-(?:pronunciation|p)(?:\|[^}]*)?\}\}/)?.[0] ?? '{{fi-pronunciation}}';
+}
+
+async function fetchOne(word) {
+  const api = 'https://en.wiktionary.org/w/api.php?format=json&formatversion=2';
+  const page = await getJson(
+    `${api}&action=query&prop=revisions&rvprop=content&rvslots=main&titles=${encodeURIComponent(word)}`,
+    word,
+  );
+  const template = pageTemplate(page.query?.pages?.[0]?.revisions?.[0]?.slots?.main?.content ?? '');
+  await wait(GAP_MS);
+  const expanded = await getJson(
+    `${api}&action=expandtemplates&prop=wikitext&title=${encodeURIComponent(word)}&text=${encodeURIComponent(template)}`,
+    word,
+  );
+  return expanded.expandtemplates?.wikitext ?? '';
+}
+
+const redo = process.argv.includes('--redo');
+const todo = words.filter((w) => redo || (!out.words[w] && !out.none.includes(w)));
 console.log(`${todo.length} of ${words.length} words to fetch`);
 for (const [i, word] of todo.entries()) {
   const wikitext = await fetchOne(word);
   const parts = splitFrom(wikitext, word);
+  delete out.words[word];
+  out.none = out.none.filter((w) => w !== word);
   if (parts) out.words[word] = parts;
   else out.none.push(word);
   console.log(`[${i + 1}/${todo.length}] ${word}: ${parts ? parts.join('‧') : '—'}`);

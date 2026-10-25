@@ -21,6 +21,11 @@ function inline(text: string, keyBase: string): ReactNode[] {
   });
 }
 
+/** One line of the markup, inline (a card title): *Finnish* and **bold**, no paragraphs. */
+export function ProseInline({ text }: { text: string }) {
+  return <>{inline(text, 'i')}</>;
+}
+
 export default function Prose({ text, className }: { text: string; className?: string }) {
   const blocks = text.split(/\n\n+/);
   return (

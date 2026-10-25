@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { speak, speakEnglish, speakProse } from './speak';
+import { proseParts, speak, speakEnglish, speakProse } from './speak';
 
 // What reaches the speech engine: never Finnish in another language's voice.
 
@@ -70,14 +70,26 @@ describe('the Finnish voice', () => {
 });
 
 describe('reading an explanation aloud', () => {
-  it('reads the English in English and each *Finnish* quote in Finnish, markup left out', () => {
+  it('reads the English in English and each *Finnish* quote and ending in Finnish, markup left out', () => {
     const said = engine([SAMANTHA, SATU]);
     speakProse('**-ssa** means in: *talossa* → in the house.');
     expect(said.map((s) => [s.lang, s.text])).toEqual([
-      ['en-US', '-ssa means in:'],
+      ['fi-FI', 'ssa'],
+      ['en-US', 'means in:'],
       ['fi-FI', 'talossa'],
       ['en-US', ',  in the house.'],
     ]);
+  });
+
+  it('reads endings in Finnish, never in English', () => {
+    expect(proseParts('Add **-ssa / -ssä**, or slip in an **-i-**. A cross-word stays English.')).toEqual([
+      { text: 'Add', fi: false },
+      { text: 'ssa, ssä', fi: true },
+      { text: ', or slip in an', fi: false },
+      { text: 'i', fi: true },
+      { text: '. A cross-word stays English.', fi: false },
+    ]);
+    expect(proseParts('**kk → k**, and **k → ∅** in *luen*.').map((p) => p.fi)).toEqual([true, false, true, false, true]);
   });
 
   it('skips the Finnish quotes when there is no Finnish voice', () => {

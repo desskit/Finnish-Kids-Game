@@ -57,7 +57,7 @@ export const AT_HOME: Readonly<Record<string, string>> = {
   'not-doing': 'Silly game: say something that isn’t happening ("Isä sings!") and let your child say no, he isn’t.',
   asking: 'Ask yes-or-no questions at dinner and wait for a full answer, not just a nod.',
   feelings: 'At the end of the day, ask how your child feels and share how you feel too.',
-  likes: 'Make a favourites list together: foods, animals and colors your child likes and doesn’t like.',
+  likes: 'Make a list of favorites together: foods, animals and colors your child likes and doesn’t like.',
   wanting: 'Before playtime, ask what your child wants to do — and let them ask you back.',
   'verbs-4': 'Play "open and close": doors, boxes, books — say what you are doing as you do it.',
   'school-day': 'After school, ask about one thing from the day and listen for the Finnish words your child knows.',
@@ -96,7 +96,7 @@ export const SONG_LINKS: readonly { label: string; href: string; note: string }[
   {
     label: 'Lasten Areena (Yle)',
     href: 'https://areena.yle.fi/lapset',
-    note: 'Yle’s children’s programmes, including Pikku Kakkonen and its songs.',
+    note: 'Yle’s children’s programs, including Pikku Kakkonen and its songs.',
   },
   {
     label: 'Lastenlaulu (Finnish Wikipedia)',

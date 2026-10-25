@@ -33,7 +33,7 @@ export function verbType(v: LexicalItem): VerbType | undefined {
 export const TYPE_LOOKS: Record<VerbType, string> = {
   1: 'two vowels at the end: -aa, -ea, -ia, -ua…',
   2: '-da / -dä',
-  3: '-lla, -nna, -rra, -sta, -llä… (two consonants + a or ä)',
+  3: '-lla, -nna, -rra, -sta, -llä… (two consonants + *a* or *ä*)',
   4: '-ata, -ota, -uta, -ätä…',
   5: '-ita / -itä',
   6: '-eta / -etä',
