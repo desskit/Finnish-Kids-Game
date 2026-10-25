@@ -3,8 +3,9 @@
 // until it reloads — and a child's tablet can keep the app open for days. So:
 // look for a new version whenever the app comes back to the front (and
 // hourly), and once one is ready, switch to it at the next calm moment (a menu
-// screen — see updateSafe.ts), never mid-game. Every open tab follows the same
-// rule: a tab in the middle of a game waits for its own calm moment.
+// screen, or a screen that has only just opened — see updateSafe.ts), never
+// mid-game. Every open tab follows the same rule: a tab in the middle of a
+// game waits for its own calm moment.
 
 import { calmToUpdate } from './updateSafe';
 
@@ -16,8 +17,10 @@ export function keepAppUpdated(): void {
   // Was this page started under an older version (so a new one means: reload)?
   const hadController = !!navigator.serviceWorker.controller;
   let reloadPending = false;
+  // When the current screen opened (the page load, then every route change).
+  let openedAt = Date.now();
 
-  const calm = () => calmToUpdate(window.location.hash);
+  const calm = () => calmToUpdate(window.location.hash, Date.now() - openedAt);
 
   /** A new version has taken over: reload now if calm, else at the next calm moment. */
   const reloadWhenCalm = () => {
@@ -35,6 +38,7 @@ export function keepAppUpdated(): void {
   });
 
   window.addEventListener('hashchange', () => {
+    openedAt = Date.now();
     if (reloadPending && calm()) window.location.reload();
     else activateWhenCalm();
   });
