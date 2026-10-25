@@ -6,6 +6,7 @@
 // likely async (Promise-returning), which would add a loading state in the
 // provider — without changing any UI call sites.
 
+import type { GrownUpLock } from './grownUpLock';
 import type { ItemSchedule } from '../game/srs';
 import { isThemeId, type ThemeId } from '../theme/theme';
 import { seedFromProgress, type StatsState } from '../game/stats';
@@ -66,6 +67,11 @@ export interface Child {
    * means 'younger'.
    */
   readerBand?: ReaderBand;
+  /**
+   * Grown-up override for this player: every course unit (and math stage) open
+   * regardless of checkpoints, to jump ahead or preview. Missing = off.
+   */
+  unlockAll?: boolean;
   /**
    * Manual difficulty when `adaptive` is off: 1 = easier, 2 = harder.
    * (Kept for the legacy v1 migration and the manual Easy/Hard override.)
@@ -214,8 +220,8 @@ export interface Settings {
    */
   speakingEnabled?: boolean;
   /**
-   * Grown-up override: open every course unit regardless of checkpoints (to
-   * jump ahead, or to preview). Optional; missing = off.
+   * Old, device-wide "open every unit" switch: now per player (`Child.unlockAll`).
+   * Read only to carry an old save over (`sanitize`), then dropped.
    */
   unlockAll?: boolean;
   /**
@@ -236,6 +242,8 @@ export interface Settings {
    * their 👍 counts in the speaking game.
    */
   together?: boolean;
+  /** The grown-ups' password, as a salted hash (state/grownUpLock.ts). Missing = not set yet. */
+  grownUpLock?: GrownUpLock;
 }
 
 export type ReaderBand = 'younger' | 'older';
@@ -358,10 +366,13 @@ function sanitize(data: ProfilesData): ProfilesData {
   const rawChildren = Array.isArray(data.children) ? data.children : [];
   // Backfill fields added in later versions so older stored profiles keep
   // working (per the graceful-migration convention).
+  // The old device-wide "open every unit" switch becomes every player's own.
+  const unlockedBefore = !!data.settings?.unlockAll;
   const children = rawChildren.map((c) => {
     const { theme, ...rest } = c;
     return {
       ...rest,
+      ...(unlockedBefore ? { unlockAll: true } : {}),
       progress: c.progress ?? {},
       srs: c.srs ?? {},
       // Stats from what was played before stats existed, seeded once on load:
@@ -382,9 +393,19 @@ function sanitize(data: ProfilesData): ProfilesData {
     version: 2,
     children,
     activeId,
-    settings: { ...DEFAULT_SETTINGS, ...(data.settings ?? {}) },
+    settings: withoutOldUnlock({ ...DEFAULT_SETTINGS, ...(data.settings ?? {}) }),
     ...review,
   };
+}
+
+function withoutOldUnlock(settings: Settings): Settings {
+  const { unlockAll: _old, ...rest } = settings;
+  return rest;
+}
+
+/** Is every unit open for this player (the grown-up's per-player switch)? */
+export function unlockAllFor(child: Child | null | undefined): boolean {
+  return !!child?.unlockAll;
 }
 
 function load(): ProfilesData {

@@ -9,6 +9,14 @@ const targets = (id: string, items = nouns, level = 5) =>
   speakableTargetsFor(findSkill(id)!.skill, items, 8, level);
 
 describe('speakableTargetsFor', () => {
+  it("speaks a dialogue step's own exchanges — Greetings says greetings", () => {
+    const { skill } = findSkill('greetings')!;
+    const own = new Set(dialogues.filter((d) => skill.content.ids!.includes(d.id)).flatMap((d) => [d.prompt.fi, d.reply.fi]));
+    for (let level = 2; level <= 5; level++) {
+      for (const t of speakableTargetsFor(skill, [], 3, level)) expect(own.has(t.say), t.say).toBe(true);
+    }
+  });
+
   it('carrier-phrase node speaks "Tämä on ___"', () => {
     const ts = targets('this-is', animals.items);
     expect(ts.length).toBeGreaterThan(0);

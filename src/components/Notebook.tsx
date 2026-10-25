@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../state/storage';
 import { Link } from 'react-router-dom';
 import { lessonById } from '../content/lessons';
 import { stories, storyById, type Story } from '../content/stories';
@@ -33,8 +34,8 @@ function storiesInCourseOrder(): Story[] {
 // re-read any time ("how did -ssa work again?"). Locked units' lessons stay
 // hidden so the course keeps its order.
 export default function Notebook() {
-  const { activeChild, settings } = useProfile();
-  const unlockAll = !!settings.unlockAll;
+  const { activeChild } = useProfile();
+  const unlockAll = unlockAllFor(activeChild);
   const open = UNITS.map((u, i) => ({ u, i })).filter(
     ({ u }) => unitStatus(activeChild, u, unlockAll) !== 'locked',
   );

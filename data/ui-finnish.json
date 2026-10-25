@@ -51,13 +51,6 @@
       ]
     },
     {
-      "fi": "Avaa kaikki osat",
-      "en": "Unlock all units",
-      "where": [
-        "components/Settings.tsx"
-      ]
-    },
-    {
       "fi": "Edellinen sivu",
       "en": "Previous page",
       "where": [
@@ -882,13 +875,6 @@
       "where": [
         "components/SayIt.tsx",
         "components/math/MathAnswer.tsx"
-      ]
-    },
-    {
-      "fi": "Paljonko on ⟨a⟩ + ⟨b⟩?",
-      "en": "Solve to continue",
-      "where": [
-        "components/ParentGate.tsx"
       ]
     },
     {

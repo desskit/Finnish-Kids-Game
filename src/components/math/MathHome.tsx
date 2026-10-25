@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../../state/storage';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { lessonById } from '../../content/lessons';
@@ -28,8 +29,8 @@ import '../../styles/math.css';
 // thing to do. Nothing here shows a digit — a level is dots, a score is stars.
 
 export default function MathHome() {
-  const { activeChild, settings, markMathStageSeen, look } = useProfile();
-  const unlockAll = !!settings.unlockAll;
+  const { activeChild, markMathStageSeen, look } = useProfile();
+  const unlockAll = unlockAllFor(activeChild);
   const next = nextMathAction(activeChild, unlockAll);
   const moving = useMotion();
   const town = uiBackdropUrl('math-town', look, moving);

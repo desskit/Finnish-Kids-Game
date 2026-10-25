@@ -11,7 +11,7 @@ import Avatar, { avatarName } from '../art/Avatar';
 // switching and colors are also on the kid-side player picker; removing lives
 // only here, behind the gate, with a confirmation.)
 export default function Profiles() {
-  const { children, activeId, addChild, renameChild, setChildTheme, setChildReaderBand, removeChild, switchChild } =
+  const { children, activeId, addChild, renameChild, setChildTheme, setChildReaderBand, setChildUnlockAll, removeChild, switchChild } =
     useProfile();
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
@@ -69,6 +69,25 @@ export default function Profiles() {
                     {b.label}
                   </button>
                 ))}
+              </div>
+              <div className="glook" role="group" aria-label={`Units for ${c.name}`}>
+                <span className="glook__label">Units</span>
+                <button
+                  className={'gswitch__btn' + (c.unlockAll ? '' : ' gswitch__btn--on')}
+                  aria-pressed={!c.unlockAll}
+                  onClick={() => setChildUnlockAll(c.id, false)}
+                  title="Each unit's checkpoint opens the next one"
+                >
+                  In order
+                </button>
+                <button
+                  className={'gswitch__btn' + (c.unlockAll ? ' gswitch__btn--on' : '')}
+                  aria-pressed={!!c.unlockAll}
+                  onClick={() => setChildUnlockAll(c.id, true)}
+                  title="Every unit open — to jump ahead if they already know some Finnish"
+                >
+                  All open
+                </button>
               </div>
               <div className="glook" role="group" aria-label={`Colors for ${c.name}`}>
                 <span className="glook__label">Colors</span>

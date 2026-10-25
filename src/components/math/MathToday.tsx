@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../../state/storage';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { difficultyFor } from '../../game/adapt';
@@ -29,8 +30,8 @@ function Flames({ days }: { days: number }) {
 
 /** The way in (the home card, the map): done today, or ready. */
 export function TodayButton() {
-  const { activeChild, settings } = useProfile();
-  if (todayGames(activeChild, !!settings.unlockAll).length === 0) return null;
+  const { activeChild } = useProfile();
+  if (todayGames(activeChild, unlockAllFor(activeChild)).length === 0) return null;
   const done = todayDone(activeChild);
   return (
     <Link className={'math-today' + (done ? ' math-today--done' : '')} to="/math/today">
@@ -47,7 +48,7 @@ export function TodayButton() {
 
 export default function MathToday() {
   const navigate = useNavigate();
-  const { activeChild, settings, addStars, recordMathToday } = useProfile();
+  const { activeChild, addStars, recordMathToday } = useProfile();
   const [phase, setPhase] = useState<'intro' | 'run' | 'result'>('intro');
   const [plan, setPlan] = useState<SkillNode[]>([]);
   const [part, setPart] = useState(0);
@@ -55,7 +56,7 @@ export default function MathToday() {
   const badgesBefore = useRef<Set<string> | null>(null);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
-  const unlockAll = !!settings.unlockAll;
+  const unlockAll = unlockAllFor(activeChild);
   if (todayGames(activeChild, unlockAll).length === 0) return <Navigate to="/math" replace />;
   const toMap = () => navigate('/math');
 

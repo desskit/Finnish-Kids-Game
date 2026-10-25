@@ -12,7 +12,7 @@ const TABS = [
   { to: '/grown-up/audit', icon: '🧪', en: 'Test games', fi: 'Testaus' },
 ];
 
-// Grown-up area shell. Stays gated until the math challenge is solved; the
+// Grown-up area shell. Stays gated until the grown-up password is given; the
 // unlocked flag is component-local, so it re-locks on a full reload. Hosts the
 // Progress / Players / Settings / Test-games tabs via nested routes. English
 // leads here (it's for the grown-ups); the Finnish rides along small.

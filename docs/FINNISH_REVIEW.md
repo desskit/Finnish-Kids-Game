@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-25T06:27:41.086Z · regenerate with `npm run review:content`
+- Generated: 2026-10-25T17:30:01.212Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2284 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1032.** Flagged: 0.
+- **Approved: 28 of 2282 entries. Checked against Wiktionary: 1222. Left for the native reviewer: 1032.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -67,7 +67,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 44: Expert (*Mestari*) | 42 | 28 | Greetings & dialogues 8, Stories 10, Forms marked wrong 8, Other lines (wrong replies) 1, Course titles 1 |
 | Math (Lasketaan!) | 184 | 111 | Stories 90, Math in Finnish (Lasketaan!) 19, Course titles 2 |
 | Not in the course yet | 49 | 1 | Forms marked wrong 1 |
-| Grown-ups only | 18 | 0 |  |
+| Grown-ups only | 16 | 0 |  |
 
 ## Greetings & dialogues (52)
 
@@ -2321,7 +2321,7 @@ _Unit, step, lesson, badge and game names, and the examples under steps._
 | 📖 | Unit 20 | `title:Älä juokse! Juostaan!` | Älä juokse! Juostaan! | Do, don't, let's — example |
 | ⚠️ | Everywhere | `title:Äänitutkija` | Äänitutkija 📝 _Dictionary check: compound not in Wiktionary_ | Sound explorer |
 
-## Buttons & screen labels (144)
+## Buttons & screen labels (142)
 
 _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is filled in by the app._
 
@@ -2333,7 +2333,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Aloita` | Aloita | Start |
 | 📖 | Everywhere | `ui:Ansaittu` | Ansaittu | Earned |
 | 📖 | Grown-ups only | `ui:Asetukset` | Asetukset | Settings |
-| 📖 | Grown-ups only | `ui:Avaa kaikki osat` | Avaa kaikki osat | Unlock all units |
 | 📖 | Everywhere | `ui:Edellinen sivu` | Edellinen sivu | Previous page |
 | 📖 | Grown-ups only | `ui:Edistyminen` | Edistyminen | Progress |
 | 📖 | Everywhere | `ui:Ei!` | Ei! | No |
@@ -2412,7 +2411,6 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Oppitunnit` | Oppitunnit | Lessons |
 | 📖 | Everywhere | `ui:Oppitunti` | Oppitunti | Lesson: ⟨titleEn⟩ / Lesson: ⟨title⟩ / Read the lesson |
 | 📖 | Everywhere | `ui:Paina ja puhu` | Paina ja puhu | Tap & speak |
-| 📖 | Grown-ups only | `ui:Paljonko on ⟨a⟩ + ⟨b⟩?` | Paljonko on ⟨a⟩ + ⟨b⟩? | Solve to continue |
 | 📖 | Grown-ups only | `ui:Pelaajat` | Pelaajat | Players |
 | 📖 | Everywhere | `ui:Pelataan tänään!` | Pelataan tänään! | Let's play today |
 | 📖 | Everywhere | `ui:Pelit` | Pelit | Listening games |

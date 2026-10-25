@@ -337,7 +337,9 @@ whole — never split by rule.
   is unpinned, so its original deep ladders climb to L9–10.
 - **A step is done only when its TOP level is proven.** The child reaches the
   step's `maxLevel`, then clears the same bar a promotion would need there
-  (`provesTop`: enough rounds, a high enough first-try average). That is
+  (`provesTop`: enough rounds, a high enough first-try average — 80% on the
+  course's own levels, L1–L4, so a child who slips once in a six-question
+  round still finishes; rising to 90% on the deep expert ladders). That is
   recorded as `topProvenAt` and stays set. Every game on the step's ladder is
   unlocked by its top level, so none can be skipped (a test enforces this).
   Choose `maxLevel` with that in mind: a single scripted scene uses 2, words

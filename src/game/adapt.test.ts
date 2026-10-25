@@ -6,6 +6,7 @@ import {
   showsGloss,
   windowAccuracy,
   promoteThreshold,
+  provesTop,
   minRoundsToPromote,
   MAX_LEVEL,
   MIN_LEVEL,
@@ -146,12 +147,21 @@ describe('difficultyFor', () => {
 });
 
 describe('steepening promotion', () => {
-  it('raises the promotion bar with level (0.85 early → 0.95 at the top)', () => {
-    expect(promoteThreshold(1)).toBeCloseTo(0.85);
-    expect(promoteThreshold(4)).toBeCloseTo(0.91);
-    expect(promoteThreshold(8)).toBeCloseTo(0.95);
+  it('raises the promotion bar past the course levels (0.80 up to L4 → 0.90 at the top)', () => {
+    expect(promoteThreshold(1)).toBeCloseTo(0.8);
+    expect(promoteThreshold(4)).toBeCloseTo(0.8);
+    expect(promoteThreshold(6)).toBeCloseTo(0.84);
+    expect(promoteThreshold(9)).toBeCloseTo(0.9);
     // Never above the cap.
-    expect(promoteThreshold(99)).toBeCloseTo(0.95);
+    expect(promoteThreshold(99)).toBeCloseTo(0.9);
+  });
+
+  it('never strands a child who slips once in every six-question round', () => {
+    // 5/6 every round: climbs off the first levels, and proves a 3-level step.
+    expect(runStreak(1, 5 / 6, 10).level).toBe(2);
+    expect(finalLevel(1, 5 / 6, 40, 4)).toBe(4);
+    expect(provesTop(3, [5 / 6, 5 / 6, 5 / 6], 3)).toBe(true);
+    expect(provesTop(4, [5 / 6, 5 / 6, 5 / 6], 4)).toBe(true);
   });
 
   it('needs more sustained rounds to promote near the top (2 early → 5 at the top)', () => {
@@ -172,8 +182,8 @@ describe('steepening promotion', () => {
     expect(runStreak(7, 1, 4, 8).level).toBe(7);
     // The fifth perfect round finally cracks it.
     expect(runStreak(7, 1, 5, 8).level).toBe(8);
-    // 0.9 accuracy is below the 0.95 top bar — it never promotes off L7.
-    expect(runStreak(7, 0.9, 8, 8).level).toBe(7);
+    // 0.85 accuracy is below the 0.90 top bar — it never promotes off L7.
+    expect(runStreak(7, 0.85, 8, 8).level).toBe(7);
   });
 
   it('keeps demotion a fast, level-independent safety net', () => {
@@ -209,7 +219,7 @@ describe('applyRound', () => {
   });
 
   it('promotes after sustained high accuracy and resets the window', () => {
-    const out = applyRound(1, [0.9], 1); // window avg = 0.95 >= 0.85
+    const out = applyRound(1, [0.9], 1); // window avg = 0.95 >= 0.80
     expect(out.level).toBe(2);
     expect(out.recent).toEqual([]);
   });

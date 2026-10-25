@@ -5891,3 +5891,23 @@ a.badge-strip {
     transform: translateX(120%);
   }
 }
+
+/* The grown-up password: set at the door (ParentGate), changed in Settings. */
+.parent-gate__form {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 22rem);
+}
+.parent-gate__form .name-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+.parent-gate__hint {
+  max-width: 22rem;
+  text-align: center;
+}
+.gpassword {
+  display: grid;
+  gap: 8px;
+  max-width: 22rem;
+}

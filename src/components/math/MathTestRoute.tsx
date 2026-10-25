@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../../state/storage';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { difficultyFor } from '../../game/adapt';
@@ -28,7 +29,7 @@ interface PartResult {
 export default function MathTestRoute() {
   const { stageId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, settings, recordMathTest, recordStats } = useProfile();
+  const { activeChild, recordMathTest, recordStats } = useProfile();
   const stage = stageId ? findMathStage(stageId) : undefined;
   const [phase, setPhase] = useState<'intro' | 'run' | 'result'>('intro');
   const [part, setPart] = useState(0);
@@ -39,7 +40,7 @@ export default function MathTestRoute() {
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!stage) return <Navigate to="/math" replace />;
-  if (phase === 'intro' && mathTestStatus(activeChild, stage, !!settings.unlockAll) === 'locked') {
+  if (phase === 'intro' && mathTestStatus(activeChild, stage, unlockAllFor(activeChild)) === 'locked') {
     return <Navigate to="/math" replace />;
   }
   const plan = mathTestPlan(stage);
@@ -94,7 +95,7 @@ export default function MathTestRoute() {
     });
     const weakStep = plan[weakest]?.step;
     // the stage ahead now this crown is won (the shop and the clock branch, so not always the next one along)
-    const ahead = stageAhead(activeChild, !!settings.unlockAll);
+    const ahead = stageAhead(activeChild, unlockAllFor(activeChild));
     const before = badgesBefore.current;
     const newBadges = before ? earnedBadges(activeChild, badgeEnv).filter((b) => !before.has(b.id)) : [];
     return (
@@ -116,7 +117,7 @@ export default function MathTestRoute() {
             {passed
               ? ahead?.open
                 ? `Next: “${ahead.stage.titleEn}”.`
-                : waitingNote(activeChild, !!settings.unlockAll)
+                : waitingNote(activeChild, unlockAllFor(activeChild))
               : `Practice “${weakStep?.titleEn ?? stage.titleEn}” a little more, then try again.`}
           </p>
           {newBadges.length > 0 && (

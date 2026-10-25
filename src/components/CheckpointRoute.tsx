@@ -1,3 +1,4 @@
+import { unlockAllFor } from '../state/storage';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { difficultyFor } from '../game/adapt';
@@ -35,7 +36,7 @@ interface PartResult {
 export default function CheckpointRoute() {
   const { unitId } = useParams();
   const navigate = useNavigate();
-  const { activeChild, settings, recordCheckpoint, recordStats, stars } = useProfile();
+  const { activeChild, recordCheckpoint, recordStats, stars } = useProfile();
   const unit = unitId ? findUnit(unitId) : undefined;
   const [phase, setPhase] = useState<'intro' | 'run' | 'result'>('intro');
   const [part, setPart] = useState(0);
@@ -55,7 +56,7 @@ export default function CheckpointRoute() {
   const attempts = activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0;
   const plan = runPlan ?? checkpointPlan(unit, attempts);
   if (plan.length === 0) return <Navigate to="/" replace />;
-  if (checkpointStatus(activeChild, unit, !!settings.unlockAll) === 'locked') {
+  if (checkpointStatus(activeChild, unit, unlockAllFor(activeChild)) === 'locked') {
     return <Navigate to="/" replace />;
   }
 

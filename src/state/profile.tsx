@@ -75,6 +75,8 @@ interface ProfileContextValue {
   setChildTheme: (id: string, theme: ThemeId | undefined) => void;
   /** Which kind of reader a player is (src/game/learner.ts). */
   setChildReaderBand: (id: string, band: ReaderBand) => void;
+  /** A grown-up opens every unit for this player (or puts them back in order). */
+  setChildUnlockAll: (id: string, on: boolean) => void;
   removeChild: (id: string) => void;
 
   // --- The look on screen ---
@@ -294,6 +296,15 @@ export function ProfileProvider({
         setData((d) => ({
           ...d,
           children: d.children.map((c) => (c.id === id ? { ...c, readerBand: band } : c)),
+        })),
+      setChildUnlockAll: (id, on) =>
+        setData((d) => ({
+          ...d,
+          children: d.children.map((c) => {
+            if (c.id !== id) return c;
+            const { unlockAll: _old, ...rest } = c;
+            return on ? { ...rest, unlockAll: true } : rest;
+          }),
         })),
       look,
       previewTheme: setPreview,

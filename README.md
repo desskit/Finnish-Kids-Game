@@ -81,8 +81,11 @@ Finnish** — the app never generates or inflects Finnish by rule.
   The app looks up the correct inflected form by tag; it never generates Finnish.
 - **Local profiles** — multiple children, each with their own level, stars, and
   per-topic progress, saved on the device (no accounts, no ads, no data
-  collection). A math-gated **grown-up area** holds a progress dashboard,
-  profile management, and settings (mute audio, reduce motion, reset). Profile
+  collection). A password-locked **grown-up area** (the grown-up picks the
+  password on the first visit; only a salted hash is saved) holds a progress
+  dashboard, profile management — including opening every unit for one player
+  who already knows some Finnish — and settings (mute audio, reduce motion,
+  reset). Profile
   storage is funnelled through one module (`src/state/storage.ts`) so a cloud
   backend can be added later without touching the UI.
 - **Three looks: Day, Night and Pink.** Each player picks one with the brush on

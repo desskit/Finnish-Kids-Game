@@ -4374,10 +4374,6 @@
    "fi": "Asetukset",
    "how": "asetukset: asetus nominative pl"
   },
-  "ui:Avaa kaikki osat": {
-   "fi": "Avaa kaikki osat",
-   "how": "avaa: avata present sg 3rd person; also connegative (en avaa) · kaikki: everything · osat: osa nominative pl"
-  },
   "ui:Edellinen sivu": {
    "fi": "Edellinen sivu",
    "how": "edellinen: previous · sivu: page"
@@ -4685,10 +4681,6 @@
   "ui:Paina ja puhu": {
    "fi": "Paina ja puhu",
    "how": "paina: painaa imperative present 2nd person sg · ja: and · puhu: puhua imperative present 2nd person sg"
-  },
-  "ui:Paljonko on ⟨a⟩ + ⟨b⟩?": {
-   "fi": "Paljonko on ⟨a⟩ + ⟨b⟩?",
-   "how": "paljonko: how much? · on: olla present sg 3rd person"
   },
   "ui:Pelaajat": {
    "fi": "Pelaajat",

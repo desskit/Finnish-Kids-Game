@@ -90,4 +90,10 @@ describe('the whole course can be finished (no dead ends)', () => {
     const { rounds } = walk((n) => (n % 3 === 0 ? 5 : 6));
     expect(Math.max(...rounds.values())).toBeLessThanOrEqual(20);
   });
+
+  it('a child who slips once in EVERY round (5 of 6, 83%) is never stuck either', () => {
+    // Near-perfect play must climb every step and reach the end of the course.
+    const { rounds } = walk(() => 5);
+    expect(Math.max(...rounds.values())).toBeLessThanOrEqual(20);
+  });
 });
