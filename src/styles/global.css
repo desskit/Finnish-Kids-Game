@@ -5911,3 +5911,29 @@ a.badge-strip {
   gap: 8px;
   max-width: 22rem;
 }
+
+/* Grown-ups → Players: put a player at a place in the course. */
+.gplace {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.gplace .glook__label {
+  flex-basis: 100%;
+}
+.gplace__select {
+  /* width 0 + grow: the long option texts never widen the card */
+  width: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--field);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}

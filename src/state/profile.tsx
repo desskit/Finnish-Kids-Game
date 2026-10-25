@@ -77,6 +77,8 @@ interface ProfileContextValue {
   setChildReaderBand: (id: string, band: ReaderBand) => void;
   /** A grown-up opens every unit for this player (or puts them back in order). */
   setChildUnlockAll: (id: string, on: boolean) => void;
+  /** A grown-up changes a player's saved progress (e.g. puts them at a place in the course, game/placement.ts). */
+  updateChild: (id: string, update: (child: Child) => Child) => void;
   removeChild: (id: string) => void;
 
   // --- The look on screen ---
@@ -296,6 +298,11 @@ export function ProfileProvider({
         setData((d) => ({
           ...d,
           children: d.children.map((c) => (c.id === id ? { ...c, readerBand: band } : c)),
+        })),
+      updateChild: (id, update) =>
+        setData((d) => ({
+          ...d,
+          children: d.children.map((c) => (c.id === id ? update(c) : c)),
         })),
       setChildUnlockAll: (id, on) =>
         setData((d) => ({
