@@ -1,6 +1,6 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-25T17:30:01.212Z · regenerate with `npm run review:content`
+- Generated: 2026-10-25T18:51:02.910Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
@@ -2340,7 +2340,7 @@ _What the screens say around the games ("Jatka", "Mitä kuulit?"). ⟨…⟩ is 
 | 📖 | Everywhere | `ui:Harjoittele!` | Harjoittele! | Start practicing |
 | 📖 | Everywhere | `ui:Hei⟨…⟩!` | Hei⟨…⟩! | Your Finnish course |
 | 📖 | Everywhere | `ui:Hienoa työtä tänään!` | Hienoa työtä tänään! | Great work today / That's today's practice done |
-| 📖 | Everywhere | `ui:Hienoa!` | Hienoa! | Great job! / Great! / Nice listening! / You know your letters! |
+| 📖 | Everywhere | `ui:Hienoa!` | Hienoa! | Great job! / Great! / Nice listening! / Step done! / You know your letters! |
 | 📖 | Everywhere | `ui:Hienoa, juttelit suomeksi!` | Hienoa, juttelit suomeksi! | You had a conversation! |
 | 📖 | Everywhere | `ui:Hitaasti` | Hitaasti | Slowly |
 | 📖 | Everywhere | `ui:Hyvä yritys!` | Hyvä yritys! | Good try! / ⟨…⟩ |

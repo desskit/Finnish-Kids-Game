@@ -251,7 +251,10 @@ learn a pattern from input first, and a rule helps only once they've met it):
    story again, now with its questions;
 5. a **checkpoint** (`/checkpoint/:unitId`) that unlocks the next unit.
 
-The rules (unlocking, "done", Continue) live in `src/game/course.ts`. A unit
+The rules (unlocking, "done", Continue) live in `src/game/course.ts`. When a step is
+finished mid-game, play goes straight on to what Continue would offer next — a
+short "Hienoa!" card names it, then it opens by itself (`src/game/autoAdvance.ts`);
+replaying a finished step from the map stays on that step. A unit
 begun any other way (an older save that read the lesson first, or a step
 played) counts its opener as heard, so no child is sent backwards.
 

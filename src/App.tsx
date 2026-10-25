@@ -1,4 +1,4 @@
-import { Suspense, cloneElement, lazy, useRef, useState } from 'react';
+import { Suspense, cloneElement, lazy, useCallback, useRef, useState } from 'react';
 import { HashRouter, Link, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import {
   badgeEnv,
@@ -22,6 +22,8 @@ import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { segmentMs } from './game/stats';
 import { questionsToday, reachesBudget, sessionBudget } from './game/session';
 import { surpriseStory } from './game/learned';
+import { advanceAfter, type Advance } from './game/autoAdvance';
+import StepDone from './components/StepDone';
 import LearnedWords from './components/LearnedWords';
 import { useProfile } from './state/profile';
 import AppShell from './components/AppShell';
@@ -101,6 +103,11 @@ function SkillRoute() {
   // The day's practice has reached this player's budget (game/session.ts): a
   // natural place to stop — home is offered first, going on is a choice.
   const [stopHere, setStopHere] = useState(false);
+  // The step was just finished: where play goes on to (game/autoAdvance.ts).
+  const [advance, setAdvance] = useState<Advance | null>(null);
+  const goNext = useCallback(() => {
+    if (advance) navigate(advance.href);
+  }, [advance, navigate]);
 
   // Stars earned this sitting: the games call addStars per correct answer, so
   // the profile total ticks live; the ref pins the count at entry. (SkillRoute
@@ -176,6 +183,12 @@ function SkillRoute() {
     }
     // A game showing its own result stays put; it moves on itself.
     if (meta?.stay) return;
+    // The step is done: on to what the course offers next, not this step again.
+    const next = advanceAfter(before, after, chapter.id, skill.id, math);
+    if (next) {
+      setAdvance(next);
+      return;
+    }
     // Manual mode keeps its pinned level; adaptive uses the just-recorded one
     // (the pure look-ahead — the context re-render lands after this commit).
     const nextLevel = before.adaptive === false ? round.level : afterLevel;
@@ -214,11 +227,20 @@ function SkillRoute() {
             <button className="btn btn--primary" onClick={() => navigate('/')} autoFocus>
               Koti <span className="en">Home</span>
             </button>
-            <button className="btn" onClick={() => setStopHere(false)}>
+            <button className="btn" onClick={() => (advance ? navigate(advance.href) : setStopHere(false))}>
               Jatka <span className="en">Keep going</span>
             </button>
           </div>
         </section>
+      </main>
+    );
+  }
+
+  if (advance) {
+    return (
+      <main className="app">
+        <StepDone next={advance} onGo={goNext} />
+        {toast && <RewardToast key={toast.id} outcome={toast.outcome} math={math} onDismiss={() => setToast(null)} />}
       </main>
     );
   }
