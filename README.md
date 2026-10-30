@@ -45,11 +45,18 @@ Finnish** — the app never generates or inflects Finnish by rule.
   [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) to add words, skills, or
   multi-slot sentences.
 - **A short day, spaced and mixed** (`src/game/session.ts`). A new day's first
-  Continue is the warm-up: a story due back for "Muistatko?" (a day, three days
-  and a week after it was read), then the words and grammar due back for
-  review, or the weakest subject when few are due. After about four rounds (a
-  younger reader) or six (an older one) the game says *Hienoa työtä tänään!*
-  and offers home; going on is the child's choice. Words are asked for (Name
+  Continue is the warm-up (6 questions for a younger reader, 10 for an older
+  one): a story due back for "Muistatko?" (a day, three days and a week after
+  it was read), then the words and grammar due back for review or the weakest
+  grammar step — taking turns day by day when both are waiting, so a shaky
+  step from units ago keeps coming back. Review is woven into the course too:
+  words due back come up more often in the rounds, and once a pile builds up
+  every fifth round of a step is a quick review. A word moves up its review
+  box only when it was due — never several boxes in one sitting. After about
+  four rounds (a younger reader) or six (an older one) the game says *Hienoa
+  työtä tänään!* and offers home; going on is the child's choice.
+  `npm run sim:progress` plays a model child through a year on the real engine
+  ([`docs/LEARNING_AUDIT.md`](docs/LEARNING_AUDIT.md), "Pacing"). Words are asked for (Name
   it, Spell it, Say it) once they've been heard about six times, a missed word
   comes back in the next round, and two new look-alikes never arrive together.
 - **Rewards that tell.** A day, a warm-up or a review ends on the words the

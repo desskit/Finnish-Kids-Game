@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  DUE_WEIGHT,
   newSchedule,
   review,
   isDue,
@@ -55,6 +56,18 @@ describe('review', () => {
     s = review(s, true, T0);
     expect(s.box).toBe(MAX_BOX);
     expect(s.due).toBe(T0 + BOX_INTERVALS_MS[MAX_BOX]);
+  });
+
+  it('moves nothing for a right answer before the item is due — each box is earned on a later day', () => {
+    // Answered right five times in one sitting: box 2, due tomorrow — not "known for weeks".
+    let s = review(null, true, T0);
+    for (let i = 1; i <= 4; i++) s = review(s, true, T0 + i * 60_000);
+    expect(s.box).toBe(2);
+    expect(s.due).toBe(T0 + BOX_INTERVALS_MS[2]);
+    expect(s.seen).toBe(5);
+    expect(s.correct).toBe(5);
+    // Tomorrow it's due: right again → box 3.
+    expect(review(s, true, s.due).box).toBe(3);
   });
 
   it('drops back to box 1 (due now) on a wrong answer', () => {
@@ -210,13 +223,15 @@ describe('hearing before saying', () => {
   it('a production game makes a word not heard enough rare; a missed word comes back more', () => {
     const missed = review(undefined, false, NOW);
     const known = review(undefined, true, NOW);
-    const listen = familiarityWeigher({ miss: missed, known });
+    const listen = familiarityWeigher({ miss: missed, known }, { now: NOW });
     expect(listen({ id: 'miss' })).toBe(MISSED_WEIGHT);
     expect(listen({ id: 'known' })).toBe(FAMILIAR_WEIGHT);
     expect(listen({ id: 'fresh' })).toBe(1);
-    const say = familiarityWeigher({ known }, { production: true, heard: { heardLots: HEARD_TO_PRODUCE } });
+    const say = familiarityWeigher({ known }, { production: true, heard: { heardLots: HEARD_TO_PRODUCE }, now: NOW });
     expect(say({ id: 'known' })).toBe(FAMILIAR_WEIGHT);
     expect(say({ id: 'heardLots' })).toBe(1);
     expect(say({ id: 'fresh' })).toBe(NOT_READY_WEIGHT);
+    // A word due back for review comes up more than one that isn't yet.
+    expect(familiarityWeigher({ known }, { now: known.due })({ id: 'known' })).toBe(DUE_WEIGHT);
   });
 });

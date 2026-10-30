@@ -316,15 +316,33 @@ export function minRoundsToPromote(level: number): number {
 }
 
 /**
+ * The fast track: this many PERFECT rounds in a row (every question right
+ * first time) are enough at any level — a child who plainly has it moves on
+ * to new content instead of sitting out the longer streak the higher levels
+ * ask of everyone else. Applies only to course-sized ladders (to L6): the
+ * expert band keeps its grind.
+ */
+export const FAST_TRACK_ROUNDS = 2;
+const FAST_TRACK_UP_TO = 6;
+
+/** Were the last FAST_TRACK_ROUNDS rounds all perfect? */
+function fastTracked(level: number, window: readonly number[]): boolean {
+  if (level > FAST_TRACK_UP_TO || window.length < FAST_TRACK_ROUNDS) return false;
+  return window.slice(-FAST_TRACK_ROUNDS).every((a) => a >= 1);
+}
+
+/**
  * Has the child PROVED the top of a ladder? They must be AT `maxLevel` and
  * have cleared the same bar a promotion from that level would need (enough
- * rounds, high enough average). Promotion into the top level resets the
- * window, so this always means fresh rounds played at the top level itself —
- * with every challenge type the ladder unlocks.
+ * rounds, high enough average — or the fast track). Promotion into the top
+ * level resets the window, so this always means fresh rounds played at the top
+ * level itself — with every challenge type the ladder unlocks.
  */
 export function provesTop(level: number, recent: readonly number[], maxLevel: number): boolean {
   const cap = clampLevel(maxLevel);
-  if (clampLevel(level, cap) < cap || recent.length < minRoundsToPromote(cap)) return false;
+  if (clampLevel(level, cap) < cap) return false;
+  if (fastTracked(cap, recent)) return true;
+  if (recent.length < minRoundsToPromote(cap)) return false;
   const avg = recent.reduce((a, b) => a + b, 0) / recent.length;
   return avg >= promoteThreshold(cap);
 }
@@ -359,7 +377,8 @@ export function applyRound(
   );
   const avg = window.reduce((a, b) => a + b, 0) / window.length;
 
-  if (window.length >= minRoundsToPromote(lvl) && avg >= promoteThreshold(lvl) && lvl < cap) {
+  const ready = (window.length >= minRoundsToPromote(lvl) && avg >= promoteThreshold(lvl)) || fastTracked(lvl, window);
+  if (ready && lvl < cap) {
     return { level: lvl + 1, recent: [] };
   }
   if (window.length >= MIN_ROUNDS && avg <= DEMOTE_BELOW && lvl > MIN_LEVEL) {

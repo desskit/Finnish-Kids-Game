@@ -4,6 +4,7 @@ import {
   allSkills,
   findSkill,
   knownWordsThrough,
+  stepWordPool,
   renderSkill,
   renderActivity,
   activitiesUpTo,
@@ -103,13 +104,13 @@ describe('the course (units × steps)', () => {
 
   it("scopes each step's words: 'new' = its unit's words, default = everything met so far", () => {
     PATH.forEach((u, i) => {
-      // Words a unit only brings in after a part-way lesson stay out of the
-      // steps before that lesson (each lesson holds back its own words; a
-      // word from an earlier unit is never held back).
-      const boundaries = (u.midLessons ?? []).map((m) => u.skills.findIndex((s) => s.id === m.before));
+      // A unit's own words stay out of the steps before the words step that
+      // brings them in ("Count to 20" never asks the round tens of the next
+      // step); a word from an earlier unit is never held back.
+      const meets = (x: (typeof u.skills)[number]) => x.content.only ?? (x.content.words === 'new' ? u.newWords : []);
       u.skills.forEach((s, si) => {
-        const next = Math.min(...boundaries.filter((b) => b > si));
-        const later = new Set(u.skills.slice(next).flatMap((x) => x.content.only ?? []).filter((w) => u.newWords.includes(w)));
+        const met = new Set(u.skills.slice(0, si + 1).flatMap(meets));
+        const later = new Set(u.skills.slice(si + 1).flatMap(meets).filter((w) => u.newWords.includes(w) && !met.has(w)));
         const scope = s.content.words ?? 'known';
         if (s.content.only) expect(s.content.wordIds, s.id).toEqual(s.content.only);
         else if (scope === 'new') expect(s.content.wordIds, s.id).toEqual(u.newWords);
@@ -468,5 +469,27 @@ describe('bonus rounds never decide a step (final QA)', () => {
     const minorNo = Array.from({ length: 8 }, (_, i) => i).find((n) => isMinorRound(step, 3, n))!;
     expect(isBonusRound(step, 3, minorNo, step.minor!.kind)).toBe(true);
     expect(isBonusRound(step, 3, minorNo + 1, activityForRound(step, 3, minorNo + 1))).toBe(false);
+  });
+});
+
+describe('a step only ever asks what it has taught', () => {
+  it('draws no word a later step of its unit (or a later unit) brings in', () => {
+    const early: string[] = [];
+    PATH.forEach((u, i) => {
+      const before = new Set(i > 0 ? knownWordsThrough(i - 1) : []);
+      const firstAt = new Map<string, number>();
+      u.skills.forEach((s, k) => {
+        if (s.content.words === 'new' || s.content.only) for (const id of s.content.wordIds ?? []) if (!firstAt.has(id)) firstAt.set(id, k);
+      });
+      const known = new Set(knownWordsThrough(i));
+      u.skills.forEach((s, k) => {
+        // Mestari's open-ended steps draw on every word on purpose.
+        if (s.content.words === 'all') return;
+        for (const id of stepWordPool(s)) {
+          if (!known.has(id) || (!before.has(id) && (firstAt.get(id) ?? 0) > k)) early.push(`${s.id}: ${id}`);
+        }
+      });
+    });
+    expect(early).toEqual([]);
   });
 });

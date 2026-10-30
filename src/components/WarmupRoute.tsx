@@ -7,9 +7,8 @@ import { actionHref, lessonForStep, nextAction } from '../game/course';
 import { segmentMs } from '../game/stats';
 import { activityLevel, recordRoundOnChild } from '../game/progress';
 import { dayKey } from '../game/streak';
-import { WARMUP_QUESTIONS, pickWarmupSubject, warmupActivity, warmupLevel } from '../game/warmup';
+import { warmupActivity, warmupLevel, warmupPlan, warmupQuestions } from '../game/warmup';
 import { dueStoryRevisit } from '../game/storyLog';
-import { warmupReviewIds } from '../game/session';
 import ReviewActivity from './ReviewActivity';
 import { storyById } from '../content/stories';
 import { useProfile } from '../state/profile';
@@ -22,8 +21,8 @@ import Art from '../art/Art';
 const MAX_SEGMENTS = 6;
 
 // /warmup — "Päivän lämmittely", the daily warm-up. The first Continue of a new
-// day lands here: at least WARMUP_QUESTIONS questions on the child's weakest
-// subject so far (see game/warmup.ts), played as that step's own games at the
+// day lands here: a few questions (learner.ts `warmupQuestions`) on the child's
+// weakest subject so far (see game/warmup.ts), played as that step's own games at the
 // child's level for it, then a short result and back to the course. Every
 // segment is real practice of the step, so it records like normal play (level,
 // stats) — plus the warm-up log that makes today's Continue go back to normal.
@@ -31,15 +30,15 @@ const MAX_SEGMENTS = 6;
 // When a finished story is due back (game/storyLog.ts), the warm-up opens with
 // it: "Muistatko?" — its cover, a re-read if she likes, and two questions it
 // hasn't asked before. When words and grammar are due back for review
-// (game/session.ts), the warm-up asks those instead of drilling a subject.
+// (game/session.ts), the warm-up asks those instead — taking turns with the
+// weakest subject when both are waiting (game/warmup.ts `warmupPlan`).
 export default function WarmupRoute() {
   const navigate = useNavigate();
   const { activeChild, recordRound, recordStats, recordStory, recordWarmup, stars } = useProfile();
   // Chosen once, on arrival — a warm-up never changes under the child.
-  const [reviewIds] = useState(() => (activeChild ? warmupReviewIds(activeChild, Date.now()) : []));
-  const [subject] = useState(() =>
-    activeChild && reviewIds.length === 0 ? pickWarmupSubject(activeChild, Date.now()) : undefined,
-  );
+  const [plan] = useState(() => warmupPlan(activeChild, Date.now()));
+  const reviewIds = plan.kind === 'review' ? plan.ids : [];
+  const subject = plan.kind === 'subject' ? plan.subject : undefined;
   const [revisitId] = useState(() => (activeChild ? dueStoryRevisit(activeChild, Date.now()) : undefined));
   const reviewing = reviewIds.length > 0;
   const [seg, setSeg] = useState(0);
@@ -183,7 +182,8 @@ export default function WarmupRoute() {
   if (!subject) return <Navigate to="/" replace />;
   const { unit, step, unitNo } = subject;
 
-  const remaining = Math.max(1, WARMUP_QUESTIONS - tally.total);
+  const length = warmupQuestions(activeChild);
+  const remaining = Math.max(1, length - tally.total);
   const activity = warmupActivity(step, segLevel, seg);
   const element = renderActivity(step, activity, exit);
   if (!element) return <Navigate to="/" replace />;
@@ -201,7 +201,7 @@ export default function WarmupRoute() {
     segStart.current = now;
     const sum = { right: tally.right + right, total: tally.total + total };
     setTally(sum);
-    if (sum.total >= WARMUP_QUESTIONS || seg + 1 >= MAX_SEGMENTS || total === 0) {
+    if (sum.total >= length || seg + 1 >= MAX_SEGMENTS || total === 0) {
       recordWarmup({ day: dayKey(now), subject: step.id, right: sum.right, total: sum.total, at: now });
       playDing(sum.total > 0 && sum.right / sum.total >= 0.8);
       setPhase('result');
@@ -213,10 +213,10 @@ export default function WarmupRoute() {
 
   return (
     <main className="app app--barred">
-      <div className="checkpoint-bar warmup-bar" aria-label={`Warm-up: ${tally.total} of ${WARMUP_QUESTIONS} questions`}>
+      <div className="checkpoint-bar warmup-bar" aria-label={`Warm-up: ${tally.total} of ${length} questions`}>
         <Art glyph="☀️" /> Lämmittely{' '}
         <span className="en">
-          Warm-up · Unit {unitNo}: {step.titleEn} · {Math.min(tally.total, WARMUP_QUESTIONS)}/{WARMUP_QUESTIONS}
+          Warm-up · Unit {unitNo}: {step.titleEn} · {Math.min(tally.total, length)}/{length}
         </span>
       </div>
       <ActivityContext.Provider

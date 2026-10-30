@@ -20,7 +20,7 @@ import { stories, storyById } from './content/stories';
 import StoryTime from './components/StoryTime';
 import { earnedBadgeIds, earnedBadges } from './game/badges';
 import { segmentMs } from './game/stats';
-import { questionsToday, reachesBudget, sessionBudget } from './game/session';
+import { flowReviewIds, questionsToday, reachesBudget, sessionBudget } from './game/session';
 import { surpriseStory } from './game/learned';
 import { advanceAfter, type Advance } from './game/autoAdvance';
 import StepDone from './components/StepDone';
@@ -73,6 +73,9 @@ const BADGE_ENV = badgeEnv;
 //   /profiles           → ProfilePicker (kid-accessible switch/add)
 //   /grown-up/*         → math-gated Progress / Profiles / Settings
 
+/** Steps that never stop for a review round: scripted wholes, and Review itself. */
+const FLOW_SKIPS: ReadonlySet<string> = new Set(['story', 'dialogue', 'conversation', 'review', 'sound', 'reading']);
+
 // Remounts the session per skill: React Router reuses the element across
 // :skillId changes, which would otherwise carry one skill's round counter/level
 // into the next. Keying by skillId gives each skill a fresh session.
@@ -116,6 +119,10 @@ function SkillRoute() {
   const sessionStars = stars - startStars.current;
   // When the current segment began — its practice time goes into the stats.
   const segmentStart = useRef(Date.now());
+  // Review woven in (game/session.ts `flowReviewIds`): chosen once per round,
+  // and at most once per count of the step's plays (a review round adds none).
+  const flow = useRef<{ no: number; ids: string[] } | null>(null);
+  const flowDoneAt = useRef<number | null>(null);
 
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!found) return <Navigate to="/" replace />;
@@ -137,6 +144,12 @@ function SkillRoute() {
   // A bonus round (typing in later units, and speaking): scored, never levelled.
   const bonus = isBonusRound(play.skill, round.level, round.no, activity);
   const onExit = () => navigate(math ? '/math' : '/');
+  const plays = activeChild.progress?.[chapter.id]?.[skill.id]?.plays ?? 0;
+  if (flow.current?.no !== round.no) {
+    const eligible = !math && !bonus && !FLOW_SKIPS.has(play.skill.activity) && flowDoneAt.current !== plays;
+    flow.current = { no: round.no, ids: eligible ? flowReviewIds(activeChild, plays, Date.now()) : [] };
+  }
+  const flowIds = flow.current.ids;
   const element = math ? renderMathActivity(play.skill, activity, onExit) : renderActivity(play.skill, activity, onExit);
   if (!element) return <Navigate to="/" replace />;
 
@@ -241,6 +254,25 @@ function SkillRoute() {
       <main className="app">
         <StepDone next={advance} onGo={goNext} />
         {toast && <RewardToast key={toast.id} outcome={toast.outcome} math={math} onDismiss={() => setToast(null)} />}
+      </main>
+    );
+  }
+
+  if (flowIds.length > 0) {
+    // A round of words and grammar due back, then the step carries on.
+    const onFlowDone = (_right: number, total: number) => {
+      flowDoneAt.current = plays;
+      if (reachesBudget(questionsToday(activeChild, Date.now()), total, sessionBudget(activeChild))) setStopHere(true);
+      setRound((r) => ({ no: r.no + 1, level: r.level }));
+    };
+    return (
+      <main className="app app--barred">
+        <div className="checkpoint-bar" aria-label="Kertaus: words due back">
+          <Art glyph="🔁" /> <span className="en">Kertaus · words due back</span>
+        </div>
+        <div className="app__game" key={`flow-${round.no}`}>
+          <ReviewActivity ids={flowIds} onFinish={onFlowDone} onExit={onExit} />
+        </div>
       </main>
     );
   }

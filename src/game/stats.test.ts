@@ -128,6 +128,12 @@ describe('weakness', () => {
     expect(zero.accuracy).toBeCloseTo(3 / 6);
   });
 
+  it('still tells a shaky subject from a solid one months later', () => {
+    // Both last practised 150 days ago — beyond the day-by-day window.
+    const old = (right: number): SubjectStats => ({ n: 60, right, days: {}, first: NOW - 200 * DAY, last: NOW - 150 * DAY });
+    expect(weaknessOf(old(30), NOW)).toBeGreaterThan(weaknessOf(old(57), NOW) + 0.1);
+  });
+
   it('weighs recent answers more than old ones', () => {
     // Same totals; one learned it recently, the other got it right long ago.
     const improving = subject({ [ago(30)]: { n: 10, right: 2 }, [today]: { n: 10, right: 10 } }, NOW);

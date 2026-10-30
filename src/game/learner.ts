@@ -27,6 +27,12 @@ export interface LearnerKnobs {
   readAloud: boolean;
   /** Rounds in a day's session before a natural stop (src/game/session.ts). */
   sessionRounds: number;
+  /**
+   * Questions in the day's warm-up (game/warmup.ts): about a quarter of the
+   * day, so review never crowds out the new — the course's own rounds review
+   * too (srs.ts `DUE_WEIGHT`).
+   */
+  warmupQuestions: number;
   /** New words shown in syllables the first times they're met. */
   syllables: boolean;
 }
@@ -34,8 +40,8 @@ export interface LearnerKnobs {
 export function learnerKnobs(child: Child | null | undefined): LearnerKnobs {
   const band = readerBandOf(child);
   return band === 'older'
-    ? { band, fullLessons: true, readAloud: false, sessionRounds: 6, syllables: false }
-    : { band, fullLessons: false, readAloud: true, sessionRounds: 4, syllables: true };
+    ? { band, fullLessons: true, readAloud: false, sessionRounds: 6, warmupQuestions: 10, syllables: false }
+    : { band, fullLessons: false, readAloud: true, sessionRounds: 4, warmupQuestions: 6, syllables: true };
 }
 
 export const englishHelpOf = (settings: Pick<Settings, 'englishHelp'> | null | undefined): EnglishHelp =>
