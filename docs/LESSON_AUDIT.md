@@ -12,7 +12,7 @@ lesson is talking about is shown in [brackets]. ✔ marks the right answer of a
 
 Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!
 
-And you always press on the **first part** of a word: KIR-ja, PÖY-tä, O-pet-ta-ja. Say the rest lightly.
+And you always press on the **first part** of a word: *KIR-ja*, *PÖY-tä*, *O-pet-ta-ja*. Say the rest lightly.
 
 
 ### 2. Double letters are long _(examples)_
@@ -26,8 +26,8 @@ When a letter is written **twice**, you hold that sound longer — a vowel **or*
 ### 3. Three new letters _(examples)_
 
 - **ä** sounds like the a in "cat"
-- **ö** sounds a bit like the u in "fur", without the r
-- **y** sounds a bit like the "ew" in "few"
+- **ö** sounds a bit like the u in "fur", without the r — with round lips
+- **y** sounds a bit like the "ew" in "few", with your lips in a small, tight circle
 
 - 👩 **äiti** — mom
 - 🍽️ **pöytä** — table
@@ -268,7 +268,7 @@ _Explain:_ *hänellä* = "on him / her".
 
 ### 1. "is" becomes "is not" _(explain)_
 
-To say you **don't** have something, *on* (is) becomes **ei ole** (is not).
+To say you **don't** have something, *on* (is) becomes *ei ole* (is not).
 
 
 ### 2. And the word changes too! _(examples)_
@@ -282,7 +282,7 @@ Here's the surprise: when you say you DON'T have something, the thing gets the *
 
 ### 3. Why? _(explain)_
 
-Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it", "more than one". You'll keep meeting this ending, so it's worth remembering!
+Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it" — and after numbers like *kaksi*. You'll keep meeting this ending, so it's worth remembering!
 
 
 ### 4. Winter clothes _(examples)_
@@ -374,7 +374,7 @@ To say WHOSE something is, put the **owner first** and give it **-n**: *isä* �
 - 📕 **opettaja[n] kirja** — the teacher's book
 - 🏐 **kissa[n] pallo** — the cat's ball
 
-### 2. Kenen? — Whose? _(explain)_
+### 2. *Kenen?* — Whose? _(explain)_
 
 *Kenen pyörä tämä on?* means **Whose bike is this?** Answer with the owner + **-n**: *Se on isän pyörä.*
 
@@ -453,7 +453,7 @@ Finnish verbs belong to **types** (families). Look at the END of the "to…" wor
 - **-vat / -vät** → they
 
 
-### 5. tulla — to come _(verbTable)_
+### 5. *tulla* — to come _(verbTable)_
 
 The marked ending is the "who" part.
 
@@ -562,7 +562,7 @@ _Explain:_ He / she keeps the strong **tt**: *kirjoittaa*.
 In English, "not" never changes. In Finnish, the **"not" word is a little verb** that changes for each person — and the main verb stays short.
 
 
-### 2. syödä — not eating _(verbTable)_
+### 2. *syödä* — not eating _(verbTable)_
 
 The marked word is the "not" verb.
 
@@ -617,7 +617,7 @@ The vowel team again: a word with **a, o, u** gets **-ko**; otherwise **-kö**.
 - 🪀 **Leikit[kö]?** — Do you play?
 - 🏊 **Uit[ko]?** — Do you swim?
 - 🍜 **Syöt[kö]?** — Do you eat?
-- 🦘 **Hyppäät[kö]?** — Do you jump?
+- 🖍️ **Piirrät[kö]?** — Do you draw?
 
 ### 3. Answer with the verb _(examples)_
 
@@ -768,7 +768,7 @@ _Explain:_ Bored takes **-a**: *Minulla on tylsää*.
 In Finnish, the **verb decides which ending** the next word gets. You just have to learn each verb's favorite.
 
 
-### 2. tykätä → -sta / -stä _(examples)_
+### 2. *tykätä* → -sta / -stä _(examples)_
 
 "I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").
 
@@ -820,7 +820,7 @@ _Explain:_ *pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.
 
 ## Unit 13, part-way: Loving things (Rakastan) 😍
 
-### 1. rakastaa → -a / -ä _(examples)_
+### 1. *rakastaa* → -a / -ä _(examples)_
 
 "I love" is *rakastan* — and it picks a DIFFERENT ending: **-a / -ä**, or **-ta / -tä** after a long vowel, like *suklaata*.
 
@@ -909,7 +909,7 @@ Type 4 verbs end in a vowel + **-ta / -tä**: **-ata, -ota, -uta, -ätä**…
 Take off **-ta / -tä**, and put **a / ä** in its place: *avata → avaa-*, *haluta → halua-*. Then add the "who" ending: *avaan*, *haluan*.
 
 
-### 3. avata — to open _(verbTable)_
+### 3. *avata* — to open _(verbTable)_
 
 The marked ending is the "who" part.
 
@@ -953,7 +953,7 @@ _Explain:_ *korjata* ends in **-ata**: **type 4** (*korjaan*).
 
 ## Unit 15, part-way: Type 4: the sound gets STRONGER (Vahvempi kirjain) 🦘
 
-### 1. The other way round — like kuunnella _(explain)_
+### 1. The other way round — like *kuunnella* _(explain)_
 
 Remember *kuunnella → kuuntelen*? Type 4 works the same way: the "to…" word has the **weak** sound, and EVERY person gets the **strong** one: *hypätä → hyppään, hyppää*.
 
@@ -977,7 +977,7 @@ In type 4 there is no weak person form: *minä hyppään*, *hän hyppää*, *me 
 - 🦘 hypätä → **hän hy[pp]ää** — he/she jumps
 - 🦘 hypätä → **me hy[pp]äämme** — we jump
 
-### 4. Watch out: kiivetä _(explain)_
+### 4. Watch out: *kiivetä* _(explain)_
 
 *kiivetä* ends in **-etä**, but it is a **type 4** verb all the same: *kiipeän*, like *hyppään*.
 
@@ -1054,7 +1054,7 @@ English has one "play". Finnish has three:
 - *soittaa* — music
 
 
-### 2. Toys: leikkiä + -lla _(examples)_
+### 2. Toys: *leikkiä* + -lla _(examples)_
 
 Playing WITH a toy takes **-lla / -llä** — the same ending as *minulla*: *Leikin nukella* = I play with a doll.
 
@@ -1062,7 +1062,7 @@ Playing WITH a toy takes **-lla / -llä** — the same ending as *minulla*: *Lei
 - 🧸 **Leikin nalle[lla].** — I play with a teddy bear.
 - 🏐 **Leikin pallo[lla].** — I play with a ball.
 
-### 3. Games and sports: pelata + -a _(examples)_
+### 3. Games and sports: *pelata* + -a _(examples)_
 
 After *pelaan*, the game takes **-a / -ä**: *Pelaan jalkapalloa*. (*pelata* goes like *haluta*: *pelaan, pelaat, pelaa*.) *jääkiekko* is the puck AND the game, ice hockey.
 
@@ -1070,7 +1070,7 @@ After *pelaan*, the game takes **-a / -ä**: *Pelaan jalkapalloa*. (*pelata* goe
 - ♟️ **Pelaan shakki[a].** — I play chess.
 - 🏒 **Pelaan jääkiekko[a].** — I play hockey.
 
-### 4. Music: soittaa + -a _(examples)_
+### 4. Music: *soittaa* + -a _(examples)_
 
 After *soitan*, the instrument takes **-a / -ä** too: *Soitan pianoa*. (*soittaa* is also "call": *Soitan isälle* = I call Dad.)
 
@@ -1078,7 +1078,7 @@ After *soitan*, the instrument takes **-a / -ä** too: *Soitan pianoa*. (*soitta
 - 🥁 **Soitan rumpu[a].** — I play the drum.
 - 🎻 **Soitan viulu[a].** — I play the violin.
 
-### 5. soittaa — to play music _(verbTable)_
+### 5. *soittaa* — to play music _(verbTable)_
 
 **tt → t**, like *auttaa*: *minä soitan*, but *hän soittaa*.
 
@@ -1317,7 +1317,7 @@ _Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
 
 ## Unit 21: My body · Captain says (Keho · Kapteeni käskee) 🧑‍✈️
 
-### 1. Kapteeni käskee! _(explain)_
+### 1. *Kapteeni käskee!* _(explain)_
 
 Finnish kids play *Kapteeni käskee* — "the captain orders". It's like Simon Says: do what the captain says, but ONLY when you hear *Kapteeni käskee*!
 
@@ -1361,7 +1361,7 @@ After a command like *Nosta!* (lift!), the whole thing keeps its **basic form**:
 
 ### 6. How to play _(explain)_
 
-The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don't do it! In the game, tap the captain's **Ei!** (no!) instead.
+The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don't do it! In the game, tap the captain's *Ei!* (no!) instead.
 
 
 ### 7. Try it _(check)_
@@ -1501,9 +1501,9 @@ To say "bigger", "faster", "older", Finnish adds **-mpi**.
 - 🏎️ nopea → **nopea[mpi]** — faster
 - vanha → **vanhe[mpi]** — older
 
-### 2. Than = kuin _(examples)_
+### 2. Than = *kuin* _(examples)_
 
-**kuin** means "than". Both things stay in their basic form:
+*kuin* means "than". Both things stay in their basic form:
 
 *Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.
 
@@ -1714,7 +1714,7 @@ _Explain:_ "Onto" → **-lle**: *pöydälle*.
 
 ### 3. All six together _(explain)_
 
-**Inside:** -ssa (in) · -an, -oon, -seen… (into) · -sta (out of)
+**Inside:** -ssa (in) · -aan, -oon, -seen… (into) · -sta (out of)
 
 **On top:** -lla (on) · -lle (onto) · -lta (off)
 
@@ -1902,9 +1902,9 @@ _Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eat
 
 ## Unit 28, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
 
-### 1. With a PERSON: kanssa _(examples)_
+### 1. With a PERSON: *kanssa* _(examples)_
 
-Careful! With a person (or a pet) it's different: the person gets **-n**, then the word **kanssa** (together with).
+Careful! With a person (or a pet) it's different: the person gets **-n**, then the word *kanssa* (together with).
 
 - 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
 - 👩 **Leikin äidi[n] kanssa.** — I play with Mom.
@@ -1913,7 +1913,7 @@ Careful! With a person (or a pet) it's different: the person gets **-n**, then t
 ### 2. Tool or person? _(explain)_
 
 - A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)
-- Someone you're WITH → **-n kanssa**: *Leikin kaverin kanssa.* (with a friend)
+- Someone you're WITH → **-n** + *kanssa*: *Leikin kaverin kanssa.* (with a friend)
 
 
 ### 3. Try it _(check)_
@@ -1938,7 +1938,7 @@ _Explain:_ A ball is a thing you use → **-lla**: *pallolla*.
 
 ### 1. Days of the week _(examples)_
 
-Finnish days **don't start with a capital letter**: *maanantai*, not "Maanantai".
+Finnish days **don't start with a capital letter**: *maanantai*, with a small m.
 
 - **maanantai** — Monday
 - **tiistai** — Tuesday
@@ -1986,7 +1986,7 @@ _Explain:_ A season → **-lla**: *talvella*.
 
 ## Unit 29, part-way: What time is it? (Paljonko kello on?) ⏰
 
-### 1. Kello on… _(explain)_
+### 1. *Kello on…* _(explain)_
 
 *kello* is a **clock**. To say the time, say *Kello on* + the number: *Kello on kolme* = it's three o'clock. To ask: *Paljonko kello on?*
 
@@ -2282,7 +2282,7 @@ _Explain:_ 4 + **-kymmentä** = *neljäkymmentä*. *neljätoista* is 14.
 
 ### 1. Order words _(examples)_
 
-For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd on they end in **-s**: *kolmas*, *neljäs*, *viides*.
+For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd to the 10th they end in **-s**: *kolmas*, *neljäs*, *viides*.
 
 - 1. **ensimmäinen** — first
 - 2. **toinen** — second
@@ -2410,7 +2410,7 @@ _Explain:_ *ensimmäinen tammikuuta* — the first of January.
 
 ## Unit 34, part-way: How old are you? (Kuinka vanha olet?) 🎂
 
-### 1. Olen … vuotta vanha _(examples)_
+### 1. *Olen … vuotta vanha* _(examples)_
 
 Your age: the number + *vuotta* (years — with **-ta** after a number, like *kaksi kirjaa*) + *vanha* (old).
 
@@ -2610,9 +2610,9 @@ _Explain:_ *Miksi?* = why?
 
 ### 1. Three "where" words _(explain)_
 
-- *Missä?* — where? → answer with **-ssa** (*laatikossa*)
-- *Mihin?* — where TO? → answer with **into** (*puistoon*)
-- *Mistä?* — where FROM? → answer with **-sta** (*koulusta*)
+- *Missä?* — where? → answer with **-ssa** or **-lla** (*laatikossa*, *pöydällä*)
+- *Mihin?* — where TO? → answer with **into** or **-lle** (*puistoon*, *pöydälle*)
+- *Mistä?* — where FROM? → answer with **-sta** or **-lta** (*koulusta*, *pöydältä*)
 - *Milloin?* — when? → answer with a time (*lauantaina*)
 
 
@@ -2760,7 +2760,7 @@ For a group of things — "the books", "the balls" — add **-t**.
 
 ### 2. "These are…" and "Where are…?" _(explain)_
 
-With more than one, *on* (is) becomes *ovat* (are): *Nämä ovat…* = these are, *Missä ovat…?* = where are…?
+With more than one, *on* (is) becomes *ovat* (are): *Missä ovat kirjat?* = where are the books? But "these are books" takes another plural: *Nämä ovat kirjoja* — see the next lesson.
 
 
 ### 3. Try it _(check)_
@@ -2866,7 +2866,7 @@ Type 6 turns **-eta** into **-ene-**, then adds the "who" ending: *vanheta → v
 - 🧓 **minä vanhene[n]**
 - 🧓 **hän vanhenee**
 
-### 3. tarvita — to need _(verbTable)_
+### 3. *tarvita* — to need _(verbTable)_
 
 The marked ending is the "who" part.
 
@@ -2962,7 +2962,7 @@ _Explain:_ Type 1: he / she keeps the strong **kk**: *nukkuu*.
 To say something **already happened**, Finnish slips an **-i-** into the verb, just before the "who" ending: *syön* (I eat) → *söin* (I ate). Sometimes a vowel changes too — listen for the **i**. Type 4 verbs get **-si-**: *haluan → halusin*.
 
 
-### 2. syödä — ate _(verbTable)_
+### 2. *syödä* — ate _(verbTable)_
 
 _syödä (eat), past positive_
 
@@ -2973,7 +2973,7 @@ _syödä (eat), past positive_
 - te söitte
 - he söivät
 
-### 3. The k, p, t changes come along _(examples)_
+### 3. The *k, p, t* changes come along _(examples)_
 
 Verbs whose sound changes still do it in the past: *minä nukuin* (weak), *hän nukkui* (strong) — just like *nukun* and *nukkuu*.
 
@@ -3007,7 +3007,7 @@ _Explain:_ Past **-i-** + **-mme** (we): *söimme*.
 For "didn't", use the "not" verb you already know (*en, et, ei…*) plus a special form ending in **-ut / -yt**: usually *-nut / -nyt* (*en syönyt*). For we, you all and they it ends in **-eet** (*emme syöneet*).
 
 
-### 2. syödä — didn't eat _(verbTable)_
+### 2. *syödä* — didn't eat _(verbTable)_
 
 _syödä (eat), past negative_
 
@@ -3130,7 +3130,7 @@ _Explain:_ *Pidän* always takes **-sta**: *jalkapallosta*.
 
 ## Unit 44: Expert Finnish (Mestari) 🏆
 
-### 1. "Have done" — olen syönyt _(verbTable)_
+### 1. "Have done" — *olen syönyt* _(verbTable)_
 
 Use *olla* (to be) + the **-nut / -nyt** form you met in "didn't".
 
@@ -3143,7 +3143,7 @@ _syödä (eat), perfect positive_
 - te olette syöneet
 - he ovat syöneet
 
-### 2. "Would" — söisin _(verbTable)_
+### 2. "Would" — *söisin* _(verbTable)_
 
 Slip in **-isi-** to say "would".
 
@@ -3196,7 +3196,7 @@ Tap a number word any time to see how many it is, as dots.
 - **Kolme plus kaksi on viisi.** — Kolme plus kaksi is viisi.
 - **Neljä plus neljä on kahdeksan.** — Neljä plus neljä is kahdeksan.
 
-### 3. Miinus: take away _(examples)_
+### 3. *Miinus*: take away _(examples)_
 
 *miinus* takes some away. When nothing is left, that’s *nolla*.
 
@@ -3412,7 +3412,7 @@ Listen right to the end! *-toista* is a little past *kymmenen*; *-kymmentä* mea
 - kolme → **kolme[toista]**
 - kolme → **kolme[kymmentä]**
 
-### 3. Up to sata _(explain)_
+### 3. Up to *sata* _(explain)_
 
 After *yhdeksänkymmentä* comes *sata*, the biggest number here. In the building game you hear a round number and find the part before *kymmentä*.
 
@@ -3452,7 +3452,7 @@ _Explain:_ *Kaksikymmentä plus kaksikymmentä on neljäkymmentä.*
 
 ## Not in a unit: Times and halves (Kertaa ja puolet) 🍓
 
-### 1. Kertaa: times _(examples)_
+### 1. *Kertaa*: times _(examples)_
 
 *kertaa* means times. *kerta* is “a time”, and after a number it ends in **-a**, like *kaksi omenaa*.
 
@@ -3472,7 +3472,7 @@ Like a sum, it starts *Paljonko on…?*
 - **Paljonko on kaksi kertaa neljä?** — What is kaksi times neljä?
 - **Paljonko on kymmenen kertaa kaksi?** — What is kymmenen times kaksi?
 
-### 4. Puolet: half _(examples)_
+### 4. *Puolet*: half _(examples)_
 
 *puolet* means half. The number after it ends in **-sta** or **-stä** (“of”): *puolet kahdeksasta*.
 

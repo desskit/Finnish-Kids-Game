@@ -1286,6 +1286,10 @@
    "fi": "on · ei ole",
    "how": "on: olla present sg 3rd person · ei: the negative verb · ole: olla connegative (en ole, ei ole); also imperative (ole hyvä)"
   },
+  "lesson:negation-object:3": {
+   "fi": "kaksi",
+   "how": "kaksi: two"
+  },
   "lesson:negation-object:5": {
    "fi": "ei ole · pyörää",
    "how": "ei: The negative verb or negation ve · ole: olla connegative (en ole, ei ole); also imperative (ole hyvä) · pyörää: pyörä partitive sg"
@@ -1471,8 +1475,8 @@
    "how": "minulla: minä adessive sg · ei: The negative verb or negation ve · ole: olla connegative (en ole, ei ole); also imperative (ole hyvä) · pelejä: peli partitive pl"
   },
   "lesson:plurals:2": {
-   "fi": "on · ovat · Nämä ovat… · Missä ovat…?",
-   "how": "on: olla present sg 3rd person · ovat: olla pl present 3rd person · nämä: tämä nominative pl · ovat…: ending notation · missä: mikä inessive pl sg"
+   "fi": "on · ovat · Missä ovat kirjat? · Nämä ovat kirjoja",
+   "how": "on: olla present sg 3rd person · ovat: olla pl present 3rd person · missä: mikä inessive pl sg · kirjat: kirja nominative pl · nämä: tämä nominative pl · kirjoja: kirja partitive pl"
   },
   "lesson:plurals:3": {
    "fi": "kirjat",
@@ -1739,8 +1743,8 @@
    "how": "talvella: talvi adessive sg"
   },
   "lesson:where-questions:1": {
-   "fi": "Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Milloin? · lauantaina",
-   "how": "missä: mikä inessive pl sg · laatikossa: laatikko inessive sg · mihin: mikä illative pl sg · puistoon: puisto illative sg · mistä: mikä elative pl sg · koulusta: koulu elative sg · milloin: when · lauantaina: lauantai essive pl sg"
+   "fi": "Missä? · laatikossa · pöydällä · Mihin? · puistoon · pöydälle · Mistä? · koulusta · pöydältä · Milloin? · lauantaina",
+   "how": "missä: mikä inessive pl sg · laatikossa: laatikko inessive sg · pöydällä: pöytä adessive sg · mihin: mikä illative pl sg · puistoon: puisto illative sg · pöydälle: pöytä allative sg · mistä: mikä elative pl sg · koulusta: koulu elative sg · pöydältä: pöytä ablative sg · milloin: when · lauantaina: lauantai essive pl sg"
   },
   "lesson:where-questions:3": {
    "fi": "Mihin sinä menet? · Mihin? · Menen puistoon",

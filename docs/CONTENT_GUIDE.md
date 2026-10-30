@@ -235,8 +235,9 @@ learn a pattern from input first, and a rule helps only once they've met it):
 
 1. **Kuuntele ensin** (listen first) — the unit's story, heard page by page
    with its pictures before any practice: no questions, no score
-   (`/opener/:unitId`). The story is the unit's `<unit>-story` step, or its
-   story step with stories of its own;
+   (`/opener/:unitId`). The story is the unit's FIRST story step with stories
+   of its own, so it tells what the unit starts with (The Finnish year opens
+   with Christmas, not its closing Midsummer story);
 2. the **first practice step** — the new phrases modelled, then used;
 3. the short **lesson** (`src/content/lessons.ts`) — 4–8 cards with 2–3 "try
    it" checks, after that first step. A younger reader sees its **notice

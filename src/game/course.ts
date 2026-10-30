@@ -107,11 +107,13 @@ export function unitComplete(child: Child | null | undefined, unit: Unit): boole
 /** The steps a unit plays before its lesson: just the first. */
 export const STEPS_BEFORE_LESSON = 1;
 
-/** The unit's own story step (the one its opener plays): its `<unit>-story`,
- *  else its story step with stories of its own. Mestari's "all stories" has none. */
+/** The unit's own story step (the one its opener plays): its FIRST story step
+ *  with stories of its own, so the opener tells what the unit starts with (The
+ *  Finnish year opens with Christmas, not its closing Midsummer story) — in a
+ *  unit with its `<unit>-story` or a checkpoint. Mestari's "all stories" has none. */
 export function storyStepOf(unit: Unit): SkillNode | undefined {
   const story = unit.skills.filter((s) => s.activity === 'story' && !!s.content.ids?.length);
-  return story.find((s) => s.id === `${unit.id}-story`) ?? (hasCheckpoint(unit) ? story[0] : undefined);
+  return story.some((s) => s.id === `${unit.id}-story`) || hasCheckpoint(unit) ? story[0] : undefined;
 }
 
 /** The story a unit opens with ("Kuuntele ensin"), or undefined (no opener). */
@@ -419,6 +421,20 @@ export function stepAfterLesson(lessonId: string, child?: Child | null): SkillNo
   const ml = unit.midLessons?.find((m) => m.lessonId === lessonId);
   if (ml) return unit.skills.find((s) => s.id === ml.before);
   return unit.skills.find((s) => !stepDone(child, unit, s)) ?? unit.skills[lessonAt(unit)] ?? unit.skills[0];
+}
+
+/**
+ * Where a lesson's "Start practicing" goes in the course: the practice it
+ * opens — or, when that step sits behind a part-way lesson not yet read (Question
+ * words and Many each have one right after their main lesson), that lesson
+ * first, so it is never skipped.
+ */
+export function hrefAfterLesson(lessonId: string, child?: Child | null): string | undefined {
+  const step = stepAfterLesson(lessonId, child);
+  const unit = unitForLesson(lessonId);
+  if (!step || !unit) return undefined;
+  const ml = midLessonBefore(unit, step);
+  return ml && ml.lessonId !== lessonId && !lessonSeen(child, ml.lessonId) ? `/lesson/${ml.lessonId}` : `/skill/${step.id}`;
 }
 
 /** The first unit whose steps drill a construction — its lesson explains it. */

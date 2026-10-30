@@ -34,6 +34,14 @@ export const spokenPairById: Readonly<Record<string, SpokenPair>> = Object.fromE
   SPOKEN_PAIRS.map((p) => [p.id, p]),
 );
 
+/** A lesson's own words for its "two ways to say it" card, where the general
+ *  line would leave something out. */
+export const SPOKEN_NOTE: Readonly<Record<string, string>> = {
+  // "mun kirja": with mun / sun, everyday talk often drops the -ni / -si.
+  possessive:
+    'When people talk, they often say *minun* and *sinun* **shorter** — and then often leave off the **-ni** or **-si** too. You will hear both — in the games, use the first one.',
+};
+
 /** The lessons that show a "two ways to say it" card, and which pairs. */
 export const SPOKEN_FOR_LESSON: Readonly<Record<string, readonly string[]>> = {
   'verb-persons': ['ma', 'sa', 'oon', 'oot'],

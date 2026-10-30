@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-25T18:51:02.910Z · regenerate with `npm run review:content`
+- Generated: 2026-10-30T00:29:17.307Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2282 entries. Checked against Wiktionary: 1222. Left for the native reviewer: 1032.** Flagged: 0.
+- **Approved: 28 of 2283 entries. Checked against Wiktionary: 1223. Left for the native reviewer: 1032.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -25,7 +25,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 2: People & things (*Kuka? Mikä?*) | 35 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
 | Unit 3: Numbers (*Numerot*) | 31 | 21 | Scenes, turn by turn 7, Stories 10, Other lines (wrong replies) 4 |
 | Unit 4: I have (*Minulla on*) | 48 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
-| Unit 5: Not having (*Ei ole*) | 26 | 14 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1 |
+| Unit 5: Not having (*Ei ole*) | 27 | 14 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1 |
 | Unit 6: Whose? (*Kenen?*) | 33 | 19 | Scenes, turn by turn 3, Stories 11, Forms marked wrong 3, Other lines (wrong replies) 2 |
 | Unit 7: Mom's bike (*Äidin pyörä*) | 29 | 16 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1, Other lines (wrong replies) 2 |
 | Unit 8: Verbs, part 1: types 1–3 (*Mitä teet?*) | 36 | 16 | Scenes, turn by turn 4, Stories 12 |
@@ -1321,7 +1321,7 @@ _Letter names and sound tips._
 | 📖 | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | 📖 | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
-## Finnish in the lessons (332)
+## Finnish in the lessons (333)
 
 _Words quoted in the explanations._
 
@@ -1350,6 +1350,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 4 | `lesson:having-everyone:3` | meillä | Who has it? Everyone! — check |
 | 📖 | Unit 4 | `lesson:having-everyone:4` | Hänellä on kitara. · hänellä | Who has it? Everyone! — check |
 | 📖 | Unit 5 | `lesson:negation-object:1` | on · ei ole | Saying you don't have it — "is" becomes "is not" |
+| 📖 | Unit 5 | `lesson:negation-object:3` | kaksi | Saying you don't have it — Why? |
 | 📖 | Unit 5 | `lesson:negation-object:5` | ei ole · pyörää | Saying you don't have it — check |
 | 📖 | Unit 5 | `lesson:negation-object:6` | Minulla on hattu. · on · ei ole · hattua | Saying you don't have it — check |
 | 📖 | Unit 8 | `lesson:verb-persons:1` | minä · Syön. | Verbs tell you WHO — The end of the verb says who |
@@ -1421,7 +1422,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 6 | `lesson:possessive:2` | minun kirjani · sinun kirjasi · hänen kirjansa | "My" is an ending — You'll hear the pronoun too |
 | 📖 | Unit 6 | `lesson:possessive:3` | Nimeni on… · nimeni · nimi | "My" is an ending — You already know one! |
 | 📖 | Unit 6 | `lesson:possessive:6` | Tämä on sinun kirjasi. · sinun | "My" is an ending — check |
-| 📖 | Unit 39 | `lesson:plurals:2` | on · ovat · Nämä ovat… · Missä ovat…? | More than one — "These are…" and "Where are…?" |
+| 📖 | Unit 39 | `lesson:plurals:2` | on · ovat · Missä ovat kirjat? · Nämä ovat kirjoja | More than one — "These are…" and "Where are…?" |
 | 📖 | Unit 39 | `lesson:plurals:3` | kirjat | More than one — check |
 | 📖 | Unit 39 | `lesson:plurals:4` | kaveri · kaverit | More than one — check |
 | 📖 | Unit 39 | `lesson:plural-some:1` | palloja · koiria · veneitä | Some things, any things — "Some" things |
@@ -1546,7 +1547,7 @@ _Words quoted in the explanations._
 | 📖 | Unit 36 | `lesson:question-words:1` | Kuka? · Mikä? · Mitä? · Montako? · Kenen? · Miksi? | Question words — Who, what, whose, why… |
 | 📖 | Unit 36 | `lesson:question-words:3` | Kenen? · Kuka? | Question words — check |
 | 📖 | Unit 36 | `lesson:question-words:4` | Miksi? | Question words — check |
-| 📖 | Unit 36 | `lesson:where-questions:1` | Missä? · laatikossa · Mihin? · puistoon · Mistä? · koulusta · Milloin? · lauantaina | Where, where to, where from, when — Three "where" words |
+| 📖 | Unit 36 | `lesson:where-questions:1` | Missä? · laatikossa · pöydällä · Mihin? · puistoon · pöydälle · Mistä? · koulusta · pöydältä · Milloin? · lauantaina | Where, where to, where from, when — Three "where" words |
 | 📖 | Unit 36 | `lesson:where-questions:3` | Mihin sinä menet? · Mihin? · Menen puistoon | Where, where to, where from, when — check |
 | 📖 | Unit 36 | `lesson:where-questions:4` | Mistä? | Where, where to, where from, when — check |
 | 📖 | Unit 37 | `lesson:me-you:1` | minä · Auta minua! · Anna se minulle! · Pidän sinusta. | Me and you — I, me, to me… |
