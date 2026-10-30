@@ -55,7 +55,7 @@ import {
   type WordFrame,
 } from './mathProblems';
 import { itemById } from './lookup';
-import { SPOKEN_FOR_LESSON } from './spoken';
+import { SPOKEN_FOR_LESSON, SPOKEN_NOTE } from './spoken';
 import { gradation, markGradation, typeSegments, verbType } from './verbTypes';
 import { englishVerbClause } from './englishVerb';
 import { ageSentence, dateEnglish, dateFi, dateSegments, yearsWord } from './dates';
@@ -242,7 +242,9 @@ export function withSpoken(lesson: Lesson): Lesson {
       ...lesson.cards,
       {
         kind: 'spoken',
-        text: 'When people talk, they often say some words **shorter**. You will hear both — in the games, use the first one.',
+        text:
+          SPOKEN_NOTE[lesson.id] ??
+          'When people talk, they often say some words **shorter**. You will hear both — in the games, use the first one.',
         ids,
       },
     ],
@@ -751,7 +753,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Three new letters',
         text:
-          '- **ä** sounds like the a in "cat"\n- **ö** sounds a bit like the u in "fur", without the r\n- **y** sounds a bit like the "ew" in "few"',
+          '- **ä** sounds like the a in "cat"\n- **ö** sounds a bit like the u in "fur", without the r — with round lips\n- **y** sounds a bit like the "ew" in "few", with your lips in a small, tight circle',
         rows: [{ word: 'mother' }, { word: 'table' }, { word: 'pencil' }],
       },
       {
@@ -1030,7 +1032,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Why?',
         text:
-          'Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it", "more than one". You\'ll keep meeting this ending, so it\'s worth remembering!',
+          'Finnish uses **-a / -ä** when something is "not all there" — "none of it", "some of it" — and after numbers like *kaksi*. You\'ll keep meeting this ending, so it\'s worth remembering!',
       },
       {
         kind: 'examples',
@@ -1854,7 +1856,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'All six together',
         text:
-          '**Inside:** -ssa (in) · -an, -oon, -seen… (into) · -sta (out of)\n\n**On top:** -lla (on) · -lle (onto) · -lta (off)\n\nNotice: **s** for inside, **l** for on top!',
+          '**Inside:** -ssa (in) · -aan, -oon, -seen… (into) · -sta (out of)\n\n**On top:** -lla (on) · -lle (onto) · -lta (off)\n\nNotice: **s** for inside, **l** for on top!',
       },
       {
         kind: 'check',
@@ -2014,7 +2016,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: '"These are…" and "Where are…?"',
-        text: 'With more than one, *on* (is) becomes *ovat* (are): *Nämä ovat…* = these are, *Missä ovat…?* = where are…?',
+        text: 'With more than one, *on* (is) becomes *ovat* (are): *Missä ovat kirjat?* = where are the books? But "these are books" takes another plural: *Nämä ovat kirjoja* — see the next lesson.',
       },
       {
         kind: 'check',
@@ -2563,7 +2565,8 @@ export const lessons: Lesson[] = [
     titleFi: 'Leikin, pelaan, soitan',
     titleEn: 'Three ways to play',
     emoji: '🎲',
-    notice: [0, 3, 5],
+    // Toys first: the step right after this lesson plays with toys.
+    notice: [0, 1, 7],
     cards: [
       {
         kind: 'explain',
@@ -2813,7 +2816,8 @@ export const lessons: Lesson[] = [
     titleFi: 'Minun päiväni',
     titleEn: 'My day',
     emoji: '🌅',
-    notice: [2, 5],
+    // "At seven" (-lta) and meals: the steps that follow this lesson.
+    notice: [1, 2, 5],
     cards: [
       {
         kind: 'examples',
@@ -3355,7 +3359,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: '-ko or -kö?',
         text: 'The vowel team again: a word with **a, o, u** gets **-ko**; otherwise **-kö**.',
-        rows: [{ ask: 'sleep' }, { ask: 'play' }, { ask: 'swim' }, { ask: 'eat' }, { ask: 'jump' }],
+        rows: [{ ask: 'sleep' }, { ask: 'play' }, { ask: 'swim' }, { ask: 'eat' }, { ask: 'draw' }],
       },
       {
         kind: 'examples',
@@ -3607,7 +3611,7 @@ export const lessons: Lesson[] = [
       {
         kind: 'explain',
         title: 'Three "where" words',
-        text: '- *Missä?* — where? → answer with **-ssa** (*laatikossa*)\n- *Mihin?* — where TO? → answer with **into** (*puistoon*)\n- *Mistä?* — where FROM? → answer with **-sta** (*koulusta*)\n- *Milloin?* — when? → answer with a time (*lauantaina*)',
+        text: '- *Missä?* — where? → answer with **-ssa** or **-lla** (*laatikossa*, *pöydällä*)\n- *Mihin?* — where TO? → answer with **into** or **-lle** (*puistoon*, *pöydälle*)\n- *Mistä?* — where FROM? → answer with **-sta** or **-lta** (*koulusta*, *pöydältä*)\n- *Milloin?* — when? → answer with a time (*lauantaina*)',
       },
       {
         kind: 'pairs',
@@ -3810,6 +3814,8 @@ export const lessons: Lesson[] = [
     titleFi: 'Verbityypit 5 ja 6',
     titleEn: 'Verb types 5 and 6',
     emoji: '🧓',
+    // Both families: the steps after this lesson play type 5 and type 6.
+    notice: [0, 1, 4],
     cards: [
       {
         kind: 'examples',
@@ -4170,7 +4176,7 @@ export const lessons: Lesson[] = [
         kind: 'examples',
         title: 'Order words',
         text:
-          'For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd on they end in **-s**: *kolmas*, *neljäs*, *viides*.',
+          'For the ORDER (who came first?) Finnish has its own words. *ensimmäinen* (1st) and *toinen* (2nd) are special; from the 3rd to the 10th they end in **-s**: *kolmas*, *neljäs*, *viides*.',
         rows: [{ word: 'first' }, { word: 'second' }, { word: 'third' }, { word: 'fourth' }, { word: 'fifth' }],
       },
       {

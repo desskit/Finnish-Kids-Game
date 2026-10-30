@@ -1,6 +1,6 @@
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { lessonById, noticeLesson, withSpoken } from '../content/lessons';
-import { stepAfterLesson } from '../game/course';
+import { hrefAfterLesson } from '../game/course';
 import { stageForLesson } from '../game/mathPath';
 import { mathStepAfterLesson } from '../game/mathCourse';
 import { useProfile } from '../state/profile';
@@ -27,13 +27,16 @@ export default function LessonRoute() {
   const fromNotebook = (location.state as { from?: string } | null)?.from === 'notebook';
   const math = !!stageForLesson(lesson.id);
   const back = () => navigate(fromNotebook ? '/notebook' : math ? '/math' : '/');
-  const firstStep = math ? mathStepAfterLesson(lesson.id) : stepAfterLesson(lesson.id, activeChild);
+  const mathStep = math ? mathStepAfterLesson(lesson.id) : undefined;
+  const next = math ? mathStep && `/skill/${mathStep.id}` : hrefAfterLesson(lesson.id, activeChild);
   // Everyday spoken forms come last, for every reader: to recognise, not to use.
   const shown = withSpoken(fromNotebook || fullLessons || math ? lesson : noticeLesson(lesson));
 
   return (
     <main className="app">
+      {/* Keyed by lesson: one lesson leading into the next starts at its first card. */}
       <LessonView
+        key={lesson.id}
         lesson={shown}
         onClose={back}
         doneLabel={
@@ -44,8 +47,9 @@ export default function LessonRoute() {
         onDone={() => {
           markLessonSeen(lesson.id);
           // Straight into the practice it opens (the unit's next unfinished
-          // step, or for a part-way lesson the step after it).
-          if (!fromNotebook && firstStep) navigate(`/skill/${firstStep.id}`);
+          // step, or for a part-way lesson the step after it) — by way of a
+          // part-way lesson that stands in front of it.
+          if (!fromNotebook && next) navigate(next);
           else back();
         }}
       />

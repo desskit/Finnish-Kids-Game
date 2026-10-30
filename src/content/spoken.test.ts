@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { SPOKEN_FOR_LESSON, SPOKEN_PAIRS, spokenPairById } from './spoken';
+import { SPOKEN_FOR_LESSON, SPOKEN_NOTE, SPOKEN_PAIRS, spokenPairById } from './spoken';
 import { PRONOUNS } from './pronouns';
 import { verbForm } from './types';
 import { reviewItems, verbs } from '.';
@@ -40,6 +40,9 @@ describe('two ways to say it', () => {
       expect(last.kind).toBe('spoken');
     }
     expect(withSpoken(lessonById.sounds).cards).toEqual(lessonById.sounds.cards);
+    // A lesson's own note goes only on a lesson that shows the card.
+    for (const id of Object.keys(SPOKEN_NOTE)) expect(SPOKEN_FOR_LESSON[id], id).toBeDefined();
+    expect(withSpoken(lessonById.possessive).cards.at(-1)).toMatchObject({ text: SPOKEN_NOTE.possessive });
     expect(lookupWord('mä')).toEqual({ base: 'minä', en: 'I (the spoken form of minä)' });
     expect(lookupWord('Oon')?.base).toBe('olen');
   });

@@ -300,3 +300,42 @@ speaker's pass. The Grown-ups → Finnish check lists every entry in course
 order, with a unit filter, so they can start with units 1–8, the part the
 children meet first. The questions above, and those in parts 1 and 2, are the
 places I'd like them to look first.
+
+## Part 4: the lessons, in the new course order
+
+The units now run: the opening story first, the first practice step, then the
+lesson (a younger reader sees its notice cards), the rest of the steps with
+any part-way lessons, the closing story and the checkpoint. This pass read
+every lesson card in that order (all 44 units: main and part-way lessons,
+notice picks, spoken cards), every "Why?" tip, the at-home ideas, and the
+sentence audit, checking the grammar, the explanations and how each lesson
+fits the steps around it.
+
+### Fixed
+
+| Where | Was | Now |
+| --- | --- | --- |
+| Opening story, The Finnish year | Midsummer, though the unit starts with Christmas | *Joulupukki tulee!* — the opener is a unit's FIRST story step |
+| After a lesson, Question words and Many | "Start practicing" went to the step behind the part-way lesson, skipping it | it goes to that part-way lesson first (`hrefAfterLesson`) |
+| Lesson screen | one lesson leading into the next opened on the previous one's card | every lesson starts at card 1 |
+| Not having, "Why?" card | the -a ending for "more than one" | "and after numbers like *kaksi*" — the noun stays singular after a number |
+| Going & coming, all six | into: "-an, -oon, -seen" | "-aan, -oon, -seen" |
+| Asking, -ko / -kö | *Hyppäätkö?* — "jump" comes in unit 15 | *Piirrätkö?* (draw, unit 9) |
+| Ordinals | "from the 3rd on they end in -s" (*yhdestoista* doesn't) | "from the 3rd to the 10th" |
+| Question words, the "where" words | only -ssa / into / -sta | also -lla / -lle / -lta (*pöydällä, pöydälle, pöydältä*) |
+| Many, "These are…" | read as if *Nämä ovat* takes the -t plural | *Missä ovat kirjat?* — and *Nämä ovat kirjoja*, the next lesson's plural |
+| Whose, spoken card | *mun* and *sun* only | "and then often leave off the -ni or -si too" |
+| Feelings, "Why?" tip for *Minua pelottaa* | "the feeling word in its 'it' form" | "*Minua* (me) + the feeling verb … It's never *minä* here." |
+| How Finnish sounds, ö and y | no word on the lips | "with round lips", as the alphabet corner says |
+| Notice cards: Play, My day, Verb types 5 & 6 | cards that skipped the very next steps (music before toys; meals without "at seven"; type 5 only) | the cards for the steps that follow |
+
+### Checked and kept
+
+- The English glosses say "my brother", "my friend's bike" for a bare family
+  noun (*veljen*, *kaverin pyörä*). That is the natural English for these, by
+  design (`MY_PEOPLE` in `types.ts`), so they stay.
+- Two units read two lessons back to back (Question words, Many): the main
+  lesson after the first step, then a part-way lesson for the very next step.
+  Each is short, and play now goes from one into the other.
+- The generated sentences have not changed since the last audit; a mechanical
+  sweep (articles, doubled words, spacing) found nothing.

@@ -14,11 +14,14 @@ import {
   notebookLessonIds,
   openerStatus,
   openerStoryId,
+  findUnit,
+  hrefAfterLesson,
   stepAfterLesson,
   stepStatus,
   unitStatus,
   unitsCompleted,
 } from './course';
+import { placeChildAt } from './placement';
 
 const prog = (level: number) => ({
   plays: 3,
@@ -119,6 +122,40 @@ describe('steps and checkpoints inside a unit', () => {
       const heard = child({ course: { openersHeard: { [u.id]: 1 } } });
       expect(stepStatus(heard, u, u.skills[0], false), u.id).not.toBe('locked');
     }
+  });
+
+  it('goes on from a lesson to exactly what Continue offers next — a part-way lesson right behind it included', () => {
+    const wrong: string[] = [];
+    for (const u of UNITS) {
+      if (lessonAt(u) >= u.skills.length) continue;
+      // The first step finished, the lesson not yet read.
+      const first = u.skills[0];
+      const before = placeChildAt(child(), { unitId: u.id, target: { kind: 'step', stepId: u.skills[lessonAt(u)].id } });
+      const course = { ...before.course, lessonsSeen: { ...before.course?.lessonsSeen } };
+      delete course.lessonsSeen[u.lessonId];
+      for (const ml of u.midLessons ?? []) delete course.lessonsSeen[ml.lessonId];
+      const reading = { ...before, course };
+      if (!before.progress[u.id]?.[first.id]?.topProvenAt) continue;
+      const read = { ...reading, course: { ...course, lessonsSeen: { ...course.lessonsSeen, [u.lessonId]: 1 } } };
+      const want = actionHref(nextAction(read));
+      const got = hrefAfterLesson(u.lessonId, reading);
+      if (got !== want) wrong.push(`${u.id}: ${got} ≠ ${want}`);
+    }
+    expect(wrong).toEqual([]);
+    // Question words: the "where" lesson stands right behind the main one.
+    const qw = findUnit('question-words')!;
+    const atLesson = child({
+      progress: { [qw.id]: { [qw.skills[0].id]: { ...prog(qw.skills[0].maxLevel ?? 4), topProvenAt: 1 } } },
+      course: { openersHeard: { [qw.id]: 1 }, checkpoints: passed(...UNITS.slice(0, UNITS.indexOf(qw)).map((u) => u.id)) },
+    });
+    expect(hrefAfterLesson('question-words', atLesson)).toBe('/lesson/where-questions');
+    expect(hrefAfterLesson('where-questions', atLesson)).toBe(`/skill/${qw.skills[1].id}`);
+  });
+
+  it('opens a unit with the story of what it starts with', () => {
+    // The Finnish year begins at Christmas; its Midsummer story closes it.
+    expect(openerStoryId(findUnit('finnish-year')!)).toBe('santa-comes');
+    expect(openerStoryId(findUnit('hello')!)).toBe('hello-eero');
   });
 
   it('an older save that read the lesson first is never sent back to the opener', () => {
