@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { ProfileProvider, useProfile } from './profile';
-import { localProfileStore } from './storage';
+import { localProfileStore, V2_KEY } from './storage';
 import { dayKey } from '../game/streak';
 
 function renderProfile() {
@@ -25,6 +25,27 @@ describe('ProfileProvider / useProfile', () => {
     expect(result.current.activeChild).toBeNull();
     expect(result.current.name).toBe('');
     expect(result.current.stars).toBe(0);
+  });
+
+  it('takes the save of the app open in another tab, so neither copy wipes out the other', () => {
+    const { result } = renderProfile();
+    act(() => {
+      result.current.addChild('Aino');
+    });
+    // The other copy plays a round: 5 stars, saved there.
+    const there = localProfileStore.load();
+    there.children[0] = { ...there.children[0], stars: 5 };
+    const text = JSON.stringify(there);
+    localStorage.setItem(V2_KEY, text);
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key: V2_KEY, newValue: text }));
+    });
+    expect(result.current.stars).toBe(5);
+    // This copy plays on: its stars land on top of the other copy's.
+    act(() => {
+      result.current.addStars(2);
+    });
+    expect(localProfileStore.load().children[0].stars).toBe(7);
   });
 
   it('adds a child, makes it active, and persists to storage', () => {

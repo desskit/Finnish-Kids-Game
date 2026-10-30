@@ -200,6 +200,19 @@ export function dayGap(a: string, b: string): number {
   return Math.round((pb - pa) / DAY_MS);
 }
 
+/**
+ * "today", "yesterday", "3 days ago", "2 weeks ago" — by calendar day, so a
+ * game played late last night reads "yesterday" the next morning.
+ */
+export function daysAgo(ms: number, now: number): string {
+  const days = dayGap(dayKey(ms), dayKey(now));
+  if (days <= 0) return 'today';
+  if (days === 1) return 'yesterday';
+  if (days < 7) return `${days} days ago`;
+  const weeks = Math.floor(days / 7);
+  return weeks === 1 ? 'a week ago' : `${weeks} weeks ago`;
+}
+
 /** The day keys of the last `n` days, oldest first, ending today. */
 export function lastDays(n: number, now: number): string[] {
   const out: string[] = [];

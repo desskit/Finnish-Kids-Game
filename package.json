@@ -11,7 +11,7 @@
     "audit:sentences": "vite-node scripts/audit-sentences.ts",
     "review:content": "vite-node scripts/ui-finnish.ts && vite-node scripts/content-review.ts",
     "dev": "vite",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && vite build",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && vite build && node scripts/check-precache.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
     "typecheck:test": "tsc -p tsconfig.vitest.json",

@@ -13,6 +13,7 @@ import {
   localProfileStore,
   newId,
   sandboxProfiles,
+  V2_KEY,
   type Child,
   type ProfilesData,
   type ReaderBand,
@@ -194,6 +195,19 @@ export function ProfileProvider({
   useEffect(() => {
     if (!ephemeral) localProfileStore.save(data);
   }, [data, ephemeral]);
+
+  // The app open twice (the installed app and a browser tab): when the other
+  // copy saves, take its save, so this copy's next save can't wipe out what
+  // was just played there. Every change here is made to the latest data, so a
+  // round finishing in this copy lands on top of it.
+  useEffect(() => {
+    if (ephemeral) return;
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === V2_KEY && e.newValue) setData(localProfileStore.load());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, [ephemeral]);
 
   // Bridge settings into the imperative world (audio modules + a root class).
   // Skipped in the sandbox so an audit never flips the app's real mute/motion.

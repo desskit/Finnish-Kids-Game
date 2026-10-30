@@ -4,6 +4,7 @@ import {
   emptyProfiles,
   newId,
   AVATARS,
+  UNREADABLE_KEY,
   type ProfilesData,
 } from './storage';
 import { emptyStats } from '../game/stats';
@@ -171,9 +172,65 @@ describe('localProfileStore', () => {
     expect(localProfileStore.load().activeId).toBe('b');
   });
 
-  it('falls back to empty profiles on corrupt JSON', () => {
+  it('falls back to empty profiles on corrupt JSON, keeping the old save aside', () => {
     localStorage.setItem(V2_KEY, '{not valid json');
     expect(localProfileStore.load()).toEqual(emptyProfiles());
+    expect(localStorage.getItem(UNREADABLE_KEY)).toBe('{not valid json');
+  });
+
+  it('keeps a save it cannot read (a newer version) aside instead of losing it', () => {
+    const newer = JSON.stringify({ version: 3, players: [{ id: 'a' }] });
+    localStorage.setItem(V2_KEY, newer);
+    expect(localProfileStore.load()).toEqual(emptyProfiles());
+    expect(localStorage.getItem(UNREADABLE_KEY)).toBe(newer);
+    // starting afresh (which saves) never overwrites what was set aside
+    localProfileStore.save(emptyProfiles());
+    localStorage.setItem(V2_KEY, '{also broken');
+    localProfileStore.load();
+    expect(localStorage.getItem(UNREADABLE_KEY)).toBe(newer);
+  });
+
+  it('drops one damaged player without losing the others, and mends what it can', () => {
+    const now = Date.now();
+    localStorage.setItem(
+      V2_KEY,
+      JSON.stringify({
+        version: 2,
+        activeId: 'a',
+        settings: { muted: false, reducedMotion: false },
+        children: [
+          null,
+          'junk',
+          {
+            id: 'a',
+            name: 'Aino',
+            avatar: 7,
+            level: 1,
+            stars: 'many',
+            createdAt: 1,
+            progress: { hello: { greetings: null, introduce: { level: 2 } }, people: 'x' },
+            srs: { kissa: null, koira: { box: 2, due: now } },
+            stats: { v: 1, subjects: { greetings: null, introduce: { n: 1, right: 1, days: { '2026-10-28': null }, first: 1, last: 1 } }, days: [], warmups: 'x' },
+            course: { checkpoints: { hello: null }, lessonsSeen: 'x', stories: { s: 4 } },
+          },
+          { name: 'No id', avatar: '🐻', level: 1, stars: 0, createdAt: 2, progress: {}, srs: {} },
+        ],
+      }),
+    );
+    const data = localProfileStore.load();
+    expect(data.children.map((c) => c.name)).toEqual(['Aino', 'No id']);
+    expect(data.children[1].id).toEqual(expect.any(String));
+    expect(data.children[1].id).not.toBe('');
+    const a = data.children[0];
+    expect(a.avatar).toBe(AVATARS[0]);
+    expect(a.stars).toBe(0);
+    expect(a.progress).toEqual({ hello: { introduce: { level: 2 } } });
+    expect(Object.keys(a.srs)).toEqual(['koira']);
+    expect(Object.keys(a.stats!.subjects)).toEqual(['introduce']);
+    expect(a.stats!.subjects.introduce.days).toEqual({});
+    expect(a.stats!.days).toEqual({});
+    expect(a.stats!.warmups).toBeUndefined();
+    expect(a.course).toEqual({ checkpoints: {}, stories: {} });
   });
 
   it('backfills missing settings with defaults', () => {

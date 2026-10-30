@@ -337,7 +337,8 @@ export function newId(): string {
   return 'c-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
 }
 
-const V2_KEY = 'fkg.profiles.v2';
+/** Where the players live (another open copy of the app watches it — see state/profile.tsx). */
+export const V2_KEY = 'fkg.profiles.v2';
 const V1_KEY = 'fkg.profile.v1';
 
 interface ProfileV1 {
@@ -361,23 +362,77 @@ function migrateV1(v1: Partial<ProfileV1>): ProfilesData {
   return { version: 2, children: [child], activeId: child.id, settings: { ...DEFAULT_SETTINGS } };
 }
 
+const isRecord = (x: unknown): x is Record<string, any> => !!x && typeof x === 'object' && !Array.isArray(x);
+
+/** Only the entries of `map` that are records themselves (a damaged entry is dropped, not crashed on). */
+function recordsIn<T>(map: unknown, keep: (v: Record<string, any>) => boolean = () => true): Record<string, T> {
+  if (!isRecord(map)) return {};
+  return Object.fromEntries(Object.entries(map).filter(([, v]) => isRecord(v) && keep(v))) as Record<string, T>;
+}
+
+/** Stats with every subject and day a record (anything else is dropped, or reseeded). */
+function cleanStats(stats: unknown, progress: Progress): StatsState {
+  if (!isRecord(stats)) return seedFromProgress(progress);
+  const { warmups: _warmups, ...rest } = stats;
+  return {
+    ...rest,
+    v: 1,
+    subjects: Object.fromEntries(
+      Object.entries(recordsIn<Record<string, unknown>>(stats.subjects, (s) => isRecord(s.days))).map(([id, s]) => [
+        id,
+        { ...s, days: recordsIn(s.days) },
+      ]),
+    ),
+    days: recordsIn(stats.days),
+    ...(Array.isArray(stats.warmups) ? { warmups: stats.warmups.filter(isRecord) } : {}),
+  } as StatsState;
+}
+
+/** The course log with each of its maps holding only records where records belong. */
+function cleanCourse(course: unknown): CourseState | undefined {
+  if (!isRecord(course)) return undefined;
+  const out: CourseState = { ...course };
+  for (const key of ['checkpoints', 'selfCheck', 'sounds', 'stories'] as const) {
+    if (key in course) (out as Record<string, unknown>)[key] = recordsIn(course[key]);
+  }
+  for (const key of ['lessonsSeen', 'openersHeard', 'extrasSeen', 'phrasesSeen'] as const) {
+    if (key in course && !isRecord(course[key])) delete out[key];
+  }
+  return out;
+}
+
 /** Repair anything inconsistent (e.g. an activeId pointing at a removed child). */
 function sanitize(data: ProfilesData): ProfilesData {
-  const rawChildren = Array.isArray(data.children) ? data.children : [];
+  // A damaged player entry is dropped on its own, never taking the others with
+  // it; a player who lost only their id gets a new one.
+  const rawChildren = (Array.isArray(data.children) ? data.children : [])
+    .filter((c): c is Child => isRecord(c))
+    .map((c) => (typeof c.id === 'string' && c.id !== '' ? c : { ...c, id: newId() }));
   // Backfill fields added in later versions so older stored profiles keep
   // working (per the graceful-migration convention).
   // The old device-wide "open every unit" switch becomes every player's own.
   const unlockedBefore = !!data.settings?.unlockAll;
   const children = rawChildren.map((c) => {
     const { theme, ...rest } = c;
+    const progress = Object.fromEntries(
+      Object.entries(recordsIn<Record<string, unknown>>(c.progress)).map(([topic, steps]) => [topic, recordsIn(steps)]),
+    ) as Progress;
+    const course = cleanCourse(c.course);
+    const math = isRecord(c.math) ? { ...c.math, ...('crowns' in c.math ? { crowns: recordsIn<CheckpointRecord>(c.math.crowns) } : {}) } : undefined;
     return {
       ...rest,
       ...(unlockedBefore ? { unlockAll: true } : {}),
-      progress: c.progress ?? {},
-      srs: c.srs ?? {},
+      name: typeof c.name === 'string' ? c.name : '',
+      avatar: typeof c.avatar === 'string' && c.avatar ? c.avatar : AVATARS[0],
+      stars: Number.isFinite(c.stars) ? c.stars : 0,
+      progress,
+      srs: recordsIn<ItemSchedule>(c.srs),
+      ...(c.heard !== undefined ? { heard: isRecord(c.heard) ? c.heard : {} } : {}),
+      ...(c.course !== undefined ? { course } : {}),
+      ...(c.math !== undefined ? { math } : {}),
       // Stats from what was played before stats existed, seeded once on load:
       // seeded later, on the next game, they would count that game twice.
-      stats: c.stats ?? seedFromProgress(c.progress),
+      stats: cleanStats(c.stats, progress),
       // a look we don't know (an older or edited file) falls back to the device's
       ...(isThemeId(theme) ? { theme } : {}),
     };
@@ -408,14 +463,35 @@ export function unlockAllFor(child: Child | null | undefined): boolean {
   return !!child?.unlockAll;
 }
 
+/**
+ * Where a save this build can't read is set aside — a damaged one, or one
+ * written by a newer version — before the app starts afresh. Starting afresh
+ * saves at once, so without this every player would be gone for good; kept
+ * here, it can still be recovered.
+ */
+export const UNREADABLE_KEY = 'fkg.profiles.v2.unreadable';
+
+function setAside(raw: string): void {
+  try {
+    if (localStorage.getItem(UNREADABLE_KEY) === null) localStorage.setItem(UNREADABLE_KEY, raw);
+  } catch {
+    /* ignore */
+  }
+}
+
 function load(): ProfilesData {
   try {
     const rawV2 = localStorage.getItem(V2_KEY);
     if (rawV2) {
-      const parsed = JSON.parse(rawV2) as ProfilesData;
-      if (parsed && parsed.version === 2 && Array.isArray(parsed.children)) {
-        return sanitize(parsed);
+      try {
+        const parsed = JSON.parse(rawV2) as ProfilesData;
+        if (parsed && parsed.version === 2 && Array.isArray(parsed.children)) {
+          return sanitize(parsed);
+        }
+      } catch {
+        /* unreadable: set aside below */
       }
+      setAside(rawV2);
     }
     const rawV1 = localStorage.getItem(V1_KEY);
     if (rawV1) {
@@ -436,7 +512,11 @@ function load(): ProfilesData {
 
 function save(data: ProfilesData): void {
   try {
-    localStorage.setItem(V2_KEY, JSON.stringify(data));
+    const text = JSON.stringify(data);
+    // Unchanged: no write, so two open copies of the app settle instead of
+    // echoing each other's saves back and forth.
+    if (localStorage.getItem(V2_KEY) === text) return;
+    localStorage.setItem(V2_KEY, text);
   } catch {
     /* ignore */
   }

@@ -103,7 +103,15 @@ Finnish** — the app never generates or inflects Finnish by rule.
   menus move a little; all of it stops with reduced motion. See
   [`docs/UI_GUIDE.md`](docs/UI_GUIDE.md).
 - **Placeholder audio** via the browser's Finnish text-to-speech voice.
-- **PWA**: installable, offline-capable, orientation unlocked.
+- **PWA**: installable, offline-capable (from the first visit — every shipped
+  file is precached, and `npm run build` fails if one isn't), orientation
+  unlocked.
+- **Saves that don't get lost**: a damaged entry in a save is dropped on its
+  own rather than taking the other players with it; a save the app can't read
+  at all (damaged, or from a newer version) is set aside under
+  `fkg.profiles.v2.unreadable` before the app starts afresh; the app open in
+  two tabs takes the other tab's saves; and a screen that fails to draw shows a
+  way home instead of a blank page.
 
 ## Run it
 

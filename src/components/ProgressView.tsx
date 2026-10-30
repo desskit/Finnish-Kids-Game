@@ -14,22 +14,15 @@ import { badgeEnv } from '../game/path';
 import { UNITS, nextAction, stepDone, topLevel, unitsCompleted, type Unit } from '../game/course';
 import Art from '../art/Art';
 import Avatar from '../art/Avatar';
+import { daysAgo } from '../game/stats';
 
 // Parent dashboard. One player at a time (a switcher when there are several):
 // the headline numbers a grown-up actually wants, what needs a little help, the
 // plain-English "can do" claims, and a unit-by-unit breakdown in words — never
 // a row of symbols to decode.
 
-const DAY = 864e5;
-
 function ago(ms: number | undefined): string {
-  if (!ms) return 'never';
-  const days = Math.floor((Date.now() - ms) / DAY);
-  if (days <= 0) return 'today';
-  if (days === 1) return 'yesterday';
-  if (days < 7) return `${days} days ago`;
-  const weeks = Math.floor(days / 7);
-  return weeks === 1 ? 'a week ago' : `${weeks} weeks ago`;
+  return ms ? daysAgo(ms, Date.now()) : 'never';
 }
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;

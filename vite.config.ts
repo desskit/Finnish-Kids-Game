@@ -52,6 +52,17 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // Workbox silently leaves out any file over its 2 MB default — and the
+        // main bundle (all the course content and art) is already ~1.7 MB. If
+        // it crossed the line the installed app would stop starting offline,
+        // with no error anywhere. Room to grow; scripts/check-precache.mjs
+        // fails the build if anything is still left out.
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
+        // Take charge of the page that installed the worker, so a first visit
+        // works offline without a reload (pictures not yet seen would
+        // otherwise go to the network). An update still waits for
+        // src/pwaUpdate.ts, which ignores this first takeover.
+        clientsClaim: true,
       },
     }),
   ],

@@ -8,6 +8,7 @@ import {
   MS_PER_QUESTION_CAP,
   applyStatEvent,
   applyWarmup,
+  daysAgo,
   emptyStats,
   lastDays,
   seedFromProgress,
@@ -183,5 +184,15 @@ describe('days', () => {
       right: 4,
       ms: 10,
     });
+  });
+
+  it('says how long ago by calendar day, not by 24-hour blocks', () => {
+    const lateLastNight = new Date(2026, 9, 28, 23, 30).getTime();
+    const thisMorning = new Date(2026, 9, 29, 8, 0).getTime();
+    expect(daysAgo(lateLastNight, thisMorning)).toBe('yesterday');
+    expect(daysAgo(new Date(2026, 9, 29, 0, 5).getTime(), thisMorning)).toBe('today');
+    expect(daysAgo(new Date(2026, 9, 26, 23, 0).getTime(), thisMorning)).toBe('3 days ago');
+    expect(daysAgo(new Date(2026, 9, 20, 12, 0).getTime(), thisMorning)).toBe('a week ago');
+    expect(daysAgo(new Date(2026, 9, 1, 12, 0).getTime(), thisMorning)).toBe('4 weeks ago');
   });
 });
