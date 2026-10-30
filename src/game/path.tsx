@@ -2512,28 +2512,25 @@ const TYPING_MINOR = { kind: 'spell' as ActivityKind, fromLevel: 2, every: 4 };
 const typingFrom = UNITS.findIndex((u) => u.id === TYPING_FROM_UNIT);
 
 UNITS.forEach((unit, ui) => {
-  // Words a unit brings in only AFTER a part-way lesson (its KPT verbs, the
-  // Finnish year's Easter and Midsummer words) stay out of the steps before
-  // that lesson: a step knows the words of every words step up to the next
-  // part-way lesson, never past it. Only the unit's own new words are held
-  // back: a later step that names an old word (the cottage trip's yard)
-  // doesn't hide it.
-  const boundaries = (unit.midLessons ?? [])
-    .map((m) => unit.skills.findIndex((s) => s.id === m.before))
-    .filter((i) => i >= 0)
-    .sort((a, b) => a - b);
+  // A unit's own new words stay out of every step BEFORE the words step that
+  // brings them in (its KPT verbs, the Finnish year's Easter and Midsummer
+  // words, the round tens "Count to 20" comes before): a step knows the words
+  // of the words steps up to it, never past it. Only the unit's own new words
+  // are held back: a later step that names an old word (the cottage trip's
+  // yard) doesn't hide it.
   const ownWords = new Set(unit.newWords ?? []);
-  const knownUpTo = new Map<number, string[]>();
   const knownAt = (si: number): string[] => {
-    const next = boundaries.find((b) => b > si);
-    if (next === undefined) return knownByUnit[ui];
-    let known = knownUpTo.get(next);
-    if (!known) {
-      const held = new Set(unit.skills.slice(next).flatMap((s) => s.content.only ?? []).filter((w) => ownWords.has(w)));
-      known = knownByUnit[ui].filter((w) => !held.has(w));
-      knownUpTo.set(next, known);
+    const held = new Set(
+      unit.skills
+        .slice(si + 1)
+        .flatMap((s) => s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : []))
+        .filter((w) => ownWords.has(w)),
+    );
+    // …unless an earlier words step already met them.
+    for (const s of unit.skills.slice(0, si + 1)) {
+      for (const w of s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : [])) held.delete(w);
     }
-    return known;
+    return held.size === 0 ? knownByUnit[ui] : knownByUnit[ui].filter((w) => !held.has(w));
   };
   unit.skills.forEach((step, si) => {
     const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
@@ -2833,6 +2830,22 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
  *  `activityForRound`); this just maps an activity kind to its game component.
  *  The caller (SkillRoute) supplies the ActivityContext that hands down adaptive
  *  difficulty + round recording. */
+/** Games that ask about no single word (scripted lines, stories, sounds, review). */
+const NO_WORD_POOL: ReadonlySet<ActivityKind> = new Set(['dialogue', 'conversation', 'story', 'reading', 'sound', 'review']);
+/** Games that draw verbs. */
+const VERB_GAMES: ReadonlySet<ActivityKind> = new Set(['conjugate', 'command', 'captain']);
+
+/**
+ * The words a step's own rounds draw from: its scope (`content.wordIds`)
+ * within its pool — for planning (which words a step reviews as it goes) and
+ * for the test that no step reaches past what its unit has taught.
+ */
+export function stepWordPool(skill: SkillNode): string[] {
+  if (skill.content.mixOf || NO_WORD_POOL.has(skill.activity)) return [];
+  if (VERB_GAMES.has(skill.activity) || skill.content.choose === 'verb-type') return stepVerbs(skill).map((i) => i.id);
+  return scoped(itemsForPool(skill.content.pool), skill.content.wordIds, 1).map((i) => i.id);
+}
+
 export function renderActivity(
   skill: SkillNode,
   activity: ActivityKind,
@@ -2919,7 +2932,8 @@ export function renderActivity(
         />
       );
     case 'count':
-      return <CountAndSay nouns={pictureItems} numbers={numbers.items} onExit={onExit} />;
+      // The numbers the step has met (so "Count to 20" never asks the round tens of the step after it).
+      return <CountAndSay nouns={pictureItems} numbers={scoped(numbers.items, wordIds, 2)} onExit={onExit} />;
     case 'match':
       return (
         <MatchTheWord

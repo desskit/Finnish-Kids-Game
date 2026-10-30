@@ -185,7 +185,7 @@ Most sources were read as abstracts or summaries. Check any figure against the o
 ### What already fits (protect it)
 
 - Retrieval in every game, with no passive flashcards.
-- Spaced repetition: Leitner boxes at 1/3/7/16 days, for words and for grammar (`con:` keys).
+- Spaced repetition: Leitner boxes at 1/3/7/30 days, for words and for grammar (`con:` keys) — a box is earned only when the item was due.
 - Adaptive difficulty aimed at about 85% success, much like GraphoGame.
 - Phrase frames instead of case tables.
 - Wrong answers that teach; no fail states, lives or harsh sounds.
@@ -256,7 +256,10 @@ study; a real check would watch children play.
    - A count of how often each word is heard; production waits for enough hearings.
    - New words from the same group never arrive together.
    - *Done:* `src/game/session.ts`. The warm-up reviews what is due (3 or
-     more, at most 10) before falling back to the weakest subject; the day
+     more, at most the reader's warm-up length: 6 younger, 10 older), taking
+     turns with the weakest grammar step when both wait (October 2026: before,
+     review always won once a few words were due — from about day 30 — and
+     weak steps never came back; see LEARNING_AUDIT.md, "Pacing"); the day
      stops at 24 questions (younger) or 36 (older) with home offered first.
      `heard` counts intro cards, story lines and answers; the production games
      favour words heard 6 times or known a day later (a strong preference,

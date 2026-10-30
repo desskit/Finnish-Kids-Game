@@ -29,9 +29,10 @@ import {
 import { dayKey } from './streak';
 import { dueStoryRevisit } from './storyLog';
 import { warmupReviewIds } from './session';
+import { learnerKnobs } from './learner';
 
-/** At least this many questions in a warm-up. */
-export const WARMUP_QUESTIONS = 10;
+/** At least this many questions in a warm-up: 6 for a younger reader, 10 for an older one. */
+export const warmupQuestions = (child: Child | null | undefined): number => learnerKnobs(child).warmupQuestions;
 
 /** Steps that are scripted wholes, not a subject to drill. */
 const NOT_A_SUBJECT: ReadonlySet<ActivityKind> = new Set(['conversation', 'story', 'review', 'sound']);
@@ -120,23 +121,56 @@ export function pickWarmupSubject(child: Child, now: number): RankedSubject | un
     tail.length === MAX_SAME_IN_A_ROW && tail.every((w) => w.subject === tail[0].subject)
       ? tail[0].subject
       : undefined;
-  return rankSubjects(stats, now).find(
+  const candidates = rankSubjects(stats, now).filter(
     (r) => judgedBeforeToday(r.step.id) && r.step.id !== frontier && r.step.id !== fixed && r.step.id !== overused,
   );
+  // Grammar first: a unit's word list is reviewed word by word already (the
+  // due words, srs.ts) — a warm-up is for the patterns. Word lists only when
+  // there is nothing else yet (the first units).
+  return candidates.find((r) => !isWordList(r.step)) ?? candidates[0];
+}
+
+/** A step that just meets a unit's new words (its pictures and names). */
+const isWordList = (step: SkillNode) => step.content.words === 'new';
+
+/** What today's warm-up practises (besides a story due back, which opens it). */
+export type WarmupPlan =
+  | { kind: 'review'; ids: string[] }
+  | { kind: 'subject'; subject: RankedSubject }
+  | { kind: 'none' };
+
+/**
+ * Today's warm-up: the words and grammar due back (session.ts), or the
+ * weakest subject. When both are waiting they take turns, day by day — so a
+ * shaky grammar step from units ago keeps coming back even once there are
+ * always a few words due (and the course's own rounds review words too:
+ * srs.ts `DUE_WEIGHT`). Decided from the warm-ups BEFORE today, so it never
+ * changes under the child.
+ */
+export function warmupPlan(child: Child | null | undefined, now: number): WarmupPlan {
+  if (!child) return { kind: 'none' };
+  const ids = warmupReviewIds(child, now);
+  const subject = pickWarmupSubject(child, now);
+  if (ids.length > 0 && subject) {
+    const today = dayKey(now);
+    const last = (statsOf(child).warmups ?? []).filter((w) => w.day !== today && !w.subject.startsWith('story:')).at(-1);
+    return last?.subject === 'review' ? { kind: 'subject', subject } : { kind: 'review', ids };
+  }
+  if (ids.length > 0) return { kind: 'review', ids };
+  if (subject) return { kind: 'subject', subject };
+  return { kind: 'none' };
 }
 
 /**
  * Is a warm-up waiting? A new day, none done yet today, and something to do:
- * words and grammar due back for review (session.ts — reviewed instead of a
- * subject), a subject to practise, or a finished story due back for its
- * "Muistatko?" (see storyLog.ts) — that opens the warm-up.
+ * words and grammar due back for review, a subject to practise (see
+ * `warmupPlan`), or a finished story due back for its "Muistatko?" (see
+ * storyLog.ts) — that opens the warm-up.
  */
 export function warmupDue(child: Child | null | undefined, now: number): boolean {
   if (!child) return false;
   if (warmupDoneOn(statsOf(child), dayKey(now))) return false;
-  return (
-    warmupReviewIds(child, now).length > 0 || !!pickWarmupSubject(child, now) || !!dueStoryRevisit(child, now)
-  );
+  return warmupPlan(child, now).kind !== 'none' || !!dueStoryRevisit(child, now);
 }
 
 /** The warm-up subject a child will get, for grown-up displays (same rules). */

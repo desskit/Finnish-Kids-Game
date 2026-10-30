@@ -242,6 +242,8 @@ export const HALF_LIFE_DAYS = 14;
  */
 export const PRIOR_N = 4;
 export const PRIOR_RIGHT = 3;
+/** At least this many answers' worth of evidence (from the lifetime record) once a subject has them. */
+export const EVIDENCE_FLOOR = 8;
 
 export interface Strength {
   /** Smoothed, recency-weighted first-try accuracy (0..1). */
@@ -275,6 +277,16 @@ export function strengthOf(s: SubjectStats, now: number): Strength {
     const w = Math.pow(0.5, Math.max(daysSince, HALF_LIFE_DAYS) / HALF_LIFE_DAYS);
     wN += w * oldN;
     wRight += w * oldRight;
+  }
+  // Old answers fade, but what they showed doesn't vanish: below a floor of
+  // evidence the lifetime record fills in, so months later a subject the
+  // child struggled with still looks weaker than one they had nailed (without
+  // it, every old subject drifts to the same prior and the warm-up can't tell).
+  const floor = Math.min(EVIDENCE_FLOOR, s.n);
+  if (wN < floor && s.n > 0) {
+    const k = floor - wN;
+    wN += k;
+    wRight += k * Math.min(1, s.right / s.n);
   }
   return {
     accuracy: (wRight + PRIOR_RIGHT) / (wN + PRIOR_N),

@@ -208,6 +208,7 @@ describe('daily warm-up', () => {
   };
   const day = (d: number) => dayKey(Date.now() - d * 864e5);
   const weakWords = {
+    readerBand: 'older',
     stats: {
       v: 1,
       days: {},
@@ -226,6 +227,12 @@ describe('daily warm-up', () => {
     expect(cont.getAttribute('href')).toBe('/warmup');
     expect(cont.textContent).toMatch(/today's warm-up · 10 questions/);
     expect(cont.textContent).toMatch(/Unit 2: New words/);
+  });
+
+  it('is shorter for a younger reader', () => {
+    seedChild(progress, {}, course, { ...weakWords, readerBand: 'younger' });
+    renderAt('/');
+    expect(screen.getByRole('link', { name: /Continue/ }).textContent).toMatch(/today's warm-up · 6 questions/);
   });
 
   it('is the course again once today’s warm-up is done', () => {

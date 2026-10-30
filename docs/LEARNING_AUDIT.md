@@ -401,3 +401,68 @@ building and ordering (top level 3). From the Describing unit on, a "type it"
 round joins one round in four, from level 2. It earns stars and the Writer
 achievement but never moves the level or blocks progress.
 
+
+## Part 9 — Pacing: moving on, and coming back to what's weak
+
+A model child now plays the course on the real engine (`src/game/simulate.ts`;
+`npm run sim:progress` prints a year). Each day: the warm-up, then Continue
+until the day's budget. Words fade over time and grow with spaced practice;
+each grammar step has a skill that grows with practice and fades a little.
+Three learners: a steady younger reader, a strong older reader, and a younger
+reader with weak spots (k/p/t changes, into/out of, verb families, dates,
+pronouns, plurals). These are means of five runs.
+
+**What the year showed (before):**
+
+- **Weak areas stopped coming back after the first month.** The warm-up
+  reviewed due words whenever three or more were due — true every day from
+  about day 30 — so its "weakest subject" never came up again. All 14–17
+  subject warm-ups fell in units 1–2.
+- **Old subjects all looked alike.** After about 100 days, every subject drifted
+  to the same score (the 75 % prior plus the time-away bonus), so a step the
+  child struggled with ranked the same as one they had nailed.
+- **"Known" wasn't spaced.** Each right answer moved a word up a box, so five in
+  one sitting made it "known for 16 days".
+- **The review pile grew without end.** For the strong reader, 221 words were due
+  at the year's end, against a warm-up that clears ten.
+- **The warm-up took half a younger reader's day:** 10–12 of their 24 questions.
+
+**What changed:**
+
+- A word moves up a box only when it was due (`srs.ts review`). The top box is
+  30 days.
+- Course rounds favour words that are due (`DUE_WEIGHT`).
+- Once ten or more are due, every fifth round of a step is a quick review of the
+  most overdue (`session.ts flowReviewIds`, in `SkillRoute`).
+- The warm-up takes turns between due review and the weakest step
+  (`warmup.ts warmupPlan`). It prefers grammar to word lists, which the word
+  review covers, and lasts 6 questions for a younger reader or 10 for an older
+  one.
+- Weakness keeps a floor of lifetime evidence (`stats.ts EVIDENCE_FLOOR`).
+- Two perfect rounds in a row move a child up at any course level
+  (`adapt.ts FAST_TRACK_ROUNDS`).
+
+**After a year** (mean of 5 runs; *recall* is the chance of remembering a word
+met so far, *hard steps* the weak-spot steps' skill):
+
+| Learner | Unit reached (before → after) | Recall | Hard steps |
+|---|---|---|---|
+| Steady, younger | 20.6 → 18.0 | 0.77 → 0.82 | 0.40 → 0.57 |
+| Strong, older | 39.6 → 34.2 | 0.61 → 0.68 | 0.52 → 0.45 |
+| Weak spots, younger | 18.0 → 15.6 | 0.78 → 0.83 | 0.43 → 0.72 |
+
+**The trade:** about 13 % slower through new units in exchange for better
+retention and weak areas that keep coming back. Part of the old pace was not
+real, because "mastered" words had only been seen in one sitting. The one
+dial is `FLOW_REVIEW_EVERY` / `FLOW_REVIEW_MIN` in `session.ts`. The model
+child is a model: the numbers are for comparing settings, not predictions
+for a real child.
+
+**Accuracy, every step at every level.** `courseRounds.test.ts` builds each
+course step's rounds from the content its own game is given, at every level it
+climbs to. It checks question by question: one right answer, no tile twice,
+nothing blank, the sourced form, and verbs and tenses within the step and the
+level. `path.test.ts` checks that no step draws a word its unit brings in only
+in a later step. That check caught one: "Count to 20" asked the round tens of
+the step after it. Units now hold back their own words until the words step
+that brings them in.

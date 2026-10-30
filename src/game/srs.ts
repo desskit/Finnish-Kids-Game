@@ -35,7 +35,7 @@ export const BOX_INTERVALS_MS: readonly number[] = [
   1 * DAY, // box 2 — tomorrow
   3 * DAY, // box 3
   7 * DAY, // box 4
-  16 * DAY, // box 5
+  30 * DAY, // box 5
 ];
 
 export const MAX_BOX = 5;
@@ -47,8 +47,11 @@ export function newSchedule(now: number): ItemSchedule {
 
 /**
  * Apply one answer to a schedule and return the next schedule. A correct answer
- * promotes the item one box (capped at MAX_BOX) and pushes its due date out; a
- * wrong answer drops it back to box 1 so it resurfaces immediately. Pass the
+ * to an item that is DUE promotes it one box (capped at MAX_BOX) and pushes its
+ * due date out; a correct answer before then counts (seen, correct) but moves
+ * nothing — so a word answered five times in one sitting is not "known for 16
+ * days": each box has to be earned on a later day, which is what spacing means.
+ * A wrong answer drops it back to box 1 so it resurfaces immediately. Pass the
  * previous schedule, or null/undefined for an item seen for the first time.
  */
 export function review(
@@ -57,10 +60,11 @@ export function review(
   now: number,
 ): ItemSchedule {
   const base = prev ?? newSchedule(now);
-  const box = correct ? Math.min(base.box + 1, MAX_BOX) : 1;
+  const due = isDue(base, now);
+  const box = correct ? (due ? Math.min(base.box + 1, MAX_BOX) : base.box) : 1;
   return {
     box,
-    due: now + BOX_INTERVALS_MS[box],
+    due: correct && !due ? base.due : now + BOX_INTERVALS_MS[box],
     seen: base.seen + 1,
     correct: base.correct + (correct ? 1 : 0),
     lastSeenAt: now,
@@ -150,29 +154,46 @@ export function addHeard(heard: Record<string, number> | undefined, ids: readonl
   return next;
 }
 
+/**
+ * A word due back for review (seen before, due now) is this much likelier than
+ * an unseen one: the course's own rounds do the reviewing as they go — an old
+ * word comes back inside new grammar, not only in a warm-up.
+ */
+export const DUE_WEIGHT = 5;
+
 export interface WeighOptions {
   /** The child's hearing counts (for a production game). */
   heard?: Record<string, number>;
   /** A production game (Name it, Spell it, Say it): favour words ready to produce. */
   production?: boolean;
+  /** When the round starts (what "due" is measured against); default: now. */
+  now?: number;
 }
 
 /**
  * Word-selection bias for the skill games: words the child has already met
- * surface ~3× as often as unseen ones (repetition builds retention), one
- * missed last time ~6×, but unseen words keep flowing in — nothing is
- * excluded, so the vocabulary still grows. In a production game a word not yet
- * heard enough is rare (`productionReady`). Feed the result to
- * `weightedSample` as its weight function. Pure: takes the child's schedule
- * map, returns a per-item weight.
+ * surface ~3× as often as unseen ones (repetition builds retention), one due
+ * back for review ~5×, one missed last time ~6×, but unseen words keep
+ * flowing in — nothing is excluded, so the vocabulary still grows. In a
+ * production game a word not yet heard enough is rare (`productionReady`).
+ * Feed the result to `weightedSample` as its weight function. Takes the
+ * child's schedule map, returns a per-item weight.
  */
 export function familiarityWeigher(
   schedules: Record<string, ItemSchedule> | undefined,
   opts: WeighOptions = {},
 ): (item: { id: string }) => number {
+  const now = opts.now ?? Date.now();
   return (item) => {
     const s = schedules?.[item.id];
-    const base = !s || s.seen === 0 ? 1 : s.box <= 1 && s.correct < s.seen ? MISSED_WEIGHT : FAMILIAR_WEIGHT;
+    const base =
+      !s || s.seen === 0
+        ? 1
+        : s.box <= 1 && s.correct < s.seen
+          ? MISSED_WEIGHT
+          : isDue(s, now)
+            ? DUE_WEIGHT
+            : FAMILIAR_WEIGHT;
     if (opts.production && !productionReady(item.id, schedules, opts.heard)) return base * NOT_READY_WEIGHT;
     return base;
   };

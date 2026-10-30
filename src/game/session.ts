@@ -20,9 +20,9 @@ import { dayKey } from './streak';
 
 /** A round, for the budget: a segment of about six questions. */
 export const QUESTIONS_PER_ROUND = 6;
-/** The warm-up reviews instead of drilling a subject once this many are due. */
+/** The warm-up can be a review once this many are due… */
 export const WARMUP_REVIEW_MIN = 3;
-/** …and asks at most this many of them. */
+/** …and asks at most this many of them (a younger reader's warm-up is shorter: learner.ts). */
 export const WARMUP_REVIEW_MAX = 10;
 
 /** The day's questions for this player (about 8 minutes younger, 12 older). */
@@ -50,8 +50,27 @@ export function dueReviewIds(child: Child | null | undefined, now: number): stri
     .map(([id]) => id);
 }
 
-/** Enough due to make the warm-up a review (at most WARMUP_REVIEW_MAX of them). */
+/** In the course, every this-many-th round of a step is a quick review… */
+export const FLOW_REVIEW_EVERY = 5;
+/** …when at least this many words and grammar points are due back. */
+export const FLOW_REVIEW_MIN = 10;
+
+/**
+ * Review woven into the course: once a backlog builds up (more than a
+ * warm-up clears), every FLOW_REVIEW_EVERY-th round of a step asks a round of
+ * the most overdue items instead — the old come back without stopping the new.
+ * `plays` is the step's rounds so far (persisted, so it works across days and
+ * visits); [] means play the step as usual.
+ */
+export function flowReviewIds(child: Child | null | undefined, plays: number, now: number): string[] {
+  if (plays % FLOW_REVIEW_EVERY !== FLOW_REVIEW_EVERY - 1) return [];
+  const due = dueReviewIds(child, now);
+  return due.length >= FLOW_REVIEW_MIN ? due.slice(0, QUESTIONS_PER_ROUND) : [];
+}
+
+/** Enough due to make the warm-up a review (at most the player's warm-up length of them). */
 export function warmupReviewIds(child: Child | null | undefined, now: number): string[] {
   const due = dueReviewIds(child, now);
-  return due.length >= WARMUP_REVIEW_MIN ? due.slice(0, WARMUP_REVIEW_MAX) : [];
+  const max = Math.min(WARMUP_REVIEW_MAX, learnerKnobs(child).warmupQuestions);
+  return due.length >= WARMUP_REVIEW_MIN ? due.slice(0, max) : [];
 }

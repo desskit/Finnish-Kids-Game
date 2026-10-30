@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import type { Child } from '../state/storage';
 import {
+  FLOW_REVIEW_EVERY,
+  FLOW_REVIEW_MIN,
+  flowReviewIds,
   QUESTIONS_PER_ROUND,
   WARMUP_REVIEW_MAX,
   WARMUP_REVIEW_MIN,
@@ -49,7 +52,9 @@ describe('the warm-up reviews what is due back', () => {
     expect(warmupReviewIds(child({ srs: dueYesterday(words.slice(0, WARMUP_REVIEW_MIN - 1)) }), NOW)).toEqual([]);
     const some = warmupReviewIds(child({ srs: dueYesterday(words.slice(0, WARMUP_REVIEW_MIN)) }), NOW);
     expect(some).toHaveLength(WARMUP_REVIEW_MIN);
-    expect(warmupReviewIds(child({ srs: dueYesterday(words) }), NOW)).toHaveLength(WARMUP_REVIEW_MAX);
+    // A younger reader's warm-up asks 6; an older one's, 10.
+    expect(warmupReviewIds(child({ srs: dueYesterday(words) }), NOW)).toHaveLength(6);
+    expect(warmupReviewIds(child({ srs: dueYesterday(words), readerBand: 'older' }), NOW)).toHaveLength(WARMUP_REVIEW_MAX);
     const fresh = { [words[0]]: review(undefined, true, NOW) };
     expect(dueReviewIds(child({ srs: fresh }), NOW)).toEqual([]);
   });
@@ -65,3 +70,18 @@ describe('the warm-up reviews what is due back', () => {
     expect(warmupDue(c, NOW)).toBe(true);
   });
 });
+
+describe('review woven into the course', () => {
+  const many = reviewItems.slice(0, FLOW_REVIEW_MIN + 2).map((i) => i.id);
+  const dueYesterday = (ids: string[]) => Object.fromEntries(ids.map((id) => [id, review(undefined, true, NOW - DAY)]));
+
+  it(`asks a round of what is due back every ${FLOW_REVIEW_EVERY}th round of a step, once a backlog builds up`, () => {
+    const backlog = child({ srs: dueYesterday(many) });
+    const slots = Array.from({ length: 12 }, (_, plays) => flowReviewIds(backlog, plays, NOW).length);
+    expect(slots.filter((n) => n > 0)).toHaveLength(2);
+    expect(flowReviewIds(backlog, FLOW_REVIEW_EVERY - 1, NOW)).toHaveLength(QUESTIONS_PER_ROUND);
+    // A few due is the warm-up's job, not the course's.
+    expect(flowReviewIds(child({ srs: dueYesterday(many.slice(0, FLOW_REVIEW_MIN - 1)) }), FLOW_REVIEW_EVERY - 1, NOW)).toEqual([]);
+  });
+});
+

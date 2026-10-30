@@ -3,14 +3,17 @@ import type { Child } from '../state/storage';
 import type { StatsState, SubjectStats } from './stats';
 import { dayKey } from './streak';
 import {
-  WARMUP_QUESTIONS,
+  warmupQuestions,
   allSubjects,
   pickWarmupSubject,
   rankSubjects,
   warmupActivity,
   warmupDue,
   warmupLevel,
+  warmupPlan,
 } from './warmup';
+import { review } from './srs';
+import { reviewItems } from '../content';
 import { findSkill } from './path';
 
 const DAY = 864e5;
@@ -76,8 +79,14 @@ describe('subjects', () => {
 
 describe('picking the warm-up subject', () => {
   it('takes the weakest subject', () => {
-    const c = child({ subjects: { greetings: sub(20, 19), 'people-words': sub(20, 9) } });
-    expect(pickWarmupSubject(c, NOW)?.step.id).toBe('people-words');
+    const c = child({ subjects: { greetings: sub(20, 19), introduce: sub(20, 9) } });
+    expect(pickWarmupSubject(c, NOW)?.step.id).toBe('introduce');
+  });
+
+  it('takes the patterns before a word list — words are reviewed one by one already', () => {
+    expect(pickWarmupSubject(child({ subjects: { greetings: sub(20, 17), 'people-words': sub(20, 9) } }), NOW)?.step.id).toBe('greetings');
+    // …but a word list when there is nothing else yet.
+    expect(pickWarmupSubject(child({ subjects: { 'people-words': sub(20, 9) } }), NOW)?.step.id).toBe('people-words');
   });
 
   it('skips the step Continue is about to open', () => {
@@ -86,12 +95,12 @@ describe('picking the warm-up subject', () => {
   });
 
   it('skips yesterday’s subject when that warm-up went well', () => {
-    const subjects = { 'people-words': sub(20, 9), greetings: sub(20, 15) };
+    const subjects = { introduce: sub(20, 9), greetings: sub(20, 15) };
     const went = (right: number) =>
-      child({ subjects, warmups: [{ day: ago(1), subject: 'people-words', right, total: 10, at: 1 }] });
+      child({ subjects, warmups: [{ day: ago(1), subject: 'introduce', right, total: 10, at: 1 }] });
     expect(pickWarmupSubject(went(9), NOW)?.step.id).toBe('greetings');
     // Still shaky yesterday → it stays the warm-up today.
-    expect(pickWarmupSubject(went(5), NOW)?.step.id).toBe('people-words');
+    expect(pickWarmupSubject(went(5), NOW)?.step.id).toBe('introduce');
   });
 
   it('rotates after three warm-ups in a row on the same subject', () => {
@@ -142,8 +151,9 @@ describe('picking the warm-up subject', () => {
 });
 
 describe('playing the warm-up', () => {
-  it('asks at least ten questions', () => {
-    expect(WARMUP_QUESTIONS).toBeGreaterThanOrEqual(10);
+  it('is about a quarter of the day: 6 questions for a younger reader, 10 for an older one', () => {
+    expect(warmupQuestions(child({ subjects: {} }))).toBe(6);
+    expect(warmupQuestions({ ...child({ subjects: {} }), readerBand: 'older' })).toBe(10);
   });
 
   it('plays at the child’s level for that step (or the manual pin)', () => {
@@ -160,3 +170,23 @@ describe('playing the warm-up', () => {
     expect([0, 1, 2].map((n) => warmupActivity(spellRamp, 4, n))).not.toContain('spell');
   });
 });
+
+describe('the warm-up plan', () => {
+  // Words answered right two days ago: box 2, due back now.
+  const dueWords = Object.fromEntries(reviewItems.slice(0, 5).map((i) => [i.id, review(undefined, true, NOW - 2 * DAY)]));
+  const subjects = { introduce: sub(20, 9), greetings: sub(20, 15) };
+
+  it('takes turns between the words due back and the weakest subject, when both wait', () => {
+    const yesterdayReview = child({ subjects, warmups: [{ day: ago(1), subject: 'review', right: 5, total: 5, at: 1 }] }, { srs: dueWords });
+    expect(warmupPlan(yesterdayReview, NOW)).toMatchObject({ kind: 'subject', subject: { step: { id: 'introduce' } } });
+    const yesterdaySubject = child({ subjects, warmups: [{ day: ago(1), subject: 'introduce', right: 5, total: 10, at: 1 }] }, { srs: dueWords });
+    expect(warmupPlan(yesterdaySubject, NOW).kind).toBe('review');
+  });
+
+  it('is the review alone when no subject waits, and the subject alone when nothing is due', () => {
+    expect(warmupPlan(child({}, { srs: dueWords }), NOW).kind).toBe('review');
+    expect(warmupPlan(child({ subjects }), NOW).kind).toBe('subject');
+    expect(warmupPlan(child({}), NOW).kind).toBe('none');
+  });
+});
+

@@ -11,6 +11,7 @@ import {
   MAX_LEVEL,
   MIN_LEVEL,
   RECENT_WINDOW,
+  FAST_TRACK_ROUNDS,
 } from './adapt';
 
 /** Fold a streak of identical-accuracy rounds, stopping at the FIRST level move. */
@@ -263,3 +264,20 @@ describe('windowAccuracy', () => {
     expect(windowAccuracy(undefined)).toBe(0);
   });
 });
+
+describe('the fast track', () => {
+  it(`moves a child on after ${FAST_TRACK_ROUNDS} perfect rounds, even where the level asks for a longer streak`, () => {
+    expect(minRoundsToPromote(3)).toBeGreaterThan(FAST_TRACK_ROUNDS);
+    expect(applyRound(3, [1], 1, 4).level).toBe(4);
+    // One slip in the last two rounds: the usual rule holds.
+    expect(applyRound(3, [1], 5 / 6, 4).level).toBe(3);
+    // The top of a step is proven the same way.
+    expect(provesTop(4, [1, 1], 4)).toBe(true);
+    expect(provesTop(4, [1, 5 / 6], 4)).toBe(false);
+  });
+
+  it('leaves the expert band its grind', () => {
+    expect(applyRound(8, [1], 1, 10).level).toBe(8);
+  });
+});
+
