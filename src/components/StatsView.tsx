@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useProfile } from '../state/profile';
 import type { Child } from '../state/storage';
-import { statsOf, warmupDoneOn } from '../game/stats';
+import { daysAgo, statsOf, warmupDoneOn } from '../game/stats';
 import { dayKey } from '../game/streak';
 import { pickWarmupSubject, subjectRef } from '../game/warmup';
 import { storyById } from '../content/stories';
@@ -31,13 +31,7 @@ const pct = (n: number | undefined) => (n === undefined ? '—' : `${Math.round(
 const minutes = (ms: number | undefined) => Math.round((ms ?? 0) / 60000);
 
 function ago(ms: number | undefined, now: number): string {
-  if (!ms) return 'not yet';
-  const days = Math.floor((now - ms) / DAY);
-  if (days <= 0) return 'today';
-  if (days === 1) return 'yesterday';
-  if (days < 7) return `${days} days ago`;
-  const weeks = Math.floor(days / 7);
-  return weeks === 1 ? 'a week ago' : `${weeks} weeks ago`;
+  return ms ? daysAgo(ms, now) : 'not yet';
 }
 
 const TREND: Record<string, string> = { up: '▲ improving', down: '▼ slipping', flat: '— steady' };

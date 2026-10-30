@@ -1069,6 +1069,7 @@
       "fi": "Takaisin",
       "en": "Back / Back home / Back to notebook / Back to practice / Back to the map",
       "where": [
+        "components/CrashScreen.tsx",
         "components/LessonRoute.tsx",
         "components/ParentGate.tsx",
         "components/ProfilePicker.tsx",
