@@ -34,6 +34,7 @@ import {
 import { itemById } from '../content/lookup';
 import { resolveRef } from '../content/lessons';
 import { finnishLexicon, unknownWords } from '../test/finnishLexicon';
+import { reviewEntries } from '../game/reviewEntries';
 
 // Referential-integrity checks over the hand-authored content. Bad data (a
 // duplicate id, a construction no item can fill, a number with no value) fails
@@ -506,6 +507,20 @@ describe('My day, the weather, out in nature', () => {
     expect(sentenceFor(word('lake'), con('fish-in'))).toBe('Kala on järvessä.');
     expect(sentenceFor(word('tree'), con('bird-in'))).toBe('Lintu on puussa.');
     expect(sentenceFor(word('leaf'), con('butterfly-on'))).toBe('Perhonen on lehdellä.');
+  });
+});
+
+describe('every authored line', () => {
+  it('is made of real Finnish forms — greetings, scenes, stories, questions, math, wrong replies', () => {
+    // The sections a child reads as running Finnish. (Titles and labels have
+    // their own check, which also allows compounds; lessons quote endings and
+    // syllables, and the letters and spoken cards are not words to look up.)
+    const sections = new Set(['dialogues', 'conversations', 'stories', 'questions', 'pronouns', 'ordinals', 'math', 'lines']);
+    const lex = finnishLexicon();
+    const unknown = reviewEntries()
+      .filter((e) => sections.has(e.section))
+      .flatMap((e) => unknownWords(e.fi, lex).map((w) => `${e.key}: ${w}`));
+    expect(unknown).toEqual([]);
   });
 });
 

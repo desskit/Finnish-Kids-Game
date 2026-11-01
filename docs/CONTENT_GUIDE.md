@@ -30,8 +30,13 @@ where a Finnish speaker marks each entry ✓ correct or ✎ needs a fix.
   `src/test/uiFinnish.ts`), then rewrites the review sheet. A test fails if the
   labels file is out of date.
 - Tests check that every authored word is a real form: stories, scenes,
-  titles and labels are all checked against the vendored tables. A real word
-  the tables lack must be listed with its meaning.
+  greetings, "Do you…?" questions, math lines, wrong replies, titles and
+  labels are all checked against the vendored tables. A real word the tables
+  lack must be listed with its meaning.
+- `npm run check:words -- --online` goes one step further: every word of every
+  entry on the review sheet, lessons included, looked up on Wiktionary (via
+  kaikki.org) when the vendored tables don't have it. Run it after writing new
+  Finnish; it should end "0 not found anywhere".
 - The reviewer's downloaded file is merged with
   `npm run review:import <file>.json`:
   - approvals go into `data/finnish-vetted.json`;

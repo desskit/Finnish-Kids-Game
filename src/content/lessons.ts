@@ -736,7 +736,7 @@ export const lessons: Lesson[] = [
         kind: 'explain',
         title: 'Read it like it\'s written',
         text:
-          'Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!\n\nAnd you always press on the **first part** of a word: *KIR-ja*, *PÖY-tä*, *O-pet-ta-ja*. Say the rest lightly.',
+          'Finnish is one of the easiest languages in the world to read out loud. **Each letter keeps its own sound**, and you say every letter you see. No silent letters, like the k in English "knee"! (One small surprise: **nk** sounds just like in English "think": *kenkä*.)\n\nAnd you always press on the **first part** of a word: *KIR-ja*, *PÖY-tä*, *O-pet-ta-ja*. Say the rest lightly.',
       },
       {
         kind: 'examples',
@@ -986,6 +986,17 @@ export const lessons: Lesson[] = [
           { sentence: 'we-have', word: 'dog' },
           { sentence: 'they-have', word: 'computer' },
         ],
+      },
+      {
+        // Two ways into a long, foreign-looking word: it sounds like English,
+        // or it is two short words stuck together. Every word quoted is a
+        // sourced entry; the two splits are Wiktionary's own etymologies
+        // (jalkapallo: a calque of "football"; tietokone: tieto + kone).
+        kind: 'examples',
+        title: 'Words you can work out',
+        text:
+          'Some Finnish words sound almost like English: *piano*, *kitara* (guitar).\n\nAnd lots of long words are two short words stuck together, like building blocks: *jalka* (foot) + *pallo* (ball) = *jalkapallo*, a soccer ball. *tieto* (knowledge) + *kone* (machine) = *tietokone*, a computer!',
+        rows: [{ word: 'piano' }, { word: 'guitar' }, { word: 'football' }, { word: 'computer' }],
       },
       {
         kind: 'check',

@@ -339,3 +339,61 @@ fits the steps around it.
   Each is short, and play now goes from one into the other.
 - The generated sentences have not changed since the last audit; a mechanical
   sweep (articles, doubled words, spacing) found nothing.
+
+## Part 5: is it proper Finnish, and does it reach a young English speaker?
+
+A machine-checked pass over every word and sentence, then a teaching review.
+Every check uses the app's own Wiktionary data (`data/finnish-inflection-drill`,
+`data/wiktionary`) or live Wiktionary (via kaikki.org); nothing was judged
+from memory alone.
+
+### What was checked
+
+| Check | Over | Result |
+| --- | --- | --- |
+| Every word is a real form | 9,955 words in the 2,284 review-sheet entries | All real: 1.5 million sourced forms locally, the rest (small words like *minulla*, *tänään*, the cast's names, letter names) confirmed on Wiktionary; titles split into real words (*metsä* + *retki*) |
+| Every form a game asks for | 15,648 forms in `src/content/data` | All match the source exactly |
+| Agreement and grammar rules | the same entries, plus all 6,209 generated sentences | No errors: verb ↔ subject, *en/et/ei* + the bare verb, numbers + *-a/-ä*, *minun …-ni*, *-ko/-kö* harmony, *ei ole* + *-a* |
+| Each verb's case | every sentence pattern vs Wiktionary's notes on what each verb takes | All right (*pitää/tykätä* + *-sta*, *rakastaa/odottaa/katsoa* + *-a*…) |
+| The "wrong" forms and replies | 86 forms marked wrong, 46 greeting exchanges | None is correct Finnish for its meaning; look-alikes that would be fine (*mökissä* for "at the cottage") are never offered as wrong |
+| English matches Finnish | every line: negation, question, person, tense; every word's English vs Wiktionary's | No mismatches (the 15 differences are US English or kid words: *mom*, *tummy*, *restroom*) |
+| Every rule the app states | 120 "always / never / every / only" claims in lessons and "Why?" tips | All true but one (below) |
+
+### Fixed
+
+| Where | Was | Now |
+| --- | --- | --- |
+| How Finnish sounds, first card | "**Every letter always makes the same sound**" | "Each letter keeps its own sound… (One small surprise: **nk** sounds just like in English "think": *kenkä*.)" — as the alphabet corner already says |
+
+### Added, for a young English speaker
+
+- **Words you can work out** (Who has it? Everyone!, unit 4): some Finnish
+  words sound like English (*piano*, *kitara*), and long ones are often two
+  short words stuck together: *jalka* + *pallo* = *jalkapallo*, *tieto* +
+  *kone* = *tietokone*. Both splits are Wiktionary's own etymologies
+  (*jalkapallo* is a word-for-word copy of "football").
+- **"Why?" tips name a word's own sound change.** Lessons say once that
+  "sometimes the middle of a word changes a little" (*laatikko → laatikossa*,
+  *äiti → äidin*), but a tip after a mistake never pointed it out on the word
+  in front of the child. Now, when the asked-for form changes before its
+  ending, the tip says so with the word's own two sourced forms: "*laukku*
+  changes a little inside, too: *laukussa*. The ending at the very end is
+  what counts." (*-nen* words: "*hevonen* changes its end a little before the
+  ending: *hevosta*".)
+- **A wider word check in the tests**: greetings, "Do you…?" questions, math
+  lines and wrong replies are now checked word by word like stories and
+  scenes. `npm run check:words -- --online` checks every entry, lessons
+  included, against Wiktionary.
+
+### Checked and kept
+
+- *Odotan joulupukkia!* is glossed "I can't wait for Santa!": natural English
+  for a child, and the lesson gives the literal meaning beside it (*Odotan* =
+  I'm waiting for).
+- "Finnish has **no verb for 'have'**" stays: Finnish says *Minulla on* where
+  English says "I have", and that is the point of the card.
+- The younger readers' cards read at about a US grade-3 level (median 2.9),
+  and they are read aloud.
+- Two answers are fixed whatever the child: *Olen seitsemänvuotias* (I'm seven)
+  and *Asun Suomessa* (I live in Finland). The app doesn't know a child's age
+  or home; making these the child's own would need a new setting.

@@ -827,10 +827,14 @@
    "how": "minulla: minä adessive sg · sinulla: sinä adessive sg · hänellä: hän adessive sg · meillä: me adessive pl · teillä: te adessive pl · heillä: he adessive pl"
   },
   "lesson:having-everyone:3": {
+   "fi": "piano · kitara · jalka · pallo · jalkapallo · tieto · kone · tietokone",
+   "how": "piano: piano · kitara: guitar · jalka: leg, foot · pallo: ball · jalkapallo: football, soccer (etymology: calque of English football, jalka + pallo) · tieto: knowledge · kone: machine · tietokone: computer (etymology: tieto + kone)"
+  },
+  "lesson:having-everyone:4": {
    "fi": "meillä",
    "how": "meillä: me adessive pl"
   },
-  "lesson:having-everyone:4": {
+  "lesson:having-everyone:5": {
    "fi": "Hänellä on kitara. · hänellä",
    "how": "hänellä: hän adessive sg · on: olla present sg 3rd person · kitara: guitar"
   },

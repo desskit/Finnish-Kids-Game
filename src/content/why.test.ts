@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { nounConstructions } from './constructions';
 import { formFor, suitsSlot } from './types';
 import { segmentsText } from './endings';
-import { whyForAgreement, whyForConstruction, whyForCount, whyForPossessor, whyForVerb } from './why';
+import { stemChangeNote, whyForAgreement, whyForConstruction, whyForCount, whyForPossessor, whyForVerb } from './why';
 import { itemById } from './lookup';
 import { animals, places, school } from './index';
 
@@ -16,6 +16,28 @@ describe('"Why?" tips', () => {
       const why = whyForConstruction(con, item);
       expect(why.text, con.id).not.toMatch(/Look at the ending/); // a real rule, not the fallback
       expect(segmentsText(why.example!), con.id).toBe(formFor(item, con));
+    }
+  });
+
+  it('point out a word that changes before its ending, using only its own sourced forms', () => {
+    const inIt = nounConstructions.find((c) => c.id === 'in-it')!;
+    const bag = itemById('bag')!; // laukku → laukussa
+    const why = whyForConstruction(inIt, bag);
+    expect(why.text).toContain(`*${bag.fi}* changes a little inside, too: *${formFor(bag, inIt)}*`);
+    // no note when only the last letter differs, or nothing changes
+    expect(stemChangeNote('nimi', 'nimessä')).toBeUndefined();
+    expect(stemChangeNote('talo', 'talossa')).toBeUndefined();
+    expect(stemChangeNote('kirja', 'kirjat')).toBeUndefined();
+    expect(stemChangeNote('täti', 'tädin')).toMatch(/inside/);
+    expect(stemChangeNote('hevonen', 'hevosella')).toMatch(/its end/);
+    // every note quotes two forms the data really has: the word and the form asked for
+    for (const con of nounConstructions) {
+      for (const item of pool) {
+        const form = formFor(item, con);
+        if (!form || !suitsSlot(item, con)) continue;
+        const note = stemChangeNote(item.fi, form);
+        if (note) expect(note, `${con.id} ${item.id}`).toContain(`*${form}*`);
+      }
     }
   });
 

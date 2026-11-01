@@ -146,11 +146,28 @@ const CASE_DEFAULTS: Partial<Record<CaseId, string>> = {
   essive: 'ON a day → **-na / -nä**.',
 };
 
+/**
+ * A word that changes before its ending (*laukku → laukussa*, *täti → tädin*,
+ * *hevonen → hevosella*): a note, so the change doesn't look like a mistake.
+ * Compares two sourced forms; says nothing when only the last letter differs.
+ */
+export function stemChangeNote(base: string, form: string | undefined): string | undefined {
+  if (!form || form.includes(' ') || base.includes(' ')) return undefined;
+  let same = 0;
+  while (same < base.length && same < form.length && base[same] === form[same]) same++;
+  if (same >= base.length - 1) return undefined;
+  return base.endsWith('nen')
+    ? `*${base}* changes its end a little before the ending: *${form}*.`
+    : `*${base}* changes a little inside, too: *${form}*. The ending at the very end is what counts.`;
+}
+
 export function whyForConstruction(con: Construction, item: LexicalItem): Why {
   const form = formFor(item, con);
   const fallback = con.possessor ? POSSESSOR_RULE[con.possessor] : CASE_DEFAULTS[con.case];
+  const rule = CONSTRUCTION_RULES[con.id] ?? fallback ?? 'Look at the ending.';
+  const note = stemChangeNote(item.fi, form);
   return {
-    text: CONSTRUCTION_RULES[con.id] ?? fallback ?? 'Look at the ending.',
+    text: note ? `${rule}\n\n${note}` : rule,
     example: form
       ? con.possessor
         ? possessiveSegments(form, con.possessor)
