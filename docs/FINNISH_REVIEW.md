@@ -1,10 +1,10 @@
 # Finnish content review sheet
 
-- Generated: 2026-10-30T00:29:17.307Z · regenerate with `npm run review:content`
+- Generated: 2026-11-01T04:19:35.432Z · regenerate with `npm run review:content`
 - ⚠️ = awaiting native review · ✅ = approved · 📖 = checked against Wiktionary · 🚩 = flagged by the reviewer (their note follows the Finnish).
 - Approve here by adding a **Key** to `data/finnish-vetted.json`, or in the app (Grown-ups → Finnish check),
   then `npm run review:import <downloaded review>.json`.
-- **Approved: 28 of 2283 entries. Checked against Wiktionary: 1223. Left for the native reviewer: 1032.** Flagged: 0.
+- **Approved: 28 of 2284 entries. Checked against Wiktionary: 1224. Left for the native reviewer: 1032.** Flagged: 0.
 - 📖 entries are short enough for a dictionary to settle — a word, a form, a letter name, a short label or pattern
   whose every word is a Wiktionary form in the grammar used. The evidence for each is in
   `data/finnish-wiktionary-checked.json`; 📝 notes say why a dictionary couldn't settle an entry. A native reviewer's
@@ -24,7 +24,7 @@ and its **Where** menu shows one unit at a time.
 | Unit 1: Hello! (*Hei!*) | 42 | 21 | Scenes, turn by turn 3, Stories 7, Finnish in the lessons 1, Other lines (wrong replies) 10 |
 | Unit 2: People & things (*Kuka? Mikä?*) | 35 | 21 | Scenes, turn by turn 7, Stories 12, Forms marked wrong 2 |
 | Unit 3: Numbers (*Numerot*) | 31 | 21 | Scenes, turn by turn 7, Stories 10, Other lines (wrong replies) 4 |
-| Unit 4: I have (*Minulla on*) | 48 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
+| Unit 4: I have (*Minulla on*) | 49 | 25 | Scenes, turn by turn 7, Stories 10, Forms marked wrong 5, Other lines (wrong replies) 3 |
 | Unit 5: Not having (*Ei ole*) | 27 | 14 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1 |
 | Unit 6: Whose? (*Kenen?*) | 33 | 19 | Scenes, turn by turn 3, Stories 11, Forms marked wrong 3, Other lines (wrong replies) 2 |
 | Unit 7: Mom's bike (*Äidin pyörä*) | 29 | 16 | Scenes, turn by turn 3, Stories 10, Forms marked wrong 1, Other lines (wrong replies) 2 |
@@ -1321,13 +1321,13 @@ _Letter names and sound tips._
 | 📖 | Everywhere | `letter:ä` | Ää — "ää" | Like the a in "cat". |
 | 📖 | Everywhere | `letter:ö` | Öö — "öö" | Like the u in "fur" without the r, with round lips. |
 
-## Finnish in the lessons (333)
+## Finnish in the lessons (334)
 
 _Words quoted in the explanations._
 
 | Status | Where | Key | Finnish | English |
 | --- | --- | --- | --- | --- |
-| ⚠️ | Unit 1 | `lesson:sounds:1` | KIR-ja · PÖY-tä · O-pet-ta-ja | How Finnish sounds — Read it like it's written |
+| ⚠️ | Unit 1 | `lesson:sounds:1` | kenkä · KIR-ja · PÖY-tä · O-pet-ta-ja | How Finnish sounds — Read it like it's written |
 | 📖 | Unit 1 | `lesson:sounds:5` | nimesi · nimeni · nimi | How Finnish sounds — Saying who you are |
 | 📖 | Unit 1 | `lesson:sounds:6` | tuuli · tuli · tulli | How Finnish sounds — check |
 | 📖 | Unit 1 | `lesson:sounds:7` | Hyvää yötä! | How Finnish sounds — check |
@@ -1347,8 +1347,9 @@ _Words quoted in the explanations._
 | 📖 | Unit 4 | `lesson:having:4` | Sinulla on pallo. · sinulla | How to say "I have" — check |
 | 📖 | Unit 4 | `lesson:having:5` | minulla | How to say "I have" — check |
 | 📖 | Unit 4 | `lesson:having-everyone:1` | minulla · sinulla · hänellä · meillä · teillä · heillä | Who has it? Everyone! — Everyone gets -lla / -llä |
-| 📖 | Unit 4 | `lesson:having-everyone:3` | meillä | Who has it? Everyone! — check |
-| 📖 | Unit 4 | `lesson:having-everyone:4` | Hänellä on kitara. · hänellä | Who has it? Everyone! — check |
+| 📖 | Unit 4 | `lesson:having-everyone:3` | piano · kitara · jalka · pallo · jalkapallo · tieto · kone · tietokone | Who has it? Everyone! — Words you can work out |
+| 📖 | Unit 4 | `lesson:having-everyone:4` | meillä | Who has it? Everyone! — check |
+| 📖 | Unit 4 | `lesson:having-everyone:5` | Hänellä on kitara. · hänellä | Who has it? Everyone! — check |
 | 📖 | Unit 5 | `lesson:negation-object:1` | on · ei ole | Saying you don't have it — "is" becomes "is not" |
 | 📖 | Unit 5 | `lesson:negation-object:3` | kaksi | Saying you don't have it — Why? |
 | 📖 | Unit 5 | `lesson:negation-object:5` | ei ole · pyörää | Saying you don't have it — check |
