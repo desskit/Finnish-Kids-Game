@@ -20,8 +20,11 @@ export default function StepDone({ next, onGo }: { next: Advance; onGo: () => vo
         <Art glyph="🌟" motion="loop" />
       </div>
       <h1 className="title">
-        Hienoa! <span className="en">Step done!</span>
+        Hienoa! <span className="en">{next.tomorrow ? 'Top level passed!' : 'Step done!'}</span>
       </h1>
+      {next.tomorrow && (
+        <p className="checkpoint__text en">One more go tomorrow finishes it. Sleeping on it helps it stick.</p>
+      )}
       <p className="checkpoint__text">
         <span className="en">Next:</span> {next.titleFi} <span className="en">{next.titleEn}</span>
       </p>

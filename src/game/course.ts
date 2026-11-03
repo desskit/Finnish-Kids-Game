@@ -33,6 +33,7 @@
 //   - A grown-up's `unlockAll` setting opens every unit and step.
 
 import type { Child } from '../state/storage';
+import { dayKey } from './streak';
 import {
   PATH,
   activitiesUpTo,
@@ -107,8 +108,36 @@ export function topLevel(step: SkillNode): number {
   return step.maxLevel ?? 4;
 }
 
-export function stepDone(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
+/** Has the step's top level been proven? (It may still wait for a second day: `stepDone`.) */
+export function stepProven(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
   return !!child?.progress?.[unit.id]?.[step.id]?.topProvenAt;
+}
+
+/** Steps that finish in one go: a story (read well once) and a bonus step. */
+const sleptOn = (step: SkillNode) => step.activity !== 'story' && !step.optional;
+
+/**
+ * Sleep on it: a step is done once its top level is proven AND it has been
+ * played on two different days, so it is recalled at least once after a
+ * night's sleep (sleep consolidates children's new words: Williams & Horst
+ * 2014; Henderson et al. 2012). A step from a save made before this rule (no
+ * `firstPlayedAt`) counts as slept on, so nothing relocks.
+ */
+export function stepDone(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
+  const p = child?.progress?.[unit.id]?.[step.id];
+  if (!p?.topProvenAt) return false;
+  return !sleptOn(step) || !p.firstPlayedAt || dayKey(p.firstPlayedAt) !== dayKey(p.lastPlayed);
+}
+
+/** Proven, and waiting for a second day to be done. */
+export function stepWaiting(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
+  return stepProven(child, unit, step) && !stepDone(child, unit, step);
+}
+
+/** Waiting, and that second day is today: one more round finishes it. */
+export function stepDueAgain(child: Child | null | undefined, unit: Unit, step: SkillNode, now: number): boolean {
+  const p = child?.progress?.[unit.id]?.[step.id];
+  return !!p && stepWaiting(child, unit, step) && dayKey(p.lastPlayed) !== dayKey(now);
 }
 
 export function allStepsDone(child: Child | null | undefined, unit: Unit): boolean {
@@ -117,7 +146,7 @@ export function allStepsDone(child: Child | null | undefined, unit: Unit): boole
 
 /** Has a bonus step been offered (or played)? Continue moves past it then. */
 export function extraOffered(child: Child | null | undefined, unit: Unit, step: SkillNode): boolean {
-  return !!child?.course?.extrasSeen?.[step.id] || !!child?.progress?.[unit.id]?.[step.id] || stepDone(child, unit, step);
+  return !!child?.course?.extrasSeen?.[step.id] || !!child?.progress?.[unit.id]?.[step.id] || stepProven(child, unit, step);
 }
 
 /** Is the unit itself finished? (Mestari, with no checkpoint, never is.) */
@@ -248,8 +277,8 @@ export function midLessonStatus(
   if (unlockAll || unitComplete(child, unit)) return 'open';
   if (unitStatus(child, unit) === 'locked' || !lessonSeen(child, unit.lessonId)) return 'locked';
   const at = unit.skills.findIndex((s) => s.id === ml.before);
-  // A bonus step on the way never holds it back.
-  return unit.skills.slice(0, at).every((s) => s.optional || stepDone(child, unit, s)) ? 'open' : 'locked';
+  // A bonus step on the way never holds it back; a step waiting for tomorrow doesn't either.
+  return unit.skills.slice(0, at).every((s) => s.optional || stepProven(child, unit, s)) ? 'open' : 'locked';
 }
 
 export function checkpointStatus(
@@ -264,26 +293,35 @@ export function checkpointStatus(
 }
 
 export type NextAction =
-  | { kind: 'opener'; unit: Unit; storyId: string }
+  /** `preview`: the NEXT unit's story, heard while this one waits for tomorrow. */
+  | { kind: 'opener'; unit: Unit; storyId: string; preview?: boolean }
   | { kind: 'lesson'; unit: Unit; lessonId: string }
   | { kind: 'step'; unit: Unit; step: SkillNode }
-  | { kind: 'checkpoint'; unit: Unit };
+  | { kind: 'checkpoint'; unit: Unit }
+  /** Everything left in the unit waits for tomorrow (sleep on it). */
+  | { kind: 'tomorrow'; unit: Unit };
 
 /**
  * The one thing to do next — the home screen's "Continue" button. In the first
- * unfinished unit: its opener, else its first unfinished step (with the lesson
- * read once the first step is done, and a part-way lesson when reached), else
- * its checkpoint. Once every checkpoint is passed it points into Mestari, at
- * its least-practised step.
+ * unfinished unit: its opener; then a step waiting from an earlier day (one
+ * more round finishes it, after a night's sleep); else its first step not yet
+ * proven (with the lesson read once the first step is done, and a part-way
+ * lesson when reached); else its checkpoint. While the rest of the unit waits
+ * for tomorrow, the next unit's story is offered as a peek ahead, then
+ * nothing more today. Once every checkpoint is passed it points into Mestari,
+ * at its least-practised step.
  */
-export function nextAction(child: Child | null | undefined): NextAction {
+export function nextAction(child: Child | null | undefined, now = Date.now()): NextAction {
   const units = unitsFor(child);
-  for (const unit of units) {
+  for (const [ui, unit] of units.entries()) {
     if (unitComplete(child, unit)) continue;
     const storyId = openerStoryId(unit);
     if (storyId && !openerHeard(child, unit)) return { kind: 'opener', unit, storyId };
-    // The first unfinished step — a bonus step only until it has been offered once.
-    const step = unit.skills.find((s) => (s.optional ? !extraOffered(child, unit, s) : !stepDone(child, unit, s)));
+    // A step played on an earlier day and proven: recall it now. Else the first
+    // step not yet proven — a bonus step only until it has been offered once.
+    const step =
+      unit.skills.find((s) => stepDueAgain(child, unit, s, now)) ??
+      unit.skills.find((s) => (s.optional ? !extraOffered(child, unit, s) : !stepProven(child, unit, s)));
     if (step) {
       // Past the first step: notice the pattern before going on.
       if (stepAt(unit, step) >= lessonAt(unit) && !lessonSeen(child, unit.lessonId)) {
@@ -295,7 +333,17 @@ export function nextAction(child: Child | null | undefined): NextAction {
       return { kind: 'step', unit, step };
     }
     if (!lessonSeen(child, unit.lessonId)) return { kind: 'lesson', unit, lessonId: unit.lessonId };
-    if (hasCheckpoint(unit)) return { kind: 'checkpoint', unit };
+    if (hasCheckpoint(unit)) {
+      if (allStepsDone(child, unit)) return { kind: 'checkpoint', unit };
+      // Everything proven, some of it today: it waits for tomorrow. Meanwhile,
+      // a peek at the next unit's story.
+      const ahead = units[ui + 1];
+      const aheadStory = ahead && openerStoryId(ahead);
+      if (ahead && aheadStory && !openerHeard(child, ahead)) {
+        return { kind: 'opener', unit: ahead, storyId: aheadStory, preview: true };
+      }
+      return { kind: 'tomorrow', unit };
+    }
     // An open-ended unit with everything "done": keep climbing its lowest step.
     const lowest = [...unit.skills].sort(
       (a, b) => stepLevel(child, unit, a) - stepLevel(child, unit, b),
@@ -317,6 +365,8 @@ export function actionHref(a: NextAction): string {
       return `/skill/${a.step.id}`;
     case 'checkpoint':
       return `/checkpoint/${a.unit.id}`;
+    case 'tomorrow':
+      return '/';
   }
 }
 
@@ -449,7 +499,7 @@ export function stepAfterLesson(lessonId: string, child?: Child | null): SkillNo
   if (!unit) return undefined;
   const ml = unit.midLessons?.find((m) => m.lessonId === lessonId);
   if (ml) return unit.skills.find((s) => s.id === ml.before);
-  return unit.skills.find((s) => !stepDone(child, unit, s)) ?? unit.skills[lessonAt(unit)] ?? unit.skills[0];
+  return unit.skills.find((s) => !stepProven(child, unit, s)) ?? unit.skills[lessonAt(unit)] ?? unit.skills[0];
 }
 
 /**

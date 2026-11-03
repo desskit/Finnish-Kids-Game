@@ -27,7 +27,9 @@ import {
   openerStatus,
   openerStoryId,
   stepLevel,
+  stepDueAgain,
   stepStatus,
+  stepWaiting,
   unitStatus,
   unitsCompleted,
   unitsFor,
@@ -167,6 +169,19 @@ export default function CourseHome() {
             )}
           </span>
         </Link>
+      ) : next.kind === 'tomorrow' ? (
+        // The rest of the unit waits for a night's sleep (course.ts stepDone).
+        <div className="continue-cta continue-cta--rest" role="status">
+          <span className="continue-cta__icon" aria-hidden="true">
+            <Art glyph="🌟" />
+          </span>
+          <span className="continue-cta__label">
+            <span className="continue-cta__title">
+              Hienoa työtä tänään! <span className="en">Great work today</span>
+            </span>
+            <span className="continue-cta__what">{describe(next, units)}</span>
+          </span>
+        </div>
       ) : (
         <Link className="continue-cta" to={actionHref(next)}>
           <span className="continue-cta__icon" aria-hidden="true">
@@ -384,6 +399,10 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
                     ? 'Bonus: a Finnish sounds game (needs sound)'
                     : st === 'done'
                     ? `All ${top} levels passed`
+                    : stepDueAgain(activeChild, unit, step, Date.now())
+                    ? 'Passed! One more go today finishes it'
+                    : stepWaiting(activeChild, unit, step)
+                    ? 'Passed! Play it once more tomorrow to finish'
                     : lvl >= top
                       ? `Top level ${top} — pass it to finish the step`
                       : `Level ${lvl} of ${top}`}
@@ -528,12 +547,16 @@ function describe(a: NextAction, units: readonly Unit[]): string {
   const n = units.findIndex((u) => u.id === a.unit.id) + 1;
   switch (a.kind) {
     case 'opener':
-      return `Unit ${n} · Listen first: ${storyById[a.storyId]?.titleEn ?? a.unit.titleEn}`;
+      return a.preview
+        ? `Unit ${n} · A peek ahead: ${storyById[a.storyId]?.titleEn ?? a.unit.titleEn}`
+        : `Unit ${n} · Listen first: ${storyById[a.storyId]?.titleEn ?? a.unit.titleEn}`;
     case 'lesson':
       return `Unit ${n} · Lesson: ${lessonById[a.lessonId]?.titleEn ?? a.unit.titleEn}`;
     case 'step':
       return `Unit ${n} · ${a.step.titleEn}`;
     case 'checkpoint':
       return `Unit ${n} · Checkpoint`;
+    case 'tomorrow':
+      return `Unit ${n} carries on tomorrow. Sleeping on it helps it stick.`;
   }
 }

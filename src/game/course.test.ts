@@ -23,6 +23,9 @@ import {
   orderOf,
   unitsFor,
   unitIndex,
+  stepDone,
+  stepWaiting,
+  midLessonStatus,
 } from './course';
 import { YOUNGER_ORDER, pathFor } from './path';
 import { placeChildAt } from './placement';
@@ -396,5 +399,84 @@ describe('two course orders (younger and older readers)', () => {
     expect(unitStatus(at, findUnit('describing', at)!)).toBe('done');
     expect(unitStatus(at, findUnit('whose', at)!)).not.toBe('done');
     expect(nextAction(at)).toMatchObject({ kind: 'opener', unit: { id: 'feelings' } });
+  });
+});
+
+describe('sleep on it: a step is done after play on two different days', () => {
+  const DAY = 86_400_000;
+  const T = new Date(2026, 10, 3, 17).getTime();
+  const younger = (over: Partial<Child> = {}) => child({ readerBand: 'younger', ...over });
+  const at = (id: string) => findUnit(id, younger())!;
+  // a unit with its opener heard and lesson read; `steps` maps step index → progress
+  const inUnit = (unitId: string, steps: Record<number, object>, extra: Partial<Child> = {}) => {
+    const u = at(unitId);
+    const before = unitsFor(younger()).slice(0, unitIndex(unitId, younger())).map((x) => x.id);
+    return younger({
+      course: { checkpoints: passed(...before), openersHeard: { [unitId]: T - 3 * DAY }, lessonsSeen: { [u.lessonId]: 1 } },
+      progress: { [unitId]: Object.fromEntries(Object.entries(steps).map(([i, p]) => [u.skills[Number(i)].id, p])) },
+      ...extra,
+    });
+  };
+  const provenOn = (first: number, last: number) => ({ ...prog(3), firstPlayedAt: first, lastPlayed: last, topProvenAt: last });
+
+  it('a step proven on the day it was first played waits for tomorrow; Continue goes on to the next one', () => {
+    const u = at('people');
+    const c = inUnit('people', { 0: provenOn(T, T) });
+    expect(stepDone(c, u, u.skills[0])).toBe(false);
+    expect(stepWaiting(c, u, u.skills[0])).toBe(true);
+    expect(stepStatus(c, u, u.skills[0])).toBe('open');
+    expect(nextAction(c, T)).toMatchObject({ kind: 'step', step: { id: u.skills[1].id } });
+  });
+
+  it('next day, Continue brings the waiting step back first, and one round there finishes it', () => {
+    const u = at('people');
+    const c = inUnit('people', { 0: provenOn(T, T) });
+    expect(nextAction(c, T + DAY)).toMatchObject({ kind: 'step', step: { id: u.skills[0].id } });
+    const played = inUnit('people', { 0: provenOn(T, T + DAY) });
+    expect(stepDone(played, u, u.skills[0])).toBe(true);
+  });
+
+  it('a step played one day and proven the next is done at once', () => {
+    const u = at('people');
+    expect(stepDone(inUnit('people', { 0: provenOn(T - DAY, T) }), u, u.skills[0])).toBe(true);
+  });
+
+  it('keeps saves from before the rule (no first-played time) done, and stories and bonus steps finish in one go', () => {
+    const u = at('people');
+    expect(stepDone(inUnit('people', { 0: { ...prog(3), lastPlayed: T, topProvenAt: T } }), u, u.skills[0])).toBe(true);
+    const withStory = UNITS.find((x) => x.skills.some((s) => s.activity === 'story'))!;
+    const story = withStory.skills.find((s) => s.activity === 'story')!;
+    const kid = child({ progress: { [withStory.id]: { [story.id]: provenOn(T, T) } } });
+    expect(stepDone(kid, withStory, story)).toBe(true);
+  });
+
+  it('opens the checkpoint only once every step is done, and meanwhile offers a peek at the next unit’s story', () => {
+    const u = at('people');
+    const all = Object.fromEntries(u.skills.map((s, i) => [i, s.activity === 'story' ? provenOn(T, T) : provenOn(T, T)]));
+    const today = inUnit('people', all);
+    expect(checkpointStatus(today, u)).toBe('locked');
+    const next = unitsFor(today)[unitIndex('people', today) + 1];
+    expect(nextAction(today, T)).toMatchObject({ kind: 'opener', unit: { id: next.id }, preview: true });
+    // the story heard: nothing more today
+    const heard = { ...today, course: { ...today.course, openersHeard: { ...today.course!.openersHeard, [next.id]: T } } };
+    expect(nextAction(heard, T)).toMatchObject({ kind: 'tomorrow', unit: { id: 'people' } });
+    expect(actionHref(nextAction(heard, T))).toBe('/');
+    // tomorrow: each step once more, then the checkpoint
+    expect(nextAction(heard, T + DAY).kind).toBe('step');
+    const slept = inUnit('people', Object.fromEntries(u.skills.map((_, i) => [i, provenOn(T, T + DAY)])));
+    expect(checkpointStatus(slept, u)).toBe('open');
+    expect(nextAction(slept, T + DAY).kind).toBe('checkpoint');
+  });
+
+  it('a part-way lesson opens once the steps before it are proven, without waiting a day', () => {
+    const v4 = UNITS.find((u) => u.id === 'verbs-4')!;
+    const ml = v4.midLessons![0];
+    const before = v4.skills.slice(0, v4.skills.findIndex((s) => s.id === ml.before));
+    const prior = UNITS.slice(0, UNITS.indexOf(v4)).map((u) => u.id);
+    const c = child({
+      course: { checkpoints: passed(...prior), lessonsSeen: { [v4.lessonId]: 1 } },
+      progress: { [v4.id]: Object.fromEntries(before.map((s) => [s.id, provenOn(T, T)])) },
+    });
+    expect(midLessonStatus(c, v4, ml)).toBe('open');
   });
 });

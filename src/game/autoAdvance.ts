@@ -5,7 +5,7 @@
 
 import type { Child } from '../state/storage';
 import { unlockAllFor } from '../state/storage';
-import { actionHref, nextAction, type NextAction } from './course';
+import { actionHref, findUnit, nextAction, stepDone, stepWaiting, type NextAction } from './course';
 import { mathActionHref, nextMathAction, type MathAction } from './mathCourse';
 import { lessonById } from '../content/lessons';
 import { storyById } from '../content/stories';
@@ -15,6 +15,8 @@ export interface Advance {
   href: string;
   titleFi: string;
   titleEn: string;
+  /** The step is proven but waits for a second day to be done (course.ts `stepDone`). */
+  tomorrow?: boolean;
 }
 
 const proven = (child: Child | null | undefined, unitId: string, stepId: string) =>
@@ -34,6 +36,8 @@ function courseTitle(a: NextAction): { titleFi: string; titleEn: string } {
       return { titleFi: a.step.titleFi, titleEn: a.step.titleEn };
     case 'checkpoint':
       return { titleFi: 'Välitesti', titleEn: `Checkpoint · ${a.unit.titleEn}` };
+    case 'tomorrow':
+      return { titleFi: 'Koti', titleEn: `Home — “${a.unit.titleEn}” carries on tomorrow` };
   }
 }
 
@@ -62,15 +66,23 @@ export function advanceAfter(
   stepId: string,
   math = false,
 ): Advance | null {
-  if (!after || proven(before, unitId, stepId) || !proven(after, unitId, stepId)) return null;
+  if (!after) return null;
   const here = `/skill/${stepId}`;
   if (math) {
+    if (proven(before, unitId, stepId) || !proven(after, unitId, stepId)) return null;
     const a = nextMathAction(after, unlockAllFor(after));
     if (!a || mathActionHref(a) === here) return null;
     return { href: mathActionHref(a), ...mathTitle(a) };
   }
+  // A course step moves on when it is proven (first day) or done (its round on a later day).
+  const unit = findUnit(unitId, after);
+  const step = unit?.skills.find((s) => s.id === stepId);
+  if (!unit || !step) return null;
+  const justProven = !proven(before, unitId, stepId) && proven(after, unitId, stepId);
+  const justDone = !stepDone(before, unit, step) && stepDone(after, unit, step);
+  if (!justProven && !justDone) return null;
   const a = nextAction(after);
   const href = actionHref(a);
   if (href === here) return null;
-  return { href, ...courseTitle(a) };
+  return { href, ...courseTitle(a), ...(stepWaiting(after, unit, step) ? { tomorrow: true } : {}) };
 }

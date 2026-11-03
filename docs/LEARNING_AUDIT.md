@@ -571,3 +571,45 @@ second year. The theme
 units are bigger, so fewer units are passed. The older order's numbers are
 unchanged apart from small shifts from the moved steps. As in Part 9, the
 model child is a model: the numbers are for comparing orders, not predictions.
+
+## Part 11 — Sleep on it
+
+**What was massed.** Continue kept a child on a step until its top level was
+proven, often in one sitting, and the checkpoint came straight after the last
+step, sometimes in the same session. Nothing asked for recall after a night's
+sleep, though sleep is when children's new words settle (Williams & Horst
+2014; Henderson et al. 2012), and recall after a delay is the desirable
+difficulty that makes learning last.
+
+**The change.**
+
+- **A step is done** once its top level is proven *and* it has been played on
+  two different days (`course.ts stepDone`). The time of a step's first round
+  is kept (`ActivityProgress.firstPlayedAt`). A step played on one day and
+  proven the next is done at once. Stories (finished by one good read) and the
+  optional sounds steps are exempt. So is any step from a save made before
+  this, which has no first-round time, so nothing relocks.
+- **Continue** brings a step waiting from an earlier day back first, at the
+  start of the next session, and one round there finishes it. A step proven
+  today doesn't hold the child up: Continue goes on to the next one, and a
+  part-way lesson opens once the steps before it are proven.
+- **The checkpoint** opens once every step is done, so it always comes on a
+  later day than the unit's last new practice.
+- **While the rest of a unit waits for tomorrow,** Continue offers the next
+  unit's story as a peek ahead. After that the home screen says *Hienoa työtä
+  tänään!* and that the unit carries on tomorrow. The step-done card says
+  "Top level passed! One more go tomorrow finishes it."
+- The math path (Lasketaan!) keeps its own rule: a stage's step is done when
+  proven.
+
+**What it costs** (same model as Part 10, mean of 5 runs, after a year):
+
+| Learner | Unit reached | Recall | Due for review |
+|---|---|---|---|
+| Steady, younger | 13.6 → 13.6 | 0.82 → 0.82 | 51 → 46 |
+| Strong, older | 33.2 → 32.0 | 0.70 → 0.74 | 175 → 157 |
+| Weak spots, younger | 12.2 → 12.2 | 0.81 → 0.82 | 50 → 48 |
+
+A younger reader's short sessions already spread a unit's steps over days, so
+the rule costs them nothing. A strong older reader, who often proved several
+steps in one sitting, goes about one unit a year slower and remembers more.

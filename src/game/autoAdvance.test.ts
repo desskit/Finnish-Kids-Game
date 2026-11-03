@@ -52,3 +52,26 @@ describe('going on when a step is finished', () => {
     expect(advanceAfter(finished, finished, 'hello', 'greetings')).toBeNull();
   });
 });
+
+describe('sleeping on a step', () => {
+  const DAY = 86_400_000;
+  const T = new Date(2026, 10, 3, 17).getTime();
+  const lessonsSeen = { sounds: 1 };
+  const course = { lessonsSeen, checkpoints: {}, openersHeard: { hello: 1 } };
+
+  it('a step proven today goes on to the next one, saying it finishes tomorrow', () => {
+    const before = kid({ progress: { hello: { greetings: { ...playing, firstPlayedAt: T, lastPlayed: T } } }, course });
+    const after = kid({ progress: { hello: { greetings: { ...done, firstPlayedAt: T, lastPlayed: T, topProvenAt: T } } }, course });
+    const next = advanceAfter(before, after, 'hello', 'greetings');
+    expect(next).toMatchObject({ href: '/skill/introduce', tomorrow: true });
+  });
+
+  it('its round the next day finishes it, and play goes on', () => {
+    const waiting = { ...done, firstPlayedAt: T, lastPlayed: T, topProvenAt: T };
+    const before = kid({ progress: { hello: { greetings: waiting } }, course });
+    const after = kid({ progress: { hello: { greetings: { ...waiting, lastPlayed: T + DAY } } }, course });
+    const next = advanceAfter(before, after, 'hello', 'greetings');
+    expect(next?.href).toBe('/skill/introduce');
+    expect(next?.tomorrow).toBeUndefined();
+  });
+});

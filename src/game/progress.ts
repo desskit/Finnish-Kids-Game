@@ -35,6 +35,8 @@ export function recordRoundOnChild(
    * stories read well) — the step is done now, whatever the level says.
    */
   proven = false,
+  /** When the round finished (the simulator's clock; the app's is now). */
+  now = Date.now(),
 ): Child {
   const topic = child.progress[topicId] ?? {};
   const prev = topic[activityId];
@@ -45,10 +47,11 @@ export function recordRoundOnChild(
       bestStars: prev?.bestStars ?? 0,
       totalStars: (prev?.totalStars ?? 0) + stars,
       totalPossible: prev?.totalPossible ?? 0,
-      lastPlayed: Date.now(),
+      lastPlayed: now,
       level: prev?.level ?? 1,
       recent: prev?.recent ?? [],
       ...(prev?.topProvenAt ? { topProvenAt: prev.topProvenAt } : {}),
+      ...(prev ? (prev.firstPlayedAt ? { firstPlayedAt: prev.firstPlayedAt } : {}) : { firstPlayedAt: now }),
       bonus: { plays: b.plays + 1, right: b.right + stars, total: b.total + total },
     };
     return { ...child, progress: { ...child.progress, [topicId]: { ...topic, [activityId]: entry } } };
@@ -57,17 +60,19 @@ export function recordRoundOnChild(
   const adapt = applyRound(prev?.level ?? 1, prev?.recent ?? [], accuracy, maxLevel);
 
   const entry: ActivityProgress = {
+    // the first round's time (a step from an older save keeps none: course.ts stepDone)
+    ...(prev ? (prev.firstPlayedAt ? { firstPlayedAt: prev.firstPlayedAt } : {}) : { firstPlayedAt: now }),
     plays: (prev?.plays ?? 0) + 1,
     bestStars: Math.max(prev?.bestStars ?? 0, stars),
     totalStars: (prev?.totalStars ?? 0) + stars,
     totalPossible: (prev?.totalPossible ?? 0) + total,
-    lastPlayed: Date.now(),
+    lastPlayed: now,
     level: adapt.level,
     recent: adapt.recent,
     ...(prev?.bonus ? { bonus: prev.bonus } : {}),
   };
   const provenAt =
-    prev?.topProvenAt ?? (proven || provesTop(adapt.level, adapt.recent, maxLevel) ? Date.now() : undefined);
+    prev?.topProvenAt ?? (proven || provesTop(adapt.level, adapt.recent, maxLevel) ? now : undefined);
   if (provenAt) entry.topProvenAt = provenAt;
 
   return {

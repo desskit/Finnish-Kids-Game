@@ -49,6 +49,11 @@ Finnish** — the app never generates or inflects Finnish by rule.
   and the verbs; older readers (8–10) keep the original order. Every unit uses
   only what comes before it in both orders, which a test checks
   ([`docs/LEARNING_AUDIT.md`](docs/LEARNING_AUDIT.md), Part 10).
+- **Sleep on it.** A step is done once its top level is passed and it has
+  been played on two different days; the next session brings it back first,
+  and the unit's checkpoint comes on a later day than its last new practice.
+  While the rest of a unit waits for tomorrow, Continue offers the next unit's
+  story as a peek ahead ([`docs/LEARNING_AUDIT.md`](docs/LEARNING_AUDIT.md), Part 11).
 - **A short day, spaced and mixed** (`src/game/session.ts`). A new day's first
   Continue is the warm-up (6 questions for a younger reader, 10 for an older
   one): a story due back for "Muistatko?" (a day, three days and a week after

@@ -101,7 +101,13 @@ export function placeChildAt(child: Child, place: CoursePlace, now = Date.now())
 export function currentPlace(child: Child | null | undefined): CoursePlace {
   const a = nextAction(child);
   if (a.kind === 'step') return { unitId: a.unit.id, target: { kind: 'step', stepId: a.step.id } };
-  if (a.kind === 'checkpoint') return { unitId: a.unit.id, target: { kind: 'checkpoint' } };
+  if (a.kind === 'checkpoint' || a.kind === 'tomorrow') return { unitId: a.unit.id, target: { kind: 'checkpoint' } };
+  if (a.kind === 'opener' && a.preview) {
+    // a peek at the next unit's story while this one waits for tomorrow: the place is this one's checkpoint
+    const units = unitsFor(child);
+    const here = units[units.findIndex((u) => u.id === a.unit.id) - 1];
+    if (here) return { unitId: here.id, target: { kind: 'checkpoint' } };
+  }
   if (a.kind === 'opener') return { unitId: a.unit.id, target: { kind: 'start' } };
   // A lesson comes just before a step: the place is that step.
   const unit = a.unit;

@@ -10,6 +10,8 @@ import { stories } from '../content/stories';
 // each checkpoint — and
 // fail if anything is a dead end: a step that can't be finished, a lesson or a
 // checkpoint that doesn't open the way on, or Continue going round in circles.
+// It keeps a clock: when the rest of a unit waits for tomorrow (a step is done
+// only after play on two different days), the walk goes on the next day.
 
 function newChild(): Child {
   return {
@@ -26,14 +28,25 @@ function newChild(): Child {
 }
 
 /** Follow Continue until the open-ended Mestari unit; `score(n)` = right answers (of 6) in round n of a step. */
+const DAY = 86_400_000;
+
 function walk(score: (round: number) => number) {
   let child = newChild();
   const rounds = new Map<string, number>();
   let actions = 0;
+  let now = new Date(2026, 0, 5, 16).getTime();
+  let days = 1;
   for (;;) {
     if (++actions > 20000) throw new Error('Continue never reached the end');
-    const a = nextAction(child);
+    const a = nextAction(child, now);
     if (a.unit.id === 'mestari') break;
+    if (a.kind === 'tomorrow') {
+      // Everything left in the unit waits for a night's sleep: the next day.
+      now += DAY;
+      days++;
+      continue;
+    }
+    now += 60_000;
     if (a.kind === 'opener') {
       expect(child.course?.openersHeard?.[a.unit.id], `opener ${a.unit.id} offered twice`).toBeUndefined();
       child = { ...child, course: { ...child.course, openersHeard: { ...child.course?.openersHeard, [a.unit.id]: 1 } } };
@@ -62,12 +75,12 @@ function walk(score: (round: number) => number) {
       const id = nextStoryId(child, ids)!;
       const right = Math.round((score(n) / 6) * 4);
       child = recordStoryOnChild(child, id, right, 4, [], n);
-      child = recordRoundOnChild(child, a.unit.id, a.step.id, right, 4, a.step.maxLevel ?? 4, false, storyStepDone(child, ids));
+      child = recordRoundOnChild(child, a.unit.id, a.step.id, right, 4, a.step.maxLevel ?? 4, false, storyStepDone(child, ids), now);
       continue;
     }
-    child = recordRoundOnChild(child, a.unit.id, a.step.id, score(n), 6, a.step.maxLevel ?? 4);
+    child = recordRoundOnChild(child, a.unit.id, a.step.id, score(n), 6, a.step.maxLevel ?? 4, false, false, now);
   }
-  return { child, rounds };
+  return { child, rounds, days };
 }
 
 describe('the whole course can be finished (no dead ends)', () => {
@@ -75,8 +88,9 @@ describe('the whole course can be finished (no dead ends)', () => {
     const { rounds } = walk(() => 6);
     const courseSteps = UNITS.filter((u) => u.id !== 'mestari').flatMap((u) => u.skills.map((s) => `${u.id}/${s.id}`));
     for (const s of courseSteps) expect(rounds.get(s), s).toBeGreaterThan(0);
-    // The longest climb at full marks: 2 + 2 + 3 + 3 rounds for a four-level step.
-    expect(Math.max(...rounds.values())).toBeLessThanOrEqual(10);
+    // The longest climb at full marks: 2 + 2 + 3 + 3 rounds for a four-level
+    // step, and one more on a later day to finish it.
+    expect(Math.max(...rounds.values())).toBeLessThanOrEqual(11);
     // A story is read once: one read per story in the step, never a grind.
     for (const u of UNITS) {
       for (const s of u.skills.filter((x) => x.activity === 'story' && u.id !== 'mestari')) {
@@ -89,6 +103,14 @@ describe('the whole course can be finished (no dead ends)', () => {
     // 6, 6, 5, 6, 6, 5…: about 94% — a realistic good day.
     const { rounds } = walk((n) => (n % 3 === 0 ? 5 : 6));
     expect(Math.max(...rounds.values())).toBeLessThanOrEqual(20);
+  });
+
+  it('waits a night only where it must: about a day per unit, never a day per step', () => {
+    // a child who plays all day: every unit's steps proven on one day, finished the next
+    const { days } = walk(() => 6);
+    const units = UNITS.filter((u) => u.id !== 'mestari').length;
+    expect(days).toBeGreaterThanOrEqual(units / 2);
+    expect(days).toBeLessThanOrEqual(units * 2);
   });
 
   it('a child who slips once in EVERY round (5 of 6, 83%) is never stuck either', () => {
