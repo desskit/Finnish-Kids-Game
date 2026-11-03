@@ -23,6 +23,12 @@ export interface ActivityProgress {
   /** Epoch ms of the last completed round. */
   lastPlayed: number;
   /**
+   * Epoch ms of the first round. A course step is done only once it has been
+   * played on two different days (course.ts `stepDone`); a step from a save
+   * made before this existed has none and counts as slept on.
+   */
+  firstPlayedAt?: number;
+  /**
    * Adaptive difficulty level (1..MAX_LEVEL) measured for this activity. Optional
    * so progress written before adaptive difficulty existed still loads; readers
    * default a missing value to level 1. See `src/game/adapt.ts`.

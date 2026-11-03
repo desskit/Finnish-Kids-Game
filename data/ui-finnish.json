@@ -110,7 +110,7 @@
     },
     {
       "fi": "Hienoa!",
-      "en": "Great job! / Great! / Nice listening! / Step done! / You know your letters!",
+      "en": "Great job! / Great! / Nice listening! / You know your letters! / ⟨…⟩",
       "where": [
         "components/LetterNameGame.tsx",
         "components/RoundComplete.tsx",

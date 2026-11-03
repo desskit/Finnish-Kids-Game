@@ -5863,6 +5863,27 @@ a.badge-strip {
   }
 }
 
+/* The rest of the unit waits for tomorrow: a calm note, not a button. */
+.continue-cta--rest {
+  background: var(--surface);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  box-shadow: 0 6px 0 var(--edge), var(--shadow);
+}
+
+.continue-cta--rest .continue-cta__icon {
+  box-shadow: 0 3px 0 var(--edge);
+}
+
+.continue-cta--rest .continue-cta__title .en,
+.continue-cta--rest .continue-cta__what {
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+}
+
+.continue-cta--rest::after {
+  display: none;
+}
+
 .bump {
   display: inline-block;
   animation: bump 0.45s ease-out;

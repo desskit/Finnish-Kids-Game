@@ -177,7 +177,7 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
       if (con) answer(grammarSrsId(con), ok, now);
     }
     train(step, now);
-    child = recordRoundOnChild(child, unit.id, step.id, right, QUESTIONS_PER_ROUND, step.maxLevel ?? 4);
+    child = recordRoundOnChild(child, unit.id, step.id, right, QUESTIONS_PER_ROUND, step.maxLevel ?? 4, false, false, now);
     child = { ...child, stats: applyStatEvent(statsOf(child), { subject: step.id, right, total: QUESTIONS_PER_ROUND, source }, now) };
     return right;
   };
@@ -213,8 +213,9 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
 
   /** What Continue opens next, played. False at the open-ended Mestari unit. */
   const continueOnce = (now: number): boolean => {
-    const a = nextAction(child);
-    if (a.unit.id === 'mestari') return false;
+    const a = nextAction(child, now);
+    // Mestari is open-ended; "tomorrow" means the rest of the unit waits for a night's sleep
+    if (a.unit.id === 'mestari' || a.kind === 'tomorrow') return false;
     const c = child.course ?? {};
     if (a.kind === 'opener') {
       child = { ...child, course: { ...c, openersHeard: { ...c.openersHeard, [a.unit.id]: now } } };
@@ -245,7 +246,7 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
       const id = nextStoryId(child, ids)!;
       const right = rnd() < 0.85 ? 4 : 3;
       child = recordStoryOnChild(child, id, right, 4, [], now);
-      child = recordRoundOnChild(child, a.unit.id, a.step.id, right, 4, a.step.maxLevel ?? 4, false, storyStepDone(child, ids));
+      child = recordRoundOnChild(child, a.unit.id, a.step.id, right, 4, a.step.maxLevel ?? 4, false, storyStepDone(child, ids), now);
       child = { ...child, stats: applyStatEvent(statsOf(child), { subject: a.step.id, right, total: 4, source: 'practice' }, now) };
     } else {
       // Review woven in, as SkillRoute does it (once per count of the step's plays).
@@ -283,7 +284,7 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
       const hard = units.flatMap((u) => u.skills).filter((st) => isHardStep(st) && skills.has(st.id));
       out.push({
         day: d + 1,
-        unit: units.findIndex((u) => u.id === nextAction(child).unit.id) + 1,
+        unit: units.findIndex((u) => u.id === nextAction(child, end).unit.id) + 1,
         ...n,
         words: words.length,
         recall: words.reduce((a, id) => a + recall(id, end), 0) / Math.max(1, words.length),

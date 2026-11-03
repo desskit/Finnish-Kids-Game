@@ -11,7 +11,7 @@
 // Nothing here touches the course's own record: crowns live in `child.math`.
 
 import type { Child } from '../state/storage';
-import { UNITS, findUnit, lessonSeen, stepDone, unitComplete, type Status } from './course';
+import { UNITS, findUnit, lessonSeen, stepProven, unitComplete, type Status } from './course';
 import type { SkillNode } from './path';
 import { MATH_STAGES, testedSteps, type MathStage } from './mathPath';
 import { dayKey, displayStreak } from './streak';
@@ -38,7 +38,7 @@ export function stageStatus(child: Child | null | undefined, stage: MathStage, u
 }
 
 export function mathStepStatus(child: Child | null | undefined, stage: MathStage, step: SkillNode, unlockAll = false): Status {
-  if (stepDone(child, stage, step)) return 'done';
+  if (stepProven(child, stage, step)) return 'done';
   if (unlockAll) return 'open';
   if (stageStatus(child, stage) === 'locked') return 'locked';
   return lessonSeen(child, stage.lessonId) ? 'open' : 'locked';
@@ -48,7 +48,7 @@ export function mathTestStatus(child: Child | null | undefined, stage: MathStage
   if (crownWon(child, stage)) return 'done';
   if (unlockAll) return 'open';
   if (stageStatus(child, stage) === 'locked') return 'locked';
-  return stage.skills.every((s) => stepDone(child, stage, s)) ? 'open' : 'locked';
+  return stage.skills.every((s) => stepProven(child, stage, s)) ? 'open' : 'locked';
 }
 
 export type MathAction =
@@ -63,7 +63,7 @@ export function nextMathAction(child: Child | null | undefined, unlockAll = fals
     // stages branch (the shop, the clock), so a shut one may have open ones after it
     if (stageStatus(child, stage, unlockAll) === 'locked') continue;
     if (!lessonSeen(child, stage.lessonId)) return { kind: 'lesson', stage };
-    const step = stage.skills.find((s) => !stepDone(child, stage, s));
+    const step = stage.skills.find((s) => !stepProven(child, stage, s));
     if (step) return { kind: 'step', stage, step };
     return { kind: 'test', stage };
   }

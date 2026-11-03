@@ -328,6 +328,10 @@ whole — never split by rule.
   round in four asks the child to type the sentence. Minor rounds earn stars
   and count toward the Writer achievement, but never move the level or decide
   "done" (`ActivityProgress.bonus`) — a small challenge, never a roadblock.
+- **Sleep on it.** A step is done only after play on two different days
+  (`course.ts stepDone`); a story step and an `optional` step finish in one
+  go. Keep that in mind for a unit's length: a step is a little each day, not
+  one long sitting.
 - `checkpoint` (optional `ActivityKind`) is the game a step plays in its
   unit's checkpoint. `phraseStep` uses `order` and `wordsStep` uses `name`;
   without it the checkpoint uses the step's top game at its done level.

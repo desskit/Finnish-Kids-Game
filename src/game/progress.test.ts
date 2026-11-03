@@ -110,3 +110,17 @@ describe('minor bonus rounds (typing in the later units)', () => {
     expect(c.progress.u.s.bonus?.right).toBe(5);
   });
 });
+
+describe('when a step was first played (sleep on it)', () => {
+  const base = { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {} } as unknown as Child;
+
+  it('keeps the first round’s time, and leaves an older record without one', () => {
+    const first = recordRoundOnChild(base, 'hello', 'greetings', 5, 6, 3, false, false, 1000);
+    expect(first.progress.hello.greetings.firstPlayedAt).toBe(1000);
+    const second = recordRoundOnChild(first, 'hello', 'greetings', 5, 6, 3, false, false, 5000);
+    expect(second.progress.hello.greetings.firstPlayedAt).toBe(1000);
+    expect(second.progress.hello.greetings.lastPlayed).toBe(5000);
+    const old = { ...base, progress: { hello: { greetings: { plays: 2, bestStars: 5, totalStars: 9, totalPossible: 12, lastPlayed: 1 } } } };
+    expect(recordRoundOnChild(old, 'hello', 'greetings', 5, 6, 3, false, false, 5000).progress.hello.greetings.firstPlayedAt).toBeUndefined();
+  });
+});
