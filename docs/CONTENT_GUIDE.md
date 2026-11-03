@@ -352,10 +352,15 @@ whole — never split by rule.
   not words, dialogue, scene or story steps). Each segment plays one of them
   (`mixStepFor`, a coprime stride, so a session rotates through different
   ones) with that step's own scoping, pin and game, while progress records
-  under the Kertaus step. They sit in units 5, 10, 15 and 20.
+  under the Kertaus step. Each order mixes its own earlier units. There is one
+  at least every five units in both course orders (`courseOrders.test.ts`
+  checks this): a unit added or moved may need one.
 - **"Muistatko?" in checkpoints.** From unit 3 on, `checkpointPlan` adds a
-  2-question part from one earlier unit's step, picked from the attempt count,
-  so a retry asks about something different.
+  2-question part from one earlier step: the child's weakest one, by the
+  warm-up's measure (`stats.ts weaknessOf`), among the steps with enough
+  answers to judge. A retry takes the next of the three weakest, so it asks
+  about something different. With nothing to judge yet, the attempt count
+  picks it.
 - Every unit but Mestari pins `maxTier` to 10 automatically, because a step's
   constructions are already exactly what its lesson taught. A conjugation step
   also pins `verbCombos` to its lesson's tense. Only Mestari (the last unit)

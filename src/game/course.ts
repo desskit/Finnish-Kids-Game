@@ -34,6 +34,7 @@
 
 import type { Child } from '../state/storage';
 import { dayKey } from './streak';
+import { MIN_ANSWERS_TO_JUDGE, statsOf, weaknessOf } from './stats';
 import {
   PATH,
   activitiesUpTo,
@@ -423,10 +424,11 @@ function partFor(
  * The ordered parts of a unit's checkpoint (empty for Mestari): every step of
  * the unit — a Kertaus step contributes one of its earlier steps — then, from
  * unit 3 on, a short "Muistatko?" part from an earlier unit so old grammar
- * keeps coming back. `attempt` (the number of earlier tries) varies WHICH
+ * keeps coming back — the child's weakest earlier step, once there is enough
+ * to judge (`weakestEarlier`). `attempt` (the number of earlier tries) varies WHICH
  * earlier steps appear, deterministically, so a retry isn't a replay.
  */
-export function checkpointPlan(of: Unit, attempt = 0, child?: Child | null): CheckpointPart[] {
+export function checkpointPlan(of: Unit, attempt = 0, child?: Child | null, now = Date.now()): CheckpointPart[] {
   // The child's own copy of the unit (its Kertaus mixes their own earlier
   // steps); with no child, the order of the copy handed in.
   const units = child ? unitsFor(child) : pathFor(of.order ?? orderOf(child));
@@ -472,11 +474,33 @@ export function checkpointPlan(of: Unit, attempt = 0, child?: Child | null): Che
       u.skills.filter(isMixable).map((s) => ({ s, lessonId: lessonForStep(u, s) })),
     );
     if (earlier.length > 0) {
-      const pick = earlier[(attempt * 7 + ui * 3) % earlier.length];
+      const pick = weakestEarlier(earlier, child, attempt, now) ?? earlier[(attempt * 7 + ui * 3) % earlier.length];
       parts.push(partFor(pick.s, pick.lessonId, REMEMBER_QUESTIONS, 'remember'));
     }
   }
   return parts;
+}
+
+/** The weakest earlier steps a "Muistatko?" can ask about: at most this many, taking turns by attempt. */
+const REMEMBER_WEAKEST = 3;
+
+/**
+ * The checkpoint's "Muistatko?" step: the child's weakest earlier step, by
+ * the same measure as the warm-up (stats.ts `weaknessOf`: recent first-try
+ * accuracy plus a little for time away), among those with enough answers to
+ * judge. A retry takes the next of the weakest few, so it isn't a replay.
+ * Undefined when nothing can be judged yet: the plan's rotation decides.
+ */
+function weakestEarlier<T extends { s: SkillNode }>(earlier: T[], child: Child | null | undefined, attempt: number, now: number): T | undefined {
+  if (!child) return undefined;
+  const subjects = statsOf(child).subjects;
+  const judged = earlier
+    .map((e, i) => ({ e, i, st: subjects[e.s.id] }))
+    .filter((x) => x.st && x.st.n >= MIN_ANSWERS_TO_JUDGE)
+    .map((x) => ({ ...x, w: weaknessOf(x.st!, now) }))
+    .sort((a, b) => b.w - a.w || a.i - b.i)
+    .slice(0, REMEMBER_WEAKEST);
+  return judged.length > 0 ? judged[attempt % judged.length].e : undefined;
 }
 
 export function checkpointPassRatio(unit: Unit): number {

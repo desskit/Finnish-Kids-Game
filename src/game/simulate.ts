@@ -225,7 +225,7 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
       const prev = c.checkpoints?.[a.unit.id];
       let right = 0;
       let total = 0;
-      for (const part of checkpointPlan(a.unit, prev?.attempts ?? 0, child)) {
+      for (const part of checkpointPlan(a.unit, prev?.attempts ?? 0, child, now)) {
         for (let q = 0; q < part.questions; q++, total++) if (rnd() < chance(skillOf(part.step, now) * 0.95)) right++;
       }
       const ratio = total > 0 ? right / total : 0;

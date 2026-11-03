@@ -613,3 +613,49 @@ difficulty that makes learning last.
 A younger reader's short sessions already spread a unit's steps over days, so
 the rule costs them nothing. A strong older reader, who often proved several
 steps in one sitting, goes about one unit a year slower and remembers more.
+
+## Part 12 — Smarter spiral review
+
+**What was thin.** There were five Kertaus (mixed review) steps in 44 units.
+That left gaps of up to 11 units in the original order and 15 in the younger
+readers' order. The checkpoint's "Muistatko?" part picked its earlier step by
+a fixed rotation, not by what the child finds hard.
+
+**The change.**
+
+- **Six more Kertaus steps:** in the k / p / t verbs, Likes, My body, School &
+  daycare, When and The Finnish year. Neither order now goes more than five
+  units without one (`courseOrders.test.ts` checks this). A search over the
+  placements chose them for even spacing in both orders. Each Kertaus mixes
+  the earlier units in the child's own order.
+- **"Muistatko?" asks the weakest earlier step**, by the warm-up's measure
+  (`stats.ts weaknessOf`: recent first-try accuracy plus a little for time
+  away), among the steps with enough answers to judge. A retry takes the next
+  of the three weakest. With nothing to judge yet (or with no child, in
+  tests), the old rotation picks it.
+- The "Memory keeper" badge now needs all eleven Kertaus steps. A child who
+  already has it keeps it.
+
+**What it does** (same model, mean of 5 runs, after a year):
+
+| Learner | Unit reached | Recall | Due for review |
+|---|---|---|---|
+| Steady, younger | 13.6 → 13.0 | 0.82 → 0.84 | 46 → 35 |
+| Strong, older | 32.0 → 31.4 | 0.74 → 0.77 | 157 → 137 |
+| Weak spots, younger | 12.2 → 11.8 | 0.82 → 0.81 | 48 → 43 |
+
+**Parts 10–12 together**, against the original course, same model, after a
+year:
+
+| | Steady, younger | Strong, older | Weak spots, younger |
+|---|---|---|---|
+| Everyday themes met | 3 → 7 | 10 → 9 | 3 → 7 |
+| Words met | 155 → 167 | 352 → 321 | 136 → 166 |
+| Recall | 0.83 → 0.84 | 0.72 → 0.77 | 0.81 → 0.81 |
+| Due for review | 60 → 35 | 162 → 137 | 51 → 43 |
+| Unit reached | 16.4 → 13.0 | 33.2 → 31.4 | 14.6 → 11.8 |
+
+Younger readers meet the everyday themes and more words in the first year,
+remember as much, and have a smaller review pile. In exchange, the grammar
+units come later and take a little longer. An older reader goes about 5 %
+slower and remembers more.

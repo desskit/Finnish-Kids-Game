@@ -28,6 +28,10 @@ import {
   midLessonStatus,
 } from './course';
 import { YOUNGER_ORDER, pathFor } from './path';
+import { statsOf } from './stats';
+import { dayKey } from './streak';
+
+const statsOfFor = (c: Child) => statsOf(c);
 import { placeChildAt } from './placement';
 
 const prog = (level: number) => ({
@@ -478,5 +482,35 @@ describe('sleep on it: a step is done after play on two different days', () => {
       progress: { [v4.id]: Object.fromEntries(before.map((s) => [s.id, provenOn(T, T)])) },
     });
     expect(midLessonStatus(c, v4, ml)).toBe('open');
+  });
+});
+
+describe('the checkpoint’s "Muistatko?" asks the weakest earlier step', () => {
+  const NOW = new Date(2026, 10, 3, 17).getTime();
+  const DAY = 86_400_000;
+  const subject = (right: number, n: number, daysAgo: number) => ({
+    n,
+    right,
+    first: NOW - daysAgo * DAY,
+    last: NOW - daysAgo * DAY,
+    days: { [dayKey(NOW - daysAgo * DAY)]: { n, right, ms: 0 } },
+  });
+
+  it('picks the earlier step the child gets wrong most, and takes turns among the weakest on a retry', () => {
+    const c = child();
+    const unit = findUnit('owners', c)!;
+    const remember = (kid: Child, attempt = 0) => checkpointPlan(unit, attempt, kid, NOW).find((p) => p.kind === 'remember')!.step.id;
+    const strong = Object.fromEntries(['this-is', 'is-this', 'i-have', 'i-havent'].map((id) => [id, subject(10, 10, 2)]));
+    const weak = { ...c, stats: { ...statsOfFor(c), subjects: { ...strong, 'i-havent': subject(3, 10, 2) } } } as Child;
+    expect(remember(weak)).toBe('i-havent');
+    const two = { ...c, stats: { ...statsOfFor(c), subjects: { ...strong, 'i-havent': subject(3, 10, 2), 'is-this': subject(5, 10, 2) } } } as Child;
+    expect(remember(two, 0)).toBe('i-havent');
+    expect(remember(two, 1)).toBe('is-this');
+  });
+
+  it('falls back to the rotation when nothing can be judged yet, or with no child', () => {
+    const unit = findUnit('owners', child())!;
+    const pick = (kid?: Child) => checkpointPlan(unit, 0, kid, NOW).find((p) => p.kind === 'remember')!.step.id;
+    expect(pick(child())).toBe(pick(undefined));
   });
 });

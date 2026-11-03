@@ -157,8 +157,11 @@ describe('the course (units × steps)', () => {
   });
 
   it('places a Kertaus (mixed review) step every few units, mixing ALL earlier grammar steps', () => {
+    // every five units or fewer, in both course orders (courseOrders.test.ts)
     const mixes = allSkills().filter(({ skill }) => skill.content.mix);
-    expect(mixes.map(({ chapter }) => chapter.id)).toEqual(['not-having', 'school-day', 'moving', 'nature', 'many']);
+    expect(mixes.map(({ chapter }) => chapter.id)).toEqual([
+      'not-having', 'doing-kpt', 'likes', 'school-day', 'body', 'moving', 'school-daycare', 'when', 'nature', 'finnish-year', 'many',
+    ]);
     for (const { chapter, skill } of mixes) {
       const ui = PATH.indexOf(chapter);
       const mixOf = skill.content.mixOf!;
