@@ -192,6 +192,13 @@ export interface Lesson {
   emoji: string;
   cards: LessonCard[];
   /**
+   * Lessons this one refers back to ("Remember *Minulla on…*?", "the vowel
+   * team again"): they come before it in BOTH course orders (younger and
+   * older readers meet the units in different orders — path.tsx
+   * `YOUNGER_ORDER`). Checked by a test.
+   */
+  requires?: string[];
+  /**
    * The cards a younger reader sees ("Huomaa!" — notice it), by index. The
    * default (`noticeCards`) is one short explain card, the first examples and
    * the first check: the pattern shown, not the rule laid out.
@@ -1021,6 +1028,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Minulla ei ole',
     titleEn: 'Saying you don\'t have it',
     emoji: '🚫',
+    requires: ['counting'],
     cards: [
       {
         kind: 'explain',
@@ -1144,6 +1152,7 @@ export const lessons: Lesson[] = [
     titleFi: 'K, P ja T vaihtuvat',
     titleEn: 'When k, p and t change',
     emoji: '🔀',
+    requires: ['verb-persons'],
     cards: [
       {
         kind: 'explain',
@@ -1218,6 +1227,7 @@ export const lessons: Lesson[] = [
     titleFi: 'En tee',
     titleEn: '"Not" is a verb',
     emoji: '✋',
+    requires: ['verb-persons'],
     cards: [
       {
         kind: 'explain',
@@ -1313,6 +1323,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Pidän',
     titleEn: 'Another "I like"',
     emoji: '🤝',
+    requires: ['likes'],
     cards: [
       {
         kind: 'explain',
@@ -1346,6 +1357,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Rakastan',
     titleEn: 'Loving things',
     emoji: '😍',
+    requires: ['likes'],
     cards: [
       {
         kind: 'examples',
@@ -1388,6 +1400,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Näen',
     titleEn: 'Seeing the whole thing',
     emoji: '👀',
+    requires: ['owners'],
     cards: [
       {
         kind: 'explain',
@@ -1480,6 +1493,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Kaupassa',
     titleEn: 'Buying one whole thing',
     emoji: '🛒',
+    requires: ['total-object'],
     cards: [
       {
         kind: 'explain',
@@ -1528,6 +1542,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Ostan maitoa',
     titleEn: 'Buying some of something',
     emoji: '🥛',
+    requires: ['negation-object'],
     cards: [
       {
         kind: 'examples',
@@ -1633,10 +1648,10 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'Which one means "a dirty shoe"?',
+        question: 'Which one means "a dirty ball"?',
         options: [
-          { ref: { agree: 'dirty', word: 'shoe', case: 'nominative' }, correct: true },
-          { ref: { agree: 'clean-adj', word: 'shoe', case: 'nominative' } },
+          { ref: { agree: 'dirty', word: 'ball', case: 'nominative' }, correct: true },
+          { ref: { agree: 'clean-adj', word: 'ball', case: 'nominative' } },
         ],
         explain: '*likainen* = dirty, *puhdas* = clean.',
       },
@@ -1647,6 +1662,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Millainen?',
     titleEn: 'Describing words copy',
     emoji: '🪞',
+    requires: ['colors', 'in-on'],
     cards: [
       {
         kind: 'examples',
@@ -1655,7 +1671,6 @@ export const lessons: Lesson[] = [
           'This is the cool part: whatever ending the thing gets, the **describing word gets it too** — like an echo.',
         rows: [
           { agree: 'big', word: 'house', case: 'inessive', en: 'in a big house' },
-          { agree: 'small', word: 'dog', case: 'genitive', en: "a small dog's" },
           { agree: 'big', word: 'table', case: 'adessive', en: 'on a big table' },
         ],
       },
@@ -1675,12 +1690,12 @@ export const lessons: Lesson[] = [
       },
       {
         kind: 'check',
-        question: 'Which one means "of a red ball" (it takes -n)?',
+        question: 'Which one means "on a big table"?',
         options: [
-          { ref: { agree: 'red', word: 'ball', case: 'genitive' }, correct: true },
-          { ref: { agree: 'red', word: 'ball', case: 'genitive', adjCase: 'nominative' } },
+          { ref: { agree: 'big', word: 'table', case: 'adessive' }, correct: true },
+          { ref: { agree: 'big', word: 'table', case: 'adessive', adjCase: 'nominative' } },
         ],
-        explain: 'Both words take **-n**: *punaisen pallon*.',
+        explain: 'Both words get the ending: *isolla pöydällä*.',
       },
     ],
   },
@@ -1689,6 +1704,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Missä?',
     titleEn: 'Endings instead of "in" and "on"',
     emoji: '📍',
+    requires: ['counting'],
     notice: [0, 1, 4],
     cards: [
       {
@@ -1753,6 +1769,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Talossani',
     titleEn: 'In MY house',
     emoji: '🏠',
+    requires: ['possessive', 'in-on'],
     cards: [
       {
         kind: 'explain',
@@ -1795,6 +1812,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Mihin?',
     titleEn: 'Going into, going onto',
     emoji: '🚶',
+    requires: ['in-on'],
     cards: [
       {
         kind: 'explain',
@@ -2127,6 +2145,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Eilen',
     titleEn: 'Talking about yesterday',
     emoji: '⏮️',
+    requires: ['verb-persons', 'kpt-1-3'],
     notice: [1, 4],
     cards: [
       {
@@ -2181,6 +2200,7 @@ export const lessons: Lesson[] = [
     titleFi: 'En syönyt',
     titleEn: '"Didn\'t"',
     emoji: '🙅',
+    requires: ['negative-verb', 'past'],
     notice: [1, 4],
     cards: [
       {
@@ -2332,6 +2352,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Mestari',
     titleEn: 'Expert Finnish',
     emoji: '🏆',
+    requires: ['past-not'],
     notice: [1, 3, 4],
     cards: [
       {
@@ -2427,6 +2448,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Minulla on nälkä',
     titleEn: 'Hungry, thirsty, cold, hot',
     emoji: '🤤',
+    requires: ['having'],
     cards: [
       {
         kind: 'explain',
@@ -2530,6 +2552,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Koulupäivä',
     titleEn: 'Liking and not liking',
     emoji: '🏫',
+    requires: ['likes', 'negative-verb'],
     cards: [
       {
         kind: 'examples',
@@ -2658,6 +2681,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Kaupungilla ja kotona',
     titleEn: 'You on the move',
     emoji: '🏙️',
+    requires: ['into-out', 'out-of-off'],
     cards: [
       {
         kind: 'explain',
@@ -2783,6 +2807,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Paljonko kello on?',
     titleEn: 'What time is it?',
     emoji: '⏰',
+    requires: ['counting'],
     cards: [
       {
         kind: 'explain',
@@ -2827,6 +2852,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Minun päiväni',
     titleEn: 'My day',
     emoji: '🌅',
+    requires: ['buying-some'],
     // "At seven" (-lta) and meals: the steps that follow this lesson.
     notice: [1, 2, 5],
     cards: [
@@ -2947,7 +2973,8 @@ export const lessons: Lesson[] = [
     titleFi: 'Millainen sää?',
     titleEn: "What's the weather like?",
     emoji: '⛅',
-    notice: [0, 1, 5],
+    requires: ['feelings-on-me'],
+    notice: [0, 1, 4],
     cards: [
       {
         kind: 'examples',
@@ -2981,15 +3008,6 @@ export const lessons: Lesson[] = [
           { sentence: 'i-feel', word: 'cold' },
           { sentence: 'weather-is', word: 'warm' },
           { sentence: 'weather-is', word: 'hot' },
-        ],
-      },
-      {
-        kind: 'examples',
-        title: 'What to wear',
-        text: 'Rain? Snow? Dress for it.',
-        rows: [
-          { sentence: 'put-on-clothes', word: 'raincoat' },
-          { sentence: 'put-on-clothes', word: 'snowsuit' },
         ],
       },
       {
@@ -3088,6 +3106,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Koulussa ja päiväkodissa',
     titleEn: 'School & daycare',
     emoji: '🛎️',
+    requires: ['into-out', 'buying-some'],
     notice: [0, 1, 6],
     cards: [
       {
@@ -3310,6 +3329,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Äidin pyörä',
     titleEn: "Mom's bike — the owner gets -n",
     emoji: '🚲',
+    requires: ['possessive'],
     cards: [
       {
         kind: 'examples',
@@ -3360,6 +3380,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Kysymykset',
     titleEn: 'Asking with -ko / -kö',
     emoji: '❓',
+    requires: ['no-articles', 'verb-persons', 'negative-verb'],
     cards: [
       {
         kind: 'explain',
@@ -3455,6 +3476,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Tee! Älä! Tehdään!',
     titleEn: "Do it, don't, let's",
     emoji: '🫵',
+    requires: ['verb-persons'],
     notice: [0, 1, 3],
     cards: [
       {
@@ -3463,8 +3485,8 @@ export const lessons: Lesson[] = [
         text: 'To tell ONE person what to do, use the **short verb**: the "I" form without its **-n**. *juoksen* (I run) → *Juokse!* (Run!)',
         rows: [
           { mood: 'run', kind: 'do' },
-          { mood: 'jump', kind: 'do' },
-          { mood: 'look', kind: 'do' },
+          { mood: 'sit', kind: 'do' },
+          { mood: 'dance', kind: 'do' },
         ],
       },
       {
@@ -3516,6 +3538,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Keho · Kapteeni käskee',
     titleEn: 'My body · Captain says',
     emoji: '🧑‍✈️',
+    requires: ['loving'],
     notice: [0, 3, 6],
     cards: [
       {
@@ -3652,6 +3675,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Minua, minulle',
     titleEn: 'Me and you',
     emoji: '🫶',
+    requires: ['likes', 'into-out', 'watching-waiting'],
     cards: [
       {
         kind: 'explain',
@@ -3711,6 +3735,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Verbityyppi 4',
     titleEn: 'Verb type 4',
     emoji: '🔓',
+    requires: ['verb-persons'],
     cards: [
       {
         kind: 'examples',
@@ -3768,6 +3793,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Vahvempi kirjain',
     titleEn: 'Type 4: the sound gets STRONGER',
     emoji: '🦘',
+    requires: ['kpt-1-3', 'likes'],
     cards: [
       {
         kind: 'explain',
@@ -3825,6 +3851,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Verbityypit 5 ja 6',
     titleEn: 'Verb types 5 and 6',
     emoji: '🧓',
+    requires: ['verb-type4'],
     // Both families: the steps after this lesson play type 5 and type 6.
     notice: [0, 1, 4],
     cards: [
@@ -3893,6 +3920,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Tyyppi 6 ja KPT',
     titleEn: 'Type 6: a sound gets stronger too',
     emoji: '😱',
+    requires: ['kpt-1-3'],
     cards: [
       {
         kind: 'examples',
@@ -4049,6 +4077,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Bussilla ja kynällä',
     titleEn: 'By bus, with a pen',
     emoji: '🚌',
+    requires: ['in-on'],
     cards: [
       {
         kind: 'explain',
@@ -4143,6 +4172,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Isot numerot',
     titleEn: 'Big numbers',
     emoji: '💯',
+    requires: ['counting'],
     cards: [
       {
         kind: 'examples',
@@ -4254,6 +4284,7 @@ export const lessons: Lesson[] = [
     titleFi: 'Päivämäärä',
     titleEn: 'Saying a date',
     emoji: '📅',
+    requires: ['ordinals'],
     cards: [
       {
         kind: 'examples',

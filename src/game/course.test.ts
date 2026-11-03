@@ -20,7 +20,11 @@ import {
   stepStatus,
   unitStatus,
   unitsCompleted,
+  orderOf,
+  unitsFor,
+  unitIndex,
 } from './course';
+import { YOUNGER_ORDER, pathFor } from './path';
 import { placeChildAt } from './placement';
 
 const prog = (level: number) => ({
@@ -33,11 +37,14 @@ const prog = (level: number) => ({
   recent: [],
 });
 
+// An older reader: these tests walk the original order (UNITS). The younger
+// readers' order has its own tests below.
 function child(over: Partial<Child> = {}): Child {
   return {
     id: 'k',
     name: 'K',
     avatar: '🦊',
+    readerBand: 'older',
     level: 1,
     stars: 0,
     createdAt: 1,
@@ -313,5 +320,81 @@ describe('lessons ↔ units', () => {
     ]);
     const midLessons = UNITS.reduce((n, u) => n + (u.midLessons?.length ?? 0), 0);
     expect(notebookLessonIds(child(), true)).toHaveLength(UNITS.length + midLessons);
+  });
+});
+
+describe('two course orders (younger and older readers)', () => {
+  const younger = (over: Partial<Child> = {}) => child({ readerBand: 'younger', ...over });
+
+  it('holds the same units in both orders, with Mestari last', () => {
+    const y = pathFor('younger').map((u) => u.id);
+    const o = pathFor('older').map((u) => u.id);
+    expect(new Set(y)).toEqual(new Set(o));
+    expect(y).toHaveLength(o.length);
+    expect(YOUNGER_ORDER).toEqual(y);
+    expect(y.at(-1)).toBe('mestari');
+    expect(o).toEqual(UNITS.map((u) => u.id));
+  });
+
+  it('gives younger readers (and a player with no band set) the themes-first order', () => {
+    expect(orderOf(child())).toBe('older');
+    expect(orderOf(younger())).toBe('younger');
+    expect(orderOf(child({ readerBand: undefined }))).toBe('younger');
+    expect(orderOf(null)).toBe('younger');
+    expect(unitsFor(younger()).slice(4, 11).map((u) => u.id)).toEqual([
+      'describing', 'likes', 'not-having', 'feelings', 'where', 'weather', 'body',
+    ]);
+    // my/your endings come after in/on, weather and body
+    expect(unitIndex('whose', younger())).toBeGreaterThan(unitIndex('body', younger()));
+    expect(unitIndex('whose', child())).toBe(5);
+  });
+
+  it('opens and continues in the child’s own order', () => {
+    const fourDone = (c: (o: Partial<Child>) => Child) =>
+      c({ course: { checkpoints: passed('hello', 'people', 'numbers', 'having') } });
+    expect(nextAction(fourDone(younger)).unit.id).toBe('describing');
+    expect(nextAction(fourDone(child)).unit.id).toBe('not-having');
+    expect(unitStatus(fourDone(younger), findUnit('describing', younger())!)).toBe('open');
+    expect(unitStatus(fourDone(younger), findUnit('not-having', younger())!)).toBe('locked');
+    expect(unitStatus(fourDone(child), findUnit('not-having')!)).toBe('open');
+  });
+
+  it('fills the gaps for a player part-way through the old order — nothing relocks', () => {
+    // Old units 1–10 passed, unit 11 (asking) started, no reader band set.
+    const old = UNITS.slice(0, 10).map((u) => u.id);
+    const asking = findUnit('asking')!;
+    const save = child({
+      readerBand: undefined,
+      course: { checkpoints: passed(...old), lessonsSeen: { [asking.lessonId]: 1 }, openersHeard: { asking: 1 } },
+    });
+    for (const id of old) expect(unitStatus(save, findUnit(id, save)!), id).toBe('done');
+    // The unit being played stays open…
+    expect(unitStatus(save, findUnit('asking', save)!)).toBe('open');
+    // …and Continue goes to the earliest unit not done in the new order.
+    expect(nextAction(save).unit.id).toBe('describing');
+    expect(unitsCompleted(save)).toBe(10);
+    // The same save as an older reader carries on where it was.
+    expect(nextAction({ ...save, readerBand: 'older' }).unit.id).toBe('asking');
+  });
+
+  it('numbers a checkpoint’s "Muistatko?" from the child’s earlier units', () => {
+    const c = younger();
+    const ui = unitIndex('where', c);
+    const plan = checkpointPlan(findUnit('where', c)!, 0, c);
+    const earlier = new Set(unitsFor(c).slice(0, ui).flatMap((u) => u.skills.map((s) => s.id)));
+    for (const r of plan.filter((p) => p.kind === 'remember')) expect(earlier.has(r.step.id), r.step.id).toBe(true);
+    // a unit handed in from one order's copy plans in that order
+    const fromCopy = checkpointPlan(pathFor('younger')[ui], 0);
+    expect(fromCopy.map((p) => p.step.id)).toEqual(plan.map((p) => p.step.id));
+  });
+
+  it('puts a player at a place in their own order', () => {
+    const at = placeChildAt(younger(), { unitId: 'feelings', target: { kind: 'start' } });
+    // everything before feelings in the younger order is done; not-having is
+    // before it there (unit 7), whose (unit 12) is not
+    expect(unitStatus(at, findUnit('not-having', at)!)).toBe('done');
+    expect(unitStatus(at, findUnit('describing', at)!)).toBe('done');
+    expect(unitStatus(at, findUnit('whose', at)!)).not.toBe('done');
+    expect(nextAction(at)).toMatchObject({ kind: 'opener', unit: { id: 'feelings' } });
   });
 });

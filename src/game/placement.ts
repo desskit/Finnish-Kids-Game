@@ -7,7 +7,7 @@
 // are left as they are. Pure.
 
 import type { ActivityProgress, Child, CourseState } from '../state/storage';
-import { lessonAt, nextAction, UNITS, type Unit } from './course';
+import { lessonAt, nextAction, unitsFor, type Unit } from './course';
 
 /** Where in a unit: its very start (the opening story), a step, or its checkpoint. */
 export type PlaceTarget = { kind: 'start' } | { kind: 'step'; stepId: string } | { kind: 'checkpoint' };
@@ -40,7 +40,9 @@ const without = <T>(rec: Record<string, T> | undefined, keys: readonly string[])
 
 /** The player put at `place`: everything before it done, everything after it fresh. */
 export function placeChildAt(child: Child, place: CoursePlace, now = Date.now()): Child {
-  const at = UNITS.findIndex((u) => u.id === place.unitId);
+  // in the player's own course order (younger and older readers differ)
+  const units = unitsFor(child);
+  const at = units.findIndex((u) => u.id === place.unitId);
   if (at < 0) return child;
   const progress = { ...child.progress };
   const course: CourseState = { ...(child.course ?? {}) };
@@ -49,7 +51,7 @@ export function placeChildAt(child: Child, place: CoursePlace, now = Date.now())
   let openersHeard = { ...(course.openersHeard ?? {}) };
   let extrasSeen = { ...(course.extrasSeen ?? {}) };
 
-  UNITS.forEach((unit, i) => {
+  units.forEach((unit, i) => {
     const stepIds = unit.skills.map((s) => s.id);
     if (i < at) {
       // Before the place: the whole unit done.

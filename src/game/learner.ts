@@ -35,13 +35,20 @@ export interface LearnerKnobs {
   warmupQuestions: number;
   /** New words shown in syllables the first times they're met. */
   syllables: boolean;
+  /**
+   * Once words are piling up, every this-many-th round of a step is a quick
+   * review (session.ts `flowReviewIds`). More often for a younger reader: the
+   * themes-first order brings in new words unit after unit, where the original
+   * order's grammar units kept reusing the old ones.
+   */
+  flowReviewEvery: number;
 }
 
 export function learnerKnobs(child: Child | null | undefined): LearnerKnobs {
   const band = readerBandOf(child);
   return band === 'older'
-    ? { band, fullLessons: true, readAloud: false, sessionRounds: 6, warmupQuestions: 10, syllables: false }
-    : { band, fullLessons: false, readAloud: true, sessionRounds: 4, warmupQuestions: 6, syllables: true };
+    ? { band, fullLessons: true, readAloud: false, sessionRounds: 6, warmupQuestions: 10, syllables: false, flowReviewEvery: 5 }
+    : { band, fullLessons: false, readAloud: true, sessionRounds: 4, warmupQuestions: 6, syllables: true, flowReviewEvery: 3 };
 }
 
 export const englishHelpOf = (settings: Pick<Settings, 'englishHelp'> | null | undefined): EnglishHelp =>

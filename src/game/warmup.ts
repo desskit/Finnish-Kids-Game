@@ -13,8 +13,8 @@
 // Pure: everything takes the child and `now`, so it is fully unit-testable.
 
 import type { Child } from '../state/storage';
-import { UNITS, nextAction, type Unit } from './course';
-import { activitiesUpTo, type ActivityKind, type SkillNode } from './path';
+import { nextAction, orderOf, type Unit } from './course';
+import { activitiesUpTo, pathFor, type ActivityKind, type CourseOrder, type SkillNode } from './path';
 import {
   MIN_ANSWERS_TO_JUDGE,
   dayGap,
@@ -47,19 +47,35 @@ export interface SubjectRef {
   unitNo: number;
 }
 
-/** Every step that counts as a subject, in course order. */
-export function allSubjects(): SubjectRef[] {
-  return UNITS.flatMap((unit, i) =>
+function subjectsOf(order: CourseOrder): SubjectRef[] {
+  return pathFor(order).flatMap((unit, i) =>
     unit.skills
       .filter((s) => !s.content.mix && !NOT_A_SUBJECT.has(s.activity))
       .map((step) => ({ unit, step, unitNo: i + 1 })),
   );
 }
 
-const SUBJECT_INDEX = new Map(allSubjects().map((r) => [r.step.id, r]));
+/** Each course order's subjects, worked out once. */
+const SUBJECTS: Readonly<Record<CourseOrder, SubjectRef[]>> = {
+  older: subjectsOf('older'),
+  younger: subjectsOf('younger'),
+};
+const SUBJECT_INDEX: Readonly<Record<CourseOrder, Map<string, SubjectRef>>> = {
+  older: new Map(SUBJECTS.older.map((r) => [r.step.id, r])),
+  younger: new Map(SUBJECTS.younger.map((r) => [r.step.id, r])),
+};
 
-export function subjectRef(stepId: string): SubjectRef | undefined {
-  return SUBJECT_INDEX.get(stepId);
+/**
+ * Every step that counts as a subject, in the course order (younger and older
+ * readers meet the units in different orders: path.tsx `YOUNGER_ORDER`). Each
+ * step comes with its unit and number in that order, and its word scope for it.
+ */
+export function allSubjects(order: CourseOrder = 'older'): SubjectRef[] {
+  return SUBJECTS[order];
+}
+
+export function subjectRef(stepId: string, order: CourseOrder = 'older'): SubjectRef | undefined {
+  return SUBJECT_INDEX[order].get(stepId);
 }
 
 export interface RankedSubject extends SubjectRef {
@@ -71,19 +87,19 @@ export interface RankedSubject extends SubjectRef {
  * Subjects with enough answers to judge, weakest first. Ties go to the one
  * practised longest ago, then to course order (deterministic).
  */
-export function rankSubjects(stats: StatsState, now: number): RankedSubject[] {
+export function rankSubjects(stats: StatsState, now: number, order: CourseOrder = 'older'): RankedSubject[] {
   const out: RankedSubject[] = [];
-  for (const ref of allSubjects()) {
+  for (const ref of allSubjects(order)) {
     const s = stats.subjects[ref.step.id];
     if (!s || s.n < MIN_ANSWERS_TO_JUDGE) continue;
     out.push({ ...ref, weakness: weaknessOf(s, now), strength: strengthOf(s, now) });
   }
-  const order = new Map(allSubjects().map((r, i) => [r.step.id, i]));
+  const at = new Map(allSubjects(order).map((r, i) => [r.step.id, i]));
   return out.sort(
     (a, b) =>
       b.weakness - a.weakness ||
       b.strength.daysSince - a.strength.daysSince ||
-      (order.get(a.step.id) ?? 0) - (order.get(b.step.id) ?? 0),
+      (at.get(a.step.id) ?? 0) - (at.get(b.step.id) ?? 0),
   );
 }
 
@@ -121,7 +137,7 @@ export function pickWarmupSubject(child: Child, now: number): RankedSubject | un
     tail.length === MAX_SAME_IN_A_ROW && tail.every((w) => w.subject === tail[0].subject)
       ? tail[0].subject
       : undefined;
-  const candidates = rankSubjects(stats, now).filter(
+  const candidates = rankSubjects(stats, now, orderOf(child)).filter(
     (r) => judgedBeforeToday(r.step.id) && r.step.id !== frontier && r.step.id !== fixed && r.step.id !== overused,
   );
   // Grammar first: a unit's word list is reviewed word by word already (the

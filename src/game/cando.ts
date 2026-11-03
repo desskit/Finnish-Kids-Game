@@ -1,6 +1,7 @@
 import type { Child } from '../state/storage';
 import { activityLevel } from './progress';
 import { PATH } from './path';
+import { unitIndex } from './course';
 import { MATH_STAGES } from './mathPath';
 
 // Parent "can-do" statements (learning-audit E-17): translate node levels into
@@ -37,14 +38,14 @@ export interface CanDoStatement {
 
 // One claim per course unit — a passed checkpoint is first-try evidence across
 // every step of the unit — plus the expert band, measured by step levels.
-// The unit number comes from the course order, so inserting a unit never
-// leaves a claim pointing at the wrong number.
+// The basis names the unit, not its number: younger and older readers meet
+// the units in different orders (path.tsx `YOUNGER_ORDER`).
 const unitClaim = (unitId: string, emoji: string, en: string, childEn?: string): CanDoStatement => ({
   id: unitId,
   emoji,
   en,
   ...(childEn ? { childEn } : {}),
-  basisEn: `Unit ${PATH.findIndex((u) => u.id === unitId) + 1} checkpoint passed`,
+  basisEn: `The “${PATH.find((u) => u.id === unitId)?.titleEn ?? unitId}” checkpoint passed`,
   requires: [{ unitId }],
 });
 
@@ -179,13 +180,26 @@ export function canDoAchieved(child: Child, s: CanDoStatement): boolean {
   return s.requires.every((r) => met(child, r));
 }
 
-/** The statement list split into achieved / not-yet, in authored order. */
+/**
+ * The statements in the child's own course order: the units' claims take the
+ * units' places in that order, and the others (math, expert) keep theirs.
+ */
+export function canDoInOrder(child: Child | null | undefined): CanDoStatement[] {
+  const unitOf = (s: CanDoStatement) => (s.requires.length === 1 && 'unitId' in s.requires[0] ? s.requires[0].unitId : undefined);
+  const units = CAN_DO.filter((s) => unitOf(s) !== undefined).sort(
+    (a, b) => unitIndex(unitOf(a)!, child) - unitIndex(unitOf(b)!, child),
+  );
+  let next = 0;
+  return CAN_DO.map((s) => (unitOf(s) !== undefined ? units[next++] : s));
+}
+
+/** The statement list split into achieved / not-yet, in the child's course order. */
 export function canDoSummary(child: Child): {
   achieved: CanDoStatement[];
   upNext: CanDoStatement[];
 } {
   const achieved: CanDoStatement[] = [];
   const rest: CanDoStatement[] = [];
-  for (const s of CAN_DO) (canDoAchieved(child, s) ? achieved : rest).push(s);
+  for (const s of canDoInOrder(child)) (canDoAchieved(child, s) ? achieved : rest).push(s);
   return { achieved, upNext: rest };
 }

@@ -555,7 +555,7 @@ export default function ReviewActivity({ embedded = false, onExit, ids: given, o
         {whyAt === index && question?.grammar && (
           <WhyTip
             why={whyForPhrasePick(question.grammar.construction, question.grammar.item, { form: whyForm })}
-            lessonId={lessonForConstruction(question.grammar.construction.id)}
+            lessonId={lessonForConstruction(question.grammar.construction.id, activeChild)}
           />
         )}
       </section>

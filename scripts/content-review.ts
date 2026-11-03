@@ -17,8 +17,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { placeLabel, placeRank, reviewSections, type ReviewEntry, type ReviewPlace } from '../src/game/reviewEntries';
-import { PATH } from '../src/game/path';
+import { REVIEW_PATH, placeLabel, placeRank, reviewSections, type ReviewEntry, type ReviewPlace } from '../src/game/reviewEntries';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -73,7 +72,7 @@ for (const s of sections) {
   }
 }
 const placeName = (p: ReviewPlace) =>
-  typeof p === 'number' ? `${placeLabel(p)}: ${PATH[p - 1].titleEn} (*${PATH[p - 1].titleFi}*)` : placeLabel(p);
+  typeof p === 'number' ? `${placeLabel(p)}: ${REVIEW_PATH[p - 1].titleEn} (*${REVIEW_PATH[p - 1].titleFi}*)` : placeLabel(p);
 const startHere = [
   '## Start here',
   '',

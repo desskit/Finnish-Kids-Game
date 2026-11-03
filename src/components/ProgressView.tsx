@@ -11,7 +11,7 @@ import { BADGES, earnedBadges } from '../game/badges';
 import { canDoSummary } from '../game/cando';
 import PlayerSwitcher from './PlayerSwitcher';
 import { badgeEnv } from '../game/path';
-import { UNITS, nextAction, stepDone, topLevel, unitsCompleted, type Unit } from '../game/course';
+import { nextAction, stepDone, topLevel, unitsCompleted, unitsFor, type Unit } from '../game/course';
 import Art from '../art/Art';
 import Avatar from '../art/Avatar';
 import { daysAgo } from '../game/stats';
@@ -36,7 +36,7 @@ interface Help {
 /** Steps and checkpoints that look stuck — where a grown-up can help. */
 function needsHelp(c: Child): Help[] {
   const out: Help[] = [];
-  for (const unit of UNITS) {
+  for (const unit of unitsFor(c)) {
     for (const step of unit.skills) {
       const p = c.progress?.[unit.id]?.[step.id];
       if (!p || p.topProvenAt) continue;
@@ -143,16 +143,17 @@ function ChildReport({ c }: { c: Child }) {
   const right = schedules.reduce((n, s) => n + s.correct, 0);
 
   const unitsDone = unitsCompleted(c);
-  const unitsTotal = UNITS.filter((u) => u.checkpoint !== false).length;
+  const units = unitsFor(c);
+  const unitsTotal = units.filter((u) => u.checkpoint !== false).length;
   const next = nextAction(c);
-  const currentN = UNITS.indexOf(next.unit) + 1;
+  const currentN = units.findIndex((u) => u.id === next.unit.id) + 1;
   const badges = earnedBadges(c, badgeEnv);
   const cando = canDoSummary(c);
   const help = needsHelp(c);
   // Units the child has touched, plus the current one.
-  const shown = UNITS.map((u, i) => ({ u, i })).filter(
+  const shown = units.map((u, i) => ({ u, i })).filter(
     ({ u }) =>
-      u === next.unit ||
+      u.id === next.unit.id ||
       c.course?.checkpoints?.[u.id] ||
       u.skills.some((s) => c.progress?.[u.id]?.[s.id]),
   );
@@ -234,7 +235,7 @@ function ChildReport({ c }: { c: Child }) {
             {cando.achieved.map((s) => {
               // The child's own say, from the check after the checkpoint.
               const own = c.course?.selfCheck?.[s.id];
-              const unit = UNITS.find((u) => u.id === s.id);
+              const unit = units.find((u) => u.id === s.id);
               return (
                 <li key={s.id} className="gcando__row" title={`Based on: ${s.basisEn}`}>
                   <span aria-hidden="true"><Art glyph={s.emoji} /></span> {s.en}
@@ -295,7 +296,7 @@ function ChildReport({ c }: { c: Child }) {
           back.
         </p>
         {shown.map(({ u, i }) => (
-          <UnitBreakdown key={u.id} c={c} unit={u} n={i + 1} open={u === next.unit} />
+          <UnitBreakdown key={u.id} c={c} unit={u} n={i + 1} open={u.id === next.unit.id} />
         ))}
       </section>
     </article>

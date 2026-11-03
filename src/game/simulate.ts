@@ -7,11 +7,15 @@
 // pacing can be measured before a child meets it: does the course keep moving,
 // do weak spots come back, does the review pile stay in hand?
 //
+// Grammar skill is spaced like words: what was gained above the child's
+// starting point fades with time, and practice after a gap (recalled after a
+// night's sleep) makes it last longer than the same practice in one sitting.
+//
 // Dev tooling only (scripts/simulate-progress.ts, simulate.test.ts); the app
 // never imports it. Deterministic for a given seed.
 
 import type { Child } from '../state/storage';
-import { UNITS, checkpointPassRatio, checkpointPlan, nextAction, type Unit } from './course';
+import { checkpointPassRatio, checkpointPlan, nextAction, unitStarted, unitsFor, type Unit } from './course';
 import { stepWordPool, type SkillNode } from './path';
 import { recordRoundOnChild } from './progress';
 import { nextStoryId, recordStoryOnChild, storyStepDone } from './storyLog';
@@ -24,6 +28,14 @@ import { dueReviewIds, flowReviewIds, questionsToday, sessionBudget, QUESTIONS_P
 import { dayKey } from './streak';
 
 const DAY = 86_400_000;
+/** A grammar step's first stability, in days. */
+const GRAMMAR_STABILITY = 3;
+/** What a child keeps of a step with no practice at all: this share of their starting skill. */
+const GRAMMAR_FLOOR = 0.85;
+/** How much a gap before practice adds to how long it lasts (the spacing effect)… */
+const GRAMMAR_SPACING = 1.5;
+/** …and what one more round in the same sitting adds, in days. */
+const GRAMMAR_MASSED = 0.3;
 
 export interface LearnerModel {
   name: string;
@@ -58,9 +70,15 @@ export interface Snapshot {
   words: number;
   /** Mean chance the child recalls a word met so far, right now. */
   recall: number;
+  /** The same, over the words met at least two weeks ago (settled, not just met). */
+  recallSettled: number;
   due: number;
   /** Mean skill on the hard steps met so far. */
   hardSkill: number;
+  /** The same, two weeks later with no practice in between: what has lasted. */
+  hardSkillLater: number;
+  /** Units started so far (in the learner's order), by id. */
+  met: string[];
   /** Hard steps not practised for a month. */
   hardStale: number;
 }
@@ -68,6 +86,8 @@ export interface Snapshot {
 interface Memory {
   stability: number;
   last: number;
+  /** When the word was first met. */
+  first: number;
 }
 
 export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDays: readonly number[] = [days]): Snapshot[] {
@@ -88,7 +108,8 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
     course: { lessonsSeen: {}, checkpoints: {}, openersHeard: {} },
   } as Child;
   const memory = new Map<string, Memory>();
-  const skills = new Map<string, { k: number; last: number }>();
+  /** A grammar step's skill: its peak `k`, how long it lasts (`stab`, days), and its floor. */
+  const skills = new Map<string, { k: number; last: number; stab: number; floor: number }>();
   const reviewedAt = new Set<string>();
   const n = { courseRounds: 0, reviewWarmups: 0, subjectWarmups: 0, flowReviews: 0 };
 
@@ -98,19 +119,27 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
   };
   const practise = (id: string, right: boolean, now: number) => {
     const m = memory.get(id);
-    if (!m) return void memory.set(id, { stability: 0.6, last: now });
+    if (!m) return void memory.set(id, { stability: 0.6, last: now, first: now });
     const r = recall(id, now);
     m.stability = right ? m.stability * (1 + 2.5 * (1 - r)) + 0.05 : Math.max(0.4, m.stability * 0.6);
     m.last = now;
   };
   const skillOf = (step: SkillNode, now: number) => {
     let k = skills.get(step.id);
-    if (!k) skills.set(step.id, (k = { k: model.skill(step), last: now }));
-    return k.k * Math.pow(0.995, (now - k.last) / DAY);
+    if (!k) {
+      const start = model.skill(step);
+      skills.set(step.id, (k = { k: start, last: now, stab: GRAMMAR_STABILITY, floor: start * GRAMMAR_FLOOR }));
+    }
+    // what was gained above the floor fades, as fast as it was learned to last
+    return k.floor + (k.k - k.floor) * Math.exp(-(now - k.last) / DAY / k.stab);
   };
   const train = (step: SkillNode, now: number) => {
+    const now_ = skillOf(step, now);
     const k = skills.get(step.id)!;
-    k.k += model.learn * (0.98 - k.k);
+    const kept = Math.exp(-(now - k.last) / DAY / k.stab);
+    // practice after a gap (something to recall) lasts longer than more of the same at once
+    k.stab = k.stab * (1 + GRAMMAR_SPACING * (1 - kept)) + GRAMMAR_MASSED;
+    k.k = now_ + model.learn * (0.98 - now_);
     k.last = now;
   };
   const chance = (p: number) => Math.min(0.99, 0.3 + 0.7 * p);
@@ -120,7 +149,9 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
   };
 
   const conStep = new Map<string, SkillNode>();
-  for (const u of UNITS) for (const st of u.skills) for (const c of st.content.constructionIds ?? []) if (!conStep.has(c)) conStep.set(c, st);
+  // the learner's own course order (younger and older readers differ)
+  const units = unitsFor(child);
+  for (const u of units) for (const st of u.skills) for (const c of st.content.constructionIds ?? []) if (!conStep.has(c)) conStep.set(c, st);
 
   const pick = (ids: readonly string[], now: number) => {
     const weigh = familiarityWeigher(child.srs, { now });
@@ -193,7 +224,7 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
       const prev = c.checkpoints?.[a.unit.id];
       let right = 0;
       let total = 0;
-      for (const part of checkpointPlan(a.unit, prev?.attempts ?? 0)) {
+      for (const part of checkpointPlan(a.unit, prev?.attempts ?? 0, child)) {
         for (let q = 0; q < part.questions; q++, total++) if (rnd() < chance(skillOf(part.step, now) * 0.95)) right++;
       }
       const ratio = total > 0 ? right / total : 0;
@@ -249,15 +280,21 @@ export function simulate(model: LearnerModel, days: number, seed = 1, snapshotDa
     if (want.has(d + 1)) {
       const end = day + 12 * 3_600_000;
       const words = [...memory.keys()];
-      const hard = UNITS.flatMap((u) => u.skills).filter((st) => isHardStep(st) && skills.has(st.id));
+      const hard = units.flatMap((u) => u.skills).filter((st) => isHardStep(st) && skills.has(st.id));
       out.push({
         day: d + 1,
-        unit: UNITS.findIndex((u) => u.id === nextAction(child).unit.id) + 1,
+        unit: units.findIndex((u) => u.id === nextAction(child).unit.id) + 1,
         ...n,
         words: words.length,
         recall: words.reduce((a, id) => a + recall(id, end), 0) / Math.max(1, words.length),
+        recallSettled: (() => {
+          const settled = words.filter((id) => end - memory.get(id)!.first >= 14 * DAY);
+          return settled.reduce((a, id) => a + recall(id, end), 0) / Math.max(1, settled.length);
+        })(),
         due: dueReviewIds(child, end).length,
         hardSkill: hard.reduce((a, st) => a + skillOf(st, end), 0) / Math.max(1, hard.length),
+        hardSkillLater: hard.reduce((a, st) => a + skillOf(st, end + 14 * DAY), 0) / Math.max(1, hard.length),
+        met: units.filter((u) => unitStarted(child, u)).map((u) => u.id),
         hardStale: hard.filter((st) => (end - skills.get(st.id)!.last) / DAY > 30).length,
       });
     }

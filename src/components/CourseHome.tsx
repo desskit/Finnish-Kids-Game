@@ -15,7 +15,6 @@ import { dueStoryRevisit } from '../game/storyLog';
 import { storyById } from '../content/stories';
 import { statsOf, warmupDoneOn } from '../game/stats';
 import {
-  UNITS,
   actionHref,
   checkpointPlan,
   checkpointStatus,
@@ -31,6 +30,7 @@ import {
   stepStatus,
   unitStatus,
   unitsCompleted,
+  unitsFor,
   topLevel,
   type NextAction,
   type Unit,
@@ -75,12 +75,13 @@ export default function CourseHome() {
   const [open, setOpen] = useState<Set<string>>(() => new Set([next.unit.id]));
   // Locked units far ahead fold away — a peek at the next two, then a button.
   const [showAll, setShowAll] = useState(false);
-  const lastOpen = UNITS.reduce(
+  const units = unitsFor(activeChild);
+  const lastOpen = units.reduce(
     (last, u, i) => (unitStatus(activeChild, u, unlockAll) !== 'locked' ? i : last),
     0,
   );
-  const cutoff = showAll ? UNITS.length : lastOpen + 2;
-  const hidden = UNITS.length - 1 - cutoff;
+  const cutoff = showAll ? units.length : lastOpen + 2;
+  const hidden = units.length - 1 - cutoff;
   const toggle = (id: string) =>
     setOpen((s) => {
       const n = new Set(s);
@@ -90,7 +91,7 @@ export default function CourseHome() {
     });
 
   const completed = unitsCompleted(activeChild);
-  const total = UNITS.filter(hasCheckpoint).length;
+  const total = units.filter(hasCheckpoint).length;
 
   return (
     <section className="screen course-home">
@@ -175,7 +176,7 @@ export default function CourseHome() {
             <span className="continue-cta__title">
               Jatka <span className="en">Continue</span>
             </span>
-            <span className="continue-cta__what">{describe(next)}</span>
+            <span className="continue-cta__what">{describe(next, units)}</span>
           </span>
         </Link>
       )}
@@ -244,7 +245,7 @@ export default function CourseHome() {
       </h2>
 
       <ol className="units stagger">
-        {UNITS.slice(0, cutoff + 1).map((unit, i) => {
+        {units.slice(0, cutoff + 1).map((unit, i) => {
           const status = unitStatus(activeChild, unit, unlockAll);
           const isCurrent = unit.id === next.unit.id;
           const expanded = status !== 'locked' && open.has(unit.id);
@@ -321,7 +322,7 @@ function UnitSteps({ unit, unlockAll }: { unit: Unit; unlockAll: boolean }) {
   const os = openerStatus(activeChild, unit, unlockAll);
   const heard = openerHeard(activeChild, unit);
   const cp = checkpointStatus(activeChild, unit, unlockAll);
-  const cpQuestions = checkpointPlan(unit).reduce((n, p) => n + p.questions, 0);
+  const cpQuestions = checkpointPlan(unit, 0, activeChild).reduce((n, p) => n + p.questions, 0);
   const at = lessonAt(unit);
 
   // The unit's lesson — the "notice" card, after the first step.
@@ -523,8 +524,8 @@ function MidLessonRow({ unit, lessonId, unlockAll }: { unit: Unit; lessonId: str
 }
 
 /** "Unit 4 · Lesson: How to say "I have"" — the Continue button's subtitle. */
-function describe(a: NextAction): string {
-  const n = UNITS.indexOf(a.unit) + 1;
+function describe(a: NextAction, units: readonly Unit[]): string {
+  const n = units.findIndex((u) => u.id === a.unit.id) + 1;
   switch (a.kind) {
     case 'opener':
       return `Unit ${n} · Listen first: ${storyById[a.storyId]?.titleEn ?? a.unit.titleEn}`;

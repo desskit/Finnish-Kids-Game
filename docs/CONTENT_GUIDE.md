@@ -299,20 +299,32 @@ whole — never split by rule.
 
 ### Adding or changing a unit
 
+- **Two course orders.** Younger readers (6–7, and any player with no reader
+  band) meet the units in a themes-first order (`YOUNGER_ORDER` in
+  `path.tsx`); older readers meet them in the order of `UNITS`. A unit's
+  content is the same in both, so **a unit may only use what comes before it in
+  both orders**: its words, the verb forms it asks for, its endings, and the
+  lessons its own lessons refer back to. `courseOrders.test.ts` checks it. A
+  new unit goes into both lists. A lesson that says "remember…" or "you know…"
+  names that lesson in its `requires`. Unit numbers on screen follow the
+  child's order, so never write "unit 6" in a lesson or a tip (the clock
+  lesson's "unit 3", Numbers, is the same in both). To move a step to another
+  unit, add it to `MOVED_STEPS` in `storage.ts` so saved progress follows it
+  (docs/LEARNING_AUDIT.md Part 10).
 - `newWords`: the item ids the unit introduces. Each word may be introduced
   only once in the course. Steps draw from the unit's own words
   (`content.words: 'new'`, used by the "New words" warm-up) or, by default,
   from every word met so far (`'known'`).
 - Unit ids are **semantic** (`having`, `when`, `town`…), never numbered, so a
   new unit can be inserted without renaming saved progress. "Unit N" on screen
-  comes from position.
+  comes from its position in the child's order.
 - Steps: use `phraseStep(...)` for carrier-phrase drills, `wordsStep(...)` for
   the vocab warm-up, `sceneStep(...)` for the unit's conversation,
   `reviewStep(unitId)` for a Kertaus, or a plain `SkillNode`. Dialogue, scene
   and story steps take `content.ids` to pick registry entries.
 - **Build and order before done; typing is a minor extra.** `phraseStep`
   ramps `build → order → order` (top level 3). From `TYPING_FROM_UNIT`
-  (Describing) on, sentence steps also get `minor: spell`: from level 2, one
+  (Describing for older readers, Comparing for younger ones) on, sentence steps also get `minor: spell`: from level 2, one
   round in four asks the child to type the sentence. Minor rounds earn stars
   and count toward the Writer achievement, but never move the level or decide
   "done" (`ActivityProgress.bonus`) — a small challenge, never a roadblock.

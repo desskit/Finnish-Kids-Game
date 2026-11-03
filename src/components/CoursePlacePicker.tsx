@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Child } from '../state/storage';
-import { UNITS, openerStoryId } from '../game/course';
+import { openerStoryId, unitsFor } from '../game/course';
 import { currentPlace, placeFromKey, placeKey } from '../game/placement';
 import { storyById } from '../content/stories';
 
@@ -11,13 +11,14 @@ export default function CoursePlacePicker({ child, onMove }: { child: Child; onM
   const now = placeKey(currentPlace(child));
   const [picked, setPicked] = useState(now);
   const place = placeFromKey(picked);
-  const unitNo = place ? UNITS.findIndex((u) => u.id === place.unitId) + 1 : 0;
+  const units = unitsFor(child);
+  const unitNo = place ? units.findIndex((u) => u.id === place.unitId) + 1 : 0;
 
   return (
     <div className="gplace" role="group" aria-label={`Place in the course for ${child.name}`}>
       <span className="glook__label">Place in the course</span>
       <select className="gplace__select" value={picked} onChange={(e) => setPicked(e.target.value)} aria-label="Unit and step">
-        {UNITS.map((u, i) => {
+        {units.map((u, i) => {
           const story = openerStoryId(u);
           return (
             <optgroup key={u.id} label={`Unit ${i + 1}: ${u.titleEn}`}>

@@ -32,7 +32,13 @@ import { slipForms } from '../content/contrasts';
 import { animals, food, family, places, body, nature, clothes, school, freetime, verbs } from '../content';
 import { formFor, sentenceFor, suitsSlot } from '../content/types';
 import uiFinnish from '../../data/ui-finnish.json';
-import { PATH } from './path';
+import { pathFor } from './path';
+
+/**
+ * The course order the review sheet follows: the younger readers' (the default
+ * for a new player), so a reviewer meets things in the order most children do.
+ */
+export const REVIEW_PATH = pathFor('younger');
 import { BADGES, BADGE_CATEGORIES } from './badges';
 import { AUDIT_ENTRIES } from './audit';
 import { MATH_STAGES, isMathId } from './mathPath';
@@ -110,11 +116,11 @@ const PATTERN_GAME: Record<string, string> = {
 /** Where each thing first turns up in the course: its lessons, steps, games and words. */
 function courseMap() {
   const firstAt = new Map<string, number>();
-  // PATH is in course order, so the first unit to list a thing is where it's met
+  // REVIEW_PATH is in course order, so the first unit to list a thing is where it's met
   const meet = (what: string, unit: number) => {
     if (!firstAt.has(what)) firstAt.set(what, unit);
   };
-  PATH.forEach((unit, i) => {
+  REVIEW_PATH.forEach((unit, i) => {
     const n = i + 1;
     meet(`lesson:${unit.lessonId}`, n);
     for (const m of unit.midLessons ?? []) meet(`lesson:${m.lessonId}`, n);
@@ -132,7 +138,7 @@ function courseMap() {
   });
   const at = (what: string | undefined): ReviewPlace => (what && firstAt.get(what)) || 'not-yet';
   // "Syötkö?" is asked only of the verbs known by the asking unit
-  const askedFrom = PATH.flatMap((unit, i) =>
+  const askedFrom = REVIEW_PATH.flatMap((unit, i) =>
     unit.skills
       .filter((step) => step.content.choose === 'ask' || step.content.choose === 'answer')
       .map((step) => ({ unit: i + 1, verbs: new Set(step.content.wordIds ?? []) })),
@@ -410,7 +416,7 @@ function collect(): ReviewSection[] {
       });
   };
   const titleRows = byText([
-    ...PATH.flatMap((unit, i) => [
+    ...REVIEW_PATH.flatMap((unit, i) => [
       [unit.titleFi, unit.titleEn, i + 1] as [string, string, ReviewPlace],
       ...unit.skills.flatMap((s): [string | undefined, string, ReviewPlace][] => [
         [s.titleFi, s.titleEn, i + 1],

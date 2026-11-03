@@ -3,7 +3,7 @@ import ChooseForm from '../components/ChooseForm';
 import { choosePoolsFor, type ChooseMode, type ChoosePools } from './formChoice';
 import type { ReactElement } from 'react';
 import type { CaseId, Construction, LexicalItem } from '../content/types';
-import { matchesVerbFilter, typeByLook, verbType, type VerbFilter, type VerbType } from '../content/verbTypes';
+import { hasKpt, matchesVerbFilter, typeByLook, verbType, type VerbFilter, type VerbType } from '../content/verbTypes';
 import {
   animals,
   food,
@@ -235,6 +235,8 @@ export interface SkillNode {
    * the step is done, so they stay a small extra challenge, not a roadblock.
    */
   minor?: { kind: ActivityKind; fromLevel: number; every: number };
+  /** Which order's copy of the course this step belongs to (set when the course is resolved). */
+  order?: CourseOrder;
   /**
    * From this measured level up, the node's picture-recognition games (Listen &
    * Tap, Name it) run a gentle per-question countdown (see `questionTimerMs`).
@@ -290,6 +292,8 @@ export interface Chapter {
   unpinned?: boolean;
   /** A not-yet-filled chapter (advanced content authored later). */
   comingSoon?: boolean;
+  /** Which course order's copy this is (set on resolve: `pathFor`). */
+  order?: CourseOrder;
 }
 
 // --- Content resolution ---------------------------------------------------
@@ -957,8 +961,9 @@ const UNITS: Chapter[] = [
         titleEn: 'Whose is it?',
         icon: '🙋',
         activity: 'possessive',
-        // "my book", "your bike" only — the "in my house" forms come in the
-        // Where? unit, once the place endings are known.
+        // "my book", "your bike" only — the "in my house" forms come in
+        // Around town & home, once the place endings are known (in both
+        // course orders).
         maxLevel: 3,
         content: { pool: 'nouns', possessiveCases: 'never' },
         exampleFi: 'kirjani, kirjasi',
@@ -1382,16 +1387,6 @@ const UNITS: Chapter[] = [
       phraseStep('touch-it', 'Kosketa nenää!', 'Touch your nose!', '🫳', ['touch-it'], 'Kosketa nenää!', 'body'),
       phraseStep('lift-it', 'Nosta käsi ylös!', 'Put your hand up!', '📤', ['lift-it'], 'Nosta käsi ylös!', 'body'),
       {
-        id: 'my-nose',
-        titleFi: 'Nenäni',
-        titleEn: 'My nose, your ear',
-        icon: '👃',
-        activity: 'possessive',
-        maxLevel: 3,
-        content: { pool: 'body', possessiveCases: 'never' },
-        exampleFi: 'nenäni, korvasi',
-      },
-      {
         id: 'captain-says',
         titleFi: 'Kapteeni käskee',
         titleEn: 'Captain says',
@@ -1413,7 +1408,6 @@ const UNITS: Chapter[] = [
     accent: '#ca8a04',
     icon: '🎨',
     lessonId: 'colors',
-    midLessons: [{ lessonId: 'agreement', before: 'describe' }],
     newWords: [...DESCRIBE_1, ...DESCRIBE_2],
     skills: [
       wordsStep('describing', 'adjectives', 'Colors & describing words', DESCRIBE_1),
@@ -1426,7 +1420,10 @@ const UNITS: Chapter[] = [
         icon: '🎨',
         activity: 'match',
         maxLevel: 4,
-        content: {},
+        // The basic form only (iso koira): younger readers meet Describing
+        // before any ending. Describing words copying an ending (isossa
+        // talossa) come in Where?, with their own lesson.
+        content: { agreementCases: ['nominative'] },
         exampleFi: 'iso koira',
       },
       sceneStep('describing-talk', 'what-like', 'Millainen?', 'What is it like?'),
@@ -1487,7 +1484,9 @@ const UNITS: Chapter[] = [
     accent: '#0284c7',
     icon: '📍',
     lessonId: 'in-on',
-    midLessons: [{ lessonId: 'in-my-house', before: 'in-my' }],
+    // Describing words copy the ending too: isossa talossa (the "in my house"
+    // forms come in Around town & home, after Whose? in both orders).
+    midLessons: [{ lessonId: 'agreement', before: 'big-house' }],
     newWords: [
       'house',
       'school',
@@ -1508,26 +1507,8 @@ const UNITS: Chapter[] = [
     ],
     skills: [
       wordsStep('where', 'places', 'Places'),
-      phraseStep(
-        'where-is',
-        'Missä on…?',
-        'Where is…?',
-        '🔍',
-        ['where-is', 'where-is-yours'],
-        'Missä on sinun reppusi?',
-      ),
+      phraseStep('where-is', 'Missä on…?', 'Where is…?', '🔍', ['where-is'], 'Missä on laukku?'),
       phraseStep('in-on', 'Laatikossa, pöydällä', 'In or on', '📦', ['in-it', 'on-it'], 'Kirja on laatikossa.', 'places'),
-      {
-        id: 'in-my',
-        titleFi: 'Talossani',
-        titleEn: 'In my house',
-        icon: '🏠',
-        activity: 'possessive',
-        // The "my" ending stacked AFTER a place ending: talo-ssa-ni.
-        maxLevel: 3,
-        content: { pool: 'places', possessiveCases: 'always' },
-        exampleFi: 'talossani, huoneessasi',
-      },
       listenStep('where-listen', 'In or on?', 'carriers', { constructionIds: ['in-it', 'on-it'], pool: 'places' }, 'laatikossa · pöydällä'),
       {
         // The describing word copies the place ending too: isossa talossa,
@@ -1542,7 +1523,6 @@ const UNITS: Chapter[] = [
         exampleFi: 'isossa talossa · pienellä pöydällä',
       },
       sceneStep('where-talk', 'tidy-up', 'Missä se on?', 'Where is it?'),
-      sceneStep('where-talk-2', 'my-things', 'Missä tavarasi ovat?', 'Where are your things?'),
     ],
   },
   {
@@ -1589,6 +1569,9 @@ const UNITS: Chapter[] = [
     accent: '#059669',
     icon: '🏙️',
     lessonId: 'town',
+    // "In my house" (talossani): the "my" ending after a place ending. It sits
+    // here, after Where?, Whose? and Going & coming in both course orders.
+    midLessons: [{ lessonId: 'in-my-house', before: 'in-my' }],
     newWords: [
       'park',
       'hospital',
@@ -1619,8 +1602,21 @@ const UNITS: Chapter[] = [
         'Menen kirjastoon.',
         'places',
       ),
+      {
+        id: 'in-my',
+        titleFi: 'Talossani',
+        titleEn: 'In my house',
+        icon: '🏠',
+        activity: 'possessive',
+        // The "my" ending stacked AFTER a place ending: talo-ssa-ni.
+        maxLevel: 3,
+        content: { pool: 'places', possessiveCases: 'always' },
+        exampleFi: 'talossani, huoneessasi',
+      },
+      phraseStep('where-yours', 'Missä on sinun…?', 'Where is your…?', '🔍', ['where-is-yours'], 'Missä on sinun reppusi?'),
       listenStep('town-listen', 'Am, going or coming?', 'carriers', { constructionIds: ['i-am-in', 'i-go-into', 'i-come-from-in', 'i-am-on', 'i-go-onto', 'i-come-from-on'], pool: 'places' }, 'Olen puistossa. · Menen puistoon.'),
       sceneStep('town-talk', 'in-town', 'Kaupungilla', 'Out in town'),
+      sceneStep('where-talk-2', 'my-things', 'Missä tavarasi ovat?', 'Where are your things?'),
     ],
   },
   {
@@ -1635,6 +1631,18 @@ const UNITS: Chapter[] = [
     skills: [
       wordsStep('school-daycare', 'mixed', 'School & daycare'),
       phraseStep('may-i-go', 'Saanko mennä vessaan?', 'May I go…?', '🚻', ['may-i-go-into', 'may-i-go-onto'], 'Saanko mennä vessaan?', 'places'),
+      {
+        // At the nurse's: "my nose, your ear" — the "my" ending on the body
+        // words (from My body, after Whose? in both course orders).
+        id: 'my-nose',
+        titleFi: 'Nenäni',
+        titleEn: 'My nose, your ear',
+        icon: '👃',
+        activity: 'possessive',
+        maxLevel: 3,
+        content: { pool: 'body', possessiveCases: 'never' },
+        exampleFi: 'nenäni, korvasi',
+      },
       phraseStep('must-do', 'Minun täytyy…', 'I have to…', '🏃', ['i-must'], 'Minun täytyy mennä.', 'verbs'),
       phraseStep('asking-nicely', 'Haluaisin, saisinko', 'Asking nicely', '🙏', POLITE_FRAMES, 'Haluaisin piirtää. · Saisinko vettä?', 'mixed'),
       {
@@ -2471,22 +2479,39 @@ for (const { unit: unitId, after, step } of SOUND_STEPS) {
   if (unit && at >= 0) unit.skills.splice(at + 1, 0, step);
 }
 
+// --- Two course orders -----------------------------------------------------
+//
+// One set of units, met in one of two orders. Older readers (about 8–10) keep
+// the original order. Younger readers (about 6–7, and anyone whose reader band
+// isn't set) meet the concrete, picture-rich themes first — colors, food,
+// clothes, feelings, in / on, the weather, the body — then "my / your", and
+// the verbs; verb type 4 comes later, once verbs are familiar
+// (docs/LEARNING_AUDIT.md Part 10). The k / p / t verbs stay right after the
+// first verbs unit, as in the original order: the "not" and "asking" units are
+// built on them (En nuku! Leikitkö?). A unit's content is the same in both
+// orders, so every unit may only use what comes before it in BOTH
+// (courseOrders.test checks).
+export type CourseOrder = 'younger' | 'older';
+
+export const YOUNGER_ORDER: readonly string[] = [
+  'hello', 'people', 'numbers', 'having',
+  'describing', 'likes', 'not-having', 'feelings', 'where', 'weather', 'body',
+  'whose', 'owners', 'doing', 'doing-kpt', 'not-doing', 'asking', 'when', 'wanting', 'commands',
+  'comparing', 'moving', 'seeing', 'shop', 'school-day', 'town', 'nature',
+  'verbs-4', 'play', 'my-day', 'school-daycare', 'by-with',
+  'big-numbers', 'birthdays', 'finnish-year', 'question-words', 'me-you', 'around',
+  'many', 'verbs-5-6', 'yesterday', 'chatting', 'sentences', 'mestari',
+];
+
 // --- Resolve each step's word scope, default pins, and review mixes ------
 //
-// A unit's `newWords` accumulate into the "known" set; each step gets a STABLE
-// `content.wordIds` array (resolved once here, so renderActivity's caches key
-// on it) — 'new' = just this unit's words, 'known' (default) = every word met up
-// to and including this unit, 'all' = unscoped. A Kertaus step's `mixOf` is
-// every GRAMMAR step of the earlier units (not words / dialogue / scene / story
-// steps, not other mixes).
-const knownByUnit: string[][] = [];
-{
-  const acc: string[] = [];
-  for (const unit of UNITS) {
-    for (const w of unit.newWords ?? []) if (!acc.includes(w)) acc.push(w);
-    knownByUnit.push([...acc]);
-  }
-}
+// Per order: a unit's `newWords` accumulate into the "known" set; each step gets
+// a STABLE `content.wordIds` array (resolved once here, so renderActivity's
+// caches key on it) — 'new' = just this unit's words, 'known' (default) = every
+// word met up to and including this unit, 'all' = unscoped. A Kertaus step's
+// `mixOf` is every GRAMMAR step of the earlier units (not words / dialogue /
+// scene / story steps, not other mixes). Each order gets its own copy of the
+// units, its steps tagged with the order.
 
 const NOT_MIXABLE: ReadonlySet<ActivityKind> = new Set([
   'sound',
@@ -2505,56 +2530,128 @@ export function isMixable(step: SkillNode): boolean {
 /**
  * Typing joins from here on — once a base is built (the core sentences, verbs
  * and questions), every sentence step mixes in a minor "type it" round: one in
- * four, from level 2. Never required (see `SkillNode.minor`).
+ * four, from level 2. Never required (see `SkillNode.minor`). For a younger
+ * reader the base is built later in the course, so typing starts later too.
  */
-export const TYPING_FROM_UNIT = 'describing';
+export const TYPING_FROM_UNIT: Readonly<Record<CourseOrder, string>> = { older: 'describing', younger: 'comparing' };
 const TYPING_MINOR = { kind: 'spell' as ActivityKind, fromLevel: 2, every: 4 };
-const typingFrom = UNITS.findIndex((u) => u.id === TYPING_FROM_UNIT);
 
-UNITS.forEach((unit, ui) => {
-  // A unit's own new words stay out of every step BEFORE the words step that
-  // brings them in (its KPT verbs, the Finnish year's Easter and Midsummer
-  // words, the round tens "Count to 20" comes before): a step knows the words
-  // of the words steps up to it, never past it. Only the unit's own new words
-  // are held back: a later step that names an old word (the cottage trip's
-  // yard) doesn't hide it.
-  const ownWords = new Set(unit.newWords ?? []);
-  const knownAt = (si: number): string[] => {
-    const held = new Set(
-      unit.skills
-        .slice(si + 1)
-        .flatMap((s) => s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : []))
-        .filter((w) => ownWords.has(w)),
-    );
-    // …unless an earlier words step already met them.
-    for (const s of unit.skills.slice(0, si + 1)) {
-      for (const w of s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : [])) held.delete(w);
-    }
-    return held.size === 0 ? knownByUnit[ui] : knownByUnit[ui].filter((w) => !held.has(w));
-  };
-  unit.skills.forEach((step, si) => {
-    const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
-    if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
-    const scope = step.content.words ?? 'known';
-    if (step.content.only) step.content.wordIds = step.content.only;
-    else if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
-    else if (scope === 'known') step.content.wordIds = knownAt(si);
-    if (!unit.unpinned) step.pin = { ...EVERY_TIER, ...step.pin };
-    if (step.content.mix) {
-      step.content.mixOf = UNITS.slice(0, ui)
-        .flatMap((u) => u.skills)
-        .filter(isMixable)
-        .map((s) => s.id);
-    }
-  });
-});
+const VERB_ITEM = new Map(verbs.items.map((v) => [v.id, v]));
 
-/** Every word id introduced up to and including unit `index` (0-based). */
-export function knownWordsThrough(index: number): readonly string[] {
-  return knownByUnit[Math.max(0, Math.min(index, knownByUnit.length - 1))] ?? [];
+/** Choose-the-form games that ask a verb's forms (the rest ask nouns or fixed frames). */
+const VERB_CHOOSE: ReadonlySet<ChooseMode> = new Set(['ask', 'answer', 'mood', 'verb-type']);
+
+/** A step that asks a verb's forms — "en syö", "syötkö?", "älä syö" — not just its picture. */
+function conjugates(step: SkillNode): boolean {
+  const games = [step.activity, ...(step.activities ?? [])];
+  return (
+    games.includes('conjugate') ||
+    (!!step.content.choose && VERB_CHOOSE.has(step.content.choose)) ||
+    step.content.hear === 'verbs'
+  );
 }
 
-export const PATH: Chapter[] = UNITS;
+/**
+ * The unit that teaches a verb's family: its consonant change (k, p, t) in
+ * types 1–3, type 4, types 5 and 6. A verb is met as a word wherever its unit
+ * brings it in (a body unit's "Kosketa!"), but its forms are asked only from
+ * this unit on — so a unit that comes early in one order never asks *en
+ * kosketa* before the k/p/t lesson.
+ */
+function verbFamilyUnit(id: string): string | undefined {
+  const v = VERB_ITEM.get(id);
+  if (!v) return undefined;
+  const t = verbType(v);
+  if (t === 5 || t === 6) return 'verbs-5-6';
+  if (t === 4) return 'verbs-4';
+  return hasKpt(v) ? 'doing-kpt' : undefined;
+}
+
+function resolveOrder(order: CourseOrder): { units: Chapter[]; knownByUnit: string[][] } {
+  const ids = order === 'older' ? UNITS.map((u) => u.id) : YOUNGER_ORDER;
+  const units: Chapter[] = ids.map((id) => {
+    const unit = UNITS.find((u) => u.id === id);
+    if (!unit) throw new Error(`Unknown unit in the ${order} order: ${id}`);
+    return JSON.parse(JSON.stringify(unit)) as Chapter;
+  });
+  const knownByUnit: string[][] = [];
+  const acc: string[] = [];
+  for (const unit of units) {
+    for (const w of unit.newWords ?? []) if (!acc.includes(w)) acc.push(w);
+    knownByUnit.push([...acc]);
+  }
+  const typingFrom = units.findIndex((u) => u.id === TYPING_FROM_UNIT[order]);
+  const unitAt = new Map(units.map((u, i) => [u.id, i]));
+  units.forEach((unit, ui) => {
+    unit.order = order;
+    // A unit's own new words stay out of every step BEFORE the words step that
+    // brings them in (its KPT verbs, the Finnish year's Easter and Midsummer
+    // words, the round tens "Count to 20" comes before): a step knows the words
+    // of the words steps up to it, never past it. Only the unit's own new words
+    // are held back: a later step that names an old word (the cottage trip's
+    // yard) doesn't hide it.
+    const ownWords = new Set(unit.newWords ?? []);
+    const knownAt = (si: number): string[] => {
+      const held = new Set(
+        unit.skills
+          .slice(si + 1)
+          .flatMap((s) => s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : []))
+          .filter((w) => ownWords.has(w)),
+      );
+      // …unless an earlier words step already met them.
+      for (const s of unit.skills.slice(0, si + 1)) {
+        for (const w of s.content.only ?? (s.content.words === 'new' ? unit.newWords ?? [] : [])) held.delete(w);
+      }
+      return held.size === 0 ? knownByUnit[ui] : knownByUnit[ui].filter((w) => !held.has(w));
+    };
+    unit.skills.forEach((step, si) => {
+      step.order = order;
+      const isSentenceStep = step.activities?.[0] === 'build' && step.activities?.[1] === 'order';
+      if (isSentenceStep && ui >= typingFrom && !unit.unpinned) step.minor = TYPING_MINOR;
+      const scope = step.content.words ?? 'known';
+      if (step.content.only) step.content.wordIds = step.content.only;
+      else if (scope === 'new') step.content.wordIds = unit.newWords ?? [];
+      else if (scope === 'known') step.content.wordIds = knownAt(si);
+      // Verb forms only once the verb's family is taught (in this order).
+      if (scope === 'known' && !step.content.only && conjugates(step)) {
+        const known = step.content.wordIds!;
+        const kept = known.filter((w) => {
+          const at = verbFamilyUnit(w);
+          return !at || unitAt.get(at)! <= ui;
+        });
+        if (kept.length < known.length) step.content.wordIds = kept;
+      }
+      if (!unit.unpinned) step.pin = { ...EVERY_TIER, ...step.pin };
+      if (step.content.mix) {
+        step.content.mixOf = units
+          .slice(0, ui)
+          .flatMap((u) => u.skills)
+          .filter(isMixable)
+          .map((s) => s.id);
+      }
+    });
+  });
+  return { units, knownByUnit };
+}
+
+const RESOLVED: Record<CourseOrder, { units: Chapter[]; knownByUnit: string[][] }> = {
+  older: resolveOrder('older'),
+  younger: resolveOrder('younger'),
+};
+
+/** The course, in the original (older readers') order — the canonical one. */
+export const PATH: Chapter[] = RESOLVED.older.units;
+
+/** The course in a given order. */
+export function pathFor(order: CourseOrder): Chapter[] {
+  return RESOLVED[order].units;
+}
+
+/** Every word id introduced up to and including unit `index` (0-based) of an order. */
+export function knownWordsThrough(index: number, order: CourseOrder = 'older'): readonly string[] {
+  const known = RESOLVED[order].knownByUnit;
+  return known[Math.max(0, Math.min(index, known.length - 1))] ?? [];
+}
 
 // --- Lookups + progression helpers ---------------------------------------
 
@@ -2581,11 +2678,12 @@ export function mixStepFor(skill: SkillNode, roundNo: number): FoundSkill | unde
   if (!ids || ids.length === 0) return undefined;
   const n = ids.length;
   const back = (((Math.trunc(roundNo) * strideFor(n)) % n) + n) % n;
-  return findSkill(ids[n - 1 - back]);
+  return findSkill(ids[n - 1 - back], skill.order);
 }
 
-export function findSkill(id: string): FoundSkill | undefined {
-  for (const chapter of PATH) {
+/** A step and its unit, in the given order's copy of the course. */
+export function findSkill(id: string, order: CourseOrder = 'older'): FoundSkill | undefined {
+  for (const chapter of pathFor(order)) {
     const skill = chapter.skills.find((s) => s.id === id);
     if (skill) return { chapter, skill };
   }
@@ -2694,10 +2792,12 @@ function ladderKinds(skill: SkillNode): string[] {
 
 export const badgeEnv: BadgeEnv = {
   checkpointUnitIds: PATH.filter((u) => u.checkpoint !== false).map((u) => u.id),
+  // A step may mix in typing in one order and not the other: either counts.
   minorKinds: Object.fromEntries(
-    allSkills()
-      .filter(({ skill }) => skill.minor)
-      .map(({ skill }) => [skill.id, skill.minor!.kind]),
+    [...pathFor('younger'), ...PATH]
+      .flatMap((chapter) => chapter.skills)
+      .filter((skill) => skill.minor)
+      .map((skill) => [skill.id, skill.minor!.kind]),
   ),
   kertausStepIds: allSkills()
     .filter(({ skill }) => skill.content.mix)
@@ -2778,14 +2878,16 @@ function scoped(all: LexicalItem[], ids: string[] | undefined, min: number): Lex
  * never padded out with other types — since the set IS the lesson.
  */
 const STEP_VERBS = new Map<string, LexicalItem[]>();
+/** A cache key per step AND course order: the orders' copies scope differently. */
+const stepKey = (skill: SkillNode) => `${skill.order ?? ''}:${skill.id}`;
 function stepVerbs(skill: SkillNode): LexicalItem[] {
-  let cached = STEP_VERBS.get(skill.id);
+  let cached = STEP_VERBS.get(stepKey(skill));
   if (!cached) {
     const filter = skill.content.verbs;
     cached = filter
       ? scoped(verbs.items, skill.content.wordIds, 1).filter((v) => matchesVerbFilter(v, filter))
       : scoped(verbs.items, skill.content.wordIds, 4);
-    STEP_VERBS.set(skill.id, cached);
+    STEP_VERBS.set(stepKey(skill), cached);
   }
   return cached;
 }
@@ -2793,7 +2895,7 @@ function stepVerbs(skill: SkillNode): LexicalItem[] {
 /** Choose-the-form pools for a step — its verbs narrowed like `stepVerbs`. */
 const STEP_CHOOSE = new Map<string, ChoosePools>();
 function stepChoosePools(skill: SkillNode): ChoosePools {
-  let cached = STEP_CHOOSE.get(skill.id);
+  let cached = STEP_CHOOSE.get(stepKey(skill));
   if (!cached) {
     const base = choosePools(skill.content.wordIds);
     const filter = skill.content.verbs;
@@ -2820,7 +2922,7 @@ function stepChoosePools(skill: SkillNode): ChoosePools {
         types,
       };
     }
-    STEP_CHOOSE.set(skill.id, cached);
+    STEP_CHOOSE.set(stepKey(skill), cached);
   }
   return cached;
 }

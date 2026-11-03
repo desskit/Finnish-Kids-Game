@@ -11,7 +11,7 @@ import {
 import { difficultyFor } from './game/adapt';
 import { findMathSkill, isMathId } from './game/mathPath';
 import { renderMathActivity } from './components/math/renderMath';
-import { actionHref, findUnit, lessonForStep, nextAction, openerStoryId } from './game/course';
+import { actionHref, findUnit, lessonForStep, nextAction, openerStoryId, orderOf } from './game/course';
 import { isSpeechRecognitionAvailable } from './audio/speech';
 import { ActivityContext, type RoundOutcome, type SegmentMeta } from './game/activityContext';
 import { recordRoundOnChild, activityLevel } from './game/progress';
@@ -94,7 +94,7 @@ function SkillRoute() {
   const navigate = useNavigate();
   const { activeChild, recordRound, recordStory, recordStats, activityDifficulty, stars, settings } = useProfile();
   // a math step (Lasketaan!) plays through here too, kept apart from the course
-  const found = skillId ? findSkill(skillId) ?? findMathSkill(skillId) : undefined;
+  const found = skillId ? findSkill(skillId, orderOf(activeChild)) ?? findMathSkill(skillId) : undefined;
   const math = !!found && isMathId(found.skill.id);
 
   // `round.no` counts segments (drives game-type rotation); `round.level` is
@@ -337,7 +337,7 @@ function OpenerRoute() {
   const navigate = useNavigate();
   const { activeChild, markOpenerHeard } = useProfile();
   if (!activeChild) return <Navigate to="/profiles" replace />;
-  const unit = unitId ? findUnit(unitId) : undefined;
+  const unit = unitId ? findUnit(unitId, activeChild) : undefined;
   const storyId = unit && openerStoryId(unit);
   if (!unit || !storyId || !storyById[storyId]) return <Navigate to="/" replace />;
   return (

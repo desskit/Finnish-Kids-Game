@@ -466,3 +466,108 @@ level. `path.test.ts` checks that no step draws a word its unit brings in only
 in a later step. That check caught one: "Count to 20" asked the round tens of
 the step after it. Units now hold back their own words until the words step
 that brings them in.
+
+## Part 10 — Two course orders: themes first for younger readers
+
+**What the order did.** Units open one after another, so the order is
+everything a child meets. A steady 6–7-year-old playing about 8 minutes a day
+met the everyday themes late: colors (unit 22), the body and *Kapteeni
+käskee* (21), animals (23), in / on (24), days and the clock (29) and the
+weather (31) all came after the first year. Before them came "my / your" (6),
+Mom's (7), three verb units with the k / p / t sound changes (8–10) and verb
+type 4 (15). The research (`LEARNING_RESEARCH.md`) points the other way for
+this age: concrete, picture-rich input and whole phrases first, acting out
+early, and the place endings, which are among the most useful.
+
+**The change.** Older readers (8–10) keep the original order. Younger readers
+(and any player whose reader band isn't set) get the themes-first order,
+`YOUNGER_ORDER` in `path.tsx`:
+
+| # | Younger readers | Was |
+|---|---|---|
+| 1–4 | hello, people, numbers, having | 1–4 |
+| 5–11 | colors & describing, food & likes, clothes, feelings, in / on, weather, body | 22, 13, 5, 12, 24, 31, 21 |
+| 12–13 | my / your, Mom's | 6–7 |
+| 14–17 | verbs 1–3, the k / p / t verbs, "not", asking | 8–11 |
+| 18–27 | when, wanting, commands, comparing, moving, seeing, shop, school day, town, nature | 29, 14, 20, 23, 25, 18, 19, 16, 26, 32 |
+| 28–32 | verb type 4, play, my day, school & daycare, by / with | 15, 17, 30, 27, 28 |
+| 33–44 | unchanged | 33–44 |
+
+The k / p / t verbs stay right after the first verbs unit, as in the original
+order. The plan first put them at 27, but the "not" and "asking" units' scenes
+are built on them (*En nuku!*, *Leikitkö?*), and moving those would have meant
+writing new Finnish.
+
+**The rule that keeps both orders safe.** A unit's content is the same in both
+orders, so each unit may only use what comes before it in **both**: its words,
+the verb forms it asks for, its endings, and what its lessons refer back to.
+`courseOrders.test.ts` checks this for every step and every lesson example in
+both orders. It takes the unit that first uses something in the original order
+as the one that teaches it. It also checks that a lesson's `requires` (the
+lessons it says "remember…" about) come earlier in both orders. A verb's forms
+are asked only once its family is taught in the child's order (`path.tsx
+verbFamilyUnit`): a body unit's *Kosketa!* comes early, but *en kosketa* waits
+for the k / p / t lesson.
+
+**What moved to satisfy it** (existing content only, no new Finnish):
+
+- *Talossani* ("in my house"), its lesson, and the "Where are your things?"
+  scene moved from Where? to **Around town & home**. *Missä on sinun…?* went
+  there too, as its own step. It needs both *Missä?* and "my / your", and Town
+  is the first unit after both in both orders.
+- *Nenäni* ("my nose") moved from My body to **School & daycare**, beside the
+  nurse.
+- Describing's "Describe it" asks only the basic form (*iso koira*). The lesson
+  on describing words copying the ending moved to Where?, before "In the big
+  house". Its genitive check (*punaisen pallon*) became an adessive one
+  (*isolla pöydällä*).
+- Lesson examples that used a word not met yet in one order were changed to
+  ones met by then in both: *a dirty ball* (not shoe), *Istu! Tanssi!* (not
+  *Hyppää!*, a type 4 verb, or *Katso!*). The weather lesson's "What to wear"
+  card (*Puen sadetakin päälle*) went; that pattern is taught in My day.
+- A player's progress on a moved step moves with it on load (`storage.ts
+  MOVED_STEPS`). A player who had already finished Around town keeps it
+  finished.
+
+**What stays as input.** Stories and scenes are heard and read with tap
+meanings and English help, so a few words in them come before the unit that
+teaches them in the younger order. For example, *leikkiä*, *nukkua* and
+*hypätä* appear in early stories. Two scene replies are ahead of their
+grammar for a younger reader: *Puen villapaidan päälle* (weather) and
+*leikitään! / hyppää!* (the Captain game). No unit is late enough in both
+orders to take those scenes, so they stay.
+
+**Existing players.** Completion is kept by unit id, so nothing relocks. A
+unit a player has started stays open, and Continue goes to the earliest unit
+not done in the player's order (it fills the gaps). Changing a player's reader
+band in Grown-ups switches the order the same way.
+
+**Review for younger readers.** The themes-first order brings in new words
+unit after unit, where the original order's grammar units kept reusing old
+ones. So once ten or more are due, a younger reader gets a quick review every
+third round of a step instead of every fifth (`learner.ts flowReviewEvery`).
+
+**The simulator** now spaces grammar the way it spaces words. What a step
+gained above the child's starting point fades with time. Practice after a gap
+makes it last longer than the same practice in one sitting. Younger learners
+play the younger order and the older learner the original. Each run reports
+the everyday themes met, words met, settled-word recall, and hard-step skill
+two weeks on. Same model, mean of 5 runs:
+
+| Steady younger reader | Original order | Themes first |
+|---|---|---|
+| Themes met by 6 months | 1 (clothes) | 3 (colors, food, clothes) |
+| Themes met by 1 year | 3 | 7 (colors, food, clothes, feelings, in / on, weather, body) |
+| Words met by 1 year | 155 | 176 |
+| Recall at 6 months / 1 year | 0.87 / 0.83 | 0.78 / 0.82 |
+| Due for review at 1 year | 60 | 51 |
+| Unit reached at 1 year | 16.4 | 13.6 |
+
+**The trade:** more words and the everyday themes in the first year, the same
+recall by its end, and a smaller review pile. In exchange, the grammar units
+come later: at a year a younger reader has "my / your" and Mom's and is
+starting the verbs; the "not" verbs, *haluan* and verb type 4 come in the
+second year. The theme
+units are bigger, so fewer units are passed. The older order's numbers are
+unchanged apart from small shifts from the moved steps. As in Part 9, the
+model child is a model: the numbers are for comparing orders, not predictions.

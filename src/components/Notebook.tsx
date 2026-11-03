@@ -2,7 +2,7 @@ import { unlockAllFor } from '../state/storage';
 import { Link } from 'react-router-dom';
 import { lessonById } from '../content/lessons';
 import { stories, storyById, type Story } from '../content/stories';
-import { UNITS, midLessonStatus, unitStatus } from '../game/course';
+import { midLessonStatus, unitStatus, unitsFor } from '../game/course';
 import { storyReadWell } from '../game/storyLog';
 import { useProfile } from '../state/profile';
 import Art from '../art/Art';
@@ -18,12 +18,12 @@ const WELL_KNOWN_BOX = 4;
 /** Every word the child has got right at least once, with a picture, in course order. */
 function wordBook(child: Child | null | undefined): LexicalItem[] {
   const srs = child?.srs ?? {};
-  const order = [...new Set([...UNITS.flatMap((u) => u.newWords ?? []), ...Object.keys(srs)])];
+  const order = [...new Set([...unitsFor(child).flatMap((u) => u.newWords ?? []), ...Object.keys(srs)])];
   return order.map((id) => reviewItemById[id]).filter((i) => i?.emoji && (srs[i.id]?.correct ?? 0) > 0);
 }
 
-function storiesInCourseOrder(): Story[] {
-  const ids = UNITS.flatMap((u) => u.skills.filter((s) => s.activity === 'story').flatMap((s) => s.content.ids ?? []));
+function storiesInCourseOrder(child: Child | null | undefined): Story[] {
+  const ids = unitsFor(child).flatMap((u) => u.skills.filter((s) => s.activity === 'story').flatMap((s) => s.content.ids ?? []));
   const ordered = [...new Set(ids)].map((id) => storyById[id]).filter(Boolean);
   return [...ordered, ...stories.filter((s) => !ordered.includes(s))];
 }
@@ -36,17 +36,18 @@ function storiesInCourseOrder(): Story[] {
 export default function Notebook() {
   const { activeChild } = useProfile();
   const unlockAll = unlockAllFor(activeChild);
-  const open = UNITS.map((u, i) => ({ u, i })).filter(
+  const units = unitsFor(activeChild);
+  const open = units.map((u, i) => ({ u, i })).filter(
     ({ u }) => unitStatus(activeChild, u, unlockAll) !== 'locked',
   );
   // the lessons still to come: every lesson of a locked unit, and the part-way
   // lessons of an open unit that the child hasn't reached yet
-  const locked = UNITS.reduce((n, u) => {
+  const locked = units.reduce((n, u) => {
     const mids = u.midLessons ?? [];
     if (unitStatus(activeChild, u, unlockAll) === 'locked') return n + 1 + mids.length;
     return n + mids.filter((m) => midLessonStatus(activeChild, u, m, unlockAll) === 'locked').length;
   }, 0);
-  const shelf = storiesInCourseOrder().filter((s) => storyReadWell(activeChild, s.id));
+  const shelf = storiesInCourseOrder(activeChild).filter((s) => storyReadWell(activeChild, s.id));
   const words = wordBook(activeChild);
 
   return (

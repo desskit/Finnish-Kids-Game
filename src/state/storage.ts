@@ -401,6 +401,39 @@ function cleanCourse(course: unknown): CourseState | undefined {
   return out;
 }
 
+/**
+ * Steps that moved to another unit, so that each unit only uses what comes
+ * before it in both course orders (younger and older readers meet the units
+ * in different orders): a player's progress on one moves with it.
+ */
+export const MOVED_STEPS: ReadonlyArray<{ step: string; from: string; to: string }> = [
+  { step: 'in-my', from: 'where', to: 'town' },
+  { step: 'where-talk-2', from: 'where', to: 'town' },
+  { step: 'my-nose', from: 'body', to: 'school-daycare' },
+];
+
+/** Progress on the moved steps, under their new units (never overwriting). */
+export function withMovedSteps(progress: Progress, course?: CourseState): Progress {
+  let out = progress;
+  const edit = () => (out === progress ? (out = { ...progress }) : out);
+  for (const { step, from, to } of MOVED_STEPS) {
+    const p = out[from]?.[step];
+    if (!p) continue;
+    const { [step]: _moved, ...rest } = out[from];
+    edit();
+    out[from] = rest;
+    if (!out[to]?.[step]) out[to] = { ...out[to], [step]: p };
+  }
+  // "Where is your…?" was part of Where?'s "Where is…?" step: a player who
+  // had already finished Around town & home keeps it finished.
+  const whereIs = out.where?.['where-is'];
+  if (course?.checkpoints?.town?.passedAt && whereIs && !out.town?.['where-yours']) {
+    edit();
+    out.town = { ...out.town, 'where-yours': { ...whereIs } };
+  }
+  return out;
+}
+
 /** Repair anything inconsistent (e.g. an activeId pointing at a removed child). */
 function sanitize(data: ProfilesData): ProfilesData {
   // A damaged player entry is dropped on its own, never taking the others with
@@ -414,10 +447,13 @@ function sanitize(data: ProfilesData): ProfilesData {
   const unlockedBefore = !!data.settings?.unlockAll;
   const children = rawChildren.map((c) => {
     const { theme, ...rest } = c;
-    const progress = Object.fromEntries(
-      Object.entries(recordsIn<Record<string, unknown>>(c.progress)).map(([topic, steps]) => [topic, recordsIn(steps)]),
-    ) as Progress;
     const course = cleanCourse(c.course);
+    const progress = withMovedSteps(
+      Object.fromEntries(
+        Object.entries(recordsIn<Record<string, unknown>>(c.progress)).map(([topic, steps]) => [topic, recordsIn(steps)]),
+      ) as Progress,
+      course,
+    );
     const math = isRecord(c.math) ? { ...c.math, ...('crowns' in c.math ? { crowns: recordsIn<CheckpointRecord>(c.math.crowns) } : {}) } : undefined;
     return {
       ...rest,
