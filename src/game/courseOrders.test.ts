@@ -262,3 +262,27 @@ describe('steps that moved to another unit', () => {
     expect(withMovedSteps({ where: { 'where-is': p } }).town).toBeUndefined();
   });
 });
+
+describe('spiral review in both orders', () => {
+  it('never goes more than five units without a Kertaus (mixed review)', () => {
+    for (const order of ORDERS) {
+      const units = pathFor(order);
+      const at = units.map((u, i) => (u.skills.some((s) => s.content.mix) ? i : -1)).filter((i) => i >= 0);
+      const stops = [0, ...at, units.length - 1];
+      const gaps = stops.slice(1).map((x, i) => x - stops[i]);
+      expect(Math.max(...gaps), `${order}: Kertaus at ${at.map((i) => i + 1).join(', ')}`).toBeLessThanOrEqual(5);
+    }
+  });
+
+  it('mixes each Kertaus from the earlier units in the child’s own order', () => {
+    for (const order of ORDERS) {
+      const units = pathFor(order);
+      units.forEach((u, i) => {
+        const mix = u.skills.find((s) => s.content.mix);
+        if (!mix) return;
+        const earlier = new Set(units.slice(0, i).flatMap((x) => x.skills.map((s) => s.id)));
+        for (const id of mix.content.mixOf ?? []) expect(earlier.has(id), `${order} ${u.id}: ${id}`).toBe(true);
+      });
+    }
+  });
+});

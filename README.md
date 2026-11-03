@@ -54,6 +54,9 @@ Finnish** — the app never generates or inflects Finnish by rule.
   and the unit's checkpoint comes on a later day than its last new practice.
   While the rest of a unit waits for tomorrow, Continue offers the next unit's
   story as a peek ahead ([`docs/LEARNING_AUDIT.md`](docs/LEARNING_AUDIT.md), Part 11).
+- **Spiral review.** A Kertaus (mixed review) step comes at least every five
+  units in both orders, and each checkpoint's "Muistatko?" asks about the
+  child's weakest earlier step (Part 12).
 - **A short day, spaced and mixed** (`src/game/session.ts`). A new day's first
   Continue is the warm-up (6 questions for a younger reader, 10 for an older
   one): a story due back for "Muistatko?" (a day, three days and a week after

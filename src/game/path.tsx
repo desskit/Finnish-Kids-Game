@@ -1044,6 +1044,7 @@ const UNITS: Chapter[] = [
       verbStep('verbs-present', 'Minä, sinä, hän…', 'All three types', '🏃', undefined, [PRESENT_POS], 3, 'minä syön, sinä nukut'),
       listenStep('doing-kpt-listen', 'Nukun or nukkuu?', 'verbs', { verbs: { types: [1, 3], kpt: true }, combos: [PRESENT_POS] }, 'Nukun. · Hän nukkuu.'),
       sceneStep('doing-talk-2', 'what-everyone-does', 'Mitä teette?', 'What is everyone doing?'),
+      reviewStep('doing-kpt'),
     ],
   },
   {
@@ -1188,6 +1189,7 @@ const UNITS: Chapter[] = [
       phraseStep('i-love', 'Rakastan…a', 'I love…', '💕', ['i-love', 'i-like-tykkaan', 'i-like'], 'Rakastan pitsaa.'),
       listenStep('likes-listen', 'Like, love or not?', 'carriers', { constructionIds: ['i-like-tykkaan', 'i-dont-like-tykkaa', 'i-love'] }, 'Tykkään pitsasta. · Rakastan pitsaa.'),
       sceneStep('likes-talk', 'favourite-things', 'Mistä tykkäät?', 'What do you like?'),
+      reviewStep('likes'),
     ],
   },
   {
@@ -1398,6 +1400,7 @@ const UNITS: Chapter[] = [
       },
       listenStep('body-listen', 'Touch it, or put it up?', 'carriers', { constructionIds: ['touch-it', 'lift-it'], pool: 'body' }, 'Kosketa jalkaa! · Nosta jalka ylös!'),
       sceneStep('body-talk', 'captain-game', 'Kapteeni käskee', 'Captain says'),
+      reviewStep('body'),
     ],
   },
   {
@@ -1657,6 +1660,7 @@ const UNITS: Chapter[] = [
       },
       listenStep('school-daycare-listen', 'Want, would like, or have to?', 'carriers', { constructionIds: ['i-want-to', 'i-would-like', 'i-must'], pool: 'verbs' }, 'Haluan leikkiä. · Haluaisin leikkiä.'),
       sceneStep('school-daycare-talk', 'in-class', 'Luokassa', 'In class'),
+      reviewStep('school-daycare'),
     ],
   },
   {
@@ -1735,6 +1739,7 @@ const UNITS: Chapter[] = [
       listenStep('when-listen', 'Today, or on a day?', 'carriers', { constructionIds: ['today-is', 'play-on-day', 'play-at-time'], pool: 'time' }, 'Tänään on maanantai. · Leikin maanantaina.'),
       sceneStep('when-talk', 'when-play', 'Milloin leikitään?', 'When shall we play?'),
       sceneStep('when-talk-2', 'my-week', 'Minun viikkoni', 'My week'),
+      reviewStep('when'),
     ],
   },
   {
@@ -1916,6 +1921,7 @@ const UNITS: Chapter[] = [
       phraseStep('to-the-cottage', 'Menen mökille', 'To the cottage', '🛖', ['i-go-onto', 'i-go-into'], 'Menen mökille. · Menen saunaan.', 'places', COTTAGE_TRIP),
       phraseStep('holidays', 'Jouluna vai joulua?', 'At Christmas, or waiting for it?', '🎋', ['at-the-cottage', 'i-wait-for-holiday'], 'Olemme mökillä juhannuksena. · Odotan juhannusta!', 'mixed'),
       listenStep('finnish-year-listen', 'To the cottage, there, or back?', 'carriers', { constructionIds: PERSON_FRAMES, pool: 'places', only: ['cottage', 'sauna'] }, 'Menen mökille. · Olen mökillä.'),
+      reviewStep('finnish-year'),
     ],
   },
   {
