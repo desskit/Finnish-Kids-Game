@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   PATH,
+  pathFor,
   allSkills,
   findSkill,
   knownWordsThrough,
@@ -355,7 +356,8 @@ describe('Play, and counting euros', () => {
 });
 
 describe('possessive endings in the course', () => {
-  it('teaches "my / your" right after having — before verbs — with plain forms only', () => {
+  it('teaches "my / your" right after having — before verbs — with plain forms only (older readers)', () => {
+    // Younger readers meet in/on, weather and body first (courseOrders.test.ts).
     const ids = PATH.map((u) => u.id);
     expect(ids.indexOf('whose')).toBe(ids.indexOf('not-having') + 1);
     const { skill } = findSkill('possessives')!;
@@ -364,11 +366,20 @@ describe('possessive endings in the course', () => {
     expect(findSkill('mine-yours')!.skill.content.constructionIds).not.toContain('where-is-yours');
   });
 
-  it('adds "in my house" once the place endings are known', () => {
+  it('adds "in my house" and "where is your…?" once both the place endings and "my / your" are known, in both orders', () => {
     const found = findSkill('in-my')!;
-    expect(found.chapter.id).toBe('where');
+    expect(found.chapter.id).toBe('town');
     expect(found.skill.content.possessiveCases).toBe('always');
-    expect(findSkill('where-is')!.skill.content.constructionIds).toContain('where-is-yours');
+    expect(findSkill('where-yours')!.chapter.id).toBe('town');
+    expect(findSkill('where-yours')!.skill.content.constructionIds).toEqual(['where-is-yours']);
+    expect(findSkill('where-is')!.skill.content.constructionIds).not.toContain('where-is-yours');
+    for (const order of ['older', 'younger'] as const) {
+      const ids = pathFor(order).map((u) => u.id);
+      for (const before of ['where', 'whose', 'moving']) expect(ids.indexOf('town'), `${order}: ${before}`).toBeGreaterThan(ids.indexOf(before));
+      // "my nose" sits with the nurse, after My body and Whose?
+      for (const before of ['body', 'whose']) expect(ids.indexOf('school-daycare'), `${order}: ${before}`).toBeGreaterThan(ids.indexOf(before));
+    }
+    expect(findSkill('my-nose')!.chapter.id).toBe('school-daycare');
   });
 });
 
@@ -396,16 +407,19 @@ describe('in-session game rotation', () => {
   });
 
   it('mixes typing in as a MINOR round only in the later units, from level 2, one round in four', () => {
-    const start = PATH.findIndex((u) => u.id === TYPING_FROM_UNIT);
-    expect(start).toBeGreaterThan(10); // a base first
-    PATH.forEach((u, i) => {
-      for (const s of u.skills) {
-        const phrase = s.activities?.[0] === 'build' && s.activities?.[1] === 'order' && s.maxLevel === 3;
-        if (!phrase || u.id === 'mestari') continue;
-        if (i < start) expect(s.minor, `${u.id}/${s.id}`).toBeUndefined();
-        else expect(s.minor, `${u.id}/${s.id}`).toEqual({ kind: 'spell', fromLevel: 2, every: 4 });
-      }
-    });
+    for (const order of ['older', 'younger'] as const) {
+      const units = pathFor(order);
+      const start = units.findIndex((u) => u.id === TYPING_FROM_UNIT[order]);
+      expect(start, order).toBeGreaterThan(10); // a base first
+      units.forEach((u, i) => {
+        for (const s of u.skills) {
+          const phrase = s.activities?.[0] === 'build' && s.activities?.[1] === 'order' && s.maxLevel === 3;
+          if (!phrase || u.id === 'mestari') continue;
+          if (i < start) expect(s.minor, `${order}: ${u.id}/${s.id}`).toBeUndefined();
+          else expect(s.minor, `${order}: ${u.id}/${s.id}`).toEqual({ kind: 'spell', fromLevel: 2, every: 4 });
+        }
+      });
+    }
     const late = findSkill('in-on')!.skill;
     expect([0, 1, 2, 3, 4, 5, 6, 7].map((n) => isMinorRound(late, 1, n))).not.toContain(true);
     expect([0, 1, 2, 3, 4, 5, 6, 7].filter((n) => isMinorRound(late, 2, n))).toEqual([3, 7]);
@@ -473,15 +487,15 @@ describe('bonus rounds never decide a step (final QA)', () => {
 });
 
 describe('a step only ever asks what it has taught', () => {
-  it('draws no word a later step of its unit (or a later unit) brings in', () => {
+  it.each(['older', 'younger'] as const)('draws no word a later step of its unit (or a later unit) brings in — %s readers', (order) => {
     const early: string[] = [];
-    PATH.forEach((u, i) => {
-      const before = new Set(i > 0 ? knownWordsThrough(i - 1) : []);
+    pathFor(order).forEach((u, i) => {
+      const before = new Set(i > 0 ? knownWordsThrough(i - 1, order) : []);
       const firstAt = new Map<string, number>();
       u.skills.forEach((s, k) => {
         if (s.content.words === 'new' || s.content.only) for (const id of s.content.wordIds ?? []) if (!firstAt.has(id)) firstAt.set(id, k);
       });
-      const known = new Set(knownWordsThrough(i));
+      const known = new Set(knownWordsThrough(i, order));
       u.skills.forEach((s, k) => {
         // Mestari's open-ended steps draw on every word on purpose.
         if (s.content.words === 'all') return;

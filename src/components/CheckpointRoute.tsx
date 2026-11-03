@@ -6,12 +6,12 @@ import { ActivityContext } from '../game/activityContext';
 import { badgeEnv, renderActivity } from '../game/path';
 import { earnedBadgeIds, earnedBadges } from '../game/badges';
 import {
-  UNITS,
   checkpointPassRatio,
   checkpointPlan,
   checkpointStatus,
   findUnit,
   unitIndex,
+  unitsFor,
   type CheckpointPart,
 } from '../game/course';
 import { useProfile } from '../state/profile';
@@ -37,7 +37,7 @@ export default function CheckpointRoute() {
   const { unitId } = useParams();
   const navigate = useNavigate();
   const { activeChild, recordCheckpoint, recordStats, stars } = useProfile();
-  const unit = unitId ? findUnit(unitId) : undefined;
+  const unit = unitId ? findUnit(unitId, activeChild) : undefined;
   const [phase, setPhase] = useState<'intro' | 'run' | 'result'>('intro');
   const [part, setPart] = useState(0);
   const [results, setResults] = useState<PartResult[]>([]);
@@ -54,19 +54,19 @@ export default function CheckpointRoute() {
   if (!activeChild) return <Navigate to="/profiles" replace />;
   if (!unit) return <Navigate to="/" replace />;
   const attempts = activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0;
-  const plan = runPlan ?? checkpointPlan(unit, attempts);
+  const plan = runPlan ?? checkpointPlan(unit, attempts, activeChild);
   if (plan.length === 0) return <Navigate to="/" replace />;
   if (checkpointStatus(activeChild, unit, unlockAllFor(activeChild)) === 'locked') {
     return <Navigate to="/" replace />;
   }
 
-  const n = unitIndex(unit.id) + 1;
-  const nextUnit = UNITS[unitIndex(unit.id) + 1];
+  const n = unitIndex(unit.id, activeChild) + 1;
+  const nextUnit = unitsFor(activeChild)[n];
   const passRatio = checkpointPassRatio(unit);
   const questions = plan.reduce((s, p) => s + p.questions, 0);
 
   const start = () => {
-    setRunPlan(checkpointPlan(unit, activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0));
+    setRunPlan(checkpointPlan(unit, activeChild.course?.checkpoints?.[unit.id]?.attempts ?? 0, activeChild));
     setPart(0);
     setResults([]);
     setRun((r) => r + 1);

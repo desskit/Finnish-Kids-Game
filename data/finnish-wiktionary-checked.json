@@ -479,8 +479,8 @@
    "how": "isossa: iso inessive sg · talossa: talo inessive sg"
   },
   "lesson:agreement:4": {
-   "fi": "punaisen pallon",
-   "how": "punaisen: punainen genitive sg · pallon: pallo genitive sg"
+   "fi": "isolla pöydällä",
+   "how": "isolla: iso adessive sg · pöydällä: pöytä adessive sg"
   },
   "lesson:asking:1": {
    "fi": "Onko…? · on · syöt · syötkö?",
@@ -1726,11 +1726,11 @@
    "fi": "On kylmä · Minulla on kylmä",
    "how": "on: olla present sg 3rd person · kylmä: cold · minulla: minä adessive sg"
   },
-  "lesson:weather:6": {
+  "lesson:weather:5": {
    "fi": "Sataa lunta",
    "how": "sataa: sataa present sg 3rd person (it rains) · lunta: lumi partitive sg"
   },
-  "lesson:weather:7": {
+  "lesson:weather:6": {
    "fi": "Minulla on kylmä · On kylmä",
    "how": "minulla: minä adessive sg · on: olla present sg 3rd person · kylmä: cold"
   },

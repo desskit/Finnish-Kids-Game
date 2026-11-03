@@ -44,6 +44,11 @@ Finnish** — the app never generates or inflects Finnish by rule.
   the **word pool** that flows through the phrase skills, mixed across topics. See
   [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) to add words, skills, or
   multi-slot sentences.
+- **Themes first for younger readers.** Younger readers (6–7) meet colors,
+  food, clothes, feelings, in / on, the weather and the body before "my / your"
+  and the verbs; older readers (8–10) keep the original order. Every unit uses
+  only what comes before it in both orders, which a test checks
+  ([`docs/LEARNING_AUDIT.md`](docs/LEARNING_AUDIT.md), Part 10).
 - **A short day, spaced and mixed** (`src/game/session.ts`). A new day's first
   Continue is the warm-up (6 questions for a younger reader, 10 for an older
   one): a story due back for "Muistatko?" (a day, three days and a week after
@@ -51,7 +56,7 @@ Finnish** — the app never generates or inflects Finnish by rule.
   grammar step — taking turns day by day when both are waiting, so a shaky
   step from units ago keeps coming back. Review is woven into the course too:
   words due back come up more often in the rounds, and once a pile builds up
-  every fifth round of a step is a quick review. A word moves up its review
+  every fifth round of a step (every third for a younger reader) is a quick review. A word moves up its review
   box only when it was due — never several boxes in one sitting. After about
   four rounds (a younger reader) or six (an older one) the game says *Hienoa
   työtä tänään!* and offers home; going on is the child's choice.

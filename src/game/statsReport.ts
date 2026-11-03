@@ -18,6 +18,7 @@ import {
   type SubjectStats,
 } from './stats';
 import { allSubjects, type SubjectRef } from './warmup';
+import { orderOf } from './course';
 import { dayKey } from './streak';
 
 export interface SubjectRow extends SubjectRef {
@@ -34,7 +35,7 @@ export interface SubjectRow extends SubjectRef {
 export function subjectRows(child: Child, now: number): SubjectRow[] {
   const stats = statsOf(child);
   const out: SubjectRow[] = [];
-  for (const ref of allSubjects()) {
+  for (const ref of allSubjects(orderOf(child))) {
     const s = stats.subjects[ref.step.id];
     if (!s || s.n === 0) continue;
     const st = strengthOf(s, now);

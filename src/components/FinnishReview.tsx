@@ -1,8 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import vettedLedger from '../../data/finnish-vetted.json';
 import wiktionaryLedger from '../../data/finnish-wiktionary-checked.json';
-import { placeLabel, placeRank, reviewEntries, reviewSections, type ReviewEntry, type ReviewPlace } from '../game/reviewEntries';
-import { PATH } from '../game/path';
+import { REVIEW_PATH, placeLabel, placeRank, reviewEntries, reviewSections, type ReviewEntry, type ReviewPlace } from '../game/reviewEntries';
 import { entryStatus, mergeReview, parseReviewFile, reviewCounts, reviewFile, type EntryStatus } from '../game/review';
 import { useProfile } from '../state/profile';
 import { speak } from '../audio/speak';
@@ -32,7 +31,7 @@ type Order = 'course' | 'section';
 
 /** "Unit 3 · Kuka? Mikä?" — a place with its unit's Finnish title. */
 function placeName(place: ReviewPlace): string {
-  return typeof place === 'number' ? `${placeLabel(place)} · ${PATH[place - 1]?.titleFi ?? ''}` : placeLabel(place);
+  return typeof place === 'number' ? `${placeLabel(place)} · ${REVIEW_PATH[place - 1]?.titleFi ?? ''}` : placeLabel(place);
 }
 
 const STATUS_LABEL: Record<EntryStatus, string> = {

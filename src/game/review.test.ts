@@ -1,9 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { placeRank, reviewEntries, reviewSections } from './reviewEntries';
+import { REVIEW_PATH, placeRank, reviewEntries, reviewSections } from './reviewEntries';
 import { UNIT_STORIES } from '../content/unitStories';
 import vetted from '../../data/finnish-vetted.json';
 import wiktionary from '../../data/finnish-wiktionary-checked.json';
-import { PATH } from './path';
 import {
   applyReviewToLedger,
   entryStatus,
@@ -39,9 +38,9 @@ describe('review entries', () => {
   // The Finnish check runs in course order, so a reviewer checks first what
   // the children meet first.
   it('each say where a child first meets it', () => {
-    const unitOf = (id: string) => PATH.findIndex((u) => u.id === id) + 1;
+    const unitOf = (id: string) => REVIEW_PATH.findIndex((u) => u.id === id) + 1;
     for (const x of entries) {
-      expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= PATH.length : ['everywhere', 'math', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
+      expect(typeof x.where === 'number' ? x.where >= 1 && x.where <= REVIEW_PATH.length : ['everywhere', 'math', 'grown-ups', 'not-yet'].includes(x.where), x.key).toBe(true);
     }
     expect(e('dialogue:how-are-you').where).toBe(unitOf('hello'));
     expect(e('lesson:sounds:5').where).toBe(unitOf('hello'));
@@ -60,7 +59,7 @@ describe('review entries', () => {
     expect(e('ui:Jatka').where).toBe('everywhere');
     expect(e('ui:Mykistä äänet').where).toBe('grown-ups');
     expect(placeRank('everywhere')).toBeLessThan(placeRank(1));
-    expect(placeRank(PATH.length)).toBeLessThan(placeRank('not-yet'));
+    expect(placeRank(REVIEW_PATH.length)).toBeLessThan(placeRank('not-yet'));
   });
 });
 

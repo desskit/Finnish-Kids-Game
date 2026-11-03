@@ -4,11 +4,11 @@ import { LEARNERS, simulate } from './simulate';
 // A model child plays the course day by day on the real engine (simulate.ts).
 // The pacing must keep moving them on to new content, bring their weak spots
 // back, and keep the review pile in hand — `npm run sim:progress` prints the
-// full year; this checks a quarter of one.
+// full year; this checks the first half of one.
 
 describe('months of play (simulated)', () => {
-  const [steady, , weak] = LEARNERS;
-  const run = (m: (typeof LEARNERS)[number]) => simulate(m, 120, 7, [60, 120]);
+  const [steady, older, weak] = LEARNERS;
+  const run = (m: (typeof LEARNERS)[number]) => simulate(m, 180, 7, [60, 120, 180]);
 
   it('keeps moving a steady player on to new units', () => {
     const [d60, d120] = run(steady);
@@ -24,8 +24,20 @@ describe('months of play (simulated)', () => {
   });
 
   it('keeps the review pile in hand and most words remembered', () => {
-    const [, d120] = run(steady);
-    expect(d120.due).toBeLessThan(d120.words);
-    expect(d120.recall).toBeGreaterThan(0.7);
+    // The themes-first order brings in many words early; by six months they have settled.
+    const [, d120, d180] = run(steady);
+    expect(d120.due).toBeLessThan(d120.words / 4);
+    expect(d180.due).toBeLessThan(d180.words / 4);
+    expect(d180.recall).toBeGreaterThan(0.7);
+    expect(d180.recallSettled).toBeGreaterThan(0.7);
+  });
+
+  it('meets the everyday themes first in the younger readers’ order, and the original order for older readers', () => {
+    const [, d120, d180] = run(steady);
+    for (const id of ['describing', 'likes', 'not-having']) expect(d180.met, id).toContain(id);
+    // themes before "my / your"
+    expect(d120.met).not.toContain('whose');
+    const [, , o180] = run(older);
+    for (const id of ['whose', 'owners', 'doing', 'doing-kpt']) expect(o180.met, id).toContain(id);
   });
 });

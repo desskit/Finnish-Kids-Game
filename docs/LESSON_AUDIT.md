@@ -10,7 +10,7 @@ lesson is talking about is shown in [brackets]. ✔ marks the right answer of a
 
 ### 1. Read it like it's written _(explain)_
 
-Finnish is one of the easiest languages in the world to read out loud. **Every letter always makes the same sound**, and you say every letter you see. No silent letters, like the k in English "knee"!
+Finnish is one of the easiest languages in the world to read out loud. **Each letter keeps its own sound**, and you say every letter you see. No silent letters, like the k in English "knee"! (One small surprise: **nk** sounds just like in English "think": *kenkä*.)
 
 And you always press on the **first part** of a word: *KIR-ja*, *PÖY-tä*, *O-pet-ta-ja*. Say the rest lightly.
 
@@ -244,7 +244,18 @@ _Explain:_ *minulla* = "on me" → **I** have.
 - 🐶 **Meillä on koira.** — We have a dog.
 - 💻 **Heillä on tietokone.** — They have a computer.
 
-### 3. Try it _(check)_
+### 3. Words you can work out _(examples)_
+
+Some Finnish words sound almost like English: *piano*, *kitara* (guitar).
+
+And lots of long words are two short words stuck together, like building blocks: *jalka* (foot) + *pallo* (ball) = *jalkapallo*, a soccer ball. *tieto* (knowledge) + *kone* (machine) = *tietokone*, a computer!
+
+- 🎹 **piano** — piano
+- 🎸 **kitara** — guitar
+- ⚽ **jalkapallo** — soccer ball
+- 💻 **tietokone** — computer
+
+### 4. Try it _(check)_
 
 **Q:** Which one means "we have a dog"?
 
@@ -254,7 +265,7 @@ _Explain:_ *minulla* = "on me" → **I** have.
 
 _Explain:_ *meillä* = "on us" → **we** have.
 
-### 4. Try it _(check)_
+### 5. Try it _(check)_
 
 **Q:** *Hänellä on kitara.* — Who has the guitar?
 
@@ -264,7 +275,172 @@ _Explain:_ *meillä* = "on us" → **we** have.
 
 _Explain:_ *hänellä* = "on him / her".
 
-## Unit 5: Saying you don't have it (Minulla ei ole) 🚫
+## Unit 5: Colors and describing words (Värit) 🎨
+
+### 1. Colors _(examples)_
+
+- 🟥 **punainen** — red
+- 🟦 **sininen** — blue
+- 🟨 **keltainen** — yellow
+- 🟩 **vihreä** — green
+- ⬛ **musta** — black
+- ⬜ **valkoinen** — white
+- 🟫 **ruskea** — brown
+
+### 2. More colors _(examples)_
+
+*vaaleanpunainen* is "light red" — that's pink.
+
+- 🩷 **vaaleanpunainen** — pink
+- 🟪 **violetti** — purple
+- 🩶 **harmaa** — gray
+- 🟧 **oranssi** — orange
+
+### 3. Opposites _(examples)_
+
+Some describing words come in pairs: *uusi* (new) and *vanha* (old), *helppo* (easy) and *vaikea* (hard), *puhdas* (clean) and *likainen* (dirty). *lyhyt* is short.
+
+- 🏷️ **uusi** — new
+- 🧩 **helppo** — easy
+- 🪢 **vaikea** — hard
+- 🫧 **puhdas** — clean
+- 🪰 **likainen** — dirty
+- 🤏 **lyhyt** — short
+
+### 4. "This is red" _(examples)_
+
+A describing word works after *Tämä on* just like a thing: *Tämä on punainen* = this is red.
+
+- 🟥 **Tämä on punainen.** — This is red.
+- 🦕 **Tämä on iso.** — This is big.
+- 🟦 **Onko tämä sininen?** — Is this blue?
+
+### 5. Describing words go first _(examples)_
+
+Just like English: the describing word comes **before** the thing.
+
+- 🐶 **iso koira** — a big dog
+- 🏐 **punainen pallo** — a red ball
+
+### 6. Try it _(check)_
+
+**Q:** Which one means "This is green"?
+
+- ✔ 🟩 **Tämä on vihreä.** — This is green.
+- ✘ 🟨 **Tämä on keltainen.** — This is yellow.
+
+_Explain:_ *vihreä* = green, *keltainen* = yellow.
+
+### 7. Try it _(check)_
+
+**Q:** Which one means "a big dog"?
+
+- ✔ 🐶 **iso koira**
+- ✘ 🐶 **pieni koira**
+
+_Explain:_ *iso* = big, *pieni* = small.
+
+### 8. Try it _(check)_
+
+**Q:** Which one means "a dirty ball"?
+
+- ✔ 🏐 **likainen pallo**
+- ✘ 🏐 **puhdas pallo**
+
+_Explain:_ *likainen* = dirty, *puhdas* = clean.
+
+## Unit 6: Liking things (Tykkään) ❤️
+
+### 1. Every verb picks an ending _(explain)_
+
+In Finnish, the **verb decides which ending** the next word gets. You just have to learn each verb's favorite.
+
+
+### 2. *tykätä* → -sta / -stä _(examples)_
+
+"I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").
+
+- ⚽ **Tykkään jalkapallo[sta].** — I like soccer.
+- 🍕 **Tykkään pitsa[sta].** — I like pizza.
+- 🎵 **Tykkään musiiki[sta].** — I like music.
+- 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I like music"?
+
+- ✔ 🎵 **Tykkään musiiki[sta].** — I like music.
+- ✘ 🎵 **Tykkään musiikki[a].**
+
+_Explain:_ *tykkään* always takes **-sta / -stä**: *musiikista*.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I like ice cream"?
+
+- ✘ 🍦 **Tykkään jäätelö.**
+- ✔ 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
+
+_Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
+
+## Unit 6, part-way: Another "I like" (Pidän) 🤝
+
+### 1. Two ways to say "I like" _(explain)_
+
+*Tykkään* is what friends say every day. *Pidän* means the same thing; you'll hear it at school and read it in books. The good news: **both take -sta / -stä**.
+
+
+### 2. Same ending, both ways _(examples)_
+
+- 🍕 **Tykkään pitsa[sta].** — I like pizza.
+- 🍕 **Pidän pitsa[sta].** — I like pizza.
+- 🐱 **Tykkään kissa[sta].** — I like the cat.
+- 🐱 **Pidän kissa[sta].** — I like the cat.
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I like soccer"?
+
+- ✔ ⚽ **Pidän jalkapallo[sta].** — I like soccer.
+- ✘ ⚽ **Pidän jalkapallo[a].**
+
+_Explain:_ *pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.
+
+## Unit 6, part-way: Loving things (Rakastan) 😍
+
+### 1. *rakastaa* → -a / -ä _(examples)_
+
+"I love" is *rakastan* — and it picks a DIFFERENT ending: **-a / -ä**, or **-ta / -tä** after a long vowel, like *suklaata*.
+
+- 🍕 **Rakastan pitsa[a].** — I love pizza.
+- 🍫 **Rakastan suklaa[ta].** — I love chocolate.
+- 🐱 **Rakastan kissa[a].** — I love the cat.
+
+### 2. Two verbs, two endings _(explain)_
+
+- *Tykkään* / *Pidän* (I like) → **-sta**: *Tykkään pitsasta.*
+- *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*
+
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I love pizza"?
+
+- ✔ 🍕 **Rakastan pitsa[a].** — I love pizza.
+- ✘ 🍕 **Rakastan pitsa[sta].**
+
+_Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *tykkään* and *pidän*.)
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I like pizza"?
+
+- ✔ 🍕 **Tykkään pitsa[sta].** — I like pizza.
+- ✘ 🍕 **Rakastan pitsa[a].** — I love pizza.
+
+_Explain:_ *Tykkään* = I like (+ **-sta**). *Rakastan* = I love.
+
+## Unit 7: Saying you don't have it (Minulla ei ole) 🚫
 
 ### 1. "is" becomes "is not" _(explain)_
 
@@ -311,7 +487,320 @@ _Explain:_ After *ei ole*, the thing takes **-a / -ä**: *pyörää*.
 
 _Explain:_ *on* means "is" — so yes! For "no" it would be *ei ole* … *hattua*.
 
-## Unit 6: "My" is an ending (Kenen?) 🙋
+## Unit 8: Saying how you feel (Miltä tuntuu?) 😄
+
+### 1. I am… _(examples)_
+
+*Olen* means **I am**. Put a feeling after it — the feeling stays in its **basic form**.
+
+- 😄 **Olen iloinen.** — I'm happy.
+- 🥱 **Olen väsynyt.** — I'm tired.
+- 😞 **Hän on surullinen.** — He/she is sad.
+
+### 2. I am not… _(examples)_
+
+*En ole* means **I am not**. Good news: here the feeling word **doesn't change**.
+
+- 😠 **En ole vihainen.** — I'm not angry.
+- 🤒 **En ole sairas.** — I'm not sick.
+
+### 3. Try it _(check)_
+
+**Q:** How do you say "I'm happy"?
+
+- ✔ 😄 **Olen iloinen.** — I'm happy.
+- ✘ 😄 **En ole iloinen.** — I'm not happy.
+
+_Explain:_ *Olen* = I am: *Olen iloinen*.
+
+### 4. Try it _(check)_
+
+**Q:** *En ole väsynyt.* means…
+
+- ✔ I'm not tired
+- ✘ I'm tired
+
+_Explain:_ *En ole* = I am **not**.
+
+## Unit 8, part-way: Hungry, thirsty, cold, hot (Minulla on nälkä) 🤤
+
+### 1. "On me is hunger" _(explain)_
+
+Remember *Minulla on…* (on me is) from "I have"? Finnish uses it for feeling **hungry, thirsty, cold or hot**: *Minulla on nälkä* — "on me is hunger".
+
+
+### 2. Listen _(examples)_
+
+- **Minulla on nälkä.** — I'm hungry.
+- **Minulla on jano.** — I'm thirsty.
+- 🥶 **Minulla on kylmä.** — I'm cold.
+- 🥵 **Minulla on kuuma.** — I'm hot.
+
+### 3. Try it _(check)_
+
+**Q:** How do you say "I'm cold"?
+
+- ✔ 🥶 **Minulla on kylmä.** — I'm cold.
+- ✘ 🥱 **Olen väsynyt.** — I'm tired.
+
+_Explain:_ *Minulla on kylmä* — "on me is cold".
+
+### 4. Try it _(check)_
+
+**Q:** How do you say "I'm hungry"?
+
+- ✔ **Minulla on nälkä.** — I'm hungry.
+- ✘ **Minulla on jano.** — I'm thirsty.
+
+_Explain:_ *nälkä* = hunger, *jano* = thirst.
+
+## Unit 8, part-way: Scared, nervous, bored (Minua pelottaa) 😨
+
+### 1. "It scares me" _(explain)_
+
+Some feelings are verbs in Finnish. You don't say "I am scared" — you say *Minua pelottaa*: "it scares me". *Minua* means **me**.
+
+
+### 2. Listen _(examples)_
+
+- 😨 **Minua pelottaa.** — I feel scared.
+- 😬 **Minua jännittää.** — I feel nervous.
+- 😪 **Minua väsyttää.** — I feel sleepy.
+- 🤭 **Minua naurattaa.** — I feel giggly.
+- 🥹 **Minua itkettää.** — I feel teary.
+
+### 3. Say how it feels _(explain)_
+
+Feeling scared or nervous is OK — everyone does sometimes. Saying it helps: *Minua jännittää.* Then a friend or a grown-up knows.
+
+
+### 4. Bored? Having fun? _(examples)_
+
+Bored is *Minulla on tylsää*, and having fun is *Minulla on hauskaa* — with **-a**. But hungry keeps its basic form: *Minulla on nälkä*.
+
+- 😑 **Minulla on tylsä[ä].** — I'm bored.
+- 🤪 **Minulla on hauska[a].** — I'm having fun.
+- **Minulla on nälkä.** — I'm hungry.
+
+### 5. Try it _(check)_
+
+**Q:** How do you say "I feel scared"?
+
+- ✔ 😨 **Minua pelottaa.** — I feel scared.
+- ✘ 🤭 **Minua naurattaa.** — I feel giggly.
+
+_Explain:_ *Minua pelottaa* — "it scares me". *Minua naurattaa* is "I feel giggly".
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "I'm bored"?
+
+- ✔ 😑 **Minulla on tylsä[ä].** — I'm bored.
+- ✘ 😑 **Minulla on tylsä.**
+
+_Explain:_ Bored takes **-a**: *Minulla on tylsää*.
+
+## Unit 9: Endings instead of "in" and "on" (Missä?) 📍
+
+### 1. No word for "in" _(examples)_
+
+English puts a little word **in front**: "in the box". Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".
+
+- 📦 laatikko → **laatiko[ssa]** — in the box
+- 🏠 talo → **talo[ssa]** — in the house
+- 🏫 koulu → **koulu[ssa]** — at school
+
+### 2. "On" is -lla / -llä _(examples)_
+
+- 🍽️ pöytä → **pöydä[llä]** — on the table
+- 🪑 tuoli → **tuoli[lla]** — on the chair
+- 🛏️ sänky → **sängy[llä]** — on the bed
+
+### 3. The vowel team again _(examples)_
+
+Words with **a, o, u** → *-ssa, -lla*. Words with **ä, ö, y** → *-ssä, -llä*. Look at *talossa* vs. *metsässä*.
+
+- 🏠 talo → **talo[ssa]** — in the house
+- 🌲 metsä → **metsä[ssä]** — in the forest
+- 🍽️ pöytä → **pöydä[llä]** — on the table
+
+### 4. Look at the END _(explain)_
+
+Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*). Don't worry — **the ending at the very end is what tells you "in" or "on"**.
+
+
+### 5. Try it _(check)_
+
+**Q:** The cat is ON the table. Which is right?
+
+- ✔ 🍽️ **Kissa on pöydä[llä].** — The cat is on the table.
+- ✘ 🍽️ **Kissa on pöydä[ssä].**
+
+_Explain:_ "On" → **-lla / -llä**: *pöydällä*.
+
+### 6. Try it _(check)_
+
+**Q:** The cat is IN the house. Which is right?
+
+- ✔ 🏠 **Kissa on talo[ssa].** — The cat is in the house.
+- ✘ 🏠 **Kissa on talo[lla].**
+
+_Explain:_ "In" → **-ssa**: *talossa*.
+
+## Unit 9, part-way: Describing words copy (Millainen?) 🪞
+
+### 1. They copy the ending! _(examples)_
+
+This is the cool part: whatever ending the thing gets, the **describing word gets it too** — like an echo.
+
+- 🏠 **iso[ssa] talo[ssa]** — in a big house
+- 🍽️ **iso[lla] pöydä[llä]** — on a big table
+
+### 2. Listen for the echo _(explain)_
+
+*isossa talossa* — **-ssa** twice. *isolla pöydällä* — **-lla** twice. If the thing has an ending, the describing word has it too.
+
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "in a big house"?
+
+- ✘ 🏠 **iso talo[ssa]**
+- ✔ 🏠 **iso[ssa] talo[ssa]**
+
+_Explain:_ Both words get the ending: *isossa talossa*.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "on a big table"?
+
+- ✔ 🍽️ **iso[lla] pöydä[llä]**
+- ✘ 🍽️ **iso pöydä[llä]**
+
+_Explain:_ Both words get the ending: *isolla pöydällä*.
+
+## Unit 10: What's the weather like? (Millainen sää?) ⛅
+
+### 1. Up in the sky _(examples)_
+
+- ☀️ **aurinko** — sun
+- 🌙 **kuu** — moon
+- ⭐ **tähti** — star
+- ☁️ **pilvi** — cloud
+
+### 2. It rains snow _(examples)_
+
+Finnish says it rains water, it rains snow: *Sataa vettä* — it's raining. *Sataa lunta* — it's snowing. What falls takes **-a / -ä**.
+
+- 🌧️ **Sataa vet[tä].** — It's raining.
+- ❄️ **Sataa lun[ta].** — It's snowing.
+
+### 3. The sun is shining _(examples)_
+
+The sun comes first, in its basic form. And the wind? Just the verb: *Tuulee* — it's windy.
+
+- ☀️ **Aurinko paistaa.** — The sun is shining.
+- 🌙 **Kuu paistaa.** — The moon is shining.
+
+### 4. The weather, or me? _(examples)_
+
+The weather is just *On kylmä* — it's cold. You are *Minulla on kylmä* — I'm cold.
+
+- 🥶 **On kylmä.** — It's cold.
+- 🥶 **Minulla on kylmä.** — I'm cold.
+- 🌡️ **On lämmin.** — It's warm.
+- 🥵 **On kuuma.** — It's hot.
+
+### 5. Try it _(check)_
+
+**Q:** How do you say "It's snowing"?
+
+- ✔ ❄️ **Sataa lun[ta].** — It's snowing.
+- ✘ ❄️ **Sataa lumi.**
+
+_Explain:_ What falls takes **-a**: *Sataa lunta*.
+
+### 6. Try it _(check)_
+
+**Q:** Listen! Is it the weather, or me?
+
+🔊 plays: 🥶 **Minulla on kylmä.** — I'm cold.
+
+- ✘ 🥶 **On kylmä.** — It's cold.
+- ✔ 🥶 **Minulla on kylmä.** — I'm cold.
+
+_Explain:_ *Minulla on kylmä* — I'm cold. The weather is just *On kylmä*.
+
+## Unit 11: My body · Captain says (Keho · Kapteeni käskee) 🧑‍✈️
+
+### 1. *Kapteeni käskee!* _(explain)_
+
+Finnish kids play *Kapteeni käskee* — "the captain orders". It's like Simon Says: do what the captain says, but ONLY when you hear *Kapteeni käskee*!
+
+
+### 2. Your face _(examples)_
+
+- 👁️ **silmä** — eye
+- 👂 **korva** — ear
+- 👃 **nenä** — nose
+- 👄 **suu** — mouth
+- 🦷 **hammas** — tooth
+- 👅 **kieli** — tongue
+
+### 3. The rest of you _(examples)_
+
+*jalka* is your leg AND your foot — Finnish has one word for both.
+
+- 🙂 **pää** — head
+- 💇 **tukka** — hair
+- ✋ **käsi** — hand
+- 👆 **sormi** — finger
+- 🤰 **vatsa** — tummy
+- 🦵 **polvi** — knee
+- 🦶 **jalka** — foot
+
+### 4. Touch it: -a _(examples)_
+
+*Kosketa* (touch!) always takes **-a / -ä**, just like *Rakastan*.
+
+- 👃 **Kosketa nenä[ä]!** — Touch your nose!
+- 👂 **Kosketa korva[a]!** — Touch your ear!
+- 🦵 **Kosketa polve[a]!** — Touch your knee!
+
+### 5. Put it up: the basic form _(examples)_
+
+After a command like *Nosta!* (lift!), the whole thing keeps its **basic form**: *Nosta käsi ylös!* And BOTH hands? *kädet* — the **-t** means more than one.
+
+- ✋ **Nosta käsi ylös!** — Put your hand up!
+- 🦶 **Nosta jalka ylös!** — Lift your foot up!
+- ✋ **Pese käde[t]!** — Wash your hands!
+
+### 6. How to play _(explain)_
+
+The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don't do it! In the game, tap the captain's *Ei!* (no!) instead.
+
+
+### 7. Try it _(check)_
+
+**Q:** Which one means "Touch your nose!"?
+
+- ✔ 👃 **Kosketa nenä[ä]!** — Touch your nose!
+- ✘ 👃 **Kosketa nenä!**
+
+_Explain:_ *Kosketa* takes **-a / -ä**: *Kosketa nenää!*
+
+### 8. Try it _(check)_
+
+**Q:** Listen! What does the captain want you to lift?
+
+🔊 plays: 🦶 **Nosta jalka ylös!** — Lift your foot up!
+
+- ✘ ✋ **Nosta käsi ylös!** — Put your hand up!
+- ✔ 🦶 **Nosta jalka ylös!** — Lift your foot up!
+
+_Explain:_ *jalka* — your foot (or your leg).
+
+## Unit 12: "My" is an ending (Kenen?) 🙋
 
 ### 1. Endings for my, your, their _(examples)_
 
@@ -363,7 +852,7 @@ _Explain:_ **-si** means "your".
 
 _Explain:_ *sinun* + **-si** = your.
 
-## Unit 7: Mom's bike — the owner gets -n (Äidin pyörä) 🚲
+## Unit 13: Mom's bike — the owner gets -n (Äidin pyörä) 🚲
 
 ### 1. The owner comes first _(examples)_
 
@@ -409,7 +898,7 @@ _Explain:_ The owner takes **-n**: *isän pallo*.
 
 _Explain:_ *äidin* = Mom's (*äiti* + **-n**).
 
-## Unit 8: Verbs tell you WHO (Kuka tekee?) 🏃
+## Unit 14: Verbs tell you WHO (Kuka tekee?) 🏃
 
 ### 1. The end of the verb says who _(explain)_
 
@@ -486,7 +975,7 @@ _Explain:_ **-mme** means "we".
 
 _Explain:_ *mennä* ends in **-nnä** (the ä twin of -nna) — two consonants and a vowel: **type 3** (*menen*).
 
-## Unit 9: When k, p and t change (K, P ja T vaihtuvat) 🔀
+## Unit 15: When k, p and t change (K, P ja T vaihtuvat) 🔀
 
 ### 1. A letter in the MIDDLE can change _(explain)_
 
@@ -555,7 +1044,7 @@ _Explain:_ "I" is **-n**, with the weak **k**: *nukun*. *nukkuu* is he/she — s
 
 _Explain:_ He / she keeps the strong **tt**: *kirjoittaa*.
 
-## Unit 10: "Not" is a verb (En tee) ✋
+## Unit 16: "Not" is a verb (En tee) ✋
 
 ### 1. A "no" word that changes _(explain)_
 
@@ -600,7 +1089,7 @@ _Explain:_ *et* = "you … not" (the **-t** means you).
 
 _Explain:_ *eivät* = "they … not", and the main verb stays short.
 
-## Unit 11: Asking with -ko / -kö (Kysymykset) ❓
+## Unit 17: Asking with -ko / -kö (Kysymykset) ❓
 
 ### 1. Any verb can ask _(explain)_
 
@@ -648,211 +1137,92 @@ _Explain:_ The "you" form + **-ko**: *uit* → *uitko?*
 
 _Explain:_ "No, I don't" = *en nuku* — about YOU, so *en* (I), not *et* (you).
 
-## Unit 12: Saying how you feel (Miltä tuntuu?) 😄
+## Unit 18: Days and times (Milloin?) 📅
 
-### 1. I am… _(examples)_
+### 1. Days of the week _(examples)_
 
-*Olen* means **I am**. Put a feeling after it — the feeling stays in its **basic form**.
+Finnish days **don't start with a capital letter**: *maanantai*, with a small m.
 
-- 😄 **Olen iloinen.** — I'm happy.
-- 🥱 **Olen väsynyt.** — I'm tired.
-- 😞 **Hän on surullinen.** — He/she is sad.
+- **maanantai** — Monday
+- **tiistai** — Tuesday
+- **keskiviikko** — Wednesday
+- **torstai** — Thursday
+- **perjantai** — Friday
+- **lauantai** — Saturday
+- **sunnuntai** — Sunday
 
-### 2. I am not… _(examples)_
+### 2. On Monday: -na / -nä _(examples)_
 
-*En ole* means **I am not**. Good news: here the feeling word **doesn't change**.
+"On" a day is the ending **-na / -nä** — no extra word.
 
-- 😠 **En ole vihainen.** — I'm not angry.
-- 🤒 **En ole sairas.** — I'm not sick.
+- maanantai → **maanantai[na]** — on Monday
+- lauantai → **lauantai[na]** — on Saturday
+- **Leikin perjantai[na].** — I play on Friday.
 
-### 3. Try it _(check)_
+### 3. In the morning, in summer: -lla / -llä _(examples)_
 
-**Q:** How do you say "I'm happy"?
+Parts of the day and seasons use the "on" ending **-lla / -llä** instead.
 
-- ✔ 😄 **Olen iloinen.** — I'm happy.
-- ✘ 😄 **En ole iloinen.** — I'm not happy.
-
-_Explain:_ *Olen* = I am: *Olen iloinen*.
-
-### 4. Try it _(check)_
-
-**Q:** *En ole väsynyt.* means…
-
-- ✔ I'm not tired
-- ✘ I'm tired
-
-_Explain:_ *En ole* = I am **not**.
-
-## Unit 12, part-way: Hungry, thirsty, cold, hot (Minulla on nälkä) 🤤
-
-### 1. "On me is hunger" _(explain)_
-
-Remember *Minulla on…* (on me is) from "I have"? Finnish uses it for feeling **hungry, thirsty, cold or hot**: *Minulla on nälkä* — "on me is hunger".
-
-
-### 2. Listen _(examples)_
-
-- **Minulla on nälkä.** — I'm hungry.
-- **Minulla on jano.** — I'm thirsty.
-- 🥶 **Minulla on kylmä.** — I'm cold.
-- 🥵 **Minulla on kuuma.** — I'm hot.
-
-### 3. Try it _(check)_
-
-**Q:** How do you say "I'm cold"?
-
-- ✔ 🥶 **Minulla on kylmä.** — I'm cold.
-- ✘ 🥱 **Olen väsynyt.** — I'm tired.
-
-_Explain:_ *Minulla on kylmä* — "on me is cold".
+- 🌅 aamu → **aamu[lla]** — in the morning
+- 🌆 ilta → **illa[lla]** — in the evening
+- 🏖️ kesä → **kesä[llä]** — in summer
+- 🌨️ talvi → **talve[lla]** — in winter
 
 ### 4. Try it _(check)_
 
-**Q:** How do you say "I'm hungry"?
+**Q:** How do you say "on Sunday"?
 
-- ✔ **Minulla on nälkä.** — I'm hungry.
-- ✘ **Minulla on jano.** — I'm thirsty.
+- ✔ sunnuntai → **sunnuntai[na]** — Sunday
+- ✘ sunnuntai → **sunnuntai[lla]** — Sunday
+- ✘ **sunnuntai** — Sunday
 
-_Explain:_ *nälkä* = hunger, *jano* = thirst.
-
-## Unit 12, part-way: Scared, nervous, bored (Minua pelottaa) 😨
-
-### 1. "It scares me" _(explain)_
-
-Some feelings are verbs in Finnish. You don't say "I am scared" — you say *Minua pelottaa*: "it scares me". *Minua* means **me**.
-
-
-### 2. Listen _(examples)_
-
-- 😨 **Minua pelottaa.** — I feel scared.
-- 😬 **Minua jännittää.** — I feel nervous.
-- 😪 **Minua väsyttää.** — I feel sleepy.
-- 🤭 **Minua naurattaa.** — I feel giggly.
-- 🥹 **Minua itkettää.** — I feel teary.
-
-### 3. Say how it feels _(explain)_
-
-Feeling scared or nervous is OK — everyone does sometimes. Saying it helps: *Minua jännittää.* Then a friend or a grown-up knows.
-
-
-### 4. Bored? Having fun? _(examples)_
-
-Bored is *Minulla on tylsää*, and having fun is *Minulla on hauskaa* — with **-a**. But hungry keeps its basic form: *Minulla on nälkä*.
-
-- 😑 **Minulla on tylsä[ä].** — I'm bored.
-- 🤪 **Minulla on hauska[a].** — I'm having fun.
-- **Minulla on nälkä.** — I'm hungry.
+_Explain:_ A day → **-na**: *sunnuntaina*.
 
 ### 5. Try it _(check)_
 
-**Q:** How do you say "I feel scared"?
+**Q:** How do you say "in winter"?
 
-- ✔ 😨 **Minua pelottaa.** — I feel scared.
-- ✘ 🤭 **Minua naurattaa.** — I feel giggly.
+- ✔ 🌨️ talvi → **talve[lla]** — winter
+- ✘ 🌨️ talvi → **talve[na]** — winter
 
-_Explain:_ *Minua pelottaa* — "it scares me". *Minua naurattaa* is "I feel giggly".
+_Explain:_ A season → **-lla**: *talvella*.
 
-### 6. Try it _(check)_
+## Unit 18, part-way: What time is it? (Paljonko kello on?) ⏰
 
-**Q:** How do you say "I'm bored"?
+### 1. *Kello on…* _(explain)_
 
-- ✔ 😑 **Minulla on tylsä[ä].** — I'm bored.
-- ✘ 😑 **Minulla on tylsä.**
-
-_Explain:_ Bored takes **-a**: *Minulla on tylsää*.
-
-## Unit 13: Liking things (Tykkään) ❤️
-
-### 1. Every verb picks an ending _(explain)_
-
-In Finnish, the **verb decides which ending** the next word gets. You just have to learn each verb's favorite.
+*kello* is a **clock**. To say the time, say *Kello on* + the number: *Kello on kolme* = it's three o'clock. To ask: *Paljonko kello on?*
 
 
-### 2. *tykätä* → -sta / -stä _(examples)_
+### 2. Listen _(examples)_
 
-"I like" is *tykkään*, and the thing you like always gets **-sta / -stä** (it really means "from").
+The number stays in its **basic form** — the numbers you learned in unit 3.
 
-- ⚽ **Tykkään jalkapallo[sta].** — I like soccer.
-- 🍕 **Tykkään pitsa[sta].** — I like pizza.
-- 🎵 **Tykkään musiiki[sta].** — I like music.
-- 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
+- 🕒 **Kello on kolme.** — It's three o'clock.
+- 🕗 **Kello on kahdeksan.** — It's eight o'clock.
+- 🕛 **Kello on kaksitoista.** — It's twelve o'clock.
 
 ### 3. Try it _(check)_
 
-**Q:** Which one means "I like music"?
+**Q:** How do you say "It's seven o'clock"?
 
-- ✔ 🎵 **Tykkään musiiki[sta].** — I like music.
-- ✘ 🎵 **Tykkään musiikki[a].**
+- ✔ 🕖 **Kello on seitsemän.** — It's seven o'clock.
+- ✘ 🕕 **Kello on kuusi.** — It's six o'clock.
+- ✘ 🕗 **Kello on kahdeksan.** — It's eight o'clock.
 
-_Explain:_ *tykkään* always takes **-sta / -stä**: *musiikista*.
+_Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
 
 ### 4. Try it _(check)_
 
-**Q:** Which one means "I like ice cream"?
+**Q:** *Kello on kaksitoista.* — What time is it?
 
-- ✘ 🍦 **Tykkään jäätelö.**
-- ✔ 🍦 **Tykkään jäätelö[stä].** — I like ice cream.
+- ✘ two o'clock
+- ✔ twelve o'clock
+- ✘ ten o'clock
 
-_Explain:_ **-stä** with the vowel team ä, ö, y: *jäätelöstä*.
+_Explain:_ *kaksitoista* = 12.
 
-## Unit 13, part-way: Another "I like" (Pidän) 🤝
-
-### 1. Two ways to say "I like" _(explain)_
-
-*Tykkään* is what friends say every day. *Pidän* means the same thing; you'll hear it at school and read it in books. The good news: **both take -sta / -stä**.
-
-
-### 2. Same ending, both ways _(examples)_
-
-- 🍕 **Tykkään pitsa[sta].** — I like pizza.
-- 🍕 **Pidän pitsa[sta].** — I like pizza.
-- 🐱 **Tykkään kissa[sta].** — I like the cat.
-- 🐱 **Pidän kissa[sta].** — I like the cat.
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "I like soccer"?
-
-- ✔ ⚽ **Pidän jalkapallo[sta].** — I like soccer.
-- ✘ ⚽ **Pidän jalkapallo[a].**
-
-_Explain:_ *pidän* takes **-sta** too, just like *tykkään*: *jalkapallosta*.
-
-## Unit 13, part-way: Loving things (Rakastan) 😍
-
-### 1. *rakastaa* → -a / -ä _(examples)_
-
-"I love" is *rakastan* — and it picks a DIFFERENT ending: **-a / -ä**, or **-ta / -tä** after a long vowel, like *suklaata*.
-
-- 🍕 **Rakastan pitsa[a].** — I love pizza.
-- 🍫 **Rakastan suklaa[ta].** — I love chocolate.
-- 🐱 **Rakastan kissa[a].** — I love the cat.
-
-### 2. Two verbs, two endings _(explain)_
-
-- *Tykkään* / *Pidän* (I like) → **-sta**: *Tykkään pitsasta.*
-- *Rakastan* (I love) → **-a**: *Rakastan pitsaa.*
-
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "I love pizza"?
-
-- ✔ 🍕 **Rakastan pitsa[a].** — I love pizza.
-- ✘ 🍕 **Rakastan pitsa[sta].**
-
-_Explain:_ *rakastan* wants **-a**: *pitsaa*. (**-sta** is for *tykkään* and *pidän*.)
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I like pizza"?
-
-- ✔ 🍕 **Tykkään pitsa[sta].** — I like pizza.
-- ✘ 🍕 **Rakastan pitsa[a].** — I love pizza.
-
-_Explain:_ *Tykkään* = I like (+ **-sta**). *Rakastan* = I love.
-
-## Unit 14: Want to, can, may I (Haluan leikkiä) 🎯
+## Unit 19: Want to, can, may I (Haluan leikkiä) 🎯
 
 ### 1. Two verbs together _(explain)_
 
@@ -894,7 +1264,552 @@ _Explain:_ After *Haluan*, the verb stays basic: *uida*.
 
 _Explain:_ *Osaan* = I can (I know how).
 
-## Unit 15: Verb type 4 (Verbityyppi 4) 🔓
+## Unit 20: Do it, don't, let's (Tee! Älä! Tehdään!) 🫵
+
+### 1. Telling someone to do it _(examples)_
+
+To tell ONE person what to do, use the **short verb**: the "I" form without its **-n**. *juoksen* (I run) → *Juokse!* (Run!)
+
+- 🏃 **Juokse!** — Run!
+- 💺 **Istu!** — Sit!
+- 💃 **Tanssi!** — Dance!
+
+### 2. Don't! _(examples)_
+
+"Don't" is *älä* + the same short verb.
+
+- 🏃 **[Älä] juokse!** — Don't run!
+- 😢 **[Älä] itke!** — Don't cry!
+- ❔ **[Älä] unohda!** — Don't forget!
+
+### 3. Let's! _(examples)_
+
+In everyday Finnish, "let's…" ends in **-aan / -ään** — you hear it all the time at school and on the playground.
+
+- 🪀 **Leiki[tään]!** — Let's play!
+- **Men[nään]!** — Let's go!
+- 🍜 **Syö[dään]!** — Let's eat!
+- 🏊 **Ui[daan]!** — Let's swim!
+
+### 4. Try it _(check)_
+
+**Q:** How do you say **"Don't run!"**?
+
+- ✔ 🏃 **[Älä] juokse!** — Don't run!
+- ✘ 🏃 **Juokse!** — Run!
+- ✘ 🏃 **Juos[taan]!** — Let's run!
+
+_Explain:_ *Älä* + the short verb: *Älä juokse!*
+
+### 5. Try it _(check)_
+
+**Q:** How do you say **"Let's play!"**?
+
+- ✔ 🪀 **Leiki[tään]!** — Let's play!
+- ✘ 🪀 **Leiki!** — Play!
+- ✘ 🪀 **[Älä] leiki!** — Don't play!
+
+_Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
+
+## Unit 21: Bigger than (Isompi kuin) 🐘
+
+### 1. Bigger: -mpi _(examples)_
+
+To say "bigger", "faster", "older", Finnish adds **-mpi**.
+
+- 🦕 iso → **iso[mpi]** — bigger
+- 🏎️ nopea → **nopea[mpi]** — faster
+- vanha → **vanhe[mpi]** — older
+
+### 2. Than = *kuin* _(examples)_
+
+*kuin* means "than". Both things stay in their basic form:
+
+*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.
+
+- 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
+- 🐴🐮 **Hevonen on nopea[mpi] kuin lehmä.** — The horse is faster than the cow.
+- 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
+
+### 3. Special ones _(examples)_
+
+A few change more, just like in English (good → better): *hyvä → parempi*, *pitkä → pidempi*.
+
+- 👍 hyvä → **pare[mpi]** — better
+- 🗼 pitkä → **pide[mpi]** — taller
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "faster"?
+
+- ✘ 🏎️ **nopea** — fast
+- ✔ 🏎️ nopea → **nopea[mpi]** — faster
+
+_Explain:_ **-mpi** = more: *nopeampi* = faster.
+
+### 5. Try it _(check)_
+
+**Q:** Which one is TRUE?
+
+- ✘ 🐭🐘 **Hiiri on iso[mpi] kuin norsu.** — The mouse is bigger than the elephant.
+- ✔ 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
+
+_Explain:_ The elephant is bigger: *Norsu on isompi kuin hiiri.*
+
+## Unit 21, part-way: The biggest of all (Isoin) 🏆
+
+### 1. The biggest: -in _(examples)_
+
+To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".
+
+- 🦕 iso → **iso[in]** — biggest
+- 🐘 **Norsu on iso[in].** — The elephant is the biggest.
+- 🐭 **Hiiri on pien[in].** — The mouse is the smallest.
+
+### 2. Big, bigger, biggest _(examples)_
+
+*iso → isompi → isoin*. And the special ones: *hyvä → parempi → paras*, *pitkä → pidempi → pisin*.
+
+- 🦕 **iso** — big
+- 🦕 iso → **iso[mpi]** — bigger
+- 🦕 iso → **iso[in]** — biggest
+- 👍 hyvä → **paras** — best
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "Grandpa is the oldest"?
+
+- ✔ 👴 **Isoisä on vanh[in].** — Grandpa is the oldest.
+- ✘ 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
+
+_Explain:_ **-in** = the most of all: *vanhin* = the oldest.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "the fastest"?
+
+- ✘ 🏎️ nopea → **nopea[mpi]** — faster
+- ✔ 🏎️ nopea → **nope[in]** — fastest
+
+_Explain:_ **-in** = the most: *nopein*. *nopeampi* is faster.
+
+## Unit 22: Going into, going onto (Mihin?) 🚶
+
+### 1. Where is it GOING? _(explain)_
+
+- *Missä?* — where is it? (**in / on**) — you know this one!
+- *Mihin?* — where is it **going**? (**into / onto**)
+
+Going somewhere has its own endings.
+
+
+### 2. Going INSIDE _(examples)_
+
+"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*). Short words like *puu* (tree) take **h** + vowel + **n**: *puuhun*.
+
+- 📦 **Kissa on laatiko[ssa].** — The cat is in the box.
+- 📦 **Kissa menee laatikk[oon].** — The cat goes into the box.
+- 🏠 **Kissa menee tal[oon].** — The cat goes into the house.
+
+### 3. Going ON TOP _(examples)_
+
+"Onto" is **-lle** — like "on" (**-lla**), with an **e**.
+
+- 🍽️ **Kissa on pöydä[llä].** — The cat is on the table.
+- 🍽️ **Kissa menee pöydä[lle].** — The cat goes onto the table.
+- 🪑 **Kissa menee tuoli[lle].** — The cat goes onto the chair.
+
+### 4. Try it _(check)_
+
+**Q:** The cat goes INTO the box. Which is right?
+
+- ✔ 📦 **Kissa menee laatikk[oon].** — The cat goes into the box.
+- ✘ 📦 **Kissa menee laatiko[ssa].**
+
+_Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
+
+### 5. Try it _(check)_
+
+**Q:** The cat goes ONTO the table. Which is right?
+
+- ✔ 🍽️ **Kissa menee pöydä[lle].** — The cat goes onto the table.
+- ✘ 🍽️ **Kissa menee pöydä[llä].**
+
+_Explain:_ "Onto" → **-lle**: *pöydälle*.
+
+## Unit 22, part-way: Coming out of, coming off (Mistä?) 📦
+
+### 1. Where is it coming FROM? _(explain)_
+
+*Mistä?* — where is it **coming from**? (**out of / off**). Two more endings:
+
+
+### 2. Out of: -sta / -stä · Off: -lta / -ltä _(examples)_
+
+- 📦 **Kissa tulee laatiko[sta].** — The cat comes out of the box.
+- 🏠 **Kissa tulee talo[sta].** — The cat comes out of the house.
+- 🍽️ **Kissa tulee pöydä[ltä].** — The cat comes off the table.
+- 🪑 **Kissa tulee tuoli[lta].** — The cat comes off the chair.
+
+### 3. All six together _(explain)_
+
+**Inside:** -ssa (in) · -aan, -oon, -seen… (into) · -sta (out of)
+
+**On top:** -lla (on) · -lle (onto) · -lta (off)
+
+Notice: **s** for inside, **l** for on top!
+
+
+### 4. Try it _(check)_
+
+**Q:** The cat comes OUT OF the box. Which is right?
+
+- ✘ 📦 **Kissa tulee laatikk[oon].**
+- ✔ 📦 **Kissa tulee laatiko[sta].** — The cat comes out of the box.
+- ✘ 📦 **Kissa tulee laatiko[ssa].**
+
+_Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
+
+### 5. Try it _(check)_
+
+**Q:** The cat comes OFF the table. Which is right?
+
+- ✔ 🍽️ **Kissa tulee pöydä[ltä].** — The cat comes off the table.
+- ✘ 🍽️ **Kissa tulee pöydä[lle].**
+
+_Explain:_ "Off" → **-lta / -ltä**: *pöydältä*.
+
+## Unit 23: Seeing the whole thing (Näen) 👀
+
+### 1. Another verb, another ending _(explain)_
+
+*Näen* means **I see**. When you see the **whole thing**, it gets **-n** — the same little ending as in *isän pyörä*, but here it means "the whole thing".
+
+
+### 2. The whole thing: -n _(examples)_
+
+- 🚌 **Näen bussi[n].** — I see the bus.
+- 🚆 **Näen juna[n].** — I see the train.
+- 🧑‍🏫 **Näen opettaja[n].** — I see the teacher.
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I see the car"?
+
+- ✔ 🚗 **Näen auto[n].** — I see the car.
+- ✘ 🚗 **Näen auto.**
+
+_Explain:_ Seeing the whole car → **-n**: *auton*.
+
+### 4. Try it _(check)_
+
+**Q:** *Näen bussin.* — Which ending does "bus" have?
+
+- ✔ -n
+- ✘ -a
+- ✘ -ssa
+
+_Explain:_ Seeing the whole bus → **-n**: *bussin*.
+
+## Unit 23, part-way: Watching and waiting (Katson ja odotan) ⏳
+
+### 1. Going on for a while: -a / -ä _(examples)_
+
+*katsoa* (to look at, to watch) and *odottaa* (to wait for) **take a while** — so the thing gets **-a / -ä**.
+
+- 🎞️ **Katson elokuva[a].** — I'm watching the movie.
+- 🚌 **Odotan bussi[a].** — I'm waiting for the bus.
+- 🤝 **Odotan kaveri[a].** — I'm waiting for my friend.
+
+### 2. See it, or watch it? _(explain)_
+
+- *Näen bussin.* — I see the bus (one look → **-n**)
+- *Odotan bussia.* — I'm waiting for the bus (it takes a while → **-a**)
+
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I'm waiting for the train"?
+
+- ✘ 🚆 **Odotan juna[n].**
+- ✔ 🚆 **Odotan juna[a].** — I'm waiting for the train.
+
+_Explain:_ Waiting goes on for a while → **-a**: *junaa*.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I see the train"?
+
+- ✔ 🚆 **Näen juna[n].** — I see the train.
+- ✘ 🚆 **Odotan juna[a].** — I'm waiting for the train.
+
+_Explain:_ *Näen junan* — seeing it once → **-n**.
+
+### 5. One word, four verbs _(examples)_
+
+The VERB decides the ending — so look at the verb first: *tykkään* → **-sta**, *rakastan* → **-a**, *näen* → **-n**, *odotan* → **-a**.
+
+- 🐶 **Tykkään koira[sta].** — I like the dog.
+- 🐶 **Rakastan koira[a].** — I love the dog.
+- 🐶 **Näen koira[n].** — I see the dog.
+- 🐶 **Odotan koira[a].** — I'm waiting for the dog.
+
+## Unit 24: Buying one whole thing (Kaupassa) 🛒
+
+### 1. Like seeing _(explain)_
+
+*Ostan* means **I buy**. It works just like *Näen*: buying **one whole thing** — an apple, a banana — it gets **-n**.
+
+
+### 2. One whole thing: -n _(examples)_
+
+- 🍎 **Ostan omena[n].** — I buy an apple.
+- 🍌 **Ostan banaani[n].** — I buy a banana.
+- 🍰 **Ostan kaku[n].** — I buy a cake.
+
+### 3. Try it _(check)_
+
+**Q:** *Ostan omenan.* — How many apples?
+
+- ✔ One whole apple
+- ✘ Some apple
+
+_Explain:_ **-n** (*omenan*) means one whole thing.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I buy a banana"?
+
+- ✔ 🍌 **Ostan banaani[n].** — I buy a banana.
+- ✘ 🍌 **Ostan banaani.**
+
+_Explain:_ One whole banana → **-n**: *banaanin*.
+
+### 5. Euros _(examples)_
+
+Money is counted like anything else: from 2 on, the thing takes **-a / -ä**. To ask the price: *Paljonko se maksaa?* — how much is it?
+
+- 💶 **yksi euro** — one euro
+- 💶 **kaksi euro[a]** — two euros
+- 💶 **viisi euro[a]** — five euros
+
+## Unit 24, part-way: Buying some of something (Ostan maitoa) 🥛
+
+### 1. Some of something: -a / -ä _(examples)_
+
+Milk, bread, juice — you don't buy "one milk", you buy **some**. Then it gets **-a / -ä**. (Remember: **-a** means "not all of it".)
+
+- 🥛 **Ostan maito[a].** — I buy some milk.
+- 🍞 **Ostan leipä[ä].** — I buy some bread.
+- 🧃 **Ostan mehu[a].** — I buy some juice.
+
+### 2. One apple — some milk _(explain)_
+
+- *Ostan omenan.* — one whole apple (**-n**)
+- *Ostan maitoa.* — some milk (**-a**)
+
+
+### 3. Try it _(check)_
+
+**Q:** *Ostan maitoa.* — How much milk?
+
+- ✔ Some milk
+- ✘ One whole milk
+
+_Explain:_ **-a** (*maitoa*) means "some of it".
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I buy some bread"?
+
+- ✔ 🍞 **Ostan leipä[ä].** — I buy some bread.
+- ✘ 🍞 **Ostan leivä[n].**
+
+_Explain:_ Some bread → **-ä**: *leipää*.
+
+## Unit 25: Liking and not liking (Koulupäivä) 🏫
+
+### 1. School subjects _(examples)_
+
+- ➗ **matematiikka** — math
+- 🤸 **liikunta** — gym
+- 🇬🇧 **englanti** — English
+- 🎵 **musiikki** — music
+
+### 2. I like / I don't like _(examples)_
+
+You know *Tykkään* + **-sta**. To say you DON'T like something, use *En tykkää* (or *En pidä*), and the ending **stays the same**.
+
+- 🤸 **Tykkään liikunna[sta].** — I like gym.
+- ➗ **En tykkää matematiika[sta].** — I don't like math.
+- 📋 **En pidä kokee[sta].** — I don't like the test.
+
+### 3. The "not" verb again _(explain)_
+
+*En tykkää* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.
+
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I don't like math"?
+
+- ✔ ➗ **En tykkää matematiika[sta].** — I don't like math.
+- ✘ ➗ **En tykkää matematiikka[a].**
+
+_Explain:_ *En tykkää* still takes **-sta**: *matematiikasta*.
+
+### 5. Try it _(check)_
+
+**Q:** *Pidän englannista.* — Do I like English?
+
+- ✔ Yes
+- ✘ No
+
+_Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
+
+## Unit 26: You on the move (Kaupungilla ja kotona) 🏙️
+
+### 1. The cat's endings — for you _(explain)_
+
+Remember the cat going **into** and **out of** the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).
+
+
+### 2. Inside places: in, into, out of _(examples)_
+
+- 🛝 **Olen puisto[ssa].** — I'm in the park.
+- 📚 **Menen kirjast[oon].** — I'm going to the library.
+- 🏫 **Tulen koulu[sta].** — I'm coming from school.
+
+### 3. "On" places: -lla, -lle, -lta _(examples)_
+
+Some places are "on" places in Finnish — a station, a market, the yard. They take the **l** endings.
+
+- 🚉 **Olen asema[lla].** — I'm at the station.
+- 🏡 **Menen piha[lle].** — I'm going to the yard.
+- 🛍️ **Tulen tori[lta].** — I'm coming from the market.
+
+### 4. At home _(examples)_
+
+- 🛌 **Olen makuuhuonee[ssa].** — I'm in the bedroom.
+- 🛋️ **Olen sohva[lla].** — I'm on the sofa.
+- **Menen keitti[öön].** — I'm going to the kitchen.
+
+### 5. Try it _(check)_
+
+**Q:** "I'm going to the park." Which is right?
+
+- ✔ 🛝 **Menen puist[oon].** — I'm going to the park.
+- ✘ 🛝 **Menen puisto[ssa].**
+- ✘ 🛝 **Menen puisto[sta].**
+
+_Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
+
+### 6. Try it _(check)_
+
+**Q:** "I'm at the station." Which is right?
+
+- ✔ 🚉 **Olen asema[lla].** — I'm at the station.
+- ✘ 🚉 **Olen asema[ssa].**
+
+_Explain:_ A station is an "on" place → **-lla**: *asemalla*.
+
+## Unit 26, part-way: In MY house (Talossani) 🏠
+
+### 1. Two endings on one word _(explain)_
+
+Remember the "my" ending **-ni** and the "your" ending **-si**? They go on the very end — **after** the place ending:
+
+*talo* + **-ssa** + **-ni** = *talossani*, "in my house".
+
+
+### 2. In my…, on your… _(examples)_
+
+- 🏠 talo → **talossa[ni]** — in my house
+- 🚪 huone → **huoneessa[si]** — in your room
+- 🍽️ pöytä → **pöydällä[ni]** — on my table
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "in my house"?
+
+- ✔ 🏠 talo → **talossa[ni]** — in my house
+- ✘ 🏠 talo → **talossa[si]** — in your house
+- ✘ 🏠 talo → **talo[ni]** — my house
+
+_Explain:_ **-ssa** (in) + **-ni** (my): *talossani*.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "on your table"?
+
+- ✔ 🍽️ pöytä → **pöydällä[si]** — on your table
+- ✘ 🍽️ pöytä → **pöydällä[ni]** — on my table
+
+_Explain:_ **-llä** (on) + **-si** (your): *pöydälläsi*.
+
+## Unit 27: Out in nature (Luonnossa) 🌲
+
+### 1. Land and water _(examples)_
+
+- 🏞️ **järvi** — lake
+- 🌊 **meri** — sea
+- 🐚 **ranta** — beach
+- 🏝️ **saari** — island
+- ⛰️ **vuori** — mountain
+
+### 2. IN: -ssa / -ssä _(examples)_
+
+A fish is IN the lake, a bird IN the tree: **-ssa / -ssä**.
+
+- 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
+- 🌳 **Lintu on puu[ssa].** — The bird is in the tree.
+- 🌲 **Lintu on metsä[ssä].** — The bird is in the forest.
+
+### 3. ON: -lla / -llä _(examples)_
+
+A butterfly sits ON a leaf: **-lla / -llä**.
+
+- 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
+- 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+
+### 4. Into the forest, onto the mountain _(examples)_
+
+You go INTO the forest: *metsään*. But a mountain, a lake or a beach you go ONTO, with **-lle**: *vuorelle*, *järvelle*, *rannalle*.
+
+- 🌲 **Menen mets[ään].** — I'm going to the forest.
+- ⛰️ **Menen vuore[lle].** — I'm going to the mountain.
+- 🏞️ järvi → **järve[lle]** — to the lake
+- 🐚 ranta → **ranna[lle]** — to the beach
+
+### 5. Animals in nature _(examples)_
+
+- 🐦 **lintu** — bird
+- 🐟 **kala** — fish
+- 🦋 **perhonen** — butterfly
+- 🐝 **mehiläinen** — bee
+- 🪿 **sorsa** — wild duck
+
+### 6. Try it _(check)_
+
+**Q:** How do you say "The fish is in the lake"?
+
+- ✔ 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
+- ✘ 🏞️ **Kala on järv[een].**
+
+_Explain:_ Where it IS → **-ssa**: *järvessä*. (*järveen* is INTO the lake.)
+
+### 7. Try it _(check)_
+
+**Q:** Listen! Where is the butterfly?
+
+🔊 plays: 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+
+- ✔ 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+- ✘ 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
+
+_Explain:_ *kivellä* — on the stone. *lehdellä* is on the leaf.
+
+## Unit 28: Verb type 4 (Verbityyppi 4) 🔓
 
 ### 1. A new family: type 4 _(examples)_
 
@@ -951,7 +1866,7 @@ _Explain:_ "I" is **-n**: *haluan*.
 
 _Explain:_ *korjata* ends in **-ata**: **type 4** (*korjaan*).
 
-## Unit 15, part-way: Type 4: the sound gets STRONGER (Vahvempi kirjain) 🦘
+## Unit 28, part-way: Type 4: the sound gets STRONGER (Vahvempi kirjain) 🦘
 
 ### 1. The other way round — like *kuunnella* _(explain)_
 
@@ -1004,47 +1919,7 @@ _Explain:_ "I" is **-n**, with the strong **pp**: *hyppään*.
 
 _Explain:_ *hän leikkaa* — she cuts. The strong **kk** is in every person.
 
-## Unit 16: Liking and not liking (Koulupäivä) 🏫
-
-### 1. School subjects _(examples)_
-
-- ➗ **matematiikka** — math
-- 🤸 **liikunta** — gym
-- 🇬🇧 **englanti** — English
-- 🎵 **musiikki** — music
-
-### 2. I like / I don't like _(examples)_
-
-You know *Tykkään* + **-sta**. To say you DON'T like something, use *En tykkää* (or *En pidä*), and the ending **stays the same**.
-
-- 🤸 **Tykkään liikunna[sta].** — I like gym.
-- ➗ **En tykkää matematiika[sta].** — I don't like math.
-- 📋 **En pidä kokee[sta].** — I don't like the test.
-
-### 3. The "not" verb again _(explain)_
-
-*En tykkää* uses the same "not" verb you learned before: *en* (I), *et* (you), *ei* (he/she). The thing still gets **-sta / -stä**.
-
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I don't like math"?
-
-- ✔ ➗ **En tykkää matematiika[sta].** — I don't like math.
-- ✘ ➗ **En tykkää matematiikka[a].**
-
-_Explain:_ *En tykkää* still takes **-sta**: *matematiikasta*.
-
-### 5. Try it _(check)_
-
-**Q:** *Pidän englannista.* — Do I like English?
-
-- ✔ Yes
-- ✘ No
-
-_Explain:_ *Pidän* = I like. (*En pidä* would be "I don't like".)
-
-## Unit 17: Three ways to play (Leikin, pelaan, soitan) 🎲
+## Unit 29: Three ways to play (Leikin, pelaan, soitan) 🎲
 
 ### 1. One "play", three verbs _(explain)_
 
@@ -1119,905 +1994,6 @@ _Explain:_ Games and sports → *pelata*: *Pelaan jalkapalloa*.
 - ✔ 🧸 **Leikin nalle[lla].** — I play with a teddy bear.
 
 _Explain:_ *nallella* — with a teddy bear. *nukella* is with a doll.
-
-## Unit 18: Seeing the whole thing (Näen) 👀
-
-### 1. Another verb, another ending _(explain)_
-
-*Näen* means **I see**. When you see the **whole thing**, it gets **-n** — the same little ending as in *isän pyörä*, but here it means "the whole thing".
-
-
-### 2. The whole thing: -n _(examples)_
-
-- 🚌 **Näen bussi[n].** — I see the bus.
-- 🚆 **Näen juna[n].** — I see the train.
-- 🧑‍🏫 **Näen opettaja[n].** — I see the teacher.
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "I see the car"?
-
-- ✔ 🚗 **Näen auto[n].** — I see the car.
-- ✘ 🚗 **Näen auto.**
-
-_Explain:_ Seeing the whole car → **-n**: *auton*.
-
-### 4. Try it _(check)_
-
-**Q:** *Näen bussin.* — Which ending does "bus" have?
-
-- ✔ -n
-- ✘ -a
-- ✘ -ssa
-
-_Explain:_ Seeing the whole bus → **-n**: *bussin*.
-
-## Unit 18, part-way: Watching and waiting (Katson ja odotan) ⏳
-
-### 1. Going on for a while: -a / -ä _(examples)_
-
-*katsoa* (to look at, to watch) and *odottaa* (to wait for) **take a while** — so the thing gets **-a / -ä**.
-
-- 🎞️ **Katson elokuva[a].** — I'm watching the movie.
-- 🚌 **Odotan bussi[a].** — I'm waiting for the bus.
-- 🤝 **Odotan kaveri[a].** — I'm waiting for my friend.
-
-### 2. See it, or watch it? _(explain)_
-
-- *Näen bussin.* — I see the bus (one look → **-n**)
-- *Odotan bussia.* — I'm waiting for the bus (it takes a while → **-a**)
-
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "I'm waiting for the train"?
-
-- ✘ 🚆 **Odotan juna[n].**
-- ✔ 🚆 **Odotan juna[a].** — I'm waiting for the train.
-
-_Explain:_ Waiting goes on for a while → **-a**: *junaa*.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I see the train"?
-
-- ✔ 🚆 **Näen juna[n].** — I see the train.
-- ✘ 🚆 **Odotan juna[a].** — I'm waiting for the train.
-
-_Explain:_ *Näen junan* — seeing it once → **-n**.
-
-### 5. One word, four verbs _(examples)_
-
-The VERB decides the ending — so look at the verb first: *tykkään* → **-sta**, *rakastan* → **-a**, *näen* → **-n**, *odotan* → **-a**.
-
-- 🐶 **Tykkään koira[sta].** — I like the dog.
-- 🐶 **Rakastan koira[a].** — I love the dog.
-- 🐶 **Näen koira[n].** — I see the dog.
-- 🐶 **Odotan koira[a].** — I'm waiting for the dog.
-
-## Unit 19: Buying one whole thing (Kaupassa) 🛒
-
-### 1. Like seeing _(explain)_
-
-*Ostan* means **I buy**. It works just like *Näen*: buying **one whole thing** — an apple, a banana — it gets **-n**.
-
-
-### 2. One whole thing: -n _(examples)_
-
-- 🍎 **Ostan omena[n].** — I buy an apple.
-- 🍌 **Ostan banaani[n].** — I buy a banana.
-- 🍰 **Ostan kaku[n].** — I buy a cake.
-
-### 3. Try it _(check)_
-
-**Q:** *Ostan omenan.* — How many apples?
-
-- ✔ One whole apple
-- ✘ Some apple
-
-_Explain:_ **-n** (*omenan*) means one whole thing.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I buy a banana"?
-
-- ✔ 🍌 **Ostan banaani[n].** — I buy a banana.
-- ✘ 🍌 **Ostan banaani.**
-
-_Explain:_ One whole banana → **-n**: *banaanin*.
-
-### 5. Euros _(examples)_
-
-Money is counted like anything else: from 2 on, the thing takes **-a / -ä**. To ask the price: *Paljonko se maksaa?* — how much is it?
-
-- 💶 **yksi euro** — one euro
-- 💶 **kaksi euro[a]** — two euros
-- 💶 **viisi euro[a]** — five euros
-
-## Unit 19, part-way: Buying some of something (Ostan maitoa) 🥛
-
-### 1. Some of something: -a / -ä _(examples)_
-
-Milk, bread, juice — you don't buy "one milk", you buy **some**. Then it gets **-a / -ä**. (Remember: **-a** means "not all of it".)
-
-- 🥛 **Ostan maito[a].** — I buy some milk.
-- 🍞 **Ostan leipä[ä].** — I buy some bread.
-- 🧃 **Ostan mehu[a].** — I buy some juice.
-
-### 2. One apple — some milk _(explain)_
-
-- *Ostan omenan.* — one whole apple (**-n**)
-- *Ostan maitoa.* — some milk (**-a**)
-
-
-### 3. Try it _(check)_
-
-**Q:** *Ostan maitoa.* — How much milk?
-
-- ✔ Some milk
-- ✘ One whole milk
-
-_Explain:_ **-a** (*maitoa*) means "some of it".
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I buy some bread"?
-
-- ✔ 🍞 **Ostan leipä[ä].** — I buy some bread.
-- ✘ 🍞 **Ostan leivä[n].**
-
-_Explain:_ Some bread → **-ä**: *leipää*.
-
-## Unit 20: Do it, don't, let's (Tee! Älä! Tehdään!) 🫵
-
-### 1. Telling someone to do it _(examples)_
-
-To tell ONE person what to do, use the **short verb**: the "I" form without its **-n**. *juoksen* (I run) → *Juokse!* (Run!)
-
-- 🏃 **Juokse!** — Run!
-- 🦘 **Hyppää!** — Jump!
-- 📺 **Katso!** — Look!
-
-### 2. Don't! _(examples)_
-
-"Don't" is *älä* + the same short verb.
-
-- 🏃 **[Älä] juokse!** — Don't run!
-- 😢 **[Älä] itke!** — Don't cry!
-- ❔ **[Älä] unohda!** — Don't forget!
-
-### 3. Let's! _(examples)_
-
-In everyday Finnish, "let's…" ends in **-aan / -ään** — you hear it all the time at school and on the playground.
-
-- 🪀 **Leiki[tään]!** — Let's play!
-- **Men[nään]!** — Let's go!
-- 🍜 **Syö[dään]!** — Let's eat!
-- 🏊 **Ui[daan]!** — Let's swim!
-
-### 4. Try it _(check)_
-
-**Q:** How do you say **"Don't run!"**?
-
-- ✔ 🏃 **[Älä] juokse!** — Don't run!
-- ✘ 🏃 **Juokse!** — Run!
-- ✘ 🏃 **Juos[taan]!** — Let's run!
-
-_Explain:_ *Älä* + the short verb: *Älä juokse!*
-
-### 5. Try it _(check)_
-
-**Q:** How do you say **"Let's play!"**?
-
-- ✔ 🪀 **Leiki[tään]!** — Let's play!
-- ✘ 🪀 **Leiki!** — Play!
-- ✘ 🪀 **[Älä] leiki!** — Don't play!
-
-_Explain:_ "Let's" ends in **-aan / -ään**: *Leikitään!*
-
-## Unit 21: My body · Captain says (Keho · Kapteeni käskee) 🧑‍✈️
-
-### 1. *Kapteeni käskee!* _(explain)_
-
-Finnish kids play *Kapteeni käskee* — "the captain orders". It's like Simon Says: do what the captain says, but ONLY when you hear *Kapteeni käskee*!
-
-
-### 2. Your face _(examples)_
-
-- 👁️ **silmä** — eye
-- 👂 **korva** — ear
-- 👃 **nenä** — nose
-- 👄 **suu** — mouth
-- 🦷 **hammas** — tooth
-- 👅 **kieli** — tongue
-
-### 3. The rest of you _(examples)_
-
-*jalka* is your leg AND your foot — Finnish has one word for both.
-
-- 🙂 **pää** — head
-- 💇 **tukka** — hair
-- ✋ **käsi** — hand
-- 👆 **sormi** — finger
-- 🤰 **vatsa** — tummy
-- 🦵 **polvi** — knee
-- 🦶 **jalka** — foot
-
-### 4. Touch it: -a _(examples)_
-
-*Kosketa* (touch!) always takes **-a / -ä**, just like *Rakastan*.
-
-- 👃 **Kosketa nenä[ä]!** — Touch your nose!
-- 👂 **Kosketa korva[a]!** — Touch your ear!
-- 🦵 **Kosketa polve[a]!** — Touch your knee!
-
-### 5. Put it up: the basic form _(examples)_
-
-After a command like *Nosta!* (lift!), the whole thing keeps its **basic form**: *Nosta käsi ylös!* And BOTH hands? *kädet* — the **-t** means more than one.
-
-- ✋ **Nosta käsi ylös!** — Put your hand up!
-- 🦶 **Nosta jalka ylös!** — Lift your foot up!
-- ✋ **Pese käde[t]!** — Wash your hands!
-
-### 6. How to play _(explain)_
-
-The captain says *Kapteeni käskee: kosketa nenää!* — touch your nose. But if you hear just *Kosketa nenää!*, don't do it! In the game, tap the captain's *Ei!* (no!) instead.
-
-
-### 7. Try it _(check)_
-
-**Q:** Which one means "Touch your nose!"?
-
-- ✔ 👃 **Kosketa nenä[ä]!** — Touch your nose!
-- ✘ 👃 **Kosketa nenä!**
-
-_Explain:_ *Kosketa* takes **-a / -ä**: *Kosketa nenää!*
-
-### 8. Try it _(check)_
-
-**Q:** Listen! What does the captain want you to lift?
-
-🔊 plays: 🦶 **Nosta jalka ylös!** — Lift your foot up!
-
-- ✘ ✋ **Nosta käsi ylös!** — Put your hand up!
-- ✔ 🦶 **Nosta jalka ylös!** — Lift your foot up!
-
-_Explain:_ *jalka* — your foot (or your leg).
-
-## Unit 22: Colors and describing words (Värit) 🎨
-
-### 1. Colors _(examples)_
-
-- 🟥 **punainen** — red
-- 🟦 **sininen** — blue
-- 🟨 **keltainen** — yellow
-- 🟩 **vihreä** — green
-- ⬛ **musta** — black
-- ⬜ **valkoinen** — white
-- 🟫 **ruskea** — brown
-
-### 2. More colors _(examples)_
-
-*vaaleanpunainen* is "light red" — that's pink.
-
-- 🩷 **vaaleanpunainen** — pink
-- 🟪 **violetti** — purple
-- 🩶 **harmaa** — gray
-- 🟧 **oranssi** — orange
-
-### 3. Opposites _(examples)_
-
-Some describing words come in pairs: *uusi* (new) and *vanha* (old), *helppo* (easy) and *vaikea* (hard), *puhdas* (clean) and *likainen* (dirty). *lyhyt* is short.
-
-- 🏷️ **uusi** — new
-- 🧩 **helppo** — easy
-- 🪢 **vaikea** — hard
-- 🫧 **puhdas** — clean
-- 🪰 **likainen** — dirty
-- 🤏 **lyhyt** — short
-
-### 4. "This is red" _(examples)_
-
-A describing word works after *Tämä on* just like a thing: *Tämä on punainen* = this is red.
-
-- 🟥 **Tämä on punainen.** — This is red.
-- 🦕 **Tämä on iso.** — This is big.
-- 🟦 **Onko tämä sininen?** — Is this blue?
-
-### 5. Describing words go first _(examples)_
-
-Just like English: the describing word comes **before** the thing.
-
-- 🐶 **iso koira** — a big dog
-- 🏐 **punainen pallo** — a red ball
-
-### 6. Try it _(check)_
-
-**Q:** Which one means "This is green"?
-
-- ✔ 🟩 **Tämä on vihreä.** — This is green.
-- ✘ 🟨 **Tämä on keltainen.** — This is yellow.
-
-_Explain:_ *vihreä* = green, *keltainen* = yellow.
-
-### 7. Try it _(check)_
-
-**Q:** Which one means "a big dog"?
-
-- ✔ 🐶 **iso koira**
-- ✘ 🐶 **pieni koira**
-
-_Explain:_ *iso* = big, *pieni* = small.
-
-### 8. Try it _(check)_
-
-**Q:** Which one means "a dirty shoe"?
-
-- ✔ 👟 **likainen kenkä**
-- ✘ 👟 **puhdas kenkä**
-
-_Explain:_ *likainen* = dirty, *puhdas* = clean.
-
-## Unit 22, part-way: Describing words copy (Millainen?) 🪞
-
-### 1. They copy the ending! _(examples)_
-
-This is the cool part: whatever ending the thing gets, the **describing word gets it too** — like an echo.
-
-- 🏠 **iso[ssa] talo[ssa]** — in a big house
-- 🐶 **piene[n] koira[n]** — a small dog's
-- 🍽️ **iso[lla] pöydä[llä]** — on a big table
-
-### 2. Listen for the echo _(explain)_
-
-*isossa talossa* — **-ssa** twice. *isolla pöydällä* — **-lla** twice. If the thing has an ending, the describing word has it too.
-
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "in a big house"?
-
-- ✘ 🏠 **iso talo[ssa]**
-- ✔ 🏠 **iso[ssa] talo[ssa]**
-
-_Explain:_ Both words get the ending: *isossa talossa*.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "of a red ball" (it takes -n)?
-
-- ✔ 🏐 **punaise[n] pallo[n]**
-- ✘ 🏐 **punainen pallo[n]**
-
-_Explain:_ Both words take **-n**: *punaisen pallon*.
-
-## Unit 23: Bigger than (Isompi kuin) 🐘
-
-### 1. Bigger: -mpi _(examples)_
-
-To say "bigger", "faster", "older", Finnish adds **-mpi**.
-
-- 🦕 iso → **iso[mpi]** — bigger
-- 🏎️ nopea → **nopea[mpi]** — faster
-- vanha → **vanhe[mpi]** — older
-
-### 2. Than = *kuin* _(examples)_
-
-*kuin* means "than". Both things stay in their basic form:
-
-*Norsu on isompi kuin hiiri.* = The elephant is bigger than the mouse.
-
-- 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
-- 🐴🐮 **Hevonen on nopea[mpi] kuin lehmä.** — The horse is faster than the cow.
-- 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
-
-### 3. Special ones _(examples)_
-
-A few change more, just like in English (good → better): *hyvä → parempi*, *pitkä → pidempi*.
-
-- 👍 hyvä → **pare[mpi]** — better
-- 🗼 pitkä → **pide[mpi]** — taller
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "faster"?
-
-- ✘ 🏎️ **nopea** — fast
-- ✔ 🏎️ nopea → **nopea[mpi]** — faster
-
-_Explain:_ **-mpi** = more: *nopeampi* = faster.
-
-### 5. Try it _(check)_
-
-**Q:** Which one is TRUE?
-
-- ✘ 🐭🐘 **Hiiri on iso[mpi] kuin norsu.** — The mouse is bigger than the elephant.
-- ✔ 🐘🐭 **Norsu on iso[mpi] kuin hiiri.** — The elephant is bigger than the mouse.
-
-_Explain:_ The elephant is bigger: *Norsu on isompi kuin hiiri.*
-
-## Unit 23, part-way: The biggest of all (Isoin) 🏆
-
-### 1. The biggest: -in _(examples)_
-
-To say "the biggest", "the fastest", Finnish ends the word with **-in** — and needs no "the".
-
-- 🦕 iso → **iso[in]** — biggest
-- 🐘 **Norsu on iso[in].** — The elephant is the biggest.
-- 🐭 **Hiiri on pien[in].** — The mouse is the smallest.
-
-### 2. Big, bigger, biggest _(examples)_
-
-*iso → isompi → isoin*. And the special ones: *hyvä → parempi → paras*, *pitkä → pidempi → pisin*.
-
-- 🦕 **iso** — big
-- 🦕 iso → **iso[mpi]** — bigger
-- 🦕 iso → **iso[in]** — biggest
-- 👍 hyvä → **paras** — best
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "Grandpa is the oldest"?
-
-- ✔ 👴 **Isoisä on vanh[in].** — Grandpa is the oldest.
-- ✘ 👴👶 **Isoisä on vanhe[mpi] kuin vauva.** — Grandpa is older than the baby.
-
-_Explain:_ **-in** = the most of all: *vanhin* = the oldest.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "the fastest"?
-
-- ✘ 🏎️ nopea → **nopea[mpi]** — faster
-- ✔ 🏎️ nopea → **nope[in]** — fastest
-
-_Explain:_ **-in** = the most: *nopein*. *nopeampi* is faster.
-
-## Unit 24: Endings instead of "in" and "on" (Missä?) 📍
-
-### 1. No word for "in" _(examples)_
-
-English puts a little word **in front**: "in the box". Finnish puts an **ending at the back**: **-ssa / -ssä** means "in".
-
-- 📦 laatikko → **laatiko[ssa]** — in the box
-- 🏠 talo → **talo[ssa]** — in the house
-- 🏫 koulu → **koulu[ssa]** — at school
-
-### 2. "On" is -lla / -llä _(examples)_
-
-- 🍽️ pöytä → **pöydä[llä]** — on the table
-- 🪑 tuoli → **tuoli[lla]** — on the chair
-- 🛏️ sänky → **sängy[llä]** — on the bed
-
-### 3. The vowel team again _(examples)_
-
-Words with **a, o, u** → *-ssa, -lla*. Words with **ä, ö, y** → *-ssä, -llä*. Look at *talossa* vs. *metsässä*.
-
-- 🏠 talo → **talo[ssa]** — in the house
-- 🌲 metsä → **metsä[ssä]** — in the forest
-- 🍽️ pöytä → **pöydä[llä]** — on the table
-
-### 4. Look at the END _(explain)_
-
-Sometimes the middle of a word changes a little too (*laatikko* → *laatikossa*). Don't worry — **the ending at the very end is what tells you "in" or "on"**.
-
-
-### 5. Try it _(check)_
-
-**Q:** The cat is ON the table. Which is right?
-
-- ✔ 🍽️ **Kissa on pöydä[llä].** — The cat is on the table.
-- ✘ 🍽️ **Kissa on pöydä[ssä].**
-
-_Explain:_ "On" → **-lla / -llä**: *pöydällä*.
-
-### 6. Try it _(check)_
-
-**Q:** The cat is IN the house. Which is right?
-
-- ✔ 🏠 **Kissa on talo[ssa].** — The cat is in the house.
-- ✘ 🏠 **Kissa on talo[lla].**
-
-_Explain:_ "In" → **-ssa**: *talossa*.
-
-## Unit 24, part-way: In MY house (Talossani) 🏠
-
-### 1. Two endings on one word _(explain)_
-
-Remember the "my" ending **-ni** and the "your" ending **-si**? They go on the very end — **after** the place ending:
-
-*talo* + **-ssa** + **-ni** = *talossani*, "in my house".
-
-
-### 2. In my…, on your… _(examples)_
-
-- 🏠 talo → **talossa[ni]** — in my house
-- 🚪 huone → **huoneessa[si]** — in your room
-- 🍽️ pöytä → **pöydällä[ni]** — on my table
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "in my house"?
-
-- ✔ 🏠 talo → **talossa[ni]** — in my house
-- ✘ 🏠 talo → **talossa[si]** — in your house
-- ✘ 🏠 talo → **talo[ni]** — my house
-
-_Explain:_ **-ssa** (in) + **-ni** (my): *talossani*.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "on your table"?
-
-- ✔ 🍽️ pöytä → **pöydällä[si]** — on your table
-- ✘ 🍽️ pöytä → **pöydällä[ni]** — on my table
-
-_Explain:_ **-llä** (on) + **-si** (your): *pöydälläsi*.
-
-## Unit 25: Going into, going onto (Mihin?) 🚶
-
-### 1. Where is it GOING? _(explain)_
-
-- *Missä?* — where is it? (**in / on**) — you know this one!
-- *Mihin?* — where is it **going**? (**into / onto**)
-
-Going somewhere has its own endings.
-
-
-### 2. Going INSIDE _(examples)_
-
-"Into" is a long vowel + **n** (*laatikkoon*, *taloon*) — or **-seen** (*huoneeseen*). Short words like *puu* (tree) take **h** + vowel + **n**: *puuhun*.
-
-- 📦 **Kissa on laatiko[ssa].** — The cat is in the box.
-- 📦 **Kissa menee laatikk[oon].** — The cat goes into the box.
-- 🏠 **Kissa menee tal[oon].** — The cat goes into the house.
-
-### 3. Going ON TOP _(examples)_
-
-"Onto" is **-lle** — like "on" (**-lla**), with an **e**.
-
-- 🍽️ **Kissa on pöydä[llä].** — The cat is on the table.
-- 🍽️ **Kissa menee pöydä[lle].** — The cat goes onto the table.
-- 🪑 **Kissa menee tuoli[lle].** — The cat goes onto the chair.
-
-### 4. Try it _(check)_
-
-**Q:** The cat goes INTO the box. Which is right?
-
-- ✔ 📦 **Kissa menee laatikk[oon].** — The cat goes into the box.
-- ✘ 📦 **Kissa menee laatiko[ssa].**
-
-_Explain:_ "Into" → a long vowel + **n**: *laatikkoon*.
-
-### 5. Try it _(check)_
-
-**Q:** The cat goes ONTO the table. Which is right?
-
-- ✔ 🍽️ **Kissa menee pöydä[lle].** — The cat goes onto the table.
-- ✘ 🍽️ **Kissa menee pöydä[llä].**
-
-_Explain:_ "Onto" → **-lle**: *pöydälle*.
-
-## Unit 25, part-way: Coming out of, coming off (Mistä?) 📦
-
-### 1. Where is it coming FROM? _(explain)_
-
-*Mistä?* — where is it **coming from**? (**out of / off**). Two more endings:
-
-
-### 2. Out of: -sta / -stä · Off: -lta / -ltä _(examples)_
-
-- 📦 **Kissa tulee laatiko[sta].** — The cat comes out of the box.
-- 🏠 **Kissa tulee talo[sta].** — The cat comes out of the house.
-- 🍽️ **Kissa tulee pöydä[ltä].** — The cat comes off the table.
-- 🪑 **Kissa tulee tuoli[lta].** — The cat comes off the chair.
-
-### 3. All six together _(explain)_
-
-**Inside:** -ssa (in) · -aan, -oon, -seen… (into) · -sta (out of)
-
-**On top:** -lla (on) · -lle (onto) · -lta (off)
-
-Notice: **s** for inside, **l** for on top!
-
-
-### 4. Try it _(check)_
-
-**Q:** The cat comes OUT OF the box. Which is right?
-
-- ✘ 📦 **Kissa tulee laatikk[oon].**
-- ✔ 📦 **Kissa tulee laatiko[sta].** — The cat comes out of the box.
-- ✘ 📦 **Kissa tulee laatiko[ssa].**
-
-_Explain:_ "Out of" → **-sta / -stä**: *laatikosta*.
-
-### 5. Try it _(check)_
-
-**Q:** The cat comes OFF the table. Which is right?
-
-- ✔ 🍽️ **Kissa tulee pöydä[ltä].** — The cat comes off the table.
-- ✘ 🍽️ **Kissa tulee pöydä[lle].**
-
-_Explain:_ "Off" → **-lta / -ltä**: *pöydältä*.
-
-## Unit 26: You on the move (Kaupungilla ja kotona) 🏙️
-
-### 1. The cat's endings — for you _(explain)_
-
-Remember the cat going **into** and **out of** the box? You use **the same endings** about yourself, with *Olen* (I am), *Menen* (I go) and *Tulen* (I come).
-
-
-### 2. Inside places: in, into, out of _(examples)_
-
-- 🛝 **Olen puisto[ssa].** — I'm in the park.
-- 📚 **Menen kirjast[oon].** — I'm going to the library.
-- 🏫 **Tulen koulu[sta].** — I'm coming from school.
-
-### 3. "On" places: -lla, -lle, -lta _(examples)_
-
-Some places are "on" places in Finnish — a station, a market, the yard. They take the **l** endings.
-
-- 🚉 **Olen asema[lla].** — I'm at the station.
-- 🏡 **Menen piha[lle].** — I'm going to the yard.
-- 🛍️ **Tulen tori[lta].** — I'm coming from the market.
-
-### 4. At home _(examples)_
-
-- 🛌 **Olen makuuhuonee[ssa].** — I'm in the bedroom.
-- 🛋️ **Olen sohva[lla].** — I'm on the sofa.
-- **Menen keitti[öön].** — I'm going to the kitchen.
-
-### 5. Try it _(check)_
-
-**Q:** "I'm going to the park." Which is right?
-
-- ✔ 🛝 **Menen puist[oon].** — I'm going to the park.
-- ✘ 🛝 **Menen puisto[ssa].**
-- ✘ 🛝 **Menen puisto[sta].**
-
-_Explain:_ Going INTO → a long vowel + **n**: *puistoon*.
-
-### 6. Try it _(check)_
-
-**Q:** "I'm at the station." Which is right?
-
-- ✔ 🚉 **Olen asema[lla].** — I'm at the station.
-- ✘ 🚉 **Olen asema[ssa].**
-
-_Explain:_ A station is an "on" place → **-lla**: *asemalla*.
-
-## Unit 27: School & daycare (Koulussa ja päiväkodissa) 🛎️
-
-### 1. At school and daycare _(examples)_
-
-Little brothers and sisters go to *päiväkoti* — daycare.
-
-- 🛎️ **välitunti** — recess
-- 📒 **vihko** — notebook
-- 🧴 **liima** — glue
-- 🪧 **taulu** — board
-- 🧑‍⚕️ **terveydenhoitaja** — school nurse
-- 🩹 **laastari** — bandage
-- 🏤 **päiväkoti** — daycare
-
-### 2. May I go? _(examples)_
-
-*Saanko mennä…?* — may I go…? The place takes the GOING ending, just like after *Menen*: a long vowel + **n** INTO a room (*vessaan*), **-lle** out ONTO the yard (*pihalle*).
-
-- 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
-- 📚 **Saanko mennä kirjast[oon]?** — May I go to the library?
-- 🏡 **Saanko mennä piha[lle]?** — May I go out to the yard?
-
-### 3. I have to _(examples)_
-
-*Minun täytyy* — I have to. The verb after it stays in its **basic form**, like after *Haluan*.
-
-- **Minun täytyy mennä.** — I have to go.
-- 📖 **Minun täytyy lukea.** — I have to read.
-- ⏳ **Minun täytyy odottaa.** — I have to wait.
-
-### 4. I don't understand _(examples)_
-
-Say it any time — the teacher will help. *ymmärtää* changes like *piirtää*: **rt → rr**.
-
-- 🧐 **minä [en] ymmärrä** — I don't understand
-- 🧐 ymmärtää → **minä ymmä[rr]än** — I understand
-
-### 5. Asking nicely _(examples)_
-
-The polite way: *Haluaisin* (I'd like) and *Saisinko?* (could I have?) — the **-isi-** in the middle makes it polite. One whole thing → **-n** (*kynän*); some of something → **-a** (*vettä*), just like at the shop.
-
-- 🖍️ **Haluaisin piirtää.** — I'd like to draw.
-- ✏️ **Saisinko kynä[n]?** — Could I have a pencil?
-- 💧 **Saisinko vet[tä]?** — Could I have some water?
-
-### 6. What to say back _(pairs)_
-
-- 🗣️ **Saanko mennä vessaan?** — May I go to the restroom?  →  ↪️ **Saat mennä.** — Yes, you may go.
-- 🗣️ **En ymmärrä.** — I don't understand.  →  ↪️ **Minä autan sinua.** — I'll help you.
-- 🗣️ **Saisinko liimaa?** — Could I have some glue?  →  ↪️ **Tässä, ole hyvä!** — Here you go!
-- 🗣️ **Mitä haluaisit tehdä?** — What would you like to do?  →  ↪️ **Haluaisin piirtää.** — I'd like to draw.
-- 🗣️ **Miksi sinulla on kiire?** — Why are you in a hurry?  →  ↪️ **Minun täytyy mennä vessaan!** — I have to go to the restroom!
-- 🗣️ **Milloin on välitunti?** — When is recess?  →  ↪️ **Kello kymmenen.** — At ten o'clock.
-
-### 7. Try it _(check)_
-
-**Q:** How do you say "May I go to the restroom?"
-
-- ✔ 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
-- ✘ 🚻 **Saanko mennä vessa[ssa]?**
-
-_Explain:_ Going INTO → a long vowel + **n**: *vessaan*. (*vessassa* is IN the restroom.)
-
-### 8. Try it _(check)_
-
-**Q:** Listen! Which one did you hear?
-
-🔊 plays: 🪀 **Haluaisin leikkiä.** — I'd like to play.
-
-- ✘ 🪀 **Haluan leikkiä.** — I want to play.
-- ✔ 🪀 **Haluaisin leikkiä.** — I'd like to play.
-
-_Explain:_ *Haluaisin* — I'd like, the polite one. *Haluan* is I want.
-
-## Unit 28: By bus, with a pen (Bussilla ja kynällä) 🚌
-
-### 1. An ending you already know _(explain)_
-
-You know **-lla / -llä** for ON: *pöydällä* (on the table). The same ending also means **BY** and **WITH**: how you travel, and what you use.
-
-
-### 2. By bus, by train _(examples)_
-
-- 🚌 **Menen bussi[lla].** — I'm going by bus.
-- 🚆 **Menen juna[lla].** — I'm going by train.
-- 🚲 **Menen pyörä[llä].** — I'm going by bike.
-
-### 3. With a pen, with a spoon _(examples)_
-
-The thing you do it WITH gets **-lla / -llä**.
-
-- ✏️ **Kirjoitan kynä[llä].** — I write with a pencil.
-- 🥄 **Syön lusika[lla].** — I eat with a spoon.
-- 🔑 **Avaan oven avaime[lla].** — I open the door with a key.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I'm going by train"?
-
-- ✘ 🚆 **Menen jun[aan].**
-- ✔ 🚆 **Menen juna[lla].** — I'm going by train.
-- ✘ 🚆 **Menen juna[ssa].**
-
-_Explain:_ BY train → **-lla**: *junalla*. *junaan* would be INTO the train.
-
-### 5. Try it _(check)_
-
-**Q:** Which one means "I eat with a spoon"?
-
-- ✔ 🥄 **Syön lusika[lla].** — I eat with a spoon.
-- ✘ 🥄 **Syön lusikka[a].**
-
-_Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!
-
-## Unit 28, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
-
-### 1. With a PERSON: *kanssa* _(examples)_
-
-Careful! With a person (or a pet) it's different: the person gets **-n**, then the word *kanssa* (together with).
-
-- 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
-- 👩 **Leikin äidi[n] kanssa.** — I play with Mom.
-- 🐶 **Leikin koira[n] kanssa.** — I play with my dog.
-
-### 2. Tool or person? _(explain)_
-
-- A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)
-- Someone you're WITH → **-n** + *kanssa*: *Leikin kaverin kanssa.* (with a friend)
-
-
-### 3. Try it _(check)_
-
-**Q:** Which one means "I play with my friend"?
-
-- ✘ 🤝 **Leikin kaveri[lla] kanssa.**
-- ✔ 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
-
-_Explain:_ With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.
-
-### 4. Try it _(check)_
-
-**Q:** Which one means "I play with a ball"?
-
-- ✔ 🏐 **Leikin pallo[lla].** — I play with a ball.
-- ✘ 🏐 **Leikin pallo[n].**
-
-_Explain:_ A ball is a thing you use → **-lla**: *pallolla*.
-
-## Unit 29: Days and times (Milloin?) 📅
-
-### 1. Days of the week _(examples)_
-
-Finnish days **don't start with a capital letter**: *maanantai*, with a small m.
-
-- **maanantai** — Monday
-- **tiistai** — Tuesday
-- **keskiviikko** — Wednesday
-- **torstai** — Thursday
-- **perjantai** — Friday
-- **lauantai** — Saturday
-- **sunnuntai** — Sunday
-
-### 2. On Monday: -na / -nä _(examples)_
-
-"On" a day is the ending **-na / -nä** — no extra word.
-
-- maanantai → **maanantai[na]** — on Monday
-- lauantai → **lauantai[na]** — on Saturday
-- **Leikin perjantai[na].** — I play on Friday.
-
-### 3. In the morning, in summer: -lla / -llä _(examples)_
-
-Parts of the day and seasons use the "on" ending **-lla / -llä** instead.
-
-- 🌅 aamu → **aamu[lla]** — in the morning
-- 🌆 ilta → **illa[lla]** — in the evening
-- 🏖️ kesä → **kesä[llä]** — in summer
-- 🌨️ talvi → **talve[lla]** — in winter
-
-### 4. Try it _(check)_
-
-**Q:** How do you say "on Sunday"?
-
-- ✔ sunnuntai → **sunnuntai[na]** — Sunday
-- ✘ sunnuntai → **sunnuntai[lla]** — Sunday
-- ✘ **sunnuntai** — Sunday
-
-_Explain:_ A day → **-na**: *sunnuntaina*.
-
-### 5. Try it _(check)_
-
-**Q:** How do you say "in winter"?
-
-- ✔ 🌨️ talvi → **talve[lla]** — winter
-- ✘ 🌨️ talvi → **talve[na]** — winter
-
-_Explain:_ A season → **-lla**: *talvella*.
-
-## Unit 29, part-way: What time is it? (Paljonko kello on?) ⏰
-
-### 1. *Kello on…* _(explain)_
-
-*kello* is a **clock**. To say the time, say *Kello on* + the number: *Kello on kolme* = it's three o'clock. To ask: *Paljonko kello on?*
-
-
-### 2. Listen _(examples)_
-
-The number stays in its **basic form** — the numbers you learned in unit 3.
-
-- 🕒 **Kello on kolme.** — It's three o'clock.
-- 🕗 **Kello on kahdeksan.** — It's eight o'clock.
-- 🕛 **Kello on kaksitoista.** — It's twelve o'clock.
-
-### 3. Try it _(check)_
-
-**Q:** How do you say "It's seven o'clock"?
-
-- ✔ 🕖 **Kello on seitsemän.** — It's seven o'clock.
-- ✘ 🕕 **Kello on kuusi.** — It's six o'clock.
-- ✘ 🕗 **Kello on kahdeksan.** — It's eight o'clock.
-
-_Explain:_ 7 = *seitsemän*: *Kello on seitsemän*.
-
-### 4. Try it _(check)_
-
-**Q:** *Kello on kaksitoista.* — What time is it?
-
-- ✘ two o'clock
-- ✔ twelve o'clock
-- ✘ ten o'clock
-
-_Explain:_ *kaksitoista* = 12.
 
 ## Unit 30: My day (Minun päiväni) 🌅
 
@@ -2114,126 +2090,153 @@ _Explain:_ *puoli kahdeksan* — half way to eight: seven thirty. *Kello on kahd
 
 _Explain:_ Twelve thirty is half way to ONE: *puoli yksi*.
 
-## Unit 31: What's the weather like? (Millainen sää?) ⛅
+## Unit 31: School & daycare (Koulussa ja päiväkodissa) 🛎️
 
-### 1. Up in the sky _(examples)_
+### 1. At school and daycare _(examples)_
 
-- ☀️ **aurinko** — sun
-- 🌙 **kuu** — moon
-- ⭐ **tähti** — star
-- ☁️ **pilvi** — cloud
+Little brothers and sisters go to *päiväkoti* — daycare.
 
-### 2. It rains snow _(examples)_
+- 🛎️ **välitunti** — recess
+- 📒 **vihko** — notebook
+- 🧴 **liima** — glue
+- 🪧 **taulu** — board
+- 🧑‍⚕️ **terveydenhoitaja** — school nurse
+- 🩹 **laastari** — bandage
+- 🏤 **päiväkoti** — daycare
 
-Finnish says it rains water, it rains snow: *Sataa vettä* — it's raining. *Sataa lunta* — it's snowing. What falls takes **-a / -ä**.
+### 2. May I go? _(examples)_
 
-- 🌧️ **Sataa vet[tä].** — It's raining.
-- ❄️ **Sataa lun[ta].** — It's snowing.
+*Saanko mennä…?* — may I go…? The place takes the GOING ending, just like after *Menen*: a long vowel + **n** INTO a room (*vessaan*), **-lle** out ONTO the yard (*pihalle*).
 
-### 3. The sun is shining _(examples)_
+- 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
+- 📚 **Saanko mennä kirjast[oon]?** — May I go to the library?
+- 🏡 **Saanko mennä piha[lle]?** — May I go out to the yard?
 
-The sun comes first, in its basic form. And the wind? Just the verb: *Tuulee* — it's windy.
+### 3. I have to _(examples)_
 
-- ☀️ **Aurinko paistaa.** — The sun is shining.
-- 🌙 **Kuu paistaa.** — The moon is shining.
+*Minun täytyy* — I have to. The verb after it stays in its **basic form**, like after *Haluan*.
 
-### 4. The weather, or me? _(examples)_
+- **Minun täytyy mennä.** — I have to go.
+- 📖 **Minun täytyy lukea.** — I have to read.
+- ⏳ **Minun täytyy odottaa.** — I have to wait.
 
-The weather is just *On kylmä* — it's cold. You are *Minulla on kylmä* — I'm cold.
+### 4. I don't understand _(examples)_
 
-- 🥶 **On kylmä.** — It's cold.
-- 🥶 **Minulla on kylmä.** — I'm cold.
-- 🌡️ **On lämmin.** — It's warm.
-- 🥵 **On kuuma.** — It's hot.
+Say it any time — the teacher will help. *ymmärtää* changes like *piirtää*: **rt → rr**.
 
-### 5. What to wear _(examples)_
+- 🧐 **minä [en] ymmärrä** — I don't understand
+- 🧐 ymmärtää → **minä ymmä[rr]än** — I understand
 
-Rain? Snow? Dress for it.
+### 5. Asking nicely _(examples)_
 
-- ☔ **Puen sadetaki[n] päälle.** — I put on my raincoat.
-- 🩱 **Puen haalari[n] päälle.** — I put on my snowsuit.
+The polite way: *Haluaisin* (I'd like) and *Saisinko?* (could I have?) — the **-isi-** in the middle makes it polite. One whole thing → **-n** (*kynän*); some of something → **-a** (*vettä*), just like at the shop.
 
-### 6. Try it _(check)_
+- 🖍️ **Haluaisin piirtää.** — I'd like to draw.
+- ✏️ **Saisinko kynä[n]?** — Could I have a pencil?
+- 💧 **Saisinko vet[tä]?** — Could I have some water?
 
-**Q:** How do you say "It's snowing"?
+### 6. What to say back _(pairs)_
 
-- ✔ ❄️ **Sataa lun[ta].** — It's snowing.
-- ✘ ❄️ **Sataa lumi.**
-
-_Explain:_ What falls takes **-a**: *Sataa lunta*.
-
-### 7. Try it _(check)_
-
-**Q:** Listen! Is it the weather, or me?
-
-🔊 plays: 🥶 **Minulla on kylmä.** — I'm cold.
-
-- ✘ 🥶 **On kylmä.** — It's cold.
-- ✔ 🥶 **Minulla on kylmä.** — I'm cold.
-
-_Explain:_ *Minulla on kylmä* — I'm cold. The weather is just *On kylmä*.
-
-## Unit 32: Out in nature (Luonnossa) 🌲
-
-### 1. Land and water _(examples)_
-
-- 🏞️ **järvi** — lake
-- 🌊 **meri** — sea
-- 🐚 **ranta** — beach
-- 🏝️ **saari** — island
-- ⛰️ **vuori** — mountain
-
-### 2. IN: -ssa / -ssä _(examples)_
-
-A fish is IN the lake, a bird IN the tree: **-ssa / -ssä**.
-
-- 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
-- 🌳 **Lintu on puu[ssa].** — The bird is in the tree.
-- 🌲 **Lintu on metsä[ssä].** — The bird is in the forest.
-
-### 3. ON: -lla / -llä _(examples)_
-
-A butterfly sits ON a leaf: **-lla / -llä**.
-
-- 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
-- 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
-
-### 4. Into the forest, onto the mountain _(examples)_
-
-You go INTO the forest: *metsään*. But a mountain, a lake or a beach you go ONTO, with **-lle**: *vuorelle*, *järvelle*, *rannalle*.
-
-- 🌲 **Menen mets[ään].** — I'm going to the forest.
-- ⛰️ **Menen vuore[lle].** — I'm going to the mountain.
-- 🏞️ järvi → **järve[lle]** — to the lake
-- 🐚 ranta → **ranna[lle]** — to the beach
-
-### 5. Animals in nature _(examples)_
-
-- 🐦 **lintu** — bird
-- 🐟 **kala** — fish
-- 🦋 **perhonen** — butterfly
-- 🐝 **mehiläinen** — bee
-- 🪿 **sorsa** — wild duck
-
-### 6. Try it _(check)_
-
-**Q:** How do you say "The fish is in the lake"?
-
-- ✔ 🏞️ **Kala on järve[ssä].** — The fish is in the lake.
-- ✘ 🏞️ **Kala on järv[een].**
-
-_Explain:_ Where it IS → **-ssa**: *järvessä*. (*järveen* is INTO the lake.)
+- 🗣️ **Saanko mennä vessaan?** — May I go to the restroom?  →  ↪️ **Saat mennä.** — Yes, you may go.
+- 🗣️ **En ymmärrä.** — I don't understand.  →  ↪️ **Minä autan sinua.** — I'll help you.
+- 🗣️ **Saisinko liimaa?** — Could I have some glue?  →  ↪️ **Tässä, ole hyvä!** — Here you go!
+- 🗣️ **Mitä haluaisit tehdä?** — What would you like to do?  →  ↪️ **Haluaisin piirtää.** — I'd like to draw.
+- 🗣️ **Miksi sinulla on kiire?** — Why are you in a hurry?  →  ↪️ **Minun täytyy mennä vessaan!** — I have to go to the restroom!
+- 🗣️ **Milloin on välitunti?** — When is recess?  →  ↪️ **Kello kymmenen.** — At ten o'clock.
 
 ### 7. Try it _(check)_
 
-**Q:** Listen! Where is the butterfly?
+**Q:** How do you say "May I go to the restroom?"
 
-🔊 plays: 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
+- ✔ 🚻 **Saanko mennä vess[aan]?** — May I go to the restroom?
+- ✘ 🚻 **Saanko mennä vessa[ssa]?**
 
-- ✔ 🪨 **Perhonen on kive[llä].** — The butterfly is on the stone.
-- ✘ 🍃 **Perhonen on lehde[llä].** — The butterfly is on the leaf.
+_Explain:_ Going INTO → a long vowel + **n**: *vessaan*. (*vessassa* is IN the restroom.)
 
-_Explain:_ *kivellä* — on the stone. *lehdellä* is on the leaf.
+### 8. Try it _(check)_
+
+**Q:** Listen! Which one did you hear?
+
+🔊 plays: 🪀 **Haluaisin leikkiä.** — I'd like to play.
+
+- ✘ 🪀 **Haluan leikkiä.** — I want to play.
+- ✔ 🪀 **Haluaisin leikkiä.** — I'd like to play.
+
+_Explain:_ *Haluaisin* — I'd like, the polite one. *Haluan* is I want.
+
+## Unit 32: By bus, with a pen (Bussilla ja kynällä) 🚌
+
+### 1. An ending you already know _(explain)_
+
+You know **-lla / -llä** for ON: *pöydällä* (on the table). The same ending also means **BY** and **WITH**: how you travel, and what you use.
+
+
+### 2. By bus, by train _(examples)_
+
+- 🚌 **Menen bussi[lla].** — I'm going by bus.
+- 🚆 **Menen juna[lla].** — I'm going by train.
+- 🚲 **Menen pyörä[llä].** — I'm going by bike.
+
+### 3. With a pen, with a spoon _(examples)_
+
+The thing you do it WITH gets **-lla / -llä**.
+
+- ✏️ **Kirjoitan kynä[llä].** — I write with a pencil.
+- 🥄 **Syön lusika[lla].** — I eat with a spoon.
+- 🔑 **Avaan oven avaime[lla].** — I open the door with a key.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I'm going by train"?
+
+- ✘ 🚆 **Menen jun[aan].**
+- ✔ 🚆 **Menen juna[lla].** — I'm going by train.
+- ✘ 🚆 **Menen juna[ssa].**
+
+_Explain:_ BY train → **-lla**: *junalla*. *junaan* would be INTO the train.
+
+### 5. Try it _(check)_
+
+**Q:** Which one means "I eat with a spoon"?
+
+- ✔ 🥄 **Syön lusika[lla].** — I eat with a spoon.
+- ✘ 🥄 **Syön lusikka[a].**
+
+_Explain:_ WITH a spoon → *lusikalla*. *Syön lusikkaa* would mean you are eating the spoon!
+
+## Unit 32, part-way: With a friend: kanssa (Kaverin kanssa) 🤝
+
+### 1. With a PERSON: *kanssa* _(examples)_
+
+Careful! With a person (or a pet) it's different: the person gets **-n**, then the word *kanssa* (together with).
+
+- 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
+- 👩 **Leikin äidi[n] kanssa.** — I play with Mom.
+- 🐶 **Leikin koira[n] kanssa.** — I play with my dog.
+
+### 2. Tool or person? _(explain)_
+
+- A thing you USE → **-lla**: *Leikin pallolla.* (with a ball)
+- Someone you're WITH → **-n** + *kanssa*: *Leikin kaverin kanssa.* (with a friend)
+
+
+### 3. Try it _(check)_
+
+**Q:** Which one means "I play with my friend"?
+
+- ✘ 🤝 **Leikin kaveri[lla] kanssa.**
+- ✔ 🤝 **Leikin kaveri[n] kanssa.** — I play with my friend.
+
+_Explain:_ With a PERSON → **-n** + *kanssa*: *kaverin kanssa*.
+
+### 4. Try it _(check)_
+
+**Q:** Which one means "I play with a ball"?
+
+- ✔ 🏐 **Leikin pallo[lla].** — I play with a ball.
+- ✘ 🏐 **Leikin pallo[n].**
+
+_Explain:_ A ball is a thing you use → **-lla**: *pallolla*.
 
 ## Unit 33: Big numbers (Isot numerot) 💯
 

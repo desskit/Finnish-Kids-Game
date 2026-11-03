@@ -10,7 +10,9 @@ import { dirname, join } from 'node:path';
 import { lessons, resolveRef, type LessonRef } from '../src/content/lessons';
 import { PERSONS, verbForm } from '../src/content/types';
 import { itemById } from '../src/content/lookup';
-import { PATH } from '../src/game/path';
+import { pathFor } from '../src/game/path';
+// the younger readers' order (the default), as the review sheet uses
+const PATH = pathFor('younger');
 
 const out: string[] = [
   '# Lesson audit — every lesson as the child sees it',

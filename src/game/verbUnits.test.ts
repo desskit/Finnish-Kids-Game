@@ -25,8 +25,9 @@ import { itemById } from '../content/lookup';
 // The verbs units: types 1–3 (unit 8), type 4, types 5 & 6 — each with its
 // consonant-change (KPT) verbs held back until a part-way lesson.
 
+// An older reader: these tests walk the original order (UNITS).
 function child(over: Partial<Child> = {}): Child {
-  return { id: 'k', name: 'K', avatar: '🦊', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {}, ...over } as Child;
+  return { id: 'k', name: 'K', avatar: '🦊', readerBand: 'older', level: 1, stars: 0, createdAt: 1, progress: {}, srs: {}, ...over } as Child;
 }
 const doing = UNITS.find((u) => u.id === 'doing')!;
 // The part-way lesson example: type 4's consonant-change lesson.

@@ -50,7 +50,8 @@ export function dueReviewIds(child: Child | null | undefined, now: number): stri
     .map(([id]) => id);
 }
 
-/** In the course, every this-many-th round of a step is a quick review… */
+/** In the course, every this-many-th round of a step is a quick review (an
+ *  older reader's; a younger one's comes more often: learner.ts `flowReviewEvery`)… */
 export const FLOW_REVIEW_EVERY = 5;
 /** …when at least this many words and grammar points are due back. */
 export const FLOW_REVIEW_MIN = 10;
@@ -63,7 +64,8 @@ export const FLOW_REVIEW_MIN = 10;
  * visits); [] means play the step as usual.
  */
 export function flowReviewIds(child: Child | null | undefined, plays: number, now: number): string[] {
-  if (plays % FLOW_REVIEW_EVERY !== FLOW_REVIEW_EVERY - 1) return [];
+  const every = learnerKnobs(child).flowReviewEvery;
+  if (plays % every !== every - 1) return [];
   const due = dueReviewIds(child, now);
   return due.length >= FLOW_REVIEW_MIN ? due.slice(0, QUESTIONS_PER_ROUND) : [];
 }
